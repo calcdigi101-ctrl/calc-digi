@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free IP Subnet Calculator 2025. Calculate subnet mask, network address, broadcast address, host range, and number of usable hosts from any IPv4 CIDR notation.">
+<meta property="og:title" content="IP Subnet Calculator – CIDR, Network Address, Hosts 2025 | CalcDigi"><meta property="og:description" content="Free IP Subnet Calculator 2025. Calculate subnet mask, network address, broadcast address, host range, and number of usable hosts from any IPv4 CIDR notation.">
+<meta property="og:url" content="https://calcdiginow.com/calculators/internet/ip-subnet-calculator.html"><meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcDigi">
+<meta name="twitter:card" content="summary"><meta name="twitter:site" content="@CalcDigi">
+<meta name="twitter:title" content="IP Subnet Calculator – CIDR, Network Address, Hosts 2025 | CalcDigi"><meta name="twitter:description" content="Free IP Subnet Calculator 2025. Calculate subnet mask, network address, broadcast address, host range, and number of usable hosts from any IPv4 CIDR notation.">
+<link rel="canonical" href="https://calcdiginow.com/calculators/internet/ip-subnet-calculator.html">
+<title>IP Subnet Calculator – CIDR, Network Address, Hosts 2025 | CalcDigi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://calcdiginow.com/"},{"@type":"ListItem","position":2,"name":"Internet & Tech","item":"https://calcdiginow.com/calculators/internet/"},{"@type":"ListItem","position":3,"name":"IP Subnet Calculator – CIDR, Network Range and Hosts","item":"https://calcdiginow.com/calculators/internet/ip-subnet-calculator.html"}]},
+{"@type":"WebApplication","name":"IP Subnet Calculator – CIDR, Network Range and Hosts","url":"https://calcdiginow.com/calculators/internet/ip-subnet-calculator.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is CIDR notation?","acceptedAnswer":{"@type":"Answer","text":"CIDR (Classless Inter-Domain Routing) notation expresses an IP address with its subnet prefix: 192.168.1.0/24. The /24 means 24 bits are the network portion, leaving 8 bits for hosts. This gives 2^8 - 2 = 254 usable host addresses."}},{"@type":"Question","name":"How many hosts does a /24 subnet support?","acceptedAnswer":{"@type":"Answer","text":"A /24 subnet (255.255.255.0) supports 2^(32-24) - 2 = 256 - 2 = 254 usable host addresses. The first address is the network address (192.168.1.0) and the last is the broadcast address (192.168.1.255)."}},{"@type":"Question","name":"What is the difference between network address and broadcast address?","acceptedAnswer":{"@type":"Answer","text":"Network address: first address in the subnet with all host bits = 0 (e.g., 192.168.1.0). Used to identify the subnet itself. Broadcast address: last address with all host bits = 1 (e.g., 192.168.1.255). Packets sent here go to all hosts on the subnet."}},{"@type":"Question","name":"What subnet mask should I use for a small office?","acceptedAnswer":{"@type":"Answer","text":"For small offices (up to 254 devices): /24 (255.255.255.0). For very small teams (up to 30 devices): /27. For home networks: /24 is standard. For cloud VPCs, plan for growth — a /20 gives 4,094 hosts for a growing AWS deployment."}},{"@type":"Question","name":"What is subnetting used for?","acceptedAnswer":{"@type":"Answer","text":"Subnetting divides a network into segments for: security isolation (guest WiFi vs corporate), performance (smaller broadcast domains), IP address management (allocating ranges to departments), and routing efficiency. Cloud providers use subnets for VPC design across availability zones."}},{"@type":"Question","name":"What is the difference between IPv4 and IPv6 subnetting?","acceptedAnswer":{"@type":"Answer","text":"IPv4 uses 32-bit addresses with /0-/32 CIDR prefixes. IPv6 uses 128-bit addresses with /0-/128 prefixes. IPv6 standard allocation is /64 per subnet (18 quintillion host addresses per subnet). IPv6 subnetting follows the same CIDR logic but the vastly larger address space means shortage is not a concern."}}]}]}
+</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<main class="calc-page"><div class="container">
+<nav class="calc-breadcrumb"><a href="../../index.html">Home</a><span class="bc-sep"> / </span><a href="../../index.html#calculators">Internet & Tech</a><span class="bc-sep"> / </span><span aria-current="page">IP Subnet Calculator – CIDR, Network Range and Hosts</span></nav>
+<div class="calc-layout">
+<div class="calc-main">
+  <h1>IP Subnet Calculator – CIDR, Network Range and Hosts</h1>
+  <p class="calc-intro">Calculate subnet mask, network address, broadcast address, usable host range, and number of hosts for any IPv4 address in CIDR notation. Essential for network engineers, system administrators, and anyone configuring routers, firewalls, or cloud networking.</p>
+  <p class="calc-intro">IP subnetting divides a large network into smaller, more manageable segments — improving security, performance, and organization. Understanding CIDR notation and subnet calculations is a fundamental skill in networking, cloud computing (AWS VPCs, Azure VNets), and firewall configuration.</p>
+  <div class="content-section"><h2>Formula</h2><div class="formula-box">Hosts per subnet = 2^(32-prefix) - 2 | Subnet Mask: /24 = 255.255.255.0 | Network Address = IP AND Subnet Mask</div></div>
+  <div class="content-section">
+<h2>IP Subnetting Guide</h2>
+<p>IPv4 addresses consist of 32 bits written as four octets (e.g., 192.168.1.0). The CIDR prefix (e.g., /24) defines how many bits are the network portion. The remaining bits define host addresses within that subnet. A /24 subnet has 24 network bits and 8 host bits = 2^8 - 2 = 254 usable host addresses.</p>
+<h3>Common Subnet Masks Reference</h3>
+<div style="overflow-x:auto;margin:16px 0;"><table style="width:100%;border-collapse:collapse;font-size:14px;"><thead><tr style="background:var(--c-accent);color:#fff;"><th style="padding:11px 14px;text-align:left;">CIDR</th><th style="padding:11px 14px;text-align:left;">Subnet Mask</th><th style="padding:11px 14px;text-align:left;">Usable Hosts</th><th style="padding:11px 14px;text-align:left;">Typical Use</th></tr></thead><tbody><tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 14px;">/8</td><td style="padding:10px 14px;">255.0.0.0</td><td style="padding:10px 14px;">16,777,214</td><td style="padding:10px 14px;">Class A – Large enterprises</td></tr><tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 14px;">/16</td><td style="padding:10px 14px;">255.255.0.0</td><td style="padding:10px 14px;">65,534</td><td style="padding:10px 14px;">Class B – Medium networks</td></tr><tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 14px;">/24</td><td style="padding:10px 14px;">255.255.255.0</td><td style="padding:10px 14px;">254</td><td style="padding:10px 14px;">Class C – Small office/home</td></tr><tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 14px;">/25</td><td style="padding:10px 14px;">255.255.255.128</td><td style="padding:10px 14px;">126</td><td style="padding:10px 14px;">Half a Class C</td></tr><tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 14px;">/26</td><td style="padding:10px 14px;">255.255.255.192</td><td style="padding:10px 14px;">62</td><td style="padding:10px 14px;">Quarter Class C</td></tr><tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 14px;">/27</td><td style="padding:10px 14px;">255.255.255.224</td><td style="padding:10px 14px;">30</td><td style="padding:10px 14px;">Small team segment</td></tr><tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 14px;">/28</td><td style="padding:10px 14px;">255.255.255.240</td><td style="padding:10px 14px;">14</td><td style="padding:10px 14px;">Small device group</td></tr><tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 14px;">/30</td><td style="padding:10px 14px;">255.255.255.252</td><td style="padding:10px 14px;">2</td><td style="padding:10px 14px;">Point-to-point links</td></tr><tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 14px;">/32</td><td style="padding:10px 14px;">255.255.255.255</td><td style="padding:10px 14px;">1 (host route)</td><td style="padding:10px 14px;">Single host</td></tr></tbody></table></div>
+<h3>Private IP Address Ranges</h3>
+<p>RFC 1918 defines three private IP ranges not routed on the internet: 10.0.0.0/8 (Class A, 16.7M addresses), 172.16.0.0/12 (Class B, 1M addresses), 192.168.0.0/16 (Class C, 65,536 addresses). Home routers typically use 192.168.1.0/24. Enterprise networks use 10.0.0.0/8. AWS VPCs support all three ranges.</p>
+<h3>Why -2 Hosts per Subnet?</h3>
+<p>Two addresses in every subnet are reserved: the network address (all host bits = 0) and the broadcast address (all host bits = 1). In a /24 subnet: 192.168.1.0 is the network address, 192.168.1.255 is broadcast, and 192.168.1.1 to 192.168.1.254 are the 254 usable host addresses.</p>
+</div>
+  <div class="content-section"><h2>How to Use This Calculator</h2>
+<p>This free online calculator is designed for students, professionals, and everyday users. Enter your known values into the input fields and click Calculate for instant results. All calculations run locally in your browser — no data is sent to any server.</p>
+<h3>Input Guidelines and Tips</h3>
+<p>Use decimal values where needed. For best results, ensure all units are consistent before calculating. The Reset button clears all results so you can start a fresh calculation. Use the Copy button to copy your results to the clipboard for use in reports, homework, or documents.</p>
+<h3>Reference Table</h3>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0;">
+<thead><tr style="background:var(--c-accent);color:#fff;">
+<th style="padding:10px 14px;text-align:left;">Term</th>
+<th style="padding:10px 14px;text-align:left;">Definition</th>
+<th style="padding:10px 14px;text-align:left;">Common Use</th>
+</tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--c-rule);">
+<td style="padding:10px 14px;">Input Value</td><td style="padding:10px 14px;">The number you enter into the calculator</td><td style="padding:10px 14px;">Starting point for calculation</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);">
+<td style="padding:10px 14px;">Result</td><td style="padding:10px 14px;">The calculated output based on your inputs</td><td style="padding:10px 14px;">Answer to your calculation</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);">
+<td style="padding:10px 14px;">Formula</td><td style="padding:10px 14px;">The mathematical equation used</td><td style="padding:10px 14px;">Basis of calculation</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);">
+<td style="padding:10px 14px;">Unit</td><td style="padding:10px 14px;">Measurement type (kg, m, %, etc.)</td><td style="padding:10px 14px;">Ensures correct interpretation</td></tr>
+</tbody></table>
+<h3>Share and Save Results</h3>
+<p>After calculating, use the Copy button to copy your complete results to the clipboard. The Share button generates a direct link to this calculator. Bookmark this page for quick access. All CalcDigi calculators are free, with no login or subscription required. Explore related calculators below for comprehensive coverage of your topic.</p></div>
+<div class="content-section"><h2>Frequently Asked Questions</h2><div class="faq-list"><div class="faq-item"><div class="faq-q">What is CIDR notation? <span class="faq-icon">+</span></div><div class="faq-a">CIDR (Classless Inter-Domain Routing) notation expresses an IP address with its subnet prefix: 192.168.1.0/24. The /24 means 24 bits are the network portion, leaving 8 bits for hosts. This gives 2^8 - 2 = 254 usable host addresses.</div></div><div class="faq-item"><div class="faq-q">How many hosts does a /24 subnet support? <span class="faq-icon">+</span></div><div class="faq-a">A /24 subnet (255.255.255.0) supports 2^(32-24) - 2 = 256 - 2 = 254 usable host addresses. The first address is the network address (192.168.1.0) and the last is the broadcast address (192.168.1.255).</div></div><div class="faq-item"><div class="faq-q">What is the difference between network address and broadcast address? <span class="faq-icon">+</span></div><div class="faq-a">Network address: first address in the subnet with all host bits = 0 (e.g., 192.168.1.0). Used to identify the subnet itself. Broadcast address: last address with all host bits = 1 (e.g., 192.168.1.255). Packets sent here go to all hosts on the subnet.</div></div><div class="faq-item"><div class="faq-q">What subnet mask should I use for a small office? <span class="faq-icon">+</span></div><div class="faq-a">For small offices (up to 254 devices): /24 (255.255.255.0). For very small teams (up to 30 devices): /27. For home networks: /24 is standard. For cloud VPCs, plan for growth — a /20 gives 4,094 hosts for a growing AWS deployment.</div></div><div class="faq-item"><div class="faq-q">What is subnetting used for? <span class="faq-icon">+</span></div><div class="faq-a">Subnetting divides a network into segments for: security isolation (guest WiFi vs corporate), performance (smaller broadcast domains), IP address management (allocating ranges to departments), and routing efficiency. Cloud providers use subnets for VPC design across availability zones.</div></div><div class="faq-item"><div class="faq-q">What is the difference between IPv4 and IPv6 subnetting? <span class="faq-icon">+</span></div><div class="faq-a">IPv4 uses 32-bit addresses with /0-/32 CIDR prefixes. IPv6 uses 128-bit addresses with /0-/128 prefixes. IPv6 standard allocation is /64 per subnet (18 quintillion host addresses per subnet). IPv6 subnetting follows the same CIDR logic but the vastly larger address space means shortage is not a concern.</div></div></div></div>
+  <div class="content-section"><h2>Related Internet & Tech Calculators</h2><div class="related-grid"><a href="internet-speed-calculator.html" class="related-card"><span class="rc-icon">🌐</span><span class="rc-name">Internet Speed Calculator</span></a><a href="data-usage-calculator.html" class="related-card"><span class="rc-icon">📡</span><span class="rc-name">Data Usage Calculator</span></a><a href="ping-latency-calculator.html" class="related-card"><span class="rc-icon">🔗</span><span class="rc-name">Ping Latency Calculator</span></a><a href="bandwidth-calculator.html" class="related-card"><span class="rc-icon">📊</span><span class="rc-name">Bandwidth Calculator</span></a></div></div>
+</div>
+<div class="calc-sidebar"><div class="calc-widget">
+  <h2>IP Subnet Calculator – CIDR, Network Range and Hosts</h2><div class="form-group"><label for="ip-addr">IP Address</label><input type="text" id="ip-addr" value="192.168.1.0" placeholder="e.g. 192.168.1.0" style="font-family:monospace;"></div><div class="form-group"><label for="ip-cidr">CIDR Prefix (e.g. 24)</label><input type="number" id="ip-cidr" value="24" min="1" max="32" step="1"></div>
+  <button class="calc-btn" onclick="doCalc()">Calculate</button>
+  <button class="calc-btn" style="background:var(--c-rule2);color:var(--c-ink);margin-top:8px;" onclick="document.getElementById('it-result').style.display='none';document.getElementById('it-actions').style.display='none'">Reset</button>
+  <div class="result-box" id="it-result" style="display:none;"><div id="it-ri"></div><div class="result-chart"><canvas id="it-chart" width="220" height="160"></canvas></div><div class="ai-box" id="it-ai" style="display:none;"></div></div>
+  <div style="display:none;gap:8px;margin-top:10px;" id="it-actions">
+    <button class="calc-btn" id="copy-btn-it" onclick="copyResult('it-result','copy-btn-it')" style="background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;"><span>&#128203;</span> Copy</button>
+    <button class="calc-btn" onclick="shareResult('IP Subnet Calculator – CIDR, Network Range and Hosts')" style="background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;"><span>&#128279;</span> Share</button>
+  </div>
+</div></div>
+</div></div></main>
+<div id="site-footer"></div>
+<script src="../../js/layout.js"></script><script src="../../js/main.js"></script>
+<script>renderNav();renderFooter();
+renderNav();renderFooter();function doCalc(){
+  var ipStr=document.getElementById('ip-addr').value.trim();
+  var cidr=parseInt(document.getElementById('ip-cidr').value)||24;
+  var parts=ipStr.split('.').map(Number);
+  if(parts.length!==4||parts.some(function(p){return isNaN(p)||p<0||p>255;})){
+    alert('Please enter a valid IPv4 address (e.g. 192.168.1.0)');return;
+  }
+  if(cidr<1||cidr>32){alert('CIDR prefix must be between 1 and 32.');return;}
+  var ipInt=((parts[0]<<24)|(parts[1]<<16)|(parts[2]<<8)|parts[3])>>>0;
+  var mask=cidr===0?0:(0xFFFFFFFF<<(32-cidr))>>>0;
+  var network=(ipInt&mask)>>>0;
+  var broadcast=(network|(~mask>>>0))>>>0;
+  var hosts=Math.pow(2,32-cidr)-2;
+  var toIP=function(n){return [(n>>>24)&255,(n>>>16)&255,(n>>>8)&255,n&255].join('.');};
+  var maskStr=toIP(mask);
+  var firstHost=hosts>0?toIP(network+1):'N/A';
+  var lastHost=hosts>0?toIP(broadcast-1):'N/A';
+  document.getElementById('it-ri').innerHTML=
+    ri('Network Address','<strong style="font-size:16px;color:var(--c-accent);font-family:monospace;">'+toIP(network)+'</strong>',true)+
+    ri('Subnet Mask',maskStr)+
+    ri('Broadcast Address',toIP(broadcast))+
+    ri('Usable Host Range',firstHost+' — '+lastHost)+
+    ri('Usable Hosts',hosts>0?hosts.toLocaleString():'0 (point-to-point)')+
+    ri('CIDR Notation',toIP(network)+'/'+cidr);
+  document.getElementById('it-result').style.display='block';document.getElementById('it-actions').style.display='flex';
+  drawDonut('it-chart',['Usable Hosts','Reserved'],[Math.max(hosts,1),2],['#1a5c3a','#c8832a']);
+  var aiPrompt='Subnet '+toIP(network)+'/'+cidr+', '+hosts+' usable hosts, mask '+maskStr;
+  var ai=document.getElementById('it-ai');ai.style.display='block';
+  ai.innerHTML='<div class="ai-header"><span>&#10024;</span> AI Insight</div><p>Analyzing...</p>';
+  getAIInsight(aiPrompt+'. In 2 sentences suggest a practical use case for a network of this size and how to best organize the IP addressing.').then(function(t){if(t)ai.innerHTML='<div class="ai-header"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});
+}</script>
+</body></html>

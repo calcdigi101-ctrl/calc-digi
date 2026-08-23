@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free Time Zone Converter 2025. Convert time between any world time zones instantly. See current time in New York, London, Dubai, Tokyo and more.">
+<meta property="og:title" content="Time Zone Converter – World Clock 2025 | CalcDigi">
+<meta property="og:description" content="Convert time between any world time zones. See current time in major cities. Free online time zone converter.">
+<meta property="og:url" content="https://calcdiginow.com/calculators/datetime/time-zone-converter.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CalcDigi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@CalcDigi">
+<meta name="twitter:title" content="Time Zone Converter 2025 | CalcDigi">
+<meta name="twitter:description" content="Convert time between world time zones instantly. Free online world clock and time zone converter.">
+<link rel="canonical" href="https://calcdiginow.com/calculators/datetime/time-zone-converter.html">
+<title>Time Zone Converter – World Clock 2025 | CalcDigi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/main.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"BreadcrumbList","itemListElement":[
+{"@type":"ListItem","position":1,"name":"Home","item":"https://calcdiginow.com/"},
+{"@type":"ListItem","position":2,"name":"Date & Time","item":"https://calcdiginow.com/calculators/datetime/"},
+{"@type":"ListItem","position":3,"name":"Time Zone Converter","item":"https://calcdiginow.com/calculators/datetime/time-zone-converter.html"}
+]},
+{"@type":"WebApplication","name":"Time Zone Converter","url":"https://calcdiginow.com/calculators/datetime/time-zone-converter.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is UTC and how does it work?","acceptedAnswer":{"@type":"Answer","text":"UTC (Coordinated Universal Time) is the global time standard. All time zones are expressed as UTC plus or minus an offset. For example, New York is UTC-5 (EST) or UTC-4 (EDT during daylight saving)."}},
+{"@type":"Question","name":"What is the difference between EST and EDT?","acceptedAnswer":{"@type":"Answer","text":"EST (Eastern Standard Time) is UTC-5 and applies in winter. EDT (Eastern Daylight Time) is UTC-4 and applies during daylight saving time in summer. Most people just say 'ET' to cover both."}},
+{"@type":"Question","name":"How do I convert IST to EST?","acceptedAnswer":{"@type":"Answer","text":"IST (India Standard Time) is UTC+5:30. EST is UTC-5. The difference is 10.5 hours. So if it is 3:00 PM IST, it is 4:30 AM EST (previous day if needed)."}},
+{"@type":"Question","name":"Does this converter account for daylight saving time?","acceptedAnswer":{"@type":"Answer","text":"Yes. We use the browser's built-in Intl.DateTimeFormat API which automatically applies current DST rules for each time zone, so conversions are always accurate for today's date."}}
+]}
+]}
+</script>
+</head>
+<body>
+<div id="site-nav"></div>
+<main class="calc-page">
+<div class="container">
+<nav class="calc-breadcrumb">
+  <a href="../../index.html">Home</a><span class="bc-sep"> / </span>
+  <a href="../../index.html#calculators">Date & Time</a><span class="bc-sep"> / </span>
+  <span aria-current="page">Time Zone Converter</span>
+</nav>
+<div class="calc-layout">
+<div class="calc-main">
+  <h1>Time Zone Converter</h1>
+  <p class="calc-intro">Convert any time between the world's major time zones instantly. Automatically accounts for daylight saving time (DST). Shows current time in major world cities.</p>
+
+  <div class="content-section">
+    <h2>How Time Zones Work</h2>
+    <p>The world is divided into 24 time zones, each roughly 15° of longitude wide. All zones are expressed as an offset from <strong>UTC (Coordinated Universal Time)</strong> — the global time standard.</p>
+    <div class="formula-box">Target Time = Source Time + (Target UTC offset − Source UTC offset)</div>
+    <p>For example: London (UTC+0) to Dubai (UTC+4) — if it's 10:00 AM in London, add 4 hours → <strong>2:00 PM in Dubai</strong>.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Major Time Zone Reference</h2>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:14px;">
+        <thead><tr style="background:var(--c-accent);color:#fff;"><th style="padding:10px 16px;text-align:left;">City</th><th style="padding:10px 16px;">Time Zone</th><th style="padding:10px 16px;">UTC Offset</th></tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 16px;">New York</td><td style="padding:10px 16px;">EST/EDT</td><td style="padding:10px 16px;">UTC-5 / UTC-4</td></tr>
+          <tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 16px;">London</td><td style="padding:10px 16px;">GMT/BST</td><td style="padding:10px 16px;">UTC+0 / UTC+1</td></tr>
+          <tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 16px;">Dubai</td><td style="padding:10px 16px;">GST</td><td style="padding:10px 16px;">UTC+4</td></tr>
+          <tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 16px;">Karachi / Islamabad</td><td style="padding:10px 16px;">PKT</td><td style="padding:10px 16px;">UTC+5</td></tr>
+          <tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 16px;">Delhi / Mumbai</td><td style="padding:10px 16px;">IST</td><td style="padding:10px 16px;">UTC+5:30</td></tr>
+          <tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 16px;">Singapore</td><td style="padding:10px 16px;">SGT</td><td style="padding:10px 16px;">UTC+8</td></tr>
+          <tr><td style="padding:10px 16px;">Tokyo</td><td style="padding:10px 16px;">JST</td><td style="padding:10px 16px;">UTC+9</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="content-section">
+<h3>Understanding the Formula</h3>
+<p>The formula used by this calculator is based on established mathematical and scientific principles. Understanding the underlying formula helps you interpret results correctly and apply them appropriately in real-world situations.</p>
+
+    <h2>Frequently Asked Questions</h2>
+    <div class="content-section"><h2>How to Use This Calculator</h2>
+<p>This free online calculator is designed for students, professionals, and everyday users. Enter your known values into the input fields and click Calculate for instant results. All calculations run locally in your browser — no data is sent to any server.</p>
+<h3>Input Guidelines and Tips</h3>
+<p>Use decimal values where needed. For best results, ensure all units are consistent before calculating. The Reset button clears all results so you can start a fresh calculation. Use the Copy button to copy your results to the clipboard for use in reports, homework, or documents.</p>
+<h3>Reference Table</h3>
+<table style="width:100%;border-collapse:collapse;font-size:14px;margin:16px 0;">
+<thead><tr style="background:var(--c-accent);color:#fff;">
+<th style="padding:10px 14px;text-align:left;">Term</th>
+<th style="padding:10px 14px;text-align:left;">Definition</th>
+<th style="padding:10px 14px;text-align:left;">Common Use</th>
+</tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--c-rule);">
+<td style="padding:10px 14px;">Input Value</td><td style="padding:10px 14px;">The number you enter into the calculator</td><td style="padding:10px 14px;">Starting point for calculation</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);">
+<td style="padding:10px 14px;">Result</td><td style="padding:10px 14px;">The calculated output based on your inputs</td><td style="padding:10px 14px;">Answer to your calculation</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);">
+<td style="padding:10px 14px;">Formula</td><td style="padding:10px 14px;">The mathematical equation used</td><td style="padding:10px 14px;">Basis of calculation</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);">
+<td style="padding:10px 14px;">Unit</td><td style="padding:10px 14px;">Measurement type (kg, m, %, etc.)</td><td style="padding:10px 14px;">Ensures correct interpretation</td></tr>
+</tbody></table>
+<h3>Share and Save Results</h3>
+<p>After calculating, use the Copy button to copy your complete results to the clipboard. The Share button generates a direct link to this calculator. Bookmark this page for quick access. All CalcDigi calculators are free, with no login or subscription required. Explore related calculators below for comprehensive coverage of your topic.</p></div>
+<div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">What is UTC and how does it work? <span class="faq-icon">+</span></div>
+        <div class="faq-a">UTC is the primary time standard by which the world regulates clocks. It doesn't observe daylight saving time, making it the ideal reference point. All time zones are expressed as UTC ± offset hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does daylight saving time affect conversions? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes, and our converter handles this automatically using the browser's Intl API. During DST periods, affected zones (US, EU, Australia) shift by +1 hour, which changes the offset difference between zones.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is IST to EST difference? <span class="faq-icon">+</span></div>
+        <div class="faq-a">IST is UTC+5:30 and EST is UTC-5, a difference of 10.5 hours. So 12:00 PM IST = 1:30 AM EST. During US daylight saving (EDT, UTC-4), the gap is 9.5 hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is PKT (Pakistan Standard Time)? <span class="faq-icon">+</span></div>
+        <div class="faq-a">PKT is UTC+5 and is used throughout Pakistan. It does not observe daylight saving time, so the offset is constant year-round. Pakistan is 5 hours ahead of UTC.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Related Date & Time Calculators</h2>
+    <div class="related-grid">
+      <a href="date-difference-calculator.html" class="related-card"><span class="rc-icon">📅</span><span class="rc-name">Date Difference</span></a>
+      <a href="time-calculator.html" class="related-card"><span class="rc-icon">⏱️</span><span class="rc-name">Time Calculator</span></a>
+      <a href="age-calculator.html" class="related-card"><span class="rc-icon">🎂</span><span class="rc-name">Age Calculator</span></a>
+      <a href="days-until-calculator.html" class="related-card"><span class="rc-icon">⏳</span><span class="rc-name">Days Until</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="calc-sidebar">
+  <div class="calc-widget">
+    <h2>Time Zone Converter</h2>
+    <div class="form-group">
+      <label for="tz-time">Time to Convert</label>
+      <input type="time" id="tz-time" value="12:00">
+    </div>
+    <div class="form-group">
+      <label for="tz-from">From Time Zone</label>
+      <select id="tz-from">
+        <option value="America/New_York">New York (EST/EDT)</option>
+        <option value="America/Chicago">Chicago (CST/CDT)</option>
+        <option value="America/Denver">Denver (MST/MDT)</option>
+        <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+        <option value="Europe/London">London (GMT/BST)</option>
+        <option value="Europe/Paris">Paris/Berlin (CET/CEST)</option>
+        <option value="Asia/Dubai">Dubai (GST UTC+4)</option>
+        <option value="Asia/Karachi" selected>Karachi/Islamabad (PKT)</option>
+        <option value="Asia/Kolkata">Delhi/Mumbai (IST)</option>
+        <option value="Asia/Dhaka">Dhaka (BST UTC+6)</option>
+        <option value="Asia/Bangkok">Bangkok (ICT UTC+7)</option>
+        <option value="Asia/Singapore">Singapore (SGT)</option>
+        <option value="Asia/Tokyo">Tokyo (JST)</option>
+        <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+        <option value="UTC">UTC</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="tz-to">To Time Zone</label>
+      <select id="tz-to">
+        <option value="America/New_York" selected>New York (EST/EDT)</option>
+        <option value="America/Chicago">Chicago (CST/CDT)</option>
+        <option value="America/Denver">Denver (MST/MDT)</option>
+        <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+        <option value="Europe/London">London (GMT/BST)</option>
+        <option value="Europe/Paris">Paris/Berlin (CET/CEST)</option>
+        <option value="Asia/Dubai">Dubai (GST UTC+4)</option>
+        <option value="Asia/Karachi">Karachi/Islamabad (PKT)</option>
+        <option value="Asia/Kolkata">Delhi/Mumbai (IST)</option>
+        <option value="Asia/Dhaka">Dhaka (BST UTC+6)</option>
+        <option value="Asia/Bangkok">Bangkok (ICT UTC+7)</option>
+        <option value="Asia/Singapore">Singapore (SGT)</option>
+        <option value="Asia/Tokyo">Tokyo (JST)</option>
+        <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+        <option value="UTC">UTC</option>
+      </select>
+    </div>
+    <button class="calc-btn" onclick="calcTZ()">Convert Time</button>
+    <button class="calc-btn" style="background:var(--c-rule2);color:var(--c-ink);margin-top:8px;" onclick="document.getElementById('tz-result').style.display='none';document.getElementById('tz-actions').style.display='none'">Reset</button>
+    <div class="result-box" id="tz-result" style="display:none;">
+      <div id="tz-ri"></div>
+      <div class="result-chart"><canvas id="tz-chart" width="220" height="160"></canvas></div>
+      <div class="ai-box" id="tz-ai" style="display:none;"></div>
+    </div>
+    <div style="display:none;gap:8px;margin-top:10px;" id="tz-actions">
+      <button class="calc-btn" id="copy-btn-tz" onclick="copyResult('tz-result','copy-btn-tz')" style="background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;"><span>📋</span> Copy</button>
+      <button class="calc-btn" onclick="shareResult('Time Zone Converter')" style="background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;"><span>🔗</span> Share</button>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="content-section"><h2>How to Use This Calculator</h2>
+<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>
+<h3>Understanding Your Results</h3>
+<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>
+<h3>Tips for Accurate Calculations</h3>
+<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>
+<h3>Reference Guide</h3>
+<div style="overflow-x:auto;margin:16px 0;"><table style="width:100%;border-collapse:collapse;font-size:14px;">
+<thead><tr style="background:var(--c-accent);color:#fff;">
+<th style="padding:10px 14px;text-align:left;">Term</th>
+<th style="padding:10px 14px;text-align:left;">Meaning</th>
+<th style="padding:10px 14px;text-align:left;">Example</th>
+</tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 14px;">Input</td><td style="padding:10px 14px;">Value you enter into the calculator</td><td style="padding:10px 14px;">Amount, rate, or quantity</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 14px;">Output</td><td style="padding:10px 14px;">Calculated result shown after clicking Calculate</td><td style="padding:10px 14px;">Final answer or converted value</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);"><td style="padding:10px 14px;">Formula</td><td style="padding:10px 14px;">Mathematical equation used for the calculation</td><td style="padding:10px 14px;">Shown in Formula section above</td></tr>
+<tr style="border-bottom:1px solid var(--c-rule);background:var(--c-rule2);"><td style="padding:10px 14px;">Precision</td><td style="padding:10px 14px;">Number of decimal places in the result</td><td style="padding:10px 14px;">Typically 2-4 decimal places</td></tr>
+</tbody></table></div>
+<h3>Why Use CalcDigi</h3>
+<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>
+<div class="content-section"><h2>Frequently Asked Questions</h2><div class="faq-list"><div class="faq-item"><div class="faq-q">Is this calculator free? <span class="faq-icon">+</span></div><div class="faq-a">Yes, completely free with no registration or subscription. All CalcDigi calculators are free for unlimited use.</div></div><div class="faq-item"><div class="faq-q">Does it work on mobile? <span class="faq-icon">+</span></div><div class="faq-a">Yes — works on all smartphones, tablets, and desktops. No app download needed.</div></div></div></div>
+</main>
+<div id="site-footer"></div>
+<script src="../../js/layout.js"></script>
+<script src="../../js/main.js"></script>
+<script>renderNav();
+ renderFooter();
+function calcTZ() {
+  const timeVal = document.getElementById('tz-time').value;
+  const fromTZ = document.getElementById('tz-from').value;
+  const toTZ = document.getElementById('tz-to').value;
+  if (!timeVal) { alert('Please enter a time to convert.'); return; }
+  const [h, m] = timeVal.split(':').map(Number);
+  const today = new Date();
+  today.setHours(h, m, 0, 0);
+  const fromOpts = { timeZone: fromTZ, hour: '2-digit', minute: '2-digit', hour12: true };
+  const toOpts = { timeZone: toTZ, hour: '2-digit', minute: '2-digit', hour12: true };
+  const fromOpts24 = { timeZone: fromTZ, hour: '2-digit', minute: '2-digit', hour12: false };
+  const toOpts24 = { timeZone: toTZ, hour: '2-digit', minute: '2-digit', hour12: false };
+  const fromStr = new Intl.DateTimeFormat('en-US', fromOpts).format(today);
+  const toStr = new Intl.DateTimeFormat('en-US', toOpts).format(today);
+  const fromStr24 = new Intl.DateTimeFormat('en-US', fromOpts24).format(today);
+  const toStr24 = new Intl.DateTimeFormat('en-US', toOpts24).format(today);
+  const fromName = document.getElementById('tz-from').options[document.getElementById('tz-from').selectedIndex].text;
+  const toName = document.getElementById('tz-to').options[document.getElementById('tz-to').selectedIndex].text;
+  const nowInTo = new Intl.DateTimeFormat('en-US', {...toOpts, weekday:'short'}).format(new Date());
+  document.getElementById('tz-ri').innerHTML =
+    ri('Converted Time', '<strong style="font-size:26px;color:var(--c-accent)">' + toStr + '</strong>', true) +
+    ri('24-Hour Format', toStr24) +
+    ri('From', fromStr + ' — ' + fromName) +
+    ri('To', toStr + ' — ' + toName) +
+    ri('Current Time There', nowInTo);
+  document.getElementById('tz-result').style.display = 'block';
+  document.getElementById('tz-actions').style.display = 'flex';
+  var fromH = parseInt(new Intl.DateTimeFormat('en-US',{timeZone:fromTZ,hour:'2-digit',hour12:false}).format(today));
+  var toH = parseInt(new Intl.DateTimeFormat('en-US',{timeZone:toTZ,hour:'2-digit',hour12:false}).format(today));
+  drawDonut('tz-chart',['From TZ Hour','To TZ Hour'],[fromH||1,toH||1],['#1a5c3a','#c8832a']);
+  const ai = document.getElementById('tz-ai');
+  ai.style.display = 'block';
+  ai.innerHTML = '<div class="ai-header"><span>&#10024;</span> AI Insight</div><p>Analyzing...</p>';
+  getAIInsight('Converting time from ' + fromName + ' to ' + toName + '. In 2 sentences give a practical tip about scheduling meetings or communications across these two time zones.').then(function(t) {
+    if (t) ai.innerHTML='<div class="ai-header"><span>&#10024;</span> AI Insight</div><p>Analyzing...</p>';
+    else ai.style.display = 'none';
+  });
+}
+</script>
+</body>
+</html>
