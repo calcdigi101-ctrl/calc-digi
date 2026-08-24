@@ -1,22 +1,122 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { getArticles } from "@/lib/supabase";
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
-  "title": "Blog & Guides | CalcDigi",
-  "description": "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
-  "openGraph": {
-    "title": "Blog & Guides | CalcDigi",
-    "description": "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
-    "type": "website"
+  title: "Blog & Guides | CalcDigi",
+  description:
+    "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
+  openGraph: {
+    title: "Blog & Guides | CalcDigi",
+    description:
+      "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
+    type: "website",
   },
-  "alternates": {
-    "canonical": "/pages/blog"
-  }
+  alternates: {
+    canonical: "/pages/blog",
+  },
 };
 
-export default function Page() {
+export default async function Page() {
+  const articles = await getArticles();
+  const featured = articles.find((a) => a.featured) ?? articles[0];
+  const rest = articles.filter((a) => a.id !== featured?.id);
+
   return (
-    <>
-      <div dangerouslySetInnerHTML={{ __html: "<main>\n\n<!-- HERO -->\n<section class=\"hero\" style=\"padding:60px 0 48px;\">\n  <div class=\"container\">\n    <div class=\"hero-badge\">📖 Learning Center</div>\n    <h1 style=\"font-size:clamp(30px,4vw,52px);\">Guides &amp; <em>Articles</em></h1>\n    <p class=\"hero-sub\">In-depth guides on health, finance, fitness, tax, and math to help you make smarter decisions.</p>\n  </div>\n</section>\n\n<section class=\"section\">\n  <div class=\"container\">\n\n    <!-- Category Filter -->\n    <div class=\"cat-pills\" style=\"margin-bottom:40px;\">\n      <span class=\"cat-pill active\">All Topics</span>\n      <span class=\"cat-pill\">Finance</span>\n      <span class=\"cat-pill\">Health</span>\n      <span class=\"cat-pill\">Fitness</span>\n      <span class=\"cat-pill\">Tax</span>\n      <span class=\"cat-pill\">Math</span>\n    </div>\n\n    <!-- Featured Post -->\n    <div style=\"background:var(--c-accent-lt);border:1.5px solid var(--c-rule);border-radius:var(--radius-xl);padding:36px;margin-bottom:40px;display:grid;grid-template-columns:1fr 200px;gap:32px;align-items:center;\">\n      <div>\n        <div class=\"section-label\" style=\"margin-bottom:12px;\">⭐ Featured Article</div>\n        <h2 style=\"font-family:var(--font-serif);font-size:clamp(22px,3vw,34px);letter-spacing:-0.4px;margin-bottom:12px;\">How to Read Your BMI: A Complete Guide for 2025</h2>\n        <p style=\"color:var(--c-ink2);font-size:15px;line-height:1.7;margin-bottom:20px;\">Understanding BMI goes beyond a single number. Learn what your BMI means for your health, its limitations, and what to do with the result.</p>\n        <div style=\"display:flex;align-items:center;gap:16px;font-size:13px;color:var(--c-ink3);margin-bottom:20px;\">\n          <span>8 min read</span><span>·</span><span>Health</span><span>·</span><span>Updated 2025</span>\n        </div>\n        <a href=\"/calculators/health/bmi-calculator\" class=\"btn btn-primary\">Read Article + Try Calculator →</a>\n      </div>\n      <div style=\"font-size:80px;text-align:center;display:flex;align-items:center;justify-content:center;\">📊</div>\n    </div>\n\n    <!-- Articles Grid -->\n    <div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px;\">\n\n      <a href=\"/calculators/finance/mortgage-calculator\" class=\"blog-card\">\n        <div class=\"blog-card-img\">🏠</div>\n        <div class=\"blog-card-body\">\n          <div class=\"blog-card-cat\">Finance</div>\n          <div class=\"blog-card-title\">How Much House Can I Afford in 2025?</div>\n          <div class=\"blog-card-desc\">Use the 28/36 rule and our mortgage calculator to find your safe buying budget based on income and debts.</div>\n          <div class=\"blog-card-meta\"><span>7 min</span><span>·</span><span>Finance</span></div>\n        </div>\n      </a>\n\n      <a href=\"/calculators/finance/compound-interest-calculator\" class=\"blog-card\">\n        <div class=\"blog-card-img\">📈</div>\n        <div class=\"blog-card-body\">\n          <div class=\"blog-card-cat\">Investing</div>\n          <div class=\"blog-card-title\">The Power of Compound Interest Explained</div>\n          <div class=\"blog-card-desc\">How small investments grow into life-changing wealth over time. Real examples included.</div>\n          <div class=\"blog-card-meta\"><span>6 min</span><span>·</span><span>Investing</span></div>\n        </div>\n      </a>\n\n      <a href=\"/calculators/health/tdee-calculator\" class=\"blog-card\">\n        <div class=\"blog-card-img\">⚡</div>\n        <div class=\"blog-card-body\">\n          <div class=\"blog-card-cat\">Fitness</div>\n          <div class=\"blog-card-title\">TDEE vs BMR: What's the Difference?</div>\n          <div class=\"blog-card-desc\">TDEE and BMR are often confused. Here's what each number means for your diet and fitness goals.</div>\n          <div class=\"blog-card-meta\"><span>5 min</span><span>·</span><span>Fitness</span></div>\n        </div>\n      </a>\n\n      <a href=\"/calculators/finance/tax-calculator\" class=\"blog-card\">\n        <div class=\"blog-card-img\">📋</div>\n        <div class=\"blog-card-body\">\n          <div class=\"blog-card-cat\">Tax</div>\n          <div class=\"blog-card-title\">2025 Federal Tax Brackets Explained</div>\n          <div class=\"blog-card-desc\">How marginal tax brackets work, what the 2025 IRS rates are, and how to estimate your tax bill.</div>\n          <div class=\"blog-card-meta\"><span>6 min</span><span>·</span><span>Tax</span></div>\n        </div>\n      </a>\n\n      <a href=\"/calculators/health/macro-calculator\" class=\"blog-card\">\n        <div class=\"blog-card-img\">🧬</div>\n        <div class=\"blog-card-body\">\n          <div class=\"blog-card-cat\">Nutrition</div>\n          <div class=\"blog-card-title\">How to Set Your Macros for Weight Loss</div>\n          <div class=\"blog-card-desc\">Protein, carbs, and fat: what ratio should you eat to lose fat while preserving muscle mass?</div>\n          <div class=\"blog-card-meta\"><span>8 min</span><span>·</span><span>Nutrition</span></div>\n        </div>\n      </a>\n\n      <a href=\"/calculators/finance/retirement-calculator\" class=\"blog-card\">\n        <div class=\"blog-card-img\">🌅</div>\n        <div class=\"blog-card-body\">\n          <div class=\"blog-card-cat\">Finance</div>\n          <div class=\"blog-card-title\">How Much Do I Need to Retire?</div>\n          <div class=\"blog-card-desc\">The 4% rule, Social Security timing, and how to calculate your retirement number using real formulas.</div>\n          <div class=\"blog-card-meta\"><span>9 min</span><span>·</span><span>Retirement</span></div>\n        </div>\n      </a>\n\n    </div>\n  </div>\n</section>\n\n</main>" }} />
-    </>
+    <main>
+      <section className="hero" style={{ padding: "60px 0 48px" }}>
+        <div className="container">
+          <div className="hero-badge">📖 Learning Center</div>
+          <h1 style={{ fontSize: "clamp(30px,4vw,52px)" }}>
+            Guides &amp; <em>Articles</em>
+          </h1>
+          <p className="hero-sub">
+            In-depth guides on health, finance, fitness, tax, and math to help you make smarter decisions.
+          </p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          {!articles.length && (
+            <p style={{ color: "var(--c-ink3)" }}>No articles published yet — check back soon.</p>
+          )}
+
+          {featured && (
+            <Link
+              href={`/pages/blog/${featured.slug}`}
+              style={{
+                background: "var(--c-accent-lt)",
+                border: "1.5px solid var(--c-rule)",
+                borderRadius: "var(--radius-xl)",
+                padding: "36px",
+                marginBottom: "40px",
+                display: "grid",
+                gridTemplateColumns: "1fr 200px",
+                gap: "32px",
+                alignItems: "center",
+              }}
+            >
+              <div>
+                <div className="section-label" style={{ marginBottom: "12px" }}>
+                  ⭐ Featured Article
+                </div>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "clamp(22px,3vw,34px)",
+                    letterSpacing: "-0.4px",
+                    marginBottom: "12px",
+                  }}
+                >
+                  {featured.title}
+                </h2>
+                <p style={{ color: "var(--c-ink2)", fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
+                  {featured.excerpt}
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                    fontSize: "13px",
+                    color: "var(--c-ink3)",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <span>{featured.read_minutes} min read</span>
+                  <span>·</span>
+                  <span>{featured.category}</span>
+                </div>
+                <span className="btn btn-primary">Read Article →</span>
+              </div>
+              <div style={{ fontSize: "80px", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {featured.cover_emoji}
+              </div>
+            </Link>
+          )}
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(290px,1fr))", gap: "24px" }}>
+            {rest.map((article) => (
+              <Link href={`/pages/blog/${article.slug}`} className="blog-card" key={article.id}>
+                <div className="blog-card-img">{article.cover_emoji}</div>
+                <div className="blog-card-body">
+                  <div className="blog-card-cat">{article.category}</div>
+                  <div className="blog-card-title">{article.title}</div>
+                  <div className="blog-card-desc">{article.excerpt}</div>
+                  <div className="blog-card-meta">
+                    <span>{article.read_minutes} min</span>
+                    <span>·</span>
+                    <span>{article.category}</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
