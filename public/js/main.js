@@ -297,10 +297,15 @@ function initScrollReveal(){
         io.unobserve(entry.target);
       }
     });
-  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  },{threshold:0.15,rootMargin:'0px 0px -80px 0px'});
+  const siblingCounts=new WeakMap();
   els.forEach(function(el){
     if(el.classList.contains('reveal'))return;
     el.classList.add('reveal');
+    const parent=el.parentElement;
+    const n=siblingCounts.get(parent)||0;
+    siblingCounts.set(parent,n+1);
+    el.style.transitionDelay=(Math.min(n,7)*90)+'ms';
     io.observe(el);
   });
 }
