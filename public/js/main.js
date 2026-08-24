@@ -284,6 +284,29 @@ function initNewsletter(){
 }
 
 // ── Scroll reveal ──
+// ── Card spotlight/tilt (cursor-tracking) ──
+function initCardTilt(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(window.matchMedia && window.matchMedia('(hover: none)').matches)return;
+  document.querySelectorAll('.calc-card').forEach(function(card){
+    if(card.dataset.tiltBound)return;
+    card.dataset.tiltBound='1';
+    card.addEventListener('mousemove',function(e){
+      const r=card.getBoundingClientRect();
+      const px=(e.clientX-r.left)/r.width;
+      const py=(e.clientY-r.top)/r.height;
+      card.style.setProperty('--mx',(px*100)+'%');
+      card.style.setProperty('--my',(py*100)+'%');
+      card.style.setProperty('--rx',((px-0.5)*6)+'deg');
+      card.style.setProperty('--ry',((0.5-py)*6)+'deg');
+    });
+    card.addEventListener('mouseleave',function(){
+      card.style.setProperty('--rx','0deg');
+      card.style.setProperty('--ry','0deg');
+    });
+  });
+}
+
 function initScrollReveal(){
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   if(!('IntersectionObserver' in window))return;
@@ -321,6 +344,7 @@ document.addEventListener('DOMContentLoaded',function(){
   initCatFilter();
   initNewsletter();
   initScrollReveal();
+  initCardTilt();
 });
 
 // ── Mega Menu Close on ESC ──

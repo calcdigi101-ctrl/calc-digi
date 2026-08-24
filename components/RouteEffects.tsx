@@ -7,6 +7,7 @@ declare global {
   interface Window {
     initScrollReveal?: () => void;
     initFAQ?: () => void;
+    initCardTilt?: () => void;
   }
 }
 
@@ -18,6 +19,7 @@ export default function RouteEffects() {
     // inline script (e.g. the blog) still get scroll-reveal + FAQ binding.
     window.initFAQ?.();
     window.initScrollReveal?.();
+    window.initCardTilt?.();
   }, [pathname]);
 
   return null;
