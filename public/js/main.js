@@ -306,18 +306,16 @@ function initScrollReveal(){
 }
 
 // ── Init all ──
+// Note: initDarkMode/initMobileNav/initBackTop/initCookie/initAIPanel/initMegaSearch
+// are NOT called here — they depend on markup injected by renderNav()/renderFooter(),
+// which run later (afterInteractive, to avoid a React hydration mismatch). Those are
+// called explicitly right after renderNav()/renderFooter() instead — see app/layout.tsx.
 document.addEventListener('DOMContentLoaded',function(){
   initSearch();
-  initDarkMode();
-  initMobileNav();
   initFAQ();
-  initBackTop();
-  initCookie();
-  initAIPanel();
   initCatFilter();
   initNewsletter();
   initScrollReveal();
-  setTimeout(initMegaSearch, 150);
 });
 
 // ── Mega Menu Close on ESC ──

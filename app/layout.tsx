@@ -36,7 +36,10 @@ export default function RootLayout({
         <Script
           id="init-nav-footer"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: "renderNav();renderFooter();" }}
+          dangerouslySetInnerHTML={{
+            __html:
+              "renderNav();renderFooter();initDarkMode();initMobileNav();initBackTop();initCookie();initAIPanel();initMegaSearch();",
+          }}
         />
       </body>
     </html>
