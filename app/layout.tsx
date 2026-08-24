@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://calcdiginow.com"),
+  metadataBase: new URL(SITE_URL),
   title: "CalcDigi – Free Online Calculators",
   description:
     "Free, accurate, AI-powered calculators for health, finance, math, and more. No sign-up required.",
