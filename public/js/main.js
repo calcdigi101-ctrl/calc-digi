@@ -287,7 +287,7 @@ function initNewsletter(){
 function initScrollReveal(){
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   if(!('IntersectionObserver' in window))return;
-  const selector='.content-section,.blog-card,.calc-card,.related-card,.about-card,.health-calc-card,.stat-item,.faq-item,.calc-widget,.ai-feature-card,.mega-calc-item';
+  const selector='.content-section,.section-header,.blog-card,.calc-card,.related-card,.about-card,.health-calc-card,.stat-item,.faq-item,.calc-widget,.ai-feature-card,.mega-calc-item,.popular-item,.testimonial-card,.trust-badge,.newsletter-section,.hero-stat';
   const els=document.querySelectorAll(selector);
   if(!els.length)return;
   const io=new IntersectionObserver(function(entries){
