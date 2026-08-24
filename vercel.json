@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "calcdigi-now",
   "framework": "nextjs",
   "headers": [
     {
