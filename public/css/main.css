@@ -1240,3 +1240,27 @@ body.dark .mega-calc-item{background:var(--c-rule2);}
   .ai-box { padding: 12px; font-size: 13px; }
   .result-chart canvas { width: 180px !important; height: 130px !important; }
 }
+
+/* ── Scroll reveal (JS-driven, see initScrollReveal in main.js) ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.2,.7,.3,1),transform .6s cubic-bezier(.2,.7,.3,1);}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+
+/* ── Loading spinner ── */
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(26,92,58,0.2);border-top-color:var(--c-accent);border-radius:50%;animation:cd-spin .7s linear infinite;vertical-align:-2px;}
+.ai-msg.typing .spinner{border-color:rgba(255,255,255,0.35);border-top-color:#fff;}
+@keyframes cd-spin{to{transform:rotate(360deg);}}
+
+/* ── Result reveal pop ── */
+.result-box.visible{animation:cd-result-in .35s cubic-bezier(.2,.7,.3,1);}
+@keyframes cd-result-in{from{opacity:0;transform:translateY(8px) scale(.98);}to{opacity:1;transform:translateY(0) scale(1);}}
+
+/* ── Extra hover polish ── */
+.calc-btn:active,.btn:active{transform:scale(.98);}
+.faq-item{transition:box-shadow .2s ease;}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1!important;transform:none!important;transition:none!important;}
+  .result-box.visible{animation:none;}
+  .spinner{animation-duration:1.4s;}
+  .calc-btn:active,.btn:active{transform:none;}
+}

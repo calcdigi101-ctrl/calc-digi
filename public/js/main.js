@@ -180,7 +180,7 @@ function initAIPanel(){
     input.value='';
     // User bubble
     messages.innerHTML+=`<div class="ai-msg user">${q}</div>`;
-    messages.innerHTML+=`<div class="ai-msg typing" id="ai-typing">⋯ thinking</div>`;
+    messages.innerHTML+=`<div class="ai-msg typing" id="ai-typing"><span class="spinner"></span> thinking</div>`;
     messages.scrollTop=messages.scrollHeight;
     try{
       const res=await fetch('https://api.anthropic.com/v1/messages',{
@@ -283,6 +283,28 @@ function initNewsletter(){
   });
 }
 
+// ── Scroll reveal ──
+function initScrollReveal(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(!('IntersectionObserver' in window))return;
+  const selector='.content-section,.blog-card,.calc-card,.related-card,.about-card,.health-calc-card,.stat-item,.faq-item,.calc-widget,.ai-feature-card,.mega-calc-item';
+  const els=document.querySelectorAll(selector);
+  if(!els.length)return;
+  const io=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){
+    if(el.classList.contains('reveal'))return;
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+}
+
 // ── Init all ──
 document.addEventListener('DOMContentLoaded',function(){
   initSearch();
@@ -294,6 +316,7 @@ document.addEventListener('DOMContentLoaded',function(){
   initAIPanel();
   initCatFilter();
   initNewsletter();
+  initScrollReveal();
   setTimeout(initMegaSearch, 150);
 });
 

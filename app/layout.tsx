@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { SITE_URL } from "@/lib/site";
+import RouteEffects from "@/components/RouteEffects";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -29,6 +30,7 @@ export default function RootLayout({
         <div id="site-nav" />
         {children}
         <div id="site-footer" />
+        <RouteEffects />
         <Script src="/js/layout.js" strategy="beforeInteractive" />
         <Script src="/js/main.js" strategy="beforeInteractive" />
         <Script
