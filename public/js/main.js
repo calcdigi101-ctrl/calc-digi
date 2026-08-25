@@ -18,16 +18,18 @@ function drawDonut(canvasId,labels,data,colors){
   if(total<=0)return;
   const cx=canvas.width/2,cy=canvas.height/2,r=Math.min(cx,cy)-10,inner=r*0.55;
   ctx.clearRect(0,0,canvas.width,canvas.height);
+  const isDark=document.body.classList.contains('dark');
   let angle=-Math.PI/2;
   data.forEach((val,i)=>{
     const slice=(val/total)*2*Math.PI;
     ctx.beginPath();ctx.moveTo(cx,cy);
     ctx.arc(cx,cy,r,angle,angle+slice);
-    ctx.closePath();ctx.fillStyle=colors[i]||'#ccc';ctx.fill();
+    ctx.closePath();
+    ctx.fillStyle=(isDark&&colors[i]==='#e8e8e2')?'#2e2e2a':(colors[i]||'#ccc');
+    ctx.fill();
     angle+=slice;
   });
   ctx.beginPath();ctx.arc(cx,cy,inner,0,2*Math.PI);
-  const isDark=document.body.classList.contains('dark');
   ctx.fillStyle=isDark?'#1e1e1a':'#fff';ctx.fill();
 }
 
@@ -412,7 +414,7 @@ function showShareToast(msg) {
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'share-toast';
-    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--c-ink);color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;';
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a18;color:#fff;padding:10px 20px;border-radius:8px;font-size:14px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;';
     document.body.appendChild(toast);
   }
   toast.textContent = msg;
