@@ -457,9 +457,7 @@ function renderNav(activePage=''){
 
       <ul class="nav-links" role="list">
         <li><a href="${base}" ${cur(isHome)}>Home</a></li>
-        <li class="nav-item-mega" id="nav-calc-trigger">
-          <a href="${base}calculators" class="nav-calc-link${isCalc?' active':''}" ${isCalc?'aria-current="page"':''}>Calculators</a><button type="button" class="nav-mega-caret" onclick="toggleMega(event)" aria-haspopup="true" aria-label="Browse calculator categories">▾</button>
-        </li>
+        <li><a href="${base}calculators" class="nav-calc-link${isCalc?' active':''}" ${isCalc?'aria-current="page"':''}>Calculators</a></li>
         <li><a href="${base}pages/blog" ${cur(isBlog)}>Blog</a></li>
         <li><a href="${base}pages/about" ${cur(isAbout)}>About</a></li>
       </ul>
@@ -765,6 +763,18 @@ function renderFooter(){
           <li><a href="${base}calculators/finance/compound-interest-calculator">Compound Interest</a></li>
           <li><a href="${base}calculators/finance/retirement-calculator">Retirement</a></li>
           <li><a href="${base}calculators/finance/salary-calculator">Salary Calculator</a></li>
+          <li><a href="${base}pages/finance">→ All 40 Finance Calculators</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Math</h4>
+        <ul>
+          <li><a href="${base}calculators/math/percentage-calculator">Percentage Calculator</a></li>
+          <li><a href="${base}calculators/math/fraction-calculator">Fraction Calculator</a></li>
+          <li><a href="${base}calculators/math/scientific-calculator">Scientific Calculator</a></li>
+          <li><a href="${base}calculators/math/average-calculator">Average Calculator</a></li>
+          <li><a href="${base}calculators/math/probability-calculator">Probability Calculator</a></li>
+          <li><a href="${base}pages/math">→ All 30 Math Calculators</a></li>
         </ul>
       </div>
       <div>

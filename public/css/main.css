@@ -171,7 +171,7 @@ body.dark .calc-card{background:rgba(255,255,255,0.045);border-color:rgba(255,25
 
 /* ── Footer ── */
 .footer{background:#1a1a18;color:rgba(255,255,255,0.7);padding:56px 0 32px;}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:32px;margin-bottom:40px;}
 .footer-brand .logo-mark{color:#fff;}
 .footer-brand p{font-size:13.5px;margin-top:12px;line-height:1.6;max-width:260px;}
 .footer h4{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:#fff;margin-bottom:16px;}
@@ -196,13 +196,13 @@ body.dark .calc-card{background:rgba(255,255,255,0.045);border-color:rgba(255,25
 .stat-label{font-size:12px;color:var(--c-ink3);text-transform:uppercase;letter-spacing:1px;}
 
 /* ── Tag Colors ── */
-.tag-health{background:#fdedf0;color:#8a1a1a;}
-.tag-finance{background:#edf5f0;color:#1a5c3a;}
-.tag-math{background:#e8f0fd;color:#1a3d8a;}
-.tag-everyday{background:#f8edf8;color:#5c1a5c;}
-.icon-health{background:#fdedf0;}
-.icon-finance{background:#edf5f0;}
-.icon-math{background:#e8f0fd;}
+.tag-health{background:var(--c-red-lt);color:var(--c-red);}
+.tag-finance{background:var(--c-accent-lt);color:var(--c-accent);}
+.tag-math{background:var(--c-blue-lt);color:var(--c-blue);}
+.tag-everyday{background:var(--c-purple-lt);color:var(--c-purple);}
+.icon-health{background:var(--c-red-lt);}
+.icon-finance{background:var(--c-accent-lt);}
+.icon-math{background:var(--c-blue-lt);}
 .icon-everyday{background:#f8edf8;}
 
 /* ── Cookie Banner ── */
@@ -330,15 +330,6 @@ body.dark .calc-card{background:rgba(255,255,255,0.045);border-color:rgba(255,25
 .ai-quick-btn{font-size:12px;padding:5px 10px;border-radius:20px;border:1.5px solid var(--c-rule);background:transparent;cursor:pointer;color:var(--c-ink2);font-family:var(--font-sans);transition:all var(--transition);}
 .ai-quick-btn:hover{border-color:var(--c-accent);color:var(--c-accent);background:var(--c-accent-lt);}
 
-/* ── Trending Strip ── */
-.trending-strip{background:var(--c-surface);border-bottom:1px solid var(--c-rule);padding:10px 0;overflow:hidden;}
-.trending-inner{display:flex;align-items:center;gap:12px;}
-.trending-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--c-ink3);white-space:nowrap;flex-shrink:0;}
-.trending-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;}
-.trending-chips::-webkit-scrollbar{display:none;}
-.trending-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;background:var(--c-bg);border:1.5px solid var(--c-rule);font-size:12px;font-weight:500;white-space:nowrap;transition:all var(--transition);text-decoration:none;color:var(--c-ink2);}
-.trending-chip:hover{border-color:var(--c-accent);color:var(--c-accent);background:var(--c-accent-lt);}
-.trending-chip .chip-badge{font-size:10px;background:var(--c-accent2-lt);color:var(--c-accent2);padding:1px 5px;border-radius:4px;font-weight:600;}
 
 /* ── AI Features Section ── */
 .ai-features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
@@ -404,17 +395,6 @@ body.dark .calc-card{background:rgba(255,255,255,0.045);border-color:rgba(255,25
 
 /* ── Popular This Week ── */
 .popular-list{display:flex;flex-direction:column;gap:0;border:1.5px solid var(--c-rule);border-radius:var(--radius-lg);overflow:hidden;}
-.popular-item{display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--c-rule);transition:background var(--transition);text-decoration:none;color:inherit;}
-.popular-item:last-child{border-bottom:none;}
-.popular-item:hover{background:var(--c-rule2);}
-.pop-rank{width:24px;height:24px;border-radius:50%;background:var(--c-rule2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--c-ink3);flex-shrink:0;}
-.pop-rank.top{background:var(--c-accent2-lt);color:var(--c-accent2);}
-.pop-icon{font-size:20px;}
-.pop-info{flex:1;}
-.pop-name{font-size:14px;font-weight:500;}
-.pop-uses{font-size:11px;color:var(--c-ink3);}
-.pop-arrow{color:var(--c-ink3);font-size:14px;}
-
 /* ── Category Page Hero ── */
 .cat-hero{padding:48px 0 40px;border-bottom:1px solid var(--c-rule);}
 .cat-hero-inner{display:flex;align-items:center;gap:20px;}
@@ -544,9 +524,10 @@ body.dark .history-item{background:var(--c-surface);border-color:var(--c-rule);}
   background:var(--c-surface);border-bottom:1px solid var(--c-rule);
   padding:12px 0;overflow:hidden;
 }
-.trending-inner{display:flex;align-items:center;gap:12px;overflow-x:auto;scrollbar-width:none;}
-.trending-inner::-webkit-scrollbar{display:none;}
+.trending-inner{display:flex;align-items:center;gap:12px;}
 .trending-label{font-size:12px;font-weight:600;color:var(--c-accent);text-transform:uppercase;letter-spacing:1px;flex-shrink:0;}
+.trending-track{display:flex;align-items:center;gap:10px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;}
+.trending-track::-webkit-scrollbar{display:none;}
 .trending-tag{
   display:inline-flex;align-items:center;gap:5px;padding:4px 12px;
   background:var(--c-rule2);border-radius:20px;font-size:12.5px;font-weight:500;
@@ -568,6 +549,7 @@ body.dark .history-item{background:var(--c-surface);border-color:var(--c-rule);}
 }
 .cat-tab:hover{background:var(--c-rule2);}
 .cat-tab.active{background:var(--c-accent);color:#fff;border-color:var(--c-accent);}
+.cat-tabs-sticky{position:sticky;top:64px;z-index:30;background:var(--c-bg);padding-top:12px;}
 
 /* ── AI Assistant Floating Panel ── */
 .ai-assistant-panel{
@@ -725,17 +707,21 @@ body.dark .history-item{background:var(--c-surface);border-color:var(--c-rule);}
 .blog-card-meta{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--c-ink3);}
 
 /* ── Popular Calculators Grid ── */
-.popular-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
-.popular-item{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:16px 12px;background:var(--c-surface);border:1.5px solid var(--c-rule);
-  border-radius:var(--radius-md);text-align:center;transition:all var(--transition);
-  text-decoration:none;color:var(--c-ink);
+.popular-cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.popular-card{
+  display:flex;align-items:flex-start;gap:14px;padding:18px;
+  background:var(--c-surface);border:1.5px solid var(--c-rule);border-radius:var(--radius-lg);
+  text-decoration:none;color:inherit;
+  transition:transform .2s cubic-bezier(.16,1,.3,1),box-shadow .2s ease,border-color .2s ease;
 }
-.popular-item:hover{border-color:var(--c-accent);background:var(--c-accent-lt);}
-.popular-item-icon{font-size:28px;}
-.popular-item-name{font-size:12.5px;font-weight:500;line-height:1.3;}
-.popular-item-count{font-size:11px;color:var(--c-ink3);}
+.popular-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--c-accent);}
+.popular-card-icon{width:44px;height:44px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;}
+.popular-card-body{min-width:0;}
+.popular-card-name{font-size:15px;font-weight:600;color:var(--c-ink);margin-bottom:3px;}
+.popular-card-desc{font-size:12.5px;color:var(--c-ink2);line-height:1.5;margin-bottom:8px;}
+.popular-card-tag{font-size:11px;font-weight:600;color:var(--c-ink3);text-transform:uppercase;letter-spacing:.4px;}
+@media(max-width:900px){.popular-cards-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.popular-cards-grid{grid-template-columns:1fr;}}
 
 /* ── Notification Toast ── */
 .toast{
@@ -914,11 +900,6 @@ body.dark .mega-calc-item{background:var(--c-rule2);}
   text-decoration:none;transition:background var(--transition);
 }
 .mega-view-all-btn:hover{background:#145030;}
-
-/* nav-item-mega trigger */
-.nav-item-mega{display:flex;align-items:center;gap:2px;}
-.nav-mega-caret{cursor:pointer;background:none;border:none;padding:6px 8px;border-radius:var(--radius-sm);color:var(--c-ink2);font-size:9px;transition:background var(--transition),color var(--transition);}
-.nav-mega-caret:hover{background:var(--c-rule2);color:var(--c-ink);}
 
 /* ══════════════════════════════════════════════
    HEALTH PAGE — All Calculators Grid
@@ -1296,14 +1277,6 @@ body.dark .hero-grid-bg{background-image:radial-gradient(rgba(255,255,255,0.10) 
 @keyframes cd-hero-in{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 .hero-anim{opacity:0;animation:cd-hero-in .8s cubic-bezier(.16,1,.3,1) forwards;}
 @media (prefers-reduced-motion: reduce){.hero-anim{opacity:1;animation:none;}}
-
-/* Trending marquee */
-.trending-inner{overflow:hidden;}
-.trending-marquee{display:flex;width:max-content;animation:cd-marquee 32s linear infinite;}
-.trending-marquee:hover{animation-play-state:paused;}
-.trending-track{display:flex;align-items:center;gap:12px;padding-right:12px;flex-shrink:0;}
-@keyframes cd-marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-@media (prefers-reduced-motion: reduce){.trending-marquee{animation:none;}}
 
 /* Testimonials / trust badges get the same soft-glass treatment as calc-card */
 .testimonial-card{transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease,border-color .3s ease;}
