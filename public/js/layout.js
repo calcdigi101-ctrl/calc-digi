@@ -441,6 +441,12 @@ const ALL_CALCS = Object.entries(CALC_DATA).flatMap(([cat, data]) =>
 
 function renderNav(activePage=''){
   const base=getBasePath();
+  const path=typeof window!=='undefined'?window.location.pathname:'';
+  const isHome=activePage==='home'||path===base;
+  const isCalc=activePage==='calculators'||path.indexOf(base+'calculators')===0;
+  const isBlog=activePage==='blog'||path.indexOf(base+'pages/blog')===0;
+  const isAbout=activePage==='about'||path.indexOf(base+'pages/about')===0;
+  const cur=(on)=>on?'aria-current="page" class="active"':'';
   document.getElementById('site-nav').innerHTML=`
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="container">
@@ -450,12 +456,12 @@ function renderNav(activePage=''){
       </a>
 
       <ul class="nav-links" role="list">
-        <li><a href="${base}" ${activePage==='home'?'aria-current="page"':''}>Home</a></li>
+        <li><a href="${base}" ${cur(isHome)}>Home</a></li>
         <li class="nav-item-mega" id="nav-calc-trigger">
-          <a href="#" onclick="toggleMega(event)">Calculators <span style="font-size:9px;vertical-align:middle;">▾</span></a>
+          <a href="${base}calculators" class="nav-calc-link${isCalc?' active':''}" ${isCalc?'aria-current="page"':''}>Calculators</a><button type="button" class="nav-mega-caret" onclick="toggleMega(event)" aria-haspopup="true" aria-label="Browse calculator categories">▾</button>
         </li>
-        <li><a href="${base}pages/blog">Blog</a></li>
-        <li><a href="${base}pages/about">About</a></li>
+        <li><a href="${base}pages/blog" ${cur(isBlog)}>Blog</a></li>
+        <li><a href="${base}pages/about" ${cur(isAbout)}>About</a></li>
       </ul>
 
       <div class="nav-right">
@@ -580,6 +586,7 @@ function renderNav(activePage=''){
 <!-- Mobile Nav -->
 <div class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
   <a href="${base}">🏠 Home</a>
+  <a href="${base}calculators">🧮 All Calculators</a>
   <a href="${base}pages/health">🩺 Health Calculators</a>
   <a href="${base}calculators/finance/mortgage-calculator">💰 Finance Calculators</a>
   <a href="${base}calculators/math/percentage-calculator">📐 Math Calculators</a>

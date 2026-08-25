@@ -31,6 +31,7 @@ img{display:block;max-width:100%;}
 .nav-links{display:flex;align-items:center;gap:0;list-style:none;}
 .nav-links a{display:block;padding:6px 14px;font-size:14px;font-weight:400;color:var(--c-ink2);border-radius:var(--radius-sm);transition:background var(--transition),color var(--transition);}
 .nav-links a:hover{background:var(--c-rule2);color:var(--c-ink);}
+.nav-links a.active,.nav-links a[aria-current="page"]{background:var(--c-accent-lt);color:var(--c-accent);font-weight:500;}
 .nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-family:var(--font-sans);font-size:14px;font-weight:500;border-radius:var(--radius-sm);cursor:pointer;transition:transform .2s cubic-bezier(.34,1.56,.64,1),background var(--transition),box-shadow var(--transition);border:none;text-decoration:none;}
 .btn:hover{transform:translateY(-1px) scale(1.02);}
@@ -915,7 +916,9 @@ body.dark .mega-calc-item{background:var(--c-rule2);}
 .mega-view-all-btn:hover{background:#145030;}
 
 /* nav-item-mega trigger */
-.nav-item-mega>a{cursor:pointer;}
+.nav-item-mega{display:flex;align-items:center;gap:2px;}
+.nav-mega-caret{cursor:pointer;background:none;border:none;padding:6px 8px;border-radius:var(--radius-sm);color:var(--c-ink2);font-size:9px;transition:background var(--transition),color var(--transition);}
+.nav-mega-caret:hover{background:var(--c-rule2);color:var(--c-ink);}
 
 /* ══════════════════════════════════════════════
    HEALTH PAGE — All Calculators Grid
