@@ -272,19 +272,6 @@ function initCatFilter(){
   });
 }
 
-// ── Newsletter stub ──
-function initNewsletter(){
-  const form=document.getElementById('newsletter-form');
-  if(!form)return;
-  form.addEventListener('submit',function(e){
-    e.preventDefault();
-    const email=this.querySelector('input')?.value;
-    if(!email)return;
-    this.innerHTML='<p style="color:var(--c-accent);font-weight:500;">✓ You\'re subscribed! Thanks for joining.</p>';
-    showToast('Subscribed! ✓');
-  });
-}
-
 // ── Scroll reveal ──
 // ── Card spotlight/tilt (cursor-tracking) ──
 function initCardTilt(){
