@@ -5,6 +5,7 @@ import type { Calculator, Category, CategoryId } from "@/lib/calculators";
 
 interface CalculatorsExplorerProps {
   categories: Category[];
+  showAllCategoriesOption?: boolean;
 }
 
 type FilterId = CategoryId | "all";
@@ -22,7 +23,7 @@ function useDebouncedValue<T>(value: T, delayMs: number): T {
   return debounced;
 }
 
-export default function CalculatorsExplorer({ categories }: CalculatorsExplorerProps) {
+export default function CalculatorsExplorer({ categories, showAllCategoriesOption = true }: CalculatorsExplorerProps) {
   const [activeFilter, setActiveFilter] = useState<FilterId>("all");
   const [searchInput, setSearchInput] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -129,20 +130,22 @@ export default function CalculatorsExplorer({ categories }: CalculatorsExplorerP
           </div>
 
           <ul className="calc-cat-list" role="list">
-            <li>
-              <button
-                type="button"
-                className={`calc-cat-item${activeFilter === "all" ? " active" : ""}`}
-                aria-pressed={activeFilter === "all"}
-                onClick={() => setActiveFilter("all")}
-              >
-                <span className="calc-cat-item-label">
-                  <span>🧮</span>
-                  <span>All Categories</span>
-                </span>
-                <span className="calc-cat-item-count">{allCalculators.length}</span>
-              </button>
-            </li>
+            {showAllCategoriesOption && (
+              <li>
+                <button
+                  type="button"
+                  className={`calc-cat-item${activeFilter === "all" ? " active" : ""}`}
+                  aria-pressed={activeFilter === "all"}
+                  onClick={() => setActiveFilter("all")}
+                >
+                  <span className="calc-cat-item-label">
+                    <span>🧮</span>
+                    <span>All Categories</span>
+                  </span>
+                  <span className="calc-cat-item-count">{allCalculators.length}</span>
+                </button>
+              </li>
+            )}
             {categories.map((category) => (
               <li key={category.id}>
                 <button
