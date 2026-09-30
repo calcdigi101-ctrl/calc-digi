@@ -381,6 +381,56 @@ function copyResult(resultId, btnId) {
   });
 }
 
+// ── Print Result ──
+function printResult(resultId, title) {
+  const box = document.getElementById(resultId);
+  if (!box) return;
+  const labels = box.querySelectorAll('.ri-label');
+  const values = box.querySelectorAll('.ri-value');
+  let rows = '';
+  labels.forEach((l, i) => {
+    const v = values[i] ? values[i].innerText.trim() : '';
+    rows += '<tr><td class="pi-label">' + l.innerText.trim() + '</td><td class="pi-value">' + v + '</td></tr>';
+  });
+  if (!rows) return;
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+  const win = window.open('', '_blank', 'width=680,height=860');
+  if (!win) return;
+  win.document.write(
+    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + title + ' — CalcDigi</title>' +
+    '<style>' +
+    '*{box-sizing:border-box;}' +
+    'body{font-family:-apple-system,"Segoe UI",Arial,sans-serif;color:#1a1a18;margin:0;padding:40px;background:#fff;}' +
+    '.pi-wrap{max-width:560px;margin:0 auto;border:1.5px solid #e3e3dd;border-radius:14px;overflow:hidden;}' +
+    '.pi-head{background:#1a5c3a;color:#fff;padding:26px 28px;display:flex;align-items:center;justify-content:space-between;}' +
+    '.pi-brand{font-size:21px;font-weight:700;letter-spacing:-0.3px;}' +
+    '.pi-brand small{display:block;opacity:.75;font-weight:400;font-size:12px;margin-top:3px;letter-spacing:0;}' +
+    '.pi-badge{font-size:11px;background:rgba(255,255,255,.15);padding:5px 10px;border-radius:100px;}' +
+    '.pi-title{padding:24px 28px 6px;font-size:23px;font-weight:700;}' +
+    '.pi-meta{padding:0 28px 18px;font-size:12px;color:#8a8a80;border-bottom:1px solid #eee;}' +
+    'table{width:100%;border-collapse:collapse;}' +
+    'td{padding:13px 28px;font-size:14px;border-bottom:1px solid #f1f1eb;}' +
+    'tr:last-child td{border-bottom:none;}' +
+    '.pi-label{color:#5a5a52;}' +
+    '.pi-value{text-align:right;font-weight:700;}' +
+    '.pi-foot{padding:18px 28px;font-size:11px;color:#a3a399;text-align:center;border-top:1px solid #eee;}' +
+    '@media print{body{padding:0;}.pi-wrap{border:none;border-radius:0;}}' +
+    '</style></head><body>' +
+    '<div class="pi-wrap">' +
+    '<div class="pi-head"><div class="pi-brand">CalcDigi<small>Free Online Calculators</small></div><div class="pi-badge">calc-digi.vercel.app</div></div>' +
+    '<div class="pi-title">' + title + '</div>' +
+    '<div class="pi-meta">Generated ' + dateStr + ' at ' + timeStr + '</div>' +
+    '<table>' + rows + '</table>' +
+    '<div class="pi-foot">Results are for informational purposes only and do not constitute professional advice.</div>' +
+    '</div>' +
+    '<script>window.onload=function(){window.print();};<\/script>' +
+    '</body></html>'
+  );
+  win.document.close();
+}
+
 // ── Share Result ──
 function shareResult(title) {
   const url = window.location.href;
