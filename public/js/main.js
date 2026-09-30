@@ -382,24 +382,40 @@ function copyResult(resultId, btnId) {
 }
 
 // ── Print Result ──
+function printEscapeHtml(s) {
+  return String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+}
 function printResult(resultId, title) {
   const box = document.getElementById(resultId);
   if (!box) return;
-  const labels = box.querySelectorAll('.ri-label');
-  const values = box.querySelectorAll('.ri-value');
+  // Calculators render results with a few different label/value class
+  // conventions (most use the shared ri()/.ri-label/.ri-value helper,
+  // a few hand-roll .rr-label/.rr-val). Try each, then fall back to the
+  // box's plain rendered text so Print always produces something.
   let rows = '';
-  labels.forEach((l, i) => {
-    const v = values[i] ? values[i].innerText.trim() : '';
-    rows += '<tr><td class="pi-label">' + l.innerText.trim() + '</td><td class="pi-value">' + v + '</td></tr>';
+  [['.ri-label', '.ri-value'], ['.rr-label', '.rr-val']].forEach(([labelSel, valueSel]) => {
+    const labels = box.querySelectorAll(labelSel);
+    const values = box.querySelectorAll(valueSel);
+    labels.forEach((l, i) => {
+      const v = values[i] ? values[i].innerText.trim() : '';
+      rows += '<tr><td class="pi-label">' + printEscapeHtml(l.innerText.trim()) + '</td><td class="pi-value">' + printEscapeHtml(v) + '</td></tr>';
+    });
   });
-  if (!rows) return;
+  let bodyHtml;
+  if (rows) {
+    bodyHtml = '<table>' + rows + '</table>';
+  } else {
+    const text = box.innerText.trim();
+    if (!text) return;
+    bodyHtml = '<div class="pi-text">' + printEscapeHtml(text).replace(/\n{2,}/g, '\n').split('\n').map((l) => l.trim()).filter(Boolean).join('<br>') + '</div>';
+  }
   const now = new Date();
   const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   const win = window.open('', '_blank', 'width=680,height=860');
   if (!win) return;
   win.document.write(
-    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + title + ' — CalcDigi</title>' +
+    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' + printEscapeHtml(title) + ' — CalcDigi</title>' +
     '<style>' +
     '*{box-sizing:border-box;}' +
     'body{font-family:-apple-system,"Segoe UI",Arial,sans-serif;color:#1a1a18;margin:0;padding:40px;background:#fff;}' +
@@ -415,14 +431,15 @@ function printResult(resultId, title) {
     'tr:last-child td{border-bottom:none;}' +
     '.pi-label{color:#5a5a52;}' +
     '.pi-value{text-align:right;font-weight:700;}' +
+    '.pi-text{padding:16px 28px 22px;font-size:14px;line-height:1.7;}' +
     '.pi-foot{padding:18px 28px;font-size:11px;color:#a3a399;text-align:center;border-top:1px solid #eee;}' +
     '@media print{body{padding:0;}.pi-wrap{border:none;border-radius:0;}}' +
     '</style></head><body>' +
     '<div class="pi-wrap">' +
     '<div class="pi-head"><div class="pi-brand">CalcDigi<small>Free Online Calculators</small></div><div class="pi-badge">calc-digi.vercel.app</div></div>' +
-    '<div class="pi-title">' + title + '</div>' +
+    '<div class="pi-title">' + printEscapeHtml(title) + '</div>' +
     '<div class="pi-meta">Generated ' + dateStr + ' at ' + timeStr + '</div>' +
-    '<table>' + rows + '</table>' +
+    bodyHtml +
     '<div class="pi-foot">Results are for informational purposes only and do not constitute professional advice.</div>' +
     '</div>' +
     '<script>window.onload=function(){window.print();};<\/script>' +
