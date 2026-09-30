@@ -6,6 +6,7 @@ import type { Calculator, Category, CategoryId } from "@/lib/calculators";
 interface CalculatorsExplorerProps {
   categories: Category[];
   showAllCategoriesOption?: boolean;
+  defaultFilter?: CategoryId | "all";
 }
 
 type FilterId = CategoryId | "all";
@@ -23,8 +24,12 @@ function useDebouncedValue<T>(value: T, delayMs: number): T {
   return debounced;
 }
 
-export default function CalculatorsExplorer({ categories, showAllCategoriesOption = true }: CalculatorsExplorerProps) {
-  const [activeFilter, setActiveFilter] = useState<FilterId>("all");
+export default function CalculatorsExplorer({
+  categories,
+  showAllCategoriesOption = true,
+  defaultFilter = "all",
+}: CalculatorsExplorerProps) {
+  const [activeFilter, setActiveFilter] = useState<FilterId>(defaultFilter);
   const [searchInput, setSearchInput] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const debouncedSearch = useDebouncedValue(searchInput, SEARCH_DEBOUNCE_MS);
@@ -55,10 +60,10 @@ export default function CalculatorsExplorer({ categories, showAllCategoriesOptio
     });
   }, [allCalculators, activeFilter, query, categoryLabelById]);
 
-  const hasActiveFilters = activeFilter !== "all" || searchInput.trim() !== "";
+  const hasActiveFilters = activeFilter !== defaultFilter || searchInput.trim() !== "";
 
   const resetFilters = () => {
-    setActiveFilter("all");
+    setActiveFilter(defaultFilter);
     setSearchInput("");
   };
 
