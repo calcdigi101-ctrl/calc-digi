@@ -132,6 +132,8 @@ function initMobileNav(){
 // ── FAQ accordion ──
 function initFAQ(){
   document.querySelectorAll('.faq-q').forEach(q=>{
+    if(q.dataset.faqBound)return;
+    q.dataset.faqBound='1';
     q.addEventListener('click',function(){
       const a=this.nextElementSibling;
       const isOpen=a.classList.contains('open');

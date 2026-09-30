@@ -49,26 +49,27 @@ export default function CalculatorsPage() {
       />
       <main>
         <section className="hero" style={{ padding: "60px 0 48px" }}>
+          <div className="hero-grid-bg"></div>
           <div className="container">
             <nav className="calc-breadcrumb" style={{ justifyContent: "center", marginBottom: 20 }}>
               <a href="/">Home</a>
               <span className="bc-sep"> / </span>
               <span aria-current="page">All Calculators</span>
             </nav>
-            <div className="hero-badge">
+            <div className="hero-badge hero-anim" style={{ animationDelay: ".05s" }}>
               🧮 {TOTAL_CALCULATOR_COUNT} Free Calculators · {CATEGORIES.length} Categories · No Sign-Up
             </div>
-            <h1>
+            <h1 className="hero-anim" style={{ animationDelay: ".15s" }}>
               All CalcDigi
               <br />
               <em>Calculators</em>
             </h1>
-            <p className="hero-sub">
+            <p className="hero-sub hero-anim" style={{ animationDelay: ".25s" }}>
               Browse the entire CalcDigi library — {TOTAL_CALCULATOR_COUNT} free calculators for
               health, finance, math, and {CATEGORIES.length - 3} more categories. Filter by category
               below to find exactly what you need.
             </p>
-            <div className="hero-stats-row" style={{ marginTop: 32, paddingTop: 24 }}>
+            <div className="hero-stats-row hero-anim" style={{ marginTop: 32, paddingTop: 24, animationDelay: ".35s" }}>
               <div className="hero-stat">
                 <div className="hero-stat-num">{TOTAL_CALCULATOR_COUNT}</div>
                 <div className="hero-stat-label">Calculators</div>
