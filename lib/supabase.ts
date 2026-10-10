@@ -1,9 +1,12 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// The env vars are only configured for Production on Vercel. Without them
+// (Preview deploys, local builds) skip Supabase so the build still succeeds
+// and blog lists just render empty.
+export const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
 export type Article = {
   id: string;
@@ -22,6 +25,7 @@ export type Article = {
 };
 
 export async function getArticles(): Promise<Article[]> {
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from("articles")
     .select("*")
@@ -36,6 +40,7 @@ export async function getArticles(): Promise<Article[]> {
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("articles")
     .select("*")
