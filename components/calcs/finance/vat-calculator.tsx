@@ -62,6 +62,25 @@ export const config: CalcConfig = {
         { label: "Gross price", value: m(gross) },
         { label: "VAT as share of gross", value: `${fixed((r / (1 + r)) * 100, 2)}%` },
       ],
+      details: [
+        {
+          title: `${v.mode === "add" ? m(net) + " net" : m(gross) + " gross"} at other VAT rates`,
+          chart: {
+            type: "bar",
+            x: "country",
+            format: "num",
+            series: [{ key: "vat", name: "VAT amount", color: "#f59e0b" }],
+            data: RATES.map(([c, , rr]) => ({ country: c, vat: Math.round((v.mode === "add" ? net * (rr / 100) : gross - gross / (1 + rr / 100)) * 100) / 100 })),
+          },
+          table: {
+            head: ["Country", "Rate", "Net", "VAT", "Gross"],
+            rows: RATES.map(([, name, rr]) => {
+              const n2 = v.mode === "add" ? net : gross / (1 + rr / 100);
+              return [name, `${rr}%`, m(n2), m(n2 * (rr / 100)), m(n2 * (1 + rr / 100))];
+            }),
+          },
+        },
+      ],
     };
   },
 };

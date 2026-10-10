@@ -41,6 +41,12 @@ export const config: CalcConfig = {
     }
     const loan = price - down;
     const pi = loan * k;
+    const priceAt = (rate: number) => {
+      const kk = pmt(1, rate / 1200, Number(v.term) * 12);
+      return Math.max(0, (maxHousing - fixedCosts + down * kk) / (kk + t));
+    };
+    const base = v.rate as number;
+    const rates = [base - 1.5, base - 1, base - 0.5, base, base + 0.5, base + 1, base + 1.5].filter((r) => r >= 0).map((r) => Math.round(r * 100) / 100);
     const taxM = price * t;
     return {
       hero: { label: "You can afford a home up to", value: usd0(price), sub: `with ${usd0(down)} down and a ${usd0(loan)} loan` },
@@ -64,6 +70,25 @@ export const config: CalcConfig = {
         down / price < 0.2
           ? { tone: "info", text: "With less than 20% down, conventional lenders add PMI, which reduces what you can afford slightly. FHA loans add mortgage insurance premiums." }
           : undefined,
+      details: [
+        {
+          title: "How the mortgage rate changes what you can afford",
+          chart: {
+            type: "bar",
+            x: "rate",
+            format: "usd0",
+            series: [{ key: "price", name: "Maximum home price", color: "#2563eb" }],
+            data: rates.map((r) => ({ rate: `${r}%`, price: Math.round(priceAt(r)) })),
+          },
+          table: {
+            head: ["Mortgage rate", "Max home price", "Loan amount", "Principal & interest"],
+            rows: rates.map((r) => {
+              const p = priceAt(r);
+              return [`${r}%`, usd0(p), usd0(p - down), usd0((p - down) * pmt(1, r / 1200, Number(v.term) * 12))];
+            }),
+          },
+        },
+      ],
     };
   },
 };

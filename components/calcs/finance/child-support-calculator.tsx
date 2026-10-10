@@ -44,6 +44,22 @@ export const config: CalcConfig = {
         { label: "Paying parent's income share", value: `${fixed(share * 100, 1)}%`, strong: true },
       ],
       note: { tone: "warn", text: "Uses the income-shares percentages from New York's guidelines as an example. Every state has its own formula, deductions, income caps and parenting-time adjustments — check your state's official calculator." },
+      details: [
+        {
+          title: "Support by number of children",
+          chart: {
+            type: "bar",
+            x: "kids",
+            format: "usd0",
+            series: [{ key: "monthly", name: "Monthly support", color: "#2563eb" }],
+            data: [1, 2, 3, 4, 5].map((k) => ({ kids: `${k} ${k === 1 ? "child" : "children"}`, monthly: Math.round((combined * pctFor(k) * share + (v.extras as number) * share) / 12) })),
+          },
+          table: {
+            head: ["Children", "Guideline %", "Total obligation / yr", "Paying parent / mo"],
+            rows: [1, 2, 3, 4, 5].map((k) => [k, `${Math.round(pctFor(k) * 100)}%`, usd0(combined * pctFor(k)), usd0((combined * pctFor(k) * share + (v.extras as number) * share) / 12)]),
+          },
+        },
+      ],
     };
   },
 };

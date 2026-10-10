@@ -78,6 +78,31 @@ export const config: CalcConfig = {
         { label: "Effective fee", value: `${fixed((fee / charge) * 100, 2)}%` },
       ],
       note: { tone: "info", text: "Typical US PayPal rates. Currency conversion adds roughly 3–4% more. Check PayPal's fee page for your account type before pricing." },
+      details: [
+        {
+          title: "Fees at different payment amounts",
+          chart: {
+            type: "stacked-bar",
+            x: "amount",
+            format: "usd",
+            series: [
+              { key: "receive", name: "You receive", color: "#10b981" },
+              { key: "fee", name: "PayPal fee", color: "#ef4444" },
+            ],
+            data: [10, 25, 50, 100, 250, 500].map((a) => {
+              const f = a * pct + fixedFee;
+              return { amount: `$${a}`, receive: Math.round((a - f) * 100) / 100, fee: Math.round(f * 100) / 100 };
+            }),
+          },
+          table: {
+            head: ["Payment", "Fee", "You receive", "Effective rate"],
+            rows: [10, 25, 50, 100, 250, 500, 1000, 5000].map((a) => {
+              const f = a * pct + fixedFee;
+              return [usd(a), usd(f), usd(a - f), `${fixed((f / a) * 100, 2)}%`];
+            }),
+          },
+        },
+      ],
     };
   },
 };

@@ -58,6 +58,11 @@ export const config: CalcConfig = {
         ],
         ticks: [25, 50],
       },
+      chart: {
+        type: "donut",
+        format: "usd0",
+        data: EXPENSES.map(([k, label], i) => ({ name: label, value: v[k] as number, color: ["#2563eb", "#06b6d4", "#10b981", "#8b5cf6", "#f59e0b", "#ef4444", "#64748b"][i] })),
+      },
       rows: [
         { label: "Already saved", value: usd0(saved) },
         { label: "Still to save", value: usd0(remaining), strong: true },
@@ -73,6 +78,10 @@ export const config: CalcConfig = {
             format: "usd0",
             series: [{ key: "amount", name: "Per month", color: "#2563eb" }],
             data: EXPENSES.filter(([k]) => (v[k] as number) > 0).map(([k, label]) => ({ item: label, amount: v[k] as number })),
+          },
+          table: {
+            head: ["Expense", "Per month", `× ${v.months} months`],
+            rows: [...EXPENSES.filter(([k]) => (v[k] as number) > 0).map(([k, label]) => [label, usd0(v[k] as number), usd0((v[k] as number) * Number(v.months))]), ["Total", usd0(essentials), usd0(target)]],
           },
         },
       ],

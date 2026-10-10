@@ -57,6 +57,25 @@ export const config: CalcConfig = {
         { label: "Tax rate", value: `${fixed(rate * 100, 3).replace(/\.?0+$/, "")}%` },
       ],
       note: v.state !== "custom" && (v.local as number) === 0 && (stateRate ?? 0) > 0 ? { tone: "info", text: "This is the statewide rate only. Most cities and counties add a local sales tax — add it above for the full rate." } : undefined,
+      details: [
+        {
+          title: `Sales tax on ${usd(pre)} by state`,
+          chart: {
+            type: "bar",
+            x: "state",
+            format: "usd",
+            series: [{ key: "tax", name: "State sales tax", color: "#f59e0b" }],
+            data: [...STATE_RATES]
+              .sort((a, b) => b[2] - a[2])
+              .filter((x, i, arr) => i < 10 || x[0] === v.state || i === arr.length - 1)
+              .map(([code, , r]) => ({ state: code, tax: Math.round(pre * r) / 100 })),
+          },
+          table: {
+            head: ["State", "State rate", "Tax", "Total"],
+            rows: STATE_RATES.map(([, name, r]) => [name, `${r}%`, usd((pre * r) / 100), usd(pre * (1 + r / 100))]),
+          },
+        },
+      ],
     };
   },
 };

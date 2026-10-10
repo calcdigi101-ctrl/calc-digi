@@ -44,29 +44,35 @@ export const config: CalcConfig = {
     const nw = assets - debts;
     const [, bracket, median] = MEDIANS.find(([max]) => (v.age as number) < max)!;
     const liquid = (v.cash as number) + (v.invest as number);
+    const colors = ["#10b981", "#2563eb", "#8b5cf6", "#f59e0b", "#06b6d4", "#64748b"];
     return {
       hero: { label: "Your net worth", value: usd0(nw), sub: `${usd0(assets)} in assets − ${usd0(debts)} in debts` },
       badge: nw >= median ? { text: "Above median for your age", tone: "good" } : { text: "Below median for your age", tone: "neutral" },
       chart: {
-        type: "bar",
-        x: "label",
+        type: "donut",
         format: "usd0",
-        series: [{ key: "amount", name: "Amount", color: "#2563eb" }],
-        data: [
-          { label: "Assets", amount: assets },
-          { label: "Debts", amount: debts },
-          { label: "Net worth", amount: nw },
-          { label: `Median ${bracket}`, amount: median },
-        ],
+        data: ASSETS.map(([k, label], i) => ({ name: label, value: v[k] as number, color: colors[i] })),
       },
       rows: [
+        { label: "Total assets", value: usd0(assets) },
+        { label: "Total liabilities", value: usd0(debts) },
         { label: `US median, age ${bracket}`, value: usd0(median) },
         { label: "Liquid assets", value: usd0(liquid) },
         { label: "Debt-to-asset ratio", value: assets > 0 ? `${Math.round((debts / assets) * 100)}%` : "—", strong: true },
       ],
       details: [
         {
-          title: "Breakdown",
+          title: "Assets vs. liabilities",
+          chart: {
+            type: "stacked-bar",
+            x: "side",
+            format: "usd0",
+            series: [...ASSETS, ...DEBTS].map(([k, label], i) => ({ key: k, name: label, color: i < ASSETS.length ? colors[i] : ["#ef4444", "#f97316", "#ec4899", "#b91c1c", "#9f1239"][i - ASSETS.length] })),
+            data: [
+              { side: "Assets", ...Object.fromEntries(ASSETS.map(([k]) => [k, v[k] as number])) },
+              { side: "Liabilities", ...Object.fromEntries(DEBTS.map(([k]) => [k, v[k] as number])) },
+            ],
+          },
           table: {
             head: ["Item", "Amount"],
             rows: [
@@ -74,6 +80,16 @@ export const config: CalcConfig = {
               ...DEBTS.filter(([k]) => (v[k] as number) > 0).map(([k, label]) => [label, `−${usd0(v[k] as number)}`]),
               ["Net worth", usd0(nw)],
             ],
+          },
+        },
+        {
+          title: "Your net worth vs. US median by age",
+          chart: {
+            type: "bar",
+            x: "age",
+            format: "usd0",
+            series: [{ key: "median", name: "US median net worth", color: "#94a3b8" }, { key: "you", name: "You", color: "#2563eb" }],
+            data: MEDIANS.map(([, label, m]) => ({ age: label, median: m, you: label === bracket ? nw : 0 })),
           },
         },
       ],

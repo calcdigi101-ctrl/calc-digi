@@ -48,6 +48,31 @@ export const config: CalcConfig = {
         { label: "Break-even sell price", value: usd(breakEven), strong: true },
       ],
       note: { tone: "info", text: "Crypto prices are highly volatile. In the US, crypto held over a year is taxed at long-term capital gains rates; a year or less at ordinary income rates." },
+      details: [
+        {
+          title: "Profit at different sell prices",
+          chart: {
+            type: "bar",
+            x: "price",
+            format: "usd0",
+            series: [{ key: "profit", name: "Profit / loss after fees & tax", color: "#2563eb" }],
+            data: [-50, -25, 0, 25, 50, 100, 200].map((chg) => {
+              const sell = (v.buy as number) * (1 + chg / 100);
+              const n = coins * sell * (1 - (v.sellFee as number) / 100) - inv;
+              return { price: `${chg >= 0 ? "+" : ""}${chg}%`, profit: Math.round(n - Math.max(0, n) * ((v.tax as number) / 100)) };
+            }),
+          },
+          table: {
+            head: ["Price change", "Sell price", "Profit / loss", "Return"],
+            rows: [-50, -25, 0, 25, 50, 100, 200].map((chg) => {
+              const sell = (v.buy as number) * (1 + chg / 100);
+              const n = coins * sell * (1 - (v.sellFee as number) / 100) - inv;
+              const after = n - Math.max(0, n) * ((v.tax as number) / 100);
+              return [`${chg >= 0 ? "+" : ""}${chg}%`, usd(sell), usd(after), `${fixed((after / inv) * 100, 1)}%`];
+            }),
+          },
+        },
+      ],
     };
   },
 };

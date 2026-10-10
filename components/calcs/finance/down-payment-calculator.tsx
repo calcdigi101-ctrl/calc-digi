@@ -41,9 +41,11 @@ export const config: CalcConfig = {
     const r = Math.pow(1 + (v.apy as number) / 100, 1 / 12) - 1;
     let bal = v.saved as number;
     let months = 0;
+    const progress = [{ month: "Now", saved: Math.round(bal), goal: Math.round(goal) }];
     while (bal < goal && months < 1200 && (v.monthly as number) + bal * r > 0) {
       bal = bal * (1 + r) + (v.monthly as number);
       months++;
+      progress.push({ month: `Mo ${months}`, saved: Math.round(Math.min(bal, goal * 1.05)), goal: Math.round(goal) });
     }
     const reachable = bal >= goal;
     const pi = pmt(loan, (v.rate as number) / 1200, 360);
@@ -66,6 +68,48 @@ export const config: CalcConfig = {
         { label: "Estimated PMI", value: pmi > 0 ? `${usd0(pmi)}/mo` : "None (20%+ down)" },
       ],
       note: reachable ? undefined : { tone: "warn", text: "At this savings rate you won't reach the goal. Save more each month or choose a smaller down payment." },
+      details: [
+        ...(months > 0
+          ? [
+              {
+                title: "Savings progress",
+                chart: {
+                  type: "line" as const,
+                  x: "month",
+                  format: "usd0" as const,
+                  series: [
+                    { key: "saved", name: "Your savings", color: "#10b981" },
+                    { key: "goal", name: "Cash needed", color: "#94a3b8" },
+                  ],
+                  data: progress,
+                },
+              },
+            ]
+          : []),
+        {
+          title: "Compare down payment options",
+          chart: {
+            type: "stacked-bar",
+            x: "pct",
+            format: "usd0",
+            series: [
+              { key: "pi", name: "Principal & interest", color: "#2563eb" },
+              { key: "pmi", name: "PMI", color: "#f59e0b" },
+            ],
+            data: [3, 3.5, 5, 10, 15, 20, 25].map((p) => {
+              const l = price * (1 - p / 100);
+              return { pct: `${p}% down`, pi: Math.round(pmt(l, (v.rate as number) / 1200, 360)), pmi: Math.round(p < 20 ? (l * 0.0075) / 12 : 0) };
+            }),
+          },
+          table: {
+            head: ["Down payment", "Amount", "Loan", "Monthly P&I", "PMI / mo"],
+            rows: [3, 3.5, 5, 10, 15, 20, 25].map((p) => {
+              const l = price * (1 - p / 100);
+              return [`${p}%`, usd0((price * p) / 100), usd0(l), usd0(pmt(l, (v.rate as number) / 1200, 360)), p < 20 ? usd0((l * 0.0075) / 12) : "—"];
+            }),
+          },
+        },
+      ],
     };
   },
 };

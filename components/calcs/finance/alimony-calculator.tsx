@@ -50,6 +50,31 @@ export const config: CalcConfig = {
         { label: "Payee's share after support", value: `${fixed(((payee + annual) / Math.max(1, payer + payee)) * 100, 1)}%` },
       ],
       note: { tone: "warn", text: "A guideline estimate only. Alimony (spousal support) is set by state law and judges' discretion, and many states use their own formulas. Talk to a family law attorney." },
+      details: [
+        {
+          title: "Income before and after support",
+          chart: {
+            type: "bar",
+            x: "who",
+            format: "usd0",
+            series: [
+              { key: "before", name: "Before alimony", color: "#94a3b8" },
+              { key: "after", name: "After alimony", color: "#2563eb" },
+            ],
+            data: [
+              { who: "Higher earner", before: payer, after: Math.round(payer - annual) },
+              { who: "Lower earner", before: payee, after: Math.round(payee + annual) },
+            ],
+          },
+          table: {
+            head: ["Length of marriage", "Guideline duration", "Total support (at this amount)"],
+            rows: [2, 5, 8, 12, 15, 20, 25].map((y) => {
+              const f2 = durationFactor(y);
+              return [`${y} years`, f2 === null ? "Indefinite" : `${fixed(y * f2, 1)} years`, f2 === null ? "—" : usd0(annual * y * f2)];
+            }),
+          },
+        },
+      ],
     };
   },
 };

@@ -82,3 +82,10 @@ export function max401k(age: number) {
 export function maxIra(age: number) {
   return LIMIT_IRA + (age >= 50 ? LIMIT_IRA_CATCHUP_50 : 0);
 }
+
+/** Rough annual take-home for a W-2 earner: federal tax on the standard deduction plus employee FICA (no state tax). */
+export function simpleTakeHome(gross: number, status: FilingStatus = "single") {
+  const fed = incomeTax(Math.max(0, gross - STANDARD_DEDUCTION[status]), status).tax;
+  const fica = ficaTax(gross, status).total;
+  return { fed, fica, takeHome: gross - fed - fica };
+}

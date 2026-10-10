@@ -53,6 +53,32 @@ export const config: CalcConfig = {
         { label: "QBI deduction applied", value: usd0(qbi) },
       ],
       note: { tone: "info", text: `${TAX_YEAR} estimate. Quarterly payments are due Apr 15, Jun 15, Sep 15 and Jan 15. Simplified: ignores QBI phase-outs, credits and local tax.` },
+      details: [
+        {
+          title: "Tax breakdown & quarterly payments",
+          chart: {
+            type: "bar",
+            x: "tax",
+            format: "usd0",
+            series: [{ key: "amount", name: "Annual amount", color: "#ef4444" }],
+            data: [
+              { tax: "Social Security (12.4%)", amount: Math.round(se.ss) },
+              { tax: "Medicare (2.9%)", amount: Math.round(se.medicare) },
+              { tax: "Federal income tax", amount: Math.round(fed.tax) },
+              { tax: "State income tax", amount: Math.round(state) },
+            ],
+          },
+          table: {
+            head: ["Payment", "Due date", "Amount"],
+            rows: [
+              ["Q1", `April 15, ${TAX_YEAR}`],
+              ["Q2", `June 15, ${TAX_YEAR}`],
+              ["Q3", `September 15, ${TAX_YEAR}`],
+              ["Q4", `January 15, ${TAX_YEAR + 1}`],
+            ].map(([q, d]) => [q, d, usd0(total / 4)]),
+          },
+        },
+      ],
     };
   },
 };

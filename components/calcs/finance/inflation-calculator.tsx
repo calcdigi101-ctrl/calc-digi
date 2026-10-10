@@ -70,15 +70,29 @@ export const config: CalcConfig = {
           ? { tone: "info", text: `Uses the BLS CPI-U annual average for each year; ${LAST} uses the latest index (${CPI_LATEST.month} ${LAST}).` }
           : undefined,
       chart: {
-        type: "area",
-        x: "year",
+        type: "donut",
         format: "usd",
-        series: [{ key: "value", name: "Equivalent value", color: "#ef4444" }],
-        data: series,
+        data:
+          result >= amt
+            ? [
+                { name: "Original amount", value: amt, color: "#2563eb" },
+                { name: "Added by inflation", value: result - amt, color: "#ef4444" },
+              ]
+            : [
+                { name: "Equivalent value", value: result, color: "#2563eb" },
+                { name: "Inflation since then", value: amt - result, color: "#ef4444" },
+              ],
       },
       details: [
         {
           title: "Value by year",
+          chart: {
+            type: "area",
+            x: "year",
+            format: "usd",
+            series: [{ key: "value", name: "Equivalent value", color: "#ef4444" }],
+            data: series,
+          },
           table: { head: ["Year", "Equivalent value"], rows: series.map((s) => [s.year, usd(s.value)]) },
         },
       ],

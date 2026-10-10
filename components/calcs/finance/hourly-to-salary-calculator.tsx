@@ -3,6 +3,7 @@
 import { CalcEngine } from "@/components/flagship/engine/CalcEngine";
 import type { CalcConfig } from "@/components/flagship/engine/types";
 import { usd } from "@/components/flagship/engine/format";
+import { simpleTakeHome } from "@/lib/tax";
 
 export const config: CalcConfig = {
   id: "hs",
@@ -32,33 +33,63 @@ export const config: CalcConfig = {
     const weeks = v.weeks as number;
     const hourly = v.mode === "h2s" ? (v.hourly as number) : (v.salary as number) / (hrs * weeks);
     const ot = v.mode === "h2s" ? (v.otHours as number) * hourly * (v.otRate as number) * weeks : 0;
-    const annual = hourly * hrs * weeks + ot;
-    const rows = [
-      { label: "Hourly", value: usd(hourly), strong: v.mode === "s2h" },
-      { label: "Daily (8 hrs)", value: usd(hourly * 8) },
-      { label: "Weekly", value: usd(annual / 52) },
-      { label: "Biweekly", value: usd(annual / 26) },
-      { label: "Semi-monthly", value: usd(annual / 24) },
-      { label: "Monthly", value: usd(annual / 12) },
-      ...(ot > 0 ? [{ label: "Of which overtime (annual)", value: usd(ot, 0) }] : []),
+    const regular = hourly * hrs * weeks;
+    const annual = regular + ot;
+    const tax = simpleTakeHome(annual);
+    const periods: [string, number][] = [
+      ["Hourly", 0],
+      ["Daily (8 hrs)", 0],
+      ["Weekly", 52],
+      ["Biweekly", 26],
+      ["Semi-monthly", 24],
+      ["Monthly", 12],
+      ["Annual", 1],
     ];
+    const gross = (label: string, n: number) => (label === "Hourly" ? hourly : label.startsWith("Daily") ? hourly * 8 : annual / n);
     return {
       hero:
         v.mode === "h2s"
           ? { label: "Annual salary", value: usd(annual, 0), sub: `${usd(hourly)}/hr × ${hrs} hrs × ${weeks} weeks${ot > 0 ? " + overtime" : ""}` }
           : { label: "Hourly wage", value: usd(hourly), sub: `${usd(v.salary as number, 0)} ÷ (${hrs} hrs × ${weeks} weeks)` },
-      rows,
       chart: {
-        type: "bar",
-        x: "period",
+        type: "donut",
         format: "usd0",
-        series: [{ key: "pay", name: "Gross pay", color: "#2563eb" }],
         data: [
-          { period: "Weekly", pay: Math.round(annual / 52) },
-          { period: "Biweekly", pay: Math.round(annual / 26) },
-          { period: "Monthly", pay: Math.round(annual / 12) },
+          { name: "Est. take-home", value: tax.takeHome, color: "#10b981" },
+          { name: "Federal income tax", value: tax.fed, color: "#ef4444" },
+          { name: "Social Security + Medicare", value: tax.fica, color: "#f59e0b" },
         ],
       },
+      rows: [
+        ...periods.slice(0, 6).map(([label, n]) => ({ label, value: usd(gross(label, n)), strong: v.mode === "s2h" && label === "Hourly" })),
+        ...(ot > 0 ? [{ label: "Of which overtime (annual)", value: usd(ot, 0) }] : []),
+      ],
+      note: { tone: "info", text: "Take-home is a single-filer estimate (federal tax on the standard deduction + FICA, no state tax)." },
+      details: [
+        {
+          title: "Pay by period",
+          chart: {
+            type: "stacked-bar",
+            x: "period",
+            format: "usd0",
+            series: [
+              { key: "regular", name: "Regular pay", color: "#2563eb" },
+              { key: "overtime", name: "Overtime", color: "#f59e0b" },
+            ],
+            data: (["Weekly", "Biweekly", "Monthly"] as const).map((p) => {
+              const n = { Weekly: 52, Biweekly: 26, Monthly: 12 }[p];
+              return { period: p, regular: Math.round(regular / n), overtime: Math.round(ot / n) };
+            }),
+          },
+          table: {
+            head: ["Period", "Gross pay", "Est. take-home"],
+            rows: periods.map(([label, n]) => {
+              const g = gross(label, n);
+              return [label, usd(g), usd(g * (annual > 0 ? tax.takeHome / annual : 0))];
+            }),
+          },
+        },
+      ],
     };
   },
 };

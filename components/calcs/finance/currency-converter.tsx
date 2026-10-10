@@ -39,6 +39,7 @@ export function makeConfig(rates: Rates, updated: string, live: boolean): CalcCo
       { kind: "number", key: "amount", label: "Amount", default: 100, min: 0, max: 1e15, full: true },
       { kind: "choice", key: "from", label: "From", default: "USD", options },
       { kind: "choice", key: "to", label: "To", default: "PKR", options },
+      { kind: "number", key: "markup", label: "Bank / card markup", hint: "typical 1–5%", suffix: "%", default: 3, min: 0, max: 20, optional: true, group: "Exchange fees" },
     ],
     compute: (v) => {
       const from = String(v.from);
@@ -46,17 +47,42 @@ export function makeConfig(rates: Rates, updated: string, live: boolean): CalcCo
       const rate = rates[to] / rates[from];
       const result = (v.amount as number) * rate;
       const others = POPULAR.filter((c) => c !== from && rates[c]).slice(0, 8);
+      const markup = (v.markup as number) / 100;
+      const received = result * (1 - markup);
       return {
         hero: { label: `${from} → ${to}`, value: fmtCur(result, to), sub: `${fmtCur(v.amount as number, from)} at 1 ${from} = ${num(rate, 6)} ${to}` },
         rows: [
           { label: `1 ${from}`, value: `${num(rate, 6)} ${to}`, strong: true },
           { label: `1 ${to}`, value: `${num(1 / rate, 6)} ${from}` },
+          { label: `You'd get after a ${v.markup}% markup`, value: fmtCur(received, to) },
           { label: "Rates updated", value: new Date(updated).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }) },
         ],
         note: live
           ? { tone: "info", text: "Mid-market reference rates, refreshed daily. Banks and card networks add a margin or fee, so the rate you get will be a little worse." }
           : { tone: "warn", text: "Live rates are unavailable right now; showing a recent snapshot. Check with your bank before exchanging money." },
+        chart: {
+          type: "donut",
+          format: "num",
+          data: [
+            { name: `You receive (${to})`, value: received, color: "#10b981" },
+            { name: `Markup cost (${to})`, value: result - received, color: "#ef4444" },
+          ],
+        },
         details: [
+          {
+            title: "What you receive at different markups",
+            chart: {
+              type: "bar",
+              x: "markup",
+              format: "num",
+              series: [{ key: "amount", name: `Amount in ${to}`, color: "#2563eb" }],
+              data: [0, 0.5, 1, 2, 3, 5].map((m) => ({ markup: m === 0 ? "Mid-market" : `${m}% markup`, amount: Math.round(result * (1 - m / 100) * 100) / 100 })),
+            },
+            table: {
+              head: ["Provider markup", `You receive (${to})`, `Cost (${to})`],
+              rows: [0, 0.5, 1, 2, 3, 5].map((m) => [m === 0 ? "Mid-market (0%)" : `${m}%`, fmtCur(result * (1 - m / 100), to), fmtCur((result * m) / 100, to)]),
+            },
+          },
           {
             title: `${fmtCur(v.amount as number, from)} in other currencies`,
             table: { head: ["Currency", "Amount", "Rate"], rows: others.map((c) => [`${c} – ${currencyName(c)}`, fmtCur(((v.amount as number) * rates[c]) / rates[from], c), num(rates[c] / rates[from], 6)]) },

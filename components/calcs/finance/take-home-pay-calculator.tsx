@@ -61,6 +61,37 @@ export const config: CalcConfig = {
         { label: "Total tax rate", value: `${fixed(salary > 0 ? (totalTax / salary) * 100 : 0, 1)}%`, strong: true },
       ],
       note: { tone: "info", text: `Estimate using ${TAX_YEAR} federal brackets, the standard deduction and a flat state rate. Actual withholding depends on your W-4, local taxes and other deductions.` },
+      details: [
+        {
+          title: "Where each paycheck goes",
+          chart: {
+            type: "bar",
+            x: "item",
+            format: "usd",
+            series: [{ key: "amount", name: "Per paycheck", color: "#2563eb" }],
+            data: [
+              ["Take-home", takeHome],
+              ["Federal tax", fed.tax],
+              ["Social Security", fica.ss],
+              ["Medicare", fica.medicare],
+              ["State tax", state],
+              ["401(k) & benefits", k401 + cafeteria],
+            ].map(([item, amt]) => ({ item: item as string, amount: Math.round(((amt as number) / n) * 100) / 100 })),
+          },
+          table: {
+            head: ["", `Per paycheck (${periodName.toLowerCase()})`, "Monthly", "Annual"],
+            rows: [
+              ["Gross pay", salary],
+              ["Federal income tax", -fed.tax],
+              ["Social Security", -fica.ss],
+              ["Medicare", -fica.medicare],
+              ["State income tax", -state],
+              ["401(k) & benefits", -(k401 + cafeteria)],
+              ["Take-home pay", takeHome],
+            ].map(([label, amt]) => [label as string, usd((amt as number) / n), usd((amt as number) / 12), usd(amt as number)]),
+          },
+        },
+      ],
     };
   },
 };

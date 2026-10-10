@@ -11,6 +11,22 @@ const RULES: Record<string, [string, number, number, number]> = {
   "50-20-30": ["50/20/30 — aggressive saver", 50, 20, 30],
 };
 
+/** Typical split inside each 50/30/20 bucket (% of income); scaled for other rules. */
+const CATEGORIES: [string, "n" | "w" | "s", number][] = [
+  ["Housing", "n", 25],
+  ["Utilities & phone", "n", 5],
+  ["Groceries", "n", 10],
+  ["Transportation & insurance", "n", 10],
+  ["Dining out", "w", 8],
+  ["Entertainment & subscriptions", "w", 7],
+  ["Shopping & personal", "w", 10],
+  ["Travel & gifts", "w", 5],
+  ["Retirement & investing", "s", 10],
+  ["Emergency fund & goals", "s", 7],
+  ["Extra debt payments", "s", 3],
+];
+const BASE = { n: 50, w: 30, s: 20 };
+
 export const config: CalcConfig = {
   id: "bg",
   title: "Budget Calculator",
@@ -61,27 +77,46 @@ export const config: CalcConfig = {
             ? { tone: "warn", text: `Needs are ${usd0(actualNeeds - needs)} over the ${n}% target. Housing is usually the biggest lever.` }
             : { tone: "good", text: "Your spending fits within this budget rule." }
         : { tone: "info", text: "Enter what you spend now under “Compare with what you spend now” to see how you measure up." },
-      details: hasActual
-        ? [
-            {
-              title: "Target vs. actual",
-              chart: {
-                type: "bar",
-                x: "bucket",
-                format: "usd0",
-                series: [
-                  { key: "target", name: "Target", color: "#94a3b8" },
-                  { key: "actual", name: "Actual", color: "#2563eb" },
-                ],
-                data: [
-                  { bucket: "Needs", target: Math.round(needs), actual: actualNeeds },
-                  { bucket: "Wants", target: Math.round(wants), actual: actualWants },
-                  { bucket: "Savings", target: Math.round(save), actual: Math.round(actualSave) },
-                ],
+      details: [
+        {
+          title: "Suggested monthly budget",
+          chart: {
+            type: "bar",
+            x: "category",
+            format: "usd0",
+            series: [{ key: "amount", name: "Per month", color: "#2563eb" }],
+            data: CATEGORIES.map(([c, b, pct]) => ({ category: c, amount: Math.round((inc * pct * ({ n, w, s }[b] / BASE[b])) / 100) })),
+          },
+          table: {
+            head: ["Category", "Bucket", "Per month", "Per year"],
+            rows: CATEGORIES.map(([c, b, pct]) => {
+              const amt = (inc * pct * ({ n, w, s }[b] / BASE[b])) / 100;
+              return [c, { n: "Needs", w: "Wants", s: "Savings" }[b], usd0(amt), usd0(amt * 12)];
+            }),
+          },
+        },
+        ...(hasActual
+          ? [
+              {
+                title: "Target vs. actual",
+                chart: {
+                  type: "bar" as const,
+                  x: "bucket",
+                  format: "usd0" as const,
+                  series: [
+                    { key: "target", name: "Target", color: "#94a3b8" },
+                    { key: "actual", name: "Actual", color: "#2563eb" },
+                  ],
+                  data: [
+                    { bucket: "Needs", target: Math.round(needs), actual: actualNeeds },
+                    { bucket: "Wants", target: Math.round(wants), actual: actualWants },
+                    { bucket: "Savings", target: Math.round(save), actual: Math.round(actualSave) },
+                  ],
+                },
               },
-            },
-          ]
-        : undefined,
+            ]
+          : []),
+      ],
     };
   },
 };

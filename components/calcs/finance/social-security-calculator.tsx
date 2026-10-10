@@ -43,11 +43,12 @@ export const config: CalcConfig = {
     return {
       hero: { label: `Monthly benefit at ${ageLabel(claimM)}`, value: usd0(monthly), sub: `${fixed(benefitFactor(claimM, fra) * 100, 1)}% of your full benefit · full retirement age ${ageLabel(fra)}` },
       chart: {
-        type: "bar",
-        x: "age",
+        type: "donut",
         format: "usd0",
-        series: [{ key: "benefit", name: "Monthly benefit", color: "#2563eb" }],
-        data: ages.map((a) => ({ age: String(a), benefit: Math.round(pia * benefitFactor(a * 12, fra)) })),
+        data: [
+          { name: `Your benefit at ${ageLabel(claimM)}`, value: monthly, color: "#2563eb" },
+          { name: "Extra if you wait until 70", value: Math.max(0, pia * benefitFactor(840, fra) - monthly), color: "#10b981" },
+        ],
       },
       rows: [
         { label: "Annual benefit", value: usd0(monthly * 12) },
@@ -58,9 +59,34 @@ export const config: CalcConfig = {
       details: [
         {
           title: "Benefit and lifetime total by claiming age",
+          chart: {
+            type: "bar",
+            x: "age",
+            format: "usd0",
+            series: [{ key: "benefit", name: "Monthly benefit", color: "#2563eb" }],
+            data: ages.map((a) => ({ age: String(a), benefit: Math.round(pia * benefitFactor(a * 12, fra)) })),
+          },
           table: {
             head: ["Claim at", "% of full benefit", "Monthly", `Total to age ${v.life}`],
             rows: ages.map((a) => [a, `${fixed(benefitFactor(a * 12, fra) * 100, 1)}%`, usd0(pia * benefitFactor(a * 12, fra)), usd0(lifetime(a * 12))]),
+          },
+        },
+        {
+          title: "Cumulative benefits by age (break-even)",
+          chart: {
+            type: "line",
+            x: "age",
+            format: "usd0",
+            series: [
+              { key: "c62", name: "Claim at 62", color: "#ef4444" },
+              { key: "cClaim", name: `Claim at ${ageLabel(claimM)}`, color: "#2563eb" },
+              { key: "c70", name: "Claim at 70", color: "#10b981" },
+            ],
+            data: Array.from({ length: Math.max(1, (v.life as number) - 61) }, (_, i) => {
+              const age = 62 + i;
+              const cum = (start: number) => Math.max(0, (age + 1) * 12 - start) * pia * benefitFactor(start, fra);
+              return { age: String(age), c62: Math.round(cum(744)), cClaim: Math.round(cum(claimM)), c70: Math.round(cum(840)) };
+            }),
           },
         },
       ],

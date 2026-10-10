@@ -36,6 +36,31 @@ export const config: CalcConfig = {
         { label: "Return multiple", value: `${fixed(ret / inv, 2)}×` },
         ...(annual !== null && annual > 0 ? [{ label: "Doubling time at this rate", value: `${fixed(Math.log(2) / Math.log(1 + annual / 100), 1)} years` }] : []),
       ],
+      details:
+        annual !== null
+          ? [
+              {
+                title: "Value over time",
+                chart: {
+                  type: "area" as const,
+                  x: "year",
+                  format: "usd" as const,
+                  series: [{ key: "value", name: "Investment value", color: gain >= 0 ? "#10b981" : "#ef4444" }],
+                  data: Array.from({ length: Math.ceil(years) + 1 }, (_, i) => {
+                    const t = Math.min(i, years);
+                    return { year: i === 0 ? "Start" : `Yr ${i}`, value: Math.round(inv * Math.pow(1 + annual / 100, t) * 100) / 100 };
+                  }),
+                },
+                table: {
+                  head: ["Year", "Value", "Gain so far"],
+                  rows: Array.from({ length: Math.ceil(years) + 1 }, (_, i) => {
+                    const val = inv * Math.pow(1 + annual / 100, Math.min(i, years));
+                    return [i === 0 ? "Start" : i, usd(val), usd(val - inv)];
+                  }),
+                },
+              },
+            ]
+          : undefined,
     };
   },
 };

@@ -30,6 +30,14 @@ export const config: CalcConfig = {
     const p = v.deposit as number;
     return {
       hero: { label: "Annual percentage yield", value: `${fixed(apy * 100, 4)}%`, sub: `${v.rate}% compounded ${FREQS.find((f) => f[0] === v.freq)![1].toLowerCase()}` },
+      chart: {
+        type: "donut",
+        format: "usd",
+        data: [
+          { name: "Deposit", value: p > 0 ? p : 100, color: "#2563eb" },
+          { name: "Interest after 1 year", value: (p > 0 ? p : 100) * apy, color: "#f59e0b" },
+        ],
+      },
       rows: [
         { label: "Extra yield from compounding", value: `+${fixed((apy - rate) * 100, 4)} pts` },
         ...(p > 0

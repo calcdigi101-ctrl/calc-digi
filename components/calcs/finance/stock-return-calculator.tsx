@@ -58,6 +58,28 @@ export const config: CalcConfig = {
         ...(tax > 0 ? [{ label: "Estimated tax", value: usd(tax) }] : []),
         { label: "Price change", value: `${fixed(((v.sell as number) / (v.buy as number) - 1) * 100, 2)}%` },
       ],
+      details: [
+        {
+          title: "Growth at your annualized return",
+          chart: {
+            type: "area",
+            x: "year",
+            format: "usd",
+            series: [{ key: "value", name: "Position value", color: total >= 0 ? "#10b981" : "#ef4444" }],
+            data: Array.from({ length: Math.ceil(v.years as number) + 1 }, (_, i) => ({
+              year: i === 0 ? "Buy" : `Yr ${i}`,
+              value: Math.round(cost * Math.pow(1 + annual / 100, Math.min(i, v.years as number)) * 100) / 100,
+            })),
+          },
+          table: {
+            head: ["Year", "Value", "Gain"],
+            rows: Array.from({ length: Math.ceil(v.years as number) + 1 }, (_, i) => {
+              const val = cost * Math.pow(1 + annual / 100, Math.min(i, v.years as number));
+              return [i === 0 ? "Buy" : i, usd(val), usd(val - cost)];
+            }),
+          },
+        },
+      ],
     };
   },
 };

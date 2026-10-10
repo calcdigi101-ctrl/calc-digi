@@ -66,20 +66,39 @@ export const config: CalcConfig = {
       rows: [
         { label: "Buyer's wealth (home equity after selling + savings)", value: usd0(last.Buying), strong: diff >= 0 },
         { label: "Renter's wealth (invested savings)", value: usd0(last.Renting), strong: diff < 0 },
+        { label: "First-month cost of owning", value: usd0(payment + (price * ((v.tax as number) + (v.upkeep as number))) / 100 / 12) },
         { label: "Monthly mortgage payment (P&I)", value: usd0(payment) },
         { label: "Total rent paid", value: usd0(rentPaid) },
         { label: "Buying breaks even", value: crossover ? `in ${crossover.year.replace("Yr ", "year ")}` : `not within ${years} years` },
       ],
       chart: {
-        type: "line",
-        x: "year",
+        type: "donut",
         format: "usd0",
-        series: [
-          { key: "Buying", name: "Buying", color: "#2563eb" },
-          { key: "Renting", name: "Renting", color: "#f59e0b" },
+        data: [
+          { name: "Mortgage (P&I)", value: payment, color: "#2563eb" },
+          { name: "Property tax", value: (price * (v.tax as number)) / 100 / 12, color: "#f59e0b" },
+          { name: "Maintenance & insurance", value: (price * (v.upkeep as number)) / 100 / 12, color: "#8b5cf6" },
         ],
-        data,
       },
+      details: [
+        {
+          title: "Wealth: buying vs. renting",
+          chart: {
+            type: "line",
+            x: "year",
+            format: "usd0",
+            series: [
+              { key: "Buying", name: "Buying", color: "#2563eb" },
+              { key: "Renting", name: "Renting", color: "#f59e0b" },
+            ],
+            data,
+          },
+          table: {
+            head: ["Year", "Buyer's wealth", "Renter's wealth", "Difference"],
+            rows: data.map((d) => [d.year.replace("Yr ", ""), usd0(d.Buying), usd0(d.Renting), `${d.Buying >= d.Renting ? "Buy +" : "Rent +"}${usd0(Math.abs(d.Buying - d.Renting))}`]),
+          },
+        },
+      ],
       note: { tone: "info", text: "Compares net wealth: the buyer's home equity after selling costs plus anything they invested, vs. the renter investing the down payment, closing costs and any monthly savings." },
     };
   },

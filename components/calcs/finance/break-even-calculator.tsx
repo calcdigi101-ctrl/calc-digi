@@ -35,15 +35,32 @@ export const config: CalcConfig = {
         ...((v.target as number) > 0 ? [{ label: `Units for ${usd0(v.target as number)} profit`, value: num(Math.ceil(unitsTarget), 0) }] : []),
       ],
       chart: {
-        type: "line",
-        x: "units",
-        format: "usd0",
-        series: [
-          { key: "Revenue", name: "Revenue", color: "#10b981" },
-          { key: "Total cost", name: "Total cost", color: "#ef4444" },
+        type: "donut",
+        format: "usd",
+        data: [
+          { name: "Variable cost per unit", value: v.variable as number, color: "#ef4444" },
+          { name: "Contribution margin per unit", value: margin, color: "#10b981" },
         ],
-        data,
       },
+      details: [
+        {
+          title: "Cost-volume-profit chart",
+          chart: {
+            type: "line",
+            x: "units",
+            format: "usd0",
+            series: [
+              { key: "Revenue", name: "Revenue", color: "#10b981" },
+              { key: "Total cost", name: "Total cost", color: "#ef4444" },
+            ],
+            data,
+          },
+          table: {
+            head: ["Units sold", "Revenue", "Total cost", "Profit / loss"],
+            rows: data.map((d) => [num(d.units, 0), usd0(d.Revenue), usd0(d["Total cost"]), usd0(d.Revenue - d["Total cost"])]),
+          },
+        },
+      ],
       note: { tone: "info", text: "Where the lines cross is the break-even point: below it you make a loss, above it every unit adds its contribution margin to profit." },
     };
   },
