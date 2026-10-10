@@ -1,0 +1,68 @@
+/*
+ * Tailwind for the redesigned flagship pages (homepage hero, BMI, mortgage).
+ *
+ * The rest of the site is still styled by /public/css/main.css, so this file
+ * is deliberately narrow:
+ * - No preflight. main.css already resets box-sizing/margins, and preflight
+ *   would restyle the ~340 legacy pages.
+ * - Utilities are emitted unlayered. main.css is unlayered too, and an
+ *   unlayered `*{margin:0;padding:0}` would otherwise beat every layered
+ *   spacing utility regardless of specificity.
+ * - Only the new component folders are scanned. Legacy pages embed raw HTML
+ *   with class names like `container`, `hidden` and `table`, which would
+ *   otherwise generate utilities that collide with main.css.
+ */
+@layer theme;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" source(none);
+
+@source "../components/flagship";
+@source "../components/ui";
+
+/* The site's dark-mode toggle (public/js/main.js) puts `.dark` on <body>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Minimal element reset scoped to new components. `:where()` keeps it at
+   element specificity so any utility class still wins. */
+:where(.fx) :where(button, input, select) {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+:where(.fx) :where(button) {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+:where(.fx) :where(input[type="number"]) {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+:where(.fx) :where(input[type="number"])::-webkit-inner-spin-button,
+:where(.fx) :where(input[type="number"])::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+:where(.fx) :where(summary) {
+  list-style: none;
+}
+:where(.fx) :where(summary)::-webkit-details-marker {
+  display: none;
+}
+:where(.fx) :where(fieldset) {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+:where(.fx) :where(table) {
+  border-collapse: collapse;
+}
+
+@media print {
+  #site-nav,
+  #site-footer,
+  .fx-no-print {
+    display: none !important;
+  }
+}

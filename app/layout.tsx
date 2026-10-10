@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { SITE_URL } from "@/lib/site";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import RouteEffects from "@/components/RouteEffects";
+import "./flagship.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -28,14 +30,14 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+          href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
           rel="stylesheet"
         />
         <link rel="stylesheet" href={`/css/main.css?v=${ASSET_VERSION}`} />
       </head>
       <body>
         <div id="site-nav" />
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
         <div id="site-footer" />
         <RouteEffects />
         <Script src={`/js/layout.js?v=${ASSET_VERSION}`} strategy="beforeInteractive" />
