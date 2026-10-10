@@ -74,7 +74,7 @@ export function CategoryDirectory() {
               {g.title}
             </h2>
           </div>
-          <ul className="mt-4 flex-1">
+          <ul className="mt-4 flex-1 list-none pl-0">
             {g.links.map(([name, href]) => (
               <li key={href}>
                 <a
