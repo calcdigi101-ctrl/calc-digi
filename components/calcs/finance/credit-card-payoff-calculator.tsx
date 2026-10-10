@@ -3,7 +3,7 @@
 import { CalcEngine } from "@/components/flagship/engine/CalcEngine";
 import type { CalcConfig } from "@/components/flagship/engine/types";
 import { duration, usd, usd0 } from "@/components/flagship/engine/format";
-import { amortize, byYear, pmt } from "@/lib/finance";
+import { amortize, pmt } from "@/lib/finance";
 
 export const config: CalcConfig = {
   id: "cc",
@@ -35,7 +35,6 @@ export const config: CalcConfig = {
     }
     const rows = amortize(bal, r, payment);
     const interest = rows.reduce((a, x) => a + x.interest, 0);
-    const years = byYear(rows);
     // The usual card minimum: 1% of balance + that month's interest.
     const minimumStart = Math.max(25, bal * 0.01 + bal * r);
     return {
@@ -59,17 +58,7 @@ export const config: CalcConfig = {
       ],
       note: { tone: "info", text: "New purchases on the card aren't included. Stop using the card while paying it down, or move the balance to a 0% transfer offer to cut interest." },
       details: [
-        {
-          title: "Balance over time",
-          chart: {
-            type: "area",
-            x: "month",
-            format: "usd0",
-            series: [{ key: "balance", name: "Balance", color: "#ef4444" }],
-            data: [{ month: "Now", balance: bal }, ...rows.map((x) => ({ month: `Mo ${x.period}`, balance: Math.round(x.balance) }))],
-          },
-          table: { head: ["Year", "Interest", "Principal", "Ending balance"], rows: years.map((y) => [y.year, usd(y.interest), usd(y.principal), usd(y.balance)]) },
-        },
+        { title: "Payoff schedule", amortization: { principal: bal, rows } },
       ],
     };
   },

@@ -82,7 +82,13 @@ export type Output = {
   rows?: { label: string; value: string; strong?: boolean }[];
   chart?: Chart;
   /** Wide charts/tables rendered full-width below the tool grid. */
-  details?: { title: string; chart?: Chart; table?: { head: string[]; rows: (string | number)[][] } }[];
+  details?: {
+    title: string;
+    chart?: Chart;
+    table?: { head: string[]; rows: (string | number)[][] };
+    /** Month-by-month loan schedule: renders the balance chart plus a yearly/monthly table. */
+    amortization?: { principal: number; rows: { period: number; interest: number; principal: number; balance: number }[] };
+  }[];
   note?: { text: ReactNode; tone?: Tone };
 };
 

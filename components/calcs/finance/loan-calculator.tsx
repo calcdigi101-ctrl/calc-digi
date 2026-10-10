@@ -3,7 +3,7 @@
 import { CalcEngine } from "@/components/flagship/engine/CalcEngine";
 import type { CalcConfig } from "@/components/flagship/engine/types";
 import { duration, num, usd, usd0 } from "@/components/flagship/engine/format";
-import { amortize, byYear, pmt } from "@/lib/finance";
+import { amortize, pmt } from "@/lib/finance";
 
 export const config: CalcConfig = {
   id: "loan",
@@ -38,7 +38,6 @@ export const config: CalcConfig = {
     const base = amortize(v.amount as number, r, payment);
     const interest = rows.reduce((a, x) => a + x.interest, 0);
     const baseInterest = base.reduce((a, x) => a + x.interest, 0);
-    const years = byYear(rows);
     return {
       hero: { label: "Monthly payment", value: usd(payment), sub: `${duration(months)} at ${v.rate}% APR` },
       chart: {
@@ -60,20 +59,7 @@ export const config: CalcConfig = {
           ? { tone: "good", text: `Paying ${usd0(extra)} extra each month saves ${usd0(baseInterest - interest)} in interest and clears the loan ${duration(base.length - rows.length)} early.` }
           : undefined,
       details: [
-        {
-          title: "Amortization schedule",
-          chart: {
-            type: "area",
-            x: "year",
-            format: "usd0",
-            series: [{ key: "balance", name: "Remaining balance", color: "#2563eb" }],
-            data: [{ year: "Start", balance: v.amount as number }, ...years.map((y) => ({ year: `Yr ${y.year}`, balance: Math.round(y.balance) }))],
-          },
-          table: {
-            head: ["Year", "Interest", "Principal", "Ending balance"],
-            rows: years.map((y) => [y.year, usd(y.interest), usd(y.principal), usd(y.balance)]),
-          },
-        },
+        { title: "Amortization schedule", amortization: { principal: v.amount as number, rows } },
       ],
     };
   },

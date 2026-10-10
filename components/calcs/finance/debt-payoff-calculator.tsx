@@ -73,6 +73,7 @@ export const config: CalcConfig = {
             })),
           },
         },
+        { title: "Payoff schedule", amortization: { principal: bal, rows: base } },
       ],
     };
   },

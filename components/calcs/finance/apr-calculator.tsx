@@ -3,7 +3,7 @@
 import { CalcEngine } from "@/components/flagship/engine/CalcEngine";
 import type { CalcConfig } from "@/components/flagship/engine/types";
 import { fixed, usd, usd0 } from "@/components/flagship/engine/format";
-import { pmt, pv } from "@/lib/finance";
+import { amortize, pmt, pv } from "@/lib/finance";
 
 /** Solve for the annual rate at which the payments' present value equals the cash actually received. */
 function solveApr(payment: number, months: number, netReceived: number) {
@@ -36,6 +36,7 @@ export const config: CalcConfig = {
     const payment = pmt(loan, (v.rate as number) / 1200, months);
     const apr = solveApr(payment, months, loan - fees);
     const interest = payment * months - loan;
+    const rows = amortize(loan, (v.rate as number) / 1200, payment);
     return {
       hero: { label: "Real APR", value: `${fixed(apr, 3)}%`, sub: `vs. ${fixed(v.rate as number, 3)}% stated interest rate` },
       chart: {
@@ -54,6 +55,7 @@ export const config: CalcConfig = {
         { label: "Total interest", value: usd0(interest) },
         { label: "Total cost of credit", value: usd0(interest + fees), strong: true },
       ],
+      details: [{ title: "Amortization schedule", amortization: { principal: loan, rows } }],
     };
   },
 };

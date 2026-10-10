@@ -3,7 +3,7 @@
 import { CalcEngine } from "@/components/flagship/engine/CalcEngine";
 import type { CalcConfig } from "@/components/flagship/engine/types";
 import { duration, usd, usd0 } from "@/components/flagship/engine/format";
-import { amortize, byYear, pmt } from "@/lib/finance";
+import { amortize, pmt } from "@/lib/finance";
 
 export const config: CalcConfig = {
   id: "auto",
@@ -36,7 +36,6 @@ export const config: CalcConfig = {
     const payment = pmt(financed, r, n);
     const rows = amortize(financed, r, payment);
     const interest = rows.reduce((a, x) => a + x.interest, 0);
-    const years = byYear(rows);
     return {
       hero: { label: "Monthly payment", value: usd(payment), sub: `${duration(n)} at ${v.rate}% APR` },
       chart: {
@@ -56,20 +55,7 @@ export const config: CalcConfig = {
         { label: "Total cost of car", value: usd0(payment * n + (v.down as number) + trade - (v.owed as number)) },
       ],
       details: [
-        {
-          title: "Loan balance by year",
-          chart: {
-            type: "stacked-bar",
-            x: "year",
-            format: "usd0",
-            series: [
-              { key: "principal", name: "Principal paid", color: "#2563eb" },
-              { key: "interest", name: "Interest paid", color: "#f59e0b" },
-            ],
-            data: years.map((y) => ({ year: `Yr ${y.year}`, principal: Math.round(y.principal), interest: Math.round(y.interest) })),
-          },
-          table: { head: ["Year", "Interest", "Principal", "Ending balance"], rows: years.map((y) => [y.year, usd(y.interest), usd(y.principal), usd(y.balance)]) },
-        },
+        { title: "Amortization schedule", amortization: { principal: financed, rows } },
       ],
     };
   },

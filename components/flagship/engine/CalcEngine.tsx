@@ -13,6 +13,7 @@ import { Disclosure } from "@/components/ui/disclosure";
 import { ResultActions } from "@/components/flagship/ResultActions";
 import { ToolGrid, card, revealResult } from "@/components/flagship/shell";
 import { SpectrumGauge } from "./SpectrumGauge";
+import { AmortizationSchedule } from "./AmortizationSchedule";
 import { PALETTE, type CalcConfig, type Chart, type Field, type Output, type Tone, type Values } from "./types";
 import { formatBy } from "./format";
 import { cn } from "@/lib/cn";
@@ -331,7 +332,11 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         ? null
         : output.details?.map((d) => (
             <section key={d.title} className={cn(card, "mt-6 p-5 sm:p-6")}>
-              <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{d.title}</h2>
+              {d.amortization ? (
+                <AmortizationSchedule title={d.title} principal={d.amortization.principal} rows={d.amortization.rows} />
+              ) : (
+                <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{d.title}</h2>
+              )}
               {d.chart ? (
                 <div className="mt-4">{d.chart.type === "donut" ? <DonutChart chart={d.chart} /> : <SeriesChart chart={d.chart} />}</div>
               ) : null}
