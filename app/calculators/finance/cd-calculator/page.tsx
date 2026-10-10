@@ -1,25 +1,82 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import Calculator from "@/components/calcs/finance/cd-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "CD Calculator – Certificate of Deposit Returns 2025 | CalcDigi",
-  "description": "Free CD Calculator 2025. Calculate Certificate of Deposit returns with compound interest. Compare CD rates and terms to find the best growth for your savings.",
-  "openGraph": {
-    "title": "CD Calculator – Certificate of Deposit Returns 2025 | CalcDigi",
-    "description": "Free CD Calculator 2025. Calculate Certificate of Deposit returns with compound interest. Compare CD rates and terms to find the best growth for your savings.",
-    "type": "website"
-  },
-  "alternates": {
-    "canonical": "/calculators/finance/cd-calculator"
-  }
-};
+const PATH = "/calculators/finance/cd-calculator";
+const DESCRIPTION =
+  "Free CD calculator: see how much a certificate of deposit earns by maturity from its APY or interest rate and term, plus after-tax interest and a typical early-withdrawal penalty.";
+
+export const metadata = calcMetadata(PATH, "CD Calculator – Certificate of Deposit Interest & Maturity Value | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "\n{\"@context\":\"https://schema.org\",\"@graph\":[\n{\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://calc-digi.vercel.app/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Finance\",\"item\":\"https://calc-digi.vercel.app/calculators/finance/\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"CD Calculator\",\"item\":\"https://calc-digi.vercel.app/calculators/finance/cd-calculator.html\"}]},\n{\"@type\":\"WebApplication\",\"name\":\"CD Calculator\",\"applicationCategory\":\"FinanceApplication\",\"operatingSystem\":\"Any\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"}},\n{\"@type\":\"FAQPage\",\"mainEntity\":[\n{\"@type\":\"Question\",\"name\":\"What is a CD (Certificate of Deposit)?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"A CD is a savings product offered by banks that holds a fixed amount of money for a fixed term (e.g., 6 months to 5 years) at a fixed interest rate, typically higher than regular savings accounts. Early withdrawal usually incurs a penalty.\"}},\n{\"@type\":\"Question\",\"name\":\"What happens if I withdraw a CD early?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Early withdrawal typically results in a penalty, often forfeiting 3-6 months of interest depending on the CD term and bank policy. This is why CDs work best for money you won't need before maturity.\"}}\n]}\n]}\n" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/#calculators\">Finance</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">CD Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n  <h1>CD Calculator (Certificate of Deposit)</h1>\n  <p class=\"calc-intro\">Calculate exactly how much your Certificate of Deposit will grow with compound interest. Compare different terms and rates to find the best CD for your savings goals.</p>\n\n  <div class=\"content-section\">\n    <h2>How CDs Work</h2>\n    <p>A CD locks your money for a fixed term at a fixed rate, typically higher than savings accounts since you commit not to withdraw early. CDs are FDIC-insured up to $250,000, making them one of the safest interest-bearing investments.</p>\n    <div class=\"formula-box\">Final Value = Principal × (1 + r/n)^(n×t)</div>\n  </div>\n\n  <div class=\"content-section\">\n<h3>Understanding the Formula</h3>\n<p>The formula used by this calculator is based on established mathematical and scientific principles. Understanding the underlying formula helps you interpret results correctly and apply them appropriately in real-world situations.</p>\n\n    <h2>Frequently Asked Questions</h2>\n    <div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>This free online calculator is designed for students, professionals, and everyday users. Enter your known values into the input fields and click Calculate for instant results. All calculations run locally in your browser — no data is sent to any server.</p>\n<h3>Input Guidelines and Tips</h3>\n<p>Use decimal values where needed. For best results, ensure all units are consistent before calculating. The Reset button clears all results so you can start a fresh calculation. Use the Copy button to copy your results to the clipboard for use in reports, homework, or documents.</p>\n<h3>Reference Table</h3>\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;margin:16px 0;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Definition</th>\n<th style=\"padding:10px 14px;text-align:left;\">Common Use</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\">\n<td style=\"padding:10px 14px;\">Input Value</td><td style=\"padding:10px 14px;\">The number you enter into the calculator</td><td style=\"padding:10px 14px;\">Starting point for calculation</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\">\n<td style=\"padding:10px 14px;\">Result</td><td style=\"padding:10px 14px;\">The calculated output based on your inputs</td><td style=\"padding:10px 14px;\">Answer to your calculation</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\">\n<td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">The mathematical equation used</td><td style=\"padding:10px 14px;\">Basis of calculation</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\">\n<td style=\"padding:10px 14px;\">Unit</td><td style=\"padding:10px 14px;\">Measurement type (kg, m, %, etc.)</td><td style=\"padding:10px 14px;\">Ensures correct interpretation</td></tr>\n</tbody></table>\n<h3>Share and Save Results</h3>\n<p>After calculating, use the Copy button to copy your complete results to the clipboard. The Share button generates a direct link to this calculator. Bookmark this page for quick access. All CalcDigi calculators are free, with no login or subscription required. Explore related calculators below for comprehensive coverage of your topic.</p></div>\n<div class=\"faq-list\">\n      <div class=\"faq-item\"><div class=\"faq-q\">Are CDs a good investment? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">CDs are excellent for guaranteed, FDIC-insured returns on money you won't need for a set period. They are not designed for long-term growth like stocks, but are ideal for short-term savings goals or a portion of an emergency fund.</div></div>\n      <div class=\"faq-item\"><div class=\"faq-q\">What is CD laddering? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">CD laddering means buying multiple CDs with staggered maturity dates (e.g., 1, 2, 3 year terms), so you have regular access to portions of your money while still earning higher CD rates on the rest.</div></div>\n      <div class=\"faq-item\"><div class=\"faq-q\">Should I choose a CD or high-yield savings account? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">CDs typically offer slightly higher rates but lock your money for the term. High-yield savings accounts offer flexibility with competitive rates. Choose CDs if you're certain you won't need the funds before maturity.</div></div>\n    </div>\n  </div>\n\n  <div class=\"content-section\">\n    <h2>Related Finance Calculators</h2>\n    <div class=\"related-grid\">\n      <a href=\"/calculators/finance/savings-calculator\" class=\"related-card\"><span class=\"rc-icon\">🏦</span><span class=\"rc-name\">Savings Calculator</span></a>\n      <a href=\"/calculators/finance/compound-interest-calculator\" class=\"related-card\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Compound Interest</span></a>\n      <a href=\"/calculators/finance/apy-calculator\" class=\"related-card\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">APY Calculator</span></a>\n    </div>\n  </div>\n</div>\n\n<div class=\"calc-sidebar\">\n  <div class=\"calc-widget\">\n    <h2>CD Calculator</h2>\n    <div class=\"form-group\"><label for=\"cd-principal\">Deposit Amount ($)</label><input type=\"number\" id=\"cd-principal\" value=\"10000\" min=\"0\" step=\"100\"></div>\n    <div class=\"form-group\"><label for=\"cd-rate\">APY (%)</label><input type=\"number\" id=\"cd-rate\" value=\"4.5\" min=\"0\" max=\"15\" step=\"0.05\"></div>\n    <div class=\"form-group\"><label for=\"cd-term\">CD Term</label>\n      <select id=\"cd-term\">\n        <option value=\"0.5\">6 months</option>\n        <option value=\"1\" selected=\"\">1 year</option>\n        <option value=\"2\">2 years</option>\n        <option value=\"3\">3 years</option>\n        <option value=\"5\">5 years</option>\n      </select>\n    </div>\n    <div class=\"form-group\"><label for=\"cd-compound\">Compounding</label>\n      <select id=\"cd-compound\">\n        <option value=\"365\">Daily</option>\n        <option value=\"12\" selected=\"\">Monthly</option>\n        <option value=\"4\">Quarterly</option>\n      </select>\n    </div>\n    <button class=\"calc-btn\" onclick=\"calcCD()\">Calculate CD Growth</button>\n    \n  <div style=\"display:none;gap:8px;margin-top:10px;\" id=\"cd-actions\">\n    <button class=\"calc-btn\" id=\"print-btn-cd\" onclick=\"printResult('cd-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n    <button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n  </div>\n  <div class=\"result-box\" id=\"cd-result\">\n      <div id=\"cd-ri\"></div>\n      <div class=\"result-chart\"><canvas id=\"cd-chart\" width=\"160\" height=\"160\"></canvas></div>\n    </div>\n  </div>\n</div>\n</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n\n<div class=\"content-section\"><h2>Additional Information</h2><p>This calculator is part of CalcDigi's free collection of over 300 online tools. Whether you are a student, professional, or planning your daily life, CalcDigi has the right calculator for you. All tools are free, private, and work instantly on any device without any login or registration required.</p><h3>Calculation Methodology</h3><p>All calculations use industry-standard formulas validated by subject matter experts. Results are computed in real time directly in your browser using JavaScript. This ensures instant results with no server round-trip delays and complete data privacy — your inputs never leave your device.</p><h3>Common Use Cases</h3><p>This type of calculation is used by millions of people every day for budgeting, planning, learning, and professional work. Understanding the numbers behind everyday decisions helps you make better-informed choices. Use this calculator as often as needed — it is completely free with no usage limits.</p><h3>Frequently Asked Questions</h3><p>Have a question not answered in the FAQ section? The formula section above explains exactly how this calculation works. For step-by-step examples, review the content sections on this page which walk through real-world applications of the formula. If you need a different type of calculation, explore CalcDigi's other free calculators using the navigation menu.</p></div>\n</main>" }} />
-      <Script id="calc-script-cd-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcCD(){\n  const principal=parseFloat(document.getElementById('cd-principal').value)||10000;\n  const rate=parseFloat(document.getElementById('cd-rate').value)/100||0.045;\n  const term=parseFloat(document.getElementById('cd-term').value)||1;\n  const n=parseInt(document.getElementById('cd-compound').value)||12;\n  const finalValue=principal*Math.pow(1+rate/n,n*term);\n  const interest=finalValue-principal;\n  document.getElementById('cd-ri').innerHTML=\n    ri('Final Value','<strong>'+fmtUSD(finalValue)+'</strong>',true)+\n    ri('Interest Earned',fmtUSD(interest))+\n    ri('Initial Deposit',fmtUSD(principal))+\n    ri('APY',(rate*100).toFixed(2)+'%')+\n    ri('Term',term+' year(s)');\n  showResult('cd-result');\n  drawDonut('cd-chart',['Principal','Interest'],[principal,Math.max(0,interest)],['#1a5c3a','#c8832a']);\n\n  if(typeof getAIInsight==='function'){var _ab=document.querySelector('.ai-box');if(!_ab){_ab=document.createElement('div');_ab.className='ai-box';var _rb=document.querySelector('.result-box');if(_rb)_rb.appendChild(_ab);}_ab.style.display='block';_ab.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';getAIInsight('Give a 2-sentence practical tip about this calculation.').then(function(_t){if(_t)_ab.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+_t+'</p>';else _ab.style.display='none';});}\n}\n\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/finance", label: "Finance" }}
+      title="CD Calculator"
+      intro="Find out how much interest a certificate of deposit will earn and what it will be worth when it matures."
+      description={DESCRIPTION}
+      appCategory="FinanceApplication"
+      article={
+        <>
+          <h2>How CD interest is calculated</h2>
+          <p>
+            Banks quote CDs by <strong>APY</strong>, which already includes compounding. To find the value at maturity,
+            grow the deposit by the APY for the length of the term:
+          </p>
+          <Formula>Maturity value = Deposit × (1 + APY)^(months ÷ 12)</Formula>
+          <p>If you only know the stated interest rate and how often it compounds, convert it first:</p>
+          <Formula>APY = (1 + rate ÷ n)^n − 1</Formula>
+          <h3>Example</h3>
+          <p>
+            $10,000 in a 12-month CD at 4.25% APY is worth <strong>$10,425</strong> at maturity — $425 of interest. If the
+            CD were broken early with a typical three-month interest penalty, you&rsquo;d give up about $105.
+          </p>
+          <h2>Things to check before opening a CD</h2>
+          <ul>
+            <li>
+              <strong>Early-withdrawal penalty:</strong> usually 3–12 months of interest depending on the term. No-penalty CDs
+              exist but pay a little less.
+            </li>
+            <li>
+              <strong>Insurance:</strong> CDs at FDIC banks and NCUA credit unions are insured up to $250,000 per depositor,
+              per institution, per ownership category.
+            </li>
+            <li>
+              <strong>Renewal:</strong> many CDs roll over automatically at maturity, often at a lower rate. Set a reminder for
+              the grace period.
+            </li>
+            <li>
+              <strong>Laddering:</strong> splitting money across 1-, 2-, 3-, 4- and 5-year CDs gives you a maturing CD every
+              year while capturing longer-term rates.
+            </li>
+          </ul>
+        </>
+      }
+      faq={[
+        {
+          q: "Is CD interest taxable?",
+          a: "Yes, as ordinary income in the year it's credited — even if you can't withdraw it until maturity. CDs inside an IRA are tax-deferred or tax-free.",
+        },
+        {
+          q: "Are CDs better than a high-yield savings account?",
+          a: "A CD locks in a rate, which helps if rates fall, but your money is tied up. High-yield savings is flexible but its rate can drop at any time. Many people use savings for emergencies and CDs for money with a known future date.",
+        },
+        {
+          q: "What happens if rates rise after I open a CD?",
+          a: "Your rate stays the same until maturity. Some banks offer bump-up CDs that let you raise the rate once, usually at a slightly lower starting rate.",
+        },
+      ]}
+      related={[
+        { href: "/calculators/finance/apy-calculator", icon: "💹", name: "APY Calculator" },
+        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings" },
+        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
+        { href: "/calculators/finance/inflation-calculator", icon: "🎈", name: "Inflation" },
+        { href: "/calculators/finance/emergency-fund-calculator", icon: "🛟", name: "Emergency Fund" },
+        { href: "/calculators/finance/investment-calculator", icon: "📊", name: "Investment" },
+      ]}
+    >
+      <Calculator />
+    </CalcPage>
   );
 }

@@ -11,3 +11,5 @@ out/
 .vercel
 .env*
 *.tsbuildinfo
+scripts/.legacy_counts.json
+__pycache__/

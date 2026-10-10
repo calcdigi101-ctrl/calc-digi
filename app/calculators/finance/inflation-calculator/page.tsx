@@ -1,25 +1,78 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import Calculator from "@/components/calcs/finance/inflation-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CPI_LATEST, cpiFor } from "@/lib/cpi";
 
-export const metadata: Metadata = {
-  "title": "Inflation Calculator | CalcDigi Now",
-  "description": "Free Inflation Calculator 2025. Free Inflation Calculator. Find the value of money over time using historical US CPI data. See purchasing power changes. Get instant ",
-  "openGraph": {
-    "title": "Inflation Calculator | CalcDigi Now",
-    "description": "Free Inflation Calculator. Find the value of money over time using historical US CPI data. See purchasing power changes.",
-    "type": "website"
-  },
-  "alternates": {
-    "canonical": "/calculators/finance/inflation-calculator"
-  }
-};
+const PATH = "/calculators/finance/inflation-calculator";
+const DESCRIPTION = `Free inflation calculator using official BLS CPI data from 1913 to ${CPI_LATEST.year}: find what a dollar amount from any year is worth today, or project future prices at an average inflation rate.`;
+
+export const metadata = calcMetadata(PATH, `Inflation Calculator – US Dollar Value 1913–${CPI_LATEST.year} (CPI Data) | CalcDigi`, DESCRIPTION);
+
+const worth = (from: number) => `$${((100 * cpiFor(CPI_LATEST.year)!) / cpiFor(from)!).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`;
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "\n{\"@context\":\"https://schema.org\",\"@graph\":[\n{\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://calc-digi.vercel.app/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Finance\",\"item\":\"https://calc-digi.vercel.app/calculators/finance/\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Inflation Calculator | CalcDigi Now\",\"item\":\"https://calc-digi.vercel.app/calculators/finance/inflation-calculator.html\"}]},\n{\"@type\":\"WebApplication\",\"name\":\"Inflation Calculator | CalcDigi Now\",\"url\":\"https://calc-digi.vercel.app/calculators/finance/inflation-calculator.html\",\"applicationCategory\":\"UtilitiesApplication\",\"operatingSystem\":\"Any\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"}},\n{\"@type\":\"FAQPage\",\"mainEntity\":[]}]}\n" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/#calculators\">Finance</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Inflation Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Inflation Calculator</h1>\n<p class=\"calc-intro\">Calculate how inflation has eroded purchasing power over time, or find the future value of money accounting for expected inflation.</p>\n<div class=\"content-section\"><h2>How It Works</h2><p>Enter your financial details in the calculator and click \"Calculate Now.\" You will see a detailed breakdown of your results plus an AI-powered insight to help you understand what the numbers mean.</p></div>\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>This free online calculator is designed for students, professionals, and everyday users. Enter your known values into the input fields and click Calculate for instant results. All calculations run locally in your browser — no data is sent to any server.</p>\n<h3>Input Guidelines and Tips</h3>\n<p>Use decimal values where needed. For best results, ensure all units are consistent before calculating. The Reset button clears all results so you can start a fresh calculation. Use the Copy button to copy your results to the clipboard for use in reports, homework, or documents.</p>\n<h3>Reference Table</h3>\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;margin:16px 0;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Definition</th>\n<th style=\"padding:10px 14px;text-align:left;\">Common Use</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\">\n<td style=\"padding:10px 14px;\">Input Value</td><td style=\"padding:10px 14px;\">The number you enter into the calculator</td><td style=\"padding:10px 14px;\">Starting point for calculation</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\">\n<td style=\"padding:10px 14px;\">Result</td><td style=\"padding:10px 14px;\">The calculated output based on your inputs</td><td style=\"padding:10px 14px;\">Answer to your calculation</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\">\n<td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">The mathematical equation used</td><td style=\"padding:10px 14px;\">Basis of calculation</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\">\n<td style=\"padding:10px 14px;\">Unit</td><td style=\"padding:10px 14px;\">Measurement type (kg, m, %, etc.)</td><td style=\"padding:10px 14px;\">Ensures correct interpretation</td></tr>\n</tbody></table>\n<h3>Share and Save Results</h3>\n<p>After calculating, use the Copy button to copy your complete results to the clipboard. The Share button generates a direct link to this calculator. Bookmark this page for quick access. All CalcDigi calculators are free, with no login or subscription required. Explore related calculators below for comprehensive coverage of your topic.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions About This Tool</h2>\n<p>This calculator is part of CalcDigi's free collection of over 300 online calculators covering health, finance, science, math, physics, and more. All tools are free to use with no registration required. Results are instant and all processing happens in your browser for complete privacy.</p>\n<h3>Why Use CalcDigi Calculators</h3>\n<p>CalcDigi provides accurate, easy-to-use calculators with clear explanations and real-world context. Each calculator includes detailed formulas, reference tables, frequently asked questions, and AI-powered insights. Whether you are a student, professional, or simply need a quick answer, CalcDigi has the right tool for your needs.</p></div>\n<div class=\"content-section\"><h2>Key Concepts and Background</h2>\n<p>Understanding the theory behind this calculator helps you interpret results more accurately and apply them in real-world situations. The formulas used here are based on established mathematical, scientific, or financial principles that have been validated through research and professional practice.</p>\n<h3>How the Calculation Works</h3>\n<p>This calculator processes your input values using a precise mathematical formula. The result is computed instantly in your browser with no server interaction required. This ensures your data stays private and results appear without any delay. You can try multiple scenarios quickly by adjusting input values and recalculating.</p>\n<h3>Common Applications</h3>\n<p>The calculation performed by this tool is used by students solving homework problems, professionals making data-driven decisions, researchers analyzing data, and everyday users who need quick accurate answers. Understanding when and how to apply these calculations correctly is key to getting meaningful results.</p>\n<h3>Tips for Accurate Results</h3>\n<p>Always double-check your input values before calculating. Use consistent units throughout — mixing unit systems is the most common source of calculation errors. If a result seems unexpected, verify your inputs and consider whether the formula assumptions apply to your specific situation. For important professional decisions, results should be verified by a qualified expert.</p></div>\n<div class=\"content-section\"><h2>Frequently Used Formulas</h2>\n<p>The mathematical relationships underlying this calculator connect to a broader set of formulas used across many disciplines. Whether you are working in science, engineering, finance, or everyday planning, these calculations provide the quantitative foundation for sound decision-making.</p>\n<h3>Understanding Your Results</h3>\n<p>Results from this calculator represent calculated values based on the inputs you provide. Real-world results may vary due to external factors not captured by the formula. Use results as a guide for planning and decision-making rather than as absolute guarantees of real-world outcomes.</p>\n<h3>Related Calculations</h3>\n<p>This calculator is part of CalcDigi's comprehensive collection of free online calculators. Each tool is designed to work together — results from one calculator can often be used as inputs to another, allowing you to build complete analyses and solve multi-step problems efficiently.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\">\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free. No sign-up or payment required. All calculations run in your browser and no data you enter is stored or shared.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate are the results? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Our finance calculators use standard financial formulas. Results are estimates and actual amounts may vary based on lender fees, exact rates, taxes, and other factors. Always verify with your lender or a financial advisor.</div></div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Does this calculator work on mobile? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes — fully responsive and works on smartphones, tablets, and desktop computers. No app download required.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is my data private? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes. All calculations run locally in your browser. No data is collected, stored, or sent to any server.</div></div>\n<div class=\"content-section\">\n<h3>Understanding the Formula</h3>\n<p>The formula used by this calculator is based on established mathematical and scientific principles. Understanding the underlying formula helps you interpret results correctly and apply them appropriately in real-world situations.</p>\n<h2>Related Finance Calculators</h2><div class=\"related-grid\">\n<a href=\"/calculators/finance/mortgage-calculator\" class=\"related-card\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage</span></a>\n<a href=\"/calculators/finance/loan-calculator\" class=\"related-card\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Loan Calculator</span></a>\n<a href=\"/calculators/finance/compound-interest-calculator\" class=\"related-card\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">Compound Interest</span></a>\n<a href=\"/calculators/finance/retirement-calculator\" class=\"related-card\"><span class=\"rc-icon\">🌅</span><span class=\"rc-name\">Retirement</span></a>\n</div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Inflation Calculator</h2>\n\n<div class=\"form-group\"><label for=\"infl-amount\">Amount ($)</label><input type=\"number\" id=\"infl-amount\" value=\"10000\" min=\"1\"></div>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"infl-from\">From Year</label><input type=\"number\" id=\"infl-from\" value=\"2010\" min=\"1913\" max=\"2025\"></div><div class=\"form-group\"><label for=\"infl-to\">To Year</label><input type=\"number\" id=\"infl-to\" value=\"2025\" min=\"1913\" max=\"2030\"></div></div>\n<div class=\"form-group\"><label for=\"infl-rate\">Avg Annual Inflation (%)</label><input type=\"number\" id=\"infl-rate\" value=\"3.5\" step=\"0.1\" min=\"0.1\" max=\"20\"></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate Now</button>\n\n  <div style=\"display:none;gap:8px;margin-top:10px;\" id=\"hc-actions\">\n    <button class=\"calc-btn\" id=\"print-btn-hc\" onclick=\"printResult('hc-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n    <button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n  </div>\n  <div class=\"result-box\" id=\"hc-result\"><div id=\"hc-ri\"></div><div class=\"result-chart\"><canvas id=\"hc-chart\" width=\"160\" height=\"160\"></canvas></div><div class=\"ai-box\" id=\"hc-ai\" style=\"display:none;\"></div><div class=\"disclaimer\">Results are estimates for informational purposes only and do not constitute financial or tax advice. Consult a licensed financial advisor or CPA for personalized guidance.</div></div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-inflation-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  const amt=parseFloat(document.getElementById('infl-amount').value)||10000;\n  const from=parseInt(document.getElementById('infl-from').value)||2010;\n  const to=parseInt(document.getElementById('infl-to').value)||2025;\n  const rate=parseFloat(document.getElementById('infl-rate').value)||3.5;\n  const years=to-from;const factor=Math.pow(1+rate/100,Math.abs(years));\n  const futureValue=years>=0?amt*factor:amt/factor;const diff=futureValue-amt;const pctChange=(diff/amt)*100;\n  document.getElementById('hc-ri').innerHTML=ri('Original Amount ('+from+')',fmtUSD(amt))+ri('Equivalent in '+to,fmtUSD(futureValue),true)+ri('Purchasing Power Change',fmtNum(Math.abs(pctChange),1)+'%'+' '+(pctChange>0?'more needed':'gained'))+ri('Dollar Lost to Inflation',fmtUSD(Math.abs(diff)))+ri('Years',Math.abs(years))+ri('Avg Inflation Rate',rate+'%');\n  showResult('hc-result');drawDonut('hc-chart',['Real Value','Lost to Inflation'],[Math.round(amt),Math.round(Math.abs(diff))],['#1a5c3a','#ef4444']);\n  const aiBox=document.getElementById('hc-ai');aiBox.innerHTML='<div class=\"ai-header\"><span>&#x2728;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing inflation impact...</p>';aiBox.style.display='block';\n  getAIInsight('Inflation calculation: $'+amt+' in '+from+' is worth $'+Math.round(futureValue)+' in '+to+' at '+rate+'% average inflation. Give 3-4 sentences: what this means for everyday Americans, why investing beats holding cash, and 2 practical tips to beat inflation. Add a financial disclaimer.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/finance", label: "Finance" }}
+      title="Inflation Calculator"
+      intro="See how much a dollar amount from any year since 1913 is worth today using official US Consumer Price Index data — or project future prices at an average inflation rate."
+      description={DESCRIPTION}
+      appCategory="FinanceApplication"
+      article={
+        <>
+          <h2>How this inflation calculator works</h2>
+          <p>
+            It uses the <strong>Consumer Price Index for All Urban Consumers (CPI-U)</strong> published by the US Bureau of
+            Labor Statistics — the standard measure of US consumer inflation. Each year&rsquo;s value is the average of
+            that year&rsquo;s monthly index; the current year uses the most recent month ({CPI_LATEST.month}{" "}
+            {CPI_LATEST.year}).
+          </p>
+          <Formula>Value in year B = Amount × CPI(B) ÷ CPI(A)</Formula>
+          <h2>What $100 from past years is worth in {CPI_LATEST.year}</h2>
+          <DataTable
+            head={["Year", `$100 then equals in ${CPI_LATEST.year}`]}
+            rows={[1913, 1950, 1970, 1980, 1990, 2000, 2010, 2020].map((y) => [y, worth(y)])}
+          />
+          <h2>Average-rate mode</h2>
+          <p>
+            For future planning there&rsquo;s no CPI yet, so switch to &ldquo;An average rate&rdquo;. The Federal Reserve
+            targets 2% inflation over the long run, and US inflation has averaged a little over 3% a year since 1913, so
+            2–3% is a reasonable planning range.
+          </p>
+          <Formula>Future price = Today&rsquo;s price × (1 + rate)^years</Formula>
+          <h2>Why inflation matters</h2>
+          <ul>
+            <li>Cash loses buying power: at 3% inflation, prices double roughly every 24 years.</li>
+            <li>Compare salaries, rents and home prices across years in &ldquo;real&rdquo; (inflation-adjusted) terms.</li>
+            <li>Retirement plans need to grow income over time, not keep it flat.</li>
+          </ul>
+        </>
+      }
+      faq={[
+        {
+          q: "Why is the current year's value different from the annual average?",
+          a: "The year isn't over, so the calculator uses the latest published monthly CPI. Values for complete years use the annual average of all published months.",
+        },
+        {
+          q: "Was any CPI data missing?",
+          a: "Yes. BLS did not collect October 2025 data during the federal government shutdown, so the 2025 average uses the 11 published months.",
+        },
+        {
+          q: "Does CPI reflect my personal inflation?",
+          a: "Not exactly. CPI tracks a broad basket of goods and services for urban consumers. Your own inflation depends on what you buy — housing, healthcare and childcare costs can rise faster than the average.",
+        },
+      ]}
+      related={[
+        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
+        { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement" },
+        { href: "/calculators/finance/investment-calculator", icon: "💼", name: "Investment" },
+        { href: "/calculators/finance/salary-calculator", icon: "💵", name: "Salary" },
+        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings" },
+        { href: "/calculators/finance/currency-converter", icon: "💱", name: "Currency Converter" },
+      ]}
+    >
+      <Calculator />
+    </CalcPage>
   );
 }

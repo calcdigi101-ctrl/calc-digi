@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded',function(){
   initSearch();
   initFAQ();
   initCatFilter();
-  initNewsletter();
+  if(typeof initNewsletter==='function')initNewsletter(); // newsletter form was removed; keep the call harmless
   initScrollReveal();
   initCardTilt();
 });
