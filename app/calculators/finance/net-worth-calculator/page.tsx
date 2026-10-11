@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/net-worth-calculator";
 const DESCRIPTION =
   "Free net worth calculator: add up your assets and debts to find your net worth and compare it with the US median for your age from the Federal Reserve.";
 
-export const metadata = calcMetadata(PATH, "Net Worth Calculator – Assets, Debts & Median by Age | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Net Worth Calculator – Assets, Debts & Age Median | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

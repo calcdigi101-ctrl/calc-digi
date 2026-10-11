@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/break-even-calculator";
 const DESCRIPTION =
   "Free break-even calculator: find how many units you must sell to cover fixed costs, your break-even revenue and contribution margin, with a cost-volume-profit chart.";
 
-export const metadata = calcMetadata(PATH, "Break-Even Calculator – Units & Revenue to Cover Costs | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Break-Even Calculator – Units & Revenue Needed | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

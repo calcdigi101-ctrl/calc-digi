@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import fs from "fs";
 import path from "path";
 import { SITE_URL } from "@/lib/site";
-import { getArticles } from "@/lib/supabase";
+import { getArticles } from "@/lib/articles";
 
 function walkPages(dir: string, routePrefix = ""): string[] {
   const routes: string[] = [];

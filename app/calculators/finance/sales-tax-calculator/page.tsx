@@ -7,7 +7,7 @@ const PATH = "/calculators/finance/sales-tax-calculator";
 const DESCRIPTION =
   "Free sales tax calculator with every US state rate: add sales tax to a price or work out the pre-tax price from a total, including local city and county tax.";
 
-export const metadata = calcMetadata(PATH, "Sales Tax Calculator – Add or Remove Tax for Any US State | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Sales Tax Calculator – Any US State | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

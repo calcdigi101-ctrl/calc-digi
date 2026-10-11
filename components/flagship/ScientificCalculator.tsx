@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState, type KeyboardEvent } from "react";
-import { Delete } from "lucide-react";
-import { CalcError, evaluate, formatResult, type AngleMode } from "@/lib/expr";
+import { ChevronDown, Delete } from "lucide-react";
+import { CalcError, canAppendDecimal, evaluate, formatResult, type AngleMode } from "@/lib/expr";
 import { cn } from "@/lib/cn";
 
 type KeyKind = "num" | "op" | "fn" | "util" | "eq" | "mem";
@@ -20,6 +20,9 @@ export function ScientificCalculator() {
   const [memory, setMemory] = useState<number | null>(null);
   const [done, setDone] = useState<{ expr: string; value: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Phones: scientific keys start collapsed so the hero isn't ~1000px tall.
+  // From md up they're always shown (the toggle and the hidden state are md:-overridden).
+  const [sciOpen, setSciOpen] = useState(false);
 
   const expr = tokens.join("");
   const preview = useMemo(() => {
@@ -48,6 +51,7 @@ export function ScientificCalculator() {
       setDone(null);
       return;
     }
+    if (t === "." && !canAppendDecimal(tokens.join(""))) return;
     setTokens((prev) => [...prev, t]);
   }
 
@@ -122,17 +126,17 @@ export function ScientificCalculator() {
     { label: "%", aria: "percent", kind: "fn", insert: "%" },
     { label: "(", kind: "fn", insert: "(" },
     { label: ")", kind: "fn", insert: ")" },
-    { label: "Ans", aria: "last answer", kind: "fn", insert: "Ans" },
+    { label: "Ans", aria: "Ans, last answer", kind: "fn", insert: "Ans" },
     { label: "±", aria: "negate", kind: "fn", action: negate },
-    { label: "EXP", aria: "times ten to the power", kind: "fn", action: () => (insert("×"), insert("10"), insert("^")) },
+    { label: "EXP", aria: "EXP, times ten to the power", kind: "fn", action: () => (insert("×"), insert("10"), insert("^")) },
   ];
 
   const pad: Key[] = [
-    { label: "MC", aria: "memory clear", kind: "mem", action: () => setMemory(null) },
-    { label: "MR", aria: "memory recall", kind: "mem", action: memRecall },
-    { label: "M+", aria: "memory add", kind: "mem", action: () => memAdd(1) },
-    { label: "M−", aria: "memory subtract", kind: "mem", action: () => memAdd(-1) },
-    { label: "AC", aria: "all clear", kind: "util", action: clearAll },
+    { label: "MC", aria: "MC, memory clear", kind: "mem", action: () => setMemory(null) },
+    { label: "MR", aria: "MR, memory recall", kind: "mem", action: memRecall },
+    { label: "M+", aria: "M+, memory add", kind: "mem", action: () => memAdd(1) },
+    { label: "M−", aria: "M−, memory subtract", kind: "mem", action: () => memAdd(-1) },
+    { label: "AC", aria: "AC, all clear", kind: "util", action: clearAll },
     { label: "⌫", aria: "backspace", kind: "util", action: backspace },
     { label: "÷", aria: "divide", kind: "op", insert: "÷" },
     { label: "×", aria: "multiply", kind: "op", insert: "×" },
@@ -177,7 +181,7 @@ export function ScientificCalculator() {
     op: "bg-slate-200 text-slate-900 hover:bg-slate-300 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600 text-xl",
     fn: "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800/60 dark:text-slate-200 dark:hover:bg-slate-700 text-sm",
     util: "bg-rose-50 text-rose-700 hover:bg-rose-100 dark:bg-rose-950/50 dark:text-rose-300 dark:hover:bg-rose-900/60",
-    mem: "bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 dark:bg-slate-800/60 dark:text-slate-400 dark:hover:bg-slate-700 text-sm",
+    mem: "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800 dark:bg-slate-800/60 dark:text-slate-400 dark:hover:bg-slate-700 text-sm",
     eq: "bg-blue-600 text-white text-2xl shadow-sm hover:bg-blue-700",
   };
 
@@ -196,14 +200,16 @@ export function ScientificCalculator() {
       <div className="rounded-xl bg-slate-900 px-4 py-3 text-right text-white dark:bg-black">
         <div className="flex items-center justify-between gap-3 text-xs font-medium text-slate-400">
           <div className="flex items-center gap-2">
-            <span className="rounded bg-slate-700 px-1.5 py-0.5 uppercase tracking-wide text-slate-200">{angle}</span>
+            <span className={cn("rounded bg-slate-700 px-1.5 py-0.5 uppercase tracking-wide text-slate-200", !sciOpen && "hidden md:inline")}>
+              {angle}
+            </span>
             {memory !== null ? (
               <span className="rounded bg-blue-600/80 px-1.5 py-0.5 text-white" title={`Memory: ${formatResult(memory)}`}>
                 M
               </span>
             ) : null}
           </div>
-          <div className="min-w-0 truncate font-mono text-sm text-slate-300" aria-label="Expression">
+          <div className="min-w-0 truncate font-mono text-sm text-slate-300">
             {topLine}
           </div>
         </div>
@@ -220,7 +226,7 @@ export function ScientificCalculator() {
 
       <div className="mt-3 grid gap-3 md:grid-cols-[1fr_1.15fr]">
         {/* Scientific keys (below the number pad on phones) */}
-        <div className="order-last md:order-none">
+        <div id="sci-keys" className={cn("order-last md:order-none md:block", !sciOpen && "hidden")}>
           <div role="radiogroup" aria-label="Angle unit" className="mb-2 grid grid-cols-2 gap-1 rounded-lg bg-slate-200 p-1 dark:bg-slate-800">
             {(["deg", "rad"] as const).map((m) => (
               <button
@@ -267,6 +273,16 @@ export function ScientificCalculator() {
             </button>
           ))}
         </div>
+
+        <button
+          type="button"
+          aria-expanded={sciOpen}
+          aria-controls="sci-keys"
+          onClick={() => setSciOpen((o) => !o)}
+          className="order-[99] flex min-h-[44px] items-center justify-center gap-1.5 rounded-lg bg-slate-100 text-sm font-semibold text-slate-700 hover:bg-slate-200 md:hidden dark:bg-slate-800/60 dark:text-slate-200 dark:hover:bg-slate-700"
+        >
+          Scientific <ChevronDown aria-hidden className={cn("size-4 transition-transform", sciOpen && "rotate-180")} />
+        </button>
       </div>
     </div>
   );

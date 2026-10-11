@@ -5,7 +5,7 @@ const PATH = "/calculators/finance/rent-vs-buy-calculator";
 const DESCRIPTION =
   "Free rent vs. buy calculator: compare your net wealth from buying a home versus renting and investing the difference, including appreciation, rent increases, taxes, maintenance and selling costs.";
 
-export const metadata = calcMetadata(PATH, "Rent vs. Buy Calculator – Is It Better to Rent or Buy a Home? | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Rent vs. Buy Calculator – Should You Rent or Buy? | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

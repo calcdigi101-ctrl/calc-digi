@@ -6,7 +6,7 @@ import { SS_WAGE_BASE, TAX_YEAR } from "@/lib/tax";
 const PATH = "/calculators/finance/freelancer-tax-calculator";
 const DESCRIPTION = `Free ${TAX_YEAR} self-employment tax calculator for freelancers and 1099 contractors: estimate SE tax, federal and state income tax, and your quarterly estimated payments.`;
 
-export const metadata = calcMetadata(PATH, `Freelancer Tax Calculator ${TAX_YEAR} – Self-Employment & Quarterly Tax | CalcDigi`, DESCRIPTION);
+export const metadata = calcMetadata(PATH, `Freelancer Tax Calculator ${TAX_YEAR} – Quarterly Tax | CalcDigi`, DESCRIPTION);
 
 export default function Page() {
   return (

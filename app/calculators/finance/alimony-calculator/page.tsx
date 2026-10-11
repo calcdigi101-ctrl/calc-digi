@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/alimony-calculator";
 const DESCRIPTION =
   "Free alimony calculator: estimate spousal support and how long it may last using the widely cited AAML guideline formula, based on both spouses' incomes and the length of the marriage.";
 
-export const metadata = calcMetadata(PATH, "Alimony Calculator – Spousal Support Estimate & Duration | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Alimony Calculator – Spousal Support Estimate | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

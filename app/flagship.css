@@ -19,6 +19,7 @@
 @source "../components/flagship";
 @source "../components/ui";
 @source "../components/calcs";
+@source "./not-found.tsx";
 
 /* The site's dark-mode toggle (public/js/main.js) puts `.dark` on <body>. */
 @custom-variant dark (&:where(.dark, .dark *));

@@ -1,6 +1,6 @@
-// Auto-generated from public/js/layout.js CALC_DATA — the canonical
-// list of every calculator, kept in sync with the mega menu.
-// Regenerate by re-running the extraction script if CALC_DATA changes.
+// The canonical list of every calculator. Navigation, search, footer counts,
+// category pages and the homepage explorer all read from here, so add or remove
+// calculators in this file only.
 
 export type CategoryId =
   | "health"
@@ -208,7 +208,6 @@ export const CATEGORIES: Category[] = [
     label: "Housing & Building",
     emoji: "🏠",
     calculators: [
-      { name: "Mortgage Calculator", icon: "🏠", slug: "mortgage-calculator", category: "housing", href: "/calculators/housing/mortgage-calculator" },
       { name: "Home Affordability Calculator", icon: "🏡", slug: "home-affordability-calculator", category: "housing", href: "/calculators/housing/home-affordability-calculator" },
       { name: "Rent vs Buy Calculator", icon: "🔑", slug: "rent-vs-buy-calculator", category: "housing", href: "/calculators/housing/rent-vs-buy-calculator" },
       { name: "Property Tax Calculator", icon: "🧾", slug: "property-tax-calculator", category: "housing", href: "/calculators/housing/property-tax-calculator" },
@@ -497,7 +496,7 @@ export const CATEGORIES: Category[] = [
   {
     id: "geography",
     label: "Geography",
-    emoji: "🌐",
+    emoji: "🗺️",
     calculators: [
       { name: "Distance Between Cities", icon: "🌐", slug: "distance-between-cities-calculator", category: "geography", href: "/calculators/geography/distance-between-cities-calculator" },
       { name: "Latitude Longitude Calc", icon: "📍", slug: "latitude-longitude-calculator", category: "geography", href: "/calculators/geography/latitude-longitude-calculator" },
@@ -527,3 +526,12 @@ export const CATEGORIES: Category[] = [
 export const ALL_CALCULATORS: Calculator[] = CATEGORIES.flatMap((c) => c.calculators);
 
 export const TOTAL_CALCULATOR_COUNT = ALL_CALCULATORS.length;
+
+/** Category landing page (the "conversion" category lives at /pages/measurements). */
+export function categoryPath(id: CategoryId): string {
+  return id === "conversion" ? "/pages/measurements" : `/pages/${id}`;
+}
+
+export function getCategory(id: CategoryId): Category {
+  return CATEGORIES.find((c) => c.id === id)!;
+}

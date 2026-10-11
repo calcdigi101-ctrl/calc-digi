@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/cd-calculator";
 const DESCRIPTION =
   "Free CD calculator: see how much a certificate of deposit earns by maturity from its APY or interest rate and term, plus after-tax interest and a typical early-withdrawal penalty.";
 
-export const metadata = calcMetadata(PATH, "CD Calculator – Certificate of Deposit Interest & Maturity Value | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "CD Calculator – Certificate of Deposit Interest | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

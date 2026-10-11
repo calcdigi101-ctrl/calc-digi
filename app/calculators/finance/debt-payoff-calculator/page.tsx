@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/debt-payoff-calculator";
 const DESCRIPTION =
   "Free debt payoff calculator: find your debt-free date, total interest, and how much time and money an extra monthly payment saves, with a payoff timeline chart.";
 
-export const metadata = calcMetadata(PATH, "Debt Payoff Calculator – Debt-Free Date & Interest Saved | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Debt Payoff Calculator – Debt-Free Date | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

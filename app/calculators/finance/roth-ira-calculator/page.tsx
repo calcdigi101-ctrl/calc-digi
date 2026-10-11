@@ -5,7 +5,7 @@ const PATH = "/calculators/finance/roth-ira-calculator";
 const DESCRIPTION =
   "Free Roth IRA calculator with 2026 limits: project your tax-free balance at retirement and compare it with the same savings in a taxable account.";
 
-export const metadata = calcMetadata(PATH, "Roth IRA Calculator – Tax-Free Retirement Growth (2026 Limits) | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Roth IRA Calculator – Tax-Free Retirement Growth | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

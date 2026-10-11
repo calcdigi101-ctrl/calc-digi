@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/retirement-calculator";
 const DESCRIPTION =
   "Free retirement calculator: project your savings at retirement, the nest egg you need for your target income, and whether your money lasts, with Social Security and inflation included.";
 
-export const metadata = calcMetadata(PATH, "Retirement Calculator – Am I Saving Enough to Retire? | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Retirement Calculator – Am I Saving Enough? | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

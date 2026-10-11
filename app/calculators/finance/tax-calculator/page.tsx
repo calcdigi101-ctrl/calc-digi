@@ -6,7 +6,7 @@ import { BRACKETS, STANDARD_DEDUCTION, TAX_YEAR } from "@/lib/tax";
 const PATH = "/calculators/finance/tax-calculator";
 const DESCRIPTION = `Free ${TAX_YEAR} federal income tax calculator: estimate your tax, effective and marginal rate, and refund or balance due using the latest IRS brackets and standard deductions.`;
 
-export const metadata = calcMetadata(PATH, `Income Tax Calculator ${TAX_YEAR} – Federal Tax, Brackets & Refund | CalcDigi`, DESCRIPTION);
+export const metadata = calcMetadata(PATH, `Income Tax Calculator ${TAX_YEAR} – Federal Tax & Refund | CalcDigi`, DESCRIPTION);
 
 const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;
 const rows = (s: "single" | "mfj" | "hoh") =>

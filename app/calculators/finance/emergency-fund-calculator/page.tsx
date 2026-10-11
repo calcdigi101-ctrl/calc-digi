@@ -5,7 +5,7 @@ const PATH = "/calculators/finance/emergency-fund-calculator";
 const DESCRIPTION =
   "Free emergency fund calculator: find how much to keep for 3–12 months of essential expenses, how close you are, and how long it will take to fully fund it.";
 
-export const metadata = calcMetadata(PATH, "Emergency Fund Calculator – How Much Should I Save? | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Emergency Fund Calculator – How Much to Save | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

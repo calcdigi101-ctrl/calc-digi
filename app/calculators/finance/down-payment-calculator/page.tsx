@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/down-payment-calculator";
 const DESCRIPTION =
   "Free down payment calculator: how much you need for a 3%, 3.5%, 10% or 20% down payment plus closing costs, and how long it will take to save it.";
 
-export const metadata = calcMetadata(PATH, "Down Payment Calculator – How Much to Save for a House | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Down Payment Calculator – Saving for a House | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

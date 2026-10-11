@@ -5,7 +5,7 @@ import { Formula } from "@/components/flagship/shell";
 const PATH = "/calculators/finance/roi-calculator";
 const DESCRIPTION = "Free ROI calculator: return on investment as a percentage and an annualized rate, plus gain, return multiple and doubling time.";
 
-export const metadata = calcMetadata(PATH, "ROI Calculator – Return on Investment & Annualized ROI | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "ROI Calculator – Return on Investment | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

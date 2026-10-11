@@ -4,7 +4,7 @@ import { MortgageCalculator } from "./MortgageCalculator";
 import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
 import { SITE_URL } from "@/lib/site";
 
-const TITLE = "Mortgage Calculator – Monthly Payment with Taxes, PMI & Amortization | CalcDigi";
+const TITLE = "Mortgage Calculator – Payment with Taxes & PMI | CalcDigi";
 const DESCRIPTION =
   "Free mortgage calculator: estimate your monthly house payment with property tax, insurance, PMI and HOA, see an amortization schedule, and find out how much extra payments save.";
 

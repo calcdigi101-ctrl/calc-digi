@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/paypal-fee-calculator";
 const DESCRIPTION =
   "Free PayPal fee calculator: see how much you receive after PayPal fees, or how much to charge to receive an exact amount, for goods & services, Checkout, international and friends & family payments.";
 
-export const metadata = calcMetadata(PATH, "PayPal Fee Calculator – Fees, Amount Received & What to Charge | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "PayPal Fee Calculator – Fees & Amount Received | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

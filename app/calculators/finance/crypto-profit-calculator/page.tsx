@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/crypto-profit-calculator";
 const DESCRIPTION =
   "Free crypto profit calculator: profit or loss on Bitcoin, Ethereum or any coin after exchange fees and taxes, with coins bought and your break-even sell price.";
 
-export const metadata = calcMetadata(PATH, "Crypto Profit Calculator – Profit, Fees & Break-Even Price | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Crypto Profit Calculator – Profit & Break-Even | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

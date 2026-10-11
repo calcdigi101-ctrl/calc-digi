@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/apr-calculator";
 const DESCRIPTION =
   "Free APR calculator: find the real annual percentage rate of a loan once origination fees, points and closing costs are included, and compare it with the stated interest rate.";
 
-export const metadata = calcMetadata(PATH, "APR Calculator – Real Cost of a Loan Including Fees | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "APR Calculator – Real Cost of a Loan with Fees | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

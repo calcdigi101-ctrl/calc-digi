@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/401k-calculator";
 const DESCRIPTION =
   "Free 401(k) calculator with 2026 IRS limits: project your balance at retirement from your contributions, employer match, salary growth and investment returns.";
 
-export const metadata = calcMetadata(PATH, "401(k) Calculator – Retirement Balance with Employer Match (2026 Limits) | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "401(k) Calculator – Balance with Employer Match | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/social-security-calculator";
 const DESCRIPTION =
   "Free Social Security calculator: see your monthly benefit at every claiming age from 62 to 70, your full retirement age by birth year, and lifetime benefits.";
 
-export const metadata = calcMetadata(PATH, "Social Security Calculator – Benefits by Claiming Age 62–70 | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Social Security Calculator – Benefits by Age | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

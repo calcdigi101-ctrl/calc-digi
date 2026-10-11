@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/vat-calculator";
 const DESCRIPTION =
   "Free VAT calculator: add VAT to a net price or remove VAT from a gross price, with standard rates for the UK, EU countries, UAE, Saudi Arabia, India, Pakistan, Australia and more.";
 
-export const metadata = calcMetadata(PATH, "VAT Calculator – Add or Remove VAT / GST at Any Rate | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "VAT Calculator – Add or Remove VAT / GST | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

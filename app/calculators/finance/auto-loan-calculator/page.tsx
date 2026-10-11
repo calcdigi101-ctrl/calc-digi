@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/auto-loan-calculator";
 const DESCRIPTION =
   "Free auto loan calculator: estimate your monthly car payment with sales tax, fees, down payment and trade-in, plus total interest and a yearly payoff schedule.";
 
-export const metadata = calcMetadata(PATH, "Auto Loan Calculator – Car Payment with Tax, Trade-In & Fees | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Auto Loan Calculator – Car Payment with Tax | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

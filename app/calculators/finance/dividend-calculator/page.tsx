@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/dividend-calculator";
 const DESCRIPTION =
   "Free dividend calculator: project dividend income and portfolio value with dividend reinvestment (DRIP), dividend growth, share price growth and taxes.";
 
-export const metadata = calcMetadata(PATH, "Dividend Calculator – DRIP, Dividend Income & Growth | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Dividend Calculator – DRIP & Dividend Income | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/hourly-to-salary-calculator";
 const DESCRIPTION =
   "Free hourly to salary calculator: convert an hourly wage to annual, monthly and biweekly pay (with overtime), or a salary back to an hourly rate.";
 
-export const metadata = calcMetadata(PATH, "Hourly to Salary Calculator – Wage to Annual Pay & Back | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Hourly to Salary Calculator – Wage to Annual Pay | CalcDigi", DESCRIPTION);
 
 const ROWS = [15, 20, 25, 30, 40, 50].map((h) => [`$${h}/hr`, `$${(h * 2080).toLocaleString()}`, `$${((h * 2080) / 12).toLocaleString("en-US", { maximumFractionDigits: 0 })}`]);
 

@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "node --test \"tests/**/*.test.mts\""
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.133.0",
     "@hookform/resolvers": "^5.9.1",
     "@supabase/supabase-js": "^2.112.4",
     "clsx": "^2.1.1",

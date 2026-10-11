@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/stock-return-calculator";
 const DESCRIPTION =
   "Free stock return calculator: total return and annualized return (CAGR) on a stock including dividends, fees and capital gains tax.";
 
-export const metadata = calcMetadata(PATH, "Stock Return Calculator – Total & Annualized Return with Dividends | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Stock Return Calculator – Annualized Return | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

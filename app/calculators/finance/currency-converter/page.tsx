@@ -10,7 +10,7 @@ const PATH = "/calculators/finance/currency-converter";
 const DESCRIPTION =
   "Free currency converter with daily-updated exchange rates for 160+ currencies, including USD, EUR, GBP, PKR, INR, JPY, CAD and AUD.";
 
-export const metadata = calcMetadata(PATH, "Currency Converter – Daily Exchange Rates for 160+ Currencies | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Currency Converter – 160+ Currencies, Daily Rates | CalcDigi", DESCRIPTION);
 
 export default async function Page() {
   const { rates, updated, live } = await getRates();

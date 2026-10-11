@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/business-profit-calculator";
 const DESCRIPTION =
   "Free business profit calculator: gross profit, EBITDA, operating profit and net profit with margins, from revenue, cost of goods sold, operating expenses, interest and tax.";
 
-export const metadata = calcMetadata(PATH, "Business Profit Calculator – Gross, Operating & Net Profit Margins | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Business Profit Calculator – Profit Margins | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

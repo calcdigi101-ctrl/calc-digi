@@ -12,6 +12,8 @@ interface CalculatorsExplorerProps {
 type FilterId = CategoryId | "all";
 
 const SEARCH_DEBOUNCE_MS = 250;
+/** On phones only the first few cards show until "Show all" is pressed (CSS hides .is-extra). */
+const MOBILE_PREVIEW_COUNT = 8;
 
 function useDebouncedValue<T>(value: T, delayMs: number): T {
   const [debounced, setDebounced] = useState(value);
@@ -32,6 +34,7 @@ export default function CalculatorsExplorer({
   const [activeFilter, setActiveFilter] = useState<FilterId>(defaultFilter);
   const [searchInput, setSearchInput] = useState("");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [expandedFor, setExpandedFor] = useState<string | null>(null);
   const debouncedSearch = useDebouncedValue(searchInput, SEARCH_DEBOUNCE_MS);
 
   const allCalculators = useMemo(
@@ -59,6 +62,10 @@ export default function CalculatorsExplorer({
       return calc.name.toLowerCase().includes(query) || label.toLowerCase().includes(query);
     });
   }, [allCalculators, activeFilter, query, categoryLabelById]);
+
+  const listKey = `${activeFilter}|${query}`;
+  const expanded = expandedFor === listKey || query !== "";
+  const hiddenOnMobile = expanded ? 0 : Math.max(0, visibleCalculators.length - MOBILE_PREVIEW_COUNT);
 
   const hasActiveFilters = activeFilter !== defaultFilter || searchInput.trim() !== "";
 
@@ -123,16 +130,13 @@ export default function CalculatorsExplorer({
             )}
           </div>
 
-          <div className="calc-sidebar-meta">
-            <span className="calc-result-count">
-              Showing {visibleCalculators.length} of {allCalculators.length} calculators
-            </span>
-            {hasActiveFilters && (
+          {hasActiveFilters && (
+            <div className="calc-sidebar-meta">
               <button type="button" className="calc-reset-btn" onClick={resetFilters}>
                 Reset Filters
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
           <ul className="calc-cat-list" role="list">
             {showAllCategoriesOption && (
@@ -180,9 +184,14 @@ export default function CalculatorsExplorer({
         </div>
 
         {visibleCalculators.length > 0 ? (
+          <>
           <div className="calc-results-grid">
-            {visibleCalculators.map((calc) => (
-              <a key={calc.href} href={calc.href} className="health-calc-card">
+            {visibleCalculators.map((calc, i) => (
+              <a
+                key={calc.href}
+                href={calc.href}
+                className={`health-calc-card${!expanded && i >= MOBILE_PREVIEW_COUNT ? " is-extra" : ""}`}
+              >
                 <div className="health-calc-card-icon">{calc.icon}</div>
                 <div>
                   <div className="health-calc-card-name">{calc.name}</div>
@@ -191,6 +200,12 @@ export default function CalculatorsExplorer({
               </a>
             ))}
           </div>
+          {hiddenOnMobile > 0 && (
+            <button type="button" className="calc-show-all" onClick={() => setExpandedFor(listKey)}>
+              Show all {visibleCalculators.length} calculators
+            </button>
+          )}
+          </>
         ) : (
           <div className="calc-empty-state">
             <div className="ces-icon">🔍</div>

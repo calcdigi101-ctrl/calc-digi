@@ -60,55 +60,8 @@ function drawBar(canvasId,labels,data,color='#1a5c3a'){
   });
 }
 
-// ── ALL_CALCS now defined in layout.js (CALC_DATA-derived) — removed duplicate here ──
-
-// ── Search ──
-function buildSearchResults(q,results,basePath=''){
-  const matches=ALL_CALCS.filter(c=>c.name.toLowerCase().includes(q)||(c.catLabel||c.cat||'').toLowerCase().includes(q));
-  if(matches.length===0){results.innerHTML='<div class="search-result-item"><span class="sri-name" style="color:var(--c-ink3)">No calculators found</span></div>';results.classList.add('active');return;}
-  results.innerHTML=matches.slice(0,8).map(c=>`<a class="search-result-item" href="${basePath}${c.url}"><span class="sri-icon">${c.icon}</span><div><div class="sri-name">${c.name}</div><div class="sri-cat">${c.catLabel||c.cat}</div></div></a>`).join('');
-  results.classList.add('active');
-}
-
-function initSearch(){
-  const base=getBasePath?getBasePath():'';
-  // Hero search
-  const heroInput=document.getElementById('calc-search');
-  const heroResults=document.getElementById('search-results');
-  if(heroInput&&heroResults){
-    heroInput.addEventListener('input',function(){
-      const q=this.value.trim().toLowerCase();
-      if(q.length<2){heroResults.classList.remove('active');return;}
-      buildSearchResults(q,heroResults,base);
-    });
-    document.addEventListener('click',e=>{if(!heroInput.contains(e.target)&&!heroResults.contains(e.target))heroResults.classList.remove('active');});
-  }
-  // Nav search
-  const navInput=document.getElementById('nav-search');
-  const navResults=document.getElementById('nav-search-results');
-  if(navInput&&navResults){
-    navInput.addEventListener('input',function(){
-      const q=this.value.trim().toLowerCase();
-      if(q.length<2){navResults.classList.remove('active');return;}
-      buildSearchResults(q,navResults,base);
-    });
-    document.addEventListener('click',e=>{if(!navInput.contains(e.target)&&!navResults.contains(e.target))navResults.classList.remove('active');});
-  }
-}
-
-// ── Dark Mode ──
-function initDarkMode(){
-  const toggle=document.getElementById('dark-toggle');
-  if(!toggle)return;
-  const saved=localStorage.getItem('cd-dark');
-  if(saved==='1'){document.body.classList.add('dark');toggle.textContent='☀️';}
-  toggle.addEventListener('click',function(){
-    const isDark=document.body.classList.toggle('dark');
-    this.textContent=isDark?'☀️':'🌙';
-    localStorage.setItem('cd-dark',isDark?'1':'0');
-    showToast(isDark?'Dark mode on ✓':'Light mode on ✓');
-  });
-}
+// ── Text escaping for anything inserted with innerHTML ──
+function escHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 
 // ── Toast ──
 function showToast(msg,duration=2000){
@@ -116,17 +69,6 @@ function showToast(msg,duration=2000){
   if(!t)return;
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),duration);
-}
-
-// ── Mobile nav toggle ──
-function initMobileNav(){
-  const btn=document.getElementById('hamburger');
-  const nav=document.getElementById('mobile-nav');
-  if(!btn||!nav)return;
-  btn.addEventListener('click',function(){
-    const open=nav.classList.toggle('open');
-    this.setAttribute('aria-expanded',open);
-  });
 }
 
 // ── FAQ accordion ──
@@ -142,74 +84,6 @@ function initFAQ(){
       if(!isOpen){a.classList.add('open');this.classList.add('open');}
     });
   });
-}
-
-// ── Back to top ──
-function initBackTop(){
-  const btn=document.getElementById('back-top');
-  if(!btn)return;
-  window.addEventListener('scroll',()=>btn.classList.toggle('show',window.scrollY>400));
-  btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-}
-
-// ── Cookie banner ──
-function initCookie(){
-  if(localStorage.getItem('cd-cookie'))return;
-  const banner=document.getElementById('cookie-banner');
-  if(!banner)return;
-  setTimeout(()=>banner.classList.add('show'),1400);
-  document.getElementById('cookie-accept')?.addEventListener('click',()=>{localStorage.setItem('cd-cookie','1');banner.classList.remove('show');});
-  document.getElementById('cookie-decline')?.addEventListener('click',()=>banner.classList.remove('show'));
-}
-
-// ── AI Chat Panel ──
-function initAIPanel(){
-  const panel=document.getElementById('ai-panel');
-  const fabBtn=document.getElementById('ai-fab-nav');
-  const closeBtn=document.getElementById('ai-panel-close');
-  const sendBtn=document.getElementById('ai-send-btn');
-  const input=document.getElementById('ai-panel-input');
-  const messages=document.getElementById('ai-panel-messages');
-  if(!panel)return;
-
-  function openPanel(){panel.classList.add('open');}
-  function closePanel(){panel.classList.remove('open');}
-
-  fabBtn?.addEventListener('click',()=>{panel.classList.toggle('open');});
-  closeBtn?.addEventListener('click',closePanel);
-
-  async function sendMsg(){
-    const q=input?.value?.trim();
-    if(!q)return;
-    input.value='';
-    // User bubble
-    messages.innerHTML+=`<div class="ai-msg user">${q}</div>`;
-    messages.innerHTML+=`<div class="ai-msg typing" id="ai-typing"><span class="spinner"></span> thinking</div>`;
-    messages.scrollTop=messages.scrollHeight;
-    try{
-      const res=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          model:'claude-sonnet-4-20250514',
-          max_tokens:1000,
-          system:'You are CalcDigi AI, a helpful assistant for a calculator website. You help users understand calculations, financial concepts, health metrics, math, and explain how to use calculators. Keep answers concise, clear, and friendly. If relevant, suggest which CalcDigi calculator they should use.',
-          messages:[{role:'user',content:q}]
-        })
-      });
-      const data=await res.json();
-      const reply=data.content?.map(b=>b.text||'').join('\n')||'Sorry, I could not get a response.';
-      document.getElementById('ai-typing')?.remove();
-      messages.innerHTML+=`<div class="ai-msg bot">${reply.replace(/\n/g,'<br>')}</div>`;
-    }catch(e){
-      document.getElementById('ai-typing')?.remove();
-      messages.innerHTML+=`<div class="ai-msg bot">Sorry, I'm having trouble connecting. Please try again.</div>`;
-    }
-    messages.scrollTop=messages.scrollHeight;
-  }
-
-  sendBtn?.addEventListener('click',sendMsg);
-  input?.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
 }
 
 // ── Calculator History (localStorage) ──
@@ -235,46 +109,16 @@ function renderCalcHistory(containerId){
   }catch(e){el.innerHTML='';}
 }
 
-// ── AI Insight ──
-async function getAIInsight(prompt){
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})
-    });
-    const data=await res.json();
-    return data.content?.map(b=>b.text||'').join('\n')||'';
-  }catch(e){return'';}
-}
-
 async function showAIRecommendation(containerId,prompt){
   const box=document.getElementById(containerId);
   if(!box)return;
   box.innerHTML=`<div class="ai-header"><span>✨</span> AI Insight</div><p>Analyzing your results…</p>`;
   box.style.display='block';
   const insight=await getAIInsight(prompt);
-  if(insight){box.innerHTML=`<div class="ai-header"><span>✨</span> AI Insight</div><p>${insight.replace(/\n/g,'<br>')}</p>`;}
+  if(insight){box.innerHTML='<div class="ai-header"><span>✨</span> AI Insight</div><p></p>';box.querySelector('p').textContent=insight;}
   else{box.style.display='none';}
 }
 
-// ── Category filter for homepage ──
-function initCatFilter(){
-  const tabs=document.querySelectorAll('.cat-tab');
-  if(!tabs.length)return;
-  tabs.forEach(tab=>{
-    tab.addEventListener('click',function(){
-      tabs.forEach(t=>t.classList.remove('active'));
-      this.classList.add('active');
-      const cat=this.dataset.cat;
-      document.querySelectorAll('.calc-card[data-cat]').forEach(card=>{
-        card.style.display=(cat==='all'||card.dataset.cat===cat)?'flex':'none';
-      });
-    });
-  });
-}
-
-// ── Scroll reveal ──
 // ── Card spotlight/tilt (cursor-tracking) ──
 function initCardTilt(){
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -298,50 +142,176 @@ function initCardTilt(){
   });
 }
 
+// ── Scroll reveal ──
+// Reveal-once: elements are unobserved after their first reveal. A positive
+// bottom rootMargin starts the animation just before an element scrolls into
+// view, so nothing sits invisible on screen; the stagger is per-batch and capped.
+// CSS keeps .reveal visible without JS and under prefers-reduced-motion.
+var revealIO=null;
 function initScrollReveal(){
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   if(!('IntersectionObserver' in window))return;
-  const selector='.content-section,.section-header,.blog-card,.calc-card,.related-card,.about-card,.health-calc-card,.stat-item,.faq-item,.calc-widget,.ai-feature-card,.mega-calc-item,.popular-item,.testimonial-card,.trust-badge,.newsletter-section,.hero-stat';
-  const els=document.querySelectorAll(selector);
-  if(!els.length)return;
-  const io=new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(entry.isIntersecting){
+  const selector='.content-section,.section-header,.blog-card,.calc-card,.related-card,.about-card,.health-calc-card,.stat-item,.faq-item,.calc-widget,.ai-feature-card,.popular-item,.testimonial-card,.trust-badge,.newsletter-section,.hero-stat';
+  if(!revealIO){
+    revealIO=new IntersectionObserver(function(entries){
+      let n=0;
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting)return;
+        entry.target.style.transitionDelay=(Math.min(n++,4)*60)+'ms';
         entry.target.classList.add('in-view');
-        io.unobserve(entry.target);
-      }
-    });
-  },{threshold:0.15,rootMargin:'0px 0px -80px 0px'});
-  const siblingCounts=new WeakMap();
-  els.forEach(function(el){
+        revealIO.unobserve(entry.target);
+      });
+    },{threshold:0,rootMargin:'0px 0px 15% 0px'});
+  }
+  document.querySelectorAll(selector).forEach(function(el){
     if(el.classList.contains('reveal'))return;
+    // Already on screen at load: show immediately rather than fading in.
+    const r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight && r.bottom>0){el.classList.add('reveal','in-view');return;}
     el.classList.add('reveal');
-    const parent=el.parentElement;
-    const n=siblingCounts.get(parent)||0;
-    siblingCounts.set(parent,n+1);
-    el.style.transitionDelay=(Math.min(n,7)*90)+'ms';
-    io.observe(el);
+    revealIO.observe(el);
   });
 }
 
-// ── Init all ──
-// Note: initDarkMode/initMobileNav/initBackTop/initCookie/initAIPanel/initMegaSearch
-// are NOT called here — they depend on markup injected by renderNav()/renderFooter(),
-// which run later (afterInteractive, to avoid a React hydration mismatch). Those are
-// called explicitly right after renderNav()/renderFooter() instead — see app/layout.tsx.
-document.addEventListener('DOMContentLoaded',function(){
-  initSearch();
+// ── Header, mobile menu, back-to-top, AI panel ──
+// Delegated listeners on document: this file loads before hydration and the
+// header is server-rendered, so controls respond on the very first click.
+var AI_MAX_CHARS=1000,AI_MAX_TURNS=11;
+var aiHistory=window.__cdAIHistory||(window.__cdAIHistory=[]);
+
+function setDark(on){
+  document.body.classList.toggle('dark',on);
+  try{localStorage.setItem('cd-dark',on?'1':'0');}catch(e){}
+}
+function setMobileNav(open){
+  const nav=document.getElementById('mobile-nav'),btn=document.getElementById('hamburger');
+  if(!nav)return;
+  nav.classList.toggle('open',open);
+  if(btn){btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Close menu':'Open menu');}
+}
+function setAIPanel(open){
+  const panel=document.getElementById('ai-panel');
+  if(!panel)return;
+  panel.classList.toggle('open',open);
+  if(open)setTimeout(()=>document.getElementById('ai-panel-input')?.focus(),50);
+}
+function aiBubble(cls,text){
+  const box=document.getElementById('ai-panel-messages');
+  const d=document.createElement('div');
+  d.className='ai-msg '+cls;
+  d.textContent=text;
+  box.appendChild(d);
+  box.scrollTop=box.scrollHeight;
+  return d;
+}
+async function sendAIMessage(){
+  const input=document.getElementById('ai-panel-input');
+  const q=input?.value?.trim();
+  if(!q)return;
+  if(q.length>AI_MAX_CHARS){aiBubble('bot','Please keep questions under '+AI_MAX_CHARS+' characters.');return;}
+  input.value='';
+  aiBubble('user',q);
+  aiHistory.push({role:'user',content:q});
+  const typing=aiBubble('typing','thinking…');
+  typing.insertAdjacentHTML('afterbegin','<span class="spinner"></span> ');
+  const r=await askAI(aiHistory.slice(-AI_MAX_TURNS));
+  typing.remove();
+  if(r.reply){aiHistory.push({role:'assistant',content:r.reply});aiBubble('bot',r.reply);}
+  else{aiHistory.pop();aiBubble('bot',r.error||"Sorry, I'm having trouble connecting. Please try again.");}
+}
+
+// Guard: if this file is ever executed twice, don't bind the listeners twice
+// (a double-bound toggle would flip and immediately flip back).
+if(!window.__cdBound){
+window.__cdBound=true;
+document.addEventListener('click',function(e){
+  const t=e.target instanceof Element?e.target:null;
+  if(!t)return;
+  if(t.closest('#dark-toggle')){
+    const on=!document.body.classList.contains('dark');
+    setDark(on);showToast(on?'Dark mode on ✓':'Light mode on ✓');return;
+  }
+  if(t.closest('#hamburger')){setMobileNav(!document.getElementById('mobile-nav')?.classList.contains('open'));return;}
+  if(t.closest('#ai-panel-close')){setAIPanel(false);return;}
+  if(t.closest('[data-open-ai]')){
+    const panel=document.getElementById('ai-panel');
+    setAIPanel(!(panel&&panel.classList.contains('open')&&t.closest('#ai-fab-nav')));
+    return;
+  }
+  if(t.closest('#back-top')){window.scrollTo({top:0,behavior:'smooth'});return;}
+  if(t.closest('#mobile-nav a'))setMobileNav(false);
+});
+document.addEventListener('submit',function(e){
+  if(e.target&&e.target.id==='ai-panel-form'){e.preventDefault();sendAIMessage();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Escape')return;
+  setAIPanel(false);setMobileNav(false);
+});
+window.addEventListener('scroll',function(){
+  document.getElementById('back-top')?.classList.toggle('show',window.scrollY>400);
+},{passive:true});
+
+// ── Legacy calculator input validation ──
+// Inputs that ship with a default value are required; if one is cleared, the
+// section's Calculate button shows an inline message instead of silently
+// computing with a hidden fallback (or doing nothing).
+document.addEventListener('click',function(e){
+  const btn=e.target instanceof Element?e.target.closest('.calc-page .calc-btn'):null;
+  if(!btn||btn.closest('[data-no-validate]'))return;
+  const scope=btn.closest('.content-section')||btn.closest('.calc-widget');
+  if(!scope)return;
+  let first=null;
+  scope.querySelectorAll('input[type="number"]').forEach(function(inp){
+    if(inp.offsetParent===null||inp.disabled)return;
+    const empty=inp.value.trim()==='';
+    const bad=(empty&&inp.defaultValue!=='')||(!empty&&!inp.checkValidity()&&inp.validity.badInput);
+    setFieldError(inp,bad?'Enter a value':'');
+    if(bad&&!first)first=inp;
+  });
+  if(first){e.preventDefault();e.stopImmediatePropagation();first.focus();}
+},true);
+}
+function setFieldError(inp,msg){
+  const id=inp.id?inp.id+'-err':'';
+  let el=id?document.getElementById(id):inp.parentElement.querySelector('.field-error');
+  if(!msg){if(el)el.remove();inp.removeAttribute('aria-invalid');return;}
+  if(!el){
+    el=document.createElement('p');el.className='field-error';el.setAttribute('role','alert');
+    if(id){el.id=id;inp.setAttribute('aria-describedby',id);}
+    inp.insertAdjacentElement('afterend',el);
+  }
+  el.textContent=msg;inp.setAttribute('aria-invalid','true');
+}
+if(!window.__cdInputBound){window.__cdInputBound=true;
+document.addEventListener('input',function(e){
+  const inp=e.target;
+  if(inp instanceof HTMLInputElement&&inp.getAttribute('aria-invalid')==='true'&&inp.value.trim()!=='')setFieldError(inp,'');
+});
+}
+
+// ── AI (proxied through /api/ai so the API key stays on the server) ──
+async function askAI(messages){
+  try{
+    const res=await fetch('/api/ai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages})});
+    const data=await res.json().catch(()=>({}));
+    if(!res.ok)return{error:data.error||''};
+    return{reply:data.reply||''};
+  }catch(e){return{error:''};}
+}
+
+// Automatic per-result insights are disabled: they sent every result to the AI
+// provider without the user asking, which contradicted the "calculations stay in
+// your browser" promise. Legacy page scripts still call this and hide their
+// insight box when it resolves empty. The header AI assistant is opt-in.
+async function getAIInsight(prompt){return'';}
+
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initPage);else initPage();
+function initPage(){
   initFAQ();
-  initCatFilter();
-  if(typeof initNewsletter==='function')initNewsletter(); // newsletter form was removed; keep the call harmless
   initScrollReveal();
   initCardTilt();
-});
-
-// ── Mega Menu Close on ESC ──
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){if(typeof closeMega==='function')closeMega();}
-});
+}
 
 // ── Copy Result ──
 function copyResult(resultId, btnId) {

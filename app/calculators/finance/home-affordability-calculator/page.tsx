@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/home-affordability-calculator";
 const DESCRIPTION =
   "Free home affordability calculator: how much house you can afford based on income, debts, down payment, mortgage rate, property tax and insurance, using lender debt-to-income limits.";
 
-export const metadata = calcMetadata(PATH, "Home Affordability Calculator – How Much House Can I Afford? | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Home Affordability Calculator – Budget a Home | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

@@ -3,7 +3,7 @@ import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/finance/compound-interest-calculator";
-const TITLE = "Compound Interest Calculator – Growth with Monthly Contributions | CalcDigi";
+const TITLE = "Compound Interest Calculator – Savings Growth | CalcDigi";
 const DESCRIPTION =
   "Free compound interest calculator. See how an initial investment and monthly contributions grow over time with daily, monthly, quarterly or annual compounding, with a year-by-year table.";
 

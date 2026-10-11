@@ -6,7 +6,7 @@ import { CPI_LATEST, cpiFor } from "@/lib/cpi";
 const PATH = "/calculators/finance/inflation-calculator";
 const DESCRIPTION = `Free inflation calculator using official BLS CPI data from 1913 to ${CPI_LATEST.year}: find what a dollar amount from any year is worth today, or project future prices at an average inflation rate.`;
 
-export const metadata = calcMetadata(PATH, `Inflation Calculator – US Dollar Value 1913–${CPI_LATEST.year} (CPI Data) | CalcDigi`, DESCRIPTION);
+export const metadata = calcMetadata(PATH, `Inflation Calculator – US Dollar Value Since 1913 | CalcDigi`, DESCRIPTION);
 
 const worth = (from: number) => `$${((100 * cpiFor(CPI_LATEST.year)!) / cpiFor(from)!).toLocaleString("en-US", { maximumFractionDigits: 2, minimumFractionDigits: 2 })}`;
 

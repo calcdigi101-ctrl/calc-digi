@@ -6,7 +6,7 @@ import { SS_WAGE_BASE, TAX_YEAR } from "@/lib/tax";
 const PATH = "/calculators/finance/take-home-pay-calculator";
 const DESCRIPTION = `Free ${TAX_YEAR} take-home pay calculator: see your net paycheck after federal and state income tax, Social Security, Medicare, 401(k) and benefits, per pay period.`;
 
-export const metadata = calcMetadata(PATH, `Take-Home Pay Calculator ${TAX_YEAR} – Paycheck After Taxes | CalcDigi`, DESCRIPTION);
+export const metadata = calcMetadata(PATH, `Take-Home Pay Calculator ${TAX_YEAR} – Pay After Tax | CalcDigi`, DESCRIPTION);
 
 export default function Page() {
   return (

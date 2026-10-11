@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/savings-calculator";
 const DESCRIPTION =
   "Free savings calculator: find how much to save each month to reach a goal, or how much your savings will grow with monthly deposits and interest, with a year-by-year balance chart.";
 
-export const metadata = calcMetadata(PATH, "Savings Calculator – Monthly Savings for a Goal & Interest Earned | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Savings Calculator – Reach Your Savings Goal | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

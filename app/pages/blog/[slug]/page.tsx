@@ -1,35 +1,29 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getArticles, getArticleBySlug } from "@/lib/supabase";
+import { CalculatorPage, Editorial, JsonLd } from "@/components/flagship/shell";
+import { getArticles, getArticleBySlug } from "@/lib/articles";
+import { SITE_URL } from "@/lib/site";
 
-export const revalidate = 60;
+export const revalidate = 3600;
+// Only slugs from generateStaticParams exist; anything else is a real 404
+// (not a soft 404 rendered behind the root loading.tsx with a 200 status).
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const articles = await getArticles();
   return articles.map((a) => ({ slug: a.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = await getArticleBySlug(slug);
   if (!article) return {};
-
+  const path = `/pages/blog/${article.slug}`;
   return {
-    title: `${article.title} | CalcDigi Blog`,
+    title: `${article.title} | CalcDigi`,
     description: article.excerpt,
-    openGraph: {
-      title: article.title,
-      description: article.excerpt,
-      type: "article",
-    },
-    alternates: {
-      canonical: `/pages/blog/${article.slug}`,
-    },
+    openGraph: { title: article.title, description: article.excerpt, type: "article", url: path, publishedTime: article.published_at, modifiedTime: article.updated_at },
+    alternates: { canonical: path },
   };
 }
 
@@ -38,52 +32,59 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const article = await getArticleBySlug(slug);
   if (!article) notFound();
 
-  const publishedDate = new Date(article.published_at).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+  const url = `${SITE_URL}/pages/blog/${article.slug}`;
 
   return (
-    <main style={{ padding: "60px 0 80px" }}>
-      <div className="container" style={{ maxWidth: "820px" }}>
-        <nav className="calc-breadcrumb">
-          <Link href="/">Home</Link>
-          <span className="bc-sep"> / </span>
-          <Link href="/pages/blog">Blog</Link>
-          <span className="bc-sep"> / </span>
-          <span aria-current="page">{article.title}</span>
-        </nav>
-
-        <div style={{ fontSize: "60px", margin: "24px 0 8px" }}>{article.cover_emoji}</div>
-        <h1 style={{ fontFamily: "var(--font-serif)", marginBottom: "8px" }}>{article.title}</h1>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            fontSize: "13px",
-            color: "var(--c-ink3)",
-            marginBottom: "32px",
-          }}
-        >
-          <span>{article.category}</span>
-          <span>·</span>
-          <span>{article.read_minutes} min read</span>
-          <span>·</span>
-          <span>{publishedDate}</span>
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/pages/blog` },
+                { "@type": "ListItem", position: 3, name: article.title, item: url },
+              ],
+            },
+            {
+              "@type": "Article",
+              headline: article.title,
+              description: article.excerpt,
+              datePublished: article.published_at,
+              dateModified: article.updated_at,
+              mainEntityOfPage: url,
+              author: { "@type": "Organization", name: "CalcDigi" },
+              publisher: { "@type": "Organization", name: "CalcDigi" },
+            },
+          ],
+        }}
+      />
+      <CalculatorPage
+        crumbs={[{ href: "/", label: "Home" }, { href: "/pages/blog", label: "Blog" }, { label: article.title }]}
+        title={article.title}
+        intro={
+          <span>
+            {article.category} · {article.read_minutes} min read · Updated <time dateTime={article.updated_at}>{fmt(article.updated_at)}</time>
+          </span>
+        }
+      >
+        <div className="max-w-3xl">
+          <Editorial>
+            <div className="fx-prose" dangerouslySetInnerHTML={{ __html: article.content }} />
+          </Editorial>
+          {article.related_calculator_url ? (
+            <a
+              href={article.related_calculator_url}
+              className="mt-6 inline-flex min-h-[48px] items-center rounded-lg bg-blue-600 px-5 font-semibold text-white hover:bg-blue-700"
+            >
+              Try the related calculator →
+            </a>
+          ) : null}
         </div>
-
-        <div dangerouslySetInnerHTML={{ __html: article.content }} />
-
-        {article.related_calculator_url && (
-          <div className="content-section">
-            <Link href={article.related_calculator_url} className="btn btn-primary">
-              Try the Related Calculator →
-            </Link>
-          </div>
-        )}
-      </div>
-    </main>
+      </CalculatorPage>
+    </>
   );
 }

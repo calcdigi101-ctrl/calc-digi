@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/loan-calculator";
 const DESCRIPTION =
   "Free loan calculator: find the monthly payment, total interest and payoff schedule for any personal, student or business loan, and see how extra payments shorten it.";
 
-export const metadata = calcMetadata(PATH, "Loan Calculator – Monthly Payment & Amortization Schedule | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Loan Calculator – Monthly Payment & Amortization | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/salary-calculator";
 const DESCRIPTION =
   "Free salary calculator: convert pay between hourly, daily, weekly, biweekly, semi-monthly, monthly, quarterly and annual amounts, with an option to exclude paid holidays and vacation.";
 
-export const metadata = calcMetadata(PATH, "Salary Calculator – Convert Hourly, Weekly, Monthly & Annual Pay | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Salary Calculator – Hourly, Monthly & Annual Pay | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

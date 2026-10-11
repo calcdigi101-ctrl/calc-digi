@@ -6,7 +6,7 @@ import { WHO_CLASSES } from "@/lib/bmi";
 import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/bmi-calculator";
-const TITLE = "BMI Calculator – Body Mass Index for Adults (US & Metric) | CalcDigi";
+const TITLE = "BMI Calculator – Body Mass Index for Adults | CalcDigi";
 const DESCRIPTION =
   "Free BMI calculator for adults. Enter height and weight in ft/lbs or cm/kg to get your Body Mass Index, WHO category, healthy weight range, BMI Prime and Ponderal Index.";
 

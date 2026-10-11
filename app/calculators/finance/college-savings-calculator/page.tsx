@@ -5,7 +5,7 @@ const PATH = "/calculators/finance/college-savings-calculator";
 const DESCRIPTION =
   "Free college savings calculator: estimate future tuition with cost inflation and find the monthly amount to save in a 529 plan or other account to cover it.";
 
-export const metadata = calcMetadata(PATH, "College Savings Calculator – Monthly 529 Savings Needed | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "College Savings Calculator – 529 Savings Plan | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

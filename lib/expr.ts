@@ -8,7 +8,8 @@
  *   power   := postfix ("^" unary)?          right-associative
  *   postfix := primary ("²" | "!" | "%")*
  *   primary := number | π | e | Ans | MR | fn "(" expr ")" | "√" unary | "(" expr ")"
- * Missing closing parentheses at the end are tolerated.
+ * Missing closing parentheses at the end are tolerated (auto-closed); an extra
+ * ")" or a malformed number such as "1..6" or "1.2.3" is an error.
  */
 
 export type AngleMode = "deg" | "rad";
@@ -33,10 +34,17 @@ function tokenize(src: string): string[] {
     if (t === "-") t = "−";
     else if (t === "*") t = "×";
     else if (t === "/") t = "÷";
+    // Two numbers back to back ("1." then ".6") means a doubled decimal point.
+    if (/^[\d.]/.test(t) && out.length && /^[\d.]/.test(out[out.length - 1])) throw new CalcError("Error");
     out.push(t);
     pos = TOKEN_RE.lastIndex;
   }
   return out;
+}
+
+/** False when the number being typed at the end of `expr` already has a decimal point. */
+export function canAppendDecimal(expr: string): boolean {
+  return !/\d*\.\d*$/.test(expr);
 }
 
 function factorial(n: number) {

@@ -3,13 +3,14 @@ import Script from "next/script";
 import { SITE_URL } from "@/lib/site";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import RouteEffects from "@/components/RouteEffects";
+import { Header } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
 import "./flagship.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "CalcDigi – Free Online Calculators",
-  description:
-    "Free, accurate, AI-powered calculators for health, finance, math, and more. No sign-up required.",
+  description: "Free, accurate online calculators for health, finance, math and more. No sign-up required.",
 };
 
 // Cache-busting query param: /css/main.css and /js/*.js are served with a
@@ -19,14 +20,20 @@ export const metadata: Metadata = {
 // with zero manual bumping.
 const ASSET_VERSION = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 10) ?? "dev";
 
+// Runs before first paint: marks JS as available (scroll-reveal only hides
+// content when it can be revealed again) and applies the saved theme.
+const HEAD_SCRIPT = "document.documentElement.classList.add('js')";
+const THEME_SCRIPT = "try{if(localStorage.getItem('cd-dark')==='1')document.body.classList.add('dark')}catch(e){}";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: HEAD_SCRIPT }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
@@ -35,21 +42,15 @@ export default function RootLayout({
         />
         <link rel="stylesheet" href={`/css/main.css?v=${ASSET_VERSION}`} />
       </head>
-      <body>
-        <div id="site-nav" />
-        <NuqsAdapter>{children}</NuqsAdapter>
-        <div id="site-footer" />
+      <body suppressHydrationWarning>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <Header />
+        <div id="main" tabIndex={-1}>
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </div>
+        <Footer />
         <RouteEffects />
-        <Script src={`/js/layout.js?v=${ASSET_VERSION}`} strategy="beforeInteractive" />
         <Script src={`/js/main.js?v=${ASSET_VERSION}`} strategy="beforeInteractive" />
-        <Script
-          id="init-nav-footer"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html:
-              "renderNav();renderFooter();initDarkMode();initMobileNav();initBackTop();initCookie();initAIPanel();initMegaSearch();",
-          }}
-        />
       </body>
     </html>
   );

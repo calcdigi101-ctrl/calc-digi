@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/investment-calculator";
 const DESCRIPTION =
   "Free investment calculator: project how a lump sum and monthly contributions grow at an expected rate of return, in nominal and inflation-adjusted dollars, with a growth chart.";
 
-export const metadata = calcMetadata(PATH, "Investment Calculator – Portfolio Growth with Monthly Contributions | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Investment Calculator – Portfolio Growth | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

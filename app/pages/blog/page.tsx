@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getArticles } from "@/lib/supabase";
+import { getArticles } from "@/lib/articles";
 
 export const revalidate = 60;
 
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 export default async function Page() {
   const articles = await getArticles();
   const featured = articles.find((a) => a.featured) ?? articles[0];
-  const rest = articles.filter((a) => a.id !== featured?.id);
+  const rest = articles.filter((a) => a.slug !== featured?.slug);
 
   return (
     <main>
@@ -100,7 +100,7 @@ export default async function Page() {
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(290px,1fr))", gap: "24px" }}>
             {rest.map((article) => (
-              <Link href={`/pages/blog/${article.slug}`} className="blog-card" key={article.id}>
+              <Link href={`/pages/blog/${article.slug}`} className="blog-card" key={article.slug}>
                 <div className="blog-card-img">{article.cover_emoji}</div>
                 <div className="blog-card-body">
                   <div className="blog-card-cat">{article.category}</div>

@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/apy-calculator";
 const DESCRIPTION =
   "Free APY calculator: convert an interest rate to annual percentage yield for any compounding frequency, including daily and continuous, and see the interest a deposit earns in a year.";
 
-export const metadata = calcMetadata(PATH, "APY Calculator – Convert Interest Rate to Annual Percentage Yield | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "APY Calculator – Convert Interest Rate to APY | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (

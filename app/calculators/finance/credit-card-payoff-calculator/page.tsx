@@ -6,7 +6,7 @@ const PATH = "/calculators/finance/credit-card-payoff-calculator";
 const DESCRIPTION =
   "Free credit card payoff calculator: see how long it takes to pay off a card at a fixed monthly payment, or the payment needed to be debt-free by a target date, and the total interest.";
 
-export const metadata = calcMetadata(PATH, "Credit Card Payoff Calculator – Months to Debt-Free & Interest | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, "Credit Card Payoff Calculator – Debt-Free Date | CalcDigi", DESCRIPTION);
 
 export default function Page() {
   return (
