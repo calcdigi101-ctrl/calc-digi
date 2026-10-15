@@ -25,9 +25,6 @@
       ]
     }
   ],
-  "rewrites": [
-    { "source": "/", "destination": "/landing.html" }
-  ],
   "cleanUrls": false,
   "trailingSlash": false
 }
