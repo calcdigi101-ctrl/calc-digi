@@ -74,16 +74,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
       <!-- Brand Logo: CalcDigi• (Serif styled matching screenshot) -->
-      <a href="#" class="flex items-center gap-1 group shrink-0">
+      <a href="/" class="flex items-center gap-1 group shrink-0">
         <span class="font-serif font-bold text-2xl tracking-tight text-slate-900 dark:text-white">CalcDigi</span>
         <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#18533b] dark:bg-emerald-400 mb-0.5 group-hover:scale-125 transition-transform"></span>
       </a>
 
       <!-- Screenshot Navigation Links: Home, Calculators, Blog, About -->
       <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-        <a 
-          href="#" 
-          class="px-4 py-2 rounded-xl bg-[#edf7f2] dark:bg-emerald-950/60 text-[#1b5e20] dark:text-emerald-300 font-semibold text-sm transition-all"
+        <a href="/" class="px-4 py-2 rounded-xl bg-[#edf7f2] dark:bg-emerald-950/60 text-[#1b5e20] dark:text-emerald-300 font-semibold text-sm transition-all"
         >
           Home
         </a>
@@ -93,9 +91,7 @@
         >
           Calculators
         </a>
-        <a 
-          href="#guides" 
-          class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60 font-medium text-sm transition-all"
+        <a href="/pages/blog" class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60 font-medium text-sm transition-all"
         >
           Blog
         </a>
@@ -172,13 +168,10 @@
 
     <!-- Mobile Dropdown Navigation -->
     <div id="mobile-nav-menu" class="hidden md:hidden border-t border-slate-100 dark:border-slate-800 px-4 pt-3 pb-4 bg-white dark:bg-[#090e1a] space-y-1.5 shadow-lg">
-      <a 
-        href="#" 
+      <a href="/" 
         onclick="toggleMobileNav()" 
         class="block px-3.5 py-2 rounded-xl bg-[#edf7f2] dark:bg-emerald-950/60 text-[#1b5e20] dark:text-emerald-300 font-semibold text-sm"
-      >
-        Home
-      </a>
+      >Home</a>
       <a 
         href="/calculators" 
         onclick="toggleMobileNav()" 
@@ -186,9 +179,7 @@
       >
         Calculators
       </a>
-      <a 
-        href="#guides" 
-        onclick="toggleMobileNav()" 
+      <a href="/pages/blog" onclick="toggleMobileNav()" 
         class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-sm"
       >
         Blog
@@ -522,24 +513,21 @@
             <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-lg shrink-0">
               🏛️
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base">Financial</h3>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/finance" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Financial</a></h3>
           </div>
 
           <!-- Tool Links List -->
           <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
-            <li><a href="#hero-search-input" onclick="setHeroTab('mortgage')" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Mortgage Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Loan Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Auto Loan Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Compound Interest</a></li>
-            <li><a href="#hero-search-input" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Salary Calculator</a></li>
+            <li><a href="/calculators/finance/mortgage-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Mortgage Calculator</a></li>
+            <li><a href="/calculators/finance/loan-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Loan Calculator</a></li>
+            <li><a href="/calculators/finance/auto-loan-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Auto Loan Calculator</a></li>
+            <li><a href="/calculators/finance/compound-interest-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Compound Interest</a></li>
+            <li><a href="/calculators/finance/salary-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Salary Calculator</a></li>
           </ul>
         </div>
 
         <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#directory-section" onclick="filterByDomain('finance')" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1">
-            <span>More financial</span>
-            <span>&rarr;</span>
-          </a>
+          <a href="/pages/finance" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1"><span>More financial</span><span>&rarr;</span></a>
         </div>
       </div>
 
@@ -550,20 +538,20 @@
             <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center text-lg shrink-0">
               🏋️
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base">Fitness & Health</h3>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/health" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Fitness & Health</a></h3>
           </div>
 
           <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
-            <li><a href="#hero-search-input" onclick="setHeroTab('bmi')" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMI Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Calorie Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Body Fat Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMR Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Ideal Weight Calculator</a></li>
+            <li><a href="/calculators/health/bmi-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMI Calculator</a></li>
+            <li><a href="/calculators/health/calorie-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Calorie Calculator</a></li>
+            <li><a href="/calculators/health/body-fat-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Body Fat Calculator</a></li>
+            <li><a href="/calculators/health/bmr-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMR Calculator</a></li>
+            <li><a href="/calculators/health/ideal-weight-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Ideal Weight Calculator</a></li>
           </ul>
         </div>
 
         <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#directory-section" onclick="filterByDomain('health')" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1">
+          <a href="/pages/health" onclick="filterByDomain('health')" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1">
             <span>More fitness & health</span>
             <span>&rarr;</span>
           </a>
@@ -577,22 +565,19 @@
             <div class="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center text-lg shrink-0">
               🧮
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base">Math</h3>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/math" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Math</a></h3>
           </div>
 
           <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
-            <li><a href="#hero-search-input" onclick="setHeroCalcMode('sci')" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Scientific Calculator</a></li>
-            <li><a href="#hero-search-input" onclick="setPercentagePreset()" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Percentage Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Fraction Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Triangle Calculator</a></li>
+            <li><a href="/calculators/math/scientific-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Scientific Calculator</a></li>
+            <li><a href="/calculators/math/percentage-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Percentage Calculator</a></li>
+            <li><a href="/calculators/math/fraction-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Fraction Calculator</a></li>
+            <li><a href="/calculators/math/triangle-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Triangle Calculator</a></li>
           </ul>
         </div>
 
         <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#directory-section" onclick="filterByDomain('math')" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1">
-            <span>More math</span>
-            <span>&rarr;</span>
-          </a>
+          <a href="/pages/math" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1"><span>More math</span><span>&rarr;</span></a>
         </div>
       </div>
 
@@ -603,22 +588,19 @@
             <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center text-lg shrink-0">
               🔧
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base">General Utility</h3>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/calculators" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">General Utility</a></h3>
           </div>
 
           <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
-            <li><a href="#hero-search-input" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Age Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Date Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Time Duration Calculator</a></li>
-            <li><a href="#hero-search-input" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">GPA Calculator</a></li>
+            <li><a href="/calculators/datetime/age-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Age Calculator</a></li>
+            <li><a href="/calculators/datetime/date-difference-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Date Calculator</a></li>
+            <li><a href="/calculators/datetime/time-duration-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Time Duration Calculator</a></li>
+            <li><a href="/calculators/education/gpa-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">GPA Calculator</a></li>
           </ul>
         </div>
 
         <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#directory-section" onclick="filterByDomain('everyday')" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1">
-            <span>More calculators</span>
-            <span>&rarr;</span>
-          </a>
+          <a href="/calculators" class="text-xs font-bold text-blue-600 dark:text-sky-400 hover:text-blue-700 dark:hover:text-sky-300 flex items-center gap-1"><span>More calculators</span><span>&rarr;</span></a>
         </div>
       </div>
 
@@ -750,13 +732,13 @@
             <div class="w-10 h-10 rounded-2xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] flex items-center justify-center text-lg">
               🩺
             </div>
-            <a href="#category-health" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/health" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               35 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-health" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/health" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Health & Fitness</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -767,18 +749,18 @@
 
           <!-- Divider & Quick Tools List -->
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/health/bmi-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› BMI Calculator</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/health/tdee-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› TDEE & Calorie Deficit</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/health/body-fat-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› US Navy Body Fat %</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/health/bmr-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› BMR & Macro Splits</span>
             </a>
           </div>
@@ -786,7 +768,7 @@
 
         <!-- Dedicated Bottom Link -->
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-health" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/health" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 35 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -800,13 +782,13 @@
             <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center text-lg">
               💰
             </div>
-            <a href="#category-finance" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/finance" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               40 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-finance" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/finance" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Finance & Money</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -816,25 +798,25 @@
           </p>
 
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/finance/mortgage-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Mortgage Calculator</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/finance/compound-interest-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Compound Interest</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/finance/salary-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Salary Paycheck & Taxes</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/finance/401k-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› 401(k) Retirement Runway</span>
             </a>
           </div>
         </div>
 
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-finance" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/finance" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 40 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -848,13 +830,13 @@
             <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-lg">
               📐
             </div>
-            <a href="#category-math" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/math" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               46 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-math" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/math" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Math & Statistics</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -864,24 +846,24 @@
           </p>
 
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/math/percentage-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Percentage Solver</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/math/fraction-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Fraction Simplifier</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/math/standard-deviation-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Standard Deviation & Mean</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/math/scientific-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Scientific Algebra Matrix</span>
             </a>
           </div>
         </div>
 
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-math" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/math" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 46 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -895,13 +877,13 @@
             <div class="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center text-lg">
               ⏱️
             </div>
-            <a href="#category-datetime" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/datetime" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               14 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-datetime" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/datetime" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Date & Time</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -911,24 +893,24 @@
           </p>
 
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/datetime/age-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Exact Age Calculator</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/datetime/workdays-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Business Days Between Dates</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/datetime/time-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Hours & Minutes Add/Subtract</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/datetime/time-zone-converter" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Time Zone & Countdown</span>
             </a>
           </div>
         </div>
 
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-datetime" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/datetime" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 14 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -942,13 +924,13 @@
             <div class="w-10 h-10 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 flex items-center justify-center text-lg">
               🏠
             </div>
-            <a href="#category-housing" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/housing" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               17 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-housing" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/housing" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Housing & Building</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -958,24 +940,24 @@
           </p>
 
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/housing/square-footage-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Concrete Slab Volume</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/housing/square-footage-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Square Footage & Flooring</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/housing/paint-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Paint Gallon Estimator</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/housing/roof-area-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Roof Pitch & Lumber Length</span>
             </a>
           </div>
         </div>
 
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-housing" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/housing" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 17 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -989,13 +971,13 @@
             <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center text-lg">
               ⚖️
             </div>
-            <a href="#category-measurements" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/measurements" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               20 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-measurements" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/measurements" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Measurements & Units</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1005,24 +987,24 @@
           </p>
 
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/measurements/length-converter" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Universal Unit Converter</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/measurements/weight-converter" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Metric to Imperial</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/measurements/temperature-converter" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Temperature (°C, °F, K)</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/measurements/volume-converter" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Volume & Pressure Units</span>
             </a>
           </div>
         </div>
 
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-measurements" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/measurements" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 20 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1036,13 +1018,13 @@
             <div class="w-10 h-10 rounded-2xl bg-orange-50 dark:bg-orange-950/60 text-orange-600 flex items-center justify-center text-lg">
               ⚡
             </div>
-            <a href="#category-electronics" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/electronics" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               15 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-electronics" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/electronics" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Electronics</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1052,24 +1034,24 @@
           </p>
 
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/electronics/ohms-law-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Ohm's Law (V, I, R, P)</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/electronics/resistor-color-code-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Resistor Color Band Code</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/electronics/wire-gauge-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Wire Gauge Voltage Drop</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/electronics/battery-life-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Battery Life & Runtime</span>
             </a>
           </div>
         </div>
 
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-electronics" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/electronics" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 15 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1083,13 +1065,13 @@
             <div class="w-10 h-10 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 flex items-center justify-center text-lg">
               💼
             </div>
-            <a href="#category-business" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/business" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               20 Tools
             </a>
           </div>
 
           <h3 class="mb-1">
-            <a href="#category-business" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/business" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Business & Startups</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1099,24 +1081,24 @@
           </p>
 
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/business/profit-margin-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Margin vs Markup Solver</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/business/break-even-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Break-Even Units & Revenue</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/business/burn-rate-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Startup Cash Runway & Burn</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/business/cac-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Customer LTV to CAC Ratio</span>
             </a>
           </div>
         </div>
 
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-business" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/business" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 20 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1129,12 +1111,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center text-lg">🍳</div>
-            <a href="#category-food" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/food" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               10 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-food" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/food" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Food & Cooking</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1143,23 +1125,23 @@
             Recipe scaling, gram to cup conversion, baking temperatures.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/food/recipe-scaler" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Recipe Multiplier / Scaler</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/food/baking-substitution-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Baking Grams to Cups</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/food/cooking-conversion-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Oven Temp (°F / °C / Gas)</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/food/cooking-time-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Turkey & Roast Timer</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-food" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/food" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 10 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1171,12 +1153,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 flex items-center justify-center text-lg">🍼</div>
-            <a href="#category-baby" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/baby" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               8 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-baby" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/baby" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Baby & Parenting</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1185,23 +1167,23 @@
             Pregnancy due date, WHO growth percentiles, ovulation.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/baby/due-date-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Pregnancy Due Date Estimator</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/baby/baby-weight-percentile-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Baby Weight Percentile</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/health/ovulation-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Ovulation & Conception Tracker</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/baby/baby-feeding-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Baby Formula & Feeding Calc</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-baby" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/baby" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 8 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1213,12 +1195,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 flex items-center justify-center text-lg">🌐</div>
-            <a href="#category-tech" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/internet" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               12 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-tech" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/internet" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Internet & Tech</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1227,23 +1209,23 @@
             Download time, IP CIDR subnets, aspect ratio, PPI density.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/internet/download-time-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Download & Upload Time</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/internet/ip-subnet-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› IPv4 Subnet Mask (CIDR)</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/internet/internet-speed-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Screen Aspect Ratio & PPI</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/internet/data-usage-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Data Transfer (GB to Mbps)</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-tech" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/internet" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 12 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1255,12 +1237,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center text-lg">🎒</div>
-            <a href="#category-education" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/education" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               15 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-education" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/education" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Education & School</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1269,23 +1251,23 @@
             GPA (weighted & 4.0), final grade targets, test scores.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/education/gpa-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› GPA Calculator (4.0 & Weighted)</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/education/final-grade-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Final Grade Target</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/education/class-rank-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› High School Class Rank & Curve</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/education/study-hours-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Semester Credit Hours Estimator</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-education" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/education" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 15 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1297,12 +1279,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-lg">🚗</div>
-            <a href="#category-transport" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/transportation" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               15 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-transport" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/transportation" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Transportation</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1311,23 +1293,23 @@
             Gas trip cost, MPG mileage, flight duration, EV range.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/transportation/road-trip-cost-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Road Trip Gas Cost</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/transportation/mpg-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Fuel Economy (MPG to L/100km)</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/transportation/speed-distance-time-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Flight Duration & Distance</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/transportation/fuel-cost-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› EV Charging Time & Cost</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-transport" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/transportation" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 15 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1339,12 +1321,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-orange-50 dark:bg-orange-950/60 text-orange-600 flex items-center justify-center text-lg">☀️</div>
-            <a href="#category-weather" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/weather" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               8 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-weather" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/weather" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Weather & Climate</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1353,23 +1335,23 @@
             Heat index, wind chill factor, dew point, humidity.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/weather/heat-index-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Heat Index (Feels Like)</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/weather/wind-chill-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Wind Chill Factor</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/weather/dew-point-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Dew Point & Relative Humidity</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/weather/heat-index-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Cloud Base Altitude Estimator</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-weather" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/weather" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 8 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1381,12 +1363,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-violet-50 dark:bg-violet-950/60 text-violet-600 flex items-center justify-center text-lg">🧪</div>
-            <a href="#category-chemistry" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/science" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               15 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-chemistry" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/science" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Science & Chemistry</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1395,23 +1377,23 @@
             Molecular molar mass, pH, solution molarity, gas laws.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/science/molecular-weight-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Molar Mass Molecular Weight</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/science/ph-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› pH to Hydrogen Ion</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/science/ideal-gas-law-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Ideal Gas Law (PV = nRT)</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/science/molarity-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Solution Molarity & Dilution</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-chemistry" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/science" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 15 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1423,12 +1405,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 flex items-center justify-center text-lg">🔬</div>
-            <a href="#category-physics" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/physics" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               15 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-physics" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/physics" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Physics</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1437,23 +1419,23 @@
             Kinetic energy, acceleration, projectile velocity, force.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/physics/kinetic-energy-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Kinetic Energy (1/2 mv²)</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/physics/projectile-motion-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Projectile Trajectory</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/physics/velocity-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Velocity, Force & Acceleration</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/physics/torque-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Torque & Rotational Momentum</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-physics" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/physics" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 15 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1465,12 +1447,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center text-lg">🌱</div>
-            <a href="#category-environment" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/environment" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               8 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-environment" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/environment" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Environment & Green</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1479,23 +1461,23 @@
             Carbon footprint, rooftop solar output, tree planting.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/environment/carbon-footprint-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Carbon Footprint</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/environment/solar-panel-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Rooftop Solar Savings</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/environment/tree-planting-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Tree Planting CO₂ Offset</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/environment/water-usage-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Water Usage & Conservation</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-environment" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/environment" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 8 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1507,12 +1489,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-pink-50 dark:bg-pink-950/60 text-pink-600 flex items-center justify-center text-lg">🎮</div>
-            <a href="#category-gaming" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/entertainment" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               10 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-gaming" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/entertainment" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Gaming & Display</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1521,23 +1503,23 @@
             Mouse DPI converter, 4K TV distance, FOV.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/entertainment/gaming-pc-build-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Mouse eDPI Sensitivity</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/entertainment/streaming-cost-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› 4K TV Viewing Distance</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/entertainment/video-game-hours-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Field of View (FOV) Scaling</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/entertainment/gaming-pc-build-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Refresh Rate Frame Time (ms)</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-gaming" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/entertainment" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 10 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1549,12 +1531,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center text-lg">⚙️</div>
-            <a href="#category-engineering" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/engineering" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               12 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-engineering" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/engineering" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Engineering</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1563,23 +1545,23 @@
             Horsepower, torque, gear ratio, hydraulic pressure.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/engineering/bolt-torque-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Horsepower to Torque & RPM</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/engineering/gear-ratio-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Gear Ratio & Speed</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/engineering/beam-load-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Hydraulic Cylinder Force & PSI</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/engineering/beam-load-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Beam Deflection & Stress Load</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-engineering" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/engineering" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 12 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1591,12 +1573,12 @@
         <div>
           <div class="flex items-center justify-between mb-3">
             <div class="w-10 h-10 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-600 flex items-center justify-center text-lg">🌍</div>
-            <a href="#category-geography" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
+            <a href="/pages/geography" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#e6f7ed] dark:bg-emerald-950/80 text-[#059669] dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-colors">
               6 Tools
             </a>
           </div>
           <h3 class="mb-1">
-            <a href="#category-geography" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
+            <a href="/pages/geography" class="font-bold text-slate-900 dark:text-white text-base hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors inline-flex items-center gap-1.5 group/title">
               <span>Geography & Maps</span>
               <span class="text-xs opacity-0 -translate-x-1 group-hover/title:opacity-100 group-hover/title:translate-x-0 transition-all text-emerald-600 dark:text-emerald-400 font-bold">↗</span>
             </a>
@@ -1605,23 +1587,23 @@
             GPS coordinate distance, elevation, sunrise/sunset.
           </p>
           <div class="border-t border-slate-100 dark:border-slate-800/80 pt-3 space-y-2 text-xs">
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/geography/distance-between-cities-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Haversine Distance (Lat/Long)</span>
               <span class="text-[10px] text-slate-400 font-medium">Popular</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/geography/latitude-longitude-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› GPS Decimal to DMS</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/geography/elevation-grade-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Elevation & Pressure</span>
             </a>
-            <a href="#" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
+            <a href="/calculators/geography/time-zone-difference-calculator" class="flex items-center justify-between text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer group/item transition-colors">
               <span class="group-hover/item:translate-x-0.5 transition-transform">› Golden Hour & Sunrise</span>
             </a>
           </div>
         </div>
         <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="#category-geography" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
+          <a href="/pages/geography" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center justify-between group/link transition-colors">
             <span>View all 6 tools</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1902,7 +1884,7 @@
               Compare loan options, calculate monthly payments including taxes and insurance, and find out how much house you can truly afford.
             </p>
           </div>
-          <a href="#category-finance" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1.5 group/link">
+          <a href="/calculators/finance/mortgage-calculator" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1.5 group/link">
             <span>Try Mortgage Calculator</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1921,7 +1903,7 @@
               Dial in maintenance calories, plan a sustainable deficit, and track body fat percentages with medical-grade precision.
             </p>
           </div>
-          <a href="#category-health" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1.5 group/link">
+          <a href="/calculators/health/tdee-calculator" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1.5 group/link">
             <span>Try TDEE Calculator</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -1940,7 +1922,7 @@
               Calculate gross margins, find break-even production volume, and forecast cash flow runways without complex spreadsheets.
             </p>
           </div>
-          <a href="#category-finance" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1.5 group/link">
+          <a href="/calculators/business/profit-margin-calculator" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1.5 group/link">
             <span>Try Margin Calculator</span>
             <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
           </a>
@@ -2275,22 +2257,22 @@
           </h4>
           <ul class="space-y-2.5 text-xs">
             <li>
-              <a href="#popular-calculators" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Mortgage Calculator</a>
+              <a href="/calculators/finance/mortgage-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Mortgage Calculator</a>
             </li>
             <li>
-              <a href="#popular-calculators" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Compound Interest</a>
+              <a href="/calculators/finance/compound-interest-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Compound Interest</a>
             </li>
             <li>
-              <a href="#popular-calculators" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMI & Ideal Weight</a>
+              <a href="/calculators/health/bmi-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMI & Ideal Weight</a>
             </li>
             <li>
-              <a href="#popular-calculators" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Auto Loan Amortization</a>
+              <a href="/calculators/finance/auto-loan-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Auto Loan Amortization</a>
             </li>
             <li>
-              <a href="#hero" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Scientific Calculator</a>
+              <a href="/calculators/math/scientific-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Scientific Calculator</a>
             </li>
             <li>
-              <a href="#categories" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Unit & Currency Converter</a>
+              <a href="/calculators/measurements/length-converter" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Unit & Currency Converter</a>
             </li>
           </ul>
         </div>
@@ -2302,13 +2284,13 @@
           </h4>
           <ul class="space-y-2.5 text-xs">
             <li>
-              <a href="#categories" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">All 20 Categories (341+ Tools)</a>
+              <a href="/calculators" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">All 20 Categories (341+ Tools)</a>
             </li>
             <li>
               <a href="#ai-assistant" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Ask CalcDigi AI</a>
             </li>
             <li>
-              <a href="#guides" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Learning Center & Guides</a>
+              <a href="/pages/blog" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Learning Center & Guides</a>
             </li>
             <li>
               <a href="#faq" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Frequently Asked Questions</a>
@@ -2926,7 +2908,7 @@
             <li><strong>Obesity:</strong> 30.0+</li>
           </ul>
           <div class="mt-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-            › Recommended: Try our <a href="#category-health" class="underline">TDEE & Calorie Deficit Calculator</a> to calculate optimal calorie targets.
+            › Recommended: Try our <a href="/calculators/health/tdee-calculator" class="underline">TDEE & Calorie Deficit Calculator</a> to calculate optimal calorie targets.
           </div>`;
         } else if (lower.includes("mortgage") || lower.includes("loan") || lower.includes("interest rate")) {
           reply = `💰 <strong>Mortgage & Financing Breakdown:</strong><br/>
@@ -2936,7 +2918,7 @@
             <li>Adding an extra <strong>$150/mo</strong> to principal saves approximately <strong>$54,200</strong> in interest and shortens loan payoff by 3.8 years!</li>
           </ul>
           <div class="mt-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-            › Recommended: Open our <a href="#category-finance" class="underline">Mortgage & Amortization Calculator</a> for full payoff schedules.
+            › Recommended: Open our <a href="/calculators/finance/mortgage-calculator" class="underline">Mortgage & Amortization Calculator</a> for full payoff schedules.
           </div>`;
         } else if (lower.includes("compound") || lower.includes("retire") || lower.includes("save") || lower.includes("401")) {
           reply = `📈 <strong>Compound Growth & Wealth Accumulation:</strong><br/>
@@ -2948,7 +2930,7 @@
             <li>Compound interest earned: <strong>$936,940</strong> (81.7% of total portfolio!)</li>
           </ul>
           <div class="mt-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-            › Recommended: Check our <a href="#category-finance" class="underline">Compound Interest & 401(k) Tool</a>.
+            › Recommended: Check our <a href="/calculators/finance/compound-interest-calculator" class="underline">Compound Interest & 401(k) Tool</a>.
           </div>`;
         } else if (lower.includes("formula") || lower.includes("work") || lower.includes("step by step")) {
           reply = `📐 <strong>Mathematical Step-by-Step Breakdown:</strong><br/>
@@ -2963,9 +2945,9 @@
           reply = `💡 <strong>Calculator Recommendation:</strong><br/>
           Based on your query, here are the most relevant precision tools:
           <div class="mt-2 space-y-1">
-            <a href="#category-finance" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Finance & Money: Mortgage, Tax & Loan Payoff</a>
-            <a href="#category-health" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Health & Fitness: BMI, BMR, TDEE & Body Fat</a>
-            <a href="#category-math" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Math & Stats: Percentage, Fractions, Mean & Standard Deviation</a>
+            <a href="/pages/finance" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Finance & Money: Mortgage, Tax & Loan Payoff</a>
+            <a href="/pages/health" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Health & Fitness: BMI, BMR, TDEE & Body Fat</a>
+            <a href="/pages/math" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Math & Stats: Percentage, Fractions, Mean & Standard Deviation</a>
           </div>`;
         } else {
           reply = `✨ <strong>CalcDigi AI Assistant:</strong><br/>
