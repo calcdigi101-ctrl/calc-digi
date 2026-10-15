@@ -1,14 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/",
-        destination: "/landing.html",
-      },
-    ];
-  },
   async redirects() {
     return [
       // Duplicate of the finance mortgage calculator (which it already canonicalised to).
