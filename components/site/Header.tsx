@@ -1,10 +1,8 @@
 import { NavLinks } from "./NavLinks";
 
 /**
- * Site header, mobile menu and AI assistant panel, rendered on the server so
- * crawlers see every link. Interactivity (dark mode, menu, AI chat) is wired by
- * delegated listeners in /js/main.js, which load before hydration, so the
- * buttons respond on the very first click.
+ * Site header with top bar navigation, search box, centered dark mode moon,
+ * and AI Assistant pill button with live pulsing green status dot.
  */
 export function Header() {
   return (
@@ -12,51 +10,105 @@ export function Header() {
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <nav className="nav" aria-label="Main navigation">
-        <div className="container">
-          <div className="nav-inner">
-            <a href="/" className="logo" aria-label="CalcDigi Home">
-              <span className="logo-mark">
-                CalcDigi<span className="logo-dot" />
-              </span>
-            </a>
+      <header className="sticky top-0 z-50 bg-white/95 dark:bg-[#090e1a]/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/80 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+          
+          {/* Brand Logo: CalcDigi• (Serif styled matching screenshot) */}
+          <a href="/" className="flex items-center gap-1 group shrink-0" aria-label="CalcDigi Home">
+            <span className="font-serif font-bold text-2xl tracking-tight text-slate-900 dark:text-white">
+              CalcDigi
+            </span>
+            <span className="inline-block w-2.5 h-2.5 rounded-full bg-[#18533b] dark:bg-emerald-400 mb-0.5 group-hover:scale-125 transition-transform"></span>
+          </a>
 
+          {/* Screenshot Navigation Links: Home, Calculators, Blog, About */}
+          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             <NavLinks />
+          </nav>
 
-            <div className="nav-right">
-              <button type="button" className="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-                <span className="dark-toggle-moon" aria-hidden>
-                  🌙
-                </span>
-                <span className="dark-toggle-sun" aria-hidden>
-                  ☀️
-                </span>
-              </button>
-              <button type="button" className="ai-btn" id="ai-fab-nav" data-open-ai aria-label="Open AI Assistant" aria-controls="ai-panel">
-                <span className="ai-btn-pulse" /> AI
-              </button>
-              <button type="button" className="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-                <span />
-                <span />
-                <span />
-              </button>
+          {/* Right Elements: [Search 341 tools... ⌘K] -> [🌙 Moon (Centered)] -> [ ● ✨ AI Assistant ] */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            
+            {/* Search Input Pill with ⌘K */}
+            <div 
+              onClick={() => {
+                const searchEl = document.getElementById('search-palette-btn') || document.getElementById('hero-search-input');
+                if (searchEl) searchEl.click();
+              }}
+              className="relative hidden sm:flex items-center bg-[#f0f4f8]/85 dark:bg-slate-900 rounded-2xl px-3.5 py-2 w-48 md:w-56 lg:w-64 border border-[#e2e8f0] dark:border-slate-800 cursor-pointer hover:border-emerald-400 transition-all shadow-2xs"
+            >
+              <svg className="w-4 h-4 text-[#059669] mr-2 shrink-0 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+              </svg>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium select-none flex-1 truncate">
+                Search 341 tools...
+              </span>
+              <kbd className="px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 rounded-lg border border-slate-200/90 dark:border-slate-700 shadow-2xs shrink-0 ml-1.5 flex items-center gap-0.5 font-medium">
+                <span className="text-[9px]">⌘</span>K
+              </kbd>
             </div>
-          </div>
-        </div>
-      </nav>
 
+            {/* Dark / Light Mode Moon Button (CENTERED between Search & AI Assistant as requested) */}
+            <button 
+              type="button"
+              id="dark-toggle" 
+              className="w-10 h-10 rounded-2xl bg-[#f0f4f8]/85 dark:bg-slate-900 border border-[#e2e8f0] dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all shadow-2xs hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
+              title="Toggle Dark / Light Mode"
+              aria-label="Toggle Dark / Light Mode"
+            >
+              <span className="text-base select-none leading-none">🌙</span>
+            </button>
+
+            {/* "✨ AI Assistant" Pill Action Button with live pulsing green dot */}
+            <button 
+              type="button"
+              data-open-ai
+              id="ai-fab-nav"
+              aria-label="Open AI Assistant" 
+              aria-controls="ai-panel"
+              className="px-3.5 sm:px-4 py-2 rounded-full bg-[#ecfdf5] dark:bg-emerald-950/50 hover:bg-[#d1fae5] dark:hover:bg-emerald-900/50 border border-[#a7f3d0] dark:border-emerald-800/80 active:scale-95 text-[#065f46] dark:text-emerald-300 font-bold text-xs sm:text-[13px] tracking-tight shadow-2xs hover:shadow-xs transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+            >
+              <span className="relative flex h-2.5 w-2.5 items-center justify-center shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 duration-1000"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981] dark:bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.8)]"></span>
+              </span>
+              <span className="text-sm leading-none">✨</span>
+              <span>AI Assistant</span>
+            </button>
+
+            {/* Mobile Menu Toggle Button (Hamburger) */}
+            <button 
+              type="button"
+              id="hamburger"
+              aria-label="Open menu" 
+              aria-expanded="false" 
+              aria-controls="mobile-nav"
+              className="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer ml-1"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+
+          </div>
+
+        </div>
+      </header>
+
+      {/* Mobile Drawer Navigation */}
       <div className="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
         <a href="/">🏠 Home</a>
-        <a href="/calculators">🧮 All Calculators</a>
-        <a href="/pages/health">🩺 Health Calculators</a>
-        <a href="/pages/finance">💰 Finance Calculators</a>
-        <a href="/pages/math">📐 Math Calculators</a>
-        <a href="/pages/blog">📖 Blog</a>
+        <a href="/calculators">⚡ All Calculators</a>
+        <a href="/pages/finance">💳 Finance Calculators</a>
+        <a href="/pages/health">🏋️ Health Calculators</a>
+        <a href="/pages/math">🧮 Math Calculators</a>
+        <a href="/pages/blog">📖 Blog &amp; Guides</a>
         <a href="/pages/about">ℹ️ About Us</a>
-        <a href="/pages/contact">📧 Contact</a>
+        <a href="/pages/contact">✉️ Contact</a>
         <a href="/pages/privacy-policy">🔒 Privacy Policy</a>
       </div>
 
+      {/* Existing AI Assistant Dialog Panel (Preserves full chat functionality) */}
       <div className="ai-assistant-panel" id="ai-panel" role="dialog" aria-label="AI Calculator Assistant">
         <div className="ai-panel-header">
           <div className="ai-panel-title">
@@ -73,7 +125,7 @@ export function Header() {
           </div>
         </div>
         <form className="ai-panel-input" id="ai-panel-form">
-          <input type="text" id="ai-panel-input" placeholder="Ask me anything…" aria-label="AI chat input" maxLength={1000} autoComplete="off" />
+          <input type="text" id="ai-panel-input" placeholder="Ask me anything..." aria-label="AI chat input" maxLength={1000} autoComplete="off" />
           <button type="submit" className="ai-send-btn" id="ai-send-btn" aria-label="Send message">
             ➤
           </button>
