@@ -1,31 +1,18 @@
-/*
- * Tailwind for the redesigned flagship pages (homepage hero, BMI, mortgage).
- *
- * The rest of the site is still styled by /public/css/main.css, so this file
- * is deliberately narrow:
- * - No preflight. main.css already resets box-sizing/margins, and preflight
- *   would restyle the ~340 legacy pages.
- * - Utilities are emitted unlayered. main.css is unlayered too, and an
- *   unlayered `*{margin:0;padding:0}` would otherwise beat every layered
- *   spacing utility regardless of specificity.
- * - Only the new component folders are scanned. Legacy pages embed raw HTML
- *   with class names like `container`, `hidden` and `table`, which would
- *   otherwise generate utilities that collide with main.css.
- */
 @layer theme;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" source(none);
 
 @source "../components/flagship";
+@source "../components/site";
 @source "../components/ui";
 @source "../components/calcs";
+@source "./page.tsx";
 @source "./not-found.tsx";
 
 /* The site's dark-mode toggle (public/js/main.js) puts `.dark` on <body>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Minimal element reset scoped to new components. `:where()` keeps it at
-   element specificity so any utility class still wins. */
+/* Minimal element reset scoped to new components. */
 :where(.fx) :where(button, input, select) {
   font: inherit;
   color: inherit;
@@ -61,7 +48,7 @@
   border-collapse: collapse;
 }
 
-/* Legacy article HTML rendered inside <Editorial> (classes can't be added per element). */
+/* Legacy article HTML rendered inside <Editorial> */
 .fx-prose table {
   width: 100%;
   margin: 1rem 0;
