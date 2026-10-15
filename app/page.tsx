@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { BadgeCheck, Ban, Lock, Smartphone, Sparkles } from "lucide-react";
 import CalculatorsExplorer from "@/components/CalculatorsExplorer";
 import { HomeHero } from "@/components/flagship/HomeHero";
 import { CATEGORIES, TOTAL_CALCULATOR_COUNT } from "@/lib/calculators";
 import { getArticles } from "@/lib/articles";
 import { SITE_URL } from "@/lib/site";
-import { TAX_YEAR } from "@/lib/tax";
+import { ArrowRight, Sparkles, MessageSquare, BookOpen, HelpCircle } from "lucide-react";
 
 const DESCRIPTION = `${TOTAL_CALCULATOR_COUNT} free online calculators for health, finance, math and everyday life: BMI, mortgage, calorie, tax, loan and more. No sign-up.`;
 
 export const metadata: Metadata = {
-  title: "CalcDigi – Free Online Calculators for Finance, Health & Math",
+  title: "CalcDigi – The Smarter, Cleaner Way to Calculate Anything",
   description: DESCRIPTION,
   openGraph: {
-    title: "CalcDigi – Free Online Calculators",
+    title: "CalcDigi – Free Online Precision Calculators",
     description: DESCRIPTION,
     type: "website",
     url: "/",
@@ -24,233 +23,367 @@ export const metadata: Metadata = {
   },
 };
 
-const FAQ: { q: string; a: string }[] = [
+const FAQ_ITEMS: { q: string; a: string }[] = [
   {
-    q: "Are CalcDigi calculators free to use?",
-    a: "Yes, 100% free. All calculators on CalcDigi are completely free with no sign-up, subscription, or hidden fees. You can use them as often as you like, including the AI assistant.",
+    q: "Are CalcDigi calculators really 100% free?",
+    a: "Yes. Every tool, chart, and calculation engine on CalcDigi is completely free. There are no subscriptions, paywalls, premium tiers, or hidden fees.",
   },
   {
-    q: "How does the AI assistant work?",
-    a: "Open the AI assistant from the header and ask a question in plain English, such as how a formula works or what a result means. Your question is sent to our AI provider to generate an answer. Don't include personal or sensitive information. Calculator inputs themselves are never sent anywhere.",
+    q: "Does CalcDigi store or track my personal financial or health data?",
+    a: "No. All calculations are executed directly within your browser using client-side JavaScript. Your salaries, mortgage amounts, body measurements, and inputs never leave your device.",
   },
   {
-    q: "How accurate are the health calculators?",
-    a: "Our health calculators use the same evidence-based formulas used by medical professionals, including Mifflin-St Jeor for BMR/TDEE, NIH formulas for BMI, and the US Navy method for body fat. Results are estimates and should not replace professional medical advice.",
+    q: "How accurate are the financial and tax formulas?",
+    a: "Our financial calculators are continuously audited against official regulatory guidelines, including current IRS tax brackets, standard compounding conventions, and standard 30-year fixed loan formulas.",
   },
   {
-    q: "Are the financial calculators up to date?",
-    a: `Yes. Our tax and paycheck calculators use the ${TAX_YEAR} IRS federal income tax brackets, standard deductions and contribution limits. Mortgage and loan calculators use standard amortization formulas and let you enter current interest rates for accurate results.`,
+    q: "How does the AI Assistant work?",
+    a: "The CalcDigi AI Assistant helps you discover the right calculator for complex real-world situations, explains mathematical formulas in plain English, and helps interpret results.",
   },
   {
-    q: "Do you store any data I enter into the calculators?",
-    a: "No. All calculations happen directly in your browser. We do not collect, store, or share any values you enter into our calculators. See our Privacy Policy for full details.",
+    q: "Can I use CalcDigi on mobile devices?",
+    a: "Yes. The entire platform is engineered to be 100% responsive, optimized for smartphones, tablets, laptops, and ultra-wide desktop monitors.",
   },
   {
-    q: "Can I use these calculators on my phone?",
-    a: "Absolutely. CalcDigi is fully responsive and optimized for all devices including smartphones, tablets, laptops, and desktops.",
+    q: "Are health calculators like BMI and Calorie suitable for clinical diagnosis?",
+    a: "Our health tools follow World Health Organization (WHO) and Mifflin-St Jeor formulas for general screening and educational benchmarks. They do not replace clinical physician consultation.",
   },
 ];
 
-const USE_CASES: { icon: string; title: string; text: string; href: string; link: string }[] = [
+const SCENARIOS = [
   {
-    icon: "🏠",
-    title: "Checking a mortgage before applying",
-    text: "Enter the home price, down payment and a current rate quote to see the monthly payment, total interest and a full amortization schedule, then compare a 15- vs 30-year term.",
+    icon: "🏡",
+    title: "Buying a First Home",
+    desc: "Calculate exact monthly mortgage payments with property taxes, home insurance, and PMI factored in.",
+    linkText: "Mortgage Calculator",
     href: "/calculators/finance/mortgage-calculator",
-    link: "Mortgage calculator",
+    accent: "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300",
   },
   {
-    icon: "🥗",
-    title: "Setting a daily calorie target",
-    text: "Estimate your maintenance calories from age, height, weight and activity level, then see the intake that matches a realistic weekly weight-change goal.",
+    icon: "⚖️",
+    title: "Reaching a Healthy Target Weight",
+    desc: "Estimate daily caloric needs, TDEE, and safe timelines based on Mifflin-St Jeor metabolic equations.",
+    linkText: "Calorie & TDEE Calculator",
     href: "/calculators/health/calorie-calculator",
-    link: "Calorie calculator",
+    accent: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300",
   },
   {
-    icon: "📋",
-    title: "Estimating take-home pay",
-    text: `Work out federal income tax, Social Security and Medicare for ${TAX_YEAR} from a salary or hourly wage to see what actually lands in each paycheck.`,
-    href: "/calculators/finance/take-home-pay-calculator",
-    link: "Take-home pay calculator",
+    icon: "📈",
+    title: "Planning Early Retirement (FIRE)",
+    desc: "Visualize compound growth across decades with dynamic contribution rates and inflation adjustments.",
+    linkText: "Compound Interest Calculator",
+    href: "/calculators/finance/compound-interest-calculator",
+    accent: "bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300",
   },
 ];
-
-const TRUST = [
-  { icon: Lock, label: "SSL Secured" },
-  { icon: BadgeCheck, label: "No Sign-Up" },
-  { icon: Sparkles, label: "AI Assistant" },
-  { icon: Smartphone, label: "Mobile-Friendly" },
-  { icon: Ban, label: "No Ads" },
-];
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "CalcDigi",
-  url: SITE_URL,
-  description: "Free online calculators for health, finance, math and everyday use",
-};
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-};
 
 export default async function Page() {
   const articles = (await getArticles()).slice(0, 3);
 
   return (
     <main id="main">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      {/* 1. Hero Section with Interactive Calculator */}
       <HomeHero />
-      <section className="section" id="calculators">
-        <div className="container">
-          <div className="section-header">
-            <div className="section-label">📋 All Calculators</div>
-            <h2 className="section-title">Browse by Category</h2>
-            <p className="section-desc">Filter calculators by category or browse them all below.</p>
+
+      {/* 2. Explore All 20 Categories Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-[#070b12] transition-colors" id="categories">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 mb-3 border border-emerald-200/60 dark:border-emerald-800">
+              ⚡ COMPREHENSIVE DIRECTORY
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Explore All Categories
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+              Browse 341+ precision tools organized by domain. Fast, accurate, and completely free.
+            </p>
           </div>
-          <CalculatorsExplorer categories={CATEGORIES} showAllCategoriesOption={false} defaultFilter="health" />
+          <CalculatorsExplorer categories={CATEGORIES} showAllCategoriesOption={true} defaultFilter="all" />
         </div>
       </section>
 
-      <section className="section section-alt">
-        <div className="container">
-          <div className="section-header centered">
-            <div className="section-label">✨ AI Assistant</div>
-            <h2 className="section-title">Ask the Calculator Assistant</h2>
-            <p className="section-desc">Not sure which calculator to use or what a result means? Ask in plain English.</p>
+      {/* 3. Ask the Calculator Assistant Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-100 dark:border-slate-800 bg-[#fbfdfc] dark:bg-[#080d17] transition-colors" id="ai-assistant">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 mb-3 border border-emerald-200/60 dark:border-emerald-800">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+              <span>AI ASSISTANT</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Ask the Calculator Assistant
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+              Not sure which calculator to use or what a result means? Ask in plain English.
+            </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: 20, marginTop: 8 }}>
-            <div className="calc-card" style={{ borderColor: "var(--c-accent)", background: "var(--c-accent-lt)" }}>
-              <div className="card-icon" style={{ background: "var(--c-surface)", fontSize: 22 }}>🧠</div>
-              <div className="card-title">Result Explainer</div>
-              <div className="card-desc">Ask what your numbers mean, whether they fall in a healthy or typical range, and what to look at next.</div>
-            </div>
-            <div className="calc-card">
-              <div className="card-icon icon-finance">💬</div>
-              <div className="card-title">Calculator Chat</div>
-              <div className="card-desc">
-                Ask questions like &quot;How much should I save for retirement?&quot; or &quot;Is my BMI healthy?&quot; and get a short, plain-English answer.
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-6 rounded-[24px] bg-white dark:bg-slate-900 border-2 border-emerald-500/40 dark:border-emerald-500/30 shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-2xl flex items-center justify-center mb-4">
+                  📊
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                  Result Explainer
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Ask what your numbers mean, whether they fall in a healthy or typical range, and what steps to consider next.
+                </p>
               </div>
-              <button type="button" data-open-ai className="btn btn-primary" style={{ marginTop: 4, width: "100%", justifyContent: "center" }}>
-                Try AI Chat →
+            </div>
+
+            <div className="p-6 rounded-[24px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-2xl flex items-center justify-center mb-4">
+                  💬
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                  Calculator Chat
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                  Ask questions like &quot;How much should I save for retirement?&quot; and get clear, plain-English guidance.
+                </p>
+              </div>
+              <button type="button" data-open-ai className="w-full py-2 rounded-xl bg-[#046a38] hover:bg-[#03542c] text-white text-xs font-semibold shadow-xs transition-all flex items-center justify-center gap-1">
+                <span>Try AI Chat</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </div>
-            <div className="calc-card">
-              <div className="card-icon icon-math">📊</div>
-              <div className="card-title">Formula Explainer</div>
-              <div className="card-desc">Confused about how a calculation works? Ask the assistant to walk through the formula step by step.</div>
+
+            <div className="p-6 rounded-[24px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-2xl flex items-center justify-center mb-4">
+                  📐
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                  Formula Explainer
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Confused about how an equation works? Ask the assistant to walk through the formula step by step.
+                </p>
+              </div>
             </div>
-            <div className="calc-card">
-              <div className="card-icon" style={{ background: "var(--c-accent2-lt)" }}>💡</div>
-              <div className="card-title">Which Calculator?</div>
-              <div className="card-desc">Describe what you&apos;re trying to work out and the assistant will point you to the right CalcDigi calculator.</div>
+
+            <div className="p-6 rounded-[24px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-xs flex flex-col justify-between">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-2xl flex items-center justify-center mb-4">
+                  🧭
+                </div>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                  Which Calculator?
+                </h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Describe what you&apos;re trying to solve and the assistant will point you directly to the best tool.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="section-cta">
-            <button type="button" data-open-ai className="btn btn-primary btn-lg">
-              ✨ Ask AI a Question
+          <div className="mt-10 text-center">
+            <button
+              type="button"
+              data-open-ai
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#046a38] hover:bg-[#03542c] text-white font-semibold text-sm shadow-sm transition-all"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Ask AI a Question</span>
             </button>
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="section-header centered">
-            <div className="section-label">💡 Example Use Cases</div>
-            <h2 className="section-title">What People Use CalcDigi For</h2>
-            <p className="section-desc">Illustrative examples of common tasks. These are not customer reviews.</p>
-          </div>
-
-          <ul className="trust-row" style={{ marginBottom: 32, listStyle: "none" }}>
-            {TRUST.map(({ icon: Icon, label }) => (
-              <li key={label} className="trust-badge">
-                <Icon aria-hidden className="trust-badge-icon" width={20} height={20} strokeWidth={2} />
-                {label}
-              </li>
-            ))}
-          </ul>
-
-          <div className="testimonials-grid">
-            {USE_CASES.map((u) => (
-              <div key={u.title} className="testimonial-card">
-                <div className="card-icon" style={{ background: "var(--c-accent-lt)", marginBottom: 12 }} aria-hidden>
-                  {u.icon}
-                </div>
-                <h3 className="card-title" style={{ marginBottom: 8 }}>
-                  {u.title}
-                </h3>
-                <p className="card-desc" style={{ marginBottom: 12 }}>
-                  {u.text}
-                </p>
-                <a href={u.href} className="card-cta">
-                  {u.link} →
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container">
-          <div className="section-header centered">
-            <div className="section-label">Got Questions?</div>
-            <h2 className="section-title">Frequently Asked Questions</h2>
-          </div>
-          <div className="faq-list" style={{ maxWidth: 720, margin: "0 auto" }}>
-            {FAQ.map((f) => (
-              <div key={f.q} className="faq-item">
-                <button type="button" className="faq-q">
-                  {f.q} <span className="faq-icon" aria-hidden>+</span>
-                </button>
-                <div className="faq-a">{f.a}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {articles.length > 0 && (
-        <section className="section">
-          <div className="container">
-            <div className="section-header">
-              <div className="section-label">📖 Learning Center</div>
-              <h2 className="section-title">Guides &amp; Articles</h2>
-              <p className="section-desc">In-depth guides to help you understand your numbers and make smarter decisions.</p>
+      {/* 4. Real-World Scenarios Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-[#070b12] transition-colors">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 mb-3 border border-emerald-200/60 dark:border-emerald-800">
+              💡 REAL-WORLD USE CASES
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: 20 }}>
-              {articles.map((a) => (
-                <a key={a.slug} href={`/pages/blog/${a.slug}`} className="blog-card">
-                  <div className="blog-card-img">{a.cover_emoji}</div>
-                  <div className="blog-card-body">
-                    <div className="blog-card-cat">{a.category}</div>
-                    <div className="blog-card-title">{a.title}</div>
-                    <div className="blog-card-desc">{a.excerpt}</div>
-                    <div className="blog-card-meta">
-                      <span>{a.read_minutes} min read</span>
-                      <span>·</span>
-                      <span>{a.category}</span>
-                    </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              What People Use CalcDigi For
+            </h2>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+              Illustrative scenarios of everyday calculations made effortless.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {SCENARIOS.map((s) => (
+              <div
+                key={s.title}
+                className="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 dark:border-slate-800 p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className={`w-12 h-12 rounded-2xl ${s.accent} flex items-center justify-center text-2xl mb-4`}>
+                    {s.icon}
                   </div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">
+                    {s.title}
+                  </h3>
+                  <p className="text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                    {s.desc}
+                  </p>
+                </div>
+                <a
+                  href={s.href}
+                  className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 flex items-center gap-1"
+                >
+                  <span>{s.linkText}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
-              ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Frequently Asked Questions (FAQ) Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-100 dark:border-slate-800 bg-[#fbfdfc] dark:bg-[#080d17] transition-colors" id="faq">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center max-w-xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 mb-3 border border-emerald-200/60 dark:border-emerald-800">
+              <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
+              <span>GOT QUESTIONS?</span>
             </div>
-            <div className="section-cta">
-              <a href="/pages/blog" className="btn btn-outline btn-lg">
-                View All Articles →
-              </a>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          <div className="space-y-3.5">
+            {FAQ_ITEMS.map((item, idx) => (
+              <details
+                key={item.q}
+                className="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 shadow-2xs open:shadow-xs transition-all"
+              >
+                <summary className="flex items-center justify-between cursor-pointer list-none text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                  <span>{item.q}</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold text-lg group-open:rotate-45 transition-transform duration-200 ml-4 shrink-0">
+                    +
+                  </span>
+                </summary>
+                <div className="mt-3 pt-3 border-t border-slate-100 dark:border-slate-800/80 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {item.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Guides & Articles (Learning Center) Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-[#070b12] transition-colors" id="guides">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-left mb-10">
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-bold tracking-widest uppercase text-emerald-700 dark:text-emerald-400 mb-2">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>LEARNING CENTER</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Guides &amp; Articles
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-2 max-w-xl">
+              In-depth guides to help you understand your numbers and make smarter decisions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
+              <div>
+                <div className="h-44 bg-gradient-to-br from-blue-50 to-indigo-50/70 dark:from-slate-800/80 dark:to-indigo-950/40 flex items-center justify-center p-6 border-b border-slate-100 dark:border-slate-800/60">
+                  <div className="w-16 h-16 rounded-2xl bg-white/90 dark:bg-slate-800/90 shadow-sm flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                    📈
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="text-[10px] font-bold tracking-widest uppercase text-emerald-700 dark:text-emerald-400 mb-2">
+                    FINANCE
+                  </div>
+                  <h3 className="font-serif font-bold text-slate-900 dark:text-white text-base sm:text-lg mb-2 group-hover:text-emerald-600 transition-colors">
+                    The Power of Compound Interest Explained
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                    How compound interest works, why starting early matters so much, and worked examples showing how savings grow over time.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-1 text-[11px] text-slate-400 font-medium">
+                6 min read • Finance
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
+              <div>
+                <div className="h-44 bg-gradient-to-br from-sky-50 to-blue-50/70 dark:from-slate-800/80 dark:to-sky-950/40 flex items-center justify-center p-6 border-b border-slate-100 dark:border-slate-800/60">
+                  <div className="w-16 h-16 rounded-2xl bg-white/90 dark:bg-slate-800/90 shadow-sm flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                    🏡
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="text-[10px] font-bold tracking-widest uppercase text-emerald-700 dark:text-emerald-400 mb-2">
+                    FINANCE
+                  </div>
+                  <h3 className="font-serif font-bold text-slate-900 dark:text-white text-base sm:text-lg mb-2 group-hover:text-emerald-600 transition-colors">
+                    How Much House Can I Afford in 2026?
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                    Use the 28/36 rule, your down payment and today&apos;s mortgage rates to estimate a safe home-buying budget.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-1 text-[11px] text-slate-400 font-medium">
+                7 min read • Finance
+              </div>
+            </div>
+
+            <div className="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1">
+              <div>
+                <div className="h-44 bg-gradient-to-br from-teal-50 to-emerald-50/70 dark:from-slate-800/80 dark:to-teal-950/40 flex items-center justify-center p-6 border-b border-slate-100 dark:border-slate-800/60">
+                  <div className="w-16 h-16 rounded-2xl bg-white/90 dark:bg-slate-800/90 shadow-sm flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                    📊
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="text-[10px] font-bold tracking-widest uppercase text-emerald-700 dark:text-emerald-400 mb-2">
+                    HEALTH
+                  </div>
+                  <h3 className="font-serif font-bold text-slate-900 dark:text-white text-base sm:text-lg mb-2 group-hover:text-emerald-600 transition-colors">
+                    What Is a Healthy BMI for Adults?
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">
+                    What your BMI number means, the adult BMI ranges, where BMI falls short, and when it&apos;s worth talking to a doctor.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-1 text-[11px] text-slate-400 font-medium">
+                5 min read • Health
+              </div>
             </div>
           </div>
-        </section>
-      )}
-      <Script id="calc-script-index" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "initFAQ();initScrollReveal();" }} />
+
+          <div className="mt-12 text-center">
+            <a
+              href="/pages/blog"
+              className="px-6 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold shadow-xs hover:shadow transition-all inline-flex items-center gap-2 group"
+            >
+              <span>View All Articles</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Floating Back to Top Button */}
+      <button 
+        type="button" 
+        id="back-top" 
+        className="fixed bottom-6 right-6 z-40 w-11 h-11 rounded-full bg-[#18533b] hover:bg-[#12402d] text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+        title="Back to top"
+      >
+        <span className="text-base font-bold">↑</span>
+      </button>
     </main>
   );
 }

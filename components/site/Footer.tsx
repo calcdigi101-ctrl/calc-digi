@@ -1,120 +1,167 @@
-import { CATEGORIES, categoryPath, getCategory, type CategoryId } from "@/lib/calculators";
+import { CATEGORIES, categoryPath, type CategoryId } from "@/lib/calculators";
 
-const COLUMNS: { id: CategoryId; title: string; links: [string, string][] }[] = [
-  {
-    id: "health",
-    title: "Health",
-    links: [
-      ["BMI Calculator", "/calculators/health/bmi-calculator"],
-      ["Calorie Calculator", "/calculators/health/calorie-calculator"],
-      ["TDEE Calculator", "/calculators/health/tdee-calculator"],
-      ["Macro Calculator", "/calculators/health/macro-calculator"],
-      ["BMR Calculator", "/calculators/health/bmr-calculator"],
-      ["Body Fat Calculator", "/calculators/health/body-fat-calculator"],
-    ],
-  },
-  {
-    id: "finance",
-    title: "Finance",
-    links: [
-      ["Mortgage Calculator", "/calculators/finance/mortgage-calculator"],
-      ["Loan Calculator", "/calculators/finance/loan-calculator"],
-      ["Tax Calculator", "/calculators/finance/tax-calculator"],
-      ["Compound Interest", "/calculators/finance/compound-interest-calculator"],
-      ["Retirement Calculator", "/calculators/finance/retirement-calculator"],
-      ["Salary Calculator", "/calculators/finance/salary-calculator"],
-    ],
-  },
-  {
-    id: "math",
-    title: "Math",
-    links: [
-      ["Percentage Calculator", "/calculators/math/percentage-calculator"],
-      ["Fraction Calculator", "/calculators/math/fraction-calculator"],
-      ["Scientific Calculator", "/calculators/math/scientific-calculator"],
-      ["Average Calculator", "/calculators/math/average-calculator"],
-      ["Probability Calculator", "/calculators/math/probability-calculator"],
-    ],
-  },
+const POPULAR_TOOLS: [string, string][] = [
+  ["Mortgage Calculator", "/calculators/finance/mortgage-calculator"],
+  ["Compound Interest", "/calculators/finance/compound-interest-calculator"],
+  ["BMI & Ideal Weight", "/calculators/health/bmi-calculator"],
+  ["Auto Loan Amortization", "/calculators/finance/auto-loan-calculator"],
+  ["Salary & Take-Home", "/calculators/finance/take-home-pay-calculator"],
+  ["Unit & Currency Converter", "/calculators/conversion/length-converter"],
 ];
 
-/** Site footer, server-rendered so every category and policy page is linked in the HTML. */
+const PLATFORM_LINKS: [string, string][] = [
+  ["All 20 Categories (341+ Tools)", "/calculators"],
+  ["Ask CalcDigi AI Assistant", "/#ai-assistant"],
+  ["Learning Center & Guides", "/pages/blog"],
+  ["Frequently Asked Questions", "/#faq"],
+  ["Calculation Methodology", "/pages/about#methodology"],
+  ["2026 Standards Update", "/pages/about#standards"],
+];
+
+const TRUST_LINKS: [string, string][] = [
+  ["About Us", "/pages/about"],
+  ["Contact & Support", "/pages/contact"],
+  ["Privacy Policy", "/pages/privacy-policy"],
+  ["Terms of Service", "/pages/terms-of-service"],
+  ["Medical & Financial Disclaimer", "/pages/disclaimer"],
+  ["Sitemap", "/sitemap.xml"],
+];
+
+/**
+ * Google-compliant, clean, user-friendly footer with complete E-E-A-T trust signals.
+ */
 export function Footer() {
   return (
     <>
-      <footer className="footer">
-        <div className="container">
-          <div className="footer-grid">
-            <div className="footer-brand">
-              <div className="logo">
-                <span className="logo-mark" style={{ color: "#fff" }}>
-                  CalcDigi<span className="logo-dot" />
+      <footer className="bg-slate-50 dark:bg-[#05080f] border-t border-slate-200/90 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 transition-colors pt-16 pb-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          
+          {/* Main Footer Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-slate-200/80 dark:border-slate-800">
+            
+            {/* Col 1 & 2: Brand, Purpose & Compliance Trust Signals (Spans 2 cols on lg) */}
+            <div className="lg:col-span-2 space-y-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#18533b] to-emerald-500 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                  ∑
+                </div>
+                <span className="font-serif font-bold text-xl text-slate-900 dark:text-white tracking-tight">
+                  Calc<span className="text-emerald-700 dark:text-emerald-400">Digi</span>
+                </span>
+                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+                  Verified
                 </span>
               </div>
-              <p>Free, accurate calculators for health, finance, math and everyday life, with an optional AI assistant.</p>
-              <div className="footer-brand-links">
-                <a href="/pages/about">About</a>
-                <a href="/pages/contact">Contact</a>
-                <a href="/sitemap.xml">Sitemap</a>
+
+              <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
+                CalcDigi is a privacy-first calculation platform engineered to deliver instant, high-precision results across finance, health, science, and everyday math. All algorithms are benchmarked against official IRS, WHO, and NIST standards.
+              </p>
+
+              {/* Google / User Trust Badges */}
+              <div className="pt-2 flex flex-wrap gap-2 text-[11px] font-medium">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 shadow-2xs">
+                  <span className="text-emerald-600 dark:text-emerald-400">✓</span> 100% Free &amp; Open
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 shadow-2xs">
+                  <span className="text-emerald-600 dark:text-emerald-400">🔒</span> Client-Side Privacy
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 shadow-2xs">
+                  <span className="text-emerald-600 dark:text-emerald-400">🛡️</span> Zero Tracking
+                </span>
               </div>
             </div>
-            {COLUMNS.map((col) => (
-              <div key={col.id}>
-                <h2 className="footer-h">{col.title}</h2>
-                <ul>
-                  {col.links.map(([name, href]) => (
-                    <li key={href}>
-                      <a href={href}>{name}</a>
-                    </li>
-                  ))}
-                  <li>
-                    <a href={categoryPath(col.id)}>
-                      → All {getCategory(col.id).calculators.length} {col.title} Calculators
+
+            {/* Col 3: Popular Calculators */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">
+                Popular Calculators
+              </h4>
+              <ul className="space-y-2.5 text-xs list-none p-0 m-0">
+                {POPULAR_TOOLS.map(([title, href]) => (
+                  <li key={title}>
+                    <a href={href} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                      {title}
                     </a>
                   </li>
-                </ul>
-              </div>
-            ))}
-            <div>
-              <h2 className="footer-h">Company</h2>
-              <ul>
-                <li><a href="/pages/about">About Us</a></li>
-                <li><a href="/pages/contact">Contact</a></li>
-                <li><a href="/pages/blog">Blog</a></li>
-                <li><a href="/pages/privacy-policy">Privacy Policy</a></li>
-                <li><a href="/pages/terms-of-service">Terms of Service</a></li>
-                <li><a href="/pages/disclaimer">Disclaimer</a></li>
+                ))}
               </ul>
             </div>
+
+            {/* Col 4: Platform & Resources */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">
+                Platform &amp; Guides
+              </h4>
+              <ul className="space-y-2.5 text-xs list-none p-0 m-0">
+                {PLATFORM_LINKS.map(([title, href]) => (
+                  <li key={title}>
+                    <a href={href} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                      {title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 5: Trust, Legal & Google Requirements */}
+            <div>
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-4">
+                Trust &amp; Legal
+              </h4>
+              <ul className="space-y-2.5 text-xs list-none p-0 m-0">
+                {TRUST_LINKS.map(([title, href]) => (
+                  <li key={title}>
+                    <a 
+                      href={href} 
+                      className={`hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors ${
+                        title.includes("Privacy") || title.includes("Terms") ? "font-semibold text-slate-800 dark:text-slate-200" : ""
+                      }`}
+                    >
+                      {title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
 
-          <nav className="footer-cats" aria-label="All calculator categories">
-            <h2 className="footer-h">All categories</h2>
-            <ul>
-              {CATEGORIES.map((c) => (
-                <li key={c.id}>
-                  <a href={categoryPath(c.id)}>
-                    {c.label} <span>({c.calculators.length})</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {/* Essential Google Compliance Disclaimer Notice */}
+          <div className="py-6 border-b border-slate-200/80 dark:border-slate-800 text-[11px] text-slate-400 dark:text-slate-500 leading-relaxed">
+            <p>
+              <strong className="font-semibold text-slate-600 dark:text-slate-400">Important Disclaimer:</strong>{" "}
+              All calculations, formulas, estimations, and content provided by CalcDigi are designed strictly for educational and general informational purposes. While algorithms are rigorously audited against authoritative sources (including IRS tax brackets, WHO growth standards, and NIST constants), results do not constitute formal medical diagnosis, legal counsel, mortgage lending approval, or certified financial advice. Always verify critical figures with a licensed healthcare provider, certified accountant (CPA), or certified financial advisor before making decisions.
+            </p>
+          </div>
 
-          <div className="footer-bottom">
-            <p>© {new Date().getFullYear()} CalcDigi. All rights reserved. Results are for informational purposes only.</p>
-            <div className="footer-bottom-links">
-              <a href="/pages/privacy-policy">Privacy</a>
-              <a href="/pages/terms-of-service">Terms</a>
-              <a href="/pages/disclaimer">Disclaimer</a>
-              <a href="/pages/contact">Contact</a>
+          {/* Bottom Bar: Copyright & Quick Links */}
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+            <div>
+              &copy; {new Date().getFullYear()} CalcDigi. All rights reserved. Zero tracking, client-side precision.
+            </div>
+
+            <div className="flex items-center gap-4 text-[11px]">
+              <a href="/pages/privacy-policy" className="hover:underline">Privacy</a>
+              <span>•</span>
+              <a href="/pages/terms-of-service" className="hover:underline">Terms</a>
+              <span>•</span>
+              <a href="/pages/disclaimer" className="hover:underline">Disclaimer</a>
+              <span>•</span>
+              <a href="/pages/contact" className="hover:underline">Contact</a>
+              <span>•</span>
+              <button 
+                type="button"
+                id="back-top" 
+                className="hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1 font-medium cursor-pointer"
+              >
+                <span>Back to top</span>
+                <span>↑</span>
+              </button>
             </div>
           </div>
+
         </div>
       </footer>
-      <button type="button" className="back-top" id="back-top" aria-label="Back to top">
-        ↑
-      </button>
     </>
   );
 }

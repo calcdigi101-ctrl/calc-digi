@@ -1,4 +1,4 @@
-import { ArrowRight, Calculator, Dumbbell, Landmark, Wrench } from "lucide-react";
+import { ArrowRight, Calculator, Dumbbell, Landmark, Wrench, Sparkles } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type Group = { title: string; icon: LucideIcon; accent: string; more: string; links: [string, string][] };
@@ -36,9 +36,9 @@ const GROUPS: Group[] = [
     accent: "text-violet-700 bg-violet-50 dark:text-violet-300 dark:bg-violet-950/60",
     more: "/pages/math",
     links: [
-      ["Scientific Calculator", "/calculators/math/scientific-calculator"],
       ["Percentage Calculator", "/calculators/math/percentage-calculator"],
       ["Fraction Calculator", "/calculators/math/fraction-calculator"],
+      ["Scientific Calculator", "/calculators/math/scientific-calculator"],
       ["Triangle Calculator", "/calculators/math/triangle-calculator"],
     ],
   },
@@ -49,51 +49,124 @@ const GROUPS: Group[] = [
     more: "/calculators",
     links: [
       ["Age Calculator", "/calculators/datetime/age-calculator"],
-      ["Date Calculator", "/calculators/datetime/date-difference-calculator"],
-      ["Time Duration Calculator", "/calculators/datetime/time-duration-calculator"],
-      ["GPA Calculator", "/calculators/education/gpa-calculator"],
+      ["Time Zone Calculator", "/calculators/datetime/time-zone-calculator"],
+      ["Unit Converter", "/calculators/conversion/length-converter"],
+      ["Date Difference", "/calculators/datetime/date-difference-calculator"],
     ],
   },
 ];
 
-/** calculator.net-style 4-column directory of the most-used tools. */
+/**
+ * Most Popular Calculators Section with Integrated "Ask CalcDigi AI" Card
+ */
 export function CategoryDirectory() {
   return (
-    <div className="fx grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {GROUPS.map((g) => (
-        <section
-          key={g.title}
-          aria-labelledby={`dir-${g.title}`}
-          className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm dark:border-slate-800 dark:bg-slate-900"
-        >
-          <div className="flex items-center gap-3">
-            <span className={`flex size-10 items-center justify-center rounded-xl ${g.accent}`}>
-              <g.icon aria-hidden className="size-5" />
-            </span>
-            <h2 id={`dir-${g.title}`} className="text-lg font-bold text-slate-900 dark:text-white" style={{ fontFamily: "var(--font-sans)" }}>
-              {g.title}
-            </h2>
+    <div id="popular-calculators">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+            Top Trending
           </div>
-          <ul className="mt-4 flex-1 list-none pl-0">
-            {g.links.map(([name, href]) => (
-              <li key={href}>
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+            Most Popular Calculators
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            The mathematical tools people rely on every single day.
+          </p>
+        </div>
+        <a 
+          href="/calculators" 
+          className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline flex items-center gap-1 self-start sm:self-auto"
+        >
+          <span>Explore all 341+ tools</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </a>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        {/* 4 Standard Category Cards */}
+        {GROUPS.map((g) => {
+          const Icon = g.icon;
+          return (
+            <div
+              key={g.title}
+              className="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 dark:border-slate-800 p-6 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center gap-3 mb-5">
+                  <div className={`w-10 h-10 rounded-2xl ${g.accent} flex items-center justify-center shrink-0`}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">
+                    {g.title}
+                  </h3>
+                </div>
+
+                <ul className="space-y-3 text-xs sm:text-[13px] text-slate-600 dark:text-slate-300 font-medium">
+                  {g.links.map(([label, href]) => (
+                    <li key={label}>
+                      <a href={href} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors block py-0.5">
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800/80">
                 <a
-                  href={href}
-                  className="flex min-h-[44px] items-center rounded-md px-2 text-[15px] font-medium text-slate-700 hover:bg-slate-50 hover:text-blue-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-blue-400"
+                  href={g.more}
+                  className="text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 flex items-center gap-1"
                 >
-                  {name}
+                  <span>More {g.title.toLowerCase()}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
-              </li>
-            ))}
-          </ul>
-          <a
-            href={g.more}
-            className="mt-3 inline-flex min-h-[44px] items-center gap-1 px-2 text-sm font-semibold text-blue-700 hover:underline dark:text-blue-400"
-          >
-            More {g.title === "General Utility" ? "calculators" : g.title.toLowerCase()} <ArrowRight aria-hidden className="size-4" />
-          </a>
-        </section>
-      ))}
+              </div>
+            </div>
+          );
+        })}
+
+        {/* 5th Integrated AI Card: Ask CalcDigi AI */}
+        <div className="bg-gradient-to-br from-emerald-50/70 to-teal-50/50 dark:from-slate-900 dark:to-emerald-950/30 rounded-[28px] border-2 border-emerald-500/40 dark:border-emerald-500/30 p-6 shadow-xs hover:shadow-md hover:border-emerald-500 transition-all flex flex-col justify-between relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none"></div>
+          
+          <div>
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-9 h-9 rounded-2xl bg-[#046a38] text-white flex items-center justify-center text-sm shadow-xs shrink-0">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block">
+                  AI ASSISTANT
+                </span>
+                <h3 className="font-bold text-slate-900 dark:text-white text-base leading-tight">
+                  Ask CalcDigi AI
+                </h3>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+              Not sure which calculator to pick or how to interpret a formula? Ask our assistant in plain English.
+            </p>
+
+            <div className="p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-emerald-200/60 dark:border-emerald-800/40 text-[11px] text-slate-600 dark:text-slate-300 italic mb-4">
+              &quot;Which calculator should I use for a side-hustle tax estimate?&quot;
+            </div>
+          </div>
+
+          <div className="pt-2">
+            <button
+              type="button"
+              data-open-ai
+              className="w-full py-2.5 px-4 rounded-xl bg-[#046a38] hover:bg-[#03542c] active:scale-95 text-white text-xs font-semibold shadow-xs transition-all flex items-center justify-center gap-1.5"
+            >
+              <span>Try AI Chat</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
