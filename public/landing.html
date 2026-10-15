@@ -65,6 +65,14 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+  
+    /* Prevent hidden modals or overlays from blocking page clicks */
+    #legal-modal.hidden, #article-modal.hidden, #ai-modal.hidden, .hidden {
+      display: none !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+    }
+
   </style>
 </head>
 <body class="bg-[#FCFDFD] dark:bg-[#090e1a] text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white font-sans">
@@ -2383,7 +2391,7 @@
   </footer>
 
   <!-- ================= GOOGLE COMPLIANCE & LEGAL MODAL ================= -->
-  <div id="legal-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div id="legal-modal" style="display: none;" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[88vh]">
       <!-- Modal Header -->
       <div class="p-5 sm:p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
@@ -2430,7 +2438,7 @@
   </div>
 
   <!-- ================= ARTICLE READER / LEARNING CENTER MODAL ================= -->
-  <div id="article-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div id="article-modal" style="display: none;" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[88vh]">
       <!-- Modal Header -->
       <div class="p-5 sm:p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
@@ -2488,7 +2496,7 @@
   </div>
 
   <!-- ================= AI ASSISTANT MODAL ================= -->
-  <div id="ai-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+  <div id="ai-modal" style="display: none;" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
     <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[85vh]">
       <div class="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
         <div class="flex items-center gap-2.5">
@@ -2832,468 +2840,22 @@
 
     // 4. AI ASSISTANT FUNCTIONS
     function openAiModal() {
-      document.getElementById('ai-modal').classList.remove('hidden');
-      const input = document.getElementById('ai-prompt-input');
-      if (input) setTimeout(() => input.focus(), 100);
-    }
-
-    function closeAiModal() {
-      document.getElementById('ai-modal').classList.add('hidden');
-    }
-
-    function fillAiPrompt(t) {
-      const input = document.getElementById('ai-prompt-input');
-      if (input) {
-        input.value = t;
-        handleAiSubmit();
-      }
-    }
-
-    function openAiModalWithPrompt(promptText) {
-      openAiModal();
-      fillAiPrompt(promptText);
-    }
-
-    function selectAiCard(num, promptText) {
-      for (let i = 1; i <= 4; i++) {
-        const card = document.getElementById(`ai-card-${i}`);
-        if (!card) continue;
-        if (i === num) {
-          card.className = "ai-feature-card cursor-pointer border-2 border-emerald-500/80 bg-[#f2f9f5] dark:bg-emerald-950/20 rounded-[24px] p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group";
-        } else {
-          card.className = "ai-feature-card cursor-pointer border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group";
-        }
-      }
-      const sectionInput = document.getElementById('section-ai-input');
-      if (sectionInput) {
-        sectionInput.value = promptText;
-        sectionInput.focus();
-      }
-    }
-
-    function handleSectionAiSubmit() {
-      const input = document.getElementById('section-ai-input');
-      const text = input ? input.value.trim() : '';
-      if (!text) {
-        openAiModal();
-        return;
-      }
-      openAiModal();
-      fillAiPrompt(text);
-    }
-
-    function handleAiSubmit(e) {
-      if (e) e.preventDefault();
-      const input = document.getElementById('ai-prompt-input');
-      const text = input.value.trim();
-      if (!text) return;
-      
-      const box = document.getElementById('ai-chat-box');
-      box.innerHTML += `<div class="bg-[#18533b] text-white p-3 rounded-2xl ml-auto max-w-[85%] text-xs sm:text-sm font-medium shadow-xs">${text}</div>`;
-      input.value = '';
-      box.scrollTop = box.scrollHeight;
-
-      // Smart Context-Aware Plain-English Responses
-      setTimeout(() => {
-        const lower = text.toLowerCase();
-        let reply = "";
-
-        if (lower.includes("bmi") || lower.includes("weight") || lower.includes("fat")) {
-          reply = `🩺 <strong>BMI & Health Analysis:</strong><br/>
-          According to WHO guidelines, a BMI between <strong>18.5 and 24.9</strong> is classified as Normal / Healthy.
-          <ul class="list-disc pl-4 mt-1.5 space-y-1">
-            <li><strong>Underweight:</strong> &lt; 18.5</li>
-            <li><strong>Normal:</strong> 18.5 – 24.9 (Low disease risk)</li>
-            <li><strong>Overweight:</strong> 25.0 – 29.9</li>
-            <li><strong>Obesity:</strong> 30.0+</li>
-          </ul>
-          <div class="mt-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-            › Recommended: Try our <a href="/calculators/health/tdee-calculator" class="underline">TDEE & Calorie Deficit Calculator</a> to calculate optimal calorie targets.
-          </div>`;
-        } else if (lower.includes("mortgage") || lower.includes("loan") || lower.includes("interest rate")) {
-          reply = `💰 <strong>Mortgage & Financing Breakdown:</strong><br/>
-          Standard 30-year amortized monthly payment formula: <code>M = P[r(1+r)^n] / [(1+r)^n - 1]</code>.
-          <ul class="list-disc pl-4 mt-1.5 space-y-1">
-            <li>On a <strong>$450,000</strong> mortgage at <strong>6.5%</strong>, your monthly principal & interest is <strong>$2,844.31</strong>.</li>
-            <li>Adding an extra <strong>$150/mo</strong> to principal saves approximately <strong>$54,200</strong> in interest and shortens loan payoff by 3.8 years!</li>
-          </ul>
-          <div class="mt-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-            › Recommended: Open our <a href="/calculators/finance/mortgage-calculator" class="underline">Mortgage & Amortization Calculator</a> for full payoff schedules.
-          </div>`;
-        } else if (lower.includes("compound") || lower.includes("retire") || lower.includes("save") || lower.includes("401")) {
-          reply = `📈 <strong>Compound Growth & Wealth Accumulation:</strong><br/>
-          Formula: <code>A = P(1 + r/n)^(nt)</code>.<br/>
-          If you invest <strong>$500 per month</strong> at an 8% expected annual return starting at age 30:
-          <ul class="list-disc pl-4 mt-1.5 space-y-1">
-            <li>Total contributions by age 65: <strong>$210,000</strong></li>
-            <li>Total investment value: <strong>$1,146,940</strong></li>
-            <li>Compound interest earned: <strong>$936,940</strong> (81.7% of total portfolio!)</li>
-          </ul>
-          <div class="mt-2 text-emerald-600 dark:text-emerald-400 font-semibold">
-            › Recommended: Check our <a href="/calculators/finance/compound-interest-calculator" class="underline">Compound Interest & 401(k) Tool</a>.
-          </div>`;
-        } else if (lower.includes("formula") || lower.includes("work") || lower.includes("step by step")) {
-          reply = `📐 <strong>Mathematical Step-by-Step Breakdown:</strong><br/>
-          CalcDigi utilizes certified scientific formulas tested against NIST & IRS specifications:
-          <div class="mt-1.5 p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[11px] font-mono">
-            Step 1: Input normalized to base units (SI Metric / Imperial)<br/>
-            Step 2: Core logarithmic / exponential polynomial executed<br/>
-            Step 3: Verification against bound constraints & rounding rules
-          </div>
-          Every calculator includes full formula references and explanation boxes.`;
-        } else if (lower.includes("which") || lower.includes("calculator") || lower.includes("tool") || lower.includes("suggest")) {
-          reply = `💡 <strong>Calculator Recommendation:</strong><br/>
-          Based on your query, here are the most relevant precision tools:
-          <div class="mt-2 space-y-1">
-            <a href="/pages/finance" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Finance & Money: Mortgage, Tax & Loan Payoff</a>
-            <a href="/pages/health" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Health & Fitness: BMI, BMR, TDEE & Body Fat</a>
-            <a href="/pages/math" class="block p-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold text-xs hover:underline">› Math & Stats: Percentage, Fractions, Mean & Standard Deviation</a>
-          </div>`;
-        } else {
-          reply = `✨ <strong>CalcDigi AI Assistant:</strong><br/>
-          "${text}" is calculated client-side with zero latency and 100% privacy! You can explore all 341+ verified calculators above, or ask me for specific formulas, conversions, or financial scenarios.`;
-        }
-
-        box.innerHTML += `<div class="bg-slate-100 dark:bg-slate-800 p-3.5 rounded-2xl text-slate-800 dark:text-slate-200 text-xs sm:text-sm shadow-xs leading-relaxed">
-          ${reply}
-        </div>`;
-        box.scrollTop = box.scrollHeight;
-      }, 350);
-    }
-
-    // 5. REAL-WORLD SCENARIOS LOGIC
-    const scenarioData = {
-      home: [
-        {
-          icon: "🏡",
-          iconBg: "bg-orange-50 dark:bg-orange-950/60 text-orange-600",
-          title: "Planning a Home Purchase with Confidence",
-          desc: "Compare loan options, calculate monthly payments including taxes and insurance, and find out how much house you can truly afford.",
-          linkText: "Try Mortgage Calculator",
-          linkHref: "#category-finance",
-          highlight: true
-        },
-        {
-          icon: "🥗",
-          iconBg: "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600",
-          title: "Crushing a 12-Week Fitness Transformation",
-          desc: "Dial in maintenance calories, plan a sustainable deficit, and track body fat percentages with medical-grade precision.",
-          linkText: "Try TDEE Calculator",
-          linkHref: "#category-health",
-          highlight: false
-        },
-        {
-          icon: "📊",
-          iconBg: "bg-blue-50 dark:bg-blue-950/60 text-blue-600",
-          title: "Scaling a Small Business Profitably",
-          desc: "Calculate gross margins, find break-even production volume, and forecast cash flow runways without complex spreadsheets.",
-          linkText: "Try Margin Calculator",
-          linkHref: "#category-finance",
-          highlight: false
-        }
-      ],
-      fitness: [
-        {
-          icon: "🥗",
-          iconBg: "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600",
-          title: "Crushing a 12-Week Fitness Transformation",
-          desc: "Dial in maintenance calories, plan a sustainable deficit, and track body fat percentages with medical-grade precision.",
-          linkText: "Try TDEE Calculator",
-          linkHref: "#category-health",
-          highlight: true
-        },
-        {
-          icon: "🩺",
-          iconBg: "bg-pink-50 dark:bg-pink-950/60 text-pink-600",
-          title: "Pinpointing True Body Fat % & Lean Mass",
-          desc: "Calculate your US Navy tape-test body fat percentage and waist-to-hip ratio without expensive DEXA scans.",
-          linkText: "Try US Navy Body Fat Calculator",
-          linkHref: "#category-health",
-          highlight: false
-        },
-        {
-          icon: "🥩",
-          iconBg: "bg-rose-50 dark:bg-rose-950/60 text-rose-600",
-          title: "Macronutrient Splits & Protein Targets",
-          desc: "Optimize daily protein, carb, and fat distribution based on your training intensity and muscle retention targets.",
-          linkText: "Try Macro Splits Calculator",
-          linkHref: "#category-health",
-          highlight: false
-        }
-      ],
-      budgeting: [
-        {
-          icon: "💰",
-          iconBg: "bg-amber-50 dark:bg-amber-950/60 text-amber-600",
-          title: "Mastering Paycheck Take-Home After Taxes",
-          desc: "Calculate net take-home salary after federal withholdings, state brackets, FICA, and 401(k) pre-tax deductions.",
-          linkText: "Try Salary Paycheck Calculator",
-          linkHref: "#category-finance",
-          highlight: true
-        },
-        {
-          icon: "📊",
-          iconBg: "bg-purple-50 dark:bg-purple-950/60 text-purple-600",
-          title: "Automating the 50/30/20 Monthly Budget",
-          desc: "Allocate your income across needs, discretionary wants, and emergency savings with zero guesswork.",
-          linkText: "Try 50/30/20 Budget Calculator",
-          linkHref: "#category-finance",
-          highlight: false
-        },
-        {
-          icon: "💳",
-          iconBg: "bg-sky-50 dark:bg-sky-950/60 text-sky-600",
-          title: "Eliminating Debt with Avalanche vs Snowball",
-          desc: "Model accelerated credit card and student loan payoffs to save thousands in accrued compounding interest.",
-          linkText: "Try Debt Payoff Calculator",
-          linkHref: "#category-finance",
-          highlight: false
-        }
-      ],
-      business: [
-        {
-          icon: "📊",
-          iconBg: "bg-blue-50 dark:bg-blue-950/60 text-blue-600",
-          title: "Scaling a Small Business Profitably",
-          desc: "Calculate gross margins, find break-even production volume, and forecast cash flow runways without complex spreadsheets.",
-          linkText: "Try Margin Calculator",
-          linkHref: "#category-finance",
-          highlight: true
-        },
-        {
-          icon: "📈",
-          iconBg: "bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600",
-          title: "Calculating Break-Even Units & Revenue Target",
-          desc: "Determine the exact number of units or billable client hours required each month to cover fixed operating overhead.",
-          linkText: "Try Break-Even Calculator",
-          linkHref: "#category-finance",
-          highlight: false
-        },
-        {
-          icon: "💼",
-          iconBg: "bg-teal-50 dark:bg-teal-950/60 text-teal-600",
-          title: "Cash Runway & Burn Rate Forecasting",
-          desc: "Map startup monthly net burn rate against current cash reserves to plan fundraising and hiring schedules.",
-          linkText: "Try Runway Calculator",
-          linkHref: "#category-finance",
-          highlight: false
-        }
-      ],
-      diy: [
-        {
-          icon: "🏗️",
-          iconBg: "bg-amber-50 dark:bg-amber-950/60 text-amber-600",
-          title: "Pouring a Concrete Slab or Patio Foundation",
-          desc: "Estimate exact cubic yards of premix concrete and 80lb bags needed with safety margin for spillage.",
-          linkText: "Try Concrete Slab Calculator",
-          linkHref: "#category-housing",
-          highlight: true
-        },
-        {
-          icon: "📐",
-          iconBg: "bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600",
-          title: "Flooring Tile & Hardwood Square Footage",
-          desc: "Calculate total floor square footage plus 10% cutting waste allowance and box estimates for room renovations.",
-          linkText: "Try Flooring Calculator",
-          linkHref: "#category-housing",
-          highlight: false
-        },
-        {
-          icon: "🎨",
-          iconBg: "bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600",
-          title: "Paint Gallons & Wall Surface Estimator",
-          desc: "Compute exact gallons required for double-coat coverage subtracting windows, doors, and baseboard trim.",
-          linkText: "Try Paint Estimator",
-          linkHref: "#category-housing",
-          highlight: false
-        }
-      ]
-    };
-
-    function switchScenario(cat) {
-      const tabs = ['home', 'fitness', 'budgeting', 'business', 'diy'];
-      tabs.forEach(t => {
-        const btn = document.getElementById(`scenario-tab-${t}`);
-        if (btn) {
-          if (t === cat) {
-            btn.className = "scenario-tab px-4 py-2 rounded-full bg-[#18533b] text-white shadow-xs transition-all flex items-center gap-1.5 shrink-0";
-          } else {
-            btn.className = "scenario-tab px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0";
-          }
-        }
-      });
-
-      const cards = scenarioData[cat] || scenarioData.home;
-      const container = document.getElementById('scenario-cards-container');
-      if (container) {
-        container.innerHTML = cards.map(c => `
-          <div class="scenario-card bg-white dark:bg-slate-900 rounded-[24px] ${c.highlight ? 'border-2 border-emerald-400/90 dark:border-emerald-500' : 'border border-slate-200/80 dark:border-slate-800'} p-6 sm:p-7 shadow-xs hover:border-emerald-400/60 hover:shadow-md transition-all flex flex-col justify-between group">
-            <div>
-              <div class="w-11 h-11 rounded-2xl ${c.iconBg} flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
-                ${c.icon}
-              </div>
-              <h3 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg mb-2">
-                ${c.title}
-              </h3>
-              <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                ${c.desc}
-              </p>
-            </div>
-            <a href="${c.linkHref}" class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1.5 group/link">
-              <span>${c.linkText}</span>
-              <span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>
-            </a>
-          </div>
-        `).join('');
-      }
-    }
-
-    // 6. FAQ ACCORDION LOGIC
-    function toggleFaq(index) {
-      const content = document.getElementById(`faq-ans-${index}`);
-      const icon = document.getElementById(`faq-icon-${index}`);
-      if (!content || !icon) return;
-
-      const isOpen = !content.classList.contains('hidden');
-
-      // Close all items
-      for (let i = 1; i <= 6; i++) {
-        const c = document.getElementById(`faq-ans-${i}`);
-        const ic = document.getElementById(`faq-icon-${i}`);
-        if (c) c.classList.add('hidden');
-        if (ic) {
-          ic.classList.remove('rotate-45', 'text-emerald-600', 'dark:text-emerald-400');
-        }
-      }
-
-      // Toggle current item
-      if (!isOpen) {
-        content.classList.remove('hidden');
-        icon.classList.add('rotate-45', 'text-emerald-600', 'dark:text-emerald-400');
-      }
-    }
-
-    // 7. BACK TO TOP VISIBILITY LISTENER
-    window.addEventListener('scroll', () => {
-      const btt = document.getElementById('back-to-top');
-      if (btt) {
-        if (window.scrollY > 300) {
-          btt.style.opacity = '1';
-          btt.style.pointerEvents = 'auto';
-        } else {
-          btt.style.opacity = '0';
-          btt.style.pointerEvents = 'none';
-        }
-      }
-    });
-
-    // 8. GUIDES & ARTICLES (LEARNING CENTER) DATA & MODAL LOGIC
-    const articlesData = {
-      1: {
-        category: "FINANCE",
-        readTime: "6 min read",
-        icon: "📈",
-        title: "The Power of Compound Interest Explained",
-        calcTarget: "#popular-calculators",
-        calcName: "Open Compound Interest Calculator",
-        content: `
-          <div class="space-y-4">
-            <p class="font-medium text-slate-800 dark:text-slate-200">
-              Compound interest is often referred to as the "eighth wonder of the world" because it allows your wealth to grow exponentially over time rather than linearly.
-            </p>
-            <div class="p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 text-xs sm:text-sm">
-              <strong class="font-bold">Core Formula:</strong> <br>
-              <code class="font-mono text-emerald-800 dark:text-emerald-300">A = P(1 + r/n)^(nt)</code><br>
-              Where <strong>A</strong> is future balance, <strong>P</strong> is principal, <strong>r</strong> is annual interest rate, <strong>n</strong> is compounding frequency, and <strong>t</strong> is time in years.
-            </div>
-            <h4 class="font-bold text-slate-900 dark:text-white pt-2 text-base">Key Takeaways:</h4>
-            <ul class="list-disc pl-5 space-y-2">
-              <li><strong>Time beats timing:</strong> Starting 10 years earlier can more than double your retirement nest egg even with lower monthly contributions.</li>
-              <li><strong>Compounding Frequency:</strong> Daily or monthly compounding yields significantly higher yields than annual compounding over multi-decade horizons.</li>
-              <li><strong>Reinvesting Returns:</strong> Never withdraw interest payouts if your goal is exponential compounding momentum.</li>
-            </ul>
-          </div>
-        `
-      },
-      2: {
-        category: "FINANCE",
-        readTime: "7 min read",
-        icon: "🏡",
-        title: "How Much House Can I Afford in 2026?",
-        calcTarget: "#popular-calculators",
-        calcName: "Open Mortgage Calculator",
-        content: `
-          <div class="space-y-4">
-            <p class="font-medium text-slate-800 dark:text-slate-200">
-              Determining how much home you can safely afford requires balancing your gross monthly income against debts, down payment, current interest rates, and local property taxes.
-            </p>
-            <div class="p-4 rounded-2xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-100 dark:border-sky-800/60 text-sky-900 dark:text-sky-200 text-xs sm:text-sm">
-              <strong class="font-bold">The Golden 28/36 Rule:</strong><br>
-              • <strong>Front-end (28%):</strong> Your housing costs (principal, interest, taxes, insurance) should not exceed 28% of your gross monthly income.<br>
-              • <strong>Back-end (36%):</strong> Your total monthly debt obligations (housing + student loans, car loans, credit cards) should not exceed 36% of gross income.
-            </div>
-            <h4 class="font-bold text-slate-900 dark:text-white pt-2 text-base">2026 Housing Considerations:</h4>
-            <ul class="list-disc pl-5 space-y-2">
-              <li><strong>Interest Rate Impact:</strong> Even a 0.5% rate reduction increases your purchasing power by $15,000–$25,000 on average.</li>
-              <li><strong>Private Mortgage Insurance (PMI):</strong> Putting down at least 20% avoids unnecessary monthly PMI premiums.</li>
-              <li><strong>Hidden Ownership Costs:</strong> Always budget 1%–2% of home value annually for maintenance and repairs.</li>
-            </ul>
-          </div>
-        `
-      },
-      3: {
-        category: "HEALTH",
-        readTime: "5 min read",
-        icon: "📊",
-        title: "What Is a Healthy BMI for Adults?",
-        calcTarget: "#popular-calculators",
-        calcName: "Open BMI Calculator",
-        content: `
-          <div class="space-y-4">
-            <p class="font-medium text-slate-800 dark:text-slate-200">
-              Body Mass Index (BMI) is an internationally recognized World Health Organization (WHO) screening metric comparing weight to height to categorize adult body weight status.
-            </p>
-            <div class="p-4 rounded-2xl bg-teal-50/70 dark:bg-teal-950/30 border border-teal-100 dark:border-teal-800/60 text-teal-900 dark:text-teal-200 text-xs sm:text-sm">
-              <strong class="font-bold">Standard WHO BMI Categories:</strong><br>
-              • Underweight: &lt; 18.5<br>
-              • Normal healthy weight: 18.5 – 24.9<br>
-              • Overweight: 25.0 – 29.9<br>
-              • Obesity (Class 1–3): 30.0 and above
-            </div>
-            <h4 class="font-bold text-slate-900 dark:text-white pt-2 text-base">Limitations & Context:</h4>
-            <ul class="list-disc pl-5 space-y-2">
-              <li><strong>Muscle vs Fat:</strong> BMI does not distinguish between lean muscle mass and adipose tissue, often skewing high for athletes.</li>
-              <li><strong>Body Fat Distribution:</strong> Waist-to-hip ratio and visceral adiposity index provide additional cardiovascular risk nuance.</li>
-              <li><strong>Clinical Guidance:</strong> BMI is an initial screening benchmark, best evaluated alongside metabolic panels and physician consults.</li>
-            </ul>
-          </div>
-        `
-      }
-    };
-
-    function openArticle(id) {
-      const article = articlesData[id];
-      if (!article) return;
-
-      document.getElementById('article-modal-category').innerText = `${article.category} • ${article.readTime}`;
-      document.getElementById('article-modal-title').innerText = article.title;
-      document.getElementById('article-modal-icon').innerText = article.icon;
-      document.getElementById('article-modal-content').innerHTML = article.content;
-      
-      const cta = document.getElementById('article-modal-cta');
-      if (cta) {
-        cta.href = article.calcTarget;
-        cta.firstElementChild.innerText = article.calcName;
-      }
-
-      const modal = document.getElementById('article-modal');
+      const modal = document.getElementById('ai-modal');
+      modal.style.display = 'flex';
       modal.classList.remove('hidden');
+      modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        const inp = document.getElementById('ai-modal-input');
+        if (inp) inp.focus();
+      }, 100);
     }
 
     function closeArticleModal() {
       const modal = document.getElementById('article-modal');
+      modal.style.display = 'none';
       modal.classList.add('hidden');
+      modal.classList.remove('flex');
       document.body.style.overflow = '';
     }
 
@@ -3532,13 +3094,17 @@
       document.getElementById('legal-modal-content').innerHTML = data.content;
 
       const modal = document.getElementById('legal-modal');
+      modal.style.display = 'flex';
       modal.classList.remove('hidden');
+      modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
     }
 
     function closeLegalModal() {
       const modal = document.getElementById('legal-modal');
+      modal.style.display = 'none';
       modal.classList.add('hidden');
+      modal.classList.remove('flex');
       document.body.style.overflow = '';
     }
 
