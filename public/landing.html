@@ -67,7 +67,7 @@
     }
   
     /* Prevent hidden modals or overlays from blocking page clicks */
-    #legal-modal.hidden, #article-modal.hidden, #ai-modal.hidden, .hidden {
+    #legal-modal.hidden, #article-modal.hidden, #ai-modal.hidden {
       display: none !important;
       pointer-events: none !important;
       visibility: hidden !important;
@@ -2323,9 +2323,7 @@
           </h4>
           <ul class="space-y-2.5 text-xs">
             <li>
-              <button type="button" onclick="openLegalModal('about')" class="text-left hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
-                About Us
-              </button>
+              <a href="/pages/about" class="text-left hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">About Us</a>
             </li>
             <li>
               <button type="button" onclick="openLegalModal('contact')" class="text-left hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors cursor-pointer">
