@@ -91,17 +91,27 @@ export default function Page() {
 <a href="/pages/datetime">Date &amp; Time</a><span class="bc-sep"> / </span>
 <span aria-current="page">Age Calculator</span>
 </nav>
+
 <div class="calc-layout">
-<!-- MAIN CONTENT -->
+<!-- MAIN CONTENT (All guidance, explanation, tips, FAQs & related tools inside left column) -->
 <div class="calc-main">
 <h1>Age Calculator</h1>
 <p class="calc-intro">Calculate your exact age in years, months, days, hours, and minutes. Also shows total days lived, days remaining until your next birthday, and fun generational milestones — all calculated instantly in your browser.</p>
+
 <div class="content-section">
 <h2>How Age is Calculated</h2>
 <p>Age is not just the difference in calendar years — it depends on whether your birthday has passed in the current year. Our calculator computes the exact years, remaining months after your last birthday, and remaining days after your last full calendar month.</p>
 <div class="formula-box">Exact Age = (As of Date − Birth Date) broken into Years → Months → Days</div>
 <p>For total days lived, we count every individual calendar day including all leap year days (February 29). A person who turns 25 today has lived approximately 9,131 days including leap year adjustments.</p>
 </div>
+
+<div class="content-section">
+<h2>How to Use This Calculator &amp; Tips</h2>
+<p>Enter your birth date in the <strong>Date of Birth</strong> field and click <strong>Calculate Age</strong>. All computations execute 100% locally in your browser with zero data transmitted to external servers, protecting your privacy.</p>
+<h3>Understanding Your Results</h3>
+<p>Your chronological age is presented in full calendar years, months, and days. Underneath, a comprehensive breakdown displays total days, weeks, hours, and minutes lived, along with the day of the week you were born and an exact countdown to your next birthday.</p>
+</div>
+
 <div class="content-section">
 <h2>Why Exact Age Matters</h2>
 <ul>
@@ -111,6 +121,7 @@ export default function Page() {
 <li><strong>Sports &amp; Competitions:</strong> Youth athletic age-group brackets (Under-16, Under-18, Under-21) enforce strict birthdate cutoff dates.</li>
 </ul>
 </div>
+
 <div class="content-section">
 <h2>Fun Age &amp; Biology Facts</h2>
 <ul>
@@ -120,7 +131,29 @@ export default function Page() {
 <li>People born on February 29 (leap day) celebrate their true calendar birthday once every 4 years.</li>
 </ul>
 </div>
-<div class="content-section"><h2>Frequently Asked Questions</h2><div class="faq-list"><div class="faq-item"><button class="faq-q" type="button">How is my exact age calculated? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">We subtract your birth date from the selected "as of" date step by step — full years first, then remaining months, then remaining days. This accurately accounts for months of varying lengths (28, 29, 30, or 31 days) and leap years.</div></div><div class="faq-item"><button class="faq-q" type="button">What if I was born on February 29? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">Leap day birthdays are handled correctly. In non-leap years, your birthday milestone is recognized on February 28. In leap years, your full birthday date occurs on February 29.</div></div><div class="faq-item"><button class="faq-q" type="button">How many days old am I? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">The total days calculation counts every calendar day from your birth date to the selected as-of date, including all leap year days. Enter your birthdate above to see your exact day count.</div></div><div class="faq-item"><button class="faq-q" type="button">Can I calculate someone's historical age? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">Yes! Simply change the "Calculate Age As Of" date to any target date in the past or future to see how old they were or will be on that specific date.</div></div></div></div>
+
+<div class="content-section">
+<h2>Frequently Asked Questions</h2>
+<div class="faq-list">
+<div class="faq-item">
+<button class="faq-q" type="button">How is my exact age calculated? <span aria-hidden="true" class="faq-icon">+</span></button>
+<div class="faq-a">We subtract your birth date from the selected "as of" date step by step — full years first, then remaining months, then remaining days. This accurately accounts for months of varying lengths (28, 29, 30, or 31 days) and leap years.</div>
+</div>
+<div class="faq-item">
+<button class="faq-q" type="button">What if I was born on February 29? <span aria-hidden="true" class="faq-icon">+</span></button>
+<div class="faq-a">Leap day birthdays are handled correctly. In non-leap years, your birthday milestone is recognized on February 28. In leap years, your full birthday date occurs on February 29.</div>
+</div>
+<div class="faq-item">
+<button class="faq-q" type="button">How many days old am I? <span aria-hidden="true" class="faq-icon">+</span></button>
+<div class="faq-a">The total days calculation counts every calendar day from your birth date to the selected as-of date, including all leap year days. Enter your birthdate above to see your exact day count.</div>
+</div>
+<div class="faq-item">
+<button class="faq-q" type="button">Can I calculate someone's historical age? <span aria-hidden="true" class="faq-icon">+</span></button>
+<div class="faq-a">Yes! Simply change the "Calculate Age As Of" date to any target date in the past or future to see how old they were or will be on that specific date.</div>
+</div>
+</div>
+</div>
+
 <div class="content-section">
 <h2>Related Date &amp; Time Calculators</h2>
 <div class="related-grid">
@@ -130,8 +163,10 @@ export default function Page() {
 <a class="related-card" href="/calculators/datetime/time-zone-converter"><span class="rc-icon">🌍</span><span class="rc-name">Time Zone Converter</span></a>
 </div>
 </div>
-</div>
-<!-- SIDEBAR WIDGET -->
+
+</div><!-- end calc-main -->
+
+<!-- SIDEBAR WIDGET (Sticky Calculator on Desktop, Stacks gracefully on Mobile) -->
 <div class="calc-sidebar">
 <div class="calc-widget">
 <h2>Age Calculator</h2>
@@ -157,14 +192,10 @@ export default function Page() {
 <button class="calc-btn" type="button" onclick="shareResult('Age Calculator')" style="background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;"><span>🔗</span> Share</button>
 </div>
 </div>
-</div>
+</div><!-- end calc-sidebar -->
+
 </div><!-- end calc-layout -->
 </div><!-- end container -->
-<div class="content-section"><h2>How to Use This Calculator</h2>
-<p>Enter your birth date and click <strong>Calculate Age</strong> for instant, high-precision results. All computations run 100% in your browser — zero data is sent to external servers, protecting your privacy.</p>
-<h3>Understanding Your Results</h3>
-<p>Age is broken down into complete years, remaining full months, and remaining calendar days. Below the primary age, you will find comprehensive time breakdowns (total days, weeks, hours, minutes, and seconds lived) plus next birthday countdowns.</p>
-</div>
 </main>`
         }}
       />
