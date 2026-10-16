@@ -1483,11 +1483,11 @@ body.dark .calc-page .calc-widget h2{color:#fff;}
 .calc-page .form-group label{color:#334155;font-weight:500;font-size:14px;}
 body.dark .calc-page .form-group label{color:#cbd5e1;}
 .calc-page .form-group input,.calc-page .form-group select{min-height:48px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#0f172a;}
-.calc-page .form-group input:focus,.calc-page .form-group select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,0.25);}
+.calc-page .form-group input:focus,.calc-page .form-group select:focus{border-color:#18533b;box-shadow:0 0 0 3px rgba(24,83,59,0.2);}
 body.dark .calc-page .form-group input,body.dark .calc-page .form-group select{background:#020617;border-color:#334155;color:#f1f5f9;}
-.calc-page .calc-btn{min-height:48px;background:#2563eb;color:#fff;border-radius:8px;font-weight:600;box-shadow:0 1px 2px rgba(15,23,42,0.08);}
-.calc-page .calc-btn:hover{background:#1d4ed8;opacity:1;transform:none;}
-.calc-page .calc-btn:focus-visible{outline:2px solid #2563eb;outline-offset:2px;}
+.calc-page .calc-btn{min-height:48px;background:#18533b;color:#fff;border-radius:8px;font-weight:600;box-shadow:0 1px 2px rgba(15,23,42,0.08);}
+.calc-page .calc-btn:hover{background:#12402d;opacity:1;transform:none;}
+.calc-page .calc-btn:focus-visible{outline:2px solid #18533b;outline-offset:2px;}
 /* Secondary (Print / Share) buttons keep their inline neutral background. */
 .calc-page .calc-btn[style*="background:var(--c-rule2)"]{box-shadow:none;}
 .calc-page .calc-btn[style*="background:var(--c-rule2)"]:hover{background:#e2e8f0!important;}
