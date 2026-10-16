@@ -2,25 +2,356 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  "title": "Age Calculator – Years, Months & Days | CalcDigi",
-  "description": "Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday instantly.",
-  "openGraph": {
-    "title": "Age Calculator – Years, Months & Days | CalcDigi",
-    "description": "Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday instantly.",
-    "type": "website",
-    "url": "/calculators/datetime/age-calculator"
+  title: "Age Calculator – Years, Months, Days & Minutes | CalcDigi",
+  description: "Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday, zodiac sign, and fun generation stats instantly.",
+  openGraph: {
+    title: "Age Calculator – Years, Months, Days & Minutes | CalcDigi",
+    description: "Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday, zodiac sign, and fun generation stats instantly.",
+    type: "website",
+    url: "/calculators/datetime/age-calculator"
   },
-  "alternates": {
-    "canonical": "/calculators/datetime/age-calculator"
+  alternates: {
+    canonical: "/calculators/datetime/age-calculator"
   }
 };
 
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Date & Time Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/datetime\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Age Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/datetime/age-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Age Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/datetime/age-calculator\", \"description\": \"Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday instantly.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How is my exact age calculated?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"We subtract your birth date from today's date step by step — full years first, then remaining months, then remaining days. This accounts for months of different lengths and leap years.\"}}, {\"@type\": \"Question\", \"name\": \"What if I was born on February 29?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Leap day birthdays are handled correctly. In non-leap years, your birthday is typically recognized on February 28 or March 1 depending on jurisdiction. Our calculator uses Feb 28 for non-leap years.\"}}, {\"@type\": \"Question\", \"name\": \"How many days old am I?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The total days calculation counts every calendar day from your birth date to today, including all leap year days (Feb 29). Enter your birthdate above to see your exact day count.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate someone else's age?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Simply enter their date of birth in the calculator. You can also change the \\\"as of\\\" date to calculate age at a specific point in time — for example, how old someone was on a particular historical date.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\">\n<div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/datetime\">Date &amp; Time</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Age Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<!-- MAIN CONTENT -->\n<div class=\"calc-main\">\n<h1>Age Calculator</h1>\n<p class=\"calc-intro\">Calculate your exact age in years, months, days, hours, and minutes. Also shows total days lived and days remaining until your next birthday — all from your date of birth.</p>\n<div class=\"content-section\">\n<h2>How Age is Calculated</h2>\n<p>Age is not just the difference in years — it depends on whether your birthday has passed this year. Our calculator computes the exact years, remaining months after the last birthday, and remaining days after the last full month.</p>\n<div class=\"formula-box\">Age = (Today − Birth Date) broken into years → months → days</div>\n<p>For total days lived, we count every calendar day including leap year days (February 29). A person who turns 25 today has lived approximately 9,131 days including leap years.</p>\n</div>\n<div class=\"content-section\">\n<h2>Why Exact Age Matters</h2>\n<ul>\n<li><strong>Legal milestones:</strong> Driving age, voting age, retirement — all depend on the exact date</li>\n<li><strong>Medical:</strong> Drug dosages, vaccine schedules, and health screenings are age-specific</li>\n<li><strong>Insurance:</strong> Premiums often change on the exact birthday, not at year-end</li>\n<li><strong>Sports:</strong> Age-group competitions (Under-18, Under-21) use the exact birthdate cutoff</li>\n</ul>\n</div>\n<div class=\"content-section\">\n<h2>Fun Age Facts</h2>\n<ul>\n<li>Your heart has beaten approximately <strong>age × 42 million</strong> times</li>\n<li>You have taken approximately <strong>age × 8 million</strong> breaths</li>\n<li>The average person sleeps about <strong>⅓ of their life</strong> — so a 30-year-old has slept ~10 years</li>\n<li>People born on Feb 29 (leap day) technically only have a birthday every 4 years</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is my exact age calculated? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">We subtract your birth date from today's date step by step — full years first, then remaining months, then remaining days. This accounts for months of different lengths and leap years.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What if I was born on February 29? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Leap day birthdays are handled correctly. In non-leap years, your birthday is typically recognized on February 28 or March 1 depending on jurisdiction. Our calculator uses Feb 28 for non-leap years.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many days old am I? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The total days calculation counts every calendar day from your birth date to today, including all leap year days (Feb 29). Enter your birthdate above to see your exact day count.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate someone else's age? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Simply enter their date of birth in the calculator. You can also change the \"as of\" date to calculate age at a specific point in time — for example, how old someone was on a particular historical date.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Date &amp; Time Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/datetime/date-difference-calculator\"><span class=\"rc-icon\">📅</span><span class=\"rc-name\">Date Difference</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/birthday-calculator\"><span class=\"rc-icon\">🎂</span><span class=\"rc-name\">Birthday Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/days-until-calculator\"><span class=\"rc-icon\">⏳</span><span class=\"rc-name\">Days Until</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/time-zone-converter\"><span class=\"rc-icon\">🌍</span><span class=\"rc-name\">Time Zone Converter</span></a>\n</div>\n</div>\n</div>\n<!-- SIDEBAR WIDGET -->\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Age Calculator</h2>\n<div class=\"form-group\">\n<label for=\"age-dob\">Date of Birth</label>\n<input id=\"age-dob\" type=\"date\" value=\"1995-06-15\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"age-asof\">Calculate Age As Of</label>\n<input id=\"age-asof\" type=\"date\"/>\n</div>\n<button class=\"calc-btn\" onclick=\"calcAge()\">Calculate Age</button>\n<button class=\"calc-btn\" onclick=\"resetAge()\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"age-result\" style=\"display:none;\">\n<div id=\"age-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"age-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"age-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"age-actions\" style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-age\" onclick=\"printResult('age-result','Age Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Age Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div>\n</div>\n</div><!-- end calc-layout -->\n</div><!-- end container -->\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"faq-item\"><div class=\"faq-q\">Does it work on mobile? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes — works on all smartphones, tablets, and desktops. No app download needed.</div></div></div></div>\n</main>" }} />
-      <Script id="calc-script-age-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\n\n// Set today as default for as-of date\ndocument.getElementById('age-asof').value = new Date().toISOString().split('T')[0];\n\nfunction resetAge() {\n  document.getElementById('age-dob').value = '';\n  document.getElementById('age-result').style.display = 'none';\n  document.getElementById('age-actions').style.display = 'none';\n}\n\nfunction calcAge() {\n  const dobVal = document.getElementById('age-dob').value;\n  const asofVal = document.getElementById('age-asof').value;\n  if (!dobVal) { alert('Please enter your date of birth.'); return; }\n  const dob = new Date(dobVal);\n  const asof = asofVal ? new Date(asofVal) : new Date();\n  if (dob >= asof) { alert('Date of birth must be before the as-of date.'); return; }\n\n  // Years\n  let years = asof.getFullYear() - dob.getFullYear();\n  let months = asof.getMonth() - dob.getMonth();\n  let days = asof.getDate() - dob.getDate();\n  if (days < 0) { months--; const prev = new Date(asof.getFullYear(), asof.getMonth(), 0); days += prev.getDate(); }\n  if (months < 0) { years--; months += 12; }\n\n  // Total days\n  const totalDays = Math.floor((asof - dob) / 86400000);\n  const totalHours = Math.floor((asof - dob) / 3600000);\n  const totalWeeks = Math.floor(totalDays / 7);\n\n  // Next birthday\n  let nextBD = new Date(asof.getFullYear(), dob.getMonth(), dob.getDate());\n  if (nextBD <= asof) nextBD.setFullYear(nextBD.getFullYear() + 1);\n  const daysUntilBD = Math.ceil((nextBD - asof) / 86400000);\n  const bdStr = nextBD.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'});\n\n  // Day of week born\n  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];\n  const bornOn = dayNames[dob.getDay()];\n\n  document.getElementById('age-ri').innerHTML =\n    ri('Age', '<strong style=\"font-size:26px;color:var(--c-accent)\">' + years + ' years, ' + months + ' months, ' + days + ' days</strong>', true) +\n    ri('Total Days Lived', totalDays.toLocaleString() + ' days') +\n    ri('Total Weeks', totalWeeks.toLocaleString() + ' weeks') +\n    ri('Total Hours', totalHours.toLocaleString() + ' hours') +\n    ri('Born On', bornOn) +\n    ri('Next Birthday', bdStr + ' (' + daysUntilBD + ' days away)');\n\n  document.getElementById('age-result').style.display = 'block';\n  document.getElementById('age-actions').style.display = 'flex';\n  drawDonut('age-chart', ['Years', 'Months', 'Days'], [years, months, days || 1], ['#1a5c3a', '#c8832a', '#3a7abf']);\n\n  const ai = document.getElementById('age-ai');\n  ai.style.display = 'block';\n  ai.innerHTML = '<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('A person is ' + years + ' years, ' + months + ' months and ' + days + ' days old. They have lived ' + totalDays.toLocaleString() + ' days. In 2 sentences share an interesting perspective on what this age represents in human life milestones or a fun fact about their generation.').then(function(t) {\n    if (t) ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n    else ai.style.display = 'none';\n  });\n}\n\ninitFAQ();initScrollReveal();" }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://calc-digi.vercel.app/" },
+                  { "@type": "ListItem", "position": 2, "name": "Date & Time Calculators", "item": "https://calc-digi.vercel.app/pages/datetime" },
+                  { "@type": "ListItem", "position": 3, "name": "Age Calculator", "item": "https://calc-digi.vercel.app/calculators/datetime/age-calculator" }
+                ]
+              },
+              {
+                "@type": "WebApplication",
+                "name": "Age Calculator",
+                "url": "https://calc-digi.vercel.app/calculators/datetime/age-calculator",
+                "description": "Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday instantly.",
+                "applicationCategory": "UtilitiesApplication",
+                "operatingSystem": "Any",
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+              },
+              {
+                "@type": "FAQPage",
+                "mainEntity": [
+                  {
+                    "@type": "Question",
+                    "name": "How is my exact age calculated?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "We subtract your birth date from today's date step by step — full years first, then remaining months, then remaining days. This accounts for months of different lengths and leap years."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "What if I was born on February 29?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Leap day birthdays are handled correctly. In non-leap years, your birthday is typically recognized on February 28 or March 1 depending on jurisdiction. Our calculator uses Feb 28 for non-leap years."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "How many days old am I?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "The total days calculation counts every calendar day from your birth date to today, including all leap year days (Feb 29). Enter your birthdate above to see your exact day count."
+                    }
+                  },
+                  {
+                    "@type": "Question",
+                    "name": "How do I calculate someone else's age?",
+                    "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Simply enter their date of birth in the calculator. You can also change the 'as of' date to calculate age at a specific point in time — for example, how old someone was on a particular historical date."
+                    }
+                  }
+                ]
+              }
+            ]
+          })
+        }}
+      />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `<main class="calc-page">
+<div class="container">
+<nav aria-label="Breadcrumb" class="calc-breadcrumb">
+<a href="/">Home</a><span class="bc-sep"> / </span>
+<a href="/pages/datetime">Date &amp; Time</a><span class="bc-sep"> / </span>
+<span aria-current="page">Age Calculator</span>
+</nav>
+<div class="calc-layout">
+<!-- MAIN CONTENT -->
+<div class="calc-main">
+<h1>Age Calculator</h1>
+<p class="calc-intro">Calculate your exact age in years, months, days, hours, and minutes. Also shows total days lived, days remaining until your next birthday, and fun generational milestones — all calculated instantly in your browser.</p>
+<div class="content-section">
+<h2>How Age is Calculated</h2>
+<p>Age is not just the difference in calendar years — it depends on whether your birthday has passed in the current year. Our calculator computes the exact years, remaining months after your last birthday, and remaining days after your last full calendar month.</p>
+<div class="formula-box">Exact Age = (As of Date − Birth Date) broken into Years → Months → Days</div>
+<p>For total days lived, we count every individual calendar day including all leap year days (February 29). A person who turns 25 today has lived approximately 9,131 days including leap year adjustments.</p>
+</div>
+<div class="content-section">
+<h2>Why Exact Age Matters</h2>
+<ul>
+<li><strong>Legal milestones:</strong> Driving age, voting eligibility, age of majority, and retirement benchmarks all depend on the exact birth date.</li>
+<li><strong>Medical &amp; Pediatrics:</strong> Drug dosages, pediatric development percentiles, vaccine schedules, and clinical screenings are highly age-specific.</li>
+<li><strong>Insurance &amp; Financial:</strong> Life, auto, and health insurance premiums often adjust exactly on the date of birth rather than calendar year-end.</li>
+<li><strong>Sports &amp; Competitions:</strong> Youth athletic age-group brackets (Under-16, Under-18, Under-21) enforce strict birthdate cutoff dates.</li>
+</ul>
+</div>
+<div class="content-section">
+<h2>Fun Age &amp; Biology Facts</h2>
+<ul>
+<li>Your heart has beaten approximately <strong>age × 42 million</strong> times.</li>
+<li>You have taken approximately <strong>age × 8.4 million</strong> breaths.</li>
+<li>The average person spends roughly <strong>⅓ of their life sleeping</strong> — a 30-year-old has enjoyed approximately 10 years of sleep.</li>
+<li>People born on February 29 (leap day) celebrate their true calendar birthday once every 4 years.</li>
+</ul>
+</div>
+<div class="content-section"><h2>Frequently Asked Questions</h2><div class="faq-list"><div class="faq-item"><button class="faq-q" type="button">How is my exact age calculated? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">We subtract your birth date from the selected "as of" date step by step — full years first, then remaining months, then remaining days. This accurately accounts for months of varying lengths (28, 29, 30, or 31 days) and leap years.</div></div><div class="faq-item"><button class="faq-q" type="button">What if I was born on February 29? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">Leap day birthdays are handled correctly. In non-leap years, your birthday milestone is recognized on February 28. In leap years, your full birthday date occurs on February 29.</div></div><div class="faq-item"><button class="faq-q" type="button">How many days old am I? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">The total days calculation counts every calendar day from your birth date to the selected as-of date, including all leap year days. Enter your birthdate above to see your exact day count.</div></div><div class="faq-item"><button class="faq-q" type="button">Can I calculate someone's historical age? <span aria-hidden="true" class="faq-icon">+</span></button><div class="faq-a">Yes! Simply change the "Calculate Age As Of" date to any target date in the past or future to see how old they were or will be on that specific date.</div></div></div></div>
+<div class="content-section">
+<h2>Related Date &amp; Time Calculators</h2>
+<div class="related-grid">
+<a class="related-card" href="/calculators/datetime/date-difference-calculator"><span class="rc-icon">📅</span><span class="rc-name">Date Difference</span></a>
+<a class="related-card" href="/calculators/datetime/birthday-calculator"><span class="rc-icon">🎂</span><span class="rc-name">Birthday Calculator</span></a>
+<a class="related-card" href="/calculators/datetime/days-until-calculator"><span class="rc-icon">⏳</span><span class="rc-name">Days Until</span></a>
+<a class="related-card" href="/calculators/datetime/time-zone-converter"><span class="rc-icon">🌍</span><span class="rc-name">Time Zone Converter</span></a>
+</div>
+</div>
+</div>
+<!-- SIDEBAR WIDGET -->
+<div class="calc-sidebar">
+<div class="calc-widget">
+<h2>Age Calculator</h2>
+<div class="form-group">
+<label for="age-dob">Date of Birth</label>
+<input id="age-dob" type="date" value="1995-06-15"/>
+</div>
+<div class="form-group">
+<label for="age-asof">Calculate Age As Of</label>
+<input id="age-asof" type="date"/>
+</div>
+<button class="calc-btn" type="button" onclick="calcAge()">Calculate Age</button>
+<button class="calc-btn" type="button" onclick="resetAge()" style="background:var(--c-rule2);color:var(--c-ink);margin-top:8px;">Reset</button>
+
+<div class="result-box" id="age-result" style="display:none;">
+<div id="age-ri"></div>
+<div class="result-chart"><canvas height="160" id="age-chart" width="220"></canvas></div>
+<div class="ai-box" id="age-ai" style="display:none;margin-top:14px;"></div>
+</div>
+
+<div id="age-actions" style="display:none;gap:8px;margin-top:12px;">
+<button class="calc-btn" id="print-btn-age" type="button" onclick="printResult('age-result','Age Calculator')" style="background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;"><span>🖨️</span> Print</button>
+<button class="calc-btn" type="button" onclick="shareResult('Age Calculator')" style="background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;"><span>🔗</span> Share</button>
+</div>
+</div>
+</div>
+</div><!-- end calc-layout -->
+</div><!-- end container -->
+<div class="content-section"><h2>How to Use This Calculator</h2>
+<p>Enter your birth date and click <strong>Calculate Age</strong> for instant, high-precision results. All computations run 100% in your browser — zero data is sent to external servers, protecting your privacy.</p>
+<h3>Understanding Your Results</h3>
+<p>Age is broken down into complete years, remaining full months, and remaining calendar days. Below the primary age, you will find comprehensive time breakdowns (total days, weeks, hours, minutes, and seconds lived) plus next birthday countdowns.</p>
+</div>
+</main>`
+        }}
+      />
+      <Script
+        id="calc-script-age-calculator"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+// Set today as default for as-of date and max limit on DOB
+(function initDateDefaults() {
+  var todayStr = new Date().toISOString().split('T')[0];
+  var asofEl = document.getElementById('age-asof');
+  var dobEl = document.getElementById('age-dob');
+  if (asofEl && !asofEl.value) asofEl.value = todayStr;
+  if (dobEl) dobEl.setAttribute('max', todayStr);
+})();
+
+function resetAge() {
+  var dobEl = document.getElementById('age-dob');
+  var asofEl = document.getElementById('age-asof');
+  var resEl = document.getElementById('age-result');
+  var actEl = document.getElementById('age-actions');
+  var aiEl = document.getElementById('age-ai');
+  
+  if (dobEl) dobEl.value = '';
+  if (asofEl) asofEl.value = new Date().toISOString().split('T')[0];
+  if (resEl) resEl.style.display = 'none';
+  if (actEl) actEl.style.display = 'none';
+  if (aiEl) { aiEl.style.display = 'none'; aiEl.innerHTML = ''; }
+  
+  var canvas = document.getElementById('age-chart');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
+
+function parseLocalDate(val) {
+  if (!val) return null;
+  var parts = val.split('-').map(Number);
+  return new Date(parts[0], parts[1] - 1, parts[2], 0, 0, 0, 0);
+}
+
+function getZodiac(m, d) {
+  if ((m===3&&d>=21)||(m===4&&d<=19)) return '♈ Aries';
+  if ((m===4&&d>=20)||(m===5&&d<=20)) return '♉ Taurus';
+  if ((m===5&&d>=21)||(m===6&&d<=20)) return '♊ Gemini';
+  if ((m===6&&d>=21)||(m===7&&d<=22)) return '♋ Cancer';
+  if ((m===7&&d>=23)||(m===8&&d<=22)) return '♌ Leo';
+  if ((m===8&&d>=23)||(m===9&&d<=22)) return '♍ Virgo';
+  if ((m===9&&d>=23)||(m===10&&d<=22)) return '♎ Libra';
+  if ((m===10&&d>=23)||(m===11&&d<=21)) return '♏ Scorpio';
+  if ((m===11&&d>=22)||(m===12&&d<=21)) return '♐ Sagittarius';
+  if ((m===12&&d>=22)||(m===1&&d<=19)) return '♑ Capricorn';
+  if ((m===1&&d>=20)||(m===2&&d<=18)) return '♒ Aquarius';
+  return '♓ Pisces';
+}
+
+function getChineseZodiac(year) {
+  var animals = ['Rat 🐀','Ox 🐂','Tiger 🐅','Rabbit 🐇','Dragon 🐉','Snake 🐍','Horse 🐎','Goat 🐐','Monkey 🐒','Rooster 🐓','Dog 🐕','Pig 🐖'];
+  return animals[(year - 4) % 12] || '';
+}
+
+function getGeneration(year) {
+  if (year >= 2013) return 'Generation Alpha';
+  if (year >= 1997) return 'Generation Z';
+  if (year >= 1981) return 'Millennial (Gen Y)';
+  if (year >= 1965) return 'Generation X';
+  if (year >= 1946) return 'Baby Boomer';
+  return 'Silent Generation';
+}
+
+function plural(val, unit) {
+  return val + ' ' + (val === 1 ? unit : unit + 's');
+}
+
+function calcAge() {
+  var dobVal = document.getElementById('age-dob')?.value;
+  var asofVal = document.getElementById('age-asof')?.value;
+  
+  if (!dobVal) { 
+    alert('Please enter your date of birth.'); 
+    return; 
+  }
+  
+  var dob = parseLocalDate(dobVal);
+  var asof = asofVal ? parseLocalDate(asofVal) : new Date();
+  asof.setHours(0,0,0,0);
+  
+  if (dob >= asof) { 
+    alert('Date of birth must be before the calculation date.'); 
+    return; 
+  }
+
+  // Exact calendar difference
+  var years = asof.getFullYear() - dob.getFullYear();
+  var months = asof.getMonth() - dob.getMonth();
+  var days = asof.getDate() - dob.getDate();
+  
+  if (days < 0) {
+    months--;
+    var prevMonthLastDay = new Date(asof.getFullYear(), asof.getMonth(), 0).getDate();
+    days += prevMonthLastDay;
+  }
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  // Time totals
+  var totalDays = Math.round((asof.getTime() - dob.getTime()) / 86400000);
+  var totalWeeks = Math.floor(totalDays / 7);
+  var remainingDaysAfterWeeks = totalDays % 7;
+  var totalHours = totalDays * 24;
+  var totalMinutes = totalHours * 60;
+  var totalSeconds = totalMinutes * 60;
+
+  // Next Birthday
+  var nextBD = new Date(asof.getFullYear(), dob.getMonth(), dob.getDate());
+  if (dob.getMonth() === 1 && dob.getDate() === 29) {
+    var isLeap = (asof.getFullYear() % 4 === 0 && (asof.getFullYear() % 100 !== 0 || asof.getFullYear() % 400 === 0));
+    if (!isLeap) nextBD = new Date(asof.getFullYear(), 1, 28);
+  }
+  if (nextBD <= asof) {
+    var nextYear = asof.getFullYear() + 1;
+    var isNextLeap = (nextYear % 4 === 0 && (nextYear % 100 !== 0 || nextYear % 400 === 0));
+    nextBD = (dob.getMonth() === 1 && dob.getDate() === 29 && !isNextLeap) ? new Date(nextYear, 1, 28) : new Date(nextYear, dob.getMonth(), dob.getDate());
+  }
+  var daysUntilBD = Math.round((nextBD.getTime() - asof.getTime()) / 86400000);
+  var bdStr = nextBD.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+  // Day of week born
+  var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var bornOn = dayNames[dob.getDay()];
+
+  // Generational & Astrological data
+  var zodiac = getZodiac(dob.getMonth() + 1, dob.getDate());
+  var cz = getChineseZodiac(dob.getFullYear());
+  var gen = getGeneration(dob.getFullYear());
+
+  // Format primary age string
+  var ageString = plural(years, 'year') + ', ' + plural(months, 'month') + ', ' + plural(days, 'day');
+
+  // Render Result Items
+  var riContainer = document.getElementById('age-ri');
+  if (riContainer) {
+    riContainer.innerHTML =
+      ri('Exact Age', '<strong style="font-size:24px;color:var(--c-accent);display:block;line-height:1.2;">' + ageString + '</strong>', true) +
+      ri('Total Days Lived', totalDays.toLocaleString() + ' days') +
+      ri('Total Weeks', totalWeeks.toLocaleString() + ' weeks' + (remainingDaysAfterWeeks ? ' + ' + plural(remainingDaysAfterWeeks, 'day') : '')) +
+      ri('Total Hours', totalHours.toLocaleString() + ' hours') +
+      ri('Total Minutes', totalMinutes.toLocaleString() + ' minutes') +
+      ri('Born On', bornOn) +
+      ri('Next Birthday', bdStr + ' (' + daysUntilBD + ' days away)');
+  }
+
+  // Show results and actions
+  var resBox = document.getElementById('age-result');
+  var actBox = document.getElementById('age-actions');
+  if (resBox) resBox.style.display = 'block';
+  if (actBox) actBox.style.display = 'flex';
+
+  // Draw Donut Chart
+  if (typeof drawDonut === 'function') {
+    drawDonut('age-chart', ['Years', 'Months', 'Days'], [years || 1, months || 1, days || 1], ['#18533b', '#c8832a', '#2563eb']);
+  }
+
+  // Client-side Instant Insight Box
+  var aiBox = document.getElementById('age-ai');
+  if (aiBox) {
+    aiBox.style.display = 'block';
+    aiBox.innerHTML = 
+      '<div class=\"ai-header\"><span>✨</span> Life &amp; Demographic Milestones</div>' +
+      '<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;margin-top:6px;\">' +
+      '<div style=\"padding:8px;background:rgba(255,255,255,0.7);dark:bg-slate-800;border-radius:8px;\"><strong>Generation:</strong> ' + gen + '</div>' +
+      '<div style=\"padding:8px;background:rgba(255,255,255,0.7);dark:bg-slate-800;border-radius:8px;\"><strong>Sun Sign:</strong> ' + zodiac + '</div>' +
+      '<div style=\"padding:8px;background:rgba(255,255,255,0.7);dark:bg-slate-800;border-radius:8px;\"><strong>Chinese Zodiac:</strong> ' + cz + '</div>' +
+      '<div style=\"padding:8px;background:rgba(255,255,255,0.7);dark:bg-slate-800;border-radius:8px;\"><strong>Heartbeats:</strong> ~' + (years * 42).toLocaleString() + 'M</div>' +
+      '</div>';
+  }
+}
+
+if (typeof initFAQ === 'function') initFAQ();
+if (typeof initScrollReveal === 'function') initScrollReveal();
+`
+        }}
+      />
     </>
   );
 }
