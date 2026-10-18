@@ -4,9 +4,9 @@ import { MortgageCalculator } from "./MortgageCalculator";
 import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
 import { SITE_URL } from "@/lib/site";
 
-const TITLE = "Mortgage Calculator – Payment with Taxes & PMI | CalcDigi";
+const TITLE = "Mortgage Calculator (2026) – Payment with Taxes, PMI & Amortization | CalcDigi";
 const DESCRIPTION =
-  "Free mortgage calculator: estimate your monthly house payment with property tax, insurance, PMI and HOA, see an amortization schedule, and find out how much extra payments save.";
+  "Free 2026 mortgage calculator: estimate monthly payments with taxes, insurance & PMI. Features interactive sliders, bi-weekly payments, amortization schedule & CSV export.";
 
 export function mortgageMetadata(path: string): Metadata {
   return {
@@ -21,6 +21,14 @@ const FAQ = [
   {
     q: "What is included in a monthly mortgage payment?",
     a: "Most payments are PITI: principal, interest, property taxes and homeowners insurance. Taxes and insurance are usually collected into an escrow account by your lender. PMI and HOA dues are added on top when they apply.",
+  },
+  {
+    q: "How does an accelerated bi-weekly mortgage save money?",
+    a: "Paying half your monthly mortgage payment every two weeks results in 26 half-payments (13 full monthly payments per year). That single extra payment each year goes directly to the loan principal, shaving 4 to 8 years off a 30-year mortgage and saving tens of thousands in interest.",
+  },
+  {
+    q: "Can I download or export my mortgage amortization schedule?",
+    a: "Yes! Use the 'Download CSV' button above the amortization table to export your full month-by-month and year-by-year payment schedule with principal, interest, PMI, and remaining balance into Microsoft Excel, Google Sheets, or Apple Numbers.",
   },
   {
     q: "How much should I put down on a house?",
