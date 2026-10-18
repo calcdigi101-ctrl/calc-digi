@@ -1,26 +1,181 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { Suspense } from "react";
+import { CalorieCalculator } from "@/components/flagship/health/CalorieCalculator";
+import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
+import { SITE_URL } from "@/lib/site";
+
+const PATH = "/calculators/health/calorie-calculator";
+const TITLE = "Calorie Calculator – Daily Calorie Needs & TDEE | CalcDigi";
+const DESCRIPTION =
+  "Free daily calorie calculator. Calculate your exact calorie needs for weight loss, maintenance, or muscle gain using the clinically validated Mifflin-St Jeor formula, with macro breakdowns.";
 
 export const metadata: Metadata = {
-  "title": "Calorie Calculator – Daily Calorie Needs | CalcDigi",
-  "description": "Find your daily calorie needs for weight loss, maintenance, or muscle gain. Uses Mifflin-St Jeor equation. USA units (lbs, ft, in).",
-  "openGraph": {
-    "title": "Calorie Calculator – Daily Calorie Needs | CalcDigi",
-    "description": "Find your daily calorie needs for weight loss, maintenance, or muscle gain. Uses Mifflin-St Jeor equation. USA units (lbs, ft, in).",
-    "type": "website",
-    "url": "/calculators/health/calorie-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/health/calorie-calculator"
-  }
 };
+
+const FAQ_ITEMS = [
+  {
+    q: "How many calories should I eat per day?",
+    a: "The average adult requires 1,600 to 3,000 calories per day depending on biological sex, age, height, current weight, and physical activity level. Sedentary women typically require around 1,800 to 2,000 calories for maintenance, while moderately active men often need 2,400 to 2,800 calories.",
+  },
+  {
+    q: "How many calories do I need to cut to lose 1 pound per week?",
+    a: "One pound of body fat contains approximately 3,500 calories of energy. To lose 1 pound (0.45 kg) per week, you need an average daily calorie deficit of 500 calories below your Total Daily Energy Expenditure (TDEE). For 2 pounds per week, a 1,000-calorie daily deficit is required.",
+  },
+  {
+    q: "What is the difference between BMR and TDEE?",
+    a: "Basal Metabolic Rate (BMR) is the baseline number of calories your body burns at complete rest to keep organs functioning (breathing, circulating blood, cell repair). Total Daily Energy Expenditure (TDEE) is your BMR multiplied by your physical activity factor, representing the total calories you burn in a full 24-hour day.",
+  },
+  {
+    q: "Why is the Mifflin-St Jeor formula considered the gold standard?",
+    a: "The Mifflin-St Jeor equation was published in 1990 and is recognized by the Academy of Nutrition and Dietetics as the most clinically accurate formula for estimating resting metabolic rate in healthy individuals, outperforming the older 1919 Harris-Benedict formula by an average of 5% in clinical trials.",
+  },
+  {
+    q: "What is the absolute minimum safe daily calorie intake?",
+    a: "Medical guidelines establish that women should generally never consume fewer than 1,200 calories per day, and men should never consume fewer than 1,500 calories per day without direct clinical supervision. Eating below these thresholds increases the risk of gallstones, muscle wasting, metabolic slowdown, and severe nutrient deficiencies.",
+  },
+  {
+    q: "How should I distribute my macronutrients (Protein, Carbs, Fats)?",
+    a: "A balanced macro distribution comprises 25–35% protein, 40–50% carbohydrates, and 25–30% dietary fats. Protein provides 4 calories per gram, carbohydrates provide 4 calories per gram, and fats provide 9 calories per gram.",
+  },
+];
+
+const ACTIVITY_ROWS = [
+  ["Sedentary", "Little or no exercise; desk job", "BMR × 1.200"],
+  ["Lightly Active", "Light exercise or sports 1–3 days per week", "BMR × 1.375"],
+  ["Moderately Active", "Moderate exercise or sports 3–5 days per week", "BMR × 1.550"],
+  ["Very Active", "Hard exercise or physical sports 6–7 days per week", "BMR × 1.725"],
+  ["Extra Active", "Very heavy physical training, athletics, or physical labor job", "BMR × 1.900"],
+];
+
+const RELATED = [
+  { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+  { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+  { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
+  { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
+  { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
+  { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+];
 
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Calorie Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/calorie-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Calorie Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/calorie-calculator\", \"description\": \"Find your daily calorie needs for weight loss, maintenance, or muscle gain. Uses Mifflin-St Jeor equation. USA units (lbs, ft, in).\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many calories should I eat per day?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The average adult needs 1,600–3,000 calories per day depending on age, sex, height, weight, and activity level. Use our calculator above to get your personalized recommendation.\"}}, {\"@type\": \"Question\", \"name\": \"How many calories do I need to lose 1 pound per week?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"To lose 1 lb per week, you need a 500-calorie daily deficit below your TDEE. For 2 lbs per week, a 1,000-calorie deficit is needed. Never go below 1,200 calories (women) or 1,500 calories (men) without medical supervision.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between BMR and TDEE?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"BMR (Basal Metabolic Rate) is how many calories your body burns at complete rest. TDEE (Total Daily Energy Expenditure) is your BMR multiplied by your activity level — it's the total calories you burn in a day.\"}}, {\"@type\": \"Question\", \"name\": \"Is 1200 calories a day enough?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1,200 calories is the generally accepted minimum for women, but it may be too low for most adults and can lead to nutrient deficiencies. Aim for a moderate deficit (300–500 calories below TDEE) for sustainable, healthy weight loss.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\">\n<div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Calorie Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Calorie Calculator</h1>\n<p class=\"calc-intro\">Find out exactly how many calories you need each day to lose weight, maintain your current weight, or build muscle. Based on the clinically validated Mifflin-St Jeor equation.</p>\n<div class=\"content-section\">\n<h2>How Many Calories Do You Need?</h2>\n<p>Your calorie needs are determined by your Basal Metabolic Rate (BMR) — the calories your body burns at rest — multiplied by your activity level. This gives your Total Daily Energy Expenditure (TDEE).</p>\n<p>To lose weight, eat fewer calories than your TDEE. To gain weight, eat more. To maintain, match your TDEE.</p>\n<div class=\"formula-box\">TDEE = BMR × Activity Multiplier<br/><br/>BMR (male) = (10 × kg) + (6.25 × cm) – (5 × age) + 5<br/>BMR (female) = (10 × kg) + (6.25 × cm) – (5 × age) – 161</div>\n</div>\n<div class=\"content-section\">\n<h2>Activity Level Guide</h2>\n<ul>\n<li><strong>Sedentary:</strong> Little or no exercise, desk job (×1.2)</li>\n<li><strong>Lightly Active:</strong> Light exercise 1–3 days/week (×1.375)</li>\n<li><strong>Moderately Active:</strong> Moderate exercise 3–5 days/week (×1.55)</li>\n<li><strong>Very Active:</strong> Hard exercise 6–7 days/week (×1.725)</li>\n<li><strong>Extra Active:</strong> Very hard exercise, physical job (×1.9)</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories should I eat per day? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The average adult needs 1,600–3,000 calories per day depending on age, sex, height, weight, and activity level. Use our calculator above to get your personalized recommendation.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories do I need to lose 1 pound per week? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">To lose 1 lb per week, you need a 500-calorie daily deficit below your TDEE. For 2 lbs per week, a 1,000-calorie deficit is needed. Never go below 1,200 calories (women) or 1,500 calories (men) without medical supervision.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between BMR and TDEE? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">BMR (Basal Metabolic Rate) is how many calories your body burns at complete rest. TDEE (Total Daily Energy Expenditure) is your BMR multiplied by your activity level — it's the total calories you burn in a day.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is 1200 calories a day enough? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1,200 calories is the generally accepted minimum for women, but it may be too low for most adults and can lead to nutrient deficiencies. Aim for a moderate deficit (300–500 calories below TDEE) for sustainable, healthy weight loss.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/macro-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Macro Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss</span></a>\n<a class=\"related-card\" href=\"/calculators/health/protein-intake-calculator\"><span class=\"rc-icon\">🥩</span><span class=\"rc-name\">Protein Intake</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmr-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">BMR Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Calorie Calculator</h2>\n<div class=\"form-row\">\n<div class=\"form-group\"><label for=\"cal-ft\">Height (ft)</label><input id=\"cal-ft\" max=\"8\" min=\"3\" type=\"number\" value=\"5\"/></div>\n<div class=\"form-group\"><label for=\"cal-in\">Height (in)</label><input id=\"cal-in\" max=\"11\" min=\"0\" type=\"number\" value=\"7\"/></div>\n</div>\n<div class=\"form-group\"><label for=\"cal-wt\">Weight (lbs)</label><input id=\"cal-wt\" max=\"700\" min=\"50\" type=\"number\" value=\"160\"/></div>\n<div class=\"form-row\">\n<div class=\"form-group\"><label for=\"cal-age\">Age</label><input id=\"cal-age\" max=\"100\" min=\"15\" type=\"number\" value=\"30\"/></div>\n<div class=\"form-group\"><label for=\"cal-sex\">Sex</label><select id=\"cal-sex\"><option value=\"male\">Male</option><option value=\"female\">Female</option></select></div>\n</div>\n<div class=\"form-group\"><label for=\"cal-act\">Activity Level</label>\n<select id=\"cal-act\">\n<option value=\"1.2\">Sedentary (little/no exercise)</option>\n<option value=\"1.375\">Lightly Active (1–3 days/wk)</option>\n<option selected=\"\" value=\"1.55\">Moderately Active (3–5 days/wk)</option>\n<option value=\"1.725\">Very Active (6–7 days/wk)</option>\n<option value=\"1.9\">Extra Active (physical job)</option>\n</select>\n</div>\n<div class=\"form-group\"><label for=\"cal-goal\">Goal</label>\n<select id=\"cal-goal\">\n<option value=\"loss2\">Lose 2 lbs/week (–1000 cal)</option>\n<option value=\"loss1\">Lose 1 lb/week (–500 cal)</option>\n<option value=\"loss05\">Lose 0.5 lb/week (–250 cal)</option>\n<option selected=\"\" value=\"maintain\">Maintain Weight</option>\n<option value=\"gain05\">Gain 0.5 lb/week (+250 cal)</option>\n<option value=\"gain1\">Gain 1 lb/week (+500 cal)</option>\n</select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcCalorie()\">Calculate Calories</button>\n<div class=\"result-box\" id=\"cal-result\">\n<div id=\"cal-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"cal-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"cal-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ For informational purposes only. Not medical advice. Consult a registered dietitian for personalized nutrition guidance.</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-cal-result\" onclick=\"printResult('cal-result','Calorie Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Calorie Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button></div></div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-calorie-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcCalorie(){\n  const ft=parseFloat(document.getElementById('cal-ft').value)||5;\n  const inc=parseFloat(document.getElementById('cal-in').value)||7;\n  const wt=parseFloat(document.getElementById('cal-wt').value)||160;\n  const age=parseInt(document.getElementById('cal-age').value)||30;\n  const sex=document.getElementById('cal-sex').value;\n  const act=parseFloat(document.getElementById('cal-act').value)||1.55;\n  const goal=document.getElementById('cal-goal').value;\n  const kg=wt*0.453592;\n  const cm=(ft*12+inc)*2.54;\n  let bmr=sex==='male'?(10*kg)+(6.25*cm)-(5*age)+5:(10*kg)+(6.25*cm)-(5*age)-161;\n  const tdee=bmr*act;\n  const goalMap={loss2:-1000,loss1:-500,loss05:-250,maintain:0,gain05:250,gain1:500};\n  const adj=goalMap[goal]||0;\n  const target=tdee+adj;\n  const goalLabels={loss2:'Lose 2 lbs/wk',loss1:'Lose 1 lb/wk',loss05:'Lose 0.5 lb/wk',maintain:'Maintain Weight',gain05:'Gain 0.5 lb/wk',gain1:'Gain 1 lb/wk'};\n  document.getElementById('cal-ri').innerHTML=\n    ri('BMR (Calories at Rest)',Math.round(bmr)+' cal/day')+\n    ri('TDEE (Maintenance)',Math.round(tdee)+' cal/day')+\n    ri('Your Goal',goalLabels[goal])+\n    ri('Daily Calorie Target',Math.round(target)+' cal/day',true)+\n    ri('Weekly Calorie Target',(Math.round(target)*7).toLocaleString()+' cal/week')+\n    ri('Protein Goal (0.8g/lb)',Math.round(wt*0.8)+'g/day');\n  showResult('cal-result');\n  drawDonut('cal-chart',['BMR','Activity Burn'],[Math.round(bmr),Math.round(tdee-bmr)],['#1a5c3a','#c8832a']);\n  const aiBox=document.getElementById('cal-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your calorie needs...</p>';\n  aiBox.style.display='block';\n  getAIInsight(`A ${age}-year-old ${sex}, ${ft}ft ${inc}in, ${wt} lbs, ${['sedentary','lightly active','moderately active','very active','extra active'][[1.2,1.375,1.55,1.725,1.9].indexOf(act)]} activity. TDEE: ${Math.round(tdee)} cal/day. Goal: ${goalLabels[goal]}, daily target: ${Math.round(target)} calories. Give a 3-4 sentence practical summary: what this means, 2 actionable tips to hit their goal, and a brief medical disclaimer. Keep it friendly and professional.`)\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Health Calculators", item: `${SITE_URL}/pages/health` },
+                { "@type": "ListItem", position: 3, name: "Calorie Calculator", item: `${SITE_URL}${PATH}` },
+              ],
+            },
+            {
+              "@type": "WebApplication",
+              name: "Calorie Calculator",
+              url: `${SITE_URL}${PATH}`,
+              description: DESCRIPTION,
+              applicationCategory: "HealthApplication",
+              operatingSystem: "Any",
+              browserRequirements: "Requires JavaScript",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: FAQ_ITEMS.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            },
+          ],
+        }}
+      />
+
+      <CalculatorPage
+        crumbs={[
+          { href: "/", label: "Home" },
+          { href: "/pages/health", label: "Health" },
+          { label: "Calorie Calculator" },
+        ]}
+        title="Calorie Calculator"
+        intro="Calculate your personalized daily calorie requirements for healthy weight loss, maintenance, or muscle gain. Powered by the clinically validated Mifflin-St Jeor formula with instant macronutrient breakdown."
+      >
+        <Suspense fallback={<div className="mt-6 h-[500px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
+          <CalorieCalculator />
+        </Suspense>
+
+        <Editorial>
+          <h2>How Many Calories Do You Need Daily? (GEO Quick Answer)</h2>
+          <p>
+            Your <strong>Total Daily Energy Expenditure (TDEE)</strong> is the total number of calories your body burns in a single day. It is computed by multiplying your <strong>Basal Metabolic Rate (BMR)</strong> — the calories burned at complete physical rest — by an <strong>activity multiplier</strong> based on your lifestyle and workout frequency.
+          </p>
+          <p>
+            To maintain current weight, consume calories equal to your TDEE. To achieve safe, sustainable weight loss, establish a 500-calorie daily deficit (equivalent to 1 lb of fat loss per week). To build muscle, target a mild 250 to 500-calorie daily surplus alongside resistance training.
+          </p>
+
+          <h2>The Mifflin-St Jeor Equation</h2>
+          <p>
+            The Mifflin-St Jeor equation is the international clinical benchmark for calculating human basal metabolic rate:
+          </p>
+
+          <h3>For Men:</h3>
+          <Formula>BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age in years) + 5</Formula>
+
+          <h3>For Women:</h3>
+          <Formula>BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age in years) − 161</Formula>
+
+          <p>
+            <em>Example:</em> A 30-year-old male weighing 75 kg (165 lbs) with a height of 178 cm (5′10″):
+            <br />
+            BMR = (10 × 75) + (6.25 × 178) − (5 × 30) + 5 = 750 + 1,112.5 − 150 + 5 = <strong>1,718 calories/day</strong>.
+            <br />
+            With moderate exercise (multiplier 1.55), his TDEE is 1,718 × 1.55 = <strong>2,663 calories/day</strong>.
+          </p>
+
+          <h2>Physical Activity Level Multipliers</h2>
+          <p>
+            Select the activity tier that accurately mirrors your habitual physical exertion over a typical week:
+          </p>
+          <DataTable
+            head={["Activity Level", "Description", "TDEE Multiplier"]}
+            rows={ACTIVITY_ROWS}
+            highlight={2}
+          />
+
+          <h2>Macronutrient Distribution Guidelines</h2>
+          <p>
+            Calories provide the quantitative energy balance, but <strong>macronutrients</strong> determine body composition, hormonal health, and satiety:
+          </p>
+          <ul>
+            <li>
+              <strong>Protein (4 cal/g):</strong> Essential for muscle protein synthesis, tissue repair, and appetite regulation. Recommended range: 1.6 to 2.2 grams per kilogram of body weight for active individuals.
+            </li>
+            <li>
+              <strong>Carbohydrates (4 cal/g):</strong> The body&rsquo;s preferred glycogen energy source for high-intensity training, brain function, and thyroid support.
+            </li>
+            <li>
+              <strong>Dietary Fats (9 cal/g):</strong> Crucial for steroid hormone production (including testosterone and estrogen), fat-soluble vitamin absorption (A, D, E, K), and cellular membrane integrity.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <Faq items={FAQ_ITEMS} />
+
+          <h2 className="mt-10">Related Health Calculators</h2>
+          <RelatedLinks links={RELATED} />
+        </Editorial>
+      </CalculatorPage>
     </>
   );
 }
