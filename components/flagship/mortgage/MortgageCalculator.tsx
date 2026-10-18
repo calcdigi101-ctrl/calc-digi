@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { parseAsFloat, parseAsInteger, parseAsString, parseAsStringLiteral, useQueryStates } from "nuqs";
 import { Button } from "@/components/ui/button";
-import { Label, NumberField, fieldBox } from "@/components/ui/field";
+import { Label, NumberField } from "@/components/ui/field";
 import { Segmented } from "@/components/ui/segmented";
 import { Disclosure } from "@/components/ui/disclosure";
 import { ResultActions } from "@/components/flagship/ResultActions";
@@ -25,7 +25,7 @@ const BalanceChart = dynamic(() => import("./MortgageCharts").then((m) => m.Bala
 });
 
 export const SEGMENT_COLORS = {
-  pi: "#2563eb",
+  pi: "#18533b",
   tax: "#f59e0b",
   insurance: "#10b981",
   pmi: "#8b5cf6",
@@ -34,6 +34,16 @@ export const SEGMENT_COLORS = {
 
 const TERMS = ["10", "15", "20", "30"] as const;
 type TaxUnit = "pct" | "usd";
+type Frequency = "monthly" | "biweekly";
+
+const CURRENCIES = [
+  { symbol: "$", label: "USD ($)" },
+  { symbol: "£", label: "GBP (£)" },
+  { symbol: "€", label: "EUR (€)" },
+  { symbol: "C$", label: "CAD ($)" },
+  { symbol: "A$", label: "AUD ($)" },
+  { symbol: "₹", label: "INR (₹)" },
+] as const;
 
 function nextMonth() {
   const d = new Date();
@@ -128,12 +138,23 @@ const schema = z
 
 type FormValues = z.infer<typeof schema>;
 
-const usd = (n: number, d = 0) =>
-  n.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: d, maximumFractionDigits: d });
 const num = (s: string) => (s.trim() === "" ? 0 : Number(s));
 const plain = (n: number, d = 2) => String(Math.round(n * 10 ** d) / 10 ** d);
 
-/** Coerce URL state into a safe input; anything out of range falls back to defaults. */
+function InfoTooltip({ text }: { text: string }) {
+  return (
+    <span className="group relative ml-1.5 inline-flex cursor-help items-center text-slate-400 hover:text-emerald-600 dark:text-slate-500 dark:hover:text-emerald-400">
+      <svg className="size-3.5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+      </svg>
+      <span className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-normal rounded-lg bg-slate-900 px-2.5 py-1.5 text-xs font-normal text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 dark:bg-slate-800 w-52 z-30 text-center leading-snug">
+        {text}
+      </span>
+    </span>
+  );
+}
+
+/** Coerce URL state into a safe input */
 function inputFromUrl(q: ReturnType<typeof useQueryStates<typeof urlParsers>>[0], fallbackStart: string): MortgageInput {
   const ok = (n: number, min: number, max: number) => Number.isFinite(n) && n >= min && n <= max;
   const price = ok(q.price, 1000, 1e9) ? q.price : DEFAULTS.price;
@@ -175,27 +196,39 @@ function MonthYear({
   onMonth: (v: string) => void;
   onYear: (v: string) => void;
 }) {
-  const thisYear = new Date().getFullYear();
-  const years = Array.from({ length: 41 }, (_, i) => String(thisYear - 10 + i));
-  const select =
-    "w-full min-w-0 appearance-none border-0 bg-transparent px-3 text-base text-slate-900 outline-none dark:text-slate-100";
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 41 }, (_, i) => String(currentYear - 10 + i));
   return (
     <fieldset className="min-w-0">
       <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">{label}</legend>
-      <div className="grid grid-cols-2 gap-3">
-        <div className={fieldBox()}>
-          <select id={`${idPrefix}-month`} aria-label={`${label} month`} value={month} onChange={(e) => onMonth(e.target.value)} className={select}>
-            {MONTHS.map((m, i) => (
-              <option key={m} value={String(i + 1).padStart(2, "0")}>
-                {m}
+      <div className="grid grid-cols-[1fr_5.5rem] gap-2">
+        <div className="flex min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
+          <select
+            id={`${idPrefix}-m`}
+            aria-label={`${label} month`}
+            value={month}
+            onChange={(e) => onMonth(e.target.value)}
+            className="w-full bg-transparent text-sm font-medium text-slate-900 outline-none dark:text-slate-100"
+          >
+            {MONTHS.map((name, i) => (
+              <option key={name} value={String(i + 1).padStart(2, "0")} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+                {name}
               </option>
             ))}
           </select>
         </div>
-        <div className={fieldBox()}>
-          <select id={`${idPrefix}-year`} aria-label={`${label} year`} value={year} onChange={(e) => onYear(e.target.value)} className={select}>
+        <div className="flex min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
+          <select
+            id={`${idPrefix}-y`}
+            aria-label={`${label} year`}
+            value={year}
+            onChange={(e) => onYear(e.target.value)}
+            className="w-full bg-transparent text-sm font-medium text-slate-900 outline-none dark:text-slate-100"
+          >
             {years.map((y) => (
-              <option key={y}>{y}</option>
+              <option key={y} value={y} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+                {y}
+              </option>
             ))}
           </select>
         </div>
@@ -210,6 +243,8 @@ export function MortgageCalculator() {
   const input = useMemo(() => inputFromUrl(q, fallbackStart), [q, fallbackStart]);
   const result = useMemo(() => computeMortgage(input), [input]);
   const [tableMode, setTableMode] = useState<"annual" | "monthly">("annual");
+  const [frequency, setFrequency] = useState<Frequency>("monthly");
+  const [currency, setCurrency] = useState<string>("$");
 
   const startStr = q.start ?? fallbackStart;
   const xodStr = q.xod ?? startStr;
@@ -236,11 +271,18 @@ export function MortgageCalculator() {
       xoYear: xodStr.slice(0, 4),
     },
   });
+
   const errors = formState.errors;
   const term = watch("term");
   const taxUnit = watch("taxUnit");
+  const watchedPrice = Number(watch("price")) || 0;
+  const watchedDownPct = Number(watch("downPct")) || 0;
+  const watchedRate = Number(watch("rate")) || 0;
 
-  // Down payment $ and % stay in sync; changing the price keeps the % fixed.
+  const fmtCurrency = (n: number, d = 0) =>
+    currency + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+
+  // Down payment $ and % stay in sync
   const downField = register("down", {
     onChange: (e) => {
       const price = num(getValues("price"));
@@ -296,14 +338,35 @@ export function MortgageCalculator() {
     void setQ(null);
   }
 
+  function downloadCSV() {
+    let csv = "Period,Date,Monthly Payment,Principal,Interest,Extra,PMI,Ending Balance\r\n";
+    result.rows.forEach((r) => {
+      const date = `${MONTHS[r.month]} ${r.year}`;
+      const payment = (r.principal + r.interest + r.extra + r.pmi).toFixed(2);
+      csv += `${r.index + 1},"${date}",${payment},${r.principal.toFixed(2)},${r.interest.toFixed(2)},${r.extra.toFixed(2)},${r.pmi.toFixed(2)},${r.balance.toFixed(2)}\r\n`;
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `calc-digi-mortgage-amortization-schedule.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   const m = result.monthly;
   const breakdown = [
-    { key: "pi", label: "Principal & Interest", value: m.pi },
-    { key: "tax", label: "Property Tax", value: m.tax },
-    { key: "insurance", label: "Homeowners Insurance", value: m.insurance },
-    { key: "pmi", label: "PMI", value: m.pmi },
-    { key: "hoa", label: "HOA Fees", value: m.hoa },
+    { key: "pi", label: "Principal & Interest", value: frequency === "monthly" ? m.pi : result.biweekly.payment },
+    { key: "tax", label: "Property Tax", value: frequency === "monthly" ? m.tax : (m.tax * 12) / 26 },
+    { key: "insurance", label: "Homeowners Insurance", value: frequency === "monthly" ? m.insurance : (m.insurance * 12) / 26 },
+    { key: "pmi", label: "PMI", value: frequency === "monthly" ? m.pmi : (m.pmi * 12) / 26 },
+    { key: "hoa", label: "HOA Fees", value: frequency === "monthly" ? m.hoa : (m.hoa * 12) / 26 },
   ] as const;
+
+  const currentPayment = frequency === "monthly" 
+    ? m.total 
+    : result.biweekly.payment + ((m.tax + m.insurance + m.pmi + m.hoa) * 12) / 26;
+
   const hasExtras = input.extraMonthly > 0 || input.extraYearly > 0 || (input.extraOnce > 0 && input.extraOnceIndex >= 0);
   const monthsSaved = result.baseline.months - result.rows.length;
   const interestSaved = result.baseline.totalInterest - result.totalInterest;
@@ -312,47 +375,181 @@ export function MortgageCalculator() {
 
   const formPanel = (
     <form onSubmit={handleSubmit((v) => (commit(v), revealResult("mc-result")))} noValidate className={cn(card, "grid gap-5 p-5 sm:p-6")}>
-      <NumberField id="mc-price" label="Home price" prefix="$" error={errors.price?.message} {...priceField} />
+      
+      {/* Currency Switcher Pill Header */}
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
+        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          Loan Parameters
+        </span>
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs text-slate-500">Currency:</span>
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+            className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"
+          >
+            {CURRENCIES.map((c) => (
+              <option key={c.symbol} value={c.symbol}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
+      {/* Home Price Input + Live Range Slider */}
+      <div>
+        <NumberField 
+          id="mc-price" 
+          label={
+            <span className="flex items-center">
+              Home price
+              <InfoTooltip text="Total estimated purchase price of the property before down payment." />
+            </span>
+          }
+          prefix={currency} 
+          error={errors.price?.message} 
+          {...priceField} 
+        />
+        <input
+          type="range"
+          min={50000}
+          max={2000000}
+          step={5000}
+          value={Math.min(Math.max(watchedPrice, 50000), 2000000)}
+          onChange={(e) => {
+            const val = e.target.value;
+            setValue("price", val);
+            const currentDownPct = num(getValues("downPct")) || 20;
+            setValue("down", plain((num(val) * currentDownPct) / 100));
+            commit(getValues());
+          }}
+          className="mt-2.5 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-600 dark:bg-slate-800"
+          aria-label="Home price range slider"
+        />
+        <div className="flex justify-between text-[11px] text-slate-400 mt-1">
+          <span>{currency}50k</span>
+          <span>{currency}1M</span>
+          <span>{currency}2M+</span>
+        </div>
+      </div>
+
+      {/* Down payment Input + Live Range Slider */}
       <fieldset className="min-w-0">
-        <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">Down payment</legend>
+        <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center">
+          Down payment
+          <InfoTooltip text="Cash you pay upfront. 20% or more eliminates Private Mortgage Insurance (PMI)." />
+        </legend>
         <div className="grid grid-cols-[1fr_8.5rem] gap-3">
-          <NumberField id="mc-down" aria-label="Down payment, dollars" prefix="$" error={errors.down?.message} {...downField} />
+          <NumberField id="mc-down" aria-label="Down payment, amount" prefix={currency} error={errors.down?.message} {...downField} />
           <NumberField id="mc-down-pct" aria-label="Down payment, percent of price" suffix="%" error={errors.downPct?.message} {...downPctField} />
+        </div>
+        <input
+          type="range"
+          min={0}
+          max={50}
+          step={1}
+          value={Math.min(Math.max(watchedDownPct, 0), 50)}
+          onChange={(e) => {
+            const pct = Number(e.target.value);
+            setValue("downPct", String(pct));
+            const currentPrice = num(getValues("price")) || DEFAULTS.price;
+            setValue("down", plain((currentPrice * pct) / 100));
+            commit(getValues());
+          }}
+          className="mt-2.5 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-600 dark:bg-slate-800"
+          aria-label="Down payment percentage range slider"
+        />
+        <div className="flex justify-between text-[11px] text-slate-400 mt-1">
+          <span>0%</span>
+          <span className="font-semibold text-emerald-600 dark:text-emerald-400">20% (No PMI)</span>
+          <span>50%</span>
         </div>
       </fieldset>
 
+      {/* Loan Term Selector */}
       <div>
-        <Label>Loan term</Label>
+        <Label>
+          <span className="flex items-center">
+            Loan term
+            <InfoTooltip text="Length of the mortgage. 30-year offers lower monthly payments; 15-year saves substantial interest." />
+          </span>
+        </Label>
         <Segmented
           label="Loan term"
           value={term}
-          onChange={(v) => setValue("term", v)}
+          onChange={(v) => {
+            setValue("term", v);
+            commit(getValues());
+          }}
           options={TERMS.map((t) => ({ value: t, label: `${t} yrs` }))}
         />
       </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <NumberField id="mc-rate" label="Interest rate" hint="APR" suffix="%" error={errors.rate?.message} {...register("rate")} />
-        <MonthYear
-          idPrefix="mc-start"
-          label="First payment"
-          month={watch("startMonth")}
-          year={watch("startYear")}
-          onMonth={(v) => setValue("startMonth", v)}
-          onYear={(v) => setValue("startYear", v)}
-        />
+      {/* Interest Rate & First Payment */}
+      <div>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div>
+            <NumberField 
+              id="mc-rate" 
+              label={
+                <span className="flex items-center">
+                  Interest rate
+                  <InfoTooltip text="Annual Percentage Rate (APR) charged by your lender." />
+                </span>
+              } 
+              hint="APR" 
+              suffix="%" 
+              error={errors.rate?.message} 
+              {...register("rate")} 
+            />
+            <input
+              type="range"
+              min={1}
+              max={15}
+              step={0.125}
+              value={Math.min(Math.max(watchedRate, 1), 15)}
+              onChange={(e) => {
+                setValue("rate", e.target.value);
+                commit(getValues());
+              }}
+              className="mt-2.5 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-600 dark:bg-slate-800"
+              aria-label="Interest rate range slider"
+            />
+            <div className="flex justify-between text-[11px] text-slate-400 mt-1">
+              <span>1%</span>
+              <span>6.5%</span>
+              <span>15%</span>
+            </div>
+          </div>
+          <MonthYear
+            idPrefix="mc-start"
+            label="First payment"
+            month={watch("startMonth")}
+            year={watch("startYear")}
+            onMonth={(v) => {
+              setValue("startMonth", v);
+              commit(getValues());
+            }}
+            onYear={(v) => {
+              setValue("startYear", v);
+              commit(getValues());
+            }}
+          />
+        </div>
       </div>
 
+      {/* Taxes & Fees Drawer */}
       <Disclosure
         title="Include taxes & fees"
-        summary={usd(m.tax + m.insurance + m.pmi + m.hoa) + "/mo"}
+        summary={fmtCurrency(m.tax + m.insurance + m.pmi + m.hoa) + "/mo"}
         defaultOpen
       >
         <div>
           <div className="mb-1.5 flex items-center justify-between gap-2">
-            <label htmlFor="mc-tax" className="text-sm font-medium text-slate-700 dark:text-slate-300">
+            <label htmlFor="mc-tax" className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center">
               Property tax (per year)
+              <InfoTooltip text="Local county/state tax on the assessed home value (typically 0.5% - 2.2% annually)." />
             </label>
             <Segmented<TaxUnit>
               label="Property tax unit"
@@ -363,44 +560,75 @@ export function MortgageCalculator() {
                 const t = num(getValues("tax"));
                 if (price > 0) setValue("tax", plain(v === "usd" ? (price * t) / 100 : (t / price) * 100, v === "usd" ? 0 : 3));
                 setValue("taxUnit", v);
+                commit(getValues());
               }}
               options={[
                 { value: "pct", label: "%" },
-                { value: "usd", label: "$" },
+                { value: "usd", label: currency },
               ]}
               className="w-28 [&_button]:min-h-[32px] [&_button]:py-0"
             />
           </div>
           <NumberField
             id="mc-tax"
-            prefix={taxUnit === "usd" ? "$" : undefined}
+            prefix={taxUnit === "usd" ? currency : undefined}
             suffix={taxUnit === "pct" ? "% of price" : "/yr"}
             error={errors.tax?.message}
             {...register("tax")}
           />
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <NumberField id="mc-ins" label="Homeowners insurance" prefix="$" suffix="/yr" error={errors.ins?.message} {...register("ins")} />
+          <NumberField 
+            id="mc-ins" 
+            label={
+              <span className="flex items-center">
+                Homeowners insurance
+                <InfoTooltip text="Annual insurance protecting against property loss, fire, and casualty." />
+              </span>
+            } 
+            prefix={currency} 
+            suffix="/yr" 
+            error={errors.ins?.message} 
+            {...register("ins")} 
+          />
           <NumberField
             id="mc-pmi"
-            label="PMI"
-            hint={pmiNeeded ? "Likely required (<20% down)" : undefined}
-            prefix="$"
+            label={
+              <span className="flex items-center">
+                PMI
+                <InfoTooltip text="Private Mortgage Insurance. Required if down payment is under 20% on conventional loans." />
+              </span>
+            }
+            hint={pmiNeeded ? "Required (<20% down)" : "None (≥20% down)"}
+            prefix={currency}
             suffix="/yr"
             error={errors.pmi?.message}
             {...register("pmi")}
           />
         </div>
-        <NumberField id="mc-hoa" label="HOA fee" prefix="$" suffix="/mo" error={errors.hoa?.message} {...register("hoa")} />
+        <NumberField 
+          id="mc-hoa" 
+          label={
+            <span className="flex items-center">
+              HOA fee
+              <InfoTooltip text="Homeowners Association monthly maintenance or community amenity dues." />
+            </span>
+          } 
+          prefix={currency} 
+          suffix="/mo" 
+          error={errors.hoa?.message} 
+          {...register("hoa")} 
+        />
       </Disclosure>
 
-      <Disclosure title="Extra payments" summary={hasExtras ? `Saves ${usd(interestSaved)}` : undefined}>
+      {/* Extra Payments Drawer */}
+      <Disclosure title="Extra payments" summary={hasExtras ? `Saves ${fmtCurrency(interestSaved)}` : undefined}>
         <div className="grid gap-4 sm:grid-cols-2">
-          <NumberField id="mc-xm" label="Extra monthly" prefix="$" suffix="/mo" error={errors.xm?.message} {...register("xm")} />
-          <NumberField id="mc-xy" label="Extra yearly" hint="every 12th payment" prefix="$" suffix="/yr" error={errors.xy?.message} {...register("xy")} />
+          <NumberField id="mc-xm" label="Extra monthly" prefix={currency} suffix="/mo" error={errors.xm?.message} {...register("xm")} />
+          <NumberField id="mc-xy" label="Extra yearly" hint="every 12th payment" prefix={currency} suffix="/yr" error={errors.xy?.message} {...register("xy")} />
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <NumberField id="mc-xo" label="One-time payment" prefix="$" error={errors.xo?.message} {...register("xo")} />
+          <NumberField id="mc-xo" label="One-time payment" prefix={currency} error={errors.xo?.message} {...register("xo")} />
           <MonthYear
             idPrefix="mc-xo"
             label="Paid in"
@@ -412,25 +640,47 @@ export function MortgageCalculator() {
         </div>
       </Disclosure>
 
-      <Button type="submit" className="w-full text-base">
-        Calculate
+      <Button type="submit" className="w-full text-base bg-[#18533b] hover:bg-[#12402d] text-white">
+        Calculate Payment
       </Button>
     </form>
   );
 
   const resultPanel = (
     <section id="mc-result" aria-labelledby="mc-result-h" className={cn(card, "scroll-mt-20 p-5 sm:p-6")}>
-      <h2 id="mc-result-h" className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-        Monthly payment
-      </h2>
+      
+      {/* Payment Frequency Switcher: Monthly vs Accelerated Bi-Weekly */}
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
+        <h2 id="mc-result-h" className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          {frequency === "monthly" ? "Monthly Payment" : "Bi-Weekly Payment (Accelerated)"}
+        </h2>
+        <Segmented<Frequency>
+          label="Payment frequency"
+          value={frequency}
+          onChange={setFrequency}
+          options={[
+            { value: "monthly", label: "Monthly" },
+            { value: "biweekly", label: "Bi-Weekly" },
+          ]}
+          className="w-44 [&_button]:min-h-[30px] [&_button]:text-xs [&_button]:py-0"
+        />
+      </div>
+
       <div aria-live="polite" aria-atomic="true">
-        <p className="mt-1 text-5xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white">
-          {usd(m.total, 2)}
+        <p className="mt-3 text-5xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white">
+          {fmtCurrency(currentPayment, 2)}
         </p>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
-          {usd(result.loan)} loan · {input.termYears}-yr fixed at {input.ratePct}%
+          {fmtCurrency(result.loan)} loan · {input.termYears}-yr fixed at {input.ratePct}%
         </p>
 
+        {frequency === "biweekly" ? (
+          <div className="mt-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 p-3 text-xs text-emerald-900 dark:text-emerald-200 border border-emerald-200/80 dark:border-emerald-800/60">
+            ⚡ <strong>Accelerated Bi-Weekly Advantage:</strong> By making 26 bi-weekly payments of <strong>{fmtCurrency(result.biweekly.payment, 2)}</strong> (P&amp;I), you pay off your loan <strong>{result.biweekly.yearsSaved} years earlier</strong> and save <strong>{fmtCurrency(result.biweekly.interestSaved)}</strong> in total interest!
+          </div>
+        ) : null}
+
+        {/* Visual Donut Chart & Breakdown */}
         <div className="mt-5 grid items-center gap-5 sm:grid-cols-[180px_1fr] lg:grid-cols-1 xl:grid-cols-[180px_1fr]">
           <BreakdownDonut
             data={breakdown.filter((b) => b.value > 0).map((b) => ({ name: b.label, value: b.value, color: SEGMENT_COLORS[b.key] }))}
@@ -440,20 +690,21 @@ export function MortgageCalculator() {
               <li key={b.key} className={cn("flex items-center gap-2", b.value === 0 && "opacity-50")}>
                 <span aria-hidden className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: SEGMENT_COLORS[b.key] }} />
                 <span className="flex-1 text-slate-600 dark:text-slate-400">{b.label}</span>
-                <span className="font-semibold tabular-nums text-slate-900 dark:text-slate-100">{usd(b.value, 2)}</span>
+                <span className="font-semibold tabular-nums text-slate-900 dark:text-slate-100">{fmtCurrency(b.value, 2)}</span>
               </li>
             ))}
           </ul>
         </div>
 
+        {/* Key Loan Metrics Table */}
         <dl className="mt-5 divide-y divide-slate-200 border-t border-slate-200 text-sm dark:divide-slate-800 dark:border-slate-800">
           {[
-            ["Loan amount", usd(result.loan)],
-            ["Down payment", `${usd(input.down)} (${plain((input.down / input.price) * 100, 1)}%)`],
-            [`Total of ${result.rows.length} payments`, usd(result.totalPrincipal + result.totalInterest)],
-            ["Total interest", usd(result.totalInterest)],
-            ["Payoff date", payoffLabel],
-            ...(result.pmiMonths > 0 ? [["PMI ends", `after ${result.pmiMonths} payments`]] : []),
+            ["Loan amount", fmtCurrency(result.loan)],
+            ["Down payment", `${fmtCurrency(input.down)} (${plain((input.down / input.price) * 100, 1)}%)`],
+            [`Total of ${result.rows.length} payments`, fmtCurrency(result.totalPrincipal + result.totalInterest)],
+            ["Total interest paid", fmtCurrency(result.totalInterest)],
+            ["Projected payoff date", payoffLabel],
+            ...(result.pmiMonths > 0 ? [["PMI cancellation", `After ${result.pmiMonths} payments (78% LTV)`]] : []),
           ].map(([k, v]) => (
             <div key={k} className="flex items-center justify-between gap-4 py-2.5">
               <dt className="text-slate-600 dark:text-slate-400">{k}</dt>
@@ -464,7 +715,7 @@ export function MortgageCalculator() {
 
         {hasExtras && monthsSaved > 0 ? (
           <p className="mt-3 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200">
-            Extra payments save <strong>{usd(interestSaved)}</strong> in interest and pay the loan off{" "}
+            Extra payments save <strong>{fmtCurrency(interestSaved)}</strong> in interest and pay the loan off{" "}
             <strong>
               {Math.floor(monthsSaved / 12) > 0 ? `${Math.floor(monthsSaved / 12)} yr ` : ""}
               {monthsSaved % 12 > 0 ? `${monthsSaved % 12} mo ` : ""}
@@ -481,60 +732,81 @@ export function MortgageCalculator() {
     <>
       <ToolGrid form={formPanel} result={resultPanel} />
 
-      <section aria-labelledby="mc-amort-h" className={cn(card, "mt-6 p-5 sm:p-6")}>
+      {/* Amortization Schedule with CSV Download Button */}
+      <section aria-labelledby="mc-amort-h" className={cn(card, "mt-8 p-5 sm:p-6")}>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 id="mc-amort-h" className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Amortization schedule
-          </h2>
-          <Segmented
-            label="Schedule view"
-            value={tableMode}
-            onChange={setTableMode}
-            options={[
-              { value: "annual", label: "Yearly" },
-              { value: "monthly", label: "Monthly" },
-            ]}
-            className="fx-no-print w-56"
-          />
+          <div>
+            <h2 id="mc-amort-h" className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+              Amortization Schedule
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Complete year-by-year and month-by-month loan principal &amp; interest breakdown.
+            </p>
+          </div>
+          
+          <div className="flex items-center gap-2.5">
+            <Segmented
+              label="Schedule view"
+              value={tableMode}
+              onChange={setTableMode}
+              options={[
+                { value: "annual", label: "Yearly" },
+                { value: "monthly", label: "Monthly" },
+              ]}
+              className="fx-no-print w-48"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              onClick={downloadCSV}
+              className="fx-no-print flex items-center gap-1.5 text-xs font-semibold py-2 px-3 border border-slate-200 dark:border-slate-700 hover:border-emerald-500"
+              title="Download full 30-year schedule to Excel/CSV"
+            >
+              <span>📥</span> Export CSV
+            </Button>
+          </div>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-5">
           <BalanceChart years={result.years} startYear={input.start.year} loan={result.loan} />
         </div>
 
         <div className="mt-6 max-h-[560px] overflow-auto rounded-lg border border-slate-200 dark:border-slate-800">
           <table className="w-full min-w-[560px] text-right text-sm tabular-nums">
-            <thead className="sticky top-0 bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+            <thead className="sticky top-0 bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 shadow-2xs">
               <tr>
                 <th scope="col" className="px-4 py-2.5 text-left font-semibold">
-                  {tableMode === "annual" ? "Year" : "Date"}
+                  {tableMode === "annual" ? "Year" : "Payment Date"}
                 </th>
                 <th scope="col" className="px-4 py-2.5 font-semibold">Interest</th>
                 <th scope="col" className="px-4 py-2.5 font-semibold">Principal</th>
-                <th scope="col" className="px-4 py-2.5 font-semibold">Ending balance</th>
+                <th scope="col" className="px-4 py-2.5 font-semibold">Ending Balance</th>
               </tr>
             </thead>
             <tbody>
               {tableMode === "annual"
                 ? result.years.map((y) => (
-                    <tr key={y.year} className="border-t border-slate-200 dark:border-slate-800">
+                    <tr key={y.year} className="border-t border-slate-200 hover:bg-slate-50/70 dark:border-slate-800 dark:hover:bg-slate-900/40 transition-colors">
                       <td className="px-4 py-2 text-left font-medium">{y.year}</td>
-                      <td className="px-4 py-2">{usd(y.interest, 2)}</td>
-                      <td className="px-4 py-2">{usd(y.principal, 2)}</td>
-                      <td className="px-4 py-2">{usd(y.balance, 2)}</td>
+                      <td className="px-4 py-2 text-slate-600 dark:text-slate-400">{fmtCurrency(y.interest, 2)}</td>
+                      <td className="px-4 py-2 font-semibold text-emerald-700 dark:text-emerald-400">{fmtCurrency(y.principal, 2)}</td>
+                      <td className="px-4 py-2 text-slate-900 dark:text-slate-100">{fmtCurrency(y.balance, 2)}</td>
                     </tr>
                   ))
                 : result.rows.map((r) => (
                     <tr
                       key={r.index}
-                      className={cn("border-t border-slate-200 dark:border-slate-800", r.month === 11 && "border-b-2 border-b-slate-300 dark:border-b-slate-700")}
+                      className={cn(
+                        "border-t border-slate-200 hover:bg-slate-50/70 dark:border-slate-800 dark:hover:bg-slate-900/40 transition-colors",
+                        r.month === 11 && "border-b-2 border-b-slate-300 dark:border-b-slate-700"
+                      )}
                     >
                       <td className="px-4 py-2 text-left font-medium">
                         {r.index + 1}. {MONTHS[r.month]} {r.year}
                       </td>
-                      <td className="px-4 py-2">{usd(r.interest, 2)}</td>
-                      <td className="px-4 py-2">{usd(r.principal + r.extra, 2)}</td>
-                      <td className="px-4 py-2">{usd(r.balance, 2)}</td>
+                      <td className="px-4 py-2 text-slate-600 dark:text-slate-400">{fmtCurrency(r.interest, 2)}</td>
+                      <td className="px-4 py-2 font-semibold text-emerald-700 dark:text-emerald-400">{fmtCurrency(r.principal + r.extra, 2)}</td>
+                      <td className="px-4 py-2 text-slate-900 dark:text-slate-100">{fmtCurrency(r.balance, 2)}</td>
                     </tr>
                   ))}
             </tbody>
