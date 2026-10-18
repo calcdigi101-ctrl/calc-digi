@@ -106,25 +106,9 @@
         <a href="/pages/about" class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60 font-medium text-sm transition-all">About</a>
       </nav>
 
-      <!-- Right Elements: [Search 341 tools... ⌘K] -> [🌙 Moon (Centered)] -> [ ● ✨ AI Assistant ] -->
+      <!-- Right Elements: [🌙 Moon] -> [ ● ✨ AI Assistant ] -->
       <div class="flex items-center gap-2 sm:gap-3">
         
-        <!-- Search Input Pill with ⌘K (100% Matching Screenshot) -->
-        <div class="relative hidden sm:flex items-center bg-[#f0f4f8]/85 dark:bg-slate-900 rounded-2xl px-3.5 py-2 w-48 md:w-56 lg:w-64 border border-[#e2e8f0] dark:border-slate-800 focus-within:border-emerald-400 focus-within:ring-2 focus-within:ring-emerald-500/10 transition-all">
-          <svg class="w-4 h-4 text-[#059669] mr-2 shrink-0 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
-          </svg>
-          <input 
-            type="text" 
-            placeholder="Search 341 tools..." 
-            class="bg-transparent text-xs text-slate-700 dark:text-slate-200 placeholder-slate-400 outline-none w-full font-medium"
-            onfocus="document.getElementById('hero-search-input').focus()"
-          />
-          <kbd class="px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 rounded-lg border border-slate-200/90 dark:border-slate-700 shadow-2xs shrink-0 ml-1.5 flex items-center gap-0.5 font-medium">
-            <span class="text-[9px]">⌘</span>K
-          </kbd>
-        </div>
-
         <!-- Dark / Light Mode Moon Button (CENTERED between Search & AI Assistant as requested) -->
         <button 
           id="theme-toggle" 
@@ -218,10 +202,10 @@
             Professional-grade tools for finance, health, math, and everyday life. No ads, no tracking, just precision.
           </p>
 
-          <!-- Search Bar with Green (?) icon -->
-          <div class="max-w-xl">
-            <div class="relative flex items-center bg-white dark:bg-slate-900 rounded-full border border-slate-200/90 dark:border-slate-800 p-2 sm:p-2.5 shadow-pill-card hover:border-emerald-400 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/15 transition-all">
-              <div class="pl-3.5 pr-2.5">
+          <!-- Search Bar with Green (?) icon and Live Dropdown -->
+          <div class="max-w-xl relative" id="hero-search-container">
+            <div class="relative flex items-center bg-white dark:bg-slate-900 rounded-full border border-slate-200/90 dark:border-slate-800 p-2 sm:p-2.5 shadow-pill-card hover:border-emerald-400 focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10 transition-all">
+              <div class="pl-3.5 pr-2.5 shrink-0">
                 <div class="w-6 h-6 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-[#10b981] flex items-center justify-center font-bold text-xs border border-emerald-200/60 dark:border-emerald-800">
                   ?
                 </div>
@@ -229,9 +213,34 @@
               <input 
                 id="hero-search-input"
                 type="text" 
-                placeholder='Try "Mortgage with 20% down" or "BMI for 6ft male"' 
-                class="bg-transparent border-0 outline-none text-slate-800 dark:text-white placeholder-slate-400 text-sm sm:text-[15px] w-full font-medium pr-3"
+                autocomplete="off"
+                placeholder="Search 341+ calculators (e.g. Mortgage, BMI, Percentage...)" 
+                class="bg-transparent border-0 outline-none text-slate-800 dark:text-white placeholder-slate-400 text-sm sm:text-[15px] w-full font-medium pr-8"
               />
+              <button
+                type="button"
+                id="hero-search-clear"
+                class="hidden absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 w-6 h-6 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-xs transition-colors cursor-pointer"
+                title="Clear search"
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            </div>
+
+            <!-- Live Dropdown Results -->
+            <div id="hero-search-dropdown" class="hidden absolute left-0 right-0 top-full mt-2.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xl z-50 overflow-hidden max-h-[380px] flex flex-col backdrop-blur-xl">
+              <div class="px-4 py-2 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between bg-slate-50/60 dark:bg-slate-800/40 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                <span id="hero-search-count">⚡ Popular Calculators</span>
+                <span class="text-[10px] text-slate-400 font-normal">341 tools indexed</span>
+              </div>
+              <div id="hero-search-results" class="overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60 p-1.5 focus:outline-none">
+                <!-- Populated dynamically via JS -->
+              </div>
+              <div class="px-3 py-1.5 bg-slate-50/80 dark:bg-slate-800/60 border-t border-slate-100 dark:border-slate-800 text-[10px] text-slate-400 flex items-center justify-between">
+                <span>Use <kbd class="px-1 py-0.5 rounded bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-[9px] font-mono">↑</kbd> <kbd class="px-1 py-0.5 rounded bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-[9px] font-mono">↓</kbd> to navigate, <kbd class="px-1 py-0.5 rounded bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-[9px] font-mono">↵</kbd> to open</span>
+                <span>Press <kbd class="px-1 py-0.5 rounded bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-[9px] font-mono">ESC</kbd> to exit</span>
+              </div>
             </div>
           </div>
 
@@ -3121,6 +3130,210 @@
         if (st) st.classList.remove('hidden');
       } catch(e) {}
     }
+  </script>
+
+  <!-- CalcDigi Hero Interactive Search Script -->
+  <script src="/calculators-data.js"></script>
+  <script>
+    (function() {
+      var input = document.getElementById('hero-search-input');
+      var container = document.getElementById('hero-search-container');
+      var dropdown = document.getElementById('hero-search-dropdown');
+      var resultsEl = document.getElementById('hero-search-results');
+      var countEl = document.getElementById('hero-search-count');
+      var clearBtn = document.getElementById('hero-search-clear');
+      if (!input || !dropdown || !resultsEl) return;
+
+      var activeIdx = -1;
+      var currentFiltered = [];
+
+      function getTools() {
+        if (window.ALL_TOOLS && Array.isArray(window.ALL_TOOLS) && window.ALL_TOOLS.length > 0) {
+          return window.ALL_TOOLS;
+        }
+        return [];
+      }
+
+      if (!window.ALL_TOOLS) {
+        fetch('/calculators.json')
+          .then(function(res) { return res.json(); })
+          .then(function(data) { window.ALL_TOOLS = data; })
+          .catch(function() {});
+      }
+
+      function escapeHtml(str) {
+        return (str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function filterTools(query) {
+        var tools = getTools();
+        var q = (query || '').trim().toLowerCase();
+        if (!q) {
+          return tools.slice(0, 8);
+        }
+
+        var matches = [];
+        for (var i = 0; i < tools.length; i++) {
+          var t = tools[i];
+          var name = (t.n || '').toLowerCase();
+          var cat = (t.c || '').toLowerCase();
+          var score = 0;
+
+          if (name === q) score += 100;
+          else if (name.startsWith(q)) score += 50;
+          else if (name.includes(q)) score += 30;
+          
+          if (cat.includes(q)) score += 10;
+
+          var words = name.split(/\s+/);
+          for (var w = 0; w < words.length; w++) {
+            if (words[w].startsWith(q)) {
+              score += 20;
+              break;
+            }
+          }
+
+          if (score > 0) {
+            matches.push({ tool: t, score: score });
+          }
+        }
+
+        matches.sort(function(a, b) {
+          return b.score - a.score;
+        });
+
+        var results = [];
+        var maxResults = 10;
+        for (var m = 0; m < Math.min(matches.length, maxResults); m++) {
+          results.push(matches[m].tool);
+        }
+        return results;
+      }
+
+      function renderResults() {
+        var q = (input.value || '').trim();
+        currentFiltered = filterTools(q);
+        activeIdx = -1;
+
+        if (clearBtn) {
+          if (q.length > 0) {
+            clearBtn.classList.remove('hidden');
+          } else {
+            clearBtn.classList.add('hidden');
+          }
+        }
+
+        if (countEl) {
+          if (q.length > 0) {
+            countEl.textContent = 'Found ' + currentFiltered.length + ' calculators';
+          } else {
+            countEl.textContent = '⚡ Popular Calculators';
+          }
+        }
+
+        if (currentFiltered.length === 0) {
+          resultsEl.innerHTML = '<div class="p-6 text-center text-slate-500 dark:text-slate-400 text-sm">' +
+            '<div class="text-2xl mb-1">🔍</div>' +
+            '<p class="font-medium text-slate-700 dark:text-slate-300">No calculators found for "' + escapeHtml(q) + '"</p>' +
+            '<p class="text-xs mt-1 text-slate-400">Try searching for "mortgage", "bmi", or <a href="/calculators" class="text-emerald-600 dark:text-emerald-400 underline font-semibold">browse all 341 tools &rarr;</a></p>' +
+            '</div>';
+          dropdown.classList.remove('hidden');
+          return;
+        }
+
+        var html = '';
+        for (var i = 0; i < currentFiltered.length; i++) {
+          var tool = currentFiltered[i];
+          html += '<a href="' + escapeHtml(tool.h) + '" data-idx="' + i + '" class="search-item flex items-center justify-between p-2.5 rounded-xl hover:bg-emerald-50/80 dark:hover:bg-slate-800 transition-colors group">' +
+            '<div class="flex items-center gap-3 min-w-0">' +
+              '<span class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-lg group-hover:scale-110 group-hover:bg-white dark:group-hover:bg-slate-700 shadow-2xs transition-all shrink-0">' + escapeHtml(tool.i || '🧮') + '</span>' +
+              '<div class="truncate">' +
+                '<div class="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate">' + escapeHtml(tool.n) + '</div>' +
+                '<div class="text-[11px] text-slate-400 flex items-center gap-1.5">' +
+                  '<span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500/80"></span>' +
+                  '<span>' + escapeHtml(tool.c) + '</span>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<span class="text-slate-300 dark:text-slate-600 group-hover:text-emerald-500 group-hover:translate-x-0.5 transition-all text-xs font-bold pl-2 shrink-0">&rarr;</span>' +
+          '</a>';
+        }
+        resultsEl.innerHTML = html;
+        dropdown.classList.remove('hidden');
+      }
+
+      function updateActiveItem() {
+        var items = resultsEl.querySelectorAll('.search-item');
+        for (var i = 0; i < items.length; i++) {
+          if (i === activeIdx) {
+            items[i].classList.add('bg-emerald-50/90', 'dark:bg-slate-800', 'ring-1', 'ring-emerald-500/30');
+            items[i].scrollIntoView({ block: 'nearest' });
+          } else {
+            items[i].classList.remove('bg-emerald-50/90', 'dark:bg-slate-800', 'ring-1', 'ring-emerald-500/30');
+          }
+        }
+      }
+
+      input.addEventListener('focus', function() {
+        renderResults();
+      });
+
+      input.addEventListener('input', function() {
+        renderResults();
+      });
+
+      input.addEventListener('keydown', function(e) {
+        if (dropdown.classList.contains('hidden')) {
+          if (e.key === 'ArrowDown' || e.key === 'Enter') {
+            renderResults();
+            return;
+          }
+        }
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (currentFiltered.length > 0) {
+            activeIdx = (activeIdx + 1) % currentFiltered.length;
+            updateActiveItem();
+          }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (currentFiltered.length > 0) {
+            activeIdx = (activeIdx - 1 + currentFiltered.length) % currentFiltered.length;
+            updateActiveItem();
+          }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (activeIdx >= 0 && currentFiltered[activeIdx]) {
+            window.location.href = currentFiltered[activeIdx].h;
+          } else if (currentFiltered.length > 0) {
+            window.location.href = currentFiltered[0].h;
+          }
+        } else if (e.key === 'Escape') {
+          dropdown.classList.add('hidden');
+          input.blur();
+        }
+      });
+
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+          input.value = '';
+          input.focus();
+          renderResults();
+        });
+      }
+
+      document.addEventListener('click', function(e) {
+        if (container && !container.contains(e.target)) {
+          dropdown.classList.add('hidden');
+        }
+      });
+    })();
   </script>
 </body>
 </html>
