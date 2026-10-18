@@ -1,26 +1,201 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { Suspense } from "react";
+import { MacroCalculator } from "@/components/flagship/health/MacroCalculator";
+import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
+import { SITE_URL } from "@/lib/site";
+
+const PATH = "/calculators/health/macro-calculator";
+const TITLE = "Macro Calculator – Daily Protein, Carbs & Fat Targets | CalcDigi";
+const DESCRIPTION =
+  "Free Macro Calculator (IIFYM). Calculate your daily macronutrient breakdown in grams for weight loss, lean muscle gain, keto, or maintenance with interactive visual charts.";
 
 export const metadata: Metadata = {
-  "title": "Macro Calculator | CalcDigi",
-  "description": "Free Macro Calculator - Get your daily protein, carbs, and fat targets for weight loss, muscle gain, or maintenance.",
-  "openGraph": {
-    "title": "Macro Calculator | CalcDigi",
-    "description": "Free Macro Calculator - Get your daily protein, carbs, and fat targets for weight loss, muscle gain, or maintenance.",
-    "type": "website",
-    "url": "/calculators/health/macro-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/health/macro-calculator"
-  }
 };
+
+const FAQ_ITEMS = [
+  {
+    q: "How much protein do I need per day?",
+    a: "The Recommended Dietary Allowance (RDA) baseline is 0.8 grams per kilogram (0.36 g/lb) of body weight for sedentary adults. For active individuals, resistance training, or during a calorie deficit (fat loss), clinical sports nutrition guidelines recommend 1.6 to 2.2 grams per kilogram (0.8 to 1.0 g/lb) to preserve and synthesize lean muscle tissue.",
+  },
+  {
+    q: "What is IIFYM (If It Fits Your Macros)?",
+    a: "IIFYM, also known as flexible dieting, is a nutritional methodology emphasizing total daily energy balance and macronutrient targets (grams of protein, carbohydrates, and fats) rather than strictly categorizing specific foods as 'clean' or 'dirty'. As long as micronutrient and fiber needs are met, food selection can remain flexible.",
+  },
+  {
+    q: "Why do dietary fats have more calories than proteins and carbohydrates?",
+    a: "Fat molecules (triglycerides) have higher carbon-hydrogen bond density and lower oxygen content, yielding 9 calories per gram upon metabolic oxidation. In contrast, proteins and carbohydrates yield 4 calories per gram.",
+  },
+  {
+    q: "Which macro ratio is best for fat loss (cutting)?",
+    a: "A high-protein macro split—such as 35–40% protein, 30–35% carbohydrates, and 25–30% fats—is clinically optimal during a calorie deficit. Higher protein intake suppresses the hunger hormone ghrelin, increases satiety peptide PYY, and spares muscle mass during energy restriction.",
+  },
+  {
+    q: "How many carbs are allowed on a Ketogenic (Keto) diet?",
+    a: "A standard ketogenic diet restricts daily net carbohydrates (total carbs minus fiber) to 20 to 50 grams per day, representing approximately 5% of total daily calorie intake, while dietary fats supply 70% to 75% of calories to induce metabolic ketosis.",
+  },
+  {
+    q: "Do I have to hit my macros exactly to the gram each day?",
+    a: "No. Reaching within ±5 grams of your protein and carbohydrate goals and ±3 grams of your fat target is more than sufficient for exceptional body composition results. Consistency across weekly averages matters far more than daily perfection.",
+  },
+];
+
+const MACRO_ENERGY_ROWS = [
+  ["Protein", "4 kcal / gram", "10% – 35%", "Tissue repair, enzyme synthesis, muscle preservation & high TEF satiety."],
+  ["Carbohydrates", "4 kcal / gram", "45% – 65%", "Primary glycogen fuel for brain, central nervous system, and anaerobic exercise."],
+  ["Dietary Fats", "9 kcal / gram", "20% – 35%", "Steroid hormone synthesis (testosterone, estrogen), cell membrane integrity & fat-soluble vitamin absorption."],
+  ["Dietary Fiber", "1.5 – 2 kcal / gram", "25 – 38 g / day", "Microbiome gut health, blood glucose regulation & LDL cholesterol clearance."],
+];
+
+const DIET_SPLITS = [
+  ["Balanced (Standard)", "30% Protein", "40% Carbohydrates", "30% Fats", "Best for overall wellness, endurance sports, and general population maintenance."],
+  ["High Protein (Bodybuilding)", "40% Protein", "35% Carbohydrates", "25% Fats", "Ideal for aggressive cutting, muscle hypertrophy, and powerlifting."],
+  ["Low Carb (Athletic)", "35% Protein", "20% Carbohydrates", "45% Fats", "Favorable for insulin sensitivity improvement and metabolic flexibility."],
+  ["Ketogenic (Keto)", "25% Protein", "5% Carbohydrates", "70% Fats", "Produces nutritional ketosis with hepatic ketone body generation."],
+];
+
+const RELATED = [
+  { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+  { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
+  { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+  { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+  { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
+  { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+];
 
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Macro Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/macro-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Macro Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/macro-calculator\", \"description\": \"Free Macro Calculator - Get your daily protein, carbs, and fat targets for weight loss, muscle gain, or maintenance.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much protein do I need?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The RDA for adults is 0.8 g per kg of body weight. People who train regularly often aim for about 1.2–2.0 g per kg. Higher intakes may not suit people with kidney disease, so check with a doctor if that applies to you.\"}}, {\"@type\": \"Question\", \"name\": \"Do I need to hit my macros exactly?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. Staying close to your calorie target and getting enough protein matters most. Day-to-day variation of a few grams makes little difference.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Macro Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Macro Calculator</h1>\n<p class=\"calc-intro\">Calculate your optimal daily macronutrients — protein, carbohydrates, and fat — based on your calorie needs and fitness goals.</p>\n<div class=\"content-section\"><h2>How macros are calculated</h2>\n<div class=\"formula-box\">Protein: 4 kcal per gram · Carbohydrate: 4 kcal per gram · Fat: 9 kcal per gram<br/>Grams of a macro = (daily calories × macro %) ÷ kcal per gram</div>\n<h3>Worked example</h3>\n<p>At 2,000 kcal per day with a 30% protein, 40% carbohydrate and 30% fat split: protein = 2,000 × 0.30 ÷ 4 = 150 g, carbohydrate = 2,000 × 0.40 ÷ 4 = 200 g, and fat = 2,000 × 0.30 ÷ 9 ≈ 67 g.</p>\n<p>The US Dietary Guidelines' acceptable ranges for adults are 10–35% of calories from protein, 45–65% from carbohydrate and 20–35% from fat.</p></div><div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much protein do I need? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The RDA for adults is 0.8 g per kg of body weight. People who train regularly often aim for about 1.2–2.0 g per kg. Higher intakes may not suit people with kidney disease, so check with a doctor if that applies to you.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Do I need to hit my macros exactly? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. Staying close to your calorie target and getting enough protein matters most. Day-to-day variation of a few grams makes little difference.</div></div></div></div><div class=\"content-section\">\n<h2>Related Health Calculators</h2><div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmr-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">BMR Calculator</span></a>\n</div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Macro Calculator</h2>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"hc-ft\">Height (ft)</label><input id=\"hc-ft\" max=\"8\" min=\"3\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"hc-in\">Height (in)</label><input id=\"hc-in\" max=\"11\" min=\"0\" type=\"number\" value=\"9\"/></div></div>\n<div class=\"form-group\"><label for=\"hc-wt\">Weight (lbs)</label><input id=\"hc-wt\" max=\"700\" min=\"50\" type=\"number\" value=\"170\"/></div>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"hc-age\">Age</label><input id=\"hc-age\" max=\"100\" min=\"15\" type=\"number\" value=\"30\"/></div><div class=\"form-group\"><label for=\"hc-sex\">Sex</label><select id=\"hc-sex\"><option value=\"male\">Male</option><option value=\"female\">Female</option></select></div></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate Now</button>\n<div id=\"hc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-hc\" onclick=\"printResult('hc-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"hc-result\"><div id=\"hc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"hc-chart\" width=\"160\"></canvas></div><div class=\"ai-box\" id=\"hc-ai\" style=\"display:none;\"></div><div class=\"disclaimer\">Results are for informational purposes only and do not constitute medical advice. Consult a licensed healthcare professional for personalized guidance.</div></div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-macro-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  const ft=parseFloat(document.getElementById('hc-ft').value)||5;\n  const inc=parseFloat(document.getElementById('hc-in').value)||9;\n  const wt=parseFloat(document.getElementById('hc-wt').value)||170;\n  const age=parseInt(document.getElementById('hc-age').value)||30;\n  const sex=document.getElementById('hc-sex').value;\n  const kg=wt*0.453592;const cm=(ft*12+inc)*2.54;\n  const bmr=sex==='male'?(10*kg)+(6.25*cm)-(5*age)+5:(10*kg)+(6.25*cm)-(5*age)-161;\n  document.getElementById('hc-ri').innerHTML=\n    ri('Result',Math.round(bmr)+' (estimated)',true)+\n    ri('Weight',wt+' lbs')+\n    ri('Height',ft+\"' \"+inc+'\"')+\n    ri('Age / Sex',age+' / '+(sex==='male'?'Male':'Female'));\n  showResult('hc-result');\n  drawDonut('hc-chart',['Value','Reference'],[Math.round(bmr),Math.round(bmr*0.5)],['#1a5c3a','#e8e8e2']);\n  const aiBox=document.getElementById('hc-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#x2728;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing results...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Health calculator result for a '+age+'-year-old '+sex+', '+ft+'ft '+inc+'in, '+wt+' lbs. Calculator: Macro Calculator. Estimated value: '+Math.round(bmr)+'. Give 3-4 sentence friendly interpretation with practical tips and a medical disclaimer.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Health Calculators", item: `${SITE_URL}/pages/health` },
+                { "@type": "ListItem", position: 3, name: "Macro Calculator", item: `${SITE_URL}${PATH}` },
+              ],
+            },
+            {
+              "@type": "WebApplication",
+              name: "Macro Calculator",
+              url: `${SITE_URL}${PATH}`,
+              description: DESCRIPTION,
+              applicationCategory: "HealthApplication",
+              operatingSystem: "Any",
+              browserRequirements: "Requires JavaScript",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: FAQ_ITEMS.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            },
+          ],
+        }}
+      />
+
+      <CalculatorPage
+        crumbs={[
+          { href: "/", label: "Home" },
+          { href: "/pages/health", label: "Health" },
+          { label: "Macro Calculator" },
+        ]}
+        title="Macro Calculator"
+        intro="Calculate your optimal daily macronutrients (protein, carbohydrates, and fats) in grams and calories based on your body metrics and fitness goals. Includes flexible diet presets, visual donut charts, and per-meal distributions."
+      >
+        <Suspense fallback={<div className="h-96 rounded-2xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
+          <MacroCalculator />
+        </Suspense>
+
+        <Editorial>
+          {/* AI Overview Direct Answer Box (GEO Optimized) */}
+          <div className="not-prose my-6 rounded-2xl border border-emerald-200 dark:border-emerald-800/80 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 dark:from-emerald-950/30 dark:via-slate-900 dark:to-emerald-950/20 p-5 sm:p-6 text-slate-800 dark:text-slate-200">
+            <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mb-2">
+              <span>⚡ Quick Answer · What Are Macronutrients?</span>
+            </div>
+            <p className="text-sm leading-relaxed mb-3">
+              <strong>Macronutrients</strong> are the three primary nutritional compounds your body requires in large daily quantities to sustain life and fuel exercise: <strong>Protein</strong> (4 cal/g), <strong>Carbohydrates</strong> (4 cal/g), and <strong>Fats</strong> (9 cal/g). While total calorie intake determines whether you gain, lose, or maintain weight, your macronutrient ratio determines whether that change is lean muscle or body fat.
+            </p>
+            <div className="grid sm:grid-cols-3 gap-3 text-xs pt-2 border-t border-emerald-100 dark:border-emerald-900/50">
+              <div>
+                <span className="font-semibold text-slate-900 dark:text-white">Protein:</span>{" "}
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold">0.8 – 1.0 g/lb</span> (Muscle repair)
+              </div>
+              <div>
+                <span className="font-semibold text-slate-900 dark:text-white">Carbs:</span>{" "}
+                <span className="text-blue-700 dark:text-blue-400 font-bold">1.0 – 2.5 g/lb</span> (Glycogen fuel)
+              </div>
+              <div>
+                <span className="font-semibold text-slate-900 dark:text-white">Fats:</span>{" "}
+                <span className="text-amber-700 dark:text-amber-400 font-bold">0.3 – 0.4 g/lb</span> (Hormones)
+              </div>
+            </div>
+          </div>
+
+          <h2>Macronutrient Energy Density & Clinical Guidelines</h2>
+          <p>
+            The US Dietary Guidelines establish Acceptable Macronutrient Distribution Ranges (AMDR) to ensure nutritional adequacy and mitigate chronic cardiometabolic conditions:
+          </p>
+          <DataTable
+            head={["Macronutrient", "Energy Value", "Recommended Range (AMDR)", "Primary Biological Function"]}
+            rows={MACRO_ENERGY_ROWS}
+          />
+
+          <h2>How Macro Grams Are Calculated</h2>
+          <p>
+            To convert your daily calorie intake into precise macro targets in grams, multiply your total daily calories by each nutrient's percentage split, then divide by the energy density per gram:
+          </p>
+
+          <Formula>
+            Protein (g) = [Daily Calories × Protein %] ÷ 4 kcal/g
+          </Formula>
+          <Formula>
+            Carbohydrates (g) = [Daily Calories × Carb %] ÷ 4 kcal/g
+          </Formula>
+          <Formula>
+            Dietary Fat (g) = [Daily Calories × Fat %] ÷ 9 kcal/g
+          </Formula>
+
+          <h2>Comparing Popular Macro Ratios & Diets</h2>
+          <p>
+            Different macronutrient combinations cater to distinct training adaptations, metabolic preferences, and lifestyle needs:
+          </p>
+          <DataTable
+            head={["Diet Protocol", "Protein", "Carbs", "Fats", "Best Suited For"]}
+            rows={DIET_SPLITS}
+          />
+
+          <h2>Three Pillars for Successful Macro Tracking</h2>
+          <ol>
+            <li>
+              <strong>Prioritize Protein First:</strong> Ensure you hit your protein target daily. Protein has the highest thermic effect of food (TEF), burning 20–30% of its ingested calories during digestion.
+            </li>
+            <li>
+              <strong>Adjust Carbs and Fats Based on Activity:</strong> On intense training days, higher carbohydrates restock muscle glycogen; on rest days, dietary fats provide sustained cellular energy.
+            </li>
+            <li>
+              <strong>Track with a Digital Food Scale:</strong> Measuring food in grams or ounces with a kitchen scale provides 30–50% greater accuracy than measuring cups or eyeball estimation.
+            </li>
+          </ol>
+
+          <Faq items={FAQ_ITEMS} />
+          <RelatedLinks links={RELATED} />
+        </Editorial>
+      </CalculatorPage>
     </>
   );
 }
