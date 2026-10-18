@@ -1,26 +1,218 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import { Suspense } from "react";
+import { PercentageCalculator } from "@/components/flagship/math/PercentageCalculator";
+import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
+import { SITE_URL } from "@/lib/site";
+
+const PATH = "/calculators/math/percentage-calculator";
+const TITLE = "Percentage Calculator – 4-in-1 Free Online Tool | CalcDigi";
+const DESCRIPTION =
+  "Free online percentage calculator. Calculate percentage of a number, percentage change (increase/decrease), what percent X is of Y, sales tax, discounts, and step-by-step formulas.";
 
 export const metadata: Metadata = {
-  "title": "Percentage Calculator | CalcDigi",
-  "description": "Calculate percentages, percentage change, percentage of a number, and more. Fast and accurate.",
-  "openGraph": {
-    "title": "Percentage Calculator | CalcDigi",
-    "description": "Calculate percentages, percentage change, percentage of a number, and more. Fast and accurate.",
-    "type": "website",
-    "url": "/calculators/math/percentage-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/math/percentage-calculator"
-  }
 };
+
+const FAQ_ITEMS = [
+  {
+    q: "How do I calculate the percentage of a number?",
+    a: "To find the percentage of a number, convert the percentage into a decimal by dividing it by 100, then multiply by the total number. Formula: Value = (Percentage ÷ 100) × Total. For example, to find 15% of 200: (15 ÷ 100) × 200 = 0.15 × 200 = 30.",
+  },
+  {
+    q: "How do I calculate percentage change (increase or decrease)?",
+    a: "Subtract the original value from the new value, divide by the original value, and multiply by 100. Formula: Percentage Change = ((New − Original) ÷ Original) × 100. If the result is positive, it is an increase; if negative, it is a decrease.",
+  },
+  {
+    q: "What is the difference between percentage change and percentage points?",
+    a: "Percentage points are the simple arithmetic difference between two percentage values. Percentage change is the relative rate of growth. For example, if an interest rate increases from 4% to 5%, that is a 1 percentage point increase, but a 25% relative increase ((5 − 4) ÷ 4 × 100 = 25%).",
+  },
+  {
+    q: "How do I find the original price before a percentage discount?",
+    a: "Divide the discounted price by (1 − (Discount % ÷ 100)). For example, if a jacket costs $80 after a 20% discount: $80 ÷ (1 − 0.20) = $80 ÷ 0.80 = $100 original price.",
+  },
+  {
+    q: "How do I find the original price before sales tax was added?",
+    a: "Divide the total price by (1 + (Tax % ÷ 100)). For example, if total is $108 with 8% tax: $108 ÷ 1.08 = $100 base price.",
+  },
+  {
+    q: "What does the percent sign (%) actually mean?",
+    a: "The word percent originates from the Latin phrase 'per centum', meaning 'by the hundred'. The percent sign (%) represents a fraction with a denominator of 100. For instance, 45% literally means 45 parts out of 100, or 0.45.",
+  },
+  {
+    q: "Can a percentage be greater than 100%?",
+    a: "Yes. When a quantity exceeds its reference whole or starting point, the percentage is greater than 100%. For example, doubling a number is a 100% increase, resulting in 200% of the original value.",
+  },
+];
+
+const FRACTION_ROWS = [
+  ["1/1", "1.0", "100%"],
+  ["1/2", "0.5", "50%"],
+  ["1/3", "0.3333...", "33.33%"],
+  ["1/4", "0.25", "25%"],
+  ["1/5", "0.2", "20%"],
+  ["1/6", "0.1667...", "16.67%"],
+  ["1/8", "0.125", "12.5%"],
+  ["1/10", "0.1", "10%"],
+  ["1/20", "0.05", "5%"],
+  ["1/100", "0.01", "1%"],
+];
+
+const RELATED = [
+  { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
+  { href: "/calculators/finance/discount-calculator", icon: "🏷️", name: "Discount Calculator" },
+  { href: "/calculators/finance/tip-calculator", icon: "🧾", name: "Tip Calculator" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
+  { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
+  { href: "/calculators/math/average-calculator", icon: "📐", name: "Average Calculator" },
+];
 
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Math Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/math\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Percentage Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/math/percentage-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Percentage Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/math/percentage-calculator\", \"description\": \"Calculate percentages, percentage change, percentage of a number, and more. Fast and accurate.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the difference between percentage change and percentage points?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Percentage points are the plain difference between two percentages: going from a 4% to a 5% rate is a 1 percentage-point rise. In percentage terms that is a 25% increase, because 1 ÷ 4 = 0.25.\"}}, {\"@type\": \"Question\", \"name\": \"How do I find the original number before a percentage increase?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide the new value by 1 plus the percentage as a decimal. A price of $120 after a 20% increase was originally 120 ÷ 1.20 = $100.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate a percentage decrease?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use (old − new) ÷ old × 100. Going from 80 to 60 is (80 − 60) ÷ 80 × 100 = a 25% decrease.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/math\">Math</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Percentage Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Percentage Calculator</h1>\n<p class=\"calc-intro\">Calculate percentages instantly — find what percent of a number is, calculate percentage change, or find the original value from a percentage.</p>\n<div class=\"content-section\"><h2>Percentage formulas</h2>\n<div class=\"formula-box\">X% of Y = Y × X ÷ 100<br/>X is what % of Y = X ÷ Y × 100<br/>Percentage change = (New − Old) ÷ Old × 100</div>\n<h3>Worked examples</h3>\n<ul><li><strong>15% of 200:</strong> 200 × 15 ÷ 100 = 30.</li>\n<li><strong>30 is what percent of 150?</strong> 30 ÷ 150 × 100 = 20%.</li>\n<li><strong>Change from 100 to 125:</strong> (125 − 100) ÷ 100 × 100 = a 25% increase.</li></ul>\n<p>Percentage change is measured against the starting value, so going from 125 back down to 100 is a 20% decrease, not 25%.</p></div><div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between percentage change and percentage points? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Percentage points are the plain difference between two percentages: going from a 4% to a 5% rate is a 1 percentage-point rise. In percentage terms that is a 25% increase, because 1 ÷ 4 = 0.25.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I find the original number before a percentage increase? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide the new value by 1 plus the percentage as a decimal. A price of $120 after a 20% increase was originally 120 ÷ 1.20 = $100.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate a percentage decrease? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use (old − new) ÷ old × 100. Going from 80 to 60 is (80 − 60) ÷ 80 × 100 = a 25% decrease.</div></div></div></div><div class=\"content-section\">\n<h2>Related Math Calculators</h2><div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/math/fraction-calculator\"><span class=\"rc-icon\">½</span><span class=\"rc-name\">Fraction</span></a>\n<a class=\"related-card\" href=\"/calculators/math/average-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Average</span></a>\n<a class=\"related-card\" href=\"/calculators/math/ratio-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Ratio</span></a>\n</div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Percentage Calculator</h2>\n<div class=\"content-section\" style=\"background:var(--c-rule2);border-radius:var(--radius-md);padding:20px;margin-bottom:16px;\">\n<h3 style=\"margin-bottom:12px;\">X% of Y = ?</h3>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"p1-x\">X (%)</label><input id=\"p1-x\" step=\"any\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"p1-y\">Y (number)</label><input id=\"p1-y\" step=\"any\" type=\"number\" value=\"200\"/></div></div>\n<button class=\"calc-btn\" onclick=\"calcP1()\">Calculate</button>\n<div class=\"result-box\" id=\"p1-result\"><div id=\"p1-ri\"></div></div>\n</div>\n<div class=\"content-section\" style=\"background:var(--c-rule2);border-radius:var(--radius-md);padding:20px;margin-bottom:16px;\">\n<h3 style=\"margin-bottom:12px;\">What % is X of Y?</h3>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"p2-x\">X (part)</label><input id=\"p2-x\" step=\"any\" type=\"number\" value=\"30\"/></div><div class=\"form-group\"><label for=\"p2-y\">Y (whole)</label><input id=\"p2-y\" step=\"any\" type=\"number\" value=\"150\"/></div></div>\n<button class=\"calc-btn\" onclick=\"calcP2()\">Calculate</button>\n<div class=\"result-box\" id=\"p2-result\"><div id=\"p2-ri\"></div></div>\n</div>\n<div class=\"content-section\" style=\"background:var(--c-rule2);border-radius:var(--radius-md);padding:20px;\">\n<h3 style=\"margin-bottom:12px;\">Percentage Change</h3>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"p3-from\">From</label><input id=\"p3-from\" step=\"any\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"p3-to\">To</label><input id=\"p3-to\" step=\"any\" type=\"number\" value=\"125\"/></div></div>\n<button class=\"calc-btn\" onclick=\"calcP3()\">Calculate</button>\n<div class=\"result-box\" id=\"p3-result\"><div id=\"p3-ri\"></div></div>\n</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" onclick=\"shareResult('Percentage Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-percentage-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcP1(){const x=parseFloat(document.getElementById('p1-x').value)||15;const y=parseFloat(document.getElementById('p1-y').value)||200;const r=y*(x/100);document.getElementById('p1-ri').innerHTML=ri(x+'% of '+y,fmtNum(r),true);showResult('p1-result');}\nfunction calcP2(){const x=parseFloat(document.getElementById('p2-x').value)||30;const y=parseFloat(document.getElementById('p2-y').value)||150;const r=y>0?(x/y*100):0;document.getElementById('p2-ri').innerHTML=ri(x+' is '+fmtNum(r)+'% of '+y,'',true)+ri('Verified: '+fmtNum(r)+'% of '+y,'= '+fmtNum(y*r/100));showResult('p2-result');}\nfunction calcP3(){const f=parseFloat(document.getElementById('p3-from').value)||100;const t=parseFloat(document.getElementById('p3-to').value)||125;const r=f!==0?((t-f)/f*100):0;const dir=r>=0?'increase':'decrease';document.getElementById('p3-ri').innerHTML=ri('Percentage '+dir,fmtNum(Math.abs(r))+'%',true)+ri('Change',t>f?'+ '+fmtNum(t-f):'- '+fmtNum(f-t));showResult('p3-result');\n  if(typeof getAIInsight==='function'){var _ab=document.querySelector('.ai-box');if(!_ab){_ab=document.createElement('div');_ab.className='ai-box';var _rb=document.querySelector('.result-box');if(_rb)_rb.appendChild(_ab);}_ab.style.display='block';_ab.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';getAIInsight('Give a 2-sentence practical tip about this calculation.').then(function(_t){if(_t)_ab.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+_t+'</p>';else _ab.style.display='none';});}\n\n  if(typeof drawDonut==='function'){var _cv=document.querySelector('.result-chart canvas');if(!_cv){var _rc=document.querySelector('.result-chart');if(!_rc){_rc=document.createElement('div');_rc.className='result-chart';var _rbox=document.querySelector('.result-box');if(_rbox){_cv=document.createElement('canvas');_cv.id='auto-c';_cv.width=220;_cv.height=160;_rc.appendChild(_cv);_rbox.appendChild(_rc);}else{_cv=null;}}else{_cv=_rc.querySelector('canvas');}}_cv&&drawDonut(_cv.id,['Value','Ref'],[70,30],['#1a5c3a','#c8832a']);}\n}\n\n\ninitFAQ();initScrollReveal();" }} />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+                { "@type": "ListItem", position: 2, name: "Math Calculators", item: `${SITE_URL}/pages/math` },
+                { "@type": "ListItem", position: 3, name: "Percentage Calculator", item: `${SITE_URL}${PATH}` },
+              ],
+            },
+            {
+              "@type": "WebApplication",
+              name: "Percentage Calculator",
+              url: `${SITE_URL}${PATH}`,
+              description: DESCRIPTION,
+              applicationCategory: "UtilitiesApplication",
+              operatingSystem: "Any",
+              browserRequirements: "Requires JavaScript",
+              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+            },
+            {
+              "@type": "HowTo",
+              name: "How to Calculate Percentages",
+              description: "Step-by-step instructions to calculate percentages of numbers, proportions, and percentage changes.",
+              step: [
+                {
+                  "@type": "HowToStep",
+                  name: "Convert percentage to decimal",
+                  text: "Divide the given percentage by 100 (e.g., 20% becomes 0.20).",
+                },
+                {
+                  "@type": "HowToStep",
+                  name: "Multiply by total amount",
+                  text: "Multiply the decimal by the total number (e.g., 0.20 × 150 = 30).",
+                },
+              ],
+            },
+            {
+              "@type": "FAQPage",
+              mainEntity: FAQ_ITEMS.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            },
+          ],
+        }}
+      />
+
+      <CalculatorPage
+        crumbs={[
+          { href: "/", label: "Home" },
+          { href: "/pages/math", label: "Math" },
+          { label: "Percentage Calculator" },
+        ]}
+        title="Percentage Calculator"
+        intro="Free interactive 4-in-1 percentage tool: compute percentage of a number, find ratios and proportions, calculate percentage increase or decrease, and add sales tax or discounts with step-by-step solutions."
+      >
+        <Suspense fallback={<div className="mt-6 h-[480px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
+          <PercentageCalculator />
+        </Suspense>
+
+        <Editorial>
+          <h2>What is a Percentage? (Definition & Quick Summary)</h2>
+          <p>
+            A <strong>percentage</strong> is a number or ratio expressed as a fraction of 100. Derived from the Latin phrase{" "}
+            <em>per centum</em>, meaning &ldquo;by the hundred,&rdquo; it provides a standardized way to compare parts to a whole regardless of the total size. The percentage symbol is <strong>%</strong>.
+          </p>
+          <p>
+            In mathematical terms, 1% corresponds to 1/100 or 0.01. Percentages are universally used in financial calculations (interest rates, mortgage yields, sales tax, inflation), scientific measurements (purity, error margins, statistical confidence), and everyday decision-making (discounts, tips, exam scores).
+          </p>
+
+          <h2>Core Percentage Formulas</h2>
+          <p>
+            Depending on your calculation objective, use one of the standard mathematical formulas below:
+          </p>
+
+          <h3>1. Percentage of a Number (What is P% of X?)</h3>
+          <Formula>Value = (P ÷ 100) × X</Formula>
+          <p>
+            <em>Example:</em> What is 15% of $240? Convert 15% to 0.15, then multiply by 240: 0.15 × 240 = <strong>$36.00</strong>.
+          </p>
+
+          <h3>2. Proportion (X is What Percent of Y?)</h3>
+          <Formula>Percentage (%) = (X ÷ Y) × 100</Formula>
+          <p>
+            <em>Example:</em> If a student scores 42 out of 50 on an exam: (42 ÷ 50) × 100 = 0.84 × 100 = <strong>84%</strong>.
+          </p>
+
+          <h3>3. Percentage Change (Increase or Decrease)</h3>
+          <Formula>Percentage Change (%) = [(New Value − Original Value) ÷ Original Value] × 100</Formula>
+          <p>
+            <em>Example:</em> If a house price rises from $300,000 to $345,000: [(345,000 − 300,000) ÷ 300,000] × 100 = (45,000 ÷ 300,000) × 100 = <strong>+15% increase</strong>.
+          </p>
+
+          <h3>4. Reverse Percentage (Finding Original Before Discount or Tax)</h3>
+          <Formula>Original Price = Sale Price ÷ (1 − (Discount % ÷ 100))</Formula>
+          <p>
+            <em>Example:</em> If an item is on sale for $72 after a 20% discount: 72 ÷ (1 − 0.20) = 72 ÷ 0.80 = <strong>$90.00</strong> original price.
+          </p>
+
+          <h2>Common Fractions to Percentages Conversion Table</h2>
+          <p>
+            The table below serves as a quick reference conversion chart between common fractions, decimal equivalents, and percentages:
+          </p>
+          <DataTable
+            head={["Fraction", "Decimal", "Percentage (%)"]}
+            rows={FRACTION_ROWS}
+            highlight={1}
+          />
+
+          <h2>Practical Real-World Applications</h2>
+          <ul>
+            <li>
+              <strong>Sales Tax &amp; Tipping:</strong> Calculate dinner tips (e.g., 18% or 20% of your bill) and local state sales taxes in seconds.
+            </li>
+            <li>
+              <strong>Retail Shopping &amp; Discounts:</strong> Double-check clearance savings (e.g. &ldquo;Take an extra 30% off&rdquo;) to verify actual cash savings.
+            </li>
+            <li>
+              <strong>Salary Raises &amp; Inflation:</strong> Measure your real wage growth against the annual Consumer Price Index (CPI) inflation percentage.
+            </li>
+            <li>
+              <strong>Financial Investments:</strong> Analyze capital gains yield, dividend percentages, and mortgage interest rates across banking institutions.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <Faq items={FAQ_ITEMS} />
+
+          <h2 className="mt-10">Related Calculators</h2>
+          <RelatedLinks links={RELATED} />
+        </Editorial>
+      </CalculatorPage>
     </>
   );
 }
