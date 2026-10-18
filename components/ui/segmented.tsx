@@ -53,7 +53,7 @@ export function Segmented<T extends string>({
             onKeyDown={(e) => onKeyDown(e, i)}
             className={cn(
               "flex min-h-[44px] flex-col items-center justify-center rounded-lg px-3 py-1.5 text-sm font-semibold transition-colors",
-              "focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-blue-600",
+              "focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-emerald-600",
               active
                 ? "bg-white text-slate-900 shadow-sm dark:bg-slate-950 dark:text-white"
                 : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white",
