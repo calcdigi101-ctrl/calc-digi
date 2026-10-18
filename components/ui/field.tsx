@@ -5,10 +5,10 @@ import { cn } from "@/lib/cn";
 export const fieldBox = (invalid?: boolean) =>
   cn(
     "flex min-h-[48px] items-stretch overflow-hidden rounded-lg border bg-white transition-colors dark:bg-slate-950",
-    "focus-within:ring-2 focus-within:ring-blue-600/25",
+    "focus-within:ring-2 focus-within:ring-emerald-500/20",
     invalid
       ? "border-red-500 focus-within:border-red-500"
-      : "border-slate-300 focus-within:border-blue-600 dark:border-slate-700",
+      : "border-slate-300 focus-within:border-emerald-600 dark:border-slate-700",
   );
 
 const affix =
