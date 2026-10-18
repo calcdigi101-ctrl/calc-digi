@@ -1,8 +1,26 @@
 "use client";
 
-import { useState } from "react";
-import { Check, ShieldCheck, Zap, Sparkles, Home, Scale, Calculator as CalcIcon } from "lucide-react";
+import { useMemo, useRef, useState, useEffect } from "react";
+import { Check, ShieldCheck, Zap, Sparkles, Home, Scale, Calculator as CalcIcon, X } from "lucide-react";
 import { CategoryDirectory } from "./CategoryDirectory";
+import { CATEGORIES } from "@/lib/calculators";
+
+const ALL_HERO_TOOLS = (() => {
+  const seen = new Set<string>();
+  const out: { name: string; icon: string; href: string; category: string }[] = [];
+  for (const cat of CATEGORIES) {
+    for (const c of cat.calculators) {
+      if (!seen.has(c.href)) {
+        seen.add(c.href);
+        out.push({ name: c.name, icon: c.icon, href: c.href, category: cat.label });
+      }
+    }
+  }
+  return out;
+})();
+
+const POPULAR_NAMES = ["Mortgage Calculator", "BMI Calculator", "Percentage Calculator", "Loan Calculator", "Age Calculator", "Calorie Calculator"];
+const POPULAR_HERO_TOOLS = POPULAR_NAMES.map((n) => ALL_HERO_TOOLS.find((t) => t.name === n)).filter(Boolean) as typeof ALL_HERO_TOOLS;
 
 /**
  * 100% Cloned Flagship HomeHero:
@@ -14,6 +32,40 @@ import { CategoryDirectory } from "./CategoryDirectory";
  * - CategoryDirectory with integrated Ask CalcDigi AI card
  */
 export function HomeHero() {
+  // Search State
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return POPULAR_HERO_TOOLS;
+    const words = q.split(/\s+/);
+    const scored: { score: number; tool: typeof ALL_HERO_TOOLS[0] }[] = [];
+    for (const t of ALL_HERO_TOOLS) {
+      const name = t.name.toLowerCase();
+      const cat = t.category.toLowerCase();
+      let score = -1;
+      if (name === q) score = 0;
+      else if (name.startsWith(q)) score = 1;
+      else if (name.split(/\s+/).some((w) => w.startsWith(q))) score = 2;
+      else if (name.includes(q)) score = 3;
+      else if (words.every((w) => `${name} ${cat}`.includes(w))) score = 4;
+      if (score >= 0) scored.push({ score, tool: t });
+    }
+    return scored.sort((a, b) => a.score - b.score || a.tool.name.length - b.tool.name.length).slice(0, 15).map((x) => x.tool);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   // Tabs: 'calc' | 'mortgage' | 'bmi'
   const [activeTab, setActiveTab] = useState<"calc" | "mortgage" | "bmi">("calc");
 
@@ -149,21 +201,88 @@ export function HomeHero() {
               Professional-grade tools for finance, health, math, and everyday life. No ads, no tracking, just precision.
             </p>
 
-            {/* Search Bar with Green (?) icon */}
-            <div className="max-w-xl">
-              <a 
-                href="/calculators"
-                className="relative flex items-center bg-white dark:bg-slate-900 rounded-full border border-slate-200/90 dark:border-slate-800 p-2 sm:p-2.5 shadow-sm hover:border-emerald-400 focus-within:border-emerald-500 transition-all text-slate-400 hover:text-slate-600 dark:hover:text-slate-300"
-              >
-                <div className="pl-3.5 pr-2.5">
+            {/* Search Bar with Green (?) icon and Live Dropdown */}
+            <div className="max-w-xl relative" ref={searchContainerRef}>
+              <div className="relative flex items-center bg-white dark:bg-slate-900 rounded-full border border-slate-200/90 dark:border-slate-800 p-2 sm:p-2.5 shadow-sm hover:border-emerald-400 focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10 transition-all">
+                <div className="pl-3.5 pr-2.5 shrink-0">
                   <div className="w-6 h-6 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-[#10b981] flex items-center justify-center font-bold text-xs border border-emerald-200/60 dark:border-emerald-800">
                     ?
                   </div>
                 </div>
-                <span className="text-sm sm:text-[15px] font-medium pr-3 truncate">
-                  Try &quot;Mortgage with 20% down&quot; or &quot;BMI for 6ft male&quot;
-                </span>
-              </a>
+                <input 
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setIsDropdownOpen(true);
+                  }}
+                  onFocus={() => setIsDropdownOpen(true)}
+                  placeholder='Search 341+ calculators (e.g. Mortgage, BMI, Percentage...)'
+                  className="bg-transparent border-0 outline-none text-slate-800 dark:text-white placeholder-slate-400 text-sm sm:text-[15px] w-full font-medium pr-8"
+                />
+                {searchQuery ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery("");
+                      setIsDropdownOpen(true);
+                    }}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 w-5 h-5 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-xs"
+                    title="Clear search"
+                  >
+                    ✕
+                  </button>
+                ) : null}
+              </div>
+
+              {/* Live Search Results Dropdown */}
+              {isDropdownOpen ? (
+                <div className="absolute left-0 right-0 top-full mt-2.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xl z-50 overflow-hidden max-h-[380px] flex flex-col backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="px-4 py-2 border-b border-slate-100 dark:border-slate-800/80 flex items-center justify-between bg-slate-50/60 dark:bg-slate-800/40 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                    <span>{searchQuery.trim() ? `Found ${searchResults.length} calculators` : "⚡ Popular Calculators"}</span>
+                    <span className="text-[10px] text-slate-400 font-normal">341 tools indexed</span>
+                  </div>
+                  <div className="overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60 p-1.5 focus:outline-none">
+                    {searchResults.length === 0 ? (
+                      <div className="p-6 text-center text-slate-500 dark:text-slate-400 text-sm">
+                        <div className="text-2xl mb-1">🔍</div>
+                        <p className="font-medium text-slate-700 dark:text-slate-300">No calculators found for &quot;{searchQuery}&quot;</p>
+                        <p className="text-xs mt-1 text-slate-400">
+                          Try searching for &quot;mortgage&quot;, &quot;percentage&quot;, or{" "}
+                          <a href="/calculators" className="text-emerald-600 dark:text-emerald-400 underline font-semibold">
+                            browse all 341 tools &rarr;
+                          </a>
+                        </p>
+                      </div>
+                    ) : (
+                      searchResults.map((tool) => (
+                        <a
+                          key={tool.href}
+                          href={tool.href}
+                          className="flex items-center justify-between p-2.5 rounded-xl hover:bg-emerald-50/70 dark:hover:bg-slate-800/80 transition-colors group cursor-pointer"
+                        >
+                          <div className="flex items-center gap-3 min-w-0 pr-2">
+                            <span className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 group-hover:bg-emerald-100/80 dark:group-hover:bg-emerald-950/60 flex items-center justify-center text-base shrink-0 transition-colors">
+                              {tool.icon || "🧮"}
+                            </span>
+                            <div className="min-w-0">
+                              <div className="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 truncate">
+                                {tool.name}
+                              </div>
+                              <div className="text-[11px] text-slate-400 dark:text-slate-500 truncate">
+                                {tool.category}
+                              </div>
+                            </div>
+                          </div>
+                          <span className="text-xs text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 shrink-0 font-medium">
+                            &rarr;
+                          </span>
+                        </a>
+                      ))
+                    )}
+                  </div>
+                </div>
+              ) : null}
             </div>
 
             {/* Trending Tags */}
