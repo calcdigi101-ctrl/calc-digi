@@ -26,7 +26,7 @@ export function CalculatorPage({
               <li key={c.label} className="flex items-center gap-1">
                 {i > 0 ? <ChevronRight aria-hidden className="size-3.5" /> : null}
                 {c.href ? (
-                  <a href={c.href} className="hover:text-blue-700 hover:underline dark:hover:text-blue-400">
+                  <a href={c.href} className="hover:text-emerald-600 hover:underline dark:hover:text-emerald-400">
                     {c.label}
                   </a>
                 ) : (
@@ -72,7 +72,7 @@ export function Editorial({ children }: { children: ReactNode }) {
         "[&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-white",
         "[&_p]:mb-3 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1",
         "[&_strong]:font-semibold [&_strong]:text-slate-900 dark:[&_strong]:text-white",
-        "[&_a]:font-medium [&_a]:text-blue-700 [&_a]:underline-offset-2 hover:[&_a]:underline dark:[&_a]:text-blue-400",
+        "[&_a]:font-medium [&_a]:text-emerald-600 [&_a]:underline-offset-2 hover:[&_a]:underline dark:[&_a]:text-emerald-400",
       )}
     >
       {children}
@@ -130,7 +130,7 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
         <details key={it.q} className="group">
           <summary className="flex min-h-[48px] cursor-pointer items-center justify-between gap-4 px-4 py-3 font-semibold text-slate-900 dark:text-white">
             {it.q}
-            <span aria-hidden className="text-xl leading-none text-blue-600 transition-transform group-open:rotate-45">
+            <span aria-hidden className="text-xl leading-none text-emerald-600 transition-transform group-open:rotate-45">
               +
             </span>
           </summary>
@@ -148,7 +148,7 @@ export function RelatedLinks({ links }: { links: { href: string; icon: string; n
         <li key={l.href} className="!mb-0">
           <a
             href={l.href}
-            className="flex min-h-[48px] items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 !text-slate-800 !no-underline hover:border-blue-300 hover:bg-blue-50 dark:border-slate-800 dark:!text-slate-200 dark:hover:bg-slate-800"
+            className="flex min-h-[48px] items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 !text-slate-800 !no-underline hover:border-emerald-300 hover:bg-emerald-50/70 dark:border-slate-800 dark:!text-slate-200 dark:hover:bg-slate-800"
           >
             <span aria-hidden>{l.icon}</span>
             <span className="text-sm font-medium">{l.name}</span>
