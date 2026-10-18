@@ -28,27 +28,8 @@ export function Header() {
             <NavLinks />
           </nav>
 
-          {/* Right Elements: [Search 341 tools... ⌘K] -> [🌙 Moon (Centered)] -> [ ● ✨ AI Assistant ] */}
+          {/* Right Elements: [🌙 Moon] -> [ ● ✨ AI Assistant ] */}
           <div className="flex items-center gap-2 sm:gap-3">
-            
-            {/* Search Input Pill with ⌘K */}
-            <div 
-              onClick={() => {
-                const searchEl = document.getElementById('search-palette-btn') || document.getElementById('hero-search-input');
-                if (searchEl) searchEl.click();
-              }}
-              className="relative hidden sm:flex items-center bg-[#f0f4f8]/85 dark:bg-slate-900 rounded-2xl px-3.5 py-2 w-48 md:w-56 lg:w-64 border border-[#e2e8f0] dark:border-slate-800 cursor-pointer hover:border-emerald-400 transition-all shadow-2xs"
-            >
-              <svg className="w-4 h-4 text-[#059669] mr-2 shrink-0 stroke-[2.2]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
-              </svg>
-              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium select-none flex-1 truncate">
-                Search 341 tools...
-              </span>
-              <kbd className="px-2 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-800 rounded-lg border border-slate-200/90 dark:border-slate-700 shadow-2xs shrink-0 ml-1.5 flex items-center gap-0.5 font-medium">
-                <span className="text-[9px]">⌘</span>K
-              </kbd>
-            </div>
 
             {/* Dark / Light Mode Moon Button (CENTERED between Search & AI Assistant as requested) */}
             <button 
