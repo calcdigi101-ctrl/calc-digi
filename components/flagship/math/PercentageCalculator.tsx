@@ -494,28 +494,148 @@ export function PercentageCalculator() {
             )}
           </div>
 
-          {/* Visual Percentage Bar */}
-          <div className="my-4 pt-3 border-t border-slate-100 dark:border-slate-800">
-            <div className="flex justify-between text-xs font-medium text-slate-500 mb-1.5">
-              <span>Proportion Bar</span>
-              <span>
-                {mode === "part_of_whole" ? `${Math.min(Math.max(p1, 0), 100)}%` :
-                 mode === "what_percent" ? `${Math.min(Math.max(Math.round(r2), 0), 100)}%` :
-                 mode === "change" ? (isIncrease ? "Growth" : "Decline") :
-                 `${m4Pct}%`}
+          {/* Visual Interactive Donut Chart (Mortgage Flagship Style) */}
+          <div className="my-5 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-between text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+              <span>Visual Proportion Chart</span>
+              <span className="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold">
+                {mode === "part_of_whole" ? `${formatNum(p1)}% Share` :
+                 mode === "what_percent" ? `${formatNum(r2)}% Share` :
+                 mode === "change" ? `${isIncrease ? "+" : ""}${formatNum(r3)}% Delta` :
+                 `${formatNum(p4)}% Adjustment`}
               </span>
             </div>
-            <div className="w-full h-3 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden flex">
-              <div
-                className="h-full bg-emerald-500 dark:bg-emerald-400 rounded-full transition-all duration-300"
-                style={{
-                  width: `${Math.min(Math.max(
-                    mode === "part_of_whole" ? p1 :
-                    mode === "what_percent" ? r2 :
-                    mode === "change" ? Math.min(Math.abs(r3), 100) :
-                    p4, 0), 100)}%`
-                }}
-              />
+
+            {/* SVG Donut Chart */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 bg-slate-50/60 dark:bg-slate-800/40 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
+                <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
+                  {/* Track Circle */}
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="62"
+                    className="stroke-slate-200 dark:stroke-slate-700"
+                    strokeWidth="16"
+                    fill="none"
+                  />
+                  {/* Active Segment Circle */}
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="62"
+                    stroke={mode === "change" && !isIncrease ? "#f43f5e" : "#10b981"}
+                    strokeWidth="16"
+                    strokeDasharray="389.56"
+                    strokeDashoffset={389.56 - (389.56 * Math.min(Math.max(
+                      mode === "part_of_whole" ? (p1 / 100) :
+                      mode === "what_percent" ? (r2 / 100) :
+                      mode === "change" ? Math.min(Math.abs(r3) / 100, 1) :
+                      (p4 / 100), 0), 1))}
+                    strokeLinecap="round"
+                    fill="none"
+                    className="transition-all duration-500 ease-out"
+                  />
+                </svg>
+
+                {/* Center Value */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none pointer-events-none">
+                  <span className="text-xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                    {mode === "part_of_whole" ? `${formatNum(p1)}%` :
+                     mode === "what_percent" ? `${formatNum(r2)}%` :
+                     mode === "change" ? `${isIncrease ? "+" : ""}${formatNum(r3)}%` :
+                     `${formatNum(p4)}%`}
+                  </span>
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-tight">
+                    {mode === "change" ? (isIncrease ? "Increase" : "Decrease") : "Ratio"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Chart Legend */}
+              <div className="flex-1 w-full space-y-2 text-xs">
+                {mode === "part_of_whole" && (
+                  <>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Calculated ({p1}%)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(r1)}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 shrink-0"></span>
+                        <span className="font-medium text-slate-500">Remaining</span>
+                      </div>
+                      <span className="font-bold text-slate-600 dark:text-slate-400 tabular-nums">{formatNum(r1Remainder)}</span>
+                    </div>
+                  </>
+                )}
+
+                {mode === "what_percent" && (
+                  <>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Part Share</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(r2)}%</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-600 shrink-0"></span>
+                        <span className="font-medium text-slate-500">Whole Total</span>
+                      </div>
+                      <span className="font-bold text-slate-600 dark:text-slate-400 tabular-nums">{formatNum(w2)}</span>
+                    </div>
+                  </>
+                )}
+
+                {mode === "change" && (
+                  <>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Original (From)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(f3)}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${isIncrease ? "bg-emerald-500" : "bg-rose-500"}`}></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Final (To)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(t3)}</span>
+                    </div>
+                  </>
+                )}
+
+                {mode === "add_sub" && (
+                  <>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Base Price</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(v4)}</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${m4Op === "add" ? "bg-emerald-500" : "bg-amber-500"}`}></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">{m4Op === "add" ? "Tax/Tip" : "Discount"}</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">
+                        {m4Op === "add" ? "+" : "−"}{formatNum(delta4)}
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
