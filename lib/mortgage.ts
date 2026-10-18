@@ -49,6 +49,15 @@ export interface MortgageResult {
   pmiMonths: number;
   /** Savings vs. the same loan with no extra payments. */
   baseline: { totalInterest: number; months: number };
+  /** Accelerated bi-weekly payment analytics */
+  biweekly: {
+    payment: number;
+    totalInterest: number;
+    yearsSaved: number;
+    monthsSaved: number;
+    interestSaved: number;
+    payoffYear: number;
+  };
 }
 
 /** Fixed-rate monthly principal & interest payment. */
@@ -97,6 +106,44 @@ function amortize(input: MortgageInput, withExtras: boolean) {
   return { loan, pi, rows };
 }
 
+function computeBiweekly(loan: number, monthlyPI: number, ratePct: number, start: { year: number; month: number }, termYears: number) {
+  if (loan <= 0 || monthlyPI <= 0) {
+    return {
+      payment: 0,
+      totalInterest: 0,
+      periods: 0,
+      yearsTaken: 0,
+      payoffYear: start.year,
+    };
+  }
+  const biweeklyPayment = monthlyPI / 2;
+  const rBi = ratePct / 2600;
+  let balance = loan;
+  let periods = 0;
+  let totalInterest = 0;
+  const maxPeriods = termYears * 26 + 100;
+
+  while (balance > 0.01 && periods < maxPeriods) {
+    const interest = balance * rBi;
+    const principal = Math.min(biweeklyPayment - interest, balance);
+    if (principal <= 0) break;
+    totalInterest += interest;
+    balance -= principal;
+    periods++;
+  }
+
+  const yearsTaken = periods / 26;
+  const payoffYear = start.year + Math.floor(yearsTaken);
+
+  return {
+    payment: biweeklyPayment,
+    totalInterest,
+    periods,
+    yearsTaken,
+    payoffYear,
+  };
+}
+
 export function computeMortgage(input: MortgageInput): MortgageResult {
   const { loan, pi, rows } = amortize(input, true);
   const base = amortize(input, false);
@@ -119,6 +166,12 @@ export function computeMortgage(input: MortgageInput): MortgageResult {
   const tax = input.propertyTaxPerYear / 12;
   const insurance = input.insurancePerYear / 12;
 
+  const baseTotalInterest = sum(base.rows, (r) => r.interest);
+  const bi = computeBiweekly(loan, pi, input.ratePct, input.start, input.termYears);
+  const biYearsSaved = Math.max(0, input.termYears - bi.yearsTaken);
+  const biMonthsSaved = Math.round(biYearsSaved * 12);
+  const biInterestSaved = Math.max(0, baseTotalInterest - bi.totalInterest);
+
   return {
     loan,
     ltv: input.price > 0 ? loan / input.price : 0,
@@ -138,7 +191,15 @@ export function computeMortgage(input: MortgageInput): MortgageResult {
     totalPmi: sum(rows, (r) => r.pmi),
     payoff: { year: last.year, month: last.month },
     pmiMonths: rows.filter((r) => r.pmi > 0).length,
-    baseline: { totalInterest: sum(base.rows, (r) => r.interest), months: base.rows.length },
+    baseline: { totalInterest: baseTotalInterest, months: base.rows.length },
+    biweekly: {
+      payment: bi.payment,
+      totalInterest: bi.totalInterest,
+      yearsSaved: Number(biYearsSaved.toFixed(1)),
+      monthsSaved: biMonthsSaved,
+      interestSaved: biInterestSaved,
+      payoffYear: bi.payoffYear,
+    },
   };
 }
 
