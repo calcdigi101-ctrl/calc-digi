@@ -21,6 +21,7 @@ export function CalorieCalculator() {
 
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const [chartView, setChartView] = useState<"macros" | "burn">("macros");
 
   // Sync from URL params
   useEffect(() => {
@@ -432,6 +433,185 @@ export function CalorieCalculator() {
               <span className="font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
                 +{formatNum(tdee - bmr)} cal/day
               </span>
+            </div>
+          </div>
+
+          {/* Visual Interactive Donut Chart (Mortgage Flagship Style) */}
+          <div className="my-5 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-between text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
+              <span>Visual Breakdown</span>
+              <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800">
+                <button
+                  type="button"
+                  onClick={() => setChartView("macros")}
+                  className={`px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-all ${
+                    chartView === "macros"
+                      ? "bg-emerald-600 text-white shadow-2xs"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                >
+                  Macro Split
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setChartView("burn")}
+                  className={`px-2.5 py-0.5 rounded-md text-[11px] font-semibold transition-all ${
+                    chartView === "burn"
+                      ? "bg-emerald-600 text-white shadow-2xs"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                >
+                  BMR vs Burn
+                </button>
+              </div>
+            </div>
+
+            {/* SVG Donut Chart */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 bg-slate-50/60 dark:bg-slate-800/40 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800">
+              <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
+                <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
+                  {/* Track Circle */}
+                  <circle
+                    cx="80"
+                    cy="80"
+                    r="62"
+                    className="stroke-slate-200 dark:stroke-slate-700"
+                    strokeWidth="16"
+                    fill="none"
+                  />
+                  {chartView === "macros" ? (
+                    <>
+                      {/* Segment 1: Protein (30% = 116.87) */}
+                      <circle
+                        cx="80"
+                        cy="80"
+                        r="62"
+                        stroke="#10b981"
+                        strokeWidth="16"
+                        strokeDasharray="116.87 389.56"
+                        strokeDashoffset="0"
+                        strokeLinecap="round"
+                        fill="none"
+                        className="transition-all duration-500 ease-out"
+                      />
+                      {/* Segment 2: Carbs (40% = 155.82) */}
+                      <circle
+                        cx="80"
+                        cy="80"
+                        r="62"
+                        stroke="#3b82f6"
+                        strokeWidth="16"
+                        strokeDasharray="155.82 389.56"
+                        strokeDashoffset="-116.87"
+                        strokeLinecap="round"
+                        fill="none"
+                        className="transition-all duration-500 ease-out"
+                      />
+                      {/* Segment 3: Fat (30% = 116.87) */}
+                      <circle
+                        cx="80"
+                        cy="80"
+                        r="62"
+                        stroke="#f59e0b"
+                        strokeWidth="16"
+                        strokeDasharray="116.87 389.56"
+                        strokeDashoffset="-272.69"
+                        strokeLinecap="round"
+                        fill="none"
+                        className="transition-all duration-500 ease-out"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      {/* BMR segment */}
+                      <circle
+                        cx="80"
+                        cy="80"
+                        r="62"
+                        stroke="#6366f1"
+                        strokeWidth="16"
+                        strokeDasharray={`${(tdee > 0 ? (bmr / tdee) * 389.56 : 250).toFixed(2)} 389.56`}
+                        strokeDashoffset="0"
+                        strokeLinecap="round"
+                        fill="none"
+                        className="transition-all duration-500 ease-out"
+                      />
+                      {/* Activity burn segment */}
+                      <circle
+                        cx="80"
+                        cy="80"
+                        r="62"
+                        stroke="#10b981"
+                        strokeWidth="16"
+                        strokeDasharray={`${(tdee > 0 ? ((tdee - bmr) / tdee) * 389.56 : 139).toFixed(2)} 389.56`}
+                        strokeDashoffset={`-${(tdee > 0 ? (bmr / tdee) * 389.56 : 250).toFixed(2)}`}
+                        strokeLinecap="round"
+                        fill="none"
+                        className="transition-all duration-500 ease-out"
+                      />
+                    </>
+                  )}
+                </svg>
+
+                {/* Center Value */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center select-none pointer-events-none">
+                  <span className="text-xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                    {chartView === "macros" ? formatNum(targetCalories) : formatNum(tdee)}
+                  </span>
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-tight">
+                    {chartView === "macros" ? "cal/day" : "TDEE"}
+                  </span>
+                </div>
+              </div>
+
+              {/* Chart Legend */}
+              <div className="flex-1 w-full space-y-2 text-xs">
+                {chartView === "macros" ? (
+                  <>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Protein (30%)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{proteinGrams}g</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Carbs (40%)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{carbGrams}g</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Fats (30%)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{fatGrams}g</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">BMR ({tdee > 0 ? Math.round((bmr / tdee) * 100) : 65}%)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(bmr)} cal</span>
+                    </div>
+
+                    <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-2xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Activity ({tdee > 0 ? Math.round(((tdee - bmr) / tdee) * 100) : 35}%)</span>
+                      </div>
+                      <span className="font-bold text-slate-900 dark:text-white tabular-nums">+{formatNum(tdee - bmr)} cal</span>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
 
