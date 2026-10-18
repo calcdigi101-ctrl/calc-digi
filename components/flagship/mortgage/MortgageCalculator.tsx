@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -164,6 +164,9 @@ function inputFromUrl(q: ReturnType<typeof useQueryStates<typeof urlParsers>>[0]
   const xod = parseYm(q.xod, fallbackStart);
   const pos = (n: number, max: number) => (ok(n, 0, max) ? n : 0);
   const tax = pos(q.tax, q.taxu === "pct" ? 10 : 1e7);
+  const loan = Math.max(0, price - down);
+  const estimatedPmi = down < price * 0.2 ? Math.round(loan * 0.0058) : 0;
+  const pmi = q.pmi !== null && q.pmi !== undefined && q.pmi > 0 ? pos(q.pmi, 1e6) : estimatedPmi;
   return {
     price,
     down,
@@ -172,7 +175,7 @@ function inputFromUrl(q: ReturnType<typeof useQueryStates<typeof urlParsers>>[0]
     start,
     propertyTaxPerYear: q.taxu === "pct" ? (price * tax) / 100 : tax,
     insurancePerYear: pos(q.ins, 1e6),
-    pmiPerYear: pos(q.pmi, 1e6),
+    pmiPerYear: pmi,
     hoaPerMonth: pos(q.hoa, 1e5),
     extraMonthly: pos(q.xm, 1e8),
     extraYearly: pos(q.xy, 1e8),
@@ -254,7 +257,7 @@ export function MortgageCalculator() {
     defaultValues: {
       price: plain(input.price),
       down: plain(input.down),
-      downPct: plain((input.down / input.price) * 100),
+      downPct: plain((input.down / input.price) * 100, 1),
       term: String(input.termYears) as FormValues["term"],
       rate: plain(input.ratePct, 3),
       startMonth: startStr.slice(5, 7),
@@ -262,7 +265,7 @@ export function MortgageCalculator() {
       tax: plain(q.tax, 3),
       taxUnit: q.taxu,
       ins: plain(q.ins),
-      pmi: plain(q.pmi),
+      pmi: plain(input.pmiPerYear),
       hoa: plain(q.hoa),
       xm: plain(q.xm),
       xy: plain(q.xy),
@@ -271,6 +274,18 @@ export function MortgageCalculator() {
       xoYear: xodStr.slice(0, 4),
     },
   });
+
+  // Keep form fields synced if query params change in the URL
+  useEffect(() => {
+    setValue("price", plain(input.price));
+    setValue("down", plain(input.down));
+    setValue("downPct", plain((input.down / input.price) * 100, 1));
+    setValue("term", String(input.termYears) as FormValues["term"]);
+    setValue("rate", plain(input.ratePct, 3));
+    setValue("startMonth", startStr.slice(5, 7));
+    setValue("startYear", startStr.slice(0, 4));
+    setValue("pmi", plain(input.pmiPerYear));
+  }, [input, startStr, setValue]);
 
   const errors = formState.errors;
   const term = watch("term");
@@ -282,18 +297,48 @@ export function MortgageCalculator() {
   const fmtCurrency = (n: number, d = 0) =>
     currency + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 
-  // Down payment $ and % stay in sync
+  // Down payment $ and % stay in sync + auto-adjust PMI
   const downField = register("down", {
     onChange: (e) => {
       const price = num(getValues("price"));
-      if (price > 0) setValue("downPct", plain((num(e.target.value) / price) * 100));
+      if (price > 0) {
+        const val = num(e.target.value);
+        const pct = (val / price) * 100;
+        setValue("downPct", plain(pct, 1));
+        if (pct >= 20) {
+          setValue("pmi", "0");
+        } else {
+          const loan = Math.max(0, price - val);
+          setValue("pmi", plain(Math.round(loan * 0.0058)));
+        }
+      }
     },
   });
   const downPctField = register("downPct", {
-    onChange: (e) => setValue("down", plain((num(getValues("price")) * num(e.target.value)) / 100)),
+    onChange: (e) => {
+      const price = num(getValues("price"));
+      const pct = num(e.target.value);
+      const val = (price * pct) / 100;
+      setValue("down", plain(val));
+      if (pct >= 20) {
+        setValue("pmi", "0");
+      } else {
+        const loan = Math.max(0, price - val);
+        setValue("pmi", plain(Math.round(loan * 0.0058)));
+      }
+    },
   });
   const priceField = register("price", {
-    onChange: (e) => setValue("down", plain((num(e.target.value) * num(getValues("downPct"))) / 100)),
+    onChange: (e) => {
+      const p = num(e.target.value);
+      const pct = num(getValues("downPct"));
+      const val = (p * pct) / 100;
+      setValue("down", plain(val));
+      if (pct < 20) {
+        const loan = Math.max(0, p - val);
+        setValue("pmi", plain(Math.round(loan * 0.0058)));
+      }
+    },
   });
 
   function commit(v: FormValues) {
@@ -448,22 +493,51 @@ export function MortgageCalculator() {
           type="range"
           min={0}
           max={50}
-          step={1}
+          step={0.5}
           value={Math.min(Math.max(watchedDownPct, 0), 50)}
           onChange={(e) => {
             const pct = Number(e.target.value);
-            setValue("downPct", String(pct));
+            setValue("downPct", plain(pct, 1));
             const currentPrice = num(getValues("price")) || DEFAULTS.price;
-            setValue("down", plain((currentPrice * pct) / 100));
+            const downVal = (currentPrice * pct) / 100;
+            setValue("down", plain(downVal));
+            if (pct >= 20) {
+              setValue("pmi", "0");
+            } else {
+              const loan = Math.max(0, currentPrice - downVal);
+              setValue("pmi", plain(Math.round(loan * 0.0058)));
+            }
             commit(getValues());
           }}
           className="mt-2.5 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-600 dark:bg-slate-800"
           aria-label="Down payment percentage range slider"
         />
-        <div className="flex justify-between text-[11px] text-slate-400 mt-1">
-          <span>0%</span>
-          <span className="font-semibold text-emerald-600 dark:text-emerald-400">20% (No PMI)</span>
-          <span>50%</span>
+        <div className="mt-1.5 flex items-center justify-between text-[11px]">
+          <span className="text-slate-400">0%</span>
+          {watchedDownPct < 20 ? (
+            <button
+              type="button"
+              onClick={() => {
+                const currentPrice = num(getValues("price")) || DEFAULTS.price;
+                setValue("downPct", "20");
+                setValue("down", plain(currentPrice * 0.2));
+                setValue("pmi", "0");
+                commit(getValues());
+              }}
+              className="group inline-flex items-center gap-1.5 rounded-md border border-amber-200 bg-amber-50/90 px-2 py-0.5 font-medium text-amber-800 hover:bg-amber-100 hover:border-amber-300 dark:border-amber-900/50 dark:bg-amber-950/40 dark:text-amber-300 transition-colors"
+              title="Click to set down payment to 20% and avoid PMI"
+            >
+              <span>⚠️ {plain(watchedDownPct, 1)}% (PMI applies)</span>
+              <span className="font-semibold underline decoration-dotted group-hover:text-amber-950 dark:group-hover:text-white">
+                Set 20% ({currency}{plain((num(getValues("price")) || DEFAULTS.price) * 0.2)}) to avoid PMI
+              </span>
+            </button>
+          ) : (
+            <span className="inline-flex items-center gap-1 rounded-md border border-emerald-200 bg-emerald-50 px-2 py-0.5 font-medium text-emerald-700 dark:border-emerald-900/40 dark:bg-emerald-950/40 dark:text-emerald-300">
+              ✓ {plain(watchedDownPct, 1)}% — No PMI Required (≥20% down)
+            </span>
+          )}
+          <span className="text-slate-400">50%</span>
         </div>
       </fieldset>
 
@@ -701,10 +775,20 @@ export function MortgageCalculator() {
           {[
             ["Loan amount", fmtCurrency(result.loan)],
             ["Down payment", `${fmtCurrency(input.down)} (${plain((input.down / input.price) * 100, 1)}%)`],
-            [`Total of ${result.rows.length} payments`, fmtCurrency(result.totalPrincipal + result.totalInterest)],
+            [`Total of ${result.rows.length} payments`, fmtCurrency(result.totalPrincipal + result.totalInterest + result.totalPmi)],
             ["Total interest paid", fmtCurrency(result.totalInterest)],
+            ...(result.totalPmi > 0 ? [["Total PMI paid", fmtCurrency(result.totalPmi)]] : []),
             ["Projected payoff date", payoffLabel],
-            ...(result.pmiMonths > 0 ? [["PMI cancellation", `After ${result.pmiMonths} payments (78% LTV)`]] : []),
+            ...(result.pmiMonths > 0
+              ? [
+                  [
+                    "PMI cancellation date",
+                    `After ${result.pmiMonths} payments (${MONTHS[(input.start.month + result.pmiMonths) % 12]} ${
+                      input.start.year + Math.floor((input.start.month + result.pmiMonths) / 12)
+                    } · 78% LTV)`,
+                  ],
+                ]
+              : []),
           ].map(([k, v]) => (
             <div key={k} className="flex items-center justify-between gap-4 py-2.5">
               <dt className="text-slate-600 dark:text-slate-400">{k}</dt>
