@@ -73,24 +73,84 @@
       visibility: hidden !important;
     }
 
+  
+    /* Mobile Navigation Drawer (100% Identical to Calculators & Site Header) */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #f8fafc;
+      z-index: 99;
+      padding: 24px 16px;
+      overflow-y: auto;
+      flex-direction: column;
+      gap: 8px;
+    }
+    @media (min-width: 640px) {
+      .mobile-nav {
+        top: 80px;
+      }
+    }
+    .dark .mobile-nav {
+      background: #090e1a;
+    }
+    .mobile-nav.open {
+      display: flex;
+    }
+    .mobile-nav a {
+      display: block;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #1e293b;
+      border-radius: 12px;
+      border: 1.5px solid #e2e8f0;
+      background: #ffffff;
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .dark .mobile-nav a {
+      color: #f1f5f9;
+      border-color: #1e293b;
+      background: #0f172a;
+    }
+    .mobile-nav a:hover {
+      background: #ecfdf5;
+      border-color: #10b981;
+      color: #065f46;
+    }
+    .dark .mobile-nav a:hover {
+      background: rgba(6, 95, 70, 0.3);
+      border-color: #34d399;
+      color: #6ee7b7;
+    }
+    #mobile-nav-toggle, #hamburger {
+      border: none !important;
+      background: transparent !important;
+      border-radius: 12px !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
   </style>
 </head>
 <body class="bg-[#FCFDFD] dark:bg-[#090e1a] text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white font-sans">
 
-  <!-- ================= 1. NAVBAR (100% CLONE WITH TOP BAR NAV) ================= -->
+  <!-- ================= 1. NAVBAR (100% RESPONSIVE MATCHING CALCULATORS HEADER) ================= -->
   <header class="sticky top-0 z-50 bg-white/95 dark:bg-[#090e1a]/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/80 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
       
       <!-- Brand Logo: CalcDigi• (Serif styled matching screenshot) -->
-      <a href="/" class="flex items-center gap-1 group shrink-0">
-        <span class="font-serif font-bold text-2xl tracking-tight text-slate-900 dark:text-white">CalcDigi</span>
-        <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#18533b] dark:bg-emerald-400 mb-0.5 group-hover:scale-125 transition-transform"></span>
+      <a href="/" class="flex items-center gap-1 group shrink-0" aria-label="CalcDigi Home">
+        <span class="font-serif font-bold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">CalcDigi</span>
+        <span class="inline-block w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#18533b] dark:bg-emerald-400 mb-0.5 group-hover:scale-125 transition-transform"></span>
       </a>
 
       <!-- Screenshot Navigation Links: Home, Calculators, Blog, About -->
       <nav class="hidden md:flex items-center gap-1 lg:gap-2">
-        <a href="/" class="px-4 py-2 rounded-xl bg-[#edf7f2] dark:bg-emerald-950/60 text-[#1b5e20] dark:text-emerald-300 font-semibold text-sm transition-all"
-        >
+        <a href="/" class="px-4 py-2 rounded-xl bg-[#edf7f2] dark:bg-emerald-950/60 text-[#1b5e20] dark:text-emerald-300 font-semibold text-sm transition-all">
           Home
         </a>
         <a 
@@ -99,45 +159,46 @@
         >
           Calculators
         </a>
-        <a href="/pages/blog" class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60 font-medium text-sm transition-all"
-        >
+        <a href="/pages/blog" class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-sm transition-all">
           Blog
         </a>
-        <a href="/pages/about" class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/60 font-medium text-sm transition-all">About</a>
+        <a href="/pages/about" class="px-3.5 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-sm transition-all">About</a>
       </nav>
 
-      <!-- Right Elements: [🌙 Moon] -> [ ● ✨ AI Assistant ] -->
-      <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Right Elements: [🌙 Moon] -> [ ● ✨ AI Assistant ] -> [ ☰ / ✕ Menu Toggle ] -->
+      <div class="flex items-center gap-1.5 sm:gap-3">
         
-        <!-- Dark / Light Mode Moon Button (CENTERED between Search & AI Assistant as requested) -->
+        <!-- Dark / Light Mode Moon Button -->
         <button 
           id="theme-toggle" 
           onclick="toggleTheme()" 
-          class="w-10 h-10 rounded-2xl bg-[#f0f4f8]/85 dark:bg-slate-900 border border-[#e2e8f0] dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all shadow-2xs hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
+          class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-[#f0f4f8]/85 dark:bg-slate-900 border border-[#e2e8f0] dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-center transition-all shadow-2xs hover:scale-105 active:scale-95 shrink-0 cursor-pointer"
           title="Toggle Dark / Light Mode"
           aria-label="Toggle Dark / Light Mode"
         >
-          <span id="theme-moon-icon" class="text-base select-none">🌙</span>
+          <span id="theme-moon-icon" class="text-sm sm:text-base select-none leading-none">🌙</span>
         </button>
 
-        <!-- "✨ AI Assistant" Pill Action Button (100% Matching Screenshot with Blinking Green Dot) -->
+        <!-- "✨ AI Assistant" Pill Action Button with live pulsing green dot -->
         <button 
           onclick="openAiModal()" 
-          class="px-3.5 sm:px-4 py-2 rounded-full bg-[#ecfdf5] dark:bg-emerald-950/50 hover:bg-[#d1fae5] dark:hover:bg-emerald-900/50 border border-[#a7f3d0] dark:border-emerald-800/80 active:scale-95 text-[#065f46] dark:text-emerald-300 font-bold text-xs sm:text-[13px] tracking-tight shadow-2xs hover:shadow-xs transition-all flex items-center gap-2 shrink-0 cursor-pointer"
+          class="px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#ecfdf5] dark:bg-emerald-950/50 hover:bg-[#d1fae5] dark:hover:bg-emerald-900/50 border border-[#a7f3d0] dark:border-emerald-800/80 active:scale-95 text-[#065f46] dark:text-emerald-300 font-bold text-xs sm:text-[13px] tracking-tight shadow-2xs hover:shadow-xs transition-all flex items-center gap-1.5 sm:gap-2 shrink-0 cursor-pointer"
         >
-          <span class="relative flex h-2.5 w-2.5 items-center justify-center shrink-0">
+          <span class="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5 items-center justify-center shrink-0">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 duration-1000"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#10b981] dark:bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.8)]"></span>
+            <span class="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-[#10b981] dark:bg-emerald-400 shadow-[0_0_6px_rgba(16,185,129,0.8)]"></span>
           </span>
-          <span class="text-sm leading-none">✨</span>
-          <span>AI Assistant</span>
+          <span class="text-xs sm:text-sm leading-none">✨</span>
+          <span>AI<span class="hidden min-[380px]:inline"> Assistant</span></span>
         </button>
 
-        <!-- Mobile Menu Toggle Button (Hamburger) -->
+        <!-- Mobile Menu Toggle Button (Hamburger 3-lines / Close Cross ✕ without circle border) -->
         <button 
-          id="mobile-nav-toggle"
-          onclick="toggleMobileNav()" 
-          class="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer ml-1"
+          type="button"
+          id="hamburger"
+          onclick="toggleMobileNav(event)" 
+          class="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer ml-1 border-0 bg-transparent"
+          style="border: none !important; background: transparent !important; border-radius: 12px !important; outline: none !important;"
           aria-label="Toggle navigation menu"
         >
           <svg id="hamburger-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,28 +212,20 @@
       </div>
 
     </div>
-
-    <!-- Mobile Dropdown Navigation -->
-    <div id="mobile-nav-menu" class="hidden md:hidden border-t border-slate-100 dark:border-slate-800 px-4 pt-3 pb-4 bg-white dark:bg-[#090e1a] space-y-1.5 shadow-lg">
-      <a href="/" 
-        onclick="toggleMobileNav()" 
-        class="block px-3.5 py-2 rounded-xl bg-[#edf7f2] dark:bg-emerald-950/60 text-[#1b5e20] dark:text-emerald-300 font-semibold text-sm"
-      >Home</a>
-      <a 
-        href="/calculators" 
-        onclick="toggleMobileNav()" 
-        class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-sm"
-      >
-        Calculators
-      </a>
-      <a href="/pages/blog" onclick="toggleMobileNav()" 
-        class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-sm"
-      >
-        Blog
-      </a>
-      <a href="/pages/about" onclick="toggleMobileNav()" class="block px-3.5 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium text-sm">About</a>
-    </div>
   </header>
+
+  <!-- Mobile Drawer Navigation (Original 9 Links Preserved) -->
+  <div class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/" onclick="toggleMobileNav(event)">🏠 Home</a>
+    <a href="/calculators" onclick="toggleMobileNav(event)">⚡ All Calculators</a>
+    <a href="/pages/finance" onclick="toggleMobileNav(event)">💳 Finance Calculators</a>
+    <a href="/pages/health" onclick="toggleMobileNav(event)">🏋️ Health Calculators</a>
+    <a href="/pages/math" onclick="toggleMobileNav(event)">🧮 Math Calculators</a>
+    <a href="/pages/blog" onclick="toggleMobileNav(event)">📖 Blog &amp; Guides</a>
+    <a href="/pages/about" onclick="toggleMobileNav(event)">ℹ️ About Us</a>
+    <a href="/pages/contact" onclick="toggleMobileNav(event)">✉️ Contact</a>
+    <a href="/pages/privacy-policy" onclick="toggleMobileNav(event)">🔒 Privacy Policy</a>
+  </div>
 
   <!-- ================= 2. HERO SECTION (100% CLONE OF SCREENSHOT) ================= -->
   <section class="hero-bg-glow relative pt-12 pb-20 lg:pt-16 lg:pb-24 px-4 sm:px-8">
@@ -2791,23 +2844,47 @@
       updateThemeIcon(true);
     }
 
-    // MOBILE NAVIGATION DRAWER
-    function toggleMobileNav() {
-      const menu = document.getElementById('mobile-nav-menu');
+    // MOBILE NAVIGATION DRAWER (100% Identical to Calculators Drawer)
+    function toggleMobileNav(e) {
+      if (e) e.stopPropagation();
+      const nav = document.getElementById('mobile-nav');
       const ham = document.getElementById('hamburger-icon');
       const close = document.getElementById('close-icon');
-      if (!menu) return;
-      const isOpen = !menu.classList.contains('hidden');
-      if (isOpen) {
-        menu.classList.add('hidden');
-        ham.classList.remove('hidden');
-        close.classList.add('hidden');
-      } else {
-        menu.classList.remove('hidden');
-        ham.classList.add('hidden');
-        close.classList.remove('hidden');
-      }
+      if (!nav) return;
+      const isOpen = nav.classList.toggle('open');
+      if (ham) ham.classList.toggle('hidden', isOpen);
+      if (close) close.classList.toggle('hidden', !isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     }
+
+    document.addEventListener('click', function(e) {
+      const nav = document.getElementById('mobile-nav');
+      const btn = document.getElementById('hamburger') || document.getElementById('mobile-nav-toggle');
+      if (nav && nav.classList.contains('open')) {
+        if (!nav.contains(e.target) && (!btn || !btn.contains(e.target))) {
+          nav.classList.remove('open');
+          const ham = document.getElementById('hamburger-icon');
+          const close = document.getElementById('close-icon');
+          if (ham) ham.classList.remove('hidden');
+          if (close) close.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const nav = document.getElementById('mobile-nav');
+        if (nav && nav.classList.contains('open')) {
+          nav.classList.remove('open');
+          const ham = document.getElementById('hamburger-icon');
+          const close = document.getElementById('close-icon');
+          if (ham) ham.classList.remove('hidden');
+          if (close) close.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+      }
+    });
 
     // 2. HERO CALCULATOR ENGINE (INTERACTIVE 100% WORKING)
     let currentVal = '2026.42';
