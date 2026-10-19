@@ -215,12 +215,36 @@ body.dark .calc-card{background:rgba(255,255,255,0.045);border-color:rgba(255,25
 .back-top.show{opacity:1;pointer-events:all;}
 .back-top:hover{transform:translateY(-3px);}
 
+/* ── Mobile Nav Toggle Button (No circle outline, exact squircle match) ── */
+#mobile-nav-toggle{
+  background: transparent !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 8px !important;
+  width: auto !important;
+  height: auto !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#mobile-nav-toggle:hover{
+  background: rgba(0,0,0,0.05) !important;
+}
+body.dark #mobile-nav-toggle:hover{
+  background: rgba(255,255,255,0.08) !important;
+}
+@media(min-width:768px){#mobile-nav-toggle{display:none !important;}}
+
 /* ── Mobile Nav Dropdown ── */
 #mobile-nav-menu.hidden{display:none !important;}
 #mobile-nav-menu{border-top:1px solid var(--c-rule);padding:12px 16px 16px;background:var(--c-surface);display:flex;flex-direction:column;gap:6px;box-shadow:0 12px 28px rgba(0,0,0,0.08);}
 #mobile-nav-menu a{display:block;padding:9px 14px;border-radius:12px;font-size:14px;font-weight:500;color:var(--c-ink);text-decoration:none;transition:all 0.15s ease;}
 #mobile-nav-menu a:hover{background:var(--c-rule2);color:var(--c-accent);}
 @media(min-width:768px){#mobile-nav-menu{display:none !important;}}
+
 
 .mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;bottom:0;background:var(--c-bg);z-index:99;padding:24px;overflow-y:auto;flex-direction:column;gap:8px;}
 .mobile-nav.open{display:flex;}
