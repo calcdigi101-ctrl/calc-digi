@@ -1843,16 +1843,19 @@
         id="dir-toggle-btn" 
         type="button"
         onclick="toggleDirectoryExpand()" 
-        class="inline-flex items-center gap-3 px-7 sm:px-8 py-3.5 rounded-2xl text-xs sm:text-sm font-bold bg-white dark:bg-slate-900 hover:bg-emerald-50/70 dark:hover:bg-emerald-950/40 text-slate-800 dark:text-slate-100 border-2 border-emerald-500/30 hover:border-emerald-500 shadow-sm hover:shadow-md active:scale-98 transition-all cursor-pointer group"
+        class="inline-flex items-center justify-center gap-2 sm:gap-3 px-4 py-2.5 sm:px-8 sm:py-3.5 max-w-[92vw] sm:max-w-none rounded-2xl text-xs sm:text-sm font-bold bg-white dark:bg-slate-900 hover:bg-emerald-50/70 dark:hover:bg-emerald-950/40 text-slate-800 dark:text-slate-100 border-2 border-emerald-500/30 hover:border-emerald-500 shadow-xs hover:shadow-md active:scale-95 transition-all cursor-pointer group"
       >
-        <span class="w-7 h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-sm group-hover:scale-110 transition-transform shrink-0">
+        <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 flex items-center justify-center text-xs sm:text-sm group-hover:scale-110 transition-transform shrink-0">
           🗂️
         </span>
-        <span id="dir-toggle-text">Show All 20 Categories (341 Calculators)</span>
-        <span id="dir-toggle-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-xs font-semibold border border-emerald-200/60 dark:border-emerald-800/80 shrink-0">
+        <span id="dir-toggle-text" class="whitespace-nowrap font-bold text-xs sm:text-sm text-slate-800 dark:text-slate-100">
+          <span class="hidden sm:inline">Show All 20 Categories (341 Calculators)</span>
+          <span class="sm:hidden">All 20 Categories</span>
+        </span>
+        <span id="dir-toggle-badge" class="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[10px] sm:text-xs font-semibold border border-emerald-200/60 dark:border-emerald-800/80 shrink-0 whitespace-nowrap">
           +12 More
         </span>
-        <svg id="dir-toggle-chevron" class="w-4 h-4 text-slate-400 group-hover:text-emerald-600 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg id="dir-toggle-chevron" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-400 group-hover:text-emerald-600 transition-transform duration-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
         </svg>
       </button>
@@ -3099,17 +3102,17 @@
       });
 
       if (isDirectoryExpanded) {
-        if (text) text.textContent = 'Show Fewer Categories';
+        if (text) text.innerHTML = '<span class="hidden sm:inline">Show Fewer Categories</span><span class="sm:hidden">Show Fewer</span>';
         if (badge) {
-          badge.textContent = 'Showing All 20';
-          badge.className = 'px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold shrink-0';
+          badge.textContent = 'All 20';
+          badge.className = 'px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] sm:text-xs font-semibold shrink-0 whitespace-nowrap';
         }
         if (chevron) chevron.style.transform = 'rotate(180deg)';
       } else {
-        if (text) text.textContent = 'Show All 20 Categories (341 Calculators)';
+        if (text) text.innerHTML = '<span class="hidden sm:inline">Show All 20 Categories (341 Calculators)</span><span class="sm:hidden">All 20 Categories</span>';
         if (badge) {
           badge.textContent = '+12 More';
-          badge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-xs font-semibold border border-emerald-200/60 dark:border-emerald-800/80 shrink-0';
+          badge.className = 'px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 text-[10px] sm:text-xs font-semibold border border-emerald-200/60 dark:border-emerald-800/80 shrink-0 whitespace-nowrap';
         }
         if (chevron) chevron.style.transform = 'rotate(0deg)';
         const dirSection = document.getElementById('directory-section');
