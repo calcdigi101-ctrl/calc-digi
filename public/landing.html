@@ -2190,9 +2190,9 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Card 1: Compound Interest -->
-        <div 
-          onclick="openArticle(1)" 
-          class="article-card cursor-pointer bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
+        <a 
+          href="/pages/blog/power-of-compound-interest" 
+          class="article-card block bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
         >
           <div>
             <!-- Banner Graphic Container -->
@@ -2219,12 +2219,12 @@
           <div class="px-6 pb-6 pt-1 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
             6 min read • Finance
           </div>
-        </div>
+        </a>
 
         <!-- Card 2: Home Affordability -->
-        <div 
-          onclick="openArticle(2)" 
-          class="article-card cursor-pointer bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
+        <a 
+          href="/pages/blog/how-much-house-can-you-afford" 
+          class="article-card block bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
         >
           <div>
             <div class="h-44 sm:h-48 bg-gradient-to-br from-sky-50 to-blue-50/70 dark:from-slate-800/80 dark:to-sky-950/40 flex items-center justify-center p-6 border-b border-slate-100 dark:border-slate-800/60">
@@ -2249,12 +2249,12 @@
           <div class="px-6 pb-6 pt-1 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
             7 min read • Finance
           </div>
-        </div>
+        </a>
 
         <!-- Card 3: Healthy BMI -->
-        <div 
-          onclick="openArticle(3)" 
-          class="article-card cursor-pointer bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
+        <a 
+          href="/pages/blog/healthy-bmi-for-adults" 
+          class="article-card block bg-white dark:bg-slate-900 rounded-[28px] border border-slate-200/90 dark:border-slate-800 shadow-xs hover:shadow-md transition-all flex flex-col justify-between overflow-hidden group hover:-translate-y-1"
         >
           <div>
             <div class="h-44 sm:h-48 bg-gradient-to-br from-teal-50 to-emerald-50/70 dark:from-slate-800/80 dark:to-teal-950/40 flex items-center justify-center p-6 border-b border-slate-100 dark:border-slate-800/60">
@@ -2279,20 +2279,19 @@
           <div class="px-6 pb-6 pt-1 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
             5 min read • Health
           </div>
-        </div>
+        </a>
 
       </div>
 
       <!-- Bottom Button (Matching screenshot) -->
       <div class="mt-12 text-center">
-        <button 
-          type="button"
-          onclick="openArticleModalOverview()" 
-          class="px-6 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold shadow-xs hover:shadow transition-all inline-flex items-center gap-2 group"
+        <a 
+          href="/pages/blog" 
+          class="px-7 py-3 rounded-2xl border-2 border-emerald-500/30 hover:border-emerald-500 bg-white dark:bg-slate-900 hover:bg-emerald-50/70 dark:hover:bg-emerald-950/40 text-slate-800 dark:text-slate-100 text-xs sm:text-sm font-bold shadow-xs hover:shadow-md active:scale-98 transition-all inline-flex items-center gap-2.5 group cursor-pointer"
         >
           <span>View All Articles</span>
-          <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
-        </button>
+          <span class="group-hover:translate-x-1 transition-transform text-emerald-600 dark:text-emerald-400 font-bold">&rarr;</span>
+        </a>
       </div>
 
     </div>
@@ -3136,6 +3135,75 @@
         const inp = document.getElementById('ai-modal-input');
         if (inp) inp.focus();
       }, 100);
+    }
+
+    // FAQ ACCORDION LOGIC
+    function toggleFaq(id) {
+      const ans = document.getElementById(`faq-ans-${id}`);
+      const icon = document.getElementById(`faq-icon-${id}`);
+      if (!ans) return;
+
+      const isHidden = ans.classList.contains(`hidden`);
+
+      // Close all other FAQs
+      for (let i = 1; i <= 6; i++) {
+        if (i !== id) {
+          const otherAns = document.getElementById(`faq-ans-${i}`);
+          const otherIcon = document.getElementById(`faq-icon-${i}`);
+          if (otherAns) otherAns.classList.add('hidden');
+          if (otherIcon) {
+            otherIcon.textContent = '+';
+            otherIcon.style.transform = 'rotate(0deg)';
+          }
+        }
+      }
+
+      if (isHidden) {
+        ans.classList.remove('hidden');
+        if (icon) {
+          icon.textContent = '−';
+          icon.style.transform = 'rotate(180deg)';
+        }
+      } else {
+        ans.classList.add('hidden');
+        if (icon) {
+          icon.textContent = '+';
+          icon.style.transform = 'rotate(0deg)';
+        }
+      }
+    }
+
+    // ARTICLES DATA & OPEN HELPER
+    const articlesData = {
+      1: {
+        title: "The Power of Compound Interest Explained",
+        category: "FINANCE",
+        readTime: "6 min read",
+        icon: "📈",
+        url: "/pages/blog/power-of-compound-interest"
+      },
+      2: {
+        title: "How Much House Can I Afford in 2026?",
+        category: "FINANCE",
+        readTime: "7 min read",
+        icon: "🏡",
+        url: "/pages/blog/how-much-house-can-you-afford"
+      },
+      3: {
+        title: "What Is a Healthy BMI for Adults?",
+        category: "HEALTH",
+        readTime: "5 min read",
+        icon: "📊",
+        url: "/pages/blog/healthy-bmi-for-adults"
+      }
+    };
+
+    function openArticle(id) {
+      if (articlesData[id] && articlesData[id].url) {
+        window.location.href = articlesData[id].url;
+      } else {
+        window.location.href = "/pages/blog";
+      }
     }
 
     function closeArticleModal() {
