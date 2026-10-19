@@ -109,7 +109,8 @@ export function Header() {
               aria-expanded={isOpen} 
               aria-controls="mobile-nav-menu"
               onClick={toggleNav}
-              className="md:hidden p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer ml-0.5 sm:ml-1"
+              className="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer ml-1 border-0 bg-transparent"
+              style={{ border: "none", background: "transparent", borderRadius: "12px" }}
             >
               <svg 
                 id="hamburger-icon" 
