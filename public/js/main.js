@@ -199,6 +199,11 @@ function setMobileNav(open){
     }
   }
 }
+window.openAiWithPrompt=function(text){
+  setAIPanel(true);
+  const inp=document.getElementById('ai-panel-input');
+  if(inp){inp.value=text;inp.focus();}
+};
 function setAIPanel(open){
   const panel=document.getElementById('ai-panel');
   if(!panel)return;
