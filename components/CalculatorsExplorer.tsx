@@ -64,7 +64,7 @@ export default function CalculatorsExplorer({
   }, [allCalculators, activeFilter, query, categoryLabelById]);
 
   const listKey = `${activeFilter}|${query}`;
-  const expanded = expandedFor === listKey || query !== "";
+  const expanded = expandedFor === listKey || query !== "" || activeFilter !== "all";
   const hiddenOnMobile = expanded ? 0 : Math.max(0, visibleCalculators.length - MOBILE_PREVIEW_COUNT);
 
   const hasActiveFilters = activeFilter !== defaultFilter || searchInput.trim() !== "";
