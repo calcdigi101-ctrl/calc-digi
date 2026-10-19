@@ -3588,13 +3588,23 @@
         prompt = 'My estimated daily maintenance calories are ' + res + '. Can you recommend a balanced macro split (protein, carbs, fats) and healthy meal plan for my goals?';
       }
       openAiModal();
-      const inp = document.getElementById('ai-modal-input');
+      const inp = document.getElementById('ai-prompt-input') || document.getElementById('ai-modal-input') || document.getElementById('ai-panel-input');
       if (inp) {
         inp.value = prompt;
         inp.focus();
       }
     }
 
+    
+    function fillAiPrompt(text) {
+      openAiModal();
+      const inp = document.getElementById('ai-prompt-input') || document.getElementById('ai-modal-input');
+      if (inp) {
+        inp.value = text;
+        inp.focus();
+      }
+    }
+  
     function openAiModal() {
       const modal = document.getElementById('ai-modal');
       modal.style.display = 'flex';
