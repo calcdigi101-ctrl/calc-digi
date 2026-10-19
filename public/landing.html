@@ -833,13 +833,18 @@
         </div>
 
         <!-- "View all 341 tools →" Link directly under the search bar -->
-        <a 
-          href="/calculators" 
-          class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors flex items-center gap-1.5 self-end"
-        >
-          <span>View all 341 tools</span>
-          <span class="text-sm leading-none">&rarr;</span>
-        </a>
+        <div class="w-full flex items-center justify-between pt-0.5">
+          <span class="text-[11px] text-slate-400 dark:text-slate-500 font-medium">341+ tools indexed</span>
+          <a 
+            href="/calculators" 
+            onclick="window.location.href='/calculators'"
+            onmousedown="window.location.href='/calculators'"
+            class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline transition-colors flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>View all 341 tools</span>
+            <span class="text-sm leading-none">&rarr;</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -891,9 +896,20 @@
             Matching Calculators
           </h3>
         </div>
-        <span id="dir-matching-tools-count" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800">
-          0 tools found
-        </span>
+        <div class="flex items-center gap-3">
+          <span id="dir-matching-tools-count" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800">
+            0 tools found
+          </span>
+          <a 
+            href="/calculators" 
+            onclick="window.location.href='/calculators'"
+            onmousedown="window.location.href='/calculators'"
+            class="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline flex items-center gap-1 cursor-pointer"
+          >
+            <span>View all 341 tools</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
       </div>
 
       <!-- Responsive Grid for Matching Calculators with Category Mention -->
@@ -3226,7 +3242,7 @@
           `;
           topTools.forEach(t => {
             dropHtml += `
-              <a href="${t.u}" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-emerald-50/80 dark:hover:bg-emerald-950/40 text-slate-800 dark:text-slate-100 group transition-colors">
+              <a href="${t.u}" onclick="window.location.href='${t.u}'" onmousedown="window.location.href='${t.u}'" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-emerald-50/80 dark:hover:bg-emerald-950/40 text-slate-800 dark:text-slate-100 group transition-colors cursor-pointer">
                 <div class="flex items-center gap-2.5 min-w-0 pr-2">
                   <span class="text-base shrink-0">${t.i}</span>
                   <span class="text-xs font-bold truncate group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">${t.n}</span>
@@ -3238,10 +3254,11 @@
             `;
           });
           dropHtml += `
-              <div class="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between px-3 pb-1">
+              <div class="pt-2 mt-1 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between px-3 pb-1 bg-slate-50/60 dark:bg-slate-800/40 rounded-b-xl">
                 <span class="text-[11px] text-slate-400">Showing top results</span>
-                <a href="/calculators" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
-                  All 341 tools &rarr;
+                <a href="/calculators" onclick="window.location.href='/calculators'" onmousedown="window.location.href='/calculators'" ontouchstart="window.location.href='/calculators'" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 hover:underline flex items-center gap-1 cursor-pointer">
+                  <span>All 341 tools</span>
+                  <span>&rarr;</span>
                 </a>
               </div>
             </div>
