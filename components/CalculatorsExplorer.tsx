@@ -83,57 +83,97 @@ export default function CalculatorsExplorer({
   return (
     <div className="calc-explorer">
       <aside className="calc-sidebar">
+        {/* Search Bar: Always visible on mobile main view & desktop sidebar */}
+        <div className="calc-search-wrap">
+          <svg
+            className="calc-search-icon"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            type="search"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="Search 341+ calculators…"
+            aria-label="Search calculators by name or category"
+          />
+          {searchInput && (
+            <button
+              type="button"
+              className="calc-search-clear"
+              onClick={() => setSearchInput("")}
+              aria-label="Clear search"
+            >
+              ✕
+            </button>
+          )}
+        </div>
+
+        {/* Mobile Filter Toggle: Shows selected category name & count */}
         <button
           type="button"
           className="calc-filter-toggle"
           aria-expanded={mobileFiltersOpen}
           onClick={() => setMobileFiltersOpen((open) => !open)}
         >
-          <span>
-            Filters
-            {hasActiveFilters && <span className="cft-badge">{visibleCalculators.length}</span>}
-          </span>
-          <span className="cft-chevron">▾</span>
+          <div className="cft-label-wrap">
+            <span className="cft-icon">{activeCategory ? activeCategory.emoji : "🗂️"}</span>
+            <span className="cft-name truncate">
+              {activeCategory ? activeCategory.label : "All Categories"}
+            </span>
+          </div>
+          <div className="cft-right-wrap">
+            <span className="cft-badge">
+              {visibleCalculators.length}
+            </span>
+            <span className="cft-chevron">▾</span>
+          </div>
         </button>
 
-        <div className={`calc-sidebar-body${mobileFiltersOpen ? " open" : ""}`}>
-          <div className="calc-search-wrap">
-            <svg
-              className="calc-search-icon"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              aria-hidden="true"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <path d="m21 21-4.35-4.35" />
-            </svg>
-            <input
-              type="search"
-              value={searchInput}
-              onChange={(e) => setSearchInput(e.target.value)}
-              placeholder="Search calculators…"
-              aria-label="Search calculators by name or category"
-            />
-            {searchInput && (
+        {/* Mobile quick action bar when a category is selected */}
+        {activeCategory && (
+          <div className="calc-mobile-active-category">
+            <span className="cmac-current">
+              Category: <strong>{activeCategory.label}</strong>
+            </span>
+            <div className="cmac-actions">
               <button
                 type="button"
-                className="calc-search-clear"
-                onClick={() => setSearchInput("")}
-                aria-label="Clear search"
+                className="cmac-reset-btn"
+                onClick={() => {
+                  setActiveFilter("all");
+                  setMobileFiltersOpen(false);
+                }}
               >
-                ✕
+                ✕ All Categories
               </button>
-            )}
+              <button
+                type="button"
+                className="cmac-change-btn"
+                onClick={() => setMobileFiltersOpen((open) => !open)}
+              >
+                Change ▾
+              </button>
+            </div>
           </div>
+        )}
 
+        <div className={`calc-sidebar-body${mobileFiltersOpen ? " open" : ""}`}>
           {hasActiveFilters && (
             <div className="calc-sidebar-meta">
+              <span className="calc-meta-text">
+                {activeCategory ? `${activeCategory.label} (${visibleCalculators.length})` : "Active Filter"}
+              </span>
               <button type="button" className="calc-reset-btn" onClick={resetFilters}>
-                Reset Filters
+                Reset to All
               </button>
             </div>
           )}
@@ -145,10 +185,13 @@ export default function CalculatorsExplorer({
                   type="button"
                   className={`calc-cat-item${activeFilter === "all" ? " active" : ""}`}
                   aria-pressed={activeFilter === "all"}
-                  onClick={() => setActiveFilter("all")}
+                  onClick={() => {
+                    setActiveFilter("all");
+                    setMobileFiltersOpen(false);
+                  }}
                 >
                   <span className="calc-cat-item-label">
-                    <span>🧮</span>
+                    <span>🗂️</span>
                     <span>All Categories</span>
                   </span>
                   <span className="calc-cat-item-count">{allCalculators.length}</span>
@@ -161,7 +204,10 @@ export default function CalculatorsExplorer({
                   type="button"
                   className={`calc-cat-item${activeFilter === category.id ? " active" : ""}`}
                   aria-pressed={activeFilter === category.id}
-                  onClick={() => setActiveFilter(category.id)}
+                  onClick={() => {
+                    setActiveFilter(category.id);
+                    setMobileFiltersOpen(false);
+                  }}
                 >
                   <span className="calc-cat-item-label">
                     <span>{category.emoji}</span>
