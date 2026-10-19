@@ -1,12 +1,54 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { NavLinks } from "./NavLinks";
+
+const NAV_ITEMS = [
+  { href: "/", label: "Home", match: (p: string) => p === "/" },
+  { href: "/calculators", label: "Calculators", match: (p: string) => p.startsWith("/calculators") || /^\/pages\/(?!blog|about|contact|privacy|terms|disclaimer)/.test(p) },
+  { href: "/pages/blog", label: "Blog", match: (p: string) => p.startsWith("/pages/blog") },
+  { href: "/pages/about", label: "About", match: (p: string) => p.startsWith("/pages/about") },
+];
 
 /**
  * Site header with top bar navigation, search box, centered dark mode moon,
- * and AI Assistant pill button with live pulsing green status dot.
+ * AI Assistant pill button, and matching 3-lines / cross mobile menu toggle.
  */
 export function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname() ?? "";
+
+  // Close mobile nav on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  // Close mobile nav on escape key or outside click
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target && !target.closest("#mobile-nav-toggle") && !target.closest("#hamburger") && !target.closest("#mobile-nav-menu")) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  const toggleNav = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
+
   return (
     <>
       <a href="#main" className="skip-link">
@@ -28,10 +70,10 @@ export function Header() {
             <NavLinks />
           </nav>
 
-          {/* Right Elements: [🌙 Moon] -> [ ● ✨ AI Assistant ] */}
+          {/* Right Elements: [🌙 Moon] -> [ ● ✨ AI Assistant ] -> [ ☰ / ✕ Menu Toggle ] */}
           <div className="flex items-center gap-1.5 sm:gap-3">
 
-            {/* Dark / Light Mode Moon Button (CENTERED between Search & AI Assistant as requested) */}
+            {/* Dark / Light Mode Moon Button */}
             <button 
               type="button"
               id="dark-toggle" 
@@ -59,37 +101,65 @@ export function Header() {
               <span>AI<span className="hidden min-[380px]:inline"> Assistant</span></span>
             </button>
 
-            {/* Mobile Menu Toggle Button (Hamburger) */}
+            {/* Mobile Menu Toggle Button (Hamburger 3-lines / Close Cross ✕) */}
             <button 
               type="button"
-              id="hamburger"
-              aria-label="Open menu" 
-              aria-expanded="false" 
-              aria-controls="mobile-nav"
+              id="mobile-nav-toggle"
+              aria-label={isOpen ? "Close menu" : "Open menu"} 
+              aria-expanded={isOpen} 
+              aria-controls="mobile-nav-menu"
+              onClick={toggleNav}
               className="md:hidden p-1.5 sm:p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none cursor-pointer ml-0.5 sm:ml-1"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg 
+                id="hamburger-icon" 
+                className={`w-5 h-5 ${isOpen ? "hidden" : "block"}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+              <svg 
+                id="close-icon" 
+                className={`w-5 h-5 ${isOpen ? "block" : "hidden"}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
 
           </div>
 
         </div>
-      </header>
 
-      {/* Mobile Drawer Navigation */}
-      <div className="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-        <a href="/">🏠 Home</a>
-        <a href="/calculators">⚡ All Calculators</a>
-        <a href="/pages/finance">💳 Finance Calculators</a>
-        <a href="/pages/health">🏋️ Health Calculators</a>
-        <a href="/pages/math">🧮 Math Calculators</a>
-        <a href="/pages/blog">📖 Blog &amp; Guides</a>
-        <a href="/pages/about">ℹ️ About Us</a>
-        <a href="/pages/contact">✉️ Contact</a>
-        <a href="/pages/privacy-policy">🔒 Privacy Policy</a>
-      </div>
+        {/* Mobile Dropdown Navigation (Exact match to landing.html) */}
+        <div 
+          id="mobile-nav-menu" 
+          className={`${isOpen ? "block" : "hidden"} md:hidden border-t border-slate-100 dark:border-slate-800 px-4 pt-3 pb-4 bg-white dark:bg-[#090e1a] space-y-1.5 shadow-lg`}
+        >
+          {NAV_ITEMS.map((item) => {
+            const active = item.match(pathname);
+            return (
+              <a 
+                key={item.href}
+                href={item.href} 
+                onClick={() => setIsOpen(false)} 
+                className={`block px-3.5 py-2 rounded-xl font-medium text-sm transition-colors ${
+                  active 
+                    ? "bg-[#edf7f2] dark:bg-emerald-950/60 text-[#1b5e20] dark:text-emerald-300 font-semibold" 
+                    : "text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
+      </header>
 
       {/* Existing AI Assistant Dialog Panel (Preserves full chat functionality) */}
       <div className="ai-assistant-panel" id="ai-panel" role="dialog" aria-label="AI Calculator Assistant">
