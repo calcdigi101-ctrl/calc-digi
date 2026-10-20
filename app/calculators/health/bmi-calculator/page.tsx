@@ -70,6 +70,20 @@ export default function Page() {
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             },
             {
+              "@type": "MathSolver",
+              name: "BMI Calculator",
+              url: `${SITE_URL}${PATH}`,
+              description: DESCRIPTION,
+              potentialAction: [
+                {
+                  "@type": "SolveAction",
+                  target: `${SITE_URL}${PATH}`,
+                  mathExpression: "BMI = weight (kg) / [height (m)]^2",
+                  eduQuestionType: "Body Mass Index",
+                },
+              ],
+            },
+            {
               "@type": "FAQPage",
               mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
             },

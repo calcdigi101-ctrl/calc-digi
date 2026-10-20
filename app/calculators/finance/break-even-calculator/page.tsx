@@ -17,6 +17,7 @@ export default function Page() {
       intro="Work out how many units you need to sell — and how much revenue you need — before your business starts making a profit."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
+      mathExpression="Break-even units = Fixed costs / (Price - Variable cost per unit)"
       article={
         <>
           <h2>Break-even formula</h2>

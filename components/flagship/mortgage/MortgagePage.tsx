@@ -74,6 +74,20 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             },
             {
+              "@type": "MathSolver",
+              name: "Mortgage Calculator",
+              url: `${SITE_URL}${path}`,
+              description: DESCRIPTION,
+              potentialAction: [
+                {
+                  "@type": "SolveAction",
+                  target: `${SITE_URL}${path}`,
+                  mathExpression: "M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1]",
+                  eduQuestionType: "Financial Mathematics",
+                },
+              ],
+            },
+            {
               "@type": "FAQPage",
               mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
             },

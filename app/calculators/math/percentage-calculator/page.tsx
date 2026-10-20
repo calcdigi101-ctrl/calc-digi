@@ -100,6 +100,20 @@ export default function Page() {
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             },
             {
+              "@type": "MathSolver",
+              name: "Percentage Calculator",
+              url: `${SITE_URL}${PATH}`,
+              description: DESCRIPTION,
+              potentialAction: [
+                {
+                  "@type": "SolveAction",
+                  target: `${SITE_URL}${PATH}`,
+                  mathExpression: "P = (X / Y) * 100",
+                  eduQuestionType: "Percentage",
+                },
+              ],
+            },
+            {
               "@type": "HowTo",
               name: "How to Calculate Percentages",
               description: "Step-by-step instructions to calculate percentages of numbers, proportions, and percentage changes.",

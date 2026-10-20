@@ -2,6 +2,12 @@
 
 > Free online calculation tools, interactive visual graphs, and smart calculators across Finance, Health, Math, Science, Internet, Geography, Transportation, and more.
 
+## Formulas & Methodology
+- Mortgage Payment: M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1]
+- BMI Formula: weight (kg) / [height (m)]^2
+- Break Even (units): Fixed Costs / (Price - Variable Cost per Unit)
+- All calculations run 100% client-side in-browser with zero telemetry.
+
 ## Core Calculators & Tools
 
 - [Mortgage Calculator](https://calc-digi.vercel.app/calculators/finance/mortgage-calculator): Calculate monthly mortgage payments, amortization schedule, taxes, insurance, PMI, and extra payments.

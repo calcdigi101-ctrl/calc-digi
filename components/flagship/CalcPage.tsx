@@ -18,6 +18,7 @@ export function CalcPage({
   html,
   faq = [],
   related = [],
+  mathExpression,
   children,
 }: {
   path: string;
@@ -32,6 +33,7 @@ export function CalcPage({
   html?: string;
   faq?: { q: string; a: string }[];
   related?: { href: string; icon: string; name: string }[];
+  mathExpression?: string;
   children: ReactNode;
 }) {
   const graph: object[] = [
@@ -54,6 +56,22 @@ export function CalcPage({
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
   ];
+  if (category.label === "Finance" || category.label === "Math" || appCategory === "FinanceApplication") {
+    graph.push({
+      "@type": "MathSolver",
+      name: title,
+      url: `${SITE_URL}${path}`,
+      description,
+      potentialAction: [
+        {
+          "@type": "SolveAction",
+          target: `${SITE_URL}${path}`,
+          ...(mathExpression ? { mathExpression } : {}),
+          eduQuestionType: category.label === "Finance" ? "Financial Mathematics" : "Mathematics",
+        },
+      ],
+    });
+  }
   if (faq.length) {
     graph.push({
       "@type": "FAQPage",
