@@ -1,0 +1,28 @@
+# CalcDigi
+
+> Free online calculation tools, interactive visual graphs, and smart calculators across Finance, Health, Math, Science, Internet, Geography, Transportation, and more.
+
+## Core Calculators & Tools
+
+- [Mortgage Calculator](https://calc-digi.vercel.app/calculators/finance/mortgage-calculator): Calculate monthly mortgage payments, amortization schedule, taxes, insurance, PMI, and extra payments.
+- [BMI Calculator](https://calc-digi.vercel.app/calculators/health/bmi-calculator): Compute Body Mass Index, healthy weight range, and category breakdowns.
+- [Compound Interest Calculator](https://calc-digi.vercel.app/calculators/finance/compound-interest-calculator): Calculate investment growth with compound interest and regular contributions.
+- [Loan Calculator](https://calc-digi.vercel.app/calculators/finance/loan-calculator): Estimate personal or auto loan repayments and interest costs.
+- [Calorie Calculator](https://calc-digi.vercel.app/calculators/health/calorie-calculator): Calculate daily caloric requirements based on BMR, age, and activity level.
+- [Percentage Calculator](https://calc-digi.vercel.app/calculators/math/percentage-calculator): Compute percentages, percent changes, and fraction conversions.
+- [Age Calculator](https://calc-digi.vercel.app/calculators/datetime/age-calculator): Exact age calculation in years, months, days, hours, and minutes.
+- [Auto Loan Calculator](https://calc-digi.vercel.app/calculators/finance/auto-loan-calculator): Car financing, monthly payments, trade-in value, and taxes.
+
+## Categories
+
+- [Finance](https://calc-digi.vercel.app/pages/finance): Mortgage, loan, investment, interest, tax, and budget calculators.
+- [Health](https://calc-digi.vercel.app/pages/health): BMI, calorie, body fat, macro, and fitness calculators.
+- [Math](https://calc-digi.vercel.app/pages/math): Algebra, geometry, percentage, fraction, and scientific calculations.
+- [Science](https://calc-digi.vercel.app/pages/science): Physics, chemistry, molarity, density, and half-life calculators.
+- [Internet](https://calc-digi.vercel.app/pages/internet): Bandwidth, data transfer, download speed, and IP subnet calculators.
+- [Transportation](https://calc-digi.vercel.app/pages/transportation): Fuel cost, mileage, commute, EV savings, and travel calculators.
+
+## Full Directory
+
+- [All 340+ Calculators](https://calc-digi.vercel.app/pages/calculators): Complete searchable directory of calculators and tools.
+- [Sitemap](https://calc-digi.vercel.app/sitemap.xml): Complete machine-readable XML index of all 372 URLs.
