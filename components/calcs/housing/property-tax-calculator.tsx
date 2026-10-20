@@ -79,7 +79,7 @@ export const config: CalcConfig = {
       note: {
         text: (
           <span>
-            💡 <strong>Homestead Exemption & Escrow Notice:</strong> Filing an official primary residence homestead exemption can shield \$25,000 to \$50,000+ of assessed value from taxation each year. Mortgage lenders collect 1/12th of this total monthly plus an allowed 2-month escrow cushion under federal RESPA guidelines.
+            💡 <strong>Homestead Exemption & Escrow Notice:</strong> Filing an official primary residence homestead exemption can shield $25,000 to $50,000+ of assessed value from taxation each year. Mortgage lenders collect 1/12th of this total monthly plus an allowed 2-month escrow cushion under federal RESPA guidelines.
           </span>
         ),
         tone: "info",

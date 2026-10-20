@@ -171,12 +171,12 @@ export default function Page() {
           <h2>Understanding Millage Rates and Mills</h2>
           <p>
             Tax assessors and local town budgets frequently quote property taxes in terms of <strong>mills</strong>. One mill represents
-            one-thousandth of a dollar ($0.001), or exactly \$1 in tax for every \$1,000 of taxable assessed property value.
+            one-thousandth of a dollar ($0.001), or exactly $1 in tax for every $1,000 of taxable assessed property value.
           </p>
           <ul>
-            <li><strong>10 mills</strong> equals a 1.00% tax rate (\$1,000 per \$100,000 assessed value).</li>
-            <li><strong>25 mills</strong> equals a 2.50% tax rate (\$2,500 per \$100,000 assessed value).</li>
-            <li><strong>45 mills</strong> equals a 4.50% tax rate (\$4,500 per \$100,000 assessed value).</li>
+            <li><strong>10 mills</strong> equals a 1.00% tax rate ($1,000 per $100,000 assessed value).</li>
+            <li><strong>25 mills</strong> equals a 2.50% tax rate ($2,500 per $100,000 assessed value).</li>
+            <li><strong>45 mills</strong> equals a 4.50% tax rate ($4,500 per $100,000 assessed value).</li>
           </ul>
 
           <h2>50-State Property Tax Benchmark Table</h2>

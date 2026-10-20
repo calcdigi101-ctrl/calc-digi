@@ -209,7 +209,7 @@ export default function Page() {
             </li>
             <li>
               <strong>Switch to Heat Pump Technology:</strong> Upgrading from an electric resistance water heater or electric baseboard heat to an
-              ENERGY STAR certified hybrid heat pump uses up to 70% less electricity, saving \$330+ per year.
+              ENERGY STAR certified hybrid heat pump uses up to 70% less electricity, saving $330+ per year.
             </li>
             <li>
               <strong>Eliminate Phantom Standby Loads:</strong> Plug entertainment consoles, audio receivers, and PC workstations into smart power

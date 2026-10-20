@@ -55,7 +55,7 @@ export const config: CalcConfig = {
         label: "Monthly electricity cost",
         value: `$${monthlyCost.toFixed(2)}/mo`,
         unit: `(${usd0(annualCost)}/year)`,
-        sub: `Consumes ${dailyKwh.toFixed(2)} kWh/day (${monthlyKwh.toFixed(0)} kWh/month) at \$${rate.toFixed(3)}/kWh`,
+        sub: `Consumes ${dailyKwh.toFixed(2)} kWh/day (${monthlyKwh.toFixed(0)} kWh/month) at $${rate.toFixed(3)}/kWh`,
       },
       badge: {
         text: badgeText,
