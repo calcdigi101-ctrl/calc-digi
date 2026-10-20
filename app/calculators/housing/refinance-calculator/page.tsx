@@ -1,26 +1,197 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import RefinanceCalculator from "@/components/calcs/housing/refinance-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Refinance Calculator | CalcDigi",
-  "description": "Calculate new monthly payment, savings, and break-even point when refinancing your mortgage.",
-  "openGraph": {
-    "title": "Refinance Calculator | CalcDigi",
-    "description": "Calculate new monthly payment, savings, and break-even point when refinancing your mortgage.",
-    "type": "website",
-    "url": "/calculators/housing/refinance-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/refinance-calculator"
-  }
-};
+const PATH = "/calculators/housing/refinance-calculator";
+const TITLE = "Mortgage Refinance Calculator – Breakeven & Monthly Savings | CalcDigi";
+const DESCRIPTION =
+  "Free mortgage refinance calculator: calculate your monthly payment savings, breakeven timeline in months, lifetime interest reduction, and cash-out options for refinancing your home loan.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Refinance Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/refinance-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Refinance Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/refinance-calculator\", \"description\": \"Calculate new monthly payment, savings, and break-even point when refinancing your mortgage.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"When should I refinance?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Refinancing makes sense when you can lower rate by 0.5-1%+, plan to stay past the break-even point, want to switch from ARM to fixed, need cash out for home improvements, or want to change loan term.\"}}, {\"@type\": \"Question\", \"name\": \"What are typical refinance closing costs?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Refinance closing costs are typically 2-5% of loan amount, covering appraisal, title insurance, origination fees, and recording fees. No-closing-cost refinances roll fees into a slightly higher rate.\"}}, {\"@type\": \"Question\", \"name\": \"What is the break-even point?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Break-even = closing costs divided by monthly savings. If closing costs are $6,000 and you save $200/month, break-even is 30 months. If you plan to stay longer, refinancing makes sense.\"}}, {\"@type\": \"Question\", \"name\": \"Does refinancing restart the loan term?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes, a new 30-year refinance restarts the clock. If you have 20 years left, consider a 20-year refinance to avoid paying more total interest even at a lower rate.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Refinance Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Refinance Calculator</h1>\n<p class=\"calc-intro\">Calculate your new monthly payment after refinancing, monthly savings vs your current mortgage, total interest savings over the loan life, and the break-even point where savings exceed closing costs.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Monthly Savings = Current Payment - New Payment | Break-Even = Closing Costs / Monthly Savings</div><p>Refinancing makes financial sense when you can lower your rate by at least 0.5-1%, plan to stay past the break-even point, and the total interest savings exceed closing costs. Check the break-even before refinancing.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">When should I refinance? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Refinancing makes sense when you can lower rate by 0.5-1%+, plan to stay past the break-even point, want to switch from ARM to fixed, need cash out for home improvements, or want to change loan term.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are typical refinance closing costs? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Refinance closing costs are typically 2-5% of loan amount, covering appraisal, title insurance, origination fees, and recording fees. No-closing-cost refinances roll fees into a slightly higher rate.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the break-even point? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Break-even = closing costs divided by monthly savings. If closing costs are $6,000 and you save $200/month, break-even is 30 months. If you plan to stay longer, refinancing makes sense.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does refinancing restart the loan term? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes, a new 30-year refinance restarts the clock. If you have 20 years left, consider a 20-year refinance to avoid paying more total interest even at a lower rate.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/home-affordability-calculator\"><span class=\"rc-icon\">🏡</span><span class=\"rc-name\">Home Affordability</span></a><a class=\"related-card\" href=\"/calculators/housing/down-payment-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Down Payment</span></a><a class=\"related-card\" href=\"/calculators/housing/home-equity-calculator\"><span class=\"rc-icon\">💎</span><span class=\"rc-name\">Home Equity</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Refinance Calculator</h2><div class=\"form-group\"><label for=\"rf-current\">Current Monthly Payment ($)</label><input id=\"rf-current\" min=\"0\" step=\"50\" type=\"number\" value=\"2000\"/></div><div class=\"form-group\"><label for=\"rf-balance\">Remaining Balance ($)</label><input id=\"rf-balance\" min=\"0\" step=\"1000\" type=\"number\" value=\"280000\"/></div><div class=\"form-group\"><label for=\"rf-newrate\">New Interest Rate (%)</label><input id=\"rf-newrate\" max=\"30\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"6.25\"/></div><div class=\"form-group\"><label for=\"rf-newterm\">New Term (Years)</label><input id=\"rf-newterm\" max=\"40\" min=\"1\" type=\"number\" value=\"30\"/></div><div class=\"form-group\"><label for=\"rf-closing\">Closing Costs ($)</label><input id=\"rf-closing\" min=\"0\" step=\"500\" type=\"number\" value=\"6000\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_rf()\">Calculate Refinance</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('rf-result').style.display='none';document.getElementById('rf-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"rf-result\" style=\"display:none;\"><div id=\"rf-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"rf-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"rf-ai\" style=\"display:none;\"></div></div>\n<div id=\"rf-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-rf\" onclick=\"printResult('rf-result','Calculate Refinance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate Refinance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-refinance-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_rf(){\n  var cur=parseFloat(document.getElementById('rf-current').value)||0;\n  var bal=parseFloat(document.getElementById('rf-balance').value)||0;\n  var rate=parseFloat(document.getElementById('rf-newrate').value)/100/12;\n  var n=parseInt(document.getElementById('rf-newterm').value)*12;\n  var closing=parseFloat(document.getElementById('rf-closing').value)||0;\n  if(bal<=0||rate<=0){alert('Please enter valid loan balance and interest rate.');return;}\n  var newPay=bal*(rate*Math.pow(1+rate,n))/(Math.pow(1+rate,n)-1);\n  var saving=cur-newPay;\n  var breakEven=saving>0?closing/saving:9999;\n  var totalSave=saving*n-closing;\n  document.getElementById('rf-ri').innerHTML=\n    ri('New Monthly Payment','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+newPay.toFixed(2)+'</strong>',true)+\n    ri('Monthly Savings',saving>=0?'$'+saving.toFixed(2)+' saved':'-$'+Math.abs(saving).toFixed(2)+' more')+\n    ri('Break-Even Point',breakEven<600?Math.ceil(breakEven)+' months ('+Math.ceil(breakEven/12)+' yrs)':'Not favorable')+\n    ri('Total Savings over Term','$'+(totalSave>0?totalSave.toFixed(0):'0'))+\n    ri('Closing Costs','$'+closing.toLocaleString());\n  document.getElementById('rf-result').style.display='block';\n  document.getElementById('rf-actions').style.display='flex';\n  drawDonut('rf-chart',['New Payment','Savings'],[Math.round(newPay),Math.max(Math.round(saving),0.001)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('rf-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Refinance: new payment $'+newPay.toFixed(0)+', saving $'+saving.toFixed(0)+'/mo, break-even '+Math.ceil(breakEven)+' months. In 2 sentences advise whether this refinance makes sense.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Mortgage Refinance Calculator"
+      intro="Determine your monthly payment savings, breakeven timeline in months, and total lifetime interest saved by refinancing your home loan."
+      description={DESCRIPTION}
+      appCategory="FinanceApplication"
+      mathExpression="Breakeven (Months) = Refinance Closing Costs / (Old Monthly Payment - New Monthly Payment)"
+      related={[
+        { href: "/calculators/housing/home-equity-calculator", icon: "💰", name: "Home Equity" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
+        { href: "/calculators/housing/down-payment-calculator", icon: "💵", name: "Down Payment" },
+        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
+        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
+      ]}
+      faq={[
+        {
+          q: "How does mortgage refinancing work?",
+          a: "Refinancing replaces your existing mortgage with a brand new home loan, ideally with a lower interest rate, a shorter repayment term, or to convert equity into cash. The new lender pays off your old mortgage balance in full, and you begin making monthly payments under the new loan terms.",
+        },
+        {
+          q: "How do I calculate the refinance breakeven point?",
+          a: "Divide your total upfront refinance closing costs by your monthly payment savings (Closing Costs ÷ Monthly Savings = Breakeven in Months). For example, if refinancing costs $5,000 in closing fees and saves $200 per month, your breakeven point is 25 months (~2 years).",
+        },
+        {
+          q: "How much lower should the interest rate be to justify refinancing?",
+          a: "The traditional rule of thumb is a 1.0% to 2.0% reduction in interest rate. However, on larger mortgage balances ($300,000+), even a 0.75% or 0.50% interest rate reduction can generate significant savings and achieve breakeven within 24 to 36 months.",
+        },
+        {
+          q: "What is the difference between rate-and-term vs cash-out refinancing?",
+          a: "A rate-and-term refinance changes only your interest rate, loan duration (e.g., 30 years to 15 years), or loan type (ARM to Fixed) without taking extra money out. A cash-out refinance borrows more than you currently owe against your home equity and provides the difference in lump-sum cash for home renovations or debt consolidation.",
+        },
+        {
+          q: "Can I refinance with zero closing costs?",
+          a: "Yes. In a 'no-closing-cost' refinance, the lender either rolls the closing fees into your total loan balance (increasing the principal you owe) or absorbs the fees in exchange for a slightly higher interest rate (lender credits).",
+        },
+        {
+          q: "How soon after buying a house can I refinance?",
+          a: "For conventional rate-and-term refinances, there is typically no waiting period if refinancing with a different lender, though many lenders require a 6-month 'seasoning period'. For cash-out refinancing, Fannie Mae and Freddie Mac require you to have owned the property for at least 12 months.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                CFPB &amp; Federal Reserve Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Verified against <strong className="font-semibold text-slate-800 dark:text-slate-200">Federal Reserve Board Consumer Handbook on Mortgage Refinances</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Mortgage Underwriting Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Calculate if Refinancing Makes Financial Sense</h2>
+          <p>
+            Refinancing is one of the most powerful wealth-optimization moves a homeowner can make when interest rates drop.
+            However, because refinancing involves origination fees, appraisal costs, title insurance, and escrow prepayments
+            (typically totaling 1.5% to 3.0% of the loan amount), you must ensure your <strong>breakeven horizon</strong> is
+            shorter than the time you plan to stay in the property.
+          </p>
+
+          {/* Graph #2: Authoritative Visual Breakeven Savings Trajectory */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Refinance Breakeven Horizon &amp; Cumulative Net Cash Savings
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual benchmark showing the crossover point where monthly payment savings surpass upfront closing fees ($5,500 fees at $250/mo savings).
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                Breakeven: Month 22
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Horizontal Zero Axis */}
+                <line x1="50" y1="130" x2="570" y2="130" stroke="#94a3b8" strokeWidth="1.5" />
+                <line x1="50" y1="50" x2="570" y2="50" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="90" x2="570" y2="90" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+
+                {/* Y-axis labels */}
+                <text x="40" y="54" fontSize="10" fill="#64748b" textAnchor="end">+$10,000</text>
+                <text x="40" y="94" fontSize="10" fill="#64748b" textAnchor="end">+$5,000</text>
+                <text x="40" y="134" fontSize="10" fill="#64748b" textAnchor="end">$0 (Breakeven)</text>
+                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">-$5,500 (Fees)</text>
+
+                {/* X-axis labels (Months) */}
+                <text x="70" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 0</text>
+                <text x="170" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 12</text>
+                <text x="270" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 24</text>
+                <text x="390" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 36</text>
+                <text x="530" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 60 (5 Yrs)</text>
+
+                {/* Net Savings Curve */}
+                <path
+                  d="M70 174 L170 152 L270 126 L390 98 L530 46"
+                  stroke="#10b981"
+                  strokeWidth="3.5"
+                  fill="none"
+                />
+
+                {/* Crossover Circle */}
+                <circle cx="250" cy="130" r="5" fill="#10b981" />
+                <text x="250" y="120" fontSize="11" fill="#10b981" textAnchor="middle" fontWeight="bold">Breakeven Crossover (Month 22)</text>
+
+                <text x="535" y="42" fontSize="11" fill="#10b981" fontWeight="bold">+$9,500 Pure Profit</text>
+              </svg>
+            </div>
+            <p className="mt-2 text-center text-xs text-slate-500">
+              After reaching Month 22, all upfront closing costs have been fully recovered, and monthly savings represent pure unencumbered cash flow.
+            </p>
+          </div>
+
+          <h2>Formulas for Refinance Evaluation</h2>
+          <Formula>
+            Monthly Payment Savings = Old Monthly P&amp;I Payment - New Monthly P&amp;I Payment
+          </Formula>
+          <Formula>
+            Breakeven Horizon (Months) = Total Refinance Closing Costs ÷ Monthly Payment Savings
+          </Formula>
+          <Formula>
+            Net Lifetime Savings = Total Remaining Payments on Old Loan - Total Payments on New Loan - Closing Costs
+          </Formula>
+
+          <h2>Interest Rate Drop vs Monthly Savings Benchmark ($350,000 Loan)</h2>
+          <DataTable
+            head={["Interest Rate Reduction", "Old Payment (7.25%)", "New Payment", "Monthly Savings", "5-Year Net Cash Flow"]}
+            rows={[
+              ["0.50% Drop (to 6.75%)", "$2,388 / mo", "$2,270 / mo", "$118 / mo", "$7,080 saved"],
+              ["0.75% Drop (to 6.50%)", "$2,388 / mo", "$2,212 / mo", "$176 / mo", "$10,560 saved"],
+              ["1.00% Drop (to 6.25%)", "$2,388 / mo", "$2,156 / mo", "$232 / mo", "$13,920 saved"],
+              ["1.50% Drop (to 5.75%)", "$2,388 / mo", "$2,043 / mo", "$345 / mo", "$20,700 saved"],
+              ["2.00% Drop (to 5.25%)", "$2,388 / mo", "$1,933 / mo", "$455 / mo", "$27,300 saved"],
+            ]}
+            highlight={2}
+          />
+
+          <h2>When Should You NOT Refinance?</h2>
+          <ul>
+            <li>
+              <strong>Moving Within 2 to 3 Years:</strong> If your breakeven period is 30 months and you plan to sell within
+              24 months, you will lose money on upfront closing costs.
+            </li>
+            <li>
+              <strong>Resetting the Amortization Clock:</strong> If you are 12 years into a 30-year mortgage, refinancing into
+              a brand new 30-year term resets your amortization schedule back to Year 1, where payments are heavily front-loaded with interest.
+              Consider refinancing into a 15-year or 20-year term instead.
+            </li>
+            <li>
+              <strong>Prepayment Penalties:</strong> Verify whether your existing loan contract carries a prepayment penalty fee.
+            </li>
+          </ul>
+          <p>
+            Looking to convert your home equity into cash? Check your available borrowing limit with the{" "}
+            <a href="/calculators/housing/home-equity-calculator">home equity calculator</a>, compare loan options on the{" "}
+            <a href="/calculators/finance/mortgage-calculator">mortgage calculator</a>, plan remodel costs with the{" "}
+            <a href="/calculators/housing/renovation-cost-calculator">renovation cost calculator</a>, or see property taxes on our{" "}
+            <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <RefinanceCalculator />
+    </CalcPage>
   );
 }

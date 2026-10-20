@@ -1,26 +1,205 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import RoomAreaCalculator from "@/components/calcs/housing/room-area-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Room Area Calculator – Room Size in Sq Ft | CalcDigi",
-  "description": "Calculate the area of any room shape — rectangle, L-shape, or circle. Get area in square feet and square meters.",
-  "openGraph": {
-    "title": "Room Area Calculator – Room Size in Sq Ft | CalcDigi",
-    "description": "Calculate the area of any room shape — rectangle, L-shape, or circle. Get area in square feet and square meters.",
-    "type": "website",
-    "url": "/calculators/housing/room-area-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/room-area-calculator"
-  }
-};
+const PATH = "/calculators/housing/room-area-calculator";
+const TITLE = "Room Area Calculator – Floor, Wall & Ceiling Surface (Sq Ft) | CalcDigi";
+const DESCRIPTION =
+  "Free room area calculator: calculate floor square footage, net paintable wall surface area, ceiling dimensions, room perimeter, and interior cubic volume with window and door deductions.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Room Area Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/room-area-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Room Area Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/room-area-calculator\", \"description\": \"Calculate the area of any room shape — rectangle, L-shape, or circle. Get area in square feet and square meters.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate the area of an L-shaped room?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide the L-shape into two rectangles. Measure and calculate each rectangle separately, then add the two areas together. For example: 12x10 + 8x6 = 120 + 48 = 168 square feet.\"}}, {\"@type\": \"Question\", \"name\": \"What size area rug should I buy for my room?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For a living room, the rug should be large enough for at least the front legs of all furniture to sit on it. Common sizes: 8x10 ft for medium rooms, 9x12 ft for large rooms. Leave 18 inches of bare floor around the perimeter.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate room area for air conditioning?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A general rule is 20 BTUs per square foot. A 300 sq ft room needs a 6,000 BTU AC unit. Add 10% for sunny rooms, subtract 10% for shaded rooms, and add 600 BTUs for each additional person regularly in the space.\"}}, {\"@type\": \"Question\", \"name\": \"How many square feet is a standard bedroom?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A small bedroom is 100-130 sq ft, a standard bedroom is 130-180 sq ft, a large bedroom is 180-250 sq ft, and a primary bedroom suite is 250-400+ sq ft. Minimum livable bedroom size is typically 70-80 sq ft.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Room Area Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Room Area Calculator</h1>\n<p class=\"calc-intro\">Calculate the floor area of any room shape — rectangular, L-shaped, or circular. Instantly get area in square feet and square meters for furniture planning, flooring, and heating/cooling sizing.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Rectangle: Area = Length x Width | Circle: Area = pi x Radius2 | L-Shape: Area = Rect1 + Rect2</div><p>Knowing your room area is essential for buying flooring, carpet, rugs, and furniture at the right scale. It also helps determine the correct size of air conditioners, heaters, and ceiling fans for proper coverage.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate the area of an L-shaped room? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide the L-shape into two rectangles. Measure and calculate each rectangle separately, then add the two areas together. For example: 12x10 + 8x6 = 120 + 48 = 168 square feet.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What size area rug should I buy for my room? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For a living room, the rug should be large enough for at least the front legs of all furniture to sit on it. Common sizes: 8x10 ft for medium rooms, 9x12 ft for large rooms. Leave 18 inches of bare floor around the perimeter.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate room area for air conditioning? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A general rule is 20 BTUs per square foot. A 300 sq ft room needs a 6,000 BTU AC unit. Add 10% for sunny rooms, subtract 10% for shaded rooms, and add 600 BTUs for each additional person regularly in the space.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many square feet is a standard bedroom? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A small bedroom is 100-130 sq ft, a standard bedroom is 130-180 sq ft, a large bedroom is 180-250 sq ft, and a primary bedroom suite is 250-400+ sq ft. Minimum livable bedroom size is typically 70-80 sq ft.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/housing/square-footage-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Square Footage</span></a><a class=\"related-card\" href=\"/calculators/housing/flooring-calculator\"><span class=\"rc-icon\">🧱</span><span class=\"rc-name\">Flooring Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/paint-calculator\"><span class=\"rc-icon\">🎨</span><span class=\"rc-name\">Paint Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/renovation-cost-calculator\"><span class=\"rc-icon\">🔨</span><span class=\"rc-name\">Renovation Cost</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Room Area Calculator</h2><div class=\"form-group\"><label for=\"ra-shape\">Room Shape</label><select id=\"ra-shape\"><option selected=\"\" value=\"rect\">Rectangle</option><option value=\"l\">L-Shape</option><option value=\"circle\">Circle</option></select></div><div id=\"ra-rect\"><div class=\"form-group\"><label for=\"ra-len\">Length (ft)</label><input id=\"ra-len\" min=\"0\" step=\"0.5\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"ra-wid\">Width (ft)</label><input id=\"ra-wid\" min=\"0\" step=\"0.5\" type=\"number\" value=\"12\"/></div></div><div id=\"ra-circle\" style=\"display:none;\"><div class=\"form-group\"><label for=\"ra-radius\">Radius (ft)</label><input id=\"ra-radius\" min=\"0\" step=\"0.5\" type=\"number\" value=\"7\"/></div></div><div id=\"ra-lshape\" style=\"display:none;\"><div class=\"form-group\"><label for=\"ra-l1\">Section 1: Length (ft)</label><input id=\"ra-l1\" min=\"0\" step=\"0.5\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"ra-w1\">Section 1: Width (ft)</label><input id=\"ra-w1\" min=\"0\" step=\"0.5\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"ra-l2\">Section 2: Length (ft)</label><input id=\"ra-l2\" min=\"0\" step=\"0.5\" type=\"number\" value=\"8\"/></div><div class=\"form-group\"><label for=\"ra-w2\">Section 2: Width (ft)</label><input id=\"ra-w2\" min=\"0\" step=\"0.5\" type=\"number\" value=\"6\"/></div></div>\n<button class=\"calc-btn\" onclick=\"calc_ra()\">Calculate Area</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ra-result').style.display='none';document.getElementById('ra-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ra-result\" style=\"display:none;\"><div id=\"ra-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ra-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ra-ai\" style=\"display:none;\"></div></div>\n<div id=\"ra-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ra\" onclick=\"printResult('ra-result','Calculate Area')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate Area')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-room-area-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('ra-shape').addEventListener('change',function(){\n  var s=this.value;\n  document.getElementById('ra-rect').style.display=s==='rect'?'block':'none';\n  document.getElementById('ra-circle').style.display=s==='circle'?'block':'none';\n  document.getElementById('ra-lshape').style.display=s==='l'?'block':'none';\n});\nfunction calc_ra(){\n  var shape=document.getElementById('ra-shape').value;\n  var area=0;\n  if(shape==='rect'){\n    var l=parseFloat(document.getElementById('ra-len').value)||0;\n    var w=parseFloat(document.getElementById('ra-wid').value)||0;\n    if(l<=0||w<=0){alert('Please enter valid dimensions.');return;}\n    area=l*w;\n  } else if(shape==='circle'){\n    var r=parseFloat(document.getElementById('ra-radius').value)||0;\n    if(r<=0){alert('Please enter a valid radius.');return;}\n    area=Math.PI*r*r;\n  } else {\n    var l1=parseFloat(document.getElementById('ra-l1').value)||0;\n    var w1=parseFloat(document.getElementById('ra-w1').value)||0;\n    var l2=parseFloat(document.getElementById('ra-l2').value)||0;\n    var w2=parseFloat(document.getElementById('ra-w2').value)||0;\n    if(l1<=0||w1<=0||l2<=0||w2<=0){alert('Please enter valid dimensions for both sections.');return;}\n    area=(l1*w1)+(l2*w2);\n  }\n  var sqm=area*0.0929;\n  var btu=area*20;\n  document.getElementById('ra-ri').innerHTML=\n    ri('Room Area','<strong style=\"font-size:24px;color:var(--c-accent)\">'+area.toFixed(1)+' sq ft</strong>',true)+\n    ri('Square Meters',sqm.toFixed(2)+' m2')+\n    ri('AC Size Needed',btu.toLocaleString()+' BTU')+\n    ri('Paint (1 coat)',Math.ceil(area/375)+' gallons');\n  document.getElementById('ra-result').style.display='block';\n  document.getElementById('ra-actions').style.display='flex';\n  drawDonut('ra-chart',['Floor Area','Remaining'],[Math.round(area),Math.max(1000-Math.round(area),0.001)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ra-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Room area: '+area.toFixed(1)+' sq ft ('+sqm.toFixed(1)+' m2). In 2 sentences give a practical tip about how to make the most of this room size through smart furniture arrangement or design.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Room Area Calculator"
+      intro="Determine exact floor square footage, net wall paint surface area, room perimeter for baseboards, and interior cubic volume with opening deductions."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="Floor Area = Length * Width | Wall Area = 2 * (Length + Width) * Height - Openings"
+      related={[
+        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
+        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
+        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
+        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
+        { href: "/calculators/housing/electricity-cost-calculator", icon: "⚡", name: "Electricity Cost" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+      ]}
+      faq={[
+        {
+          q: "What is the difference between floor area and wall area?",
+          a: "Floor area is the two-dimensional footprint of the room (Length × Width), used for carpet, hardwood, and tile. Wall area is the vertical perimeter surface multiplied by ceiling height (2 × [Length + Width] × Height) minus doors and windows, used for paint, wallpaper, and drywall.",
+        },
+        {
+          q: "What is the legal minimum size for a bedroom?",
+          a: "Under the International Residential Code (IRC §R304), habitable rooms must have a floor area of not less than 70 square feet (6.5 m²). In addition, every bedroom must be at least 7 feet in any horizontal dimension with a minimum ceiling height of 7 feet.",
+        },
+        {
+          q: "How much square footage do doors and windows deduct from walls?",
+          a: "Standard interior doors (30″ × 80″) account for approximately 21 square feet including casing trim. Standard double-hung windows (36″ × 60″) account for approximately 15 square feet each. Deducting these prevents over-purchasing paint or wallpaper.",
+        },
+        {
+          q: "How do I calculate baseboard molding needed for a room?",
+          a: "Take the total room perimeter: 2 × (Length + Width). Then subtract 3 feet for each standard doorway opening, and add a 10% cutting waste factor for corner miters.",
+        },
+        {
+          q: "Why does room volume (cubic feet) matter?",
+          a: "Room volume (Floor Area × Ceiling Height) determines heating and air conditioning load requirements (BTUs / CFM airflow), air purifier sizing, and dehumidifier capacity.",
+        },
+        {
+          q: "How do ceiling heights affect paint requirements?",
+          a: "Increasing ceiling height from standard 8 feet to 10 feet adds 25% more vertical wall surface area to paint, while 12-foot cathedral ceilings add 50% more wall area, even though the floor square footage remains identical.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Clinical/Code Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IRC §R304 &amp; §R305 Standard
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">International Residential Code Minimum Habitable Dimensions</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Architectural Space Planning Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Measure and Calculate Room Surfaces</h2>
+          <p>
+            A room is a three-dimensional envelope. When remodeling, painting, or planning furniture placement, you need
+            distinct surface measurements:
+          </p>
+          <ul>
+            <li><strong>Floor Surface Area:</strong> Used for flooring tiles, hardwood planks, carpet underlayment, and radiant heating mats.</li>
+            <li><strong>Net Paintable Wall Area:</strong> Total vertical wall surface after subtracting door openings and window glass.</li>
+            <li><strong>Perimeter Length:</strong> Total linear run along the walls, used for baseboards, chair rails, and crown molding.</li>
+            <li><strong>Interior Room Volume:</strong> Total air capacity in cubic feet, crucial for HVAC air exchange and CFM sizing.</li>
+          </ul>
+
+          {/* Graph #2: Authoritative Visual Room Sizes & Proportions Benchmark */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Residential Room Size Standards (Floor Area &amp; Wall Surface Benchmark)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Comparison of floor space vs paintable wall area across standard 8-foot ceiling residential rooms.
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                Standard 8ft Ceiling
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Horizontal Bar Chart for Room Types */}
+                {/* Category 1: Powder Room / Half Bath (5x6 = 30 sq ft) */}
+                <text x="30" y="45" fontSize="11" fill="#334155" fontWeight="bold">Powder Bath (5×6′)</text>
+                <rect x="160" y="32" width="60" height="18" rx="3" fill="#10b981" />
+                <rect x="228" y="32" width="220" height="18" rx="3" fill="#2563eb" />
+                <text x="165" y="45" fontSize="10" fill="#ffffff" fontWeight="bold">30 ft²</text>
+                <text x="235" y="45" fontSize="10" fill="#ffffff" fontWeight="bold">136 ft² wall</text>
+
+                {/* Category 2: Guest / Secondary Bed (11x12 = 132 sq ft) */}
+                <text x="30" y="95" fontSize="11" fill="#334155" fontWeight="bold">Guest Bedroom (11×12′)</text>
+                <rect x="160" y="82" width="132" height="18" rx="3" fill="#10b981" />
+                <rect x="300" y="82" width="220" height="18" rx="3" fill="#2563eb" />
+                <text x="165" y="95" fontSize="10" fill="#ffffff" fontWeight="bold">132 ft²</text>
+                <text x="308" y="95" fontSize="10" fill="#ffffff" fontWeight="bold">317 ft² wall</text>
+
+                {/* Category 3: Primary Bedroom Suite (15x18 = 270 sq ft) */}
+                <text x="30" y="145" fontSize="11" fill="#334155" fontWeight="bold">Primary Suite (15×18′)</text>
+                <rect x="160" y="132" width="200" height="18" rx="3" fill="#10b981" />
+                <rect x="368" y="132" width="180" height="18" rx="3" fill="#2563eb" />
+                <text x="165" y="145" fontSize="10" fill="#ffffff" fontWeight="bold">270 ft²</text>
+                <text x="375" y="145" fontSize="10" fill="#ffffff" fontWeight="bold">477 ft² wall</text>
+
+                {/* Category 4: Open Concept Living (18x24 = 432 sq ft) */}
+                <text x="30" y="195" fontSize="11" fill="#334155" fontWeight="bold">Great Room (18×24′)</text>
+                <rect x="160" y="182" width="240" height="18" rx="3" fill="#10b981" />
+                <rect x="408" y="182" width="160" height="18" rx="3" fill="#2563eb" />
+                <text x="165" y="195" fontSize="10" fill="#ffffff" fontWeight="bold">432 ft²</text>
+                <text x="415" y="195" fontSize="10" fill="#ffffff" fontWeight="bold">621 ft² wall</text>
+              </svg>
+            </div>
+            <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-emerald-500" /> Floor Footprint (sq ft)
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-blue-600" /> Net Paintable Wall Area (sq ft)
+              </span>
+            </div>
+          </div>
+
+          <h2>Mathematical Formulas for Room Calculation</h2>
+          <Formula>
+            Floor Area = Length × Width
+          </Formula>
+          <Formula>
+            Room Perimeter = 2 × (Length + Width)
+          </Formula>
+          <Formula>
+            Gross Wall Area = Perimeter × Ceiling Height
+          </Formula>
+          <Formula>
+            Net Wall Area = Gross Wall Area - [(Doors × 21) + (Windows × 15)]
+          </Formula>
+          <Formula>
+            Room Volume = Floor Area × Ceiling Height
+          </Formula>
+
+          <h2>International Residential Code (IRC) Room Standards</h2>
+          <DataTable
+            head={["Room Designation", "IRC Min Floor Area", "IRC Min Horizontal Dimension", "IRC Min Ceiling Height"]}
+            rows={[
+              ["Habitable Living Room", "70 sq ft (6.5 m²)", "7 ft 0 in (2.13 m)", "7 ft 0 in (2.13 m)"],
+              ["Residential Bedroom", "70 sq ft (must have egress window)", "7 ft 0 in (2.13 m)", "7 ft 0 in (2.13 m)"],
+              ["Kitchen / Food Prep", "50 sq ft (clear aisle 36″ min)", "3 ft clear aisle", "7 ft 0 in (2.13 m)"],
+              ["Bathroom / Powder Room", "No min sq ft (must clear fixture setbacks)", "21″ in front of toilet/sink", "6 ft 8 in (2.03 m)"],
+              ["Sloped Ceilings / Attics", "50% of room must be 7ft+ height", "No portion < 5ft counts as area", "7 ft 0 in on 50%+ floor"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>Step-by-Step Practical Calculation Example</h2>
+          <p>
+            Consider a typical master bedroom measuring <strong>14 feet long by 12 feet wide</strong> with standard{" "}
+            <strong>8-foot ceilings</strong>, containing <strong>1 entry door</strong> and <strong>2 windows</strong>:
+          </p>
+          <ol>
+            <li><strong>Floor Surface:</strong> 14 × 12 = <strong>168 sq ft</strong> (requires ~185 sq ft of flooring with 10% waste).</li>
+            <li><strong>Room Perimeter:</strong> 2 × (14 + 12) = <strong>52 linear ft</strong> (for baseboards).</li>
+            <li><strong>Gross Wall Area:</strong> 52 ft × 8 ft = <strong>416 sq ft</strong>.</li>
+            <li><strong>Openings Deduction:</strong> (1 × 21) + (2 × 15) = 21 + 30 = <strong>51 sq ft</strong>.</li>
+            <li><strong>Net Paintable Walls:</strong> 416 - 51 = <strong>365 sq ft</strong> (requires ~1.1 gallons of paint per coat).</li>
+            <li><strong>Room Air Volume:</strong> 168 × 8 = <strong>1,344 cu ft</strong> (for HVAC load calculations).</li>
+          </ol>
+          <p>
+            Need to compute total costs for this space? Head over to our{" "}
+            <a href="/calculators/housing/paint-calculator">paint calculator</a> to calculate coats and primer, estimate
+            planks or tile with the <a href="/calculators/housing/flooring-calculator">flooring calculator</a>, or calculate whole-home
+            square footage on the <a href="/calculators/housing/square-footage-calculator">square footage calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <RoomAreaCalculator />
+    </CalcPage>
   );
 }

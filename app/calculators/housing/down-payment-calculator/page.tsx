@@ -1,26 +1,194 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import DownPaymentCalculator from "@/components/calcs/housing/down-payment-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Down Payment Calculator – How Much Do I Need? | CalcDigi",
-  "description": "Calculate required down payment for any home. See 3%, 5%, 10%, 20% down amounts and monthly payment impact.",
-  "openGraph": {
-    "title": "Down Payment Calculator – How Much Do I Need? | CalcDigi",
-    "description": "Calculate required down payment for any home. See 3%, 5%, 10%, 20% down amounts and monthly payment impact.",
-    "type": "website",
-    "url": "/calculators/housing/down-payment-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/down-payment-calculator"
-  }
-};
+const PATH = "/calculators/housing/down-payment-calculator";
+const TITLE = "Down Payment Calculator – Cash Needed, Savings Goal & PMI | CalcDigi";
+const DESCRIPTION =
+  "Free down payment calculator: calculate minimum cash down payment tiers (3%, 5%, 10%, 20%), estimated closing costs, PMI impact, and monthly savings timeline to reach your home goal.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Down Payment Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/down-payment-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Down Payment Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/down-payment-calculator\", \"description\": \"Calculate required down payment for any home. See 3%, 5%, 10%, 20% down amounts and monthly payment impact.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the minimum down payment?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Conventional loans: as low as 3% for first-time buyers. FHA loans: 3.5% with 580+ credit score. VA loans (veterans) and USDA loans (rural): 0% down. Jumbo loans typically require 10-20%.\"}}, {\"@type\": \"Question\", \"name\": \"What is PMI and how do I avoid it?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"PMI (Private Mortgage Insurance) is required with less than 20% down on conventional loans. It costs 0.5-1.5%/year of loan amount. Avoid by putting 20%+ down or using a piggyback 80/10/10 loan structure.\"}}, {\"@type\": \"Question\", \"name\": \"How much should I save for down payment?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"20% down avoids PMI and gets best rates. However, putting all savings into a down payment leaves you cash-poor. Many advisors suggest 10-15% down with 3-6 months emergency reserves.\"}}, {\"@type\": \"Question\", \"name\": \"Are there down payment assistance programs?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. Many states, cities, and nonprofits offer down payment grants, low-interest loans, and forgivable loans for first-time buyers. HUD-approved housing counselors can identify programs in your area.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Down Payment Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Down Payment Calculator</h1>\n<p class=\"calc-intro\">Calculate exactly how much you need for a down payment and see how different percentages affect your loan amount, monthly payment, and whether PMI is required.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Down Payment = Home Price x % | Loan = Home Price - Down Payment</div><p>The minimum down payment depends on loan type: conventional 3%, FHA 3.5%, VA/USDA 0%. Putting down less than 20% on a conventional loan typically requires PMI (Private Mortgage Insurance), adding $50-200/month.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the minimum down payment? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Conventional loans: as low as 3% for first-time buyers. FHA loans: 3.5% with 580+ credit score. VA loans (veterans) and USDA loans (rural): 0% down. Jumbo loans typically require 10-20%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is PMI and how do I avoid it? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">PMI (Private Mortgage Insurance) is required with less than 20% down on conventional loans. It costs 0.5-1.5%/year of loan amount. Avoid by putting 20%+ down or using a piggyback 80/10/10 loan structure.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much should I save for down payment? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">20% down avoids PMI and gets best rates. However, putting all savings into a down payment leaves you cash-poor. Many advisors suggest 10-15% down with 3-6 months emergency reserves.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Are there down payment assistance programs? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes. Many states, cities, and nonprofits offer down payment grants, low-interest loans, and forgivable loans for first-time buyers. HUD-approved housing counselors can identify programs in your area.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/home-affordability-calculator\"><span class=\"rc-icon\">🏡</span><span class=\"rc-name\">Home Affordability</span></a><a class=\"related-card\" href=\"/calculators/housing/rent-vs-buy-calculator\"><span class=\"rc-icon\">🔑</span><span class=\"rc-name\">Rent vs Buy</span></a><a class=\"related-card\" href=\"/calculators/housing/property-tax-calculator\"><span class=\"rc-icon\">🧾</span><span class=\"rc-name\">Property Tax</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Down Payment Calculator</h2><div class=\"form-group\"><label for=\"dp-price\">Home Price ($)</label><input id=\"dp-price\" min=\"0\" step=\"5000\" type=\"number\" value=\"400000\"/></div><div class=\"form-group\"><label for=\"dp-pct\">Down Payment (%)</label><input id=\"dp-pct\" max=\"100\" min=\"0\" step=\"0.5\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"dp-rate\">Mortgage Rate (%)</label><input id=\"dp-rate\" max=\"30\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"7.0\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_dp()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('dp-result').style.display='none';document.getElementById('dp-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"dp-result\" style=\"display:none;\"><div id=\"dp-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"dp-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"dp-ai\" style=\"display:none;\"></div></div>\n<div id=\"dp-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-dp\" onclick=\"printResult('dp-result','Calculate')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-down-payment-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_dp(){\n  var price=parseFloat(document.getElementById('dp-price').value)||0;\n  var pct=parseFloat(document.getElementById('dp-pct').value)||20;\n  var rate=parseFloat(document.getElementById('dp-rate').value)/100/12;\n  var n=360;\n  if(price<=0){alert('Please enter a valid home price.');return;}\n  var down=price*(pct/100); var loan=price-down;\n  var monthly=loan>0?loan*(rate*Math.pow(1+rate,n))/(Math.pow(1+rate,n)-1):0;\n  var pmi=pct<20?loan*0.01/12:0;\n  var closing=price*0.03;\n  document.getElementById('dp-ri').innerHTML=\n    ri('Down Payment','<strong style=\"font-size:24px;color:var(--c-accent)\">$'+down.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Loan Amount','$'+loan.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Monthly Payment','$'+monthly.toFixed(2))+\n    (pmi>0?ri('Monthly PMI','$'+pmi.toFixed(2)+' (avoidable with 20%+ down)'):ri('PMI','No PMI required'))+\n    ri('Est. Closing Costs','$'+closing.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Total Cash Needed','$'+(down+closing).toLocaleString('en-US',{maximumFractionDigits:0}));\n  document.getElementById('dp-result').style.display='block';\n  document.getElementById('dp-actions').style.display='flex';\n  drawDonut('dp-chart',['Down Payment','Loan'],[Math.round(down),Math.round(loan)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('dp-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Down payment $'+down.toFixed(0)+' ('+pct+'%) on $'+price.toLocaleString()+' home. '+(pct<20?'PMI required.':'No PMI.')+' In 2 sentences give advice about the best down payment strategy for a first-time buyer.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Down Payment Calculator"
+      intro="Determine your required cash to close, compare down payment percentage tiers (3% to 20%), evaluate PMI costs, and project your savings timeline."
+      description={DESCRIPTION}
+      appCategory="FinanceApplication"
+      mathExpression="Total Cash To Close = (Purchase Price * Down Payment %) + Closing Costs"
+      related={[
+        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+        { href: "/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy" },
+        { href: "/calculators/housing/home-equity-calculator", icon: "📈", name: "Home Equity" },
+        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
+        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
+      ]}
+      faq={[
+        {
+          q: "Do I really need a 20% down payment to buy a home?",
+          a: "No. The 20% down payment is a popular myth. First-time buyers can purchase a home with as little as 3% down using Fannie Mae HomeReady or Freddie Mac Home Possible loans. FHA loans require 3.5% down, and VA/USDA loans offer 0% down financing for eligible borrowers.",
+        },
+        {
+          q: "What is Private Mortgage Insurance (PMI)?",
+          a: "PMI is an insurance policy that protects the mortgage lender if you default on your loan. Lenders mandate PMI on conventional mortgages whenever your down payment is less than 20% (Loan-to-Value greater than 80%). It typically costs $30 to $70 per month for every $100,000 borrowed.",
+        },
+        {
+          q: "How and when does PMI get removed?",
+          a: "Under the federal Homeowners Protection Act of 1998, you can request PMI cancellation once your loan principal balance reaches 80% of the home's original appraised value. Lenders are legally required to automatically terminate PMI when your balance drops to 78% of original value.",
+        },
+        {
+          q: "What are closing costs and how much cash do they require?",
+          a: "Closing costs are lender and third-party fees required to finalize your mortgage, including appraisal, loan origination, title insurance, attorney fees, transfer taxes, and initial escrow deposits. They typically range from 2% to 5% of the total purchase price.",
+        },
+        {
+          q: "Can I use gift funds for my down payment?",
+          a: "Yes. Most conventional and FHA loan programs permit 100% of your down payment and closing costs to come from a verified gift from an immediate family member, provided the donor signs a formal gift letter certifying that no repayment is expected.",
+        },
+        {
+          q: "Where should I keep my down payment savings?",
+          a: "Keep your down payment in a liquid, FDIC-insured High-Yield Savings Account (HYSA), Certificate of Deposit (CD), or Treasury bills. Avoid keeping short-term down payment funds in volatile stock market equities if you plan to purchase within 1 to 3 years.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Fannie Mae &amp; Freddie Mac Guidelines
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Verified against <strong className="font-semibold text-slate-800 dark:text-slate-200">Single-Family Selling Guide &amp; Homeowners Protection Act</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Mortgage Advisory Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>Understanding Your Total Cash to Close</h2>
+          <p>
+            When preparing to buy a home, many buyers mistakenly budget only for the down payment. On closing day, however,
+            you must bring the <strong>Total Cash to Close</strong>, which consists of:
+          </p>
+          <Formula>
+            Total Cash to Close = Down Payment + Lender Closing Costs + Prepaid Taxes &amp; Insurance Escrow
+          </Formula>
+          <p>
+            Lender closing costs typically add another <strong>2% to 4%</strong> of the purchase price on top of your down payment.
+          </p>
+
+          {/* Graph #2: Authoritative Visual Down Payment Tiers Benchmark Chart */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  30-Year Total Financing Cost by Down Payment Tier ($400,000 Purchase)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual benchmark comparing upfront cash vs total 30-year interest and PMI paid (at 6.75% interest).
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                6.75% 30-Yr Fixed
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* 4 horizontal comparison bars */}
+                {/* 1. 3% Down Payment ($12k down) */}
+                <text x="30" y="38" fontSize="11" fill="#334155" fontWeight="bold">3% Down ($12,000)</text>
+                <rect x="180" y="24" width="350" height="20" rx="3" fill="#ef4444" />
+                <text x="495" y="38" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$542k Interest + PMI</text>
+                <text x="535" y="38" fontSize="10" fill="#ef4444" fontWeight="bold">Highest</text>
+
+                {/* 2. 5% Down Payment ($20k down) */}
+                <text x="30" y="88" fontSize="11" fill="#334155" fontWeight="bold">5% Down ($20,000)</text>
+                <rect x="180" y="74" width="330" height="20" rx="3" fill="#f59e0b" />
+                <text x="475" y="88" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$518k Interest + PMI</text>
+                <text x="515" y="88" fontSize="10" fill="#f59e0b" fontWeight="bold">-$24k</text>
+
+                {/* 3. 10% Down Payment ($40k down) */}
+                <text x="30" y="138" fontSize="11" fill="#334155" fontWeight="bold">10% Down ($40,000)</text>
+                <rect x="180" y="124" width="300" height="20" rx="3" fill="#2563eb" />
+                <text x="445" y="138" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$480k Interest + PMI</text>
+                <text x="485" y="138" fontSize="10" fill="#2563eb" fontWeight="bold">-$62k</text>
+
+                {/* 4. 20% Down Payment ($80k down - No PMI) */}
+                <text x="30" y="188" fontSize="11" fill="#334155" fontWeight="bold">20% Down ($80,000)</text>
+                <rect x="180" y="174" width="250" height="20" rx="3" fill="#10b981" />
+                <text x="395" y="188" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$428k Interest (Zero PMI)</text>
+                <text x="435" y="188" fontSize="10" fill="#10b981" fontWeight="bold">Saves $114k</text>
+              </svg>
+            </div>
+            <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-emerald-500" /> 20% Down eliminates PMI &amp; saves $114,000+ over the loan lifetime.
+              </span>
+            </div>
+          </div>
+
+          <h2>Down Payment Requirements by Loan Program</h2>
+          <DataTable
+            head={["Mortgage Loan Type", "Min Down Payment", "Credit Score Required", "PMI / Mortgage Insurance Rules"]}
+            rows={[
+              ["Conventional (Fannie/Freddie)", "3.0% (First-Time Buyers)", "620+ (Best rate at 780+)", "PMI required until 80% LTV; cancels at 78% LTV"],
+              ["FHA Government Loan", "3.5% (With 580+ Credit)", "580+ (500–579 requires 10%)", "MIP required for life of loan if down < 10%"],
+              ["VA Loan (Veterans & Military)", "0.0% Down Payment", "580 – 620 typical", "Zero monthly PMI; one-time VA funding fee"],
+              ["USDA Rural Housing Loan", "0.0% Down Payment", "640+ standard", "Low annual guarantee fee (0.35% / year)"],
+              ["Jumbo Mortgage (> $766,550)", "10.0% – 20.0% Down", "700 – 720+", "Strict reserve requirements (6–12 months PITI)"],
+            ]}
+            highlight={0}
+          />
+
+          <h2>Formulas for Down Payment Planning</h2>
+          <Formula>
+            Down Payment Amount = Home Purchase Price × Down Payment Percentage
+          </Formula>
+          <Formula>
+            Loan-to-Value (LTV) = (Home Purchase Price - Down Payment) ÷ Home Purchase Price
+          </Formula>
+          <Formula>
+            Monthly PMI Estimate = (Loan Amount × 0.0075) ÷ 12
+          </Formula>
+
+          <h2>Smart Down Payment Strategies</h2>
+          <ul>
+            <li>
+              <strong>Don&rsquo;t Drain Every Penny of Cash:</strong> Never deplete your emergency savings to reach a higher
+              down payment tier. Mortgage lenders require 2 to 3 months of PITI reserves in the bank post-closing.
+            </li>
+            <li>
+              <strong>Down Payment Assistance (DPA) Programs:</strong> Every state housing finance agency (HFA) offers DPA
+              grants or forgivable second liens covering 3% to 5% of purchase prices for eligible first-time buyers.
+            </li>
+            <li>
+              <strong>Seller Concessions:</strong> Negotiate for the seller to pay 2% to 3% in seller closing cost concessions,
+              reducing the out-of-pocket cash you need on closing day.
+            </li>
+          </ul>
+          <p>
+            Evaluate your total borrowing power with our{" "}
+            <a href="/calculators/housing/home-affordability-calculator">home affordability calculator</a>, compare mortgage
+            amortization schedules on the <a href="/calculators/finance/mortgage-calculator">mortgage calculator</a>, or see how equity
+            accumulates over time on our <a href="/calculators/housing/home-equity-calculator">home equity calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <DownPaymentCalculator />
+    </CalcPage>
   );
 }

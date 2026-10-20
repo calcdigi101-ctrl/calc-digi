@@ -56,7 +56,13 @@ export function CalcPage({
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
   ];
-  if (category.label === "Finance" || category.label === "Math" || appCategory === "FinanceApplication") {
+  if (
+    category.label === "Finance" ||
+    category.label === "Math" ||
+    category.label === "Housing" ||
+    category.label === "Housing & Building" ||
+    appCategory === "FinanceApplication"
+  ) {
     graph.push({
       "@type": "MathSolver",
       name: title,
@@ -67,7 +73,12 @@ export function CalcPage({
           "@type": "SolveAction",
           target: `${SITE_URL}${path}`,
           ...(mathExpression ? { mathExpression } : {}),
-          eduQuestionType: category.label === "Finance" ? "Financial Mathematics" : "Mathematics",
+          eduQuestionType:
+            category.label === "Finance"
+              ? "Financial Mathematics"
+              : category.label === "Housing" || category.label === "Housing & Building"
+              ? "Applied Engineering & Construction Mathematics"
+              : "Mathematics",
         },
       ],
     });

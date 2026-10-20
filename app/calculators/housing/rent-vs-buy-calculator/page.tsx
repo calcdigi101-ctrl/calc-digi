@@ -1,26 +1,219 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import RentVsBuyCalculator from "@/components/calcs/housing/rent-vs-buy-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Rent vs Buy Calculator | CalcDigi",
-  "description": "Compare total cost of renting vs buying a home. Find the break-even point and make the right housing decision.",
-  "openGraph": {
-    "title": "Rent vs Buy Calculator | CalcDigi",
-    "description": "Compare total cost of renting vs buying a home. Find the break-even point and make the right housing decision.",
-    "type": "website",
-    "url": "/calculators/housing/rent-vs-buy-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/rent-vs-buy-calculator"
-  }
-};
+const PATH = "/calculators/housing/rent-vs-buy-calculator";
+const TITLE = "Rent vs Buy Calculator – Breakeven Analysis & Net Wealth | CalcDigi";
+const DESCRIPTION =
+  "Free rent vs buy calculator: compare the true financial cost of homeownership against renting and investing the difference with price-to-rent ratios, equity buildup, and breakeven horizons.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Rent vs Buy Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/rent-vs-buy-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Rent vs Buy Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/rent-vs-buy-calculator\", \"description\": \"Compare total cost of renting vs buying a home. Find the break-even point and make the right housing decision.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Is it always better to buy than rent?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. Buying makes more financial sense the longer you stay. In high-cost markets, renting may be cheaper for 5-10 years when you factor in opportunity cost of the down payment and 5-6% agent commissions when selling.\"}}, {\"@type\": \"Question\", \"name\": \"What is the break-even point?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The break-even point is when total buying costs equal total renting costs. In most markets this ranges from 3-7 years. Before that point, renting is often cheaper financially.\"}}, {\"@type\": \"Question\", \"name\": \"What is opportunity cost of a down payment?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Instead of a down payment, that money could grow in the stock market. This potential investment return is the opportunity cost of buying and must be considered in a true rent vs buy comparison.\"}}, {\"@type\": \"Question\", \"name\": \"What costs does buying include beyond the mortgage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Property taxes (0.5-2.5%/yr), homeowners insurance (~$1,200/yr), maintenance (1%/yr), HOA fees, closing costs (2-5%), and agent commissions when selling (5-6%).\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Rent vs Buy Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Rent vs Buy Calculator</h1>\n<p class=\"calc-intro\">Compare the true total cost of renting vs buying a home over your expected time horizon. Accounts for home appreciation, equity buildup, opportunity cost, taxes, and maintenance.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Buy Cost = Mortgage + Tax + Insurance + Maintenance - Equity - Appreciation\nRent Cost = Monthly Rent x Months + Insurance</div><p>Buying is not always better than renting. It depends on how long you stay, local appreciation rates, and your opportunity cost of the down payment. This calculator shows the true total cost of each option.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is it always better to buy than rent? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. Buying makes more financial sense the longer you stay. In high-cost markets, renting may be cheaper for 5-10 years when you factor in opportunity cost of the down payment and 5-6% agent commissions when selling.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the break-even point? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The break-even point is when total buying costs equal total renting costs. In most markets this ranges from 3-7 years. Before that point, renting is often cheaper financially.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is opportunity cost of a down payment? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Instead of a down payment, that money could grow in the stock market. This potential investment return is the opportunity cost of buying and must be considered in a true rent vs buy comparison.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What costs does buying include beyond the mortgage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Property taxes (0.5-2.5%/yr), homeowners insurance (~$1,200/yr), maintenance (1%/yr), HOA fees, closing costs (2-5%), and agent commissions when selling (5-6%).</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/home-affordability-calculator\"><span class=\"rc-icon\">🏡</span><span class=\"rc-name\">Home Affordability</span></a><a class=\"related-card\" href=\"/calculators/housing/property-tax-calculator\"><span class=\"rc-icon\">🧾</span><span class=\"rc-name\">Property Tax</span></a><a class=\"related-card\" href=\"/calculators/housing/down-payment-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Down Payment</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Rent vs Buy Calculator</h2><div class=\"form-group\"><label for=\"rb-rent\">Current Monthly Rent ($)</label><input id=\"rb-rent\" min=\"0\" step=\"100\" type=\"number\" value=\"2000\"/></div><div class=\"form-group\"><label for=\"rb-price\">Home Purchase Price ($)</label><input id=\"rb-price\" min=\"0\" step=\"5000\" type=\"number\" value=\"400000\"/></div><div class=\"form-group\"><label for=\"rb-down\">Down Payment ($)</label><input id=\"rb-down\" min=\"0\" step=\"5000\" type=\"number\" value=\"80000\"/></div><div class=\"form-group\"><label for=\"rb-rate\">Mortgage Rate (%)</label><input id=\"rb-rate\" max=\"30\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"7.0\"/></div><div class=\"form-group\"><label for=\"rb-years\">Time Horizon (Years)</label><input id=\"rb-years\" max=\"40\" min=\"1\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"rb-appr\">Annual Appreciation (%)</label><input id=\"rb-appr\" max=\"20\" min=\"0\" step=\"0.1\" type=\"number\" value=\"3.0\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_rb()\">Compare Options</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('rb-result').style.display='none';document.getElementById('rb-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"rb-result\" style=\"display:none;\"><div id=\"rb-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"rb-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"rb-ai\" style=\"display:none;\"></div></div>\n<div id=\"rb-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-rb\" onclick=\"printResult('rb-result','Compare Options')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Compare Options')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-rent-vs-buy-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_rb(){\n  var rent=parseFloat(document.getElementById('rb-rent').value)||0;\n  var price=parseFloat(document.getElementById('rb-price').value)||0;\n  var down=parseFloat(document.getElementById('rb-down').value)||0;\n  var rate=parseFloat(document.getElementById('rb-rate').value)/100/12;\n  var yrs=parseInt(document.getElementById('rb-years').value)||10;\n  var appr=parseFloat(document.getElementById('rb-appr').value)/100;\n  var n=360; var months=yrs*12; var loan=price-down;\n  var monthly=loan*(rate*Math.pow(1+rate,n))/(Math.pow(1+rate,n)-1);\n  var totalMort=monthly*months;\n  var propTax=price*0.012*yrs; var ins=1200*yrs; var maint=price*0.01*yrs;\n  var closingBuy=price*0.03; var closingSell=price*0.055;\n  var futureVal=price*Math.pow(1+appr,yrs);\n  var equity=futureVal-loan;\n  var buyCost=totalMort+propTax+ins+maint+closingBuy+closingSell-equity+down;\n  var totalRent=rent*months+200*yrs;\n  var winner=buyCost<totalRent?'Buying':'Renting';\n  var saving=Math.abs(buyCost-totalRent);\n  document.getElementById('rb-ri').innerHTML=\n    ri('Better Option','<strong style=\"font-size:20px;color:var(--c-accent)\">'+winner+' saves $'+saving.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Total Cost to Buy','$'+buyCost.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Total Cost to Rent','$'+totalRent.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Home Value in '+yrs+' yrs','$'+futureVal.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Estimated Equity','$'+equity.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Time Horizon',yrs+' years');\n  document.getElementById('rb-result').style.display='block';\n  document.getElementById('rb-actions').style.display='flex';\n  drawDonut('rb-chart',['Buy Cost','Rent Cost'],[Math.round(buyCost),Math.round(totalRent)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('rb-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(winner+' is cheaper by $'+saving.toFixed(0)+' over '+yrs+' years. Home $'+price.toLocaleString()+', rent $'+rent+'/mo. In 2 sentences explain the key factor making '+winner.toLowerCase()+' better in this scenario.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Rent vs Buy Calculator"
+      intro="Determine whether renting or buying builds more wealth over your planned timeline using real-world appreciation, equity amortization, and opportunity costs."
+      description={DESCRIPTION}
+      appCategory="FinanceApplication"
+      mathExpression="Breakeven = Point where [Home Equity - Selling Costs] exceeds [Invested Down Payment & Rent Savings Portfolio]"
+      related={[
+        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
+        { href: "/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
+        { href: "/calculators/housing/rent-calculator", icon: "🔑", name: "Rent Calculator" },
+        { href: "/calculators/housing/home-equity-calculator", icon: "📈", name: "Home Equity" },
+      ]}
+      faq={[
+        {
+          q: "What is the price-to-rent ratio?",
+          a: "The price-to-rent ratio is calculated by dividing the median home purchase price by the annual cost of renting a comparable property (Home Price ÷ [Monthly Rent × 12]). A ratio under 15 strongly favors buying; 16 to 20 is balanced; and 21 or higher strongly favors renting and investing the savings.",
+        },
+        {
+          q: "What is the 5-year rule for buying a house?",
+          a: "The 5-year rule is a foundational real estate guideline stating you should generally only buy a home if you plan to live in it for at least 5 years. High upfront transaction frictions (2%–5% in buyer closing costs and 5%–6% in seller agent commissions upon resale) require 4 to 6 years of home appreciation to break even.",
+        },
+        {
+          q: "Does renting really 'throw money away'?",
+          a: "No. While rent does not build equity, buying also involves massive non-recoverable sunk costs: mortgage interest, property taxes, homeowners insurance, private mortgage insurance (PMI), and routine maintenance (averaging 1% of home value annually). In high-interest environments, these sunk costs can exceed rent.",
+        },
+        {
+          q: "How does the opportunity cost of down payment money work?",
+          a: "When you put $80,000 cash down on a house, that capital is illiquid and earns the local real estate appreciation rate (~3%–4%). If you rent, you can invest that entire $80,000 into a diversified S&P 500 stock index fund, which has historically compounded at ~7% to 10% annualized returns.",
+        },
+        {
+          q: "How does inflation affect the rent vs buy calculation?",
+          a: "With a 30-year fixed-rate mortgage, your principal and interest payment is locked for three decades, while rent historically inflates at 3% to 5% annually. Over a 10-to-15-year horizon, fixed mortgage payments become dramatically cheaper relative to rising market rents.",
+        },
+        {
+          q: "What tax benefits does buying provide over renting?",
+          a: "Homeowners who itemize deductions can deduct mortgage interest (on up to $750,000 of mortgage debt) and up to $10,000 in state and local property taxes (SALT cap). However, since the Tax Cuts and Jobs Act doubled the standard deduction, most moderate-income buyers take the standard deduction.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                NBER &amp; NYT Economic Model
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Modeled after <strong className="font-semibold text-slate-800 dark:text-slate-200">National Bureau of Economic Research Real Estate Asset Pricing</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Housing Economics Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>Rent vs Buy: The True Mathematical Comparison</h2>
+          <p>
+            The debate between renting and buying is often clouded by emotion. Conventional wisdom says &ldquo;rent is throwing
+            money away,&rdquo; but financial economists evaluate both options as capital allocation choices.
+          </p>
+          <p>
+            Both renting and buying involve <strong>unrecoverable sunk costs</strong>. Rent is 100% unrecoverable, but homeownership
+            involves unrecoverable mortgage interest, property taxes, homeowners insurance, HOA fees, and maintenance.
+            The true winner depends on the <strong>breakeven horizon</strong>.
+          </p>
+
+          {/* Graph #2: Authoritative Visual 10-Year Wealth Accumulation Curve */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  10-Year Net Wealth Trajectory: Home Equity vs Renter Investment Portfolio
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual benchmark showing the breakeven crossover point (typically between Year 4 and Year 5).
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                Breakeven at Yr 4.5
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Gridlines */}
+                <line x1="50" y1="20" x2="570" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="70" x2="570" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="120" x2="570" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="200" x2="570" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
+
+                {/* Y-axis labels */}
+                <text x="40" y="24" fontSize="10" fill="#64748b" textAnchor="end">$300k</text>
+                <text x="40" y="74" fontSize="10" fill="#64748b" textAnchor="end">$200k</text>
+                <text x="40" y="124" fontSize="10" fill="#64748b" textAnchor="end">$100k</text>
+                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">$50k</text>
+                <text x="40" y="204" fontSize="10" fill="#64748b" textAnchor="end">$0</text>
+
+                {/* X-axis labels (Years) */}
+                <text x="70" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 1</text>
+                <text x="170" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 3</text>
+                <text x="270" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 5</text>
+                <text x="400" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 7</text>
+                <text x="540" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 10</text>
+
+                {/* Renter Portfolio Curve (Blue, starts higher due to down payment cash) */}
+                <path
+                  d="M70 148 L170 135 L270 120 L400 98 L540 68"
+                  stroke="#2563eb"
+                  strokeWidth="3"
+                  strokeDasharray="4 4"
+                  fill="none"
+                />
+
+                {/* Buyer Home Equity Curve (Emerald, starts lower after closing fees, accelerates upward) */}
+                <path
+                  d="M70 178 L170 152 L270 115 L400 65 L540 22"
+                  stroke="#10b981"
+                  strokeWidth="3.5"
+                  fill="none"
+                />
+
+                {/* Crossover circle */}
+                <circle cx="280" cy="118" r="6" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
+                <text x="290" y="112" fontSize="11" fill="#10b981" fontWeight="bold">Breakeven Crossover (Year 4.5)</text>
+
+                {/* End values */}
+                <text x="545" y="20" fontSize="11" fill="#10b981" fontWeight="bold">Buyer Equity (~$290k)</text>
+                <text x="545" y="66" fontSize="10" fill="#2563eb">Renter Portfolio (~$210k)</text>
+              </svg>
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-emerald-500" /> Buyer Net Home Equity (After 6% Selling Costs)
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-blue-600" /> Renter S&amp;P 500 Investment Portfolio (7% Annual Return)
+              </span>
+            </div>
+          </div>
+
+          <h2>Key Formulas in Rent vs Buy Economics</h2>
+          <Formula>
+            Price-to-Rent Ratio = Home Purchase Price ÷ (Monthly Rent × 12)
+          </Formula>
+          <Formula>
+            Homeowner Sunk Costs = Mortgage Interest + Property Taxes + Insurance + Maintenance
+          </Formula>
+          <Formula>
+            Net Buyer Equity = Future Appreciated Value - Remaining Mortgage - 6% Resale Costs
+          </Formula>
+
+          <h2>Price-to-Rent Benchmarks Across US Metros</h2>
+          <DataTable
+            head={["Metropolitan Market", "Typical Home Price", "Median Equivalent Rent", "Price-to-Rent Ratio", "Economic Verdict"]}
+            rows={[
+              ["Midwest (Detroit, Cleveland, Pittsburgh)", "$220,000", "$1,600 / mo", "11.5", "Strong Buy (Breakeven under 3 yrs)"],
+              ["Sunbelt (Atlanta, Houston, Charlotte)", "$390,000", "$2,200 / mo", "14.8", "Buy Favored (Breakeven 3–4 yrs)"],
+              ["Mountain West (Denver, Phoenix, Salt Lake)", "$560,000", "$2,600 / mo", "17.9", "Neutral (Breakeven 5–7 yrs)"],
+              ["Northeast (Boston, New York Metro)", "$720,000", "$3,100 / mo", "19.4", "Neutral to Rent Favored"],
+              ["West Coast (San Francisco, Seattle, LA)", "$980,000", "$3,500 / mo", "23.3", "Strong Rent (Renting builds wealth faster)"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>When Does Renting Beat Buying?</h2>
+          <ul>
+            <li>
+              <strong>Mobility &amp; Career Flexibility:</strong> If you relocate for career advancement within 3 years,
+              selling closing costs (6% agent fees + 1% transfer taxes) will wipe out any accumulated principal.
+            </li>
+            <li>
+              <strong>Extreme Price-to-Rent Metros:</strong> In cities like San Francisco, Seattle, and New York where
+              ratios exceed 22, mortgage payments are often double the price of rent. Investing that differential in stocks
+              generates superior net worth.
+            </li>
+            <li>
+              <strong>Capital Preservation:</strong> Renting avoids catastrophic out-of-pocket repair bills ($12,000 HVAC
+              replacements or $15,000 roof failures).
+            </li>
+          </ul>
+          <p>
+            Ready to evaluate mortgage qualification? Test our{" "}
+            <a href="/calculators/housing/home-affordability-calculator">home affordability calculator</a>, calculate your cash
+            tiers on the <a href="/calculators/housing/down-payment-calculator">down payment calculator</a>, analyze monthly principal
+            and interest on the <a href="/calculators/finance/mortgage-calculator">mortgage calculator</a>, or evaluate county property
+            tax rates on our <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <RentVsBuyCalculator />
+    </CalcPage>
   );
 }

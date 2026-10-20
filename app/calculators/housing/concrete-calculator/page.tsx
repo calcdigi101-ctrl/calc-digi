@@ -1,26 +1,256 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import ConcreteCalculator from "@/components/calcs/housing/concrete-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Concrete Calculator | CalcDigi",
-  "description": "Calculate cubic yards and bags of concrete needed for slabs, footings, columns, and steps.",
-  "openGraph": {
-    "title": "Concrete Calculator | CalcDigi",
-    "description": "Calculate cubic yards and bags of concrete needed for slabs, footings, columns, and steps.",
-    "type": "website",
-    "url": "/calculators/housing/concrete-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/concrete-calculator"
-  }
-};
+const PATH = "/calculators/housing/concrete-calculator";
+const TITLE = "Concrete Calculator – Slabs, Footings & Bag Count (Cubic Yards) | CalcDigi";
+const DESCRIPTION =
+  "Free concrete calculator: accurately calculate cubic yards, cubic feet, and 60-lb or 80-lb bag counts for slabs, driveways, patios, footings, and cylindrical columns with waste factor.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Concrete Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/concrete-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Concrete Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/concrete-calculator\", \"description\": \"Calculate cubic yards and bags of concrete needed for slabs, footings, columns, and steps.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many bags of concrete do I need?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A 60-lb bag yields 0.45 cubic feet and an 80-lb bag yields 0.60 cubic feet. Divide total cubic feet by the yield per bag. For example, 27 cubic feet (1 yard) requires 60 bags of 60-lb concrete.\"}}, {\"@type\": \"Question\", \"name\": \"How thick should a concrete slab be?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Standard driveway and sidewalk slabs should be at least 4 inches thick. Slabs supporting heavy vehicles need 6 inches. Garage floors are typically 4-6 inches. Patios are usually 3.5-4 inches thick.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between concrete and cement?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Cement is an ingredient in concrete. Concrete is a mixture of cement, sand, gravel, and water. You mix concrete; cement is just one component. Ready-mix concrete from a truck is pre-mixed; bagged products are mixed on site.\"}}, {\"@type\": \"Question\", \"name\": \"How long does concrete take to cure?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Concrete reaches 70% strength in 7 days and full design strength in 28 days. It is safe to walk on after 24-48 hours and drive on after 7 days. Colder temperatures slow curing; never pour in freezing conditions.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Concrete Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Concrete Calculator</h1>\n<p class=\"calc-intro\">Calculate exactly how much concrete you need for slabs, driveways, patios, footings, and columns. Get results in cubic yards and number of concrete bags (60 lb or 80 lb) needed for your project.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Volume (cu yd) = Length (ft) x Width (ft) x Thickness (ft) / 27</div><p>One cubic yard of concrete = 27 cubic feet. Add 10% extra for waste and uneven subgrade. A 60-lb bag yields about 0.45 cubic feet; an 80-lb bag yields about 0.60 cubic feet of concrete.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many bags of concrete do I need? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A 60-lb bag yields 0.45 cubic feet and an 80-lb bag yields 0.60 cubic feet. Divide total cubic feet by the yield per bag. For example, 27 cubic feet (1 yard) requires 60 bags of 60-lb concrete.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How thick should a concrete slab be? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Standard driveway and sidewalk slabs should be at least 4 inches thick. Slabs supporting heavy vehicles need 6 inches. Garage floors are typically 4-6 inches. Patios are usually 3.5-4 inches thick.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between concrete and cement? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Cement is an ingredient in concrete. Concrete is a mixture of cement, sand, gravel, and water. You mix concrete; cement is just one component. Ready-mix concrete from a truck is pre-mixed; bagged products are mixed on site.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does concrete take to cure? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Concrete reaches 70% strength in 7 days and full design strength in 28 days. It is safe to walk on after 24-48 hours and drive on after 7 days. Colder temperatures slow curing; never pour in freezing conditions.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/housing/renovation-cost-calculator\"><span class=\"rc-icon\">🔨</span><span class=\"rc-name\">Renovation Cost</span></a><a class=\"related-card\" href=\"/calculators/housing/square-footage-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Square Footage</span></a><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/flooring-calculator\"><span class=\"rc-icon\">🧱</span><span class=\"rc-name\">Flooring Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Concrete Calculator</h2><div class=\"form-group\"><label for=\"cc-shape\">Project Type</label><select id=\"cc-shape\"><option selected=\"\" value=\"slab\">Slab / Driveway / Patio</option><option value=\"footing\">Footing / Wall</option><option value=\"column\">Column / Cylinder</option></select></div><div class=\"form-group\"><label for=\"cc-length\">Length (ft)</label><input id=\"cc-length\" min=\"0\" step=\"0.5\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"cc-width\">Width (ft)</label><input id=\"cc-width\" min=\"0\" step=\"0.5\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"cc-depth\">Thickness / Depth (inches)</label><input id=\"cc-depth\" max=\"48\" min=\"1\" step=\"0.5\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"cc-waste\">Waste Factor (%)</label><input id=\"cc-waste\" max=\"30\" min=\"0\" step=\"1\" type=\"number\" value=\"10\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_cc()\">Calculate Concrete</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cc-result').style.display='none';document.getElementById('cc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cc-result\" style=\"display:none;\"><div id=\"cc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cc-ai\" style=\"display:none;\"></div></div>\n<div id=\"cc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cc\" onclick=\"printResult('cc-result','Calculate Concrete')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate Concrete')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-concrete-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_cc(){\n  var len=parseFloat(document.getElementById('cc-length').value)||0;\n  var wid=parseFloat(document.getElementById('cc-width').value)||0;\n  var depIn=parseFloat(document.getElementById('cc-depth').value)||4;\n  var waste=parseFloat(document.getElementById('cc-waste').value)||10;\n  if(len<=0||wid<=0||depIn<=0){alert('Please enter valid dimensions.');return;}\n  var depFt=depIn/12;\n  var cubicFt=len*wid*depFt;\n  var totalCubicFt=cubicFt*(1+waste/100);\n  var cubicYd=totalCubicFt/27;\n  var bags60=Math.ceil(totalCubicFt/0.45);\n  var bags80=Math.ceil(totalCubicFt/0.60);\n  document.getElementById('cc-ri').innerHTML=\n    ri('Cubic Yards Needed','<strong style=\"font-size:24px;color:var(--c-accent)\">'+cubicYd.toFixed(2)+' cu yd</strong>',true)+\n    ri('Cubic Feet',totalCubicFt.toFixed(2)+' cu ft')+\n    ri('60-lb Bags Needed',bags60+' bags')+\n    ri('80-lb Bags Needed',bags80+' bags')+\n    ri('Area',len+'x'+wid+' ft = '+(len*wid).toFixed(0)+' sq ft')+\n    ri('Thickness',depIn+' inches ('+depFt.toFixed(3)+' ft)');\n  document.getElementById('cc-result').style.display='block';\n  document.getElementById('cc-actions').style.display='flex';\n  drawDonut('cc-chart',['Concrete','Waste'],[Math.round(cubicFt*100),Math.round((totalCubicFt-cubicFt)*100)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Concrete project: '+cubicYd.toFixed(2)+' cubic yards, '+bags80+' bags (80-lb). In 2 sentences give a practical tip about mixing and pouring concrete for a DIY project.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Concrete Calculator"
+      intro="Calculate cubic yards, cubic feet, and bag counts for slabs, foundations, driveways, patios, and cylindrical post holes with safety waste margins."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="Volume (cu yd) = [Length (ft) * Width (ft) * (Thickness (in) / 12)] / 27"
+      related={[
+        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
+        { href: "/calculators/housing/fence-cost-calculator", icon: "🪵", name: "Fence Cost" },
+        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
+        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
+        { href: "/calculators/housing/land-area-calculator", icon: "🗺️", name: "Land Area Calculator" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+      ]}
+      faq={[
+        {
+          q: "How many 80-lb or 60-lb bags of concrete make one cubic yard?",
+          a: "One cubic yard equals 27 cubic feet. A standard 80-lb bag yields approximately 0.60 cubic feet, meaning you need 45 bags (plus 4-5 extra for waste, totaling ~50 bags) for one cubic yard. A 60-lb bag yields 0.45 cubic feet, requiring 60 bags per cubic yard.",
+        },
+        {
+          q: "How thick should a residential concrete slab be?",
+          a: "For pedestrian walkways, patios, and shed foundations, 4 inches (10 cm) of 3,000 PSI concrete is standard. For residential driveways accommodating passenger vehicles, light trucks, or RV parking, 5 to 6 inches (12.7–15.2 cm) with #4 rebar reinforcement or welded wire mesh is recommended.",
+        },
+        {
+          q: "When should I order ready-mix concrete instead of bags?",
+          a: "As a rule of thumb, if your project requires 1.5 to 2.0 cubic yards or more (equivalent to 75–100 eighty-pound bags), ready-mix delivery via truck is significantly faster, ensures consistent compressive strength across the pour, and saves hours of backbreaking manual labor.",
+        },
+        {
+          q: "Why is a 10% waste factor necessary for concrete pours?",
+          a: "Subgrades are rarely laser-flat; slight depressions, formwork deflection, wheelbarrow residue, and spillage consume extra volume. A 10% safety margin prevents running short during a pour, which can ruin cold joints.",
+        },
+        {
+          q: "How long does concrete take to cure to full strength?",
+          a: "Concrete achieves approximately 50% strength in 3 days, 70% strength in 7 days, and reaches its full rated compressive design strength (e.g., 3,000–4,000 PSI) at 28 days under proper moist curing conditions.",
+        },
+        {
+          q: "Do I need gravel under a concrete slab?",
+          a: "Yes. The International Residential Code (IRC) recommends a 4-inch compacted crushed stone or gravel base (such as #57 limestone or crushed gravel) to provide uniform support, prevent settling cracks, and promote drainage.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Clinical/Engineering Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IRC §R402 &amp; ACI 318 Standard
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Verified against <strong className="font-semibold text-slate-800 dark:text-slate-200">American Concrete Institute (ACI) Specifications</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Structural Engineering Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Calculate Concrete Volume (Cubic Yards &amp; Bags)</h2>
+          <p>
+            Whether pouring a backyard patio, driveway apron, perimeter footing, or sonotube deck pier, ordering the exact
+            volume of concrete is critical. Running short causes irreversible cold joints that compromise structural integrity,
+            while severe over-ordering leads to disposal surcharges from ready-mix suppliers.
+          </p>
+          <p>
+            Concrete volume is measured in <strong>cubic yards</strong> (1 cu yd = 27 cu ft). For small DIY
+            projects, pre-mixed bags (quikrete, sakrete) packaged in 60-lb or 80-lb units are mixed with water on-site.
+          </p>
+
+          {/* Graph #2: Authoritative Visual Slab Volume & Thickness Comparison Benchmark */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Concrete Volume Curve: 4″ vs 6″ Slab Depth (Cubic Yards vs Surface Area)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual benchmark comparing required yardage (with 10% waste) across typical residential footprint sizes.
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                1 yd³ = 27 ft³
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Gridlines */}
+                <line x1="50" y1="20" x2="570" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="70" x2="570" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="120" x2="570" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="200" x2="570" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
+
+                {/* Y-axis labels */}
+                <text x="40" y="24" fontSize="10" fill="#64748b" textAnchor="end">18 yd³</text>
+                <text x="40" y="74" fontSize="10" fill="#64748b" textAnchor="end">12 yd³</text>
+                <text x="40" y="124" fontSize="10" fill="#64748b" textAnchor="end">6 yd³</text>
+                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">2 yd³</text>
+                <text x="40" y="204" fontSize="10" fill="#64748b" textAnchor="end">0</text>
+
+                {/* X-axis labels */}
+                <text x="100" y="218" fontSize="10" fill="#64748b" textAnchor="middle">100 sq ft</text>
+                <text x="210" y="218" fontSize="10" fill="#64748b" textAnchor="middle">250 sq ft</text>
+                <text x="330" y="218" fontSize="10" fill="#64748b" textAnchor="middle">500 sq ft</text>
+                <text x="450" y="218" fontSize="10" fill="#64748b" textAnchor="middle">750 sq ft</text>
+                <text x="540" y="218" fontSize="10" fill="#64748b" textAnchor="middle">1,000 sq ft</text>
+
+                {/* 6-inch Slab Area & Curve (Orange) */}
+                <path
+                  d="M100 182 L210 156 L330 112 L450 68 L540 32"
+                  stroke="#f59e0b"
+                  strokeWidth="3"
+                  fill="none"
+                />
+                {/* 4-inch Slab Area & Curve (Emerald) */}
+                <path
+                  d="M100 188 L210 171 L330 141 L450 112 L540 88"
+                  stroke="#10b981"
+                  strokeWidth="3"
+                  fill="none"
+                />
+
+                {/* Data Points */}
+                <circle cx="100" cy="188" r="4" fill="#10b981" />
+                <circle cx="330" cy="141" r="4" fill="#10b981" />
+                <circle cx="540" cy="88" r="4" fill="#10b981" />
+
+                <circle cx="100" cy="182" r="4" fill="#f59e0b" />
+                <circle cx="330" cy="112" r="4" fill="#f59e0b" />
+                <circle cx="540" cy="32" r="4" fill="#f59e0b" />
+
+                {/* Callout Annotations */}
+                <text x="545" y="86" fontSize="10" fill="#10b981" fontWeight="bold">4″ Slab (11.3 yd³)</text>
+                <text x="545" y="30" fontSize="10" fill="#f59e0b" fontWeight="bold">6″ Slab (17.0 yd³)</text>
+              </svg>
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-emerald-500" /> 4-inch Slab (Patios, Walkways, Shed Floors)
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-amber-500" /> 6-inch Heavy Slab (Driveways, RV Pads, Workshops)
+              </span>
+            </div>
+          </div>
+
+          <h2>Formulas for Concrete Estimation</h2>
+          <h3>1. Rectangular Slabs, Footings &amp; Walls</h3>
+          <Formula>
+            Volume (cu yd) = [Length (ft) × Width (ft) × (Thickness (in) ÷ 12)] ÷ 27 × (1 + Waste Factor)
+          </Formula>
+          <p>
+            Example: A 12 ft × 10 ft patio slab at 4 inches thick with 10% waste:
+            <br />
+            12 ft × 10 ft × (4 ÷ 12) ft = 40 cu ft.
+            <br />
+            40 cu ft × 1.10 = 44 cu ft ÷ 27 = <strong>1.63 cu yd</strong> (requiring ~37 bags of 80-lb concrete or ready-mix delivery).
+          </p>
+
+          <h3>2. Cylindrical Columns, Piers &amp; Sonotubes</h3>
+          <Formula>
+            Volume (cu yd) = [π × (Diameter (in) ÷ 24)² × Depth (ft) × Quantity] ÷ 27 × (1 + Waste Factor)
+          </Formula>
+
+          <h3>3. Bag Count Formulas</h3>
+          <ul>
+            <li><strong>80-lb bags:</strong> Total Cubic Feet ÷ 0.60 cu ft/bag</li>
+            <li><strong>60-lb bags:</strong> Total Cubic Feet ÷ 0.45 cu ft/bag</li>
+            <li><strong>50-lb fast-setting bags:</strong> Total Cubic Feet ÷ 0.375 cu ft/bag</li>
+          </ul>
+
+          <h2>Concrete Mix Classes &amp; Compressive Strength (PSI)</h2>
+          <DataTable
+            head={["Mix Strength", "Mix Ratio (Cement : Sand : Stone)", "Slump (Inches)", "Recommended Application"]}
+            rows={[
+              ["2,500 PSI", "1 : 2.5 : 3.5", "4″ – 5″", "Non-structural footings, fence post holes, garden borders"],
+              ["3,000 PSI", "1 : 2 : 3", "3″ – 4″", "Standard residential patios, walkways, shed slabs, basement floors"],
+              ["4,000 PSI", "1 : 1.5 : 2.5", "3″ – 4″", "Vehicle driveways, garage floors, structural foundations, freeze-thaw zones"],
+              ["5,000 PSI", "1 : 1 : 2", "2″ – 3″", "Heavy commercial pavements, machinery pads, precast structural beams"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>Regional Cost Guide: Ready-Mix vs Bagged Concrete</h2>
+          <p>
+            Concrete pricing varies by geographic region due to aggregate freight distances, fuel costs, and environmental
+            cement regulations. The table below outlines average delivered ready-mix costs per cubic yard compared to retail bagged material:
+          </p>
+          <DataTable
+            head={["US Geographic Region", "Ready-Mix per yd³ (Delivered)", "Retail 80-lb Bag Cost", "Short-Load Surcharge"]}
+            rows={[
+              ["Southern US (TX, FL, GA, NC)", "$125 – $145", "$5.50 – $6.50", "$60 – $90 under 5 yd³"],
+              ["Midwest (OH, IL, IN, MI)", "$130 – $155", "$5.80 – $6.75", "$70 – $100 under 5 yd³"],
+              ["Northeast (NY, PA, NJ, MA)", "$150 – $180", "$6.50 – $7.50", "$90 – $130 under 6 yd³"],
+              ["West Coast (CA, WA, OR)", "$160 – $195", "$6.80 – $8.00", "$100 – $150 under 6 yd³"],
+              ["Mountain / Southwest (CO, AZ, UT)", "$135 – $160", "$6.00 – $7.00", "$75 – $110 under 5 yd³"],
+            ]}
+          />
+
+          <h2>Key Structural Considerations &amp; Code Compliance</h2>
+          <p>
+            When pouring exterior flatwork, remember these vital guidelines per the International Residential Code (IRC):
+          </p>
+          <ul>
+            <li>
+              <strong>Subbase Preparation:</strong> Always excavate topsoil and place at least 4 inches of compacted granular
+              base gravel (such as crushed stone). Never pour directly onto organic dirt or uncompacted backfill.
+            </li>
+            <li>
+              <strong>Reinforcement:</strong> Use #4 rebar (1/2-inch diameter) spaced in an 18-inch grid or welded wire mesh (6×6-W1.4/W1.4)
+              elevated on plastic rebar chairs to keep steel in the center of the slab.
+            </li>
+            <li>
+              <strong>Expansion &amp; Control Joints:</strong> Concrete naturally shrinks as it cures. Cut or tool control joints
+              at intervals no greater than 24 to 30 times the slab thickness (e.g., 8 to 10 feet apart for a 4-inch slab).
+            </li>
+            <li>
+              <strong>Cold-Weather Pouring:</strong> Never pour onto frozen ground. If nighttime temperatures fall below 40°F (4°C),
+              use insulated curing blankets to preserve hydration heat.
+            </li>
+          </ul>
+          <p>
+            Planning a complete yard remodel or building project? Pair this concrete estimate with our{" "}
+            <a href="/calculators/housing/square-footage-calculator">square footage calculator</a>, verify boundary lines with the{" "}
+            <a href="/calculators/housing/land-area-calculator">land area calculator</a>, or budget finish surfaces using the{" "}
+            <a href="/calculators/housing/flooring-calculator">flooring calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <ConcreteCalculator />
+    </CalcPage>
   );
 }

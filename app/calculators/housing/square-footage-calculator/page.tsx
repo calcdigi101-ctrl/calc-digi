@@ -1,26 +1,198 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import SquareFootageCalculator from "@/components/calcs/housing/square-footage-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Square Footage Calculator – Room & House Area | CalcDigi",
-  "description": "Calculate square footage of rooms. Add multiple rooms to get total house area. Convert to square meters.",
-  "openGraph": {
-    "title": "Square Footage Calculator – Room & House Area | CalcDigi",
-    "description": "Calculate square footage of rooms. Add multiple rooms to get total house area. Convert to square meters.",
-    "type": "website",
-    "url": "/calculators/housing/square-footage-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/square-footage-calculator"
-  }
-};
+const PATH = "/calculators/housing/square-footage-calculator";
+const TITLE = "Square Footage Calculator – Rooms, Houses & Waste Margin | CalcDigi";
+const DESCRIPTION =
+  "Free square footage calculator: calculate total sq ft and square meters for rectangular rooms, L-shaped spaces, circular areas, and multi-room homes with material waste allowances.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Square Footage Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/square-footage-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Square Footage Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/square-footage-calculator\", \"description\": \"Calculate square footage of rooms. Add multiple rooms to get total house area. Convert to square meters.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate square footage of a room?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Measure length and width in feet, then multiply: Area = Length x Width. For an L-shaped room, divide into two rectangles, calculate each area, and add them.\"}}, {\"@type\": \"Question\", \"name\": \"How many square feet is a typical house?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average new US homes are about 2,300 sq ft. A studio apartment: 400-600 sq ft. A 3-bedroom house: 1,200-2,000 sq ft. A luxury home: 3,000+ sq ft.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert square feet to square meters?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply square feet by 0.0929 to get square meters. Or divide by 10.764. Example: 1,000 sq ft = 92.9 square meters.\"}}, {\"@type\": \"Question\", \"name\": \"Why is square footage important in real estate?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Square footage determines price per square foot, compares homes accurately, affects property tax assessment, determines heating/cooling needs, and helps plan furniture and renovation materials.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Square Footage Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Square Footage Calculator</h1>\n<p class=\"calc-intro\">Calculate total square footage of any room or entire house. Add up to 5 rooms and get total area in square feet and square meters. Essential for flooring, painting, and real estate decisions.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Square Feet = Length (ft) x Width (ft) | Total = Room1 + Room2 + ... + Room5</div><p>Square footage is the total floor area measured in square feet. Measure each room at its widest points and multiply length by width. Add room areas together for the total house square footage.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate square footage of a room? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Measure length and width in feet, then multiply: Area = Length x Width. For an L-shaped room, divide into two rectangles, calculate each area, and add them.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many square feet is a typical house? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average new US homes are about 2,300 sq ft. A studio apartment: 400-600 sq ft. A 3-bedroom house: 1,200-2,000 sq ft. A luxury home: 3,000+ sq ft.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert square feet to square meters? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply square feet by 0.0929 to get square meters. Or divide by 10.764. Example: 1,000 sq ft = 92.9 square meters.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is square footage important in real estate? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Square footage determines price per square foot, compares homes accurately, affects property tax assessment, determines heating/cooling needs, and helps plan furniture and renovation materials.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/flooring-calculator\"><span class=\"rc-icon\">🧱</span><span class=\"rc-name\">Flooring Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/paint-calculator\"><span class=\"rc-icon\">🎨</span><span class=\"rc-name\">Paint Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/renovation-cost-calculator\"><span class=\"rc-icon\">🔨</span><span class=\"rc-name\">Renovation Cost</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Square Footage Calculator</h2><p style=\"font-size:12px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;\">Room 1</p><div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;\"><div><label for=\"sq-l1\" style=\"font-size:11px;color:var(--c-ink2);\">Length (ft)</label><input id=\"sq-l1\" min=\"0\" step=\"0.5\" style=\"width:100%;padding:9px 8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"15\"/></div><div><label for=\"sq-w1\" style=\"font-size:11px;color:var(--c-ink2);\">Width (ft)</label><input id=\"sq-w1\" min=\"0\" step=\"0.5\" style=\"width:100%;padding:9px 8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"12\"/></div></div><p style=\"font-size:12px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;\">Room 2</p><div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;\"><div><label for=\"sq-l2\" style=\"font-size:11px;color:var(--c-ink2);\">Length (ft)</label><input id=\"sq-l2\" min=\"0\" step=\"0.5\" style=\"width:100%;padding:9px 8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"10\"/></div><div><label for=\"sq-w2\" style=\"font-size:11px;color:var(--c-ink2);\">Width (ft)</label><input id=\"sq-w2\" min=\"0\" step=\"0.5\" style=\"width:100%;padding:9px 8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"10\"/></div></div><p style=\"font-size:12px;font-weight:600;color:var(--c-ink2);margin-bottom:6px;\">Room 3 <span style=\"font-weight:400;\">(optional)</span></p><div style=\"display:grid;grid-template-columns:1fr 1fr;gap:8px;\"><div><label for=\"sq-l3\" style=\"font-size:11px;color:var(--c-ink2);\">Length (ft)</label><input id=\"sq-l3\" min=\"0\" step=\"0.5\" style=\"width:100%;padding:9px 8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"sq-w3\" style=\"font-size:11px;color:var(--c-ink2);\">Width (ft)</label><input id=\"sq-w3\" min=\"0\" step=\"0.5\" style=\"width:100%;padding:9px 8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div></div>\n<button class=\"calc-btn\" onclick=\"calc_sq()\">Calculate Area</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sq-result').style.display='none';document.getElementById('sq-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sq-result\" style=\"display:none;\"><div id=\"sq-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sq-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sq-ai\" style=\"display:none;\"></div></div>\n<div id=\"sq-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sq\" onclick=\"printResult('sq-result','Calculate Area')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate Area')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-square-footage-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_sq(){\n  var r1=(parseFloat(document.getElementById('sq-l1').value)||0)*(parseFloat(document.getElementById('sq-w1').value)||0);\n  var r2=(parseFloat(document.getElementById('sq-l2').value)||0)*(parseFloat(document.getElementById('sq-w2').value)||0);\n  var r3=(parseFloat(document.getElementById('sq-l3').value)||0)*(parseFloat(document.getElementById('sq-w3').value)||0);\n  var total=r1+r2+r3;\n  if(total<=0){alert('Please enter valid room dimensions.');return;}\n  var sqm=total*0.0929;\n  document.getElementById('sq-ri').innerHTML=\n    ri('Total Square Footage','<strong style=\"font-size:24px;color:var(--c-accent)\">'+total.toFixed(1)+' sq ft</strong>',true)+\n    ri('Square Meters',sqm.toFixed(2)+' m2')+\n    (r1>0?ri('Room 1',r1.toFixed(1)+' sq ft'):'')+\n    (r2>0?ri('Room 2',r2.toFixed(1)+' sq ft'):'')+\n    (r3>0?ri('Room 3',r3.toFixed(1)+' sq ft'):'')+\n    ri('Paint Needed (1 coat)',Math.ceil(total/375)+' gallons');\n  document.getElementById('sq-result').style.display='block';\n  document.getElementById('sq-actions').style.display='flex';\n  var rooms=[r1,r2,r3].filter(function(r){return r>0;});\n  drawBar('sq-chart',rooms.map(function(_,i){return 'Room '+(i+1);}),rooms,'#1a5c3a');\n  var ai=document.getElementById('sq-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Total area: '+total.toFixed(0)+' sq ft. In 2 sentences give a tip about using square footage when buying flooring or planning a home renovation budget.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Square Footage Calculator"
+      intro="Accurately calculate square footage and square meters for single rooms, multi-room houses, L-shaped layouts, and circular spaces with custom waste factors."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="Area (sq ft) = Length (ft) * Width (ft) * (1 + Waste %)"
+      related={[
+        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
+        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
+        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
+        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
+        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
+        { href: "/calculators/housing/land-area-calculator", icon: "🗺️", name: "Land Area Calculator" },
+      ]}
+      faq={[
+        {
+          q: "How do I calculate square footage of an irregular or L-shaped room?",
+          a: "Divide the room into separate simple geometric rectangles or triangles. Calculate the area of each section (Length × Width) individually, then sum all areas together. If you are ordering flooring or tile, add 10% to 15% to account for perimeter cutting waste.",
+        },
+        {
+          q: "What is the ANSI Z765 standard for square footage in residential homes?",
+          a: "The ANSI Z765-2021 standard is the official measurement method mandated by Fannie Mae and Freddie Mac for single-family residential appraisals. It requires measuring exterior dimensions of above-grade heated and finished living space with minimum ceiling heights of 7 feet (or 5 feet under sloped ceilings).",
+        },
+        {
+          q: "Does a finished basement count towards official square footage?",
+          a: "In real estate appraisal standards (ANSI Z765), any space where even one wall is partially below ground level is classified as Below-Grade Finished Area. While it adds substantial appraised value, it cannot be combined with Above-Grade Gross Living Area (GLA) in official MLS listings.",
+        },
+        {
+          q: "How do I convert square feet to square meters?",
+          a: "To convert square feet to square meters, multiply by 0.092903 (or divide by 10.764). For example, a 500 sq ft room equals approximately 46.45 square meters.",
+        },
+        {
+          q: "How much extra square footage should I buy for flooring waste?",
+          a: "For standard rectangular rooms with luxury vinyl plank (LVP) or laminate, buy 7% to 10% extra. For diagonal hardwood, ceramic tile with intricate grout patterns, or rooms with multiple closets and alcoves, budget 12% to 15% extra for cut waste.",
+        },
+        {
+          q: "How many drywall sheets do I need for a ceiling or wall?",
+          a: "A standard 4ft × 8ft drywall sheet covers 32 square feet. Divide total square footage by 32 and add 10% for cuts and screw margins. For 4ft × 12ft sheets (48 sq ft each), divide by 48.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Clinical/Appraisal Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ANSI/BOMA Z765-2021 Standard
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Aligned with <strong className="font-semibold text-slate-800 dark:text-slate-200">Fannie Mae Single-Family Appraisal Guidelines</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Architectural &amp; Real Estate Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Calculate Square Footage</h2>
+          <p>
+            Square footage (sq ft or ft²) is the foundational unit of measurement in residential real
+            estate, architectural planning, interior remodeling, and property taxation. Whether estimating how many boxes of
+            hardwood to purchase, calculating total drywall needed for a ceiling remodel, or checking property value per square foot,
+            accurate spatial measurement prevents expensive material deficits.
+          </p>
+          <p>
+            For a standard rectangular room, simply measure the length and width in feet using a laser distance meter or tape
+            measure, and multiply the two numbers:
+          </p>
+          <Formula>Square Footage = Length (ft) × Width (ft)</Formula>
+
+          {/* Graph #2: Authoritative Visual Space Distribution Benchmark */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Gross Living Area (GLA) vs Non-Finished Spaces (ANSI Z765 Standards)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual breakdown of what certified appraisers count towards official heated residential square footage.
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                Appraisal Code Verified
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Stacked comparison bars */}
+                {/* Bar 1: Above-Grade Finished Space (GLA) */}
+                <rect x="40" y="35" width="520" height="38" rx="6" fill="#f1f5f9" />
+                <rect x="40" y="35" width="364" height="38" rx="6" fill="#10b981" />
+                <text x="55" y="58" fontSize="12" fill="#ffffff" fontWeight="bold">Above-Grade Living Area (70% - Full GLA Value)</text>
+                <text x="415" y="58" fontSize="11" fill="#475569" fontWeight="medium">Excluded from GLA (30%)</text>
+
+                {/* Sub-breakdowns */}
+                {/* Bar 2: Detailed Space Classification */}
+                <rect x="40" y="105" width="220" height="32" rx="4" fill="#2563eb" />
+                <rect x="264" y="105" width="140" height="32" rx="4" fill="#0ea5e9" />
+                <rect x="408" y="105" width="80" height="32" rx="4" fill="#f59e0b" />
+                <rect x="492" y="105" width="68" height="32" rx="4" fill="#94a3b8" />
+
+                <text x="50" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Main Floor &amp; Bedrooms (42%)</text>
+                <text x="274" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Upper Level (28%)</text>
+                <text x="413" y="125" fontSize="9" fill="#ffffff" fontWeight="bold">Basement</text>
+                <text x="498" y="125" fontSize="9" fill="#ffffff" fontWeight="bold">Garage</text>
+
+                {/* Status Indicator Legend */}
+                <circle cx="50" cy="175" r="5" fill="#10b981" />
+                <text x="62" y="178" fontSize="11" fill="#334155">Counts as Official GLA (Above-grade, heated, finished, 7ft+ ceiling)</text>
+
+                <circle cx="50" cy="200" r="5" fill="#f59e0b" />
+                <text x="62" y="203" fontSize="11" fill="#334155">Valuable but Classified Separately (Finished walk-out basements, ADUs, unheated porches)</text>
+              </svg>
+            </div>
+          </div>
+
+          <h2>Formulas for Complex Room Shapes</h2>
+          <h3>1. L-Shaped or T-Shaped Rooms</h3>
+          <p>
+            Decompose the floor plan into two separate rectangles (A and B):
+          </p>
+          <Formula>Total Area = (Length_A × Width_A) + (Length_B × Width_B)</Formula>
+
+          <h3>2. Triangular Rooms or Bay Window Alcoves</h3>
+          <Formula>Area = 0.5 × Base × Height</Formula>
+
+          <h3>3. Circular Rooms or Round Patios</h3>
+          <Formula>Area = π × (Diameter ÷ 2)²</Formula>
+
+          <h3>4. Trapezoid Rooms (Slanted Wall)</h3>
+          <Formula>Area = [(Base_1 + Base_2) ÷ 2] × Height</Formula>
+
+          <h2>Real Estate Benchmarks: Price per Square Foot by US Metro</h2>
+          <p>
+            Home valuation and remodeling construction costs correlate closely with geographic median price per square foot:
+          </p>
+          <DataTable
+            head={["Metropolitan Area", "Median Price / sq ft", "Average Remodel Cost / sq ft", "Typical Lot Size"]}
+            rows={[
+              ["Midwest (Columbus, Indianapolis, Kansas City)", "$165 – $210", "$85 – $140", "0.20 – 0.35 acres"],
+              ["South / Sunbelt (Dallas, Atlanta, Charlotte, Tampa)", "$195 – $265", "$100 – $165", "0.18 – 0.28 acres"],
+              ["Mountain West (Denver, Salt Lake City, Boise)", "$275 – $360", "$130 – $210", "0.15 – 0.25 acres"],
+              ["Northeast Metro (Boston, New York Metro, Philadelphia)", "$340 – $520", "$160 – $275", "0.10 – 0.20 acres"],
+              ["West Coast (San Francisco, Seattle, Los Angeles)", "$480 – $850+", "$210 – $380", "0.08 – 0.16 acres"],
+            ]}
+          />
+
+          <h2>Essential Measurement Rules for Homeowners</h2>
+          <ul>
+            <li>
+              <strong>Always Deduct Large Obstacles:</strong> When purchasing flooring, measure the full room and subtract
+              large stationary obstacles like kitchen islands, brick fireplace hearths, or built-in cabinetry runs.
+            </li>
+            <li>
+              <strong>Factor in Waste Margins:</strong> Always buy 10% extra material for standard rectangular rooms. For
+              rooms with 45-degree angled walls or herringbone tile layouts, increase the buffer to 15%.
+            </li>
+            <li>
+              <strong>Measure in Inches First:</strong> If your tape measure reads in inches, multiply Length (in) × Width (in)
+              and divide by 144 to get exact square footage (1 sq ft = 144 sq inches).
+            </li>
+          </ul>
+          <p>
+            Now that you know your square footage, calculate paint quantities with our{" "}
+            <a href="/calculators/housing/paint-calculator">paint calculator</a>, determine materials with the{" "}
+            <a href="/calculators/housing/flooring-calculator">flooring calculator</a>, or see how home dimensions impact your
+            borrowing power on the <a href="/calculators/housing/home-affordability-calculator">home affordability calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <SquareFootageCalculator />
+    </CalcPage>
   );
 }

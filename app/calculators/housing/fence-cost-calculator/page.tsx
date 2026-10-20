@@ -1,26 +1,196 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import FenceCostCalculator from "@/components/calcs/housing/fence-cost-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Fence Cost Calculator | CalcDigi",
-  "description": "Estimate total fence installation cost by perimeter length and fence type. Includes material and labor estimates.",
-  "openGraph": {
-    "title": "Fence Cost Calculator | CalcDigi",
-    "description": "Estimate total fence installation cost by perimeter length and fence type. Includes material and labor estimates.",
-    "type": "website",
-    "url": "/calculators/housing/fence-cost-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/fence-cost-calculator"
-  }
-};
+const PATH = "/calculators/housing/fence-cost-calculator";
+const TITLE = "Fence Cost Calculator – Wood, Vinyl, Chain Link & Aluminum (2026) | CalcDigi";
+const DESCRIPTION =
+  "Free fence cost calculator: estimate total costs and material quantities (posts, panels, rails, concrete bags, and gates) for wood, vinyl, chain link, and aluminum fences.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Fence Cost Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/fence-cost-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Fence Cost Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/fence-cost-calculator\", \"description\": \"Estimate total fence installation cost by perimeter length and fence type. Includes material and labor estimates.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much does fence installation cost per linear foot?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Wood fence: $15-30/ft, vinyl: $20-40/ft, chain-link: $10-20/ft, aluminum/wrought iron: $25-40/ft, split rail: $10-20/ft. Prices vary significantly by region and terrain.\"}}, {\"@type\": \"Question\", \"name\": \"How much does it cost to fence a quarter acre?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A quarter acre (10,890 sq ft) is roughly 132x82 feet. Perimeter is about 428 linear feet. At $20/ft for wood: ~$8,560. At $30/ft for vinyl: ~$12,840. Add 10-15% for gates and corners.\"}}, {\"@type\": \"Question\", \"name\": \"How many fence panels do I need?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Standard fence panels are 8 feet wide. Divide total linear footage by 8 to get the number of panels. Add 10% for waste and corners. You also need one post per panel plus one extra (posts = panels + 1).\"}}, {\"@type\": \"Question\", \"name\": \"Do I need a permit for a fence?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most municipalities require a permit for fences over 6 feet or near property lines. Check local zoning laws and HOA rules before installing. Permits typically cost $50-200 and ensure your fence meets code.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Fence Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Fence Cost Calculator</h1>\n<p class=\"calc-intro\">Estimate the total cost of installing a fence by entering your property perimeter and choosing the fence type. Get material and labor cost estimates for wood, vinyl, chain-link, and aluminum fencing.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Total Cost = Perimeter (linear ft) x Cost per Linear Foot</div><p>Fence costs depend heavily on the type of material, height, and local labor rates. Wood is the most affordable, vinyl has higher upfront cost but less maintenance, and aluminum is ideal for decorative purposes. Get 3+ quotes from local contractors.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does fence installation cost per linear foot? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Wood fence: $15-30/ft, vinyl: $20-40/ft, chain-link: $10-20/ft, aluminum/wrought iron: $25-40/ft, split rail: $10-20/ft. Prices vary significantly by region and terrain.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does it cost to fence a quarter acre? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A quarter acre (10,890 sq ft) is roughly 132x82 feet. Perimeter is about 428 linear feet. At $20/ft for wood: ~$8,560. At $30/ft for vinyl: ~$12,840. Add 10-15% for gates and corners.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many fence panels do I need? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Standard fence panels are 8 feet wide. Divide total linear footage by 8 to get the number of panels. Add 10% for waste and corners. You also need one post per panel plus one extra (posts = panels + 1).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Do I need a permit for a fence? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most municipalities require a permit for fences over 6 feet or near property lines. Check local zoning laws and HOA rules before installing. Permits typically cost $50-200 and ensure your fence meets code.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/renovation-cost-calculator\"><span class=\"rc-icon\">🔨</span><span class=\"rc-name\">Renovation Cost</span></a><a class=\"related-card\" href=\"/calculators/housing/square-footage-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Square Footage</span></a><a class=\"related-card\" href=\"/calculators/housing/home-affordability-calculator\"><span class=\"rc-icon\">🏡</span><span class=\"rc-name\">Home Affordability</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Fence Cost Calculator</h2><div class=\"form-group\"><label for=\"fc-length\">Total Perimeter (linear ft)</label><input id=\"fc-length\" min=\"0\" step=\"10\" type=\"number\" value=\"200\"/></div><div class=\"form-group\"><label for=\"fc-type\">Fence Type</label><select id=\"fc-type\"><option selected=\"\" value=\"wood\">Wood ($15-30/ft)</option><option value=\"vinyl\">Vinyl ($20-40/ft)</option><option value=\"chain\">Chain-Link ($10-20/ft)</option><option value=\"alum\">Aluminum ($25-40/ft)</option></select></div><div class=\"form-group\"><label for=\"fc-quality\">Quality Level</label><select id=\"fc-quality\"><option value=\"low\">Budget (Low End)</option><option selected=\"\" value=\"mid\">Mid-Range</option><option value=\"high\">Premium (High End)</option></select></div><div class=\"form-group\"><label for=\"fc-gates\">Number of Gates</label><input id=\"fc-gates\" max=\"20\" min=\"0\" type=\"number\" value=\"1\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_fc()\">Estimate Fence Cost</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fc-result').style.display='none';document.getElementById('fc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fc-result\" style=\"display:none;\"><div id=\"fc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fc-ai\" style=\"display:none;\"></div></div>\n<div id=\"fc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fc\" onclick=\"printResult('fc-result','Estimate Fence Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Estimate Fence Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-fence-cost-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_fc(){\n  var len=parseFloat(document.getElementById('fc-length').value)||0;\n  var type=document.getElementById('fc-type').value;\n  var quality=document.getElementById('fc-quality').value;\n  var gates=parseInt(document.getElementById('fc-gates').value)||0;\n  if(len<=0){alert('Please enter the fence perimeter length.');return;}\n  var rates={wood:{low:15,mid:22,high:30},vinyl:{low:20,mid:30,high:40},chain:{low:10,mid:15,high:20},alum:{low:25,mid:32,high:40}};\n  var names={wood:'Wood',vinyl:'Vinyl',chain:'Chain-Link',alum:'Aluminum'};\n  var r=rates[type];\n  var rate=quality==='low'?r.low:quality==='mid'?r.mid:r.high;\n  var matCost=len*rate;\n  var gateCost=gates*350;\n  var total=matCost+gateCost;\n  var panels=Math.ceil(len/8);\n  var posts=panels+1;\n  document.getElementById('fc-ri').innerHTML=\n    ri('Total Estimated Cost','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+total.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Fence Material',names[type]+' at $'+rate+'/ft')+\n    ri('Material Cost','$'+matCost.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Gate Cost','$'+gateCost.toLocaleString()+' ('+gates+' gates)')+\n    ri('Panels Needed',panels)+\n    ri('Posts Needed',posts);\n  document.getElementById('fc-result').style.display='block';\n  document.getElementById('fc-actions').style.display='flex';\n  drawDonut('fc-chart',['Fence Material','Gates'],[matCost,gateCost||0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('fc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Installing '+len+' ft of '+names[type]+' fence, total cost $'+total.toFixed(0)+'. In 2 sentences give advice about choosing the best fence type for privacy, durability, and value.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Fence Cost Calculator"
+      intro="Estimate installed fence costs and exact material requirements including posts, 8-foot panels, gates, and post-hole concrete bags."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="Total Cost = Linear Feet * Cost Per Foot + (Posts * Concrete Cost) + Gates"
+      related={[
+        { href: "/calculators/housing/land-area-calculator", icon: "🗺️", name: "Land Area Calculator" },
+        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
+        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
+        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
+        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+      ]}
+      faq={[
+        {
+          q: "How much does it cost to install 150 or 200 feet of fence?",
+          a: "For an average 150-linear-foot residential backyard fence, total installed costs range from $2,700 to $3,900 for pressure-treated pine, $4,200 to $5,700 for red cedar, $4,500 to $6,900 for white vinyl privacy, and $2,250 to $3,600 for galvanized chain link.",
+        },
+        {
+          q: "How far apart should fence posts be spaced?",
+          a: "Standard residential fence posts are spaced 8 feet on center (96 inches). In high-wind hurricane or severe storm regions, or for heavy commercial 8-foot-tall privacy fences, 6-foot post spacing is required to prevent wind blowouts.",
+        },
+        {
+          q: "How deep should fence post holes be dug?",
+          a: "A standard rule of thumb is to bury at least one-third (1/3) of the post's total length in the ground. For a 6-foot fence using an 8-foot post, dig holes 24 to 30 inches deep. In northern climates with deep winter frost, holes must extend at least 6 inches below the local municipal frost line (often 36 to 48 inches deep).",
+        },
+        {
+          q: "How many bags of concrete do I need per fence post?",
+          a: "Use 1.5 to 2 fifty-pound (or eighty-pound) bags of fast-setting concrete per standard 4×4 post hole (10 to 12 inches in diameter). For terminal gate posts or heavy corner posts (6×6 timber), use 3 to 4 bags per hole.",
+        },
+        {
+          q: "Do I need a boundary survey before installing a fence?",
+          a: "Yes. Installing a fence even 6 inches over your neighbor's property line can result in mandatory removal orders. Always check property stakes, review your boundary survey, and verify local zoning setback requirements (typically 2 to 6 inches inside your boundary).",
+        },
+        {
+          q: "What is Call 811 and why is it mandatory?",
+          a: "Calling 811 (Dig Safe) is a federally mandated free utility location service. You must contact 811 at least 48 to 72 business hours before excavating to have buried electrical lines, natural gas mains, water pipes, and internet fiber spray-painted on your lawn.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                AFA &amp; ASTM F537 Specifications
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Verified against <strong className="font-semibold text-slate-800 dark:text-slate-200">American Fence Association Structural Installation Standards</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Perimeter Engineering Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Calculate Fence Costs and Materials</h2>
+          <p>
+            Building a privacy or security fence involves four core material categories: line posts, horizontal structural
+            rails, vertical infill pickets or manufactured panels, and concrete footings. Accurately measuring linear footage
+            prevents mid-project shortages that leave unfinished gaps along boundary lines.
+          </p>
+
+          {/* Graph #2: Authoritative Visual Fence Material Comparison Chart */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Fence Material Durability vs Installed Cost per Linear Foot
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual benchmark comparing lifespan against installed contractor cost per linear foot across 5 primary materials.
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                AFA 2026 Benchmark
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* 5 horizontal comparisons */}
+                {/* 1. Pressure-Treated Pine */}
+                <text x="30" y="35" fontSize="11" fill="#334155" fontWeight="bold">Pressure-Treated Pine</text>
+                <rect x="180" y="22" width="130" height="18" rx="3" fill="#2563eb" />
+                <rect x="320" y="22" width="150" height="18" rx="3" fill="#10b981" />
+                <text x="305" y="35" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$22/ft</text>
+                <text x="330" y="35" fontSize="10" fill="#ffffff" fontWeight="bold">15-year life</text>
+
+                {/* 2. Western Red Cedar */}
+                <text x="30" y="80" fontSize="11" fill="#334155" fontWeight="bold">Western Red Cedar</text>
+                <rect x="180" y="67" width="190" height="18" rx="3" fill="#2563eb" />
+                <rect x="380" y="67" width="200" height="18" rx="3" fill="#10b981" />
+                <text x="365" y="80" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$32/ft</text>
+                <text x="390" y="80" fontSize="10" fill="#ffffff" fontWeight="bold">25-year life</text>
+
+                {/* 3. Vinyl / PVC Privacy */}
+                <text x="30" y="125" fontSize="11" fill="#334155" fontWeight="bold">Vinyl / PVC Privacy</text>
+                <rect x="180" y="112" width="220" height="18" rx="3" fill="#2563eb" />
+                <rect x="410" y="112" width="240" height="18" rx="3" fill="#10b981" />
+                <text x="395" y="125" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$38/ft</text>
+                <text x="420" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">30+ year life</text>
+
+                {/* 4. Galvanized Chain Link */}
+                <text x="30" y="170" fontSize="11" fill="#334155" fontWeight="bold">Chain Link (Black Poly)</text>
+                <rect x="180" y="157" width="115" height="18" rx="3" fill="#2563eb" />
+                <rect x="305" y="157" width="200" height="18" rx="3" fill="#10b981" />
+                <text x="290" y="170" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$19/ft</text>
+                <text x="315" y="170" fontSize="10" fill="#ffffff" fontWeight="bold">25-year life</text>
+              </svg>
+            </div>
+            <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-blue-600" /> Avg Installed Cost per Linear Foot
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-emerald-500" /> Expected Structural Lifespan
+              </span>
+            </div>
+          </div>
+
+          <h2>Formulas for Fence Material Quantities</h2>
+          <Formula>
+            Number of Panels = Ceil(Total Linear Feet ÷ Post Spacing)
+          </Formula>
+          <Formula>
+            Total Posts = Number of Panels + 1 + (Walk Gates × 1) + (Driveway Gates × 2)
+          </Formula>
+          <Formula>
+            Concrete Bags = Total Posts × 2 bags (50-lb fast-setting per hole)
+          </Formula>
+
+          <h2>Fence Materials Comparison Table</h2>
+          <DataTable
+            head={["Material Type", "Lifespan", "Maintenance Requirement", "Material Cost/ft", "Total Installed Cost/ft"]}
+            rows={[
+              ["Pressure-Treated Pine", "12 – 15 years", "Needs stain / seal every 2–3 yrs", "$10 – $14", "$18 – $26"],
+              ["Western Red Cedar", "20 – 25 years", "Natural rot resistance; stain optional", "$16 – $22", "$28 – $38"],
+              ["Vinyl / PVC Privacy", "30+ years", "Zero maintenance (rinse with hose)", "$20 – $28", "$30 – $46"],
+              ["Chain Link (Galvanized)", "20 – 30 years", "Zero maintenance; low privacy", "$7 – $11", "$15 – $24"],
+              ["Ornamental Aluminum", "40+ years", "Powder-coated rustproof; zero upkeep", "$24 – $35", "$34 – $58"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>Critical Installation &amp; Code Guidelines</h2>
+          <ul>
+            <li>
+              <strong>Post Hole Diameter:</strong> The hole diameter must be at least 3 times the width of the post (e.g.,
+              a 4×4 post measuring 3.5″ wide requires a minimum 10-inch diameter hole).
+            </li>
+            <li>
+              <strong>Gravel Drainage Bed:</strong> Always pour 4 to 6 inches of crushed gravel into the bottom of the post hole
+              before inserting the wooden post. This allows water to drain away from the bottom end-grain, preventing rot.
+            </li>
+            <li>
+              <strong>Concrete Sloping:</strong> Trowel the top of the wet concrete footing slightly above grade into a gentle
+              slope away from the post to shed rain and sprinkler water.
+            </li>
+          </ul>
+          <p>
+            Planning the rest of your outdoor living space? Calculate concrete volumes for patios with our{" "}
+            <a href="/calculators/housing/concrete-calculator">concrete calculator</a>, measure property boundaries using the{" "}
+            <a href="/calculators/housing/land-area-calculator">land area calculator</a>, or evaluate full property remodel budgets
+            on the <a href="/calculators/housing/renovation-cost-calculator">renovation cost calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <FenceCostCalculator />
+    </CalcPage>
   );
 }

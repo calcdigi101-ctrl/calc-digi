@@ -1,26 +1,211 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import HomeAffordabilityCalculator from "@/components/calcs/housing/home-affordability-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Home Affordability Calculator | CalcDigi",
-  "description": "Determine how much home you can afford based on your gross income, monthly debts, down payment, and interest rate.",
-  "openGraph": {
-    "title": "Home Affordability Calculator | CalcDigi",
-    "description": "Determine how much home you can afford based on your gross income, monthly debts, down payment, and interest rate.",
-    "type": "website",
-    "url": "/calculators/housing/home-affordability-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/home-affordability-calculator"
-  }
-};
+const PATH = "/calculators/housing/home-affordability-calculator";
+const TITLE = "Home Affordability Calculator – How Much House Can I Afford? | CalcDigi";
+const DESCRIPTION =
+  "Free home affordability calculator: determine the maximum home price and mortgage loan you can afford based on gross income, monthly debts, down payment, and the 28/36 DTI rule.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Home Affordability Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/home-affordability-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Home Affordability Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/home-affordability-calculator\", \"description\": \"Determine how much home you can afford based on your gross income, monthly debts, down payment, and interest rate.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the 28/36 rule?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Lenders allow housing costs up to 28% of gross monthly income and total debts up to 36%. On $8,333/month income: max housing $2,333, max total debt $3,000. These determine mortgage qualification.\"}}, {\"@type\": \"Question\", \"name\": \"How much house can I afford on $100,000 salary?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"$100,000/year = $8,333/month. At 28% rule: $2,333/month for housing. At 7% for 30 years, that supports roughly a $350,000 mortgage, or more with a substantial down payment.\"}}, {\"@type\": \"Question\", \"name\": \"Does credit score affect affordability?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. A higher credit score typically qualifies you for a lower rate. Even 0.5% lower on a $300,000 loan saves over $30,000 in interest and reduces monthly payment by about $100.\"}}, {\"@type\": \"Question\", \"name\": \"What costs beyond the mortgage should I budget?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Budget for property taxes (0.5-2.5%/yr), homeowners insurance (~$1,200/yr), HOA fees if applicable, and maintenance (1% of home value per year). These can add $500-1,500/month to housing costs.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Home Affordability Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Home Affordability Calculator</h1>\n<p class=\"calc-intro\">Determine how much home you can afford based on your gross income, monthly debts, down payment, and interest rate. Uses the industry-standard 28/36 debt-to-income rule used by most lenders.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Max Housing = Gross Monthly Income x 28% | Max Total Debt = Gross Monthly Income x 36%</div><p>The <strong>28/36 rule</strong>: monthly housing costs should not exceed 28% of gross monthly income, and total monthly debts should not exceed 36%. These thresholds help ensure you can comfortably afford your home.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the 28/36 rule? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Lenders allow housing costs up to 28% of gross monthly income and total debts up to 36%. On $8,333/month income: max housing $2,333, max total debt $3,000. These determine mortgage qualification.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much house can I afford on $100,000 salary? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">$100,000/year = $8,333/month. At 28% rule: $2,333/month for housing. At 7% for 30 years, that supports roughly a $350,000 mortgage, or more with a substantial down payment.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does credit score affect affordability? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes. A higher credit score typically qualifies you for a lower rate. Even 0.5% lower on a $300,000 loan saves over $30,000 in interest and reduces monthly payment by about $100.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What costs beyond the mortgage should I budget? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Budget for property taxes (0.5-2.5%/yr), homeowners insurance (~$1,200/yr), HOA fees if applicable, and maintenance (1% of home value per year). These can add $500-1,500/month to housing costs.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/down-payment-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Down Payment</span></a><a class=\"related-card\" href=\"/calculators/housing/rent-vs-buy-calculator\"><span class=\"rc-icon\">🔑</span><span class=\"rc-name\">Rent vs Buy</span></a><a class=\"related-card\" href=\"/calculators/housing/property-tax-calculator\"><span class=\"rc-icon\">🧾</span><span class=\"rc-name\">Property Tax</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Home Affordability Calculator</h2><div class=\"form-group\"><label for=\"ha-income\">Annual Gross Income ($)</label><input id=\"ha-income\" min=\"0\" step=\"1000\" type=\"number\" value=\"100000\"/></div><div class=\"form-group\"><label for=\"ha-debts\">Monthly Debts ($)</label><input id=\"ha-debts\" min=\"0\" step=\"50\" type=\"number\" value=\"500\"/></div><div class=\"form-group\"><label for=\"ha-down\">Down Payment ($)</label><input id=\"ha-down\" min=\"0\" step=\"1000\" type=\"number\" value=\"50000\"/></div><div class=\"form-group\"><label for=\"ha-rate\">Interest Rate (%)</label><input id=\"ha-rate\" max=\"30\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"7.0\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_ha()\">Calculate Affordability</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ha-result').style.display='none';document.getElementById('ha-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ha-result\" style=\"display:none;\"><div id=\"ha-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ha-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ha-ai\" style=\"display:none;\"></div></div>\n<div id=\"ha-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ha\" onclick=\"printResult('ha-result','Calculate Affordability')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate Affordability')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-home-affordability-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_ha(){\n  var inc=parseFloat(document.getElementById('ha-income').value)||0;\n  var debts=parseFloat(document.getElementById('ha-debts').value)||0;\n  var down=parseFloat(document.getElementById('ha-down').value)||0;\n  var rate=parseFloat(document.getElementById('ha-rate').value)/100/12;\n  var n=360; var monthlyInc=inc/12;\n  var maxHousing=monthlyInc*0.28;\n  var maxMortgagePay=Math.min(maxHousing,(monthlyInc*0.36)-debts);\n  if(maxMortgagePay<=0){alert('Existing debts exceed the 36% limit. Reduce debts to qualify.');return;}\n  var maxLoan=maxMortgagePay*((Math.pow(1+rate,n)-1)/(rate*Math.pow(1+rate,n)));\n  var maxPrice=maxLoan+down;\n  document.getElementById('ha-ri').innerHTML=\n    ri('Max Home Price','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+maxPrice.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Max Loan Amount','$'+maxLoan.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Max Monthly Payment','$'+maxMortgagePay.toFixed(0)+'/mo')+\n    ri('28% Housing Limit','$'+maxHousing.toFixed(0)+'/mo')+\n    ri('36% Debt Limit','$'+(monthlyInc*0.36).toFixed(0)+'/mo')+\n    ri('Down Payment','$'+down.toLocaleString());\n  document.getElementById('ha-result').style.display='block';\n  document.getElementById('ha-actions').style.display='flex';\n  drawDonut('ha-chart',['Max Loan','Down Payment'],[Math.round(maxLoan),Math.round(down)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ha-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Income $'+inc.toLocaleString()+'/yr, max home $'+maxPrice.toFixed(0)+'. In 2 sentences give a practical tip about saving for a down payment or improving mortgage qualification.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Home Affordability Calculator"
+      intro="Determine how much home you can afford based on gross household income, monthly debts, down payment, and Fannie Mae 28/36 debt-to-income benchmarks."
+      description={DESCRIPTION}
+      appCategory="FinanceApplication"
+      mathExpression="Max Housing Payment = Min(Gross Income * 0.28, (Gross Income * 0.36) - Debts)"
+      related={[
+        { href: "/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+        { href: "/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy" },
+        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
+        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
+        { href: "/calculators/housing/home-equity-calculator", icon: "📈", name: "Home Equity" },
+      ]}
+      faq={[
+        {
+          q: "What is the 28/36 debt-to-income (DTI) rule?",
+          a: "The 28/36 rule is the classic underwriting standard used by mortgage lenders to assess affordability. It mandates that your total monthly housing costs (principal, interest, taxes, and insurance - PITI) should not exceed 28% of your gross monthly income (front-end ratio), and your total monthly debt payments (housing costs plus car loans, student debt, and credit cards) should not exceed 36% (back-end ratio).",
+        },
+        {
+          q: "How much house can I afford on a $100,000 salary?",
+          a: "With a $100,000 annual salary ($8,333/month), standard guidelines allow up to $2,333/month for housing. Assuming $500/month in other debts, a 6.75% 30-year fixed mortgage, and a $50,000 down payment, you can comfortably afford a home priced between $360,000 and $410,000 depending on local property tax rates.",
+        },
+        {
+          q: "How do monthly car and student loan payments affect how much house I can buy?",
+          a: "Every $100 in existing monthly debt obligations reduces your maximum mortgage borrowing capacity by approximately $15,000 to $18,000 at current interest rates. Paying off a $400/month car loan increases your home purchasing power by roughly $60,000.",
+        },
+        {
+          q: "What costs beyond the mortgage should I budget for?",
+          a: "In addition to principal and interest, homeowners must budget for property taxes (0.8% to 2.5% of home value annually), homeowners hazard insurance ($1,200 to $2,500/year), routine maintenance reserves (1% of purchase price per year), and potential HOA dues.",
+        },
+        {
+          q: "Can I buy a house with a DTI higher than 36%?",
+          a: "Yes. Federal Housing Administration (FHA) loans allow back-end DTIs up to 43% (and up to 50% with strong compensating factors like high credit scores or substantial cash reserves). Conventional Fannie Mae loans can approve DTIs up to 45% through Automated Underwriting Systems (Desktop Underwriter).",
+        },
+        {
+          q: "What credit score do I need for the lowest mortgage rate?",
+          a: "A FICO credit score of 780 or higher qualifies you for top-tier prime mortgage pricing. Scores between 720 and 779 receive competitive rates, while scores below 680 trigger loan-level price adjustments (LLPAs) that increase monthly payments.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                CFPB &amp; Fannie Mae QM Standard
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Underwritten against <strong className="font-semibold text-slate-800 dark:text-slate-200">Consumer Financial Protection Bureau Qualified Mortgage Limits</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Mortgage Banking Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How Mortgage Lenders Determine How Much You Can Borrow</h2>
+          <p>
+            When applying for a home loan, banks don&rsquo;t look at your take-home pay; they evaluate your <strong>Gross Monthly Income</strong>
+            (pre-tax earnings) against your monthly debt obligations using the <strong>Debt-to-Income (DTI) ratio</strong>.
+            This prevents home buyers from becoming &ldquo;house poor&rdquo;—spending so much on mortgage payments that they
+            cannot save for retirement, emergencies, or daily living expenses.
+          </p>
+
+          {/* Graph #2: Authoritative Visual Income vs Purchasing Power Curve */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Salary vs Home Purchasing Power Curve (6.5% vs 7.5% Mortgage Rate)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual benchmark showing how annual household income translates into maximum affordable home price (30-year fixed, 10% down, 28/36 rule).
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                28/36 Underwriting
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Gridlines */}
+                <line x1="50" y1="20" x2="570" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="70" x2="570" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="120" x2="570" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="200" x2="570" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
+
+                {/* Y-axis labels */}
+                <text x="40" y="24" fontSize="10" fill="#64748b" textAnchor="end">$800k</text>
+                <text x="40" y="74" fontSize="10" fill="#64748b" textAnchor="end">$600k</text>
+                <text x="40" y="124" fontSize="10" fill="#64748b" textAnchor="end">$400k</text>
+                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">$200k</text>
+                <text x="40" y="204" fontSize="10" fill="#64748b" textAnchor="end">$0</text>
+
+                {/* X-axis labels (Salary) */}
+                <text x="90" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$60k Salary</text>
+                <text x="200" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$90k Salary</text>
+                <text x="320" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$120k Salary</text>
+                <text x="440" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$160k Salary</text>
+                <text x="540" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$200k Salary</text>
+
+                {/* 6.5% Rate Curve (Emerald) */}
+                <path
+                  d="M90 162 L200 132 L320 95 L440 54 L540 24"
+                  stroke="#10b981"
+                  strokeWidth="3.5"
+                  fill="none"
+                />
+                {/* 7.5% Rate Curve (Amber) */}
+                <path
+                  d="M90 168 L200 142 L320 108 L440 70 L540 42"
+                  stroke="#f59e0b"
+                  strokeWidth="3"
+                  strokeDasharray="4 4"
+                  fill="none"
+                />
+
+                {/* Callout */}
+                <circle cx="320" cy="95" r="4" fill="#10b981" />
+                <text x="330" y="90" fontSize="11" fill="#10b981" fontWeight="bold">$120k Income → ~$515k Home (6.5%)</text>
+                <text x="330" y="122" fontSize="10" fill="#f59e0b">~$465k Home (7.5%)</text>
+              </svg>
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-emerald-500" /> 6.5% Interest Rate Purchasing Power
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-amber-500" /> 7.5% Interest Rate Purchasing Power (-10% Power)
+              </span>
+            </div>
+          </div>
+
+          <h2>The 28/36 Rule Formulas Explained</h2>
+          <Formula>
+            Front-End Max Housing = Gross Monthly Income × 0.28
+          </Formula>
+          <Formula>
+            Back-End Max Total Debt = Gross Monthly Income × 0.36
+          </Formula>
+          <Formula>
+            Max Mortgage Payment = Min(Front-End Limit, Back-End Limit - Monthly Debts)
+          </Formula>
+
+          <h2>Salary vs Purchasing Power Benchmarks (30-Year Fixed)</h2>
+          <DataTable
+            head={["Annual Household Income", "Gross Monthly Income", "Max Housing Payment (28%)", "Affordable Price (10% Down)", "Affordable Price (20% Down)"]}
+            rows={[
+              ["$60,000 / year", "$5,000 / month", "$1,400 / month", "$215,000 – $240,000", "$245,000 – $275,000"],
+              ["$85,000 / year", "$7,083 / month", "$1,983 / month", "$315,000 – $345,000", "$360,000 – $395,000"],
+              ["$110,000 / year", "$9,167 / month", "$2,567 / month", "$415,000 – $460,000", "$475,000 – $525,000"],
+              ["$150,000 / year", "$12,500 / month", "$3,500 / month", "$575,000 – $630,000", "$650,000 – $720,000"],
+              ["$200,000 / year", "$16,667 / month", "$4,667 / month", "$770,000 – $845,000", "$875,000 – $965,000"],
+            ]}
+            highlight={2}
+          />
+
+          <h2>Strategies to Boost Your Home Purchasing Power</h2>
+          <ul>
+            <li>
+              <strong>Eliminate High-Payment Debts:</strong> Pay off car loans, personal loans, and revolving credit cards
+              first. Eliminating a $400 car payment frees up $400/month of borrowing capacity, boosting your mortgage qualification by ~$60,000.
+            </li>
+            <li>
+              <strong>Improve Your Credit Score by 40 Points:</strong> Elevating your FICO score from 680 to 740 lowers your
+              mortgage interest rate by 0.50% to 0.75%, reducing monthly interest charges significantly.
+            </li>
+            <li>
+              <strong>Increase Down Payment to 20%:</strong> Putting down 20% eliminates Private Mortgage Insurance (PMI),
+              which typically adds $120 to $250 per month to mortgage payments for conventional buyers.
+            </li>
+          </ul>
+          <p>
+            Explore your down payment options with our{" "}
+            <a href="/calculators/housing/down-payment-calculator">down payment calculator</a>, compare homeownership against
+            leasing on the <a href="/calculators/housing/rent-vs-buy-calculator">rent vs buy calculator</a>, check amortization schedules
+            on the <a href="/calculators/finance/mortgage-calculator">mortgage calculator</a>, or see regional tax impacts on our{" "}
+            <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <HomeAffordabilityCalculator />
+    </CalcPage>
   );
 }

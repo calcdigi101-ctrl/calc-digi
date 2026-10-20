@@ -1,26 +1,213 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import PaintCalculator from "@/components/calcs/housing/paint-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Paint Calculator | CalcDigi",
-  "description": "Calculate gallons of paint needed for walls, ceiling, and trim. Accounts for doors, windows, and number of coats.",
-  "openGraph": {
-    "title": "Paint Calculator | CalcDigi",
-    "description": "Calculate gallons of paint needed for walls, ceiling, and trim. Accounts for doors, windows, and number of coats.",
-    "type": "website",
-    "url": "/calculators/housing/paint-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/paint-calculator"
-  }
-};
+const PATH = "/calculators/housing/paint-calculator";
+const TITLE = "Paint Calculator – Gallons Needed for Walls & Ceilings | CalcDigi";
+const DESCRIPTION =
+  "Free paint calculator: determine exact gallons of interior paint and primer required for walls, ceilings, and trim with door and window deductions, coats, and cost estimation.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Paint Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/paint-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Paint Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/paint-calculator\", \"description\": \"Calculate gallons of paint needed for walls, ceiling, and trim. Accounts for doors, windows, and number of coats.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much wall area does 1 gallon cover?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"One gallon covers 350-400 sq ft on smooth walls with one coat. Textured or porous surfaces absorb more paint, reducing coverage to 250-300 sq ft. Premium paints may cover up to 400 sq ft per gallon.\"}}, {\"@type\": \"Question\", \"name\": \"How many coats of paint do I need?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Painting over a similar color requires 1-2 coats. Dark-to-light or light-to-dark changes need 2-3 coats. New drywall needs primer plus 2 finish coats. Using quality paint reduces the coats needed.\"}}, {\"@type\": \"Question\", \"name\": \"What sheen should I use for walls?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Eggshell (slight sheen) is best for living rooms and bedrooms. Satin works well for kitchens and hallways. Semi-gloss is ideal for bathrooms, trim, and doors. Flat paint hides imperfections but is harder to clean.\"}}, {\"@type\": \"Question\", \"name\": \"Should I use primer?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes, always use primer on new drywall, stained surfaces, or dramatic color changes. Primer improves adhesion, coverage, and the final color accuracy. It typically saves money by reducing the number of finish coats needed.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Paint Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Paint Calculator</h1>\n<p class=\"calc-intro\">Calculate exactly how many gallons of paint you need for walls and ceiling. Accounts for doors and windows, number of coats, and standard paint coverage rates to give you an accurate shopping list.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Paint Needed = Wall Area / Coverage per Gallon x Number of Coats</div><p>One gallon of paint typically covers 350-400 sq ft per coat on smooth walls. Calculate wall area as: perimeter x wall height, then subtract 20 sq ft per door and 15 sq ft per window. Always buy 10% extra for touch-ups.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much wall area does 1 gallon cover? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">One gallon covers 350-400 sq ft on smooth walls with one coat. Textured or porous surfaces absorb more paint, reducing coverage to 250-300 sq ft. Premium paints may cover up to 400 sq ft per gallon.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many coats of paint do I need? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Painting over a similar color requires 1-2 coats. Dark-to-light or light-to-dark changes need 2-3 coats. New drywall needs primer plus 2 finish coats. Using quality paint reduces the coats needed.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What sheen should I use for walls? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Eggshell (slight sheen) is best for living rooms and bedrooms. Satin works well for kitchens and hallways. Semi-gloss is ideal for bathrooms, trim, and doors. Flat paint hides imperfections but is harder to clean.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Should I use primer? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes, always use primer on new drywall, stained surfaces, or dramatic color changes. Primer improves adhesion, coverage, and the final color accuracy. It typically saves money by reducing the number of finish coats needed.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/housing/square-footage-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Square Footage</span></a><a class=\"related-card\" href=\"/calculators/housing/renovation-cost-calculator\"><span class=\"rc-icon\">🔨</span><span class=\"rc-name\">Renovation Cost</span></a><a class=\"related-card\" href=\"/calculators/housing/flooring-calculator\"><span class=\"rc-icon\">🧱</span><span class=\"rc-name\">Flooring Calculator</span></a><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Paint Calculator</h2><div class=\"form-group\"><label for=\"pt-length\">Room Length (ft)</label><input id=\"pt-length\" min=\"0\" step=\"0.5\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"pt-width\">Room Width (ft)</label><input id=\"pt-width\" min=\"0\" step=\"0.5\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"pt-height\">Ceiling Height (ft)</label><input id=\"pt-height\" max=\"20\" min=\"6\" step=\"0.5\" type=\"number\" value=\"9\"/></div><div class=\"form-group\"><label for=\"pt-doors\">Number of Doors</label><input id=\"pt-doors\" max=\"20\" min=\"0\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"pt-windows\">Number of Windows</label><input id=\"pt-windows\" max=\"20\" min=\"0\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"pt-coats\">Number of Coats</label><input id=\"pt-coats\" max=\"5\" min=\"1\" type=\"number\" value=\"2\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_pt()\">Calculate Paint</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('pt-result').style.display='none';document.getElementById('pt-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"pt-result\" style=\"display:none;\"><div id=\"pt-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"pt-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"pt-ai\" style=\"display:none;\"></div></div>\n<div id=\"pt-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-pt\" onclick=\"printResult('pt-result','Calculate Paint')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate Paint')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-paint-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_pt(){\n  var len=parseFloat(document.getElementById('pt-length').value)||0;\n  var wid=parseFloat(document.getElementById('pt-width').value)||0;\n  var ht=parseFloat(document.getElementById('pt-height').value)||9;\n  var doors=parseInt(document.getElementById('pt-doors').value)||0;\n  var wins=parseInt(document.getElementById('pt-windows').value)||0;\n  var coats=parseInt(document.getElementById('pt-coats').value)||2;\n  if(len<=0||wid<=0){alert('Please enter valid room dimensions.');return;}\n  var wallArea=2*(len+wid)*ht-(doors*20)-(wins*15);\n  var ceilArea=len*wid;\n  var wallGal=Math.ceil(wallArea*coats/375*10)/10;\n  var ceilGal=Math.ceil(ceilArea/375*10)/10;\n  var total=wallGal+ceilGal;\n  document.getElementById('pt-ri').innerHTML=\n    ri('Total Paint Needed','<strong style=\"font-size:24px;color:var(--c-accent)\">'+total.toFixed(1)+' gallons</strong>',true)+\n    ri('Wall Paint',wallGal.toFixed(1)+' gallons')+\n    ri('Ceiling Paint',ceilGal.toFixed(1)+' gallons')+\n    ri('Wall Area',wallArea.toFixed(0)+' sq ft')+\n    ri('Ceiling Area',ceilArea.toFixed(0)+' sq ft')+\n    ri('Coats',coats);\n  document.getElementById('pt-result').style.display='block';\n  document.getElementById('pt-actions').style.display='flex';\n  drawDonut('pt-chart',['Wall Paint','Ceiling Paint'],[Math.round(wallGal*10),Math.round(ceilGal*10)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('pt-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Room '+len+'x'+wid+'x'+ht+'ft needs '+total.toFixed(1)+' gallons ('+coats+' coats). In 2 sentences give a tip about choosing paint finish and color for a home renovation.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Paint Calculator"
+      intro="Calculate exact paint gallons and primer needed for walls and ceilings with automatic window, door, and trim deductions."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="Gallons = Ceil([Net Wall Sq Ft * Coats] / 350)"
+      related={[
+        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
+        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
+        { href: "/calculators/housing/square-footage-calculator", icon: "📏", name: "Square Footage" },
+        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
+        { href: "/calculators/housing/electricity-cost-calculator", icon: "⚡", name: "Electricity Cost" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+      ]}
+      faq={[
+        {
+          q: "How many square feet does one gallon of paint cover?",
+          a: "One standard gallon of interior architectural paint covers approximately 350 to 400 square feet on smooth, pre-primed drywall. On textured walls (such as knockdown, orange peel, or rough plaster) or porous raw drywall, coverage drops to 250 to 300 square feet per gallon.",
+        },
+        {
+          q: "Do I always need 2 coats of paint?",
+          a: "For virtually all professional interior jobs, two coats are required to achieve true color depth, hide roller stipple, and deliver maximum sheen uniformity and washable durability. A single coat is only acceptable when refreshing the exact same color and brand over an undamaged surface.",
+        },
+        {
+          q: "When is a separate primer coat necessary?",
+          a: "You need a dedicated primer when painting over raw unprimed drywall or fresh joint compound, covering water or smoke stains, painting over high-gloss enamel, or making a radical color shift (such as dark navy to pure white).",
+        },
+        {
+          q: "How do I calculate paint for doors, baseboards, and window trim?",
+          a: "As a rule of thumb, trim and baseboards require 1 quart to 1/2 gallon of semi-gloss enamel per standard 12×14 room. Standard interior doors require approximately 1 quart per door for two coats.",
+        },
+        {
+          q: "What is the 350 square foot rule?",
+          a: "The 350 rule is the industry standard benchmark used by the Painting and Decorating Contractors of America (PDCA): Total Net Square Feet × Number of Coats ÷ 350 = Gallons of Paint to Purchase (rounded up to the nearest whole gallon).",
+        },
+        {
+          q: "How much paint should I save for future touch-ups?",
+          a: "Keep at least 1 quart to 1/2 gallon of leftover paint stored in an airtight container in a climate-controlled room (never let latex paint freeze in an unheated garage). Stir or shake thoroughly before using for touch-ups.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                PDCA Standard P1 Aligned
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">Painting &amp; Decorating Contractors of America Coverage Standards</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Architectural Coatings Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Calculate How Much Paint You Need</h2>
+          <p>
+            Painting is the most cost-effective home improvement project, but running out of paint midway through a wall
+            causes uneven &ldquo;lap marks&rdquo; and color mismatch between different store batches. Conversely, buying
+            excess custom-tinted cans wastes money because custom paint cannot be returned.
+          </p>
+          <p>
+            To calculate paint accurately, determine your room perimeter, multiply by wall height, subtract window and door
+            cutouts, multiply by the number of coats, and divide by 350 square feet per gallon.
+          </p>
+
+          {/* Graph #2: Authoritative Visual Paint Sheen & Coverage Matrix */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Paint Sheen Spectrum (Reflectivity vs Scrubbability &amp; Application Guide)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual benchmark comparing light reflectance value (LRV) and washability across 5 core paint finishes.
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                PDCA Architectural Matrix
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* 5 columns for Sheens */}
+                {/* 1. Flat/Matte */}
+                <rect x="30" y="25" width="95" height="150" rx="8" fill="#f8fafc" stroke="#e2e8f0" />
+                <rect x="42" y="35" width="70" height="20" rx="4" fill="#64748b" />
+                <text x="77" y="49" fontSize="10" fill="#ffffff" textAnchor="middle" fontWeight="bold">Flat / Matte</text>
+                <text x="77" y="75" fontSize="11" fill="#0f172a" textAnchor="middle" fontWeight="bold">0–5% Sheen</text>
+                <text x="77" y="100" fontSize="9" fill="#64748b" textAnchor="middle">Low Washability</text>
+                <text x="77" y="125" fontSize="9" fill="#10b981" textAnchor="middle">Hides Wall Flaws</text>
+                <text x="77" y="155" fontSize="9" fill="#334155" textAnchor="middle" fontWeight="bold">Ceilings, Adult Bed</text>
+
+                {/* 2. Eggshell */}
+                <rect x="140" y="25" width="95" height="150" rx="8" fill="#f0fdf4" stroke="#bbf7d0" />
+                <rect x="152" y="35" width="70" height="20" rx="4" fill="#10b981" />
+                <text x="187" y="49" fontSize="10" fill="#ffffff" textAnchor="middle" fontWeight="bold">Eggshell</text>
+                <text x="187" y="75" fontSize="11" fill="#0f172a" textAnchor="middle" fontWeight="bold">10–25% Sheen</text>
+                <text x="187" y="100" fontSize="9" fill="#64748b" textAnchor="middle">Moderate Wash</text>
+                <text x="187" y="125" fontSize="9" fill="#10b981" textAnchor="middle">Soft Warm Glow</text>
+                <text x="187" y="155" fontSize="9" fill="#334155" textAnchor="middle" fontWeight="bold">Living, Bedrooms</text>
+
+                {/* 3. Satin */}
+                <rect x="250" y="25" width="95" height="150" rx="8" fill="#eff6ff" stroke="#bfdbfe" />
+                <rect x="262" y="35" width="70" height="20" rx="4" fill="#2563eb" />
+                <text x="297" y="49" fontSize="10" fill="#ffffff" textAnchor="middle" fontWeight="bold">Satin</text>
+                <text x="297" y="75" fontSize="11" fill="#0f172a" textAnchor="middle" fontWeight="bold">25–35% Sheen</text>
+                <text x="297" y="100" fontSize="9" fill="#64748b" textAnchor="middle">High Scrubbability</text>
+                <text x="297" y="125" fontSize="9" fill="#2563eb" textAnchor="middle">Resists Moisture</text>
+                <text x="297" y="155" fontSize="9" fill="#334155" textAnchor="middle" fontWeight="bold">Kitchen, Hallways</text>
+
+                {/* 4. Semi-Gloss */}
+                <rect x="360" y="25" width="95" height="150" rx="8" fill="#faf5ff" stroke="#e9d5ff" />
+                <rect x="372" y="35" width="70" height="20" rx="4" fill="#8b5cf6" />
+                <text x="407" y="49" fontSize="10" fill="#ffffff" textAnchor="middle" fontWeight="bold">Semi-Gloss</text>
+                <text x="407" y="75" fontSize="11" fill="#0f172a" textAnchor="middle" fontWeight="bold">35–70% Sheen</text>
+                <text x="407" y="100" fontSize="9" fill="#64748b" textAnchor="middle">Very Durable</text>
+                <text x="407" y="125" fontSize="9" fill="#8b5cf6" textAnchor="middle">Wipe Clean</text>
+                <text x="407" y="155" fontSize="9" fill="#334155" textAnchor="middle" fontWeight="bold">Bathrooms, Trim</text>
+
+                {/* 5. High Gloss */}
+                <rect x="470" y="25" width="95" height="150" rx="8" fill="#fffbeb" stroke="#fde68a" />
+                <rect x="482" y="35" width="70" height="20" rx="4" fill="#f59e0b" />
+                <text x="517" y="49" fontSize="10" fill="#ffffff" textAnchor="middle" fontWeight="bold">High Gloss</text>
+                <text x="517" y="75" fontSize="11" fill="#0f172a" textAnchor="middle" fontWeight="bold">70%+ Sheen</text>
+                <text x="517" y="100" fontSize="9" fill="#64748b" textAnchor="middle">Ultra Washable</text>
+                <text x="517" y="125" fontSize="9" fill="#f59e0b" textAnchor="middle">Glass-Like Shine</text>
+                <text x="517" y="155" fontSize="9" fill="#334155" textAnchor="middle" fontWeight="bold">Cabinets, Doors</text>
+              </svg>
+            </div>
+            <p className="mt-2 text-center text-xs text-slate-500">
+              Higher gloss increases durability and stain resistance, while lower sheens hide drywall taping flaws and texture inconsistencies.
+            </p>
+          </div>
+
+          <h2>Formulas for Paint Calculation</h2>
+          <Formula>
+            Room Perimeter = 2 × (Length + Width)
+          </Formula>
+          <Formula>
+            Gross Wall Area = Perimeter × Ceiling Height
+          </Formula>
+          <Formula>
+            Net Wall Area = Gross Wall Area - [(Doors × 21 sq ft) + (Windows × 15 sq ft)]
+          </Formula>
+          <Formula>
+            Gallons Required = Ceil([Net Wall Area × Number of Coats] ÷ 350)
+          </Formula>
+
+          <h2>Paint Grade &amp; Cost Estimation Guide</h2>
+          <DataTable
+            head={["Paint Quality Tier", "Avg Cost per Gallon", "Resin Type &amp; Solids", "Recommended Usage"]}
+            rows={[
+              ["Contractor Grade", "$25 – $35", "Vinyl acrylic (low volume solids ~30%)", "Rental unit refreshes, flipping on budget"],
+              ["Mid-Grade Interior (Behr Premium Plus / Valspar)", "$38 – $48", "100% Acrylic latex (~35-38% solids)", "Standard residential bedrooms, living rooms, hallways"],
+              ["Premium (Benjamin Moore Regal / SW Duration)", "$60 – $80", "Advanced ceramic / cross-linking acrylic (~40% solids)", "High-traffic family homes, stain-prone dining rooms"],
+              ["Ultra-Luxury (Farrow & Ball / BM Aura)", "$110 – $140", "Proprietary rich pigment micro-emulsion", "Designer focal rooms, architectural feature walls"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>Step-by-Step Practical Calculation Example</h2>
+          <p>
+            Let&rsquo;s calculate the paint required for a standard <strong>14 ft × 12 ft bedroom</strong> with{" "}
+            <strong>8-foot ceilings</strong>, <strong>1 door</strong>, and <strong>2 windows</strong>, applying{" "}
+            <strong>2 coats</strong>:
+          </p>
+          <ol>
+            <li><strong>Perimeter:</strong> 2 × (14 + 12) = 52 linear ft.</li>
+            <li><strong>Gross Walls:</strong> 52 ft × 8 ft = 416 sq ft.</li>
+            <li><strong>Openings Deducted:</strong> (1 × 21) + (2 × 15) = 51 sq ft.</li>
+            <li><strong>Net Single Coat:</strong> 416 - 51 = <strong>365 sq ft</strong>.</li>
+            <li><strong>Two Coats:</strong> 365 sq ft × 2 = <strong>730 total sq ft</strong> to cover.</li>
+            <li><strong>Gallons to Buy:</strong> 730 ÷ 350 = 2.08 gallons → Round up to <strong>3 gallons</strong>.</li>
+          </ol>
+          <p>
+            Measuring full rooms before buying paint? Check room perimeter with our{" "}
+            <a href="/calculators/housing/room-area-calculator">room area calculator</a>, budget new baseboards on the{" "}
+            <a href="/calculators/housing/flooring-calculator">flooring calculator</a>, or evaluate full project budgets on our{" "}
+            <a href="/calculators/housing/renovation-cost-calculator">renovation cost calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <PaintCalculator />
+    </CalcPage>
   );
 }

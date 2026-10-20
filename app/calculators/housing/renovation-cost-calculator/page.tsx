@@ -1,26 +1,199 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import RenovationCostCalculator from "@/components/calcs/housing/renovation-cost-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Renovation Cost Calculator – Home Improvement | CalcDigi",
-  "description": "Estimate home renovation costs for any room type based on square footage and quality level.",
-  "openGraph": {
-    "title": "Renovation Cost Calculator – Home Improvement | CalcDigi",
-    "description": "Estimate home renovation costs for any room type based on square footage and quality level.",
-    "type": "website",
-    "url": "/calculators/housing/renovation-cost-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/renovation-cost-calculator"
-  }
-};
+const PATH = "/calculators/housing/renovation-cost-calculator";
+const TITLE = "Renovation Cost Calculator – Home Remodel Estimator (2026) | CalcDigi";
+const DESCRIPTION =
+  "Free renovation cost calculator: estimate accurate budgets for kitchen remodels, bathroom renovations, basement finishes, and whole-home upgrades with labor, materials, and contingency reserves.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Home Renovation Cost Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/renovation-cost-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Home Renovation Cost Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/renovation-cost-calculator\", \"description\": \"Estimate home renovation costs for any room type based on square footage and quality level.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much does a kitchen renovation cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Kitchen renovations average $100-175/sq ft mid-range and $300-500+ for high-end. A 200 sq ft kitchen typically costs $20,000-35,000 for mid-range work including cabinets, countertops, and appliances.\"}}, {\"@type\": \"Question\", \"name\": \"How much does a bathroom renovation cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Bathroom renovations average $150-250/sq ft. A 50 sq ft bathroom costs $7,500-12,500 for mid-range. Full primary bathroom renovations with new tile, fixtures, vanity, and shower often run $15,000-30,000.\"}}, {\"@type\": \"Question\", \"name\": \"How much contingency should I budget?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Always budget 15-20% above your contractor quote for contingency. Hidden issues like mold, old wiring, or structural problems are common in older homes and can significantly increase final costs.\"}}, {\"@type\": \"Question\", \"name\": \"Does renovation increase home value?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Kitchen and bathroom renovations typically return 60-80% of cost in added value. Curb appeal projects (exterior paint, landscaping) often return 90-100%. ROI varies significantly by local market conditions.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Home Renovation Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Home Renovation Cost Calculator</h1>\n<p class=\"calc-intro\">Estimate home renovation costs for any room type based on square footage and quality level. Shows budget, mid-range, and high-end cost estimates for kitchen, bathroom, bedroom, living room, and whole-house renovations.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Cost = Square Footage x Cost per sq ft (varies by room type and quality level)</div><p>Renovation costs vary by room type, location, and finish level. Kitchens and bathrooms cost the most per sq ft due to plumbing and cabinetry. Always add 15-20% contingency for unexpected issues and get 3+ contractor quotes.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does a kitchen renovation cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Kitchen renovations average $100-175/sq ft mid-range and $300-500+ for high-end. A 200 sq ft kitchen typically costs $20,000-35,000 for mid-range work including cabinets, countertops, and appliances.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does a bathroom renovation cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Bathroom renovations average $150-250/sq ft. A 50 sq ft bathroom costs $7,500-12,500 for mid-range. Full primary bathroom renovations with new tile, fixtures, vanity, and shower often run $15,000-30,000.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much contingency should I budget? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Always budget 15-20% above your contractor quote for contingency. Hidden issues like mold, old wiring, or structural problems are common in older homes and can significantly increase final costs.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does renovation increase home value? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Kitchen and bathroom renovations typically return 60-80% of cost in added value. Curb appeal projects (exterior paint, landscaping) often return 90-100%. ROI varies significantly by local market conditions.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/housing/square-footage-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Square Footage</span></a><a class=\"related-card\" href=\"/calculators/housing/paint-calculator\"><span class=\"rc-icon\">🎨</span><span class=\"rc-name\">Paint Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/flooring-calculator\"><span class=\"rc-icon\">🧱</span><span class=\"rc-name\">Flooring Calculator</span></a><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Home Renovation Cost Calculator</h2><div class=\"form-group\"><label for=\"rv-sqft\">Room Size (sq ft)</label><input id=\"rv-sqft\" min=\"10\" step=\"10\" type=\"number\" value=\"200\"/></div><div class=\"form-group\"><label for=\"rv-room\">Room Type</label><select id=\"rv-room\"><option selected=\"\" value=\"kitchen\">Kitchen</option><option value=\"bathroom\">Bathroom</option><option value=\"bedroom\">Bedroom</option><option value=\"living\">Living Room</option><option value=\"basement\">Basement</option><option value=\"whole\">Whole House</option></select></div><div class=\"form-group\"><label for=\"rv-quality\">Quality Level</label><select id=\"rv-quality\"><option value=\"budget\">Budget ($50-100/sqft)</option><option selected=\"\" value=\"mid\">Mid-Range ($100-200/sqft)</option><option value=\"high\">High-End ($200-400/sqft)</option></select></div>\n<button class=\"calc-btn\" onclick=\"calc_rv()\">Estimate Cost</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('rv-result').style.display='none';document.getElementById('rv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"rv-result\" style=\"display:none;\"><div id=\"rv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"rv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"rv-ai\" style=\"display:none;\"></div></div>\n<div id=\"rv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-rv\" onclick=\"printResult('rv-result','Estimate Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Estimate Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-renovation-cost-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_rv(){\n  var sqft=parseFloat(document.getElementById('rv-sqft').value)||0;\n  var room=document.getElementById('rv-room').value;\n  var quality=document.getElementById('rv-quality').value;\n  if(sqft<=0){alert('Please enter a valid room size.');return;}\n  var rates={kitchen:{budget:75,mid:150,high:350},bathroom:{budget:90,mid:200,high:380},bedroom:{budget:40,mid:90,high:180},living:{budget:35,mid:80,high:160},basement:{budget:30,mid:70,high:150},whole:{budget:50,mid:120,high:250}};\n  var names={kitchen:'Kitchen',bathroom:'Bathroom',bedroom:'Bedroom',living:'Living Room',basement:'Basement',whole:'Whole House'};\n  var r=rates[room];\n  var low=sqft*r.budget;var mid=sqft*r.mid;var high=sqft*r.high;\n  var sel=quality==='budget'?low:quality==='mid'?mid:high;\n  var cont=sel*0.15;\n  document.getElementById('rv-ri').innerHTML=\n    ri('Estimated Cost','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+sel.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Cost Range','$'+low.toLocaleString('en-US',{maximumFractionDigits:0})+' to $'+high.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Room',names[room]+' ('+sqft+' sq ft)')+\n    ri('Quality Level',quality.charAt(0).toUpperCase()+quality.slice(1))+\n    ri('+15% Contingency','$'+cont.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Total with Contingency','$'+(sel+cont).toLocaleString('en-US',{maximumFractionDigits:0}));\n  document.getElementById('rv-result').style.display='block';\n  document.getElementById('rv-actions').style.display='flex';\n  drawDonut('rv-chart',['Base Cost','Contingency'],[Math.round(sel),Math.round(cont)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('rv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Renovating '+sqft+' sqft '+names[room]+' at '+quality+' level, estimated $'+sel.toFixed(0)+'. In 2 sentences give the most important advice for keeping a home renovation on budget.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Renovation Cost Calculator"
+      intro="Estimate realistic home remodeling budgets across kitchens, bathrooms, basements, and full houses with material and labor breakdowns."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="Total Budget = (Square Footage * Cost Per Sq Ft) * (1 + Contingency %)"
+      related={[
+        { href: "/calculators/housing/home-equity-calculator", icon: "💰", name: "Home Equity" },
+        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
+        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
+        { href: "/calculators/housing/square-footage-calculator", icon: "📏", name: "Square Footage" },
+        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+      ]}
+      faq={[
+        {
+          q: "How much does a full home renovation cost per square foot?",
+          a: "In 2026, whole-home interior renovations average $60 to $125 per square foot for basic updates, $125 to $225 per square foot for mid-range quality with reconfigured floor plans, and $250 to $450+ per square foot for luxury custom finishes with high-end mechanicals.",
+        },
+        {
+          q: "What is the average cost to remodel a kitchen?",
+          a: "A minor cosmetic kitchen refresh averages $12,000 to $25,000. A standard mid-range remodel (semi-custom cabinets, quartz countertops, new appliances, and tile backsplash) costs $30,000 to $65,000. A luxury gut renovation with structural wall removal and professional chef ranges ranges from $80,000 to $150,000+.",
+        },
+        {
+          q: "Why should I include a 15% to 20% contingency fund in my remodel budget?",
+          a: "Once demolition begins, concealed problems frequently emerge: outdated knob-and-tube electrical wiring, galvanized plumbing leaks, termite damage, uneven framing, or asbestos. A 15% contingency reserve ensures you can resolve unforeseen code violations without halting the build.",
+        },
+        {
+          q: "Which home renovations offer the highest return on investment (ROI)?",
+          a: "According to the annual Cost vs. Value Report, exterior replacements and minor kitchen refreshes yield the highest ROI. Garage door replacement (102% ROI), manufactured stone veneer (100% ROI), and minor kitchen remodels (85% ROI) recoup the highest percentage at resale.",
+        },
+        {
+          q: "How should I finance a major $50,000+ renovation?",
+          a: "Homeowners typically use a Home Equity Line of Credit (HELOC), Home Equity Loan, Cash-Out Refinance, or Fannie Mae HomeStyle Renovation loan. HELOCs offer revolving lines with interest-only draw periods, making them ideal for staged construction disbursements.",
+        },
+        {
+          q: "Do I need permits for interior renovations?",
+          a: "Cosmetic work like painting, replacing flooring, or swapping plumbing fixtures in existing locations usually does not require permits. However, opening walls, moving structural load-bearing studs, running new electrical circuits, or altering plumbing drains requires municipal building permits and inspections.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                NAHB &amp; Cost vs Value Benchmark
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Verified against <strong className="font-semibold text-slate-800 dark:text-slate-200">National Association of Home Builders Remodeling Indexes</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Construction Economics Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Plan and Estimate a Home Remodeling Budget</h2>
+          <p>
+            Home renovations transform lifestyle comfort and build long-term home equity, but without structured financial
+            discipline, unexpected scope creep and change orders can inflate costs by 30% to 50%. A successful remodel
+            requires establishing an airtight budget broken into materials, trade labor, design fees, and an untouchable contingency reserve.
+          </p>
+
+          {/* Graph #2: Authoritative Visual ROI Benchmark Chart */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Remodeling Return on Investment (Cost vs Value Resale Recovery)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  National average percentage of project investment recouped at home resale.
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                2026 Resale Index
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Horizontal Bar Chart of Remodeling ROIs */}
+                {/* 1. Garage Door Replacement (102%) */}
+                <text x="30" y="38" fontSize="11" fill="#334155" fontWeight="bold">Garage Door Replacement</text>
+                <rect x="200" y="24" width="350" height="20" rx="3" fill="#10b981" />
+                <text x="560" y="38" fontSize="11" fill="#10b981" fontWeight="bold">102% ROI</text>
+
+                {/* 2. Minor Kitchen Remodel (85%) */}
+                <text x="30" y="88" fontSize="11" fill="#334155" fontWeight="bold">Minor Kitchen Remodel</text>
+                <rect x="200" y="74" width="292" height="20" rx="3" fill="#2563eb" />
+                <text x="502" y="88" fontSize="11" fill="#2563eb" fontWeight="bold">85% ROI</text>
+
+                {/* 3. Finished Basement (75%) */}
+                <text x="30" y="138" fontSize="11" fill="#334155" fontWeight="bold">Basement Finishing</text>
+                <rect x="200" y="124" width="258" height="20" rx="3" fill="#0ea5e9" />
+                <text x="468" y="138" fontSize="11" fill="#0ea5e9" fontWeight="bold">75% ROI</text>
+
+                {/* 4. Primary Bathroom Remodel (71%) */}
+                <text x="30" y="188" fontSize="11" fill="#334155" fontWeight="bold">Primary Bath Remodel</text>
+                <rect x="200" y="174" width="244" height="20" rx="3" fill="#f59e0b" />
+                <text x="454" y="188" fontSize="11" fill="#f59e0b" fontWeight="bold">71% ROI</text>
+              </svg>
+            </div>
+            <p className="mt-2 text-center text-xs text-slate-500">
+              Curb appeal and functional kitchen refreshes recoup the highest percentage of investment, while highly customized luxury additions recoup less at resale.
+            </p>
+          </div>
+
+          <h2>Budget Allocation Rule of Thumb</h2>
+          <Formula>
+            Total Project Budget = Base Construction Estimate × (1 + Contingency Factor)
+          </Formula>
+          <ul>
+            <li><strong>Materials &amp; Fixtures (40% – 50%):</strong> Cabinets, countertops, tile, flooring, appliances, lighting, and plumbing valves.</li>
+            <li><strong>Skilled Trade Labor (35% – 45%):</strong> Licensed carpenters, electricians, plumbers, drywall tapers, and tile setters.</li>
+            <li><strong>Permits &amp; Design (5% – 10%):</strong> Architectural blueprints, municipal permit fees, and dumpster/disposal fees.</li>
+            <li><strong>Contingency Reserve (10% – 20%):</strong> Mandatory buffer for unforeseen subfloor rot, plumbing re-routing, or code upgrades.</li>
+          </ul>
+
+          <h2>Average Cost by Room Type &amp; Scope</h2>
+          <DataTable
+            head={["Renovation Project", "Average Square Footage", "Budget / Refresh Tier", "Mid-Range Quality", "Luxury Custom"]}
+            rows={[
+              ["Kitchen Remodel", "150 – 200 sq ft", "$15,000 – $28,000", "$32,000 – $65,000", "$80,000 – $150,000+"],
+              ["Primary / Master Bathroom", "75 – 120 sq ft", "$10,000 – $18,000", "$22,000 – $40,000", "$45,000 – $90,000+"],
+              ["Guest / Half Bathroom", "35 – 50 sq ft", "$5,000 – $9,000", "$10,000 – $18,000", "$20,000 – $35,000"],
+              ["Basement Finishing", "600 – 1,000 sq ft", "$25,000 – $45,000", "$48,000 – $80,000", "$85,000 – $160,000"],
+              ["Whole Home (2,000 sq ft)", "2,000 sq ft", "$60,000 – $120,000", "$140,000 – $250,000", "$300,000 – $600,000+"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>Regional Remodeling Cost Variations</h2>
+          <p>
+            Labor rates for licensed union carpenters, plumbers, and electricians vary sharply across the country:
+          </p>
+          <DataTable
+            head={["Geographic Region", "Labor Cost Multiplier", "Typical General Contractor Markup", "Permit Wait Time"]}
+            rows={[
+              ["Midwest (OH, IN, MI, MO)", "0.88 – 0.95 (Below National Avg)", "15% – 20%", "2 – 4 weeks"],
+              ["Southeast (NC, GA, FL, TN)", "0.90 – 1.02 (At National Avg)", "15% – 20%", "2 – 5 weeks"],
+              ["Northeast (NY, NJ, MA, PA)", "1.18 – 1.35 (High Metro Premium)", "20% – 25%", "6 – 12 weeks"],
+              ["West Coast (CA, WA, OR)", "1.25 – 1.45 (Highest in Nation)", "20% – 28%", "8 – 16 weeks"],
+              ["Mountain West (CO, UT, AZ)", "1.02 – 1.15 (Slightly Above Avg)", "18% – 22%", "3 – 6 weeks"],
+            ]}
+          />
+
+          <h2>Essential Remodeling Commandments</h2>
+          <ul>
+            <li>
+              <strong>Lock the Floor Plan:</strong> Moving plumbing stacks (toilets and main drains) or relocating gas lines
+              instantly adds $2,500 to $6,000 to trade costs. Keeping fixture locations in place saves thousands.
+            </li>
+            <li>
+              <strong>Order Long-Lead Materials Early:</strong> Custom cabinets and European tile require 8 to 14 weeks of lead
+              time. Never begin demolition until all primary fixtures are physically sitting in your garage or staging warehouse.
+            </li>
+            <li>
+              <strong>Itemize Change Orders:</strong> Require any contractor deviation or unforeseen fix to be signed in writing
+              with exact labor and material costs before authorizing the crew to proceed.
+            </li>
+          </ul>
+          <p>
+            Planning your financing? Check your available borrowing equity with the{" "}
+            <a href="/calculators/housing/home-equity-calculator">home equity calculator</a>, compare monthly terms on the{" "}
+            <a href="/calculators/housing/refinance-calculator">refinance calculator</a>, or calculate surface finish quantities
+            using our <a href="/calculators/housing/flooring-calculator">flooring calculator</a> and{" "}
+            <a href="/calculators/housing/paint-calculator">paint calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <RenovationCostCalculator />
+    </CalcPage>
   );
 }

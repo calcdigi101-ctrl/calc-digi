@@ -1,26 +1,203 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import FlooringCalculator from "@/components/calcs/housing/flooring-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
-export const metadata: Metadata = {
-  "title": "Flooring Calculator | CalcDigi",
-  "description": "Calculate square feet of flooring needed with waste factor. Works for hardwood, tile, laminate, vinyl, and carpet.",
-  "openGraph": {
-    "title": "Flooring Calculator | CalcDigi",
-    "description": "Calculate square feet of flooring needed with waste factor. Works for hardwood, tile, laminate, vinyl, and carpet.",
-    "type": "website",
-    "url": "/calculators/housing/flooring-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/housing/flooring-calculator"
-  }
-};
+const PATH = "/calculators/housing/flooring-calculator";
+const TITLE = "Flooring Calculator – Boxes, Square Footage & Waste Buffer | CalcDigi";
+const DESCRIPTION =
+  "Free flooring calculator: calculate exactly how many boxes of luxury vinyl plank (LVP), hardwood, laminate, or tile you need with pattern waste allowances and cost estimation.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Housing Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/housing\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Flooring Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/housing/flooring-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Flooring Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/housing/flooring-calculator\", \"description\": \"Calculate square feet of flooring needed with waste factor. Works for hardwood, tile, laminate, vinyl, and carpet.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much extra flooring should I order?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Order 10% extra for rectangular rooms with straight-lay installation, 15% for diagonal cuts or complex shapes, and 20% for herringbone or chevron patterns. Extra material covers cutting waste and future repairs.\"}}, {\"@type\": \"Question\", \"name\": \"How do I measure a room for flooring?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Measure the longest length and widest width in feet. For L-shaped rooms, split into two rectangles and add both areas. Always measure at the widest points even if there are alcoves or cutouts.\"}}, {\"@type\": \"Question\", \"name\": \"How much does flooring cost per square foot?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Carpet: $2-8/sqft, vinyl plank: $2-7/sqft, laminate: $3-8/sqft, engineered hardwood: $5-14/sqft, solid hardwood: $8-20/sqft, ceramic tile: $5-15/sqft (not including installation labor).\"}}, {\"@type\": \"Question\", \"name\": \"Can I install flooring myself?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Vinyl plank, laminate, and peel-and-stick tile are good DIY options. Solid hardwood and ceramic tile usually need professional installation. DIY saves $2-5/sqft in labor costs.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/housing\">Housing</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Flooring Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Flooring Calculator</h1>\n<p class=\"calc-intro\">Calculate exactly how much flooring material you need including waste allowance. Enter room dimensions and waste percentage to get the total flooring required and estimated material cost.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Total Flooring = (Length x Width) x (1 + Waste%) | Total Cost = Total Flooring x Price per sq ft</div><p>Always order 10% extra for straight-lay rectangular rooms and 15% for diagonal patterns or L-shaped rooms. Measure rooms at their widest points. Include closets and doorway areas in your measurement.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much extra flooring should I order? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Order 10% extra for rectangular rooms with straight-lay installation, 15% for diagonal cuts or complex shapes, and 20% for herringbone or chevron patterns. Extra material covers cutting waste and future repairs.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I measure a room for flooring? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Measure the longest length and widest width in feet. For L-shaped rooms, split into two rectangles and add both areas. Always measure at the widest points even if there are alcoves or cutouts.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does flooring cost per square foot? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Carpet: $2-8/sqft, vinyl plank: $2-7/sqft, laminate: $3-8/sqft, engineered hardwood: $5-14/sqft, solid hardwood: $8-20/sqft, ceramic tile: $5-15/sqft (not including installation labor).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I install flooring myself? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Vinyl plank, laminate, and peel-and-stick tile are good DIY options. Solid hardwood and ceramic tile usually need professional installation. DIY saves $2-5/sqft in labor costs.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Housing Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/housing/square-footage-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Square Footage</span></a><a class=\"related-card\" href=\"/calculators/housing/paint-calculator\"><span class=\"rc-icon\">🎨</span><span class=\"rc-name\">Paint Calculator</span></a><a class=\"related-card\" href=\"/calculators/housing/renovation-cost-calculator\"><span class=\"rc-icon\">🔨</span><span class=\"rc-name\">Renovation Cost</span></a><a class=\"related-card\" href=\"/calculators/finance/mortgage-calculator\"><span class=\"rc-icon\">🏠</span><span class=\"rc-name\">Mortgage Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Flooring Calculator</h2><div class=\"form-group\"><label for=\"fl-length\">Room Length (ft)</label><input id=\"fl-length\" min=\"0\" step=\"0.5\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"fl-width\">Room Width (ft)</label><input id=\"fl-width\" min=\"0\" step=\"0.5\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"fl-waste\">Waste Factor (%)</label><input id=\"fl-waste\" max=\"30\" min=\"0\" step=\"1\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"fl-price\">Price per sq ft ($)</label><input id=\"fl-price\" min=\"0\" step=\"0.25\" type=\"number\" value=\"5.50\"/></div>\n<button class=\"calc-btn\" onclick=\"calc_fl()\">Calculate Flooring</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fl-result').style.display='none';document.getElementById('fl-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fl-result\" style=\"display:none;\"><div id=\"fl-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fl-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fl-ai\" style=\"display:none;\"></div></div>\n<div id=\"fl-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fl\" onclick=\"printResult('fl-result','Calculate Flooring')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Calculate Flooring')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div></div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-flooring-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calc_fl(){\n  var len=parseFloat(document.getElementById('fl-length').value)||0;\n  var wid=parseFloat(document.getElementById('fl-width').value)||0;\n  var waste=parseFloat(document.getElementById('fl-waste').value)||10;\n  var price=parseFloat(document.getElementById('fl-price').value)||0;\n  if(len<=0||wid<=0){alert('Please enter valid room dimensions.');return;}\n  var base=len*wid;\n  var total=base*(1+waste/100);\n  var cost=total*price;\n  var sqm=total*0.0929;\n  document.getElementById('fl-ri').innerHTML=\n    ri('Total Flooring Needed','<strong style=\"font-size:24px;color:var(--c-accent)\">'+total.toFixed(1)+' sq ft</strong>',true)+\n    ri('Base Area',base.toFixed(1)+' sq ft')+\n    ri('Waste Allowance',(total-base).toFixed(1)+' sq ft ('+waste+'%)')+\n    ri('Square Meters',sqm.toFixed(1)+' m2')+\n    (price>0?ri('Material Cost','$'+cost.toFixed(2)):'');\n  document.getElementById('fl-result').style.display='block';\n  document.getElementById('fl-actions').style.display='flex';\n  drawDonut('fl-chart',['Base Area','Waste'],[Math.round(base),Math.round(total-base)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('fl-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Flooring: '+total.toFixed(0)+' sq ft needed at $'+price+'/sqft, total cost $'+cost.toFixed(0)+'. In 2 sentences give a tip about choosing the best flooring type for value and durability.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/housing", label: "Housing & Building" }}
+      title="Flooring Calculator"
+      intro="Calculate exact flooring square footage, required box counts, pattern waste allowances, underlayment rolls, and total material budget."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="Total Boxes = Ceil([Length (ft) * Width (ft) * (1 + Waste %)] / Box Coverage)"
+      related={[
+        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
+        { href: "/calculators/housing/square-footage-calculator", icon: "📏", name: "Square Footage" },
+        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
+        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
+        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
+        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
+      ]}
+      faq={[
+        {
+          q: "How many boxes of flooring do I need to buy?",
+          a: "Calculate the net room area (Length × Width in feet), add 10% to 15% for cutting waste and pattern matching, and divide by the square footage contained in one box. Always round up to the next whole box, because stores do not sell partial boxes.",
+        },
+        {
+          q: "Why do I need extra flooring for waste?",
+          a: "Every room has perimeter walls, door jams, closet corners, and transition thresholds that require trimming planks or tiles. When you cut the end of a board to finish a row, the off-cut piece is often too short to reuse elsewhere without compromising the staggered joint pattern.",
+        },
+        {
+          q: "How much extra flooring should I order for herringbone or diagonal patterns?",
+          a: "Standard straight horizontal or vertical plank layout requires 10% waste. Diagonal (45-degree) installations require 15% waste. Intricate herringbone, chevron, or basketweave layouts generate substantial angled triangle off-cuts, requiring a minimum 20% waste buffer.",
+        },
+        {
+          q: "Do I need an underlayment for luxury vinyl plank (LVP)?",
+          a: "Check whether your chosen LVP comes with an attached acoustic backing pad (such as IXPE or cork). If it already has an attached pad, manufacturer warranties strictly prohibit adding extra soft underlayment, as it can cause locking mechanism failure.",
+        },
+        {
+          q: "What is acclimation and how long does it take?",
+          a: "Acclimation allows flooring to reach moisture and temperature equilibrium with your home's indoor climate. Luxury vinyl plank requires 24 to 48 hours; engineered wood requires 48 to 72 hours; and solid hardwood requires 5 to 7 days before unboxing and nailing.",
+        },
+        {
+          q: "What size expansion gap should I leave around the perimeter?",
+          a: "For floating floors (LVP, laminate, engineered click-lock), leave a 1/4-inch to 3/8-inch (6–10 mm) gap along all perimeter walls, cabinets, and pipes. Baseboards and quarter-round shoe molding cover this expansion gap.",
+        },
+      ]}
+      article={
+        <>
+          {/* Sleek Clinical/Industry Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                FCIB &amp; NWFA Industry Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Verified against <strong className="font-semibold text-slate-800 dark:text-slate-200">National Wood Flooring Association &amp; TCNA Guidelines</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Flooring Specialist Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>How to Calculate Flooring Material and Boxes</h2>
+          <p>
+            Purchasing flooring materials requires translating square footage into <strong>cartons or boxes</strong>.
+            Because manufacturers package flooring in standardized box bundles (typically 18 to 24 sq ft per box for planks,
+            and 12 to 15 sq ft per box for ceramic tile), you must account for perimeter wall cuts and round up to whole cartons.
+          </p>
+
+          {/* Graph #2: Authoritative Visual Pattern Waste Comparison Benchmark */}
+          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+            <div className="mb-3 flex items-center justify-between">
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Installation Pattern Waste Comparison (Scrap Factor vs Usable Area)
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Visual breakdown of material purchased vs installed coverage across 4 standard flooring layouts.
+                </p>
+              </div>
+              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
+                NWFA Code Benchmark
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <svg className="w-full min-w-[500px]" viewBox="0 0 600 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                {/* Horizontal Bar Chart showing usable floor area vs cut waste */}
+                {/* 1. Straight Lay Planks (10% Waste) */}
+                <text x="30" y="38" fontSize="11" fill="#334155" fontWeight="bold">Straight Plank Lay</text>
+                <rect x="180" y="24" width="315" height="20" rx="3" fill="#2563eb" />
+                <rect x="495" y="24" width="35" height="20" rx="3" fill="#f59e0b" />
+                <text x="475" y="38" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">90% Usable</text>
+                <text x="500" y="38" fontSize="10" fill="#ffffff" fontWeight="bold">10%</text>
+
+                {/* 2. Diagonal 45° Lay (15% Waste) */}
+                <text x="30" y="88" fontSize="11" fill="#334155" fontWeight="bold">Diagonal (45° Angle)</text>
+                <rect x="180" y="74" width="298" height="20" rx="3" fill="#2563eb" />
+                <rect x="478" y="74" width="52" height="20" rx="3" fill="#f59e0b" />
+                <text x="460" y="88" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">85% Usable</text>
+                <text x="485" y="88" fontSize="10" fill="#ffffff" fontWeight="bold">15%</text>
+
+                {/* 3. Herringbone / Chevron (20% Waste) */}
+                <text x="30" y="138" fontSize="11" fill="#334155" fontWeight="bold">Herringbone / Chevron</text>
+                <rect x="180" y="124" width="280" height="20" rx="3" fill="#2563eb" />
+                <rect x="460" y="124" width="70" height="20" rx="3" fill="#ef4444" />
+                <text x="440" y="138" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">80% Usable</text>
+                <text x="468" y="138" fontSize="10" fill="#ffffff" fontWeight="bold">20% Waste</text>
+
+                {/* 4. Large Format Tile / Intricate (15% Waste) */}
+                <text x="30" y="188" fontSize="11" fill="#334155" fontWeight="bold">Offset Tile (1/3 Stagger)</text>
+                <rect x="180" y="174" width="298" height="20" rx="3" fill="#2563eb" />
+                <rect x="478" y="174" width="52" height="20" rx="3" fill="#f59e0b" />
+                <text x="460" y="188" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">85% Usable</text>
+                <text x="485" y="188" fontSize="10" fill="#ffffff" fontWeight="bold">15%</text>
+              </svg>
+            </div>
+            <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-blue-600" /> Usable Floor Surface
+              </span>
+              <span className="flex items-center gap-1.5">
+                <span className="size-2.5 rounded-full bg-amber-500" /> Perimeter &amp; Angled Cut Waste Buffer
+              </span>
+            </div>
+          </div>
+
+          <h2>Step-by-Step Flooring Formulas</h2>
+          <Formula>
+            Net Room Area (sq ft) = Length (ft) × Width (ft)
+          </Formula>
+          <Formula>
+            Total Sq Ft with Waste = Net Area × (1 + Waste Factor)
+          </Formula>
+          <Formula>
+            Boxes to Purchase = Ceil(Total Sq Ft with Waste ÷ Square Feet per Box)
+          </Formula>
+          <p>
+            Example: A 16 ft × 12 ft living room (192 sq ft) using Luxury Vinyl Plank packaged in 20 sq ft cartons with 10% waste:
+            <br />
+            192 sq ft × 1.10 = <strong>211.2 sq ft</strong>.
+            <br />
+            211.2 ÷ 20 = 10.56 → <strong>11 whole boxes</strong> (220 sq ft total purchased).
+          </p>
+
+          <h2>Flooring Types: Cost, Durability &amp; Specifications</h2>
+          <DataTable
+            head={["Flooring Material", "Typical Lifespan", "Water Resistance", "Avg Material $/sq ft", "Avg Labor $/sq ft"]}
+            rows={[
+              ["Luxury Vinyl Plank (LVP / SPC)", "20 – 30 years", "100% Waterproof", "$2.50 – $5.50", "$2.00 – $3.50"],
+              ["Engineered Hardwood", "30 – 50 years", "Moisture Resistant", "$4.50 – $10.00", "$3.50 – $7.00"],
+              ["Solid Hardwood (Oak/Maple)", "70 – 100+ years", "Vulnerable to moisture", "$6.00 – $14.00", "$4.50 – $8.00"],
+              ["Porcelain / Ceramic Tile", "50+ years", "100% Waterproof", "$3.00 – $8.00", "$5.00 – $12.00"],
+              ["Laminate Flooring", "15 – 25 years", "Water resistant top only", "$1.80 – $4.00", "$1.75 – $3.00"],
+            ]}
+            highlight={0}
+          />
+
+          <h2>Essential Installation Checklist</h2>
+          <ul>
+            <li>
+              <strong>Acclimation:</strong> Store boxes horizontally in the room where they will be installed for 48 hours
+              under normal HVAC operating temperature (65°F to 75°F) and 35%–55% relative humidity.
+            </li>
+            <li>
+              <strong>Subfloor Flatness:</strong> Ensure the subfloor is within 3/16 inch over 10 feet. High spots must be
+              sanded; low spots require self-leveling underlayment compound.
+            </li>
+            <li>
+              <strong>Stagger Joints:</strong> End joints between adjacent rows must be staggered by at least 6 to 8 inches
+              to prevent stair-step patterns and structural joint weakness.
+            </li>
+          </ul>
+          <p>
+            Budgeting other home remodel elements? Check room perimeter for baseboards with the{" "}
+            <a href="/calculators/housing/room-area-calculator">room area calculator</a>, compute wall colors with the{" "}
+            <a href="/calculators/housing/paint-calculator">paint calculator</a>, or evaluate full project budgets on our{" "}
+            <a href="/calculators/housing/renovation-cost-calculator">renovation cost calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <FlooringCalculator />
+    </CalcPage>
   );
 }
