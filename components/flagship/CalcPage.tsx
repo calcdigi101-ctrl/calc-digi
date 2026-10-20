@@ -86,7 +86,18 @@ export function CalcPage({
         <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
           {children}
         </Suspense>
-        {article || html || faq.length || related.length ? (
+        {related.length ? (
+          <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>⚡</span> Related Calculators
+              </h2>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
+            </div>
+            <RelatedLinks links={related} />
+          </section>
+        ) : null}
+        {article || html || faq.length ? (
           <Editorial>
             {article}
             {html ? <div className="fx-prose" dangerouslySetInnerHTML={{ __html: html }} /> : null}
@@ -94,12 +105,6 @@ export function CalcPage({
               <>
                 <h2>Frequently asked questions</h2>
                 <Faq items={faq} />
-              </>
-            ) : null}
-            {related.length ? (
-              <>
-                <h2>Related calculators</h2>
-                <RelatedLinks links={related} />
               </>
             ) : null}
           </Editorial>
