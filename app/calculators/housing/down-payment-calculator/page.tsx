@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DownPaymentTierChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/down-payment-calculator";
-const TITLE = "Down Payment Calculator – Cash Needed, Savings Goal & PMI | CalcDigi";
-const DESCRIPTION =
-  "Free down payment calculator: calculate minimum cash down payment tiers (3%, 5%, 10%, 20%), estimated closing costs, PMI impact, and monthly savings timeline to reach your home goal.";
+const TITLE = "Down Payment Calculator – Cash, Savings & PMI | CalcDigi";
+const DESCRIPTION = "Free down payment calculator: calculate minimum cash down payment tiers (3%, 5%, 10%, 20%), closing costs, PMI impact, and monthly savings timeline.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -90,6 +89,42 @@ export default function Page() {
             Lender closing costs typically add another <strong>2% to 4%</strong> of the purchase price on top of your down payment.
           </p>
 
+          <h2>Step-by-Step Practical Calculation: $400,000 Purchase</h2>
+
+            <p>
+              Suppose you are purchasing a median US home priced at <strong>$400,000</strong> and evaluating whether to put down <strong>5% Conventional</strong> vs <strong>20% No PMI</strong>:
+            </p>
+            <ul>
+              <li><strong>Scenario A: 5% Down ($20,000 Cash)</strong>: Loan balance is $380,000. At 6.75% fixed interest, monthly Principal &amp; Interest is $2,467/mo. Private Mortgage Insurance (PMI) adds ~$238/mo, totaling <strong>$2,705/mo</strong>. Total 30-year interest paid equals $508,120.</li>
+              <li><strong>Scenario B: 20% Down ($80,000 Cash)</strong>: Loan balance is $320,000. At 6.75% fixed interest, monthly Principal &amp; Interest is $2,077/mo. PMI is completely eliminated ($0/mo), totaling <strong>$2,077/mo</strong>. Total 30-year interest paid equals $427,720.</li>
+              <li><strong>Comparison Insight</strong>: Putting an extra $60,000 down upfront saves <strong>$628/month</strong> in payment cash flow and reduces lifetime interest charges by <strong>$80,400</strong>.</li>
+            </ul>
+
+
+            <h2>Common Down Payment Mistakes &amp; Homebuyer Traps</h2>
+            <p>Navigating upfront home purchase financing requires balancing liquidity with equity buildup. Watch out for these four costly mistakes:</p>
+            <ul>
+              <li><strong>Draining 100% of Liquid Cash Reserves:</strong> Committing every dollar of savings toward your down payment leaves you vulnerable to emergency home repairs, moving costs, or sudden job disruptions. Mortgage underwriters typically require 2 to 6 months of post-closing principal, interest, taxes, and insurance (PITI) reserves in your bank account.</li>
+              <li><strong>Forgetting Lender Closing Costs (2%–5%):</strong> A down payment is not the only cash required at the closing table. Title insurance, loan origination fees, appraisal charges, transfer taxes, and escrow reserves require an additional 2% to 4% of the loan value in cash.</li>
+              <li><strong>Assuming 20% Down is Legally Mandatory:</strong> Many first-time buyers postpone homeownership for years mistakenly believing 20% down is required. Conventional Fannie Mae loans require as little as 3% down, FHA loans require 3.5%, and VA/USDA loans offer 0% down for eligible borrowers.</li>
+              <li><strong>Unverified Gift Funds:</strong> If family members are gifting funds toward your down payment, lenders require a formal gift letter and 60-day bank paper trail proving the money is not a disguised loan.</li>
+            </ul>
+
+
+            <h2>State &amp; Local Down Payment Assistance (DPA) Programs</h2>
+            <p>
+              Nearly every US state housing finance agency (HFA) operates down payment assistance programs offering forgivable second loans, 0% deferred mortgages, or grant funding covering 3% to 5% of your purchase price. For example:
+            </p>
+            <ul>
+              <li><strong>California (CalHFA):</strong> Offers shared appreciation loans covering up to 20% of down payments for first-generation buyers.</li>
+              <li><strong>Texas (TDHCA):</strong> Provides down payment grants up to 5% of loan amounts with no repayment obligation if you remain in the home for 3 years.</li>
+              <li><strong>Florida (Florida Housing):</strong> Grants up to $10,000 in 0% interest second mortgages deferred until sale or refinance.</li>
+            </ul>
+            <p>
+              Pair your down payment planning with our <a href="/calculators/housing/home-affordability-calculator">home affordability calculator</a>, determine property tax liabilities with the <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>, and compare total financing with the <a href="/calculators/finance/mortgage-calculator">mortgage calculator</a>.
+            </p>
+
+
           {/* Graph #2: Interactive visual benchmark with live mouse hover */}
           <DownPaymentTierChart />
 
@@ -132,6 +167,27 @@ export default function Page() {
               reducing the out-of-pocket cash you need on closing day.
             </li>
           </ul>
+
+          <h2>Private Mortgage Insurance (PMI) Removal Mechanics &amp; HPA Regulations</h2>
+          <p>
+            When purchasing a primary home with less than 20% down payment on a conventional loan, federal regulations under the <strong>Homeowners Protection Act of 1998 (HPA)</strong> establish strict statutory mechanisms for automatic PMI cancellation:
+          </p>
+          <ul>
+            <li><strong>Automatic Termination at 78% LTV:</strong> Lenders are legally mandated to cancel PMI automatically once your principal mortgage balance is scheduled to reach 78% of the original purchase value, provided your loan payments are current.</li>
+            <li><strong>Borrower-Requested Cancellation at 80% LTV:</strong> Homeowners can formally request in writing that their mortgage servicer cancel PMI once their principal balance reaches 80% of original value, saving $1,500 to $3,000 annually.</li>
+            <li><strong>Early Cancellation via Substantial Home Improvements:</strong> If rapid market appreciation or major remodeling additions (kitchen renovations, room additions) push your equity over 20% to 25%, you can petition your lender for a new broker price opinion (BPO) or professional appraisal to cancel PMI years ahead of schedule.</li>
+          </ul>
+
+          <h2>Conventional 97% LTV vs FHA 3.5% Down Mortgage Economics</h2>
+          <p>
+            First-time homebuyers evaluating minimum down payment options must weigh long-term financing costs between GSE conventional and government-insured loan products:
+          </p>
+          <ul>
+            <li><strong>Conventional 97% / HomeReady / Home Possible:</strong> Requires just 3.0% down for qualifying buyers with credit scores above 660. The primary advantage over FHA is that private mortgage insurance automatically drops off once equity reaches 20%, whereas FHA mortgage insurance persists for the lifetime of the mortgage.</li>
+            <li><strong>FHA 3.5% Down Loan Program:</strong> Features more forgiving credit score thresholds (down to 580) and debt-to-income allowances (up to 50%). However, FHA charges both a 1.75% Upfront Mortgage Insurance Premium (UFMIP) added to your principal balance and a mandatory monthly MIP (typically 0.55% annually) for the entire 30-year duration.</li>
+            <li><strong>Opportunity Cost &amp; Yield Arbitrage:</strong> Putting down 20% eliminates PMI, but deploying an extra $60,000 in upfront cash has significant opportunity cost. If you can invest that liquidity in an index portfolio earning an average 7% to 10% annual return while borrowing mortgage capital at 6%, keeping liquid reserves can outperform a massive down payment.</li>
+          </ul>
+
           <p>
             Evaluate your total borrowing power with our{" "}
             <a href="/calculators/housing/home-affordability-calculator">home affordability calculator</a>, compare mortgage

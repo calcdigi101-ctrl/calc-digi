@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HomeEquityCapitalStackChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/home-equity-calculator";
-const TITLE = "Home Equity Calculator – How Much Can I Borrow? (HELOC) | CalcDigi";
-const DESCRIPTION =
-  "Free home equity calculator: determine your total accumulated home equity, loan-to-value (LTV), combined LTV (CLTV), and maximum usable borrowing capacity for HELOCs or home equity loans.";
+const TITLE = "Home Equity Calculator – Borrowing Power & HELOC | CalcDigi";
+const DESCRIPTION = "Free home equity calculator: determine total home equity, loan-to-value (LTV), combined LTV (CLTV), and usable borrowing capacity for HELOCs or loans.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -96,7 +95,43 @@ export default function Page() {
           <Formula>
             Total Home Equity = Current Market Value - Total Outstanding Mortgage Debt
           </Formula>
-          <Formula>
+          
+
+          <h2>Step-by-Step Practical Calculation: $480,000 Property at 85% CLTV</h2>
+
+            <p>
+              Suppose your primary residence is currently appraised at <strong>$480,000</strong>, your remaining first mortgage balance is <strong>$280,000</strong>, and your credit union permits a maximum <strong>85% Combined Loan-to-Value (CLTV)</strong> cap:
+            </p>
+            <ul>
+              <li><strong>Step 1: Calculate Total Accumulated Equity</strong>: $480,000 market value - $280,000 mortgage = <strong>$200,000 gross equity (41.7% equity stake)</strong>.</li>
+              <li><strong>Step 2: Calculate Maximum Total Borrowing Ceiling</strong>: $480,000 × 0.85 = <strong>$408,000 total allowable lien debt</strong>.</li>
+              <li><strong>Step 3: Deduct Existing First Mortgage</strong>: $408,000 - $280,000 = <strong>$128,000 maximum usable HELOC credit line</strong>.</li>
+              <li><strong>Step 4: Mandatory Protective Equity Cushion</strong>: $480,000 × 0.15 = <strong>$72,000 protected equity buffer</strong> retained in your property.</li>
+            </ul>
+
+
+            <h2>Costly Traps in Home Equity Financing</h2>
+            <p>Avoid these common hazards when leveraging home equity lines of credit (HELOCs) or second mortgages:</p>
+            <ul>
+              <li><strong>HELOC Payment Shock at End of Draw Period:</strong> Most HELOCs feature a 10-year interest-only draw period followed by a 20-year principal-and-interest repayment period. When the draw period expires, monthly payments can double or triple overnight.</li>
+              <li><strong>Exposing Your Primary Residence to Foreclosure Risk:</strong> Unlike unsecured personal loans or credit cards, a home equity line is secured by your home. Defaulting on payments gives the lender the legal right to foreclose on your residence.</li>
+              <li><strong>Using Long-Term Equity for Short-Term Depreciating Assets:</strong> Using home equity to finance luxury vacations, designer clothing, or depreciating sports cars drains home wealth for zero lasting return. Reserve equity for high-ROI home additions, high-interest debt consolidation, or emergency reserves.</li>
+              <li><strong>Overlooking Variable Interest Rate Spikes:</strong> Most HELOCs carry variable rates pegged to the Wall Street Journal Prime Rate. In rising interest rate environments, borrowing costs can climb rapidly.</li>
+            </ul>
+
+
+            <h2>State Lending Limitations &amp; Homestead Exemptions</h2>
+            <p>
+              Certain states enforce unique legal constraints on home equity borrowing:
+            </p>
+            <ul>
+              <li><strong>Texas (Section 50(a)(6)):</strong> The Texas Constitution strictly limits all combined mortgage debt (first lien + home equity) to a maximum of 80% CLTV, prohibiting lenders from offering 85% or 90% lines.</li>
+              <li><strong>Florida &amp; Nevada:</strong> Maintain robust homestead exemption provisions protecting home equity against unsecured creditor judgments, making equity retention legally advantageous.</li>
+            </ul>
+            <p>
+              Plan home improvements with our <a href="/calculators/housing/renovation-cost-calculator">renovation cost calculator</a>, test refinancing alternatives with the <a href="/calculators/housing/refinance-calculator">refinance calculator</a>, and calculate property tax bills with the <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>.
+            </p>
+<Formula>
             Current Loan-to-Value (LTV) = Total Mortgage Debt ÷ Current Market Value
           </Formula>
           <Formula>
@@ -129,6 +164,26 @@ export default function Page() {
               vacations, or luxury vehicles. Using collateralized shelter to fund lifestyle consumption puts your roof at risk.
             </li>
           </ul>
+
+          <h2>Fixed-Rate Second Mortgages vs Variable HELOC Amortization Mechanics</h2>
+          <p>
+            Choosing between a fixed-rate closed-end home equity loan and an open-ended variable Home Equity Line of Credit (HELOC) involves key structural differences:
+          </p>
+          <ul>
+            <li><strong>Fixed-Rate Home Equity Loan:</strong> Disbursed as a single lump-sum payout with a fixed interest rate and fixed monthly principal-and-interest payment across terms ranging from 5 to 30 years. Ideal for defined capital projects like a roof replacement or major kitchen remodel.</li>
+            <li><strong>Variable-Rate HELOC (Draw vs Repayment):</strong> Operates like a revolving credit card secured by your home. During the 10-year draw period, borrowers can borrow, pay down, and re-borrow funds while paying interest only on the active balance. After Year 10, the line freezes into a 20-year fully amortizing repayment period.</li>
+            <li><strong>Tax Deductibility of Equity Interest (TCJA Rules):</strong> Under current IRS tax regulations, interest paid on home equity borrowing is tax-deductible only if the funds are utilized to "buy, build, or substantially improve" the primary residence securing the loan. Using equity for vehicle purchases or credit card consolidation eliminates the federal tax deduction.</li>
+          </ul>
+
+          <h2>Cash-Out Refinancing vs Piggyback HELOAN Analysis</h2>
+          <p>
+            When tapping equity, homeowners holding a legacy first mortgage with an ultra-low interest rate (such as 3.0% locked during 2020–2021) should avoid a cash-out refinance:
+          </p>
+          <ul>
+            <li><strong>Preserving First Mortgage Terms:</strong> Replacing an entire $350,000 first mortgage at 3.0% with a new 6.75% cash-out refinance adds hundreds of dollars in unnecessary interest every month. Taking a standalone second mortgage or HELOC for the incremental $50,000 keeps your rock-bottom primary rate intact.</li>
+            <li><strong>Combined Loan-to-Value (CLTV) Underwriting Limits:</strong> Most commercial banks and credit unions cap borrowing at 80% to 85% CLTV. Borrowers with pristine credit and verifiable W-2 income can occasionally secure up to 90% CLTV, though rates and origination fees increase substantially on higher leverage tiers.</li>
+          </ul>
+
           <p>
             Planning a major home renovation with your equity? Estimate costs with our{" "}
             <a href="/calculators/housing/renovation-cost-calculator">renovation cost calculator</a>, compare full loan replacements

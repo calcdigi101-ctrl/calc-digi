@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RenovationRoiChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/renovation-cost-calculator";
-const TITLE = "Renovation Cost Calculator – Home Remodel Estimator (2026) | CalcDigi";
-const DESCRIPTION =
-  "Free renovation cost calculator: estimate accurate budgets for kitchen remodels, bathroom renovations, basement finishes, and whole-home upgrades with labor, materials, and contingency reserves.";
+const TITLE = "Renovation Cost Calculator – Remodel Estimator | CalcDigi";
+const DESCRIPTION = "Free renovation cost calculator: estimate accurate budgets for kitchen remodels, bathroom renovations, basement finishes, and whole-home upgrades with labor.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -92,7 +91,44 @@ export default function Page() {
           <Formula>
             Total Project Budget = Base Construction Estimate × (1 + Contingency Factor)
           </Formula>
-          <ul>
+          
+
+          <h2>Step-by-Step Practical Calculation: Midrange Kitchen Remodel (200 Sq Ft)</h2>
+
+            <p>
+              Suppose you are renovating a <strong>200 sq ft residential kitchen</strong> at a standard midrange finish tier ($150 per sq ft) with a licensed general contractor and 15% contingency reserve:
+            </p>
+            <ul>
+              <li><strong>Step 1: Base Construction &amp; Material Cost</strong>: 200 sq ft × $150/sq ft = <strong>$30,000 base budget</strong>.</li>
+              <li><strong>Step 2: Labor &amp; General Contractor Allocation (~40%)</strong>: ~$12,000 for trade labor (demolition, electrical rough-in, plumbing, cabinet setting).</li>
+              <li><strong>Step 3: Materials Allocation (~60%)</strong>: ~$18,000 for semi-custom cabinets, quartz countertops, tile backsplash, and appliance package.</li>
+              <li><strong>Step 4: Unforeseen Contingency Reserve (15%)</strong>: $30,000 × 0.15 = <strong>$4,500 contingency buffer</strong>.</li>
+              <li><strong>Step 5: Total Project Capital Required</strong>: $30,000 + $4,500 = <strong>$34,500 total project budget</strong>.</li>
+            </ul>
+
+
+            <h2>Common Costly Mistakes in Home Renovations</h2>
+            <p>Avoid these four budget-busting remodel traps:</p>
+            <ul>
+              <li><strong>Skipping a 15% to 20% Contingency Buffer:</strong> Opening walls in homes built prior to 1990 routinely uncovers unpermitted wiring, plumbing leaks, rotted subfloors, or asbestos. A renovation budget without an untouchable 15% contingency reserve leads to halted construction.</li>
+              <li><strong>Changing Scope or Materials Mid-Project:</strong> "Change orders" during active construction are the single largest source of contractor cost overruns and schedule delays. Finalize all fixture, tile, and layout decisions before demolition begins.</li>
+              <li><strong>Over-Improving for Your Neighborhood:</strong> Spending $120,000 on an ultra-luxury kitchen in a neighborhood of $350,000 median homes rarely recoups costs at resale. Align finishes with prevailing neighborhood standards.</li>
+              <li><strong>Hiring Unlicensed or Uninsured Contractors:</strong> Choosing the lowest bidder without verifying active general liability insurance and worker's compensation exposes homeowners to severe financial liability if a worker is injured on site.</li>
+            </ul>
+
+
+            <h2>Regional Resale Value Recovery (Cost vs. Value)</h2>
+            <p>
+              Remodeling return on investment varies by geographic market demand:
+            </p>
+            <ul>
+              <li><strong>Pacific Coast &amp; Mountain West:</strong> Siding replacement, minor kitchen remodels, and accessory dwelling unit (ADU) conversions recoup between 85% and 105% of costs due to acute housing density demands.</li>
+              <li><strong>Sunbelt &amp; Midwest:</strong> Exterior curb appeal upgrades (garage door replacements, steel entry doors) yield top ROI (over 100% recouped), while luxury upscale master bath suites average 50% to 65% recovery.</li>
+            </ul>
+            <p>
+              Finance your remodel with our <a href="/calculators/housing/home-equity-calculator">home equity calculator</a>, calculate room wall surface areas with the <a href="/calculators/housing/room-area-calculator">room area calculator</a>, and estimate flooring with the <a href="/calculators/housing/flooring-calculator">flooring calculator</a>.
+            </p>
+<ul>
             <li><strong>Materials &amp; Fixtures (40% – 50%):</strong> Cabinets, countertops, tile, flooring, appliances, lighting, and plumbing valves.</li>
             <li><strong>Skilled Trade Labor (35% – 45%):</strong> Licensed carpenters, electricians, plumbers, drywall tapers, and tile setters.</li>
             <li><strong>Permits &amp; Design (5% – 10%):</strong> Architectural blueprints, municipal permit fees, and dumpster/disposal fees.</li>
@@ -142,6 +178,28 @@ export default function Page() {
               with exact labor and material costs before authorizing the crew to proceed.
             </li>
           </ul>
+
+          <h2>General Contractor Markup, Subcontractor Tiering &amp; AIA Contracts</h2>
+          <p>
+            Understanding how residential construction projects are structured prevents financial surprises and disputes:
+          </p>
+          <ul>
+            <li><strong>General Contractor Overhead &amp; Profit (O&amp;P):</strong> Standard general contractor fee structures add 15% to 25% on top of hard trade costs (labor and materials). This fee covers project management, scheduling licensed subcontractors, job site safety, building inspections, and structural warranties.</li>
+            <li><strong>AIA Documented Draw Schedules:</strong> Reputable contractors utilize standardized draw schedules tied to verified milestone completions (e.g., 10% deposit, 25% post-demolition and rough-ins, 25% post-drywall, 25% finish carpentry, and 15% final walkthrough sign-off). Never pay more than 10% to 15% upfront before materials arrive on site.</li>
+            <li><strong>Building Permit Compliance &amp; Resale Disclosure:</strong> Major electrical, plumbing, HVAC, and load-bearing structural alterations legally require municipal permits. Unpermitted remodeling projects must be formally disclosed at resale and can void homeowner insurance coverage in the event of an electrical fire or plumbing flood.</li>
+            <li><strong>Change Order Protocol:</strong> Every scope alteration, whether upgrading tile or relocating a light fixture, must be signed in writing as a formal change order with exact material and labor fees before authorizing crews to proceed.</li>
+          </ul>
+
+
+          <h2>Lien Waivers &amp; Mechanics Lien Protections</h2>
+          <p>
+            Homeowners must protect property title from subcontractor disputes during major remodeling projects:
+          </p>
+          <ul>
+            <li><strong>Conditional vs Unconditional Lien Waivers:</strong> With every milestone draw payment, require your general contractor to provide executed unconditional lien waivers for all prior disbursements and conditional waivers for the current check from all major subcontractors and lumber supply yards.</li>
+            <li><strong>Mechanics Lien Liability:</strong> Under state property statutes, if an unscrupulous general contractor takes your progress payment but defaults on paying trade suppliers or drywall crews, those subcontractors can legally record a mechanics lien against your real estate title—forcing you into costly court arbitration or double payment to clear title.</li>
+          </ul>
+
           <p>
             Planning your financing? Check your available borrowing equity with the{" "}
             <a href="/calculators/housing/home-equity-calculator">home equity calculator</a>, compare monthly terms on the{" "}

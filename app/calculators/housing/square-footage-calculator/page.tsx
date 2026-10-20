@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SquareFootageGlaChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/square-footage-calculator";
-const TITLE = "Square Footage Calculator – Rooms, Houses & Waste Margin | CalcDigi";
-const DESCRIPTION =
-  "Free square footage calculator: calculate total sq ft and square meters for rectangular rooms, L-shaped spaces, circular areas, and multi-room homes with material waste allowances.";
+const TITLE = "Square Footage Calculator – Rooms & Houses | CalcDigi";
+const DESCRIPTION = "Free square footage calculator: calculate total sq ft and square meters for rectangular rooms, L-shaped spaces, and circular areas with waste margins.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -91,7 +90,44 @@ export default function Page() {
           </p>
           <Formula>Square Footage = Length (ft) × Width (ft)</Formula>
 
-          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          
+
+          <h2>Step-by-Step Practical Calculation: L-Shaped Open Living Space</h2>
+
+            <p>
+              Suppose you are measuring an <strong>L-shaped open concept living room and dining area</strong>. The easiest, most accurate technique is decomposing the floor plan into two separate rectangles:
+            </p>
+            <ul>
+              <li><strong>Section A (Main Living Room)</strong>: 18 feet long by 14 feet wide = 18 × 14 = <strong>252.0 sq ft</strong>.</li>
+              <li><strong>Section B (Dining Alcove)</strong>: 12 feet long by 10 feet wide = 12 × 10 = <strong>120.0 sq ft</strong>.</li>
+              <li><strong>Step 3: Combine Net Square Footage</strong>: 252.0 + 120.0 = <strong>372.0 total sq ft</strong>.</li>
+              <li><strong>Step 4: Convert to Metric Units</strong>: 372.0 sq ft ÷ 10.764 = <strong>34.56 square meters (m²)</strong>.</li>
+              <li><strong>Step 5: Apply 10% Material Waste Margin</strong>: 372.0 × 1.10 = <strong>409.2 sq ft required</strong> for tile or hardwood orders.</li>
+            </ul>
+
+
+            <h2>Costly Traps in Square Footage Measurement</h2>
+            <p>Avoid these four critical measurement errors during appraisals, listings, and material orders:</p>
+            <ul>
+              <li><strong>Confusing Exterior vs Interior Dimensions:</strong> Certified real estate appraisers measure single-family homes from the <em>outside exterior walls</em> (including wall framing and drywall thickness). Measuring only room interior floorboards will understate your home's official Gross Living Area by 8% to 12%.</li>
+              <li><strong>Illegally Counting Basement Space as GLA:</strong> Under strict ANSI Z765 standards, any finished room with earth above ground level on <em>even one side</em> is categorized as Below-Grade Finished Area—never included in official Above-Grade Gross Living Area (GLA).</li>
+              <li><strong>Counting Unfinished Garages &amp; Screened Porches:</strong> Attached garages, unfinished attics, and screened porches without permanent year-round climate control (HVAC) are strictly excluded from appraised living area.</li>
+              <li><strong>Sloped Ceiling Under-Measurement:</strong> In finished attics, floor space where the sloped ceiling height drops below 5 feet (60 inches) cannot be counted toward official usable square footage.</li>
+            </ul>
+
+
+            <h2>Fannie Mae ANSI Z765 Appraisal Compliance</h2>
+            <p>
+              Since April 2022, Fannie Mae legally mandates that all licensed appraisers valuing single-family properties for conventional conforming mortgages adhere strictly to the ANSI Z765-2021 measurement standard:
+            </p>
+            <ul>
+              <li><strong>Precision Rounding:</strong> All exterior wall measurements must be recorded to the nearest tenth of a foot (0.10 ft) or inch.</li>
+              <li><strong>Finished Ceiling Height:</strong> Habitable rooms must maintain a minimum finished ceiling height of 7 feet 0 inches (6 feet 4 inches under exposed ceiling beams).</li>
+            </ul>
+            <p>
+              Plan flooring purchases with our <a href="/calculators/housing/flooring-calculator">flooring calculator</a>, calculate paint coverage with the <a href="/calculators/housing/paint-calculator">paint calculator</a>, and estimate outdoor concrete slabs with the <a href="/calculators/housing/concrete-calculator">concrete calculator</a>.
+            </p>
+{/* Graph #2: Interactive visual benchmark with live mouse hover */}
           <SquareFootageGlaChart />
 
           <h2>Formulas for Complex Room Shapes</h2>
@@ -140,6 +176,27 @@ export default function Page() {
               and divide by 144 to get exact square footage (1 sq ft = 144 sq inches).
             </li>
           </ul>
+
+          <h2>Commercial BOMA vs Residential ANSI Z765 Measurement Paradigms</h2>
+          <p>
+            Square footage standards differ fundamentally between residential single-family properties and commercial leasehold real estate:
+          </p>
+          <ul>
+            <li><strong>Residential ANSI Z765 (Single-Family):</strong> Strict adherence to Above-Grade Gross Living Area (GLA), measuring from the outside exterior finished surface of perimeter walls. Below-grade spaces (even with walkout patio doors) cannot be merged with GLA.</li>
+            <li><strong>Commercial BOMA Standards (Offices &amp; Retail):</strong> Commercial buildings utilize Building Owners and Managers Association (BOMA) standards, calculating "Rentable Square Footage" by adding a proportionate share of common building areas (lobbies, elevators, restrooms, mechanical corridors) via a "loss factor" or "core factor" (typically 12% to 20%).</li>
+            <li><strong>Condominium Interior Paint-to-Paint Standards:</strong> Unlike detached single-family homes, residential condominium units are legally measured from the <em>interior finished drywall surfaces</em> (paint-to-paint), excluding exterior structural building walls and shared corridor demising partitions.</li>
+          </ul>
+
+          <h2>Subterranean Walkout Basements &amp; Appraiser Allocation Rules</h2>
+          <p>
+            Fannie Mae guidelines enforced on uniform residential appraisal reports (URAR Form 1004) mandate unambiguous separation of above-grade and below-grade areas:
+          </p>
+          <ul>
+            <li><strong>The Any-Part-Below-Grade Rule:</strong> If even a single wall or corner of a room is situated below adjacent exterior ground grade level, the entire floor level must be classified as basement space on standard conforming mortgage appraisals.</li>
+            <li><strong>Valuation Impact:</strong> While a fully finished daylight walkout basement with full-height windows, custom wet bar, and guest suite provides tremendous functional utility, appraisers typically value below-grade square footage at 50% to 70% of the per-square-foot dollar rate assigned to main-level above-grade living area.</li>
+            <li><strong>Stairwell Footprint Allocation:</strong> Per ANSI standards, staircases are credited to the square footage of the upper floor from which they descend, including the open area beneath the stairs on the lower level.</li>
+          </ul>
+
           <p>
             Now that you know your square footage, calculate paint quantities with our{" "}
             <a href="/calculators/housing/paint-calculator">paint calculator</a>, determine materials with the{" "}

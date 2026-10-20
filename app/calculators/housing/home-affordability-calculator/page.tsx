@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HomeAffordabilityCurveChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/home-affordability-calculator";
-const TITLE = "Home Affordability Calculator – How Much House Can I Afford? | CalcDigi";
-const DESCRIPTION =
-  "Free home affordability calculator: determine the maximum home price and mortgage loan you can afford based on gross income, monthly debts, down payment, and the 28/36 DTI rule.";
+const TITLE = "Home Affordability Calculator – How Much House? | CalcDigi";
+const DESCRIPTION = "Free home affordability calculator: estimate how much house you can afford based on household income, down payment, monthly debts, and interest rates.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -93,7 +92,45 @@ export default function Page() {
           <Formula>
             Front-End Max Housing = Gross Monthly Income × 0.28
           </Formula>
-          <Formula>
+          
+
+          <h2>Step-by-Step Practical Calculation: $120,000 Household Income</h2>
+
+            <p>
+              Suppose a household earns <strong>$120,000 annually ($10,000 gross monthly income)</strong>, has <strong>$500 in monthly recurring debt payments</strong> (student loans + auto financing), and possesses a 10% cash down payment with mortgage rates at 6.5%:
+            </p>
+            <ul>
+              <li><strong>Front-End Ratio (28% Housing Cap)</strong>: $10,000 × 0.28 = <strong>$2,800 maximum monthly housing budget</strong> (PITI: Principal, Interest, Taxes, Insurance).</li>
+              <li><strong>Back-End Ratio (36% Total Debt Cap)</strong>: ($10,000 × 0.36) - $500 debt = $3,600 - $500 = <strong>$3,100 allowable housing budget</strong>.</li>
+              <li><strong>Binding Qualified Limit</strong>: The lower of the two governs: <strong>$2,800/month maximum PITI payment</strong>.</li>
+              <li><strong>Escrow Deductions</strong>: Property taxes (~$400/mo), homeowners insurance (~$125/mo), and PMI (~$150/mo) consume $675/mo, leaving <strong>$2,125/month for Principal &amp; Interest</strong>.</li>
+              <li><strong>Maximum Affordable Loan Balance</strong>: At 6.5% 30-year fixed, $2,125/mo supports a loan of <strong>$336,200</strong>.</li>
+              <li><strong>Maximum Home Purchase Price (with 10% down)</strong>: $336,200 ÷ 0.90 = <strong>$373,500 maximum home purchase price</strong>.</li>
+            </ul>
+
+
+            <h2>Common Costly Traps in Home Affordability Planning</h2>
+            <p>Steer clear of these four errors that lead to becoming "house poor":</p>
+            <ul>
+              <li><strong>Maxing Out Your Pre-Approval Limit:</strong> Lenders pre-approve you based on gross income before income taxes, healthcare premiums, and retirement 401(k) contributions are deducted. Purchasing at the maximum pre-approved ceiling frequently leaves zero discretionary savings for vacations, hobbies, or emergency repairs.</li>
+              <li><strong>Overlooking Escalating Property Taxes &amp; Insurance:</strong> When a property is reassessed after purchase at the new higher sales price, your escrow payment can jump $200–$400/month in Year 2. Additionally, homeowners insurance premiums have surged by 20% to 50% in storm-prone states.</li>
+              <li><strong>Failing to Budget 1% to 2% Annual Maintenance:</strong> A $400,000 home requires approximately $4,000 to $8,000 annually for routine maintenance, HVAC servicing, appliance replacements, tree trimming, and roof repairs.</li>
+              <li><strong>Taking on New Debt Before Closing:</strong> Financing a new car or opening furniture credit cards between mortgage approval and closing changes your Debt-to-Income (DTI) ratio, triggering loan cancellations at the closing table.</li>
+            </ul>
+
+
+            <h2>Regional Geographic Cost Variations</h2>
+            <p>
+              Purchasing power varies dramatically depending on regional property tax structures and insurance markets:
+            </p>
+            <ul>
+              <li><strong>Low-Tax Sunbelt &amp; Coastal States:</strong> Lower property tax rates in states like Nevada, Arizona, and Florida allow buyers to allocate more of their monthly payment toward loan principal.</li>
+              <li><strong>High-Tax Northeast &amp; Midwest States:</strong> In New Jersey, Illinois, and New York, high property taxes (2.0% to 2.5%+) consume up to 30% of the buyer's monthly housing budget, reducing total borrowing power by $50,000 to $90,000 for the identical salary.</li>
+            </ul>
+            <p>
+              Compare your upfront savings with our <a href="/calculators/housing/down-payment-calculator">down payment calculator</a>, evaluate property taxes with the <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>, and test rent alternatives with the <a href="/calculators/housing/rent-vs-buy-calculator">rent vs buy calculator</a>.
+            </p>
+<Formula>
             Back-End Max Total Debt = Gross Monthly Income × 0.36
           </Formula>
           <Formula>
@@ -128,6 +165,26 @@ export default function Page() {
               which typically adds $120 to $250 per month to mortgage payments for conventional buyers.
             </li>
           </ul>
+
+          <h2>Underwriting Stress-Testing, Reserves &amp; Property Escrow Realities</h2>
+          <p>
+            When mortgage underwriters evaluate a home loan file, they apply rigorous debt-stress algorithms beyond simple base salary multiplication:
+          </p>
+          <ul>
+            <li><strong>Verifiable Qualifying Income vs Gross Income:</strong> Overtime pay, quarterly bonuses, and commission earnings cannot be included in qualifying income unless documented across a continuous 24-month history on IRS W-2 forms with an employer letter certifying likelihood of continuation.</li>
+            <li><strong>Post-Closing Asset Reserve Requirements:</strong> High-balance and jumbo conforming mortgages mandate that borrowers retain 6 to 12 months of total principal, interest, taxes, and insurance (PITI) in verified liquid bank or brokerage accounts after all down payment and closing fees have cleared.</li>
+            <li><strong>Escrow Buffer Cushion &amp; Reassessment Shocks:</strong> Mortgage servicers routinely maintain a 2-month reserve cushion in property tax and homeowners insurance escrow accounts. When your home is reassessed at the purchase price, monthly mortgage bills frequently increase by 5% to 15% in Year 2.</li>
+          </ul>
+
+          <h2>Automated Underwriting Systems (AUS) &amp; Compensating Factors</h2>
+          <p>
+            Modern loan applications are processed through Fannie Mae Desktop Underwriter (DU) or Freddie Mac Loan Product Advisor (LPA). Understanding how AUS engines evaluate risk helps buyers qualify for maximum loan limits:
+          </p>
+          <ul>
+            <li><strong>Front-End vs Back-End Debt-to-Income (DTI):</strong> Traditional mortgage guidelines recommend a maximum 28% front-end ratio (housing costs divided by gross income) and 36% back-end ratio (all recurring debt payments including auto loans, student loans, and credit cards). However, strong credit scores (740+) and substantial liquid reserves frequently unlock AUS approvals up to 45% or even 50% back-end DTI.</li>
+            <li><strong>Credit Utilization Scoring Thresholds:</strong> FICO scores penalize revolving credit card utilization above 30%, and severely above 50%. Paying down credit card balances 45 days prior to mortgage application can boost credit scores by 20 to 45 points, saving up to 0.50% on your note interest rate.</li>
+          </ul>
+
           <p>
             Explore your down payment options with our{" "}
             <a href="/calculators/housing/down-payment-calculator">down payment calculator</a>, compare homeownership against

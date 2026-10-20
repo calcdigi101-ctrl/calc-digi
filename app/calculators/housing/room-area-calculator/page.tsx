@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RoomSizeStandardsChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/room-area-calculator";
-const TITLE = "Room Area Calculator – Floor, Wall & Ceiling Surface (Sq Ft) | CalcDigi";
-const DESCRIPTION =
-  "Free room area calculator: calculate floor square footage, net paintable wall surface area, ceiling dimensions, room perimeter, and interior cubic volume with window and door deductions.";
+const TITLE = "Room Area Calculator – Floor, Wall & Ceiling | CalcDigi";
+const DESCRIPTION = "Free room area calculator: calculate floor square footage, net paintable wall surface area, ceiling dimensions, and room perimeter with window deductions.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -68,7 +67,7 @@ export default function Page() {
               </span>
               <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
               <span className="text-slate-600 dark:text-slate-400">
-                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">International Residential Code Minimum Habitable Dimensions</strong>
+                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">Architectural Graphic Standards & IRC Residential Specifications</strong>
               </span>
             </div>
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
@@ -136,6 +135,47 @@ export default function Page() {
             <li><strong>Net Paintable Walls:</strong> 416 - 51 = <strong>365 sq ft</strong> (requires ~1.1 gallons of paint per coat).</li>
             <li><strong>Room Air Volume:</strong> 168 × 8 = <strong>1,344 cu ft</strong> (for HVAC load calculations).</li>
           </ol>
+
+          <h2>HVAC Airflow Balancing, CFM Calculation &amp; Heat Loss Sizing</h2>
+          <p>
+            Room square footage and interior cubic volume directly determine heating, ventilation, and air conditioning equipment sizing:
+          </p>
+          <ul>
+            <li><strong>Manual J Heating &amp; Cooling Load Calculations:</strong> Certified HVAC contractors use room surface areas, ceiling heights, window orientations, and insulation R-values to calculate BTU heating and cooling loads per room rather than relying on crude square-foot rules of thumb.</li>
+            <li><strong>Airflow CFM Requirements:</strong> A standard rule of thumb allocates roughly 1 CFM (Cubic Feet per Minute) of conditioned air for every 1 to 1.25 sq ft of residential floor space, adjusted for sun exposure and exterior wall exposure.</li>
+            <li><strong>Interior Door Undercut for Return Air:</strong> To maintain balanced room pressure when interior bedroom doors are closed, doors must have a 3/4-inch to 1-inch undercut above finished flooring to allow air to return freely to central HVAC return grilles.</li>
+          </ul>
+
+          <h2>Common Costly Measurement Mistakes in Room Sizing</h2>
+          <p>Avoid these four common spatial calculation errors when ordering materials:</p>
+          <ul>
+            <li><strong>Omitting Closet &amp; Entryway Alcoves:</strong> Measuring only the main rectangular body of a room leaves out reach-in closets and doorway vestibules, leaving you short on flooring planks and underlayment.</li>
+            <li><strong>Ignoring Sloped Ceilings &amp; Knee Walls:</strong> In attic bedrooms or bonus rooms with cathedral ceilings, wall surface calculations must use triangular and trapezoidal area formulas rather than simple height multiplication.</li>
+            <li><strong>Confusing Wall Surface with Floor Footprint:</strong> Purchasing wall paint based on floor square footage is a frequent novice mistake—a 150 sq ft room typically has over 400 sq ft of vertical wall surface to cover.</li>
+            <li><strong>Neglecting Architectural Waste Allowances:</strong> Diagonal flooring installations or herringbone tile patterns require 15% to 20% waste allowance due to excessive corner cuts, compared to 10% for straight layouts.</li>
+          </ul>
+
+          <h2>Architectural Illuminance &amp; Lighting Lux Standards</h2>
+          <p>
+            Proper interior lighting design uses room area to determine lumen requirements per Illuminating Engineering Society (IES) standards:
+          </p>
+          <ul>
+            <li><strong>Living Rooms &amp; Bedrooms (150–200 Lux):</strong> Require 15 to 20 lumens per square foot for ambient relaxation. A 180 sq ft bedroom requires roughly 2,700 to 3,600 total lumens from all fixtures combined.</li>
+            <li><strong>Kitchens &amp; Home Workspaces (300–500 Lux):</strong> Task-heavy zones require 30 to 50 lumens per square foot for clear visibility and food preparation safety.</li>
+          </ul>
+
+
+          <h2>IRC Minimum Room Dimension Enactments &amp; Egress Regulations</h2>
+          <p>
+            When adding a bedroom or converting a basement, residential building codes enforce strict spatial safety minimums:
+          </p>
+          <ul>
+            <li><strong>IRC Section R304 Habitable Room Minimums:</strong> Every residential dwelling unit must have at least one habitable room of at least 120 square feet. Other habitable rooms (such as secondary bedrooms) must have a floor area of not less than 70 square feet, with no horizontal dimension less than 7 feet.</li>
+            <li><strong>Ceiling Height Clearances (IRC R305):</strong> Habitable spaces, hallways, and bathrooms must have a minimum ceiling height of 7 feet 0 inches. In rooms with sloped ceilings (such as finished attics), at least 50% of the required floor area must have a 7-foot ceiling height, and floor space with ceiling height below 5 feet cannot count toward minimum room area.</li>
+            <li><strong>Emergency Egress Openings (IRC R310):</strong> Every sleeping room must contain at least one operable emergency escape and rescue opening. The net clear opening must be at least 5.7 square feet (5.0 sq ft at ground floor), with a minimum height of 24 inches, minimum width of 20 inches, and sill height no higher than 44 inches above the floor.</li>
+            <li><strong>Acoustic Reverberation (RT60):</strong> In home theaters and open-plan living rooms, larger room volumes increase acoustic flutter echo. For a 2,000 cu ft room, achieving an optimal 0.4 to 0.6 second reverberation time requires pairing hard flooring with high-density area rugs, perimeter acoustic foam panels, bass traps, and plush upholstered furnishings to eliminate slap-back flutter.</li>
+          </ul>
+
           <p>
             Need to compute total costs for this space? Head over to our{" "}
             <a href="/calculators/housing/paint-calculator">paint calculator</a> to calculate coats and primer, estimate

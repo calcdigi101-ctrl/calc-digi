@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ElectricityBreakdownChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/electricity-cost-calculator";
-const TITLE = "Electricity Cost Calculator – Appliance Power & kWh Usage | CalcDigi";
-const DESCRIPTION =
-  "Free electricity cost calculator: calculate appliance kWh power consumption, daily, monthly, and annual utility bills, and compare state electricity rates.";
+const TITLE = "Electricity Cost Calculator – Power & kWh Usage | CalcDigi";
+const DESCRIPTION = "Free electricity cost calculator: calculate appliance kWh power consumption, daily, monthly, and annual utility bills, and compare state electricity rates.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -98,7 +97,48 @@ export default function Page() {
           <Formula>
             Daily kWh = (Appliance Wattage * Operating Hours Per Day) / 1000
           </Formula>
-          <Formula>
+          
+
+          <h2>Step-by-Step Practical Calculation: 1,500W Space Heater</h2>
+
+            <p>
+              Suppose you operate a <strong>1,500-Watt portable electric space heater</strong> in a home office for <strong>8 hours per day</strong> during winter months at the US average electric rate of <strong>$0.168 per kWh</strong>:
+            </p>
+            <ul>
+              <li><strong>Step 1: Convert Watts to Kilowatts</strong>: 1,500 Watts ÷ 1,000 = 1.5 kW.</li>
+              <li><strong>Step 2: Calculate Daily Consumption</strong>: 1.5 kW × 8 hours = <strong>12.0 kWh per day</strong>.</li>
+              <li><strong>Step 3: Calculate Monthly Consumption</strong>: 12.0 kWh × 30.42 days = <strong>365.0 kWh per month</strong>.</li>
+              <li><strong>Step 4: Calculate Daily Energy Cost</strong>: 12.0 kWh × $0.168 = <strong>$2.02 per day</strong>.</li>
+              <li><strong>Step 5: Calculate Monthly Energy Cost</strong>: 365.0 kWh × $0.168 = <strong>$61.32 per month</strong>.</li>
+            </ul>
+            <p>
+              Running just one supplemental 1,500W space heater for 8 hours daily adds over <strong>$180 to your quarterly winter electric bill</strong>.
+            </p>
+
+
+            <h2>Common Electricity Billing Surprises &amp; Vampire Loads</h2>
+            <p>Avoid these hidden energy sinks that inflate residential electric utility invoices:</p>
+            <ul>
+              <li><strong>Ignoring Standby Vampire Power:</strong> Televisions, gaming consoles, cable boxes, and smart appliances continuously consume 5W to 40W each in standby mode. Nationally, standby power accounts for 5% to 10% of total residential electric consumption ($100–$200/year).</li>
+              <li><strong>Operating Inefficient Pool Pumps &amp; Old Well Pumps:</strong> Single-speed pool pumps running 10 hours daily draw 1,500W to 2,000W, consuming over 450 kWh monthly ($75/mo). Upgrading to a variable-speed pump cuts operating power draw by up to 70%.</li>
+              <li><strong>Overlooking Peak Demand Time-of-Use (TOU) Rates:</strong> Many municipal utilities charge double or triple per kWh between 4:00 PM and 9:00 PM on weekdays. Running laundry, dishwashers, and electric vehicle chargers during peak hours doubles operating costs.</li>
+              <li><strong>Neglecting Dirty HVAC Filters:</strong> Clogged air filters force central blower motors and compressor units to work significantly harder, increasing heating and cooling electrical draw by 15% and shortening equipment lifespan.</li>
+            </ul>
+
+
+            <h2>Regional US Electricity Rate Disparities</h2>
+            <p>
+              Residential electricity rates vary dramatically across the United States due to fuel generation mix, regional transmission infrastructure, and state regulatory mandates:
+            </p>
+            <ul>
+              <li><strong>High-Cost Island &amp; Coastal States:</strong> Hawaii leads the nation at ~42.0¢/kWh due to imported fuel oil, followed by California (31.5¢/kWh), Connecticut (29.0¢/kWh), and New York (23.8¢/kWh).</li>
+              <li><strong>Moderate Central &amp; Sunbelt States:</strong> Florida (15.1¢/kWh), Texas (14.2¢/kWh in deregulated utility zones), and North Carolina (14.5¢/kWh) hover near the national median.</li>
+              <li><strong>Low-Cost Hydropower &amp; Natural Gas States:</strong> Washington (11.2¢/kWh), Idaho (10.9¢/kWh), and Louisiana (11.0¢/kWh) boast the nation's lowest residential rates due to abundant river hydropower and localized natural gas reserves.</li>
+            </ul>
+            <p>
+              Estimate your home heating space requirements with our <a href="/calculators/housing/room-area-calculator">room area calculator</a>, plan whole-home efficiency with the <a href="/calculators/housing/renovation-cost-calculator">renovation cost calculator</a>, and calculate property overhead with the <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>.
+            </p>
+<Formula>
             Monthly Energy (kWh) = Daily kWh * 30.42
           </Formula>
           <Formula>
@@ -130,6 +170,26 @@ export default function Page() {
           />
 
           <h2>Residential Electricity Rates Across US States</h2>
+
+          <h2>Seasonal HVAC Temperature Coefficient &amp; Inverter Heat Pump Economics</h2>
+          <p>
+            Heating and cooling systems account for 44% to 52% of total residential electric consumption. Calculating true HVAC operating costs requires adjusting nominal wattage for outdoor temperature differentials:
+          </p>
+          <ul>
+            <li><strong>SEER2 Efficiency Ratings:</strong> Modern central air conditioning systems are rated by Seasonal Energy Efficiency Ratio 2 (SEER2). Upgrading from an older 10 SEER system to an 18 SEER2 unit reduces electric power draw by 44% for the identical cooling output.</li>
+            <li><strong>Cold-Climate Inverter Heat Pumps:</strong> Advanced variable-capacity inverter heat pumps maintain a Coefficient of Performance (COP) between 2.5 and 3.8 down to 5°F (-15°C), delivering $3.00 of thermal heat energy for every $1.00 of metered electric power consumed.</li>
+            <li><strong>The 1-Degree Rule of Thumb:</strong> Adjusting your thermostat by just 1°F (up in summer, down in winter) over an 8-hour period reduces HVAC electrical consumption by roughly 1% to 3% annually per US Department of Energy benchmarks.</li>
+          </ul>
+
+          <h2>Phantom Energy Loads &amp; Time-of-Use (TOU) Rate Optimization</h2>
+          <p>
+            Beyond major running appliances, residential electric bills are driven by continuous parasitic draws and fluctuating utility tariff schedules:
+          </p>
+          <ul>
+            <li><strong>Standby "Vampire" Loads:</strong> Modern smart TVs, gaming consoles, desktop PC power supplies, microwave clocks, and EV chargers continuously draw 2 to 20 watts even when powered off. Across a typical single-family home, phantom loads total 1,200 to 1,800 kWh annually—costing $200 to $350 in waste. Utilizing smart surge protectors with automatic load-sensing cuts this idle draw to zero.</li>
+            <li><strong>Time-of-Use (TOU) On-Peak vs Off-Peak Arbitrage:</strong> In states with dynamic TOU pricing (such as California, Arizona, and New York), electricity rates during peak afternoon and evening windows (4 PM to 9 PM) can reach 55¢ to 65¢/kWh, while overnight super-off-peak rates drop to 12¢ to 18¢/kWh. Running dishwashers, clothes dryers, and charging electric vehicles during super-off-peak hours yields immediate monthly savings of 30% to 50%.</li>
+          </ul>
+
           <p>
             Because electric utilities operate under state public utility commissions, electricity rates vary dramatically across regions:
           </p>

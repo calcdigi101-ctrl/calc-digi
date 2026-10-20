@@ -8,6 +8,22 @@ export const config: CalcConfig = {
   id: "property-tax",
   title: "Property Tax Calculator",
   fields: [
+    {
+      kind: "choice",
+      key: "statePreset",
+      label: "US State Benchmark Preset",
+      default: "custom",
+      options: [
+        { value: "custom", label: "Custom / Manual County Rate" },
+        { value: "nj", label: "New Jersey (2.23% · Highest)" },
+        { value: "il", label: "Illinois (2.08% · High)" },
+        { value: "tx", label: "Texas (1.68% · No Income Tax)" },
+        { value: "us", label: "US National Average (1.02%)" },
+        { value: "fl", label: "Florida (0.91% · Save Our Homes)" },
+        { value: "ca", label: "California (0.71% · Prop 13)" },
+        { value: "hi", label: "Hawaii (0.32% · Lowest)" },
+      ],
+    },
     { kind: "number", key: "homeValue", label: "Estimated home market value", prefix: "$", default: 425000, min: 10000, max: 20000000 },
     { kind: "number", key: "taxRate", label: "Property tax rate (e.g. 1.15% = 11.5 mills)", suffix: "%", default: 1.15, min: 0.05, max: 10 },
     { kind: "number", key: "assessmentRatio", label: "County assessment ratio (% of market value)", suffix: "%", default: 100, min: 10, max: 100 },
@@ -15,7 +31,17 @@ export const config: CalcConfig = {
   ],
   compute: (v) => {
     const marketValue = Number(v.homeValue || 425000);
-    const taxRate = Number(v.taxRate || 1.15);
+    const STATE_RATES: Record<string, number> = {
+      nj: 2.23,
+      il: 2.08,
+      tx: 1.68,
+      us: 1.02,
+      fl: 0.91,
+      ca: 0.71,
+      hi: 0.32,
+    };
+    const presetKey = String(v.statePreset || "custom");
+    const taxRate = STATE_RATES[presetKey] ?? Number(v.taxRate || 1.15);
     const assessmentRatio = Number(v.assessmentRatio || 100);
     const exemption = Number(v.exemption || 0);
 

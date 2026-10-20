@@ -4,9 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RentVsBuyWealthChart } from "@/components/flagship/housing/editorial-charts/RentVsBuyWealthChart";
 
 const PATH = "/calculators/housing/rent-vs-buy-calculator";
-const TITLE = "Rent vs Buy Calculator – Breakeven Analysis & Net Wealth | CalcDigi";
-const DESCRIPTION =
-  "Free rent vs buy calculator: compare the true financial cost of homeownership against renting and investing the difference with price-to-rent ratios, equity buildup, and breakeven horizons.";
+const TITLE = "Rent vs Buy Calculator – Net Wealth & Break-Even Year";
+const DESCRIPTION = "Free rent vs buy calculator: compare true financial costs of homeownership against renting, including mortgage interest, equity, taxes, and repairs.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -96,7 +95,45 @@ export default function Page() {
           <Formula>
             Price-to-Rent Ratio = Home Purchase Price ÷ (Monthly Rent × 12)
           </Formula>
-          <Formula>
+          
+
+          <h2>Step-by-Step Practical Calculation: $450,000 Home vs $2,400/mo Rent</h2>
+
+            <p>
+              Suppose you are deciding between purchasing a <strong>$450,000 single-family home</strong> (10% down = $45,000 cash, 6.75% mortgage rate) versus renting an equivalent property for <strong>$2,400 per month</strong> and investing the $45,000 down payment in an S&amp;P 500 index fund (7% annual return):
+            </p>
+            <ul>
+              <li><strong>Buyer Sunk Costs (Year 1)</strong>: Mortgage interest ($27,100) + Property tax ($5,400) + Insurance ($1,800) + Maintenance ($4,500) = <strong>$38,800 unrecoverable annual housing friction</strong>.</li>
+              <li><strong>Renter Sunk Costs (Year 1)</strong>: 12 months × $2,400 = <strong>$28,800 total unrecoverable rent paid</strong>.</li>
+              <li><strong>Year 1 Advantage</strong>: In Year 1, renting is $10,000 cheaper in unrecoverable costs because homeownership carries front-loaded mortgage interest and closing fees.</li>
+              <li><strong>The Year 4.5 Breakeven Crossover</strong>: By Year 5, home appreciation (3.5%/yr) and principal debt reduction increase home equity to $155,000 (after 6% selling friction), overtaking the renter's invested portfolio ($142,000).</li>
+              <li><strong>10-Year Horizon</strong>: By Year 10, the buyer's net equity reaches <strong>$365,000</strong> vs the renter's portfolio of <strong>$270,000</strong>, delivering a <strong>$95,000 net wealth advantage to the homeowner</strong>.</li>
+            </ul>
+
+
+            <h2>Common Costly Myths in Rent vs Buy Decisions</h2>
+            <p>Avoid these four widespread economic misconceptions:</p>
+            <ul>
+              <li><strong>Believing "Rent Money is Always Thrown Away":</strong> Rent buys shelter with zero maintenance liability, zero property tax risk, and maximum relocation liquidity. Homeownership also involves unrecoverable costs—mortgage interest, taxes, insurance, and maintenance represent "throwing money away" just like rent.</li>
+              <li><strong>Underestimating Friction Selling Costs (8%–10%):</strong> When selling a home, realtor commissions (5%–6%), transfer taxes, title fees, and buyer concessions consume 8% to 10% of gross property value, wiping out equity if you move within 3 years.</li>
+              <li><strong>Ignoring the Opportunity Cost of Capital:</strong> Committing $60,000 to a down payment prevents that capital from compounding in broad-market index equities. If the stock market outperforms local real estate appreciation, renters who invest their savings can accumulate substantial wealth.</li>
+              <li><strong>Assuming Real Estate Appreciation is Guaranteed:</strong> While national home values historically appreciate 3% to 4% annually over decades, local markets experience severe multi-year downturns. Buying is a long-term commitment that requires a minimum 5 to 7-year horizon.</li>
+            </ul>
+
+
+            <h2>The Price-to-Rent Ratio by US Metro Market</h2>
+            <p>
+              The price-to-rent ratio (Median Home Price ÷ Annual Rent) serves as a quick barometer of market valuation:
+            </p>
+            <ul>
+              <li><strong>Ratio Under 15 (Strongly Favors Buying):</strong> Rust Belt and Midwest metros (Cleveland, Detroit, Pittsburgh) feature low home prices relative to rents, favoring buyers within 2 to 3 years.</li>
+              <li><strong>Ratio Between 16 and 20 (Moderate / Balanced):</strong> Suburbs in Atlanta, Phoenix, and Charlotte represent a balanced equilibrium where breakeven occurs around Year 4 to 5.</li>
+              <li><strong>Ratio Over 21+ (Strongly Favors Renting):</strong> High-cost coastal metros (San Francisco, New York, Seattle) feature sky-high price-to-rent ratios exceeding 25 to 30, making renting and investing the difference financially superior unless holding for 10+ years.</li>
+            </ul>
+            <p>
+              Calculate your buying capacity with our <a href="/calculators/housing/home-affordability-calculator">home affordability calculator</a>, estimate down payments with the <a href="/calculators/housing/down-payment-calculator">down payment calculator</a>, and calculate ongoing taxes with the <a href="/calculators/housing/property-tax-calculator">property tax calculator</a>.
+            </p>
+<Formula>
             Homeowner Sunk Costs = Mortgage Interest + Property Taxes + Insurance + Maintenance
           </Formula>
           <Formula>
@@ -132,6 +169,26 @@ export default function Page() {
               replacements or $15,000 roof failures).
             </li>
           </ul>
+
+          <h2>Real Estate Resale Friction, Transfer Taxes &amp; Capital Gains Exemptions</h2>
+          <p>
+            Liquidating a physical real estate asset involves substantial transaction friction compared to selling liquid index stocks:
+          </p>
+          <ul>
+            <li><strong>8% to 10% Resale Liquidation Friction:</strong> When selling a primary residence, seller obligations include realtor commissions (5% to 6%), title insurance, municipal deed transfer taxes, attorney fees, home staging, and buyer repair concessions—totaling $36,000 to $45,000 on a $450,000 home.</li>
+            <li><strong>Section 121 Capital Gains Exclusion:</strong> On the upside, US tax law (IRC §121) allows single homeowners to exclude up to $250,000 (and married couples up to $500,000) of capital gains profit tax-free upon sale, provided they occupied the home as a primary residence for at least 2 of the prior 5 years.</li>
+            <li><strong>Index Fund Liquidity:</strong> In contrast, public equities can be liquidated within seconds at near-zero transaction costs, but net capital gains are subject to standard federal and state capital gains taxation unless held in tax-sheltered retirement accounts.</li>
+          </ul>
+
+          <h2>Capital Expenditure (CapEx) Reserves &amp; Property Depreciation</h2>
+          <p>
+            Unlike renting where building upkeep is covered by the landlord, homeowners must continuously fund major capital replacements:
+          </p>
+          <ul>
+            <li><strong>The 1% Rule of Annual Maintenance &amp; CapEx:</strong> Budget a minimum of 1.0% to 1.5% of the total home value every year into a dedicated maintenance reserve account ($4,500 to $6,750 annually on a $450,000 property). This fund pays for periodic big-ticket structural replacements: architectural shingle roofing ($8,000–$15,000 every 20–25 years), central HVAC compressors ($6,000–$12,000 every 12–15 years), and water heaters ($1,500–$2,800 every 10 years).</li>
+            <li><strong>Opportunity Cost of Down Payment Capital:</strong> Home equity does not earn compounding stock returns. Locking $80,000 in home equity saves mortgage interest, but forfeits potential compound growth in broad-market equities. The rent-vs-buy calculation balances this equity trade-off against long-term real estate appreciation and debt paydown.</li>
+          </ul>
+
           <p>
             Ready to evaluate mortgage qualification? Test our{" "}
             <a href="/calculators/housing/home-affordability-calculator">home affordability calculator</a>, calculate your cash

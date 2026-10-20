@@ -8,6 +8,23 @@ export const config: CalcConfig = {
   id: "electricity-cost",
   title: "Electricity Cost Calculator",
   fields: [
+    {
+      kind: "choice",
+      key: "statePreset",
+      label: "US State Electric Rate Preset",
+      default: "custom",
+      options: [
+        { value: "custom", label: "Custom / Enter Your Electric Rate" },
+        { value: "us", label: "US National Average (16.8¢/kWh)" },
+        { value: "hi", label: "Hawaii (42.0¢/kWh · Highest)" },
+        { value: "ca", label: "California (31.5¢/kWh · High)" },
+        { value: "ny", label: "New York (23.8¢/kWh)" },
+        { value: "fl", label: "Florida (15.1¢/kWh)" },
+        { value: "tx", label: "Texas (14.2¢/kWh · Deregulated)" },
+        { value: "wa", label: "Washington (11.2¢/kWh · Hydro Low)" },
+        { value: "la", label: "Louisiana (11.0¢/kWh · Lowest)" },
+      ],
+    },
     { kind: "number", key: "watts", label: "Appliance power rating (Watts)", suffix: "W", default: 1500, min: 1, max: 30000 },
     { kind: "number", key: "hours", label: "Average operating time per day", suffix: "hrs/day", default: 4, min: 0.1, max: 24 },
     { kind: "number", key: "rate", label: "Electricity utility rate ($ per kWh)", prefix: "$", default: 0.168, min: 0.01, max: 2.00 },
@@ -16,7 +33,18 @@ export const config: CalcConfig = {
   compute: (v) => {
     const watts = Number(v.watts || 1500);
     const hours = Number(v.hours || 4);
-    const rate = Number(v.rate || 0.168);
+    const STATE_RATES: Record<string, number> = {
+      us: 0.168,
+      hi: 0.420,
+      ca: 0.315,
+      ny: 0.238,
+      fl: 0.151,
+      tx: 0.142,
+      wa: 0.112,
+      la: 0.110,
+    };
+    const presetKey = String(v.statePreset || "custom");
+    const rate = STATE_RATES[presetKey] ?? Number(v.rate || 0.168);
     const quantity = Number(v.quantity || 1);
 
     if (watts <= 0 || hours <= 0 || rate <= 0) {
