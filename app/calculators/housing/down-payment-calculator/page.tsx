@@ -106,31 +106,31 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* 4 horizontal comparison bars */}
                 {/* 1. 3% Down Payment ($12k down) */}
-                <text x="30" y="38" fontSize="11" fill="#334155" fontWeight="bold">3% Down ($12,000)</text>
+                <text x="25" y="38" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">3% Down ($12,000)</text>
                 <rect x="180" y="24" width="350" height="20" rx="3" fill="#ef4444" />
-                <text x="495" y="38" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$542k Interest + PMI</text>
-                <text x="535" y="38" fontSize="10" fill="#ef4444" fontWeight="bold">Highest</text>
+                <text x="495" y="38" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$542k Interest + PMI</text>
+                <text x="545" y="38" fontSize="11" fill="#ef4444" fontWeight="bold">Highest</text>
 
                 {/* 2. 5% Down Payment ($20k down) */}
-                <text x="30" y="88" fontSize="11" fill="#334155" fontWeight="bold">5% Down ($20,000)</text>
+                <text x="25" y="88" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">5% Down ($20,000)</text>
                 <rect x="180" y="74" width="330" height="20" rx="3" fill="#f59e0b" />
-                <text x="475" y="88" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$518k Interest + PMI</text>
-                <text x="515" y="88" fontSize="10" fill="#f59e0b" fontWeight="bold">-$24k</text>
+                <text x="475" y="88" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$518k Interest + PMI</text>
+                <text x="525" y="88" fontSize="11" fill="#f59e0b" fontWeight="bold">-$24k</text>
 
                 {/* 3. 10% Down Payment ($40k down) */}
-                <text x="30" y="138" fontSize="11" fill="#334155" fontWeight="bold">10% Down ($40,000)</text>
+                <text x="25" y="138" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">10% Down ($40,000)</text>
                 <rect x="180" y="124" width="300" height="20" rx="3" fill="#2563eb" />
-                <text x="445" y="138" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$480k Interest + PMI</text>
-                <text x="485" y="138" fontSize="10" fill="#2563eb" fontWeight="bold">-$62k</text>
+                <text x="445" y="138" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$480k Interest + PMI</text>
+                <text x="495" y="138" fontSize="11" fill="#2563eb" fontWeight="bold">-$62k</text>
 
                 {/* 4. 20% Down Payment ($80k down - No PMI) */}
-                <text x="30" y="188" fontSize="11" fill="#334155" fontWeight="bold">20% Down ($80,000)</text>
+                <text x="25" y="188" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">20% Down ($80,000)</text>
                 <rect x="180" y="174" width="250" height="20" rx="3" fill="#10b981" />
-                <text x="395" y="188" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$428k Interest (Zero PMI)</text>
-                <text x="435" y="188" fontSize="10" fill="#10b981" fontWeight="bold">Saves $114k</text>
+                <text x="395" y="188" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$428k Interest (Zero PMI)</text>
+                <text x="445" y="188" fontSize="11" fill="#10b981" fontWeight="bold">Saves $114k</text>
               </svg>
             </div>
             <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">

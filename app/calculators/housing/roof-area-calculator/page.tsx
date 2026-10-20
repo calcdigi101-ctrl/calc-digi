@@ -101,32 +101,32 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Gridlines */}
-                <line x1="50" y1="20" x2="570" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="570" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="570" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="570" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
+                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
 
                 {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="10" fill="#64748b" textAnchor="end">+50%</text>
-                <text x="40" y="74" fontSize="10" fill="#64748b" textAnchor="end">+30%</text>
-                <text x="40" y="124" fontSize="10" fill="#64748b" textAnchor="end">+15%</text>
-                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">+5%</text>
-                <text x="40" y="204" fontSize="10" fill="#64748b" textAnchor="end">Flat (0%)</text>
+                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">+50%</text>
+                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">+30%</text>
+                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">+15%</text>
+                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">+5%</text>
+                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">Flat (0%)</text>
 
                 {/* X-axis labels (Pitches) */}
-                <text x="80" y="218" fontSize="10" fill="#64748b" textAnchor="middle">3/12 (3.1%)</text>
-                <text x="170" y="218" fontSize="10" fill="#64748b" textAnchor="middle">4/12 (5.4%)</text>
-                <text x="270" y="218" fontSize="10" fill="#64748b" textAnchor="middle">6/12 (11.8%)</text>
-                <text x="370" y="218" fontSize="10" fill="#64748b" textAnchor="middle">8/12 (20.2%)</text>
-                <text x="470" y="218" fontSize="10" fill="#64748b" textAnchor="middle">10/12 (30.2%)</text>
-                <text x="545" y="218" fontSize="10" fill="#64748b" textAnchor="middle">12/12 (41.4%)</text>
+                <text x="80" y="218" fontSize="11" fill="#64748b" textAnchor="middle">3/12 (3.1%)</text>
+                <text x="180" y="218" fontSize="11" fill="#64748b" textAnchor="middle">4/12 (5.4%)</text>
+                <text x="290" y="218" fontSize="11" fill="#64748b" textAnchor="middle">6/12 (11.8%)</text>
+                <text x="400" y="218" fontSize="11" fill="#64748b" textAnchor="middle">8/12 (20.2%)</text>
+                <text x="510" y="218" fontSize="11" fill="#64748b" textAnchor="middle">10/12 (30.2%)</text>
+                <text x="620" y="218" fontSize="11" fill="#64748b" textAnchor="middle">12/12 (41.4%)</text>
 
                 {/* Pitch Expansion Curve */}
                 <path
-                  d="M80 188 L170 178 L270 152 L370 118 L470 76 L545 38"
+                  d="M80 188 L180 178 L290 152 L400 118 L510 76 L620 38"
                   stroke="#2563eb"
                   strokeWidth="3.5"
                   fill="none"
@@ -134,14 +134,14 @@ export default function Page() {
 
                 {/* Data Points */}
                 <circle cx="80" cy="188" r="4" fill="#2563eb" />
-                <circle cx="170" cy="178" r="4" fill="#2563eb" />
-                <circle cx="270" cy="152" r="4" fill="#2563eb" />
-                <circle cx="370" cy="118" r="4" fill="#2563eb" />
-                <circle cx="470" cy="76" r="4" fill="#2563eb" />
-                <circle cx="545" cy="38" r="4" fill="#2563eb" />
+                <circle cx="180" cy="178" r="4" fill="#2563eb" />
+                <circle cx="290" cy="152" r="4" fill="#2563eb" />
+                <circle cx="400" cy="118" r="4" fill="#2563eb" />
+                <circle cx="510" cy="76" r="4" fill="#2563eb" />
+                <circle cx="620" cy="38" r="4" fill="#2563eb" />
 
                 {/* Callout */}
-                <text x="280" y="145" fontSize="11" fill="#10b981" fontWeight="bold">6/12 Standard Gable (1.118× Multiplier)</text>
+                <text x="300" y="145" fontSize="11" fill="#10b981" fontWeight="bold">6/12 Standard Gable (1.118× Multiplier)</text>
               </svg>
             </div>
             <p className="mt-2 text-center text-xs text-slate-500">

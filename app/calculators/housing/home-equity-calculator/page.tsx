@@ -105,38 +105,38 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Full property bar */}
-                <rect x="40" y="30" width="520" height="42" rx="6" fill="#f1f5f9" />
+                <rect x="40" y="30" width="640" height="42" rx="6" fill="#f1f5f9" />
 
                 {/* Segment 1: First Mortgage ($260k = 54.2%) */}
-                <rect x="40" y="30" width="282" height="42" rx="6" fill="#2563eb" />
-                <text x="55" y="55" fontSize="11" fill="#ffffff" fontWeight="bold">1st Mortgage: $260,000 (54.2%)</text>
+                <rect x="40" y="30" width="347" height="42" rx="6" fill="#2563eb" />
+                <text x="55" y="55" fontSize="12" fill="#ffffff" fontWeight="bold">1st Mortgage: $260,000 (54.2%)</text>
 
                 {/* Segment 2: Usable Borrowable HELOC ($148k = 30.8%) */}
-                <rect x="322" y="30" width="160" height="42" rx="0" fill="#10b981" />
-                <text x="335" y="55" fontSize="11" fill="#ffffff" fontWeight="bold">Usable HELOC: $148,000</text>
+                <rect x="387" y="30" width="197" height="42" rx="0" fill="#10b981" />
+                <text x="400" y="55" fontSize="12" fill="#ffffff" fontWeight="bold">Usable HELOC: $148,000</text>
 
                 {/* Segment 3: Protected 15% Cushion ($72k = 15.0%) */}
-                <rect x="482" y="30" width="78" height="42" rx="6" fill="#f59e0b" />
-                <text x="521" y="55" fontSize="10" fill="#ffffff" textAnchor="middle" fontWeight="bold">15% Protect</text>
+                <rect x="584" y="30" width="96" height="42" rx="6" fill="#f59e0b" />
+                <text x="632" y="55" fontSize="11" fill="#ffffff" textAnchor="middle" fontWeight="bold">15% Cushion</text>
 
                 {/* Sub-annotations */}
-                <line x1="40" y1="95" x2="482" y2="95" stroke="#10b981" strokeWidth="2" />
+                <line x1="40" y1="95" x2="584" y2="95" stroke="#10b981" strokeWidth="2" />
                 <circle cx="40" cy="95" r="3" fill="#10b981" />
-                <circle cx="482" cy="95" r="3" fill="#10b981" />
-                <text x="261" y="112" fontSize="11" fill="#10b981" textAnchor="middle" fontWeight="bold">
+                <circle cx="584" cy="95" r="3" fill="#10b981" />
+                <text x="312" y="112" fontSize="11" fill="#10b981" textAnchor="middle" fontWeight="bold">
                   85% Maximum Allowable Combined Debt Limit ($408,000)
                 </text>
 
                 <circle cx="50" cy="155" r="5" fill="#2563eb" />
-                <text x="62" y="158" fontSize="11" fill="#334155">Primary Mortgage (Current Outstanding Balance)</text>
+                <text x="65" y="158" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Primary Mortgage (Current Outstanding Balance)</text>
 
                 <circle cx="50" cy="180" r="5" fill="#10b981" />
-                <text x="62" y="183" fontSize="11" fill="#334155">Available Borrowable Cash (Through HELOC or Home Equity Loan)</text>
+                <text x="65" y="183" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Available Borrowable Cash (Through HELOC or Home Equity Loan)</text>
 
                 <circle cx="50" cy="205" r="5" fill="#f59e0b" />
-                <text x="62" y="208" fontSize="11" fill="#334155">Mandatory 15% Equity Cushion (Bank Buffer Against Housing Declines)</text>
+                <text x="65" y="208" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Mandatory 15% Equity Cushion (Bank Buffer Against Housing Declines)</text>
               </svg>
             </div>
           </div>

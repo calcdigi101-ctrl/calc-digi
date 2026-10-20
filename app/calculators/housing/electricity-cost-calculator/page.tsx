@@ -103,38 +103,38 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Horizontal Bar 1: HVAC (46%) */}
-                <text x="10" y="38" fill="#334155" fontSize="12" fontWeight="600">Heating & Cooling (46%)</text>
-                <rect x="175" y="25" width="280" height="18" rx="4" fill="#ef4444" fillOpacity="0.85" />
-                <text x="465" y="38" fill="#b91c1c" fontSize="11" fontWeight="600">~$66.70/mo (408 kWh)</text>
+                <text x="15" y="38" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Heating & Cooling (46%)</text>
+                <rect x="180" y="25" width="280" height="18" rx="4" fill="#ef4444" fillOpacity="0.85" />
+                <text x="475" y="38" fill="#ef4444" fontSize="11" fontWeight="600">~$66.70/mo (408 kWh)</text>
 
                 {/* Bar 2: Water Heating (18%) */}
-                <text x="10" y="73" fill="#334155" fontSize="12" fontWeight="600">Water Heater (18%)</text>
-                <rect x="175" y="60" width="110" height="18" rx="4" fill="#f59e0b" fillOpacity="0.85" />
-                <text x="295" y="73" fill="#d97706" fontSize="11" fontWeight="600">~$26.10/mo (159 kWh)</text>
+                <text x="15" y="73" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Water Heater (18%)</text>
+                <rect x="180" y="60" width="110" height="18" rx="4" fill="#f59e0b" fillOpacity="0.85" />
+                <text x="305" y="73" fill="#d97706" fontSize="11" fontWeight="600">~$26.10/mo (159 kWh)</text>
 
                 {/* Bar 3: Major Appliances (14%) */}
-                <text x="10" y="108" fill="#334155" fontSize="12" fontWeight="600">Fridge & Washer (14%)</text>
-                <rect x="175" y="95" width="85" height="18" rx="4" fill="#3b82f6" fillOpacity="0.85" />
-                <text x="270" y="108" fill="#1d4ed8" fontSize="11" fontWeight="600">~$20.30/mo (124 kWh)</text>
+                <text x="15" y="108" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Fridge & Washer (14%)</text>
+                <rect x="180" y="95" width="85" height="18" rx="4" fill="#3b82f6" fillOpacity="0.85" />
+                <text x="280" y="108" fill="#1d4ed8" fontSize="11" fontWeight="600">~$20.30/mo (124 kWh)</text>
 
                 {/* Bar 4: Electronics & Standby (12%) */}
-                <text x="10" y="143" fill="#334155" fontSize="12" fontWeight="600">TV, PC & Standby (12%)</text>
-                <rect x="175" y="130" width="73" height="18" rx="4" fill="#8b5cf6" fillOpacity="0.85" />
-                <text x="258" y="143" fill="#6d28d9" fontSize="11" fontWeight="600">~$17.40/mo (106 kWh)</text>
+                <text x="15" y="143" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">TV, PC & Standby (12%)</text>
+                <rect x="180" y="130" width="73" height="18" rx="4" fill="#8b5cf6" fillOpacity="0.85" />
+                <text x="268" y="143" fill="#6d28d9" fontSize="11" fontWeight="600">~$17.40/mo (106 kWh)</text>
 
                 {/* Bar 5: Lighting (10%) */}
-                <text x="10" y="178" fill="#334155" fontSize="12" fontWeight="600">Lighting (10%)</text>
-                <rect x="175" y="165" width="61" height="18" rx="4" fill="#10b981" fillOpacity="0.85" />
-                <text x="246" y="178" fill="#047857" fontSize="11" fontWeight="600">~$14.50/mo (89 kWh)</text>
+                <text x="15" y="178" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Lighting (10%)</text>
+                <rect x="180" y="165" width="61" height="18" rx="4" fill="#10b981" fillOpacity="0.85" />
+                <text x="256" y="178" fill="#047857" fontSize="11" fontWeight="600">~$14.50/mo (89 kWh)</text>
 
                 {/* Baseline Axis */}
-                <line x1="175" y1="200" x2="570" y2="200" stroke="#cbd5e1" strokeWidth="1.5" />
-                <text x="175" y="218" fill="#94a3b8" fontSize="10">0%</text>
-                <text x="275" y="218" fill="#94a3b8" fontSize="10">15%</text>
-                <text x="375" y="218" fill="#94a3b8" fontSize="10">30%</text>
-                <text x="475" y="218" fill="#94a3b8" fontSize="10">45%</text>
+                <line x1="180" y1="200" x2="660" y2="200" stroke="#cbd5e1" strokeWidth="1.5" />
+                <text x="180" y="218" fill="#94a3b8" fontSize="11">0%</text>
+                <text x="300" y="218" fill="#94a3b8" fontSize="11">15%</text>
+                <text x="420" y="218" fill="#94a3b8" fontSize="11">30%</text>
+                <text x="540" y="218" fill="#94a3b8" fontSize="11">45%</text>
               </svg>
             </div>
             <p className="mt-2 text-center text-xs text-slate-400">

@@ -101,27 +101,27 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Horizontal Bar Chart of Remodeling ROIs */}
                 {/* 1. Garage Door Replacement (102%) */}
-                <text x="30" y="38" fontSize="11" fill="#334155" fontWeight="bold">Garage Door Replacement</text>
-                <rect x="200" y="24" width="350" height="20" rx="3" fill="#10b981" />
-                <text x="560" y="38" fontSize="11" fill="#10b981" fontWeight="bold">102% ROI</text>
+                <text x="25" y="38" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Garage Door Replacement</text>
+                <rect x="220" y="24" width="350" height="20" rx="3" fill="#10b981" />
+                <text x="580" y="38" fontSize="12" fill="#10b981" fontWeight="bold">102% ROI</text>
 
                 {/* 2. Minor Kitchen Remodel (85%) */}
-                <text x="30" y="88" fontSize="11" fill="#334155" fontWeight="bold">Minor Kitchen Remodel</text>
-                <rect x="200" y="74" width="292" height="20" rx="3" fill="#2563eb" />
-                <text x="502" y="88" fontSize="11" fill="#2563eb" fontWeight="bold">85% ROI</text>
+                <text x="25" y="88" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Minor Kitchen Remodel</text>
+                <rect x="220" y="74" width="292" height="20" rx="3" fill="#2563eb" />
+                <text x="522" y="88" fontSize="12" fill="#2563eb" fontWeight="bold">85% ROI</text>
 
                 {/* 3. Finished Basement (75%) */}
-                <text x="30" y="138" fontSize="11" fill="#334155" fontWeight="bold">Basement Finishing</text>
-                <rect x="200" y="124" width="258" height="20" rx="3" fill="#0ea5e9" />
-                <text x="468" y="138" fontSize="11" fill="#0ea5e9" fontWeight="bold">75% ROI</text>
+                <text x="25" y="138" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Basement Finishing</text>
+                <rect x="220" y="124" width="258" height="20" rx="3" fill="#0ea5e9" />
+                <text x="488" y="138" fontSize="12" fill="#0ea5e9" fontWeight="bold">75% ROI</text>
 
                 {/* 4. Primary Bathroom Remodel (71%) */}
-                <text x="30" y="188" fontSize="11" fill="#334155" fontWeight="bold">Primary Bath Remodel</text>
-                <rect x="200" y="174" width="244" height="20" rx="3" fill="#f59e0b" />
-                <text x="454" y="188" fontSize="11" fill="#f59e0b" fontWeight="bold">71% ROI</text>
+                <text x="25" y="188" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Primary Bath Remodel</text>
+                <rect x="220" y="174" width="244" height="20" rx="3" fill="#f59e0b" />
+                <text x="474" y="188" fontSize="12" fill="#f59e0b" fontWeight="bold">71% ROI</text>
               </svg>
             </div>
             <p className="mt-2 text-center text-xs text-slate-500">

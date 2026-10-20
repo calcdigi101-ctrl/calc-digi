@@ -105,27 +105,27 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Gridlines */}
-                <line x1="50" y1="20" x2="570" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="570" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="570" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="570" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
+                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
 
                 {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="10" fill="#64748b" textAnchor="end">$300k</text>
-                <text x="40" y="74" fontSize="10" fill="#64748b" textAnchor="end">$200k</text>
-                <text x="40" y="124" fontSize="10" fill="#64748b" textAnchor="end">$100k</text>
-                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">$50k</text>
-                <text x="40" y="204" fontSize="10" fill="#64748b" textAnchor="end">$0</text>
+                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">$300k</text>
+                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">$200k</text>
+                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">$100k</text>
+                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">$50k</text>
+                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
 
                 {/* X-axis labels (Years) */}
-                <text x="70" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 1</text>
-                <text x="170" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 3</text>
-                <text x="270" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 5</text>
-                <text x="400" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 7</text>
-                <text x="540" y="218" fontSize="10" fill="#64748b" textAnchor="middle">Yr 10</text>
+                <text x="70" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 1</text>
+                <text x="170" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 3</text>
+                <text x="270" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 5</text>
+                <text x="400" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 7</text>
+                <text x="540" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 10</text>
 
                 {/* Renter Portfolio Curve (Blue, starts higher due to down payment cash) */}
                 <path
@@ -148,9 +148,9 @@ export default function Page() {
                 <circle cx="280" cy="118" r="6" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
                 <text x="290" y="112" fontSize="11" fill="#10b981" fontWeight="bold">Breakeven Crossover (Year 4.5)</text>
 
-                {/* End values */}
-                <text x="545" y="20" fontSize="11" fill="#10b981" fontWeight="bold">Buyer Equity (~$290k)</text>
-                <text x="545" y="66" fontSize="10" fill="#2563eb">Renter Portfolio (~$210k)</text>
+                {/* End values with ample margin */}
+                <text x="550" y="22" fontSize="11" fill="#10b981" fontWeight="bold">Buyer Equity (~$290k)</text>
+                <text x="550" y="68" fontSize="11" fill="#2563eb" fontWeight="semibold">Renter Portfolio (~$210k)</text>
               </svg>
             </div>
             <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">

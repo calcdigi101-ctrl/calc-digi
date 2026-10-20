@@ -100,45 +100,45 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Gridlines */}
-                <line x1="50" y1="20" x2="570" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="570" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="570" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="570" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
+                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
 
                 {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="10" fill="#64748b" textAnchor="end">$4,000</text>
-                <text x="40" y="74" fontSize="10" fill="#64748b" textAnchor="end">$3,000</text>
-                <text x="40" y="124" fontSize="10" fill="#64748b" textAnchor="end">$2,000</text>
-                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">$1,000</text>
-                <text x="40" y="204" fontSize="10" fill="#64748b" textAnchor="end">$0</text>
+                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">$4,000</text>
+                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">$3,000</text>
+                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">$2,000</text>
+                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">$1,000</text>
+                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
 
                 {/* X-axis labels (Salary) */}
-                <text x="80" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$45k Salary</text>
-                <text x="180" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$70k Salary</text>
-                <text x="300" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$100k Salary</text>
-                <text x="420" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$130k Salary</text>
-                <text x="530" y="218" fontSize="10" fill="#64748b" textAnchor="middle">$160k Salary</text>
+                <text x="90" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$45k Salary</text>
+                <text x="210" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$70k Salary</text>
+                <text x="340" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$100k Salary</text>
+                <text x="470" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$130k Salary</text>
+                <text x="600" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$160k Salary</text>
 
                 {/* 30% HUD Curve (Emerald) */}
                 <path
-                  d="M80 174 L180 148 L300 112 L420 78 L530 44"
+                  d="M90 174 L210 148 L340 112 L470 78 L600 44"
                   stroke="#10b981"
                   strokeWidth="3.5"
                   fill="none"
                 />
 
                 {/* Data Points */}
-                <circle cx="80" cy="174" r="4" fill="#10b981" />
-                <circle cx="180" cy="148" r="4" fill="#10b981" />
-                <circle cx="300" cy="112" r="4" fill="#10b981" />
-                <circle cx="420" cy="78" r="4" fill="#10b981" />
-                <circle cx="530" cy="44" r="4" fill="#10b981" />
+                <circle cx="90" cy="174" r="4" fill="#10b981" />
+                <circle cx="210" cy="148" r="4" fill="#10b981" />
+                <circle cx="340" cy="112" r="4" fill="#10b981" />
+                <circle cx="470" cy="78" r="4" fill="#10b981" />
+                <circle cx="600" cy="44" r="4" fill="#10b981" />
 
                 {/* Callout */}
-                <text x="310" y="106" fontSize="11" fill="#10b981" fontWeight="bold">$100k Income = $2,500/mo Max Rent</text>
+                <text x="350" y="106" fontSize="11" fill="#10b981" fontWeight="bold">$100k Income = $2,500/mo Max Rent</text>
               </svg>
             </div>
             <p className="mt-2 text-center text-xs text-slate-500">

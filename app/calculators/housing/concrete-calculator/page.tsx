@@ -105,27 +105,27 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Gridlines */}
-                <line x1="50" y1="20" x2="570" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="570" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="570" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="570" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
+                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
 
                 {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="10" fill="#64748b" textAnchor="end">18 yd³</text>
-                <text x="40" y="74" fontSize="10" fill="#64748b" textAnchor="end">12 yd³</text>
-                <text x="40" y="124" fontSize="10" fill="#64748b" textAnchor="end">6 yd³</text>
-                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">2 yd³</text>
-                <text x="40" y="204" fontSize="10" fill="#64748b" textAnchor="end">0</text>
+                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">18 yd³</text>
+                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">12 yd³</text>
+                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">6 yd³</text>
+                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">2 yd³</text>
+                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">0</text>
 
                 {/* X-axis labels */}
-                <text x="100" y="218" fontSize="10" fill="#64748b" textAnchor="middle">100 sq ft</text>
-                <text x="210" y="218" fontSize="10" fill="#64748b" textAnchor="middle">250 sq ft</text>
-                <text x="330" y="218" fontSize="10" fill="#64748b" textAnchor="middle">500 sq ft</text>
-                <text x="450" y="218" fontSize="10" fill="#64748b" textAnchor="middle">750 sq ft</text>
-                <text x="540" y="218" fontSize="10" fill="#64748b" textAnchor="middle">1,000 sq ft</text>
+                <text x="100" y="218" fontSize="11" fill="#64748b" textAnchor="middle">100 sq ft</text>
+                <text x="210" y="218" fontSize="11" fill="#64748b" textAnchor="middle">250 sq ft</text>
+                <text x="330" y="218" fontSize="11" fill="#64748b" textAnchor="middle">500 sq ft</text>
+                <text x="450" y="218" fontSize="11" fill="#64748b" textAnchor="middle">750 sq ft</text>
+                <text x="540" y="218" fontSize="11" fill="#64748b" textAnchor="middle">1,000 sq ft</text>
 
                 {/* 6-inch Slab Area & Curve (Orange) */}
                 <path
@@ -151,9 +151,9 @@ export default function Page() {
                 <circle cx="330" cy="112" r="4" fill="#f59e0b" />
                 <circle cx="540" cy="32" r="4" fill="#f59e0b" />
 
-                {/* Callout Annotations */}
-                <text x="545" y="86" fontSize="10" fill="#10b981" fontWeight="bold">4″ Slab (11.3 yd³)</text>
-                <text x="545" y="30" fontSize="10" fill="#f59e0b" fontWeight="bold">6″ Slab (17.0 yd³)</text>
+                {/* Callout Annotations with plenty of breathing room */}
+                <text x="552" y="88" fontSize="11" fill="#10b981" fontWeight="bold">4″ Slab (11.3 yd³)</text>
+                <text x="552" y="32" fontSize="11" fill="#f59e0b" fontWeight="bold">6″ Slab (17.0 yd³)</text>
               </svg>
             </div>
             <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">

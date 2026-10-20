@@ -102,46 +102,46 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Benchmark national average dashed line */}
-                <line x1="280" y1="20" x2="280" y2="215" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" />
-                <text x="285" y="32" fill="#64748b" fontSize="10" fontWeight="600">US Avg (1.11%)</text>
+                <line x1="285" y1="20" x2="285" y2="215" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 4" />
+                <text x="290" y="32" fill="#64748b" fontSize="11" fontWeight="600">US Avg (1.11%)</text>
 
                 {/* State Bars */}
                 {/* New Jersey: 2.49% */}
-                <text x="10" y="55" fill="#334155" fontSize="12" fontWeight="600">New Jersey (2.49%)</text>
-                <rect x="150" y="42" width="375" height="18" rx="4" fill="#ef4444" fillOpacity="0.85" />
-                <text x="532" y="55" fill="#b91c1c" fontSize="11" fontWeight="600">$9,960/yr on $400k</text>
+                <text x="15" y="55" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">New Jersey (2.49%)</text>
+                <rect x="160" y="42" width="330" height="18" rx="4" fill="#ef4444" fillOpacity="0.85" />
+                <text x="500" y="55" fill="#ef4444" fontSize="11" fontWeight="600">$9,960/yr on $400k</text>
 
                 {/* Illinois: 2.27% */}
-                <text x="10" y="80" fill="#334155" fontSize="12" fontWeight="600">Illinois (2.27%)</text>
-                <rect x="150" y="67" width="342" height="18" rx="4" fill="#f87171" fillOpacity="0.85" />
-                <text x="500" y="80" fill="#b91c1c" fontSize="11" fontWeight="600">$9,080/yr</text>
+                <text x="15" y="80" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Illinois (2.27%)</text>
+                <rect x="160" y="67" width="300" height="18" rx="4" fill="#f87171" fillOpacity="0.85" />
+                <text x="470" y="80" fill="#f87171" fontSize="11" fontWeight="600">$9,080/yr</text>
 
                 {/* Texas: 1.80% */}
-                <text x="10" y="105" fill="#334155" fontSize="12" fontWeight="600">Texas (1.80%)</text>
-                <rect x="150" y="92" width="271" height="18" rx="4" fill="#f59e0b" fillOpacity="0.85" />
-                <text x="430" y="105" fill="#d97706" fontSize="11" fontWeight="600">$7,200/yr (No Inc Tax)</text>
+                <text x="15" y="105" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Texas (1.80%)</text>
+                <rect x="160" y="92" width="238" height="18" rx="4" fill="#f59e0b" fillOpacity="0.85" />
+                <text x="410" y="105" fill="#d97706" fontSize="11" fontWeight="600">$7,200/yr (No Inc Tax)</text>
 
                 {/* Florida: 0.98% */}
-                <text x="10" y="130" fill="#334155" fontSize="12" fontWeight="600">Florida (0.98%)</text>
-                <rect x="150" y="117" width="148" height="18" rx="4" fill="#10b981" fillOpacity="0.85" />
-                <text x="306" y="130" fill="#047857" fontSize="11" fontWeight="600">$3,920/yr</text>
+                <text x="15" y="130" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Florida (0.98%)</text>
+                <rect x="160" y="117" width="130" height="18" rx="4" fill="#10b981" fillOpacity="0.85" />
+                <text x="300" y="130" fill="#059669" fontSize="11" fontWeight="600">$3,920/yr</text>
 
                 {/* California: 0.76% */}
-                <text x="10" y="155" fill="#334155" fontSize="12" fontWeight="600">California (0.76%)</text>
-                <rect x="150" y="142" width="115" height="18" rx="4" fill="#10b981" fillOpacity="0.85" />
-                <text x="273" y="155" fill="#047857" fontSize="11" fontWeight="600">$3,040/yr (Prop 13)</text>
+                <text x="15" y="155" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">California (0.76%)</text>
+                <rect x="160" y="142" width="101" height="18" rx="4" fill="#10b981" fillOpacity="0.85" />
+                <text x="272" y="155" fill="#059669" fontSize="11" fontWeight="600">$3,040/yr (Prop 13)</text>
 
                 {/* Colorado: 0.51% */}
-                <text x="10" y="180" fill="#334155" fontSize="12" fontWeight="600">Colorado (0.51%)</text>
-                <rect x="150" y="167" width="77" height="18" rx="4" fill="#059669" fillOpacity="0.85" />
-                <text x="235" y="180" fill="#047857" fontSize="11" fontWeight="600">$2,040/yr</text>
+                <text x="15" y="180" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Colorado (0.51%)</text>
+                <rect x="160" y="167" width="68" height="18" rx="4" fill="#059669" fillOpacity="0.85" />
+                <text x="238" y="180" fill="#059669" fontSize="11" fontWeight="600">$2,040/yr</text>
 
                 {/* Hawaii: 0.28% */}
-                <text x="10" y="205" fill="#334155" fontSize="12" fontWeight="600">Hawaii (0.28%)</text>
-                <rect x="150" y="192" width="42" height="18" rx="4" fill="#047857" fillOpacity="0.9" />
-                <text x="200" y="205" fill="#047857" fontSize="11" fontWeight="600">$1,120/yr (Lowest in US)</text>
+                <text x="15" y="205" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontSize="12" fontWeight="600">Hawaii (0.28%)</text>
+                <rect x="160" y="192" width="37" height="18" rx="4" fill="#047857" fillOpacity="0.9" />
+                <text x="207" y="205" fill="#047857" fontSize="11" fontWeight="600">$1,120/yr (Lowest in US)</text>
               </svg>
             </div>
             <p className="mt-2 text-center text-xs text-slate-400">

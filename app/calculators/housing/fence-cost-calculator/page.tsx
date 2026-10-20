@@ -101,35 +101,35 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* 5 horizontal comparisons */}
                 {/* 1. Pressure-Treated Pine */}
-                <text x="30" y="35" fontSize="11" fill="#334155" fontWeight="bold">Pressure-Treated Pine</text>
-                <rect x="180" y="22" width="130" height="18" rx="3" fill="#2563eb" />
-                <rect x="320" y="22" width="150" height="18" rx="3" fill="#10b981" />
-                <text x="305" y="35" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$22/ft</text>
-                <text x="330" y="35" fontSize="10" fill="#ffffff" fontWeight="bold">15-year life</text>
+                <text x="25" y="35" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Pressure-Treated Pine</text>
+                <rect x="200" y="22" width="130" height="18" rx="3" fill="#2563eb" />
+                <rect x="340" y="22" width="150" height="18" rx="3" fill="#10b981" />
+                <text x="325" y="35" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$22/ft</text>
+                <text x="350" y="35" fontSize="11" fill="#ffffff" fontWeight="bold">15-year life</text>
 
                 {/* 2. Western Red Cedar */}
-                <text x="30" y="80" fontSize="11" fill="#334155" fontWeight="bold">Western Red Cedar</text>
-                <rect x="180" y="67" width="190" height="18" rx="3" fill="#2563eb" />
-                <rect x="380" y="67" width="200" height="18" rx="3" fill="#10b981" />
-                <text x="365" y="80" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$32/ft</text>
-                <text x="390" y="80" fontSize="10" fill="#ffffff" fontWeight="bold">25-year life</text>
+                <text x="25" y="80" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Western Red Cedar</text>
+                <rect x="200" y="67" width="190" height="18" rx="3" fill="#2563eb" />
+                <rect x="400" y="67" width="200" height="18" rx="3" fill="#10b981" />
+                <text x="385" y="80" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$32/ft</text>
+                <text x="410" y="80" fontSize="11" fill="#ffffff" fontWeight="bold">25-year life</text>
 
                 {/* 3. Vinyl / PVC Privacy */}
-                <text x="30" y="125" fontSize="11" fill="#334155" fontWeight="bold">Vinyl / PVC Privacy</text>
-                <rect x="180" y="112" width="220" height="18" rx="3" fill="#2563eb" />
-                <rect x="410" y="112" width="240" height="18" rx="3" fill="#10b981" />
-                <text x="395" y="125" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$38/ft</text>
-                <text x="420" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">30+ year life</text>
+                <text x="25" y="125" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Vinyl / PVC Privacy</text>
+                <rect x="200" y="112" width="220" height="18" rx="3" fill="#2563eb" />
+                <rect x="430" y="112" width="240" height="18" rx="3" fill="#10b981" />
+                <text x="415" y="125" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$38/ft</text>
+                <text x="440" y="125" fontSize="11" fill="#ffffff" fontWeight="bold">30+ year life</text>
 
                 {/* 4. Galvanized Chain Link */}
-                <text x="30" y="170" fontSize="11" fill="#334155" fontWeight="bold">Chain Link (Black Poly)</text>
-                <rect x="180" y="157" width="115" height="18" rx="3" fill="#2563eb" />
-                <rect x="305" y="157" width="200" height="18" rx="3" fill="#10b981" />
-                <text x="290" y="170" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">$19/ft</text>
-                <text x="315" y="170" fontSize="10" fill="#ffffff" fontWeight="bold">25-year life</text>
+                <text x="25" y="170" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Chain Link (Black Poly)</text>
+                <rect x="200" y="157" width="115" height="18" rx="3" fill="#2563eb" />
+                <rect x="325" y="157" width="200" height="18" rx="3" fill="#10b981" />
+                <text x="310" y="170" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$19/ft</text>
+                <text x="335" y="170" fontSize="11" fill="#ffffff" fontWeight="bold">25-year life</text>
               </svg>
             </div>
             <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">

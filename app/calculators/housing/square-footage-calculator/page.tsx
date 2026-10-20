@@ -107,32 +107,32 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Stacked comparison bars */}
                 {/* Bar 1: Above-Grade Finished Space (GLA) */}
-                <rect x="40" y="35" width="520" height="38" rx="6" fill="#f1f5f9" />
-                <rect x="40" y="35" width="364" height="38" rx="6" fill="#10b981" />
+                <rect x="40" y="35" width="640" height="38" rx="6" fill="#f1f5f9" />
+                <rect x="40" y="35" width="448" height="38" rx="6" fill="#10b981" />
                 <text x="55" y="58" fontSize="12" fill="#ffffff" fontWeight="bold">Above-Grade Living Area (70% - Full GLA Value)</text>
-                <text x="415" y="58" fontSize="11" fill="#475569" fontWeight="medium">Excluded from GLA (30%)</text>
+                <text x="505" y="58" fontSize="11" fill="#475569" fontWeight="medium">Excluded from GLA (30%)</text>
 
                 {/* Sub-breakdowns */}
                 {/* Bar 2: Detailed Space Classification */}
-                <rect x="40" y="105" width="220" height="32" rx="4" fill="#2563eb" />
-                <rect x="264" y="105" width="140" height="32" rx="4" fill="#0ea5e9" />
-                <rect x="408" y="105" width="80" height="32" rx="4" fill="#f59e0b" />
-                <rect x="492" y="105" width="68" height="32" rx="4" fill="#94a3b8" />
+                <rect x="40" y="105" width="270" height="32" rx="4" fill="#2563eb" />
+                <rect x="314" y="105" width="180" height="32" rx="4" fill="#0ea5e9" />
+                <rect x="498" y="105" width="100" height="32" rx="4" fill="#f59e0b" />
+                <rect x="602" y="105" width="78" height="32" rx="4" fill="#94a3b8" />
 
-                <text x="50" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Main Floor &amp; Bedrooms (42%)</text>
-                <text x="274" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Upper Level (28%)</text>
-                <text x="413" y="125" fontSize="9" fill="#ffffff" fontWeight="bold">Basement</text>
-                <text x="498" y="125" fontSize="9" fill="#ffffff" fontWeight="bold">Garage</text>
+                <text x="55" y="125" fontSize="11" fill="#ffffff" fontWeight="bold">Main Floor &amp; Bedrooms (42%)</text>
+                <text x="325" y="125" fontSize="11" fill="#ffffff" fontWeight="bold">Upper Level (28%)</text>
+                <text x="508" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Basement (16%)</text>
+                <text x="612" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Garage (14%)</text>
 
                 {/* Status Indicator Legend */}
                 <circle cx="50" cy="175" r="5" fill="#10b981" />
-                <text x="62" y="178" fontSize="11" fill="#334155">Counts as Official GLA (Above-grade, heated, finished, 7ft+ ceiling)</text>
+                <text x="65" y="178" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Counts as Official GLA (Above-grade, heated, finished, 7ft+ ceiling height)</text>
 
                 <circle cx="50" cy="200" r="5" fill="#f59e0b" />
-                <text x="62" y="203" fontSize="11" fill="#334155">Valuable but Classified Separately (Finished walk-out basements, ADUs, unheated porches)</text>
+                <text x="65" y="203" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Valuable but Classified Separately (Finished walk-out basements, ADUs, unheated enclosed porches)</text>
               </svg>
             </div>
           </div>

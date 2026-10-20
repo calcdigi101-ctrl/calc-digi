@@ -21,19 +21,19 @@ import { PALETTE, type Chart } from "./types";
 import { axisBy, formatBy } from "./format";
 
 const tooltipStyle = {
-  contentStyle: { borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 13 },
+  contentStyle: { borderRadius: 8, border: "1px solid #e2e8f0", fontSize: 13, backgroundColor: "#ffffff", color: "#0f172a", boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)" },
   labelStyle: { fontWeight: 600, color: "#0f172a" },
 };
 const tick = { fontSize: 12, fill: "#64748b" };
 
 export function DonutChart({ chart }: { chart: Extract<Chart, { type: "donut" }> }) {
   const data = chart.data.filter((d) => d.value > 0);
-  const total = data.reduce((a, d) => a + d.value, 0);
+  const total = data.reduce((a, d) => a + d.value, 0) || 1;
   return (
     <div className="mx-auto h-[180px] w-[180px]" role="img" aria-label={data.map((d) => `${d.name} ${Math.round((d.value / total) * 100)}%`).join(", ")}>
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
-          <Pie data={data} dataKey="value" nameKey="name" innerRadius={58} outerRadius={88} paddingAngle={data.length > 1 ? 2 : 0} stroke="none" animationDuration={500}>
+          <Pie data={data} dataKey="value" nameKey="name" innerRadius={58} outerRadius={88} paddingAngle={data.length > 1 ? 2 : 0} stroke="none" animationDuration={300} isAnimationActive={true}>
             {data.map((d, i) => (
               <Cell key={d.name} fill={d.color ?? PALETTE[i % PALETTE.length]} />
             ))}

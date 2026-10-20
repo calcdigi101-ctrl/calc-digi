@@ -105,31 +105,31 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Visual Boxes showing relative lot sizes */}
                 {/* 1. 1/4 Acre Suburban Lot (10,890 sq ft) */}
-                <rect x="30" y="30" width="80" height="80" rx="4" fill="#eff6ff" stroke="#2563eb" strokeWidth="2" />
-                <text x="70" y="65" fontSize="11" fill="#1e40af" textAnchor="middle" fontWeight="bold">0.25 Acre</text>
-                <text x="70" y="80" fontSize="9" fill="#64748b" textAnchor="middle">10,890 ft²</text>
-                <text x="70" y="125" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Suburban Lot</text>
+                <rect x="30" y="30" width="90" height="90" rx="4" fill="#eff6ff" stroke="#2563eb" strokeWidth="2" />
+                <text x="75" y="70" fontSize="12" fill="#1e40af" textAnchor="middle" fontWeight="bold">0.25 Acre</text>
+                <text x="75" y="86" fontSize="10" fill="#64748b" textAnchor="middle">10,890 ft²</text>
+                <text x="75" y="135" fontSize="11" fill="currentColor" className="text-slate-800 dark:text-slate-200" textAnchor="middle" fontWeight="bold">Suburban Lot</text>
 
                 {/* 2. 1/2 Acre Lot (21,780 sq ft) */}
-                <rect x="140" y="30" width="115" height="115" rx="4" fill="#f0fdf4" stroke="#10b981" strokeWidth="2" />
-                <text x="197" y="82" fontSize="11" fill="#065f46" textAnchor="middle" fontWeight="bold">0.50 Acre</text>
-                <text x="197" y="97" fontSize="9" fill="#64748b" textAnchor="middle">21,780 ft²</text>
-                <text x="197" y="160" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Executive Parcel</text>
+                <rect x="155" y="30" width="130" height="130" rx="4" fill="#f0fdf4" stroke="#10b981" strokeWidth="2" />
+                <text x="220" y="90" fontSize="12" fill="#065f46" textAnchor="middle" fontWeight="bold">0.50 Acre</text>
+                <text x="220" y="106" fontSize="10" fill="#64748b" textAnchor="middle">21,780 ft²</text>
+                <text x="220" y="175" fontSize="11" fill="currentColor" className="text-slate-800 dark:text-slate-200" textAnchor="middle" fontWeight="bold">Executive Parcel</text>
 
                 {/* 3. 1 Full Acre (43,560 sq ft) */}
-                <rect x="285" y="30" width="160" height="160" rx="4" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
-                <text x="365" y="105" fontSize="12" fill="#92400e" textAnchor="middle" fontWeight="bold">1.00 Full Acre</text>
-                <text x="365" y="120" fontSize="10" fill="#64748b" textAnchor="middle">43,560 ft² (208.7 × 208.7′)</text>
-                <text x="365" y="205" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Full Acre Homestead</text>
+                <rect x="320" y="30" width="175" height="175" rx="4" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
+                <text x="407" y="110" fontSize="13" fill="#92400e" textAnchor="middle" fontWeight="bold">1.00 Full Acre</text>
+                <text x="407" y="128" fontSize="11" fill="#64748b" textAnchor="middle">43,560 ft² (208.7 × 208.7′)</text>
+                <text x="407" y="218" fontSize="11" fill="currentColor" className="text-slate-800 dark:text-slate-200" textAnchor="middle" fontWeight="bold">Full Acre Homestead</text>
 
                 {/* 4. Football Field Comparison Note */}
-                <rect x="470" y="30" width="105" height="175" rx="4" fill="#f8fafc" stroke="#94a3b8" strokeDasharray="3 3" />
-                <text x="522" y="110" fontSize="10" fill="#475569" textAnchor="middle" fontWeight="bold">NFL Field</text>
-                <text x="522" y="125" fontSize="9" fill="#64748b" textAnchor="middle">57,600 ft²</text>
-                <text x="522" y="140" fontSize="9" fill="#10b981" textAnchor="middle">(1.32 Acres)</text>
+                <rect x="530" y="30" width="150" height="175" rx="4" fill="#f8fafc" stroke="#94a3b8" strokeDasharray="3 3" />
+                <text x="605" y="110" fontSize="11" fill="#475569" textAnchor="middle" fontWeight="bold">NFL Football Field</text>
+                <text x="605" y="128" fontSize="10" fill="#64748b" textAnchor="middle">57,600 ft²</text>
+                <text x="605" y="145" fontSize="10" fill="#10b981" textAnchor="middle">(1.32 Acres with Endzones)</text>
               </svg>
             </div>
             <p className="mt-2 text-center text-xs text-slate-500">

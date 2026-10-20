@@ -102,39 +102,39 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Horizontal Zero Axis */}
-                <line x1="50" y1="130" x2="570" y2="130" stroke="#94a3b8" strokeWidth="1.5" />
-                <line x1="50" y1="50" x2="570" y2="50" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="90" x2="570" y2="90" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="570" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="130" x2="680" y2="130" stroke="#94a3b8" strokeWidth="1.5" />
+                <line x1="50" y1="50" x2="680" y2="50" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="90" x2="680" y2="90" stroke="#e2e8f0" strokeDasharray="3 3" />
+                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
 
                 {/* Y-axis labels */}
-                <text x="40" y="54" fontSize="10" fill="#64748b" textAnchor="end">+$10,000</text>
-                <text x="40" y="94" fontSize="10" fill="#64748b" textAnchor="end">+$5,000</text>
-                <text x="40" y="134" fontSize="10" fill="#64748b" textAnchor="end">$0 (Breakeven)</text>
-                <text x="40" y="174" fontSize="10" fill="#64748b" textAnchor="end">-$5,500 (Fees)</text>
+                <text x="40" y="54" fontSize="11" fill="#64748b" textAnchor="end">+$10,000</text>
+                <text x="40" y="94" fontSize="11" fill="#64748b" textAnchor="end">+$5,000</text>
+                <text x="40" y="134" fontSize="11" fill="#64748b" textAnchor="end">$0 (Breakeven)</text>
+                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">-$5,500 (Fees)</text>
 
                 {/* X-axis labels (Months) */}
-                <text x="70" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 0</text>
-                <text x="170" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 12</text>
-                <text x="270" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 24</text>
-                <text x="390" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 36</text>
-                <text x="530" y="215" fontSize="10" fill="#64748b" textAnchor="middle">Month 60 (5 Yrs)</text>
+                <text x="80" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 0</text>
+                <text x="190" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 12</text>
+                <text x="310" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 24</text>
+                <text x="440" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 36</text>
+                <text x="580" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 60 (5 Yrs)</text>
 
                 {/* Net Savings Curve */}
                 <path
-                  d="M70 174 L170 152 L270 126 L390 98 L530 46"
+                  d="M80 174 L190 152 L310 126 L440 98 L580 46"
                   stroke="#10b981"
                   strokeWidth="3.5"
                   fill="none"
                 />
 
                 {/* Crossover Circle */}
-                <circle cx="250" cy="130" r="5" fill="#10b981" />
-                <text x="250" y="120" fontSize="11" fill="#10b981" textAnchor="middle" fontWeight="bold">Breakeven Crossover (Month 22)</text>
+                <circle cx="280" cy="130" r="5" fill="#10b981" />
+                <text x="280" y="118" fontSize="11" fill="#10b981" textAnchor="middle" fontWeight="bold">Breakeven Crossover (Month 22)</text>
 
-                <text x="535" y="42" fontSize="11" fill="#10b981" fontWeight="bold">+$9,500 Pure Profit</text>
+                <text x="590" y="44" fontSize="11" fill="#10b981" fontWeight="bold">+$9,500 Pure Profit</text>
               </svg>
             </div>
             <p className="mt-2 text-center text-xs text-slate-500">

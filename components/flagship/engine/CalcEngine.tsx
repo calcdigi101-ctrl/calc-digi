@@ -71,12 +71,14 @@ const defaultOf = (f: Field, todayStr: string) => (f.kind === "date" && f.defaul
 
 function ChartLegend({ chart }: { chart: Extract<Chart, { type: "donut" }> }) {
   return (
-    <ul className="grid gap-2 text-sm">
+    <ul className="grid w-full gap-2 text-sm">
       {chart.data.map((d, i) => (
-        <li key={d.name} className={cn("flex items-center gap-2", d.value <= 0 && "opacity-50")}>
-          <span aria-hidden className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: d.color ?? PALETTE[i % PALETTE.length] }} />
-          <span className="flex-1 text-slate-600 dark:text-slate-400">{d.name}</span>
-          <span className="font-semibold tabular-nums text-slate-900 dark:text-slate-100">{formatBy(chart.format, d.value)}</span>
+        <li key={d.name} className={cn("flex items-center justify-between gap-2 min-w-0", d.value <= 0 && "opacity-50")}>
+          <div className="flex items-center gap-2 min-w-0 flex-1">
+            <span aria-hidden className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: d.color ?? PALETTE[i % PALETTE.length] }} />
+            <span className="truncate text-slate-600 dark:text-slate-400" title={d.name}>{d.name}</span>
+          </div>
+          <span className="shrink-0 font-semibold tabular-nums text-slate-900 dark:text-slate-100">{formatBy(chart.format, d.value)}</span>
         </li>
       ))}
     </ul>
@@ -95,21 +97,14 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
   const [q, setQ] = useQueryStates(parsers, { history: "replace", scroll: false });
 
   // Committed values come from the URL (shareable); anything invalid falls back to the default.
-  const committed: Values = {};
-  for (const f of fields) {
-    const v = q[f.key] === null ? undefined : coerce(f, q[f.key], todayStr);
-    committed[f.key] = v ?? (coerce(f, defaultOf(f, todayStr), todayStr) as number | string);
-  }
-  const crossErrors = config.validate?.(committed);
-  let output: Output | { error: string };
-  if (crossErrors && Object.values(crossErrors).some(Boolean)) {
-    for (const f of fields) committed[f.key] = coerce(f, defaultOf(f, todayStr), todayStr) as number | string;
-  }
-  try {
-    output = config.compute(committed);
-  } catch {
-    output = { error: "These inputs can't be calculated. Please check the values." };
-  }
+  const committed: Values = useMemo(() => {
+    const res: Values = {};
+    for (const f of fields) {
+      const v = q[f.key] === null ? undefined : coerce(f, q[f.key], todayStr);
+      res[f.key] = v ?? (coerce(f, defaultOf(f, todayStr), todayStr) as number | string);
+    }
+    return res;
+  }, [fields, q, todayStr]);
 
   const schema = useMemo(
     () =>
@@ -157,11 +152,42 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
   const toForm = (vals: Values) => Object.fromEntries(fields.map((f) => [f.key, String(vals[f.key])]));
   const { register, handleSubmit, formState, watch, setValue, reset } = useForm<Record<string, string>>({
     resolver: zodResolver(schema),
-    mode: "onTouched",
+    mode: "onChange",
     defaultValues: toForm(committed),
   });
   const errors = formState.errors;
   const live = watch();
+
+  const activeValues: Values = useMemo(() => {
+    const vals: Values = {};
+    for (const f of fields) {
+      const raw = live?.[f.key];
+      const coerced = raw !== undefined && raw !== "" ? coerce(f, raw, todayStr) : undefined;
+      vals[f.key] = coerced !== undefined ? coerced : committed[f.key];
+    }
+    return vals;
+  }, [live, fields, committed, todayStr]);
+
+  const output: Output | { error: string } = useMemo(() => {
+    const crossErrors = config.validate?.(activeValues);
+    if (crossErrors && Object.values(crossErrors).some(Boolean)) {
+      try {
+        return config.compute(committed);
+      } catch {
+        return { error: "These inputs can't be calculated. Please check the values." };
+      }
+    }
+    try {
+      return config.compute(activeValues);
+    } catch {
+      try {
+        return config.compute(committed);
+      } catch {
+        return { error: "These inputs can't be calculated. Please check the values." };
+      }
+    }
+  }, [config, activeValues, committed]);
+
   const liveTyped = Object.fromEntries(fields.map((f) => [f.key, coerce(f, live[f.key], todayStr) ?? ""])) as Values;
 
   function commit(v: Record<string, string>) {
@@ -205,15 +231,15 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
       return (
         <div key={f.key} className={span}>
           <Label hint={f.hint}>{f.label}</Label>
-          <Segmented label={f.label} value={live[f.key]} onChange={(val) => setValue(f.key, val)} options={f.options} />
+          <Segmented label={f.label} value={live[f.key]} onChange={(val) => setValue(f.key, val, { shouldValidate: true, shouldDirty: true })} options={f.options} />
         </div>
       );
     }
     const control =
       f.kind === "choice" ? (
-        <select id={fid} {...register(f.key)} className="w-full min-w-0 appearance-none border-0 bg-transparent px-3 text-base text-slate-900 outline-none dark:text-slate-100">
+        <select id={fid} {...register(f.key)} className="w-full min-w-0 appearance-none border-0 bg-transparent pl-3 pr-8 text-base text-slate-900 outline-none dark:text-slate-100 dark:bg-slate-950">
           {f.options.map((o) => (
-            <option key={o.value} value={o.value}>
+            <option key={o.value} value={o.value} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
               {o.label}
             </option>
           ))}
@@ -278,12 +304,12 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         ) : (
           <>
             <div className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <p className="break-all text-4xl font-extrabold tabular-nums tracking-tight text-slate-900 sm:text-5xl dark:text-white">
+              <p className="break-normal text-3xl font-extrabold tabular-nums tracking-tight text-slate-900 sm:text-4xl md:text-5xl dark:text-white">
                 {output.hero.value}
-                {output.hero.unit ? <span className="ml-1.5 text-lg font-semibold text-slate-500 dark:text-slate-400">{output.hero.unit}</span> : null}
+                {output.hero.unit ? <span className="ml-1.5 text-base sm:text-lg font-semibold text-slate-500 dark:text-slate-400">{output.hero.unit}</span> : null}
               </p>
               {output.badge ? (
-                <span className={cn("rounded-full px-3 py-1 text-sm font-semibold", TONES[output.badge.tone])}>{output.badge.text}</span>
+                <span className={cn("inline-flex items-center rounded-full px-3 py-1 text-xs sm:text-sm font-semibold max-w-full break-words", TONES[output.badge.tone])}>{output.badge.text}</span>
               ) : null}
             </div>
             {output.hero.sub ? <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{output.hero.sub}</p> : null}
@@ -308,9 +334,9 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
             {output.rows?.length ? (
               <dl className="mt-5 divide-y divide-slate-200 border-t border-slate-200 text-sm dark:divide-slate-800 dark:border-slate-800">
                 {output.rows.map((r) => (
-                  <div key={r.label} className="flex items-center justify-between gap-4 py-2.5">
-                    <dt className="text-slate-600 dark:text-slate-400">{r.label}</dt>
-                    <dd className={cn("text-right tabular-nums text-slate-900 dark:text-slate-100", r.strong ? "font-bold" : "font-semibold")}>{r.value}</dd>
+                  <div key={r.label} className="flex items-start justify-between gap-3 py-2.5 sm:items-baseline">
+                    <dt className="text-slate-600 dark:text-slate-400 leading-snug">{r.label}</dt>
+                    <dd className={cn("shrink-0 text-right tabular-nums text-slate-900 dark:text-slate-100 leading-snug", r.strong ? "font-bold" : "font-semibold")}>{r.value}</dd>
                   </div>
                 ))}
               </dl>

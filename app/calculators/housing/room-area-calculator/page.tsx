@@ -106,35 +106,35 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Horizontal Bar Chart for Room Types */}
                 {/* Category 1: Powder Room / Half Bath (5x6 = 30 sq ft) */}
-                <text x="30" y="45" fontSize="11" fill="#334155" fontWeight="bold">Powder Bath (5×6′)</text>
-                <rect x="160" y="32" width="60" height="18" rx="3" fill="#10b981" />
-                <rect x="228" y="32" width="220" height="18" rx="3" fill="#2563eb" />
-                <text x="165" y="45" fontSize="10" fill="#ffffff" fontWeight="bold">30 ft²</text>
-                <text x="235" y="45" fontSize="10" fill="#ffffff" fontWeight="bold">136 ft² wall</text>
+                <text x="25" y="45" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Powder Bath (5×6′)</text>
+                <rect x="180" y="32" width="60" height="18" rx="3" fill="#10b981" />
+                <rect x="248" y="32" width="220" height="18" rx="3" fill="#2563eb" />
+                <text x="185" y="45" fontSize="11" fill="#ffffff" fontWeight="bold">30 ft²</text>
+                <text x="255" y="45" fontSize="11" fill="#ffffff" fontWeight="bold">136 ft² wall</text>
 
                 {/* Category 2: Guest / Secondary Bed (11x12 = 132 sq ft) */}
-                <text x="30" y="95" fontSize="11" fill="#334155" fontWeight="bold">Guest Bedroom (11×12′)</text>
-                <rect x="160" y="82" width="132" height="18" rx="3" fill="#10b981" />
-                <rect x="300" y="82" width="220" height="18" rx="3" fill="#2563eb" />
-                <text x="165" y="95" fontSize="10" fill="#ffffff" fontWeight="bold">132 ft²</text>
-                <text x="308" y="95" fontSize="10" fill="#ffffff" fontWeight="bold">317 ft² wall</text>
+                <text x="25" y="95" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Guest Bedroom (11×12′)</text>
+                <rect x="180" y="82" width="132" height="18" rx="3" fill="#10b981" />
+                <rect x="320" y="82" width="220" height="18" rx="3" fill="#2563eb" />
+                <text x="185" y="95" fontSize="11" fill="#ffffff" fontWeight="bold">132 ft²</text>
+                <text x="328" y="95" fontSize="11" fill="#ffffff" fontWeight="bold">317 ft² wall</text>
 
                 {/* Category 3: Primary Bedroom Suite (15x18 = 270 sq ft) */}
-                <text x="30" y="145" fontSize="11" fill="#334155" fontWeight="bold">Primary Suite (15×18′)</text>
-                <rect x="160" y="132" width="200" height="18" rx="3" fill="#10b981" />
-                <rect x="368" y="132" width="180" height="18" rx="3" fill="#2563eb" />
-                <text x="165" y="145" fontSize="10" fill="#ffffff" fontWeight="bold">270 ft²</text>
-                <text x="375" y="145" fontSize="10" fill="#ffffff" fontWeight="bold">477 ft² wall</text>
+                <text x="25" y="145" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Primary Suite (15×18′)</text>
+                <rect x="180" y="132" width="200" height="18" rx="3" fill="#10b981" />
+                <rect x="388" y="132" width="180" height="18" rx="3" fill="#2563eb" />
+                <text x="185" y="145" fontSize="11" fill="#ffffff" fontWeight="bold">270 ft²</text>
+                <text x="395" y="145" fontSize="11" fill="#ffffff" fontWeight="bold">477 ft² wall</text>
 
                 {/* Category 4: Open Concept Living (18x24 = 432 sq ft) */}
-                <text x="30" y="195" fontSize="11" fill="#334155" fontWeight="bold">Great Room (18×24′)</text>
-                <rect x="160" y="182" width="240" height="18" rx="3" fill="#10b981" />
-                <rect x="408" y="182" width="160" height="18" rx="3" fill="#2563eb" />
-                <text x="165" y="195" fontSize="10" fill="#ffffff" fontWeight="bold">432 ft²</text>
-                <text x="415" y="195" fontSize="10" fill="#ffffff" fontWeight="bold">621 ft² wall</text>
+                <text x="25" y="195" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Great Room (18×24′)</text>
+                <rect x="180" y="182" width="240" height="18" rx="3" fill="#10b981" />
+                <rect x="428" y="182" width="160" height="18" rx="3" fill="#2563eb" />
+                <text x="185" y="195" fontSize="11" fill="#ffffff" fontWeight="bold">432 ft²</text>
+                <text x="435" y="195" fontSize="11" fill="#ffffff" fontWeight="bold">621 ft² wall</text>
               </svg>
             </div>
             <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">

@@ -101,35 +101,35 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-              <svg className="w-full min-w-[500px]" viewBox="0 0 600 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg className="w-full min-w-[620px]" viewBox="0 0 720 220" fill="none" xmlns="http://www.w3.org/2000/svg">
                 {/* Horizontal Bar Chart showing usable floor area vs cut waste */}
                 {/* 1. Straight Lay Planks (10% Waste) */}
-                <text x="30" y="38" fontSize="11" fill="#334155" fontWeight="bold">Straight Plank Lay</text>
-                <rect x="180" y="24" width="315" height="20" rx="3" fill="#2563eb" />
-                <rect x="495" y="24" width="35" height="20" rx="3" fill="#f59e0b" />
-                <text x="475" y="38" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">90% Usable</text>
-                <text x="500" y="38" fontSize="10" fill="#ffffff" fontWeight="bold">10%</text>
+                <text x="25" y="38" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Straight Plank Lay</text>
+                <rect x="200" y="24" width="432" height="20" rx="3" fill="#2563eb" />
+                <rect x="632" y="24" width="48" height="20" rx="3" fill="#f59e0b" />
+                <text x="615" y="38" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">90% Usable</text>
+                <text x="640" y="38" fontSize="11" fill="#ffffff" fontWeight="bold">10%</text>
 
                 {/* 2. Diagonal 45° Lay (15% Waste) */}
-                <text x="30" y="88" fontSize="11" fill="#334155" fontWeight="bold">Diagonal (45° Angle)</text>
-                <rect x="180" y="74" width="298" height="20" rx="3" fill="#2563eb" />
-                <rect x="478" y="74" width="52" height="20" rx="3" fill="#f59e0b" />
-                <text x="460" y="88" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">85% Usable</text>
-                <text x="485" y="88" fontSize="10" fill="#ffffff" fontWeight="bold">15%</text>
+                <text x="25" y="88" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Diagonal (45° Angle)</text>
+                <rect x="200" y="74" width="408" height="20" rx="3" fill="#2563eb" />
+                <rect x="608" y="74" width="72" height="20" rx="3" fill="#f59e0b" />
+                <text x="590" y="88" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">85% Usable</text>
+                <text x="620" y="88" fontSize="11" fill="#ffffff" fontWeight="bold">15% Cut</text>
 
                 {/* 3. Herringbone / Chevron (20% Waste) */}
-                <text x="30" y="138" fontSize="11" fill="#334155" fontWeight="bold">Herringbone / Chevron</text>
-                <rect x="180" y="124" width="280" height="20" rx="3" fill="#2563eb" />
-                <rect x="460" y="124" width="70" height="20" rx="3" fill="#ef4444" />
-                <text x="440" y="138" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">80% Usable</text>
-                <text x="468" y="138" fontSize="10" fill="#ffffff" fontWeight="bold">20% Waste</text>
+                <text x="25" y="138" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Herringbone / Chevron</text>
+                <rect x="200" y="124" width="384" height="20" rx="3" fill="#2563eb" />
+                <rect x="584" y="124" width="96" height="20" rx="3" fill="#ef4444" />
+                <text x="565" y="138" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">80% Usable</text>
+                <text x="595" y="138" fontSize="11" fill="#ffffff" fontWeight="bold">20% Waste</text>
 
                 {/* 4. Large Format Tile / Intricate (15% Waste) */}
-                <text x="30" y="188" fontSize="11" fill="#334155" fontWeight="bold">Offset Tile (1/3 Stagger)</text>
-                <rect x="180" y="174" width="298" height="20" rx="3" fill="#2563eb" />
-                <rect x="478" y="174" width="52" height="20" rx="3" fill="#f59e0b" />
-                <text x="460" y="188" fontSize="10" fill="#ffffff" textAnchor="end" fontWeight="bold">85% Usable</text>
-                <text x="485" y="188" fontSize="10" fill="#ffffff" fontWeight="bold">15%</text>
+                <text x="25" y="188" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Offset Tile (1/3 Stagger)</text>
+                <rect x="200" y="174" width="408" height="20" rx="3" fill="#2563eb" />
+                <rect x="608" y="174" width="72" height="20" rx="3" fill="#f59e0b" />
+                <text x="590" y="188" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">85% Usable</text>
+                <text x="620" y="188" fontSize="11" fill="#ffffff" fontWeight="bold">15% Cut</text>
               </svg>
             </div>
             <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
