@@ -1,6 +1,7 @@
 import RefinanceCalculator from "@/components/calcs/housing/refinance-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { RefinanceBreakevenChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/refinance-calculator";
 const TITLE = "Mortgage Refinance Calculator – Breakeven & Monthly Savings | CalcDigi";
@@ -85,62 +86,8 @@ export default function Page() {
             shorter than the time you plan to stay in the property.
           </p>
 
-          {/* Graph #2: Authoritative Visual Breakeven Savings Trajectory */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Refinance Breakeven Horizon &amp; Cumulative Net Cash Savings
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark showing the crossover point where monthly payment savings surpass upfront closing fees ($5,500 fees at $250/mo savings).
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                Breakeven: Month 22
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Horizontal Zero Axis */}
-                <line x1="50" y1="130" x2="680" y2="130" stroke="#94a3b8" strokeWidth="1.5" />
-                <line x1="50" y1="50" x2="680" y2="50" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="90" x2="680" y2="90" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-
-                {/* Y-axis labels */}
-                <text x="40" y="54" fontSize="11" fill="#64748b" textAnchor="end">+$10,000</text>
-                <text x="40" y="94" fontSize="11" fill="#64748b" textAnchor="end">+$5,000</text>
-                <text x="40" y="134" fontSize="11" fill="#64748b" textAnchor="end">$0 (Breakeven)</text>
-                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">-$5,500 (Fees)</text>
-
-                {/* X-axis labels (Months) */}
-                <text x="80" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 0</text>
-                <text x="190" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 12</text>
-                <text x="310" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 24</text>
-                <text x="440" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 36</text>
-                <text x="580" y="215" fontSize="11" fill="#64748b" textAnchor="middle">Month 60 (5 Yrs)</text>
-
-                {/* Net Savings Curve */}
-                <path
-                  d="M80 174 L190 152 L310 126 L440 98 L580 46"
-                  stroke="#10b981"
-                  strokeWidth="3.5"
-                  fill="none"
-                />
-
-                {/* Crossover Circle */}
-                <circle cx="280" cy="130" r="5" fill="#10b981" />
-                <text x="280" y="118" fontSize="11" fill="#10b981" textAnchor="middle" fontWeight="bold">Breakeven Crossover (Month 22)</text>
-
-                <text x="590" y="44" fontSize="11" fill="#10b981" fontWeight="bold">+$9,500 Pure Profit</text>
-              </svg>
-            </div>
-            <p className="mt-2 text-center text-xs text-slate-500">
-              After reaching Month 22, all upfront closing costs have been fully recovered, and monthly savings represent pure unencumbered cash flow.
-            </p>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <RefinanceBreakevenChart />
 
           <h2>Formulas for Refinance Evaluation</h2>
           <Formula>

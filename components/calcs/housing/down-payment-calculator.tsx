@@ -19,7 +19,7 @@ export const config: CalcConfig = {
         { value: "3", label: "3% (First-Time)" },
         { value: "3.5", label: "3.5% (FHA)" },
         { value: "5", label: "5% (Conv)" },
-        { value: "10", label: "10%" },
+        { value: "10", label: "10% (Standard)" },
         { value: "20", label: "20% (No PMI)" },
       ],
     },

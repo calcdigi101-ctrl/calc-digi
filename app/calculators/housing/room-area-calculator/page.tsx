@@ -1,6 +1,7 @@
 import RoomAreaCalculator from "@/components/calcs/housing/room-area-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { RoomSizeStandardsChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/room-area-calculator";
 const TITLE = "Room Area Calculator – Floor, Wall & Ceiling Surface (Sq Ft) | CalcDigi";
@@ -89,63 +90,8 @@ export default function Page() {
             <li><strong>Interior Room Volume:</strong> Total air capacity in cubic feet, crucial for HVAC air exchange and CFM sizing.</li>
           </ul>
 
-          {/* Graph #2: Authoritative Visual Room Sizes & Proportions Benchmark */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Residential Room Size Standards (Floor Area &amp; Wall Surface Benchmark)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Comparison of floor space vs paintable wall area across standard 8-foot ceiling residential rooms.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                Standard 8ft Ceiling
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Horizontal Bar Chart for Room Types */}
-                {/* Category 1: Powder Room / Half Bath (5x6 = 30 sq ft) */}
-                <text x="25" y="45" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Powder Bath (5×6′)</text>
-                <rect x="180" y="32" width="60" height="18" rx="3" fill="#10b981" />
-                <rect x="248" y="32" width="220" height="18" rx="3" fill="#2563eb" />
-                <text x="185" y="45" fontSize="11" fill="#ffffff" fontWeight="bold">30 ft²</text>
-                <text x="255" y="45" fontSize="11" fill="#ffffff" fontWeight="bold">136 ft² wall</text>
-
-                {/* Category 2: Guest / Secondary Bed (11x12 = 132 sq ft) */}
-                <text x="25" y="95" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Guest Bedroom (11×12′)</text>
-                <rect x="180" y="82" width="132" height="18" rx="3" fill="#10b981" />
-                <rect x="320" y="82" width="220" height="18" rx="3" fill="#2563eb" />
-                <text x="185" y="95" fontSize="11" fill="#ffffff" fontWeight="bold">132 ft²</text>
-                <text x="328" y="95" fontSize="11" fill="#ffffff" fontWeight="bold">317 ft² wall</text>
-
-                {/* Category 3: Primary Bedroom Suite (15x18 = 270 sq ft) */}
-                <text x="25" y="145" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Primary Suite (15×18′)</text>
-                <rect x="180" y="132" width="200" height="18" rx="3" fill="#10b981" />
-                <rect x="388" y="132" width="180" height="18" rx="3" fill="#2563eb" />
-                <text x="185" y="145" fontSize="11" fill="#ffffff" fontWeight="bold">270 ft²</text>
-                <text x="395" y="145" fontSize="11" fill="#ffffff" fontWeight="bold">477 ft² wall</text>
-
-                {/* Category 4: Open Concept Living (18x24 = 432 sq ft) */}
-                <text x="25" y="195" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Great Room (18×24′)</text>
-                <rect x="180" y="182" width="240" height="18" rx="3" fill="#10b981" />
-                <rect x="428" y="182" width="160" height="18" rx="3" fill="#2563eb" />
-                <text x="185" y="195" fontSize="11" fill="#ffffff" fontWeight="bold">432 ft²</text>
-                <text x="435" y="195" fontSize="11" fill="#ffffff" fontWeight="bold">621 ft² wall</text>
-              </svg>
-            </div>
-            <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-emerald-500" /> Floor Footprint (sq ft)
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-blue-600" /> Net Paintable Wall Area (sq ft)
-              </span>
-            </div>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <RoomSizeStandardsChart />
 
           <h2>Mathematical Formulas for Room Calculation</h2>
           <Formula>

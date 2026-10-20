@@ -1,6 +1,7 @@
 import SquareFootageCalculator from "@/components/calcs/housing/square-footage-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { SquareFootageGlaChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/square-footage-calculator";
 const TITLE = "Square Footage Calculator – Rooms, Houses & Waste Margin | CalcDigi";
@@ -90,52 +91,8 @@ export default function Page() {
           </p>
           <Formula>Square Footage = Length (ft) × Width (ft)</Formula>
 
-          {/* Graph #2: Authoritative Visual Space Distribution Benchmark */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Gross Living Area (GLA) vs Non-Finished Spaces (ANSI Z765 Standards)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual breakdown of what certified appraisers count towards official heated residential square footage.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                Appraisal Code Verified
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Stacked comparison bars */}
-                {/* Bar 1: Above-Grade Finished Space (GLA) */}
-                <rect x="40" y="35" width="640" height="38" rx="6" fill="#f1f5f9" />
-                <rect x="40" y="35" width="448" height="38" rx="6" fill="#10b981" />
-                <text x="55" y="58" fontSize="12" fill="#ffffff" fontWeight="bold">Above-Grade Living Area (70% - Full GLA Value)</text>
-                <text x="505" y="58" fontSize="11" fill="#475569" fontWeight="medium">Excluded from GLA (30%)</text>
-
-                {/* Sub-breakdowns */}
-                {/* Bar 2: Detailed Space Classification */}
-                <rect x="40" y="105" width="270" height="32" rx="4" fill="#2563eb" />
-                <rect x="314" y="105" width="180" height="32" rx="4" fill="#0ea5e9" />
-                <rect x="498" y="105" width="100" height="32" rx="4" fill="#f59e0b" />
-                <rect x="602" y="105" width="78" height="32" rx="4" fill="#94a3b8" />
-
-                <text x="55" y="125" fontSize="11" fill="#ffffff" fontWeight="bold">Main Floor &amp; Bedrooms (42%)</text>
-                <text x="325" y="125" fontSize="11" fill="#ffffff" fontWeight="bold">Upper Level (28%)</text>
-                <text x="508" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Basement (16%)</text>
-                <text x="612" y="125" fontSize="10" fill="#ffffff" fontWeight="bold">Garage (14%)</text>
-
-                {/* Status Indicator Legend */}
-                <circle cx="50" cy="175" r="5" fill="#10b981" />
-                <text x="65" y="178" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Counts as Official GLA (Above-grade, heated, finished, 7ft+ ceiling height)</text>
-
-                <circle cx="50" cy="200" r="5" fill="#f59e0b" />
-                <text x="65" y="203" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Valuable but Classified Separately (Finished walk-out basements, ADUs, unheated enclosed porches)</text>
-              </svg>
-            </div>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <SquareFootageGlaChart />
 
           <h2>Formulas for Complex Room Shapes</h2>
           <h3>1. L-Shaped or T-Shaped Rooms</h3>

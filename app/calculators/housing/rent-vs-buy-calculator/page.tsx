@@ -1,6 +1,7 @@
 import RentVsBuyCalculator from "@/components/calcs/housing/rent-vs-buy-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { RentVsBuyWealthChart } from "@/components/flagship/housing/editorial-charts/RentVsBuyWealthChart";
 
 const PATH = "/calculators/housing/rent-vs-buy-calculator";
 const TITLE = "Rent vs Buy Calculator – Breakeven Analysis & Net Wealth | CalcDigi";
@@ -88,80 +89,8 @@ export default function Page() {
             The true winner depends on the <strong>breakeven horizon</strong>.
           </p>
 
-          {/* Graph #2: Authoritative Visual 10-Year Wealth Accumulation Curve */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  10-Year Net Wealth Trajectory: Home Equity vs Renter Investment Portfolio
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark showing the breakeven crossover point (typically between Year 4 and Year 5).
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                Breakeven at Yr 4.5
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Gridlines */}
-                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
-
-                {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">$300k</text>
-                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">$200k</text>
-                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">$100k</text>
-                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">$50k</text>
-                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
-
-                {/* X-axis labels (Years) */}
-                <text x="70" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 1</text>
-                <text x="170" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 3</text>
-                <text x="270" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 5</text>
-                <text x="400" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 7</text>
-                <text x="540" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 10</text>
-
-                {/* Renter Portfolio Curve (Blue, starts higher due to down payment cash) */}
-                <path
-                  d="M70 148 L170 135 L270 120 L400 98 L540 68"
-                  stroke="#2563eb"
-                  strokeWidth="3"
-                  strokeDasharray="4 4"
-                  fill="none"
-                />
-
-                {/* Buyer Home Equity Curve (Emerald, starts lower after closing fees, accelerates upward) */}
-                <path
-                  d="M70 178 L170 152 L270 115 L400 65 L540 22"
-                  stroke="#10b981"
-                  strokeWidth="3.5"
-                  fill="none"
-                />
-
-                {/* Crossover circle */}
-                <circle cx="280" cy="118" r="6" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
-                <text x="290" y="112" fontSize="11" fill="#10b981" fontWeight="bold">Breakeven Crossover (Year 4.5)</text>
-
-                {/* End values with ample margin */}
-                <text x="550" y="22" fontSize="11" fill="#10b981" fontWeight="bold">Buyer Equity (~$290k)</text>
-                <text x="550" y="68" fontSize="11" fill="#2563eb" fontWeight="semibold">Renter Portfolio (~$210k)</text>
-              </svg>
-            </div>
-            <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-emerald-500" /> Buyer Net Home Equity (After 6% Selling Costs)
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-blue-600" /> Renter S&amp;P 500 Investment Portfolio (7% Annual Return)
-              </span>
-            </div>
-          </div>
+          {/* Graph #2: Interactive 10-Year Wealth Accumulation Curve with live mouse hover */}
+          <RentVsBuyWealthChart />
 
           <h2>Key Formulas in Rent vs Buy Economics</h2>
           <Formula>

@@ -229,7 +229,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
     }
     if (f.kind === "choice" && f.segmented) {
       return (
-        <div key={f.key} className={span}>
+        <div key={f.key} className={cn("sm:col-span-2", span)}>
           <Label hint={f.hint}>{f.label}</Label>
           <Segmented label={f.label} value={live[f.key]} onChange={(val) => setValue(f.key, val, { shouldValidate: true, shouldDirty: true })} options={f.options} />
         </div>

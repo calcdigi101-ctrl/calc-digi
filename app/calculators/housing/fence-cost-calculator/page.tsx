@@ -1,6 +1,7 @@
 import FenceCostCalculator from "@/components/calcs/housing/fence-cost-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { FenceDurabilityCostChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/fence-cost-calculator";
 const TITLE = "Fence Cost Calculator – Wood, Vinyl, Chain Link & Aluminum (2026) | CalcDigi";
@@ -84,63 +85,8 @@ export default function Page() {
             prevents mid-project shortages that leave unfinished gaps along boundary lines.
           </p>
 
-          {/* Graph #2: Authoritative Visual Fence Material Comparison Chart */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Fence Material Durability vs Installed Cost per Linear Foot
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark comparing lifespan against installed contractor cost per linear foot across 5 primary materials.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                AFA 2026 Benchmark
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* 5 horizontal comparisons */}
-                {/* 1. Pressure-Treated Pine */}
-                <text x="25" y="35" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Pressure-Treated Pine</text>
-                <rect x="200" y="22" width="130" height="18" rx="3" fill="#2563eb" />
-                <rect x="340" y="22" width="150" height="18" rx="3" fill="#10b981" />
-                <text x="325" y="35" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$22/ft</text>
-                <text x="350" y="35" fontSize="11" fill="#ffffff" fontWeight="bold">15-year life</text>
-
-                {/* 2. Western Red Cedar */}
-                <text x="25" y="80" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Western Red Cedar</text>
-                <rect x="200" y="67" width="190" height="18" rx="3" fill="#2563eb" />
-                <rect x="400" y="67" width="200" height="18" rx="3" fill="#10b981" />
-                <text x="385" y="80" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$32/ft</text>
-                <text x="410" y="80" fontSize="11" fill="#ffffff" fontWeight="bold">25-year life</text>
-
-                {/* 3. Vinyl / PVC Privacy */}
-                <text x="25" y="125" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Vinyl / PVC Privacy</text>
-                <rect x="200" y="112" width="220" height="18" rx="3" fill="#2563eb" />
-                <rect x="430" y="112" width="240" height="18" rx="3" fill="#10b981" />
-                <text x="415" y="125" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$38/ft</text>
-                <text x="440" y="125" fontSize="11" fill="#ffffff" fontWeight="bold">30+ year life</text>
-
-                {/* 4. Galvanized Chain Link */}
-                <text x="25" y="170" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Chain Link (Black Poly)</text>
-                <rect x="200" y="157" width="115" height="18" rx="3" fill="#2563eb" />
-                <rect x="325" y="157" width="200" height="18" rx="3" fill="#10b981" />
-                <text x="310" y="170" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$19/ft</text>
-                <text x="335" y="170" fontSize="11" fill="#ffffff" fontWeight="bold">25-year life</text>
-              </svg>
-            </div>
-            <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-blue-600" /> Avg Installed Cost per Linear Foot
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-emerald-500" /> Expected Structural Lifespan
-              </span>
-            </div>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <FenceDurabilityCostChart />
 
           <h2>Formulas for Fence Material Quantities</h2>
           <Formula>

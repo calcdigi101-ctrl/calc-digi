@@ -1,6 +1,7 @@
 import LandAreaCalculator from "@/components/calcs/housing/land-area-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { LandAreaBenchmarksChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/land-area-calculator";
 const TITLE = "Land Area Calculator – Acres, Square Feet & Lot Size | CalcDigi";
@@ -88,54 +89,8 @@ export default function Page() {
             property dimensions in feet, multiply length by width and divide by 43,560.
           </p>
 
-          {/* Graph #2: Authoritative Visual Land Parcel Scale Benchmark */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Land Parcel Scale Benchmarks (Visual Size Comparison)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual scale comparison of standard residential lots against 1 full acre and an NFL football field.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                1 Acre = 43,560 ft²
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Visual Boxes showing relative lot sizes */}
-                {/* 1. 1/4 Acre Suburban Lot (10,890 sq ft) */}
-                <rect x="30" y="30" width="90" height="90" rx="4" fill="#eff6ff" stroke="#2563eb" strokeWidth="2" />
-                <text x="75" y="70" fontSize="12" fill="#1e40af" textAnchor="middle" fontWeight="bold">0.25 Acre</text>
-                <text x="75" y="86" fontSize="10" fill="#64748b" textAnchor="middle">10,890 ft²</text>
-                <text x="75" y="135" fontSize="11" fill="currentColor" className="text-slate-800 dark:text-slate-200" textAnchor="middle" fontWeight="bold">Suburban Lot</text>
-
-                {/* 2. 1/2 Acre Lot (21,780 sq ft) */}
-                <rect x="155" y="30" width="130" height="130" rx="4" fill="#f0fdf4" stroke="#10b981" strokeWidth="2" />
-                <text x="220" y="90" fontSize="12" fill="#065f46" textAnchor="middle" fontWeight="bold">0.50 Acre</text>
-                <text x="220" y="106" fontSize="10" fill="#64748b" textAnchor="middle">21,780 ft²</text>
-                <text x="220" y="175" fontSize="11" fill="currentColor" className="text-slate-800 dark:text-slate-200" textAnchor="middle" fontWeight="bold">Executive Parcel</text>
-
-                {/* 3. 1 Full Acre (43,560 sq ft) */}
-                <rect x="320" y="30" width="175" height="175" rx="4" fill="#fef3c7" stroke="#f59e0b" strokeWidth="2" />
-                <text x="407" y="110" fontSize="13" fill="#92400e" textAnchor="middle" fontWeight="bold">1.00 Full Acre</text>
-                <text x="407" y="128" fontSize="11" fill="#64748b" textAnchor="middle">43,560 ft² (208.7 × 208.7′)</text>
-                <text x="407" y="218" fontSize="11" fill="currentColor" className="text-slate-800 dark:text-slate-200" textAnchor="middle" fontWeight="bold">Full Acre Homestead</text>
-
-                {/* 4. Football Field Comparison Note */}
-                <rect x="530" y="30" width="150" height="175" rx="4" fill="#f8fafc" stroke="#94a3b8" strokeDasharray="3 3" />
-                <text x="605" y="110" fontSize="11" fill="#475569" textAnchor="middle" fontWeight="bold">NFL Football Field</text>
-                <text x="605" y="128" fontSize="10" fill="#64748b" textAnchor="middle">57,600 ft²</text>
-                <text x="605" y="145" fontSize="10" fill="#10b981" textAnchor="middle">(1.32 Acres with Endzones)</text>
-              </svg>
-            </div>
-            <p className="mt-2 text-center text-xs text-slate-500">
-              One full acre represents approximately 75% of an American football field including both end zones.
-            </p>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <LandAreaBenchmarksChart />
 
           <h2>Land Area Formulas</h2>
           <Formula>

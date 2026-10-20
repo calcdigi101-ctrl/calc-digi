@@ -1,6 +1,7 @@
 import DownPaymentCalculator from "@/components/calcs/housing/down-payment-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { DownPaymentTierChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/down-payment-calculator";
 const TITLE = "Down Payment Calculator – Cash Needed, Savings Goal & PMI | CalcDigi";
@@ -89,56 +90,8 @@ export default function Page() {
             Lender closing costs typically add another <strong>2% to 4%</strong> of the purchase price on top of your down payment.
           </p>
 
-          {/* Graph #2: Authoritative Visual Down Payment Tiers Benchmark Chart */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  30-Year Total Financing Cost by Down Payment Tier ($400,000 Purchase)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark comparing upfront cash vs total 30-year interest and PMI paid (at 6.75% interest).
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                6.75% 30-Yr Fixed
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* 4 horizontal comparison bars */}
-                {/* 1. 3% Down Payment ($12k down) */}
-                <text x="25" y="38" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">3% Down ($12,000)</text>
-                <rect x="180" y="24" width="350" height="20" rx="3" fill="#ef4444" />
-                <text x="495" y="38" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$542k Interest + PMI</text>
-                <text x="545" y="38" fontSize="11" fill="#ef4444" fontWeight="bold">Highest</text>
-
-                {/* 2. 5% Down Payment ($20k down) */}
-                <text x="25" y="88" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">5% Down ($20,000)</text>
-                <rect x="180" y="74" width="330" height="20" rx="3" fill="#f59e0b" />
-                <text x="475" y="88" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$518k Interest + PMI</text>
-                <text x="525" y="88" fontSize="11" fill="#f59e0b" fontWeight="bold">-$24k</text>
-
-                {/* 3. 10% Down Payment ($40k down) */}
-                <text x="25" y="138" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">10% Down ($40,000)</text>
-                <rect x="180" y="124" width="300" height="20" rx="3" fill="#2563eb" />
-                <text x="445" y="138" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$480k Interest + PMI</text>
-                <text x="495" y="138" fontSize="11" fill="#2563eb" fontWeight="bold">-$62k</text>
-
-                {/* 4. 20% Down Payment ($80k down - No PMI) */}
-                <text x="25" y="188" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">20% Down ($80,000)</text>
-                <rect x="180" y="174" width="250" height="20" rx="3" fill="#10b981" />
-                <text x="395" y="188" fontSize="11" fill="#ffffff" textAnchor="end" fontWeight="bold">$428k Interest (Zero PMI)</text>
-                <text x="445" y="188" fontSize="11" fill="#10b981" fontWeight="bold">Saves $114k</text>
-              </svg>
-            </div>
-            <div className="mt-2 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-emerald-500" /> 20% Down eliminates PMI &amp; saves $114,000+ over the loan lifetime.
-              </span>
-            </div>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <DownPaymentTierChart />
 
           <h2>Down Payment Requirements by Loan Program</h2>
           <DataTable

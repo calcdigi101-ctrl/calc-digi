@@ -1,6 +1,7 @@
 import HomeAffordabilityCalculator from "@/components/calcs/housing/home-affordability-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { HomeAffordabilityCurveChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/home-affordability-calculator";
 const TITLE = "Home Affordability Calculator – How Much House Can I Afford? | CalcDigi";
@@ -85,76 +86,8 @@ export default function Page() {
             cannot save for retirement, emergencies, or daily living expenses.
           </p>
 
-          {/* Graph #2: Authoritative Visual Income vs Purchasing Power Curve */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Salary vs Home Purchasing Power Curve (6.5% vs 7.5% Mortgage Rate)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark showing how annual household income translates into maximum affordable home price (30-year fixed, 10% down, 28/36 rule).
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                28/36 Underwriting
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Gridlines */}
-                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
-
-                {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">$800k</text>
-                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">$600k</text>
-                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">$400k</text>
-                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">$200k</text>
-                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
-
-                {/* X-axis labels (Salary) */}
-                <text x="100" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$60k Salary</text>
-                <text x="220" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$90k Salary</text>
-                <text x="350" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$120k Salary</text>
-                <text x="480" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$160k Salary</text>
-                <text x="600" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$200k Salary</text>
-
-                {/* 6.5% Rate Curve (Emerald) */}
-                <path
-                  d="M100 162 L220 132 L350 95 L480 54 L600 24"
-                  stroke="#10b981"
-                  strokeWidth="3.5"
-                  fill="none"
-                />
-                {/* 7.5% Rate Curve (Amber) */}
-                <path
-                  d="M100 168 L220 142 L350 108 L480 70 L600 42"
-                  stroke="#f59e0b"
-                  strokeWidth="3"
-                  strokeDasharray="4 4"
-                  fill="none"
-                />
-
-                {/* Callout */}
-                <circle cx="350" cy="95" r="4" fill="#10b981" />
-                <text x="360" y="90" fontSize="11" fill="#10b981" fontWeight="bold">$120k Income → ~$515k Home (6.5%)</text>
-                <text x="360" y="122" fontSize="11" fill="#f59e0b" fontWeight="semibold">~$465k Home (7.5%)</text>
-              </svg>
-            </div>
-            <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-emerald-500" /> 6.5% Interest Rate Purchasing Power
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-amber-500" /> 7.5% Interest Rate Purchasing Power (-10% Power)
-              </span>
-            </div>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <HomeAffordabilityCurveChart />
 
           <h2>The 28/36 Rule Formulas Explained</h2>
           <Formula>

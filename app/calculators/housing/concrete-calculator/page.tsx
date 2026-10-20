@@ -1,6 +1,7 @@
 import ConcreteCalculator from "@/components/calcs/housing/concrete-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { ConcreteVolumeCurveChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/concrete-calculator";
 const TITLE = "Concrete Calculator – Slabs, Footings & Bag Count (Cubic Yards) | CalcDigi";
@@ -88,83 +89,8 @@ export default function Page() {
             projects, pre-mixed bags (quikrete, sakrete) packaged in 60-lb or 80-lb units are mixed with water on-site.
           </p>
 
-          {/* Graph #2: Authoritative Visual Slab Volume & Thickness Comparison Benchmark */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Concrete Volume Curve: 4″ vs 6″ Slab Depth (Cubic Yards vs Surface Area)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark comparing required yardage (with 10% waste) across typical residential footprint sizes.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                1 yd³ = 27 ft³
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Gridlines */}
-                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
-
-                {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">18 yd³</text>
-                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">12 yd³</text>
-                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">6 yd³</text>
-                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">2 yd³</text>
-                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">0</text>
-
-                {/* X-axis labels */}
-                <text x="100" y="218" fontSize="11" fill="#64748b" textAnchor="middle">100 sq ft</text>
-                <text x="210" y="218" fontSize="11" fill="#64748b" textAnchor="middle">250 sq ft</text>
-                <text x="330" y="218" fontSize="11" fill="#64748b" textAnchor="middle">500 sq ft</text>
-                <text x="450" y="218" fontSize="11" fill="#64748b" textAnchor="middle">750 sq ft</text>
-                <text x="540" y="218" fontSize="11" fill="#64748b" textAnchor="middle">1,000 sq ft</text>
-
-                {/* 6-inch Slab Area & Curve (Orange) */}
-                <path
-                  d="M100 182 L210 156 L330 112 L450 68 L540 32"
-                  stroke="#f59e0b"
-                  strokeWidth="3"
-                  fill="none"
-                />
-                {/* 4-inch Slab Area & Curve (Emerald) */}
-                <path
-                  d="M100 188 L210 171 L330 141 L450 112 L540 88"
-                  stroke="#10b981"
-                  strokeWidth="3"
-                  fill="none"
-                />
-
-                {/* Data Points */}
-                <circle cx="100" cy="188" r="4" fill="#10b981" />
-                <circle cx="330" cy="141" r="4" fill="#10b981" />
-                <circle cx="540" cy="88" r="4" fill="#10b981" />
-
-                <circle cx="100" cy="182" r="4" fill="#f59e0b" />
-                <circle cx="330" cy="112" r="4" fill="#f59e0b" />
-                <circle cx="540" cy="32" r="4" fill="#f59e0b" />
-
-                {/* Callout Annotations with plenty of breathing room */}
-                <text x="552" y="88" fontSize="11" fill="#10b981" fontWeight="bold">4″ Slab (11.3 yd³)</text>
-                <text x="552" y="32" fontSize="11" fill="#f59e0b" fontWeight="bold">6″ Slab (17.0 yd³)</text>
-              </svg>
-            </div>
-            <div className="mt-3 flex items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-emerald-500" /> 4-inch Slab (Patios, Walkways, Shed Floors)
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="size-2.5 rounded-full bg-amber-500" /> 6-inch Heavy Slab (Driveways, RV Pads, Workshops)
-              </span>
-            </div>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <ConcreteVolumeCurveChart />
 
           <h2>Formulas for Concrete Estimation</h2>
           <h3>1. Rectangular Slabs, Footings &amp; Walls</h3>

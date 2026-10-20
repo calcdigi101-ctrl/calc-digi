@@ -1,6 +1,7 @@
 import PaintCalculator from "@/components/calcs/housing/paint-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { PaintSheenSpectrumChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/paint-calculator";
 const TITLE = "Paint Calculator – Gallons Needed for Walls & Ceilings | CalcDigi";
@@ -88,75 +89,8 @@ export default function Page() {
             cutouts, multiply by the number of coats, and divide by 350 square feet per gallon.
           </p>
 
-          {/* Graph #2: Authoritative Visual Paint Sheen & Coverage Matrix */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Paint Sheen Spectrum (Reflectivity vs Scrubbability &amp; Application Guide)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark comparing light reflectance value (LRV) and washability across 5 core paint finishes.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                PDCA Architectural Matrix
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[640px]" viewBox="0 0 720 230" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* 5 columns for Sheens */}
-                {/* 1. Flat/Matte */}
-                <rect x="20" y="25" width="120" height="150" rx="8" fill="#f8fafc" stroke="#e2e8f0" />
-                <rect x="35" y="35" width="90" height="22" rx="4" fill="#64748b" />
-                <text x="80" y="50" fontSize="11" fill="#ffffff" textAnchor="middle" fontWeight="bold">Flat / Matte</text>
-                <text x="80" y="78" fontSize="12" fill="#0f172a" textAnchor="middle" fontWeight="bold">0–5% Sheen</text>
-                <text x="80" y="103" fontSize="10" fill="#64748b" textAnchor="middle">Low Washability</text>
-                <text x="80" y="128" fontSize="10" fill="#10b981" textAnchor="middle">Hides Wall Flaws</text>
-                <text x="80" y="156" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Ceilings, Adult Bed</text>
-
-                {/* 2. Eggshell */}
-                <rect x="160" y="25" width="120" height="150" rx="8" fill="#f0fdf4" stroke="#bbf7d0" />
-                <rect x="175" y="35" width="90" height="22" rx="4" fill="#10b981" />
-                <text x="220" y="50" fontSize="11" fill="#ffffff" textAnchor="middle" fontWeight="bold">Eggshell</text>
-                <text x="220" y="78" fontSize="12" fill="#0f172a" textAnchor="middle" fontWeight="bold">10–25% Sheen</text>
-                <text x="220" y="103" fontSize="10" fill="#64748b" textAnchor="middle">Moderate Wash</text>
-                <text x="220" y="128" fontSize="10" fill="#10b981" textAnchor="middle">Soft Warm Glow</text>
-                <text x="220" y="156" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Living, Bedrooms</text>
-
-                {/* 3. Satin */}
-                <rect x="300" y="25" width="120" height="150" rx="8" fill="#eff6ff" stroke="#bfdbfe" />
-                <rect x="315" y="35" width="90" height="22" rx="4" fill="#2563eb" />
-                <text x="360" y="50" fontSize="11" fill="#ffffff" textAnchor="middle" fontWeight="bold">Satin</text>
-                <text x="360" y="78" fontSize="12" fill="#0f172a" textAnchor="middle" fontWeight="bold">25–35% Sheen</text>
-                <text x="360" y="103" fontSize="10" fill="#64748b" textAnchor="middle">High Scrub</text>
-                <text x="360" y="128" fontSize="10" fill="#2563eb" textAnchor="middle">Resists Moisture</text>
-                <text x="360" y="156" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Kitchen, Hallways</text>
-
-                {/* 4. Semi-Gloss */}
-                <rect x="440" y="25" width="120" height="150" rx="8" fill="#faf5ff" stroke="#e9d5ff" />
-                <rect x="455" y="35" width="90" height="22" rx="4" fill="#8b5cf6" />
-                <text x="500" y="50" fontSize="11" fill="#ffffff" textAnchor="middle" fontWeight="bold">Semi-Gloss</text>
-                <text x="500" y="78" fontSize="12" fill="#0f172a" textAnchor="middle" fontWeight="bold">35–70% Sheen</text>
-                <text x="500" y="103" fontSize="10" fill="#64748b" textAnchor="middle">Very Durable</text>
-                <text x="500" y="128" fontSize="10" fill="#8b5cf6" textAnchor="middle">Wipe Clean</text>
-                <text x="500" y="156" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Bathrooms, Trim</text>
-
-                {/* 5. High Gloss */}
-                <rect x="580" y="25" width="120" height="150" rx="8" fill="#fffbeb" stroke="#fde68a" />
-                <rect x="595" y="35" width="90" height="22" rx="4" fill="#f59e0b" />
-                <text x="640" y="50" fontSize="11" fill="#ffffff" textAnchor="middle" fontWeight="bold">High Gloss</text>
-                <text x="640" y="78" fontSize="12" fill="#0f172a" textAnchor="middle" fontWeight="bold">70%+ Sheen</text>
-                <text x="640" y="103" fontSize="10" fill="#64748b" textAnchor="middle">Ultra Washable</text>
-                <text x="640" y="128" fontSize="10" fill="#f59e0b" textAnchor="middle">Glass-Like Shine</text>
-                <text x="640" y="156" fontSize="10" fill="#334155" textAnchor="middle" fontWeight="bold">Cabinets, Doors</text>
-              </svg>
-            </div>
-            <p className="mt-2 text-center text-xs text-slate-500">
-              Higher gloss increases durability and stain resistance, while lower sheens hide drywall taping flaws and texture inconsistencies.
-            </p>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <PaintSheenSpectrumChart />
 
           <h2>Formulas for Paint Calculation</h2>
           <Formula>

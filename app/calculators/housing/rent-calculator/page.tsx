@@ -1,6 +1,7 @@
 import RentCalculator from "@/components/calcs/housing/rent-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { RentBudgetCurveChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/rent-calculator";
 const TITLE = "Rent Affordability Calculator – How Much Rent Can I Afford? | CalcDigi";
@@ -83,68 +84,8 @@ export default function Page() {
             and what <strong>your personal cash flow can comfortably support</strong> without creating financial anxiety.
           </p>
 
-          {/* Graph #2: Authoritative Visual Rent Budget Trajectory */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Salary vs Maximum Rent Budget (30% Rule vs 40x Metro Rule)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual benchmark showing how gross salary translates into maximum approved monthly rent.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                HUD 30% Benchmark
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Gridlines */}
-                <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" />
-                <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" />
-
-                {/* Y-axis labels */}
-                <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">$4,000</text>
-                <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">$3,000</text>
-                <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">$2,000</text>
-                <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">$1,000</text>
-                <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
-
-                {/* X-axis labels (Salary) */}
-                <text x="90" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$45k Salary</text>
-                <text x="210" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$70k Salary</text>
-                <text x="340" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$100k Salary</text>
-                <text x="470" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$130k Salary</text>
-                <text x="600" y="218" fontSize="11" fill="#64748b" textAnchor="middle">$160k Salary</text>
-
-                {/* 30% HUD Curve (Emerald) */}
-                <path
-                  d="M90 174 L210 148 L340 112 L470 78 L600 44"
-                  stroke="#10b981"
-                  strokeWidth="3.5"
-                  fill="none"
-                />
-
-                {/* Data Points */}
-                <circle cx="90" cy="174" r="4" fill="#10b981" />
-                <circle cx="210" cy="148" r="4" fill="#10b981" />
-                <circle cx="340" cy="112" r="4" fill="#10b981" />
-                <circle cx="470" cy="78" r="4" fill="#10b981" />
-                <circle cx="600" cy="44" r="4" fill="#10b981" />
-
-                {/* Callout */}
-                <text x="350" y="106" fontSize="11" fill="#10b981" fontWeight="bold">$100k Income = $2,500/mo Max Rent</text>
-              </svg>
-            </div>
-            <p className="mt-2 text-center text-xs text-slate-500">
-              Both the 30% HUD rule and the 40x landlord rule align closely: a $100k salary supports an exact $2,500/month maximum rent.
-            </p>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <RentBudgetCurveChart />
 
           <h2>Formulas for Rent Affordability</h2>
           <Formula>

@@ -1,6 +1,7 @@
 import HomeEquityCalculator from "@/components/calcs/housing/home-equity-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { HomeEquityCapitalStackChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/home-equity-calculator";
 const TITLE = "Home Equity Calculator – How Much Can I Borrow? (HELOC) | CalcDigi";
@@ -88,58 +89,8 @@ export default function Page() {
             set at 80% to 85% of your home&rsquo;s current appraised value.
           </p>
 
-          {/* Graph #2: Authoritative Visual Equity Capital Stack Benchmark */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  The Home Equity Capital Stack ($480,000 Property Value at 85% CLTV)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Visual breakdown of primary lien, borrowable equity, and the mandatory 15% protective equity cushion.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                85% Max CLTV Cap
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Full property bar */}
-                <rect x="40" y="30" width="640" height="42" rx="6" fill="#f1f5f9" />
-
-                {/* Segment 1: First Mortgage ($260k = 54.2%) */}
-                <rect x="40" y="30" width="347" height="42" rx="6" fill="#2563eb" />
-                <text x="55" y="55" fontSize="12" fill="#ffffff" fontWeight="bold">1st Mortgage: $260,000 (54.2%)</text>
-
-                {/* Segment 2: Usable Borrowable HELOC ($148k = 30.8%) */}
-                <rect x="387" y="30" width="197" height="42" rx="0" fill="#10b981" />
-                <text x="400" y="55" fontSize="12" fill="#ffffff" fontWeight="bold">Usable HELOC: $148,000</text>
-
-                {/* Segment 3: Protected 15% Cushion ($72k = 15.0%) */}
-                <rect x="584" y="30" width="96" height="42" rx="6" fill="#f59e0b" />
-                <text x="632" y="55" fontSize="11" fill="#ffffff" textAnchor="middle" fontWeight="bold">15% Cushion</text>
-
-                {/* Sub-annotations */}
-                <line x1="40" y1="95" x2="584" y2="95" stroke="#10b981" strokeWidth="2" />
-                <circle cx="40" cy="95" r="3" fill="#10b981" />
-                <circle cx="584" cy="95" r="3" fill="#10b981" />
-                <text x="312" y="112" fontSize="11" fill="#10b981" textAnchor="middle" fontWeight="bold">
-                  85% Maximum Allowable Combined Debt Limit ($408,000)
-                </text>
-
-                <circle cx="50" cy="155" r="5" fill="#2563eb" />
-                <text x="65" y="158" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Primary Mortgage (Current Outstanding Balance)</text>
-
-                <circle cx="50" cy="180" r="5" fill="#10b981" />
-                <text x="65" y="183" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Available Borrowable Cash (Through HELOC or Home Equity Loan)</text>
-
-                <circle cx="50" cy="205" r="5" fill="#f59e0b" />
-                <text x="65" y="208" fontSize="11" fill="currentColor" className="text-slate-700 dark:text-slate-300">Mandatory 15% Equity Cushion (Bank Buffer Against Housing Declines)</text>
-              </svg>
-            </div>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <HomeEquityCapitalStackChart />
 
           <h2>Formulas for Home Equity &amp; CLTV</h2>
           <Formula>

@@ -1,6 +1,7 @@
 import RenovationCostCalculator from "@/components/calcs/housing/renovation-cost-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { RenovationRoiChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/renovation-cost-calculator";
 const TITLE = "Renovation Cost Calculator – Home Remodel Estimator (2026) | CalcDigi";
@@ -84,50 +85,8 @@ export default function Page() {
             requires establishing an airtight budget broken into materials, trade labor, design fees, and an untouchable contingency reserve.
           </p>
 
-          {/* Graph #2: Authoritative Visual ROI Benchmark Chart */}
-          <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
-            <div className="mb-3 flex items-center justify-between">
-              <div>
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                  Remodeling Return on Investment (Cost vs Value Resale Recovery)
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  National average percentage of project investment recouped at home resale.
-                </p>
-              </div>
-              <span className="hidden sm:inline-block rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-400">
-                2026 Resale Index
-              </span>
-            </div>
-
-            <div className="overflow-x-auto">
-              <svg className="w-full min-w-[620px]" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {/* Horizontal Bar Chart of Remodeling ROIs */}
-                {/* 1. Garage Door Replacement (102%) */}
-                <text x="25" y="38" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Garage Door Replacement</text>
-                <rect x="220" y="24" width="350" height="20" rx="3" fill="#10b981" />
-                <text x="580" y="38" fontSize="12" fill="#10b981" fontWeight="bold">102% ROI</text>
-
-                {/* 2. Minor Kitchen Remodel (85%) */}
-                <text x="25" y="88" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Minor Kitchen Remodel</text>
-                <rect x="220" y="74" width="292" height="20" rx="3" fill="#2563eb" />
-                <text x="522" y="88" fontSize="12" fill="#2563eb" fontWeight="bold">85% ROI</text>
-
-                {/* 3. Finished Basement (75%) */}
-                <text x="25" y="138" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Basement Finishing</text>
-                <rect x="220" y="124" width="258" height="20" rx="3" fill="#0ea5e9" />
-                <text x="488" y="138" fontSize="12" fill="#0ea5e9" fontWeight="bold">75% ROI</text>
-
-                {/* 4. Primary Bathroom Remodel (71%) */}
-                <text x="25" y="188" fontSize="12" fill="currentColor" className="text-slate-800 dark:text-slate-200" fontWeight="bold">Primary Bath Remodel</text>
-                <rect x="220" y="174" width="244" height="20" rx="3" fill="#f59e0b" />
-                <text x="474" y="188" fontSize="12" fill="#f59e0b" fontWeight="bold">71% ROI</text>
-              </svg>
-            </div>
-            <p className="mt-2 text-center text-xs text-slate-500">
-              Curb appeal and functional kitchen refreshes recoup the highest percentage of investment, while highly customized luxury additions recoup less at resale.
-            </p>
-          </div>
+          {/* Graph #2: Interactive visual benchmark with live mouse hover */}
+          <RenovationRoiChart />
 
           <h2>Budget Allocation Rule of Thumb</h2>
           <Formula>
