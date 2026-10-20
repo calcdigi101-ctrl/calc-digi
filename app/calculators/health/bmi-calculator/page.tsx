@@ -134,25 +134,25 @@ export default function Page() {
         </section>
 
         <Editorial>
-          {/* Medical Review & E-E-A-T Clinical Verification Badge */}
-          <div className="mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 text-xs text-slate-700 dark:border-emerald-900/50 dark:bg-emerald-950/20 dark:text-slate-300">
-            <div className="flex items-center gap-2.5">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white font-bold text-sm">
-                ✓
+          {/* Clinical Verification & Medical Review Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Clinically Verified
               </span>
-              <div>
-                <p className="font-semibold text-slate-900 dark:text-white">
-                  Clinically Verified &amp; Evidence-Based
-                </p>
-                <p className="text-slate-600 dark:text-slate-400">
-                  Calculated in strict compliance with World Health Organization (WHO) Technical Report Series 854 &amp; CDC Adult BMI Guidelines.
-                </p>
-              </div>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">WHO &amp; CDC Guidelines</strong>
+              </span>
             </div>
-            <div className="text-right sm:text-right shrink-0">
-              <span className="inline-block rounded-md bg-white px-2.5 py-1 font-medium text-emerald-800 shadow-sm border border-emerald-100 dark:bg-slate-800 dark:border-slate-700 dark:text-emerald-300">
-                Updated: October 2026
-              </span>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Medical Team Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
             </div>
           </div>
 
