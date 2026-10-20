@@ -1,0 +1,21 @@
+User-Agent: *
+Allow: /
+
+# Dedicated AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://calc-digi.vercel.app/sitemap.xml
+llms-txt: https://calc-digi.vercel.app/llms.txt
