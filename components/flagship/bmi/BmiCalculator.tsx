@@ -82,6 +82,19 @@ function within(n: number, key: keyof typeof BMI_LIMITS) {
   return Number.isFinite(n) && n >= BMI_LIMITS[key][0] && n <= BMI_LIMITS[key][1];
 }
 
+function InfoTooltip({ text }: { text: string }) {
+  return (
+    <span className="group/tip relative ml-1 inline-flex cursor-help items-center text-slate-400 hover:text-emerald-600 dark:text-slate-500 dark:hover:text-emerald-400">
+      <svg className="size-3.5" viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+      </svg>
+      <span className="pointer-events-none invisible opacity-0 group-hover/tip:visible group-hover/tip:opacity-100 absolute bottom-full right-0 mb-2 whitespace-normal rounded-xl bg-slate-900 px-2.5 py-1.5 text-xs font-normal text-white shadow-xl transition-all duration-150 dark:bg-slate-800 w-52 z-50 text-center leading-snug">
+        {text}
+      </span>
+    </span>
+  );
+}
+
 export function BmiCalculator() {
   const [q, setQ] = useQueryStates(urlParsers, { history: "replace", scroll: false });
 
@@ -249,26 +262,83 @@ export function BmiCalculator() {
           ) : null}
 
           <dl className="mt-5 divide-y divide-slate-200 text-sm dark:divide-slate-800">
-            {[
-              ["Healthy BMI range", `${HEALTHY_MIN} – ${HEALTHY_MAX} kg/m²`],
-              ["Healthy weight for your height", `${weightLabel(result.healthyKg[0])} – ${weightLabel(result.healthyKg[1])}`],
-              [
-                result.deltaToHealthyKg === 0
+            <div className="flex items-center justify-between gap-4 py-2.5">
+              <dt className="text-slate-600 dark:text-slate-400">Healthy BMI range</dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{`${HEALTHY_MIN} – ${HEALTHY_MAX} kg/m²`}</dd>
+            </div>
+            <div className="flex items-center justify-between gap-4 py-2.5">
+              <dt className="text-slate-600 dark:text-slate-400">Healthy weight for your height</dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{`${weightLabel(result.healthyKg[0])} – ${weightLabel(result.healthyKg[1])}`}</dd>
+            </div>
+            <div className="flex items-center justify-between gap-4 py-2.5">
+              <dt className="text-slate-600 dark:text-slate-400">
+                {result.deltaToHealthyKg === 0
                   ? "Distance to healthy range"
                   : result.deltaToHealthyKg < 0
                     ? `Lose to reach BMI ${HEALTHY_MAX}`
-                    : `Gain to reach BMI ${HEALTHY_MIN}`,
-                result.deltaToHealthyKg === 0 ? "Within range" : weightLabel(Math.abs(result.deltaToHealthyKg)),
-              ],
-              ["BMI Prime", fmt(result.prime, 2)],
-              ["Ponderal Index", `${fmt(result.ponderal)} kg/m³`],
-            ].map(([k, v]) => (
-              <div key={k} className="flex items-center justify-between gap-4 py-2.5">
-                <dt className="text-slate-600 dark:text-slate-400">{k}</dt>
-                <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{v}</dd>
-              </div>
-            ))}
+                    : `Gain to reach BMI ${HEALTHY_MIN}`}
+              </dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+                {result.deltaToHealthyKg === 0 ? "Within range" : weightLabel(Math.abs(result.deltaToHealthyKg))}
+              </dd>
+            </div>
+            <div className="flex items-center justify-between gap-4 py-2.5">
+              <dt className="flex items-center text-slate-600 dark:text-slate-400">
+                BMI Prime
+                <InfoTooltip text="Ratio of your BMI to the upper healthy limit (25). Values from 0.74 to 1.00 indicate a healthy weight." />
+              </dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{fmt(result.prime, 2)}</dd>
+            </div>
+            <div className="flex items-center justify-between gap-4 py-2.5">
+              <dt className="flex items-center text-slate-600 dark:text-slate-400">
+                Ponderal Index
+                <InfoTooltip text="Height-cubed index (weight ÷ height³) that scales more accurately for very tall or very short people." />
+              </dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{`${fmt(result.ponderal)} kg/m³`}</dd>
+            </div>
           </dl>
+
+          {result.deltaToHealthyKg !== 0 ? (
+            <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50/80 p-3.5 dark:border-slate-800 dark:bg-slate-950/50">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    {result.deltaToHealthyKg < 0 ? "Targeting a healthy weight loss?" : "Targeting healthy weight gain?"}
+                  </p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    {result.deltaToHealthyKg < 0
+                      ? `Losing ${weightLabel(Math.abs(result.deltaToHealthyKg))} safely requires a balanced daily caloric deficit.`
+                      : `Gaining ${weightLabel(Math.abs(result.deltaToHealthyKg))} safely requires a daily caloric surplus.`}
+                  </p>
+                </div>
+                <a
+                  href="/calculators/health/calorie-calculator"
+                  className="shrink-0 inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors shadow-sm !no-underline"
+                >
+                  Calorie Plan →
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50/60 p-3.5 dark:border-emerald-950/40 dark:bg-emerald-950/20">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-emerald-900 dark:text-emerald-200">
+                    🎉 You are in the healthy weight range!
+                  </p>
+                  <p className="text-[11px] text-emerald-700/80 dark:text-emerald-300/80">
+                    Maintain your optimal weight by balancing daily energy expenditure.
+                  </p>
+                </div>
+                <a
+                  href="/calculators/health/tdee-calculator"
+                  className="shrink-0 inline-flex items-center gap-1 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors shadow-sm !no-underline"
+                >
+                  Check TDEE →
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       ) : null}
       <p className="mt-4 text-xs text-slate-500 dark:text-slate-400">
