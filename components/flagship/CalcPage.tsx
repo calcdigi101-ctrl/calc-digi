@@ -130,6 +130,26 @@ export function calcMetadata(path: string, title: string, description: string): 
     title,
     description,
     alternates: { canonical: path },
-    openGraph: { title, description, type: "website", url: path },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: path,
+      siteName: "CalcDigi",
+      images: [
+        {
+          url: `${SITE_URL}/icon.svg`,
+          width: 512,
+          height: 512,
+          alt: `${title} – CalcDigi`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+      images: [`${SITE_URL}/icon.svg`],
+    },
   };
 }

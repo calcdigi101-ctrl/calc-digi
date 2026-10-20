@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LandAreaBenchmarksChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/land-area-calculator";
-const TITLE = "Land Area Calculator – Acres, Sq Ft & Hectares | CalcDigi";
+const TITLE = "Land Area Calculator – Acres, Sq Ft and Hectares";
 const DESCRIPTION = "Free land area calculator: convert lot square feet to acres, hectares, square meters, and square yards with perimeter boundaries and setback estimates.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

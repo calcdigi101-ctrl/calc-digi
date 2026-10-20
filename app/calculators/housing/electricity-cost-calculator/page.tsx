@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ElectricityBreakdownChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/electricity-cost-calculator";
-const TITLE = "Electricity Cost Calculator – Power & kWh Usage | CalcDigi";
+const TITLE = "Electricity Cost Calculator – Power and kWh Usage";
 const DESCRIPTION = "Free electricity cost calculator: calculate appliance kWh power consumption, daily, monthly, and annual utility bills, and compare state electricity rates.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

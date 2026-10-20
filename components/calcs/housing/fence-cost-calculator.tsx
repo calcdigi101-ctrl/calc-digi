@@ -10,6 +10,18 @@ export const config: CalcConfig = {
   fields: [
     {
       kind: "choice",
+      key: "climateZone",
+      label: "Regional Frost Depth & Wind Zone Preset",
+      default: "moderate",
+      options: [
+        { value: "moderate", label: "Moderate Climate (30″ Post Depth · 2 bags concrete/post)" },
+        { value: "cold", label: "Northern Frost Zone (42″ Post Depth · 3 bags concrete/post)" },
+        { value: "wind", label: "Coastal High-Wind Zone (36″ Depth · 6x6 Heavy Posts · 3 bags)" },
+        { value: "warm", label: "Southern Sunbelt (24″ Post Depth · 1.5 bags concrete/post)" },
+      ],
+    },
+    {
+      kind: "choice",
       key: "material",
       label: "Fence material type",
       default: "wood_pt",
@@ -71,7 +83,13 @@ export const config: CalcConfig = {
     const rates = costMatrix[mat] || costMatrix.wood_pt;
     const basePanelsCount = Math.ceil(linearFeet / spacing);
     const totalPosts = basePanelsCount + 1 + (walkGates * 1) + (driveGates * 2);
-    const concreteBagsNeeded = totalPosts * 2; // 2 bags (50-lb fast-setting) per post hole
+    const bagsPerPost = {
+      moderate: 2,
+      cold: 3,
+      wind: 3,
+      warm: 1.5,
+    }[String(v.climateZone || "moderate")] || 2;
+    const concreteBagsNeeded = Math.ceil(totalPosts * bagsPerPost);
 
     const materialsBase = linearFeet * rates.matPerFt;
     const concreteCost = concreteBagsNeeded * 6.50;

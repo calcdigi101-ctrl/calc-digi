@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FenceDurabilityCostChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/fence-cost-calculator";
-const TITLE = "Fence Cost Calculator – Wood, Vinyl & Chain Link | CalcDigi";
+const TITLE = "Fence Cost Calculator – Wood, Vinyl and Chain Link";
 const DESCRIPTION = "Free fence cost calculator: estimate total costs and materials (posts, panels, rails, concrete bags, and gates) for wood, vinyl, and aluminum fences.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

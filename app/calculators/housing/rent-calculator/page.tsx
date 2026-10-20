@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RentBudgetCurveChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/rent-calculator";
-const TITLE = "Rent Calculator – Max Affordable Rent & Income Rule";
+const TITLE = "Rent Calculator – Max Affordable Rent and Income Rule";
 const DESCRIPTION = "Free rent calculator: calculate maximum affordable rent using the 30% gross income rule and 50/30/20 budget framework with utility and tax estimates.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

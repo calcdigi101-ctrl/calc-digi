@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FlooringWastePatternChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/flooring-calculator";
-const TITLE = "Flooring Calculator – Boxes, Sq Ft & Waste Buffer | CalcDigi";
+const TITLE = "Flooring Calculator – Boxes, Sq Ft and Waste Buffer";
 const DESCRIPTION = "Free flooring calculator: calculate exactly how many boxes of luxury vinyl plank (LVP), hardwood, laminate, or tile you need with pattern waste allowances.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

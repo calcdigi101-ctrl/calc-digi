@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PropertyTaxStateRankingsChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/property-tax-calculator";
-const TITLE = "Property Tax Calculator – US Rates & Millage Benchmarks";
+const TITLE = "Property Tax Calculator – US Rates and Millage Benchmarks";
 const DESCRIPTION = "Free property tax calculator: calculate annual and monthly real estate property taxes, effective tax rates, and homestead exemptions across US states.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

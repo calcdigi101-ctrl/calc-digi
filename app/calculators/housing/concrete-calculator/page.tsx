@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcreteVolumeCurveChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/concrete-calculator";
-const TITLE = "Concrete Calculator – Slabs, Footings & Bags | CalcDigi";
+const TITLE = "Concrete Calculator – Slabs, Footings and Bags | CalcDigi";
 const DESCRIPTION = "Free concrete calculator: accurately calculate cubic yards, cubic feet, and 60-lb or 80-lb bag counts for slabs, driveways, patios, footings, and columns.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

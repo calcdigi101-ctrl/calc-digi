@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RefinanceBreakevenChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/refinance-calculator";
-const TITLE = "Refinance Calculator – Break-Even, Savings & Monthly Term";
+const TITLE = "Refinance Calculator – Break-Even, Savings and Term";
 const DESCRIPTION = "Free mortgage refinance calculator: compare new interest rates, monthly savings, break-even timelines, closing costs, and lifetime interest reduction.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

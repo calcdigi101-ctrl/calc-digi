@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RentVsBuyWealthChart } from "@/components/flagship/housing/editorial-charts/RentVsBuyWealthChart";
 
 const PATH = "/calculators/housing/rent-vs-buy-calculator";
-const TITLE = "Rent vs Buy Calculator – Net Wealth & Break-Even Year";
+const TITLE = "Rent vs Buy Calculator – Net Wealth and Break-Even Year";
 const DESCRIPTION = "Free rent vs buy calculator: compare true financial costs of homeownership against renting, including mortgage interest, equity, taxes, and repairs.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

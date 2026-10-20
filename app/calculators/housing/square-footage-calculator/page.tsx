@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SquareFootageGlaChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/square-footage-calculator";
-const TITLE = "Square Footage Calculator – Rooms & Houses | CalcDigi";
+const TITLE = "Square Footage Calculator – Rooms and Houses | CalcDigi";
 const DESCRIPTION = "Free square footage calculator: calculate total sq ft and square meters for rectangular rooms, L-shaped spaces, and circular areas with waste margins.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

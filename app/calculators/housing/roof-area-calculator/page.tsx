@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RoofPitchMultiplierChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/roof-area-calculator";
-const TITLE = "Roof Area Calculator – Pitch Multiplier, Squares & Cost";
+const TITLE = "Roof Area Calculator – Pitch Multipliers and Squares";
 const DESCRIPTION = "Free roof area calculator: estimate total roof surface area, roofing squares, pitch multipliers, and asphalt shingle bundles with slope and waste factors.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

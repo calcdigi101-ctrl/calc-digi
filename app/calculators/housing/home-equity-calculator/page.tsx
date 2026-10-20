@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HomeEquityCapitalStackChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/home-equity-calculator";
-const TITLE = "Home Equity Calculator – Borrowing Power & HELOC | CalcDigi";
+const TITLE = "Home Equity Calculator – Borrowing Power and HELOC";
 const DESCRIPTION = "Free home equity calculator: determine total home equity, loan-to-value (LTV), combined LTV (CLTV), and usable borrowing capacity for HELOCs or loans.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

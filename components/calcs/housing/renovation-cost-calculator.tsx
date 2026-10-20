@@ -10,6 +10,19 @@ export const config: CalcConfig = {
   fields: [
     {
       kind: "choice",
+      key: "metroTier",
+      label: "Regional Metro Labor Cost Tier",
+      default: "us",
+      options: [
+        { value: "us", label: "US National Baseline (1.00x)" },
+        { value: "ne", label: "Northeast Metro (NY / Boston · 1.25x)" },
+        { value: "west", label: "West Coast Metro (SF / Seattle · 1.20x)" },
+        { value: "se", label: "Southeast (Atlanta / Tampa · 0.95x)" },
+        { value: "mw", label: "Midwest (Chicago / Columbus · 0.90x)" },
+      ],
+    },
+    {
+      kind: "choice",
       key: "room",
       label: "Project renovation scope",
       default: "kitchen",
@@ -79,7 +92,15 @@ export const config: CalcConfig = {
 
     const baseRatePerSqFt = rateMatrix[room]?.[tier] || 150;
     const laborMultiplier = isGC ? 1.0 : 0.75;
-    const baseCost = sqft * baseRatePerSqFt * laborMultiplier;
+    const METRO_MULTIPLIERS: Record<string, number> = {
+      us: 1.0,
+      ne: 1.25,
+      west: 1.20,
+      se: 0.95,
+      mw: 0.90,
+    };
+    const geoMultiplier = METRO_MULTIPLIERS[String(v.metroTier || "us")] || 1.0;
+    const baseCost = sqft * baseRatePerSqFt * laborMultiplier * geoMultiplier;
 
     const materialsShare = baseCost * 0.45;
     const laborShare = baseCost * (isGC ? 0.45 : 0.25);

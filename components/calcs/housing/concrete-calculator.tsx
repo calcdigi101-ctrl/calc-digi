@@ -10,6 +10,18 @@ export const config: CalcConfig = {
   fields: [
     {
       kind: "choice",
+      key: "climateGrade",
+      label: "Regional Climate & Compressive Strength Tier",
+      default: "standard_3000",
+      options: [
+        { value: "standard_3000", label: "Moderate Sunbelt (3,000 PSI · Patios & Walkways)" },
+        { value: "driveway_4000", label: "Heavy Vehicle / Cold (4,000 PSI · Driveways & Garages)" },
+        { value: "freeze_4500", label: "Northern Freeze-Thaw (4,500 PSI · Air-Entrained)" },
+        { value: "structural_5000", label: "Commercial Structural (5,000 PSI · High-Early)" },
+      ],
+    },
+    {
+      kind: "choice",
       key: "type",
       label: "Project structure type",
       default: "slab",
@@ -99,6 +111,15 @@ export const config: CalcConfig = {
         { label: "60-lb Bags Needed", value: `${bags60} bags (0.45 cu ft yield)` },
         { label: "Surface Footprint", value: `${num(areaSqFt, 1)} sq ft` },
         { label: "Gross Volume (Cubic Feet)", value: `${num(grossCubicFeet, 2)} cu ft` },
+        {
+          label: "Design Compressive Strength",
+          value: {
+            standard_3000: "3,000 PSI (ASTM C39 Standard)",
+            driveway_4000: "4,000 PSI (ASTM C39 High-Durability)",
+            freeze_4500: "4,500 PSI (Air-Entrained 5-7%)",
+            structural_5000: "5,000 PSI (High-Early Structural)",
+          }[String(v.climateGrade || "standard_3000")] || "3,000 PSI",
+        },
         { label: "Est. Ready-Mix Truck Material", value: usd0(estimatedTruckCost) },
         { label: "Est. Bagged Material Cost (80-lb)", value: usd0(estimatedBagCost) },
       ],

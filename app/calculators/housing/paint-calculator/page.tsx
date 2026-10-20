@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PaintSheenSpectrumChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/paint-calculator";
-const TITLE = "Paint Calculator – Gallons, Square Feet & Coats | CalcDigi";
+const TITLE = "Paint Calculator – Gallons, Square Feet and Coats";
 const DESCRIPTION = "Free paint calculator: estimate paint gallons and primer cans for walls, ceilings, doors, and trim with window and door deductions and coat multipliers.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

@@ -9,6 +9,21 @@ export const config: CalcConfig = {
   id: "rent-vs-buy",
   title: "Rent vs Buy Calculator",
   fields: [
+    {
+      kind: "choice",
+      key: "statePreset",
+      label: "US State Tax & Closing Cost Preset",
+      default: "us",
+      options: [
+        { value: "us", label: "US National Average (1.02% tax · 3.0% closing)" },
+        { value: "ca", label: "California (0.71% Prop 13 tax · 2.5% closing)" },
+        { value: "tx", label: "Texas (1.68% property tax · 2.0% closing)" },
+        { value: "ny", label: "New York (1.73% tax · 4.5% high closing)" },
+        { value: "fl", label: "Florida (0.91% tax · 2.5% closing)" },
+        { value: "nj", label: "New Jersey (2.23% tax · 3.5% closing)" },
+        { value: "il", label: "Illinois (2.08% tax · 3.0% closing)" },
+      ],
+    },
     { kind: "number", key: "homePrice", label: "Home purchase price", prefix: "$", default: 420000, min: 50000, max: 10000000 },
     { kind: "number", key: "monthlyRent", label: "Monthly rent (comparable home)", prefix: "$", default: 2400, min: 200, max: 50000 },
     { kind: "number", key: "downPayment", label: "Down payment cash", prefix: "$", default: 84000, min: 0, max: 5000000 },
@@ -48,13 +63,26 @@ export const config: CalcConfig = {
     const loanAmount = Math.max(0, price - down);
     const totalMonths = 360;
     const monthlyPI = loanAmount > 0 ? pmt(loanAmount, rateMonthly, totalMonths) : 0;
-    const monthlyTaxInsuranceMaint = (price * 0.025) / 12; // 1.2% tax + 0.5% ins + 0.8% maintenance
+
+    const STATE_CONFIG: Record<string, { taxPct: number; closingPct: number }> = {
+      us: { taxPct: 1.02, closingPct: 3.0 },
+      ca: { taxPct: 0.71, closingPct: 2.5 },
+      tx: { taxPct: 1.68, closingPct: 2.0 },
+      ny: { taxPct: 1.73, closingPct: 4.5 },
+      fl: { taxPct: 0.91, closingPct: 2.5 },
+      nj: { taxPct: 2.23, closingPct: 3.5 },
+      il: { taxPct: 2.08, closingPct: 3.0 },
+    };
+    const stateKey = String(v.statePreset || "us");
+    const { taxPct, closingPct } = STATE_CONFIG[stateKey] || STATE_CONFIG.us;
+
+    const monthlyTaxInsuranceMaint = (price * ((taxPct / 100) + 0.005 + 0.008)) / 12;
     const initialBuyingMonthly = monthlyPI + monthlyTaxInsuranceMaint;
 
     // Simulation over the horizon years
     let cumulativeRentPaid = 0;
     let currentMonthlyRent = rentStart;
-    let renterInvestPortfolio = down + (price * 0.03); // Down payment + closing costs invested in index fund
+    let renterInvestPortfolio = down + (price * (closingPct / 100)); // Down payment + closing costs invested in index fund
 
     let loanBalance = loanAmount;
     let cumulativeInterestPaid = 0;

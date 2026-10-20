@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RoomSizeStandardsChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/room-area-calculator";
-const TITLE = "Room Area Calculator – Floor, Wall & Ceiling | CalcDigi";
+const TITLE = "Room Area Calculator – Floor, Wall and Ceiling | CalcDigi";
 const DESCRIPTION = "Free room area calculator: calculate floor square footage, net paintable wall surface area, ceiling dimensions, and room perimeter with window deductions.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
