@@ -38,3 +38,10 @@ export { WhoInfantGrowthPercentilesChart } from "./WhoInfantGrowthPercentilesCha
 export { MidParentalStatureCurveChart } from "./MidParentalStatureCurveChart";
 export { BraCupVolumeMatrixChart } from "./BraCupVolumeMatrixChart";
 
+// Batch 6 Charts (Core Flagships Graph #2 Editorial SVGs):
+export { BmiQueteletPrimeChart } from "./BmiQueteletPrimeChart";
+export { NavyBodyFatCircumferenceChart } from "./NavyBodyFatCircumferenceChart";
+export { CalorieMacroDeficitTrajectoryChart } from "./CalorieMacroDeficitTrajectoryChart";
+export { MacroFuelPartitioningChart } from "./MacroFuelPartitioningChart";
+
+

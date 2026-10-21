@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { CalorieCalculator } from "@/components/flagship/health/CalorieCalculator";
 import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
+import { CalorieMacroDeficitTrajectoryChart } from "@/components/flagship/health/editorial-charts/CalorieMacroDeficitTrajectoryChart";
 import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/calorie-calculator";
@@ -152,6 +153,10 @@ export default function Page() {
             rows={ACTIVITY_ROWS}
             highlight={2}
           />
+
+          <div className="not-prose my-8">
+            <CalorieMacroDeficitTrajectoryChart />
+          </div>
 
           <h2>Macronutrient Distribution Guidelines</h2>
           <p>

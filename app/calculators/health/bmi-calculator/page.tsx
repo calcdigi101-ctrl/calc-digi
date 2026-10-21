@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { BmiCalculator } from "@/components/flagship/bmi/BmiCalculator";
 import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
+import { BmiQueteletPrimeChart } from "@/components/flagship/health/editorial-charts/BmiQueteletPrimeChart";
 import { WHO_CLASSES } from "@/lib/bmi";
 import { SITE_URL } from "@/lib/site";
 
@@ -190,6 +191,10 @@ export default function Page() {
             ]}
             highlight={1}
           />
+
+          <div className="not-prose my-8">
+            <BmiQueteletPrimeChart />
+          </div>
 
           <h2>BMI formula</h2>
           <h3>Metric units</h3>

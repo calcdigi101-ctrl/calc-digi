@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { MacroCalculator } from "@/components/flagship/health/MacroCalculator";
 import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
+import { MacroFuelPartitioningChart } from "@/components/flagship/health/editorial-charts/MacroFuelPartitioningChart";
 import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/macro-calculator";
@@ -178,6 +179,10 @@ export default function Page() {
             head={["Diet Protocol", "Protein", "Carbs", "Fats", "Best Suited For"]}
             rows={DIET_SPLITS}
           />
+
+          <div className="not-prose my-8">
+            <MacroFuelPartitioningChart />
+          </div>
 
           <h2>Three Pillars for Successful Macro Tracking</h2>
           <ol>

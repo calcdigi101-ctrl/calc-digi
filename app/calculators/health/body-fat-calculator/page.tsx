@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { BodyFatCalculator } from "@/components/flagship/health/BodyFatCalculator";
 import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
+import { NavyBodyFatCircumferenceChart } from "@/components/flagship/health/editorial-charts/NavyBodyFatCircumferenceChart";
 import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/body-fat-calculator";
@@ -174,6 +175,10 @@ export default function Page() {
             head={["Classification", "Men (% Fat)", "Women (% Fat)", "Clinical Significance"]}
             rows={ACE_ROWS}
           />
+
+          <div className="not-prose my-8">
+            <NavyBodyFatCircumferenceChart />
+          </div>
 
           <h2>The US Navy Circumference Method Explained</h2>
           <p>
