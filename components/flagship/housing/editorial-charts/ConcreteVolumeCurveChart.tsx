@@ -48,17 +48,20 @@ export function ConcreteVolumeCurveChart() {
   const display = active || DATA[2]; // Default to 500 sq ft
   const isHovering = active !== null;
 
+  const tooltipX = display.x > 360 ? display.x - 175 : display.x + 15;
+  const tooltipY = Math.max(15, display.depth6Y - 78);
+
   return (
-    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight">
             Concrete Volume Curve: 4″ vs 6″ Slab Depth (Cubic Yards vs Surface Area)
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {isHovering
               ? `Inspecting ${display.label} — 4″ patio: ${display.depth4Yards} yd³ vs 6″ driveway: ${display.depth6Yards} yd³`
-              : "Visual benchmark comparing required yardage (with 10% waste buffer) across typical residential footprint sizes. Move mouse to inspect."}
+              : "Visual benchmark comparing required yardage (with 10% waste buffer) across typical residential footprint sizes. Move mouse/touch to inspect."}
           </p>
         </div>
         <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-300">
@@ -72,15 +75,16 @@ export function ConcreteVolumeCurveChart() {
         </div>
       </div>
 
-      <div className="relative overflow-x-auto select-none">
+      <div className="relative w-full select-none">
         <svg
           ref={svgRef}
-          className="w-full min-w-[620px] cursor-crosshair touch-none"
+          className="w-full h-auto cursor-crosshair touch-none overflow-visible"
           viewBox="0 0 720 240"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           onMouseMove={(e) => handlePointer(e.clientX)}
-          onTouchMove={(e) => e.touches.length > 0 && handlePointer(e.touches[0].clientX)}
+          onTouchStart={(e) => { if (e.touches.length > 0) handlePointer(e.touches[0].clientX); }}
+          onTouchMove={(e) => { if (e.touches.length > 0) handlePointer(e.touches[0].clientX); }}
           onMouseLeave={() => setActive(null)}
         >
           {/* Gridlines */}
@@ -91,29 +95,20 @@ export function ConcreteVolumeCurveChart() {
           <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" className="dark:stroke-slate-700" />
 
           {/* Y-axis labels */}
-          <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">20 yd³</text>
-          <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">15 yd³</text>
-          <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">10 yd³</text>
-          <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">5 yd³</text>
-          <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">0 yd³</text>
+          <text x="45" y="24" fontSize="11" fill="#64748b" textAnchor="end">25 yd³</text>
+          <text x="45" y="74" fontSize="11" fill="#64748b" textAnchor="end">20 yd³</text>
+          <text x="45" y="124" fontSize="11" fill="#64748b" textAnchor="end">12 yd³</text>
+          <text x="45" y="174" fontSize="11" fill="#64748b" textAnchor="end">5 yd³</text>
+          <text x="45" y="204" fontSize="11" fill="#64748b" textAnchor="end">0 yd³</text>
 
           {/* X-axis labels */}
           {DATA.map((d) => (
-            <text key={d.sqft} x={d.x} y="218" fontSize="11" fill="#64748b" textAnchor="middle">
-              {d.sqft} sq ft
+            <text key={d.sqft} x={d.x} y="218" fontSize="11" fontWeight="600" fill="#64748b" textAnchor="middle">
+              {d.label}
             </text>
           ))}
 
-          {/* 6" Heavy Slab curve (Blue dashed) */}
-          <path
-            d="M70 172 L165 128 L260 84 L375 42 L490 20 L550 14"
-            stroke="#2563eb"
-            strokeWidth="3"
-            strokeDasharray="4 4"
-            fill="none"
-          />
-
-          {/* 4" Standard Slab curve (Emerald solid) */}
+          {/* 4″ Depth Curve (Emerald solid) */}
           <path
             d="M70 182 L165 152 L260 122 L375 85 L490 48 L550 22"
             stroke="#10b981"
@@ -121,11 +116,16 @@ export function ConcreteVolumeCurveChart() {
             fill="none"
           />
 
-          {/* End Callouts */}
-          <text x="560" y="18" fontSize="11" fill="#2563eb" fontWeight="bold">6″ Heavy Driveway (~24.5 yd³)</text>
-          <text x="560" y="36" fontSize="11" fill="#10b981" fontWeight="bold">4″ Standard Patio (~16.3 yd³)</text>
+          {/* 6″ Depth Curve (Blue dashed) */}
+          <path
+            d="M70 172 L165 128 L260 84 L375 42 L490 20 L550 14"
+            stroke="#2563eb"
+            strokeWidth="3.5"
+            strokeDasharray="4 4"
+            fill="none"
+          />
 
-          {/* LIVE HOVER INDICATOR */}
+          {/* Interactive Guide Line */}
           <line
             x1={display.x}
             y1="15"
@@ -140,8 +140,8 @@ export function ConcreteVolumeCurveChart() {
           <circle cx={display.x} cy={display.depth6Y} r="6" fill="#2563eb" stroke="#ffffff" strokeWidth="2.5" />
 
           {/* Dynamic Tooltip */}
-          <g transform={`translate(${Math.min(Math.max(display.x - 80, 50), 500)}, ${Math.max(15, display.depth6Y - 78)})`}>
-            <rect width="170" height="70" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
+          <g transform={`translate(${tooltipX}, ${tooltipY})`}>
+            <rect width="175" height="70" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
             <text x="10" y="18" fill="#f8fafc" fontSize="11" fontWeight="bold">
               {display.sqft} sq ft Slab
             </text>
@@ -160,12 +160,12 @@ export function ConcreteVolumeCurveChart() {
         </svg>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
         <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-emerald-500" /> 4-Inch Depth (Patios, Walkways &amp; Shed Slabs)
+          <span className="size-2.5 rounded-full bg-emerald-500" /> 4″ Slab Thickness (Standard Sidewalks &amp; Residential Patios)
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-blue-600" /> 6-Inch Depth (Vehicle Driveways &amp; RV Pads)
+          <span className="size-2.5 rounded-full bg-blue-600" /> 6″ Slab Thickness (Heavy Vehicle Driveways &amp; RV Pads)
         </span>
       </div>
     </div>

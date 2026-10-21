@@ -46,17 +46,20 @@ export function RefinanceBreakevenChart() {
   const isHovering = active !== null;
   const isProfitable = display.netVal >= 0;
 
+  const tooltipX = display.x > 380 ? display.x - 175 : display.x + 15;
+  const tooltipY = Math.max(15, display.netY - 72);
+
   return (
-    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight">
             Refinance Breakeven Horizon &amp; Cumulative Net Cash Savings
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {isHovering
               ? `Inspecting Month ${display.month} — Cumulative net position: ${isProfitable ? "+$" : "-$"}${Math.abs(display.netVal).toLocaleString()}`
-              : "Visual benchmark showing the crossover point where monthly payment savings surpass upfront closing fees ($5,500 fees at $250/mo savings). Move mouse to inspect."}
+              : "Visual benchmark showing the crossover point where monthly payment savings surpass upfront closing fees ($5,500 fees at $250/mo savings). Move mouse/touch to inspect."}
           </p>
         </div>
         <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-300">
@@ -70,15 +73,16 @@ export function RefinanceBreakevenChart() {
         </div>
       </div>
 
-      <div className="relative overflow-x-auto select-none">
+      <div className="relative w-full select-none">
         <svg
           ref={svgRef}
-          className="w-full min-w-[620px] cursor-crosshair touch-none"
+          className="w-full h-auto cursor-crosshair touch-none overflow-visible"
           viewBox="0 0 720 240"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           onMouseMove={(e) => handlePointer(e.clientX)}
-          onTouchMove={(e) => e.touches.length > 0 && handlePointer(e.touches[0].clientX)}
+          onTouchStart={(e) => { if (e.touches.length > 0) handlePointer(e.touches[0].clientX); }}
+          onTouchMove={(e) => { if (e.touches.length > 0) handlePointer(e.touches[0].clientX); }}
           onMouseLeave={() => setActive(null)}
         >
           {/* Gridlines */}
@@ -88,24 +92,29 @@ export function RefinanceBreakevenChart() {
           <line x1="50" y1="170" x2="680" y2="170" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
           <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" className="dark:stroke-slate-700" />
 
-          {/* Y-axis labels */}
-          <text x="40" y="28" fontSize="11" fill="#64748b" textAnchor="end">+$10k</text>
-          <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">+$5k</text>
-          <text x="40" y="124" fontSize="11" fill="#10b981" fontWeight="bold" textAnchor="end">$0 (Break-even)</text>
-          <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">-$5k</text>
-          <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">Fees</text>
+          {/* Y-axis labels - cleanly positioned */}
+          <text x="45" y="28" fontSize="11" fill="#64748b" textAnchor="end">+$10k</text>
+          <text x="45" y="74" fontSize="11" fill="#64748b" textAnchor="end">+$5k</text>
+          <text x="45" y="124" fontSize="11" fill="#10b981" fontWeight="bold" textAnchor="end">$0</text>
+          <text x="45" y="174" fontSize="11" fill="#64748b" textAnchor="end">-$5k</text>
+          <text x="45" y="204" fontSize="11" fill="#64748b" textAnchor="end">Fees</text>
+
+          {/* Breakeven badge on the line */}
+          <text x="260" y="112" fontSize="11" fill="#10b981" fontWeight="bold" opacity={isHovering ? 0.3 : 1}>
+            Breakeven Point (Mo 22)
+          </text>
 
           {/* X-axis labels */}
           {DATA.map((d) => (
-            <text key={d.month} x={d.x} y="218" fontSize="11" fill="#64748b" textAnchor="middle">
-              {d.month === 22 ? "Mo 22" : d.monthLabel}
+            <text key={d.month} x={d.x} y="218" fontSize="11" fontWeight="600" fill="#64748b" textAnchor="middle">
+              {d.monthLabel.split(' ')[0] + ' ' + (d.monthLabel.split(' ')[1] || '')}
             </text>
           ))}
 
-          {/* Breakeven zero baseline */}
-          <line x1="50" y1="120" x2="680" y2="120" stroke="#94a3b8" strokeWidth="1" />
+          {/* Closing Cost Sunk Line (Red dashed) */}
+          <line x1="70" y1="185" x2="680" y2="185" stroke="#ef4444" strokeWidth="2" strokeDasharray="4 4" />
 
-          {/* Trajectory Curve (Purple to Emerald) */}
+          {/* Net Wealth Path (Emerald Green) */}
           <path
             d="M70 185 L165 155 L245 120 L355 85 L450 55 L540 25"
             stroke="#10b981"
@@ -113,19 +122,13 @@ export function RefinanceBreakevenChart() {
             fill="none"
           />
 
-          {/* Closing Cost Threshold line */}
-          <line x1="70" y1="185" x2="540" y2="185" stroke="#ef4444" strokeWidth="1.5" strokeDasharray="4 4" />
-          <text x="550" y="188" fontSize="11" fill="#ef4444" fontWeight="semibold">-$5,500 Closing Fees</text>
+          {/* Breakeven Marker Point */}
+          <circle cx="245" cy="120" r="5" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
 
-          {/* Breakeven Marker */}
-          <circle cx="245" cy="120" r="6" fill="#10b981" stroke="#ffffff" strokeWidth="2.5" />
-          <text x="255" y="114" fontSize="11" fill="#10b981" fontWeight="bold">Breakeven Crossover (Month 22)</text>
-          <text x="550" y="28" fontSize="11" fill="#10b981" fontWeight="bold">+$9,500 Net Profit</text>
-
-          {/* LIVE HOVER INDICATOR */}
+          {/* Interactive Guide Line */}
           <line
             x1={display.x}
-            y1="15"
+            y1="20"
             x2={display.x}
             y2="200"
             stroke="#6366f1"
@@ -136,8 +139,8 @@ export function RefinanceBreakevenChart() {
           <circle cx={display.x} cy={display.netY} r="6" fill="#6366f1" stroke="#ffffff" strokeWidth="2.5" />
 
           {/* Floating Tooltip */}
-          <g transform={`translate(${Math.min(Math.max(display.x - 80, 50), 500)}, ${Math.max(15, display.netY - 72)})`}>
-            <rect width="165" height="66" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
+          <g transform={`translate(${tooltipX}, ${tooltipY})`}>
+            <rect width="170" height="66" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
             <text x="10" y="18" fill="#f8fafc" fontSize="11" fontWeight="bold">
               Timeline: Month {display.month}
             </text>
@@ -154,7 +157,7 @@ export function RefinanceBreakevenChart() {
         </svg>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
         <span className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-full bg-emerald-500" /> Net Wealth Created (Savings minus $5,500 closing costs)
         </span>

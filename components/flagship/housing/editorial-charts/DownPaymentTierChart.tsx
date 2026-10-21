@@ -28,17 +28,20 @@ export function DownPaymentTierChart() {
   const display = active || TIERS[3]; // Default to 20% down
   const isHovering = active !== null;
 
+  const tooltipX = display.x > 300 ? display.x - 170 : display.x + 10;
+  const tooltipY = Math.max(20, display.barY - 80);
+
   return (
-    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight">
             30-Year Total Financing Cost by Down Payment Tier ($400,000 Purchase)
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {isHovering
               ? `Inspecting ${display.label} — Monthly P&I: $${display.monthlyPI}/mo | PMI: $${display.monthlyPMI}/mo`
-              : "Visual benchmark comparing upfront cash vs total 30-year interest and PMI paid (at 6.75% interest). Hover bars to inspect."}
+              : "Visual benchmark comparing upfront cash vs total 30-year interest and PMI paid (at 6.75% interest). Hover/tap bars to inspect."}
           </p>
         </div>
         <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-300">
@@ -52,9 +55,9 @@ export function DownPaymentTierChart() {
         </div>
       </div>
 
-      <div className="relative overflow-x-auto select-none">
+      <div className="relative w-full select-none">
         <svg
-          className="w-full min-w-[620px] cursor-pointer touch-none"
+          className="w-full h-auto cursor-pointer touch-none overflow-visible"
           viewBox="0 0 720 250"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +103,7 @@ export function DownPaymentTierChart() {
                   className="transition-all duration-200"
                 />
 
-                {/* Bar Header Text */}
+                {/* Bar Value on top */}
                 <text
                   x={t.x + 55}
                   y={t.barY - 8}
@@ -128,7 +131,7 @@ export function DownPaymentTierChart() {
                 <text
                   x={t.x + 55}
                   y="236"
-                  fontSize="10"
+                  fontSize="11"
                   fill="#64748b"
                   textAnchor="middle"
                 >
@@ -139,8 +142,8 @@ export function DownPaymentTierChart() {
           })}
 
           {/* Floating Tooltip Box */}
-          <g transform={`translate(${Math.min(Math.max(display.x - 20, 50), 500)}, ${Math.max(20, display.barY - 85)})`}>
-            <rect width="180" height="74" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
+          <g transform={`translate(${tooltipX}, ${tooltipY})`}>
+            <rect width="175" height="74" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
             <text x="12" y="18" fill="#f8fafc" fontSize="11" fontWeight="bold">
               {display.label} Breakdown
             </text>
@@ -157,7 +160,7 @@ export function DownPaymentTierChart() {
         </svg>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
         <span className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-full bg-emerald-500" /> 20% Down Eliminates Private Mortgage Insurance (PMI)
         </span>

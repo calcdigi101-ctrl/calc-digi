@@ -47,17 +47,20 @@ export function RentBudgetCurveChart() {
   const display = active || DATA[2]; // Default to $80k
   const isHovering = active !== null;
 
+  const tooltipX = display.x > 360 ? display.x - 175 : display.x + 15;
+  const tooltipY = Math.max(15, display.rent30Y - 70);
+
   return (
-    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight">
             Salary vs Maximum Rent Budget (30% Rule vs 40x Metro Rule)
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {isHovering
               ? `Inspecting ${display.label} salary — Maximum landlord approval rent: $${display.rent30Val}/mo`
-              : "Visual benchmark showing how gross salary translates into maximum approved monthly rent. Move mouse to inspect."}
+              : "Visual benchmark showing how gross salary translates into maximum approved monthly rent. Move mouse/touch to inspect."}
           </p>
         </div>
         <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-300">
@@ -71,15 +74,16 @@ export function RentBudgetCurveChart() {
         </div>
       </div>
 
-      <div className="relative overflow-x-auto select-none">
+      <div className="relative w-full select-none">
         <svg
           ref={svgRef}
-          className="w-full min-w-[620px] cursor-crosshair touch-none"
+          className="w-full h-auto cursor-crosshair touch-none overflow-visible"
           viewBox="0 0 720 240"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           onMouseMove={(e) => handlePointer(e.clientX)}
-          onTouchMove={(e) => e.touches.length > 0 && handlePointer(e.touches[0].clientX)}
+          onTouchStart={(e) => { if (e.touches.length > 0) handlePointer(e.touches[0].clientX); }}
+          onTouchMove={(e) => { if (e.touches.length > 0) handlePointer(e.touches[0].clientX); }}
           onMouseLeave={() => setActive(null)}
         >
           {/* Gridlines */}
@@ -90,20 +94,20 @@ export function RentBudgetCurveChart() {
           <line x1="50" y1="200" x2="680" y2="200" stroke="#94a3b8" strokeWidth="1.5" className="dark:stroke-slate-700" />
 
           {/* Y-axis labels */}
-          <text x="40" y="24" fontSize="11" fill="#64748b" textAnchor="end">$4,000</text>
-          <text x="40" y="74" fontSize="11" fill="#64748b" textAnchor="end">$3,000</text>
-          <text x="40" y="124" fontSize="11" fill="#64748b" textAnchor="end">$2,000</text>
-          <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">$1,000</text>
-          <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
+          <text x="45" y="24" fontSize="11" fill="#64748b" textAnchor="end">$4,000</text>
+          <text x="45" y="74" fontSize="11" fill="#64748b" textAnchor="end">$3,000</text>
+          <text x="45" y="124" fontSize="11" fill="#64748b" textAnchor="end">$2,000</text>
+          <text x="45" y="174" fontSize="11" fill="#64748b" textAnchor="end">$1,000</text>
+          <text x="45" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
 
           {/* X-axis labels */}
           {DATA.map((d) => (
-            <text key={d.salary} x={d.x} y="218" fontSize="11" fill="#64748b" textAnchor="middle">
+            <text key={d.salary} x={d.x} y="218" fontSize="11" fontWeight="600" fill="#64748b" textAnchor="middle">
               {d.label}
             </text>
           ))}
 
-          {/* 30% Rule Curve */}
+          {/* 30% Gross Income Line (Solid emerald) */}
           <path
             d="M70 175 L155 145 L240 115 L325 85 L410 55 L535 20"
             stroke="#10b981"
@@ -111,10 +115,12 @@ export function RentBudgetCurveChart() {
             fill="none"
           />
 
-          {/* End Callout */}
-          <text x="545" y="22" fontSize="11" fill="#10b981" fontWeight="bold">Max Rent ($3,750/mo)</text>
+          {/* 40x Landlord Qualifier points */}
+          {DATA.map((d) => (
+            <circle key={d.salary} cx={d.x} cy={d.rent40xY} r="4" fill="#3b82f6" />
+          ))}
 
-          {/* LIVE HOVER INDICATOR */}
+          {/* Interactive Guide Line */}
           <line
             x1={display.x}
             y1="15"
@@ -127,9 +133,9 @@ export function RentBudgetCurveChart() {
           />
           <circle cx={display.x} cy={display.rent30Y} r="6" fill="#10b981" stroke="#ffffff" strokeWidth="2.5" />
 
-          {/* Dynamic Tooltip */}
-          <g transform={`translate(${Math.min(Math.max(display.x - 80, 50), 500)}, ${Math.max(15, display.rent30Y - 72)})`}>
-            <rect width="170" height="66" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
+          {/* Floating Tooltip */}
+          <g transform={`translate(${tooltipX}, ${tooltipY})`}>
+            <rect width="170" height="64" rx="8" fill="rgba(15, 23, 42, 0.94)" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1" />
             <text x="10" y="18" fill="#f8fafc" fontSize="11" fontWeight="bold">
               Salary: {display.label} / year
             </text>
@@ -139,16 +145,16 @@ export function RentBudgetCurveChart() {
             </text>
             <circle cx="14" cy="48" r="3.5" fill="#3b82f6" />
             <text x="24" y="51" fill="#cbd5e1" fontSize="10">
-              Est. Net Pay: <tspan fill="#60a5fa" fontWeight="bold">${display.takeHomeVal}/mo</tspan>
+              Est. Net Pay: ${display.takeHomeVal}/mo
             </text>
-            <text x="10" y="61" fill="#94a3b8" fontSize="9">
-              Remaining after rent: ${(display.takeHomeVal - display.rent30Val).toLocaleString()}/mo
+            <text x="10" y="60" fill="#94a3b8" fontSize="8">
+              Remaining after rent: ${display.takeHomeVal - display.rent30Val}/mo
             </text>
           </g>
         </svg>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
         <span className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-full bg-emerald-500" /> 30% Gross Income Standard (Max Recommended Ceiling)
         </span>

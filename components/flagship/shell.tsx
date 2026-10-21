@@ -67,7 +67,7 @@ export function Editorial({ children }: { children: ReactNode }) {
     <article
       className={cn(
         card,
-        "mt-10 p-6 sm:p-8 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300",
+        "mt-10 p-4 sm:p-8 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300",
         "[&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-900 dark:[&_h2]:text-white [&_h2:first-child]:mt-0",
         "[&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-white",
         "[&_p]:mb-3 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1",
@@ -82,7 +82,7 @@ export function Editorial({ children }: { children: ReactNode }) {
 
 export function Formula({ children }: { children: ReactNode }) {
   return (
-    <div className="my-4 overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 font-mono text-sm text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <div className="my-4 overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-3 font-mono text-xs sm:text-sm text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 leading-relaxed">
       {children}
     </div>
   );
@@ -90,35 +90,68 @@ export function Formula({ children }: { children: ReactNode }) {
 
 export function DataTable({ head, rows, highlight }: { head: string[]; rows: ReactNode[][]; highlight?: number }) {
   return (
-    <div className="my-4 overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
-      <table className="w-full text-left text-sm">
-        <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-          <tr>
-            {head.map((h) => (
-              <th key={h} scope="col" className="px-4 py-2.5 font-semibold">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr
-              key={i}
-              className={cn(
-                "border-t border-slate-200 dark:border-slate-800",
-                highlight === i && "bg-emerald-50 font-medium dark:bg-emerald-950/40",
-              )}
-            >
-              {r.map((cell, j) => (
-                <td key={j} className="px-4 py-2.5 tabular-nums">
-                  {cell}
-                </td>
+    <div className="my-6 rounded-xl border border-slate-200/90 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+      {/* Mobile Swipe Hint */}
+      <div className="flex items-center justify-between px-3.5 py-1.5 text-[11px] font-medium text-slate-500 bg-slate-50 border-b border-slate-200/70 dark:bg-slate-900/80 dark:border-slate-800 dark:text-slate-400 sm:hidden">
+        <span className="flex items-center gap-1">
+          <span>📊</span> Data Benchmarks
+        </span>
+        <span className="text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1">
+          Scroll table horizontally &rarr;
+        </span>
+      </div>
+      <div className="overflow-x-auto scrollbar-thin">
+        <table className="w-full min-w-[560px] text-left text-sm border-collapse">
+          <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-800">
+            <tr>
+              {head.map((h, colIdx) => (
+                <th
+                  key={h}
+                  scope="col"
+                  className={cn(
+                    "px-4 py-2.5 font-semibold",
+                    colIdx === 0
+                      ? "sticky left-0 z-20 bg-slate-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:bg-slate-800 whitespace-nowrap min-w-[130px]"
+                      : "whitespace-nowrap sm:whitespace-normal"
+                  )}
+                >
+                  {h}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
+            {rows.map((r, i) => {
+              const isHigh = highlight === i;
+              return (
+                <tr
+                  key={i}
+                  className={cn(
+                    isHigh && "bg-emerald-50 font-medium dark:bg-emerald-950/40"
+                  )}
+                >
+                  {r.map((cell, j) => (
+                    <td
+                      key={j}
+                      className={cn(
+                        "px-4 py-2.5 tabular-nums text-slate-800 dark:text-slate-200",
+                        j === 0 && (
+                          isHigh
+                            ? "sticky left-0 z-10 bg-emerald-50/95 font-semibold shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:bg-emerald-950"
+                            : "sticky left-0 z-10 bg-white font-semibold shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:bg-slate-900"
+                        ),
+                        j > 0 && "whitespace-nowrap sm:whitespace-normal"
+                      )}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -143,15 +176,15 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
 
 export function RelatedLinks({ links }: { links: { href: string; icon: string; name: string }[] }) {
   return (
-    <ul className="!list-none !pl-0 grid grid-cols-2 gap-3 sm:grid-cols-3">
+    <ul className="!list-none !pl-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
       {links.map((l) => (
         <li key={l.href} className="!mb-0">
           <a
             href={l.href}
-            className="flex min-h-[48px] items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 !text-slate-800 !no-underline hover:border-emerald-300 hover:bg-emerald-50/70 dark:border-slate-800 dark:!text-slate-200 dark:hover:bg-slate-800"
+            className="flex min-h-[44px] items-center gap-2.5 rounded-lg border border-slate-200 px-3.5 py-2.5 !text-slate-800 !no-underline hover:border-emerald-300 hover:bg-emerald-50/70 dark:border-slate-800 dark:!text-slate-200 dark:hover:bg-slate-800 transition-colors"
           >
-            <span aria-hidden>{l.icon}</span>
-            <span className="text-sm font-medium">{l.name}</span>
+            <span aria-hidden className="text-lg shrink-0">{l.icon}</span>
+            <span className="text-sm font-medium leading-snug">{l.name}</span>
           </a>
         </li>
       ))}

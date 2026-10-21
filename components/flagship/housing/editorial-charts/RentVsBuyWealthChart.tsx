@@ -33,11 +33,8 @@ export function RentVsBuyWealthChart() {
     if (!svgRef.current) return;
     const rect = svgRef.current.getBoundingClientRect();
     const relativeX = (clientX - rect.left) * (720 / rect.width);
-
-    // Clamp between first and last data point
     const clampedX = Math.max(70, Math.min(540, relativeX));
 
-    // Find closest data point or interpolate
     let closest = TRAJECTORY_DATA[0];
     let minDiff = Infinity;
     for (const pt of TRAJECTORY_DATA) {
@@ -61,17 +58,21 @@ export function RentVsBuyWealthChart() {
   const buyerAhead = display.buyerVal >= display.renterVal;
   const diffVal = Math.abs(display.buyerVal - display.renterVal);
 
+  // Tooltip smart placement: flip to left if pointer on right side of chart
+  const tooltipX = display.x > 380 ? display.x - 165 : display.x + 15;
+  const tooltipY = Math.max(15, Math.min(display.buyerY, display.renterY) - 75);
+
   return (
-    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight">
             10-Year Net Wealth Trajectory: Home Equity vs Renter Investment Portfolio
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             {isHovering
               ? "Live tracking enabled — move mouse / drag finger across years to inspect wealth crossover."
-              : "Visual benchmark showing the breakeven crossover point (typically between Year 4 and Year 5). Move mouse to inspect."}
+              : "Visual benchmark showing the breakeven crossover point (typically between Year 4 and Year 5). Move mouse/touch to inspect."}
           </p>
         </div>
 
@@ -88,18 +89,19 @@ export function RentVsBuyWealthChart() {
         </div>
       </div>
 
-      <div className="relative overflow-x-auto select-none">
+      <div className="relative w-full select-none">
         <svg
           ref={svgRef}
-          className="w-full min-w-[620px] cursor-crosshair touch-none"
+          className="w-full h-auto cursor-crosshair touch-none overflow-visible"
           viewBox="0 0 720 240"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           onMouseMove={onMouseMove}
+          onTouchStart={onTouchMove}
           onTouchMove={onTouchMove}
           onMouseLeave={onLeave}
         >
-          {/* Background Gridlines */}
+          {/* Subtle grid lines */}
           <line x1="50" y1="20" x2="680" y2="20" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
           <line x1="50" y1="70" x2="680" y2="70" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
           <line x1="50" y1="120" x2="680" y2="120" stroke="#e2e8f0" strokeDasharray="3 3" className="dark:stroke-slate-800" />
@@ -113,42 +115,43 @@ export function RentVsBuyWealthChart() {
           <text x="40" y="174" fontSize="11" fill="#64748b" textAnchor="end">$50k</text>
           <text x="40" y="204" fontSize="11" fill="#64748b" textAnchor="end">$0</text>
 
-          {/* X-axis labels (Years) */}
-          <text x="70" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 1</text>
-          <text x="170" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 3</text>
-          <text x="270" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 5</text>
-          <text x="400" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 7</text>
-          <text x="540" y="218" fontSize="11" fill="#64748b" textAnchor="middle">Yr 10</text>
+          {/* X-axis labels */}
+          <text x="70" y="218" fontSize="12" fontWeight="600" fill="#64748b" textAnchor="middle">Yr 1</text>
+          <text x="170" y="218" fontSize="12" fontWeight="600" fill="#64748b" textAnchor="middle">Yr 3</text>
+          <text x="300" y="218" fontSize="12" fontWeight="600" fill="#64748b" textAnchor="middle">Yr 5</text>
+          <text x="400" y="218" fontSize="12" fontWeight="600" fill="#64748b" textAnchor="middle">Yr 7</text>
+          <text x="540" y="218" fontSize="12" fontWeight="600" fill="#64748b" textAnchor="middle">Yr 10</text>
 
-          {/* Renter Portfolio Curve (Blue, starts higher due to down payment cash) */}
+          {/* Renter Wealth Curve (Blue dashed line) */}
           <path
-            d="M70 148 L120 141 L170 135 L220 127 L270 120 L300 115 L350 106 L400 98 L450 88 L495 78 L540 68"
+            d="M70 148 C 170 135, 350 106, 540 68"
             stroke="#2563eb"
-            strokeWidth="3"
+            strokeWidth="2.5"
             strokeDasharray="4 4"
             fill="none"
           />
 
-          {/* Buyer Home Equity Curve (Emerald, starts lower after closing fees, accelerates upward) */}
+          {/* Buyer Home Equity Curve (Emerald solid line) */}
           <path
-            d="M70 178 L120 165 L170 152 L220 133 L270 118 L300 108 L350 88 L400 65 L450 48 L495 34 L540 22"
+            d="M70 178 C 170 152, 300 108, 540 22"
             stroke="#10b981"
             strokeWidth="3.5"
             fill="none"
           />
 
-          {/* Static Breakeven Marker */}
-          <circle cx="270" cy="118" r="5" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
-          <text x="280" y="114" fontSize="11" fill="#10b981" fontWeight="bold">
-            Breakeven (Yr 4.5)
-          </text>
+          {/* Static Breakeven Marker (subtle when hovering) */}
+          <circle cx="270" cy="118" r="5" fill="#10b981" stroke="#ffffff" strokeWidth="2" opacity={isHovering ? 0.3 : 1} />
+          {!isHovering && (
+            <text x="280" y="114" fontSize="11" fill="#10b981" fontWeight="bold">
+              Breakeven (Yr 4.5)
+            </text>
+          )}
 
           {/* End values */}
           <text x="550" y="22" fontSize="11" fill="#10b981" fontWeight="bold">Buyer Equity (~$365k)</text>
-          <text x="550" y="68" fontSize="11" fill="#2563eb" fontWeight="semibold">Renter Portfolio (~$270k)</text>
+          <text x="550" y="68" fontSize="11" fill="#2563eb" fontWeight="semibold">Renter (~$270k)</text>
 
           {/* LIVE HOVER / CURSOR CROSSHAIR & POINTS */}
-          {/* Vertical cursor guide */}
           <line
             x1={display.x}
             y1="15"
@@ -181,9 +184,9 @@ export function RentVsBuyWealthChart() {
           />
 
           {/* Dynamic Tooltip Box right on SVG canvas */}
-          <g transform={`translate(${Math.min(Math.max(display.x - 70, 50), 510)}, ${Math.max(15, Math.min(display.buyerY, display.renterY) - 75)})`}>
+          <g transform={`translate(${tooltipX}, ${tooltipY})`}>
             <rect
-              width="145"
+              width="150"
               height="65"
               rx="8"
               fill="rgba(15, 23, 42, 0.94)"
@@ -205,7 +208,7 @@ export function RentVsBuyWealthChart() {
         </svg>
       </div>
 
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
         <span className="flex items-center gap-1.5">
           <span className="size-2.5 rounded-full bg-emerald-500" /> Buyer Net Home Equity (After 6% Selling Costs)
         </span>

@@ -28,10 +28,10 @@ export function ElectricityBreakdownChart() {
   const isHovering = active !== null;
 
   return (
-    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white">
+          <h3 className="text-sm sm:text-base font-bold text-slate-900 leading-tight dark:text-white">
             Where Home Electricity Goes: Typical Household Breakdown
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -65,7 +65,7 @@ export function ElectricityBreakdownChart() {
               onMouseEnter={() => setActive(cat)}
               onTouchStart={() => setActive(cat)}
             >
-              <div className="mb-1.5 flex items-center justify-between text-xs sm:text-sm">
+              <div className="mb-1.5 flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs sm:text-sm gap-0.5 sm:gap-2">
                 <span className="font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                   <span className="size-2.5 rounded-full" style={{ backgroundColor: cat.color }} />
                   {cat.name}
