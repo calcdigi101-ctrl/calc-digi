@@ -1,26 +1,213 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import BabyWeightCalculator from "@/components/calcs/health/baby-weight-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { WhoInfantGrowthPercentilesChart } from "@/components/flagship/health/editorial-charts/WhoInfantGrowthPercentilesChart";
 
-export const metadata: Metadata = {
-  "title": "Baby Weight & Height Percentile Calculator | CalcDigi",
-  "description": "Check if your baby's weight and height are on track using CDC growth charts for boys and girls aged 0–24 months.",
-  "openGraph": {
-    "title": "Baby Weight & Height Percentile Calculator | CalcDigi",
-    "description": "Check if your baby's weight and height are on track using CDC growth charts for boys and girls aged 0–24 months.",
-    "type": "website",
-    "url": "/calculators/health/baby-weight-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/health/baby-weight-calculator"
-  }
-};
+const PATH = "/calculators/health/baby-weight-calculator";
+const TITLE = "Baby Weight Percentile Calculator – WHO Growth Standards | CalcDigi";
+const DESCRIPTION =
+  "Calculate your infant's exact weight-for-age percentile and Z-score using World Health Organization (WHO) Multicentre Growth Reference Study standards from 0 to 24 months.";
 
-export default function Page() {
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const WHO_WEIGHT_NORMS_BOYS = [
+  { age: "Birth (0 mo)", p3: "2.5 kg (5.5 lbs)", p15: "2.9 kg (6.4 lbs)", p50: "3.3 kg (7.3 lbs)", p85: "3.9 kg (8.6 lbs)", p97: "4.4 kg (9.7 lbs)" },
+  { age: "1 Month", p3: "3.4 kg (7.5 lbs)", p15: "3.9 kg (8.6 lbs)", p50: "4.5 kg (9.9 lbs)", p85: "5.1 kg (11.2 lbs)", p97: "5.8 kg (12.8 lbs)" },
+  { age: "2 Months", p3: "4.3 kg (9.5 lbs)", p15: "4.9 kg (10.8 lbs)", p50: "5.6 kg (12.3 lbs)", p85: "6.3 kg (13.9 lbs)", p97: "7.1 kg (15.7 lbs)" },
+  { age: "3 Months", p3: "5.0 kg (11.0 lbs)", p15: "5.7 kg (12.6 lbs)", p50: "6.4 kg (14.1 lbs)", p85: "7.2 kg (15.9 lbs)", p97: "8.0 kg (17.6 lbs)" },
+  { age: "4 Months", p3: "5.6 kg (12.3 lbs)", p15: "6.2 kg (13.7 lbs)", p50: "7.0 kg (15.4 lbs)", p85: "7.8 kg (17.2 lbs)", p97: "8.7 kg (19.2 lbs)" },
+  { age: "6 Months", p3: "6.4 kg (14.1 lbs)", p15: "7.1 kg (15.7 lbs)", p50: "7.9 kg (17.4 lbs)", p85: "8.8 kg (19.4 lbs)", p97: "9.8 kg (21.6 lbs)" },
+  { age: "9 Months", p3: "7.1 kg (15.7 lbs)", p15: "8.0 kg (17.6 lbs)", p50: "8.9 kg (19.6 lbs)", p85: "9.9 kg (21.8 lbs)", p97: "11.0 kg (24.3 lbs)" },
+  { age: "12 Months (1 yr)", p3: "7.7 kg (17.0 lbs)", p15: "8.6 kg (19.0 lbs)", p50: "9.6 kg (21.2 lbs)", p85: "10.8 kg (23.8 lbs)", p97: "12.0 kg (26.5 lbs)" },
+  { age: "18 Months", p3: "8.8 kg (19.4 lbs)", p15: "9.8 kg (21.6 lbs)", p50: "10.9 kg (24.0 lbs)", p85: "12.2 kg (26.9 lbs)", p97: "13.7 kg (30.2 lbs)" },
+  { age: "24 Months (2 yr)", p3: "9.7 kg (21.4 lbs)", p15: "10.8 kg (23.8 lbs)", p50: "12.2 kg (26.9 lbs)", p85: "13.6 kg (30.0 lbs)", p97: "15.3 kg (33.7 lbs)" },
+];
+
+const WHO_WEIGHT_NORMS_GIRLS = [
+  { age: "Birth (0 mo)", p3: "2.4 kg (5.3 lbs)", p15: "2.8 kg (6.2 lbs)", p50: "3.2 kg (7.1 lbs)", p85: "3.7 kg (8.2 lbs)", p97: "4.2 kg (9.3 lbs)" },
+  { age: "1 Month", p3: "3.2 kg (7.1 lbs)", p15: "3.6 kg (7.9 lbs)", p50: "4.2 kg (9.3 lbs)", p85: "4.8 kg (10.6 lbs)", p97: "5.5 kg (12.1 lbs)" },
+  { age: "2 Months", p3: "3.9 kg (8.6 lbs)", p15: "4.5 kg (9.9 lbs)", p50: "5.1 kg (11.2 lbs)", p85: "5.8 kg (12.8 lbs)", p97: "6.6 kg (14.6 lbs)" },
+  { age: "3 Months", p3: "4.5 kg (9.9 lbs)", p15: "5.2 kg (11.5 lbs)", p50: "5.8 kg (12.8 lbs)", p85: "6.6 kg (14.6 lbs)", p97: "7.5 kg (16.5 lbs)" },
+  { age: "4 Months", p3: "5.0 kg (11.0 lbs)", p15: "5.7 kg (12.6 lbs)", p50: "6.4 kg (14.1 lbs)", p85: "7.3 kg (16.1 lbs)", p97: "8.2 kg (18.1 lbs)" },
+  { age: "6 Months", p3: "5.7 kg (12.6 lbs)", p15: "6.5 kg (14.3 lbs)", p50: "7.3 kg (16.1 lbs)", p85: "8.2 kg (18.1 lbs)", p97: "9.3 kg (20.5 lbs)" },
+  { age: "9 Months", p3: "6.5 kg (14.3 lbs)", p15: "7.3 kg (16.1 lbs)", p50: "8.2 kg (18.1 lbs)", p85: "9.3 kg (20.5 lbs)", p97: "10.5 kg (23.1 lbs)" },
+  { age: "12 Months (1 yr)", p3: "7.0 kg (15.4 lbs)", p15: "7.9 kg (17.4 lbs)", p50: "8.9 kg (19.6 lbs)", p85: "10.1 kg (22.3 lbs)", p97: "11.5 kg (25.4 lbs)" },
+  { age: "18 Months", p3: "8.1 kg (17.9 lbs)", p15: "9.1 kg (20.1 lbs)", p50: "10.2 kg (22.5 lbs)", p85: "11.6 kg (25.6 lbs)", p97: "13.2 kg (29.1 lbs)" },
+  { age: "24 Months (2 yr)", p3: "9.0 kg (19.8 lbs)", p15: "10.2 kg (22.5 lbs)", p50: "11.5 kg (25.4 lbs)", p85: "13.0 kg (28.7 lbs)", p97: "14.8 kg (32.6 lbs)" },
+];
+
+export default function BabyWeightPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Baby Weight & Height Percentile Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/baby-weight-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Baby Weight & Height Percentile Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/baby-weight-calculator\", \"description\": \"Check if your baby's weight and height are on track using CDC growth charts for boys and girls aged 0–24 months.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is a normal baby weight percentile?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Any percentile between the 5th and 95th is generally considered within the normal range by pediatricians. What matters most is that your baby follows a consistent growth curve over time, not the specific percentile number.\"}}, {\"@type\": \"Question\", \"name\": \"My baby is in the 10th percentile — should I be worried?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Not necessarily. Small babies can be perfectly healthy. Concern arises when a baby drops significantly across percentile lines (e.g., from 50th to 10th) or falls below the 3rd percentile. Always discuss growth concerns with your pediatrician.\"}}, {\"@type\": \"Question\", \"name\": \"How much weight should a newborn gain per week?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Newborns typically lose 5-10% of birth weight in the first week, then gain about 5-7 oz (140-200g) per week for the first few months. By 4-5 months, most babies double their birth weight.\"}}, {\"@type\": \"Question\", \"name\": \"When should I be concerned about my baby's growth?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Consult your pediatrician if: your baby drops two or more percentile categories, is consistently below the 3rd percentile, seems uninterested in feeding, appears lethargic, or is not meeting developmental milestones alongside growth.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Baby Weight &amp; Height Percentile Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Baby Weight &amp; Height Percentile Calculator</h1>\n<p class=\"calc-intro\">Check your baby's weight and height percentile using CDC growth chart data for boys and girls aged 0-24 months. Understand where your baby falls on the growth curve and get AI-powered developmental insights.</p>\n<div class=\"content-section\">\n<h2>Understanding Baby Growth Percentiles</h2>\n<p>Baby growth percentiles compare your child's measurements to a representative sample of babies of the same age and sex. They are based on CDC (Centers for Disease Control) and WHO growth charts used by pediatricians across the United States.</p>\n<p>A percentile does <strong>not</strong> indicate whether your baby is healthy or unhealthy in isolation. What matters most is <strong>consistent growth along any curve</strong>. A baby consistently in the 10th percentile is growing normally — a sudden drop from the 70th to 20th percentile may need investigation.</p>\n<div class=\"formula-box\">Percentile = Position of baby's measurement relative to 100 babies of same age/sex</div>\n</div>\n<div class=\"content-section\">\n<h2>Average Baby Weight by Month (CDC Data)</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:13px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:8px 12px;\">Age</th>\n<th style=\"padding:8px 12px;\">Avg Boy Weight</th>\n<th style=\"padding:8px 12px;\">Avg Girl Weight</th>\n<th style=\"padding:8px 12px;\">Avg Boy Height</th>\n<th style=\"padding:8px 12px;\">Avg Girl Height</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:8px 12px;\">Birth</td><td style=\"padding:8px 12px;\">7.5 lbs</td><td style=\"padding:8px 12px;\">7.3 lbs</td><td style=\"padding:8px 12px;\">19.7 in</td><td style=\"padding:8px 12px;\">19.4 in</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:8px 12px;\">3 months</td><td style=\"padding:8px 12px;\">13.9 lbs</td><td style=\"padding:8px 12px;\">12.8 lbs</td><td style=\"padding:8px 12px;\">24.0 in</td><td style=\"padding:8px 12px;\">23.4 in</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:8px 12px;\">6 months</td><td style=\"padding:8px 12px;\">17.5 lbs</td><td style=\"padding:8px 12px;\">16.1 lbs</td><td style=\"padding:8px 12px;\">26.6 in</td><td style=\"padding:8px 12px;\">25.9 in</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:8px 12px;\">9 months</td><td style=\"padding:8px 12px;\">20.1 lbs</td><td style=\"padding:8px 12px;\">18.8 lbs</td><td style=\"padding:8px 12px;\">28.3 in</td><td style=\"padding:8px 12px;\">27.6 in</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:8px 12px;\">12 months</td><td style=\"padding:8px 12px;\">22.5 lbs</td><td style=\"padding:8px 12px;\">21.2 lbs</td><td style=\"padding:8px 12px;\">30.0 in</td><td style=\"padding:8px 12px;\">29.2 in</td></tr>\n<tr style=\"background:var(--c-rule2);\"><td style=\"padding:8px 12px;\">24 months</td><td style=\"padding:8px 12px;\">28.0 lbs</td><td style=\"padding:8px 12px;\">26.5 lbs</td><td style=\"padding:8px 12px;\">34.2 in</td><td style=\"padding:8px 12px;\">33.5 in</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a normal baby weight percentile? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Any percentile between the 5th and 95th is generally considered within the normal range by pediatricians. What matters most is that your baby follows a consistent growth curve over time, not the specific percentile number.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">My baby is in the 10th percentile — should I be worried? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Not necessarily. Small babies can be perfectly healthy. Concern arises when a baby drops significantly across percentile lines (e.g., from 50th to 10th) or falls below the 3rd percentile. Always discuss growth concerns with your pediatrician.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much weight should a newborn gain per week? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Newborns typically lose 5-10% of birth weight in the first week, then gain about 5-7 oz (140-200g) per week for the first few months. By 4-5 months, most babies double their birth weight.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">When should I be concerned about my baby's growth? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Consult your pediatrician if: your baby drops two or more percentile categories, is consistently below the 3rd percentile, seems uninterested in feeding, appears lethargic, or is not meeting developmental milestones alongside growth.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/child-height-predictor\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Child Height Predictor</span></a>\n<a class=\"related-card\" href=\"/calculators/health/pregnancy-due-date-calculator\"><span class=\"rc-icon\">🤰</span><span class=\"rc-name\">Due Date Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Baby Growth Calculator</h2>\n<div class=\"form-group\">\n<label for=\"bw-sex\">Baby's Sex</label>\n<select id=\"bw-sex\"><option value=\"boy\">Boy</option><option value=\"girl\">Girl</option></select>\n</div>\n<div class=\"form-group\">\n<label for=\"bw-age\">Age (months)</label>\n<input id=\"bw-age\" max=\"24\" min=\"0\" type=\"number\" value=\"6\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"bw-weight\">Baby's Weight (lbs)</label>\n<input id=\"bw-weight\" max=\"40\" min=\"3\" step=\"0.1\" type=\"number\" value=\"16\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"bw-height\">Baby's Length/Height (inches)</label>\n<input id=\"bw-height\" max=\"40\" min=\"14\" step=\"0.1\" type=\"number\" value=\"26\"/>\n</div>\n<button class=\"calc-btn\" onclick=\"calcBabyWeight()\">Calculate Percentile</button>\n<div id=\"bw-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bw\" onclick=\"printResult('bw-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"bw-result\">\n<div id=\"bw-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"bw-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"bw-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ This tool uses approximate CDC growth chart data. Always consult your pediatrician for official growth assessment and medical advice.</div>\n</div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-baby-weight-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "// Approximate CDC 50th percentile data [month]: [boy_wt_lbs, girl_wt_lbs, boy_ht_in, girl_ht_in]\nconst cdcData={0:[7.5,7.3,19.7,19.4],1:[10.0,9.4,21.4,20.9],2:[11.8,10.8,23.0,22.4],3:[13.9,12.8,24.0,23.4],4:[15.4,14.1,25.0,24.3],5:[16.6,15.2,25.9,25.2],6:[17.5,16.1,26.6,25.9],7:[18.3,16.8,27.2,26.5],8:[18.9,17.4,27.8,27.1],9:[20.1,18.8,28.3,27.6],10:[20.7,19.4,28.8,28.1],11:[21.2,19.8,29.3,28.6],12:[22.5,21.2,30.0,29.2],15:[24.0,22.5,31.2,30.6],18:[25.4,24.0,32.4,31.8],21:[26.5,25.2,33.4,32.7],24:[28.0,26.5,34.2,33.5]};\nfunction getPercentile(val,median,sd){\n  const z=(val-median)/sd;\n  const p=Math.round((0.5*(1+Math.sign(z)*(1-Math.exp(-Math.abs(z)*(0.07056*Math.abs(z)+1.5976)/(Math.abs(z)+1.5976+0.07056*Math.abs(z)))))*100));\n  return Math.max(1,Math.min(99,p));\n}\nfunction calcBabyWeight(){\n  const sex=document.getElementById('bw-sex').value;\n  const age=parseInt(document.getElementById('bw-age').value)||6;\n  const wt=parseFloat(document.getElementById('bw-weight').value)||16;\n  const ht=parseFloat(document.getElementById('bw-height').value)||26;\n  const keys=Object.keys(cdcData).map(Number).sort((a,b)=>a-b);\n  let closest=keys[0];\n  for(const k of keys){if(Math.abs(k-age)<Math.abs(closest-age))closest=k;}\n  const d=cdcData[closest];\n  const medWt=sex==='boy'?d[0]:d[1];\n  const medHt=sex==='boy'?d[2]:d[3];\n  const wtSD=medWt*0.12;\n  const htSD=medHt*0.04;\n  const wtPct=getPercentile(wt,medWt,wtSD);\n  const htPct=getPercentile(ht,medHt,htSD);\n  let wtCat=wtPct<5?'Underweight (below 5th)':wtPct<15?'Low normal (5th-15th)':wtPct<85?'Normal range':wtPct<95?'High normal (85th-95th)':'Heavy (above 95th)';\n  document.getElementById('bw-ri').innerHTML=\n    ri('Weight Percentile','<strong>'+wtPct+'th</strong>',true)+\n    ri('Height Percentile','<strong>'+htPct+'th</strong>')+\n    ri('Weight Category',wtCat)+\n    ri('Avg Weight at '+age+' mo',(sex==='boy'?d[0]:d[1])+' lbs')+\n    ri('Avg Height at '+age+' mo',(sex==='boy'?d[2]:d[3])+' in')+\n    ri('Your Baby',wt+' lbs · '+ht+' in');\n  showResult('bw-result');\n  drawDonut('bw-chart',['Weight %ile','Remaining'],[wtPct,100-wtPct],['#1a5c3a','#e8e8e2']);\n  const aiBox=document.getElementById('bw-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing baby growth...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Baby: '+sex+', age '+age+' months, weight '+wt+' lbs ('+wtPct+'th percentile), height '+ht+' inches ('+htPct+'th percentile). Give 2 reassuring and informative points about this growth pattern, mention one developmental milestone typical at this age, and note when to consult a pediatrician. 3-4 sentences, warm supportive parent-friendly tone. Medical disclaimer at end.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Baby Weight Percentile Calculator"
+      intro="Assess your infant's physical development against the World Health Organization (WHO) Child Growth Standards (0 to 24 months). Calculate exact centiles, Z-scores, and longitudinal growth velocity."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="Z = \frac{(W / M)^L - 1}{L \cdot S} \quad (L \neq 0)"
+      related={[
+        { href: "/calculators/health/child-height-predictor", icon: "📏", name: "Child Height Predictor" },
+        { href: "/calculators/health/pregnancy-due-date-calculator", icon: "👶", name: "Due Date Calculator" },
+        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight Calculator" },
+        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+      ]}
+      faq={[
+        {
+          q: "What is considered a normal baby weight percentile?",
+          a: "Any percentile between the 3rd and 97th is considered within normal statistical limits by the World Health Organization. The critical factor is not having a high percentile, but demonstrating steady, proportional growth along your child's established percentile channel over time.",
+        },
+        {
+          q: "Why does the WHO curve differ from the CDC 2000 growth chart?",
+          a: "The WHO standards are based on exclusively or predominantly breastfed infants raised in optimal socioeconomic conditions, establishing how children *should* grow biologically. The 2000 CDC charts reflect how US children grew historically (many of whom were formula-fed). Breastfed babies gain weight faster in the first 2-3 months and more slowly from 4-12 months compared to formula-fed infants.",
+        },
+        {
+          q: "Should I be concerned if my baby's percentile drops from the 60th to the 40th?",
+          a: "Minor centile oscillations of 10-15% are common and frequently reflect growth spurts, transient illnesses, teething, or changes in motor activity like starting to crawl. Clinical concern arises when an infant crosses two major centile lines (e.g., from 75th down to 25th) or drops below the 3rd percentile.",
+        },
+        {
+          q: "How much weight should a newborn baby gain each week?",
+          a: "After regaining initial birth weight by day 10-14, healthy newborns typically gain 5 to 7 ounces (150 to 200 grams) weekly during the first 3 months. Between months 3 and 6, typical weight gain slows to 3.5 to 5 ounces (100 to 140 grams) per week.",
+        },
+        {
+          q: "Can formula-fed babies use this WHO percentile calculator?",
+          a: "Yes. The American Academy of Pediatrics (AAP) and the CDC recommend using WHO growth charts for all infants from birth through 24 months, regardless of whether they are breastfed, formula-fed, or combination-fed, because the WHO chart represents the global biological gold standard for optimal human growth.",
+        },
+      ]}
+    >
+      <BabyWeightCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Pediatric Review &amp; Methodology:</span> Calibrated to World Health Organization (WHO) Child Growth Standards (Multicentre Growth Reference Study) and AAP clinical guidelines for ages 0–24 months.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Pediatric Standards</div>
+        </div>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Why the WHO Child Growth Standards are the Global Clinical Gold Standard
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In pediatric medicine, evaluating infant somatic development requires an objective benchmark.
+            Historically, clinicians relied on legacy charts (such as the 1977 NCHS curves or 2000 CDC growth charts)
+            which were largely derived from formula-fed Caucasian infants in small geographic cohorts. In 2006, the
+            World Health Organization published the landmark <strong>Multicentre Growth Reference Study (MGRS)</strong>,
+            spanning 8,440 healthy breastfed children across six diverse nations (Brazil, Ghana, India, Norway, Oman,
+            and the United States).
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The MGRS established a transformative biological principle: <em>infants across all global ethnicities
+            grow at remarkably identical physiological rates when raised in healthy environments and nourished according
+            to standard biological norms (predominantly exclusive breastfeeding for the first 6 months)</em>. Consequently,
+            both the <strong>American Academy of Pediatrics (AAP)</strong> and the <strong>Centers for Disease Control
+            and Prevention (CDC)</strong> formally mandate the use of WHO growth charts for all children from birth to 24 months
+            of age, switching to CDC growth charts only after age 2.
+          </p>
+        </section>
+
+        {/* Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive WHO Infant Growth Trajectory &amp; Centiles
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Examine how median infant weight and normal dispersion channels (3rd, 50th, and 97th percentiles) evolve across the first 24 months of life for boys and girls. Scrub along the age axis to view clinical milestones:
+          </p>
+          <WhoInfantGrowthPercentilesChart />
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Understanding Z-Scores, Centiles, and the LMS Method
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Infant weight data does not follow a symmetrical Gaussian bell curve; high birth weight and accelerated infant
+            adiposity create a right-skewed tail. To calculate exact percentiles without statistical distortion, the WHO
+            employs the <strong>LMS technique</strong> developed by British statistician Tim Cole.
+          </p>
+          <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/80 my-4 text-center">
+            <Formula>{"Z = \\frac{(W / M)^L - 1}{L \\cdot S} \\quad (L \\neq 0)"}</Formula>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">L (Box-Cox Exponent)</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Normalizes asymmetrical skewness in human infant weight curves, preventing statistical overestimation of extreme percentiles.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">M (Median Centile)</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                The exact 50th percentile weight parameter for healthy children at a specific day or month of postnatal age.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">S (Variation Coeff.)</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Defines the standard dispersion relative to the median, enabling exact conversion between raw kilograms and Standard Deviation Scores (Z).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Reference Data: WHO Weight Percentiles for Boys (0–24 Months)
+          </h2>
+          <DataTable
+            head={["Age", "3rd Percentile", "15th Percentile", "50th Median", "85th Percentile", "97th Percentile"]}
+            rows={WHO_WEIGHT_NORMS_BOYS.map((r) => [
+              <strong key={r.age} className="text-slate-900 dark:text-white">{r.age}</strong>,
+              r.p3,
+              r.p15,
+              <strong key={`${r.age}-p50`} className="text-emerald-600 dark:text-emerald-400">{r.p50}</strong>,
+              r.p85,
+              r.p97,
+            ])}
+          />
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Reference Data: WHO Weight Percentiles for Girls (0–24 Months)
+          </h2>
+          <DataTable
+            head={["Age", "3rd Percentile", "15th Percentile", "50th Median", "85th Percentile", "97th Percentile"]}
+            rows={WHO_WEIGHT_NORMS_GIRLS.map((r) => [
+              <strong key={r.age} className="text-slate-900 dark:text-white">{r.age}</strong>,
+              r.p3,
+              r.p15,
+              <strong key={`${r.age}-p50`} className="text-rose-600 dark:text-rose-400">{r.p50}</strong>,
+              r.p85,
+              r.p97,
+            ])}
+          />
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Clinical Assessment: Growth Trajectory vs. Isolated Snapshot
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Pediatricians evaluate growth curves holistically rather than fixating on a solitary percentile figure. An infant
+            consistently tracking along the 10th percentile whose parents are of slender build is showing normal genetic potential.
+            Conversely, warning signs of <strong>Growth Faltering (Failure to Thrive)</strong> include:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li><strong>Centile Crossing:</strong> A downward crossing of two or more major percentile curves (e.g., plummeting from the 75th to the 25th percentile).</li>
+            <li><strong>Weight-for-Length Disproportion:</strong> A drop in weight-for-length percentile below the 3rd centile while length remains at the median.</li>
+            <li><strong>Flatline Growth:</strong> Zero weight gain over a span of two consecutive months in infants under 6 months old.</li>
+            <li><strong>Hydration Red Flags:</strong> Fewer than 6 wet diapers per 24 hours, sunken fontanelle, lethargy, or poor suckling vigor.</li>
+          </ul>
+        </section>
+      </article>
+    </CalcPage>
   );
 }

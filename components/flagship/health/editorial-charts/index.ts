@@ -28,3 +28,13 @@ export { WhrCardiovascularRiskChart } from "./WhrCardiovascularRiskChart";
 export { SleepArchitectureCyclesChart } from "./SleepArchitectureCyclesChart";
 export { SmokingCompoundWealthLossChart } from "./SmokingCompoundWealthLossChart";
 export { BacMetabolismEliminationChart } from "./BacMetabolismEliminationChart";
+
+// Batch 5 Charts (Women's Health & Pediatrics):
+export { PregnancyFetalGrowthCurveChart } from "./PregnancyFetalGrowthCurveChart";
+export { MenstrualHormonePhaseChart } from "./MenstrualHormonePhaseChart";
+export { CycleLengthVariabilitySpectrumChart } from "./CycleLengthVariabilitySpectrumChart";
+export { OvarianReserveAgeCurveChart } from "./OvarianReserveAgeCurveChart";
+export { WhoInfantGrowthPercentilesChart } from "./WhoInfantGrowthPercentilesChart";
+export { MidParentalStatureCurveChart } from "./MidParentalStatureCurveChart";
+export { BraCupVolumeMatrixChart } from "./BraCupVolumeMatrixChart";
+

@@ -1,26 +1,219 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import PregnancyDueDateCalculator from "@/components/calcs/health/pregnancy-due-date-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PregnancyFetalGrowthCurveChart } from "@/components/flagship/health/editorial-charts/PregnancyFetalGrowthCurveChart";
 
-export const metadata: Metadata = {
-  "title": "Pregnancy Due Date Calculator – Free & Accurate | CalcDigi",
-  "description": "Calculate your estimated due date, current week of pregnancy, and trimester from your last menstrual period or conception date.",
-  "openGraph": {
-    "title": "Pregnancy Due Date Calculator – Free & Accurate | CalcDigi",
-    "description": "Calculate your estimated due date, current week of pregnancy, and trimester from your last menstrual period or conception date.",
-    "type": "website",
-    "url": "/calculators/health/pregnancy-due-date-calculator"
+const PATH = "/calculators/health/pregnancy-due-date-calculator";
+const TITLE = "Pregnancy Due Date Calculator – LMP, Trimesters & Growth | CalcDigi";
+const DESCRIPTION =
+  "Calculate your estimated due date (EDD), current gestational week, and trimester using Naegele's Rule. Includes fetal biometry curves, ACOG term benchmarks, and ultrasound dating.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const ACOG_TERM_CLASSIFICATION_TABLE = [
+  {
+    category: "Preterm Delivery",
+    gestationalRange: "< 37 Weeks 0 Days",
+    clinicalCharacteristics: "Elevated risk of neonatal respiratory distress syndrome, hypothermia, feeding difficulties, and hyperbilirubinemia.",
+    recommendedManagement: "Tocolytic therapy, antenatal corticosteroids (betamethasone) for fetal lung maturation, and NICU readiness.",
   },
-  "alternates": {
-    "canonical": "/calculators/health/pregnancy-due-date-calculator"
-  }
-};
+  {
+    category: "Early Term",
+    gestationalRange: "37 Weeks 0 Days – 38 Weeks 6 Days",
+    clinicalCharacteristics: "Organs functionally mature, though higher rates of minor respiratory morbidities compared to 39+ weeks.",
+    recommendedManagement: "Elective induction avoided unless medically indicated (e.g., preeclampsia, gestational hypertension).",
+  },
+  {
+    category: "Full Term (Optimal Window)",
+    gestationalRange: "39 Weeks 0 Days – 40 Weeks 6 Days",
+    clinicalCharacteristics: "Optimal neonatal outcomes; lowest rates of respiratory failure, intracranial hemorrhage, and NICU admission.",
+    recommendedManagement: "Ideal window for spontaneous or medically planned delivery.",
+  },
+  {
+    category: "Late Term",
+    gestationalRange: "41 Weeks 0 Days – 41 Weeks 6 Days",
+    clinicalCharacteristics: "Gradual decline in placental perfusion; increased risk of oligohydramnios and meconium aspiration.",
+    recommendedManagement: "Frequent biophysical profile (BPP) ultrasound and non-stress testing (NST).",
+  },
+  {
+    category: "Post-Term",
+    gestationalRange: "≥ 42 Weeks 0 Days",
+    clinicalCharacteristics: "Placental insufficiency, macrosomia, fetal dysmaturity syndrome, and elevated stillbirth risk.",
+    recommendedManagement: "Immediate induction of labor strongly advised by ACOG guidelines.",
+  },
+];
 
-export default function Page() {
+const TRIMESTER_DEVELOPMENT_TABLE = [
+  {
+    trimester: "First Trimester (Weeks 1 – 12)",
+    embryonicEvents: "Fertilization, blastocyst implantation, neural tube closure (Day 28), cardiac morphogenesis, primitive hematopoiesis.",
+    maternalPhysiology: "Rapid surge in beta-hCG and progesterone; morning nausea, fatigue, uterine vascular expansion.",
+    keyClinicalScreening: "First-trimester nuchal translucency (NT) ultrasound and cell-free fetal DNA (cfDNA) non-invasive prenatal screening.",
+  },
+  {
+    trimester: "Second Trimester (Weeks 13 – 26)",
+    embryonicEvents: "Rapid musculoskeletal ossification, alveoli formation, quickening (maternal perception of fetal movements around wk 18–20).",
+    maternalPhysiology: "Plasma volume expands by 40–50%; physiological hemodilution ('pseudoanemia'); pelvic ligamentous laxity.",
+    keyClinicalScreening: "Comprehensive 18–22 week anatomical ultrasound survey (Level II scan) and maternal serum quad screen.",
+  },
+  {
+    trimester: "Third Trimester (Weeks 27 – 40)",
+    embryonicEvents: "Intense fetal adipose accretion, rapid cerebral sulcation, pulmonary surfactant secretion by Type II pneumocytes.",
+    maternalPhysiology: "Diaphragmatic displacement, elevated cardiac output, Braxton Hicks contractions, pelvic symphysis softening.",
+    keyClinicalScreening: "24–28 week oral glucose tolerance test (GDM screening), Group B Streptococcus (GBS) vaginal-rectal swab at 36 weeks.",
+  },
+];
+
+export default function PregnancyDueDatePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Pregnancy Due Date Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/pregnancy-due-date-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Pregnancy Due Date Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/pregnancy-due-date-calculator\", \"description\": \"Calculate your estimated due date, current week of pregnancy, and trimester from your last menstrual period or conception date.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How is my due date calculated?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"We use Naegele's Rule: add 280 days (40 weeks) to the first day of your last menstrual period. This is the standard method used by healthcare providers in the USA.\"}}, {\"@type\": \"Question\", \"name\": \"How accurate is an online due date calculator?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Online calculators give an estimated due date. Only about 5% of babies are born on their exact due date. Ultrasound dating, especially in the first trimester, is the most accurate method.\"}}, {\"@type\": \"Question\", \"name\": \"What week is considered full term?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Full term is 39–40 weeks. Early term is 37–38 weeks. Late term is 41 weeks. Post-term is 42+ weeks and may require medical intervention.\"}}, {\"@type\": \"Question\", \"name\": \"What if my cycle is not 28 days?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Naegele's Rule assumes a 28-day cycle. If your cycle is longer or shorter, your actual due date may differ slightly. Use the conception date option for more accuracy, or ask your doctor for an ultrasound date.\"}}, {\"@type\": \"Question\", \"name\": \"Can I use this calculator for IVF pregnancies?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For IVF, your fertility clinic will provide a precise due date based on your embryo transfer date. Our conception date option can be used as a rough guide, but always defer to your clinic's calculation.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Pregnancy Due Date Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Pregnancy Due Date Calculator</h1>\n<p class=\"calc-intro\">Calculate your estimated due date (EDD), current pregnancy week, trimester, and key milestone dates. Based on Naegele's Rule — the standard used by OB-GYNs across the USA.</p>\n<div class=\"content-section\">\n<h2>How to Calculate Your Due Date</h2>\n<p>The most common method for calculating a due date is <strong>Naegele's Rule</strong>, developed in the 19th century and still used today. It works by adding 280 days (40 weeks) to the first day of your last menstrual period (LMP).</p>\n<p>If you know your conception date, we add 266 days (38 weeks) instead, since conception typically occurs about 14 days after your LMP.</p>\n<div class=\"formula-box\">Due Date = Last Menstrual Period + 280 days (40 weeks)</div>\n<p>For example, if your LMP was January 1st, your estimated due date would be October 8th of the same year.</p>\n</div>\n<div class=\"content-section\">\n<h2>Pregnancy Trimesters Explained</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 16px;text-align:left;\">Trimester</th>\n<th style=\"padding:10px 16px;text-align:left;\">Weeks</th>\n<th style=\"padding:10px 16px;text-align:left;\">Key Developments</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\"><strong>First</strong></td><td style=\"padding:10px 16px;\">1–12</td><td style=\"padding:10px 16px;\">Organ formation, morning sickness common</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\"><strong>Second</strong></td><td style=\"padding:10px 16px;\">13–26</td><td style=\"padding:10px 16px;\">Baby moves, gender visible, energy returns</td></tr>\n<tr><td style=\"padding:10px 16px;\"><strong>Third</strong></td><td style=\"padding:10px 16px;\">27–40</td><td style=\"padding:10px 16px;\">Rapid growth, lungs mature, birth preparation</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>Important Pregnancy Milestones</h2>\n<ul>\n<li><strong>Week 6–8:</strong> First heartbeat detectable on ultrasound</li>\n<li><strong>Week 10–13:</strong> First trimester screening and NT scan</li>\n<li><strong>Week 18–20:</strong> Anatomy scan (gender may be revealed)</li>\n<li><strong>Week 24:</strong> Viability milestone — baby can survive outside womb with support</li>\n<li><strong>Week 28:</strong> Third trimester begins, glucose screening</li>\n<li><strong>Week 36–37:</strong> Baby considered early term</li>\n<li><strong>Week 39–40:</strong> Full term — ideal delivery window</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is my due date calculated? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">We use Naegele's Rule: add 280 days (40 weeks) to the first day of your last menstrual period. This is the standard method used by healthcare providers in the USA.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How accurate is an online due date calculator? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Online calculators give an estimated due date. Only about 5% of babies are born on their exact due date. Ultrasound dating, especially in the first trimester, is the most accurate method.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What week is considered full term? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Full term is 39–40 weeks. Early term is 37–38 weeks. Late term is 41 weeks. Post-term is 42+ weeks and may require medical intervention.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What if my cycle is not 28 days? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Naegele's Rule assumes a 28-day cycle. If your cycle is longer or shorter, your actual due date may differ slightly. Use the conception date option for more accuracy, or ask your doctor for an ultrasound date.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I use this calculator for IVF pregnancies? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For IVF, your fertility clinic will provide a precise due date based on your embryo transfer date. Our conception date option can be used as a rough guide, but always defer to your clinic's calculation.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/ovulation-calculator\"><span class=\"rc-icon\">📅</span><span class=\"rc-name\">Ovulation Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/water-intake-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Water Intake</span></a>\n<a class=\"related-card\" href=\"/calculators/health/macro-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Macro Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Due Date Calculator</h2>\n<div class=\"form-group\">\n<label for=\"dd-method\">Calculate From</label>\n<select id=\"dd-method\" onchange=\"toggleMethod()\">\n<option value=\"lmp\">Last Menstrual Period (LMP)</option>\n<option value=\"conception\">Conception Date</option>\n</select>\n</div>\n<div class=\"form-group\" id=\"dd-lmp-group\">\n<label for=\"dd-lmp\">First Day of Last Period</label>\n<input id=\"dd-lmp\" type=\"date\"/>\n</div>\n<div class=\"form-group\" id=\"dd-con-group\" style=\"display:none;\">\n<label for=\"dd-conception\">Conception Date</label>\n<input id=\"dd-conception\" type=\"date\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"dd-cycle\">Cycle Length (days)</label>\n<select id=\"dd-cycle\">\n<option value=\"21\">21 days</option><option value=\"22\">22 days</option><option value=\"23\">23 days</option>\n<option value=\"24\">24 days</option><option value=\"25\">25 days</option><option value=\"26\">26 days</option>\n<option value=\"27\">27 days</option><option selected=\"\" value=\"28\">28 days (average)</option>\n<option value=\"29\">29 days</option><option value=\"30\">30 days</option><option value=\"31\">31 days</option>\n<option value=\"32\">32 days</option><option value=\"33\">33 days</option><option value=\"34\">34 days</option>\n<option value=\"35\">35 days</option>\n</select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcDueDate()\">Calculate Due Date</button>\n<div id=\"dd-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-dd\" onclick=\"printResult('dd-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"dd-result\">\n<div id=\"ri-main\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ri-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ri-ai\" style=\"display:none;\"></div>\n<div id=\"dd-ri\"></div>\n<div class=\"ai-box\" id=\"dd-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ This calculator provides an estimate only. Always confirm your due date with your healthcare provider via ultrasound.</div>\n</div>\n</div>\n</div>\n</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-pregnancy-due-date-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "// Set default date to today\ndocument.getElementById('dd-lmp').valueAsDate = new Date();\ndocument.getElementById('dd-conception').valueAsDate = new Date();\n\nfunction toggleMethod(){\n  const m=document.getElementById('dd-method').value;\n  document.getElementById('dd-lmp-group').style.display=m==='lmp'?'block':'none';\n  document.getElementById('dd-con-group').style.display=m==='conception'?'block':'none';\n  document.getElementById('dd-cycle-group') && (document.getElementById('dd-cycle-group').style.display=m==='lmp'?'block':'none');\n}\n\nfunction calcDueDate(){\n  const method=document.getElementById('dd-method').value;\n  const cycle=parseInt(document.getElementById('dd-cycle').value)||28;\n  let startDate;\n  if(method==='lmp'){\n    startDate=new Date(document.getElementById('dd-lmp').value);\n    if(isNaN(startDate)){alert('Please enter a valid date.');return;}\n  } else {\n    const conDate=new Date(document.getElementById('dd-conception').value);\n    if(isNaN(conDate)){alert('Please enter a valid date.');return;}\n    startDate=new Date(conDate.getTime()-14*86400000);\n  }\n  const cycleAdj=cycle-28;\n  const dueDate=new Date(startDate.getTime()+(280+cycleAdj)*86400000);\n  const today=new Date();\n  const daysPreg=Math.floor((today-startDate)/86400000);\n  const weeksPreg=Math.floor(daysPreg/7);\n  const daysMod=daysPreg%7;\n  const daysLeft=Math.floor((dueDate-today)/86400000);\n  let trimester,trimesterNum;\n  if(weeksPreg<=12){trimester='First Trimester';trimesterNum=1;}\n  else if(weeksPreg<=26){trimester='Second Trimester';trimesterNum=2;}\n  else{trimester='Third Trimester';trimesterNum=3;}\n  const opts={year:'numeric',month:'long',day:'numeric'};\n  const dueFmt=dueDate.toLocaleDateString('en-US',opts);\n  const conFmt=new Date(startDate.getTime()+14*86400000).toLocaleDateString('en-US',opts);\n  document.getElementById('dd-ri').innerHTML=\n    ri('Estimated Due Date','<strong>'+dueFmt+'</strong>',true)+\n    ri('Est. Conception Date',conFmt)+\n    ri('Current Week',daysPreg>0?weeksPreg+' weeks, '+daysMod+' days':'Not yet conceived')+\n    ri('Trimester',daysPreg>0?trimester:'—')+\n    ri('Days Until Due',daysLeft>0?daysLeft+' days':daysLeft===0?'Today!':'Past due date')+\n    ri('Pregnancy Progress',daysPreg>0?Math.min(Math.round(daysPreg/280*100),100)+'%':'0%');\n  showResult('dd-result');\n  const aiBox=document.getElementById('dd-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your pregnancy timeline...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Estimated due date: '+dueFmt+'. Currently '+weeksPreg+' weeks pregnant ('+trimester+'). '+daysLeft+' days remaining. Give 3 helpful tips for this trimester, one important thing to discuss with their doctor, and a warm encouraging note. End with a medical disclaimer. Keep it to 4-5 sentences.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n\n  if(typeof drawDonut==='function'){var _cv=document.querySelector('.result-chart canvas');if(!_cv){var _rc=document.querySelector('.result-chart');if(!_rc){_rc=document.createElement('div');_rc.className='result-chart';var _rbox=document.querySelector('.result-box');if(_rbox){_cv=document.createElement('canvas');_cv.id='auto-c';_cv.width=220;_cv.height=160;_rc.appendChild(_cv);_rbox.appendChild(_rc);}else{_cv=null;}}else{_cv=_rc.querySelector('canvas');}}_cv&&drawDonut(_cv.id,['Value','Ref'],[70,30],['#1a5c3a','#c8832a']);}\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Pregnancy Due Date Calculator"
+      intro="Determine your Estimated Due Date (EDD), current gestational week, and trimester transitions using the obstetric gold-standard Naegele's Rule, calibrated to your individual menstrual cycle length."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{EDD} = \text{LMP} + 280 \text{ days} + (\text{Cycle Length} - 28 \text{ days})"
+      related={[
+        { href: "/calculators/health/ovulation-calculator", icon: "📅", name: "Ovulation Calculator" },
+        { href: "/calculators/health/period-calculator", icon: "🩸", name: "Period Calculator" },
+        { href: "/calculators/health/fertility-calculator", icon: "🌱", name: "Fertility Calculator" },
+        { href: "/calculators/health/baby-weight-calculator", icon: "👶", name: "Baby Weight" },
+        { href: "/calculators/health/child-height-predictor", icon: "📏", name: "Child Height" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+      ]}
+      faq={[
+        {
+          q: "How does Naegele's Rule calculate an estimated due date (EDD)?",
+          a: "Devised by German obstetrician Franz Karl Naegele in the 19th century, Naegele's Rule establishes human gestation at 280 days (40 completed weeks, or 10 lunar months) calculated from the first day of the last normal menstrual period (LMP). In calendar terms, you subtract 3 months from your LMP date and add 7 days (plus one year). Our calculator also corrects for menstrual cycle variation: if your cycle is 32 days rather than the textbook 28 days, ovulation occurred approximately 4 days later, shifting your EDD forward by 4 days.",
+        },
+        {
+          q: "What percentage of women actually deliver on their exact due date?",
+          a: "Only approximately 4% to 5% of babies are born on their exact mathematical due date. However, roughly 80% of spontaneous labors occur within a two-week window spanning 37 weeks to 42 weeks (the full-term range). The due date serves as a clinical anchor point to monitor fetal biometry, guide screening tests, and prevent prolonged post-term pregnancies.",
+        },
+        {
+          q: "Why is an early ultrasound considered more accurate than LMP dating?",
+          a: "Menstrual dating relies on the assumption of a regular 28-day cycle with ovulation occurring precisely on Day 14. However, follicular phase duration varies widely between individuals and across different cycles. First-trimester transvaginal ultrasound measuring Crown-Rump Length (CRL) between 7 and 13 weeks has an error margin of only ±3 to 5 days, making it the definitive clinical gold standard. According to ACOG guidelines, if ultrasound dating differs from LMP dating by more than 5 days in the first trimester, the ultrasound EDD replaces the menstrual EDD.",
+        },
+        {
+          q: "What is the viability threshold for a developing fetus?",
+          a: "In contemporary neonatal intensive care, 24 weeks of gestation is universally recognized as the clinical threshold of viability. At 24 completed weeks, fetal lungs develop primitive alveolar sacs and initiate pulmonary surfactant production, giving infants an estimated 60% to 70% survival rate under specialized tertiary neonatal intensive care (NICU).",
+        },
+        {
+          q: "What are the exact weeks for the first, second, and third trimesters?",
+          a: "According to ACOG and standard obstetric practice: 1) First Trimester spans Week 1 through Week 12 (+6 days); 2) Second Trimester spans Week 13 through Week 26 (+6 days); and 3) Third Trimester begins at Week 27 and concludes at delivery (typically Week 40).",
+        },
+        {
+          q: "How should I calculate my due date if I underwent IVF (In Vitro Fertilization)?",
+          a: "For IVF pregnancies, gestational dating is extraordinarily precise because the exact fertilization and embryo transfer dates are known. For a Day 3 embryo transfer, the due date is calculated by adding 263 days to the transfer date. For a Day 5 blastocyst transfer, add 261 days to the transfer date.",
+        },
+      ]}
+    >
+      <PregnancyDueDateCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Obstetrics &amp; Maternal-Fetal Medicine Review:</span> Calibrated to the American College of Obstetricians and Gynecologists (ACOG Committee Opinion No. 700), Naegele&apos;s Rule, and Hadlock biometry standards.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Clinical Standards</div>
+        </div>
+
+        {/* Section 1: The Chronobiology of Gestation */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Chronobiology of Human Gestation: 280 Days Explained
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In human obstetrics, gestational age is conventionally measured not from the moment of conception, but from the <strong>first day of the last normal menstrual period (LMP)</strong>. Because human conception typically occurs at ovulation—approximately 14 days following menses in a classic 28-day cycle—a woman is considered two weeks pregnant at the moment fertilization actually takes place.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Total human pregnancy endures for an average of <strong>280 days (40 completed weeks)</strong> from the LMP, which corresponds to <strong>266 days (38 weeks)</strong> of true embryonic and fetal post-conception development. Naegele&apos;s classical formulation provides the mathematical backbone for global prenatal healthcare:
+          </p>
+          <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/80 my-4 text-center">
+            <Formula>{"\\text{Estimated Due Date (EDD)} = \\text{LMP} + 280 \\text{ days} + (\\text{Cycle Length} - 28 \\text{ days})"}</Formula>
+          </div>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Fetal Biometry &amp; Milestone Growth Curve
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Explore the physiological Hadlock growth trajectory across weeks 8 to 40. Scrub along the curve to observe estimated fetal weight in grams and pounds, crown-to-heel length in centimeters, trimester divisions, and major organ development milestones:
+          </p>
+          <PregnancyFetalGrowthCurveChart />
+        </section>
+
+        {/* Section 3: ACOG Term Classifications */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            ACOG Gestational Term Classifications
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In 2013, the American College of Obstetricians and Gynecologists (ACOG) and the Society for Maternal-Fetal Medicine (SMFM) replaced the broad label &quot;term&quot; with four distinct, clinically actionable sub-classifications to protect neonatal health:
+          </p>
+          <DataTable
+            head={["Gestational Category", "Completed Gestational Weeks", "Neonatal Pathophysiology", "Obstetric Clinical Management"]}
+            rows={ACOG_TERM_CLASSIFICATION_TABLE.map((row) => [
+              <strong key={row.category} className="text-slate-900 dark:text-slate-100">{row.category}</strong>,
+              row.gestationalRange,
+              row.clinicalCharacteristics,
+              row.recommendedManagement,
+            ])}
+          />
+        </section>
+
+        {/* Section 4: Trimester Development Breakdown */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Trimester Physiology: Embryogenesis to Pulmonary Surfactant
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The 40-week gestational journey is organized into three distinct biological trimesters:
+          </p>
+          <DataTable
+            head={["Trimester & Timeframe", "Fetal Developmental Events", "Maternal Adaptations", "Essential Clinical Screenings"]}
+            rows={TRIMESTER_DEVELOPMENT_TABLE.map((row) => [
+              <strong key={row.trimester} className="text-slate-900 dark:text-slate-100">{row.trimester}</strong>,
+              row.embryonicEvents,
+              row.maternalPhysiology,
+              row.keyClinicalScreening,
+            ])}
+          />
+        </section>
+
+        {/* Section 5: Ultrasound vs Menstrual Dating */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Clinical Precision: Menstrual LMP vs. First-Trimester Ultrasound Dating
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            ACOG Committee Opinion No. 700 defines the precise protocol for reconciling menstrual due dates with sonographic measurements:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Crown-Rump Length (CRL)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Before 14 weeks, biological variation in human fetal size is virtually non-existent. A high-resolution CRL measurement between 8 and 13 weeks possesses an accuracy of ±3 to 5 days. If the ultrasound date differs from LMP by more than 5 days (up to 8 6/7 weeks) or more than 7 days (between 9 and 13 6/7 weeks), the ultrasound date supersedes the menstrual date.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Second-Trimester Biometry</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Beyond 14 weeks, genetic variations, parental stature, and nutritional factors begin influencing growth. Second-trimester dating utilizes composite measurements (Biparietal Diameter BPD, Head Circumference HC, Abdominal Circumference AC, and Femur Length FL), carrying a wider margin of error of ±7 to 10 days.
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+    </CalcPage>
   );
 }

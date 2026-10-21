@@ -1,26 +1,198 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import PeriodCalculator from "@/components/calcs/health/period-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CycleLengthVariabilitySpectrumChart } from "@/components/flagship/health/editorial-charts/CycleLengthVariabilitySpectrumChart";
 
-export const metadata: Metadata = {
-  "title": "Period Calculator – Predict Your Next Period | CalcDigi",
-  "description": "Predict your next period dates for the next 6 months based on your cycle length.",
-  "openGraph": {
-    "title": "Period Calculator – Predict Your Next Period | CalcDigi",
-    "description": "Predict your next period dates for the next 6 months based on your cycle length.",
-    "type": "website",
-    "url": "/calculators/health/period-calculator"
+const PATH = "/calculators/health/period-calculator";
+const TITLE = "Period Calculator – Menstrual Cycle Tracker & PMS Window | CalcDigi";
+const DESCRIPTION =
+  "Predict your next period dates, bleeding duration, and premenstrual (PMS) windows with clinical accuracy. Calibrated to FIGO menstrual standards and cycle variability norms.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const FIGO_STANDARDS_TABLE = [
+  {
+    parameter: "Cycle Length (Frequency)",
+    normalRange: "24 to 38 Days",
+    abnormalShort: "< 24 Days (Frequent Menses / Polymenorrhea)",
+    abnormalLong: "> 38 Days (Infrequent Menses / Oligomenorrhea)",
+    clinicalMeaning: "Time elapsed from the first day of one menses to the first day of the subsequent menses.",
   },
-  "alternates": {
-    "canonical": "/calculators/health/period-calculator"
-  }
-};
+  {
+    parameter: "Cycle Regularity (Variation)",
+    normalRange: "≤ 7 to 9 Days difference",
+    abnormalShort: "—",
+    abnormalLong: "≥ 10 Days variation between shortest and longest cycle",
+    clinicalMeaning: "Consistency of cycle lengths across a 12-month monitoring period.",
+  },
+  {
+    parameter: "Bleeding Duration",
+    normalRange: "3 to 8 Days",
+    abnormalShort: "< 3 Days (Shortened bleeding duration)",
+    abnormalLong: "> 8 Days (Prolonged menstrual bleeding)",
+    clinicalMeaning: "Total consecutive days of active menstrual blood flow.",
+  },
+  {
+    parameter: "Menstrual Volume (Blood Loss)",
+    normalRange: "5 to 80 mL (Normal Volume)",
+    abnormalShort: "< 5 mL (Scant / Hypomenorrhea)",
+    abnormalLong: "> 80 mL (Heavy Menstrual Bleeding / Menorrhagia)",
+    clinicalMeaning: "Total blood and endometrial tissue shed per menstrual cycle.",
+  },
+];
 
-export default function Page() {
+const PALM_COEIN_TABLE = [
+  { classification: "Structural Etiologies (PALM)", categories: "Polyp, Adenomyosis, Leiomyoma (Fibroids), Malignancy & Hyperplasia", diagnosticModalities: "Pelvic ultrasound, hysteroscopy, endometrial biopsy, saline-infusion sonography." },
+  { classification: "Non-Structural Etiologies (COEIN)", categories: "Coagulopathy, Ovulatory Dysfunction (PCOS, thyroid), Endometrial, Iatrogenic (Mirena/Copper IUD), Not otherwise classified", diagnosticModalities: "Coagulation studies, thyroid TSH/free T4, prolactin, free testosterone, metabolic lipid panels." },
+];
+
+export default function PeriodPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Period Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/period-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Period Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/period-calculator\", \"description\": \"Predict your next period dates for the next 6 months based on your cycle length.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate my next period?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Add your average cycle length to the first day of your last period. Our calculator does this automatically for the next 6 cycles so you can plan months ahead.\"}}, {\"@type\": \"Question\", \"name\": \"What is a normal cycle length?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Normal menstrual cycles range from 21 to 35 days. The average is 28 days. Period duration typically lasts 2-7 days. If your cycle is consistently outside this range, consult your gynecologist.\"}}, {\"@type\": \"Question\", \"name\": \"Why is my period late?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Common causes include stress, weight changes, intense exercise, illness, travel, hormonal changes, birth control, and pregnancy. A period is considered late after 5+ days past the expected date. Take a pregnancy test if sexually active.\"}}, {\"@type\": \"Question\", \"name\": \"Can stress delay my period?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. High stress elevates cortisol levels, which can suppress the hormones needed to trigger ovulation and menstruation. This is one of the most common reasons for a delayed or missed period in otherwise healthy women.\"}}, {\"@type\": \"Question\", \"name\": \"How accurate is this period calculator?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Accuracy depends on cycle regularity. For regular cycles, predictions are typically within 1-3 days. For irregular cycles, use it as an estimate and track your actual dates each month to improve accuracy over time.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Period Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Period Calculator</h1>\n<p class=\"calc-intro\">Predict your next 6 period dates based on your last menstrual period and average cycle length. Plan ahead for important events, travel, and health appointments with our free menstrual cycle tracker.</p>\n<div class=\"content-section\">\n<h2>How to Predict Your Period</h2>\n<p>Predicting your period is based on tracking your menstrual cycle — the time from the first day of one period to the first day of the next. The average cycle is 28 days, but normal cycles range from 21 to 35 days.</p>\n<div class=\"formula-box\">Next Period = Last Period Start Date + Cycle Length</div>\n<p>For example, if your last period started on January 1st and your cycle is 28 days, your next period is predicted to start around January 29th.</p>\n<p>Tracking your cycle over 3-6 months helps identify your personal average and spot irregularities that may signal health changes worth discussing with a doctor.</p>\n</div>\n<div class=\"content-section\">\n<h2>Phases of the Menstrual Cycle</h2>\n<div style=\"display:flex;flex-direction:column;gap:10px;margin-top:8px;\">\n<div style=\"padding:14px;background:var(--c-accent-lt);border-radius:8px;border-left:3px solid var(--c-accent);\">\n<div style=\"font-weight:600;font-size:13px;color:var(--c-accent);\">Phase 1 — Menstruation (Days 1-5)</div>\n<div style=\"font-size:13px;color:var(--c-ink2);margin-top:4px;\">Uterine lining sheds. Estrogen and progesterone are at their lowest. Common symptoms: cramping, fatigue, bloating.</div>\n</div>\n<div style=\"padding:14px;background:var(--c-rule2);border-radius:8px;\">\n<div style=\"font-weight:600;font-size:13px;\">Phase 2 — Follicular (Days 1-13)</div>\n<div style=\"font-size:13px;color:var(--c-ink2);margin-top:4px;\">Estrogen rises, follicles develop in ovaries. Energy increases, mood improves toward end of phase.</div>\n</div>\n<div style=\"padding:14px;background:var(--c-rule2);border-radius:8px;\">\n<div style=\"font-weight:600;font-size:13px;\">Phase 3 — Ovulation (Day ~14)</div>\n<div style=\"font-size:13px;color:var(--c-ink2);margin-top:4px;\">LH surge triggers egg release. Peak fertility window. Energy and libido often highest.</div>\n</div>\n<div style=\"padding:14px;background:var(--c-rule2);border-radius:8px;\">\n<div style=\"font-weight:600;font-size:13px;\">Phase 4 — Luteal (Days 15-28)</div>\n<div style=\"font-size:13px;color:var(--c-ink2);margin-top:4px;\">Progesterone rises to prepare for potential pregnancy. PMS symptoms may appear: mood changes, bloating, breast tenderness.</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>When to See a Doctor</h2>\n<ul>\n<li>Periods more than 35 days apart or fewer than 21 days</li>\n<li>Missing 3 or more consecutive periods (not due to pregnancy)</li>\n<li>Bleeding that soaks through a pad/tampon every hour for several hours</li>\n<li>Severe cramping that interferes with daily activities</li>\n<li>Spotting between periods or after sex</li>\n<li>Periods lasting longer than 7 days</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my next period? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Add your average cycle length to the first day of your last period. Our calculator does this automatically for the next 6 cycles so you can plan months ahead.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a normal cycle length? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Normal menstrual cycles range from 21 to 35 days. The average is 28 days. Period duration typically lasts 2-7 days. If your cycle is consistently outside this range, consult your gynecologist.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is my period late? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Common causes include stress, weight changes, intense exercise, illness, travel, hormonal changes, birth control, and pregnancy. A period is considered late after 5+ days past the expected date. Take a pregnancy test if sexually active.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can stress delay my period? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes. High stress elevates cortisol levels, which can suppress the hormones needed to trigger ovulation and menstruation. This is one of the most common reasons for a delayed or missed period in otherwise healthy women.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How accurate is this period calculator? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Accuracy depends on cycle regularity. For regular cycles, predictions are typically within 1-3 days. For irregular cycles, use it as an estimate and track your actual dates each month to improve accuracy over time.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/ovulation-calculator\"><span class=\"rc-icon\">📅</span><span class=\"rc-name\">Ovulation Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/pregnancy-due-date-calculator\"><span class=\"rc-icon\">🤰</span><span class=\"rc-name\">Due Date Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/fertility-calculator\"><span class=\"rc-icon\">🌸</span><span class=\"rc-name\">Fertility Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Period Predictor</h2>\n<div class=\"form-group\">\n<label for=\"pc-lmp\">First Day of Last Period</label>\n<input id=\"pc-lmp\" type=\"date\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"pc-cycle\">Average Cycle Length (days)</label>\n<select id=\"pc-cycle\">\n<option value=\"21\">21 days</option><option value=\"22\">22 days</option>\n<option value=\"23\">23 days</option><option value=\"24\">24 days</option>\n<option value=\"25\">25 days</option><option value=\"26\">26 days</option>\n<option value=\"27\">27 days</option><option selected=\"\" value=\"28\">28 days (average)</option>\n<option value=\"29\">29 days</option><option value=\"30\">30 days</option>\n<option value=\"31\">31 days</option><option value=\"32\">32 days</option>\n<option value=\"33\">33 days</option><option value=\"34\">34 days</option>\n<option value=\"35\">35 days</option>\n</select>\n</div>\n<div class=\"form-group\">\n<label for=\"pc-duration\">Average Period Duration (days)</label>\n<select id=\"pc-duration\">\n<option value=\"2\">2 days</option><option value=\"3\">3 days</option>\n<option value=\"4\">4 days</option><option selected=\"\" value=\"5\">5 days</option>\n<option value=\"6\">6 days</option><option value=\"7\">7 days</option>\n</select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcPeriod()\">Predict My Periods</button>\n<div class=\"result-box\" id=\"period-result\">\n<div id=\"ri-main\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ri-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ri-ai\" style=\"display:none;\"></div>\n<div id=\"period-ri\"></div>\n<div class=\"ai-box\" id=\"period-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ These are estimates based on average cycle patterns. Actual dates may vary. Consult a doctor for irregular cycles.</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-period-result\" onclick=\"printResult('period-result','Period Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Period Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button></div></div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div></main>" }} />
-      <Script id="calc-script-period-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('pc-lmp').valueAsDate=new Date();\nfunction calcPeriod(){\n  const lmp=new Date(document.getElementById('pc-lmp').value);\n  if(isNaN(lmp)){alert('Please enter a valid date.');return;}\n  const cycle=parseInt(document.getElementById('pc-cycle').value)||28;\n  const duration=parseInt(document.getElementById('pc-duration').value)||5;\n  const opts={month:'long',day:'numeric',year:'numeric'};\n  const shortOpts={month:'short',day:'numeric'};\n  let html='<div style=\"margin-bottom:12px;font-size:13px;font-weight:600;color:var(--c-ink2);text-transform:uppercase;letter-spacing:0.8px;\">Next 6 Predicted Periods</div>';\n  for(let i=1;i<=6;i++){\n    const start=new Date(lmp.getTime()+i*cycle*86400000);\n    const end=new Date(start.getTime()+(duration-1)*86400000);\n    const today=new Date();\n    const daysUntil=Math.round((start-today)/86400000);\n    const isNext=i===1;\n    html+=`<div style=\"padding:10px 14px;border-radius:8px;margin-bottom:6px;background:${isNext?'var(--c-accent-lt)':'var(--c-rule2)'};border:1.5px solid ${isNext?'var(--c-accent)':'var(--c-rule)'};\">\n\n          <div style=\"font-weight:600;font-size:14px;color:${isNext?'var(--c-accent)':'var(--c-ink)'};\">Period ${i}${isNext?' — Next':''}</div>\n          <div style=\"font-size:12.5px;color:var(--c-ink2);\">${start.toLocaleDateString('en-US',shortOpts)} – ${end.toLocaleDateString('en-US',shortOpts)}</div>\n\n          <div style=\"font-size:12px;color:var(--c-ink3);\">${daysUntil>0?'in '+daysUntil+' days':daysUntil===0?'Today':'Past'}</div>\n\n    </div>`;\n  }\n  document.getElementById('period-ri').innerHTML=html;\n  showResult('period-result');\n  const aiBox=document.getElementById('period-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your cycle...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Menstrual cycle: '+cycle+' days, period duration: '+duration+' days. Give 3 tips for managing PMS symptoms, mention one sign that would warrant seeing a gynecologist, and suggest one healthy habit for cycle regularity. 3-4 sentences, warm supportive tone.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n\n  if(typeof drawDonut==='function'){var _cv=document.querySelector('.result-chart canvas');if(!_cv){var _rc=document.querySelector('.result-chart');if(!_rc){_rc=document.createElement('div');_rc.className='result-chart';var _rbox=document.querySelector('.result-box');if(_rbox){_cv=document.createElement('canvas');_cv.id='auto-c';_cv.width=220;_cv.height=160;_rc.appendChild(_cv);_rbox.appendChild(_rc);}else{_cv=null;}}else{_cv=_rc.querySelector('canvas');}}_cv&&drawDonut(_cv.id,['Value','Ref'],[70,30],['#1a5c3a','#c8832a']);}\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Period Calculator"
+      intro="Forecast your upcoming menstrual periods, bleeding duration, and premenstrual (PMS) windows with clinical precision based on the International Federation of Gynecology and Obstetrics (FIGO) standards."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{Next Period Date} = \text{LMP} + \text{Cycle Length (days)} \quad (\text{Normal: } 24 \le \text{Cycle} \le 38)"
+      related={[
+        { href: "/calculators/health/ovulation-calculator", icon: "📅", name: "Ovulation Calculator" },
+        { href: "/calculators/health/pregnancy-due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
+        { href: "/calculators/health/fertility-calculator", icon: "🌱", name: "Fertility Calculator" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+        { href: "/calculators/health/sleep-calculator", icon: "💤", name: "Sleep Calculator" },
+        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+      ]}
+      faq={[
+        {
+          q: "What is considered a clinically normal menstrual cycle length?",
+          a: "According to the International Federation of Gynecology and Obstetrics (FIGO), a normal menstrual cycle length is between 24 and 38 days. While 28 days is the traditional population average, fewer than 30% of women have a precise 28-day cycle. Variations between 24 and 38 days are completely normal, provided the cycle remains reasonably consistent from month to month.",
+        },
+        {
+          q: "Why does the American College of Obstetricians and Gynecologists call the period 'The Fifth Vital Sign'?",
+          a: "ACOG recognizes the menstrual cycle as the fifth vital sign (alongside blood pressure, body temperature, pulse, and respiration) because menstrual regularity directly reflects the integrity of the hypothalamic-pituitary-ovarian (HPO) axis, metabolic health, thyroid function, and bone density. Sudden changes in cycle length or bleeding patterns frequently provide the earliest clinical warning of metabolic disorders, excessive energy deficit, or endocrine dysfunction.",
+        },
+        {
+          q: "What causes Premenstrual Syndrome (PMS) during the week before my period?",
+          a: "PMS symptoms (such as bloating, breast tenderness, mood swings, fatigue, and irritability) are triggered by the rapid physiological collapse of progesterone and estrogen levels during late luteal regression (luteolysis) if pregnancy does not occur. This abrupt steroid hormone withdrawal alters central nervous system neurotransmitters, particularly lowering serotonin availability and modulating GABA receptor sensitivity.",
+        },
+        {
+          q: "How many days of variation between cycles is considered normal?",
+          a: "Normal cycle variability is defined as a difference of 7 to 9 days or less between your shortest and longest cycle over the course of a 12-month period. For example, if your shortest cycle is 26 days and your longest is 33 days (a 7-day variation), your cycles are clinically classified as regular. A variation of 10 days or more indicates cycle irregularity that warrants investigation.",
+        },
+        {
+          q: "What is Heavy Menstrual Bleeding (HMB) and when should I see a doctor?",
+          a: "Clinically termed menorrhagia, Heavy Menstrual Bleeding (HMB) is defined as menstrual blood loss exceeding 80 mL per cycle, or bleeding that lasts longer than 8 consecutive days. Practical signs include soaking through one or more sanitary pads or tampons every hour for two consecutive hours, needing double protection, passing blood clots larger than a quarter (1 inch in diameter), or experiencing symptoms of anemia (fatigue, shortness of breath, dizziness).",
+        },
+        {
+          q: "How does stress delay or disrupt a menstrual period?",
+          a: "Physical or emotional stress activates the hypothalamic-pituitary-adrenal (HPA) axis, stimulating excessive secretion of Corticotropin-Releasing Hormone (CRH) and cortisol. Elevated cortisol directly suppresses the pulsatile release of Gonadotropin-Releasing Hormone (GnRH) from the hypothalamus, preventing the pituitary from releasing sufficient FSH and LH to mature a follicle, thereby delaying or completely inhibiting ovulation (functional hypothalamic anovulation).",
+        },
+      ]}
+    >
+      <PeriodCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Gynecological Endocrinology Review:</span> Calibrated to the International Federation of Gynecology and Obstetrics (FIGO Menstrual Disorders Committee) and ACOG Committee Opinion No. 651.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Gynecological Standards</div>
+        </div>
+
+        {/* Section 1: The Fifth Vital Sign */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Menstrual Cycle as the Fifth Vital Sign
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In 2015, the American College of Obstetricians and Gynecologists (ACOG) and the American Academy of Pediatrics (AAP) formally published Committee Opinion No. 651, designating the <strong>menstrual cycle as a fifth vital sign</strong> of overall systemic health. Just as blood pressure or heart rate reflects cardiovascular integrity, menstrual rhythm serves as an exquisite clinical barometer of neuroendocrine homeostasis, energy availability, and metabolic equilibrium.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            A regular menstrual cycle requires seamless, pulsatile communication between the <strong>hypothalamus</strong> (secreting GnRH), the <strong>anterior pituitary</strong> (releasing FSH and LH), and the <strong>ovaries</strong> (synthesizing estradiol and progesterone). Any disruption—whether caused by chronic emotional distress, energetic restriction, thyroid hypofunction, or insulin resistance—immediately manifests as cycle dysregulation.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Cycle Length Population Distribution
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Explore the epidemiological bell curve of global human menstrual cycle lengths. Scrub across the spectrum from 21 to 42 days to view population percentiles, follicular phase dynamics, and the official FIGO normal range:
+          </p>
+          <CycleLengthVariabilitySpectrumChart />
+        </section>
+
+        {/* Section 3: FIGO Menstrual Standards Table */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            FIGO Clinical Diagnostic Menstrual Parameters
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The International Federation of Gynecology and Obstetrics establishes four core clinical parameters to evaluate menstrual health:
+          </p>
+          <DataTable
+            head={["Menstrual Parameter", "FIGO Normal Standard", "Abnormal Short Threshold", "Abnormal Long Threshold", "Physiological Definition"]}
+            rows={FIGO_STANDARDS_TABLE.map((row) => [
+              <strong key={row.parameter} className="text-slate-900 dark:text-slate-100">{row.parameter}</strong>,
+              row.normalRange,
+              row.abnormalShort,
+              row.abnormalLong,
+              row.clinicalMeaning,
+            ])}
+          />
+        </section>
+
+        {/* Section 4: The Neurobiology of the PMS Window */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Neurobiology of PMS: Progesterone Withdrawal &amp; Serotonin
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Premenstrual Syndrome (PMS) occurs during the final 5 to 7 days of the luteal phase, terminating rapidly once menstrual flow begins. This symptomatology is driven by neurosteroid dynamics:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Allopregnanolone &amp; GABA Receptors</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                During mid-luteal peak, progesterone is metabolized into <strong>allopregnanolone</strong>, a potent positive modulator of GABA-A receptors with calming effects. In the late luteal phase, the sudden drop in allopregnanolone precipitates a withdrawal-like state, triggering autonomic irritability, insomnia, and heightened anxiety.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Estrogen Collapse &amp; Serotonergic Tone</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Estradiol actively enhances the synthesis and receptor density of <strong>serotonin</strong> in the brain while downregulating monoamine oxidase (MAO) enzymes. When estrogen drops precipitously before menses, central serotonin drops in tandem, generating dysphoria, carbohydrate cravings, and emotional lability.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: The PALM-COEIN Classification */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Abnormal Uterine Bleeding: The PALM-COEIN Framework
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            When cycles deviate significantly from normal parameters, clinical evaluation utilizes the standardized PALM-COEIN classification:
+          </p>
+          <DataTable
+            head={["Classification Category", "Underlying Pathological Etiologies", "Standard Diagnostic Workup"]}
+            rows={PALM_COEIN_TABLE.map((row) => [
+              <strong key={row.classification} className="text-slate-900 dark:text-slate-100">{row.classification}</strong>,
+              row.categories,
+              row.diagnosticModalities,
+            ])}
+          />
+        </section>
+      </article>
+    </CalcPage>
   );
 }

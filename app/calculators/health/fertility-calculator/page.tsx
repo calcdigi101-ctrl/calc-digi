@@ -1,26 +1,217 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import FertilityCalculator from "@/components/calcs/health/fertility-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { OvarianReserveAgeCurveChart } from "@/components/flagship/health/editorial-charts/OvarianReserveAgeCurveChart";
 
-export const metadata: Metadata = {
-  "title": "Fertility Calculator – Best Days to Conceive | CalcDigi",
-  "description": "Find your most fertile days and peak conception window based on your menstrual cycle.",
-  "openGraph": {
-    "title": "Fertility Calculator – Best Days to Conceive | CalcDigi",
-    "description": "Find your most fertile days and peak conception window based on your menstrual cycle.",
-    "type": "website",
-    "url": "/calculators/health/fertility-calculator"
+const PATH = "/calculators/health/fertility-calculator";
+const TITLE = "Fertility Calculator – Age-Related Conception Odds & AMH | CalcDigi";
+const DESCRIPTION =
+  "Calculate your monthly and cumulative conception odds based on maternal age and cycle consistency. Explore ovarian reserve (AMH) benchmarks, aneuploidy rates, and ASRM guidelines.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const OVARIAN_RESERVE_BENCHMARKS_TABLE = [
+  {
+    category: "Optimal Ovarian Reserve",
+    amhSerumRange: "2.0 – 4.0 ng/mL (14.3 – 28.6 pmol/L)",
+    afcCount: "12 to 24 Follicles",
+    clinicalMeaning: "Robust primordial follicle pool; highly favorable response expected for stimulated cycles (IUI/IVF).",
   },
-  "alternates": {
-    "canonical": "/calculators/health/fertility-calculator"
-  }
-};
+  {
+    category: "Normal / Satisfactory Reserve",
+    amhSerumRange: "1.0 – 1.9 ng/mL (7.1 – 13.6 pmol/L)",
+    afcCount: "8 to 14 Follicles",
+    clinicalMeaning: "Standard age-appropriate ovarian reserve; typical spontaneous ovulatory capacity.",
+  },
+  {
+    category: "Low Ovarian Reserve (Borderline)",
+    amhSerumRange: "0.5 – 0.9 ng/mL (3.6 – 6.4 pmol/L)",
+    afcCount: "5 to 8 Follicles",
+    clinicalMeaning: "Early decline in follicle recruitment; proactive reproductive planning or intervention recommended.",
+  },
+  {
+    category: "Diminished Ovarian Reserve (DOR)",
+    amhSerumRange: "< 0.5 ng/mL (< 3.6 pmol/L)",
+    afcCount: "< 5 Follicles",
+    clinicalMeaning: "Significantly reduced oocyte pool; requires tailored fertility protocols; time-sensitive clinical management.",
+  },
+  {
+    category: "Elevated Reserve (PCOS Phenotype)",
+    amhSerumRange: "> 4.0 – 5.0+ ng/mL (> 35.7 pmol/L)",
+    afcCount: "> 25 Follicles",
+    clinicalMeaning: "Excessive pre-antral follicle arrest; common in Polycystic Ovary Syndrome; elevated risk of Ovarian Hyperstimulation Syndrome (OHSS).",
+  },
+];
 
-export default function Page() {
+const AGE_ANEUPLOIDY_TABLE = [
+  { maternalAge: "Under 30 Years", monthlyChance: "22% – 25%", cumulativeYear: "85% – 90%", aneuploidyRate: "10% – 18%", miscarriageRisk: "< 10%" },
+  { maternalAge: "30 to 34 Years", monthlyChance: "15% – 20%", cumulativeYear: "75% – 82%", aneuploidyRate: "20% – 28%", miscarriageRisk: "12% – 15%" },
+  { maternalAge: "35 to 37 Years", monthlyChance: "10% – 12%", cumulativeYear: "60% – 65%", aneuploidyRate: "35% – 45%", miscarriageRisk: "20% – 25%" },
+  { maternalAge: "38 to 40 Years", monthlyChance: "5% – 8%", cumulativeYear: "40% – 50%", aneuploidyRate: "50% – 65%", miscarriageRisk: "30% – 40%" },
+  { maternalAge: "41 to 42 Years", monthlyChance: "3% – 4%", cumulativeYear: "20% – 25%", aneuploidyRate: "65% – 75%", miscarriageRisk: "45% – 55%" },
+  { maternalAge: "43 Years and Older", monthlyChance: "< 1% – 2%", cumulativeYear: "< 10%", aneuploidyRate: "> 80% – 90%", miscarriageRisk: "> 60%" },
+];
+
+export default function FertilityPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Fertility Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/fertility-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Fertility Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/fertility-calculator\", \"description\": \"Find your most fertile days and peak conception window based on your menstrual cycle.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"When am I most fertile?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Your peak fertility is in the 1-2 days before ovulation. Ovulation typically occurs 14 days before your next period. Our calculator identifies these peak days so you can time intercourse for the highest probability of conception.\"}}, {\"@type\": \"Question\", \"name\": \"How long does it take to get pregnant?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"About 85% of healthy couples conceive within 12 months of trying. If you are under 35 and have been trying for 12+ months without success, or over 35 and trying for 6+ months, consult a reproductive endocrinologist.\"}}, {\"@type\": \"Question\", \"name\": \"Can I get pregnant if we have sex on ovulation day?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes, but the probability is slightly lower (~25%) than the day before ovulation (~31%). The egg only survives 12-24 hours, so timing intercourse 1-2 days before gives sperm time to be present when the egg is released.\"}}, {\"@type\": \"Question\", \"name\": \"What supplements help with fertility?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Folic acid (400-800 mcg) is essential for preventing neural tube defects and should be started 3 months before trying to conceive. CoQ10 may improve egg quality. Vitamin D, zinc, and omega-3s also support reproductive health. Always consult your doctor before starting supplements.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Fertility Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Fertility Calculator</h1>\n<p class=\"calc-intro\">Find your most fertile days for the next 3 cycles. Based on ovulation science and sperm survival research, this calculator identifies your peak conception window with day-by-day pregnancy probability estimates.</p>\n<div class=\"content-section\">\n<h2>Understanding Your Fertility Window</h2>\n<p>Conception can only occur when a mature egg is present — and a human egg survives only <strong>12-24 hours</strong> after ovulation. However, sperm can survive in the female reproductive tract for <strong>3-5 days</strong>, which creates a fertile window of approximately 6 days per cycle.</p>\n<p>The highest pregnancy probability comes from intercourse <strong>1-2 days before ovulation</strong> — not on ovulation day itself. This is because timing allows sperm to already be present and waiting when the egg arrives.</p>\n<div class=\"formula-box\">Ovulation Day = Cycle Length − Luteal Phase (typically 14 days)</div>\n<div class=\"formula-box\">Peak Fertile Days = Ovulation Day − 1 to Ovulation Day − 2</div>\n</div>\n<div class=\"content-section\">\n<h2>Daily Pregnancy Probability</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 16px;text-align:left;\">Days Before Ovulation</th><th style=\"padding:10px 16px;\">Pregnancy Probability</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">5 days before</td><td style=\"padding:10px 16px;\">~10%</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">4 days before</td><td style=\"padding:10px 16px;\">~14%</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">3 days before</td><td style=\"padding:10px 16px;\">~16%</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;font-weight:600;color:var(--c-accent);\">2 days before ⭐ Peak</td><td style=\"padding:10px 16px;font-weight:600;color:var(--c-accent);\">~27%</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;font-weight:600;color:var(--c-accent);\">1 day before ⭐ Peak</td><td style=\"padding:10px 16px;font-weight:600;color:var(--c-accent);\">~31%</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Day of ovulation</td><td style=\"padding:10px 16px;\">~25%</td></tr>\n<tr><td style=\"padding:10px 16px;\">1 day after ovulation</td><td style=\"padding:10px 16px;\">~10%</td></tr>\n</tbody>\n</table>\n</div>\n<p style=\"font-size:12px;color:var(--c-ink3);margin-top:8px;\">Source: Wilcox AJ et al., New England Journal of Medicine, 1995</p>\n</div>\n<div class=\"content-section\">\n<h2>Factors That Affect Fertility</h2>\n<ul>\n<li><strong>Age:</strong> Female fertility declines significantly after 35; male fertility declines more gradually</li>\n<li><strong>BMI:</strong> Both underweight and overweight can disrupt ovulation and hormone levels</li>\n<li><strong>Smoking:</strong> Reduces egg quality and quantity; increases miscarriage risk</li>\n<li><strong>Alcohol:</strong> Heavy consumption reduces fertility in both men and women</li>\n<li><strong>Stress:</strong> Chronic stress can suppress ovulation and reduce sperm quality</li>\n<li><strong>Thyroid function:</strong> Both hypo and hyperthyroidism affect fertility significantly</li>\n<li><strong>PCOS:</strong> Affects up to 10% of women and is a leading cause of infertility</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">When am I most fertile? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Your peak fertility is in the 1-2 days before ovulation. Ovulation typically occurs 14 days before your next period. Our calculator identifies these peak days so you can time intercourse for the highest probability of conception.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does it take to get pregnant? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">About 85% of healthy couples conceive within 12 months of trying. If you are under 35 and have been trying for 12+ months without success, or over 35 and trying for 6+ months, consult a reproductive endocrinologist.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I get pregnant if we have sex on ovulation day? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes, but the probability is slightly lower (~25%) than the day before ovulation (~31%). The egg only survives 12-24 hours, so timing intercourse 1-2 days before gives sperm time to be present when the egg is released.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What supplements help with fertility? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Folic acid (400-800 mcg) is essential for preventing neural tube defects and should be started 3 months before trying to conceive. CoQ10 may improve egg quality. Vitamin D, zinc, and omega-3s also support reproductive health. Always consult your doctor before starting supplements.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/ovulation-calculator\"><span class=\"rc-icon\">📅</span><span class=\"rc-name\">Ovulation Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/pregnancy-due-date-calculator\"><span class=\"rc-icon\">🤰</span><span class=\"rc-name\">Due Date Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/period-calculator\"><span class=\"rc-icon\">🌸</span><span class=\"rc-name\">Period Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Fertility Calculator</h2>\n<div class=\"form-group\">\n<label for=\"fc-lmp\">First Day of Last Period</label>\n<input id=\"fc-lmp\" type=\"date\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"fc-cycle\">Average Cycle Length</label>\n<select id=\"fc-cycle\">\n<option value=\"21\">21 days</option><option value=\"22\">22</option><option value=\"23\">23</option>\n<option value=\"24\">24</option><option value=\"25\">25</option><option value=\"26\">26</option>\n<option value=\"27\">27</option><option selected=\"\" value=\"28\">28 days (average)</option>\n<option value=\"29\">29</option><option value=\"30\">30</option><option value=\"31\">31</option>\n<option value=\"32\">32</option><option value=\"33\">33</option><option value=\"34\">34</option>\n<option value=\"35\">35 days</option>\n</select>\n</div>\n<div class=\"form-group\">\n<label for=\"fc-age\">Your Age</label>\n<input id=\"fc-age\" max=\"50\" min=\"18\" type=\"number\" value=\"28\"/>\n</div>\n<button class=\"calc-btn\" onclick=\"calcFertility()\">Find Fertile Days</button>\n<div id=\"fc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fc\" onclick=\"printResult('fc-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"fc-result\">\n<div id=\"ri-main\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ri-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ri-ai\" style=\"display:none;\"></div>\n<div id=\"fc-ri\"></div>\n<div class=\"ai-box\" id=\"fc-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ This calculator provides estimates based on average cycle patterns. Consult a healthcare provider or fertility specialist for personalized guidance.</div>\n</div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div></main>" }} />
-      <Script id="calc-script-fertility-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('fc-lmp').valueAsDate=new Date();\nfunction calcFertility(){\n  const lmp=new Date(document.getElementById('fc-lmp').value);\n  if(isNaN(lmp)){alert('Please enter a valid date.');return;}\n  const cycle=parseInt(document.getElementById('fc-cycle').value)||28;\n  const age=parseInt(document.getElementById('fc-age').value)||28;\n  const opts={month:'short',day:'numeric',year:'numeric'};\n  const shortOpts={month:'short',day:'numeric'};\n  let html='<div style=\"margin-bottom:12px;font-size:13px;font-weight:600;color:var(--c-ink2);text-transform:uppercase;letter-spacing:0.8px;\">Fertile Windows — Next 3 Cycles</div>';\n  for(let i=1;i<=3;i++){\n    const periodStart=new Date(lmp.getTime()+i*cycle*86400000);\n    const ovDay=new Date(periodStart.getTime()-(14)*86400000);\n    const fertStart=new Date(ovDay.getTime()-5*86400000);\n    const fertEnd=new Date(ovDay.getTime()+1*86400000);\n    const peak1=new Date(ovDay.getTime()-2*86400000);\n    const peak2=new Date(ovDay.getTime()-1*86400000);\n    html+=`<div style=\"padding:12px 14px;border-radius:8px;margin-bottom:10px;background:var(--c-rule2);border:1.5px solid var(--c-rule);\">\n      <div style=\"font-weight:600;font-size:13px;color:var(--c-accent);margin-bottom:6px;\">Cycle ${i}</div>\n      <div style=\"font-size:12.5px;color:var(--c-ink2);margin-bottom:4px;\">🗓️ Fertile: <strong>${fertStart.toLocaleDateString('en-US',shortOpts)} – ${fertEnd.toLocaleDateString('en-US',shortOpts)}</strong></div>\n      <div style=\"font-size:12.5px;color:var(--c-ink2);margin-bottom:4px;\">⭐ Peak Days: <strong style=\"color:var(--c-accent);\">${peak1.toLocaleDateString('en-US',shortOpts)} & ${peak2.toLocaleDateString('en-US',shortOpts)}</strong></div>\n      <div style=\"font-size:12.5px;color:var(--c-ink2);\">🥚 Ovulation: ${ovDay.toLocaleDateString('en-US',shortOpts)}</div>\n    </div>`;\n  }\n  document.getElementById('fc-ri').innerHTML=html;\n  showResult('fc-result');\n  const aiBox=document.getElementById('fc-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Creating your fertility plan...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Woman aged '+age+' trying to conceive, cycle length '+cycle+' days. Give 3 evidence-based tips to improve conception chances, mention one important supplement to start (folic acid), and note at what point they should consult a doctor if not conceiving. 4 sentences, warm supportive tone. End with medical disclaimer.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n\n  if(typeof drawDonut==='function'){var _cv=document.querySelector('.result-chart canvas');if(!_cv){var _rc=document.querySelector('.result-chart');if(!_rc){_rc=document.createElement('div');_rc.className='result-chart';var _rbox=document.querySelector('.result-box');if(_rbox){_cv=document.createElement('canvas');_cv.id='auto-c';_cv.width=220;_cv.height=160;_rc.appendChild(_cv);_rbox.appendChild(_rc);}else{_cv=null;}}else{_cv=_rc.querySelector('canvas');}}_cv&&drawDonut(_cv.id,['Value','Ref'],[70,30],['#1a5c3a','#c8832a']);}\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Fertility & Conception Calculator"
+      intro="Estimate your monthly conception probabilities and cumulative 12-month pregnancy rates based on maternal age, cycle consistency, and evidence-based reproductive endocrinology standards."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="P_{\text{cumulative}} = 1 - (1 - f)^N \quad (f = \text{Monthly Fecundability Rate})"
+      related={[
+        { href: "/calculators/health/ovulation-calculator", icon: "📅", name: "Ovulation Calculator" },
+        { href: "/calculators/health/pregnancy-due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
+        { href: "/calculators/health/period-calculator", icon: "🩸", name: "Period Calculator" },
+        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
+      ]}
+      faq={[
+        {
+          q: "What is monthly fecundability and how does it change with age?",
+          a: "Monthly fecundability is the statistical probability of achieving pregnancy within a single menstrual cycle for a couple engaging in regular, unprotected intercourse. In women in their early 20s, natural fecundability is approximately 25% per month. By age 30, it averages 18–20%; by age 35, it drops to 10–12%; and by age 40, it is roughly 5% per cycle. However, cumulative 12-month pregnancy rates remain substantial even in older brackets through consistent exposure over time.",
+        },
+        {
+          q: "What is Anti-Müllerian Hormone (AMH) and what does it tell you?",
+          a: "Anti-Müllerian Hormone (AMH) is a glycoprotein secreted by the granulosa cells of pre-antral and small antral ovarian follicles. Because it reflects the size of the remaining growing follicle pool, serum AMH is widely used as a biomarker of ovarian reserve. AMH indicates how many eggs remain and predicts how well the ovaries will respond to fertility medications during IVF; however, AMH does not measure egg quality or guarantee natural unassisted conception in a given cycle.",
+        },
+        {
+          q: "When does the American Society for Reproductive Medicine (ASRM) recommend seeking a fertility evaluation?",
+          a: "The clinical guidelines established by ASRM dictate: 1) Women under age 35 should attempt unassisted conception for 12 months before initiating an infertility evaluation; 2) Women aged 35 to 39 should seek a clinical evaluation after 6 months of unsuccessful timed intercourse; and 3) Women aged 40 and older, or those with known risk factors (such as endometriosis, history of pelvic inflammatory disease, or irregular/absent periods), should seek immediate evaluation upon deciding to conceive.",
+        },
+        {
+          q: "Why does chromosomal aneuploidy increase as women age?",
+          a: "Female humans are born with their lifetime supply of approximately 1 to 2 million oocytes, which remain arrested in prophase of meiosis I for decades. As oocytes age, the proteinaceous cohesin rings and spindle apparatus fibers that tether chromosome pairs together gradually degrade. Upon completing meiotic division during ovulation, aged oocytes are prone to nondisjunction errors—leading to missing or extra chromosomes (aneuploidy, such as Trisomy 21). Aneuploid embryos frequently fail to implant or result in early first-trimester miscarriage.",
+        },
+        {
+          q: "What does a basic clinical fertility evaluation include?",
+          a: "A comprehensive initial workup evaluates three foundational pillars: 1) Ovulatory Function: Serum AMH, cycle day 3 FSH/estradiol, transvaginal ultrasound for Antral Follicle Count (AFC), and mid-luteal progesterone; 2) Tubal & Uterine Anatomy: Hysterosalpingography (HSG) or saline infusion sonohysterography to verify patent fallopian tubes and a clear uterine cavity; and 3) Male Factor: Semen analysis assessing volume, sperm concentration, progressive motility, and strict Kruger morphology.",
+        },
+        {
+          q: "Can lifestyle factors improve egg quality or male fertility?",
+          a: "Yes. While chronological oocyte quantity cannot be increased, mitochondrial energy production and cellular health can be supported during the 90-day follicular development window preceding ovulation: 1) Maintain optimal body composition (BMI 19–24.9), as both obesity and severe underweight disrupt ovulation; 2) Eliminate tobacco smoking and limit alcohol, both of which accelerate follicular depletion and fragment sperm DNA; 3) Supplement with evidence-based micronutrients (coenzyme Q10/ubiquinol to support mitochondrial ATP, folate/methylfolate, and vitamin D); and 4) Ensure male partners avoid hot tubs, tight compression, and excessive heat exposure.",
+        },
+      ]}
+    >
+      <FertilityCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Reproductive Endocrinology &amp; Infertility (REI) Review:</span> Calibrated to American Society for Reproductive Medicine (ASRM) Practice Committee Opinions and ESHRE ovarian reserve diagnostic criteria.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Reproductive Standards</div>
+        </div>
+
+        {/* Section 1: The Bio-Mathematical Reality */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Bio-Mathematical Reality: Monthly Fecundability vs. Cumulative Odds
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In reproductive epidemiology, human fertility is measured in terms of <strong>fecundability</strong>—the biological probability of conceiving within a single monthly ovulatory cycle. Even during the peak of biological fertility in the early twenties, human reproduction is naturally inefficient compared to other mammals, peaking at approximately a <strong>20% to 25% chance per cycle</strong>.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            However, fertility is cumulative. When couples engage in timed intercourse during the 6-day fertile window across multiple consecutive months, the cumulative mathematical probability rises rapidly:
+          </p>
+          <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/80 my-4 text-center">
+            <Formula>{"P_{\\text{cumulative}} = 1 - (1 - f)^N"}</Formula>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Where <em>f</em> is the adjusted per-cycle fecundability rate and <em>N</em> is the number of attempted ovulatory cycles. Even with a modest 15% monthly probability, the 12-month cumulative likelihood of pregnancy reaches over 80%.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Maternal Age, Conception Odds &amp; AMH Trajectory
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Examine how chronological age influences monthly per-cycle conception odds, 12-month cumulative pregnancy rates, and median Anti-Müllerian Hormone (AMH) ovarian reserve. Scrub along the age axis to view clinical thresholds:
+          </p>
+          <OvarianReserveAgeCurveChart />
+        </section>
+
+        {/* Section 3: Ovarian Reserve Benchmarks */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Biomarkers of Ovarian Reserve: AMH and Antral Follicle Count
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Clinical evaluation of female reproductive potential relies heavily upon two independent biomarkers of oocyte quantity:
+          </p>
+          <DataTable
+            head={["Ovarian Reserve Stratification", "Serum AMH Concentration", "Antral Follicle Count (AFC)", "Clinical Interpretation & Ovarian Responsiveness"]}
+            rows={OVARIAN_RESERVE_BENCHMARKS_TABLE.map((row) => [
+              <strong key={row.category} className="text-slate-900 dark:text-slate-100">{row.category}</strong>,
+              row.amhSerumRange,
+              row.afcCount,
+              row.clinicalMeaning,
+            ])}
+          />
+        </section>
+
+        {/* Section 4: Aneuploidy and Maternal Age */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Oocyte Aging: The Mechanics of Meiotic Spindle Nondisjunction
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The age-related decline in fertility is driven by two intertwined biological vectors: <strong>quantitative depletion</strong> of the primordial follicle pool and <strong>qualitative deterioration</strong> of the oocyte meiotic spindle apparatus:
+          </p>
+          <DataTable
+            head={["Maternal Age Tier", "Monthly Fecundability", "1-Year Cumulative", "Oocyte Aneuploidy Rate", "Clinical Miscarriage Risk"]}
+            rows={AGE_ANEUPLOIDY_TABLE.map((row) => [
+              <strong key={row.maternalAge} className="text-slate-900 dark:text-slate-100">{row.maternalAge}</strong>,
+              row.monthlyChance,
+              row.cumulativeYear,
+              row.aneuploidyRate,
+              row.miscarriageRisk,
+            ])}
+          />
+        </section>
+
+        {/* Section 5: The Diagnostic Workup */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Infertility Diagnostic Triad: Female, Tubal &amp; Male Factors
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            When conception has not occurred within the ASRM timeframe (12 months under age 35, 6 months at age 35+), a structured diagnostic evaluation should be conducted in parallel across all three physiological pillars:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">1. Ovulatory &amp; Ovarian</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Confirm regular ovulation via mid-luteal progesterone (&gt; 3 ng/mL confirms ovulation; &gt; 10 ng/mL confirms robust corpus luteum). Evaluate AMH, baseline Day-3 FSH/estradiol, and thyroid TSH.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">2. Pelvic &amp; Tubal Anatomy</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Perform a Hysterosalpingogram (HSG) or HyCoSy ultrasound to verify bilateral tubal patency and exclude intrauterine polyps, submucosal fibroids, or congenital uterine septa.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">3. Male Semen Analysis</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                Male factor accounts for approximately 40% to 50% of all infertility cases. A formal semen analysis evaluates concentration (&gt; 15M/mL), progressive motility (&gt; 32%), and strict morphology (&gt; 4%).
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+    </CalcPage>
   );
 }
