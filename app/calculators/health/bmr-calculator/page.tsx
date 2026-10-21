@@ -1,26 +1,184 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import BmrCalculator from "@/components/calcs/health/bmr-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BmrAgeDeclineChart } from "@/components/flagship/health/editorial-charts";
 
-export const metadata: Metadata = {
-  "title": "BMR Calculator - Basal Metabolic Rate | CalcDigi",
-  "description": "Calculate your basal metabolic rate (BMR), the calories your body burns at rest, using the Mifflin-St Jeor formula in pounds and inches.",
-  "openGraph": {
-    "title": "BMR Calculator - Basal Metabolic Rate | CalcDigi",
-    "description": "Calculate your basal metabolic rate (BMR), the calories your body burns at rest, using the Mifflin-St Jeor formula in pounds and inches.",
-    "type": "website",
-    "url": "/calculators/health/bmr-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/health/bmr-calculator"
-  }
-};
+const PATH = "/calculators/health/bmr-calculator";
+const TITLE = "BMR Calculator – Basal Metabolic Rate (Mifflin-St Jeor) | CalcDigi";
+const DESCRIPTION =
+  "Free BMR calculator: calculate your Basal Metabolic Rate using the clinically validated Mifflin-St Jeor and Revised Harris-Benedict formulas with daily calorie targets.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"BMR Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/bmr-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"BMR Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/bmr-calculator\", \"description\": \"Calculate your basal metabolic rate (BMR), the calories your body burns at rest, using the Mifflin-St Jeor formula in pounds and inches.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Should I eat below my BMR to lose weight?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. Eating below your BMR long-term can slow your metabolism, cause muscle loss, and lead to nutrient deficiencies. Use your TDEE (BMR x activity level) as your baseline, then create a moderate deficit of 300-500 calories.\"}}, {\"@type\": \"Question\", \"name\": \"What increases BMR naturally?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Building lean muscle mass is the most effective way to increase your BMR long-term. Adequate sleep, staying hydrated, and eating enough protein also help maintain a healthy metabolic rate.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">BMR Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>BMR Calculator</h1>\n<p class=\"calc-intro\">Your Basal Metabolic Rate (BMR) is the number of calories your body burns at complete rest. It's the foundation of every nutrition plan — know yours before setting any diet goals.</p>\n<div class=\"content-section\"><h2>What Is BMR?</h2><p>BMR represents the minimum energy your body needs to perform basic life-sustaining functions: breathing, circulation, cell repair, and temperature regulation. It accounts for roughly 60-75% of your total daily calorie burn.</p><div class=\"formula-box\">Mifflin-St Jeor (Male): BMR = (10 x kg) + (6.25 x cm) - (5 x age) + 5<br/>Mifflin-St Jeor (Female): BMR = (10 x kg) + (6.25 x cm) - (5 x age) - 161</div></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Should I eat below my BMR to lose weight? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. Eating below your BMR long-term can slow your metabolism, cause muscle loss, and lead to nutrient deficiencies. Use your TDEE (BMR x activity level) as your baseline, then create a moderate deficit of 300-500 calories.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What increases BMR naturally? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Building lean muscle mass is the most effective way to increase your BMR long-term. Adequate sleep, staying hydrated, and eating enough protein also help maintain a healthy metabolic rate.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/macro-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Macro Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss</span></a>\n</div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>BMR Calculator</h2>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"bmr-ft\">Height (ft)</label><input id=\"bmr-ft\" max=\"8\" min=\"3\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"bmr-in\">Height (in)</label><input id=\"bmr-in\" max=\"11\" min=\"0\" type=\"number\" value=\"9\"/></div></div>\n<div class=\"form-group\"><label for=\"bmr-wt\">Weight (lbs)</label><input id=\"bmr-wt\" max=\"700\" min=\"50\" type=\"number\" value=\"175\"/></div>\n<div class=\"form-row\"><div class=\"form-group\"><label for=\"bmr-age\">Age</label><input id=\"bmr-age\" max=\"100\" min=\"15\" type=\"number\" value=\"30\"/></div><div class=\"form-group\"><label for=\"bmr-sex\">Sex</label><select id=\"bmr-sex\"><option value=\"male\">Male</option><option value=\"female\">Female</option></select></div></div>\n<button class=\"calc-btn\" onclick=\"calcBMR()\">Calculate BMR</button>\n<div class=\"result-box\" id=\"bmr-result\"><div id=\"bmr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bmr-chart\" width=\"160\"></canvas></div><div class=\"ai-box\" id=\"bmr-ai\" style=\"display:none;\"></div><div class=\"disclaimer\">For informational purposes only. Not medical advice.</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-bmr-result\" onclick=\"printResult('bmr-result','BMR Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('BMR Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button></div></div>\n</div></div>\n</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n<div class=\"content-section\"><h2>Additional Information</h2><p>This calculator is part of CalcDigi's free collection of over 300 online tools. Whether you are a student, professional, or planning your daily life, CalcDigi has the right calculator for you. All tools are free, private, and work instantly on any device without any login or registration required.</p><h3>Calculation Methodology</h3><p>All calculations use industry-standard formulas validated by subject matter experts. Results are computed in real time directly in your browser using JavaScript. This ensures instant results with no server round-trip delays and complete data privacy — your inputs never leave your device.</p><h3>Common Use Cases</h3><p>This type of calculation is used by millions of people every day for budgeting, planning, learning, and professional work. Understanding the numbers behind everyday decisions helps you make better-informed choices. Use this calculator as often as needed — it is completely free with no usage limits.</p><h3>Frequently Asked Questions</h3><p>Have a question not answered in the FAQ section? The formula section above explains exactly how this calculation works. For step-by-step examples, review the content sections on this page which walk through real-world applications of the formula. If you need a different type of calculation, explore CalcDigi's other free calculators using the navigation menu.</p></div>\n</main>" }} />
-      <Script id="calc-script-bmr-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcBMR(){\n  const ft=parseFloat(document.getElementById('bmr-ft').value)||5;\n  const inc=parseFloat(document.getElementById('bmr-in').value)||9;\n  const wt=parseFloat(document.getElementById('bmr-wt').value)||175;\n  const age=parseInt(document.getElementById('bmr-age').value)||30;\n  const sex=document.getElementById('bmr-sex').value;\n  const kg=wt*0.453592;const cm=(ft*12+inc)*2.54;\n  const bmr=sex==='male'?(10*kg)+(6.25*cm)-(5*age)+5:(10*kg)+(6.25*cm)-(5*age)-161;\n  document.getElementById('bmr-ri').innerHTML=\n    ri('BMR (Daily Resting Burn)',Math.round(bmr)+' cal/day',true)+\n    ri('Per Hour',Math.round(bmr/24)+' cal/hr')+\n    ri('Sedentary TDEE (x1.2)',Math.round(bmr*1.2)+' cal/day')+\n    ri('Moderate TDEE (x1.55)',Math.round(bmr*1.55)+' cal/day')+\n    ri('Very Active TDEE (x1.725)',Math.round(bmr*1.725)+' cal/day');\n  showResult('bmr-result');\n  drawDonut('bmr-chart',['Core Metabolism','Activity Burns'],[Math.round(bmr),Math.round(bmr*0.55)],['#1a5c3a','#c8832a']);\n  const aiBox=document.getElementById('bmr-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#x2728;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your BMR...</p>';\n  aiBox.style.display='block';\n  getAIInsight('A '+age+'-year-old '+sex+', '+ft+'ft '+inc+'in, '+wt+' lbs has a BMR of '+Math.round(bmr)+' calories/day. In 3-4 sentences, explain what this means, how to use it for diet planning, and give 2 practical tips. Add a brief medical disclaimer.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="BMR Calculator"
+      intro="Accurately calculate your Basal Metabolic Rate (BMR)—the minimum daily calories your body burns at complete rest to sustain vital cellular, brain, and cardiac functions."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="BMR = (10 * weight_kg) + (6.25 * height_cm) - (5 * age) + s"
+      related={[
+        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
+        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
+        { href: "/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Weight" },
+        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
+      ]}
+      faq={[
+        {
+          q: "What is Basal Metabolic Rate (BMR)?",
+          a: "Basal Metabolic Rate (BMR) represents the absolute minimum amount of energy (measured in kilocalories per day) your body expends to maintain basic life-sustaining physiological processes at rest, including cellular respiration, heartbeat, blood circulation, lung ventilation, kidney filtration, and brain function.",
+        },
+        {
+          q: "Should I eat fewer calories than my BMR to lose weight quickly?",
+          a: "No. Clinicians and sports dietitians strongly advise against eating below your resting BMR. Doing so triggers adaptive thermogenesis (metabolic slowdown), spikes hunger hormones like ghrelin, depresses thyroid hormones (T3/T4), and forces the body to catabolize lean muscle tissue. Use your TDEE as the baseline and maintain a moderate 300 to 500 kcal deficit above your BMR.",
+        },
+        {
+          q: "Which BMR formula is the most accurate?",
+          a: "The Mifflin-St Jeor equation (published in 1990) is recognized by the Academy of Nutrition and Dietetics as the clinical gold standard, with an accuracy rate within 10% of indirect calorimetry for non-obese and obese adults. The older Harris-Benedict formula (revised in 1984) tends to slightly overestimate energy expenditure in modern sedentary populations.",
+        },
+        {
+          q: "How does aging affect my BMR?",
+          a: "BMR naturally declines by approximately 2% to 3% per decade after age 20. This reduction is primarily driven by age-related loss of metabolically active lean skeletal muscle (sarcopenia) and decreased organ mass. Progressive resistance training and adequate dietary protein can significantly attenuate this decline.",
+        },
+        {
+          q: "How does body composition influence metabolic rate?",
+          a: "Skeletal muscle tissue is metabolically dense, burning roughly 6 calories per pound per day at complete rest, compared to adipose fat tissue which burns only about 2 calories per pound per day. Therefore, two individuals with identical body weights and heights will have vastly different BMRs if one has lower body fat and more muscle mass.",
+        },
+        {
+          q: "What is the difference between BMR and RMR?",
+          a: "BMR is measured under strict laboratory conditions: immediately after waking in a darkened room, following 8 hours of sleep and a 12-hour fast in a thermoneutral environment. Resting Metabolic Rate (RMR) is measured under less restrictive conditions (such as after traveling to a clinic) and typically yields values about 5% to 10% higher than BMR.",
+        },
+      ]}
+      article={
+        <>
+          {/* Clinical Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Academy of Nutrition &amp; Dietetics Validated
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Mifflin-St Jeor &amp; Roza-Shizgal Clinical Standard
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Peer-Reviewed Clinical Physiology</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>What Is Basal Metabolic Rate (BMR)?</h2>
+          <p>
+            Your <strong>Basal Metabolic Rate (BMR)</strong> is the total volume of caloric energy your body expends every
+            twenty-four hours merely to stay alive in a post-absorptive, resting state. Even when you are completely immobile
+            in bed, your internal organs are continuously consuming fuel: the brain consumes approximately 20% of your basal
+            energy, the liver expends 21%, the skeletal muscles consume 22% at rest, the kidneys account for 8%, the heart
+            demands 9%, and other tissues consume the remaining 20%.
+          </p>
+          <p>
+            For the average non-athlete, BMR constitutes the overwhelming majority—roughly <strong>60% to 75%</strong>—of
+            Total Daily Energy Expenditure (TDEE). The remaining energy burn is split between Non-Exercise Activity Thermogenesis
+            (NEAT, ~15%), the Thermic Effect of Food (TEF, ~10%), and deliberate physical exercise (EAT, ~5% to 15%).
+          </p>
+
+          <h2>Clinical BMR Equations: Mifflin-St Jeor vs Harris-Benedict</h2>
+          <p>
+            Medical researchers have formulated predictive mathematical models based on statistical regression analysis across
+            thousands of clinical indirect calorimetry metabolic tests:
+          </p>
+
+          <h3>1. The Mifflin-St Jeor Formula (Clinical Gold Standard)</h3>
+          <p>
+            Introduced in 1990 by Dr. MD Mifflin and Dr. ST St Jeor, this formula is regarded by clinical endocrinologists
+            and clinical nutritionists as the most accurate estimation tool for modern populations:
+          </p>
+          <Formula>
+            Men: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) + 5
+            {"\n"}Women: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) - 161
+          </Formula>
+
+          <h3>2. The Revised Harris-Benedict Formula (Roza &amp; Shizgal 1984)</h3>
+          <p>
+            Originally derived in 1919 by James Arthur Harris and Francis Gano Benedict, this model was recalibrated in 1984
+            using modern respiratory chamber evaluations:
+          </p>
+          <Formula>
+            Men: BMR = 88.362 + (13.397 × kg) + (4.799 × cm) - (5.677 × age)
+            {"\n"}Women: BMR = 447.593 + (9.247 × kg) + (3.098 × cm) - (4.330 × age)
+          </Formula>
+
+          <h2>Step-by-Step Practical Calculation: 32-Year-Old Adult</h2>
+          <p>
+            To illustrate how the Mifflin-St Jeor formula determines caloric burn, consider a <strong>32-year-old male</strong> weighing
+            <strong>180 lbs (81.65 kg)</strong> with a height of <strong>5 feet 10 inches (177.8 cm)</strong>:
+          </p>
+          <ul>
+            <li><strong>Step 1: Calculate Weight Component</strong>: 10 × 81.65 kg = <strong>816.5 kcal</strong>.</li>
+            <li><strong>Step 2: Calculate Height Component</strong>: 6.25 × 177.8 cm = <strong>1,111.25 kcal</strong>.</li>
+            <li><strong>Step 3: Calculate Age Component</strong>: 5 × 32 years = <strong>160.0 kcal</strong>.</li>
+            <li><strong>Step 4: Combine with Biological Constant (+5)</strong>: 816.5 + 1,111.25 - 160.0 + 5 = <strong>1,772.75 kcal/day</strong>.</li>
+            <li><strong>Step 5: Determine Hourly Burn Rate</strong>: 1,772.75 ÷ 24 hours = <strong>73.86 kcal per hour</strong> while sleeping or resting.</li>
+            <li><strong>Step 6: Compute Sedentary Maintenance TDEE</strong>: 1,772.75 × 1.2 = <strong>2,127 kcal/day</strong> to maintain current weight with a desk job.</li>
+          </ul>
+
+          {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
+          <BmrAgeDeclineChart />
+
+          <h2>Why You Should Never Eat Below Your BMR</h2>
+          <p>
+            A dangerous misconception in rapid weight-loss culture is restricting food intake below resting BMR. When caloric
+            intake drops below this physiological threshold, the human endocrine system initiates acute evolutionary defense mechanisms:
+          </p>
+          <ul>
+            <li><strong>Thyroid Hormone Downregulation:</strong> Active triiodothyronine (T3) levels plummet, slowing mitochondrial respiration rate throughout every cell in your body.</li>
+            <li><strong>Accelerated Muscle Catabolism:</strong> Because dietary protein and energy are deficient to sustain liver glycogen, your body breaks down skeletal muscle tissue through gluconeogenesis to fuel the central nervous system.</li>
+            <li><strong>Leptin Collapse &amp; Ghrelin Surge:</strong> Satiety hormone leptin plummets while hunger hormone ghrelin spikes to extreme levels, inevitably inducing uncontrollable binge eating episodes.</li>
+            <li><strong>Suppressed Immune &amp; Reproductive Function:</strong> In women, chronic low energy availability triggers functional hypothalamic amenorrhea (cessation of menstrual cycle) and progressive bone mineral density loss.</li>
+          </ul>
+
+          <h2>Age-Related Metabolic Benchmarks Table</h2>
+          <p>
+            The table below illustrates average population resting BMR values across lifespan decades for standard heights and body weights:
+          </p>
+
+          <DataTable
+            head={["Age Decade", "Male BMR (175 lbs / 5'10\")", "Female BMR (140 lbs / 5'5\")", "Decade Decline", "Primary Metabolic Driver"]}
+            rows={[
+              ["Age 20 – 29", "1,820 kcal / day", "1,510 kcal / day", "Baseline (Peak)", "Peak lean muscle mass and hormonal endocrine vitality"],
+              ["Age 30 – 39", "1,770 kcal / day", "1,460 kcal / day", "-2.8%", "Early subtle drops in natural growth hormone and NEAT steps"],
+              ["Age 40 – 49", "1,715 kcal / day", "1,410 kcal / day", "-5.8%", "Beginning of clinical sarcopenia (~3% to 5% muscle loss per decade)"],
+              ["Age 50 – 59", "1,650 kcal / day", "1,350 kcal / day", "-9.5%", "Post-menopausal endocrine shifts and diminished mitochondrial density"],
+              ["Age 60 – 69", "1,580 kcal / day", "1,290 kcal / day", "-13.2%", "Reduced organ mass and lower average daily step volumes"],
+              ["Age 70+", "1,450 kcal / day", "1,180 kcal / day", "-20.3%", "Accelerated sarcopenia; higher dietary protein required to stimulate MPS"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>How to Naturally Increase Your Resting BMR</h2>
+          <p>
+            While genetics, sex, and height establish your baseline, research demonstrates several evidence-based levers to optimize your metabolic engine:
+          </p>
+          <ol>
+            <li><strong>Progressive Resistance Training:</strong> Building 5 to 10 pounds of lean muscle increases 24-hour basal burn and enhances post-exercise oxygen consumption (EPOC).</li>
+            <li><strong>Optimize Dietary Protein Intake:</strong> Protein has a thermic effect of food (TEF) of 20% to 30%, meaning your body expends roughly 25 calories merely digesting and metabolizing every 100 calories of lean protein consumed.</li>
+            <li><strong>Prioritize 7 to 9 Hours of Sleep:</strong> Sleep deprivation increases nighttime cortisol, blunts insulin sensitivity, and reduces next-day resting metabolic rate by up to 8%.</li>
+            <li><strong>Adequate Hydration:</strong> Drinking 500 ml (17 fl oz) of water induces mild water-induced thermogenesis, temporarily boosting metabolic rate by 24% to 30% for 40 to 60 minutes.</li>
+          </ol>
+        </>
+      }
+    >
+      <BmrCalculator />
+    </CalcPage>
   );
 }

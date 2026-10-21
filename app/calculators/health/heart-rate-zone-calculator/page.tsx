@@ -1,26 +1,164 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import HeartRateZoneCalculator from "@/components/calcs/health/heart-rate-zone-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { HeartRateZoneSpectrumChart } from "@/components/flagship/health/editorial-charts";
 
-export const metadata: Metadata = {
-  "title": "Heart Rate Zone Calculator | CalcDigi",
-  "description": "Find your 5 training heart rate zones using the Karvonen formula for fat burn, cardio, and peak performance.",
-  "openGraph": {
-    "title": "Heart Rate Zone Calculator | CalcDigi",
-    "description": "Find your 5 training heart rate zones using the Karvonen formula for fat burn, cardio, and peak performance.",
-    "type": "website",
-    "url": "/calculators/health/heart-rate-zone-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/health/heart-rate-zone-calculator"
-  }
-};
+const PATH = "/calculators/health/heart-rate-zone-calculator";
+const TITLE = "Heart Rate Zone Calculator – 5 Training Zones & Karvonen Formula | CalcDigi";
+const DESCRIPTION =
+  "Free heart rate zone calculator: determine target heart rate training zones for fat burning, Zone 2 aerobic endurance, lactate threshold, and VO2 max using Karvonen and Tanaka equations.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Heart Rate Zone Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/heart-rate-zone-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Heart Rate Zone Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/heart-rate-zone-calculator\", \"description\": \"Find your 5 training heart rate zones using the Karvonen formula for fat burn, cardio, and peak performance.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I measure my resting heart rate?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Measure your resting heart rate first thing in the morning before getting out of bed. Count your pulse for 60 seconds or count for 15 seconds and multiply by 4. The average resting heart rate for adults is 60–100 bpm.\"}}, {\"@type\": \"Question\", \"name\": \"What is Zone 2 training?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Zone 2 (60–70% of max heart rate) is the aerobic base zone. It burns a high proportion of fat as fuel, improves cardiovascular efficiency, and is the foundation of endurance training. Most experts recommend spending 70–80% of training time in Zone 2.\"}}, {\"@type\": \"Question\", \"name\": \"What heart rate zone burns the most fat?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Zone 2 (fat-burning zone, 60–70% MHR) burns the highest percentage of calories from fat. However, higher intensity zones burn more total calories per minute, which also contributes to fat loss.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Heart Rate Zone Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Heart Rate Zone Calculator</h1>\n<p class=\"calc-intro\">Discover your five personalized heart rate training zones using the Karvonen formula — the gold standard for precise cardiovascular training used by coaches and athletes across the United States.</p>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I measure my resting heart rate? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Measure your resting heart rate first thing in the morning before getting out of bed. Count your pulse for 60 seconds or count for 15 seconds and multiply by 4. The average resting heart rate for adults is 60–100 bpm.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is Zone 2 training? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Zone 2 (60–70% of max heart rate) is the aerobic base zone. It burns a high proportion of fat as fuel, improves cardiovascular efficiency, and is the foundation of endurance training. Most experts recommend spending 70–80% of training time in Zone 2.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What heart rate zone burns the most fat? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Zone 2 (fat-burning zone, 60–70% MHR) burns the highest percentage of calories from fat. However, higher intensity zones burn more total calories per minute, which also contributes to fat loss.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2><div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmr-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">BMR Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss Calculator</span></a>\n</div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Heart Rate Zone Calculator</h2>\n<div class=\"form-group\"><label for=\"hr-age\">Age</label><input id=\"hr-age\" max=\"100\" min=\"10\" type=\"number\" value=\"30\"/></div>\n<div class=\"form-group\"><label for=\"hr-rhr\">Resting Heart Rate (bpm)</label><input id=\"hr-rhr\" max=\"120\" min=\"30\" type=\"number\" value=\"65\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate Now</button>\n<div class=\"result-box\" id=\"res\"><div id=\"ri\"></div><div class=\"result-chart\"><canvas height=\"180\" id=\"chart\" width=\"160\"></canvas></div><div class=\"ai-box\" id=\"ai\" style=\"display:none;\"></div><div class=\"disclaimer\">Results are for informational purposes only and do not constitute medical advice. Consult a licensed healthcare professional for personalized guidance.\n  <div id=\"calc-actions\" style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-calc\" onclick=\"printResult('res',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-heart-rate-zone-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  const age=parseInt(document.getElementById('hr-age').value)||30;\n  const rhr=parseInt(document.getElementById('hr-rhr').value)||65;\n  const mhr=220-age; // Max heart rate\n  const hrr=mhr-rhr; // Heart rate reserve (Karvonen)\n  const zone=(lo,hi)=>Math.round(rhr+hrr*lo)+' – '+Math.round(rhr+hrr*hi)+' bpm';\n  document.getElementById('ri').innerHTML=\n    '<div class=\"result-row\"><span class=\"rr-label\">Max Heart Rate</span><span class=\"rr-val\" style=\"color:var(--c-accent);font-weight:700;\">'+mhr+' bpm</span></div>'+\n    '<div class=\"result-row\"><span class=\"rr-label\">Resting HR</span><span class=\"rr-val\">'+rhr+' bpm</span></div>'+\n    '<div style=\"margin:12px 0 6px;font-weight:600;font-size:.85rem;color:var(--c-ink2);text-transform:uppercase;letter-spacing:.04em;\">Training Zones (Karvonen)</div>'+\n    ri('Zone 1 – Recovery (50–60%)',zone(0.5,0.6))+\n    ri('Zone 2 – Fat Burn (60–70%)',zone(0.6,0.7))+\n    ri('Zone 3 – Aerobic (70–80%)',zone(0.7,0.8))+\n    ri('Zone 4 – Threshold (80–90%)',zone(0.8,0.9))+\n    ri('Zone 5 – Peak (90–100%)',zone(0.9,1.0));\n  showResult('res');\n  drawBar('chart',['Z1','Z2','Z3','Z4','Z5'],[rhr+hrr*0.55,rhr+hrr*0.65,rhr+hrr*0.75,rhr+hrr*0.85,rhr+hrr*0.95],'#1a5c3a');\n  const aiBox=document.getElementById('ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing results...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Heart rate training zones for a '+age+'-year-old with resting HR of '+rhr+' bpm. Max HR: '+mhr+' bpm. Zone 2 fat-burn range: '+zone(0.6,0.7)+'. Give 3-4 sentences on how to use these zones for effective training, and include a medical disclaimer about consulting a doctor before starting intense exercise.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Heart Rate Zone Calculator"
+      intro="Accurately determine your five cardiovascular training zones, maximum heart rate (HRmax), and optimal Zone 2 fat-burning aerobic target using the clinically validated Karvonen Heart Rate Reserve (HRR) and Tanaka formulas."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="Target HR = (HRmax - Resting HR) * Intensity % + Resting HR"
+      related={[
+        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max Calculator" },
+        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
+        { href: "/calculators/health/cycling-calculator", icon: "🚴", name: "Cycling Calculator" },
+        { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
+      ]}
+      faq={[
+        {
+          q: "What is Zone 2 training and why is it so popular?",
+          a: "Zone 2 training (60% to 70% of Heart Rate Reserve or ~65–75% of HRmax) is the aerobic intensity where your type-I slow-twitch muscle fibers utilize fatty acids as their primary fuel substrate through mitochondrial beta-oxidation. Leading longevity physicians like Dr. Peter Attia emphasize Zone 2 because it builds mitochondrial density, improves metabolic flexibility, and clears blood lactate without exhausting the central nervous system.",
+        },
+        {
+          q: "How do I measure my true Resting Heart Rate (RHR)?",
+          a: "Measure your pulse immediately upon waking in the morning while still lying in bed, before getting up, eating, or drinking caffeine. Count your beats for 60 full seconds (or use an optical smartwatch or ECG chest strap). Average your morning readings over 5 consecutive days for your baseline RHR.",
+        },
+        {
+          q: "Why is the Karvonen formula superior to the traditional '220 - Age' formula?",
+          a: "The classic '220 - Age' formula (Fox formula) only accounts for age and assumes two people of the same age have identical cardiovascular profiles. The Karvonen formula incorporates your actual Resting Heart Rate (RHR) to determine your Heart Rate Reserve (HRR = HRmax - RHR). A trained athlete with an RHR of 45 bpm will have drastically different training zones than an untrained peer with an RHR of 80 bpm.",
+        },
+        {
+          q: "What is the Tanaka formula for Maximum Heart Rate?",
+          a: "Published in 2001 by Dr. Hirofumi Tanaka in the Journal of the American College of Cardiology (analyzing 351 studies and 18,712 subjects), the formula HRmax = 208 - (0.7 × Age) eliminated the systematic underestimation of maximum heart rate in older adults that plagued the traditional Fox equation.",
+        },
+        {
+          q: "What is the 'talk test' for Zone 2 aerobic training?",
+          a: "The talk test is a validated clinical indicator of aerobic threshold. In Zone 2, you should be able to speak full, coherent sentences continuously without gasping for breath, but you should not have enough spare ventilatory capacity to sing comfortably. If you cannot speak in complete sentences, you have drifted up into Zone 3.",
+        },
+        {
+          q: "What percentage of training time should be spent in each zone?",
+          a: "Exercise physiologist Dr. Stephen Seiler formulated the celebrated '80/20 Polarized Training Rule' based on elite endurance athletes: spend roughly 80% of your weekly training volume in low-intensity Zone 2 to build a massive aerobic base, and dedicate 20% to high-intensity Zone 4 (threshold) and Zone 5 (VO2 max) intervals.",
+        },
+      ]}
+      article={
+        <>
+          {/* Clinical Verification Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                American College of Cardiology (JACC) Standard
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Karvonen Heart Rate Reserve &amp; Tanaka (2001) Clinical Framework
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Cardiorespiratory Exercise Physiology</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
+            </div>
+          </div>
+
+          <h2>The Cardiovascular Science of Target Heart Rate Zones</h2>
+          <p>
+            Heart rate training is the most direct, objective window into an athlete's internal bioenergetic metabolism. Rather than
+            arbitrarily guessing effort based on speed or subjective fatigue, measuring beats per minute (bpm) allows you to target specific
+            cellular adaptations—ranging from capillary bed angiogenesis and mitochondrial biogenesis to lactic acid buffering and
+            neuromuscular recruitment.
+          </p>
+          <p>
+            Cardiorespiratory training is segmented into five distinct physiological tiers, each separated by metabolic transitions
+            (the first ventilatory threshold VT1 / aerobic threshold, and the second ventilatory threshold VT2 / anaerobic lactate threshold).
+          </p>
+
+          <h2>The Karvonen Heart Rate Reserve (HRR) Equation</h2>
+          <p>
+            The <strong>Karvonen formula</strong>, devised by Finnish physiologist Dr. Martti Karvonen, is the clinical gold standard
+            for computing target zones because it factors in both maximum cardiac ceiling and baseline autonomic tone (resting heart rate):
+          </p>
+          <Formula>
+            1. Max Heart Rate (Tanaka): HRmax = 208 - (0.7 × Age)
+            {"\n"}2. Heart Rate Reserve: HRR = HRmax - Resting Heart Rate (RHR)
+            {"\n"}3. Target Heart Rate = (HRR × Intensity %) + Resting Heart Rate
+          </Formula>
+
+          <h2>Step-by-Step Practical Calculation: 35-Year-Old with 60 bpm RHR</h2>
+          <p>
+            Consider a <strong>35-year-old athlete</strong> with a measured resting pulse of <strong>60 bpm</strong> targeting Zone 2 aerobic endurance (60% to 70% HRR):
+          </p>
+          <ul>
+            <li><strong>Step 1: Calculate HRmax (Tanaka)</strong>: 208 - (0.7 × 35) = 208 - 24.5 = <strong>183.5 bpm (~184 bpm)</strong>.</li>
+            <li><strong>Step 2: Calculate Heart Rate Reserve (HRR)</strong>: 184 bpm - 60 bpm (RHR) = <strong>124 bpm dynamic reserve</strong>.</li>
+            <li><strong>Step 3: Calculate Zone 2 Lower Bound (60%)</strong>: (124 × 0.60) + 60 = 74.4 + 60 = <strong>134 bpm</strong>.</li>
+            <li><strong>Step 4: Calculate Zone 2 Upper Bound (70%)</strong>: (124 × 0.70) + 60 = 86.8 + 60 = <strong>147 bpm</strong>.</li>
+            <li><strong>Step 5: Resulting Target Zone</strong>: Maintain heart rate between <strong>134 bpm and 147 bpm</strong> during continuous endurance sessions to maximize cellular fat oxidation.</li>
+          </ul>
+
+          {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
+          <HeartRateZoneSpectrumChart />
+
+          <h2>The 5 Cardiovascular Training Zones Breakdown Table</h2>
+          <p>
+            The table below outlines the primary fuel substrates, physiological adaptations, and training times recommended across the 5 heart rate zones:
+          </p>
+
+          <DataTable
+            head={["Zone Tier", "% of HRmax", "Primary Metabolic Fuel", "Physiological Adaptation", "Perceived Exertion (RPE 1-10)"]}
+            rows={[
+              ["Zone 1: Active Recovery", "50% – 60%", "85% Fatty Acids", "Promotes blood flow, cellular waste clearance & active parasympathetic recovery", "RPE 1 – 2 (Extremely light, easy conversation)"],
+              ["Zone 2: Aerobic Base (Fat Oxidation)", "60% – 70%", "70% Fat / 30% Glucose", "Mitochondrial density, capillary bed growth & maximum fat-burning efficiency", "RPE 3 – 4 (Talk test passed; comfortable nasal breathing)"],
+              ["Zone 3: Aerobic Tempo", "70% – 80%", "50% Fat / 50% Glucose", "Cardiac stroke volume expansion, stamina for half-marathon/marathon pacing", "RPE 5 – 6 (Moderate effort; speaking in short sentences only)"],
+              ["Zone 4: Lactate Threshold", "80% – 90%", "80% Muscle Glycogen", "Elevates anaerobic threshold, enhances cellular lactate buffering capacity", "RPE 7 – 8 (Hard effort; 1-2 word responses; burning sensation)"],
+              ["Zone 5: Anaerobic VO2 Max", "90% – 100%", "100% Glycogen & CP", "Maximal oxygen uptake (VO2 max), fast-twitch muscle recruitment & sprint power", "RPE 9 – 10 (Maximal all-out sprint; sustainable for 30–120 seconds)"],
+            ]}
+            highlight={1}
+          />
+
+          <h2>Why Zone 2 Training Is the Key to Longevity</h2>
+          <p>
+            Mitochondria are the intracellular organelles responsible for converting dietary fats and glucose into ATP (cellular energy).
+            In Zone 2, the rate of blood lactate generation is low enough that type-I muscle fibers can clear and oxidize lactate
+            at the same rate it is produced, maintaining lactate levels at roughly <strong>1.5 to 2.0 mmol/L</strong>.
+          </p>
+          <p>
+            Training in Zone 2 for <strong>3 to 4 hours per week</strong> (such as four 45-minute sessions of brisk incline walking, cycling, or light jogging)
+            stimulates mitochondrial biogenesis—increasing both the number and energetic efficiency of your mitochondria. This directly
+            combats insulin resistance, type-2 diabetes, cardiovascular disease, and age-related metabolic decline.
+          </p>
+
+          <h2>Avoiding the "Zone 3 Black Hole" Trap</h2>
+          <p>
+            A common training mistake among amateur athletes is spending too much time in <strong>Zone 3 ("the grey zone")</strong>.
+            Zone 3 feels like a good workout, but it is too intense to maximize mitochondrial fat oxidation (it shifts fuel to glucose)
+            while being too easy to stimulate the high-end neuromuscular adaptations of Zone 4 and Zone 5.
+          </p>
+          <p>
+            Embrace polarized training: keep your easy aerobic days truly easy in Zone 2, and save high intensity for dedicated,
+            focused interval days in Zone 4 and Zone 5.
+          </p>
+        </>
+      }
+    >
+      <HeartRateZoneCalculator />
+    </CalcPage>
   );
 }

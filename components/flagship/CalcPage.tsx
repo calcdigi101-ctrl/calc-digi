@@ -57,6 +57,20 @@ export function CalcPage({
     },
   ];
   if (
+    category.label === "Health" ||
+    category.label === "Health & Fitness" ||
+    appCategory === "HealthApplication"
+  ) {
+    graph.push({
+      "@type": "MedicalWebPage",
+      name: title,
+      url: `${SITE_URL}${path}`,
+      description,
+      aspect: ["Overview", "Calculation", "Clinical Guidelines", "Reference Ranges"],
+      medicalAudience: "Patients and Health Consumers",
+    });
+  }
+  if (
     category.label === "Finance" ||
     category.label === "Math" ||
     category.label === "Housing" ||
