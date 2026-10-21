@@ -171,6 +171,9 @@ export default function PushupTestPage() {
             <li>
               <strong>Rest-Pause Accumulation Sets:</strong> Perform a set to 1 rep before failure, rest 20 seconds, execute another 3 to 5 reps, rest 20 seconds, and complete a final 3 reps. This conditions muscle fibers to buffer intracellular lactate and regenerate phosphocreatine rapidly.
             </li>
+            <li>
+              <strong>Integrated Functional Conditioning:</strong> Pair upper-body endurance tests with absolute muscular strength assessments via our <a href="/calculators/health/one-rep-max-calculator">One Rep Max Calculator</a>, assess cardiorespiratory capacity with the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, and fuel myofibrillar recovery using our <a href="/calculators/health/protein-intake-calculator">Protein Intake Calculator</a>.
+            </li>
           </ul>
         </section>
       </article>

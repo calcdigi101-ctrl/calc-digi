@@ -80,6 +80,7 @@ export function WhtrLongevityRiskCurveChart() {
       margin: '28px 0',
       padding: '24px',
       borderRadius: '16px',
+      overflow: 'hidden',
       border: '1px solid var(--c-rule)',
       backgroundColor: 'var(--c-rule2)',
       boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
@@ -127,7 +128,7 @@ export function WhtrLongevityRiskCurveChart() {
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
           style={{ width: '100%', height: 'auto', display: 'block', cursor: 'ew-resize', userSelect: 'none' }}
           onPointerDown={handlePointer}
-          onPointerMove={(e) => { if (e.buttons > 0) handlePointer(e); }}
+          onPointerMove={(e) => { if (e.pointerType === "touch" || e.buttons > 0) handlePointer(e); }}
           onPointerEnter={handlePointer}
         >
           {/* Shaded Risk Zones */}

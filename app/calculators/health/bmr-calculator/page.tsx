@@ -88,8 +88,8 @@ export default function Page() {
           </p>
           <p>
             For the average non-athlete, BMR constitutes the overwhelming majority—roughly <strong>60% to 75%</strong>—of
-            Total Daily Energy Expenditure (TDEE). The remaining energy burn is split between Non-Exercise Activity Thermogenesis
-            (NEAT, ~15%), the Thermic Effect of Food (TEF, ~10%), and deliberate physical exercise (EAT, ~5% to 15%).
+            <a href="/calculators/health/tdee-calculator"> Total Daily Energy Expenditure (TDEE)</a>. The remaining energy burn is split between Non-Exercise Activity Thermogenesis
+            (NEAT, ~15%), the Thermic Effect of Food (TEF, ~10%), and deliberate physical exercise (EAT, ~5% to 15%). To compute your exact daily deficit or surplus targets, pair this with our <a href="/calculators/health/calorie-calculator">Calorie Calculator</a> or <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a>, or track your metabolically active tissue using the <a href="/calculators/health/lean-body-mass-calculator">Lean Body Mass Calculator</a>.
           </p>
 
           <h2>Clinical BMR Equations: Mifflin-St Jeor vs Harris-Benedict</h2>

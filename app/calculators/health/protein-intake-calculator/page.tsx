@@ -171,6 +171,14 @@ export default function Page() {
             <li><strong>Beef, Poultry &amp; Fish (DIAAS 1.00 – 1.10):</strong> Complete protein sources containing high levels of creatine, carnosine, and bioavailable iron.</li>
             <li><strong>Soy, Pea &amp; Plant Blends (DIAAS 0.85 – 0.95):</strong> High-quality plant sources; pairing complementary grains (rice and beans) or supplementing with leucine optimizes anabolic potential.</li>
           </ul>
+        
+          <div className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Nutrition &amp; Performance Tools</h3>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Optimizing protein distribution must be balanced against total daily energy and macronutrient targets. Structure your complete carbohydrate, fat, and protein ratios with our <a href="/calculators/health/macro-calculator">Macro Calculator</a>, determine daily energy needs with the <a href="/calculators/health/calorie-calculator">Calorie Calculator</a>, track active lean body mass with the <a href="/calculators/health/lean-body-mass-calculator">Lean Body Mass Calculator</a>, and test strength progression using the <a href="/calculators/health/one-rep-max-calculator">One Rep Max Calculator</a>.
+            </p>
+          </div>
+    
         </>
       }
     >

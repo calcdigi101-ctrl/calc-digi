@@ -86,22 +86,22 @@ export default function Page() {
           </p>
           <ol>
             <li>
-              <strong>Basal Metabolic Rate (BMR, ~60% – 75% of TDEE):</strong> The fundamental energy required to support cellular
+              <strong>Basal Metabolic Rate (<a href="/calculators/health/bmr-calculator">BMR Calculator</a>, ~60% – 75% of TDEE):</strong> The fundamental energy required to support cellular
               function, organ respiration, and neurological signaling while completely resting in bed.
             </li>
             <li>
               <strong>Non-Exercise Activity Thermogenesis (NEAT, ~15% of TDEE):</strong> The calories burned through subconscious
-              physical movement, posture maintenance, typing, fidgeting, and walking throughout your daily routine.
+              physical movement, posture maintenance, typing, fidgeting, and walking throughout your daily routine (track step volume with our <a href="/calculators/health/steps-to-calories-calculator">Steps to Calories Calculator</a>).
             </li>
             <li>
               <strong>Thermic Effect of Food (TEF, ~8% – 10% of TDEE):</strong> The metabolic cost of digesting, absorbing,
               transporting, and storing dietary macronutrients. Protein has the highest TEF (20%–30%), followed by carbohydrates
-              (5%–10%) and dietary fats (0%–3%).
+              (5%–10%) and dietary fats (0%–3%). Set your target nutrient distribution with the <a href="/calculators/health/macro-calculator">Macro Calculator</a>.
             </li>
             <li>
               <strong>Exercise Activity Thermogenesis (EAT, ~5% – 15% of TDEE):</strong> The energy expended during deliberate,
               structured cardiovascular or resistance workouts. For non-professional athletes, EAT represents a surprisingly small
-              portion of total 24-hour calorie burn.
+              portion of total 24-hour calorie burn. For targeted intake adjustments, explore our <a href="/calculators/health/calorie-calculator">Calorie Calculator</a>.
             </li>
           </ol>
 

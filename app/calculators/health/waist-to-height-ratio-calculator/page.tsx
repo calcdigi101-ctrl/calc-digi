@@ -196,6 +196,14 @@ export default function WaistToHeightRatioPage() {
             </li>
           </ol>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Waist-to-height ratio is recognized by cardiologists and the NICE guidelines as a superior cardiometabolic screener. Combine WHtR with regional fat distribution from the <a href="/calculators/health/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a>, evaluate total adipose percentage with the <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>, review silhouette classification with the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>, and calculate traditional height-weight status using our <a href="/calculators/health/bmi-calculator">BMI Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

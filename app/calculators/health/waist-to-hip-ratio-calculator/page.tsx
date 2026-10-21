@@ -187,6 +187,14 @@ export default function WaistToHipRatioPage() {
             ])}
           />
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Waist-to-hip measurements pinpoint android versus gynoid adiposity and metabolic syndrome risk. Pair WHR evaluation with the <a href="/calculators/health/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a>, classify your physical silhouette using the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>, assess systemic blood pressure with the <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, and track total body fat via our <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

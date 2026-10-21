@@ -72,7 +72,7 @@ export function CalorieMacroDeficitTrajectoryChart() {
   const curvePath = ENERGY_TRAJECTORY_DATA.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(d.deltaKcal).toFixed(1)} ${getY(d.weeklyChangeLbs).toFixed(1)}`).join(' ');
 
   return (
-    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 shadow-sm space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>

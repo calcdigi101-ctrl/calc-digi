@@ -166,6 +166,14 @@ export default function PaceCalculatorPage() {
             </li>
           </ul>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Pacing strategy directly governs cardiovascular efficiency and energy substrate utilization. Correlate your splits with heart rate zones using the <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, benchmark cardiorespiratory endurance with the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, calculate multisport swim paces with the <a href="/calculators/health/swim-pace-calculator">Swim Pace Calculator</a>, and determine run energy burn with the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

@@ -156,6 +156,14 @@ export default function StepsToCaloriesPage() {
             </div>
           </div>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Daily step volume represents the single largest component of Non-Exercise Activity Thermogenesis (NEAT). Incorporate your daily walking burn into total daily energy needs using our <a href="/calculators/health/tdee-calculator">TDEE Calculator</a>, track speed and split times with the <a href="/calculators/health/pace-calculator">Pace Calculator</a>, plan calorie deficit goals with the <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a>, and monitor workout burn via the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

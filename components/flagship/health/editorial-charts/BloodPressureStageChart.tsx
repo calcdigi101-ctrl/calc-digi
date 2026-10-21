@@ -205,6 +205,7 @@ export function BloodPressureStageChart() {
                 className="cursor-pointer"
                 onClick={() => setActiveIdx(i)}
                 onMouseEnter={() => setActiveIdx(i)}
+                onTouchStart={() => setActiveIdx(i)}
               >
                 {isSelected && (
                   <circle cx={x} cy={y} r="12" fill={pt.color} opacity="0.3" className="animate-pulse" />

@@ -184,6 +184,14 @@ export default function CyclingPage() {
             </div>
           </div>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Cycling power output directly translates into cardiovascular stimulus and caloric expenditure. Calculate specific heart rate training bands with our <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, measure maximum aerobic capacity via the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, assess running splits with the <a href="/calculators/health/pace-calculator">Pace Calculator</a>, and measure metabolic burn using the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

@@ -213,6 +213,14 @@ export default function BraSizePage() {
             <li><strong>Underwire Pokes Breast Tissue:</strong> The underwire arc should fully encircle all breast tissue on the lateral ribcage toward the mid-axillary line without pinching mammary glands.</li>
           </ul>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Accurate chest and band measurements frequently fluctuate with total weight and hormonal shifts. Track whole-body anthropometrics with our <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>, monitor proportional silhouette changes with the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>, and benchmark lean versus adipose changes with the <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

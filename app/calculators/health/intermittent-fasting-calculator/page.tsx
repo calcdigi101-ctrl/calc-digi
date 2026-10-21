@@ -203,6 +203,14 @@ export default function IntermittentFastingPage() {
             ])}
           />
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Intermittent fasting is most effective when synchronized with precise energy targets and proper hydration. Calculate your total daily calorie target with our <a href="/calculators/health/calorie-calculator">Calorie Calculator</a>, determine basal energy requirements via the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, track structured fat reduction with the <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a>, and maintain cellular hydration using our <a href="/calculators/health/water-intake-calculator">Water Intake Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

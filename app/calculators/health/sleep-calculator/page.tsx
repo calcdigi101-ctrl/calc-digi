@@ -197,6 +197,14 @@ export default function SleepPage() {
             ])}
           />
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Restorative sleep is fundamental for autonomic recovery, metabolic regulation, and vascular control. Track resting cardiovascular strain with our <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, balance resting metabolic burn with the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, coordinate eating windows with the <a href="/calculators/health/intermittent-fasting-calculator">Intermittent Fasting Calculator</a>, and monitor autonomic recovery using the <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

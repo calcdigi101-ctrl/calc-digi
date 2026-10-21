@@ -52,7 +52,7 @@ export function TdeeActivitySpectrumChart() {
   const tooltipY = Math.max(15, 200 - display.barH - 45);
 
   return (
-    <div className="my-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
+    <div className="my-8 rounded-2xl overflow-hidden border border-slate-200 bg-gradient-to-b from-slate-50/50 to-white p-3.5 sm:p-5 shadow-sm dark:border-slate-800 dark:from-slate-900/40 dark:to-slate-900">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div>
           <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight">

@@ -192,6 +192,14 @@ export default function PeriodPage() {
             ])}
           />
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Menstrual cycle predictability is a primary vital sign of female endocrine health. Pinpoint your fertile window and ovulation peak using our <a href="/calculators/health/ovulation-calculator">Ovulation Calculator</a>, assess conception readiness with the <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, and estimate gestation timing with the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

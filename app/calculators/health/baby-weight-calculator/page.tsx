@@ -207,6 +207,14 @@ export default function BabyWeightPage() {
             <li><strong>Hydration Red Flags:</strong> Fewer than 6 wet diapers per 24 hours, sunken fontanelle, lethargy, or poor suckling vigor.</li>
           </ul>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Infant biometric monitoring works in tandem with family genetics and developmental tracking. Project future adult height percentiles with our <a href="/calculators/health/child-height-predictor">Child Height Predictor</a>, cross-check gestational milestones with the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>, or assess maternal baseline targets with the <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

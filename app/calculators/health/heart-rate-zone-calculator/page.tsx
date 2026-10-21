@@ -155,6 +155,14 @@ export default function Page() {
             Embrace polarized training: keep your easy aerobic days truly easy in Zone 2, and save high intensity for dedicated,
             focused interval days in Zone 4 and Zone 5.
           </p>
+        
+          <div className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Aerobic &amp; Cardiovascular Tools</h3>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Heart rate training optimization requires understanding aerobic capacity and vascular conditioning. Pair your training zones with maximal oxygen uptake using the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, calculate speed splits with the <a href="/calculators/health/pace-calculator">Pace Calculator</a>, track blood pressure response with the <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, and evaluate workout energy burn with the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.
+            </p>
+          </div>
+    
         </>
       }
     >

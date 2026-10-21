@@ -99,6 +99,7 @@ export function BodyProportionsMatrixChart() {
       margin: '28px 0',
       padding: '24px',
       borderRadius: '16px',
+      overflow: 'hidden',
       border: '1px solid var(--c-rule)',
       backgroundColor: 'var(--c-rule2)',
       boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
@@ -185,6 +186,7 @@ export function BodyProportionsMatrixChart() {
               <g
                 key={s.id}
                 onClick={() => setActiveIdx(idx)}
+                onTouchStart={() => setActiveIdx(idx)}
                 style={{ cursor: 'pointer' }}
               >
                 {/* Highlight background column */}

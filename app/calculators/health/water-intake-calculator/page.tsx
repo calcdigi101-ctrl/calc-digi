@@ -151,6 +151,14 @@ export default function Page() {
             <li><strong>Pre-Hydrate Before Workouts:</strong> Drink 16 oz roughly 2 hours before exercise to ensure optimal blood plasma volume and sweat gland sensitivity.</li>
             <li><strong>Eat High-Water Whole Foods:</strong> Incorporate cucumbers, celery, bell peppers, berries, oranges, and broths to provide continuous slow-release cellular hydration with natural trace minerals.</li>
           </ol>
+        
+          <div className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Hydration &amp; Energy Tools</h3>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Adequate daily fluid intake is essential for renal function, nutrient absorption, and thermoregulation. Align your hydration plan with total daily energy expenditure using the <a href="/calculators/health/tdee-calculator">TDEE Calculator</a>, compensate for exercise fluid loss with the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>, calculate resting basal energy with the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, and balance elevated hydration with our <a href="/calculators/health/protein-intake-calculator">Protein Intake Calculator</a>.
+            </p>
+          </div>
+    
         </>
       }
     >

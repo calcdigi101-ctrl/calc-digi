@@ -229,6 +229,14 @@ export default function OneRepMaxPage() {
             </li>
           </ul>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Maximal strength development requires balanced muscular endurance and targeted nutritional fuel. Benchmark your relative muscular endurance with our <a href="/calculators/health/pushup-test-calculator">Push-Up Test Calculator</a>, calculate optimal daily amino acid support with the <a href="/calculators/health/protein-intake-calculator">Protein Intake Calculator</a>, and calibrate total daily caloric surplus or maintenance with the <a href="/calculators/health/calorie-calculator">Calorie Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

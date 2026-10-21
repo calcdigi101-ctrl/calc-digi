@@ -153,7 +153,7 @@ export default function Page() {
 
           <h2>Clinical Comparison Table: Ideal Weight Across Heights</h2>
           <p>
-            The table below shows the calculated consensus ideal body weight alongside the WHO healthy BMI window for adult heights from 5'2" to 6'2":
+            The table below shows the calculated consensus ideal body weight alongside the WHO healthy weight window from our <a href="/calculators/health/bmi-calculator">BMI Calculator</a> for adult heights from 5'2" to 6'2". To assess whether extra pounds are muscle or adiposity, evaluate your composition with our <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a> or explore somatic proportions using the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>:
           </p>
 
           <DataTable

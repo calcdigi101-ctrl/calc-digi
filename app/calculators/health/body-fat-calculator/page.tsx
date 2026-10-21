@@ -146,6 +146,16 @@ export default function Page() {
           <BodyFatCalculator />
         </Suspense>
 
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>⚡</span> Related Calculators
+            </h2>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
+          </div>
+          <RelatedLinks links={RELATED} />
+        </section>
+
         <Editorial>
           {/* AI Overview Direct Answer Box (GEO Optimized) */}
           <div className="not-prose my-6 rounded-2xl border border-emerald-200 dark:border-emerald-800/80 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 dark:from-emerald-950/30 dark:via-slate-900 dark:to-emerald-950/20 p-5 sm:p-6 text-slate-800 dark:text-slate-200">
@@ -153,7 +163,7 @@ export default function Page() {
               <span>⚡ Quick Answer · Body Fat Percentage (BFP)</span>
             </div>
             <p className="text-sm leading-relaxed mb-3">
-              <strong>Body Fat Percentage</strong> represents the total mass of adipose fat tissue divided by total body weight. Unlike BMI, which only factors height and weight, body fat percentage distinguishes between metabolically active lean muscle mass, bones, water, and fat stores.
+              <strong>Body Fat Percentage</strong> represents the total mass of adipose fat tissue divided by total body weight. Unlike the standard <a href="/calculators/health/bmi-calculator">BMI Calculator</a>, which only factors height and weight, body fat percentage distinguishes between metabolically active <a href="/calculators/health/lean-body-mass-calculator">lean muscle mass</a>, bones, water, and fat stores. Pair this with our <a href="/calculators/health/waist-to-hip-ratio-calculator">Waist to Hip Ratio</a> or <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a> for comprehensive body composition assessment.
             </p>
             <div className="grid sm:grid-cols-2 gap-3 text-xs pt-2 border-t border-emerald-100 dark:border-emerald-900/50">
               <div>
@@ -227,7 +237,6 @@ export default function Page() {
           </ol>
 
           <Faq items={FAQ_ITEMS} />
-          <RelatedLinks links={RELATED} />
         </Editorial>
       </CalculatorPage>
     </>

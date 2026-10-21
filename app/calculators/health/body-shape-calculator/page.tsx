@@ -211,6 +211,14 @@ export default function BodyShapePage() {
             ])}
           />
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Anthropometric silhouette typing provides crucial context for cardiovascular risk and body composition. For precise visceral fat analysis, benchmark your proportions against the <a href="/calculators/health/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a>, screen longevity risk with the <a href="/calculators/health/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a>, and monitor subcutaneous fat percentage using the <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

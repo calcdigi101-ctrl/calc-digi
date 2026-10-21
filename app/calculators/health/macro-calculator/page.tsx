@@ -122,6 +122,16 @@ export default function Page() {
           <MacroCalculator />
         </Suspense>
 
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>⚡</span> Related Calculators
+            </h2>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
+          </div>
+          <RelatedLinks links={RELATED} />
+        </section>
+
         <Editorial>
           {/* AI Overview Direct Answer Box (GEO Optimized) */}
           <div className="not-prose my-6 rounded-2xl border border-emerald-200 dark:border-emerald-800/80 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 dark:from-emerald-950/30 dark:via-slate-900 dark:to-emerald-950/20 p-5 sm:p-6 text-slate-800 dark:text-slate-200">
@@ -129,7 +139,7 @@ export default function Page() {
               <span>⚡ Quick Answer · What Are Macronutrients?</span>
             </div>
             <p className="text-sm leading-relaxed mb-3">
-              <strong>Macronutrients</strong> are the three primary nutritional compounds your body requires in large daily quantities to sustain life and fuel exercise: <strong>Protein</strong> (4 cal/g), <strong>Carbohydrates</strong> (4 cal/g), and <strong>Fats</strong> (9 cal/g). While total calorie intake determines whether you gain, lose, or maintain weight, your macronutrient ratio determines whether that change is lean muscle or body fat.
+              <strong>Macronutrients</strong> are the three primary nutritional compounds your body requires in large daily quantities to sustain life and fuel exercise: <strong>Protein</strong> (4 cal/g), <strong>Carbohydrates</strong> (4 cal/g), and <strong>Fats</strong> (9 cal/g). While total energy intake computed with our <a href="/calculators/health/calorie-calculator">Calorie Calculator</a> determines whether you gain, lose, or maintain weight, your macronutrient ratio determines whether that change is lean muscle or body fat. Explore our dedicated <a href="/calculators/health/protein-intake-calculator">Protein Intake Calculator</a> for optimal muscle protein synthesis or the <a href="/calculators/health/intermittent-fasting-calculator">Intermittent Fasting Calculator</a> for scheduled nutrient timing.
             </p>
             <div className="grid sm:grid-cols-3 gap-3 text-xs pt-2 border-t border-emerald-100 dark:border-emerald-900/50">
               <div>
@@ -198,7 +208,6 @@ export default function Page() {
           </ol>
 
           <Faq items={FAQ_ITEMS} />
-          <RelatedLinks links={RELATED} />
         </Editorial>
       </CalculatorPage>
     </>

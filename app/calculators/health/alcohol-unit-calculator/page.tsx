@@ -226,6 +226,14 @@ export default function AlcoholUnitPage() {
             Where <em>r</em> represents the volume of distribution (0.73 for biological males, 0.66 for biological females), 5.14 converts grams to ounces and percent concentration, 0.015 represents the zero-order hourly elimination constant $\beta$, and <em>t</em> is elapsed hours since drinking began.
           </p>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Ethanol ingestion directly influences autonomic vascular tone and sleep architecture. Assess related physiological metrics using our <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, optimize your circadian recovery with the <a href="/calculators/health/sleep-calculator">Sleep Calculator</a>, estimate liquid alcohol metabolic impact with the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>, or audit financial and longevity impacts alongside the <a href="/calculators/health/smoking-cost-calculator">Smoking Cost Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

@@ -213,6 +213,14 @@ export default function PregnancyDueDatePage() {
             </div>
           </div>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Obstetric tracking spans from preconception timing through postpartum pediatric milestones. Verify conception cycle parameters using the <a href="/calculators/health/ovulation-calculator">Ovulation Calculator</a> and <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, monitor newborn weight velocity with the <a href="/calculators/health/baby-weight-calculator">Baby Weight Calculator</a>, and predict adult stature with our <a href="/calculators/health/child-height-predictor">Child Height Predictor</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

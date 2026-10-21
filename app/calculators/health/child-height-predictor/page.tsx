@@ -230,6 +230,14 @@ export default function ChildHeightPredictorPage() {
             <li><strong>Premature or Absent Puberty:</strong> Signs of secondary sexual maturation before age 8 in girls or age 9 in boys (precocious puberty fuses plates early), or no signs by age 13 in girls or 14 in boys.</li>
           </ul>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Pediatric height trajectory correlates closely with infant weight gain velocity and overall nutritional adequacy. Track developmental growth percentiles using our <a href="/calculators/health/baby-weight-calculator">Baby Weight Calculator</a>, assess adult healthy weight ranges with the <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>, and monitor nutritional baselines with the <a href="/calculators/health/bmi-calculator">BMI Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

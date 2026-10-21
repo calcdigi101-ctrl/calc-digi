@@ -188,6 +188,14 @@ export default function BloodPressurePage() {
             </li>
           </ul>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Cardiovascular health is deeply intertwined with systemic conditioning and body composition. Evaluate your aerobic exercise intensity with our <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, assess cardiorespiratory endurance via the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, and review your vascular adipose profile with the <a href="/calculators/health/bmi-calculator">BMI Calculator</a> and <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );

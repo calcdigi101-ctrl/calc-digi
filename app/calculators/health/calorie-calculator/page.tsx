@@ -116,13 +116,23 @@ export default function Page() {
           <CalorieCalculator />
         </Suspense>
 
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>⚡</span> Related Calculators
+            </h2>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
+          </div>
+          <RelatedLinks links={RELATED} />
+        </section>
+
         <Editorial>
           <h2>How Many Calories Do You Need Daily? (GEO Quick Answer)</h2>
           <p>
-            Your <strong>Total Daily Energy Expenditure (TDEE)</strong> is the total number of calories your body burns in a single day. It is computed by multiplying your <strong>Basal Metabolic Rate (BMR)</strong> — the calories burned at complete physical rest — by an <strong>activity multiplier</strong> based on your lifestyle and workout frequency.
+            Your <strong>Total Daily Energy Expenditure</strong> is computed by multiplying your <a href="/calculators/health/bmr-calculator">Basal Metabolic Rate (BMR)</a> — the calories burned at complete physical rest — by an activity multiplier using our <a href="/calculators/health/tdee-calculator">TDEE Calculator</a> based on your lifestyle and workout frequency.
           </p>
           <p>
-            To maintain current weight, consume calories equal to your TDEE. To achieve safe, sustainable weight loss, establish a 500-calorie daily deficit (equivalent to 1 lb of fat loss per week). To build muscle, target a mild 250 to 500-calorie daily surplus alongside resistance training.
+            To maintain current weight, consume calories equal to your TDEE. To achieve safe, sustainable fat loss, establish a 500-calorie daily deficit using our <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a> (equivalent to 1 lb of fat loss per week). To build muscle, target a mild 250 to 500-calorie daily surplus alongside resistance training and monitor your gram ratios with the <a href="/calculators/health/macro-calculator">Macro Calculator</a>.
           </p>
 
           <h2>The Mifflin-St Jeor Equation</h2>
@@ -176,9 +186,6 @@ export default function Page() {
 
           <h2>Frequently Asked Questions</h2>
           <Faq items={FAQ_ITEMS} />
-
-          <h2 className="mt-10">Related Health Calculators</h2>
-          <RelatedLinks links={RELATED} />
         </Editorial>
       </CalculatorPage>
     </>

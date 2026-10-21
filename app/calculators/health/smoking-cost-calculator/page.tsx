@@ -196,6 +196,14 @@ export default function SmokingCostPage() {
             </div>
           </div>
         </section>
+      
+        {/* Related Companion Tools Contextual Section */}
+        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Smoking cessation delivers immediate physiological and systemic vascular recovery. Track improvements in arterial tone using our <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, evaluate cardiorespiratory stamina with the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, and assess toxicological clearance alongside the <a href="/calculators/health/alcohol-unit-calculator">Alcohol Unit Calculator</a>.
+          </p>
+        </section>
       </article>
     </CalcPage>
   );
