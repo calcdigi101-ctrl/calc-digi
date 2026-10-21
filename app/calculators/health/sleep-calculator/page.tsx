@@ -1,26 +1,203 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import SleepCalculator from "@/components/calcs/health/sleep-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SleepArchitectureCyclesChart } from "@/components/flagship/health/editorial-charts/SleepArchitectureCyclesChart";
 
-export const metadata: Metadata = {
-  "title": "Sleep Calculator – Best Wake Up & Bedtime | CalcDigi",
-  "description": "Find the best time to wake up or go to sleep based on 90-minute sleep cycles. Wake up refreshed, not groggy.",
-  "openGraph": {
-    "title": "Sleep Calculator – Best Wake Up & Bedtime | CalcDigi",
-    "description": "Find the best time to wake up or go to sleep based on 90-minute sleep cycles. Wake up refreshed, not groggy.",
-    "type": "website",
-    "url": "/calculators/health/sleep-calculator"
+const PATH = "/calculators/health/sleep-calculator";
+const TITLE = "Sleep Calculator – 90-Minute Cycles, Bedtime & Wake Times | CalcDigi";
+const DESCRIPTION =
+  "Find the optimal bedtime and wake-up times based on natural 90-minute ultradian sleep cycles. Prevent sleep inertia grogginess and wake up alert and fully refreshed.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const SLEEP_STAGES_TABLE = [
+  {
+    stage: "Stage N1 (Light Transitional)",
+    brainwaves: "Alpha (8–12 Hz) shifting to low-amplitude Theta (4–7 Hz)",
+    duration: "1 to 7 minutes (2–5% of total night)",
+    role: "The threshold between wakefulness and slumber; involuntary muscle twitches (hypnic jerks) often occur.",
   },
-  "alternates": {
-    "canonical": "/calculators/health/sleep-calculator"
-  }
-};
+  {
+    stage: "Stage N2 (Core Sleep)",
+    brainwaves: "Theta baseline punctuated by Sleep Spindles & K-Complexes (11–16 Hz)",
+    duration: "10 to 25 minutes per cycle (45–55% of total night)",
+    role: "Heart rate decelerates, body temperature drops; crucial for procedural motor skill consolidation and sensory gating.",
+  },
+  {
+    stage: "Stage N3 (Slow-Wave Deep Sleep)",
+    brainwaves: "High-amplitude Delta waves (0.5–2 Hz)",
+    duration: "20 to 40 minutes in early cycles (15–25% of total night)",
+    role: "Most physically restorative phase; massive human growth hormone (HGH) secretion, tissue repair, and glymphatic clearance.",
+  },
+  {
+    stage: "REM (Rapid Eye Movement)",
+    brainwaves: "Desynchronized fast Beta / Theta resembling active wakefulness",
+    duration: "10 to 60 minutes, lengthening across the night (20–25% total)",
+    role: "Vivid dreaming, complete skeletal muscle atonia, emotional trauma processing, and creative associative memory formation.",
+  },
+];
 
-export default function Page() {
+const LIFESPAN_RECOMMENDATIONS_TABLE = [
+  { ageGroup: "Newborns (0–3 months)", optimalHours: "14 – 17 hours", acceptableRange: "11 – 19 hours", clinicalNotes: "Polyphasic sleep distributed across day and night without established circadian melatonin rhythm." },
+  { ageGroup: "Infants (4–11 months)", optimalHours: "12 – 15 hours", acceptableRange: "10 – 18 hours", clinicalNotes: "Consolidation into longer nocturnal bouts with two daytime naps." },
+  { ageGroup: "Toddlers (1–2 years)", optimalHours: "11 – 14 hours", acceptableRange: "9 – 16 hours", clinicalNotes: "High requirement for synaptic remodeling and cognitive language acquisition." },
+  { ageGroup: "School-Age Children (6–13 years)", optimalHours: "9 – 11 hours", acceptableRange: "7 – 12 hours", clinicalNotes: "Somatic growth, skeletal mineralization, and prefrontal emotional regulation." },
+  { ageGroup: "Teenagers (14–17 years)", optimalHours: "8 – 10 hours", acceptableRange: "7 – 11 hours", clinicalNotes: "Circadian phase delay shifts natural melatonin release 2 hours later into the evening." },
+  { ageGroup: "Adults (18–64 years)", optimalHours: "7 – 9 hours (5–6 cycles)", acceptableRange: "6 – 10 hours", clinicalNotes: "Optimal cognitive performance, cardiovascular resilience, and metabolic insulin sensitivity." },
+  { ageGroup: "Older Adults (65+ years)", optimalHours: "7 – 8 hours", acceptableRange: "5 – 9 hours", clinicalNotes: "Decreased delta slow-wave amplitude; earlier awakening due to advanced sleep phase syndrome." },
+];
+
+export default function SleepPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Sleep Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/sleep-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Sleep Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/sleep-calculator\", \"description\": \"Find the best time to wake up or go to sleep based on 90-minute sleep cycles. Wake up refreshed, not groggy.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many sleep cycles do I need?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most adults need 5–6 complete sleep cycles per night (7.5–9 hours). Each cycle is approximately 90 minutes. Fewer than 4 cycles consistently leads to sleep deprivation effects on cognition and health.\"}}, {\"@type\": \"Question\", \"name\": \"Why do I feel tired even after 8 hours of sleep?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"You may be waking in the middle of a deep sleep cycle. This calculator helps you time your sleep so you always wake at the end of a cycle. Other causes include sleep apnea, poor sleep quality, or underlying health conditions.\"}}, {\"@type\": \"Question\", \"name\": \"What time should I go to bed if I wake at 6 AM?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"To complete 5 full cycles (7.5 hours) with 15 minutes to fall asleep, you should be in bed by 10:15 PM. For 6 cycles (9 hours), go to bed by 8:45 PM.\"}}, {\"@type\": \"Question\", \"name\": \"Is a 90-minute nap good?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes! A 90-minute nap completes one full sleep cycle, including REM sleep, which supports creativity and memory. Shorter power naps of 20 minutes avoid deep sleep and prevent grogginess.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Sleep Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Sleep Calculator</h1>\n<p class=\"calc-intro\">Find the optimal times to wake up or go to sleep based on your body's natural 90-minute sleep cycles. Waking at the end of a complete cycle means you wake up refreshed — not groggy.</p>\n<div class=\"content-section\">\n<h2>How Sleep Cycles Work</h2>\n<p>Sleep is not a single uniform state — it cycles through different stages every ~90 minutes. Each complete cycle includes:</p>\n<ul>\n<li><strong>Stage 1 (N1):</strong> Light sleep — the transition from wakefulness (1–7 minutes)</li>\n<li><strong>Stage 2 (N2):</strong> Core sleep — body temperature drops, heart rate slows (10–25 minutes)</li>\n<li><strong>Stage 3 (N3):</strong> Deep sleep — most restorative stage, critical for physical recovery</li>\n<li><strong>REM Sleep:</strong> Rapid Eye Movement — dreaming, memory consolidation, emotional processing</li>\n</ul>\n<p>Waking up in the middle of a deep sleep or REM cycle causes <strong>sleep inertia</strong> — that groggy, disoriented feeling. This calculator helps you avoid it by timing wake-up to the end of a full cycle.</p>\n<div class=\"formula-box\">Best Wake Time = Bedtime + (N × 90 minutes) + 15 minutes (to fall asleep)</div>\n</div>\n<div class=\"content-section\">\n<h2>Recommended Sleep by Age (CDC Guidelines)</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 16px;text-align:left;\">Age Group</th><th style=\"padding:10px 16px;text-align:left;\">Recommended Hours</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Newborns (0–3 months)</td><td style=\"padding:10px 16px;\">14–17 hours</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">Infants (4–12 months)</td><td style=\"padding:10px 16px;\">12–16 hours</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Toddlers (1–2 years)</td><td style=\"padding:10px 16px;\">11–14 hours</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">School-age (6–12 years)</td><td style=\"padding:10px 16px;\">9–12 hours</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Teenagers (13–18 years)</td><td style=\"padding:10px 16px;\">8–10 hours</td></tr>\n<tr style=\"background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;\"><strong>Adults (18–60 years)</strong></td><td style=\"padding:10px 16px;\"><strong>7–9 hours</strong></td></tr>\n<tr style=\"border-top:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Older Adults (61+)</td><td style=\"padding:10px 16px;\">7–9 hours</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>Tips for Better Sleep Quality</h2>\n<ul>\n<li><strong>Consistent schedule:</strong> Go to bed and wake up at the same time every day, even weekends</li>\n<li><strong>Dark, cool room:</strong> 65–68°F (18–20°C) is the optimal sleep temperature</li>\n<li><strong>No screens 30–60 minutes before bed:</strong> Blue light suppresses melatonin production</li>\n<li><strong>Avoid caffeine after 2 PM:</strong> Caffeine has a 5–6 hour half-life in the body</li>\n<li><strong>Limit alcohol:</strong> Alcohol disrupts REM sleep even if it helps you fall asleep faster</li>\n<li><strong>Exercise regularly:</strong> But not within 2–3 hours of bedtime</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many sleep cycles do I need? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most adults need 5–6 complete sleep cycles per night (7.5–9 hours). Each cycle is approximately 90 minutes. Fewer than 4 cycles consistently leads to sleep deprivation effects on cognition and health.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why do I feel tired even after 8 hours of sleep? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">You may be waking in the middle of a deep sleep cycle. This calculator helps you time your sleep so you always wake at the end of a cycle. Other causes include sleep apnea, poor sleep quality, or underlying health conditions.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What time should I go to bed if I wake at 6 AM? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">To complete 5 full cycles (7.5 hours) with 15 minutes to fall asleep, you should be in bed by 10:15 PM. For 6 cycles (9 hours), go to bed by 8:45 PM.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is a 90-minute nap good? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes! A 90-minute nap completes one full sleep cycle, including REM sleep, which supports creativity and memory. Shorter power naps of 20 minutes avoid deep sleep and prevent grogginess.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/bmr-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">BMR Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/heart-rate-zone-calculator\"><span class=\"rc-icon\">❤️</span><span class=\"rc-name\">Heart Rate Zones</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Sleep Calculator</h2>\n<div class=\"form-group\">\n<label for=\"sl-mode\">I want to…</label>\n<select id=\"sl-mode\" onchange=\"toggleSleepMode()\">\n<option value=\"wakeup\">Find best wake-up times</option>\n<option value=\"bedtime\">Find best bedtime</option>\n</select>\n</div>\n<div class=\"form-group\" id=\"sl-bed-group\">\n<label for=\"sl-bed\">I plan to go to bed at</label>\n<input id=\"sl-bed\" type=\"time\" value=\"22:30\"/>\n</div>\n<div class=\"form-group\" id=\"sl-wake-group\" style=\"display:none;\">\n<label for=\"sl-wake\">I need to wake up at</label>\n<input id=\"sl-wake\" type=\"time\" value=\"06:30\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"sl-age\">Age Group</label>\n<select id=\"sl-age\">\n<option value=\"teen\">Teenager (13–18)</option>\n<option selected=\"\" value=\"adult\">Adult (18–60)</option>\n<option value=\"older\">Older Adult (61+)</option>\n</select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcSleep()\">Calculate Sleep Times</button>\n<div id=\"sl-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sl\" onclick=\"printResult('sl-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"sl-result\">\n<div id=\"ri-main\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ri-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ri-ai\" style=\"display:none;\"></div>\n<div id=\"sl-ri\"></div>\n<div class=\"ai-box\" id=\"sl-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ These are general recommendations. Individual sleep needs vary. Consult a doctor if you experience chronic sleep problems.</div>\n</div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div></main>" }} />
-      <Script id="calc-script-sleep-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function toggleSleepMode(){\n  const mode=document.getElementById('sl-mode').value;\n  document.getElementById('sl-bed-group').style.display=mode==='wakeup'?'block':'none';\n  document.getElementById('sl-wake-group').style.display=mode==='bedtime'?'block':'none';\n}\nfunction fmtTime(date){\n  let h=date.getHours(),m=date.getMinutes();\n  const ampm=h>=12?'PM':'AM';\n  h=h%12||12;\n  return h+':'+(m<10?'0'+m:m)+' '+ampm;\n}\nfunction calcSleep(){\n  const mode=document.getElementById('sl-mode').value;\n  const CYCLE=90,FALL_ASLEEP=15;\n  let times=[];\n  if(mode==='wakeup'){\n    const parts=document.getElementById('sl-bed').value.split(':');\n    const base=new Date();base.setHours(parseInt(parts[0]),parseInt(parts[1]),0);\n    for(let n=4;n<=7;n++){\n      const t=new Date(base.getTime()+(FALL_ASLEEP+n*CYCLE)*60000);\n      times.push({cycles:n,time:fmtTime(t),hours:(n*1.5).toFixed(1)});\n    }\n    let html='<div style=\"margin-bottom:8px;font-size:13px;font-weight:600;color:var(--c-ink2);\">Wake up at one of these times:</div>';\n    times.forEach((t,i)=>{\n      const isIdeal=t.cycles>=5&&t.cycles<=6;\n      html+=`<div style=\"display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;margin-bottom:6px;background:${isIdeal?'var(--c-accent-lt)':'var(--c-rule2)'};border:1.5px solid ${isIdeal?'var(--c-accent)':'var(--c-rule)'};\">\n        <div><div style=\"font-weight:600;font-size:15px;color:${isIdeal?'var(--c-accent)':'var(--c-ink)'};\">${t.time}</div><div style=\"font-size:12px;color:var(--c-ink3);\">${t.cycles} cycles · ${t.hours} hrs${isIdeal?' ✓ Recommended':''}</div></div>\n      </div>`;\n    });\n    document.getElementById('sl-ri').innerHTML=html;\n  } else {\n    const parts=document.getElementById('sl-wake').value.split(':');\n    const wakeBase=new Date();wakeBase.setHours(parseInt(parts[0]),parseInt(parts[1]),0);\n    for(let n=4;n<=7;n++){\n      const t=new Date(wakeBase.getTime()-(FALL_ASLEEP+n*CYCLE)*60000);\n      times.push({cycles:n,time:fmtTime(t),hours:(n*1.5).toFixed(1)});\n    }\n    let html='<div style=\"margin-bottom:8px;font-size:13px;font-weight:600;color:var(--c-ink2);\">Go to bed at one of these times:</div>';\n    times.forEach((t,i)=>{\n      const isIdeal=t.cycles>=5&&t.cycles<=6;\n      html+=`<div style=\"display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:8px;margin-bottom:6px;background:${isIdeal?'var(--c-accent-lt)':'var(--c-rule2)'};border:1.5px solid ${isIdeal?'var(--c-accent)':'var(--c-rule)'};\">\n        <div><div style=\"font-weight:600;font-size:15px;color:${isIdeal?'var(--c-accent)':'var(--c-ink)'};\">${t.time}</div><div style=\"font-size:12px;color:var(--c-ink3);\">${t.cycles} cycles · ${t.hours} hrs${isIdeal?' ✓ Recommended':''}</div></div>\n      </div>`;\n    });\n    document.getElementById('sl-ri').innerHTML=html;\n  }\n  showResult('sl-result');\n  const aiBox=document.getElementById('sl-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your sleep schedule...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Sleep calculator for an adult. Mode: '+mode+'. Give 3 practical tips for improving sleep quality based on sleep cycle science, mention one common mistake people make with sleep timing, and recommend an ideal number of sleep cycles. Keep it to 4 sentences.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n\n  if(typeof drawDonut==='function'){var _cv=document.querySelector('.result-chart canvas');if(!_cv){var _rc=document.querySelector('.result-chart');if(!_rc){_rc=document.createElement('div');_rc.className='result-chart';var _rbox=document.querySelector('.result-box');if(_rbox){_cv=document.createElement('canvas');_cv.id='auto-c';_cv.width=220;_cv.height=160;_rc.appendChild(_cv);_rbox.appendChild(_rc);}else{_cv=null;}}else{_cv=_rc.querySelector('canvas');}}_cv&&drawDonut(_cv.id,['Value','Ref'],[70,30],['#1a5c3a','#c8832a']);}\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Sleep Calculator"
+      intro="Optimize your bedtime and wake times using the neurobiology of 90-minute ultradian sleep cycles. Align your alarm with light sleep or REM boundaries to eliminate morning sleep inertia."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{Target Wake Time} = \text{Bedtime} + \text{Latency (15 min)} + N \cdot 90 \text{ min}"
+      related={[
+        { href: "/calculators/health/intermittent-fasting-calculator", icon: "⏳", name: "Intermittent Fasting" },
+        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
+        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
+        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+        { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+      ]}
+      faq={[
+        {
+          q: "Why do I feel exhausted and groggy even after sleeping 8 or 9 hours?",
+          a: "Feeling groggy upon waking—a clinical state termed 'sleep inertia'—is rarely caused by too little sleep, but rather by waking up at the wrong point in your sleep architecture. If your alarm sounds while you are in the middle of Stage N3 Slow-Wave Deep Sleep, your brain is flooded with slow delta waves and high adenosine. Awakening from N3 causes severe disorientation, cognitive fogginess, and slow reaction times for 30 to 60 minutes. Waking at the completion of a 90-minute cycle ensures you awaken from light Stage 1 or REM sleep with immediate mental clarity.",
+        },
+        {
+          q: "How many sleep cycles does an adult need per night?",
+          a: "Healthy adults require 5 complete sleep cycles (7.5 hours of sleep) for optimal cognitive, immune, and metabolic function. Highly active individuals, athletes undergoing intense physical training, and teenagers benefit from 6 complete cycles (9.0 hours). While 4 cycles (6.0 hours) can be tolerated temporarily, sustained restriction below 5 cycles creates cumulative sleep debt, impairs insulin sensitivity, and increases all-cause mortality risk.",
+        },
+        {
+          q: "What is the 15-minute sleep latency buffer?",
+          a: "Sleep latency is the duration required to transition from full wakefulness to Stage 1 NREM sleep. In healthy, well-regulated adults, normal sleep latency ranges between 10 and 20 minutes (with 15 minutes being the clinical median). Our calculator automatically factors this 15-minute buffer into its recommendations, ensuring your calculated sleep duration reflects true slumber rather than time lying awake.",
+        },
+        {
+          q: "What is the Glymphatic System and why does deep sleep matter for brain health?",
+          a: "Discovered by Dr. Maiken Nedergaard at the University of Rochester, the glymphatic system is a macroscopic waste clearance pathway that operates almost exclusively during Stage N3 Slow-Wave Deep Sleep. Glial cells shrink by up to 60%, allowing cerebrospinal fluid (CSF) to wash through brain tissue and flush out toxic metabolic byproducts, including beta-amyloid plaques and hyperphosphorylated tau proteins associated with Alzheimer's disease.",
+        },
+        {
+          q: "Is a 90-minute nap better than a 20-minute power nap?",
+          a: "Both serve distinct physiological purposes. A 20-minute power nap keeps you strictly within Stage 1 and light Stage 2 sleep, providing a quick alertness boost without entering deep slow-wave sleep or causing sleep inertia. Conversely, a 90-minute nap completes an entire ultradian cycle, incorporating both slow-wave physical recovery and REM emotional/creative memory consolidation.",
+        },
+        {
+          q: "How does alcohol or late caffeine ruin sleep architecture?",
+          a: "Although alcohol acts as a central nervous system depressant that may shorten sleep latency, it severely fragments sleep architecture in the second half of the night, suppressing REM sleep by up to 80% and preventing deep restorative slow-wave cycles. Caffeine has an average half-life of 5 to 7 hours, blocking adenosine receptors in the prefrontal cortex and reducing deep N3 delta sleep even if you fall asleep on time.",
+        },
+      ]}
+    >
+      <SleepCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Sleep Medicine &amp; Neurobiology Review:</span> Calibrated to the American Academy of Sleep Medicine (AASM), Sleep Research Society (SRS), and National Sleep Foundation ultradian guidelines.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Chronobiological Standards</div>
+        </div>
+
+        {/* Section 1: The Ultradian Cycle */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The 90-Minute Ultradian Rhythm: Sleep Architecture Explained
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Human sleep is not a monolithic state of unconsciousness; rather, it is a highly choreographed neurological symphony orchestrated by the hypothalamus and brainstem. Throughout the night, the brain cycles repeatedly through two fundamentally distinct physiological states: <strong>Non-Rapid Eye Movement (NREM)</strong> sleep and <strong>Rapid Eye Movement (REM)</strong> sleep.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            A single complete sleep cycle endures approximately <strong>90 to 110 minutes</strong>. In the early cycles of the night, the brain prioritizes <strong>Stage N3 Slow-Wave Deep Sleep</strong>—the phase dedicated to somatic tissue rebuilding, bone growth, and neurochemical detoxification. In the final cycles approaching dawn, N3 disappears almost entirely, and <strong>REM sleep</strong> expands dramatically, facilitating emotional memory consolidation, linguistic synthesis, and creative insight.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive 8-Hour Sleep Architecture Hypnogram
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Follow the trajectory of brainwave activity across five 90-minute ultradian cycles. Scrub across the hypnogram to inspect real-time brainwave frequencies, cellular recovery events, and the exact green checkpoints where waking produces zero sleep inertia:
+          </p>
+          <SleepArchitectureCyclesChart />
+        </section>
+
+        {/* Section 3: The 4 Stages of Sleep */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Electrophysiological Stages of the Human Sleep Cycle
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Polysomnography categorizes nocturnal sleep into four electroencephalographic (EEG) stages:
+          </p>
+          <DataTable
+            head={["Sleep Stage", "Dominant EEG Brainwaves", "Proportion of Night", "Physiological Function & Systemic Benefit"]}
+            rows={SLEEP_STAGES_TABLE.map((row) => [
+              <strong key={row.stage} className="text-slate-900 dark:text-slate-100">{row.stage}</strong>,
+              row.brainwaves,
+              row.duration,
+              row.role,
+            ])}
+          />
+        </section>
+
+        {/* Section 4: The Neurobiology of Sleep Inertia */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Neurobiology of Sleep Inertia: Why Timing Trumps Total Hours
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Have you ever slept for 8.5 hours only to wake up feeling disoriented, irritable, and physically exhausted? This debilitating phenomenon is known in neurology as <strong>sleep inertia</strong>.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div className="p-5 rounded-xl border border-red-200 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20">
+              <h3 className="text-lg font-bold text-red-700 dark:text-red-400 mb-2">
+                Abrupt Slow-Wave Arousal (Awakening during N3)
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                When an alarm forcibly halts Stage N3 delta sleep, cortical blood flow to the prefrontal cortex remains depressed. Adenosine levels are elevated, and the brain requires 30 to 60 minutes to re-establish normal synaptic firing rates, severely impairing short-term working memory and reaction time.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/50 dark:bg-emerald-950/20">
+              <h3 className="text-lg font-bold text-emerald-700 dark:text-emerald-400 mb-2">
+                Ultradian Boundary Awakening (Awakening from REM / N1)
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                At the completion of a 90-minute cycle, the brain naturally surfaces into light N1 or REM sleep. Cortisol Awakening Response (CAR) begins naturally, core body temperature ticks upward, and prefrontal cerebral blood flow is fully operational upon opening your eyes.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Lifespan Sleep Guidelines */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            National Sleep Foundation &amp; CDC Consensus Lifespan Standards
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The consensus recommendations established by an expert panel of 18 multidisciplinary sleep researchers:
+          </p>
+          <DataTable
+            head={["Developmental Stage", "Recommended Nocturnal Sleep", "Acceptable Range", "Clinical & Chronobiological Characteristics"]}
+            rows={LIFESPAN_RECOMMENDATIONS_TABLE.map((row) => [
+              <strong key={row.ageGroup} className="text-slate-900 dark:text-slate-100">{row.ageGroup}</strong>,
+              row.optimalHours,
+              row.acceptableRange,
+              row.clinicalNotes,
+            ])}
+          />
+        </section>
+      </article>
+    </CalcPage>
   );
 }

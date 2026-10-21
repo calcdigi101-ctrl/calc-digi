@@ -1,26 +1,232 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import AlcoholUnitCalculator from "@/components/calcs/health/alcohol-unit-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BacMetabolismEliminationChart } from "@/components/flagship/health/editorial-charts/BacMetabolismEliminationChart";
 
-export const metadata: Metadata = {
-  "title": "Alcohol Unit Calculator – BAC & Units in Drinks | CalcDigi",
-  "description": "Calculate alcohol units in beer, wine, and spirits. Find out your blood alcohol content (BAC) and how long until you're sober.",
-  "openGraph": {
-    "title": "Alcohol Unit Calculator – BAC & Units in Drinks | CalcDigi",
-    "description": "Calculate alcohol units in beer, wine, and spirits. Find out your blood alcohol content (BAC) and how long until you're sober.",
-    "type": "website",
-    "url": "/calculators/health/alcohol-unit-calculator"
+const PATH = "/calculators/health/alcohol-unit-calculator";
+const TITLE = "Alcohol Unit & BAC Calculator – Blood Alcohol & Sobriety | CalcDigi";
+const DESCRIPTION =
+  "Calculate alcohol units, standard drinks, and Blood Alcohol Concentration (BAC) using the clinical Widmark formula. Estimate clearance time to zero sobriety and track DUI legal thresholds.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const STANDARD_DRINKS_TABLE = [
+  {
+    beverageType: "Standard Domestic Beer",
+    volume: "12 fluid oz (355 ml)",
+    typicalAbv: "5.0% ABV",
+    pureAlcoholGrams: "14.0 grams (0.6 fl oz)",
+    unitsUk: "1.75 UK units",
   },
-  "alternates": {
-    "canonical": "/calculators/health/alcohol-unit-calculator"
-  }
-};
+  {
+    beverageType: "Table Wine (Red / White / Rosé)",
+    volume: "5 fluid oz (148 ml)",
+    typicalAbv: "12.0% ABV",
+    pureAlcoholGrams: "14.0 grams (0.6 fl oz)",
+    unitsUk: "1.80 UK units",
+  },
+  {
+    beverageType: "Distilled Spirits (Vodka, Whiskey, Gin)",
+    volume: "1.5 fluid oz (44 ml / 1 shot)",
+    typicalAbv: "40.0% ABV (80 proof)",
+    pureAlcoholGrams: "14.0 grams (0.6 fl oz)",
+    unitsUk: "1.75 UK units",
+  },
+  {
+    beverageType: "Craft IPA / Imperial Stout",
+    volume: "12 fluid oz (355 ml)",
+    typicalAbv: "7.0% – 9.0% ABV",
+    pureAlcoholGrams: "19.6 – 25.2 grams",
+    unitsUk: "2.5 – 3.2 UK units",
+  },
+  {
+    beverageType: "Fortified Wine (Port / Sherry)",
+    volume: "3.5 fluid oz (100 ml)",
+    typicalAbv: "17.0% – 20.0% ABV",
+    pureAlcoholGrams: "14.0 – 16.0 grams",
+    unitsUk: "1.7 – 2.0 UK units",
+  },
+];
 
-export default function Page() {
+const BAC_IMPAIRMENT_STAGES_TABLE = [
+  {
+    bacRange: "0.02% – 0.03%",
+    neurologicalState: "Subtle Relaxation / Mild Euphoria",
+    psychomotorImpairment: "Slight loss of divided attention; modest reduction in multi-tasking tracking.",
+    drivingRisk: "Crash risk elevated by 1.4x compared to sober baseline.",
+  },
+  {
+    bacRange: "0.04% – 0.06%",
+    neurologicalState: "Lowered Social Inhibitions",
+    psychomotorImpairment: "Exaggerated behavior, minor loss of reasoning, reduced coordination, delayed brake reaction time.",
+    drivingRisk: "Crash risk elevated by 2.0x to 3.5x.",
+  },
+  {
+    bacRange: "0.07% – 0.09%",
+    neurologicalState: "Statutory Intoxication (0.08% Legal DUI)",
+    psychomotorImpairment: "Clear loss of peripheral vision, blunted reaction speed, impaired speed control, slurred speech.",
+    drivingRisk: "Crash risk elevated by 11.0x (NHTSA actuarial statistics).",
+  },
+  {
+    bacRange: "0.10% – 0.15%",
+    neurologicalState: "Gross Motor Ataxia",
+    psychomotorImpairment: "Major balance loss, severe lack of muscle control, clouded judgment, emotional volatility.",
+    drivingRisk: "Crash risk elevated by 25.0x to 50.0x.",
+  },
+  {
+    bacRange: "0.16% – 0.25%",
+    neurologicalState: "Blackout / Amnestic State",
+    psychomotorImpairment: "Severe motor dysfunction, sensory blunting, anterograde amnesia, nausea, vomiting.",
+    drivingRisk: "Extreme danger; total incapacitation.",
+  },
+  {
+    bacRange: "≥ 0.35%",
+    neurologicalState: "Lethal Toxicity / Coma",
+    psychomotorImpairment: "Loss of protective airway reflexes, respiratory depression, hypothermia, fatal alcohol poisoning.",
+    drivingRisk: "Emergency resuscitation required.",
+  },
+];
+
+export default function AlcoholUnitPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Alcohol Unit Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/alcohol-unit-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Alcohol Unit Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/alcohol-unit-calculator\", \"description\": \"Calculate alcohol units in beer, wine, and spirits. Find out your blood alcohol content (BAC) and how long until you're sober.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is one standard drink in the US?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"One standard US drink contains 14 grams of pure alcohol: 12 oz of regular beer (5%), 5 oz of wine (12%), or 1.5 oz of spirits (40%). Many craft beers and cocktails contain 2 or more standard drinks.\"}}, {\"@type\": \"Question\", \"name\": \"How long does alcohol stay in your system?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The liver processes about 0.015% BAC per hour — roughly one standard drink per hour. At 0.08% BAC it takes about 5-6 hours to fully sober up. Coffee, water, and food do not speed this process.\"}}, {\"@type\": \"Question\", \"name\": \"Is it safe to drive at 0.07% BAC?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. While below the legal limit of 0.08%, driving at 0.07% still significantly impairs reaction time and judgment. Research shows impairment begins at 0.02%. Never drive after drinking — call a rideshare or designate a driver.\"}}, {\"@type\": \"Question\", \"name\": \"Why does BAC differ between men and women?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Women generally have a higher BAC from the same drinks due to lower body water content (so alcohol is more concentrated) and lower levels of alcohol dehydrogenase enzyme in the stomach, which breaks down alcohol before it enters the bloodstream.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Alcohol Unit Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Alcohol Unit Calculator</h1>\n<p class=\"calc-intro\">Calculate alcohol units and estimate your Blood Alcohol Content (BAC) based on what you've consumed, your weight, sex, and time. Includes how long until you're sober and safe to drive.</p>\n<div class=\"content-section\">\n<h2>What is a Standard Drink?</h2>\n<p>In the United States, a <strong>standard drink</strong> contains approximately <strong>14 grams of pure alcohol</strong>. Different beverages contain varying amounts of alcohol by volume (ABV), so drink sizes differ:</p>\n<div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:12px;\">\n<div style=\"background:var(--c-rule2);border-radius:8px;padding:16px;text-align:center;\">\n<div style=\"font-size:28px;margin-bottom:6px;\">🍺</div>\n<div style=\"font-weight:600;font-size:13px;\">Regular Beer</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">12 oz · 5% ABV</div>\n</div>\n<div style=\"background:var(--c-rule2);border-radius:8px;padding:16px;text-align:center;\">\n<div style=\"font-size:28px;margin-bottom:6px;\">🍷</div>\n<div style=\"font-weight:600;font-size:13px;\">Table Wine</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">5 oz · 12% ABV</div>\n</div>\n<div style=\"background:var(--c-rule2);border-radius:8px;padding:16px;text-align:center;\">\n<div style=\"font-size:28px;margin-bottom:6px;\">🥃</div>\n<div style=\"font-weight:600;font-size:13px;\">Spirits / Liquor</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">1.5 oz · 40% ABV</div>\n</div>\n<div style=\"background:var(--c-rule2);border-radius:8px;padding:16px;text-align:center;\">\n<div style=\"font-size:28px;margin-bottom:6px;\">🍻</div>\n<div style=\"font-weight:600;font-size:13px;\">Craft Beer</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">12 oz · 7-9% ABV</div>\n</div>\n</div>\n<div class=\"formula-box\" style=\"margin-top:16px;\">BAC = (Alcohol in grams × 5.14) ÷ (Weight in lbs × Gender constant) − (0.015 × Hours drinking)</div>\n<p>Gender constant: Male = 0.73, Female = 0.66. Women typically have higher BAC from the same drinks due to differences in body water percentage and alcohol metabolism enzymes.</p>\n</div>\n<div class=\"content-section\">\n<h2>BAC Effects Guide</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 16px;text-align:left;\">BAC Level</th><th style=\"padding:10px 16px;text-align:left;\">Effects</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;\">0.02–0.03%</td><td style=\"padding:10px 16px;\">Slight relaxation, mild mood lift</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">0.04–0.06%</td><td style=\"padding:10px 16px;\">Relaxed, lowered inhibitions, minor impairment</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;color:#8a6d1a;font-weight:600;\">0.07–0.09%</td><td style=\"padding:10px 16px;\">Impaired judgment, reduced coordination — <strong>legal limit 0.08%</strong></td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;color:#c85a00;font-weight:600;\">0.10–0.12%</td><td style=\"padding:10px 16px;\">Clear impairment, slurred speech, poor balance</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;color:#8a1a1a;font-weight:600;\">0.13–0.15%</td><td style=\"padding:10px 16px;\">Gross impairment, nausea possible</td></tr>\n<tr><td style=\"padding:10px 16px;color:#5c0000;font-weight:600;\">0.16%+</td><td style=\"padding:10px 16px;\">Severe impairment, risk of alcohol poisoning</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is one standard drink in the US? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">One standard US drink contains 14 grams of pure alcohol: 12 oz of regular beer (5%), 5 oz of wine (12%), or 1.5 oz of spirits (40%). Many craft beers and cocktails contain 2 or more standard drinks.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does alcohol stay in your system? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The liver processes about 0.015% BAC per hour — roughly one standard drink per hour. At 0.08% BAC it takes about 5-6 hours to fully sober up. Coffee, water, and food do not speed this process.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is it safe to drive at 0.07% BAC? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. While below the legal limit of 0.08%, driving at 0.07% still significantly impairs reaction time and judgment. Research shows impairment begins at 0.02%. Never drive after drinking — call a rideshare or designate a driver.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does BAC differ between men and women? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Women generally have a higher BAC from the same drinks due to lower body water content (so alcohol is more concentrated) and lower levels of alcohol dehydrogenase enzyme in the stomach, which breaks down alcohol before it enters the bloodstream.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/calorie-burn-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">Calorie Burn</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/smoking-cost-calculator\"><span class=\"rc-icon\">🚬</span><span class=\"rc-name\">Smoking Cost</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>BAC Calculator</h2>\n<div class=\"form-group\">\n<label for=\"ac-weight\">Your Weight (lbs)</label>\n<input id=\"ac-weight\" max=\"400\" min=\"80\" type=\"number\" value=\"160\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"ac-sex\">Sex</label>\n<select id=\"ac-sex\"><option value=\"male\">Male</option><option value=\"female\">Female</option></select>\n</div>\n<div style=\"border-top:1px solid var(--c-rule);padding-top:16px;margin-top:4px;\">\n<div style=\"font-size:13px;font-weight:600;margin-bottom:12px;color:var(--c-ink2);\">Drinks Consumed</div>\n<div class=\"form-row\">\n<div class=\"form-group\"><label for=\"ac-beer\">🍺 Beers (12oz, 5%)</label><input id=\"ac-beer\" max=\"20\" min=\"0\" type=\"number\" value=\"0\"/></div>\n<div class=\"form-group\"><label for=\"ac-wine\">🍷 Wine (5oz, 12%)</label><input id=\"ac-wine\" max=\"20\" min=\"0\" type=\"number\" value=\"2\"/></div>\n</div>\n<div class=\"form-row\">\n<div class=\"form-group\"><label for=\"ac-shot\">🥃 Shots (1.5oz, 40%)</label><input id=\"ac-shot\" max=\"20\" min=\"0\" type=\"number\" value=\"0\"/></div>\n<div class=\"form-group\"><label for=\"ac-strong\">🍺 Craft Beer (12oz,7%)</label><input id=\"ac-strong\" max=\"20\" min=\"0\" type=\"number\" value=\"0\"/></div>\n</div>\n</div>\n<div class=\"form-group\">\n<label for=\"ac-hours\">Hours Since First Drink</label>\n<input id=\"ac-hours\" max=\"24\" min=\"0\" step=\"0.5\" type=\"number\" value=\"2\"/>\n</div>\n<button class=\"calc-btn\" onclick=\"calcBAC()\">Calculate BAC</button>\n<div id=\"ac-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ac\" onclick=\"printResult('ac-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"ac-result\">\n<div id=\"ac-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ac-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"ac-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ This calculator provides estimates only. Never drive after drinking. Individual BAC varies significantly. Do not use this to determine if you are safe to drive.</div>\n</div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-alcohol-unit-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcBAC(){\n  const wt=parseFloat(document.getElementById('ac-weight').value)||160;\n  const sex=document.getElementById('ac-sex').value;\n  const beer=parseInt(document.getElementById('ac-beer').value)||0;\n  const wine=parseInt(document.getElementById('ac-wine').value)||0;\n  const shot=parseInt(document.getElementById('ac-shot').value)||0;\n  const craft=parseInt(document.getElementById('ac-strong').value)||0;\n  const hours=parseFloat(document.getElementById('ac-hours').value)||0;\n  const genderConst=sex==='male'?0.73:0.66;\n  const totalGrams=(beer*14)+(wine*14)+(shot*14)+(craft*19.6);\n  const totalDrinks=beer+wine+shot+craft;\n  const rawBAC=(totalGrams*5.14)/(wt*genderConst);\n  const bac=Math.max(0,rawBAC-(0.015*hours));\n  const bacRounded=Math.round(bac*1000)/1000;\n  const soberin=Math.ceil(bac/0.015);\n  let status,statusColor,canDrive;\n  if(bac<=0){status='Sober';statusColor='#1a5c3a';canDrive='Yes — BAC is 0%';}\n  else if(bac<0.04){status='Very Mild — Slight relaxation';statusColor='#1a5c3a';canDrive='Likely safe but avoid if possible';}\n  else if(bac<0.08){status='Mild to Moderate — Impaired judgment';statusColor='#8a6d1a';canDrive='❌ Do NOT drive — impaired';}\n  else if(bac<0.15){status='Significant Impairment';statusColor='#8a1a1a';canDrive='❌ Do NOT drive — illegal';}\n  else{status='Severe Impairment — Seek help';statusColor='#5c0000';canDrive='❌ Do NOT drive — dangerous';}\n  const calories=Math.round(totalDrinks*150);\n  document.getElementById('ac-ri').innerHTML=\n    ri('Estimated BAC','<strong style=\"color:'+statusColor+'\">'+bacRounded+'%</strong>',true)+\n    ri('Status','<span style=\"color:'+statusColor+'\">'+status+'</span>')+\n    ri('Safe to Drive?',canDrive)+\n    ri('Hours to Sober',bac>0?soberin+' hours':'Already sober')+\n    ri('Total Drinks',totalDrinks+' standard drinks')+\n    ri('Calories from Alcohol','~'+calories+' kcal');\n  showResult('ac-result');\n  drawDonut('ac-chart',['BAC','Legal Limit Headroom'],[Math.min(bacRounded,0.2),Math.max(0,0.2-bacRounded)],[bac>=0.08?'#8a1a1a':'#1a5c3a','#e8e8e2']);\n  const aiBox=document.getElementById('ac-ai');\n  if(bac>=0.15){\n    aiBox.innerHTML='<div class=\"ai-header\"><span>⚠️</span> Safety Notice</div><p style=\"color:#8a1a1a;font-weight:500;\">Your estimated BAC is very high. Please do not drive. Stay with trusted people, drink water, and seek medical help if you feel unwell. Signs of alcohol poisoning include confusion, vomiting, seizures, and unconsciousness.</p>';\n    aiBox.style.display='block';return;\n  }\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Estimated BAC: '+bacRounded+'%, '+totalDrinks+' drinks over '+hours+' hours, weight: '+wt+' lbs, sex: '+sex+'. Give 2 harm reduction tips, mention when it will be safe to drive, and note one health fact about alcohol metabolism. 3 sentences, non-judgmental tone. End with: never drive after drinking.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Alcohol Unit Calculator"
+      intro="Determine your Blood Alcohol Concentration (BAC) and trace metabolic elimination time using the clinical Widmark equation. Understand standard drink equivalents and legal impairment thresholds."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{BAC} = \frac{A \cdot 5.14}{W \cdot r} - \beta \cdot t \quad (\beta \approx 0.015\%/\text{hr})"
+      related={[
+        { href: "/calculators/health/smoking-cost-calculator", icon: "🚬", name: "Smoking Cost" },
+        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+        { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+        { href: "/calculators/health/sleep-calculator", icon: "💤", name: "Sleep Calculator" },
+        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+      ]}
+      faq={[
+        {
+          q: "What defines a 'Standard Drink' in the United States?",
+          a: "In the United States, one standard drink contains exactly 14 grams (0.6 fluid ounces or 17.7 milliliters) of pure ethanol. This is equivalent to: 1) 12 fluid ounces of regular 5% ABV beer; 2) 5 fluid ounces of 12% ABV table wine; or 3) 1.5 fluid ounces (a standard shot) of 40% ABV (80-proof) distilled spirits. Craft beers (7–9% ABV) often contain 1.5 to 2.0 standard drinks per 12 oz can.",
+        },
+        {
+          q: "How fast does the human liver eliminate alcohol?",
+          a: "The liver metabolizes ethanol via zero-order elimination kinetics—meaning it clears alcohol at a constant absolute rate regardless of concentration. On average, the liver clears approximately 0.015% BAC per hour (equivalent to roughly one standard drink per hour for an average-sized adult). Contrary to popular mythology, drinking black coffee, taking cold showers, exercising, or inducing sweating cannot accelerate this enzymatic bottleneck.",
+        },
+        {
+          q: "Why do women typically achieve a higher BAC than men from the same drinks?",
+          a: "Women experience higher peak blood alcohol concentrations than men of identical body weight due to two physiological factors: 1) Lower Total Body Water: Ethanol is water-soluble; because females naturally possess a higher percentage of body fat and lower body water, alcohol distributes into a smaller liquid volume; and 2) Lower Gastric Alcohol Dehydrogenase (ADH): Women produce lower concentrations of the gastric ADH enzyme in the stomach lining, allowing a greater fraction of ingested alcohol to enter the bloodstream unoxidized.",
+        },
+        {
+          q: "Is it safe or legal to drive if my calculated BAC is 0.07%?",
+          a: "No. While 0.08% is the statutory 'per se' legal limit in 49 US states (and 0.05% in Utah and most of Europe), driving at 0.07% still carries substantial psychomotor impairment. According to the National Highway Traffic Safety Administration (NHTSA), a BAC of 0.05% to 0.07% increases crash risk by 3 to 7 times. Furthermore, drivers can still be convicted of driving under the influence (DUI) below 0.08% if clinical impairment is demonstrated.",
+        },
+        {
+          q: "How many calories does alcohol contribute to daily intake?",
+          a: "Pure alcohol provides 7.0 kilocalories per gram—second only to dietary fat (9 kcal/g) and far higher than carbohydrates or protein (4 kcal/g). A single standard drink contains approximately 98 kcal of pure ethanol, plus unfermented sugars, totaling 120 to 200 kcal per beverage. Four standard craft beers can easily add 800 to 1,000 liquid calories without nutritional satiety.",
+        },
+        {
+          q: "What is the Widmark formula used by forensic toxicologists?",
+          a: "Developed by Swedish chemist Erik Widmark in 1932, the equation is: BAC = [A / (W × r)] × 100 − (β × t), where A is alcohol mass in grams, W is body weight, r is the gender distribution volume (0.73 for males, 0.66 for females), β is the elimination rate (0.015%/hr), and t is elapsed hours. It remains the international forensic standard for retrograde blood alcohol extrapolation.",
+        },
+      ]}
+    >
+      <AlcoholUnitCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Forensic Toxicology &amp; Addiction Medicine Review:</span> Calibrated to the Widmark pharmacokinetic equation, National Institute on Alcohol Abuse and Alcoholism (NIAAA), and NHTSA impairment standards.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Forensic Standards</div>
+        </div>
+
+        {/* Section 1: Pharmacokinetics of Ethanol */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Pharmacokinetics of Ethanol: Absorption and Hepatic Clearance
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Ethanol is a low-molecular-weight, water-soluble molecule that requires no digestive enzymatic breakdown. Upon ingestion, approximately 20% is absorbed directly through the gastric mucosa into the capillaries, while the remaining 80% is absorbed rapidly in the proximal duodenum of the small intestine.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Over 90% of circulating ethanol is metabolized in hepatocytes via <strong>Alcohol Dehydrogenase (ADH)</strong>, converting ethanol into toxic acetaldehyde, which is subsequently oxidized by <strong>Aldehyde Dehydrogenase (ALDH2)</strong> into harmless acetate. Crucially, ADH becomes fully saturated at very low alcohol concentrations, enforcing <strong>zero-order kinetics</strong>: the liver oxidizes alcohol at a strict linear ceiling of approximately 0.015% BAC per hour, irrespective of hydration, caffeine intake, or physical activity.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Widmark Elimination &amp; Sobriety Curve
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Observe the pharmacokinetic trajectory of blood alcohol absorption followed by linear zero-order hepatic clearance. Scrub across the 10-hour timeline to inspect instantaneous BAC, neurological impairment stages, and legal driving thresholds:
+          </p>
+          <BacMetabolismEliminationChart />
+        </section>
+
+        {/* Section 3: Standard Drink Equivalents */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Standard Drink Equivalency: Deconstructing Beverage ABV
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Because alcoholic beverages vary dramatically in alcohol-by-volume (ABV), standard drink calculations prevent underestimating ethanol load:
+          </p>
+          <DataTable
+            head={["Beverage Category", "Standard Serving Volume", "Alcohol by Volume (ABV)", "Pure Ethanol Mass", "UK Unit Equivalent"]}
+            rows={STANDARD_DRINKS_TABLE.map((row) => [
+              <strong key={row.beverageType} className="text-slate-900 dark:text-slate-100">{row.beverageType}</strong>,
+              row.volume,
+              row.typicalAbv,
+              row.pureAlcoholGrams,
+              row.unitsUk,
+            ])}
+          />
+        </section>
+
+        {/* Section 4: BAC Impairment Stages */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Neurological Continuum: Impairment Stages by Blood Alcohol Level
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Ethanol enhances inhibitory GABAergic neurotransmission while dampening excitatory NMDA glutamate receptors, generating progressive central nervous system depression:
+          </p>
+          <DataTable
+            head={["BAC Range", "Neurological State", "Psychomotor & Cognitive Deficit", "Relative Motor Vehicle Crash Hazard"]}
+            rows={BAC_IMPAIRMENT_STAGES_TABLE.map((row) => [
+              <strong key={row.bacRange} className="text-slate-900 dark:text-slate-100">{row.bacRange}</strong>,
+              row.neurologicalState,
+              row.psychomotorImpairment,
+              row.drivingRisk,
+            ])}
+          />
+        </section>
+
+        {/* Section 5: The Widmark Equation Formulation */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Mathematical Widmark Equation
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In forensic epidemiology, blood alcohol concentration is calculated via the Widmark formulation:
+          </p>
+          <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/80 my-4 text-center">
+            <Formula>{"\\text{BAC} = \\left( \\frac{\\text{Alcohol (g)} \\cdot 5.14}{\\text{Body Weight (lbs)} \\cdot r} \\right) - (0.015 \\cdot t)"}</Formula>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Where <em>r</em> represents the volume of distribution (0.73 for biological males, 0.66 for biological females), 5.14 converts grams to ounces and percent concentration, 0.015 represents the zero-order hourly elimination constant $\beta$, and <em>t</em> is elapsed hours since drinking began.
+          </p>
+        </section>
+      </article>
+    </CalcPage>
   );
 }

@@ -20,3 +20,11 @@ export { SwimPaceDistanceCurveChart } from "./SwimPaceDistanceCurveChart";
 export { StepVolumeCalorieCurveChart } from "./StepVolumeCalorieCurveChart";
 export { LbmCompositionSpectrumChart } from "./LbmCompositionSpectrumChart";
 export { BodyProportionsMatrixChart } from "./BodyProportionsMatrixChart";
+
+// Batch 4 Charts:
+export { FastingAutophagySpectrumChart } from "./FastingAutophagySpectrumChart";
+export { WhtrLongevityRiskCurveChart } from "./WhtrLongevityRiskCurveChart";
+export { WhrCardiovascularRiskChart } from "./WhrCardiovascularRiskChart";
+export { SleepArchitectureCyclesChart } from "./SleepArchitectureCyclesChart";
+export { SmokingCompoundWealthLossChart } from "./SmokingCompoundWealthLossChart";
+export { BacMetabolismEliminationChart } from "./BacMetabolismEliminationChart";

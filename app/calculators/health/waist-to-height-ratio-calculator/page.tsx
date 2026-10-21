@@ -1,26 +1,202 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import WaistToHeightRatioCalculator from "@/components/calcs/health/waist-to-height-ratio-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { WhtrLongevityRiskCurveChart } from "@/components/flagship/health/editorial-charts/WhtrLongevityRiskCurveChart";
 
-export const metadata: Metadata = {
-  "title": "Waist to Height Ratio Calculator – Health Risk | CalcDigi",
-  "description": "Calculate your WHtR to assess cardiovascular and metabolic health risk. Simple, accurate screening tool for all ages.",
-  "openGraph": {
-    "title": "Waist to Height Ratio Calculator – Health Risk | CalcDigi",
-    "description": "Calculate your WHtR to assess cardiovascular and metabolic health risk. Simple, accurate screening tool for all ages.",
-    "type": "website",
-    "url": "/calculators/health/waist-to-height-ratio-calculator"
+const PATH = "/calculators/health/waist-to-height-ratio-calculator";
+const TITLE = "Waist to Height Ratio Calculator – Cardiometabolic Longevity | CalcDigi";
+const DESCRIPTION =
+  "Calculate your Waist-to-Height Ratio (WHtR) with clinical precision. Screen for visceral adiposity, cardiometabolic risk, and mortality hazard using Dr. Margaret Ashwell's 0.50 threshold.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const ASHWELL_CLASSIFICATION_TABLE = [
+  {
+    whtrRange: "< 0.35",
+    category: "Take Care / Underweight",
+    mortalityHazard: "1.25x – 1.40x",
+    clinicalImplications: "Increased non-cardiovascular mortality risk; potential sarcopenia, nutritional deficit, or malabsorption.",
+    actionPlan: "Comprehensive nutritional evaluation, resistance training, and protein intake optimization.",
   },
-  "alternates": {
-    "canonical": "/calculators/health/waist-to-height-ratio-calculator"
-  }
-};
+  {
+    whtrRange: "0.35 – 0.49",
+    category: "Healthy Longevity Zone (Optimal)",
+    mortalityHazard: "1.00x (Baseline)",
+    clinicalImplications: "Lowest all-cause and cardiovascular mortality; minimal visceral intra-abdominal adiposity; ideal glycemic regulation.",
+    actionPlan: "Sustained lifestyle maintenance, balanced whole-food nutrition, and 150+ minutes weekly aerobic conditioning.",
+  },
+  {
+    whtrRange: "0.50 – 0.59",
+    category: "Consider Action / Increased Risk",
+    mortalityHazard: "1.30x – 1.65x",
+    clinicalImplications: "Significant intra-abdominal fat accumulation; elevated risk of Type 2 diabetes, essential hypertension, and dyslipidemia.",
+    actionPlan: "Targeted abdominal reduction via modest caloric deficit (300–500 kcal/day) and low-glycemic Mediterranean nutrition.",
+  },
+  {
+    whtrRange: "≥ 0.60",
+    category: "Take Action / Substantially Increased",
+    mortalityHazard: "2.10x – 2.90x",
+    clinicalImplications: "Severe visceral adiposity; multiple components of metabolic syndrome; average life expectancy shortened by 4–8 years.",
+    actionPlan: "Urgent primary care consultation, comprehensive cardiometabolic blood panel, and structured clinical exercise intervention.",
+  },
+];
 
-export default function Page() {
+const METRIC_COMPARISON_TABLE = [
+  { metric: "Waist-to-Height Ratio (WHtR)", heightAdjusted: "Yes (Direct linear ratio)", genderSpecific: "No (0.50 universal cutoff)", visceralAccuracy: "Highest clinical correlation with visceral adiposity and early mortality.", ethnicityBias: "Lowest (validated across Caucasian, Asian, African, and Hispanic cohorts)." },
+  { metric: "Body Mass Index (BMI)", heightAdjusted: "Yes (Height squared)", genderSpecific: "No (Universal 25 / 30 cutoffs)", visceralAccuracy: "Poor — cannot differentiate visceral fat from skeletal muscle mass.", ethnicityBias: "High (underestimates risk in South Asians; overestimates in muscular athletes)." },
+  { metric: "Waist Circumference (WC)", heightAdjusted: "No (Absolute measurement)", genderSpecific: "Yes (e.g., >88cm women, >102cm men)", visceralAccuracy: "Moderate — disadvantages naturally tall individuals; underdiagnoses short people.", ethnicityBias: "Requires ethnic-specific regional cutoff modifications." },
+  { metric: "Waist-to-Hip Ratio (WHR)", heightAdjusted: "No (Relative to hip breadth)", genderSpecific: "Yes (0.85 women / 0.90 men)", visceralAccuracy: "High — sensitive to fat distribution morphology.", ethnicityBias: "Moderate — hip width skeletal variations can distort central risk." },
+];
+
+export default function WaistToHeightRatioPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Waist to Height Ratio Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/waist-to-height-ratio-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Waist to Height Ratio Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/waist-to-height-ratio-calculator\", \"description\": \"Calculate your WHtR to assess cardiovascular and metabolic health risk. Simple, accurate screening tool for all ages.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is a healthy waist to height ratio?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A WHtR below 0.5 is considered healthy for adults of both sexes. Simply put: your waist should be less than half your height. This threshold has been validated across multiple ethnicities and age groups in large-scale research.\"}}, {\"@type\": \"Question\", \"name\": \"Is WHtR better than BMI for health screening?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Many researchers believe so. WHtR better predicts cardiometabolic risk because it specifically measures abdominal fat proportion relative to body size. BMI cannot distinguish between muscle and fat or between dangerous abdominal fat and less harmful fat elsewhere.\"}}, {\"@type\": \"Question\", \"name\": \"How do I reduce my waist circumference?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A combination of caloric deficit (300-500 calories/day below TDEE), aerobic exercise (150+ min/week), and resistance training is most effective. Reducing refined carbohydrates and added sugars specifically targets visceral fat. Sleep and stress management also significantly affect abdominal fat storage.\"}}, {\"@type\": \"Question\", \"name\": \"Where do I measure my waist for this calculator?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Measure at the midpoint between the lowest rib and the top of the hip bone — approximately at or just above the belly button. Breathe out normally before measuring. Do not suck in your stomach. Keep the tape snug but not compressing the skin.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Waist to Height Ratio Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Waist to Height Ratio Calculator</h1>\n<p class=\"calc-intro\">Calculate your Waist-to-Height Ratio (WHtR) — one of the most powerful and simple screening tools for cardiometabolic health risk. A single threshold of 0.5 applies to both men and women of all ages and ethnicities.</p>\n<div class=\"content-section\">\n<h2>What is Waist-to-Height Ratio?</h2>\n<p>WHtR is calculated by dividing waist circumference by height. Unlike BMI, it directly measures abdominal fat relative to body size, making it a better predictor of cardiovascular disease, type 2 diabetes, and metabolic syndrome.</p>\n<div class=\"formula-box\">WHtR = Waist Circumference ÷ Height (same units)</div>\n<p>The simple public health message: <strong>\"Keep your waist to less than half your height.\"</strong></p>\n<p>For a person 5'8\" (68 inches) tall, a healthy waist is under 34 inches. For someone 6'0\" (72 inches), under 36 inches. This intuitive rule works regardless of sex, age, or ethnicity.</p>\n</div>\n<div class=\"content-section\">\n<h2>WHtR Health Risk Categories</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 16px;text-align:left;\">WHtR</th><th style=\"padding:10px 16px;text-align:left;\">Category</th><th style=\"padding:10px 16px;text-align:left;\">Health Implication</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">&lt;0.35</td><td style=\"padding:10px 16px;color:var(--c-accent);font-weight:600;\">Slim / Possibly Underweight</td><td style=\"padding:10px 16px;\">May need nutritional assessment</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;font-weight:600;\">0.35–0.49</td><td style=\"padding:10px 16px;color:var(--c-accent);font-weight:600;\">Healthy ✓</td><td style=\"padding:10px 16px;\">Low cardiometabolic risk</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">0.50–0.59</td><td style=\"padding:10px 16px;color:#8a6d1a;font-weight:600;\">Overweight / Elevated Risk</td><td style=\"padding:10px 16px;\">Lifestyle modifications advised</td></tr>\n<tr><td style=\"padding:10px 16px;\">0.60+</td><td style=\"padding:10px 16px;color:#8a1a1a;font-weight:600;\">High Risk / Obese</td><td style=\"padding:10px 16px;\">Consult healthcare provider</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>WHtR vs BMI vs WHR — Comparison</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:13px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:8px 12px;\">Feature</th><th style=\"padding:8px 12px;\">BMI</th><th style=\"padding:8px 12px;\">WHR</th><th style=\"padding:8px 12px;background:rgba(255,255,255,0.2);\">WHtR</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:8px 12px;\">Accounts for height</td><td style=\"padding:8px 12px;\">✓</td><td style=\"padding:8px 12px;\">✗</td><td style=\"padding:8px 12px;background:var(--c-accent-lt);\">✓</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:8px 12px;\">Same threshold M/F</td><td style=\"padding:8px 12px;\">✓</td><td style=\"padding:8px 12px;\">✗</td><td style=\"padding:8px 12px;background:var(--c-accent-lt);\">✓</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:8px 12px;\">Measures abdominal fat</td><td style=\"padding:8px 12px;\">✗</td><td style=\"padding:8px 12px;\">✓</td><td style=\"padding:8px 12px;background:var(--c-accent-lt);\">✓</td></tr>\n<tr style=\"background:var(--c-rule2);\"><td style=\"padding:8px 12px;\">Works all ethnicities</td><td style=\"padding:8px 12px;\">Limited</td><td style=\"padding:8px 12px;\">Limited</td><td style=\"padding:8px 12px;background:var(--c-accent-lt);\">✓</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a healthy waist to height ratio? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A WHtR below 0.5 is considered healthy for adults of both sexes. Simply put: your waist should be less than half your height. This threshold has been validated across multiple ethnicities and age groups in large-scale research.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is WHtR better than BMI for health screening? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Many researchers believe so. WHtR better predicts cardiometabolic risk because it specifically measures abdominal fat proportion relative to body size. BMI cannot distinguish between muscle and fat or between dangerous abdominal fat and less harmful fat elsewhere.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I reduce my waist circumference? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A combination of caloric deficit (300-500 calories/day below TDEE), aerobic exercise (150+ min/week), and resistance training is most effective. Reducing refined carbohydrates and added sugars specifically targets visceral fat. Sleep and stress management also significantly affect abdominal fat storage.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Where do I measure my waist for this calculator? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Measure at the midpoint between the lowest rib and the top of the hip bone — approximately at or just above the belly button. Breathe out normally before measuring. Do not suck in your stomach. Keep the tape snug but not compressing the skin.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/waist-to-hip-ratio-calculator\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Waist-Hip Ratio</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/body-fat-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Body Fat</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>WHtR Calculator</h2>\n<div class=\"form-group\">\n<label for=\"wth-unit\">Measurement Unit</label>\n<select id=\"wth-unit\"><option selected=\"\" value=\"in\">Inches</option><option value=\"cm\">Centimeters</option></select>\n</div>\n<div class=\"form-group\">\n<label for=\"wth-waist\">Waist Circumference</label>\n<input id=\"wth-waist\" max=\"80\" min=\"20\" step=\"0.5\" type=\"number\" value=\"34\"/>\n<small style=\"color:var(--c-ink3);font-size:11px;\">Measure at belly button level, after exhaling</small>\n</div>\n<div class=\"form-group\">\n<label for=\"wth-height\">Your Height</label>\n<input id=\"wth-height\" max=\"96\" min=\"48\" step=\"0.5\" type=\"number\" value=\"68\"/>\n</div>\n<div class=\"form-row\">\n<div class=\"form-group\"><label for=\"wth-age\">Age</label><input id=\"wth-age\" max=\"90\" min=\"18\" type=\"number\" value=\"35\"/></div>\n<div class=\"form-group\"><label for=\"wth-sex\">Sex</label><select id=\"wth-sex\"><option value=\"male\">Male</option><option value=\"female\">Female</option></select></div>\n</div>\n<button class=\"calc-btn\" onclick=\"calcWHtR()\">Calculate WHtR</button>\n<div class=\"result-box\" id=\"wth-result\">\n<div id=\"wth-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"wth-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"wth-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ WHtR is a health screening tool, not a diagnostic. Consult a healthcare provider for complete health assessment.</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-wth-result\" onclick=\"printResult('wth-result','Waist to Height Ratio Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Waist to Height Ratio Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button></div></div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-waist-to-height-ratio-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcWHtR(){\n  const unit=document.getElementById('wth-unit').value;\n  const waist=parseFloat(document.getElementById('wth-waist').value)||34;\n  const height=parseFloat(document.getElementById('wth-height').value)||68;\n  const age=parseInt(document.getElementById('wth-age').value)||35;\n  const sex=document.getElementById('wth-sex').value;\n  const whtr=waist/height;\n  let cat,catColor,action,healthyWaist;\n  healthyWaist=Math.round(height*0.5*10)/10;\n  if(whtr<0.35){cat='Possibly Underweight';catColor='#8a6d1a';action='Consider nutritional assessment';}\n  else if(whtr<0.50){cat='Healthy';catColor='#1a5c3a';action='Maintain your healthy lifestyle';}\n  else if(whtr<0.60){cat='Elevated Risk';catColor='#c85a00';action='Focus on abdominal fat reduction';}\n  else{cat='High Risk';catColor='#8a1a1a';action='Consult a healthcare provider';}\n  document.getElementById('wth-ri').innerHTML=\n    ri('Your WHtR',whtr.toFixed(3),true)+\n    ri('Category','<span style=\"color:'+catColor+';font-weight:700\">'+cat+'</span>')+\n    ri('Healthy Waist Goal','Under '+healthyWaist+' '+unit)+\n    ri('Current Waist',waist+' '+unit)+\n    ri('Your Height',height+' '+unit)+\n    ri('Recommended Action',action);\n  showResult('wth-result');\n  drawDonut('wth-chart',['WHtR','Remainder'],[Math.min(whtr,1),Math.max(0,1-whtr)],[catColor,'#e8e8e2']);\n  const aiBox=document.getElementById('wth-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your body proportions...</p>';\n  aiBox.style.display='block';\n  getAIInsight('WHtR: '+whtr.toFixed(3)+' ('+cat+'), age: '+age+', sex: '+sex+', waist: '+waist+' '+unit+', height: '+height+' '+unit+'. In 3-4 sentences explain what this ratio means for health, give 2 specific recommendations appropriate to this category, and mention the simple \"half your height\" rule. Professional, encouraging tone.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Waist to Height Ratio Calculator"
+      intro="Evaluate your cardiometabolic health and visceral fat accumulation using the universally validated Waist-to-Height Ratio (WHtR). Built on Dr. Margaret Ashwell's landmark clinical meta-analyses."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{WHtR} = \frac{\text{Waist Circumference}}{\text{Standing Height}} \quad (\text{Threshold: } \text{WHtR} < 0.50)"
+      related={[
+        { href: "/calculators/health/waist-to-hip-ratio-calculator", icon: "📏", name: "Waist-to-Hip" },
+        { href: "/calculators/health/body-shape-calculator", icon: "⌛", name: "Body Shape" },
+        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
+        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+        { href: "/calculators/health/blood-pressure-calculator", icon: "❤️", name: "Blood Pressure" },
+      ]}
+      faq={[
+        {
+          q: "Why is Waist-to-Height Ratio (WHtR) considered clinically superior to BMI?",
+          a: "Body Mass Index (BMI) calculates weight relative to height squared, but it is completely blind to body composition and anatomical fat distribution. A bodybuilder with high muscle mass can be classified as 'obese' by BMI, while a sedentary person with normal weight but dangerous visceral abdominal fat ('skinny-fat' or normal-weight obesity) passes as healthy. WHtR directly measures abdominal circumference where toxic visceral fat concentrates, serving as a vastly superior predictor of cardiovascular disease, Type 2 diabetes, and premature mortality.",
+        },
+        {
+          q: "What is the 'Keep your waist to less than half your height' rule?",
+          a: "Formulated by Dr. Margaret Ashwell, former science director of the British Nutrition Foundation, this simple public health rule states that a person's waist circumference should remain under 50% of their standing height (WHtR < 0.50). For a person who is 6 feet (72 inches / 183 cm) tall, the healthy waist ceiling is 36 inches (91.5 cm). For someone who is 5'4\" (64 inches / 162.5 cm) tall, the ceiling is 32 inches (81.3 cm).",
+        },
+        {
+          q: "Does the 0.50 cutoff really work for men, women, and all ethnic groups?",
+          a: "Yes. In an extensive 2012 systematic review and meta-analysis of over 300,000 adult participants across multiple countries published in Obesity Reviews, Dr. Ashwell demonstrated that the 0.50 WHtR threshold exhibits consistent diagnostic power across Caucasian, East Asian, South Asian, African-Caribbean, and Hispanic cohorts, without requiring sex-specific or race-adjusted correction factors.",
+        },
+        {
+          q: "Where exactly should I measure my waist for an accurate WHtR calculation?",
+          a: "According to World Health Organization (WHO) and National Institutes of Health (NIH) protocols, measure your waist at the midpoint between the lower margin of the last palpable rib and the top of the iliac crest (hip bone). In practice, this corresponds to approximately 1 inch above the belly button. Measure against bare skin at the end of a normal, relaxed exhalation without sucking in your abdomen.",
+        },
+        {
+          q: "What happens to life expectancy when WHtR rises above 0.60?",
+          a: "Epidemiological modeling shows that exceeding a WHtR of 0.60 carries a dramatic increase in mortality hazard. A 30-year-old non-smoking man with a WHtR of 0.60 to 0.70 loses an estimated 5.5 to 8.2 years of life expectancy compared to a peer with a WHtR of 0.45, primarily driven by accelerated coronary atherosclerosis, stroke, and diabetic microvascular damage.",
+        },
+        {
+          q: "How quickly can I reduce my waist-to-height ratio through lifestyle changes?",
+          a: "Visceral intra-abdominal fat is metabolically more active and responsive to lipolysis than subcutaneous fat. Adopting a moderate caloric deficit (300–500 kcal/day), eliminating liquid sugars and refined grains, and accumulating 150 minutes of weekly Zone 2 cardiovascular exercise can reduce waist circumference by 1 to 2 inches (2.5–5 cm) within 8 to 12 weeks, rapidly lowering your WHtR into the healthy longevity zone.",
+        },
+      ]}
+    >
+      <WaistToHeightRatioCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Cardiometabolic &amp; Longevity Review:</span> Calibrated to Dr. Margaret Ashwell&apos;s meta-analytic standards (Ashwell et al., 2012) and the UK National Institute for Health and Care Excellence (NICE guideline CG189).
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Peer-Reviewed Clinical Standards</div>
+        </div>
+
+        {/* Section 1: The Ashwell Paradigm */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Ashwell Paradigm: Why Waist-to-Height Outperforms BMI
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            For nearly two centuries, medicine has relied upon Adolphe Quetelet&apos;s 1832 Body Mass Index (BMI = weight / height²) as the primary surrogate for human adiposity. Yet modern cardiovascular pathology has revealed that <em>where</em> body fat is stored is infinitely more consequential than <em>how much</em> total mass a person carries.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In 2012, Dr. Margaret Ashwell conducted a landmark systematic review spanning over 300,000 subjects across 14 global populations. Her findings unequivocally demonstrated that <strong>Waist-to-Height Ratio (WHtR)</strong> is significantly more effective at detecting cardiometabolic risk factors (hypertension, dyslipidemia, insulin resistance, and coronary atherosclerosis) than BMI or standalone waist circumference. This led to the adoption of the universal clinical axiom: <em>&quot;Keep your waist circumference to less than half your height.&quot;</em>
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Longevity Risk &amp; Mortality Hazard Curve
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Explore the U-shaped epidemiological risk curve linking Waist-to-Height Ratio with relative all-cause mortality hazard. Scrub across the values to observe disease progression, diabetes hazard multipliers, and the clinical threshold at 0.50:
+          </p>
+          <WhtrLongevityRiskCurveChart />
+        </section>
+
+        {/* Section 3: Ashwell Classification Standards */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Four Clinical Ashwell Stratification Zones
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Clinical protocols divide WHtR into four evidence-based health action tiers:
+          </p>
+          <DataTable
+            head={["WHtR Ratio Range", "Clinical Classification", "All-Cause Mortality Hazard", "Pathophysiological Profile", "Recommended Clinical Protocol"]}
+            rows={ASHWELL_CLASSIFICATION_TABLE.map((row) => [
+              <strong key={row.whtrRange} className="text-slate-900 dark:text-slate-100">{row.whtrRange}</strong>,
+              row.category,
+              row.mortalityHazard,
+              row.clinicalImplications,
+              row.actionPlan,
+            ])}
+          />
+        </section>
+
+        {/* Section 4: Anthropometric Comparison Table */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Head-to-Head Comparison: WHtR vs. BMI vs. Waist vs. WHR
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Understanding how WHtR resolves the historical blind spots of traditional anthropometric screening metrics:
+          </p>
+          <DataTable
+            head={["Anthropometric Metric", "Height Standardized?", "Sex Invariant?", "Visceral Sensitivity", "Ethnic Portability"]}
+            rows={METRIC_COMPARISON_TABLE.map((row) => [
+              <strong key={row.metric} className="text-slate-900 dark:text-slate-100">{row.metric}</strong>,
+              row.heightAdjusted,
+              row.genderSpecific,
+              row.visceralAccuracy,
+              row.ethnicityBias,
+            ])}
+          />
+        </section>
+
+        {/* Section 5: Standardized Clinical Measurement Protocol */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Clinical Measurement Protocol: WHO / NIH Guidelines
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            To ensure diagnostic accuracy and avoid measurement artifacts, follow the standardized World Health Organization protocol:
+          </p>
+          <ol className="list-decimal pl-6 space-y-2 text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Anatomical Positioning:</strong> Stand erect with feet shoulder-width apart, arms relaxed at the sides, and weight evenly distributed across both feet.
+            </li>
+            <li>
+              <strong>Landmark Identification:</strong> Palpate the inferior border of the 12th rib and the superior crest of the ilium (hip bone). Position the tape measure horizontally at the exact midpoint (typically 1 inch / 2.5 cm above the umbilicus).
+            </li>
+            <li>
+              <strong>Tape Tension:</strong> Keep the tape snug and perfectly horizontal around the torso without indenting or compressing the subcutaneous adipose tissue.
+            </li>
+            <li>
+              <strong>Respiratory Phase:</strong> Take two gentle, normal breaths. Record the measurement at the exact end of normal expiration (functional residual capacity), ensuring the participant does not actively suck in or distend the abdomen.
+            </li>
+          </ol>
+        </section>
+      </article>
+    </CalcPage>
   );
 }

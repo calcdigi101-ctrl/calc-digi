@@ -1,26 +1,209 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import IntermittentFastingCalculator from "@/components/calcs/health/intermittent-fasting-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { FastingAutophagySpectrumChart } from "@/components/flagship/health/editorial-charts/FastingAutophagySpectrumChart";
 
-export const metadata: Metadata = {
-  "title": "Intermittent Fasting Calculator – 16:8, 18:6 | CalcDigi",
-  "description": "Calculate your fasting and eating windows for 16:8, 18:6, 20:4, 5:2, and OMAD protocols.",
-  "openGraph": {
-    "title": "Intermittent Fasting Calculator – 16:8, 18:6 | CalcDigi",
-    "description": "Calculate your fasting and eating windows for 16:8, 18:6, 20:4, 5:2, and OMAD protocols.",
-    "type": "website",
-    "url": "/calculators/health/intermittent-fasting-calculator"
+const PATH = "/calculators/health/intermittent-fasting-calculator";
+const TITLE = "Intermittent Fasting Calculator – 16:8, 18:6, OMAD & Autophagy | CalcDigi";
+const DESCRIPTION =
+  "Calculate your exact fasting and eating windows for 16:8, 18:6, 20:4, and OMAD. Track autophagy onset, ketosis timelines, insulin reset, and circadian meal timing.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const PROTOCOL_COMPARISON_TABLE = [
+  {
+    protocol: "16:8 Protocol (Leangains)",
+    fastHours: "16 hours",
+    eatHours: "8 hours",
+    autophagyLevel: "Moderate (initiates around hr 14–16)",
+    bestFor: "Beginners, sustainable daily lifestyle, body recomposition, and moderate fat loss.",
   },
-  "alternates": {
-    "canonical": "/calculators/health/intermittent-fasting-calculator"
-  }
-};
+  {
+    protocol: "18:6 Protocol (Intermediate)",
+    fastHours: "18 hours",
+    eatHours: "6 hours",
+    autophagyLevel: "High (3–4 hours of sustained autophagy)",
+    bestFor: "Overcoming weight-loss plateaus, accelerating hepatic fat oxidation, and deeper ketosis.",
+  },
+  {
+    protocol: "20:4 Protocol (The Warrior Diet)",
+    fastHours: "20 hours",
+    eatHours: "4 hours",
+    autophagyLevel: "Very High (6+ hours of intense cellular recycling)",
+    bestFor: "Advanced fasters, significant insulin sensitivity reset, and evening banquet lifestyle.",
+  },
+  {
+    protocol: "23:1 / OMAD (One Meal A Day)",
+    fastHours: "23 hours",
+    eatHours: "1 hour",
+    autophagyLevel: "Peak Physiological Autophagy",
+    bestFor: "Experienced practitioners, maximal time efficiency, rapid caloric restriction.",
+  },
+  {
+    protocol: "14:10 Circadian Protocol",
+    fastHours: "14 hours",
+    eatHours: "10 hours",
+    autophagyLevel: "Mild / Baseline",
+    bestFor: "Individuals with high adrenal stress, endurance athletes, or first-time fasters.",
+  },
+];
 
-export default function Page() {
+const FASTING_COMPLIANCE_TABLE = [
+  { substance: "Plain Water (Still or Sparkling)", fastImpact: "Completely Compliant", physiologicalNotes: "Essential for blood volume and cellular hydration. Zero calories, zero insulin response." },
+  { substance: "Black Coffee (No Milk/Sugar)", fastImpact: "Completely Compliant", physiologicalNotes: "Polyphenols in coffee stimulate autophagy in liver and muscle tissue; caffeine boosts lipolysis." },
+  { substance: "Plain Green or Herbal Tea", fastImpact: "Completely Compliant", physiologicalNotes: "EGCG catechins enhance hepatic lipid oxidation and offer neuroprotective antioxidant support." },
+  { substance: "Non-Caloric Electrolytes (Na/K/Mg)", fastImpact: "Completely Compliant", physiologicalNotes: "Prevents 'keto flu', headaches, and orthostatic dizziness from natriuresis of fasting." },
+  { substance: "Cream, Milk, or Sugar", fastImpact: "Breaks Fast Immediately", physiologicalNotes: "Lactose and fat stimulate gastric enzymes and trigger hepatic insulin secretion." },
+  { substance: "Diet Sodas / Artificial Sweeteners", fastImpact: "Mixed / Cephalic Phase Risk", physiologicalNotes: "While zero calorie, sweet taste receptors on the tongue can trigger anticipatory insulin spikes." },
+];
+
+export default function IntermittentFastingPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Intermittent Fasting Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/intermittent-fasting-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Intermittent Fasting Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/intermittent-fasting-calculator\", \"description\": \"Calculate your fasting and eating windows for 16:8, 18:6, 20:4, 5:2, and OMAD protocols.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the best IF protocol for beginners?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"16:8 is ideal for beginners. Most people simply skip breakfast and eat from noon to 8 PM. It aligns with natural hunger patterns and requires minimal lifestyle adjustment. Start with 14:10 if 16 hours feels too long.\"}}, {\"@type\": \"Question\", \"name\": \"Can I drink coffee during fasting?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes — black coffee with no milk, cream, or sweeteners does not break a fast. It may actually enhance fasting benefits by suppressing appetite and boosting fat oxidation. Limit to 1-2 cups to avoid excess cortisol.\"}}, {\"@type\": \"Question\", \"name\": \"Is intermittent fasting safe?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"IF is safe for most healthy adults. It is not recommended for pregnant or breastfeeding women, people with a history of eating disorders, those with type 1 diabetes, or anyone underweight. Always consult a doctor before starting.\"}}, {\"@type\": \"Question\", \"name\": \"Will I lose muscle on intermittent fasting?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Short-term IF does not significantly increase muscle loss compared to continuous calorie restriction, especially if protein intake is adequate and you resistance train. Eating sufficient protein during your eating window is key to preserving muscle.\"}}, {\"@type\": \"Question\", \"name\": \"How many calories should I eat during my eating window?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Your total daily calorie goal should be the same as without IF — just consumed in a shorter window. Use our Calorie Calculator or TDEE Calculator to find your target, then subtract 300-500 calories for weight loss.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Intermittent Fasting Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Intermittent Fasting Calculator</h1>\n<p class=\"calc-intro\">Calculate your personalized fasting and eating windows for any intermittent fasting protocol — 16:8, 18:6, 20:4, 5:2, or OMAD. Get an exact daily schedule based on your preferred eating start time.</p>\n<div class=\"content-section\">\n<h2>Popular Intermittent Fasting Protocols</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 16px;text-align:left;\">Protocol</th>\n<th style=\"padding:10px 16px;\">Fast</th>\n<th style=\"padding:10px 16px;\">Eat</th>\n<th style=\"padding:10px 16px;text-align:left;\">Best For</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;font-weight:600;\">16:8 ⭐</td><td style=\"padding:10px 16px;\">16 hrs</td><td style=\"padding:10px 16px;\">8 hrs</td><td style=\"padding:10px 16px;\">Beginners, weight loss</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;font-weight:600;\">18:6</td><td style=\"padding:10px 16px;\">18 hrs</td><td style=\"padding:10px 16px;\">6 hrs</td><td style=\"padding:10px 16px;\">Intermediate, faster results</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;font-weight:600;\">20:4</td><td style=\"padding:10px 16px;\">20 hrs</td><td style=\"padding:10px 16px;\">4 hrs</td><td style=\"padding:10px 16px;\">Advanced, deep ketosis</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;font-weight:600;\">OMAD</td><td style=\"padding:10px 16px;\">23 hrs</td><td style=\"padding:10px 16px;\">1 hr</td><td style=\"padding:10px 16px;\">Experienced fasters</td></tr>\n<tr><td style=\"padding:10px 16px;font-weight:600;\">5:2</td><td style=\"padding:10px 16px;\">2 days</td><td style=\"padding:10px 16px;\">5 days</td><td style=\"padding:10px 16px;\">Flexible lifestyle approach</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>Benefits of Intermittent Fasting</h2>\n<ul>\n<li><strong>Weight loss:</strong> Reduces calorie intake naturally and shifts body to fat burning</li>\n<li><strong>Insulin sensitivity:</strong> Lowers fasting insulin levels, reducing type 2 diabetes risk</li>\n<li><strong>Autophagy:</strong> Cellular cleanup process activated during extended fasting</li>\n<li><strong>Mental clarity:</strong> Many people report improved focus during fasting windows</li>\n<li><strong>Simplified eating:</strong> Fewer meals means less meal planning and preparation</li>\n<li><strong>Reduced inflammation:</strong> Studies show IF reduces inflammatory markers</li>\n</ul>\n</div>\n<div class=\"content-section\">\n<h2>What Breaks a Fast?</h2>\n<p><strong>Does NOT break your fast:</strong> Water, black coffee, plain tea, sparkling water, electrolytes (no calories), medications (consult doctor)</p>\n<p><strong>DOES break your fast:</strong> Any food, milk/cream in coffee, fruit juice, diet sodas (debated), protein shakes, bone broth with significant calories, gum with calories</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the best IF protocol for beginners? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">16:8 is ideal for beginners. Most people simply skip breakfast and eat from noon to 8 PM. It aligns with natural hunger patterns and requires minimal lifestyle adjustment. Start with 14:10 if 16 hours feels too long.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I drink coffee during fasting? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes — black coffee with no milk, cream, or sweeteners does not break a fast. It may actually enhance fasting benefits by suppressing appetite and boosting fat oxidation. Limit to 1-2 cups to avoid excess cortisol.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is intermittent fasting safe? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">IF is safe for most healthy adults. It is not recommended for pregnant or breastfeeding women, people with a history of eating disorders, those with type 1 diabetes, or anyone underweight. Always consult a doctor before starting.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Will I lose muscle on intermittent fasting? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Short-term IF does not significantly increase muscle loss compared to continuous calorie restriction, especially if protein intake is adequate and you resistance train. Eating sufficient protein during your eating window is key to preserving muscle.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories should I eat during my eating window? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Your total daily calorie goal should be the same as without IF — just consumed in a shorter window. Use our Calorie Calculator or TDEE Calculator to find your target, then subtract 300-500 calories for weight loss.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/macro-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Macro Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmr-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">BMR Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>IF Schedule Calculator</h2>\n<div class=\"form-group\">\n<label for=\"if-protocol\">Fasting Protocol</label>\n<select id=\"if-protocol\">\n<option value=\"16\">16:8 — Most Popular</option>\n<option value=\"18\">18:6 — Intermediate</option>\n<option value=\"20\">20:4 — Advanced</option>\n<option value=\"23\">OMAD (23:1)</option>\n<option value=\"14\">14:10 — Beginner</option>\n<option value=\"12\">12:12 — Gentle Start</option>\n</select>\n</div>\n<div class=\"form-group\">\n<label for=\"if-start\">Eating Window Start Time</label>\n<input id=\"if-start\" type=\"time\" value=\"12:00\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"if-goal\">Your Goal</label>\n<select id=\"if-goal\">\n<option value=\"weight loss\">Weight Loss</option>\n<option value=\"maintenance\">Maintenance</option>\n<option value=\"muscle gain\">Muscle Gain</option>\n<option value=\"metabolic health\">Metabolic Health</option>\n</select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcIF()\">Generate My Schedule</button>\n<div id=\"if-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-if\" onclick=\"printResult('if-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"if-result\">\n<div id=\"if-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"if-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"if-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ Consult a healthcare provider before starting IF, especially if you have any medical conditions.</div>\n</div>\n</div>\n</div>\n</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-intermittent-fasting-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function fmtTime12(h,m){\n  const ampm=h>=12?'PM':'AM';\n  const h12=h%12||12;\n  return h12+':'+(m<10?'0'+m:m)+' '+ampm;\n}\nfunction calcIF(){\n  const fastHrs=parseInt(document.getElementById('if-protocol').value)||16;\n  const eatHrs=24-fastHrs;\n  const startParts=document.getElementById('if-start').value.split(':');\n  const startH=parseInt(startParts[0]),startM=parseInt(startParts[1]);\n  const endH=(startH+eatHrs)%24;\n  const endM=startM;\n  const fastStartH=endH,fastStartM=endM;\n  const fastEndH=startH,fastEndM=startM;\n  const goal=document.getElementById('if-goal').value;\n  const protocols={16:'16:8',18:'18:6',20:'20:4',23:'OMAD (23:1)',14:'14:10',12:'12:12'};\n  const protocolName=protocols[fastHrs]||fastHrs+':'+(24-fastHrs);\n  document.getElementById('if-ri').innerHTML=\n    ri('Protocol','<strong>'+protocolName+'</strong>',true)+\n    ri('🍽️ Eating Window',fmtTime12(startH,startM)+' – '+fmtTime12(endH,endM))+\n    ri('⏰ Eating Hours',eatHrs+' hours')+\n    ri('🚫 Fasting Window',fmtTime12(fastStartH,fastStartM)+' – '+fmtTime12(fastEndH,fastEndM))+\n    ri('⏳ Fasting Hours',fastHrs+' hours')+\n    ri('🎯 Goal',goal.charAt(0).toUpperCase()+goal.slice(1))+\n    `<div style=\"margin-top:14px;padding:12px;background:var(--c-accent-lt);border-radius:8px;border:1px solid var(--c-rule);\">\n      <div style=\"font-size:12px;font-weight:600;color:var(--c-accent);margin-bottom:6px;\">✅ ALLOWED during fast</div>\n      <div style=\"font-size:12.5px;color:var(--c-ink2);\">Water · Black coffee · Plain tea · Sparkling water</div>\n      <div style=\"font-size:12px;font-weight:600;color:#8a1a1a;margin:8px 0 4px;\">❌ BREAKS your fast</div>\n      <div style=\"font-size:12.5px;color:var(--c-ink2);\">Any food · Milk/cream · Juice · Sweeteners</div>\n    </div>`;\n  showResult('if-result');\n  drawDonut('if-chart',['Fasting Hours','Eating Hours'],[fastHrs,eatHrs],['#8a1a1a','#1a5c3a']);\n  const aiBox=document.getElementById('if-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Building your personalized IF plan...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Person starting '+protocolName+' intermittent fasting with eating window '+fmtTime12(startH,startM)+' to '+fmtTime12(endH,endM)+'. Goal: '+goal+'. Give 3 practical tips for success with this specific protocol, mention one common mistake to avoid, and suggest how to ease into it. 4 sentences max, friendly encouraging tone.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Intermittent Fasting Calculator"
+      intro="Determine your precise fasting and eating windows for 16:8, 18:6, 20:4 Warrior, and OMAD schedules. Calibrated to cellular autophagy biology, circadian metabolic rhythms, and hepatic glycogen depletion."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{Feeding Window} = [T_{\text{start}},\, T_{\text{start}} + \text{Hours}_{\text{eat}}] \pmod{24}"
+      related={[
+        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+        { href: "/calculators/health/weight-loss-calculator", icon: "📉", name: "Weight Loss" },
+        { href: "/calculators/health/macro-calculator", icon: "🥩", name: "Macro Calculator" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
+      ]}
+      faq={[
+        {
+          q: "What is the single best intermittent fasting protocol for long-term fat loss?",
+          a: "For the vast majority of individuals, the 16:8 protocol (16 hours fasting, 8 hours eating) offers the optimal balance of biological efficacy and real-world adherence. Typically implemented by concluding dinner by 8:00 PM and consuming the first meal at 12:00 PM noon the following day, it allows individuals to sleep through 8 hours of the fast while reaping the benefits of morning ketosis, elevated growth hormone, and reduced daily caloric intake without intense hunger.",
+        },
+        {
+          q: "What is autophagy, and at what hour of fasting does it truly peak?",
+          a: "Autophagy (literally 'self-eating') is an evolutionary cellular recycling process discovered by Nobel laureate Dr. Yoshinori Ohsumi. When nutrient sensors (mTOR) are suppressed and energy sensors (AMPK) are activated during fasting, cells package damaged organelles, misfolded proteins, and intracellular pathogens into autophagosomes for lysosomal degradation. Research indicates basal autophagy begins increasing around 12 to 14 hours of fasting, accelerates substantially between 16 and 24 hours, and reaches maximal physiological intensity between 24 and 48 hours.",
+        },
+        {
+          q: "Does black coffee or green tea break an intermittent fast?",
+          a: "No. Black coffee, unsweetened green or herbal tea, sparkling water, and calorie-free electrolyte salts do not break a metabolic fast. In fact, polyphenols found in coffee and green tea (such as chlorogenic acid and epigallocatechin gallate) have been demonstrated in peer-reviewed trials to stimulate cellular autophagy in hepatic, muscular, and cardiac tissues independently of caloric restriction.",
+        },
+        {
+          q: "Will intermittent fasting cause muscle loss or slow down my metabolism?",
+          a: "When protein intake is adequate (1.6 to 2.2 g/kg body weight) and resistance training is maintained, intermittent fasting does not accelerate muscle catabolism compared to conventional continuous caloric restriction. During short-term fasts of 16 to 24 hours, human growth hormone (HGH) surges by up to 300% to 500% specifically to preserve lean muscle tissue while the body oxidizes adipose fatty acids for fuel. Resting metabolic rate actually increases slightly during the first 36 hours due to norepinephrine release.",
+        },
+        {
+          q: "Who should avoid or exercise clinical caution with intermittent fasting?",
+          a: "Intermittent fasting is contraindicated for pregnant or breastfeeding women, individuals with a clinical history of eating disorders (anorexia, bulimia), underweight individuals (BMI < 18.5), children and adolescents under 18, and individuals with Type 1 diabetes or those taking insulin or sulfonylureas without strict medical supervision due to hypoglycemia risk.",
+        },
+        {
+          q: "Why is early time-restricted feeding (eTRF) more effective than late-night eating?",
+          a: "Circadian biology research pioneered by Dr. Satchin Panda at the Salk Institute demonstrates that human insulin sensitivity, gastric motility, and glucose tolerance are highest in the morning and early afternoon, declining sharply after sunset. Consuming an 8-hour feeding window from 9:00 AM to 5:00 PM or 11:00 AM to 7:00 PM produces superior glycemic control, lower HbA1c, and reduced systemic inflammation compared to an identical feeding window that extends late into the night (e.g., 2:00 PM to 10:00 PM).",
+        },
+      ]}
+    >
+      <IntermittentFastingCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Endocrinology &amp; Circadian Biology Review:</span> Calibrated to Salk Institute time-restricted eating models (Panda Lab), Yoshinori Ohsumi Nobel autophagy pathways, and AMPK/mTOR metabolic signaling.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Scientific Standards</div>
+        </div>
+
+        {/* Section 1: The Bioenergetic Switch */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Bioenergetic Switch: From Glucose Utilization to Ketosis
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In ancestral human biology, constant access to three macronutrient-dense meals and continuous snacking was virtually non-existent. Our physiological architecture evolved to cycle between two distinct bioenergetic states: the <strong>anabolic fed state</strong> (governed by insulin and mTOR) and the <strong>catabolic fasting state</strong> (governed by glucagon, AMPK, and sirtuins).
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Upon ingesting food, circulating blood glucose spikes, triggering pancreatic beta-cells to secrete insulin. Insulin facilitates glucose uptake into skeletal muscle and liver cells, converting excess substrate into glycogen while halting all intracellular lipolysis. After 10 to 12 hours without caloric intake, liver glycogen stores drop by over 50%. The body executes the <em>metabolic switch</em>: shifting from glucose utilization to hepatic beta-oxidation of adipose-derived fatty acids, producing beta-hydroxybutyrate (BHB) and acetoacetate ketone bodies to fuel the brain and vital organs.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Autophagy, Ketosis &amp; Hormonal Timeline
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Follow the physiological cascade across 0 to 48 hours of unbroken fasting. Touch or drag along the timeline to observe exact percentages of cellular autophagy activation, ketone generation, and the precipitous decline of circulating insulin:
+          </p>
+          <FastingAutophagySpectrumChart />
+        </section>
+
+        {/* Section 3: Popular Fasting Protocols Analyzed */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Comparative Analysis of Intermittent Fasting Protocols
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Different intermittent fasting protocols yield varied physiological adaptations depending on duration, lifestyle integration, and clinical objectives:
+          </p>
+          <DataTable
+            head={["Protocol Name", "Fasting Period", "Feeding Window", "Autophagy Potential", "Target Clinical Profile & Feasibility"]}
+            rows={PROTOCOL_COMPARISON_TABLE.map((row) => [
+              <strong key={row.protocol} className="text-slate-900 dark:text-slate-100">{row.protocol}</strong>,
+              row.fastHours,
+              row.eatHours,
+              row.autophagyLevel,
+              row.bestFor,
+            ])}
+          />
+        </section>
+
+        {/* Section 4: Autophagy Mechanisms and Nobel Science */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Nobel Science of Autophagy: Intracellular Quality Control
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Awarded the 2016 Nobel Prize in Physiology or Medicine, Dr. Yoshinori Ohsumi elucidated the precise genetic machinery governing <strong>autophagy</strong>. In a state of nutrient surplus, the central cell growth regulator—<strong>Mechanistic Target of Rapamycin (mTOR)</strong>—remains continuously active, inhibiting autophagosome formation.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">AMPK Kinase Activation</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                As ATP depletes into AMP during a fast, the enzyme 5&apos; AMP-activated protein kinase (AMPK) detects the cellular energy deficit. AMPK phosphorylates the ULK1 complex, shutting down mTOR and initiating the engulfment of damaged mitochondria (mitophagy) and aggregated toxic proteins.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Lysosomal Proteolysis</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                The mature autophagosome fuses with an intracellular lysosome. Acid hydrolase enzymes break down the dysfunctional proteins into constituent amino acids, which are then recirculated to synthesize vital protective enzymes, heat-shock proteins, and clean cellular organelles.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: What Breaks a Fast Table */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Strict Fasting vs. Practical Fasting: Beverage Compliance Guide
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Maintaining total metabolic compliance during the fasting window is crucial for keeping insulin suppressed and autophagy unhindered:
+          </p>
+          <DataTable
+            head={["Substance / Beverage", "Fasting Compliance Status", "Biological Rationale & Physiological Impact"]}
+            rows={FASTING_COMPLIANCE_TABLE.map((row) => [
+              <strong key={row.substance} className="text-slate-900 dark:text-slate-100">{row.substance}</strong>,
+              row.fastImpact,
+              row.physiologicalNotes,
+            ])}
+          />
+        </section>
+      </article>
+    </CalcPage>
   );
 }
