@@ -137,11 +137,22 @@ export function RoofPitchMultiplierChart() {
               Area Multiplier: <tspan fill="#34d399" fontWeight="bold">{display.multiplier}x</tspan>
             </text>
             <text x="10" y="48" fill="#cbd5e1" fontSize="10">
-              Actual Area: ${display.sqftActual.toLocaleString()} sq ft (on 2k ft²)
+              Actual Area: {display.sqftActual.toLocaleString()} sq ft (on 2k ft²)
             </text>
             <text x="10" y="60" fill="#f59e0b" fontSize="9" fontWeight="bold">
               OSHA Safety: {display.safety}
             </text>
+          </g>
+
+          {/* Roof Pitch Right-Triangle Geometry Inset */}
+          <g transform="translate(575, 75)">
+            <rect x="-8" y="-18" width="132" height="108" rx="8" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1.2" className="dark:fill-slate-900/90 dark:stroke-slate-800" filter="drop-shadow(0 1px 2px rgb(0 0 0 / 0.05))" />
+            <text x="58" y="-5" fontSize="9" fontWeight="bold" fill="#0f172a" textAnchor="middle" className="dark:fill-slate-200">Pitch Triangle Geometry</text>
+            <polygon points="12,65 92,65 92,25" fill="#ecfdf5" stroke="#10b981" strokeWidth="2" className="dark:fill-emerald-950/40" />
+            <polyline points="84,65 84,57 92,57" fill="none" stroke="#94a3b8" strokeWidth="1" />
+            <text x="52" y="78" fontSize="8.5" fill="#64748b" textAnchor="middle" fontWeight="600">12″ Run</text>
+            <text x="96" y="47" fontSize="8.5" fill="#10b981" textAnchor="start" fontWeight="bold">{display.pitch.split('/')[0]}″ Rise</text>
+            <text x="44" y="38" fontSize="8.5" fill="#047857" textAnchor="middle" fontWeight="bold">{display.multiplier}x Rafter</text>
           </g>
         </svg>
       </div>

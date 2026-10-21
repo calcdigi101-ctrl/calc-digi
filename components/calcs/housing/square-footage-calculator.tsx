@@ -15,6 +15,7 @@ export const config: CalcConfig = {
       default: "single",
       options: [
         { value: "single", label: "Single Rectangular Room / Space" },
+        { value: "triangle", label: "Triangular Space / Bay Alcove" },
         { value: "multi", label: "Multi-Room House Aggregator (3 Rooms)" },
         { value: "lshape", label: "L-Shaped Room (Two Rectangles)" },
         { value: "circle", label: "Circular / Curved Space" },
@@ -23,6 +24,10 @@ export const config: CalcConfig = {
     // Single Rectangle
     { kind: "number", key: "length", label: "Length", suffix: "ft", default: 15, min: 0.5, max: 1000, showIf: (v) => v.mode === "single" },
     { kind: "number", key: "width", label: "Width", suffix: "ft", default: 12, min: 0.5, max: 1000, showIf: (v) => v.mode === "single" },
+
+    // Triangular Space
+    { kind: "number", key: "base", label: "Triangle Base Length", suffix: "ft", default: 16, min: 0.5, max: 500, showIf: (v) => v.mode === "triangle" },
+    { kind: "number", key: "height", label: "Perpendicular Height", suffix: "ft", default: 12, min: 0.5, max: 500, showIf: (v) => v.mode === "triangle" },
 
     // L-Shaped Room (Section A + Section B)
     { kind: "number", key: "l1", label: "Section A Length", suffix: "ft", default: 16, min: 0.5, max: 500, showIf: (v) => v.mode === "lshape" },
@@ -66,6 +71,13 @@ export const config: CalcConfig = {
       netSqFt = Math.PI * radius * radius;
       perimeterFt = 2 * Math.PI * radius;
       chartData.push({ name: "Circle Floor Area", value: Number(netSqFt.toFixed(1)), color: "#2563eb" });
+    } else if (v.mode === "triangle") {
+      const b = Number(v.base || 16);
+      const h = Number(v.height || 12);
+      netSqFt = 0.5 * b * h;
+      const hyp = Math.sqrt(Math.pow(b / 2, 2) + Math.pow(h, 2));
+      perimeterFt = b + (2 * hyp);
+      chartData.push({ name: "Triangular Floor Space", value: Number(netSqFt.toFixed(1)), color: "#2563eb" });
     } else if (v.mode === "lshape") {
       const a = Number(v.l1 || 0) * Number(v.w1 || 0);
       const b = Number(v.l2 || 0) * Number(v.w2 || 0);
