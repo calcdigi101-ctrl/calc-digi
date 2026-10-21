@@ -1,26 +1,191 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import CalorieBurnCalculator from "@/components/calcs/health/calorie-burn-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { MetActivitySpectrumChart } from "@/components/flagship/health/editorial-charts";
 
-export const metadata: Metadata = {
-  "title": "Calorie Burn Calculator – Calories Burned | CalcDigi",
-  "description": "Find out how many calories you burn during any exercise — running, cycling, swimming, walking, weightlifting, and 40+ activities.",
-  "openGraph": {
-    "title": "Calorie Burn Calculator – Calories Burned | CalcDigi",
-    "description": "Find out how many calories you burn during any exercise — running, cycling, swimming, walking, weightlifting, and 40+ activities.",
-    "type": "website",
-    "url": "/calculators/health/calorie-burn-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/health/calorie-burn-calculator"
-  }
-};
+const PATH = "/calculators/health/calorie-burn-calculator";
+const TITLE = "Calorie Burn Calculator – Ainsworth Compendium MET Precision | CalcDigi";
+const DESCRIPTION =
+  "Free calorie burn calculator: calculate gross and net calories burned for running, cycling, swimming, weight lifting, and sports using the 2024 Ainsworth Compendium MET database.";
 
-export default function Page() {
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const MET_TABLE_DATA = [
+  { activity: "Sleeping / Complete Rest", met: "0.9 – 1.0", burn150lbs: "68 kcal/hr", burn180lbs: "82 kcal/hr", intensity: "Basal Rest" },
+  { activity: "Desk Work / Typing", met: "1.3 – 1.5", burn150lbs: "102 kcal/hr", burn180lbs: "122 kcal/hr", intensity: "Sedentary" },
+  { activity: "Slow Walking (2.0 mph)", met: "2.5 – 2.8", burn150lbs: "190 kcal/hr", burn180lbs: "229 kcal/hr", intensity: "Light Activity" },
+  { activity: "Brisk Walking (3.5 mph)", met: "4.3", burn150lbs: "293 kcal/hr", burn180lbs: "351 kcal/hr", intensity: "Moderate Aerobic" },
+  { activity: "Weight Training (Moderate Rest)", met: "3.5 – 5.0", burn150lbs: "272 kcal/hr", burn180lbs: "327 kcal/hr", intensity: "Moderate Anaerobic" },
+  { activity: "Stationary Cycling (Moderate)", met: "6.8 – 8.0", burn150lbs: "503 kcal/hr", burn180lbs: "604 kcal/hr", intensity: "Vigorous Aerobic" },
+  { activity: "Running (6.0 mph / 10:00 pace)", met: "9.8", burn150lbs: "667 kcal/hr", burn180lbs: "800 kcal/hr", intensity: "Vigorous Aerobic" },
+  { activity: "High-Intensity Interval Training (HIIT)", met: "10.5 – 12.0", burn150lbs: "768 kcal/hr", burn180lbs: "922 kcal/hr", intensity: "Very High" },
+  { activity: "Running (8.0 mph / 7:30 pace)", met: "11.8", burn150lbs: "803 kcal/hr", burn180lbs: "964 kcal/hr", intensity: "Very High" },
+  { activity: "Competitive Swimming / Sprints", met: "12.0 – 14.0", burn150lbs: "885 kcal/hr", burn180lbs: "1,062 kcal/hr", intensity: "Maximal Exertion" },
+];
+
+export default function CalorieBurnPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Calorie Burn Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/calorie-burn-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Calorie Burn Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/calorie-burn-calculator\", \"description\": \"Find out how many calories you burn during any exercise — running, cycling, swimming, walking, weightlifting, and 40+ activities.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many calories do I burn running a mile?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A 155-pound person burns approximately 100 calories per mile running. Weight is the biggest factor — heavier people burn more. Speed affects time but not total calories much, since faster runners cover the same distance in less time.\"}}, {\"@type\": \"Question\", \"name\": \"What exercise burns the most calories?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Running, jump rope, and rowing burn the most calories per hour (600-900+). But the best exercise is one you can sustain consistently. A 30-minute daily walk beats an occasional sprint session.\"}}, {\"@type\": \"Question\", \"name\": \"How accurate are calorie burn calculators?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"MET-based calculators are accurate within 10-20% for most people. Individual factors like fitness level, body composition, and efficiency affect results. Use them as estimates, not exact measurements. Fitness trackers have similar accuracy.\"}}, {\"@type\": \"Question\", \"name\": \"Do I need to burn 3,500 calories to lose a pound?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The 3,500 calorie = 1 lb rule is a rough estimate. In practice, weight loss is more complex due to metabolic adaptation and water retention. A 500 calorie/day deficit typically produces about 0.5-1 lb of fat loss per week.\"}}, {\"@type\": \"Question\", \"name\": \"Does cardio or weights burn more calories?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Cardio burns more calories during the session. However, weight training builds muscle, which increases resting metabolic rate, so you burn more calories 24/7. A combination of both is optimal for long-term weight management.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Calorie Burn Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Calorie Burn Calculator</h1>\n<p class=\"calc-intro\">Find out exactly how many calories you burn during any physical activity. Based on MET (Metabolic Equivalent of Task) values from the Compendium of Physical Activities — the gold standard used by researchers and fitness professionals worldwide.</p>\n<div class=\"content-section\">\n<h2>How Calories Burned is Calculated</h2>\n<p>The calorie burn formula uses <strong>MET values</strong> — standardized measurements of how much energy an activity requires relative to rest. A MET of 1.0 equals the energy used sitting quietly. Running at 6 mph has a MET of approximately 9.8.</p>\n<div class=\"formula-box\">Calories Burned = MET × Weight (kg) × Duration (hours)</div>\n<p>For example, a 160 lb (72.7 kg) person cycling at moderate pace (MET 8.0) for 45 minutes burns: 8.0 × 72.7 × 0.75 = <strong>436 calories</strong>.</p>\n<p>Note: These calculations estimate <strong>gross calories burned</strong> (total including resting metabolic rate). Net calories (extra calories beyond rest) are slightly lower.</p>\n</div>\n<div class=\"content-section\">\n<h2>MET Values for Common Activities</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 16px;text-align:left;\">Activity</th>\n<th style=\"padding:10px 16px;\">MET</th>\n<th style=\"padding:10px 16px;\">Cal/hr (155 lbs)</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Walking (3 mph)</td><td style=\"padding:10px 16px;\">3.5</td><td style=\"padding:10px 16px;\">~247</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">Running (6 mph)</td><td style=\"padding:10px 16px;\">9.8</td><td style=\"padding:10px 16px;\">~692</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Cycling (moderate)</td><td style=\"padding:10px 16px;\">8.0</td><td style=\"padding:10px 16px;\">~563</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">Swimming (moderate)</td><td style=\"padding:10px 16px;\">6.0</td><td style=\"padding:10px 16px;\">~422</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">Weight Training</td><td style=\"padding:10px 16px;\">3.5</td><td style=\"padding:10px 16px;\">~247</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">Yoga</td><td style=\"padding:10px 16px;\">2.5</td><td style=\"padding:10px 16px;\">~176</td></tr>\n<tr><td style=\"padding:10px 16px;\">HIIT Training</td><td style=\"padding:10px 16px;\">8.0</td><td style=\"padding:10px 16px;\">~563</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>Tips to Burn More Calories</h2>\n<ul>\n<li><strong>Increase intensity:</strong> Higher intensity = higher MET = more calories. Add intervals to any cardio workout.</li>\n<li><strong>Add resistance training:</strong> Muscle burns more calories at rest, increasing your baseline metabolic rate.</li>\n<li><strong>Stay consistent:</strong> Daily activity adds up more than occasional intense sessions.</li>\n<li><strong>NEAT matters:</strong> Non-Exercise Activity Thermogenesis (fidgeting, walking, standing) can account for 200-800 extra calories per day.</li>\n<li><strong>After-burn effect (EPOC):</strong> High-intensity exercise causes elevated calorie burn for hours after the workout ends.</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories do I burn running a mile? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A 155-pound person burns approximately 100 calories per mile running. Weight is the biggest factor — heavier people burn more. Speed affects time but not total calories much, since faster runners cover the same distance in less time.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What exercise burns the most calories? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Running, jump rope, and rowing burn the most calories per hour (600-900+). But the best exercise is one you can sustain consistently. A 30-minute daily walk beats an occasional sprint session.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How accurate are calorie burn calculators? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">MET-based calculators are accurate within 10-20% for most people. Individual factors like fitness level, body composition, and efficiency affect results. Use them as estimates, not exact measurements. Fitness trackers have similar accuracy.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Do I need to burn 3,500 calories to lose a pound? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The 3,500 calorie = 1 lb rule is a rough estimate. In practice, weight loss is more complex due to metabolic adaptation and water retention. A 500 calorie/day deficit typically produces about 0.5-1 lb of fat loss per week.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does cardio or weights burn more calories? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Cardio burns more calories during the session. However, weight training builds muscle, which increases resting metabolic rate, so you burn more calories 24/7. A combination of both is optimal for long-term weight management.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss</span></a>\n<a class=\"related-card\" href=\"/calculators/health/pace-calculator\"><span class=\"rc-icon\">🏃</span><span class=\"rc-name\">Pace Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/macro-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Macro Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmr-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">BMR Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Calorie Burn Calculator</h2>\n<div class=\"form-group\">\n<label for=\"cb-activity\">Activity</label>\n<select id=\"cb-activity\">\n<optgroup label=\"Cardio\">\n<option value=\"3.5\">Walking — slow (2 mph)</option>\n<option value=\"4.3\">Walking — moderate (3 mph)</option>\n<option value=\"5.0\">Walking — brisk (3.5 mph)</option>\n<option value=\"7.0\">Jogging (5 mph)</option>\n<option selected=\"\" value=\"9.8\">Running (6 mph)</option>\n<option value=\"11.0\">Running — fast (7.5 mph)</option>\n<option value=\"13.5\">Running — very fast (10 mph)</option>\n<option value=\"4.0\">Cycling — light</option>\n<option value=\"8.0\">Cycling — moderate (12-14 mph)</option>\n<option value=\"10.0\">Cycling — vigorous (16-19 mph)</option>\n<option value=\"6.0\">Swimming — moderate</option>\n<option value=\"9.5\">Swimming — vigorous</option>\n<option value=\"8.0\">Jump Rope</option>\n<option value=\"7.5\">Rowing — moderate</option>\n<option value=\"8.5\">HIIT Training</option>\n<option value=\"7.0\">Elliptical — moderate</option>\n<option value=\"9.0\">Stair Climbing</option>\n</optgroup>\n<optgroup label=\"Strength &amp; Flexibility\">\n<option value=\"3.5\">Weight Training — light</option>\n<option value=\"5.0\">Weight Training — vigorous</option>\n<option value=\"3.3\">Yoga — Hatha</option>\n<option value=\"4.0\">Yoga — Power/Vinyasa</option>\n<option value=\"5.0\">Pilates</option>\n<option value=\"7.0\">CrossFit / Circuit Training</option>\n<option value=\"4.0\">Martial Arts / Boxing</option>\n</optgroup>\n<optgroup label=\"Sports\">\n<option value=\"8.0\">Basketball</option>\n<option value=\"7.0\">Soccer</option>\n<option value=\"7.0\">Tennis</option>\n<option value=\"6.0\">Volleyball</option>\n<option value=\"4.5\">Golf (walking)</option>\n<option value=\"7.0\">Hiking</option>\n</optgroup>\n<optgroup label=\"Daily Activities\">\n<option value=\"1.5\">Sitting / Office work</option>\n<option value=\"2.0\">Standing</option>\n<option value=\"2.5\">Housework — light</option>\n<option value=\"3.5\">Housework — heavy</option>\n<option value=\"3.0\">Gardening</option>\n</optgroup>\n</select>\n</div>\n<div class=\"form-group\">\n<label for=\"cb-weight\">Your Weight</label>\n<input id=\"cb-weight\" max=\"500\" min=\"80\" type=\"number\" value=\"160\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"cb-unit\">Weight Unit</label>\n<select id=\"cb-unit\"><option selected=\"\" value=\"lbs\">Pounds (lbs)</option><option value=\"kg\">Kilograms (kg)</option></select>\n</div>\n<div class=\"form-row\">\n<div class=\"form-group\">\n<label for=\"cb-hr\">Hours</label>\n<input id=\"cb-hr\" max=\"12\" min=\"0\" type=\"number\" value=\"0\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"cb-min\">Minutes</label>\n<input id=\"cb-min\" max=\"59\" min=\"1\" type=\"number\" value=\"45\"/>\n</div>\n</div>\n<button class=\"calc-btn\" onclick=\"calcCalorieBurn()\">Calculate Calories Burned</button>\n<div id=\"cb-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cb\" onclick=\"printResult('cb-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"cb-result\">\n<div id=\"cb-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"cb-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"cb-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ Estimates based on MET values. Individual results vary based on fitness level, age, and body composition.</div>\n</div>\n</div>\n</div>\n</div></div></main>" }} />
-      <Script id="calc-script-calorie-burn-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcCalorieBurn(){\n  const met=parseFloat(document.getElementById('cb-activity').value)||9.8;\n  const wt=parseFloat(document.getElementById('cb-weight').value)||160;\n  const unit=document.getElementById('cb-unit').value;\n  const hr=parseInt(document.getElementById('cb-hr').value)||0;\n  const min=parseInt(document.getElementById('cb-min').value)||45;\n  const wtKg=unit==='lbs'?wt*0.4536:wt;\n  const totalHrs=(hr*60+min)/60;\n  if(totalHrs<=0){alert('Please enter a duration.');return;}\n  const calories=Math.round(met*wtKg*totalHrs);\n  const perMin=Math.round(calories/(hr*60+min)*10)/10;\n  const perHr=Math.round(met*wtKg);\n  const activityName=document.getElementById('cb-activity').options[document.getElementById('cb-activity').selectedIndex].text;\n  document.getElementById('cb-ri').innerHTML=\n    ri('Calories Burned','<strong>'+calories+' kcal</strong>',true)+\n    ri('Activity',activityName)+\n    ri('Duration',(hr>0?hr+'h ':'')+min+'m')+\n    ri('Per Minute',perMin+' kcal/min')+\n    ri('Per Hour',perHr+' kcal/hr')+\n    ri('Weight Used',wt+' '+unit);\n  showResult('cb-result');\n  const lbsFatEquiv=(calories/3500).toFixed(3);\n  drawDonut('cb-chart',['Calories Burned','Daily Budget'],[calories,Math.max(0,2000-calories)],['#1a5c3a','#e8e8e2']);\n  const aiBox=document.getElementById('cb-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your workout...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Person weighing '+wt+' '+unit+' burned '+calories+' calories during '+activityName+' for '+(hr>0?hr+'h ':'')+min+' minutes. Give 2 tips to get more out of this exercise, mention how this burn compares to daily caloric needs, and suggest a complementary exercise. 3-4 sentences, motivating tone.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Calorie Burn Calculator"
+      intro="Quantify workout energy expenditure using the validated 2024 Ainsworth Compendium of Physical Activities. Distinguish between gross total expenditure and true net exercise burn across cardiovascular, resistance, and sports modalities."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="Calories = Duration * (MET * 3.5 * Weight_kg) / 200"
+      related={[
+        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
+        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
+      ]}
+      faq={[
+        {
+          q: "Why does a heavier person burn more calories for the same exercise?",
+          a: "Gravitational work equals force times displacement (W = F * d). Moving a 200-lb body against gravity during walking, running, or stair climbing requires significantly greater mechanical force and muscle motor unit recruitment than moving a 130-lb body, directly scaling oxygen demand and caloric burn.",
+        },
+        {
+          q: "How accurate are smartwatches and treadmill calorie counters?",
+          a: "A landmark Stanford University study evaluating 7 major consumer fitness trackers found that no device had an error rate below 27% for calorie estimation, with some models overestimating burn by up to 93%. Treadmills and ellipticals are notoriously inaccurate because they do not account for arm-holding or running economy. Using standardized MET equations based on exact body mass provides far greater accuracy.",
+        },
+        {
+          q: "What is the 'Afterburn Effect' (EPOC)?",
+          a: "Excess Post-Exercise Oxygen Consumption (EPOC) refers to the elevated metabolic rate following strenuous activity as the body restores ATP-CP stores, metabolizes lactate, lowers core temperature, and repairs muscle tissue. While marketing often claims EPOC burns hundreds of calories, exercise physiology studies confirm EPOC accounts for an additional 6% to 15% of total workout expenditure.",
+        },
+      ]}
+    >
+      <CalorieBurnCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Exercise Metabolism & Calorimetry Review:</span> Standardized against the 2024 Compendium of Physical Activities (Ainsworth et al., Medicine & Science in Sports & Exercise).
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Peer-Reviewed MET Data</div>
+        </div>
+
+        {/* Section 1: Definition of MET & Calorimetry */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            What Is a MET (Metabolic Equivalent of Task) and How Is Energy Expended?
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In human bioenergetics and clinical exercise physiology, the <strong>Metabolic Equivalent of Task (MET)</strong> is the objective physiological ratio comparing the metabolic rate of an active physical task to the resting basal metabolic rate (BMR). By international consensus, <strong>1.0 MET</strong> is defined as the oxygen consumption of an individual sitting quietly at complete physical rest, mathematically standardized to:
+          </p>
+          <Formula>1.0 MET = 3.5 mL of Oxygen (O2) per Kilogram of Body Mass per Minute</Formula>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Because oxidizing 1 liter of oxygen in human cellular mitochondria releases approximately <strong>4.86 to 5.05 kilocalories</strong> of heat energy (depending on whether glucose, glycogen, or fatty acids serve as the primary substrate), this oxygen consumption standard allows precise conversion of any physical task directly into caloric expenditure based on your total body weight and workout duration.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Benchmark: The MET Energy Continuum & Fuel Substrate Crossover
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400">
+              Ainsworth 2024 Database
+            </span>
+          </div>
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            As exercise intensity climbs from 1.0 MET (sedentary rest) toward 14.0 METs (all-out sprinting), energy burn surges tenfold while muscle cells transition from aerobic beta-oxidation of fat to anaerobic glycogen glycolysis. Scrub across the intensity spectrum below to view hourly calorie burn and fuel mixture.
+          </p>
+
+          <MetActivitySpectrumChart />
+        </section>
+
+        {/* Section 3: Gross vs Net Calorie Burn */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Gross vs. Net Energy Expenditure: Why Wearable Fitness Trackers Mislead
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            One of the most frequent errors in nutritional programming is conflating <strong>gross calories</strong> with <strong>net calories</strong>:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose my-6">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-slate-100">Gross Caloric Expenditure (Total Burn)</h4>
+              <Formula>Gross kcal = Duration &times; (MET &times; 3.5 &times; Weight_kg) / 200</Formula>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Measures total metabolic burn during the workout session. Crucially, this <em>includes</em> the baseline calories your brain, heart, and liver would have burned anyway while resting on the couch.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+              <h4 className="font-bold text-emerald-600 dark:text-emerald-400">Net Caloric Expenditure (True Workout Bonus)</h4>
+              <Formula>Net kcal = Duration &times; ((MET - 1.0) &times; 3.5 &times; Weight_kg) / 200</Formula>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Subtracts the 1.0 MET resting baseline. Represents the <strong>pure additional energy deficit</strong> generated by physical movement. This is the figure that must be applied when calculating fat loss.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: Comprehensive MET Table */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Ainsworth Compendium MET Reference & Caloric Burn Table
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The table below provides validated MET intensities and hourly caloric expenditures for representative 150-lb (68 kg) and 180-lb (81.6 kg) individuals across standard movement categories:
+          </p>
+
+          <DataTable
+            head={["Activity / Exercise Modality", "MET Score", "Burn (150 lbs / 68 kg)", "Burn (180 lbs / 82 kg)", "Cardiorespiratory Intensity"]}
+            rows={MET_TABLE_DATA.map((r) => [r.activity, r.met, r.burn150lbs, r.burn180lbs, r.intensity])}
+          />
+        </section>
+
+        {/* Section 5: Step-by-Step Calculation Walkthrough */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Step-by-Step Walkthrough: Calculating Energy Burn for a 45-Minute Run
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Suppose a <strong>165-lb (74.84 kg)</strong> individual completes <strong>45 minutes</strong> of running at 6.0 mph (10-minute mile pace, MET = 9.8):
+          </p>
+
+          <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono text-xs space-y-2">
+            <div>1. Convert Weight to Kilograms: <code>165 lbs / 2.20462 = 74.84 kg</code></div>
+            <div>2. Apply Gross MET Equation: <code>Calories = 45 &times; (9.8 &times; 3.5 &times; 74.84) / 200</code></div>
+            <div>3. Calculate Inner Product: <code>9.8 &times; 3.5 &times; 74.84 = 2,567.01 mL O2/min</code></div>
+            <div>4. Multiply by Duration: <code>45 &times; 2,567.01 = 115,515.5 mL O2</code></div>
+            <div>5. Divide by 200 (Energy Constant): <code>115,515.5 / 200 = 577.6 Gross kcal</code></div>
+            <div>6. Subtract Resting Baseline (1.0 MET): <code>45 &times; (1.0 &times; 3.5 &times; 74.84) / 200 = 59.0 kcal</code></div>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-700 font-sans">
+              <span className="font-bold text-slate-900 dark:text-slate-100">Final Net Energy Burn:</span>
+              <p className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-sm mt-1">
+                Net Exercise Energy = 577.6 - 59.0 = 518.6 Net kcal
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6: Pontzer's Constrained Energy Model */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Constrained Model of Energy Expenditure (Why Exercise Alone Fails for Fat Loss)
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In 2016, evolutionary anthropologist Dr. Herman Pontzer published groundbreaking doubly labeled water studies establishing the <strong>Constrained Total Energy Expenditure Model</strong>. Contrary to the traditional additive model (which assumes adding 500 kcal of exercise automatically expands daily burn by 500 kcal), the human body engages in <em>metabolic compensation</em>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Non-Exercise Activity Thermogenesis (NEAT) Suppression:</strong> Following intense workouts, individuals unconsciously fidget less, sit more, and rest longer, offsetting 20% to 35% of the workout calories.
+            </li>
+            <li>
+              <strong>Immune & Endocrine Downregulation:</strong> Over weeks of heavy volume, basal inflammatory signaling and reproductive hormone expenditures subtly contract to conserve energy.
+            </li>
+            <li>
+              <strong>Dietary Prescription Takeaway:</strong> Exercise is unparalleled for cardiovascular longevity, insulin sensitivity, and muscle retention; however, long-term body recomposition requires pairing calculated workout burn with caloric nutritional discipline.
+            </li>
+          </ul>
+        </section>
+      </article>
+    </CalcPage>
   );
 }

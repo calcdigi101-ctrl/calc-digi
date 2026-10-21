@@ -1,26 +1,194 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import BloodPressureCalculator from "@/components/calcs/health/blood-pressure-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BloodPressureStageChart } from "@/components/flagship/health/editorial-charts";
 
-export const metadata: Metadata = {
-  "title": "Blood Pressure Analyzer – Understand Your BP | CalcDigi",
-  "description": "Enter your systolic and diastolic readings to understand your blood pressure category based on AHA guidelines.",
-  "openGraph": {
-    "title": "Blood Pressure Analyzer – Understand Your BP | CalcDigi",
-    "description": "Enter your systolic and diastolic readings to understand your blood pressure category based on AHA guidelines.",
-    "type": "website",
-    "url": "/calculators/health/blood-pressure-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/health/blood-pressure-calculator"
-  }
-};
+const PATH = "/calculators/health/blood-pressure-calculator";
+const TITLE = "Blood Pressure Calculator – 2017 ACC/AHA Clinical Guidelines | CalcDigi";
+const DESCRIPTION =
+  "Free blood pressure calculator: interpret systolic and diastolic readings against 2017 ACC/AHA guidelines. Calculate Mean Arterial Pressure (MAP) and pulse pressure arterial compliance.";
 
-export default function Page() {
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const BP_GUIDELINES_TABLE = [
+  { category: "Normal", systolic: "< 120 mmHg", diastolic: "and < 80 mmHg", action: "Annual screening; maintain healthy lifestyle, low sodium, aerobic exercise." },
+  { category: "Elevated", systolic: "120 – 129 mmHg", diastolic: "and < 80 mmHg", action: "Lifestyle modifications (DASH diet, weight management); re-evaluate in 3–6 months." },
+  { category: "Stage 1 Hypertension", systolic: "130 – 139 mmHg", diastolic: "or 80 – 89 mmHg", action: "Calculate 10-yr ASCVD risk: if ≥10%, initiate single medication + lifestyle; re-check in 1 month." },
+  { category: "Stage 2 Hypertension", systolic: "≥ 140 mmHg", diastolic: "or ≥ 90 mmHg", action: "Prompt medical management; typically 2 first-line antihypertensive agents of different classes." },
+  { category: "Hypertensive Crisis", systolic: "> 180 mmHg", diastolic: "and/or > 120 mmHg", action: "Emergency medical consultation. If symptomatic (chest pain, SOB, visual deficit), call 911 immediately." },
+];
+
+export default function BloodPressurePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Blood Pressure Analyzer\", \"item\": \"https://calc-digi.vercel.app/calculators/health/blood-pressure-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Blood Pressure Analyzer\", \"url\": \"https://calc-digi.vercel.app/calculators/health/blood-pressure-calculator\", \"description\": \"Enter your systolic and diastolic readings to understand your blood pressure category based on AHA guidelines.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is considered normal blood pressure?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"According to the AHA, normal blood pressure is less than 120/80 mmHg. Anything between 120-129 systolic (with diastolic below 80) is considered elevated — not yet hypertension, but a signal to make lifestyle changes.\"}}, {\"@type\": \"Question\", \"name\": \"How can I lower my blood pressure naturally?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Key lifestyle changes: reduce sodium intake (under 2,300 mg/day), exercise 150+ min/week, maintain healthy weight, limit alcohol, quit smoking, manage stress, and follow the DASH diet (rich in fruits, vegetables, and low-fat dairy).\"}}, {\"@type\": \"Question\", \"name\": \"What causes high blood pressure?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Primary hypertension (most common) has no single cause — it develops over time due to age, genetics, obesity, sedentary lifestyle, high sodium diet, excessive alcohol, and chronic stress. Secondary hypertension is caused by an underlying condition like kidney disease or thyroid problems.\"}}, {\"@type\": \"Question\", \"name\": \"How often should I check my blood pressure?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"If normal, check at least once a year during a doctor visit. If elevated or hypertensive, monitor at home daily at the same time. Keep a log to share with your doctor. Home monitors are widely available and accurate.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Blood Pressure Analyzer</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Blood Pressure Analyzer</h1>\n<p class=\"calc-intro\">Enter your blood pressure reading to instantly understand your category based on the latest American Heart Association (AHA) guidelines. Includes mean arterial pressure, pulse pressure, and personalized AI health insights.</p>\n<div class=\"content-section\">\n<h2>Understanding Blood Pressure Numbers</h2>\n<p>Blood pressure is measured in millimeters of mercury (mmHg) and expressed as two numbers:</p>\n<ul>\n<li><strong>Systolic (top number):</strong> Pressure in your arteries when your heart beats and pumps blood</li>\n<li><strong>Diastolic (bottom number):</strong> Pressure when your heart rests between beats</li>\n</ul>\n<div class=\"formula-box\">Mean Arterial Pressure (MAP) = (Systolic + 2 × Diastolic) ÷ 3</div>\n<div class=\"formula-box\">Pulse Pressure = Systolic − Diastolic</div>\n<p>A MAP above 70 mmHg is needed to perfuse vital organs. Pulse pressure above 60 mmHg may indicate arterial stiffness.</p>\n</div>\n<div class=\"content-section\">\n<h2>Blood Pressure Categories (AHA 2025 Guidelines)</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 16px;text-align:left;\">Category</th><th style=\"padding:10px 16px;\">Systolic</th><th style=\"padding:10px 16px;\">Diastolic</th><th style=\"padding:10px 16px;text-align:left;\">Action</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;color:var(--c-accent);font-weight:600;\">Normal</td><td style=\"padding:10px 16px;\">&lt;120</td><td style=\"padding:10px 16px;\">&lt;80</td><td style=\"padding:10px 16px;\">Maintain healthy habits</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;color:#8a6d1a;font-weight:600;\">Elevated</td><td style=\"padding:10px 16px;\">120–129</td><td style=\"padding:10px 16px;\">&lt;80</td><td style=\"padding:10px 16px;\">Lifestyle changes</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;color:#c85a00;font-weight:600;\">Stage 1 Hypertension</td><td style=\"padding:10px 16px;\">130–139</td><td style=\"padding:10px 16px;\">80–89</td><td style=\"padding:10px 16px;\">Doctor consult</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;color:#8a1a1a;font-weight:600;\">Stage 2 Hypertension</td><td style=\"padding:10px 16px;\">≥140</td><td style=\"padding:10px 16px;\">≥90</td><td style=\"padding:10px 16px;\">Medication likely needed</td></tr>\n<tr style=\"background:var(--c-red-lt);\"><td style=\"padding:10px 16px;color:#5c0000;font-weight:600;\">Hypertensive Crisis</td><td style=\"padding:10px 16px;\">&gt;180</td><td style=\"padding:10px 16px;\">&gt;120</td><td style=\"padding:10px 16px;color:#5c0000;font-weight:600;\">Seek emergency care</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>How to Get an Accurate Reading</h2>\n<ul>\n<li>Sit quietly for 5 minutes before measuring</li>\n<li>Keep your back supported and feet flat on the floor</li>\n<li>Rest your arm at heart level on a flat surface</li>\n<li>Do not talk during the measurement</li>\n<li>Avoid caffeine, exercise, and smoking 30 minutes before</li>\n<li>Take 2-3 readings and use the average</li>\n<li>Measure at the same time each day for tracking</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is considered normal blood pressure? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">According to the AHA, normal blood pressure is less than 120/80 mmHg. Anything between 120-129 systolic (with diastolic below 80) is considered elevated — not yet hypertension, but a signal to make lifestyle changes.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How can I lower my blood pressure naturally? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Key lifestyle changes: reduce sodium intake (under 2,300 mg/day), exercise 150+ min/week, maintain healthy weight, limit alcohol, quit smoking, manage stress, and follow the DASH diet (rich in fruits, vegetables, and low-fat dairy).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What causes high blood pressure? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Primary hypertension (most common) has no single cause — it develops over time due to age, genetics, obesity, sedentary lifestyle, high sodium diet, excessive alcohol, and chronic stress. Secondary hypertension is caused by an underlying condition like kidney disease or thyroid problems.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How often should I check my blood pressure? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">If normal, check at least once a year during a doctor visit. If elevated or hypertensive, monitor at home daily at the same time. Keep a log to share with your doctor. Home monitors are widely available and accurate.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/heart-rate-zone-calculator\"><span class=\"rc-icon\">❤️</span><span class=\"rc-name\">Heart Rate Zones</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/waist-to-hip-ratio-calculator\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Waist-Hip Ratio</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss</span></a>\n<a class=\"related-card\" href=\"/calculators/health/water-intake-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Water Intake</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Blood Pressure Analyzer</h2>\n<div class=\"form-group\">\n<label for=\"bp-sys\">Systolic Pressure (mmHg) — top number</label>\n<input id=\"bp-sys\" max=\"250\" min=\"60\" type=\"number\" value=\"120\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"bp-dia\">Diastolic Pressure (mmHg) — bottom number</label>\n<input id=\"bp-dia\" max=\"160\" min=\"40\" type=\"number\" value=\"78\"/>\n</div>\n<div class=\"form-row\">\n<div class=\"form-group\"><label for=\"bp-age\">Age</label><input id=\"bp-age\" max=\"100\" min=\"18\" type=\"number\" value=\"35\"/></div>\n<div class=\"form-group\"><label for=\"bp-sex\">Sex</label><select id=\"bp-sex\"><option value=\"male\">Male</option><option value=\"female\">Female</option></select></div>\n</div>\n<button class=\"calc-btn\" onclick=\"calcBP()\">Analyze Reading</button>\n<div id=\"bp-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bp\" onclick=\"printResult('bp-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"bp-result\">\n<div id=\"bp-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"bp-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"bp-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ This tool is for educational purposes only and does not constitute medical advice. If you have high blood pressure readings, consult your doctor immediately.</div>\n</div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-blood-pressure-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcBP(){\n  const sys=parseInt(document.getElementById('bp-sys').value)||120;\n  const dia=parseInt(document.getElementById('bp-dia').value)||78;\n  const age=parseInt(document.getElementById('bp-age').value)||35;\n  const sex=document.getElementById('bp-sex').value;\n  if(dia>=sys){alert('Diastolic must be less than systolic.');return;}\n  const map=Math.round((sys+2*dia)/3);\n  const pp=sys-dia;\n  let category,catColor,action;\n  if(sys>180||dia>120){category='Hypertensive Crisis';catColor='#5c0000';action='Seek emergency medical care immediately';}\n  else if(sys>=140||dia>=90){category='Stage 2 Hypertension';catColor='#8a1a1a';action='Consult doctor — medication likely needed';}\n  else if(sys>=130||dia>=80){category='Stage 1 Hypertension';catColor='#c85a00';action='Consult a doctor and make lifestyle changes';}\n  else if(sys>=120&&dia<80){category='Elevated Blood Pressure';catColor='#8a6d1a';action='Make lifestyle changes to prevent hypertension';}\n  else{category='Normal Blood Pressure';catColor='#1a5c3a';action='Maintain healthy lifestyle habits';}\n  document.getElementById('bp-ri').innerHTML=\n    ri('Blood Pressure',sys+'/'+dia+' mmHg',true)+\n    ri('Category','<span style=\"color:'+catColor+';font-weight:700\">'+category+'</span>')+\n    ri('Mean Arterial Pressure',map+' mmHg')+\n    ri('Pulse Pressure',pp+' mmHg')+\n    ri('Recommended Action',action);\n  showResult('bp-result');\n  const sysRatio=Math.min(sys/200,1);\n  const diaRatio=Math.min(dia/120,1);\n  drawDonut('bp-chart',['Systolic','Diastolic','Normal Range'],[sys,dia,Math.max(0,400-sys-dia)],[catColor,'#c8832a','#e8e8e2']);\n  const aiBox=document.getElementById('bp-ai');\n  if(sys>180||dia>120){\n    aiBox.innerHTML='<div class=\"ai-header\"><span>⚠️</span> Urgent Notice</div><p style=\"color:#8a1a1a;font-weight:500;\">Your reading indicates a possible hypertensive crisis. Please seek emergency medical care or call 911 immediately if you are experiencing symptoms like chest pain, shortness of breath, or severe headache.</p>';\n    aiBox.style.display='block';return;\n  }\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your blood pressure...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Blood pressure: '+sys+'/'+dia+' mmHg ('+category+'), age: '+age+', sex: '+sex+', MAP: '+map+' mmHg. In 3-4 sentences, explain what this reading means, give 2 specific lifestyle recommendations appropriate to this category, and when to see a doctor. Be clear and professional. End with a medical disclaimer.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Blood Pressure Calculator"
+      intro="Interpret your blood pressure numbers using the landmark 2017 ACC/AHA Clinical Practice Guidelines. Evaluate Mean Arterial Pressure (MAP) for vital organ perfusion and Pulse Pressure for arterial vascular compliance."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="MAP = Diastolic + 1/3 (Systolic - Diastolic)"
+      related={[
+        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
+        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max Calculator" },
+        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+      ]}
+      faq={[
+        {
+          q: "What is the difference between white-coat hypertension and masked hypertension?",
+          a: "White-coat hypertension occurs when blood pressure is elevated in clinical settings (≥ 130/80) but normal at home (< 130/80) due to acute medical anxiety. Conversely, masked hypertension is normal in the doctor's office but consistently elevated at home or during sleep; it carries cardiovascular risk identical to sustained hypertension and requires 24-hour ambulatory monitoring to detect.",
+        },
+        {
+          q: "Why is high blood pressure called the 'silent killer'?",
+          a: "Hypertension typically produces zero palpable physical symptoms—no headaches, dizziness, or chest discomfort—until substantial end-organ damage has occurred to cerebral blood vessels, coronary arteries, retina microvasculature, or renal nephrons. Regular screening is the only dependable method of detection.",
+        },
+        {
+          q: "What should I do if my blood pressure exceeds 180/120 mmHg?",
+          a: "Wait quietly for 5 minutes and take a second reading. If readings remain above 180 systolic and/or 120 diastolic without symptoms, contact your doctor immediately. If this reading is accompanied by red-flag symptoms (chest pressure, shortness of breath, back pain, numbness, weakness, difficulty speaking, or blurred vision), this represents a hypertensive emergency—call 911 immediately.",
+        },
+      ]}
+    >
+      <BloodPressureCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Cardiology & Hemodynamic Review:</span> Formulated under American College of Cardiology / American Heart Association (ACC/AHA) 2017 High Blood Pressure Clinical Practice Guidelines.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Clinical Standards</div>
+        </div>
+
+        {/* Section 1: Clinical Definition & The 2017 Guideline Shift */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Understanding Blood Pressure: Systolic vs. Diastolic Dynamics
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Blood pressure quantifies the lateral hydrodynamic force exerted by circulating blood against the intimal walls of systemic arteries during cardiac cycles. Measured in <strong>millimeters of mercury (mmHg)</strong>, readings consist of two paired physiological values:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Systolic Blood Pressure (Upper Number):</strong> The peak intra-arterial pressure generated when the left ventricle contracts during cardiac systole, ejecting a bolus of oxygenated blood into the aorta.
+            </li>
+            <li>
+              <strong>Diastolic Blood Pressure (Lower Number):</strong> The residual minimum arterial pressure maintained by elastic arterial recoil during ventricular relaxation (cardiac diastole), ensuring continuous capillary perfusion to peripheral organs and the coronary arteries.
+            </li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In 2017, the <strong>American College of Cardiology (ACC)</strong> and the <strong>American Heart Association (AHA)</strong> eliminated the legacy category of "pre-hypertension" and lowered the threshold for Stage 1 Hypertension from 140/90 mmHg down to <strong>130/80 mmHg</strong>. Landmark clinical trials (including the NIH SPRINT trial) established that vascular endothelial damage, microvascular stroke risk, and myocardial infarction escalate significantly above 120/80 mmHg.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Benchmark: 2D ACC/AHA Hemodynamic Risk Map
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400">
+              Interactive Hemodynamic Plane
+            </span>
+          </div>
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            Blood pressure risk operates across a two-dimensional matrix. If systolic and diastolic pressures fall into different tiers, the higher category always dictates the clinical classification. Click or hover on the benchmark points below to explore clinical stages, MAP, and medical guidance.
+          </p>
+
+          <BloodPressureStageChart />
+        </section>
+
+        {/* Section 3: Advanced Hemodynamics (MAP & Pulse Pressure) */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Advanced Hemodynamic Biomarkers: MAP & Pulse Pressure
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Beyond standard systolic and diastolic figures, intensive care medicine and clinical cardiology rely on two calculated hemodynamic parameters to evaluate vascular integrity:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose my-6">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-slate-100">1. Mean Arterial Pressure (MAP)</h4>
+              <Formula>MAP = Diastolic + 1/3 (Systolic - Diastolic)</Formula>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Represents average perfusion pressure driven through the capillary vascular bed throughout one complete cardiac cycle. Normal values span <strong>70 to 100 mmHg</strong>. A MAP &ge; 65 mmHg is mandatory to sustain adequate perfusion to the cerebral cortex and renal glomeruli.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-slate-100">2. Pulse Pressure (PP)</h4>
+              <Formula>Pulse Pressure = Systolic - Diastolic</Formula>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                Reflects stroke volume and systemic arterial compliance (the elasticity of the aorta). A normal range is <strong>30 to 50 mmHg</strong>. A widened pulse pressure (&gt; 60 mmHg) is a strong independent predictor of severe aortic calcification and cardiovascular mortality in adults over 50.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: ACC/AHA Guidelines Table */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            ACC / AHA 2017 Blood Pressure Classification & Management Matrix
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The clinical reference matrix below summarizes the operational diagnostic thresholds and treatment protocols established by the AHA/ACC task force:
+          </p>
+
+          <DataTable
+            head={["Clinical Category", "Systolic Pressure", "Diastolic Pressure", "Recommended Medical Management"]}
+            rows={BP_GUIDELINES_TABLE.map((r) => [r.category, r.systolic, r.diastolic, r.action])}
+          />
+        </section>
+
+        {/* Section 5: Step-by-Step Practical Calculation Example */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Step-by-Step Walkthrough: Hemodynamic Evaluation of 138/86 mmHg
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Suppose a patient measures a resting reading of <strong>138 mmHg Systolic</strong> and <strong>86 mmHg Diastolic</strong>:
+          </p>
+
+          <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono text-xs space-y-2">
+            <div>1. Clinical Category Determination: 138 is between 130–139, and 86 is between 80–89. Both parameters satisfy <strong>Stage 1 Hypertension</strong>.</div>
+            <div>2. Calculate Pulse Pressure: <code>PP = 138 - 86 = 52 mmHg</code> (borderline arterial compliance).</div>
+            <div>3. Calculate Mean Arterial Pressure (MAP): <code>MAP = 86 + (52 / 3) = 86 + 17.33 = 103.3 mmHg</code>.</div>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-700 font-sans">
+              <span className="font-bold text-slate-900 dark:text-slate-100">Clinical Interpretation:</span>
+              <p className="text-slate-600 dark:text-slate-300 text-xs mt-1">
+                The elevated MAP of 103.3 mmHg reflects increased systemic vascular resistance. Initial therapy emphasizes the <strong>DASH dietary pattern</strong> (sodium &lt; 1,500 mg/day, potassium 3,500–5,000 mg/day), 150 minutes of weekly aerobic exercise, and formal ASCVD 10-year risk stratification.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6: AHA Measurement Protocol */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            AHA Standardized Protocol: How to Measure Blood Pressure Accurately
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Over 30% of high clinic readings are distorted by improper measurement technique or the sympathetic stress response known as <em>white-coat hypertension</em>. To obtain valid home readings:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Avoid Pre-Test Stimulants:</strong> Refrain from caffeine, nicotine, and strenuous physical exercise for at least 30 minutes prior to testing. Empty your bladder completely.
+            </li>
+            <li>
+              <strong>Observe 5-Minute Seated Rest:</strong> Sit quietly with your back supported, legs uncrossed, and feet resting flat on the floor for 5 uninterrupted minutes without talking or phone scrolling.
+            </li>
+            <li>
+              <strong>Proper Arm Placement:</strong> Support your bare arm on a desk or armrest so the middle of the cuff is positioned at heart level (fourth intercostal space). Having the cuff below heart level falsely inflates systolic readings by up to 10 mmHg.
+            </li>
+            <li>
+              <strong>Take Duplicate Measurements:</strong> Record two readings separated by 1 to 2 minutes, and record the average.
+            </li>
+          </ul>
+        </section>
+      </article>
+    </CalcPage>
   );
 }
