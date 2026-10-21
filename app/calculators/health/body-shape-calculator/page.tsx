@@ -1,26 +1,217 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import BodyShapeCalculator from "@/components/calcs/health/body-shape-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BodyProportionsMatrixChart } from "@/components/flagship/health/editorial-charts/BodyProportionsMatrixChart";
 
-export const metadata: Metadata = {
-  "title": "Body Shape Calculator – Apple, Pear, Hourglass | CalcDigi",
-  "description": "Find out if you have an apple, pear, hourglass, rectangle, or inverted triangle body shape using your measurements.",
-  "openGraph": {
-    "title": "Body Shape Calculator – Apple, Pear, Hourglass | CalcDigi",
-    "description": "Find out if you have an apple, pear, hourglass, rectangle, or inverted triangle body shape using your measurements.",
-    "type": "website",
-    "url": "/calculators/health/body-shape-calculator"
+const PATH = "/calculators/health/body-shape-calculator";
+const TITLE = "Body Shape Calculator – Hourglass, Pear, Apple & WHR | CalcDigi";
+const DESCRIPTION =
+  "Discover your precise anatomical body shape (Hourglass, Pear, Rectangle, Apple, Inverted Triangle) with our clinical calculator. Includes WHO waist-to-hip risk profiling and tailored training.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const WHO_WHR_TABLE = [
+  { category: "Low Cardiometabolic Risk", womenWhr: "< 0.80", menWhr: "< 0.90", clinicalProfile: "Minimal visceral adiposity; protective gluteofemoral subcutaneous fat profile; low incidence of metabolic syndrome." },
+  { category: "Moderate Risk Tier", womenWhr: "0.80 – 0.84", menWhr: "0.90 – 0.94", clinicalProfile: "Gradual central fat accumulation; regular physical conditioning and glycemic monitoring recommended." },
+  { category: "Substantially Increased Risk", womenWhr: "≥ 0.85", menWhr: "≥ 0.95", clinicalProfile: "High visceral abdominal fat (VAT); elevated risk of Type 2 diabetes, non-alcoholic fatty liver disease (NAFLD), and coronary artery disease." },
+];
+
+const SHAPE_PRESCRIPTION_TABLE = [
+  {
+    shape: "Hourglass (X-Shape)",
+    ratioCriteria: "Bust and hips within 1–2 inches; waist ≥ 8 inches smaller than bust & hips.",
+    exerciseFocus: "Full-body functional resistance training, compound squat patterns, overhead press, and moderate Zone 2 cardio.",
+    nutritionalStrategy: "Balanced macronutrient distribution (40% carbs, 30% protein, 30% fat) with emphasis on whole-food satiety.",
   },
-  "alternates": {
-    "canonical": "/calculators/health/body-shape-calculator"
-  }
-};
+  {
+    shape: "Pear / Spoon (Gynoid)",
+    ratioCriteria: "Hips ≥ 2 inches larger than bust; waist-to-hip ratio typically < 0.75.",
+    exerciseFocus: "Upper body hypertrophy (lateral raises, lat pulldowns, incline press) to balance silhouette; high-cadence cycling.",
+    nutritionalStrategy: "Lower total dietary saturated fats; prioritize monounsaturated fats (olive oil, avocados) and high dietary fiber.",
+  },
+  {
+    shape: "Rectangle (Banana)",
+    ratioCriteria: "Bust, waist, and hips within 3 inches of each other; waist indentation < 7 inches.",
+    exerciseFocus: "Hypertrophy targeting the latissimus dorsi, side deltoids, and gluteus maximus to create visual waist curvature.",
+    nutritionalStrategy: "Higher complex carbohydrate intake and protein (1.8–2.0 g/kg) to fuel progressive muscle hypertrophy.",
+  },
+  {
+    shape: "Inverted Triangle (V-Shape)",
+    ratioCriteria: "Bust/shoulders ≥ 2.5 inches wider than hips; waist-to-hip ratio typically 0.80–0.90.",
+    exerciseFocus: "Lower-body progressive overload (Romanian deadlifts, walking lunges, hip thrusts) to build gluteal and quad volume.",
+    nutritionalStrategy: "Sufficient caloric intake to support lower-body muscular growth without excess abdominal adipose spillover.",
+  },
+  {
+    shape: "Apple (Android / Oval)",
+    ratioCriteria: "Waist within 10% of bust and hips, or waist greater than hips; WHR ≥ 0.85 (female) / ≥ 0.95 (male).",
+    exerciseFocus: "High-volume cardiovascular conditioning (150–300 min/week), HIIT intervals to deplete visceral fat, core bracing.",
+    nutritionalStrategy: "Low-glycemic Mediterranean protocol; minimize refined sugars and fructose to alleviate hepatic steatosis.",
+  },
+];
 
-export default function Page() {
+export default function BodyShapePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Body Shape Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/body-shape-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Body Shape Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/body-shape-calculator\", \"description\": \"Find out if you have an apple, pear, hourglass, rectangle, or inverted triangle body shape using your measurements.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What are the 5 body shapes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Apple (weight around middle), Pear (wider hips), Hourglass (equal bust and hips with small waist), Rectangle (similar measurements throughout), and Inverted Triangle (wider shoulders/bust than hips). Each has different health profiles and exercise recommendations.\"}}, {\"@type\": \"Question\", \"name\": \"Is apple or pear body shape healthier?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Pear shapes are generally considered healthier from a cardiovascular standpoint. Apple shapes accumulate visceral (abdominal) fat, which is metabolically active and associated with higher risk of heart disease, diabetes, and metabolic syndrome. Pear-shaped fat is subcutaneous and less harmful.\"}}, {\"@type\": \"Question\", \"name\": \"Can I change my body shape?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Your skeletal structure determines your base shape, but body composition can be significantly changed. Targeted strength training builds muscle in specific areas, and fat loss reduces overall deposits. You cannot spot-reduce fat, but you can reshape your body through consistent training and nutrition.\"}}, {\"@type\": \"Question\", \"name\": \"How accurate is a body shape calculator?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Body shape calculators provide a general classification based on your proportions. They are a useful starting point for understanding your fat distribution patterns and health risks, but individual variation means two people with the same classification can look and function quite differently.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Body Shape Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Body Shape Calculator</h1>\n<p class=\"calc-intro\">Discover your body shape — apple, pear, hourglass, rectangle, or inverted triangle — using your bust, waist, and hip measurements. Understand the health implications of your shape and get personalized fitness recommendations.</p>\n<div class=\"content-section\">\n<h2>The 5 Body Shapes Explained</h2>\n<div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:8px;\">\n<div style=\"padding:16px;background:var(--c-rule2);border-radius:8px;text-align:center;\">\n<div style=\"font-size:32px;margin-bottom:6px;\">🍎</div>\n<div style=\"font-weight:600;font-size:14px;margin-bottom:4px;\">Apple</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">Waist wider than bust and hips. Weight concentrates in midsection.</div>\n</div>\n<div style=\"padding:16px;background:var(--c-rule2);border-radius:8px;text-align:center;\">\n<div style=\"font-size:32px;margin-bottom:6px;\">🍐</div>\n<div style=\"font-weight:600;font-size:14px;margin-bottom:4px;\">Pear</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">Hips wider than bust. Weight concentrates in hips and thighs.</div>\n</div>\n<div style=\"padding:16px;background:var(--c-accent-lt);border-radius:8px;text-align:center;border:1px solid var(--c-rule);\">\n<div style=\"font-size:32px;margin-bottom:6px;\">⌛</div>\n<div style=\"font-weight:600;font-size:14px;margin-bottom:4px;\">Hourglass</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">Bust and hips roughly equal, waist significantly smaller.</div>\n</div>\n<div style=\"padding:16px;background:var(--c-rule2);border-radius:8px;text-align:center;\">\n<div style=\"font-size:32px;margin-bottom:6px;\">▬</div>\n<div style=\"font-weight:600;font-size:14px;margin-bottom:4px;\">Rectangle</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">Bust, waist and hips similar width. Athletic, straight silhouette.</div>\n</div>\n<div style=\"padding:16px;background:var(--c-rule2);border-radius:8px;text-align:center;\">\n<div style=\"font-size:32px;margin-bottom:6px;\">🔺</div>\n<div style=\"font-weight:600;font-size:14px;margin-bottom:4px;\">Inverted Triangle</div>\n<div style=\"font-size:12px;color:var(--c-ink2);\">Shoulders/bust wider than hips. Common in athletic builds.</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>Health Implications by Body Shape</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:13px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:8px 12px;\">Shape</th><th style=\"padding:8px 12px;text-align:left;\">Health Risk</th><th style=\"padding:8px 12px;text-align:left;\">Best Exercise Focus</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:8px 12px;\">🍎 Apple</td><td style=\"padding:8px 12px;\">Higher cardiovascular &amp; metabolic risk</td><td style=\"padding:8px 12px;\">Core + cardio, reduce visceral fat</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:8px 12px;\">🍐 Pear</td><td style=\"padding:8px 12px;\">Lower overall risk, hip joint stress</td><td style=\"padding:8px 12px;\">Lower body strength + cardio</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:8px 12px;\">⌛ Hourglass</td><td style=\"padding:8px 12px;\">Generally low health risk</td><td style=\"padding:8px 12px;\">Balanced full-body training</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:8px 12px;\">▬ Rectangle</td><td style=\"padding:8px 12px;\">Moderate — depends on body fat %</td><td style=\"padding:8px 12px;\">Compound lifts + cardio</td></tr>\n<tr><td style=\"padding:8px 12px;\">🔺 Inv. Triangle</td><td style=\"padding:8px 12px;\">Low — often athletic build</td><td style=\"padding:8px 12px;\">Lower body + balance training</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are the 5 body shapes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Apple (weight around middle), Pear (wider hips), Hourglass (equal bust and hips with small waist), Rectangle (similar measurements throughout), and Inverted Triangle (wider shoulders/bust than hips). Each has different health profiles and exercise recommendations.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is apple or pear body shape healthier? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Pear shapes are generally considered healthier from a cardiovascular standpoint. Apple shapes accumulate visceral (abdominal) fat, which is metabolically active and associated with higher risk of heart disease, diabetes, and metabolic syndrome. Pear-shaped fat is subcutaneous and less harmful.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I change my body shape? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Your skeletal structure determines your base shape, but body composition can be significantly changed. Targeted strength training builds muscle in specific areas, and fat loss reduces overall deposits. You cannot spot-reduce fat, but you can reshape your body through consistent training and nutrition.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How accurate is a body shape calculator? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Body shape calculators provide a general classification based on your proportions. They are a useful starting point for understanding your fat distribution patterns and health risks, but individual variation means two people with the same classification can look and function quite differently.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/waist-to-hip-ratio-calculator\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Waist-Hip Ratio</span></a>\n<a class=\"related-card\" href=\"/calculators/health/waist-to-height-ratio-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Waist-Height Ratio</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/body-fat-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Body Fat</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Body Shape Calculator</h2>\n<div class=\"form-group\">\n<label for=\"bs-unit\">Measurement Unit</label>\n<select id=\"bs-unit\"><option selected=\"\" value=\"in\">Inches</option><option value=\"cm\">Centimeters</option></select>\n</div>\n<div class=\"form-group\">\n<label for=\"bs-bust\">Bust / Chest Measurement</label>\n<input id=\"bs-bust\" max=\"70\" min=\"20\" step=\"0.5\" type=\"number\" value=\"36\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"bs-waist\">Waist Measurement</label>\n<input id=\"bs-waist\" max=\"60\" min=\"18\" step=\"0.5\" type=\"number\" value=\"28\"/>\n<small style=\"color:var(--c-ink3);font-size:11px;\">Narrowest point, usually above belly button</small>\n</div>\n<div class=\"form-group\">\n<label for=\"bs-hip\">Hip Measurement</label>\n<input id=\"bs-hip\" max=\"72\" min=\"24\" step=\"0.5\" type=\"number\" value=\"38\"/>\n<small style=\"color:var(--c-ink3);font-size:11px;\">Widest point of hips and buttocks</small>\n</div>\n<div class=\"form-group\">\n<label for=\"bs-sex\">Sex</label>\n<select id=\"bs-sex\"><option value=\"female\">Female</option><option value=\"male\">Male</option></select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcBodyShape()\">Find My Body Shape</button>\n<div id=\"bs-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bs\" onclick=\"printResult('bs-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"bs-result\">\n<div id=\"bs-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"bs-chart\" width=\"180\"></canvas></div>\n<div class=\"ai-box\" id=\"bs-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ Body shape classifications are generalizations. Individual variation is normal. Focus on health metrics rather than shape labels.</div>\n</div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-body-shape-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcBodyShape(){\n  const bust=parseFloat(document.getElementById('bs-bust').value)||36;\n  const waist=parseFloat(document.getElementById('bs-waist').value)||28;\n  const hip=parseFloat(document.getElementById('bs-hip').value)||38;\n  const sex=document.getElementById('bs-sex').value;\n  const unit=document.getElementById('bs-unit').value;\n  const whr=waist/hip;\n  const bhr=bust/hip;\n  const wbr=waist/bust;\n  let shape,icon,desc,health,exercise;\n  if(waist>=hip*0.8&&waist>=bust*0.8){\n    shape='Apple';icon='🍎';\n    desc='You carry weight primarily in your midsection with narrower hips and shoulders relative to your waist.';\n    health='Higher cardiovascular and metabolic risk due to abdominal fat. Monitor blood pressure, blood sugar, and cholesterol regularly.';\n    exercise='Focus on cardio (150+ min/week) to reduce visceral fat, plus core strengthening. Avoid excessive abdominal crunches — cardio is more effective for belly fat.';\n  } else if(hip>bust*1.05&&hip>waist*1.15){\n    shape='Pear';icon='🍐';\n    desc='Your hips are wider than your shoulders and bust. Weight tends to accumulate in the hips, thighs, and buttocks.';\n    health='Generally lower cardiovascular risk than apple shape. Hip and knee joint stress may increase with weight gain.';\n    exercise='Combine lower body strength training (squats, lunges, deadlifts) with cardio. Upper body training helps balance proportions.';\n  } else if(Math.abs(bust-hip)<=3.6&&waist<=bust*0.85&&waist<=hip*0.85){\n    shape='Hourglass';icon='⌛';\n    desc='Your bust and hips are roughly equal with a noticeably smaller waist — the classic proportional shape.';\n    health='Generally considered the most balanced body type with lower cardiometabolic risk when at a healthy weight.';\n    exercise='Balanced full-body training maintains your proportions. Cardio for heart health, strength training for muscle tone.';\n  } else if(bust>hip*1.05){\n    shape='Inverted Triangle';icon='🔺';\n    desc='Your shoulders and bust are wider than your hips, creating a top-heavy appearance. Common in athletic builds.';\n    health='Generally low health risk. Often associated with strong upper body muscle mass in active individuals.';\n    exercise='Lower body strength training (squats, hip thrusts, lunges) to balance proportions. Avoid excessive shoulder exercises if balance is the goal.';\n  } else {\n    shape='Rectangle';icon='▬';\n    desc='Your bust, waist and hips are similar in width, creating a straight, athletic silhouette with little waist definition.';\n    health='Moderate health risk — depends more on body fat percentage than shape. Overall body composition is more important than the shape classification.';\n    exercise='Compound lifts (deadlifts, squats, bench press) build overall muscle. Add waist-defining exercises and cardio for best health outcomes.';\n  }\n  document.getElementById('bs-ri').innerHTML=\n    `<div style=\"text-align:center;padding:16px;background:var(--c-accent-lt);border-radius:10px;border:1.5px solid var(--c-accent);margin-bottom:14px;\">\n      <div style=\"font-size:48px;margin-bottom:6px;\">${icon}</div>\n      <div style=\"font-family:var(--font-serif);font-size:22px;font-weight:400;color:var(--c-accent);\">${shape} Shape</div>\n    </div>`+\n    ri('Bust',bust+' '+unit)+\n    ri('Waist',waist+' '+unit)+\n    ri('Hip',hip+' '+unit)+\n    ri('Waist-Hip Ratio',whr.toFixed(2))+\n    `<div style=\"margin-top:14px;padding:12px;background:var(--c-rule2);border-radius:8px;font-size:13px;color:var(--c-ink2);line-height:1.6;\">${desc}</div>`;\n  showResult('bs-result');\n  drawBar('bs-chart',['Bust','Waist','Hip'],[bust,waist,hip],'#1a5c3a');\n  const aiBox=document.getElementById('bs-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your body shape...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Body shape: '+shape+' ('+icon+'), bust: '+bust+unit+', waist: '+waist+unit+', hip: '+hip+unit+', sex: '+sex+'. In 3-4 sentences, explain the health implications of this body shape, give 2 specific exercise recommendations for this shape, and one nutrition tip. Positive, non-judgmental, health-focused tone.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Body Shape Calculator"
+      intro="Determine your precise anatomical body shape—Hourglass, Pear, Rectangle, Apple, or Inverted Triangle—using standardized anthropometric ratios and WHO cardiometabolic risk indices."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{WHR} = \frac{\text{Waist Circumference}}{\text{Hip Circumference}} ; \quad \text{BHR} = \frac{\text{Bust}}{\text{Hip}}"
+      related={[
+        { href: "/calculators/health/waist-to-hip-ratio-calculator", icon: "📏", name: "Waist-to-Hip" },
+        { href: "/calculators/health/waist-to-height-ratio-calculator", icon: "📐", name: "Waist-to-Height" },
+        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
+        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+        { href: "/calculators/health/lean-body-mass-calculator", icon: "💪", name: "Lean Body Mass" },
+        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+      ]}
+      faq={[
+        {
+          q: "What are the 5 primary morphological body shapes?",
+          a: "The five universally recognized anthropometric phenotypes are: 1) Hourglass (balanced bust and hips with a significantly defined natural waist); 2) Pear / Spoon (hips and thighs wider than shoulders and bust); 3) Rectangle / Banana (uniform measurements across bust, waist, and hips with minimal curve); 4) Inverted Triangle (shoulders and bust wider than hips); and 5) Apple / Android (waist measurement equal to or larger than bust and hips, carrying adipose tissue centrally in the abdomen).",
+        },
+        {
+          q: "Why is an Apple body shape associated with higher medical risks than a Pear shape?",
+          a: "Apple phenotypes accumulate adipose tissue centrally in the intra-abdominal cavity as Visceral Adipose Tissue (VAT), surrounding the liver, pancreas, and intestines. VAT is metabolically hyperactive, continuously releasing free fatty acids directly into the portal circulation and secreting inflammatory cytokines (TNF-alpha, Interleukin-6) that cause systemic insulin resistance, non-alcoholic fatty liver disease, and atherosclerosis. In contrast, pear phenotypes store subcutaneous fat in the hips and thighs (gluteofemoral depot), which secretes protective adiponectin and acts as a safe lipid sink.",
+        },
+        {
+          q: "Can I alter my skeletal body shape through diet and strength training?",
+          a: "Your skeletal framework—the width of your pelvic iliac crests, rib cage dimensions, and clavicle breadth—is genetically fixed. However, muscular hypertrophy and adipose tissue redistribution dramatically modify your external silhouette. You cannot 'spot-reduce' fat from a specific region, but overall caloric deficit reduces midsection visceral fat, while targeted progressive resistance training (e.g., building latissimus dorsi and gluteal muscles) creates the visual taper of an hourglass or athletic V-taper.",
+        },
+        {
+          q: "How should I measure my bust, waist, and hips for maximum accuracy?",
+          a: "Use a flexible non-stretch fiberglass tape measure parallel to the floor in front of a mirror: 1) Bust/Chest: Across the fullest projection of the chest; 2) Waist: At the narrowest point of the torso, typically 1 to 2 inches above the umbilicus (belly button) at the end of a normal, relaxed exhalation; 3) Hips: Around the widest prominence of the buttocks and greater trochanters of the femur.",
+        },
+        {
+          q: "What does the World Health Organization (WHO) state about Waist-to-Hip Ratio (WHR)?",
+          a: "The World Health Organization establishes that a Waist-to-Hip Ratio (WHR) above 0.85 for women and above 0.90 for men signifies central android adiposity and substantially elevates the long-term risk of cardiovascular disease, myocardial infarction, stroke, and type 2 diabetes mellitus.",
+        },
+        {
+          q: "What is the difference between Android and Gynoid fat distribution?",
+          a: "Android fat distribution ('male-pattern' or apple) is concentrated around the trunk and upper abdomen, driven by cortisol and lower androgen-to-estrogen balance, and poses significant cardiovascular risk. Gynoid fat distribution ('female-pattern' or pear) is localized to the lower body (hips, buttocks, and thighs) under the influence of estrogens, providing evolutionary metabolic reserves for pregnancy and lactation with cardioprotective properties.",
+        },
+      ]}
+    >
+      <BodyShapeCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Anthropometry &amp; Cardiometabolic Review:</span> Calibrated to the World Health Organization (WHO) STEPS surveillance manual, Female Figure Identification Technique (FFIT), and adipose tissue biology.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Epidemiological Standards</div>
+        </div>
+
+        {/* Section 1: Anthropometric Science */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Science of Anthropometry: Beyond Simple Scale Weight
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In human morphology and public health epidemiology, an individual&apos;s physical profile is governed by two interacting vectors: <strong>skeletal frame geometry</strong> (determined by genetic osteological development) and <strong>adipose tissue partitioning</strong> (regulated by endocrine sex hormones, cortisol, and genetics).
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            While Body Mass Index (BMI) remains a broad population metric, it is blind to spatial body composition. Two individuals with identical BMIs of 24.5 kg/m² can have fundamentally distinct health trajectories: one carrying protective gluteofemoral subcutaneous fat (pear phenotype), and the other harboring hazardous intra-abdominal visceral adiposity (apple phenotype). Measuring circumferential proportions provides a direct window into endocrine and cardiovascular wellness.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Morphometry &amp; Visceral Risk Visualizer
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+              Interactive Model
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Explore the biomechanical silhouettes, Waist-to-Hip Ratios (WHR), adipose tissue storage depots, and cardiovascular risk profiles across the five primary human body shapes. Tap any profile to view targeted clinical recommendations:
+          </p>
+          <BodyProportionsMatrixChart />
+        </section>
+
+        {/* Section 3: Visceral vs Subcutaneous Adipose Biology */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Adipose Depot Biology: Visceral (VAT) vs. Subcutaneous (SAT) Fat
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The health consequences of body shape stem directly from the physiological distinction between two distinct adipose tissue depots:
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+            <div className="p-5 rounded-xl border border-red-200 dark:border-red-900/40 bg-red-50/50 dark:bg-red-950/20">
+              <h3 className="text-lg font-bold text-red-700 dark:text-red-400 mb-2">
+                Visceral Adipose Tissue (VAT) — Apple Phenotype
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Located deep within the peritoneal cavity surrounding internal abdominal organs (mesenteric and omental depots). VAT possesses dense adrenergic innervation, high lipolytic activity, and drains directly into the <strong>hepatic portal vein</strong>.
+              </p>
+              <ul className="list-disc pl-5 mt-3 space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                <li>Floods the liver with free fatty acids, inducing hepatic steatosis (NAFLD).</li>
+                <li>Hyper-secretes pro-inflammatory cytokines: Interleukin-6 (IL-6), TNF-α, and PAI-1.</li>
+                <li>Reduces circulating adiponectin, triggering systemic insulin resistance.</li>
+              </ul>
+            </div>
+
+            <div className="p-5 rounded-xl border border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/50 dark:bg-emerald-950/20">
+              <h3 className="text-lg font-bold text-emerald-700 dark:text-emerald-400 mb-2">
+                Gluteofemoral Subcutaneous Fat (SAT) — Pear Phenotype
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Positioned underneath the dermis around the hips, buttocks, and upper thighs. Governed by estrogen receptor alpha (ERα) signaling in females, this tissue acts as a <strong>protective metabolic buffer</strong>.
+              </p>
+              <ul className="list-disc pl-5 mt-3 space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                <li>Acts as a high-capacity sink, trapping excess circulating fatty acids safely.</li>
+                <li>Abundantly secretes adiponectin, which improves peripheral insulin sensitivity.</li>
+                <li>Associated with lower incidence of atherosclerosis, hypertension, and diabetes.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 4: WHO Clinical Standards Table */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            World Health Organization (WHO) Waist-to-Hip Cutoff Standards
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The World Health Organization utilizes the Waist-to-Hip Ratio (WHR) as a primary clinical marker for central obesity and cardiometabolic syndrome risk:
+          </p>
+          <DataTable
+            head={["Cardiometabolic Risk Category", "Female WHR Threshold", "Male WHR Threshold", "Clinical Significance & Etiology"]}
+            rows={WHO_WHR_TABLE.map((row) => [
+              <strong key={row.category} className="text-slate-900 dark:text-slate-100">{row.category}</strong>,
+              row.womenWhr,
+              row.menWhr,
+              row.clinicalProfile,
+            ])}
+          />
+        </section>
+
+        {/* Section 5: Tailored Exercise & Nutritional Strategies */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Evidence-Based Training &amp; Nutritional Strategies by Phenotype
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            While spot reduction is physiologically impossible, training specific kinetic muscle groups and tailoring nutritional timing allows individuals to optimize their physique and functional health:
+          </p>
+          <DataTable
+            head={["Body Shape", "Morphometric Diagnostic Criteria", "Prescribed Resistance Training Focus", "Targeted Nutritional Strategy"]}
+            rows={SHAPE_PRESCRIPTION_TABLE.map((row) => [
+              <strong key={row.shape} className="text-slate-900 dark:text-slate-100">{row.shape}</strong>,
+              row.ratioCriteria,
+              row.exerciseFocus,
+              row.nutritionalStrategy,
+            ])}
+          />
+        </section>
+      </article>
+    </CalcPage>
   );
 }

@@ -12,3 +12,11 @@ export { PaceDistanceCurveChart } from "./PaceDistanceCurveChart";
 export { MetActivitySpectrumChart } from "./MetActivitySpectrumChart";
 export { BloodPressureStageChart } from "./BloodPressureStageChart";
 export { WeightLossTrajectoryChart } from "./WeightLossTrajectoryChart";
+
+// Batch 3 Charts:
+export { PushupFitnessStandardsChart } from "./PushupFitnessStandardsChart";
+export { CyclingPowerSpeedCurveChart } from "./CyclingPowerSpeedCurveChart";
+export { SwimPaceDistanceCurveChart } from "./SwimPaceDistanceCurveChart";
+export { StepVolumeCalorieCurveChart } from "./StepVolumeCalorieCurveChart";
+export { LbmCompositionSpectrumChart } from "./LbmCompositionSpectrumChart";
+export { BodyProportionsMatrixChart } from "./BodyProportionsMatrixChart";

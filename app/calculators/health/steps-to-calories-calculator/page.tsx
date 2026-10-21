@@ -1,26 +1,162 @@
-import type { Metadata } from "next";
-import Script from "next/script";
+import StepsToCaloriesCalculator from "@/components/calcs/health/steps-to-calories-calculator";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { StepVolumeCalorieCurveChart } from "@/components/flagship/health/editorial-charts/StepVolumeCalorieCurveChart";
 
-export const metadata: Metadata = {
-  "title": "Steps to Calories Calculator | CalcDigi",
-  "description": "Convert daily steps to calories burned. Find out how many calories 5,000, 10,000, or 15,000 steps burn based on your weight.",
-  "openGraph": {
-    "title": "Steps to Calories Calculator | CalcDigi",
-    "description": "Convert daily steps to calories burned. Find out how many calories 5,000, 10,000, or 15,000 steps burn based on your weight.",
-    "type": "website",
-    "url": "/calculators/health/steps-to-calories-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/health/steps-to-calories-calculator"
-  }
-};
+const PATH = "/calculators/health/steps-to-calories-calculator";
+const TITLE = "Steps to Calories Calculator – Stride Length & Cadence Precision | CalcDigi";
+const DESCRIPTION =
+  "Free steps to calories calculator: accurately convert daily step count into calories burned and distance walked (miles & km) using anatomical stride length and Tudor-Locke standards.";
 
-export default function Page() {
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+
+const TUDOR_LOCKE_TABLE = [
+  { tier: "Sedentary Lifestyle", steps: "< 5,000 steps/day", healthImpact: "Baseline physical inactivity; correlated with elevated visceral adiposity, insulin resistance, and cardiometabolic syndrome." },
+  { tier: "Low Active", steps: "5,000 – 7,499 steps/day", healthImpact: "Typical baseline of non-sedentary office workers; modest baseline cardiovascular protection without active conditioning." },
+  { tier: "Somewhat Active", steps: "7,500 – 9,999 steps/day", healthImpact: "Meets public health recommendations for all-cause mortality reduction in older adults (Lancet Public Health meta-analysis threshold)." },
+  { tier: "Active Baseline", steps: "10,000 – 12,499 steps/day", healthImpact: "Optimal cardiovascular risk reduction; significant enhancement in resting blood pressure, arterial compliance, and daily caloric NEAT." },
+  { tier: "Highly Active", steps: "≥ 12,500 steps/day", healthImpact: "High daily energy expenditure; accelerated fat oxidation, superior glycemic control, and maintenance of healthy body weight." },
+];
+
+export default function StepsToCaloriesPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calc-digi.vercel.app/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Health Calculators\", \"item\": \"https://calc-digi.vercel.app/pages/health\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Steps to Calories Calculator\", \"item\": \"https://calc-digi.vercel.app/calculators/health/steps-to-calories-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Steps to Calories Calculator\", \"url\": \"https://calc-digi.vercel.app/calculators/health/steps-to-calories-calculator\", \"description\": \"Convert daily steps to calories burned. Find out how many calories 5,000, 10,000, or 15,000 steps burn based on your weight.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many calories does 10,000 steps burn?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A 155-pound person burns approximately 400-500 calories walking 10,000 steps (about 5 miles). The exact amount depends on your weight, height, and pace. Heavier people and brisker walkers burn more.\"}}, {\"@type\": \"Question\", \"name\": \"How many steps equal a mile?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"On average, 2,000-2,500 steps equal one mile. Taller people with longer strides take fewer steps per mile. A 5'4\\\" person takes about 2,400 steps per mile, while a 6'0\\\" person takes about 2,000.\"}}, {\"@type\": \"Question\", \"name\": \"Is 10,000 steps a good daily goal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"10,000 steps is a popular goal but research shows health benefits start at 7,000-8,000 steps/day. More is generally better. Even increasing from 2,000 to 5,000 steps daily significantly improves health markers.\"}}, {\"@type\": \"Question\", \"name\": \"Do steps count on a treadmill?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes! Treadmill steps count the same as outdoor steps. In fact, treadmill walking on an incline burns more calories per step than flat ground walking, making it a great option for burning extra calories.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/health\">Health</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Steps to Calories Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Steps to Calories Calculator</h1>\n<p class=\"calc-intro\">Convert your daily step count into calories burned. This calculator accounts for your weight, height, and walking pace to give you a precise estimate of the energy you expend through walking every day.</p>\n<div class=\"content-section\">\n<h2>How Steps Convert to Calories</h2>\n<p>The number of calories you burn per step depends on two main factors: your <strong>body weight</strong> (heavier people burn more) and your <strong>stride length</strong> (which determines how far each step takes you).</p>\n<div class=\"formula-box\">Stride Length ≈ Height × 0.414 (walking)</div>\n<div class=\"formula-box\">Distance = Steps × Stride Length</div>\n<div class=\"formula-box\">Calories = MET × Weight (kg) × Distance (km) × 1.036</div>\n<p>Walking pace affects the MET value used: slow walking (2 mph) = MET 2.8, moderate (3 mph) = MET 3.5, brisk (3.5 mph) = MET 4.3, fast (4+ mph) = MET 5.0.</p>\n</div>\n<div class=\"content-section\">\n<h2>Steps vs Calories — Quick Reference (155 lbs)</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 16px;text-align:left;\">Steps</th>\n<th style=\"padding:10px 16px;\">Miles</th>\n<th style=\"padding:10px 16px;\">Calories (slow)</th>\n<th style=\"padding:10px 16px;\">Calories (brisk)</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">1,000</td><td style=\"padding:10px 16px;\">0.5</td><td style=\"padding:10px 16px;\">~40</td><td style=\"padding:10px 16px;\">~50</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">5,000</td><td style=\"padding:10px 16px;\">2.5</td><td style=\"padding:10px 16px;\">~200</td><td style=\"padding:10px 16px;\">~250</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-accent-lt);\"><td style=\"padding:10px 16px;font-weight:600;\">10,000</td><td style=\"padding:10px 16px;\">5.0</td><td style=\"padding:10px 16px;font-weight:600;\">~400</td><td style=\"padding:10px 16px;font-weight:600;\">~500</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">15,000</td><td style=\"padding:10px 16px;\">7.5</td><td style=\"padding:10px 16px;\">~600</td><td style=\"padding:10px 16px;\">~750</td></tr>\n<tr><td style=\"padding:10px 16px;\">20,000</td><td style=\"padding:10px 16px;\">10.0</td><td style=\"padding:10px 16px;\">~800</td><td style=\"padding:10px 16px;\">~1000</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\">\n<h2>How to Increase Your Daily Steps</h2>\n<ul>\n<li><strong>Take the stairs</strong> instead of the elevator — adds 200-300 steps per floor</li>\n<li><strong>Park farther away</strong> — adds 500-1,000 steps per errand</li>\n<li><strong>Walk during phone calls</strong> — can add 2,000-3,000 steps daily</li>\n<li><strong>10-minute walk breaks</strong> every 2 hours adds ~1,200 steps</li>\n<li><strong>Evening walks</strong> after dinner — great for digestion and blood sugar</li>\n<li><strong>Use a fitness tracker</strong> — simply tracking steps increases activity by 27%</li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories does 10,000 steps burn? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A 155-pound person burns approximately 400-500 calories walking 10,000 steps (about 5 miles). The exact amount depends on your weight, height, and pace. Heavier people and brisker walkers burn more.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many steps equal a mile? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">On average, 2,000-2,500 steps equal one mile. Taller people with longer strides take fewer steps per mile. A 5'4\" person takes about 2,400 steps per mile, while a 6'0\" person takes about 2,000.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is 10,000 steps a good daily goal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">10,000 steps is a popular goal but research shows health benefits start at 7,000-8,000 steps/day. More is generally better. Even increasing from 2,000 to 5,000 steps daily significantly improves health markers.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Do steps count on a treadmill? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes! Treadmill steps count the same as outdoor steps. In fact, treadmill walking on an incline burns more calories per step than flat ground walking, making it a great option for burning extra calories.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Health Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/health/calorie-burn-calculator\"><span class=\"rc-icon\">🔥</span><span class=\"rc-name\">Calorie Burn</span></a>\n<a class=\"related-card\" href=\"/calculators/health/calorie-calculator\"><span class=\"rc-icon\">🥗</span><span class=\"rc-name\">Calorie Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/weight-loss-calculator\"><span class=\"rc-icon\">📉</span><span class=\"rc-name\">Weight Loss</span></a>\n<a class=\"related-card\" href=\"/calculators/health/tdee-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">TDEE Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/pace-calculator\"><span class=\"rc-icon\">🏃</span><span class=\"rc-name\">Pace Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/health/bmi-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">BMI Calculator</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Steps to Calories</h2>\n<div class=\"form-group\">\n<label for=\"sc-steps\">Number of Steps</label>\n<input id=\"sc-steps\" max=\"100000\" min=\"100\" step=\"100\" type=\"number\" value=\"10000\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"sc-weight\">Your Weight</label>\n<input id=\"sc-weight\" max=\"500\" min=\"80\" type=\"number\" value=\"160\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"sc-unit\">Weight Unit</label>\n<select id=\"sc-unit\"><option selected=\"\" value=\"lbs\">Pounds (lbs)</option><option value=\"kg\">Kilograms (kg)</option></select>\n</div>\n<div class=\"form-group\">\n<label for=\"sc-height\">Your Height (inches)</label>\n<input id=\"sc-height\" max=\"84\" min=\"48\" type=\"number\" value=\"67\"/>\n</div>\n<div class=\"form-group\">\n<label for=\"sc-pace\">Walking Pace</label>\n<select id=\"sc-pace\">\n<option value=\"2.8\">Slow (under 2 mph)</option>\n<option selected=\"\" value=\"3.5\">Moderate (3 mph)</option>\n<option value=\"4.3\">Brisk (3.5 mph)</option>\n<option value=\"5.0\">Fast (4+ mph)</option>\n</select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcSteps()\">Calculate Calories</button>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result',document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult(document.title)\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n<div class=\"result-box\" id=\"sc-result\">\n<div id=\"sc-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ Estimates based on average stride length and MET values. Actual calories may vary by 10-20%.</div>\n</div>\n</div>\n</div>\n</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-steps-to-calories-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcSteps(){\n  const steps=parseInt(document.getElementById('sc-steps').value)||10000;\n  const wt=parseFloat(document.getElementById('sc-weight').value)||160;\n  const unit=document.getElementById('sc-unit').value;\n  const heightIn=parseFloat(document.getElementById('sc-height').value)||67;\n  const met=parseFloat(document.getElementById('sc-pace').value)||3.5;\n  const wtKg=unit==='lbs'?wt*0.4536:wt;\n  const strideM=heightIn*0.0254*0.414;\n  const distKm=(steps*strideM)/1000;\n  const distMi=distKm*0.6214;\n  const calories=Math.round(met*wtKg*distKm*1.036);\n  const paceLabel=document.getElementById('sc-pace').options[document.getElementById('sc-pace').selectedIndex].text;\n  document.getElementById('sc-ri').innerHTML=\n    ri('Calories Burned','<strong>'+calories+' kcal</strong>',true)+\n    ri('Steps',steps.toLocaleString())+\n    ri('Distance',distMi.toFixed(2)+' miles ('+distKm.toFixed(2)+' km)')+\n    ri('Pace',paceLabel)+\n    ri('Cal per 1,000 Steps',Math.round(calories/steps*1000)+' kcal')+\n    ri('Steps to Burn 500 Cal',Math.round(500/(calories/steps)).toLocaleString()+' steps');\n  showResult('sc-result');\n  drawDonut('sc-chart',['Burned','Goal (10k)'],[Math.min(steps,10000),Math.max(0,10000-steps)],['#1a5c3a','#e8e8e2']);\n  const aiBox=document.getElementById('sc-ai');\n  aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing your activity...</p>';\n  aiBox.style.display='block';\n  getAIInsight('Person walked '+steps.toLocaleString()+' steps, burning '+calories+' calories. Weight: '+wt+' '+unit+'. Distance: '+distMi.toFixed(1)+' miles. Give 2 tips to increase daily steps, mention what health benefits this step count provides, and suggest a realistic next goal. 3-4 sentences, encouraging tone.')\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/health", label: "Health & Fitness" }}
+      title="Steps to Calories Calculator"
+      intro="Accurately convert your daily pedometer or smartwatch step count into total calories burned and distance traversed. Tailored to your anatomical height, body weight, biological sex, and walking cadence."
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="Distance = Steps * (Height * 0.415) ; Calories = f(MET, Weight, Duration)"
+      related={[
+        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
+        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
+        { href: "/calculators/health/weight-loss-calculator", icon: "⚖️", name: "Weight Loss" },
+        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+        { href: "/calculators/health/bmi-calculator", icon: "📊", name: "BMI Calculator" },
+      ]}
+      faq={[
+        {
+          q: "How many calories do 10,000 steps burn?",
+          a: "For an average adult weighing 160 to 180 lbs (72–82 kg), 10,000 steps burns approximately 400 to 500 calories (kcal). Heavier individuals burn more calories for the same step count because moving greater gravitational mass across space requires higher mechanical work, whereas a lighter 120-lb individual burns roughly 300 to 350 kcal.",
+        },
+        {
+          q: "How many miles is 10,000 steps?",
+          a: "For an adult of average height (5'6\" to 5'10\"), an average walking stride length is between 2.2 and 2.5 feet (0.67 to 0.76 meters). Consequently, 10,000 steps equates to approximately 4.2 to 5.0 miles (6.8 to 8.0 kilometers).",
+        },
+        {
+          q: "Is 10,000 steps a real scientific requirement?",
+          a: "The '10,000 steps' figure originated not from medical laboratories, but as a marketing campaign in Japan in 1965 to promote the 'Manpo-kei' (10,000-steps meter) pedometer following the 1964 Tokyo Olympics. However, extensive modern epidemiological research (including a 2022 Lancet Public Health meta-analysis of 47,471 adults) confirms that mortality risk progressively declines up to 8,000–10,000 steps per day for adults under 60, and plateaus around 6,000–8,000 steps per day for adults aged 60 and older.",
+        },
+      ]}
+    >
+      <StepsToCaloriesCalculator />
+
+      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
+        {/* Clinical Byline */}
+        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="font-bold text-slate-900 dark:text-slate-100">Occupational Kinesiology & NEAT Review:</span> Calibrated to Tudor-Locke physical activity classification indices and the Compendium of Physical Activities walking MET standards.
+          </div>
+          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Epidemiological Standards</div>
+        </div>
+
+        {/* Section 1: Non-Exercise Activity Thermogenesis (NEAT) */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Science of NEAT: Why Walking Is the Ultimate Metabolic Engine
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In human metabolic bioenergetics, daily energy expenditure is divided into Basal Metabolic Rate (BMR, ~60–70%), the Thermic Effect of Food (TEF, ~10%), Exercise Activity Thermogenesis (EAT, ~5%), and <strong>Non-Exercise Activity Thermogenesis (NEAT)</strong>. Pioneered by Dr. James Levine at the Mayo Clinic, NEAT encompasses all kinetic energy expended for occupational work, pacing, walking, and spontaneous muscle tone.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            While structured gym workouts occupy barely 45 minutes of the day, step-based locomotion operates across the remaining 15 waking hours. Inter-individual variation in NEAT can account for a difference of up to <strong>800 to 2,000 kilocalories per day</strong> between two people of identical stature. Walking regularly engages the calf skeletal muscle pumps (soleus and gastrocnemius), stimulating lipoprotein lipase (LPL) enzyme activity to clear circulating postprandial triglycerides and glucose from the bloodstream.
+          </p>
+        </section>
+
+        {/* Section 2: Interactive Editorial Graph #2 */}
+        <section className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+              Interactive Benchmark: Step Volume vs. Caloric Energy Expenditure Curve
+            </h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400">
+              Tudor-Locke Activity Matrix
+            </span>
+          </div>
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            Because gravitational work scales linearly with total body weight, moving 200 lbs burns significantly more calories per step than moving 130 lbs. Scrub across daily step volumes below (2,000 to 20,000 steps) to compare caloric burn across body masses against clinical activity categories.
+          </p>
+
+          <StepVolumeCalorieCurveChart />
+        </section>
+
+        {/* Section 3: Tudor-Locke Classification Table */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Tudor-Locke Step-Defined Physical Activity Index
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Published in <em>Sports Medicine</em> by Dr. Catrine Tudor-Locke, the internationally recognized step classification index categorizes adult daily lifestyle patterns:
+          </p>
+
+          <DataTable
+            head={["Physical Activity Category", "Daily Step Count", "Epidemiological Health & Cardiometabolic Impact"]}
+            rows={TUDOR_LOCKE_TABLE.map((r) => [r.tier, r.steps, r.healthImpact])}
+          />
+        </section>
+
+        {/* Section 4: Biomechanical Stride Length Calculation */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Biomechanical Stride Length: How Height Dictates Step Distance
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Generic smartphone pedometers frequently calculate inaccurate distances by applying a static 2.2-foot stride assumption. In biomechanics, individual step length correlates directly with femur length and standing height:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose my-6">
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-slate-100">Men Stride Equation</h4>
+              <Formula>Stride Length (inches) = Standing Height (inches) &times; 0.415</Formula>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                A 5'10" (70 inch) male possesses an average anatomical stride length of <strong>29.05 inches (0.738 meters)</strong>, requiring ~2,180 steps to cover one full mile.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+              <h4 className="font-bold text-slate-900 dark:text-slate-100">Women Stride Equation</h4>
+              <Formula>Stride Length (inches) = Standing Height (inches) &times; 0.413</Formula>
+              <p className="text-xs text-slate-600 dark:text-slate-400">
+                A 5'4" (64 inch) female possesses an average stride length of <strong>26.43 inches (0.671 meters)</strong>, requiring ~2,396 steps to traverse one mile.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Step-by-Step Practical Calculation Example */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Step-by-Step Walkthrough: Energy Expenditure for 10,000 Steps
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Suppose a <strong>165-lb (74.84 kg)</strong> adult female standing <strong>5'6" (66 inches)</strong> walks <strong>10,000 steps</strong> at a moderate brisk pace (110 steps/min, 3.5 METs):
+          </p>
+
+          <div className="p-5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 font-mono text-xs space-y-2">
+            <div>1. Compute Stride Length: <code>66 inches &times; 0.413 = 27.26 inches = 0.692 meters</code></div>
+            <div>2. Total Distance: <code>10,000 &times; 0.692 m = 6,924 meters = 4.30 miles (6.92 km)</code></div>
+            <div>3. Calculate Active Duration: <code>10,000 steps / 110 steps/min = 90.9 minutes (1.52 hours)</code></div>
+            <div>4. Calculate Gross Calorie Burn: <code>90.9 min &times; (3.5 &times; 3.5 &times; 74.84) / 200 = 416.7 kcal</code></div>
+            <div className="pt-2 border-t border-slate-200 dark:border-slate-700 font-sans">
+              <span className="font-bold text-slate-900 dark:text-slate-100">Final Metrics:</span>
+              <p className="text-emerald-600 dark:text-emerald-400 font-mono font-bold text-sm mt-1">
+                Total Expenditure = 417 kcal • Distance = 4.30 miles • Average Pace = 21:08 / mile
+              </p>
+            </div>
+          </div>
+        </section>
+      </article>
+    </CalcPage>
   );
 }
