@@ -16,7 +16,7 @@ const WEALTH_DATA: WealthLossPoint[] = [
   { year: 3, directCash: 9855, compoundedWealth: 11300, cigsSmoked: 21900, healthMilestone: 'Risk of myocardial infarction drops by over 60% compared to baseline.' },
   { year: 5, directCash: 16425, compoundedWealth: 20210, cigsSmoked: 36500, healthMilestone: 'Stroke risk plummets to equal that of a lifetime non-smoker.' },
   { year: 7, directCash: 22995, compoundedWealth: 31050, cigsSmoked: 51100, healthMilestone: 'Substantial decline in oral, laryngeal, and esophageal cancer risks.' },
-  { year: 10, directCash: 32850, compoundedWealth: 48600, cigsSmoked: 73000, healthMilestone: 'Lung cancer mortality rate drops to half that of a continuing smoker; pre-cancerous lesions repaired.' },
+  { year: 10, directCash: 32850, compoundedWealth: 48600, cigsSmoked: 73000, healthMilestone: 'Lung cancer mortality rate drops to half that of a continuing smoker.' },
   { year: 15, directCash: 49275, compoundedWealth: 82500, cigsSmoked: 109500, healthMilestone: 'Coronary heart disease risk drops to equivalent level of an individual who never smoked.' },
   { year: 20, directCash: 65700, compoundedWealth: 134600, cigsSmoked: 146000, healthMilestone: 'Life expectancy extended by up to a full decade compared to continued smoking.' },
   { year: 25, directCash: 82125, compoundedWealth: 207700, cigsSmoked: 182500, healthMilestone: 'Total systemic recovery from tobacco toxicant exposure.' },
@@ -62,10 +62,10 @@ export function SmokingCompoundWealthLossChart() {
   const activeYDirect = scaleY(cur.directCash);
   const activeYCompound = scaleY(cur.compoundedWealth);
 
-  const handlePointer = (e: React.PointerEvent<SVGSVGElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clientX = e.clientX - rect.left;
-    const ratio = Math.max(0, Math.min(1, (clientX - (padLeft / svgWidth) * rect.width) / ((plotW / svgWidth) * rect.width)));
+  const handlePointer = (clientX: number, rect: DOMRect) => {
+    const rawX = clientX - rect.left;
+    const clampedX = Math.max(padLeft, Math.min(svgWidth - padRight, rawX));
+    const ratio = (clampedX - padLeft) / plotW;
     const targetYr = minYear + ratio * (maxYear - minYear);
 
     let bestIdx = 0;
@@ -83,25 +83,21 @@ export function SmokingCompoundWealthLossChart() {
   const fmtCurrency = (num: number) => `$${num.toLocaleString()}`;
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
-            Direct Cash Spent vs. Compounded Investment Opportunity Cost
-          </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
-            Comparing cumulative cigarette purchases ($9/pack, 1 pack/day) against an index fund compounding at 7% annual S&amp;P 500 returns.
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <h3 className="font-bold text-slate-900 dark:text-white text-base sm:text-lg">
+              Direct Cash Spent vs. Compounded Investment Opportunity Cost
+            </h3>
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Comparing cumulative pack expenditures ($9/pack, 1 pack/day) against an index fund compounding at 7% annual S&amp;P 500 returns.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+        <div className="flex items-center gap-1.5 flex-wrap">
           {[5, 10, 20, 30].map((yr) => (
             <button
               key={yr}
@@ -110,18 +106,11 @@ export function SmokingCompoundWealthLossChart() {
                 const idx = WEALTH_DATA.findIndex((d) => d.year === yr);
                 if (idx !== -1) setActiveIdx(idx);
               }}
-              style={{
-                padding: '4px 10px',
-                fontSize: '11px',
-                fontWeight: 600,
-                borderRadius: '6px',
-                border: 'none',
-                cursor: 'pointer',
-                background: cur.year === yr ? 'var(--c-accent)' : 'var(--c-surface)',
-                color: cur.year === yr ? '#ffffff' : 'var(--c-ink)',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                transition: 'all 0.15s ease'
-              }}
+              className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                cur.year === yr
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
             >
               Year {yr}
             </button>
@@ -129,22 +118,25 @@ export function SmokingCompoundWealthLossChart() {
         </div>
       </div>
 
-      {/* SVG Interactive Chart */}
-      <div style={{ width: '100%', position: 'relative', touchAction: 'none' }}>
+      {/* Interactive SVG Canvas */}
+      <div className="relative select-none touch-none">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          style={{ width: '100%', height: 'auto', display: 'block', cursor: 'ew-resize', userSelect: 'none' }}
-          onPointerDown={handlePointer}
-          onPointerMove={(e) => { if (e.pointerType === "touch" || e.buttons > 0) handlePointer(e); }}
-          onPointerEnter={handlePointer}
+          className="w-full h-auto cursor-crosshair overflow-visible"
+          onMouseMove={(e) => handlePointer(e.clientX, e.currentTarget.getBoundingClientRect())}
+          onTouchMove={(e) => {
+            if (e.touches[0]) {
+              handlePointer(e.touches[0].clientX, e.currentTarget.getBoundingClientRect());
+            }
+          }}
         >
-          {/* Grid lines */}
+          {/* Horizontal Grid lines */}
           {[50000, 100000, 200000, 300000].map((val) => {
             const y = scaleY(val);
             return (
               <g key={val}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="var(--c-ink3)">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+                <text x={padLeft - 10} y={y + 4} textAnchor="end" fontSize="11" fill="currentColor" className="text-slate-400 font-mono">
                   ${val / 1000}k
                 </text>
               </g>
@@ -156,8 +148,8 @@ export function SmokingCompoundWealthLossChart() {
             const x = scaleX(pt.year);
             return (
               <g key={pt.year}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   Yr {pt.year}
                 </text>
               </g>
@@ -176,37 +168,38 @@ export function SmokingCompoundWealthLossChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="currentColor"
+            className="text-slate-400 dark:text-slate-500"
             strokeWidth="1.5"
             strokeDasharray="4 4"
-            opacity="0.6"
           />
 
           {/* Active Points */}
           <circle cx={activeX} cy={activeYDirect} r="5" fill="#ef4444" stroke="#ffffff" strokeWidth="2" />
           <circle cx={activeX} cy={activeYCompound} r="6.5" fill="#10b981" stroke="#ffffff" strokeWidth="2.5" />
 
-          {/* Inverting dynamic tooltip */}
+          {/* Floating dynamic tooltip */}
           <g transform={`translate(${activeX > 380 ? activeX - 195 : activeX + 15}, ${Math.min(activeYCompound, 110)})`}>
             <rect
               width="180"
               height="88"
-              rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              rx="10"
+              fill="currentColor"
+              className="text-white dark:text-slate-900"
+              stroke="currentColor"
               strokeWidth="1.5"
-              filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
+              filter="drop-shadow(0 6px 16px rgba(0,0,0,0.12))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
+            <text x="12" y="22" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
               Year {cur.year} Opportunity
             </text>
-            <text x="12" y="38" fontSize="11" fontWeight="700" fill="#10b981">
+            <text x="12" y="40" fontSize="11" fontWeight="700" fill="#10b981">
               Invested Savings: {fmtCurrency(cur.compoundedWealth)}
             </text>
-            <text x="12" y="54" fontSize="11" fontWeight="600" fill="#ef4444">
-              Direct Cash Burned: {fmtCurrency(cur.directCash)}
+            <text x="12" y="56" fontSize="11" fontWeight="600" fill="#ef4444">
+              Direct Cash Outflow: {fmtCurrency(cur.directCash)}
             </text>
-            <text x="12" y="70" fontSize="10" fill="var(--c-ink2)">
+            <text x="12" y="72" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               Cigarettes: {cur.cigsSmoked.toLocaleString()} avoided
             </text>
           </g>
@@ -214,47 +207,42 @@ export function SmokingCompoundWealthLossChart() {
       </div>
 
       {/* Scrub stats card */}
-      <div style={{
-        marginTop: '16px',
-        padding: '16px',
-        borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-        gap: '14px'
-      }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>7% Compounded Opportunity Cost</span>
-          <div style={{ fontSize: '18px', fontWeight: 800, color: '#10b981', marginTop: '2px' }}>
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            7% Compounded Opportunity Cost
+          </span>
+          <div className="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-0.5">
             {fmtCurrency(cur.compoundedWealth)}
           </div>
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--c-ink2)' }}>
-            Direct cash burned: <strong style={{ color: '#ef4444' }}>{fmtCurrency(cur.directCash)}</strong> ({cur.cigsSmoked.toLocaleString()} cigarettes).
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Direct cash burned: <strong className="text-rose-600 dark:text-rose-400">{fmtCurrency(cur.directCash)}</strong> ({cur.cigsSmoked.toLocaleString()} cigarettes).
           </p>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>CDC Health Recovery Milestone</span>
-          <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--c-ink)', marginTop: '2px' }}>
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            CDC Health Recovery Milestone
+          </span>
+          <div className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
             Year {cur.year} Physiological Status
           </div>
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
             {cur.healthMilestone}
           </p>
         </div>
       </div>
 
-      {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
-        <div style={{ display: 'flex', gap: '16px' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981' }} /> S&amp;P 500 Compounded Wealth (7% return)
+      {/* Legend & Instructions */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div className="flex items-center gap-4 flex-wrap">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> S&amp;P 500 Compounded Wealth (7% return)
           </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ef4444' }} /> Cumulative Direct Cash Spent
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Cumulative Direct Cash Outflow
           </span>
         </div>
-        <span style={{ fontStyle: 'italic', fontSize: '11px' }}>Drag or tap along the horizontal axis to explore 30-year wealth projection.</span>
+        <span className="text-[11px] italic">Hover or scrub across graph to view multi-year projection.</span>
       </div>
     </div>
   );

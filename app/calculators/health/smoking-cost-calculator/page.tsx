@@ -184,17 +184,6 @@ export default function SmokingCostPage() {
 
           {/* Part B - Interactive Chart / Visual Continuum */}
           <div className="not-prose my-8">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
-                Interactive Compounded Wealth vs. Direct Cash Outflow
-              </h3>
-              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
-                Interactive Model
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-              Scrub across Year 1 through Year 30 to observe portfolio compounding versus linear cigarette spend, paired with corresponding biological recovery milestones.
-            </p>
             <SmokingCompoundWealthLossChart />
           </div>
 
