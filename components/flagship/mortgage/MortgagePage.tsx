@@ -49,6 +49,18 @@ const FAQ = [
 ];
 
 export function MortgagePage({ path, category }: { path: string; category: { href: string; label: string } }) {
+  const publisher = {
+    "@type": "Organization",
+    name: "CalcDigi",
+    url: `${SITE_URL}/`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/icon.svg`,
+      width: 512,
+      height: 512,
+    },
+  };
+
   return (
     <>
       <JsonLd
@@ -71,6 +83,11 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
               applicationCategory: "FinanceApplication",
               operatingSystem: "Any",
               browserRequirements: "Requires JavaScript",
+              inLanguage: "en-US",
+              isAccessibleForFree: true,
+              softwareVersion: "2026.1",
+              dateModified: "2026-10-23",
+              publisher,
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             },
             {
@@ -78,6 +95,9 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
               name: "Mortgage Calculator",
               url: `${SITE_URL}${path}`,
               description: DESCRIPTION,
+              inLanguage: "en-US",
+              dateModified: "2026-10-23",
+              publisher,
               potentialAction: [
                 {
                   "@type": "SolveAction",
@@ -89,6 +109,9 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
             },
             {
               "@type": "FAQPage",
+              inLanguage: "en-US",
+              dateModified: "2026-10-23",
+              publisher,
               mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
             },
           ],

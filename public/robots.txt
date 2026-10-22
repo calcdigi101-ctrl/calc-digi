@@ -1,11 +1,17 @@
 User-Agent: *
 Allow: /
 
-# Dedicated AI Crawlers
+# Dedicated AI Answer Engines & LLM Crawlers
 User-agent: GPTBot
 Allow: /
 
+User-agent: ChatGPT-User
+Allow: /
+
 User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
 Allow: /
 
 User-agent: PerplexityBot
@@ -17,5 +23,19 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
+User-agent: cohere-ai
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemaps & Machine-Readable Feeds
 Sitemap: https://calc-digi.vercel.app/sitemap.xml
 llms-txt: https://calc-digi.vercel.app/llms.txt
+llms-full-txt: https://calc-digi.vercel.app/llms-full.txt
