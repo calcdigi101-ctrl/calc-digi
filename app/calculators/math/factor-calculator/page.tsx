@@ -1,26 +1,77 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 
-export const metadata: Metadata = {
-  "title": "Factor Calculator – All Factors & Prime Factors | CalcDigi",
-  "description": "Find every factor of a number plus its full prime factorization, and check if it's prime.",
-  "openGraph": {
-    "title": "Factor Calculator – All Factors & Prime Factors | CalcDigi",
-    "description": "Find every factor of a number plus its full prime factorization, and check if it's prime.",
-    "type": "website",
-    "url": "/calculators/math/factor-calculator"
-  },
-  "alternates": {
-    "canonical": "/calculators/math/factor-calculator"
-  }
-};
+const PATH = "/calculators/math/factor-calculator";
+const TITLE = "Factor Calculator – All Factors & Prime Factors | CalcDigi";
+const DESCRIPTION = "Find every factor of a number plus its full prime factorization, and check if it's prime.";
+
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://calc-digi.vercel.app/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Math Calculators\",\"item\":\"https://calc-digi.vercel.app/pages/math\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Factor Calculator\",\"item\":\"https://calc-digi.vercel.app/calculators/math/factor-calculator\"}]},{\"@type\":\"WebApplication\",\"name\":\"Factor Calculator\",\"url\":\"https://calc-digi.vercel.app/calculators/math/factor-calculator\",\"description\":\"Find every factor of a number plus its full prime factorization, and check if it's prime.\",\"applicationCategory\":\"UtilitiesApplication\",\"operatingSystem\":\"Any\",\"offers\":{\"@type\":\"Offer\",\"price\":\"0\",\"priceCurrency\":\"USD\"}},{\"@type\":\"FAQPage\",\"mainEntity\":[{\"@type\":\"Question\",\"name\":\"What's the difference between factors and prime factors?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Factors are every number that divides evenly into n. Prime factors are the subset of those factors that are themselves prime numbers — multiplying all prime factors together (with repetition) reconstructs n.\"}},{\"@type\":\"Question\",\"name\":\"How do I know if a number is prime?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"A number is prime if it has exactly two factors: 1 and itself. This calculator tells you directly whether your number is prime.\"}},{\"@type\":\"Question\",\"name\":\"What's the largest number I can factor here?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"This tool supports numbers up to 1,000,000 to keep results instant in your browser.\"}},{\"@type\":\"Question\",\"name\":\"How is this useful in real life?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Factoring is used in simplifying fractions, finding least common multiples and greatest common factors, cryptography, and basic number theory coursework.\"}},{\"@type\":\"Question\",\"name\":\"What's the fastest way to find factors by hand?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"Test divisibility starting from 1 and working up to the square root of the number — every factor above the square root pairs with one below it, so you don't need to check past that point.\"}},{\"@type\":\"Question\",\"name\":\"Is 1 considered a prime number?\",\"acceptedAnswer\":{\"@type\":\"Answer\",\"text\":\"No — by definition, a prime number must have exactly two distinct factors (1 and itself). Since 1 only has one factor, it's neither prime nor composite.\"}}]},{\"@type\":\"MathSolver\",\"name\":\"Factor Calculator\",\"url\":\"https://calc-digi.vercel.app/calculators/math/factor-calculator\",\"description\":\"Find every factor of a number plus its full prime factorization, and check if it's prime.\",\"potentialAction\":[{\"@type\":\"SolveAction\",\"target\":\"https://calc-digi.vercel.app/calculators/math/factor-calculator\",\"eduQuestionType\":\"Mathematics\",\"mathExpression\":\"A factor of n is any whole number that divides n with no remainder\"}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\"><nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/math\">Math</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Factor Calculator</span></nav><div class=\"calc-layout\"><div class=\"calc-main\"><h1>Factor Calculator</h1><p class=\"calc-intro\">Find every factor of a whole number, its prime factorization, and whether it's a prime number.</p><div class=\"content-section\"><h2>What Is a Factor?</h2><div class=\"formula-box\">A factor of n is any whole number that divides n with no remainder</div><p>For example, the factors of 12 are 1, 2, 3, 4, 6, and 12 — because each one divides 12 evenly.</p></div><div class=\"content-section\"><h2>Worked Example</h2><p>The factors of 84 are 1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, and 84. Its prime factorization is 2 × 2 × 3 × 7 (or 2² × 3 × 7). Multiplying the prime factors back together reconstructs 84.</p></div><div class=\"content-section\"><h2>Why Prime Factorization Matters</h2><ul><li><strong>Simplifying fractions:</strong> Finding common factors between numerator and denominator</li><li><strong>GCF and LCM:</strong> Prime factorization is the fastest way to compute greatest common factor and least common multiple by hand</li><li><strong>Cryptography:</strong> Modern encryption relies on the difficulty of factoring very large numbers</li><li><strong>Number theory coursework:</strong> A foundational skill for algebra and higher math</li></ul></div><div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What's the difference between factors and prime factors? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Factors are every number that divides evenly into n. Prime factors are the subset of those factors that are themselves prime numbers — multiplying all prime factors together (with repetition) reconstructs n.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I know if a number is prime? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A number is prime if it has exactly two factors: 1 and itself. This calculator tells you directly whether your number is prime.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What's the largest number I can factor here? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">This tool supports numbers up to 1,000,000 to keep results instant in your browser.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is this useful in real life? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Factoring is used in simplifying fractions, finding least common multiples and greatest common factors, cryptography, and basic number theory coursework.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What's the fastest way to find factors by hand? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Test divisibility starting from 1 and working up to the square root of the number — every factor above the square root pairs with one below it, so you don't need to check past that point.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is 1 considered a prime number? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No — by definition, a prime number must have exactly two distinct factors (1 and itself). Since 1 only has one factor, it's neither prime nor composite.</div></div></div></div><div class=\"content-section\"><h2>Related Math Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/math/gcf-calculator\"><span class=\"rc-icon\">🔢</span><span class=\"rc-name\">GCF Calculator</span></a><a class=\"related-card\" href=\"/calculators/math/lcm-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">LCM Calculator</span></a><a class=\"related-card\" href=\"/calculators/math/prime-number-checker\"><span class=\"rc-icon\">🔍</span><span class=\"rc-name\">Prime Number Checker</span></a><a class=\"related-card\" href=\"/calculators/math/factorial-calculator\"><span class=\"rc-icon\">❗</span><span class=\"rc-name\">Factorial Calculator</span></a></div></div></div><div class=\"calc-sidebar\"><div class=\"calc-widget\"><h2>Factor Calculator</h2><div class=\"form-group\"><label for=\"fc-number\">Number</label><input id=\"fc-number\" min=\"1\" step=\"1\" type=\"number\" value=\"84\"/></div><button class=\"calc-btn\" onclick=\"calcFactors()\">Find Factors</button><button class=\"calc-btn\" onclick=\"document.getElementById('fc-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"fc-result\" style=\"display:none;\"><div id=\"fc-ri\"></div><div class=\"ai-box\" id=\"fc-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-fc-result\" onclick=\"printResult('fc-result','Factor Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Factor Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button></div></div></div></div></div></main>" }} />
-      <Script id="calc-script-factor-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcFactors(){\n  const n=parseInt(document.getElementById('fc-number').value);\n  if(isNaN(n)||n<1){alert('Enter a positive whole number.');return;}\n  if(n>1000000){alert('Please enter a number up to 1,000,000.');return;}\n  const factors=[];\n  for(let i=1;i<=n;i++){if(n%i===0)factors.push(i);}\n  let num=n, primeFactors=[];\n  for(let p=2;p<=num;p++){\n    while(num%p===0){primeFactors.push(p);num=num/p;}\n  }\n  document.getElementById('fc-ri').innerHTML=\n    ri('All Factors','<strong style=\"font-size:15px;color:var(--c-accent)\">'+factors.join(', ')+'</strong>',true)+\n    ri('Number of Factors',factors.length)+\n    ri('Prime Factorization',primeFactors.length?primeFactors.join(' × '):'This is a prime number')+\n    ri('Is Prime?',factors.length===2?'Yes':'No');\n  document.getElementById('fc-result').style.display='block';\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/math", label: "Math" }}
+      title="Factor Calculator"
+      intro="Find every factor of a whole number, its prime factorization, and whether it's a prime number."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="A factor of n is any whole number that divides n with no remainder"
+      related={[
+        {
+                "href": "/calculators/math/gcf-calculator",
+                "icon": "🔢",
+                "name": "GCF Calculator"
+        },
+        {
+                "href": "/calculators/math/lcm-calculator",
+                "icon": "📐",
+                "name": "LCM Calculator"
+        },
+        {
+                "href": "/calculators/math/prime-number-checker",
+                "icon": "🔍",
+                "name": "Prime Number Checker"
+        },
+        {
+                "href": "/calculators/math/factorial-calculator",
+                "icon": "❗",
+                "name": "Factorial Calculator"
+        }
+]}
+      faq={[
+        {
+                "q": "What's the difference between factors and prime factors?",
+                "a": "Factors are every number that divides evenly into n. Prime factors are the subset of those factors that are themselves prime numbers — multiplying all prime factors together (with repetition) reconstructs n."
+        },
+        {
+                "q": "How do I know if a number is prime?",
+                "a": "A number is prime if it has exactly two factors: 1 and itself. This calculator tells you directly whether your number is prime."
+        },
+        {
+                "q": "What's the largest number I can factor here?",
+                "a": "This tool supports numbers up to 1,000,000 to keep results instant in your browser."
+        },
+        {
+                "q": "How is this useful in real life?",
+                "a": "Factoring is used in simplifying fractions, finding least common multiples and greatest common factors, cryptography, and basic number theory coursework."
+        },
+        {
+                "q": "What's the fastest way to find factors by hand?",
+                "a": "Test divisibility starting from 1 and working up to the square root of the number — every factor above the square root pairs with one below it, so you don't need to check past that point."
+        },
+        {
+                "q": "Is 1 considered a prime number?",
+                "a": "No — by definition, a prime number must have exactly two distinct factors (1 and itself). Since 1 only has one factor, it's neither prime nor composite."
+        }
+]}
+      html={"<div class=\"content-section\"><h2>What Is a Factor?</h2><div class=\"formula-box\">A factor of n is any whole number that divides n with no remainder</div>\n<div class=\"content-section\"><h2>Worked Example</h2><p>The factors of 84 are 1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, and 84. Its prime factorization is 2 × 2 × 3 × 7 (or 2² × 3 × 7). Multiplying the prime factors back together reconstructs 84.</p></div>\n<div class=\"content-section\"><h2>Why Prime Factorization Matters</h2><ul><li><strong>Simplifying fractions:</strong> Finding common factors between numerator and denominator</li><li><strong>GCF and LCM:</strong> Prime factorization is the fastest way to compute greatest common factor and least common multiple by hand</li><li><strong>Cryptography:</strong> Modern encryption relies on the difficulty of factoring very large numbers</li><li><strong>Number theory coursework:</strong> A foundational skill for algebra and higher math</li></ul></div>"}
+    >
+      <div className="max-w-xl mx-auto">
+        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Factor Calculator</h2><div class=\"form-group\"><label for=\"fc-number\">Number</label><input id=\"fc-number\" min=\"1\" step=\"1\" type=\"number\" value=\"84\"/></div><button class=\"calc-btn\" onclick=\"calcFactors()\">Find Factors</button><button class=\"calc-btn\" onclick=\"document.getElementById('fc-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"fc-result\" style=\"display:none;\"><div id=\"fc-ri\"></div><div class=\"ai-box\" id=\"fc-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-fc-result\" onclick=\"printResult('fc-result','Factor Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Factor Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
+        <Script id="calc-script-factor-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcFactors(){\\n  const n=parseInt(document.getElementById('fc-number').value);\\n  if(isNaN(n)||n<1){alert('Enter a positive whole number.');return;}\\n  if(n>1000000){alert('Please enter a number up to 1,000,000.');return;}\\n  const factors=[];\\n  for(let i=1;i<=n;i++){if(n%i===0)factors.push(i);}\\n  let num=n, primeFactors=[];\\n  for(let p=2;p<=num;p++){\\n    while(num%p===0){primeFactors.push(p);num=num/p;}\\n  }\\n  document.getElementById('fc-ri').innerHTML=\\n    ri('All Factors','<strong style=\\\"font-size:15px;color:var(--c-accent)\\\">'+factors.join(', ')+'</strong>',true)+\\n    ri('Number of Factors',factors.length)+\\n    ri('Prime Factorization',primeFactors.length?primeFactors.join(' × '):'This is a prime number')+\\n    ri('Is Prime?',factors.length===2?'Yes':'No');\\n  document.getElementById('fc-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
+      </div>
+    </CalcPage>
   );
 }
