@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "sci-not-calc",
   title: "Scientific Notation Calculator",
+  presets: [
+    { label: "Speed of Light 300,000,000", values: { num: "300000000" } },
+    { label: "Avogadro's Number 6.022e23", values: { num: "6.022e23" } },
+    { label: "Microscopic Size 0.000005", values: { num: "0.000005" } },
+    { label: "Earth Mass 5.972e24", values: { num: "5.972e24" } },
+  ],
   fields: [
     { kind: "text", key: "num", label: "Enter Number or Decimal", default: "300000000", hint: "e.g. 300000000, 0.000045, -1.25e7" },
   ],

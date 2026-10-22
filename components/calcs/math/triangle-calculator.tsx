@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "triangle-calc",
   title: "Triangle Calculator (Sides, Angles & Area)",
+  presets: [
+    { label: "Scalene 5, 6, 7", values: { a: 5, b: 6, c: 7 } },
+    { label: "Right Triangle 3, 4, 5", values: { a: 3, b: 4, c: 5 } },
+    { label: "Equilateral 6, 6, 6", values: { a: 6, b: 6, c: 6 } },
+    { label: "Isosceles 8, 8, 5", values: { a: 8, b: 8, c: 5 } },
+  ],
   fields: [
     { kind: "number", key: "a", label: "Side a", default: 5, min: 0.0001 },
     { kind: "number", key: "b", label: "Side b", default: 6, min: 0.0001 },

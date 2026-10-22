@@ -7,6 +7,12 @@ import { num, fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "variance-calc",
   title: "Variance Calculator (Sample & Population)",
+  presets: [
+    { label: "Dataset: 4, 8, 6, 5, 3, 2, 8, 9, 2, 5", values: { type: "sample", dataset: "4, 8, 6, 5, 3, 2, 8, 9, 2, 5" } },
+    { label: "Low Variance: 50, 51, 49, 50, 52", values: { type: "sample", dataset: "50, 51, 49, 50, 52" } },
+    { label: "High Variance: 10, 90, 20, 80, 50", values: { type: "sample", dataset: "10, 90, 20, 80, 50" } },
+    { label: "Small Sample: 2, 4, 6", values: { type: "sample", dataset: "2, 4, 6" } },
+  ],
   fields: [
     {
       kind: "choice",

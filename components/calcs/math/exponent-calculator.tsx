@@ -7,6 +7,13 @@ import { fixed, num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "exponent-calc",
   title: "Exponent Calculator (xʸ Powers)",
+  presets: [
+    { label: "Byte Powers: 2^8 = 256", values: { base: 2, exp: 8 } },
+    { label: "Powers of Ten: 10^6 (1M)", values: { base: 10, exp: 6 } },
+    { label: "Square: 15^2 = 225", values: { base: 15, exp: 2 } },
+    { label: "Cube: 5^3 = 125", values: { base: 5, exp: 3 } },
+    { label: "Fractional: 16^0.5 = 4", values: { base: 16, exp: 0.5 } },
+  ],
   fields: [
     { kind: "number", key: "base", label: "Base (x)", default: 2 },
     { kind: "number", key: "exp", label: "Exponent (y)", default: 8 },

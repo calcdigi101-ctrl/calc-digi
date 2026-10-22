@@ -70,7 +70,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Permutation Calculator | CalcDigi"
+      title="Permutation Calculator"
       intro="Calculate ordered sequences, arrangements with and without repetition, multinomial word anagrams, and circular permutations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

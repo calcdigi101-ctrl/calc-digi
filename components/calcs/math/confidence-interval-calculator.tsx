@@ -16,6 +16,12 @@ const Z_CRITICAL: Record<string, number> = {
 export const config: CalcConfig = {
   id: "confidence-interval-calc",
   title: "Confidence Interval Calculator",
+  presets: [
+    { label: "IQ Test Study (x\u0304=100, s=15, n=50, 95%)", values: { mean: 100, sd: 15, n: 50, confidence: "95" } },
+    { label: "Polling Survey (x\u0304=52, s=5, n=1000, 99%)", values: { mean: 52, sd: 5, n: 1000, confidence: "99" } },
+    { label: "Clinical Trial (x\u0304=140, s=18, n=30, 90%)", values: { mean: 140, sd: 18, n: 30, confidence: "90" } },
+    { label: "Product Quality (x\u0304=24.5, s=0.8, n=80, 95%)", values: { mean: 24.5, sd: 0.8, n: 80, confidence: "95" } },
+  ],
   fields: [
     { kind: "number", key: "mean", label: "Sample Mean (x̄)", default: 100 },
     { kind: "number", key: "sd", label: "Sample Standard Deviation (s)", default: 15, min: 0.001 },
@@ -47,6 +53,15 @@ export const config: CalcConfig = {
     const me = z * se;
     const lower = mean - me;
     const upper = mean + me;
+
+    const steps = [
+      `Standard Error (SE) = s ÷ √n = ${sd} ÷ √${n} = ${fixed(se, 4)}`,
+      `Confidence Level = ${confLevel}% → Critical Value Z* = ${z}`,
+      `Margin of Error (ME) = Z* × SE = ${z} × ${fixed(se, 4)} = ±${fixed(me, 3)}`,
+      `Lower Bound = x̄ − ME = ${mean} − ${fixed(me, 3)} = ${fixed(lower, 3)}`,
+      `Upper Bound = x̄ + ME = ${mean} + ${fixed(me, 3)} = ${fixed(upper, 3)}`,
+      `Confidence Interval: [${fixed(lower, 3)}, ${fixed(upper, 3)}]`,
+    ];
 
     return {
       hero: {

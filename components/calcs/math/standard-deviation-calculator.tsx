@@ -7,6 +7,12 @@ import { num, fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "stddev-calc",
   title: "Standard Deviation Calculator",
+  presets: [
+    { label: "Homework: 10, 12, 23, 23, 16, 23, 21, 16", values: { type: "sample", dataset: "10, 12, 23, 23, 16, 23, 21, 16" } },
+    { label: "Quality: 49.8, 50.1, 50.3, 49.9, 50.2", values: { type: "sample", dataset: "49.8, 50.1, 50.3, 49.9, 50.2" } },
+    { label: "Scores: 72, 85, 90, 68, 94, 88, 79, 83", values: { type: "sample", dataset: "72, 85, 90, 68, 94, 88, 79, 83" } },
+    { label: "High Volatility: 5, 45, 12, 88, 3, 99", values: { type: "sample", dataset: "5, 45, 12, 88, 3, 99" } },
+  ],
   fields: [
     {
       kind: "choice",

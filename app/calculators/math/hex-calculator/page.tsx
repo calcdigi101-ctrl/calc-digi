@@ -74,7 +74,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Hex Calculator | CalcDigi"
+      title="Hex Calculator"
       intro="Execute hexadecimal arithmetic, perform 4-bit nibble binary conversions, inspect memory byte structures, and evaluate bitwise logic."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

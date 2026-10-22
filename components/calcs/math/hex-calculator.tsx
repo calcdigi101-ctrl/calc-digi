@@ -7,6 +7,12 @@ import { num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "hex-calc",
   title: "Hexadecimal Calculator (Hex Arithmetic)",
+  presets: [
+    { label: "1A + 0F (26 + 15)", values: { hex1: "1A", op: "add", hex2: "0F" } },
+    { label: "FF + 01 (255 + 1)", values: { hex1: "FF", op: "add", hex2: "01" } },
+    { label: "A5 \u2212 3C (165 \u2212 60)", values: { hex1: "A5", op: "sub", hex2: "3C" } },
+    { label: "10 \u00d7 10 (16 \u00d7 16)", values: { hex1: "10", op: "mul", hex2: "10" } },
+  ],
   fields: [
     { kind: "text", key: "hex1", label: "Hexadecimal A", default: "1A", hint: "0-9 and A-F digits." },
     {

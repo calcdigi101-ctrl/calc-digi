@@ -19,6 +19,13 @@ function isPrime(n: number): { prime: boolean; smallestFactor?: number } {
 export const config: CalcConfig = {
   id: "prime-checker-calc",
   title: "Prime Number Checker & Factorizer",
+  presets: [
+    { label: "Two-Digit Prime 97", values: { n: 97 } },
+    { label: "Mersenne Prime 127", values: { n: 127 } },
+    { label: "Large Prime 1009", values: { n: 1009 } },
+    { label: "Carmichael Composite 561", values: { n: 561 } },
+    { label: "Even Prime 2", values: { n: 2 } },
+  ],
   fields: [
     { kind: "number", key: "n", label: "Enter Integer to Test (n)", default: 97, integer: true, min: 0, max: 999999999999 },
   ],

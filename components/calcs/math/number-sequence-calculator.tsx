@@ -7,6 +7,12 @@ import { fixed, num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "number-seq-calc",
   title: "Number Sequence Calculator (Arithmetic, Geometric, Fibonacci)",
+  presets: [
+    { label: "Arithmetic (+4 step)", values: { type: "arithmetic", a1: 3, step: 4, n: 10 } },
+    { label: "Geometric (\u00d72 doubling)", values: { type: "geometric", a1: 2, step: 2, n: 8 } },
+    { label: "Fibonacci (12 terms)", values: { type: "fibonacci", a1: 0, step: 1, n: 12 } },
+    { label: "Triangular Series", values: { type: "arithmetic", a1: 1, step: 1, n: 15 } },
+  ],
   fields: [
     {
       kind: "choice",

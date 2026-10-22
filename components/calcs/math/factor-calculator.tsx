@@ -7,6 +7,13 @@ import { num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "factor-calc",
   title: "Factor Calculator & Prime Factorization",
+  presets: [
+    { label: "Composite 72", values: { n: 72 } },
+    { label: "Highly Composite 120", values: { n: 120 } },
+    { label: "Perfect Square 144", values: { n: 144 } },
+    { label: "Prime 97", values: { n: 97 } },
+    { label: "Three-Digit 360", values: { n: 360 } },
+  ],
   fields: [
     { kind: "number", key: "n", label: "Enter Integer (n)", default: 72, integer: true, min: 1, max: 10000000 },
   ],

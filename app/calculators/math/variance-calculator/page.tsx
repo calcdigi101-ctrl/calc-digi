@@ -76,7 +76,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Variance Calculator | CalcDigi"
+      title="Variance Calculator"
       intro="Calculate sample variance (s²), population variance (σ²), sum of squares, and standard deviation for any dataset with step-by-step algebraic derivations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

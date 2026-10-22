@@ -86,7 +86,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Fraction Calculator | CalcDigi"
+      title="Fraction Calculator"
       intro="Add, subtract, multiply, and divide fractions, mixed numbers, and improper fractions with detailed step-by-step arithmetic derivations and automatic reduction."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

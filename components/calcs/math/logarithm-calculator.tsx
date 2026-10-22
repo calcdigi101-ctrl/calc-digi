@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "logarithm-calc",
   title: "Logarithm Calculator (log₁₀, ln, log₂ & log_b)",
+  presets: [
+    { label: "Common log10(100) = 2", values: { x: 100, base: 10 } },
+    { label: "Binary log2(256) = 8", values: { x: 256, base: 2 } },
+    { label: "Natural ln(e) = 1", values: { x: 2.71828, base: 2.71828 } },
+    { label: "Decibel log10(1000000) = 6", values: { x: 1000000, base: 10 } },
+  ],
   fields: [
     { kind: "number", key: "x", label: "Input Value (x)", default: 100, min: 0.0000001 },
     {

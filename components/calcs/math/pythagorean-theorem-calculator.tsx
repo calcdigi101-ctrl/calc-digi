@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "pythagorean-calc",
   title: "Pythagorean Theorem Calculator (a² + b² = c²)",
+  presets: [
+    { label: "Classic 3-4-5 Triangle", values: { solveFor: "c", a: 3, b: 4, c: 5 } },
+    { label: "5-12-13 Triple", values: { solveFor: "c", a: 5, b: 12, c: 13 } },
+    { label: "8-15-17 Triple", values: { solveFor: "c", a: 8, b: 15, c: 17 } },
+    { label: "7-24-25 Triple", values: { solveFor: "c", a: 7, b: 24, c: 25 } },
+  ],
   fields: [
     {
       kind: "choice",
@@ -46,6 +52,18 @@ export const config: CalcConfig = {
     const angleA = Math.asin(a / c) * (180 / Math.PI);
     const angleB = 90 - angleA;
 
+    const steps = [
+      `Pythagorean Theorem: a² + b² = c²`,
+      solve === "c"
+        ? `c = √(a² + b²) = √(${a}² + ${b}²) = √(${fixed(a*a, 2)} + ${fixed(b*b, 2)}) = √${fixed(c*c, 2)} = ${fixed(c, 3)}`
+        : solve === "a"
+        ? `a = √(c² − b²) = √(${c}² − ${b}²) = √(${fixed(c*c, 2)} − ${fixed(b*b, 2)}) = √${fixed(a*a, 2)} = ${fixed(a, 3)}`
+        : `b = √(c² − a²) = √(${c}² − ${a}²) = √(${fixed(c*c, 2)} − ${fixed(a*a, 2)}) = √${fixed(b*b, 2)} = ${fixed(b, 3)}`,
+      `Triangle Area = ½ × a × b = ½ × ${fixed(a, 2)} × ${fixed(b, 2)} = ${fixed(area, 3)} sq units`,
+      `Perimeter = a + b + c = ${fixed(a, 2)} + ${fixed(b, 2)} + ${fixed(c, 2)} = ${fixed(perimeter, 3)} units`,
+      `Acute Angles: ∠A = ${fixed(angleA, 2)}°, ∠B = ${fixed(angleB, 2)}°, Right Angle ∠C = 90°`,
+    ];
+
     return {
       hero: {
         label: solve === "c" ? "Hypotenuse Length (c)" : solve === "a" ? "Leg Length (a)" : "Leg Length (b)",
@@ -56,6 +74,7 @@ export const config: CalcConfig = {
         text: "Right Triangle (90°)",
         tone: "good",
       },
+      steps,
       rows: [
         { label: "Leg a", value: fixed(a, 3) },
         { label: "Leg b", value: fixed(b, 3) },

@@ -71,7 +71,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Scientific Notation Calculator | CalcDigi"
+      title="Scientific Notation Calculator"
       intro="Convert decimal values to normalized scientific and engineering notation, perform arithmetic operations, and inspect orders of magnitude."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

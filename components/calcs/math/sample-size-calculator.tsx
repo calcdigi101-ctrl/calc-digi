@@ -13,6 +13,11 @@ const Z_MAP: Record<string, number> = {
 export const config: CalcConfig = {
   id: "sample-size-calc",
   title: "Sample Size Calculator (Survey & Research)",
+  presets: [
+    { label: "National Poll (95% Conf, \u00b13%)", values: { conf: "95", margin: 3, prop: 50, pop: 0 } },
+    { label: "Quality Audit (99% Conf, \u00b12%)", values: { conf: "99", margin: 2, prop: 50, pop: 10000 } },
+    { label: "Customer Survey (90% Conf, \u00b15%)", values: { conf: "90", margin: 5, prop: 50, pop: 500 } },
+  ],
   fields: [
     {
       kind: "choice",

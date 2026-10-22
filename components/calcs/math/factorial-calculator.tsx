@@ -7,6 +7,13 @@ import { num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "factorial-calc",
   title: "Factorial Calculator (n!)",
+  presets: [
+    { label: "5! = 120", values: { n: 5 } },
+    { label: "10! = 3,628,800", values: { n: 10 } },
+    { label: "15! (Permutations)", values: { n: 15 } },
+    { label: "20! (Large Number)", values: { n: 20 } },
+    { label: "3! = 6", values: { n: 3 } },
+  ],
   fields: [
     { kind: "number", key: "n", label: "Integer n (0 to 170)", default: 10, integer: true, min: 0, max: 170 },
   ],

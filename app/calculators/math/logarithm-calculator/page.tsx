@@ -78,7 +78,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Logarithm Calculator | CalcDigi"
+      title="Logarithm Calculator"
       intro="Calculate natural logarithms (ln), common logarithms (log₁₀), binary logarithms (log₂), and arbitrary custom bases with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -25,6 +25,12 @@ function nCr(n: number, r: number): number {
 export const config: CalcConfig = {
   id: "permutation-calc",
   title: "Permutation Calculator (nPr)",
+  presets: [
+    { label: "Race Podium Top 3 of 8", values: { n: 8, r: 3 } },
+    { label: "PIN Code 4 Digits of 10", values: { n: 10, r: 4 } },
+    { label: "Prize Draw Top 3 of 20", values: { n: 20, r: 3 } },
+    { label: "Lineup 5 of 9 Players", values: { n: 9, r: 5 } },
+  ],
   fields: [
     { kind: "number", key: "n", label: "Total Items (n)", default: 8, integer: true, min: 0, max: 100 },
     { kind: "number", key: "r", label: "Items Arranged (r)", default: 3, integer: true, min: 0, max: 100 },

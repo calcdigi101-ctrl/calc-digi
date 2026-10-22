@@ -18,6 +18,12 @@ function gcd2(a: number, b: number): number {
 export const config: CalcConfig = {
   id: "gcf-calc",
   title: "Greatest Common Factor (GCF / HCF) Calculator",
+  presets: [
+    { label: "Common 24, 36, 60 (GCF=12)", values: { numbers: "24, 36, 60" } },
+    { label: "Pair 48, 180 (GCF=12)", values: { numbers: "48, 180" } },
+    { label: "Coprime 15, 28 (GCF=1)", values: { numbers: "15, 28" } },
+    { label: "Multi-set 12, 18, 24, 30", values: { numbers: "12, 18, 24, 30" } },
+  ],
   fields: [
     {
       kind: "text",

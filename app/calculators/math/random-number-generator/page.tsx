@@ -69,7 +69,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Random Number Generator | CalcDigi"
+      title="Random Number Generator"
       intro="Generate uniform random numbers, randomized integer sets, cryptographic sequences, and reproducible pseudo-random distributions."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

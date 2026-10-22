@@ -62,6 +62,12 @@ function fromRoman(str: string): number {
 export const config: CalcConfig = {
   id: "roman-calc",
   title: "Roman Numeral Converter (1 to 3,999)",
+  presets: [
+    { label: "Current Year 2026 (MMXXVI)", values: { mode: "arabicToRoman", arabic: 2026, roman: "MMXXVI" } },
+    { label: "Super Bowl 58 (LVIII)", values: { mode: "arabicToRoman", arabic: 58, roman: "LVIII" } },
+    { label: "Centennial 1999 (MCMXCIX)", values: { mode: "arabicToRoman", arabic: 1999, roman: "MCMXCIX" } },
+    { label: "Century 100 (C)", values: { mode: "arabicToRoman", arabic: 100, roman: "C" } },
+  ],
   fields: [
     {
       kind: "choice",

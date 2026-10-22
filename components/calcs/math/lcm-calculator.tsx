@@ -23,6 +23,12 @@ function lcm2(a: number, b: number): number {
 export const config: CalcConfig = {
   id: "lcm-calc",
   title: "Least Common Multiple (LCM) Calculator",
+  presets: [
+    { label: "Pair 12, 18 (LCM=36)", values: { numbers: "12, 18" } },
+    { label: "Triple 8, 12, 15 (LCM=120)", values: { numbers: "8, 12, 15" } },
+    { label: "Coprime 7, 11, 13 (LCM=1001)", values: { numbers: "7, 11, 13" } },
+    { label: "Common 4, 6, 10, 15", values: { numbers: "4, 6, 10, 15" } },
+  ],
   fields: [
     {
       kind: "text",

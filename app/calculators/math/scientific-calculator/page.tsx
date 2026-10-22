@@ -70,7 +70,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Scientific Calculator | CalcDigi"
+      title="Scientific Calculator"
       intro="Advanced multi-function scientific calculator supporting trigonometry, logarithms, exponentiation, root radicals, combinatorics, and memory registers."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

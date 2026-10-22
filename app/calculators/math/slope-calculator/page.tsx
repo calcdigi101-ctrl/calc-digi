@@ -77,7 +77,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Slope Calculator | CalcDigi"
+      title="Slope Calculator"
       intro="Calculate the slope, angle of inclination, distance, midpoint, and linear equations (slope-intercept and point-slope) between any two points step-by-step."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

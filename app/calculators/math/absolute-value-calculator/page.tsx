@@ -77,7 +77,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Absolute Value Calculator | CalcDigi"
+      title="Absolute Value Calculator"
       intro="Calculate real and complex absolute values, solve absolute value equations and inequalities, and evaluate coordinate distances with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

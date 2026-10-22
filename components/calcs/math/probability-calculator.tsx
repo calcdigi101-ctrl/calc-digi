@@ -7,6 +7,12 @@ import { fixed, pct } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "probability-calc",
   title: "Probability Calculator (Single & Multi-Event)",
+  presets: [
+    { label: "Roll a 6 on Die (1 in 6)", values: { favorable: 1, total: 6, trials: 3 } },
+    { label: "Coin Toss Heads (1 in 2)", values: { favorable: 1, total: 2, trials: 5 } },
+    { label: "Draw an Ace (4 in 52)", values: { favorable: 4, total: 52, trials: 1 } },
+    { label: "Roulette Red (18 in 38)", values: { favorable: 18, total: 38, trials: 4 } },
+  ],
   fields: [
     { kind: "number", key: "favorable", label: "Favorable Outcomes (A)", default: 1, min: 0 },
     { kind: "number", key: "total", label: "Total Possible Outcomes (S)", default: 6, min: 1 },

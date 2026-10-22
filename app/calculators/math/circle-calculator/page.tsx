@@ -79,7 +79,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Circle Calculator | CalcDigi"
+      title="Circle Calculator"
       intro="Calculate the area, circumference, radius, diameter, arc length, sector area, and chord length of any circle with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

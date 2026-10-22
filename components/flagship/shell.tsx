@@ -54,9 +54,9 @@ export function CalculatorPage({
  */
 export function ToolGrid({ form, result }: { form: ReactNode; result: ReactNode }) {
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
-      <div className="lg:col-span-7">{form}</div>
-      <div className="lg:sticky lg:top-24 lg:col-span-5">{result}</div>
+    <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-start">
+      <div className="md:col-span-7">{form}</div>
+      <div className="md:sticky md:top-24 md:col-span-5">{result}</div>
     </div>
   );
 }

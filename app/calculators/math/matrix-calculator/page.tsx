@@ -77,7 +77,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Matrix Calculator | CalcDigi"
+      title="Matrix Calculator"
       intro="Perform matrix addition, subtraction, multiplication, determinants, inverses, eigenvalues, and rank evaluations step-by-step with complete algebraic derivations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -74,7 +74,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Roman Numeral Converter | CalcDigi"
+      title="Roman Numeral Converter"
       intro="Convert standard Arabic numbers to Roman numerals and Roman numerals to numbers (1 to 3,999,999), with complete subtractive rules and vinculum notation."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

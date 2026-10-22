@@ -77,7 +77,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Decimal to Fraction Calculator | CalcDigi"
+      title="Decimal to Fraction Calculator"
       intro="Convert any terminating or repeating decimal into an exact, fully simplified fraction or mixed number with step-by-step algebraic derivations and period analysis."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

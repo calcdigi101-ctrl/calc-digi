@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "surface-area-calc",
   title: "Surface Area Calculator (3D Geometric Solids)",
+  presets: [
+    { label: "Box 6 \u00d7 4 \u00d7 5", values: { shape: "box", length: 6, width: 4, height: 5 } },
+    { label: "Cube Side 5", values: { shape: "cube", side: 5 } },
+    { label: "Cylinder r=3, h=7", values: { shape: "cylinder", radius: 3, height: 7 } },
+    { label: "Sphere Radius 4", values: { shape: "sphere", radius: 4 } },
+  ],
   fields: [
     {
       kind: "choice",

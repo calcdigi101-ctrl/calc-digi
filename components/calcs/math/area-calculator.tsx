@@ -7,6 +7,13 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "area-calc",
   title: "Area Calculator (2D Geometric Shapes)",
+  presets: [
+    { label: "Rectangle 10 \u00d7 5", values: { shape: "rectangle", length: 10, width: 5 } },
+    { label: "Circle Radius 7", values: { shape: "circle", radius: 7 } },
+    { label: "Triangle Base 8, H 6", values: { shape: "triangle", base: 8, height: 6 } },
+    { label: "Trapezoid 8+12, H 5", values: { shape: "trapezoid", base1: 8, base2: 12, height: 5 } },
+    { label: "Ellipse a=6, b=4", values: { shape: "ellipse", semiMajor: 6, semiMinor: 4 } },
+  ],
   fields: [
     {
       kind: "choice",

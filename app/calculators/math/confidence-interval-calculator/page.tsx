@@ -83,7 +83,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Confidence Interval Calculator | CalcDigi"
+      title="Confidence Interval Calculator"
       intro="Calculate confidence intervals, margins of error, and standard errors for population means and proportions at any confidence level with complete mathematical derivations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

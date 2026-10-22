@@ -74,7 +74,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Rounding Calculator | CalcDigi"
+      title="Rounding Calculator"
       intro="Round numbers to any decimal place, nearest integer, significant figures, or fraction using standard arithmetic, bankers' rounding, floor, ceiling, and truncation modes."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

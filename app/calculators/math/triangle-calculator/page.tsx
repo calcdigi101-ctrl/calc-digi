@@ -76,7 +76,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Triangle Calculator | CalcDigi"
+      title="Triangle Calculator"
       intro="Solve any triangle using SSS, SAS, ASA, or AAS configurations. Calculate unknown sides, interior angles, area, perimeter, inradius, and circumradius with complete mathematical derivations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

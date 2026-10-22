@@ -15,6 +15,12 @@ function normalCdf(z: number): number {
 export const config: CalcConfig = {
   id: "z-score-calc",
   title: "Z-Score (Standard Score) Calculator",
+  presets: [
+    { label: "Above Average (85 vs \u03bc=75, \u03c3=10)", values: { x: 85, mean: 75, sd: 10 } },
+    { label: "Below Average (60 vs \u03bc=75, \u03c3=10)", values: { x: 60, mean: 75, sd: 10 } },
+    { label: "Exact Mean (75 vs \u03bc=75, \u03c3=10)", values: { x: 75, mean: 75, sd: 10 } },
+    { label: "High Outlier (+3\u03c3: 105)", values: { x: 105, mean: 75, sd: 10 } },
+  ],
   fields: [
     { kind: "number", key: "x", label: "Raw Value (x)", default: 85 },
     { kind: "number", key: "mean", label: "Population Mean (μ)", default: 75 },

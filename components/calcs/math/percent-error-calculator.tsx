@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "pct-error-calc",
   title: "Percent Error Calculator",
+  presets: [
+    { label: "Gravity Test (9.6 vs 9.81 m/s\u00b2)", values: { exp: 9.6, theo: 9.81 } },
+    { label: "Speed of Light (2.95 vs 3.00)", values: { exp: 2.95, theo: 3.0 } },
+    { label: "Boiling Point (98.5 vs 100\u00b0C)", values: { exp: 98.5, theo: 100 } },
+    { label: "Density Test (2.65 vs 2.70)", values: { exp: 2.65, theo: 2.7 } },
+  ],
   fields: [
     { kind: "number", key: "exp", label: "Experimental / Measured Value (E)", default: 9.6 },
     { kind: "number", key: "theo", label: "Theoretical / True Value (T)", default: 9.81 },

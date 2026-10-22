@@ -76,7 +76,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Quadratic Equation Calculator | CalcDigi"
+      title="Quadratic Equation Calculator"
       intro="Solve quadratic equations ax² + bx + c = 0 step-by-step using the quadratic formula, completing the square, discriminant analysis, and parabolic vertex derivations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

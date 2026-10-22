@@ -77,7 +77,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Percent Error Calculator | CalcDigi"
+      title="Percent Error Calculator"
       intro="Calculate absolute error, relative error, and percentage error between experimental measurements and theoretical reference standards with complete uncertainty derivations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"
