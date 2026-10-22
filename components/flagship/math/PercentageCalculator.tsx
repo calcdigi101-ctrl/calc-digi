@@ -9,6 +9,7 @@ export function PercentageCalculator() {
   const [mode, setMode] = useState<CalcMode>("part_of_whole");
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const [isCalculated, setIsCalculated] = useState(false);
 
   // Mode 1: What is X% of Y?
   const [m1Pct, setM1Pct] = useState<string>("15");
@@ -68,6 +69,12 @@ export function PercentageCalculator() {
       setShared(true);
       setTimeout(() => setShared(false), 2000);
     }
+  };
+
+  const handleCalculate = () => {
+    setIsCalculated(true);
+    syncUrl(mode);
+    setTimeout(() => setIsCalculated(false), 1500);
   };
 
   // Computations
@@ -391,6 +398,19 @@ export function PercentageCalculator() {
             </div>
           )}
 
+          {/* Primary Calculate Action */}
+          <div className="pt-2">
+            <button
+              type="button"
+              onClick={handleCalculate}
+              className="w-full h-12 flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold text-base shadow-sm hover:shadow-md transition-all cursor-pointer focus:ring-4 focus:ring-emerald-500/20 active:scale-[0.99]"
+            >
+              <Calculator className="w-5 h-5 shrink-0" />
+              <span>Calculate Percentage</span>
+              <ArrowRight className="w-4 h-4 shrink-0 ml-0.5" />
+            </button>
+          </div>
+
           {/* Reset Action */}
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
             <button
@@ -415,7 +435,14 @@ export function PercentageCalculator() {
       <div className="lg:sticky lg:top-24 lg:col-span-5 space-y-4">
         <div className="rounded-2xl border border-emerald-200/80 dark:border-emerald-900/60 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-            <span>Result</span>
+            <div className="flex items-center gap-2">
+              <span>Result</span>
+              {isCalculated && (
+                <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-950 px-2 py-0.5 rounded-full animate-pulse">
+                  Calculated!
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-1">
               <button
                 type="button"

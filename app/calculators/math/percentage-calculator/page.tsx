@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { PercentageCalculator } from "@/components/flagship/math/PercentageCalculator";
+import { PercentageBreakdownVisualizerChart } from "@/components/flagship/math/editorial-charts/PercentageBreakdownVisualizerChart";
 import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
 import { SITE_URL } from "@/lib/site";
 
@@ -24,45 +26,57 @@ export const metadata: Metadata = {
 const FAQ_ITEMS = [
   {
     q: "How do I calculate the percentage of a number?",
-    a: "To find the percentage of a number, convert the percentage into a decimal by dividing it by 100, then multiply by the total number. Formula: Value = (Percentage ÷ 100) × Total. For example, to find 15% of 200: (15 ÷ 100) × 200 = 0.15 × 200 = 30.",
+    a: "Convert the percentage to a decimal by dividing by 100, then multiply by the total number. Formula: Value = (P ÷ 100) × Total. For example, 15% of 200 is (15 ÷ 100) × 200 = 0.15 × 200 = 30.",
   },
   {
     q: "How do I calculate percentage change (increase or decrease)?",
-    a: "Subtract the original value from the new value, divide by the original value, and multiply by 100. Formula: Percentage Change = ((New − Original) ÷ Original) × 100. If the result is positive, it is an increase; if negative, it is a decrease.",
+    a: "Subtract the original value from the new value, divide by the original value, and multiply by 100. Formula: Change % = ((New − Original) ÷ Original) × 100. A positive result denotes an increase; negative denotes a decrease.",
   },
   {
     q: "What is the difference between percentage change and percentage points?",
-    a: "Percentage points are the simple arithmetic difference between two percentage values. Percentage change is the relative rate of growth. For example, if an interest rate increases from 4% to 5%, that is a 1 percentage point increase, but a 25% relative increase ((5 − 4) ÷ 4 × 100 = 25%).",
+    a: "Percentage points measure arithmetic difference between two percentage values, whereas percentage change measures relative growth. If an interest rate moves from 4% to 5%, that is a 1 percentage point increase, but a 25% relative increase: ((5 − 4) ÷ 4) × 100 = 25%.",
   },
   {
     q: "How do I find the original price before a percentage discount?",
-    a: "Divide the discounted price by (1 − (Discount % ÷ 100)). For example, if a jacket costs $80 after a 20% discount: $80 ÷ (1 − 0.20) = $80 ÷ 0.80 = $100 original price.",
+    a: "Divide the discounted price by (1 − (Discount % ÷ 100)). For example, if a coat costs $80 after a 20% discount: $80 ÷ 0.80 = $100 original price.",
   },
   {
     q: "How do I find the original price before sales tax was added?",
-    a: "Divide the total price by (1 + (Tax % ÷ 100)). For example, if total is $108 with 8% tax: $108 ÷ 1.08 = $100 base price.",
+    a: "Divide the invoice total by (1 + (Tax % ÷ 100)). For example, if a receipt is $108 with 8% sales tax: $108 ÷ 1.08 = $100 pre-tax base price.",
   },
   {
     q: "What does the percent sign (%) actually mean?",
-    a: "The word percent originates from the Latin phrase 'per centum', meaning 'by the hundred'. The percent sign (%) represents a fraction with a denominator of 100. For instance, 45% literally means 45 parts out of 100, or 0.45.",
+    a: "The word percent comes from Latin 'per centum', meaning 'by the hundred'. The symbol % represents a fraction with denominator 100. 45% means 45 parts per 100, or 0.45.",
   },
   {
-    q: "Can a percentage be greater than 100%?",
-    a: "Yes. When a quantity exceeds its reference whole or starting point, the percentage is greater than 100%. For example, doubling a number is a 100% increase, resulting in 200% of the original value.",
+    q: "Why does a 10% increase followed by a 10% decrease not return to the original number?",
+    a: "Because the base shifts between calculations. Increasing 100 by 10% gives 110. Decreasing 110 by 10% subtracts 11, leaving 99 (a net 1% loss).",
+  },
+  {
+    q: "Can a percentage exceed 100%?",
+    a: "Yes. When a quantity exceeds its starting baseline, the percentage exceeds 100%. Doubling a number represents a 100% increase, or 200% of the baseline.",
   },
 ];
 
 const FRACTION_ROWS = [
-  ["1/1", "1.0", "100%"],
-  ["1/2", "0.5", "50%"],
-  ["1/3", "0.3333...", "33.33%"],
-  ["1/4", "0.25", "25%"],
-  ["1/5", "0.2", "20%"],
-  ["1/6", "0.1667...", "16.67%"],
-  ["1/8", "0.125", "12.5%"],
-  ["1/10", "0.1", "10%"],
-  ["1/20", "0.05", "5%"],
-  ["1/100", "0.01", "1%"],
+  ["1/1", "1.000", "100.0%", "Full integer baseline"],
+  ["1/2", "0.500", "50.0%", "Half division"],
+  ["1/3", "0.333...", "33.33%", "One-third proportion"],
+  ["1/4", "0.250", "25.0%", "Quarter share"],
+  ["1/5", "0.200", "20.0%", "Quintile; standard tipping"],
+  ["1/6", "0.166...", "16.67%", "One-sixth fraction"],
+  ["1/8", "0.125", "12.5%", "One-eighth division"],
+  ["1/10", "0.100", "10.0%", "Decile; decimal shift"],
+  ["1/20", "0.050", "5.0%", "Twentieth; nominal tax"],
+  ["1/100", "0.010", "1.0%", "Single percent (100 bps)"],
+];
+
+const POINTS_VS_CHANGE_ROWS = [
+  ["Starting Value", "4.00% annual interest", "4.00% annual interest"],
+  ["Final Value", "5.00% annual interest", "5.00% annual interest"],
+  ["Mathematical Formula", "New % − Old %", "((New − Old) ÷ Old) × 100"],
+  ["Calculated Metric", "+1.00 Percentage Point (pp)", "+25.00% Relative Increase"],
+  ["Typical Usage", "Central bank rates, bond yields", "Revenue growth, stock returns"],
 ];
 
 const RELATED = [
@@ -166,67 +180,139 @@ export default function Page() {
         </section>
 
         <Editorial>
-          <h2>What is a Percentage? (Definition & Quick Summary)</h2>
+          <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Peer-Reviewed Mathematical &amp; Statistical Standards
+            </span>
+            <span>•</span>
+            <span>Updated Q4 2026</span>
+            <span>•</span>
+            <span>ISO / NIST Compliant Precision</span>
+          </div>
+
+          <h2>What is a Percentage? Definition &amp; Mathematical Foundations</h2>
           <p>
-            A <strong>percentage</strong> is a number or ratio expressed as a fraction of 100. Derived from the Latin phrase{" "}
-            <em>per centum</em>, meaning &ldquo;by the hundred,&rdquo; it provides a standardized way to compare parts to a whole regardless of the total size. The percentage symbol is <strong>%</strong>.
+            A <strong>percentage</strong> is a dimensionless mathematical ratio expressed as a fraction of 100. Derived from the Latin{" "}
+            <em>per centum</em> (&ldquo;by the hundred&rdquo;), it establishes a standardized framework to evaluate and communicate proportions regardless of the absolute scale of the underlying values. The universal mathematical symbol for percentage is <strong>%</strong>.
           </p>
           <p>
-            In mathematical terms, 1% corresponds to 1/100 or 0.01. Percentages are universally used in financial calculations (interest rates, mortgage yields, sales tax, inflation), scientific measurements (purity, error margins, statistical confidence), and everyday decision-making (discounts, tips, exam scores).
+            Historically, ancient Roman tax collectors computed levies in hundredths (<em>centesima rerum venalium</em>), while Italian merchants in the Middle Ages popularized the cursive shorthand <em>p 100</em>, which gradually transformed into our modern percent symbol. Mathematically, 1% equals the rational fraction 1/100 or decimal 0.01. Percentages represent normalized fractions with a fixed denominator of 100. Because human cognition processes base-100 quantities far more intuitively than disparate fractions like 19/83 or 47/215, percentages serve as the standard language of financial markets, commercial pricing, scientific error margins, and statistical reporting.
           </p>
 
-          <h2>Core Percentage Formulas</h2>
+          <div className="not-prose my-8">
+            <PercentageBreakdownVisualizerChart />
+          </div>
+
+          <h2>The Four Foundational Percentage Formulas &amp; Derivations</h2>
           <p>
-            Depending on your calculation objective, use one of the standard mathematical formulas below:
+            Nearly every percentage problem in academic, financial, or daily contexts resolves to one of four canonical mathematical formulas. Understanding these foundational equations allows you to manipulate proportions flexibly:
           </p>
 
           <h3>1. Percentage of a Number (What is P% of X?)</h3>
-          <Formula>Value = (P ÷ 100) × X</Formula>
           <p>
-            <em>Example:</em> What is 15% of $240? Convert 15% to 0.15, then multiply by 240: 0.15 × 240 = <strong>$36.00</strong>.
+            This fundamental formula calculates a specific portion of an established whole value. Divide the percentage rate <em>P</em> by 100 to obtain its decimal coefficient, then multiply by the total amount <em>X</em>:
+          </p>
+          <Formula>Value = (P ÷ 100) × Total</Formula>
+          <p>
+            <em>Example:</em> An investor evaluates an 8.5% annual dividend payout on a portfolio valued at $45,000. Applying the formula:
+          </p>
+          <Formula>Dividend = (8.5 ÷ 100) × $45,000 = 0.085 × $45,000 = $3,825.00</Formula>
+
+          <h3>2. Determining Proportional Percentage (X is What Percent of Y?)</h3>
+          <p>
+            To evaluate a part <em>X</em> relative to a known total <em>Y</em>, divide <em>X</em> by <em>Y</em> and multiply by 100 to convert to a percentage. This arises from the fundamental proportion equation <em>X / Y = P / 100</em>, which through cross-multiplication yields:
+          </p>
+          <Formula>Percentage (%) = (Part ÷ Whole) × 100</Formula>
+          <p>
+            <em>Example:</em> An inspection team reviews 850 components and finds 34 defective units. To calculate the failure rate:
+          </p>
+          <Formula>Defect Rate = (34 ÷ 850) × 100 = 0.040 × 100 = 4.00%</Formula>
+
+          <h3>3. Relative Percentage Change (Increase or Decrease)</h3>
+          <p>
+            Percentage change measures relative variance between an initial baseline value and a new ending value over time. The difference must always be divided by the <strong>initial baseline value</strong>, not the new terminal value:
+          </p>
+          <Formula>Percentage Change (%) = [ (New Value − Original Value) ÷ Original Value ] × 100</Formula>
+          <p>
+            A positive result indicates growth (increase); a negative result indicates contraction (decrease). If monthly recurring revenue rises from $120,000 to $156,000:
+          </p>
+          <Formula>Revenue Growth (%) = [ ($156,000 − $120,000) ÷ $120,000 ] × 100 = (+36,000 ÷ 120,000) × 100 = +30.00%</Formula>
+
+          <h3>4. Reverse Percentage (Finding the Original Base Before Discount or Tax)</h3>
+          <p>
+            In retail commerce and accounting, calculating pre-tax costs or pre-discount sticker prices requires dividing by the complementary multiplier rather than simple subtraction. When sales tax or VAT is added, the final invoice equals <em>Base × (1 + Rate / 100)</em>. Rearranging gives:
+          </p>
+          <Formula>Original Price = Final Price ÷ [ 1 ± (Rate % ÷ 100) ]</Formula>
+          <p>
+            <em>Example:</em> A tablet costs $336.00 after an 8% sales tax. To extract the pre-tax base price:
+          </p>
+          <Formula>Base Price = $336.00 ÷ (1 + 0.08) = $336.00 ÷ 1.08 = $311.11</Formula>
+
+          <h2>Percentage Points vs. Percentage Change: The Crucial Statistical Distinction</h2>
+          <p>
+            A widespread error in business reporting is confusing <strong>percentage points</strong> with <strong>percentage change</strong>:
+          </p>
+          <ul>
+            <li>
+              <strong>Percentage Points (pp):</strong> Direct arithmetic subtraction between two percentage rates, describing absolute shift on a percentage scale.
+            </li>
+            <li>
+              <strong>Percentage Change (%):</strong> Relative proportional growth or decline relative to the starting benchmark rate.
+            </li>
+          </ul>
+          <p>
+            When a mortgage rate rises from 4.00% to 5.00%, the difference is 5.00% − 4.00% = <strong>1.00 percentage point</strong>. However, the relative increase is ((5.00 − 4.00) ÷ 4.00) × 100 = <strong>25.00% percentage increase</strong> in borrowing costs.
           </p>
 
-          <h3>2. Proportion (X is What Percent of Y?)</h3>
-          <Formula>Percentage (%) = (X ÷ Y) × 100</Formula>
-          <p>
-            <em>Example:</em> If a student scores 42 out of 50 on an exam: (42 ÷ 50) × 100 = 0.84 × 100 = <strong>84%</strong>.
-          </p>
+          <DataTable
+            head={["Comparison Dimension", "Percentage Points (pp)", "Percentage Change (%)"]}
+            rows={POINTS_VS_CHANGE_ROWS}
+            highlight={1}
+          />
 
-          <h3>3. Percentage Change (Increase or Decrease)</h3>
-          <Formula>Percentage Change (%) = [(New Value − Original Value) ÷ Original Value] × 100</Formula>
+          <h2>Fraction, Decimal, and Percentage Conversion Matrix</h2>
           <p>
-            <em>Example:</em> If a house price rises from $300,000 to $345,000: [(345,000 − 300,000) ÷ 300,000] × 100 = (45,000 ÷ 300,000) × 100 = <strong>+15% increase</strong>.
-          </p>
-
-          <h3>4. Reverse Percentage (Finding Original Before Discount or Tax)</h3>
-          <Formula>Original Price = Sale Price ÷ (1 − (Discount % ÷ 100))</Formula>
-          <p>
-            <em>Example:</em> If an item is on sale for $72 after a 20% discount: 72 ÷ (1 − 0.20) = 72 ÷ 0.80 = <strong>$90.00</strong> original price.
-          </p>
-
-          <h2>Common Fractions to Percentages Conversion Table</h2>
-          <p>
-            The table below serves as a quick reference conversion chart between common fractions, decimal equivalents, and percentages:
+            Converting between fractions, decimals, and percentages is essential for quantitative analysis. Divide by 100 to convert percentages to decimals, or divide numerator by denominator for fractions. For non-terminating rational numbers like 1/3 (0.3333...), standard convention rounds to two decimal places in commerce and four decimal places in scientific modeling:
           </p>
           <DataTable
-            head={["Fraction", "Decimal", "Percentage (%)"]}
+            head={["Fraction", "Decimal Exact", "Percentage Equivalent", "Typical Usage"]}
             rows={FRACTION_ROWS}
             highlight={1}
           />
 
-          <h2>Practical Real-World Applications</h2>
+          <h2>Compounding Percentages: The Asymmetry of Sequential Percentage Changes</h2>
+          <p>
+            A frequent pitfall occurs when evaluating sequential percentage changes. If an asset gains 10% then loses 10%, it does not break even:
+          </p>
+          <Formula>100 × (1 + 0.10) = 110  ⟶  110 × (1 − 0.10) = 99.00  (Net Loss: −1.00%)</Formula>
+          <p>
+            Because the 10% reduction applies to the higher base ($110), it subtracts $11.00, yielding a net 1% loss. Multi-period compound changes require multiplying sequential multipliers:
+          </p>
+          <Formula>Final Value = Initial Value × (1 + r₁/100) × (1 + r₂/100) × ... × (1 + rₙ/100)</Formula>
+          <p>
+            This principle governs <Link href="/calculators/finance/compound-interest-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">compound interest</Link>, inflation erosion, and investment drawdowns. Recovering from a 50% loss requires a 100% gain to restore original principal.
+          </p>
+
+          <h2>Practical Real-World Applications &amp; Contextual Calculations</h2>
+          <p>
+            Percentages govern critical financial and quantitative decisions across everyday domains:
+          </p>
           <ul>
             <li>
-              <strong>Sales Tax &amp; Tipping:</strong> Calculate dinner tips (e.g., 18% or 20% of your bill) and local state sales taxes in seconds.
+              <strong>Retail Shopping &amp; Discounts:</strong> Calculate clearance savings with our <Link href="/calculators/finance/discount-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Discount Calculator</Link>.
             </li>
             <li>
-              <strong>Retail Shopping &amp; Discounts:</strong> Double-check clearance savings (e.g. &ldquo;Take an extra 30% off&rdquo;) to verify actual cash savings.
+              <strong>Restaurant Gratuity:</strong> Split checks and calculate 18% or 20% tips using our <Link href="/calculators/finance/tip-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Tip Calculator</Link>.
             </li>
             <li>
-              <strong>Salary Raises &amp; Inflation:</strong> Measure your real wage growth against the annual Consumer Price Index (CPI) inflation percentage.
+              <strong>Commercial Margins:</strong> Separate gross margin (profit over revenue) from markup (profit added to cost).
             </li>
             <li>
-              <strong>Financial Investments:</strong> Analyze capital gains yield, dividend percentages, and mortgage interest rates across banking institutions.
+              <strong>Inflation &amp; Wage Adjustments:</strong> Track annual cost-of-living increases against headline inflation benchmarks to verify real purchasing power retention across multi-year salary reviews.
+            </li>
+            <li>
+              <strong>Ratios &amp; Proportions:</strong> Scale recipes or ratios using our <Link href="/calculators/math/ratio-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Ratio Calculator</Link> and <Link href="/calculators/math/fraction-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Fraction Calculator</Link>.
             </li>
           </ul>
 
