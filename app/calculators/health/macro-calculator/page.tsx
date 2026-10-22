@@ -166,6 +166,10 @@ export default function Page() {
             rows={MACRO_ENERGY_ROWS}
           />
 
+          <div className="not-prose my-8">
+            <MacroFuelPartitioningChart />
+          </div>
+
           <h2>How Macro Grams Are Calculated</h2>
           <p>
             To convert your daily calorie intake into precise macro targets in grams, multiply your total daily calories by each nutrient's percentage split, then divide by the energy density per gram:
@@ -190,9 +194,7 @@ export default function Page() {
             rows={DIET_SPLITS}
           />
 
-          <div className="not-prose my-8">
-            <MacroFuelPartitioningChart />
-          </div>
+          
 
           <h2>Three Pillars for Successful Macro Tracking</h2>
           <ol>

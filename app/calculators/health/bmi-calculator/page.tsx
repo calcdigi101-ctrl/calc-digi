@@ -169,6 +169,10 @@ export default function Page() {
             blood pressure, blood work and family history.
           </p>
 
+          <div className="not-prose my-8">
+            <BmiQueteletPrimeChart />
+          </div>
+
           <h2>WHO BMI classification for adults</h2>
           <p>These categories apply to adults aged 20 and over, regardless of sex.</p>
           <DataTable
@@ -192,9 +196,7 @@ export default function Page() {
             highlight={1}
           />
 
-          <div className="not-prose my-8">
-            <BmiQueteletPrimeChart />
-          </div>
+          
 
           <h2>BMI formula</h2>
           <h3>Metric units</h3>

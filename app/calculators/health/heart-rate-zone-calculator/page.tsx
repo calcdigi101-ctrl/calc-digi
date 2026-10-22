@@ -90,6 +90,10 @@ export default function Page() {
             (the first ventilatory threshold VT1 / aerobic threshold, and the second ventilatory threshold VT2 / anaerobic lactate threshold).
           </p>
 
+          
+          {/* Interactive Visual Chart / Spectrum */}
+          <HeartRateZoneSpectrumChart />
+
           <h2>The Karvonen Heart Rate Reserve (HRR) Equation</h2>
           <p>
             The <strong>Karvonen formula</strong>, devised by Finnish physiologist Dr. Martti Karvonen, is the clinical gold standard
@@ -114,8 +118,6 @@ export default function Page() {
           </ul>
 
           {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
-          <HeartRateZoneSpectrumChart />
-
           <h2>The 5 Cardiovascular Training Zones Breakdown Table</h2>
           <p>
             The table below outlines the primary fuel substrates, physiological adaptations, and training times recommended across the 5 heart rate zones:

@@ -93,6 +93,10 @@ export default function Page() {
             and establish realistic clinical nutrition targets.
           </p>
 
+          
+          {/* Interactive Visual Chart / Spectrum */}
+          <IdealWeightFormulaChart />
+
           <h2>The Four Recognized Clinical Formulas</h2>
           <p>
             Over the past six decades, four mathematical regression formulas have emerged as the standard in biomedical research:
@@ -149,8 +153,6 @@ export default function Page() {
           </ul>
 
           {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
-          <IdealWeightFormulaChart />
-
           <h2>Clinical Comparison Table: Ideal Weight Across Heights</h2>
           <p>
             The table below shows the calculated consensus ideal body weight alongside the WHO healthy weight window from our <a href="/calculators/health/bmi-calculator">BMI Calculator</a> for adult heights from 5'2" to 6'2". To assess whether extra pounds are muscle or adiposity, evaluate your composition with our <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a> or explore somatic proportions using the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>:

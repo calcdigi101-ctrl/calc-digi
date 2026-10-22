@@ -90,6 +90,10 @@ export default function Page() {
             <li><strong>Joint &amp; Spinal Cushioning:</strong> Synovial fluid in knees, hips, and intervertebral discs is composed of 80% water. Dehydration reduces shock absorption, increasing joint wear and back stiffness.</li>
           </ul>
 
+          
+          {/* Interactive Visual Chart / Spectrum */}
+          <HydrationElectrolyteCurveChart />
+
           <h2>The Daily Hydration Mathematical Model</h2>
           <p>
             Clinical sports dietitians calculate total daily fluid requirements by integrating basal body mass, physical training
@@ -114,8 +118,6 @@ export default function Page() {
           </ul>
 
           {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
-          <HydrationElectrolyteCurveChart />
-
           <h2>Hydration Guidelines Table: Body Weight vs Activity</h2>
           <p>
             The table below outlines recommended daily fluid targets (including food moisture and drinking water) across different body weights and daily exercise routines:

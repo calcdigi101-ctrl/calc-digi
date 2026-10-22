@@ -92,6 +92,10 @@ export default function Page() {
             from dietary protein.
           </p>
 
+          
+          {/* Interactive Visual Chart / Spectrum */}
+          <ProteinIntakeSpectrumChart />
+
           <h2>The Clinical Protein Spectrum: RDA vs Sports Science</h2>
           <p>
             There is a vast gulf between the government RDA and the optimal athletic recommendations supported by modern sports science:
@@ -128,8 +132,6 @@ export default function Page() {
           </ul>
 
           {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
-          <ProteinIntakeSpectrumChart />
-
           <h2>Clinical Protein Requirements Across Disciplines Table</h2>
           <p>
             The table below shows validated protein recommendations across population groups and training goals based on guidelines

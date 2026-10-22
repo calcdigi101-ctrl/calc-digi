@@ -92,6 +92,10 @@ export default function Page() {
             (NEAT, ~15%), the Thermic Effect of Food (TEF, ~10%), and deliberate physical exercise (EAT, ~5% to 15%). To compute your exact daily deficit or surplus targets, pair this with our <a href="/calculators/health/calorie-calculator">Calorie Calculator</a> or <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a>, or track your metabolically active tissue using the <a href="/calculators/health/lean-body-mass-calculator">Lean Body Mass Calculator</a>.
           </p>
 
+          
+          {/* Interactive Visual Chart / Spectrum */}
+          <BmrAgeDeclineChart />
+
           <h2>Clinical BMR Equations: Mifflin-St Jeor vs Harris-Benedict</h2>
           <p>
             Medical researchers have formulated predictive mathematical models based on statistical regression analysis across
@@ -133,8 +137,6 @@ export default function Page() {
           </ul>
 
           {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
-          <BmrAgeDeclineChart />
-
           <h2>Why You Should Never Eat Below Your BMR</h2>
           <p>
             A dangerous misconception in rapid weight-loss culture is restricting food intake below resting BMR. When caloric

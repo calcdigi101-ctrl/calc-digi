@@ -135,6 +135,10 @@ export default function Page() {
             To maintain current weight, consume calories equal to your TDEE. To achieve safe, sustainable fat loss, establish a 500-calorie daily deficit using our <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a> (equivalent to 1 lb of fat loss per week). To build muscle, target a mild 250 to 500-calorie daily surplus alongside resistance training and monitor your gram ratios with the <a href="/calculators/health/macro-calculator">Macro Calculator</a>.
           </p>
 
+          <div className="not-prose my-8">
+            <CalorieMacroDeficitTrajectoryChart />
+          </div>
+
           <h2>The Mifflin-St Jeor Equation</h2>
           <p>
             The Mifflin-St Jeor equation is the international clinical benchmark for calculating human basal metabolic rate:
@@ -164,9 +168,7 @@ export default function Page() {
             highlight={2}
           />
 
-          <div className="not-prose my-8">
-            <CalorieMacroDeficitTrajectoryChart />
-          </div>
+          
 
           <h2>Macronutrient Distribution Guidelines</h2>
           <p>

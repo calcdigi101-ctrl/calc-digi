@@ -105,6 +105,10 @@ export default function Page() {
             </li>
           </ol>
 
+          
+          {/* Interactive Visual Chart / Spectrum */}
+          <TdeeActivitySpectrumChart />
+
           <h2>The Mathematical TDEE Formula</h2>
           <p>
             TDEE is calculated by establishing your resting BMR using the clinical Mifflin-St Jeor equation and then scaling it
@@ -126,8 +130,6 @@ export default function Page() {
           </ul>
 
           {/* Graph #2: Interactive visual benchmark with live mouse/touch hover */}
-          <TdeeActivitySpectrumChart />
-
           <h2>Physical Activity Level (PAL) Multiplier Guidelines</h2>
           <p>
             The table below breaks down the standardized FAO/WHO and ACSM Physical Activity Level (PAL) multipliers, step counts,
