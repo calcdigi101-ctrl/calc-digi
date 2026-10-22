@@ -81,6 +81,14 @@ export const config: CalcConfig = {
         { label: "Sample Mean (x̄)", value: fixed(mean, 2) },
         { label: "Sample Size (n)", value: String(n) },
       ],
+      chart: {
+        type: "donut",
+        title: "Confidence Level vs Risk Alpha (α)",
+        data: [
+          { name: `Confidence (${confLevel}%)`, value: Number(confLevel), color: "#10b981" },
+          { name: `Alpha Risk (${fixed(100 - Number(confLevel), 1)}%)`, value: Math.max(0.1, 100 - Number(confLevel)), color: "#f59e0b" },
+        ],
+      },
       note: {
         text: `We can be ${confLevel}% confident that the true population mean falls between ${fixed(lower, 2)} and ${fixed(upper, 2)}.`,
         tone: "neutral",

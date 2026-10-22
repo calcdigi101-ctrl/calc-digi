@@ -71,6 +71,14 @@ export const config: CalcConfig = {
         { label: "Area (A)", value: fixed(a, 4) },
       ],
       steps,
+      chart: {
+        type: "donut",
+        title: "Circle Area vs Bounding Square Waste",
+        data: [
+          { name: `Circle Area (${fixed(a, 2)})`, value: Math.max(0.01, a), color: "#10b981" },
+          { name: `Corner Waste (${fixed(Math.max(0.01, 4 * r * r - a), 2)})`, value: Math.max(0.01, 4 * r * r - a), color: "#94a3b8" },
+        ],
+      },
       note: {
         text: `Formulas: d = 2r | C = 2πr = ${fixed(c, 2)} | A = πr² = ${fixed(a, 2)}.`,
         tone: "neutral",

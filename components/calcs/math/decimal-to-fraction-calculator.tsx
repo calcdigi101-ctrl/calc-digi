@@ -56,10 +56,10 @@ export const config: CalcConfig = {
     const fractionStr = `${simNum}/${simDen}`;
 
     let mixedStr = "";
+    const wholeVal = Math.floor(Math.abs(simNum) / simDen) * sign;
+    const remVal = Math.abs(simNum) % simDen;
     if (Math.abs(simNum) >= simDen && simDen !== 1) {
-      const whole = Math.floor(Math.abs(simNum) / simDen) * sign;
-      const rem = Math.abs(simNum) % simDen;
-      if (rem > 0) mixedStr = `${whole} ${rem}/${simDen}`;
+      if (remVal > 0) mixedStr = `${wholeVal} ${remVal}/${simDen}`;
     }
 
     return {
@@ -78,6 +78,14 @@ export const config: CalcConfig = {
         { label: "Percentage Equivalent", value: `${fixed(val * 100, 2)}%` },
         { label: "Reciprocal (1/x)", value: `${simDen}/${simNum}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Integer vs Fractional Magnitude",
+        data: [
+          { name: `Whole Units (${Math.abs(wholeVal)})`, value: Math.max(0.001, Math.abs(wholeVal)), color: "#10b981" },
+          { name: `Fractional Part (${remVal}/${simDen})`, value: Math.max(0.001, remVal / simDen), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Converted with denominator 10^${decimals} = ${den} and reduced by GCF ${g}.`,
         tone: "neutral",

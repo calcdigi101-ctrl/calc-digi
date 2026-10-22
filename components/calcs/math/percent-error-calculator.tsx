@@ -48,6 +48,14 @@ export const config: CalcConfig = {
         { label: "Relative Error", value: fixed(relError, 4) },
         { label: "Experimental Accuracy Rate", value: `${fixed(accuracy, 2)}%` },
       ],
+      chart: {
+        type: "donut",
+        title: "Accuracy vs Percent Error Split",
+        data: [
+          { name: `Accuracy (${fixed(accuracy, 2)}%)`, value: Math.max(0.01, accuracy), color: "#10b981" },
+          { name: `Percent Error (${fixed(pctError, 2)}%)`, value: Math.max(0.01, pctError), color: "#f43f5e" },
+        ],
+      },
       note: {
         text: "Formula: (|Experimental − Theoretical| / |Theoretical|) × 100. Lower percent error indicates higher measurement accuracy.",
         tone: "neutral",

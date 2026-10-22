@@ -60,6 +60,14 @@ export const config: CalcConfig = {
         { label: "Truncated", value: fixed(truncVal, digits) },
         { label: "Original Input", value: String(val) },
       ],
+      chart: {
+        type: "donut",
+        title: "Value vs Rounding Delta",
+        data: [
+          { name: `Rounded Value (${fixed(rounded, digits)})`, value: Math.max(0.01, Math.abs(rounded)), color: "#10b981" },
+          { name: `Rounding Shift (${fixed(Math.abs(val - rounded), 4)})`, value: Math.max(0.0001, Math.abs(val - rounded)), color: "#f59e0b" },
+        ],
+      },
       note: {
         text: "Using standard round-half-up convention: if the succeeding digit is 5 or greater, round away from zero.",
         tone: "neutral",

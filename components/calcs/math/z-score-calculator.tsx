@@ -66,6 +66,14 @@ export const config: CalcConfig = {
         { label: "Two-tailed p-value", value: fixed(pTwoTail, 4) },
         { label: "Raw Deviation (x − μ)", value: fixed(x - mean, 2) },
       ],
+      chart: {
+        type: "donut",
+        title: "Cumulative Probability Split",
+        data: [
+          { name: `P(X ≤ ${x})`, value: Math.max(0.01, cdf * 100), color: "#10b981" },
+          { name: `P(X > ${x})`, value: Math.max(0.01, pRight * 100), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `A Z-score of ${fixed(z, 2)} means the value ${x} is ${Math.abs(z).toFixed(2)} standard deviations ${z >= 0 ? "above" : "below"} the average.`,
         tone: "neutral",

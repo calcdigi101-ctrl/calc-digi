@@ -66,6 +66,14 @@ export const config: CalcConfig = {
         { label: "Sum of Proper Divisors", value: num(properSum) },
         { label: "Smallest / Largest Factor", value: `1 and ${n}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Even vs Odd Divisors Split",
+        data: [
+          { name: `Even Divisors (${factors.filter((f) => f % 2 === 0).length})`, value: Math.max(1, factors.filter((f) => f % 2 === 0).length), color: "#10b981" },
+          { name: `Odd Divisors (${factors.filter((f) => f % 2 !== 0).length})`, value: Math.max(1, factors.filter((f) => f % 2 !== 0).length), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `${n} has ${factors.length} total divisors and prime factorization ${primeFactorStr}.`,
         tone: "neutral",

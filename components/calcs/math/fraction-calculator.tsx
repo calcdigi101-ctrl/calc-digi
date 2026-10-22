@@ -111,6 +111,14 @@ export const config: CalcConfig = {
         { label: "Percentage Equivalent", value: `${fixed(decimal * 100, 2)}%` },
         { label: "Unreduced Ratio", value: `${resNum}/${resDen}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Fraction Unit Decomposition",
+        data: [
+          { name: `Numerator Share (${Math.abs(simNum)})`, value: Math.max(0.01, Math.abs(simNum)), color: "#10b981" },
+          { name: `Denominator Span (${simDen})`, value: Math.max(0.01, simDen), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Reduced by greatest common factor (GCF = ${g}).`,
         tone: "neutral",

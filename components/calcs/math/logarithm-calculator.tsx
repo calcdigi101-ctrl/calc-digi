@@ -66,6 +66,15 @@ export const config: CalcConfig = {
         { label: "Binary Log log₂(x)", value: fixed(log2Val, 5) },
         { label: "Verification Check", value: `${baseChoice}^${fixed(logVal, 3)} ≈ ${x}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Logarithmic Bases Comparison",
+        data: [
+          { name: `Common Log₁₀ (${fixed(log10Val, 2)})`, value: Math.max(0.01, Math.abs(log10Val)), color: "#10b981" },
+          { name: `Natural Ln (${fixed(lnVal, 2)})`, value: Math.max(0.01, Math.abs(lnVal)), color: "#06b6d4" },
+          { name: `Binary Log₂ (${fixed(log2Val, 2)})`, value: Math.max(0.01, Math.abs(log2Val)), color: "#8b5cf6" },
+        ],
+      },
       note: {
         text: `Logarithm gives the power to which the base must be raised to produce ${x}.`,
         tone: "neutral",

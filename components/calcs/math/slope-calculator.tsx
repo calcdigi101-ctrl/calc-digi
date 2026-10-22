@@ -2,7 +2,7 @@
 
 import { CalcEngine } from "@/components/flagship/engine/CalcEngine";
 import type { CalcConfig } from "@/components/flagship/engine/types";
-import { fixed } from "@/components/flagship/engine/format";
+import { fixed, num } from "@/components/flagship/engine/format";
 
 export const config: CalcConfig = {
   id: "slope-calc",
@@ -82,6 +82,14 @@ export const config: CalcConfig = {
         { label: "Run (Δx)", value: fixed(dx, 2) },
         { label: "Segment Distance (d)", value: fixed(distance, 4) },
       ],
+      chart: {
+        type: "donut",
+        title: "Rise vs Run Component Proportions",
+        data: [
+          { name: `Vertical Rise |Δy| (${num(Math.abs(dy))})`, value: Math.max(0.01, Math.abs(dy)), color: "#10b981" },
+          { name: `Horizontal Run |Δx| (${num(Math.abs(dx))})`, value: Math.max(0.01, Math.abs(dx)), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Formula: m = (y₂ − y₁) / (x₂ − x₁) = ${dy} / ${dx} = ${fixed(m, 4)}.`,
         tone: "neutral",

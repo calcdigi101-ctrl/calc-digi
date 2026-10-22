@@ -59,6 +59,14 @@ export const config: CalcConfig = {
         { label: "Coefficient (1 ≤ a < 10)", value: `${sign}${fixed(coef, 6)}` },
         { label: "Exponent (b)", value: String(exp) },
       ],
+      chart: {
+        type: "donut",
+        title: "Scientific Notation Decomposition",
+        data: [
+          { name: `Normalized Coefficient (${fixed(coef, 2)})`, value: Math.max(0.1, coef), color: "#10b981" },
+          { name: `Order of Magnitude (|10^${exp}|)`, value: Math.max(0.1, Math.abs(exp) || 1), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: "Scientific notation standardizes large and microscopic numbers with a normalized coefficient between 1 and 10.",
         tone: "neutral",

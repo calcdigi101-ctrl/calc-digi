@@ -99,15 +99,11 @@ export const config: CalcConfig = {
       ],
       steps,
       chart: {
-        type: "bar",
-        title: "5-Point Summary & Central Benchmarks",
-        x: "metric",
-        series: [{ key: "value", name: "Value", color: "#10b981" }],
+        type: "donut",
+        title: "Values Above vs Below Mean",
         data: [
-          { metric: "Minimum", value: min },
-          { metric: "Median", value: median },
-          { metric: "Mean", value: Number(mean.toFixed(2)) },
-          { metric: "Maximum", value: max },
+          { name: `Values ≤ Mean (${nums.filter((x) => x <= mean).length})`, value: Math.max(1, nums.filter((x) => x <= mean).length), color: "#10b981" },
+          { name: `Values > Mean (${nums.filter((x) => x > mean).length})`, value: Math.max(1, nums.filter((x) => x > mean).length), color: "#06b6d4" },
         ],
       },
       note: {

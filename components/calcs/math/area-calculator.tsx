@@ -90,6 +90,14 @@ export const config: CalcConfig = {
         ...(perimeter > 0 ? [{ label: "Perimeter / Circumference", value: fixed(perimeter, 3) }] : []),
         { label: "Shape Selected", value: shape.toUpperCase() },
       ],
+      chart: {
+        type: "donut",
+        title: "Area vs Boundary Perimeter Magnitude",
+        data: [
+          { name: `Area (${fixed(area, 2)})`, value: Math.max(0.01, area), color: "#10b981" },
+          ...(perimeter > 0 ? [{ name: `Perimeter (${fixed(perimeter, 2)})`, value: Math.max(0.01, perimeter), color: "#06b6d4" }] : []),
+        ],
+      },
       note: {
         text: `Area calculated in square units according to standard Euclidean geometry rules.`,
         tone: "neutral",

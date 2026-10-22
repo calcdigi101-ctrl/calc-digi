@@ -85,6 +85,14 @@ export const config: CalcConfig = {
         { label: "Computed Volume", value: fixed(vol, 3), strong: true },
         ...(surfaceArea > 0 ? [{ label: "Surface Area", value: fixed(surfaceArea, 3) }] : []),
       ],
+      chart: {
+        type: "donut",
+        title: "Solid Proportions (Volume vs Surface Area)",
+        data: [
+          { name: `Internal Volume (${fixed(vol, 2)})`, value: Math.max(0.01, vol), color: "#10b981" },
+          { name: `Surface Area (${fixed(surfaceArea, 2)})`, value: Math.max(0.01, surfaceArea), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: "Volume measures total 3-dimensional space contained within the boundary faces.",
         tone: "neutral",

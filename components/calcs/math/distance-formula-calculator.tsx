@@ -73,6 +73,15 @@ export const config: CalcConfig = {
         ...(is3d ? [{ label: "Δz (Depth Span)", value: fixed(dz, 2) }] : []),
         ...(!is3d && slope2d !== null ? [{ label: "2D Line Slope (m)", value: fixed(slope2d, 4) }] : []),
       ],
+      chart: {
+        type: "donut",
+        title: "Squared Coordinate Spans (Δx² + Δy²)",
+        data: [
+          { name: `Δx² Span (${fixed(dx * dx, 2)})`, value: Math.max(0.01, dx * dx), color: "#10b981" },
+          { name: `Δy² Span (${fixed(dy * dy, 2)})`, value: Math.max(0.01, dy * dy), color: "#06b6d4" },
+          ...(is3d ? [{ name: `Δz² Span (${fixed(dz * dz, 2)})`, value: Math.max(0.01, dz * dz), color: "#8b5cf6" }] : []),
+        ],
+      },
       note: {
         text: is3d
           ? "Formula: d = √((x₂ − x₁)² + (y₂ − y₁)² + (z₂ − z₁)²)."

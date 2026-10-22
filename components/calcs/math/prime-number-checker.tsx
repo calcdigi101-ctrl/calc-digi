@@ -61,6 +61,14 @@ export const config: CalcConfig = {
           value: `${num(n)} is PRIME`,
         },
         badge: { text: "Prime Number ✓", tone: "good" },
+        chart: {
+          type: "donut",
+          title: "Divisor Distribution (Exactly 2 Factors)",
+          data: [
+            { name: "Unit Factor (1)", value: 1, color: "#10b981" },
+            { name: `Prime Factor (${num(n)})`, value: Math.min(100, Math.max(1, n)), color: "#06b6d4" },
+          ],
+        },
         rows: [
           { label: "Divisors", value: `1 and ${num(n)}`, strong: true },
           { label: "Number of Factors", value: "2" },
@@ -80,6 +88,14 @@ export const config: CalcConfig = {
           value: `${num(n)} is COMPOSITE`,
         },
         badge: { text: "Composite Number", tone: "warn" },
+        chart: {
+          type: "donut",
+          title: "Composite Factorization Breakdown",
+          data: [
+            { name: `Smallest Divisor (${smallestFactor})`, value: Math.max(1, smallestFactor || 2), color: "#10b981" },
+            { name: `Cofactor (${Math.round(n / (smallestFactor || 2))})`, value: Math.max(1, Math.round(n / (smallestFactor || 2))), color: "#f59e0b" },
+          ],
+        },
         rows: [
           { label: "Smallest Factor > 1", value: String(smallestFactor), strong: true },
           { label: "Divisibility Check", value: `${smallestFactor} × ${n / (smallestFactor || 1)} = ${n}` },

@@ -70,6 +70,14 @@ export const config: CalcConfig = {
         { label: "Greatest Common Factor (GCF)", value: String(gcf) },
         { label: "Original Input Numbers", value: nums.join(", ") },
       ],
+      chart: {
+        type: "donut",
+        title: "LCM Multiplier Proportions (LCM ÷ n)",
+        data: nums.slice(0, 5).map((x) => ({
+          name: `Multiplier for ${x} (${num(lcm / x)}×)`,
+          value: Math.max(1, lcm / x),
+        })),
+      },
       note: {
         text: `${lcm} is the smallest positive integer divisible by all numbers in the set [${nums.join(", ")}].`,
         tone: "neutral",
