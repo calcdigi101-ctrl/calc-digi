@@ -58,10 +58,10 @@ export function BacMetabolismEliminationChart() {
   const activeY = scaleY(cur.bac);
   const legalLimitY = scaleY(0.08);
 
-  const handlePointer = (e: React.PointerEvent<SVGSVGElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clientX = e.clientX - rect.left;
-    const ratio = Math.max(0, Math.min(1, (clientX - (padLeft / svgWidth) * rect.width) / ((plotW / svgWidth) * rect.width)));
+  const handlePointer = (clientX: number, rect: DOMRect) => {
+    const rawX = clientX - rect.left;
+    const clampedX = Math.max(padLeft, Math.min(svgWidth - padRight, rawX));
+    const ratio = (clampedX - padLeft) / plotW;
     const targetHour = ratio * maxHour;
 
     let bestIdx = 0;
@@ -77,25 +77,21 @@ export function BacMetabolismEliminationChart() {
   };
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
-            Widmark Zero-Order Hepatic Elimination Curve
-          </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
-            Pharmacokinetic model for 4 standard drinks consumed over 1 hour in a 170 lb adult (metabolic clearance rate: ~0.015% BAC/hour).
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <h3 className="font-bold text-slate-900 dark:text-white text-base sm:text-lg">
+              Widmark Zero-Order Hepatic Elimination Curve
+            </h3>
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Pharmacokinetic model for 4 standard drinks consumed over 1 hour in a 170 lb adult (~0.015% BAC/hour clearance rate).
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+        <div className="flex items-center gap-1.5 flex-wrap">
           {[1, 3, 5, 8].map((h) => (
             <button
               key={h}
@@ -104,18 +100,11 @@ export function BacMetabolismEliminationChart() {
                 const idx = BAC_TIMELINE.findIndex((d) => d.hour === h);
                 if (idx !== -1) setActiveIdx(idx);
               }}
-              style={{
-                padding: '4px 10px',
-                fontSize: '11px',
-                fontWeight: 600,
-                borderRadius: '6px',
-                border: 'none',
-                cursor: 'pointer',
-                background: cur.hour === h ? 'var(--c-accent)' : 'var(--c-surface)',
-                color: cur.hour === h ? '#ffffff' : 'var(--c-ink)',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-                transition: 'all 0.15s ease'
-              }}
+              className={`px-3 py-1 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
+                cur.hour === h
+                  ? 'bg-emerald-600 text-white shadow-sm'
+                  : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+              }`}
             >
               Hour {h}
             </button>
@@ -123,57 +112,76 @@ export function BacMetabolismEliminationChart() {
         </div>
       </div>
 
-      {/* SVG Interactive Chart */}
-      <div style={{ width: '100%', position: 'relative', touchAction: 'none' }}>
+      {/* Interactive SVG Canvas */}
+      <div className="relative select-none touch-none">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          style={{ width: '100%', height: 'auto', display: 'block', cursor: 'ew-resize', userSelect: 'none' }}
-          onPointerDown={handlePointer}
-          onPointerMove={(e) => { if (e.pointerType === "touch" || e.buttons > 0) handlePointer(e); }}
-          onPointerEnter={handlePointer}
+          className="w-full h-auto cursor-crosshair overflow-visible"
+          onMouseMove={(e) => handlePointer(e.clientX, e.currentTarget.getBoundingClientRect())}
+          onTouchMove={(e) => {
+            if (e.touches[0]) {
+              handlePointer(e.touches[0].clientX, e.currentTarget.getBoundingClientRect());
+            }
+          }}
         >
-          {/* Y Axis Grid */}
-          {[0.00, 0.04, 0.08, 0.12].map((b) => {
-            const y = scaleY(b);
+          {/* Horizontal Grid lines */}
+          {[0.02, 0.05, 0.08, 0.10].map((val) => {
+            const y = scaleY(val);
+            const isDui = val === 0.08;
             return (
-              <g key={b}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="var(--c-ink3)">
-                  {b.toFixed(2)}%
+              <g key={val}>
+                <line
+                  x1={padLeft}
+                  y1={y}
+                  x2={svgWidth - padRight}
+                  y2={y}
+                  stroke="currentColor"
+                  className={isDui ? 'text-rose-400 dark:text-rose-500' : 'text-slate-200 dark:text-slate-800'}
+                  strokeDasharray={isDui ? '5 3' : '3 3'}
+                  strokeWidth={isDui ? 1.5 : 1}
+                />
+                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="currentColor" className={isDui ? 'text-rose-600 font-bold' : 'text-slate-400 font-mono'}>
+                  {val.toFixed(2)}%
                 </text>
               </g>
             );
           })}
 
-          {/* Legal Limit 0.08% Reference Line */}
-          <line
-            x1={padLeft}
-            y1={legalLimitY}
-            x2={svgWidth - padRight}
-            y2={legalLimitY}
-            stroke="#ef4444"
-            strokeWidth="1.5"
-            strokeDasharray="4 2"
-          />
+          {/* Legal limit 0.08% label */}
           <text x={svgWidth - padRight} y={legalLimitY - 6} textAnchor="end" fontSize="10" fontWeight="700" fill="#ef4444">
-            0.08% Legal Driving Limit
+            0.08% Legal DUI Limit
           </text>
 
-          {/* X Axis Time (Hours) */}
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 10].map((h) => {
-            const x = scaleX(h);
+          {/* X Axis hours */}
+          {BAC_TIMELINE.map((pt) => {
+            const x = scaleX(pt.hour);
             return (
-              <g key={h}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
-                  {h}h
+              <g key={pt.hour}>
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
+                  {pt.hour}h
                 </text>
               </g>
             );
           })}
 
-          {/* BAC Curve */}
-          <path d={bacCurvePath} fill="none" stroke="var(--c-accent)" strokeWidth="3.5" strokeLinecap="round" />
+          {/* BAC Curve Area fill */}
+          <path
+            d={`${bacCurvePath} L ${scaleX(10)} ${padTop + plotH} L ${scaleX(0)} ${padTop + plotH} Z`}
+            fill="url(#bacGradient)"
+            opacity="0.15"
+          />
+
+          <defs>
+            <linearGradient id="bacGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ef4444" />
+              <stop offset="60%" stopColor="#f59e0b" />
+              <stop offset="100%" stopColor="#10b981" />
+            </linearGradient>
+          </defs>
+
+          {/* BAC Elimination Curve */}
+          <path d={bacCurvePath} fill="none" stroke="#6366f1" strokeWidth="3.5" strokeLinecap="round" />
 
           {/* Active scrubber line */}
           <line
@@ -181,36 +189,37 @@ export function BacMetabolismEliminationChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="currentColor"
+            className="text-slate-400 dark:text-slate-500"
             strokeWidth="1.5"
             strokeDasharray="4 4"
-            opacity="0.6"
           />
 
-          {/* Active Point */}
+          {/* Active Circle Point */}
           <circle cx={activeX} cy={activeY} r="6.5" fill={cur.color} stroke="#ffffff" strokeWidth="2.5" />
 
-          {/* Inverting dynamic tooltip */}
-          <g transform={`translate(${activeX > 380 ? activeX - 185 : activeX + 15}, ${Math.min(activeY, 110)})`}>
+          {/* Floating dynamic tooltip */}
+          <g transform={`translate(${activeX > 380 ? activeX - 195 : activeX + 15}, ${Math.min(activeY, 110)})`}>
             <rect
-              width="170"
-              height="88"
-              rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              width="180"
+              height="82"
+              rx="10"
+              fill="currentColor"
+              className="text-white dark:text-slate-900"
+              stroke="currentColor"
               strokeWidth="1.5"
-              filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
+              filter="drop-shadow(0 6px 16px rgba(0,0,0,0.12))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
-              Elapsed: {cur.hour} Hours
+            <text x="12" y="20" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
+              Hour {cur.hour} Post-Ingestion
             </text>
-            <text x="12" y="38" fontSize="11" fontWeight="700" fill={cur.color}>
+            <text x="12" y="38" fontSize="13" fontWeight="800" fill={cur.color}>
               BAC: {cur.bac.toFixed(3)}%
             </text>
-            <text x="12" y="54" fontSize="10" fontWeight="600" fill={cur.bac >= 0.08 ? '#ef4444' : '#10b981'}>
-              Driving: {cur.drivingLegal}
+            <text x="12" y="54" fontSize="11" fontWeight="600" fill={cur.bac >= 0.08 ? '#ef4444' : '#10b981'}>
+              {cur.drivingLegal}
             </text>
-            <text x="12" y="70" fontSize="9" fill="var(--c-ink2)">
+            <text x="12" y="70" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               {cur.impairmentStage}
             </text>
           </g>
@@ -218,47 +227,42 @@ export function BacMetabolismEliminationChart() {
       </div>
 
       {/* Scrub stats card */}
-      <div style={{
-        marginTop: '16px',
-        padding: '16px',
-        borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-        gap: '14px'
-      }}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Estimated Blood Alcohol (BAC)</span>
-          <div style={{ fontSize: '18px', fontWeight: 800, color: cur.color, marginTop: '2px' }}>
-            {cur.bac.toFixed(3)}%
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            Calculated Blood Alcohol (BAC)
+          </span>
+          <div className="text-2xl font-extrabold mt-0.5" style={{ color: cur.color }}>
+            {cur.bac.toFixed(3)}% BAC
           </div>
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
-            {cur.impairmentStage}: {cur.neurologicalStatus}
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+            Status: <strong className={cur.bac >= 0.08 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}>{cur.drivingLegal}</strong> ({cur.impairmentStage}).
           </p>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Legal Driving Compliance</span>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: cur.bac >= 0.08 ? '#ef4444' : '#10b981', marginTop: '2px' }}>
-            {cur.drivingLegal}
+          <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            Neurological State &amp; Reflexes
+          </span>
+          <div className="text-sm font-bold text-slate-900 dark:text-slate-100 mt-0.5">
+            Hour {cur.hour} Clinical Impact
           </div>
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
-            Zero-order liver clearance degrades ethanol at a constant rate of ~0.015% per hour. Neither coffee, cold showers, nor exercise speeds this enzymatic bottleneck.
+          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+            {cur.neurologicalStatus}
           </p>
         </div>
       </div>
 
-      {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
-        <div style={{ display: 'flex', gap: '16px' }}>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--c-accent)' }} /> Elimination Curve (0.015%/hr)
+      {/* Legend & Instructions */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-100 dark:border-slate-800">
+        <div className="flex items-center gap-4 flex-wrap">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-indigo-500" /> Widmark Elimination Curve
           </span>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ef4444' }} /> 0.08% DUI Threshold
+          <span className="inline-flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> 0.08% Legal DUI Limit
           </span>
         </div>
-        <span style={{ fontStyle: 'italic', fontSize: '11px' }}>Drag or tap along the horizontal axis to inspect hourly sobriety clearance.</span>
+        <span className="text-[11px] italic">Scrub across timeline to inspect sobriety progression.</span>
       </div>
     </div>
   );
