@@ -69,6 +69,14 @@ export const config: CalcConfig = {
         { label: "All Common Divisors", value: divisors.join(", ") },
         { label: "Original Input Numbers", value: nums.join(", ") },
       ],
+      chart: {
+        type: "donut",
+        title: "Input Numbers Divided by GCF",
+        data: nums.slice(0, 5).map((x) => ({
+          name: `${x} ÷ ${gcf} = ${x / gcf}`,
+          value: Math.max(1, x / gcf),
+        })),
+      },
       note: {
         text: `${gcf} is the largest positive integer that divides ${nums.join(", ")} without leaving any remainder.`,
         tone: "neutral",

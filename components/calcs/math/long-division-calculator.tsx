@@ -44,6 +44,14 @@ export const config: CalcConfig = {
         { label: "Mixed Number Form", value: remainder > 0 ? `${quotient} ${remainder}/${divisor}` : String(quotient) },
         { label: "Verification Check", value: `(${divisor} × ${quotient}) + ${remainder} = ${dividend}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Division Component Breakdown",
+        data: [
+          { name: `Quotient Multiple (${num(quotient * divisor)})`, value: Math.max(1, quotient * divisor), color: "#10b981" },
+          { name: `Remainder (${num(remainder)})`, value: Math.max(0.001, remainder), color: "#f59e0b" },
+        ],
+      },
       note: {
         text: `${dividend} ÷ ${divisor} = ${quotient} with remainder ${remainder}.`,
         tone: "neutral",

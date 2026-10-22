@@ -70,6 +70,15 @@ export const config: CalcConfig = {
         { label: "Sample Count (n)", value: String(n) },
         { label: "Sum (Σx)", value: num(sum, 4) },
       ],
+      chart: {
+        type: "donut",
+        title: "Variance & Dispersion Decomposition",
+        data: [
+          { name: "Mean Baseline", value: Math.max(0.01, Math.abs(mean)), color: "#10b981" },
+          { name: "Variance", value: Math.max(0.01, variance), color: "#f59e0b" },
+          { name: "Std Deviation (σ)", value: Math.max(0.01, stdDev), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: "Variance expresses squared dispersion from the mean. Standard deviation is the square root of variance, returning dispersion to original measurement units.",
         tone: "neutral",

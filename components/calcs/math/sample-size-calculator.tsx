@@ -68,6 +68,14 @@ export const config: CalcConfig = {
         { label: "Population Scope", value: N > 0 ? `Finite N = ${num(N)}` : "Infinite / Unknown Population" },
         { label: "Infinite Baseline n₀", value: num(Math.ceil(n0)) },
       ],
+      chart: {
+        type: "donut",
+        title: "Expected Response Proportion",
+        data: [
+          { name: `Expected Positive (${(p * 100).toFixed(0)}%)`, value: Math.max(0.01, p * 100), color: "#10b981" },
+          { name: `Expected Negative (${((1 - p) * 100).toFixed(0)}%)`, value: Math.max(0.01, (1 - p) * 100), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Surveying ${num(recommended)} randomly sampled participants guarantees your findings reflect the true population within ±${values.margin}% at ${conf}% confidence.`,
         tone: "neutral",

@@ -47,6 +47,14 @@ export const config: CalcConfig = {
           text: "Non-Negative Magnitude",
           tone: "good",
         },
+        chart: {
+          type: "donut",
+          title: "Magnitude vs Unit Scale",
+          data: [
+            { name: `Absolute |x| (${fixed(absX, 2)})`, value: Math.max(0.1, absX), color: "#10b981" },
+            { name: "Unit Anchor", value: 1, color: "#06b6d4" },
+          ],
+        },
         rows: [
           { label: "Absolute Value |x|", value: fixed(absX, 4), strong: true },
           { label: "Original Input (x)", value: String(x) },
@@ -74,6 +82,15 @@ export const config: CalcConfig = {
         badge: {
           text: "Euclidean 1D Distance",
           tone: "good",
+        },
+        chart: {
+          type: "donut",
+          title: "Point Magnitudes & Distance",
+          data: [
+            { name: `Point A (|${a}|)`, value: Math.max(0.1, Math.abs(a)), color: "#10b981" },
+            { name: `Point B (|${b}|)`, value: Math.max(0.1, Math.abs(b)), color: "#06b6d4" },
+            { name: `Distance |A−B| (${fixed(absDiff, 2)})`, value: Math.max(0.1, absDiff), color: "#f59e0b" },
+          ],
         },
         rows: [
           { label: "Distance |A − B|", value: fixed(absDiff, 4), strong: true },

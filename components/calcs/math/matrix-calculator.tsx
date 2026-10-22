@@ -97,6 +97,14 @@ export const config: CalcConfig = {
         { label: "Determinant det(B)", value: fixed(detB, 4) },
         { label: "Trace Tr(A) = a₁₁ + a₂₂", value: fixed(traceA, 2) },
       ],
+      chart: {
+        type: "donut",
+        title: "Matrix Norm Energy (Matrix A vs B)",
+        data: [
+          { name: `Matrix A L1 Norm (${fixed(Math.abs(a11) + Math.abs(a12) + Math.abs(a21) + Math.abs(a22), 1)})`, value: Math.max(0.1, Math.abs(a11) + Math.abs(a12) + Math.abs(a21) + Math.abs(a22)), color: "#10b981" },
+          { name: `Matrix B L1 Norm (${fixed(Math.abs(b11) + Math.abs(b12) + Math.abs(b21) + Math.abs(b22), 1)})`, value: Math.max(0.1, Math.abs(b11) + Math.abs(b12) + Math.abs(b21) + Math.abs(b22)), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Determinant of 2×2 matrix: det(A) = (a₁₁ × a₂₂) − (a₁₂ × a₂₁) = (${a11} × ${a22}) − (${a12} × ${a21}) = ${fixed(detA, 2)}.`,
         tone: "neutral",

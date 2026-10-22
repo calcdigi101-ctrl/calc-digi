@@ -72,6 +72,15 @@ export const config: CalcConfig = {
         { label: "Inradius (r)", value: fixed(inradius, 3) },
         { label: "Circumradius (R)", value: fixed(circumradius, 3) },
       ],
+      chart: {
+        type: "donut",
+        title: "Interior Angles Distribution (180° Total)",
+        data: [
+          { name: `Angle α (${fixed(degA, 1)}°)`, value: Math.max(0.1, degA), color: "#10b981" },
+          { name: `Angle β (${fixed(degB, 1)}°)`, value: Math.max(0.1, degB), color: "#06b6d4" },
+          { name: `Angle γ (${fixed(degC, 1)}°)`, value: Math.max(0.1, degC), color: "#8b5cf6" },
+        ],
+      },
       note: {
         text: `Sum of angles: ${fixed(degA + degB + degC, 1)}°. Semiperimeter s = ${fixed(s, 2)}.`,
         tone: "neutral",

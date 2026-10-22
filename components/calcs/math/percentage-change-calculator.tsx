@@ -52,6 +52,14 @@ export const config: CalcConfig = {
         { label: "New Value (V₂)", value: num(v2) },
       ],
       steps,
+      chart: {
+        type: "donut",
+        title: "Initial Value vs Net Change",
+        data: [
+          { name: `Initial V₁ (${num(Math.abs(v1))})`, value: Math.max(0.01, Math.abs(v1)), color: "#06b6d4" },
+          { name: `${v2 >= v1 ? "Increase" : "Decrease"} (${num(Math.abs(diff))})`, value: Math.max(0.01, Math.abs(diff)), color: v2 >= v1 ? "#10b981" : "#f43f5e" },
+        ],
+      },
       note: {
         text: `Formula: ((New − Old) / |Old|) × 100. Moving from ${v1} to ${v2} represents a ${Math.abs(pctChange).toFixed(2)}% ${isIncrease ? "increase" : "decrease"}.`,
         tone: "neutral",

@@ -76,6 +76,14 @@ export const config: CalcConfig = {
         { label: "Primary Rule Applied", value: rules[0] || "Standard IUPAC Sig Fig Rules" },
         ...(rules[1] ? [{ label: "Secondary Rule", value: rules[1] }] : []),
       ],
+      chart: {
+        type: "donut",
+        title: "Significant vs Placeholder Digits",
+        data: [
+          { name: `Significant Digits (${count})`, value: Math.max(1, count), color: "#10b981" },
+          { name: `Placeholder Digits (${Math.max(0, raw.replace(/[^0-9]/g, "").length - count)})`, value: Math.max(1, Math.max(0, raw.replace(/[^0-9]/g, "").length - count)), color: "#94a3b8" },
+        ],
+      },
       note: {
         text: "Significant figures reflect the precision and measurement uncertainty of laboratory data.",
         tone: "neutral",

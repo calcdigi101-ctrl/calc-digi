@@ -60,6 +60,14 @@ export const config: CalcConfig = {
         { label: "Smallest Generated", value: String(genMin) },
         { label: "Largest Generated", value: String(genMax) },
       ],
+      chart: {
+        type: "donut",
+        title: "Even vs Odd Distribution",
+        data: [
+          { name: `Even Numbers (${nums.filter((x) => Math.abs(x) % 2 === 0).length})`, value: Math.max(1, nums.filter((x) => Math.abs(x) % 2 === 0).length), color: "#10b981" },
+          { name: `Odd Numbers (${nums.filter((x) => Math.abs(x) % 2 !== 0).length})`, value: Math.max(1, nums.filter((x) => Math.abs(x) % 2 !== 0).length), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: "Numbers drawn uniformly across the specified integer interval.",
         tone: "neutral",

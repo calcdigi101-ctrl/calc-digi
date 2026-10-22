@@ -85,6 +85,14 @@ export const config: CalcConfig = {
         { label: "Initial Sequence Preview", value: preview.join(", ") + (n > 6 ? ", ..." : "") },
         { label: "Formula", value: type === "arithmetic" ? "aₙ = a₁ + (n − 1)d" : type === "geometric" ? "aₙ = a₁ × r^(n − 1)" : "Fₙ = Fₙ₋₁ + Fₙ₋₂" },
       ],
+      chart: {
+        type: "donut",
+        title: "First Sequence Terms Proportion",
+        data: preview.slice(0, 5).map((term, idx) => ({
+          name: `Term a_${idx + 1} (${num(term)})`,
+          value: Math.max(0.1, Math.abs(term)),
+        })),
+      },
       note: {
         text: `Progression computed up to n = ${n}.`,
         tone: "neutral",

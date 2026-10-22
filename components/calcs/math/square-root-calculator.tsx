@@ -55,6 +55,14 @@ export const config: CalcConfig = {
         { label: "Cubed Value (x³)", value: num(x * x * x) },
         { label: "Verification Check", value: `${fixed(root, 3)}^${n} ≈ ${x}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Root vs Radicand Magnitude Ratio",
+        data: [
+          { name: `Principal Root (${fixed(root, 2)})`, value: Math.max(0.1, root), color: "#10b981" },
+          { name: `Radicand x (${num(x)})`, value: Math.max(0.1, x), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `The ${n}-th root of ${x} is the number that, when multiplied by itself ${n} times, equals ${x}.`,
         tone: "neutral",

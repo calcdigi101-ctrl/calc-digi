@@ -75,6 +75,14 @@ export const config: CalcConfig = {
         tone: "good",
       },
       steps,
+      chart: {
+        type: "donut",
+        title: "Hypotenuse Area Decomposition (a² + b² = c²)",
+        data: [
+          { name: `Leg a² (${fixed(a * a, 2)})`, value: Math.max(0.01, a * a), color: "#10b981" },
+          { name: `Leg b² (${fixed(b * b, 2)})`, value: Math.max(0.01, b * b), color: "#06b6d4" },
+        ],
+      },
       rows: [
         { label: "Leg a", value: fixed(a, 3) },
         { label: "Leg b", value: fixed(b, 3) },

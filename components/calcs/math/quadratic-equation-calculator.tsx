@@ -70,6 +70,14 @@ export const config: CalcConfig = {
           { label: "Parabola Direction", value: opens },
         ],
         steps,
+      chart: {
+        type: "donut",
+        title: "Discriminant Energy Breakdown (b² vs |4ac|)",
+        data: [
+          { name: `b² Term (${fixed(b * b, 2)})`, value: Math.max(0.01, b * b), color: "#10b981" },
+          { name: `|4ac| Term (${fixed(Math.abs(4 * a * c), 2)})`, value: Math.max(0.01, Math.abs(4 * a * c)), color: "#06b6d4" },
+        ],
+      },
         note: {
           text: `Because the discriminant Δ = ${fixed(disc, 2)} is strictly positive, the parabola intersects the x-axis at two distinct real coordinates.`,
           tone: "neutral",

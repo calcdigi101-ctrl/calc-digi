@@ -44,6 +44,14 @@ export const config: CalcConfig = {
         { label: "Base Squared (x²)", value: num(x * x) },
         { label: "Base Cubed (x³)", value: num(x * x * x) },
       ],
+      chart: {
+        type: "donut",
+        title: "Power Input Balance",
+        data: [
+          { name: `Base (${x})`, value: Math.max(0.1, Math.abs(x)), color: "#10b981" },
+          { name: `Exponent (${y})`, value: Math.max(0.1, Math.abs(y)), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Exponentiation denotes repeated multiplication: ${x} multiplied by itself ${y} times.`,
         tone: "neutral",

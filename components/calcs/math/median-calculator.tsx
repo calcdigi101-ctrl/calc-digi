@@ -76,6 +76,14 @@ export const config: CalcConfig = {
         { label: "Maximum", value: String(sorted[n - 1]) },
         { label: "Full Range (Max − Min)", value: fixed(sorted[n - 1] - sorted[0], 2) },
       ],
+      chart: {
+        type: "donut",
+        title: "50th Percentile Split Around Median",
+        data: [
+          { name: `Lower Half ≤ Median (${nums.filter((x) => x <= median).length})`, value: Math.max(1, nums.filter((x) => x <= median).length), color: "#10b981" },
+          { name: `Upper Half > Median (${nums.filter((x) => x > median).length})`, value: Math.max(1, nums.filter((x) => x > median).length), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: "The median divides your sorted sample in exact halves. When data contains extreme high or low outliers, the median and IQR provide a more reliable measure than the mean.",
         tone: "neutral",

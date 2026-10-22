@@ -57,6 +57,14 @@ export const config: CalcConfig = {
         { label: "Total Decimal Digits", value: String(approxDigits) },
         { label: "Calculation Formula", value: n === 0 ? "0! = 1 by convention" : `1 × 2 × ... × ${n}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Factorial Digits Composition",
+        data: [
+          { name: `Significant Digits (${Math.max(1, approxDigits - zeros)})`, value: Math.max(1, Math.max(1, approxDigits - zeros)), color: "#10b981" },
+          { name: `Trailing Zeros (${zeros})`, value: Math.max(1, zeros || 1), color: zeros > 0 ? "#06b6d4" : "#cbd5e1" },
+        ],
+      },
       note: {
         text: `Factorial represents the total number of unique ways to arrange ${n} distinct items in a sequence.`,
         tone: "neutral",

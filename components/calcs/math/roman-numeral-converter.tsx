@@ -90,8 +90,24 @@ export const config: CalcConfig = {
       const n = Math.floor(Number(values.arabic));
       if (n < 1 || n > 3999) return { error: "Roman numerals conventionally support numbers between 1 and 3,999." };
       const rom = toRoman(n);
+      const thousands = Math.floor(n / 1000) * 1000;
+      const hundreds = Math.floor((n % 1000) / 100) * 100;
+      const tens = Math.floor((n % 100) / 10) * 10;
+      const units = n % 10;
+      const placeData = [
+        { name: `Thousands (${thousands})`, value: thousands, color: "#10b981" },
+        { name: `Hundreds (${hundreds})`, value: hundreds, color: "#06b6d4" },
+        { name: `Tens (${tens})`, value: tens, color: "#f59e0b" },
+        { name: `Units (${units})`, value: units, color: "#8b5cf6" },
+      ].filter((d) => d.value > 0);
+
       return {
         hero: { label: "Roman Numeral", value: rom },
+        chart: {
+          type: "donut",
+          title: "Decimal Place-Value Breakdown",
+          data: placeData.length > 0 ? placeData : [{ name: "Value", value: 1, color: "#10b981" }],
+        },
         badge: { text: `Arabic Value: ${n}`, tone: "good" },
         rows: [
           { label: "Roman Numeral", value: rom, strong: true },
@@ -106,8 +122,24 @@ export const config: CalcConfig = {
       const raw = String(values.roman || "").trim().toUpperCase();
       const numVal = fromRoman(raw);
       if (isNaN(numVal) || numVal <= 0) return { error: "Please enter valid Roman numeral symbols (I, V, X, L, C, D, M)." };
+      const thousandsVal = Math.floor(numVal / 1000) * 1000;
+      const hundredsVal = Math.floor((numVal % 1000) / 100) * 100;
+      const tensVal = Math.floor((numVal % 100) / 10) * 10;
+      const unitsVal = numVal % 10;
+      const placeDataVal = [
+        { name: `Thousands (${thousandsVal})`, value: thousandsVal, color: "#10b981" },
+        { name: `Hundreds (${hundredsVal})`, value: hundredsVal, color: "#06b6d4" },
+        { name: `Tens (${tensVal})`, value: tensVal, color: "#f59e0b" },
+        { name: `Units (${unitsVal})`, value: unitsVal, color: "#8b5cf6" },
+      ].filter((d) => d.value > 0);
+
       return {
         hero: { label: "Standard Integer", value: String(numVal) },
+        chart: {
+          type: "donut",
+          title: "Decimal Place-Value Breakdown",
+          data: placeDataVal.length > 0 ? placeDataVal : [{ name: "Value", value: 1, color: "#10b981" }],
+        },
         badge: { text: `Roman: ${raw}`, tone: "good" },
         rows: [
           { label: "Decimal Integer", value: String(numVal), strong: true },

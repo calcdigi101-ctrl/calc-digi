@@ -76,6 +76,14 @@ export const config: CalcConfig = {
         { label: "A (dec)", value: `${b1} = ${d1}` },
         { label: "B (dec)", value: `${b2} = ${d2}` },
       ],
+      chart: {
+        type: "donut",
+        title: "Operand Values (Decimal Scale)",
+        data: [
+          { name: `Operand 1 (${num(d1)})`, value: Math.max(1, d1), color: "#10b981" },
+          { name: `Operand 2 (${num(d2)})`, value: Math.max(1, d2), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Binary arithmetic performed in radix 2. ${b1} (${d1}) ${op} ${b2} (${d2}) = ${resBin} (${resDec}).`,
         tone: "neutral",

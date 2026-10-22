@@ -86,6 +86,17 @@ export const config: CalcConfig = {
         ...(lateralArea > 0 ? [{ label: "Lateral Surface Area", value: fixed(lateralArea, 3) }] : []),
         { label: "Internal Volume", value: fixed(volume, 3) },
       ],
+      chart: {
+        type: "donut",
+        title: "Surface Area Facet Distribution",
+        data:
+          lateralArea > 0 && totalArea - lateralArea > 0
+            ? [
+                { name: `Lateral Area (${fixed(lateralArea, 2)})`, value: Math.max(0.01, lateralArea), color: "#10b981" },
+                { name: `Base Area (${fixed(totalArea - lateralArea, 2)})`, value: Math.max(0.01, totalArea - lateralArea), color: "#06b6d4" },
+              ]
+            : [{ name: `Total Surface Area (${fixed(totalArea, 2)})`, value: Math.max(0.01, totalArea), color: "#10b981" }],
+      },
       note: {
         text: "Surface area encompasses the sum of all exposed external boundary faces.",
         tone: "neutral",

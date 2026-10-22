@@ -61,6 +61,14 @@ export const config: CalcConfig = {
         { label: "Unordered Combinations (nCr)", value: num(c) },
         { label: "Formula Applied", value: "n! / (n − r)!" },
       ],
+      chart: {
+        type: "donut",
+        title: "Arrangement Selection Proportion (r of n)",
+        data: [
+          { name: `Arranged Items (r = ${r})`, value: Math.max(1, r), color: "#10b981" },
+          { name: `Remaining Pool (n − r = ${n - r})`, value: Math.max(1, n - r), color: "#94a3b8" },
+        ],
+      },
       note: {
         text: `There are ${num(p)} ordered arrangements of ${r} items chosen from ${n}.`,
         tone: "neutral",

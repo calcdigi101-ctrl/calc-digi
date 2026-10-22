@@ -78,7 +78,15 @@ export const config: CalcConfig = {
           { label: "Operand B Length", value: `${rawB.length} digits` },
           { label: "Precision Guarantee", value: "Exact 100% loss-free integer arithmetic" },
         ],
-        note: {
+        chart: {
+        type: "donut",
+        title: "Input Operand Digit Proportions",
+        data: [
+          { name: `Operand A (${rawA.length} Digits)`, value: Math.max(1, rawA.length), color: "#10b981" },
+          { name: `Operand B (${rawB.length} Digits)`, value: Math.max(1, rawB.length), color: "#06b6d4" },
+        ],
+      },
+      note: {
           text: "Computed using JavaScript native BigInt for arbitrary-precision mathematical operations.",
           tone: "neutral",
         },

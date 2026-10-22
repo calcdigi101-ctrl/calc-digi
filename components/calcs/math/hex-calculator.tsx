@@ -74,6 +74,14 @@ export const config: CalcConfig = {
         { label: "Operand A", value: `0x${h1.toUpperCase()} (${d1})` },
         { label: "Operand B", value: `0x${h2.toUpperCase()} (${d2})` },
       ],
+      chart: {
+        type: "donut",
+        title: "Operand Values (Decimal Scale)",
+        data: [
+          { name: `Operand A (${num(d1)})`, value: Math.max(1, d1), color: "#10b981" },
+          { name: `Operand B (${num(d2)})`, value: Math.max(1, d2), color: "#06b6d4" },
+        ],
+      },
       note: {
         text: `Hexadecimal radix 16 arithmetic.`,
         tone: "neutral",

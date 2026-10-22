@@ -62,6 +62,14 @@ export const config: CalcConfig = {
         { label: "Difference Ratio (nPr ÷ nCr = r!)", value: `${r}! = ${num(Math.round(p / (c || 1)))}` },
         { label: "Formula Applied", value: "n! / [r!(n − r)!]" },
       ],
+      chart: {
+        type: "donut",
+        title: "Subset Selection Proportion (r of n)",
+        data: [
+          { name: `Selected Items (r = ${r})`, value: Math.max(1, r), color: "#10b981" },
+          { name: `Unselected Pool (n − r = ${n - r})`, value: Math.max(1, n - r), color: "#94a3b8" },
+        ],
+      },
       note: {
         text: `There are ${num(c)} unique unordered combinations of ${r} items selected from a pool of ${n}.`,
         tone: "neutral",
