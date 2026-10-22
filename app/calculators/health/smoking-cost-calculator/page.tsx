@@ -1,148 +1,207 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
 import SmokingCostCalculator from "@/components/calcs/health/smoking-cost-calculator";
-import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
-import { DataTable, Formula } from "@/components/flagship/shell";
+import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
 import { SmokingCompoundWealthLossChart } from "@/components/flagship/health/editorial-charts/SmokingCompoundWealthLossChart";
+import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/smoking-cost-calculator";
 const TITLE = "Smoking Cost Calculator – Financial Toll & Compound Wealth | CalcDigi";
 const DESCRIPTION =
   "Calculate the true financial and physiological cost of smoking. See daily, annual, and lifetime costs, alongside compounded investment returns and the CDC healing timeline.";
 
-export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: PATH },
+};
 
 const CDC_HEALING_TIMELINE_TABLE = [
   {
     elapsedTime: "20 Minutes",
-    physiologicalRecovery: "Heart rate and systemic blood pressure drop toward baseline; peripheral capillary perfusion begins recovering.",
-    clinicalMilestone: "Immediate cessation of acute nicotine-induced sympathetic nervous vasoconstriction.",
+    physiologicalRecovery: "Heart rate and blood pressure drop toward baseline; capillary blood flow improves.",
+    clinicalMilestone: "Cessation of acute nicotine vasoconstriction.",
   },
   {
     elapsedTime: "12 Hours",
-    physiologicalRecovery: "Carbon monoxide (CO) concentration in blood drops to normal physiological levels (below 10 ppm).",
-    clinicalMilestone: "Hemoglobin oxygen-carrying capacity normalizes, alleviating tissue hypoxia.",
+    physiologicalRecovery: "Blood carbon monoxide (CO) drops below 10 ppm.",
+    clinicalMilestone: "Hemoglobin oxygen transport normalizes, relieving hypoxia.",
   },
   {
-    elapsedTime: "2 Weeks to 3 Months",
-    physiologicalRecovery: "Pulmonary forced expiratory volume (FEV1) increases by up to 30%; peripheral circulation improves significantly.",
-    clinicalMilestone: "Coughing and shortness of breath decrease; bronchial ciliary clearance reactivates.",
+    elapsedTime: "2 Wks to 3 Mos",
+    physiologicalRecovery: "Forced expiratory volume (FEV1) and arterial circulation improve up to 30%.",
+    clinicalMilestone: "Coughing decreases; bronchial ciliary clearance reactivates.",
   },
   {
     elapsedTime: "1 to 2 Years",
-    physiologicalRecovery: "Excess relative risk of coronary heart disease (myocardial infarction) drops by 50% compared to continuing smokers.",
-    clinicalMilestone: "Arterial endothelial inflammation resolves; thrombotic plaque stability improves.",
+    physiologicalRecovery: "Excess risk of myocardial infarction drops by 50% vs continuing smokers.",
+    clinicalMilestone: "Arterial endothelial inflammation substantially resolves.",
   },
   {
     elapsedTime: "5 to 10 Years",
-    physiologicalRecovery: "Stroke risk drops to that of a lifetime non-smoker; oral, throat, and esophageal cancer risks fall by half.",
-    clinicalMilestone: "Substantial regression of premalignant squamous cell dysplastic lesions.",
+    physiologicalRecovery: "Stroke risk drops to non-smoker levels; oral and throat cancer risks fall by half.",
+    clinicalMilestone: "Regression of premalignant squamous cell lesions.",
   },
   {
     elapsedTime: "15 Years",
-    physiologicalRecovery: "Coronary heart disease risk drops to the equivalent level of a lifetime non-smoker.",
-    clinicalMilestone: "Full normalization of cardiovascular mortality hazard.",
+    physiologicalRecovery: "Coronary heart disease risk matches that of a lifetime non-smoker.",
+    clinicalMilestone: "Full normalization of cardiovascular mortality risk.",
   },
 ];
 
 const HIDDEN_COSTS_TABLE = [
-  { expenseCategory: "Direct Cigarette Purchases", annualImpact: "$2,900 – $5,200", lifetimeImpact: "$87,000 – $156,000", description: "Direct retail expenditure on tobacco packs, excise taxes, and smoking paraphernalia." },
-  { expenseCategory: "Life Insurance Premiums", annualImpact: "$1,200 – $3,500", lifetimeImpact: "$36,000 – $105,000", description: "Smokers pay 200% to 400% higher term and whole-life insurance underwriting rates." },
-  { expenseCategory: "Out-of-Pocket Healthcare & Dental", annualImpact: "$800 – $2,400", lifetimeImpact: "$24,000 – $72,000", description: "Higher deductibles, periodontal disease treatment, respiratory medication copays, and doctor visits." },
-  { expenseCategory: "Homeowners / Renters Insurance", annualImpact: "$200 – $500", lifetimeImpact: "$6,000 – $15,000", description: "Surcharges for residential fire hazard originating from unextinguished tobacco ashes." },
-  { expenseCategory: "Automobile Resale Depreciation", annualImpact: "$300 – $600 amortized", lifetimeImpact: "$9,000 – $18,000", description: "Permanent smoke residue and upholstery odor slashes vehicle trade-in and private resale valuation." },
+  { expenseCategory: "Direct Cigarette Purchases", annualImpact: "$2,900 – $5,200", lifetimeImpact: "$87,000 – $156,000", description: "Direct retail expenditure on tobacco packs and excise taxes." },
+  { expenseCategory: "Life Insurance Premiums", annualImpact: "$1,200 – $3,500", lifetimeImpact: "$36,000 – $105,000", description: "Smokers pay 200% to 400% higher life insurance underwriting rates." },
+  { expenseCategory: "Healthcare & Dental Out-of-Pocket", annualImpact: "$800 – $2,400", lifetimeImpact: "$24,000 – $72,000", description: "Higher deductibles, periodontal therapy, copays, and prescriptions." },
+  { expenseCategory: "Homeowners & Renters Insurance", annualImpact: "$200 – $500", lifetimeImpact: "$6,000 – $15,000", description: "Surcharges for residential fire hazard from unextinguished ashes." },
+  { expenseCategory: "Automobile Resale Depreciation", annualImpact: "$300 – $600", lifetimeImpact: "$9,000 – $18,000", description: "Permanent thirdhand smoke residue slashes vehicle resale value." },
+];
+
+const FAQ = [
+  {
+    q: "How much does a pack-a-day smoker spend annually in the US?",
+    a: "With US cigarette packs averaging between $8.00 and $11.00 (and over $14.00 in states like New York), a pack-a-day smoker spends between $2,920 and $4,015 annually in direct cash outflows alone.",
+  },
+  {
+    q: "What is the 20-year compounded opportunity cost of smoking?",
+    a: "Redirecting a daily $9.00 cigarette habit ($274/month or $3,285/year) into an S&P 500 index fund compounding at an average historical return of 7% grows to ~$48,600 in 10 years, ~$144,000 in 20 years, and over $330,000 in 30 years.",
+  },
+  {
+    q: "What are the secondary hidden costs of smoking?",
+    a: "Secondary costs include 2x to 4x higher life insurance premiums ($1,500+/yr), dental procedures for periodontal disease, increased medical copays, reduced vehicle trade-in values, and property insurance surcharges.",
+  },
+  {
+    q: "How quickly does the body recover after smoking cessation?",
+    a: "Cardiovascular recovery starts within 20 minutes (blood pressure normalizes), carbon monoxide clears within 12 hours, lung capacity improves within weeks, and heart attack risk drops by 50% after 1 year.",
+  },
+  {
+    q: "Which clinical cessation methods offer the highest success rates?",
+    a: "Combining pharmacotherapy (varenicline or dual-agent nicotine replacement therapy—patch plus gum/lozenge) with behavioral counseling yields 30% to 35% long-term abstinence, compared to under 5% for cold turkey.",
+  },
 ];
 
 export default function SmokingCostPage() {
+  const graph: object[] = [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Health & Fitness Calculators", item: `${SITE_URL}/pages/health` },
+        { "@type": "ListItem", position: 3, name: TITLE, item: `${SITE_URL}${PATH}` },
+      ],
+    },
+    {
+      "@type": "WebApplication",
+      name: TITLE,
+      url: `${SITE_URL}${PATH}`,
+      description: DESCRIPTION,
+      applicationCategory: "HealthApplication",
+      operatingSystem: "Any",
+      browserRequirements: "Requires JavaScript",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    },
+    {
+      "@type": "MedicalWebPage",
+      name: TITLE,
+      url: `${SITE_URL}${PATH}`,
+      description: DESCRIPTION,
+      aspect: ["Overview", "Calculation", "Clinical Guidelines", "Reference Ranges"],
+      medicalAudience: "Patients and Health Consumers",
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    },
+  ];
+
   return (
-    <CalcPage
-      path={PATH}
-      category={{ href: "/pages/health", label: "Health & Fitness" }}
-      title="Smoking Cost Calculator"
-      intro="Uncover the true financial, opportunity, and health cost of tobacco consumption. Track how redirecting cigarette expenditures into compounded index investing builds life-changing wealth while your body heals."
-      description={DESCRIPTION}
-      appCategory="HealthApplication"
-      mathExpression="\text{Future Wealth} = \text{Annual Outflow} \cdot \frac{(1 + r)^n - 1}{r} \cdot (1 + r)"
-      related={[
-        { href: "/calculators/health/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Units" },
-        { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How much money does a pack-a-day smoker spend per year in the United States?",
-          a: "With the national average cost of a cigarette pack ranging between $8.00 and $11.00 (and exceeding $14.00 to $16.00 in high-tax jurisdictions like New York, Massachusetts, and Connecticut), a pack-a-day smoker spends between $2,920 and $4,015 annually in direct cash outflows alone. In major metropolitan areas, this easily surpasses $5,000 per year.",
-        },
-        {
-          q: "What is the true 20-year compounded opportunity cost of smoking?",
-          a: "If a pack-a-day smoker redirects their daily $9.00 cigarette expenditure ($274/month or $3,285/year) into a broad-market S&P 500 index fund compounding at an average historical return of 7% per year, the portfolio grows to approximately $48,600 in 10 years, $144,000 in 20 years, and over $332,000 in 30 years. Smoking is not merely a $9/day habit; it is a $330,000 drain on your retirement security.",
-        },
-        {
-          q: "What are the hidden secondary costs of smoking beyond pack prices?",
-          a: "The indirect costs of smoking often exceed direct purchase prices: 1) Life insurance premiums are 2x to 4x higher for smokers, costing an extra $1,500 to $3,500 annually; 2) Increased healthcare deductibles, dental procedures for periodontal disease, and prescription copays cost roughly $1,500/year; 3) Vehicles owned by smokers lose $1,000 to $3,000 in resale value due to thirdhand smoke residue in upholstery and air filtration systems; and 4) Homeowners insurance policies carry an active fire hazard surcharge of 10% to 20%.",
-        },
-        {
-          q: "How soon do cardiovascular and cancer risks decrease after quitting?",
-          a: "Cardiovascular recovery begins almost immediately: blood pressure drops within 20 minutes, carbon monoxide clears from hemoglobin within 12 hours, and lung function improves within 2 to 12 weeks. Most profoundly, after just 1 year of cessation, excess risk of heart attack drops by 50%. After 5 years, stroke risk matches that of a non-smoker. After 10 years, lung cancer mortality falls to half that of a continuing smoker.",
-        },
-        {
-          q: "What are the most clinically effective smoking cessation methods?",
-          a: "Clinical guidelines from the US Public Health Service indicate that combining pharmacotherapy with behavioral counseling yields the highest cessation success rates (up to 30–35% long-term abstinence compared to only 3–5% for unassisted cold-turkey attempts). FDA-approved first-line medications include varenicline (Chantix), bupropion SR (Zyban), and combination Nicotine Replacement Therapy (NRT)—pairing a long-acting transdermal nicotine patch with a rapid-acting gum, lozenge, or inhaler.",
-        },
-        {
-          q: "Where can I find free clinical resources to help me quit smoking?",
-          a: "In the United States, free evidence-based assistance is available 24/7 by calling 1-800-QUIT-NOW (1-800-784-8669) or visiting Smokefree.gov. State quitlines offer free one-on-one coaching, personalized quit plans, and frequently provide complimentary 2- to 4-week starter courses of nicotine patches and gum.",
-        },
-      ]}
-    >
-      <SmokingCostCalculator />
+    <>
+      <JsonLd data={{ "@context": "https://schema.org", "@graph": graph }} />
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
-        {/* Clinical Byline */}
-        <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <span className="font-bold text-slate-900 dark:text-slate-100">Health Economics &amp; Cessation Review:</span> Calibrated to CDC Office on Smoking and Health (OSH) epidemiology, US Surgeon General&apos;s Reports, and S&amp;P 500 compound wealth models.
-          </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Actuarial Standards</div>
-        </div>
+      <CalculatorPage
+        crumbs={[{ href: "/", label: "Home" }, { href: "/pages/health", label: "Health & Fitness" }, { label: "Smoking Cost Calculator" }]}
+        title="Smoking Cost Calculator"
+        intro="Uncover the true financial, opportunity, and physiological cost of tobacco consumption. Track how redirecting cigarette expenditures into compounded index investing builds life-changing wealth while your body heals."
+      >
+        {/* SECTION 1: Calculator Input Widget & Result Panel (Top Hero Area) */}
+        <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
+          <SmokingCostCalculator />
+        </Suspense>
 
-        {/* Section 1: The Macroeconomics of Tobacco */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            The Macroeconomics of Tobacco: The True Financial Drain
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Smoking is widely recognized as the leading cause of preventable morbidity and premature mortality worldwide, accounting for over 480,000 deaths annually in the United States alone. However, its economic destruction is equally devastating. Tobacco creates a silent, relentless compounding drain on personal wealth that deprives working individuals of financial security and early retirement.
-          </p>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            When an individual purchases a pack of cigarettes for $9.00 every day, they are not merely spending $3,285 per calendar year. Due to the mathematical law of compound interest, that uninvested cash represents hundreds of thousands of dollars in foregone capital growth. Over a 30-year working career, an everyday smoking habit incinerates more than <strong>$330,000</strong> in potential investment assets.
-          </p>
-        </section>
-
-        {/* Section 2: Interactive Editorial Graph #2 */}
-        <section className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-              Interactive Compounded Wealth vs. Direct Cash Outflow
+        {/* SECTION 2: Related Calculators Section (Directly Below Calculator/Result) */}
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>⚡</span> Related Calculators
             </h2>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
-              Interactive Model
-            </span>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
           </div>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Contrast the linear erosion of cash spent on cigarettes against the exponential curve of compound investment wealth. Scrub across Year 1 through Year 30 to observe portfolio values and corresponding CDC biological recovery milestones:
-          </p>
-          <SmokingCompoundWealthLossChart />
+          <RelatedLinks
+            links={[
+              { href: "/calculators/health/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Units" },
+              { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
+              { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
+              { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+              { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
+              { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+            ]}
+          />
         </section>
 
-        {/* Section 3: The Complete Cost Breakdown */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            The Actuarial Reality: Hidden Secondary Costs of Smoking
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Actuarial tables reveal that retail cigarette purchases represent less than 60% of the true financial burden borne by tobacco users:
+        {/* SECTION 3: Educational Content & Visual Data Section (Main Body) */}
+        <Editorial>
+          {/* Trust Badge Bar */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Clinically Verified
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Calibrated against <strong className="font-semibold text-slate-800 dark:text-slate-200">CDC OSH &amp; Actuarial Models</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Health Economics Review</span>
+              <span className="text-slate-300 dark:text-slate-700">•</span>
+              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Q4 2026</span>
+            </div>
+          </div>
+
+          {/* Part A - Primary Introduction */}
+          <h2>What is the True Financial &amp; Physical Cost of Smoking?</h2>
+          <p>
+            Tobacco consumption is recognized by the World Health Organization (WHO) and the Centers for Disease Control and Prevention (CDC) as the single leading preventable cause of disease and premature mortality worldwide, accounting for over 480,000 annual fatalities in the United States alone. Beyond this severe clinical devastation lies an equally destructive economic consequence: cigarette smoking operates as an aggressive compounding drag on personal wealth.
+          </p>
+          <p>
+            When an individual buys a pack of cigarettes for $9.00 each day, the financial toll is not confined to the $3,285 spent out-of-pocket annually. Due to the compounding power of investment returns, that diverted cash represents hundreds of thousands of dollars in lost net worth. Over a 30-year working career, an everyday pack-a-day habit forfeits more than <strong>$330,000</strong> in real capital growth—funds capable of funding full retirement or paying off a residential mortgage.
+          </p>
+
+          {/* Part B - Interactive Chart / Visual Continuum */}
+          <div className="not-prose my-8">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                Interactive Compounded Wealth vs. Direct Cash Outflow
+              </h3>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+                Interactive Model
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
+              Scrub across Year 1 through Year 30 to observe portfolio compounding versus linear cigarette spend, paired with corresponding biological recovery milestones.
+            </p>
+            <SmokingCompoundWealthLossChart />
+          </div>
+
+          {/* Part C - Core Reference Content */}
+          <h2>The Actuarial Reality: Hidden Secondary Costs of Smoking</h2>
+          <p>
+            Actuarial data reveals that direct retail pack purchases represent only about 55% to 60% of the true financial burden absorbed by smokers. Significant indirect expenses quietly amplify the cumulative economic toll:
           </p>
           <DataTable
             head={["Expense Category", "Estimated Annual Cost", "30-Year Cumulative Toll", "Underwriting & Actuarial Etiology"]}
@@ -153,15 +212,10 @@ export default function SmokingCostPage() {
               row.description,
             ])}
           />
-        </section>
 
-        {/* Section 4: CDC Healing Timeline */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            The CDC Healing Timeline: How the Body Rebuilds
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            From the moment the final cigarette is extinguished, the human body commences an extraordinary biological cascade of cellular detoxification and vascular repair:
+          <h2>The CDC Healing Timeline: How the Human Body Detoxifies</h2>
+          <p>
+            From the exact moment a cigarette is extinguished, the human body commences an immediate, self-repairing biological cascade. Arterial tone recovers, cellular hypoxia resolves, and chronic disease hazard curves decline toward non-smoker levels:
           </p>
           <DataTable
             head={["Time Since Cessation", "Physiological Tissue Recovery", "Clinical Health Outcome"]}
@@ -171,108 +225,58 @@ export default function SmokingCostPage() {
               row.clinicalMilestone,
             ])}
           />
-        </section>
 
-        {/* Section 5: Clinical Cessation Strategies */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Evidence-Based Cessation: Medical Protocols That Work
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Quitting tobacco through willpower alone has a 12-month success rate of less than 5%. Modern clinical protocols dramatically amplify long-term success:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Combination Nicotine Replacement (NRT)</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Combining a steady baseline transdermal patch (21 mg, 14 mg, or 7 mg) with an ad-libitum rapid delivery agent (nicotine gum or lozenges for acute craving breakthrough) doubles long-term quit rates compared to single-agent NRT.
-              </p>
-            </div>
-            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Targeted Pharmacotherapy (Varenicline)</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Varenicline acts as a partial agonist at alpha-4 beta-2 nicotinic acetylcholine receptors, stimulating moderate dopamine release to alleviate withdrawal while competitively blocking inhaled nicotine from binding, neutralizing smoking&apos;s reward mechanism.
-              </p>
-            </div>
-          </div>
-        </section>
-      
-        
-          <h2>Physiological Recovery &amp; Long-Term Economic Compounding</h2>
+          <h2>The Mathematical Compounding Wealth Formula</h2>
           <p>
-            The health dividends of smoking cessation begin within minutes of extinguishing your final cigarette. Clinical data from the World Health Organization (WHO) and the US Surgeon General demonstrate that cardiovascular, pulmonary, and oncological risk curves reverse rapidly following cessation:
+            The future wealth accrued by redirecting cigarette expenditures into diversified broad-market index funds is determined using the future value of an ordinary annuity formula compounded annually:
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+          <Formula>Future Wealth = Annual Outflow × [((1 + r)^n − 1) ÷ r] × (1 + r)</Formula>
+          <p>
+            Where <em>Annual Outflow</em> represents 365 days of cigarette expenditures, <em>r</em> is the annual real market return rate (historically ~7.0% for the S&amp;P 500 index adjusted for inflation), and <em>n</em> represents the accumulation duration in years.
+          </p>
+
+          <h2>Evidence-Based Cessation: Clinical Protocols That Work</h2>
+          <p>
+            Attempting to quit cold turkey relying solely on willpower produces a 12-month long-term abstinence rate of under 5%, largely due to intense neurobiological nicotine receptor withdrawal. The US Public Health Service guidelines recommend evidence-based protocols that elevate success rates up to 30% to 35%:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6 not-prose">
             <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Cardiovascular &amp; Pulmonary Milestones</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">Combination Nicotine Replacement (NRT)</h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                At 20 minutes, heart rate and blood pressure normalize. At 12 hours, blood carbon monoxide drops to baseline. Between 2 weeks and 3 months, circulation and forced expiratory volume (FEV1) improve by up to 30%. At 1 year, excess coronary heart disease risk drops by 50%, and at 5 years, stroke hazard mirrors that of a lifelong non-smoker.
+                Combining a steady baseline transdermal patch with an ad-libitum rapid-delivery agent (nicotine gum or lozenges for acute craving breakthrough) doubles long-term quit rates compared to single-agent NRT by sustaining basal receptor tone while managing sudden cravings.
               </p>
             </div>
             <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Life &amp; Health Insurance Dividend</h3>
+              <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mb-2">Targeted Pharmacotherapy (Varenicline)</h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Term life insurance premiums for verified non-smokers are typically 50% to 70% lower than identical policies for active smokers, saving between $1,200 and $3,500 annually. Additionally, medical dental claims decrease dramatically due to reduced periodontal disease and oral tissue healing.
+                Varenicline acts as a partial agonist at alpha-4 beta-2 nicotinic acetylcholine receptors, stimulating moderate dopamine release to alleviate withdrawal while competitively blocking inhaled nicotine from binding, neutralizing smoking&apos;s dopaminergic reward mechanism.
               </p>
             </div>
           </div>
-          <h2>Actionable Strategies for Permanent Cessation</h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Maximize your cessation success by combining behavioral strategies with clinical support:
+
+          <h2>Physiological Recovery: Endothelial Regeneration &amp; Thrombotic Normalization</h2>
+          <p>
+            Cigarette smoke contains over 7,000 toxic chemical compounds, including reactive aldehydes, carbon monoxide, and heavy metals. When inhaled, these compounds oxidize circulating low-density lipoprotein (LDL) particles and uncouple endothelial nitric oxide synthase (eNOS), impairing vasodilation.
+          </p>
+          <p>
+            Within 24 to 48 hours of complete cessation, blood carbon monoxide drops below 10 ppm, restoring the oxygen-transport capacity of hemoglobin. Over the following 2 to 12 weeks, vascular endothelial function improves significantly, lowering systemic blood pressure and reducing thrombotic hazard. Platelet hyper-aggregability normalizes within days, microvascular capillary blood flow to the skin and peripheral extremities improves by 30%, and systemic endothelial shear stress returns to baseline physiological levels.
+          </p>
+
+          <h2>Actionable Wealth Reinvestment &amp; Habit Disruption</h2>
+          <p>
+            Translating smoking cessation into lifelong financial and physical freedom requires deliberate habit restructuring:
           </p>
           <ul>
-            <li><strong>Nicotine Replacement Therapy (NRT):</strong> Clinical trials confirm that combining a long-acting nicotine patch with a short-acting nicotine gum or lozenge doubles long-term quit rates by managing cravings.</li>
-            <li><strong>Automated Reinvestment:</strong> Open a dedicated high-yield savings account or investment app and automate the exact daily amount previously spent on tobacco. Watching your balance compound provides powerful tangible reinforcement.</li>
-            <li><strong>Disrupt Environmental Triggers:</strong> Identify habitual triggers (morning coffee, driving, post-meal habits) and substitute healthier physical routines (brisk walking, herbal tea, deep diaphragmatic breathing).</li>
+            <li><strong>Automate Immediate Micro-Investments:</strong> Open a dedicated brokerage account and set up an automated transfer equal to your former cigarette expenditure into a low-cost index fund. Watching your portfolio compound monthly transforms savings into tangible motivation.</li>
+            <li><strong>Disrupt Neuro-Behavioral Triggers:</strong> Nicotine dependence is intricately linked with conditioned routines (morning coffee, post-meal breaks, commutes). Swap these triggers with active healthy substitutes: a 10-minute brisk walk, sparkling water, or diaphragmatic breathing.</li>
+            <li><strong>Track Vital Vascular Recovery:</strong> Pair your cessation journey with regular cardiovascular tracking. Observe your arterial pressure normalize with our <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, evaluate cardiorespiratory stamina with the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, and assess metabolic output with the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.</li>
           </ul>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Every smoke-free day improves your lung function, lowers cardiovascular risk, and builds lasting health and multi-generational financial vitality.
-          </p>
 
-
-        
-          <h2>Behavioral Strategies for Long-Term Smoking Cessation</h2>
-          <p>
-            Maximize your cessation success by combining behavioral strategies with clinical support:
-          </p>
-          <ul>
-            <li><strong>Identify &amp; Disrupt Triggers:</strong> Recognize environmental and emotional triggers (morning coffee, post-meal habits, stress) and substitute healthier routines (brisk walking, herbal tea, deep breathing).</li>
-            <li><strong>Nicotine Replacement Therapy (NRT):</strong> Clinical trials confirm that combining a long-acting nicotine patch with a short-acting nicotine gum or lozenge doubles long-term quit rates by managing cravings.</li>
-            <li><strong>Track Your Growing Financial Savings:</strong> Open a dedicated high-yield savings account or investment app and automate the exact daily amount previously spent on tobacco. Watching your balance grow provides powerful tangible reinforcement.</li>
-            <li><strong>Seek Social &amp; Professional Support:</strong> Join a cessation support group, utilize national quitlines (e.g. 1-800-QUIT-NOW), and consult your doctor about prescription cessation medications if needed.</li>
-          </ul>
-          <p>
-            Every smoke-free day improves your lung function, lowers cardiovascular risk, and builds lasting health and financial vitality.
-          </p>
-
-
-        
-          <h2>Vascular Endothelial Recovery &amp; Wealth Reinvestment</h2>
-          <p>
-            Within 24 to 48 hours of smoking cessation, blood carbon monoxide levels normalize, restoring the oxygen-carrying capacity of hemoglobin. Over the following 2 to 12 weeks, vascular endothelial function improves significantly, lowering systemic blood pressure and reducing thrombotic hazard.
-          </p>
-          <p>
-            Redirecting cigarette expenditures into disciplined automated investments yields a double dividend: eliminating life-shortening toxic exposures while building a substantial financial nest egg.
-          </p>
-
-
-        
-          <h2>Platelet Activation &amp; Microvascular Perfusion Recovery</h2>
-          <p>
-            Cigarette combustion releases reactive oxygen species and acrolein, which oxidize circulating LDL cholesterol and cause immediate platelet hyper-aggregability. This pro-thrombotic vascular state increases the immediate likelihood of acute coronary thrombus formation.
-          </p>
-          <p>
-            Upon quitting, platelet reactivity normalizes within days, microvascular capillary blood flow to the skin and peripheral extremities improves by 30%, and systemic endothelial shear stress returns to baseline physiological levels.
-          </p>
-
-        {/* Related Companion Tools Contextual Section */}
-        <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Smoking cessation delivers immediate physiological and systemic vascular recovery. Track improvements in arterial tone using our <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, evaluate cardiorespiratory stamina with the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, and assess toxicological clearance alongside the <a href="/calculators/health/alcohol-unit-calculator">Alcohol Unit Calculator</a>.
-          </p>
-        </section>
-      </article>
-    </CalcPage>
+          {/* SECTION 4: FAQ Section (Bottom of Content) */}
+          <h2>Frequently asked questions</h2>
+          <Faq items={FAQ} />
+        </Editorial>
+      </CalculatorPage>
+    </>
   );
 }
