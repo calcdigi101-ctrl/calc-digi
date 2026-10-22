@@ -90,10 +90,9 @@ export default function PeriodPage() {
           a: "Physical or emotional stress activates the hypothalamic-pituitary-adrenal (HPA) axis, stimulating excessive secretion of Corticotropin-Releasing Hormone (CRH) and cortisol. Elevated cortisol directly suppresses the pulsatile release of Gonadotropin-Releasing Hormone (GnRH) from the hypothalamus, preventing the pituitary from releasing sufficient FSH and LH to mature a follicle, thereby delaying or completely inhibiting ovulation (functional hypothalamic anovulation).",
         },
       ]}
-    >
-      <PeriodCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -273,7 +272,10 @@ export default function PeriodPage() {
             Menstrual cycle predictability is a primary vital sign of female endocrine health. Pinpoint your fertile window and ovulation peak using our <a href="/calculators/health/ovulation-calculator">Ovulation Calculator</a>, assess conception readiness with the <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, and estimate gestation timing with the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <PeriodCalculator />
     </CalcPage>
   );
 }

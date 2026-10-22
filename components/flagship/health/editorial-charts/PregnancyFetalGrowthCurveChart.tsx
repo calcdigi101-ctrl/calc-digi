@@ -82,21 +82,13 @@ export function PregnancyFetalGrowthCurveChart() {
   };
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
+          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'currentColor' }}>
             Fetal Growth &amp; Gestational Biometry Trajectory
           </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'currentColor' }}>
             Hadlock anatomical ultrasound growth curve: estimated fetal weight (EFW) and crown-to-heel length across weeks 8 to 40.
           </p>
         </div>
@@ -116,8 +108,8 @@ export function PregnancyFetalGrowthCurveChart() {
                 borderRadius: '6px',
                 border: 'none',
                 cursor: 'pointer',
-                background: cur.week === wk ? 'var(--c-accent)' : 'var(--c-surface)',
-                color: cur.week === wk ? '#ffffff' : 'var(--c-ink)',
+                background: cur.week === wk ? '#10b981' : '#ffffff',
+                color: cur.week === wk ? '#ffffff' : '#0f172a',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 transition: 'all 0.15s ease'
               }}
@@ -171,8 +163,8 @@ export function PregnancyFetalGrowthCurveChart() {
             const y = scaleY(g);
             return (
               <g key={g}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="var(--c-ink3)">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {g}g
                 </text>
               </g>
@@ -184,8 +176,8 @@ export function PregnancyFetalGrowthCurveChart() {
             const x = scaleX(pt.week);
             return (
               <g key={pt.week}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   W{pt.week}
                 </text>
               </g>
@@ -193,7 +185,7 @@ export function PregnancyFetalGrowthCurveChart() {
           })}
 
           {/* Weight Growth Curve */}
-          <path d={weightPath} fill="none" stroke="var(--c-accent)" strokeWidth="3.5" strokeLinecap="round" />
+          <path d={weightPath} fill="none" stroke="#10b981" strokeWidth="3.5" strokeLinecap="round" />
 
           {/* Active scrubber line */}
           <line
@@ -201,7 +193,7 @@ export function PregnancyFetalGrowthCurveChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="#0f172a"
             strokeWidth="1.5"
             strokeDasharray="4 4"
             opacity="0.6"
@@ -216,12 +208,11 @@ export function PregnancyFetalGrowthCurveChart() {
               width="180"
               height="88"
               rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              fill="currentColor" stroke="#94a3b8" className="text-white dark:text-slate-900"
               strokeWidth="1.5"
               filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
+            <text x="12" y="20" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
               Week {cur.week} Gestation
             </text>
             <text x="12" y="38" fontSize="11" fontWeight="700" fill="#10b981">
@@ -230,7 +221,7 @@ export function PregnancyFetalGrowthCurveChart() {
             <text x="12" y="54" fontSize="11" fontWeight="600" fill="#0ea5e9">
               Length: {cur.lengthCm} cm ({cur.lengthIn}&quot;)
             </text>
-            <text x="12" y="70" fontSize="10" fill="var(--c-ink2)">
+            <text x="12" y="70" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               Size: {cur.fruitSize}
             </text>
           </g>
@@ -242,34 +233,34 @@ export function PregnancyFetalGrowthCurveChart() {
         marginTop: '16px',
         padding: '16px',
         borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
+        backgroundColor: 'currentColor',
+        border: '1px solid currentColor',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
         gap: '14px'
       }}>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Gestational Milestone</span>
-          <div style={{ fontSize: '15px', fontWeight: 700, color: 'var(--c-ink)', marginTop: '2px' }}>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Gestational Milestone</span>
+          <div style={{ fontSize: '15px', fontWeight: 700, color: 'currentColor', marginTop: '2px' }}>
             Week {cur.week} ({cur.trimester})
           </div>
-          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             {cur.milestone}
           </p>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Biometric Proportions</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Biometric Proportions</span>
           <div style={{ fontSize: '14px', fontWeight: 700, color: '#10b981', marginTop: '2px' }}>
             {fmtWeight(cur.weightGrams)} • {cur.lengthCm} cm
           </div>
-          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             Anatomical volume comparable to a <strong>{cur.fruitSize}</strong>.
           </p>
         </div>
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'currentColor' }}>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#3b82f6', opacity: 0.3 }} /> 1st Trimester (1–12)

@@ -51,10 +51,9 @@ export default function SwimPacePage() {
           a: "Pool swimmers benefit from wall push-offs (which impart high initial velocity without metabolic cost) and lane lines that dissipate surface waves. In open water, swimmers encounter wind chop, navigation sighting lifts (which drop the hips and increase frontal drag), and the absence of turn push-offs, typically resulting in a 3-to-6 second slowdown per 100 meters.",
         },
       ]}
-    >
-      <SwimPaceCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -242,7 +241,10 @@ export default function SwimPacePage() {
             Swimming pace calculation is integral to endurance pacing and multi-sport competition. Balance your aquatic workouts with dry-land splits using our <a href="/calculators/health/pace-calculator">Pace Calculator</a>, measure cycling power with the <a href="/calculators/health/cycling-calculator">Cycling Calculator</a>, assess aerobic zones via the <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, and quantify cardiovascular endurance with the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <SwimPaceCalculator />
     </CalcPage>
   );
 }

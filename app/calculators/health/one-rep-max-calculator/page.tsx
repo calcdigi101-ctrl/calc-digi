@@ -59,10 +59,9 @@ export default function OneRepMaxPage() {
           a: "An RPE of 10 corresponds to a true 1RM (zero reps in reserve). An RPE of 9 means 1 rep remained before failure, RPE 8 means 2 reps remained. Using RPE alongside your calculated 1RM allows you to auto-regulate training loads based on daily sleep, stress, and neuromuscular readiness.",
         },
       ]}
-    >
-      <OneRepMaxCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -292,7 +291,10 @@ export default function OneRepMaxPage() {
             Maximal strength development requires balanced muscular endurance and targeted nutritional fuel. Benchmark your relative muscular endurance with our <a href="/calculators/health/pushup-test-calculator">Push-Up Test Calculator</a>, calculate optimal daily amino acid support with the <a href="/calculators/health/protein-intake-calculator">Protein Intake Calculator</a>, and calibrate total daily caloric surplus or maintenance with the <a href="/calculators/health/calorie-calculator">Calorie Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <OneRepMaxCalculator />
     </CalcPage>
   );
 }

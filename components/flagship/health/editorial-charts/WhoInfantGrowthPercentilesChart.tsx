@@ -89,27 +89,19 @@ export function WhoInfantGrowthPercentilesChart() {
   const fmtKgLbs = (kg: number) => `${kg.toFixed(1)} kg (${(kg * 2.20462).toFixed(1)} lbs)`;
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
+          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'currentColor' }}>
             WHO Child Growth Standards (0 to 24 Months)
           </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'currentColor' }}>
             World Health Organization Multicentre Growth Reference Study: 3rd, 50th (median), and 97th percentiles.
           </p>
         </div>
 
         {/* Sex toggle */}
-        <div style={{ display: 'flex', gap: '6px', background: 'var(--c-rule)', padding: '3px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', gap: '6px', background: 'currentColor', padding: '3px', borderRadius: '8px' }}>
           <button
             type="button"
             onClick={() => setSex('boy')}
@@ -120,8 +112,8 @@ export function WhoInfantGrowthPercentilesChart() {
               borderRadius: '6px',
               border: 'none',
               cursor: 'pointer',
-              background: sex === 'boy' ? 'var(--c-accent)' : 'transparent',
-              color: sex === 'boy' ? '#ffffff' : 'var(--c-ink2)',
+              background: sex === 'boy' ? '#10b981' : 'transparent',
+              color: sex === 'boy' ? '#ffffff' : '#475569',
               transition: 'all 0.15s ease'
             }}
           >
@@ -137,8 +129,8 @@ export function WhoInfantGrowthPercentilesChart() {
               borderRadius: '6px',
               border: 'none',
               cursor: 'pointer',
-              background: sex === 'girl' ? 'var(--c-accent)' : 'transparent',
-              color: sex === 'girl' ? '#ffffff' : 'var(--c-ink2)',
+              background: sex === 'girl' ? '#10b981' : 'transparent',
+              color: sex === 'girl' ? '#ffffff' : '#475569',
               transition: 'all 0.15s ease'
             }}
           >
@@ -161,8 +153,8 @@ export function WhoInfantGrowthPercentilesChart() {
             const y = scaleY(kg);
             return (
               <g key={kg}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="var(--c-ink3)">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {kg}kg
                 </text>
               </g>
@@ -174,8 +166,8 @@ export function WhoInfantGrowthPercentilesChart() {
             const x = scaleX(m);
             return (
               <g key={m}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {m}m
                 </text>
               </g>
@@ -186,7 +178,7 @@ export function WhoInfantGrowthPercentilesChart() {
           {/* 97th Percentile (Upper boundary) */}
           <path d={makePath(p97Key)} fill="none" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 2" strokeLinecap="round" />
           {/* 50th Percentile (Median) */}
-          <path d={makePath(p50Key)} fill="none" stroke="var(--c-accent)" strokeWidth="3.5" strokeLinecap="round" />
+          <path d={makePath(p50Key)} fill="none" stroke="#10b981" strokeWidth="3.5" strokeLinecap="round" />
           {/* 3rd Percentile (Lower boundary) */}
           <path d={makePath(p3Key)} fill="none" stroke="#94a3b8" strokeWidth="1.5" strokeDasharray="4 2" strokeLinecap="round" />
 
@@ -196,7 +188,7 @@ export function WhoInfantGrowthPercentilesChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="#0f172a"
             strokeWidth="1.5"
             strokeDasharray="4 4"
             opacity="0.6"
@@ -213,21 +205,20 @@ export function WhoInfantGrowthPercentilesChart() {
               width="180"
               height="88"
               rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              fill="currentColor" stroke="#94a3b8" className="text-white dark:text-slate-900"
               strokeWidth="1.5"
               filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
+            <text x="12" y="20" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
               Age: {cur.month} Months ({sex === 'boy' ? 'Boy' : 'Girl'})
             </text>
             <text x="12" y="38" fontSize="11" fontWeight="700" fill="#10b981">
               50th Median: {fmtKgLbs(cur[p50Key])}
             </text>
-            <text x="12" y="54" fontSize="10" fill="var(--c-ink2)">
+            <text x="12" y="54" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               97th Percentile: {fmtKgLbs(cur[p97Key])}
             </text>
-            <text x="12" y="70" fontSize="10" fill="var(--c-ink2)">
+            <text x="12" y="70" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               3rd Percentile: {fmtKgLbs(cur[p3Key])}
             </text>
           </g>
@@ -239,37 +230,37 @@ export function WhoInfantGrowthPercentilesChart() {
         marginTop: '16px',
         padding: '16px',
         borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
+        backgroundColor: 'currentColor',
+        border: '1px solid currentColor',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
         gap: '14px'
       }}>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>WHO 50th Percentile Weight Target</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>WHO 50th Percentile Weight Target</span>
           <div style={{ fontSize: '16px', fontWeight: 800, color: '#10b981', marginTop: '2px' }}>
             {fmtKgLbs(cur[p50Key])}
           </div>
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--c-ink2)' }}>
-            Healthy normal range (3rd to 97th percentile): <strong style={{ color: 'var(--c-ink)' }}>{cur[p3Key].toFixed(1)} – {cur[p97Key].toFixed(1)} kg</strong>.
+          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'currentColor' }}>
+            Healthy normal range (3rd to 97th percentile): <strong style={{ color: 'currentColor' }}>{cur[p3Key].toFixed(1)} – {cur[p97Key].toFixed(1)} kg</strong>.
           </p>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Pediatric Milestone at Month {cur.month}</span>
-          <div style={{ fontSize: '13px', fontWeight: 700, color: 'var(--c-ink)', marginTop: '2px' }}>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Pediatric Milestone at Month {cur.month}</span>
+          <div style={{ fontSize: '13px', fontWeight: 700, color: 'currentColor', marginTop: '2px' }}>
             Developmental Benchmark
           </div>
-          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '4px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             {cur.milestone}
           </p>
         </div>
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'currentColor' }}>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
-            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--c-accent)' }} /> 50th Percentile (WHO Median)
+            <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981' }} /> 50th Percentile (WHO Median)
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#94a3b8' }} /> 3rd &amp; 97th Clinical Boundaries

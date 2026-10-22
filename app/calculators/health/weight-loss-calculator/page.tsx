@@ -49,10 +49,9 @@ export default function WeightLossPage() {
           a: "Clinical nutrition guidelines recommend a strict floor of 1,200 kcal/day for adult women and 1,500 kcal/day for adult men without direct medical supervision. Diets below these thresholds cannot provide the essential fatty acids, vitamins, and minerals necessary to sustain immune function and organ health.",
         },
       ]}
-    >
-      <WeightLossCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -255,7 +254,10 @@ export default function WeightLossPage() {
             Sustainable weight loss requires balancing caloric deficit against resting metabolic preservation. Determine your baseline caloric requirements with our <a href="/calculators/health/calorie-calculator">Calorie Calculator</a>, track resting energy changes via the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, configure target macronutrient ratios with the <a href="/calculators/health/macro-calculator">Macro Calculator</a>, and preserve metabolically active muscle using the <a href="/calculators/health/protein-intake-calculator">Protein Intake Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <WeightLossCalculator />
     </CalcPage>
   );
 }

@@ -108,10 +108,9 @@ export default function PregnancyDueDatePage() {
           a: "For IVF pregnancies, gestational dating is extraordinarily precise because the exact fertilization and embryo transfer dates are known. For a Day 3 embryo transfer, the due date is calculated by adding 263 days to the transfer date. For a Day 5 blastocyst transfer, add 261 days to the transfer date.",
         },
       ]}
-    >
-      <PregnancyDueDateCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -290,7 +289,10 @@ export default function PregnancyDueDatePage() {
             Obstetric tracking spans from preconception timing through postpartum pediatric milestones. Verify conception cycle parameters using the <a href="/calculators/health/ovulation-calculator">Ovulation Calculator</a> and <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, monitor newborn weight velocity with the <a href="/calculators/health/baby-weight-calculator">Baby Weight Calculator</a>, and predict adult stature with our <a href="/calculators/health/child-height-predictor">Child Height Predictor</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <PregnancyDueDateCalculator />
     </CalcPage>
   );
 }

@@ -84,21 +84,13 @@ export function OvarianReserveAgeCurveChart() {
   };
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
+          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'currentColor' }}>
             Maternal Age vs. Conception Probabilities &amp; Ovarian Reserve
           </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'currentColor' }}>
             Comparing monthly cycle fecundability and 12-month cumulative pregnancy rates calibrated to ASRM epidemiological data.
           </p>
         </div>
@@ -118,8 +110,8 @@ export function OvarianReserveAgeCurveChart() {
                 borderRadius: '6px',
                 border: 'none',
                 cursor: 'pointer',
-                background: cur.age === age ? 'var(--c-accent)' : 'var(--c-surface)',
-                color: cur.age === age ? '#ffffff' : 'var(--c-ink)',
+                background: cur.age === age ? '#10b981' : '#ffffff',
+                color: cur.age === age ? '#ffffff' : '#0f172a',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 transition: 'all 0.15s ease'
               }}
@@ -158,8 +150,8 @@ export function OvarianReserveAgeCurveChart() {
             const y = scaleY(pct);
             return (
               <g key={pct}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="var(--c-ink3)">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {pct}%
                 </text>
               </g>
@@ -171,8 +163,8 @@ export function OvarianReserveAgeCurveChart() {
             const x = scaleX(pt.age);
             return (
               <g key={pt.age}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {pt.age}y
                 </text>
               </g>
@@ -191,7 +183,7 @@ export function OvarianReserveAgeCurveChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="#0f172a"
             strokeWidth="1.5"
             strokeDasharray="4 4"
             opacity="0.6"
@@ -207,12 +199,11 @@ export function OvarianReserveAgeCurveChart() {
               width="180"
               height="88"
               rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              fill="currentColor" stroke="#94a3b8" className="text-white dark:text-slate-900"
               strokeWidth="1.5"
               filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
+            <text x="12" y="20" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
               Maternal Age: {cur.age} Years
             </text>
             <text x="12" y="38" fontSize="11" fontWeight="700" fill="#10b981">
@@ -221,7 +212,7 @@ export function OvarianReserveAgeCurveChart() {
             <text x="12" y="54" fontSize="11" fontWeight="600" fill="#0ea5e9">
               1-Year Cumulative: {cur.annualCumulative}%
             </text>
-            <text x="12" y="70" fontSize="10" fill="var(--c-ink2)">
+            <text x="12" y="70" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               AMH Median: {cur.medianAmh} ng/mL
             </text>
           </g>
@@ -233,34 +224,34 @@ export function OvarianReserveAgeCurveChart() {
         marginTop: '16px',
         padding: '16px',
         borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
+        backgroundColor: 'currentColor',
+        border: '1px solid currentColor',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
         gap: '14px'
       }}>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clinical Fertility Stratification</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clinical Fertility Stratification</span>
           <div style={{ fontSize: '15px', fontWeight: 700, color: cur.color, marginTop: '2px' }}>
             Age {cur.age}: {cur.clinicalCategory}
           </div>
-          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             {cur.actionGuideline}
           </p>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Ovarian Reserve &amp; Chromosomal Risk</span>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--c-ink)', marginTop: '2px' }}>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Ovarian Reserve &amp; Chromosomal Risk</span>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: 'currentColor', marginTop: '2px' }}>
             AMH: ~{cur.medianAmh} ng/mL • Aneuploidy: ~{cur.aneuploidyPct}%
           </div>
-          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             Estimated 12-month cumulative pregnancy rate: <strong style={{ color: '#0ea5e9' }}>{cur.annualCumulative}%</strong> under regular timed intercourse.
           </p>
         </div>
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'currentColor' }}>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981' }} /> Monthly Fecundability (% per cycle)

@@ -85,10 +85,9 @@ export default function OvulationPage() {
           a: "Yes, but pinpointing the fertile window via calendar math alone becomes difficult because irregular cycles indicate variable follicular development or anovulation. Women with irregular cycles should combine algorithmic tracking with real-time physical biomarkers: monitoring cervical mucus changes, utilizing urinary LH test strips, or consulting a reproductive endocrinologist to screen for conditions such as Polycystic Ovary Syndrome (PCOS) or thyroid dysfunction.",
         },
       ]}
-    >
-      <OvulationCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -262,7 +261,10 @@ export default function OvulationPage() {
             Ovulation timing forms the foundation of family planning and reproductive wellness. Model cycle lengths and luteal phase variations with our <a href="/calculators/health/period-calculator">Period Calculator</a>, evaluate cumulative conception probability with the <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, and compute estimated milestones using the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <OvulationCalculator />
     </CalcPage>
   );
 }

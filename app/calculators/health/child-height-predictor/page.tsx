@@ -98,10 +98,9 @@ export default function ChildHeightPredictorPage() {
           a: "Constitutional Delay of Growth and Puberty (CDGP) is a normal genetic variation where a child enters puberty later than peers, appearing shorter during middle school and early high school. However, because their bone age is delayed and their growth plates remain open longer, they continue growing later into their late teens, ultimately reaching their normal predicted mid-parental adult stature.",
         },
       ]}
-    >
-      <ChildHeightPredictor />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Pediatric Endocrinology Review:</span> Calibrated to Tanner-Goldstein Mid-Parental Height (MPH) methodologies, Greulich-Pyle skeletal maturity models, and AAP growth benchmarks.
@@ -302,7 +301,10 @@ export default function ChildHeightPredictorPage() {
             Pediatric height trajectory correlates closely with infant weight gain velocity and overall nutritional adequacy. Track developmental growth percentiles using our <a href="/calculators/health/baby-weight-calculator">Baby Weight Calculator</a>, assess adult healthy weight ranges with the <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>, and monitor nutritional baselines with the <a href="/calculators/health/bmi-calculator">BMI Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <ChildHeightPredictor />
     </CalcPage>
   );
 }

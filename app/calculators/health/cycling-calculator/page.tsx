@@ -50,10 +50,9 @@ export default function CyclingPage() {
           a: "Human muscular gross metabolic efficiency while pedaling is approximately 24% (only 24% of chemical energy from food is converted into mechanical crank work; 76% is dissipated as heat). Consequently, total caloric expenditure per hour can be calculated with remarkable accuracy from average wattage: Calories/hr ≈ Average Watts × 3.6. Maintaining 200 Watts for one hour burns approximately 720 kcal.",
         },
       ]}
-    >
-      <CyclingCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -250,7 +249,10 @@ export default function CyclingPage() {
             Cycling power output directly translates into cardiovascular stimulus and caloric expenditure. Calculate specific heart rate training bands with our <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, measure maximum aerobic capacity via the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, assess running splits with the <a href="/calculators/health/pace-calculator">Pace Calculator</a>, and measure metabolic burn using the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <CyclingCalculator />
     </CalcPage>
   );
 }

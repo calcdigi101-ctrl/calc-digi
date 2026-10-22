@@ -92,10 +92,9 @@ export default function WaistToHeightRatioPage() {
           a: "Visceral intra-abdominal fat is metabolically more active and responsive to lipolysis than subcutaneous fat. Adopting a moderate caloric deficit (300–500 kcal/day), eliminating liquid sugars and refined grains, and accumulating 150 minutes of weekly Zone 2 cardiovascular exercise can reduce waist circumference by 1 to 2 inches (2.5–5 cm) within 8 to 12 weeks, rapidly lowering your WHtR into the healthy longevity zone.",
         },
       ]}
-    >
-      <WaistToHeightRatioCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -277,7 +276,10 @@ export default function WaistToHeightRatioPage() {
             Waist-to-height ratio is recognized by cardiologists and the NICE guidelines as a superior cardiometabolic screener. Combine WHtR with regional fat distribution from the <a href="/calculators/health/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a>, evaluate total adipose percentage with the <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>, review silhouette classification with the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>, and calculate traditional height-weight status using our <a href="/calculators/health/bmi-calculator">BMI Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <WaistToHeightRatioCalculator />
     </CalcPage>
   );
 }

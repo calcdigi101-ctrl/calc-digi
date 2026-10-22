@@ -50,10 +50,9 @@ export default function BloodPressurePage() {
           a: "Wait quietly for 5 minutes and take a second reading. If readings remain above 180 systolic and/or 120 diastolic without symptoms, contact your doctor immediately. If this reading is accompanied by red-flag symptoms (chest pressure, shortness of breath, back pain, numbness, weakness, difficulty speaking, or blurred vision), this represents a hypertensive emergency—call 911 immediately.",
         },
       ]}
-    >
-      <BloodPressureCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -250,7 +249,10 @@ export default function BloodPressurePage() {
             Cardiovascular health is deeply intertwined with systemic conditioning and body composition. Evaluate your aerobic exercise intensity with our <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, assess cardiorespiratory endurance via the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, and review your vascular adipose profile with the <a href="/calculators/health/bmi-calculator">BMI Calculator</a> and <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <BloodPressureCalculator />
     </CalcPage>
   );
 }

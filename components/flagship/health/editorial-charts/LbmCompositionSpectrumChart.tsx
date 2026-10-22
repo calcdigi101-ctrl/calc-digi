@@ -90,27 +90,19 @@ export function LbmCompositionSpectrumChart() {
   };
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
+          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'currentColor' }}>
             Lean Mass vs. Fat Mass Partitioning Curve
           </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'currentColor' }}>
             Interactive benchmark for a 175 lb (79.4 kg, 5&apos;10&quot; / 178 cm) adult across varying body composition tiers.
           </p>
         </div>
 
         {/* Sex toggle */}
-        <div style={{ display: 'flex', gap: '6px', background: 'var(--c-rule)', padding: '3px', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', gap: '6px', background: 'currentColor', padding: '3px', borderRadius: '8px' }}>
           <button
             type="button"
             onClick={() => setSex('male')}
@@ -121,8 +113,8 @@ export function LbmCompositionSpectrumChart() {
               borderRadius: '6px',
               border: 'none',
               cursor: 'pointer',
-              background: sex === 'male' ? 'var(--c-accent)' : 'transparent',
-              color: sex === 'male' ? '#ffffff' : 'var(--c-ink2)',
+              background: sex === 'male' ? '#10b981' : 'transparent',
+              color: sex === 'male' ? '#ffffff' : '#475569',
               transition: 'all 0.15s ease'
             }}
           >
@@ -138,8 +130,8 @@ export function LbmCompositionSpectrumChart() {
               borderRadius: '6px',
               border: 'none',
               cursor: 'pointer',
-              background: sex === 'female' ? 'var(--c-accent)' : 'transparent',
-              color: sex === 'female' ? '#ffffff' : 'var(--c-ink2)',
+              background: sex === 'female' ? '#10b981' : 'transparent',
+              color: sex === 'female' ? '#ffffff' : '#475569',
               transition: 'all 0.15s ease'
             }}
           >
@@ -162,8 +154,8 @@ export function LbmCompositionSpectrumChart() {
             const y = scaleY(lbs);
             return (
               <g key={lbs}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="11" fill="var(--c-ink3)">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="11" fill="currentColor" className="text-slate-400 font-mono">
                   {lbs} lb
                 </text>
               </g>
@@ -175,8 +167,8 @@ export function LbmCompositionSpectrumChart() {
             const x = scaleX(pt.bfPct);
             return (
               <g key={pt.bfPct}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {pt.bfPct}%
                 </text>
               </g>
@@ -193,7 +185,7 @@ export function LbmCompositionSpectrumChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="#0f172a"
             strokeWidth="1.5"
             strokeDasharray="4 4"
             opacity="0.6"
@@ -209,12 +201,11 @@ export function LbmCompositionSpectrumChart() {
               width="170"
               height="88"
               rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              fill="currentColor" stroke="#94a3b8" className="text-white dark:text-slate-900"
               strokeWidth="1.5"
               filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
+            <text x="12" y="20" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
               Body Fat: {cur.bfPct}%
             </text>
             <text x="12" y="38" fontSize="11" fontWeight="600" fill="#10b981">
@@ -223,7 +214,7 @@ export function LbmCompositionSpectrumChart() {
             <text x="12" y="54" fontSize="11" fontWeight="600" fill="#d97706">
               Fat Mass: {cur.fatMassLbs.toFixed(1)} lbs ({cur.fatMassKg.toFixed(1)} kg)
             </text>
-            <text x="12" y="70" fontSize="10" fill="var(--c-ink2)">
+            <text x="12" y="70" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               Normalized FFMI: {cur.ffmi.toFixed(1)}
             </text>
           </g>
@@ -238,37 +229,37 @@ export function LbmCompositionSpectrumChart() {
         gap: '12px',
         padding: '14px',
         borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)'
+        backgroundColor: 'currentColor',
+        border: '1px solid currentColor'
       }}>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Active Tier</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Active Tier</span>
           <div style={{ fontSize: '14px', fontWeight: 700, color: cur.color, marginTop: '2px' }}>
             {sex === 'male' ? cur.categoryMale : cur.categoryFemale}
           </div>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Lean Body Mass</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Lean Body Mass</span>
           <div style={{ fontSize: '14px', fontWeight: 700, color: '#10b981', marginTop: '2px' }}>
-            {cur.leanMassLbs.toFixed(1)} lbs <span style={{ fontSize: '11px', fontWeight: 500, color: 'var(--c-ink3)' }}>({cur.leanMassKg.toFixed(1)} kg)</span>
+            {cur.leanMassLbs.toFixed(1)} lbs <span style={{ fontSize: '11px', fontWeight: 500, color: 'currentColor' }}>({cur.leanMassKg.toFixed(1)} kg)</span>
           </div>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Total Fat Mass</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Total Fat Mass</span>
           <div style={{ fontSize: '14px', fontWeight: 700, color: '#d97706', marginTop: '2px' }}>
-            {cur.fatMassLbs.toFixed(1)} lbs <span style={{ fontSize: '11px', fontWeight: 500, color: 'var(--c-ink3)' }}>({cur.fatMassKg.toFixed(1)} kg)</span>
+            {cur.fatMassLbs.toFixed(1)} lbs <span style={{ fontSize: '11px', fontWeight: 500, color: 'currentColor' }}>({cur.fatMassKg.toFixed(1)} kg)</span>
           </div>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Normalized FFMI</span>
-          <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--c-ink)', marginTop: '2px' }}>
-            {cur.ffmi.toFixed(1)} <span style={{ fontSize: '11px', fontWeight: 500, color: 'var(--c-ink3)' }}>kg/m²</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Normalized FFMI</span>
+          <div style={{ fontSize: '14px', fontWeight: 700, color: 'currentColor', marginTop: '2px' }}>
+            {cur.ffmi.toFixed(1)} <span style={{ fontSize: '11px', fontWeight: 500, color: 'currentColor' }}>kg/m²</span>
           </div>
         </div>
       </div>
 
       {/* Legend & Instructions */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'currentColor' }}>
         <div style={{ display: 'flex', gap: '16px' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#10b981' }} /> Lean Muscle/Bone Mass

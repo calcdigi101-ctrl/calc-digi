@@ -51,10 +51,9 @@ export default function Vo2MaxPage() {
           a: "Geriatric cardiologists identify 18 mL/kg/min in men and 15 mL/kg/min in women as the critical threshold for functional physical independence. Falling below this level means activities of daily living (such as carrying groceries or climbing stairs) operate at 100% of maximum cardiovascular capacity, leading to rapid physical frailty.",
         },
       ]}
-    >
-      <Vo2MaxCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -276,7 +275,10 @@ export default function Vo2MaxPage() {
             Aerobic capacity is the gold-standard biomarker of cardiorespiratory fitness and all-cause longevity. Translate your VO2 max into specific training intensity bands with the <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, evaluate running splits with the <a href="/calculators/health/pace-calculator">Pace Calculator</a>, test upper body muscular stamina with the <a href="/calculators/health/pushup-test-calculator">Push-Up Test Calculator</a>, and monitor resting vascular health using our <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <Vo2MaxCalculator />
     </CalcPage>
   );
 }

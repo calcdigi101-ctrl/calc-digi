@@ -55,10 +55,9 @@ export default function PushupTestPage() {
           a: "The classical ACSM Guidelines for Exercise Testing included a modified knee pushup protocol for women. However, modern exercise science curricula increasingly evaluate women using the standard full-body toe pushup, adjusting normative percentile cutoffs accordingly to measure true core anti-extension and full kinetic chain integrity.",
         },
       ]}
-    >
-      <PushupTestCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -237,7 +236,10 @@ export default function PushupTestPage() {
             Simultaneously, the serratus anterior and middle/lower trapezius muscles must coordinate smooth scapular protraction and retraction along the thoracic ribcage. Maintaining active scapular control prevents winging and optimizes pectoral and triceps recruitment throughout the full range of motion.
           </p>
 
-      </article>
+              </>
+      }
+    >
+      <PushupTestCalculator />
     </CalcPage>
   );
 }

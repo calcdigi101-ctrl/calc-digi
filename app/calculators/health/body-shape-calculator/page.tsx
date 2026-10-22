@@ -93,10 +93,9 @@ export default function BodyShapePage() {
           a: "Android fat distribution ('male-pattern' or apple) is concentrated around the trunk and upper abdomen, driven by cortisol and lower androgen-to-estrogen balance, and poses significant cardiovascular risk. Gynoid fat distribution ('female-pattern' or pear) is localized to the lower body (hips, buttocks, and thighs) under the influence of estrogens, providing evolutionary metabolic reserves for pregnancy and lactation with cardioprotective properties.",
         },
       ]}
-    >
-      <BodyShapeCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -287,7 +286,10 @@ export default function BodyShapePage() {
             Anthropometric silhouette typing provides crucial context for cardiovascular risk and body composition. For precise visceral fat analysis, benchmark your proportions against the <a href="/calculators/health/waist-to-hip-ratio-calculator">Waist-to-Hip Ratio Calculator</a>, screen longevity risk with the <a href="/calculators/health/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a>, and monitor subcutaneous fat percentage using the <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <BodyShapeCalculator />
     </CalcPage>
   );
 }

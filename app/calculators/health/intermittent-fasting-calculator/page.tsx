@@ -101,10 +101,9 @@ export default function IntermittentFastingPage() {
           a: "Circadian biology research pioneered by Dr. Satchin Panda at the Salk Institute demonstrates that human insulin sensitivity, gastric motility, and glucose tolerance are highest in the morning and early afternoon, declining sharply after sunset. Consuming an 8-hour feeding window from 9:00 AM to 5:00 PM or 11:00 AM to 7:00 PM produces superior glycemic control, lower HbA1c, and reduced systemic inflammation compared to an identical feeding window that extends late into the night (e.g., 2:00 PM to 10:00 PM).",
         },
       ]}
-    >
-      <IntermittentFastingCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -275,7 +274,10 @@ export default function IntermittentFastingPage() {
             Intermittent fasting is most effective when synchronized with precise energy targets and proper hydration. Calculate your total daily calorie target with our <a href="/calculators/health/calorie-calculator">Calorie Calculator</a>, determine basal energy requirements via the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, track structured fat reduction with the <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a>, and maintain cellular hydration using our <a href="/calculators/health/water-intake-calculator">Water Intake Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <IntermittentFastingCalculator />
     </CalcPage>
   );
 }

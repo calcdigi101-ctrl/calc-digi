@@ -98,21 +98,13 @@ export function SleepArchitectureCyclesChart() {
   ];
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
+          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'currentColor' }}>
             8-Hour Sleep Architecture Hypnogram &amp; Ultradian Cycles
           </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'currentColor' }}>
             Mapping 90-minute sleep cycles from Deep Slow-Wave (N3) to REM dreaming: targeting wake-up windows that bypass sleep inertia.
           </p>
         </div>
@@ -133,8 +125,8 @@ export function SleepArchitectureCyclesChart() {
                 borderRadius: '6px',
                 border: 'none',
                 cursor: 'pointer',
-                background: activeIdx === item.idx ? 'var(--c-accent)' : 'var(--c-surface)',
-                color: activeIdx === item.idx ? '#ffffff' : 'var(--c-ink)',
+                background: activeIdx === item.idx ? '#10b981' : '#ffffff',
+                color: activeIdx === item.idx ? '#ffffff' : '#0f172a',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 transition: 'all 0.15s ease'
               }}
@@ -159,8 +151,8 @@ export function SleepArchitectureCyclesChart() {
             const y = scaleY(st.depth);
             return (
               <g key={st.label}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="11" fill="var(--c-ink2)" fontWeight="600">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="11" fill="currentColor" className="text-slate-500 dark:text-slate-400" fontWeight="600">
                   {st.label}
                 </text>
               </g>
@@ -173,8 +165,8 @@ export function SleepArchitectureCyclesChart() {
             const hrs = (m / 60).toFixed(1);
             return (
               <g key={m}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {hrs}h
                 </text>
               </g>
@@ -193,7 +185,7 @@ export function SleepArchitectureCyclesChart() {
           })}
 
           {/* Hypnogram Stepped Curve */}
-          <path d={hypnoPath} fill="none" stroke="var(--c-accent)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={hypnoPath} fill="none" stroke="#10b981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
 
           {/* Active scrubber line */}
           <line
@@ -201,7 +193,7 @@ export function SleepArchitectureCyclesChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="#0f172a"
             strokeWidth="1.5"
             strokeDasharray="4 4"
             opacity="0.6"
@@ -216,21 +208,20 @@ export function SleepArchitectureCyclesChart() {
               width="170"
               height="88"
               rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              fill="currentColor" stroke="#94a3b8" className="text-white dark:text-slate-900"
               strokeWidth="1.5"
               filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
+            <text x="12" y="20" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
               Elapsed: {Math.floor(cur.minute / 60)}h {cur.minute % 60}m
             </text>
             <text x="12" y="38" fontSize="11" fontWeight="600" fill={cur.safetyColor}>
               Stage: {cur.stage} ({cur.stage === 'N3' ? 'Deep Slow-Wave' : cur.stage === 'REM' ? 'Dreaming / Synaptic' : 'Core Sleep'})
             </text>
-            <text x="12" y="54" fontSize="10" fontWeight="600" fill="var(--c-ink2)">
+            <text x="12" y="54" fontSize="10" fontWeight="600" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               Wake Status: {cur.wakeSafety}
             </text>
-            <text x="12" y="70" fontSize="9" fill="var(--c-ink3)">
+            <text x="12" y="70" fontSize="9" fill="currentColor" className="text-slate-400 font-mono">
               Cycle #{cur.cycleNum || 1} of 5
             </text>
           </g>
@@ -242,27 +233,27 @@ export function SleepArchitectureCyclesChart() {
         marginTop: '16px',
         padding: '16px',
         borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
+        backgroundColor: 'currentColor',
+        border: '1px solid currentColor',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
         gap: '14px'
       }}>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Active Brainwave &amp; Sleep Stage</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Active Brainwave &amp; Sleep Stage</span>
           <div style={{ fontSize: '15px', fontWeight: 700, color: cur.safetyColor, marginTop: '2px' }}>
             {cur.stage} — {cur.stage === 'N3' ? 'Slow-Wave Delta' : cur.stage === 'REM' ? 'Desynchronized Fast Beta/Theta' : 'Sleep Spindles & Theta'}
           </div>
-          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             {cur.physiologicalRole}
           </p>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Wake-Up Cognitive Alertness Impact</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Wake-Up Cognitive Alertness Impact</span>
           <div style={{ fontSize: '14px', fontWeight: 700, color: cur.safetyColor, marginTop: '2px' }}>
             {cur.wakeSafety}
           </div>
-          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             {cur.stage === 'N3'
               ? 'Waking now interrupts slow delta waves, causing severe sleep inertia grogginess lasting up to 60 minutes.'
               : 'Waking now aligns with light sleep or REM, enabling immediate prefrontal cortex activation and morning alertness.'}
@@ -271,7 +262,7 @@ export function SleepArchitectureCyclesChart() {
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'currentColor' }}>
         <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981' }} /> Optimal Wake Checkpoints

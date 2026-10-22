@@ -52,10 +52,9 @@ export default function PaceCalculatorPage() {
           a: "According to Jack Daniels' Running Formula, easy aerobic recovery runs should be executed approximately 1:30 to 2:30 minutes per mile slower than your current 5K race pace. Running easy runs too fast inhibits mitochondrial capillary remodeling and compromises high-intensity workout recovery.",
         },
       ]}
-    >
-      <PaceCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -229,7 +228,10 @@ export default function PaceCalculatorPage() {
             Pacing strategy directly governs cardiovascular efficiency and energy substrate utilization. Correlate your splits with heart rate zones using the <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>, benchmark cardiorespiratory endurance with the <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>, calculate multisport swim paces with the <a href="/calculators/health/swim-pace-calculator">Swim Pace Calculator</a>, and determine run energy burn with the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <PaceCalculator />
     </CalcPage>
   );
 }

@@ -91,10 +91,9 @@ export default function SleepPage() {
           a: "Although alcohol acts as a central nervous system depressant that may shorten sleep latency, it severely fragments sleep architecture in the second half of the night, suppressing REM sleep by up to 80% and preventing deep restorative slow-wave cycles. Caffeine has an average half-life of 5 to 7 hours, blocking adenosine receptors in the prefrontal cortex and reducing deep N3 delta sleep even if you fall asleep on time.",
         },
       ]}
-    >
-      <SleepCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -261,7 +260,10 @@ export default function SleepPage() {
             Restorative sleep is fundamental for autonomic recovery, metabolic regulation, and vascular control. Track resting cardiovascular strain with our <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, balance resting metabolic burn with the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, coordinate eating windows with the <a href="/calculators/health/intermittent-fasting-calculator">Intermittent Fasting Calculator</a>, and monitor autonomic recovery using the <a href="/calculators/health/heart-rate-zone-calculator">Heart Rate Zone Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <SleepCalculator />
     </CalcPage>
   );
 }

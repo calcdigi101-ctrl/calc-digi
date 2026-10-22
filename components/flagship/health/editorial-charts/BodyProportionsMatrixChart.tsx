@@ -95,21 +95,13 @@ export function BodyProportionsMatrixChart() {
   const colWidth = svgWidth / SHAPES.length;
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
+          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'currentColor' }}>
             Anthropometric Morphometry &amp; Cardiometabolic Risk Matrix
           </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'currentColor' }}>
             Comparing Bust-Waist-Hip contours and visceral fat vulnerability across the 5 primary phenotype classifications.
           </p>
         </div>
@@ -126,8 +118,8 @@ export function BodyProportionsMatrixChart() {
                 borderRadius: '6px',
                 border: 'none',
                 cursor: 'pointer',
-                background: activeIdx === idx ? 'var(--c-accent)' : 'var(--c-surface)',
-                color: activeIdx === idx ? '#ffffff' : 'var(--c-ink)',
+                background: activeIdx === idx ? '#10b981' : '#ffffff',
+                color: activeIdx === idx ? '#ffffff' : '#0f172a',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 transition: 'all 0.15s ease'
               }}
@@ -147,8 +139,8 @@ export function BodyProportionsMatrixChart() {
           {/* Subtle Horizontal Reference Guidelines */}
           {[60, 115, 175].map((y, i) => (
             <g key={y}>
-              <line x1={20} y1={y} x2={svgWidth - 20} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" opacity="0.6" />
-              <text x={24} y={y - 4} fontSize="9" fill="var(--c-ink3)" fontWeight="600" textAnchor="start">
+              <line x1={20} y1={y} x2={svgWidth - 20} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" opacity="0.6" />
+              <text x={24} y={y - 4} fontSize="9" fill="currentColor" className="text-slate-400 font-mono" fontWeight="600" textAnchor="start">
                 {i === 0 ? 'Bust Line' : i === 1 ? 'Waist Line' : 'Hip Line'}
               </text>
             </g>
@@ -197,9 +189,9 @@ export function BodyProportionsMatrixChart() {
                     width={colWidth - 12}
                     height={svgHeight - 25}
                     rx={12}
-                    fill="var(--c-accent)"
+                    fill="#10b981"
                     fillOpacity="0.08"
-                    stroke="var(--c-accent)"
+                    stroke="#10b981"
                     strokeWidth="1.5"
                   />
                 )}
@@ -207,9 +199,9 @@ export function BodyProportionsMatrixChart() {
                 {/* Silhouette Shape */}
                 <path
                   d={pathD}
-                  fill={isSelected ? s.riskTone : 'var(--c-rule)'}
+                  fill={isSelected ? s.riskTone : 'currentColor'}
                   fillOpacity={isSelected ? 0.85 : 0.45}
-                  stroke={isSelected ? s.riskTone : 'var(--c-ink3)'}
+                  stroke={isSelected ? s.riskTone : '#94a3b8'}
                   strokeWidth={isSelected ? 2 : 1}
                   style={{ transition: 'all 0.25s ease' }}
                 />
@@ -221,7 +213,7 @@ export function BodyProportionsMatrixChart() {
                   textAnchor="middle"
                   fontSize="11"
                   fontWeight="700"
-                  fill={isSelected ? '#ffffff' : 'var(--c-ink)'}
+                  fill={isSelected ? '#ffffff' : '#0f172a'}
                 >
                   {s.whr.toFixed(2)}
                 </text>
@@ -233,7 +225,7 @@ export function BodyProportionsMatrixChart() {
                   textAnchor="middle"
                   fontSize="12"
                   fontWeight={isSelected ? '700' : '600'}
-                  fill={isSelected ? 'var(--c-ink)' : 'var(--c-ink2)'}
+                  fill={isSelected ? '#0f172a' : '#475569'}
                 >
                   {s.icon} {s.name.split(' ')[0]}
                 </text>
@@ -243,7 +235,7 @@ export function BodyProportionsMatrixChart() {
                   y={bottomY + 32}
                   textAnchor="middle"
                   fontSize="10"
-                  fill="var(--c-ink3)"
+                  fill="currentColor" className="text-slate-400 font-mono"
                 >
                   WHR: {s.whr.toFixed(2)}
                 </text>
@@ -258,8 +250,8 @@ export function BodyProportionsMatrixChart() {
         marginTop: '16px',
         padding: '16px',
         borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
+        backgroundColor: 'currentColor',
+        border: '1px solid currentColor',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
         gap: '16px'
@@ -268,27 +260,27 @@ export function BodyProportionsMatrixChart() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '24px' }}>{active.icon}</span>
             <div>
-              <h5 style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: 'var(--c-ink)' }}>{active.name}</h5>
-              <span style={{ fontSize: '12px', color: 'var(--c-ink2)' }}>Anthropometric Waist-to-Hip: {active.whr.toFixed(2)}</span>
+              <h5 style={{ margin: 0, fontSize: '15px', fontWeight: 700, color: 'currentColor' }}>{active.name}</h5>
+              <span style={{ fontSize: '12px', color: 'currentColor' }}>Anthropometric Waist-to-Hip: {active.whr.toFixed(2)}</span>
             </div>
           </div>
           <div style={{ marginTop: '10px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Adipose Tissue Depot</span>
-            <p style={{ margin: '2px 0 0', fontSize: '13px', color: 'var(--c-ink)', lineHeight: 1.4 }}>{active.adiposeDepot}</p>
+            <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Adipose Tissue Depot</span>
+            <p style={{ margin: '2px 0 0', fontSize: '13px', color: 'currentColor', lineHeight: 1.4 }}>{active.adiposeDepot}</p>
           </div>
         </div>
 
         <div>
           <div>
-            <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Cardiovascular &amp; Metabolic Risk</span>
+            <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Cardiovascular &amp; Metabolic Risk</span>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '2px' }}>
               <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: active.riskTone }} />
               <span style={{ fontSize: '13px', fontWeight: 700, color: active.riskTone }}>{active.cardioRisk}</span>
             </div>
           </div>
           <div style={{ marginTop: '10px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Optimal Training Focus</span>
-            <p style={{ margin: '2px 0 0', fontSize: '13px', color: 'var(--c-ink)', lineHeight: 1.4 }}>{active.trainingFocus}</p>
+            <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Optimal Training Focus</span>
+            <p style={{ margin: '2px 0 0', fontSize: '13px', color: 'currentColor', lineHeight: 1.4 }}>{active.trainingFocus}</p>
           </div>
         </div>
       </div>

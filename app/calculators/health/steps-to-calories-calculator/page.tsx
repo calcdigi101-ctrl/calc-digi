@@ -50,10 +50,9 @@ export default function StepsToCaloriesPage() {
           a: "The '10,000 steps' figure originated not from medical laboratories, but as a marketing campaign in Japan in 1965 to promote the 'Manpo-kei' (10,000-steps meter) pedometer following the 1964 Tokyo Olympics. However, extensive modern epidemiological research (including a 2022 Lancet Public Health meta-analysis of 47,471 adults) confirms that mortality risk progressively declines up to 8,000–10,000 steps per day for adults under 60, and plateaus around 6,000–8,000 steps per day for adults aged 60 and older.",
         },
       ]}
-    >
-      <StepsToCaloriesCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -237,7 +236,10 @@ export default function StepsToCaloriesPage() {
             Daily step volume represents the single largest component of Non-Exercise Activity Thermogenesis (NEAT). Incorporate your daily walking burn into total daily energy needs using our <a href="/calculators/health/tdee-calculator">TDEE Calculator</a>, track speed and split times with the <a href="/calculators/health/pace-calculator">Pace Calculator</a>, plan calorie deficit goals with the <a href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</a>, and monitor workout burn via the <a href="/calculators/health/calorie-burn-calculator">Calorie Burn Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <StepsToCaloriesCalculator />
     </CalcPage>
   );
 }

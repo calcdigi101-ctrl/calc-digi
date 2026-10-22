@@ -79,10 +79,9 @@ export default function BraSizePage() {
           a: "US band sizes are measured in inches (e.g., 34). European sizing uses centimeters but historically incorporates an engineered 10 cm reduction to ensure elastic tightness. A 34-inch ribcage is roughly 86 cm, which corresponds to an EU 75 band. In French sizing, 15 is added to the EU band, making it a 90 band.",
         },
       ]}
-    >
-      <BraSizeCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Ergonomics &amp; Breast Biomechanics Review:</span> Calibrated to University of Portsmouth Breast Health research protocols, modern snug-band standards, and ISO 13402 garment anthropometrics.
@@ -285,7 +284,10 @@ export default function BraSizePage() {
             Accurate chest and band measurements frequently fluctuate with total weight and hormonal shifts. Track whole-body anthropometrics with our <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>, monitor proportional silhouette changes with the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>, and benchmark lean versus adipose changes with the <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <BraSizeCalculator />
     </CalcPage>
   );
 }

@@ -55,10 +55,9 @@ export default function CalorieBurnPage() {
           a: "Excess Post-Exercise Oxygen Consumption (EPOC) refers to the elevated metabolic rate following strenuous activity as the body restores ATP-CP stores, metabolizes lactate, lowers core temperature, and repairs muscle tissue. While marketing often claims EPOC burns hundreds of calories, exercise physiology studies confirm EPOC accounts for an additional 6% to 15% of total workout expenditure.",
         },
       ]}
-    >
-      <CalorieBurnCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -248,7 +247,10 @@ export default function CalorieBurnPage() {
             Caloric burn from physical exercise is one part of total daily energy output. Compare your exercise expenditure against baseline maintenance using the <a href="/calculators/health/tdee-calculator">TDEE Calculator</a>, calculate resting basal energy with the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, track running economy with the <a href="/calculators/health/pace-calculator">Pace Calculator</a>, and measure cardiorespiratory fitness with our <a href="/calculators/health/vo2-max-calculator">VO2 Max Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <CalorieBurnCalculator />
     </CalcPage>
   );
 }

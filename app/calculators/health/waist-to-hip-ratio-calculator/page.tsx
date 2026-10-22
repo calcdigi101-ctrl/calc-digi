@@ -84,10 +84,9 @@ export default function WaistToHipRatioPage() {
           a: "Targeting visceral fat requires a comprehensive metabolic strategy: 1) Eliminate refined sugars, fructose-sweetened beverages, and ultra-processed carbohydrates; 2) Accumulate 150 to 300 minutes weekly of Zone 2 cardiovascular training to optimize fat oxidation; 3) Engage in heavy compound resistance training (squats, deadlifts, presses) 3 days weekly; and 4) Prioritize 7 to 9 hours of quality sleep to suppress nocturnal cortisol spikes.",
         },
       ]}
-    >
-      <WaistToHipRatioCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -259,7 +258,10 @@ export default function WaistToHipRatioPage() {
             Waist-to-hip measurements pinpoint android versus gynoid adiposity and metabolic syndrome risk. Pair WHR evaluation with the <a href="/calculators/health/waist-to-height-ratio-calculator">Waist-to-Height Ratio Calculator</a>, classify your physical silhouette using the <a href="/calculators/health/body-shape-calculator">Body Shape Calculator</a>, assess systemic blood pressure with the <a href="/calculators/health/blood-pressure-calculator">Blood Pressure Calculator</a>, and track total body fat via our <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <WaistToHipRatioCalculator />
     </CalcPage>
   );
 }

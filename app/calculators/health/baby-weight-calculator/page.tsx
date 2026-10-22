@@ -74,10 +74,9 @@ export default function BabyWeightPage() {
           a: "Yes. The American Academy of Pediatrics (AAP) and the CDC recommend using WHO growth charts for all infants from birth through 24 months, regardless of whether they are breastfed, formula-fed, or combination-fed, because the WHO chart represents the global biological gold standard for optimal human growth.",
         },
       ]}
-    >
-      <BabyWeightCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Pediatric Review &amp; Methodology:</span> Calibrated to World Health Organization (WHO) Child Growth Standards (Multicentre Growth Reference Study) and AAP clinical guidelines for ages 0–24 months.
@@ -228,7 +227,10 @@ export default function BabyWeightPage() {
             Infant biometric monitoring works in tandem with family genetics and developmental tracking. Project future adult height percentiles with our <a href="/calculators/health/child-height-predictor">Child Height Predictor</a>, cross-check gestational milestones with the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>, or assess maternal baseline targets with the <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <BabyWeightCalculator />
     </CalcPage>
   );
 }

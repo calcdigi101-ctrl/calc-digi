@@ -96,10 +96,9 @@ export default function FertilityPage() {
           a: "Yes. While chronological oocyte quantity cannot be increased, mitochondrial energy production and cellular health can be supported during the 90-day follicular development window preceding ovulation: 1) Maintain optimal body composition (BMI 19–24.9), as both obesity and severe underweight disrupt ovulation; 2) Eliminate tobacco smoking and limit alcohol, both of which accelerate follicular depletion and fragment sperm DNA; 3) Supplement with evidence-based micronutrients (coenzyme Q10/ubiquinol to support mitochondrial ATP, folate/methylfolate, and vitamin D); and 4) Ensure male partners avoid hot tubs, tight compression, and excessive heat exposure.",
         },
       ]}
-    >
-      <FertilityCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -287,7 +286,10 @@ export default function FertilityPage() {
             Fertility tracking combines hormonal cycle dynamics and systemic reproductive health. Pinpoint your LH surge and peak fertile days using our <a href="/calculators/health/ovulation-calculator">Ovulation Calculator</a>, track monthly cycle variability with the <a href="/calculators/health/period-calculator">Period Calculator</a>, and estimate expected delivery dates with the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <FertilityCalculator />
     </CalcPage>
   );
 }

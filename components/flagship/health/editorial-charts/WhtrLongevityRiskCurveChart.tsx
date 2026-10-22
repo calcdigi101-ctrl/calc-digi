@@ -76,21 +76,13 @@ export function WhtrLongevityRiskCurveChart() {
   };
 
   return (
-    <div style={{
-      margin: '28px 0',
-      padding: '24px',
-      borderRadius: '16px',
-      overflow: 'hidden',
-      border: '1px solid var(--c-rule)',
-      backgroundColor: 'var(--c-rule2)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.03)'
-    }}>
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 sm:p-6 shadow-sm space-y-5">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
         <div>
-          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'var(--c-ink)' }}>
+          <h4 style={{ margin: 0, fontSize: '18px', fontWeight: 700, color: 'currentColor' }}>
             All-Cause Mortality Hazard Ratio vs. Waist-to-Height Ratio (WHtR)
           </h4>
-          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--c-ink2)' }}>
+          <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'currentColor' }}>
             Calibrated to Dr. Margaret Ashwell&apos;s systemic meta-analyses: the U-shaped risk curve and 0.50 clinical boundary.
           </p>
         </div>
@@ -110,8 +102,8 @@ export function WhtrLongevityRiskCurveChart() {
                 borderRadius: '6px',
                 border: 'none',
                 cursor: 'pointer',
-                background: cur.whtr === val ? 'var(--c-accent)' : 'var(--c-surface)',
-                color: cur.whtr === val ? '#ffffff' : 'var(--c-ink)',
+                background: cur.whtr === val ? '#10b981' : '#ffffff',
+                color: cur.whtr === val ? '#ffffff' : '#0f172a',
                 boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
                 transition: 'all 0.15s ease'
               }}
@@ -156,8 +148,8 @@ export function WhtrLongevityRiskCurveChart() {
             const y = scaleY(hr);
             return (
               <g key={hr}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="var(--c-rule)" strokeDasharray="3 3" />
-                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="11" fill="var(--c-ink3)">
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+                <text x={padLeft - 8} y={y + 4} textAnchor="end" fontSize="11" fill="currentColor" className="text-slate-400 font-mono">
                   {hr.toFixed(1)}x
                 </text>
               </g>
@@ -169,8 +161,8 @@ export function WhtrLongevityRiskCurveChart() {
             const x = scaleX(pt.whtr);
             return (
               <g key={pt.whtr}>
-                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="var(--c-rule)" />
-                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="var(--c-ink3)">
+                <line x1={x} y1={padTop + plotH} x2={x} y2={padTop + plotH + 5} stroke="currentColor" className="text-slate-200 dark:text-slate-800" />
+                <text x={x} y={padTop + plotH + 18} textAnchor="middle" fontSize="10" fill="currentColor" className="text-slate-400 font-mono">
                   {pt.whtr.toFixed(2)}
                 </text>
               </g>
@@ -192,7 +184,7 @@ export function WhtrLongevityRiskCurveChart() {
           </text>
 
           {/* Curve */}
-          <path d={pathD} fill="none" stroke="var(--c-accent)" strokeWidth="3.5" strokeLinecap="round" />
+          <path d={pathD} fill="none" stroke="#10b981" strokeWidth="3.5" strokeLinecap="round" />
 
           {/* Active scrubber line */}
           <line
@@ -200,7 +192,7 @@ export function WhtrLongevityRiskCurveChart() {
             y1={padTop}
             x2={activeX}
             y2={padTop + plotH}
-            stroke="var(--c-ink)"
+            stroke="#0f172a"
             strokeWidth="1.5"
             strokeDasharray="4 4"
             opacity="0.6"
@@ -215,12 +207,11 @@ export function WhtrLongevityRiskCurveChart() {
               width="170"
               height="88"
               rx="8"
-              fill="var(--c-surface)"
-              stroke="var(--c-rule)"
+              fill="currentColor" stroke="#94a3b8" className="text-white dark:text-slate-900"
               strokeWidth="1.5"
               filter="drop-shadow(0 4px 10px rgba(0,0,0,0.08))"
             />
-            <text x="12" y="20" fontSize="12" fontWeight="700" fill="var(--c-ink)">
+            <text x="12" y="20" fontSize="12" fontWeight="700" fill="currentColor" className="text-slate-900 dark:text-white">
               WHtR: {cur.whtr.toFixed(2)}
             </text>
             <text x="12" y="38" fontSize="11" fontWeight="600" fill={cur.color}>
@@ -229,7 +220,7 @@ export function WhtrLongevityRiskCurveChart() {
             <text x="12" y="54" fontSize="11" fontWeight="600" fill="#d97706">
               Diabetes Risk: {cur.diabetesRelativeRisk.toFixed(1)}x
             </text>
-            <text x="12" y="70" fontSize="10" fill="var(--c-ink2)">
+            <text x="12" y="70" fontSize="10" fill="currentColor" className="text-slate-500 dark:text-slate-400">
               Hypertension Risk: {cur.hypertensionRisk.toFixed(1)}x
             </text>
           </g>
@@ -241,34 +232,34 @@ export function WhtrLongevityRiskCurveChart() {
         marginTop: '16px',
         padding: '16px',
         borderRadius: '12px',
-        backgroundColor: 'var(--c-surface)',
-        border: '1px solid var(--c-rule)',
+        backgroundColor: 'currentColor',
+        border: '1px solid currentColor',
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
         gap: '14px'
       }}>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clinical Status</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Clinical Status</span>
           <div style={{ fontSize: '14px', fontWeight: 700, color: cur.color, marginTop: '2px' }}>
             {cur.zone}
           </div>
-          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'var(--c-ink2)', lineHeight: 1.4 }}>
+          <p style={{ margin: '6px 0 0', fontSize: '12px', color: 'currentColor', lineHeight: 1.4 }}>
             {cur.clinicalAction}
           </p>
         </div>
         <div>
-          <span style={{ fontSize: '11px', color: 'var(--c-ink3)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Relative All-Cause Mortality</span>
+          <span style={{ fontSize: '11px', color: 'currentColor', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Relative All-Cause Mortality</span>
           <div style={{ fontSize: '16px', fontWeight: 800, color: cur.color, marginTop: '2px' }}>
             {cur.hazardRatio.toFixed(2)}x Baseline Hazard
           </div>
-          <div style={{ marginTop: '8px', fontSize: '12px', color: 'var(--c-ink2)' }}>
-            Type 2 Diabetes Risk: <strong style={{ color: 'var(--c-ink)' }}>{cur.diabetesRelativeRisk.toFixed(1)}x</strong>
+          <div style={{ marginTop: '8px', fontSize: '12px', color: 'currentColor' }}>
+            Type 2 Diabetes Risk: <strong style={{ color: 'currentColor' }}>{cur.diabetesRelativeRisk.toFixed(1)}x</strong>
           </div>
         </div>
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'var(--c-ink2)' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginTop: '12px', fontSize: '12px', color: 'currentColor' }}>
         <div style={{ display: 'flex', gap: '16px' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ width: '10px', height: '10px', borderRadius: '2px', background: '#10b981', opacity: 0.4 }} /> Safe Longevity Zone (&lt; 0.50)

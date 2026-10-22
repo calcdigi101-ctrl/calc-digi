@@ -90,10 +90,9 @@ export default function LeanBodyMassPage() {
           a: "Building LBM requires progressive resistance training (hypertrophy-oriented protocols between 6–15 repetitions within 1–3 reps of muscular failure), adequate protein intake (minimum 1.6 g/kg of LBM per day distributed across 3–5 meals with high leucine content), a modest caloric surplus of 200–300 kcal/day, and 7 to 9 hours of restorative sleep to support human growth hormone (HGH) and testosterone secretion.",
         },
       ]}
-    >
-      <LeanBodyMassCalculator />
+      article={
+        <>
 
-      <article className="prose dark:prose-invert max-w-none space-y-12 mt-12">
         {/* Clinical Byline */}
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -278,7 +277,10 @@ export default function LeanBodyMassPage() {
             Lean tissue mass is the primary driver of basal metabolic expenditure and physical performance. Contrast your lean mass against total adipose tissue with the <a href="/calculators/health/body-fat-calculator">Body Fat Calculator</a>, calculate resting caloric demand using the <a href="/calculators/health/bmr-calculator">BMR Calculator</a>, assess muscle hypertrophy targets with the <a href="/calculators/health/protein-intake-calculator">Protein Intake Calculator</a>, and determine frame-relative goals with our <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>.
           </p>
         </section>
-      </article>
+              </>
+      }
+    >
+      <LeanBodyMassCalculator />
     </CalcPage>
   );
 }
