@@ -42,7 +42,14 @@ export default function Page() {
             The amount a lender approves isn&rsquo;t necessarily what&rsquo;s comfortable. Leave room for maintenance (often 1–2%
             of the home&rsquo;s value a year), retirement saving and an emergency fund. Many buyers aim below their maximum.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Homeownership & Underwriting Tools</h3>
+            <p>
+              Determining your conservative purchase ceiling protects against becoming house-poor. Model exact monthly PITI payments with our <a href="/calculators/finance/mortgage-calculator">Mortgage Calculator</a>, calculate upfront equity requirements using the <a href="/calculators/finance/down-payment-calculator">Down Payment Calculator</a>, compare real estate equity building to renting via the <a href="/calculators/finance/rent-vs-buy-calculator">Rent vs Buy Calculator</a>, and lower your debt-to-income (DTI) ratio with our <a href="/calculators/finance/debt-payoff-calculator">Debt Payoff Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

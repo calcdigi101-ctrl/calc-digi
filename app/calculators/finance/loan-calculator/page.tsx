@@ -54,7 +54,14 @@ export default function Page() {
             <li>Make extra principal payments (use the Extra payments option above) and confirm there is no prepayment penalty.</li>
             <li>Compare offers by APR, which includes origination fees, rather than by interest rate alone.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Installment Borrowing & Debt Tools</h3>
+            <p>
+              Understanding installment loan amortization empowers borrowers to minimize cumulative interest. Model vehicle financing options with our <a href="/calculators/finance/auto-loan-calculator">Auto Loan Calculator</a>, uncover true origination and borrowing fees using the <a href="/calculators/finance/apr-calculator">APR Calculator</a>, calculate 30-year home financing with the <a href="/calculators/finance/mortgage-calculator">Mortgage Calculator</a>, and plan accelerated payoffs via our <a href="/calculators/finance/debt-payoff-calculator">Debt Payoff Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

@@ -60,7 +60,14 @@ export default function Page() {
             <li>Delay Social Security — benefits rise about 8% for each year you wait past full retirement age, up to 70.</li>
             <li>Plan for lower spending in retirement, such as a paid-off mortgage.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Retirement Planning & Tax-Advantaged Tools</h3>
+            <p>
+              Achieving financial independence requires establishing a target nest egg based on the 4% safe withdrawal rule. Maximize company match contributions with our <a href="/calculators/finance/401k-calculator">401k Calculator</a>, model tax-free retirement growth using the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, project government benefit entitlements with the <a href="/calculators/finance/social-security-calculator">Social Security Calculator</a>, and track compound portfolio growth using our <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

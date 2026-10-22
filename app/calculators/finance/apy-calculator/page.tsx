@@ -43,7 +43,14 @@ export default function Page() {
             Less than you might think. Moving from monthly to daily compounding at 5% adds about 0.01 percentage points. The
             rate itself — and how long you leave the money — matters far more. Use the table above to compare frequencies.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Savings & Yield Compounding Tools</h3>
+            <p>
+              Maximizing effective annual yields is fundamental to disciplined wealth accumulation. Compare fixed-term deposit rates with our <a href="/calculators/finance/cd-calculator">CD Calculator</a>, model long-term portfolio accumulation via the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, track liquid cash milestones using the <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, and evaluate borrowing APR with the <a href="/calculators/finance/apr-calculator">APR Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

@@ -53,7 +53,14 @@ export default function Page() {
             <li>Child custody arrangements and child support</li>
             <li>Prenuptial agreements and, in some states, marital misconduct</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Family & Household Financial Tools</h3>
+            <p>
+              Managing spousal support obligations requires careful post-divorce cash flow structuring. Calculate statutory parental responsibilities with our <a href="/calculators/finance/child-support-calculator">Child Support Calculator</a>, build a sustainable single-income spending plan using the <a href="/calculators/finance/budget-calculator">Budget Calculator</a>, determine after-tax cash flow via the <a href="/calculators/finance/take-home-pay-calculator">Take Home Pay Calculator</a>, and evaluate tax brackets using the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

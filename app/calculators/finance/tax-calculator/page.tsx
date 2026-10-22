@@ -67,7 +67,14 @@ export default function Page() {
             Your <strong>marginal rate</strong> is the rate on your next dollar of income — useful for judging a raise or a
             401(k) contribution. Your <strong>effective rate</strong> is total tax divided by income, which is always lower.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Income Tax & Paycheck Tools</h3>
+            <p>
+              Understanding your federal marginal and effective tax rates allows strategic tax-advantaged planning. Calculate net paycheck earnings after withholdings with our <a href="/calculators/finance/take-home-pay-calculator">Take Home Pay Calculator</a>, convert annual and hourly compensation using the <a href="/calculators/finance/salary-calculator">Salary Calculator</a>, calculate self-employment obligations via the <a href="/calculators/finance/freelancer-tax-calculator">Freelancer Tax Calculator</a>, and reduce taxable income using pre-tax contributions in our <a href="/calculators/finance/401k-calculator">401k Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

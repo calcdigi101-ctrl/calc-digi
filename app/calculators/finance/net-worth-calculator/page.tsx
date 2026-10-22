@@ -46,7 +46,14 @@ export default function Page() {
             <li>Remember that cars lose value; homes and investments usually gain it over long periods.</li>
           </ul>
           <p>Track it once or twice a year — the trend matters more than any single number.</p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Balance Sheet & Wealth Tracking Tools</h3>
+            <p>
+              Your personal net worth is the ultimate scorecard of your overall financial health. Structure monthly cash-flow allocations with our <a href="/calculators/finance/budget-calculator">Budget Calculator</a>, track diversified capital growth via the <a href="/calculators/finance/investment-calculator">Investment Calculator</a>, accelerate liability reduction with the <a href="/calculators/finance/debt-payoff-calculator">Debt Payoff Calculator</a>, and target your golden years nest egg using our <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

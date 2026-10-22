@@ -63,7 +63,14 @@ export default function Page() {
               <strong>Consistency:</strong> regular contributions through market dips buy more shares when prices are low.
             </li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Portfolio & Wealth Building Tools</h3>
+            <p>
+              Disciplined long-term investing turns regular contributions into substantial capital. Model exponential growth schedules with our <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, analyze equity returns and CAGR via the <a href="/calculators/finance/stock-return-calculator">Stock Return Calculator</a>, determine safe post-career withdrawal horizons using the <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, and harness dividend reinvestment with our <a href="/calculators/finance/dividend-calculator">Dividend Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

@@ -43,7 +43,14 @@ export default function Page() {
             <li>Bank transfers (ACH) or other processors may be cheaper for large B2B invoices.</li>
             <li>Never use friends & family for purchases: it&rsquo;s against PayPal&rsquo;s terms and removes buyer and seller protection.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Freelance & Merchant Fee Tools</h3>
+            <p>
+              Factoring digital payment processor fees into client invoices ensures you receive full compensation. Calculate estimated self-employment quarterly taxes with our <a href="/calculators/finance/freelancer-tax-calculator">Freelancer Tax Calculator</a>, track corporate operating margins via the <a href="/calculators/finance/business-profit-calculator">Business Profit Calculator</a>, model foreign currency exchange using the <a href="/calculators/finance/currency-converter">Currency Converter</a>, and find required sales volume with our <a href="/calculators/finance/break-even-calculator">Break Even Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

@@ -39,7 +39,14 @@ export default function Page() {
             The rates in the calculator are standard rates. Many countries apply reduced rates to food, books, children&rsquo;s
             clothing, public transport or energy, and zero-rate exports. Check the rules for the specific product.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related International Tax & Business Tools</h3>
+            <p>
+              Navigating Value Added Tax across domestic and international transactions ensures exact price compliance. Calculate state and local retail taxes with our <a href="/calculators/finance/sales-tax-calculator">Sales Tax Calculator</a>, convert foreign currencies using real-time mid-market rates with the <a href="/calculators/finance/currency-converter">Currency Converter</a>, track commercial operating margins via the <a href="/calculators/finance/business-profit-calculator">Business Profit Calculator</a>, and calculate merchant transaction fees with our <a href="/calculators/finance/paypal-fee-calculator">PayPal Fee Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

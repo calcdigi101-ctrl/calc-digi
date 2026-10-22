@@ -47,7 +47,14 @@ export default function Page() {
             <li>Cut COGS through supplier negotiation, less waste or better processes.</li>
             <li>Keep operating expenses growing slower than revenue.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Business Accounting & Tax Tools</h3>
+            <p>
+              Analyzing gross, operating, and net profit margins ensures commercial solvency. Determine minimum sales volumes needed with our <a href="/calculators/finance/break-even-calculator">Break Even Calculator</a>, measure marketing and capital returns using the <a href="/calculators/finance/roi-calculator">ROI Calculator</a>, estimate quarterly self-employment taxes via the <a href="/calculators/finance/freelancer-tax-calculator">Freelancer Tax Calculator</a>, and account for merchant transaction fees with our <a href="/calculators/finance/paypal-fee-calculator">PayPal Fee Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

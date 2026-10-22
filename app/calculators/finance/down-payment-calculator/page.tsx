@@ -48,7 +48,14 @@ export default function Page() {
             <li>Look for state and local first-time buyer down payment assistance programs.</li>
             <li>Family gifts are allowed for most loans with a signed gift letter.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Real Estate & Home Financing Tools</h3>
+            <p>
+              Structuring an optimal down payment avoids costly mortgage insurance and reduces monthly interest. Compute full principal, interest, taxes, and PMI payments with our <a href="/calculators/finance/mortgage-calculator">Mortgage Calculator</a>, determine your maximum purchase limit using the <a href="/calculators/finance/home-affordability-calculator">Home Affordability Calculator</a>, compare homeownership to renting via the <a href="/calculators/finance/rent-vs-buy-calculator">Rent vs Buy Calculator</a>, and automate your down payment savings with our <a href="/calculators/finance/savings-calculator">Savings Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

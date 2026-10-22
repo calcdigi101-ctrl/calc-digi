@@ -40,7 +40,14 @@ export default function Page() {
             <li>Losses can offset gains and up to $3,000 of ordinary income a year.</li>
             <li>Brokers now report crypto sales to the IRS on Form 1099-DA.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Asset Trading & Capital Gains Tools</h3>
+            <p>
+              Active digital asset trading requires accounting for transaction friction and tax obligations. Benchmark your crypto gains against traditional equities with our <a href="/calculators/finance/stock-return-calculator">Stock Return Calculator</a>, analyze total capital returns via the <a href="/calculators/finance/roi-calculator">ROI Calculator</a>, estimate short-term and long-term tax liabilities using the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>, and model long-term portfolio growth with our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

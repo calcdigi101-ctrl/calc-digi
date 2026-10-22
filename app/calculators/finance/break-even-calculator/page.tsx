@@ -49,7 +49,14 @@ export default function Page() {
             <li>Negotiate supplier costs to lower variable cost per unit.</li>
             <li>Trim or defer fixed overhead.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Business & Profitability Tools</h3>
+            <p>
+              Operating past the break-even threshold enables sustainable commercial scale. Audit operational margins and overhead with our <a href="/calculators/finance/business-profit-calculator">Business Profit Calculator</a>, project capital expenditure yields via the <a href="/calculators/finance/roi-calculator">ROI Calculator</a>, manage corporate cash-flow using the <a href="/calculators/finance/budget-calculator">Budget Calculator</a>, and factor in retail sales taxation with the <a href="/calculators/finance/sales-tax-calculator">Sales Tax Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

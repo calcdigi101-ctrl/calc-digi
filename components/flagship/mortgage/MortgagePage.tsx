@@ -226,6 +226,14 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
             <li>Shop homeowners insurance every year and appeal a high property tax assessment.</li>
           </ol>
 
+          
+        <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+          <h3>Related Real Estate &amp; Home Financing Tools</h3>
+          <p>
+            Structuring an affordable home purchase requires balancing monthly payments against long-term interest costs. Determine your conservative purchase ceiling based on debt-to-income limits using our <a href="/calculators/finance/home-affordability-calculator">Home Affordability Calculator</a>, calculate upfront equity to avoid private mortgage insurance with the <a href="/calculators/finance/down-payment-calculator">Down Payment Calculator</a>, compare homeownership to renting and investing with our <a href="/calculators/finance/rent-vs-buy-calculator">Rent vs Buy Calculator</a>, and model personal installment loans via the <a href="/calculators/finance/loan-calculator">Loan Calculator</a>.
+          </p>
+        </div>
+  
           <h2>Frequently asked questions</h2>
           <Faq items={FAQ} />
         </Editorial>

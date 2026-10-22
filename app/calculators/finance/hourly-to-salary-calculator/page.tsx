@@ -39,7 +39,14 @@ export default function Page() {
             If you don&rsquo;t get paid vacation or holidays, enter the weeks you actually work (for example 50) so the annual
             figure isn&rsquo;t overstated.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Wage & Compensation Tools</h3>
+            <p>
+              Converting hourly pay rates into annualized income clarifies full-time earning potential. Compare salaried pay structures using our <a href="/calculators/finance/salary-calculator">Salary Calculator</a>, calculate net earnings after payroll taxes with the <a href="/calculators/finance/take-home-pay-calculator">Take Home Pay Calculator</a>, evaluate annual tax liability via the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>, and structure a monthly living plan using our <a href="/calculators/finance/budget-calculator">Budget Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

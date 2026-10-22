@@ -51,7 +51,14 @@ export default function Page() {
               year while capturing longer-term rates.
             </li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Fixed-Income & Capital Preservation Tools</h3>
+            <p>
+              Certificates of Deposit provide guaranteed, FDIC-insured fixed returns. Convert stated interest rates to true yields with our <a href="/calculators/finance/apy-calculator">APY Calculator</a>, model long-term compounding growth via the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, track liquid cash reserves using the <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, and evaluate real purchasing power erosion with the <a href="/calculators/finance/inflation-calculator">Inflation Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

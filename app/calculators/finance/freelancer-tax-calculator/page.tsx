@@ -53,7 +53,14 @@ export default function Page() {
             <li>Contribute to a SEP-IRA or Solo 401(k) — contributions reduce income tax.</li>
             <li>Deduct self-employed health insurance premiums.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Self-Employment & Income Tools</h3>
+            <p>
+              Navigating 1099 self-employment taxes requires budgeting for federal income and 15.3% SE tax. Calculate exact net after-tax income using our <a href="/calculators/finance/take-home-pay-calculator">Take Home Pay Calculator</a>, evaluate federal tax brackets with the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>, track business operating margins via the <a href="/calculators/finance/business-profit-calculator">Business Profit Calculator</a>, and explore pre-tax Solo 401(k) deductions using our <a href="/calculators/finance/401k-calculator">401k Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

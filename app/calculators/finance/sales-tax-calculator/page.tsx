@@ -36,7 +36,14 @@ export default function Page() {
           <h2>Statewide base rates</h2>
           <DataTable head={["State", "State rate"]} rows={STATE_RATES.map(([, name, rate]) => [name, `${rate}%`])} />
           <p>Check your state revenue department or a receipt for your exact combined rate. Rates can change, often on January 1 or July 1.</p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Consumer Taxation & Pricing Tools</h3>
+            <p>
+              Factoring retail sales taxes into purchase decisions ensures accurate household budget management. Calculate international value-added taxes with our <a href="/calculators/finance/vat-calculator">VAT Calculator</a>, account for vehicle sales tax on car financing using the <a href="/calculators/finance/auto-loan-calculator">Auto Loan Calculator</a>, evaluate federal income tax liabilities via the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>, and manage overall monthly spending using our <a href="/calculators/finance/budget-calculator">Budget Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

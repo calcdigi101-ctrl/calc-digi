@@ -88,10 +88,12 @@ export function CalcPage({
           target: `${SITE_URL}${path}`,
           ...(mathExpression ? { mathExpression } : {}),
           eduQuestionType:
-            category.label === "Finance"
+            category.label === "Finance" || category.label === "Finance & Money"
               ? "Financial Mathematics"
               : category.label === "Housing" || category.label === "Housing & Building"
               ? "Applied Engineering & Construction Mathematics"
+              : category.label === "Health" || category.label === "Health & Fitness"
+              ? "Biomedical & Nutritional Mathematics"
               : "Mathematics",
         },
       ],

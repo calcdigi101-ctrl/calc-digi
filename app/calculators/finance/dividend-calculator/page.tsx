@@ -52,7 +52,14 @@ export default function Page() {
             An unusually high yield can mean the share price has fallen because investors expect a dividend cut. Look at the
             payout ratio (dividends ÷ earnings) and the company&rsquo;s history of raising dividends.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Passive Income & Equities Tools</h3>
+            <p>
+              Reinvesting dividend cash flows unlocks compounding returns without requiring capital liquidation. Track total equity performance and CAGR with our <a href="/calculators/finance/stock-return-calculator">Stock Return Calculator</a>, project exponential portfolio growth via the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, model tax-free retirement distributions using the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, and plan long-term asset growth with our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

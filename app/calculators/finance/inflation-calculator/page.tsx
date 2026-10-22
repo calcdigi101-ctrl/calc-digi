@@ -47,7 +47,14 @@ export default function Page() {
             <li>Compare salaries, rents and home prices across years in &ldquo;real&rdquo; (inflation-adjusted) terms.</li>
             <li>Retirement plans need to grow income over time, not keep it flat.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Real Purchasing Power & Wealth Tools</h3>
+            <p>
+              Long-term financial planning must account for the persistent purchasing power erosion of inflation. Model real, inflation-adjusted portfolio returns with our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>, project exponential growth using the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, determine future retirement spending needs via the <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, and maximize yield on liquid funds with our <a href="/calculators/finance/savings-calculator">Savings Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

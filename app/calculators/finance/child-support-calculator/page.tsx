@@ -52,7 +52,14 @@ export default function Page() {
             <li>Income caps above which courts use discretion, and minimum orders for low incomes.</li>
             <li>Deductions such as taxes, other child support paid, or support for other children.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Family Planning & Support Tools</h3>
+            <p>
+              Statutory child support payments represent one critical pillar of ongoing family welfare. Model accompanying spousal maintenance using our <a href="/calculators/finance/alimony-calculator">Alimony Calculator</a>, plan for your child's future higher education via the <a href="/calculators/finance/college-savings-calculator">College Savings Calculator</a>, structure a balanced post-divorce spending plan with the <a href="/calculators/finance/budget-calculator">Budget Calculator</a>, and verify net cash flow using the <a href="/calculators/finance/take-home-pay-calculator">Take Home Pay Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

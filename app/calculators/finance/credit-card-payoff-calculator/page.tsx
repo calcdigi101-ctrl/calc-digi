@@ -57,7 +57,14 @@ export default function Page() {
               a good payment history.
             </li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Debt Elimination & Credit Tools</h3>
+            <p>
+              Retiring revolving credit card debt frees up vital cash flow for wealth accumulation. Compare the mathematical Avalanche versus Snowball strategies with our <a href="/calculators/finance/debt-payoff-calculator">Debt Payoff Calculator</a>, explore low-rate consolidation alternatives using the <a href="/calculators/finance/loan-calculator">Loan Calculator</a>, restructure personal cash flow with the <a href="/calculators/finance/budget-calculator">Budget Calculator</a>, and build a protective safety net using our <a href="/calculators/finance/emergency-fund-calculator">Emergency Fund Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

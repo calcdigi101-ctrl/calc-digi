@@ -49,7 +49,14 @@ export default function Page() {
             </li>
           </ul>
           <p>Either way, keep paying at least the minimum on every account so you avoid late fees and credit damage.</p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Debt Freedom & Acceleration Tools</h3>
+            <p>
+              Executing an accelerated debt payoff plan saves thousands in cumulative interest charges. Optimize high-interest revolving balances using our <a href="/calculators/finance/credit-card-payoff-calculator">Credit Card Payoff Calculator</a>, compare personal loan consolidation options with the <a href="/calculators/finance/loan-calculator">Loan Calculator</a>, establish a balanced 50/30/20 spending framework via the <a href="/calculators/finance/budget-calculator">Budget Calculator</a>, and safeguard your journey with the <a href="/calculators/finance/emergency-fund-calculator">Emergency Fund Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

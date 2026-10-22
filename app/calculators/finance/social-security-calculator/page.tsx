@@ -54,7 +54,14 @@ export default function Page() {
             the years you waited. Claiming earlier can make sense with health concerns, an immediate need for income, or as
             part of a married couple&rsquo;s strategy where the higher earner delays to maximize the survivor benefit.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Retirement Income & Longevity Tools</h3>
+            <p>
+              Deciding when to claim Social Security between ages 62 and 70 significantly alters lifetime retirement income. Integrate your benefits into a complete nest egg model with our <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, optimize employer-sponsored retirement savings using the <a href="/calculators/finance/401k-calculator">401k Calculator</a>, build tax-free private reserves via the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, and adjust future income for purchasing power loss with our <a href="/calculators/finance/inflation-calculator">Inflation Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

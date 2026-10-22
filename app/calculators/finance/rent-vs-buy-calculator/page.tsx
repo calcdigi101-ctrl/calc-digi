@@ -52,7 +52,14 @@ export default function Page() {
             <li>Home prices are very high relative to rents.</li>
             <li>You&rsquo;ll actually invest the money you save — the renter&rsquo;s advantage depends on it.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Housing Economics & Wealth Tools</h3>
+            <p>
+              Evaluating the financial trade-offs between renting and homeownership requires net present value modeling. Calculate 30-year amortization and tax deductions with our <a href="/calculators/finance/mortgage-calculator">Mortgage Calculator</a>, check your underwriting qualification ceiling using the <a href="/calculators/finance/home-affordability-calculator">Home Affordability Calculator</a>, calculate required down payment cash with the <a href="/calculators/finance/down-payment-calculator">Down Payment Calculator</a>, and model alternative portfolio gains using our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

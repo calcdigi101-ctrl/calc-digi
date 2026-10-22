@@ -60,7 +60,14 @@ export default function Page() {
             Divide 72 by your annual rate to estimate how many years it takes money to double. At 6% it doubles in about
             12 years; at 9%, about 8 years. It is a quick sanity check for the projections above.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Wealth Accumulation & Investment Tools</h3>
+            <p>
+              Harnessing the exponential power of compounding is the cornerstone of long-term financial independence. Project multi-asset portfolio growth with our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>, calculate target retirement nest eggs via the <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, model automated liquid deposits using the <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, and compare annual compounding yields with our <a href="/calculators/finance/apy-calculator">APY Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

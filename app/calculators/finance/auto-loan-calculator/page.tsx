@@ -41,7 +41,14 @@ export default function Page() {
             <li>Keep the term to 60 months or less; 72–84 month loans often leave you owing more than the car is worth.</li>
             <li>The 20/4/10 rule of thumb: 20% down, no more than 4 years, and total car costs under 10% of gross income.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Vehicle & Installment Financing Tools</h3>
+            <p>
+              Vehicle financing decisions should balance monthly payments against total interest paid. Compare standard installment terms using our <a href="/calculators/finance/loan-calculator">Loan Calculator</a>, determine the interest-saving power of upfront cash via the <a href="/calculators/finance/down-payment-calculator">Down Payment Calculator</a>, audit hidden financing charges with the <a href="/calculators/finance/apr-calculator">APR Calculator</a>, and ensure transportation costs fit within the 10% rule using our <a href="/calculators/finance/budget-calculator">Budget Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

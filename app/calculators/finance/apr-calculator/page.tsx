@@ -42,7 +42,14 @@ export default function Page() {
             <li>A low-rate loan with high fees can cost more than a slightly higher-rate loan with none.</li>
             <li>If you&rsquo;ll repay or refinance early, upfront fees are spread over fewer months and the effective cost is even higher than the APR suggests.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Borrowing & Interest Rate Tools</h3>
+            <p>
+              Evaluating financing options requires uncovering true borrowing fees. Compute exact amortization schedules using our <a href="/calculators/finance/loan-calculator">Loan Calculator</a>, contrast borrowing costs against compounding deposit yields with the <a href="/calculators/finance/apy-calculator">APY Calculator</a>, model vehicle financing terms using the <a href="/calculators/finance/auto-loan-calculator">Auto Loan Calculator</a>, and calculate full home financing costs via the <a href="/calculators/finance/mortgage-calculator">Mortgage Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

@@ -44,7 +44,14 @@ export default function Page() {
             </li>
             <li>Losses can offset gains, and up to $3,000 a year of net losses can offset ordinary income.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Equities & Total Return Tools</h3>
+            <p>
+              Measuring total stock returns requires factoring in both capital appreciation and dividend yields. Model passive dividend reinvestment growth with our <a href="/calculators/finance/dividend-calculator">Dividend Calculator</a>, simulate multi-decade portfolio growth using the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, analyze capital ROI benchmarks via the <a href="/calculators/finance/roi-calculator">ROI Calculator</a>, and structure long-term wealth targets with our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

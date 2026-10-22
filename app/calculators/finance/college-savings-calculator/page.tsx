@@ -59,7 +59,14 @@ export default function Page() {
             You don&rsquo;t have to cover 100%. Scholarships, grants, work-study and student earnings often fill part of the
             gap — use the &ldquo;share you plan to cover&rdquo; field to plan for that.
           </p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Education & Wealth Accumulation Tools</h3>
+            <p>
+              Funding higher education requires compounding returns to outpace aggressive tuition inflation. Model tax-advantaged 529 portfolio trajectories with our <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, set automated monthly sinking fund deposits via the <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, evaluate diversified asset allocations with the <a href="/calculators/finance/investment-calculator">Investment Calculator</a>, and assess purchasing power loss using our <a href="/calculators/finance/inflation-calculator">Inflation Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

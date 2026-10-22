@@ -55,7 +55,14 @@ export default function Page() {
             </li>
           </ul>
           <p>If you expect a higher tax rate in retirement, Roth usually wins; if lower, traditional does. Many people split between both.</p>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Retirement & Wealth Planning Tools</h3>
+            <p>
+              To construct a comprehensive retirement roadmap, model your total post-career spending needs with our <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, evaluate tax-free distributions using the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, forecast government safety net income via the <a href="/calculators/finance/social-security-calculator">Social Security Calculator</a>, and see how payroll contributions adjust your net income using the <a href="/calculators/finance/take-home-pay-calculator">Take Home Pay Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {

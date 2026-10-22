@@ -49,7 +49,14 @@ export default function Page() {
             <li>Factor in benefits: employer health insurance, retirement match and paid leave can be worth 20–40% of salary.</li>
             <li>Commuting time and costs effectively lower your hourly rate.</li>
           </ul>
-        </>
+        
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3>Related Income & Compensation Tools</h3>
+            <p>
+              Evaluating full compensation packages requires converting between annual salary and hourly earnings. Convert billable rates with our <a href="/calculators/finance/hourly-to-salary-calculator">Hourly to Salary Calculator</a>, calculate after-tax paycheck earnings using the <a href="/calculators/finance/take-home-pay-calculator">Take Home Pay Calculator</a>, evaluate federal tax liability via the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>, and build a monthly spending plan using our <a href="/calculators/finance/budget-calculator">Budget Calculator</a>.
+            </p>
+          </div>
+          </>
       }
       faq={[
         {
