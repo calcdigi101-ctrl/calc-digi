@@ -1,6 +1,6 @@
+import QuadraticEquationCalculator from "@/components/calcs/math/quadratic-equation-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
@@ -19,7 +19,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What does the discriminant (Δ = b² − 4ac) indicate?",
-    a: "The discriminant determines the nature and number of roots: if Δ > 0, there are two distinct real roots; if Δ = 0, there is exactly one repeated real root (the parabola touches the x-axis at its vertex); if Δ < 0, there are two complex conjugate roots involving imaginary unit i.",
+    a: "The discriminant determines the nature and number of roots: if Δ > 0, there are two distinct real roots; if Δ = 0, there is exactly one repeated real root (the parabola touches the x-axis at its vertex); if Δ &lt; 0, there are two complex conjugate roots involving imaginary unit i.",
   },
   {
     q: "How do you find the vertex of a quadratic parabola?",
@@ -50,7 +50,7 @@ const FAQ_ITEMS = [
 const DISCRIMINANT_ROWS = [
   ["Positive Discriminant (Δ > 0)", "b² − 4ac > 0", "Two distinct real roots (x₁ ≠ x₂)", "Parabola crosses x-axis at two separate points"],
   ["Zero Discriminant (Δ = 0)", "b² − 4ac = 0", "One repeated real root (x₁ = x₂ = −b/2a)", "Parabola is tangent to x-axis at vertex"],
-  ["Negative Discriminant (Δ < 0)", "b² − 4ac < 0", "Two complex conjugate roots (p ± qi)", "Parabola lies entirely above or below x-axis"],
+  ["Negative Discriminant (Δ &lt; 0)", "b² − 4ac < 0", "Two complex conjugate roots (p ± qi)", "Parabola lies entirely above or below x-axis"],
   ["Perfect Square Discriminant", "Δ = k² for integer k", "Two rational roots", "Quadratic expression factors cleanly over integers"],
 ];
 
@@ -216,13 +216,25 @@ export default function Page() {
           <p>
             To expand your quantitative toolkit, explore our specialized <Link href="/calculators/math/square-root-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Square Root Calculator</Link>, <Link href="/calculators/math/exponent-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Exponent Calculator</Link>, <Link href="/calculators/math/matrix-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Matrix Calculator</Link>, and <Link href="/calculators/math/pythagorean-theorem-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Pythagorean Theorem Calculator</Link>.
           </p>
-        </>
+        
+          <h2>Galois Theory, Discriminant Invariants & Parabolic Trajectories</h2>
+          <p>
+            The quadratic formula represents the historical pinnacle of early algebraic problem-solving, known in ancient Babylon and formally synthesized in 628 CE by Indian mathematician Brahmagupta. In Évariste Galois' profound algebraic framework, the quadratic equation represents the lowest-order non-trivial polynomial solvable by radicals, where the Galois group corresponds to the two-element permutation group S₂. The discriminant Δ = b² − 4ac is an invariant under affine transformations, governing whether the root field extension is real (Δ ≥ 0) or complex (Δ &lt; 0). In classical Newtonian ballistics, projectile motion under constant gravitational acceleration traces exact quadratic parabolic flight trajectories z(t) = z₀ + v₀t − ½gt², essential for trajectory tracking and orbital injection calculations.
+          </p>
+
+          <h2>Parabolic Reflectors, Radar Optics & Kinematic Trajectory Equations</h2>
+          <p>
+            Beyond textbook algebra, quadratic equations govern the reflective geometric properties of parabolic surfaces. In radio astronomy, satellite telecommunications, and solar thermal collectors, parabolic dish reflectors focus parallel incoming electromagnetic radiation onto a single focal receiver coordinate (0, 1/(4a)), maximizing signal reception strength while preventing spherical aberration. In classical mechanical kinematics, gravitational acceleration g creates exact quadratic altitude profiles h(t) = -0.5gt² + vt + h₀, enabling ballistics engineers, aerospace rocket designers, and artillery specialists to accurately compute apogee altitude, flight duration, and ground impact coordinates.
+          </p>
+
+          <h2>Vieta's Formulas & Quadratic Optimization Extrema</h2>
+          <p>
+            Vieta's algebraic formulas establish direct symmetric relations between polynomial roots and coefficients: the sum of roots equals -b/a, while their product equals c/a. In mathematical optimization and microeconomic marginal analysis, the parabola's vertex coordinate represents the global maximum or minimum extremum, providing the analytical tool for maximizing corporate revenue curves and minimizing structural material costs.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n\n<h2>Quadratic Solver</h2>\n<p style=\"font-size:13px;color:var(--c-ink2);margin-bottom:14px;\">Solve: ax² + bx + c = 0</p>\n<div class=\"form-group\"><label for=\"qe-a\">a (coefficient of x²)</label><input id=\"qe-a\" step=\"any\" type=\"number\" value=\"1\"/></div>\n<div class=\"form-group\"><label for=\"qe-b\">b (coefficient of x)</label><input id=\"qe-b\" step=\"any\" type=\"number\" value=\"-5\"/></div>\n<div class=\"form-group\"><label for=\"qe-c\">c (constant)</label><input id=\"qe-c\" step=\"any\" type=\"number\" value=\"6\"/></div>\n<button class=\"calc-btn\" onclick=\"calcQuadratic()\">Solve</button>\n<div class=\"result-box\" id=\"qe-result\">\n<div id=\"ri-main\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ri-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ri-ai\" style=\"display:none;\"></div>\n<div id=\"qe-ri\"></div>\n<div class=\"ai-box\" id=\"qe-ai\" style=\"display:none;\"></div>\n<div class=\"disclaimer\">⚠️ Results are estimates rounded to 4 decimal places. Verify critical calculations independently.</div>\n</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-qe-result\" onclick=\"printResult('qe-result','Quadratic Equation Solver')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Quadratic Equation Solver')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n\n</div>" }} />
-        <Script id="calc-script-quadratic-equation-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcQuadratic(){\\n  const a=parseFloat(document.getElementById('qe-a').value);\\n  const b=parseFloat(document.getElementById('qe-b').value);\\n  const c=parseFloat(document.getElementById('qe-c').value);\\n  if(isNaN(a)||isNaN(b)||isNaN(c)){alert('Please enter valid numbers for a, b, and c.');return;}\\n  if(a===0){alert('Coefficient \\\"a\\\" cannot be 0 for a quadratic equation. (This would be a linear equation instead.)');return;}\\n  const disc=b*b-4*a*c;\\n  const vertex_x=-b/(2*a);\\n  const vertex_y=a*vertex_x*vertex_x+b*vertex_x+c;\\n  let html;\\n  if(disc>0){\\n    const x1=(-b+Math.sqrt(disc))/(2*a);\\n    const x2=(-b-Math.sqrt(disc))/(2*a);\\n    html=ri('x₁','<strong>'+x1.toFixed(4)+'</strong>',true)+ri('x₂','<strong>'+x2.toFixed(4)+'</strong>');\\n  } else if(disc===0){\\n    const x=-b/(2*a);\\n    html=ri('x (repeated root)','<strong>'+x.toFixed(4)+'</strong>',true);\\n  } else {\\n    const real=(-b/(2*a)).toFixed(4);\\n    const imag=(Math.sqrt(-disc)/(2*a)).toFixed(4);\\n    html=ri('x₁','<strong>'+real+' + '+imag+'i</strong>',true)+ri('x₂','<strong>'+real+' − '+imag+'i</strong>');\\n  }\\n  html+=ri('Discriminant',disc.toFixed(2))+ri('Vertex','('+vertex_x.toFixed(2)+', '+vertex_y.toFixed(2)+')')+ri('Parabola Opens',a>0?'Upward ⌄ (minimum)':'Downward ⌃ (maximum)')+ri('Equation',a+'x² + '+b+'x + '+c+' = 0');\\n  document.getElementById('qe-ri').innerHTML=html;\\n  showResult('qe-result');\\n  const aiBox=document.getElementById('qe-ai');\\n  aiBox.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing the equation...</p>';\\n  aiBox.style.display='block';\\n  getAIInsight('Solve quadratic equation '+a+'x² + '+b+'x + '+c+' = 0. Discriminant: '+disc+'. In 2-3 sentences, briefly explain the nature of the roots found and what the discriminant value tells us about this specific equation.')\\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\\n\\n  if(typeof drawDonut==='function'){var _cv=document.querySelector('.result-chart canvas');if(!_cv){var _rc=document.querySelector('.result-chart');if(!_rc){_rc=document.createElement('div');_rc.className='result-chart';var _rbox=document.querySelector('.result-box');if(_rbox){_cv=document.createElement('canvas');_cv.id='auto-c';_cv.width=220;_cv.height=160;_rc.appendChild(_cv);_rbox.appendChild(_rc);}else{_cv=null;}}else{_cv=_rc.querySelector('canvas');}}_cv&&drawDonut(_cv.id,['Value','Ref'],[70,30],['#1a5c3a','#c8832a']);}\\n}\\n\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <QuadraticEquationCalculator />
     </CalcPage>
   );
 }

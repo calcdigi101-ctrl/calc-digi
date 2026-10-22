@@ -1,6 +1,6 @@
+import StandardDeviationCalculator from "@/components/calcs/math/standard-deviation-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
@@ -189,13 +189,25 @@ export default function Page() {
               <strong>Biomedical Reference Ranges:</strong> Establish clinical laboratory baselines where patient blood panel results between μ ± 2σ are classified as medically normal.
             </li>
           </ul>
-        </>
+        
+          <h2>Bessel's Unbiased Correction, Chebyshev's Inequality & Normal Dispersion</h2>
+          <p>
+            In mathematical statistics, the distinction between sample standard deviation s (using denominator n − 1) and population standard deviation σ (using denominator N) resolves Bessel's correction for degrees of freedom. Because sample observations cluster more tightly around their own empirical mean than around the true unobserved population parameter, dividing by n systematically underestimates true population variance; dividing by (n − 1) eliminates this negative bias completely. Regardless of whether a distribution is Gaussian or severely skewed, Chebyshev's inequality guarantees that at least 1 − (1/k²) of all observations must fall within k standard deviations of the mean, proving that at least 75% of all data points must lie within 2σ for any finite-variance distribution.
+          </p>
+
+          <h2>Six Sigma Quality Engineering & Portfolio Value-at-Risk (VaR)</h2>
+          <p>
+            In Six Sigma industrial manufacturing, process capability index Cpk and defect prevention rely directly on standard deviation tolerances: achieving 6σ quality guarantees that fewer than 3.4 defect opportunities occur per million manufactured units. In quantitative investment finance, asset volatility is quantified by annualized standard deviation of returns, establishing the denominator in William Sharpe's risk-adjusted return ratio (Sharpe Ratio = (R_p - R_f) / σ_p) and anchoring Value-at-Risk (VaR) capital reserve mandates across commercial investment banking.
+          </p>
+
+          <h2>Empirical Three-Sigma Rule & Kurtosis Characteristics</h2>
+          <p>
+            Under the classical empirical three-sigma rule (68-95-99.7 rule), approximately 68.27% of observations in a normal Gaussian distribution fall within one standard deviation of the mean, 95.45% within two standard deviations, and 99.73% within three standard deviations. In financial econometrics, leptokurtic fat-tailed distributions exhibit higher kurtosis than Gaussian bell curves, indicating elevated risk of extreme tail market events.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n\n<h2>Standard Deviation Calculator</h2>\n<div class=\"form-group\">\n<label for=\"sd-data\">Enter Numbers (comma separated)</label>\n<textarea id=\"sd-data\" rows=\"4\" style=\"width:100%;padding:10px 14px;border:1.5px solid var(--c-rule);border-radius:8px;font-family:var(--font-sans);font-size:14px;background:var(--c-bg);color:var(--c-ink);\">10, 12, 23, 23, 16, 23, 21, 16</textarea>\n</div>\n<div class=\"form-group\">\n<label for=\"sd-type\">Calculation Type</label>\n<select id=\"sd-type\"><option selected=\"\" value=\"sample\">Sample (n-1)</option><option value=\"population\">Population (n)</option></select>\n</div>\n<button class=\"calc-btn\" onclick=\"calcStdDev()\">Calculate</button>\n<div class=\"result-box\" id=\"sd-result\">\n<div id=\"sd-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"140\" id=\"sd-chart\" width=\"220\"></canvas></div>\n<div class=\"disclaimer\">⚠️ Results are rounded estimates. Verify critical calculations independently.</div>\n<div class=\"ai-box\" id=\"sd-ai-box\" style=\"display:none;\"></div>\n<div class=\"ai-box\" id=\"ai-sd-result\" style=\"display:none;\"></div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sd-result\" onclick=\"printResult('sd-result','Standard Deviation Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Standard Deviation Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n\n</div>" }} />
-        <Script id="calc-script-standard-deviation-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcStdDev(){\\n  const raw=document.getElementById('sd-data').value;\\n  const nums=raw.split(',').map(s=>parseFloat(s.trim())).filter(n=>!isNaN(n));\\n  if(nums.length<2){alert('Please enter at least 2 valid numbers separated by commas.');return;}\\n  const type=document.getElementById('sd-type').value;\\n  const n=nums.length;\\n  const mean=nums.reduce((a,b)=>a+b,0)/n;\\n  const sqDiffs=nums.map(x=>Math.pow(x-mean,2));\\n  const sumSqDiff=sqDiffs.reduce((a,b)=>a+b,0);\\n  const divisor=type==='sample'?n-1:n;\\n  const variance=sumSqDiff/divisor;\\n  const stdDev=Math.sqrt(variance);\\n  document.getElementById('sd-ri').innerHTML=\\n    ri('Standard Deviation','<strong>'+stdDev.toFixed(4)+'</strong>',true)+\\n    ri('Variance',variance.toFixed(4))+\\n    ri('Mean',mean.toFixed(4))+\\n    ri('Count (n)',n)+\\n    ri('Sum',nums.reduce((a,b)=>a+b,0).toFixed(2))+\\n    ri('Type',type==='sample'?'Sample (÷n-1)':'Population (÷n)');\\n  showResult('sd-result')\\n  var _ai_ai_sd_result=document.getElementById('ai-sd-result');\\n    _ai_ai_sd_result.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';\\n\\n  drawBar('sd-chart',nums.map((_,i)=>'#'+(i+1)),nums,'#1a5c3a');\\n\\n  if(typeof getAIInsight==='function'){var _ab=document.querySelector('.ai-box');if(!_ab){_ab=document.createElement('div');_ab.className='ai-box';var _rb=document.querySelector('.result-box');if(_rb)_rb.appendChild(_ab);}_ab.style.display='block';_ab.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';getAIInsight('Give a 2-sentence practical tip about this calculation.').then(function(_t){if(_t)_ab.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p>'+_t+'</p>';else _ab.style.display='none';});}\\n}\\n\\n\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <StandardDeviationCalculator />
     </CalcPage>
   );
 }

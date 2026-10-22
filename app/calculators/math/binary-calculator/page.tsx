@@ -1,6 +1,6 @@
+import BinaryCalculator from "@/components/calcs/math/binary-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
@@ -215,10 +215,7 @@ export default function Page() {
         </>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Binary Calculator</h2><div class=\"form-group\"><label for=\"bin-a\">Binary A</label><input id=\"bin-a\" placeholder=\"e.g. 1010\" type=\"text\" value=\"1010\"/></div><div class=\"form-group\"><label for=\"bin-op\">Operation</label><select id=\"bin-op\"><option value=\"add\">A + B</option><option value=\"sub\">A − B</option><option value=\"mul\">A × B</option><option value=\"div\">A ÷ B</option><option value=\"and\">A AND B</option><option value=\"or\">A OR B</option><option value=\"xor\">A XOR B</option></select></div><div class=\"form-group\"><label for=\"bin-b\">Binary B</label><input id=\"bin-b\" placeholder=\"e.g. 0110\" type=\"text\" value=\"0110\"/></div><button class=\"calc-btn\" onclick=\"calcBinary()\">Calculate</button><button class=\"calc-btn\" onclick=\"document.getElementById('bin-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"bin-result\" style=\"display:none;\"><div id=\"bin-ri\"></div><div class=\"ai-box\" id=\"bin-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-bin-result\" onclick=\"printResult('bin-result','Binary Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Binary Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-binary-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcBinary(){\\n  const aStr=document.getElementById('bin-a').value.trim();\\n  const bStr=document.getElementById('bin-b').value.trim();\\n  const op=document.getElementById('bin-op').value;\\n  if(!/^[01]+$/.test(aStr)||!/^[01]+$/.test(bStr)){alert('Enter valid binary numbers (0s and 1s only).');return;}\\n  const a=parseInt(aStr,2), b=parseInt(bStr,2);\\n  let dec;\\n  if(op==='add')dec=a+b;\\n  else if(op==='sub')dec=a-b;\\n  else if(op==='mul')dec=a*b;\\n  else if(op==='div'){if(b===0){alert('Cannot divide by zero.');return;}dec=Math.trunc(a/b);}\\n  else if(op==='and')dec=a&b;\\n  else if(op==='or')dec=a|b;\\n  else dec=a^b;\\n  const binResult=dec<0?('-'+Math.abs(dec).toString(2)):dec.toString(2);\\n  document.getElementById('bin-ri').innerHTML=\\n    ri('Result (Binary)','<strong style=\\\"font-size:19px;color:var(--c-accent)\\\">'+binResult+'</strong>',true)+\\n    ri('Result (Decimal)',dec)+\\n    ri('A (Decimal)',a)+\\n    ri('B (Decimal)',b);\\n  document.getElementById('bin-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <BinaryCalculator />
     </CalcPage>
   );
 }

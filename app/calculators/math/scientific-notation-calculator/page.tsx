@@ -1,6 +1,6 @@
+import ScientificNotationCalculator from "@/components/calcs/math/scientific-notation-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
@@ -255,13 +255,20 @@ export default function Page() {
           <p>
             To expand your arithmetic toolkit, explore our specialized <Link href="/calculators/math/significant-figures-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Significant Figures Calculator</Link>, <Link href="/calculators/math/exponent-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Exponent Calculator</Link>, <Link href="/calculators/math/big-number-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Big Number Calculator</Link>, and <Link href="/calculators/math/scientific-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Scientific Calculator</Link>.
           </p>
-        </>
+        
+          <h2>Floating-Point Exponent Fields, Orders of Magnitude & Normalized Radix</h2>
+          <p>
+            Scientific notation standardizes physical quantities across astronomical and subatomic orders of magnitude by expressing numbers in normalized form a × 10ᵇ, where the significand mantissa satisfies 1 ≤ |a| &lt; 10 and b is an integer exponent. This representation mirrors the internal hardware architecture of modern microprocessors, where floating-point arithmetic engines separate dynamic range (the exponent register) from fractional precision (the significand register). In engineering and electronics, ISO engineering notation restricts exponents to integer multiples of 3 (10³, 10⁶, 10⁻³, 10⁻⁶), aligning numerical values directly with standardized SI metric prefixes (kilo, mega, giga, milli, micro, nano, pico) to eliminate scaling confusion in circuit schematics.
+          </p>
+
+          <h2>Planck Subatomic Scales & Astrophysical Cosmological Dimensions</h2>
+          <p>
+            Scientific notation bridges human comprehension between subatomic quantum scales and cosmic cosmological distances. In quantum field theory, the Planck length (1.616 × 10⁻³⁵ meters) defines the minimum physical threshold of spacetime fabric, while the observable universe spans approximately 8.8 × 10²⁶ meters across 93 billion light-years. By decoupling dimensional magnitude into compact base-10 exponents, astrophysicists, nuclear engineers, and quantum physicists execute complex gravitational and subatomic calculations without catastrophic truncation errors.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Scientific Notation Calculator</h2><div class=\"form-group\"><label for=\"sn-number\">Number</label><input id=\"sn-number\" step=\"any\" type=\"number\" value=\"548000\"/></div><button class=\"calc-btn\" onclick=\"calcToScientific()\">Convert to Scientific</button><div class=\"result-box\" id=\"sn-result\" style=\"display:none;\"><div id=\"sn-ri\"></div><div class=\"ai-box\" id=\"sn-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-sn-result\" onclick=\"printResult('sn-result','Scientific Notation Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Scientific Notation Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button></div><div style=\"margin-top:20px;padding-top:16px;border-top:1px solid var(--c-rule);\"><p style=\"font-size:13px;font-weight:600;margin-bottom:10px;\">Scientific → Standard</p><div class=\"form-group\"><label for=\"sn-coeff\">Coefficient</label><input id=\"sn-coeff\" step=\"any\" type=\"number\" value=\"7.2\"/></div><div class=\"form-group\"><label for=\"sn-exp\">Exponent (power of 10)</label><input id=\"sn-exp\" step=\"1\" type=\"number\" value=\"-4\"/></div><button class=\"calc-btn\" onclick=\"calcToStandard()\">Convert to Standard</button><div class=\"result-box\" id=\"sn-std-result\" style=\"display:none;\"><div id=\"sn-std-ri\">\n</div>" }} />
-        <Script id="calc-script-scientific-notation-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcToScientific(){\\n  const num=parseFloat(document.getElementById('sn-number').value);\\n  if(isNaN(num)){alert('Enter a valid number.');return;}\\n  if(num===0){\\n    document.getElementById('sn-ri').innerHTML=ri('Scientific Notation','<strong style=\\\"font-size:19px;color:var(--c-accent)\\\">0 × 10⁰</strong>',true);\\n  } else {\\n    const exp=Math.floor(Math.log10(Math.abs(num)));\\n    const coeff=num/Math.pow(10,exp);\\n    const coeffStr=parseFloat(coeff.toFixed(6)).toString();\\n    document.getElementById('sn-ri').innerHTML=\\n      ri('Scientific Notation','<strong style=\\\"font-size:19px;color:var(--c-accent)\\\">'+coeffStr+' × 10^'+exp+'</strong>',true)+\\n      ri('Coefficient',coeffStr)+\\n      ri('Exponent',exp)+\\n      ri('Standard Form',num);\\n  }\\n  document.getElementById('sn-result').style.display='block';\\n}\\nfunction calcToStandard(){\\n  const coeff=parseFloat(document.getElementById('sn-coeff').value);\\n  const exp=parseInt(document.getElementById('sn-exp').value);\\n  if(isNaN(coeff)||isNaN(exp)){alert('Enter a valid coefficient and exponent.');return;}\\n  const standard=coeff*Math.pow(10,exp);\\n  document.getElementById('sn-std-ri').innerHTML=\\n    ri('Standard Form','<strong style=\\\"font-size:19px;color:var(--c-accent)\\\">'+standard+'</strong>',true)+\\n    ri('Scientific Form',coeff+' × 10^'+exp);\\n  document.getElementById('sn-std-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <ScientificNotationCalculator />
     </CalcPage>
   );
 }

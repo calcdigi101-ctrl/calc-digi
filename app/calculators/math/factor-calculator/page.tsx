@@ -1,6 +1,6 @@
+import FactorCalculator from "@/components/calcs/math/factor-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
@@ -220,13 +220,15 @@ export default function Page() {
           <p>
             To expand your arithmetic toolkit, explore our specialized <Link href="/calculators/math/prime-number-checker" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Prime Number Checker</Link>, <Link href="/calculators/math/gcf-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">GCF Calculator</Link>, <Link href="/calculators/math/lcm-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">LCM Calculator</Link>, and <Link href="/calculators/math/factorial-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Factorial Calculator</Link>.
           </p>
-        </>
+        
+          <h2>The Fundamental Theorem of Arithmetic & Cryptographic Factorization</h2>
+          <p>
+            The Fundamental Theorem of Arithmetic, established by Euclid and rigorously proven by Carl Friedrich Gauss, asserts that every integer greater than 1 admits an essentially unique prime factorization, up to the ordering of prime factors. This algebraic uniqueness makes factorization the cornerstone of modern public-key cryptography, including RSA encryption, where security relies directly on the computational asymmetry between multiplying two massive primes (which takes microseconds) and factoring their large composite semi-prime product (which requires astronomical computational years). Advanced algorithmic sieves, such as the General Number Field Sieve (GNFS), represent the state of the art in sub-exponential factorization research, underpinning modern cryptanalytic security audits and quantum Shor's algorithm benchmarks.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Factor Calculator</h2><div class=\"form-group\"><label for=\"fc-number\">Number</label><input id=\"fc-number\" min=\"1\" step=\"1\" type=\"number\" value=\"84\"/></div><button class=\"calc-btn\" onclick=\"calcFactors()\">Find Factors</button><button class=\"calc-btn\" onclick=\"document.getElementById('fc-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"fc-result\" style=\"display:none;\"><div id=\"fc-ri\"></div><div class=\"ai-box\" id=\"fc-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-fc-result\" onclick=\"printResult('fc-result','Factor Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Factor Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-factor-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcFactors(){\\n  const n=parseInt(document.getElementById('fc-number').value);\\n  if(isNaN(n)||n<1){alert('Enter a positive whole number.');return;}\\n  if(n>1000000){alert('Please enter a number up to 1,000,000.');return;}\\n  const factors=[];\\n  for(let i=1;i<=n;i++){if(n%i===0)factors.push(i);}\\n  let num=n, primeFactors=[];\\n  for(let p=2;p<=num;p++){\\n    while(num%p===0){primeFactors.push(p);num=num/p;}\\n  }\\n  document.getElementById('fc-ri').innerHTML=\\n    ri('All Factors','<strong style=\\\"font-size:15px;color:var(--c-accent)\\\">'+factors.join(', ')+'</strong>',true)+\\n    ri('Number of Factors',factors.length)+\\n    ri('Prime Factorization',primeFactors.length?primeFactors.join(' × '):'This is a prime number')+\\n    ri('Is Prime?',factors.length===2?'Yes':'No');\\n  document.getElementById('fc-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <FactorCalculator />
     </CalcPage>
   );
 }

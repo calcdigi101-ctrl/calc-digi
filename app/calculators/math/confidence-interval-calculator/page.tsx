@@ -1,6 +1,6 @@
+import ConfidenceIntervalCalculator from "@/components/calcs/math/confidence-interval-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
@@ -256,13 +256,15 @@ export default function Page() {
               <strong>Industrial Quality Tolerances:</strong> Manufacturers establish confidence intervals on component dimensions to guarantee Six Sigma compliance, paired with our <Link href="/calculators/math/z-score-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Z-Score Calculator</Link> and <Link href="/calculators/math/standard-deviation-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Standard Deviation Calculator</Link>.
             </li>
           </ul>
-        </>
+        
+          <h2>Neyman Construction, Coverage Probability & Student's t-Distribution</h2>
+          <p>
+            Formally introduced by Jerzy Neyman in 1937, a confidence interval does not represent the probability that a specific calculated interval contains the population parameter; rather, it reflects the long-run theoretical coverage probability across an infinite sequence of repeated independent experiments. When population variance σ² is unknown and sample size n is small (typically n &lt; 30), William Sealy Gosset's Student's t-distribution with (n − 1) degrees of freedom must be used in place of standard Gaussian Z-scores to account for excess sampling variability in the denominator. In clinical epidemiology, FDA regulatory pharmaceutical trials, and biomedical meta-analyses, confidence intervals are strictly preferred over standalone p-values because they communicate both effect magnitude and measurement precision on the natural physical scale.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Confidence Interval Calculator</h2><div class=\"form-group\"><label for=\"ci-mean\">Sample Mean</label><input id=\"ci-mean\" step=\"any\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"ci-sd\">Standard Deviation</label><input id=\"ci-sd\" min=\"0.0001\" step=\"any\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"ci-n\">Sample Size (n)</label><input id=\"ci-n\" min=\"1\" step=\"1\" type=\"number\" value=\"50\"/></div><div class=\"form-group\"><label for=\"ci-confidence\">Confidence Level</label><select id=\"ci-confidence\"><option value=\"90\">90%</option><option selected=\"\" value=\"95\">95%</option><option value=\"99\">99%</option></select></div><button class=\"calc-btn\" onclick=\"calcConfidenceInterval()\">Calculate</button><button class=\"calc-btn\" onclick=\"document.getElementById('ci-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"ci-result\" style=\"display:none;\"><div id=\"ci-ri\"></div><div class=\"ai-box\" id=\"ci-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-ci-result\" onclick=\"printResult('ci-result','Confidence Interval Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Confidence Interval Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-confidence-interval-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcConfidenceInterval(){\\n  const mean=parseFloat(document.getElementById('ci-mean').value);\\n  const sd=parseFloat(document.getElementById('ci-sd').value);\\n  const n=parseFloat(document.getElementById('ci-n').value);\\n  const conf=parseFloat(document.getElementById('ci-confidence').value);\\n  if(isNaN(mean)||isNaN(sd)||isNaN(n)||n<=0||sd<=0){alert('Enter valid values.');return;}\\n  const zTable={90:1.645,95:1.96,99:2.576};\\n  const z=zTable[conf]||1.96;\\n  const margin=z*(sd/Math.sqrt(n));\\n  const lower=mean-margin, upper=mean+margin;\\n  document.getElementById('ci-ri').innerHTML=\\n    ri('Confidence Interval','<strong style=\\\"font-size:17px;color:var(--c-accent)\\\">'+lower.toFixed(3)+' to '+upper.toFixed(3)+'</strong>',true)+\\n    ri('Margin of Error','±'+margin.toFixed(4))+\\n    ri('Confidence Level',conf+'%')+\\n    ri('Sample Mean',mean)+ri('Sample Size',n);\\n  document.getElementById('ci-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <ConfidenceIntervalCalculator />
     </CalcPage>
   );
 }

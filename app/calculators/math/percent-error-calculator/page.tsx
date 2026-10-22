@@ -1,6 +1,6 @@
+import PercentErrorCalculator from "@/components/calcs/math/percent-error-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { FractionRatioVisualizerChart } from "@/components/flagship/math/editorial-charts/FractionRatioVisualizerChart";
@@ -191,13 +191,15 @@ export default function Page() {
           <p>
             To expand your arithmetic toolkit, explore our specialized <Link href="/calculators/math/percentage-change-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Percentage Change Calculator</Link>, <Link href="/calculators/math/percentage-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Percentage Calculator</Link>, <Link href="/calculators/math/standard-deviation-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Standard Deviation Calculator</Link>, and <Link href="/calculators/math/rounding-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Rounding Calculator</Link>.
           </p>
-        </>
+        
+          <h2>Systematic vs Random Error Propagation & Metrological Uncertainty</h2>
+          <p>
+            In experimental physics, chemistry, and industrial metrology, percent error quantifies the divergence between empirical laboratory measurements and recognized theoretical standards. Error analysis rigorously distinguishes between systematic errors (constant observational bias arising from instrument miscalibration, zero-point drift, or unmodeled friction) and random errors (stochastic fluctuations governed by Gaussian noise). Under the ISO Guide to the Expression of Uncertainty in Measurement (GUM), experimental precision requires systematic error propagation modeling: when combining multiple experimental quantities through multiplication or division, relative percentage errors add in quadrature: %ΔQ = √((%Δx)² + (%Δy)²), ensuring verified statistical tolerance intervals across critical scientific hardware assemblies.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Percent Error Calculator</h2><div class=\"form-group\"><label for=\"pe-exp\">Experimental (Measured) Value</label><input id=\"pe-exp\" step=\"any\" type=\"number\" value=\"9.8\"/></div><div class=\"form-group\"><label for=\"pe-true\">Theoretical (True) Value</label><input id=\"pe-true\" step=\"any\" type=\"number\" value=\"9.81\"/></div><button class=\"calc-btn\" onclick=\"calcPercentError()\">Calculate Percent Error</button><button class=\"calc-btn\" onclick=\"document.getElementById('pe-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"pe-result\" style=\"display:none;\"><div id=\"pe-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"pe-chart\" width=\"160\"></canvas></div><div class=\"ai-box\" id=\"pe-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-pe-result\" onclick=\"printResult('pe-result','Percent Error Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Percent Error Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-percent-error-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcPercentError(){\\n  const exp=parseFloat(document.getElementById('pe-exp').value);\\n  const trueVal=parseFloat(document.getElementById('pe-true').value);\\n  if(isNaN(exp)||isNaN(trueVal)){alert('Enter valid numbers for both values.');return;}\\n  if(trueVal===0){alert('Theoretical value cannot be zero (division by zero).');return;}\\n  const absError=Math.abs(exp-trueVal);\\n  const pctError=(absError/Math.abs(trueVal))*100;\\n  document.getElementById('pe-ri').innerHTML=\\n    ri('Percent Error','<strong style=\\\"font-size:24px;color:var(--c-accent)\\\">'+pctError.toFixed(3)+'%</strong>',true)+\\n    ri('Absolute Error',absError.toFixed(4))+\\n    ri('Experimental Value',exp)+\\n    ri('Theoretical Value',trueVal);\\n  document.getElementById('pe-result').style.display='block';\\n  drawDonut('pe-chart',['Error','Accurate'],[Math.min(pctError,100),Math.max(0,100-Math.min(pctError,100))],['#c8832a','#1a5c3a']);\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <PercentErrorCalculator />
     </CalcPage>
   );
 }
