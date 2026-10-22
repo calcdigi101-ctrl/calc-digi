@@ -36,6 +36,18 @@ export function CalcPage({
   mathExpression?: string;
   children: ReactNode;
 }) {
+  const publisher = {
+    "@type": "Organization",
+    name: "CalcDigi",
+    url: `${SITE_URL}/`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/icon.svg`,
+      width: 512,
+      height: 512,
+    },
+  };
+
   const graph: object[] = [
     {
       "@type": "BreadcrumbList",
@@ -53,6 +65,11 @@ export function CalcPage({
       applicationCategory: appCategory,
       operatingSystem: "Any",
       browserRequirements: "Requires JavaScript",
+      inLanguage: "en-US",
+      isAccessibleForFree: true,
+      softwareVersion: "2026.1",
+      dateModified: "2026-10-23",
+      publisher,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
   ];
@@ -66,6 +83,9 @@ export function CalcPage({
       name: title,
       url: `${SITE_URL}${path}`,
       description,
+      inLanguage: "en-US",
+      dateModified: "2026-10-23",
+      publisher,
       aspect: ["Overview", "Calculation", "Clinical Guidelines", "Reference Ranges"],
       medicalAudience: "Patients and Health Consumers",
     });
@@ -82,6 +102,9 @@ export function CalcPage({
       name: title,
       url: `${SITE_URL}${path}`,
       description,
+      inLanguage: "en-US",
+      dateModified: "2026-10-23",
+      publisher,
       potentialAction: [
         {
           "@type": "SolveAction",
@@ -102,6 +125,9 @@ export function CalcPage({
   if (faq.length) {
     graph.push({
       "@type": "FAQPage",
+      inLanguage: "en-US",
+      dateModified: "2026-10-23",
+      publisher,
       mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     });
   }

@@ -1,34 +1,419 @@
 # CalcDigi
 
-> Free online calculation tools, interactive visual graphs, and smart calculators across Finance, Health, Math, Science, Internet, Geography, Transportation, and more.
+> Free online calculation tools, interactive visual graphs, step-by-step mathematical formulas, and instant calculation engines across Finance, Health, Math, Housing, Business, Science, and more.
 
-## Formulas & Methodology
-- Mortgage Payment: M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1]
-- BMI Formula: weight (kg) / [height (m)]^2
-- Break Even (units): Fixed Costs / (Price - Variable Cost per Unit)
-- All calculations run 100% client-side in-browser with zero telemetry.
+## Knowledge Graph & Machine Feeds
+- [Full Knowledge Base (LLMs-Full)](https://calc-digi.vercel.app/llms-full.txt): Complete directory of all 340+ calculators with exact mathematical formulas, input requirements, and verified FAQs.
+- [Machine-Readable Tools Index (JSON)](https://calc-digi.vercel.app/tools.json): Direct structured API feed of all tools.
+- [XML Sitemap](https://calc-digi.vercel.app/sitemap.xml): Complete machine-readable XML index of all pages.
+- [All Calculators Directory](https://calc-digi.vercel.app/pages/calculators): Searchable directory of all calculators.
 
-## Core Calculators & Tools
+## Core Computation Methodology & Technical Standards
+- Precision: Client-side IEEE 754 floating-point calculations with big-integer and arbitrary precision fallback for factorials, combinatorics, and high-order matrices.
+- Privacy & Security: 100% in-browser execution with zero telemetry, zero storage of personal financial/health numbers.
+- Financial Standards: US Rule 78, Actuarial/APR Method, IRS standard mileage & tax tables (2026), compound frequency compounding schedules.
+- Health Standards: World Health Organization (WHO) and CDC BMI & BMR (Mifflin-St Jeor / Katch-McArdle) standards.
+- Engineering Standards: ISO 80000, SI derived metric standards, NIST physical constants.
 
-- [Mortgage Calculator](https://calc-digi.vercel.app/calculators/finance/mortgage-calculator): Calculate monthly mortgage payments, amortization schedule, taxes, insurance, PMI, and extra payments.
-- [BMI Calculator](https://calc-digi.vercel.app/calculators/health/bmi-calculator): Compute Body Mass Index, healthy weight range, and category breakdowns.
-- [Compound Interest Calculator](https://calc-digi.vercel.app/calculators/finance/compound-interest-calculator): Calculate investment growth with compound interest and regular contributions.
-- [Loan Calculator](https://calc-digi.vercel.app/calculators/finance/loan-calculator): Estimate personal or auto loan repayments and interest costs.
-- [Calorie Calculator](https://calc-digi.vercel.app/calculators/health/calorie-calculator): Calculate daily caloric requirements based on BMR, age, and activity level.
-- [Percentage Calculator](https://calc-digi.vercel.app/calculators/math/percentage-calculator): Compute percentages, percent changes, and fraction conversions.
-- [Age Calculator](https://calc-digi.vercel.app/calculators/datetime/age-calculator): Exact age calculation in years, months, days, hours, and minutes.
-- [Auto Loan Calculator](https://calc-digi.vercel.app/calculators/finance/auto-loan-calculator): Car financing, monthly payments, trade-in value, and taxes.
+## Categories Directory
 
-## Categories
+### Baby & Parenting (8 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/baby
+- [Baby Feeding Calculator](https://calc-digi.vercel.app/calculators/baby/baby-feeding-calculator): 
+- [Baby Name Popularity Calculator](https://calc-digi.vercel.app/calculators/baby/baby-name-popularity-calculator): 
+- [Baby Sleep Calculator](https://calc-digi.vercel.app/calculators/baby/baby-sleep-calculator): 
+- [Baby Weight Percentile Calculator](https://calc-digi.vercel.app/calculators/baby/baby-weight-percentile-calculator): 
+- [Child Height Predictor Calculator](https://calc-digi.vercel.app/calculators/baby/child-height-predictor-calculator): 
+- [Childcare Cost Calculator](https://calc-digi.vercel.app/calculators/baby/childcare-cost-calculator): 
+- [Diaper Cost Calculator](https://calc-digi.vercel.app/calculators/baby/diaper-cost-calculator): 
+- [Pregnancy Due Date Calculator](https://calc-digi.vercel.app/calculators/baby/due-date-calculator): 
 
-- [Finance](https://calc-digi.vercel.app/pages/finance): Mortgage, loan, investment, interest, tax, and budget calculators.
-- [Health](https://calc-digi.vercel.app/pages/health): BMI, calorie, body fat, macro, and fitness calculators.
-- [Math](https://calc-digi.vercel.app/pages/math): Algebra, geometry, percentage, fraction, and scientific calculations.
-- [Science](https://calc-digi.vercel.app/pages/science): Physics, chemistry, molarity, density, and half-life calculators.
-- [Internet](https://calc-digi.vercel.app/pages/internet): Bandwidth, data transfer, download speed, and IP subnet calculators.
-- [Transportation](https://calc-digi.vercel.app/pages/transportation): Fuel cost, mileage, commute, EV savings, and travel calculators.
+### Business & Entrepreneurship (20 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/business
+- [Break Even Calculator](https://calc-digi.vercel.app/calculators/business/break-even-calculator): 
+- [Burn Rate Calculator](https://calc-digi.vercel.app/calculators/business/burn-rate-calculator): 
+- [Business Loan Calculator](https://calc-digi.vercel.app/calculators/business/business-loan-calculator): 
+- [Business Revenue Calculator](https://calc-digi.vercel.app/calculators/business/business-revenue-calculator): 
+- [CAC Calculator](https://calc-digi.vercel.app/calculators/business/cac-calculator): 
+- [COGS Calculator](https://calc-digi.vercel.app/calculators/business/cogs-calculator): 
+- [Discount Calculator](https://calc-digi.vercel.app/calculators/business/discount-calculator): 
+- [Ecommerce Profit Calculator](https://calc-digi.vercel.app/calculators/business/ecommerce-profit-calculator): 
+- [Employee Cost Calculator](https://calc-digi.vercel.app/calculators/business/employee-cost-calculator): 
+- [Freelance Rate Calculator](https://calc-digi.vercel.app/calculators/business/freelance-rate-calculator): 
+- [Invoice Calculator](https://calc-digi.vercel.app/calculators/business/invoice-calculator): 
+- [LTV Calculator](https://calc-digi.vercel.app/calculators/business/ltv-calculator): 
+- [Markup Calculator](https://calc-digi.vercel.app/calculators/business/markup-calculator): 
+- [Payroll Calculator](https://calc-digi.vercel.app/calculators/business/payroll-calculator): 
+- [Profit Margin Calculator](https://calc-digi.vercel.app/calculators/business/profit-margin-calculator): 
+- [ROI Calculator](https://calc-digi.vercel.app/calculators/business/roi-calculator): 
+- [Sales Tax Calculator](https://calc-digi.vercel.app/calculators/business/sales-tax-calculator): 
+- [Inventory Shrinkage Calculator](https://calc-digi.vercel.app/calculators/business/shrinkage-calculator): 
+- [Startup Valuation Calculator](https://calc-digi.vercel.app/calculators/business/startup-valuation-calculator): 
+- [Wholesale Price Calculator](https://calc-digi.vercel.app/calculators/business/wholesale-price-calculator): 
 
-## Full Directory
+### Date & Time (14 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/datetime
+- [Age Calculator](https://calc-digi.vercel.app/calculators/datetime/age-calculator): Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday, zodiac sign, and fun generation sta... — Formula: `Exact Age = (As of Date − Birth Date) broken into Years → Months → Days`
+- [Birthday Calculator](https://calc-digi.vercel.app/calculators/datetime/birthday-calculator): 
+- [Date Difference Calculator](https://calc-digi.vercel.app/calculators/datetime/date-difference-calculator): 
+- [Day of Week Calculator](https://calc-digi.vercel.app/calculators/datetime/date-to-day-calculator): 
+- [Days Until Calculator](https://calc-digi.vercel.app/calculators/datetime/days-until-calculator): 
+- [Leap Year Calculator](https://calc-digi.vercel.app/calculators/datetime/leap-year-calculator): 
+- [Month Calculator](https://calc-digi.vercel.app/calculators/datetime/month-calculator): 
+- [Time Calculator](https://calc-digi.vercel.app/calculators/datetime/time-calculator): 
+- [Time Duration Calculator](https://calc-digi.vercel.app/calculators/datetime/time-duration-calculator): 
+- [Time Zone Converter](https://calc-digi.vercel.app/calculators/datetime/time-zone-converter): 
+- [Unix Timestamp Converter](https://calc-digi.vercel.app/calculators/datetime/unix-timestamp-converter): 
+- [Week Number Calculator](https://calc-digi.vercel.app/calculators/datetime/week-number-calculator): 
+- [Working Days Calculator](https://calc-digi.vercel.app/calculators/datetime/workdays-calculator): 
+- [Year Calculator](https://calc-digi.vercel.app/calculators/datetime/year-calculator): 
 
-- [All 340+ Calculators](https://calc-digi.vercel.app/pages/calculators): Complete searchable directory of calculators and tools.
-- [Sitemap](https://calc-digi.vercel.app/sitemap.xml): Complete machine-readable XML index of all 372 URLs.
+### Education & Academics (15 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/education
+- [ACT Score Calculator](https://calc-digi.vercel.app/calculators/education/act-score-calculator): 
+- [Attendance Calculator](https://calc-digi.vercel.app/calculators/education/attendance-calculator): 
+- [CGPA Calculator](https://calc-digi.vercel.app/calculators/education/cgpa-calculator): 
+- [Class Rank Calculator](https://calc-digi.vercel.app/calculators/education/class-rank-calculator): 
+- [College Cost Calculator](https://calc-digi.vercel.app/calculators/education/college-cost-calculator): 
+- [Final Grade Calculator](https://calc-digi.vercel.app/calculators/education/final-grade-calculator): 
+- [GPA Calculator](https://calc-digi.vercel.app/calculators/education/gpa-calculator): 
+- [Grade Calculator](https://calc-digi.vercel.app/calculators/education/grade-calculator): 
+- [Percentage Grade Calculator](https://calc-digi.vercel.app/calculators/education/percentage-grade-calculator): 
+- [Reading Speed Calculator](https://calc-digi.vercel.app/calculators/education/reading-speed-calculator): 
+- [SAT Score Calculator](https://calc-digi.vercel.app/calculators/education/sat-score-calculator): 
+- [Scholarship Calculator](https://calc-digi.vercel.app/calculators/education/scholarship-calculator): 
+- [Student Loan Calculator](https://calc-digi.vercel.app/calculators/education/student-loan-calculator): 
+- [Study Hours Calculator](https://calc-digi.vercel.app/calculators/education/study-hours-calculator): 
+- [Test Score Calculator](https://calc-digi.vercel.app/calculators/education/test-score-calculator): 
+
+### Electronics & Electrical Engineering (15 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/electronics
+- [Battery Life Calculator](https://calc-digi.vercel.app/calculators/electronics/battery-life-calculator): 
+- [Capacitor Calculator](https://calc-digi.vercel.app/calculators/electronics/capacitor-calculator): 
+- [Decibel Calculator](https://calc-digi.vercel.app/calculators/electronics/decibel-calculator): 
+- [Frequency Calculator](https://calc-digi.vercel.app/calculators/electronics/frequency-calculator): 
+- [Inductor Calculator](https://calc-digi.vercel.app/calculators/electronics/inductor-calculator): 
+- [LED Resistor Calculator](https://calc-digi.vercel.app/calculators/electronics/led-resistor-calculator): 
+- [Ohm's Law Calculator](https://calc-digi.vercel.app/calculators/electronics/ohms-law-calculator): 
+- [Electrical Power Calculator](https://calc-digi.vercel.app/calculators/electronics/power-calculator): 
+- [RC Time Constant Calculator](https://calc-digi.vercel.app/calculators/electronics/rc-time-constant-calculator): 
+- [Resistor Color Code Calculator](https://calc-digi.vercel.app/calculators/electronics/resistor-color-code-calculator): 
+- [Solar Panel Calculator](https://calc-digi.vercel.app/calculators/electronics/solar-panel-calculator): 
+- [Three Phase Power Calculator](https://calc-digi.vercel.app/calculators/electronics/three-phase-power-calculator): 
+- [Transformer Calculator](https://calc-digi.vercel.app/calculators/electronics/transformer-calculator): 
+- [Voltage Divider Calculator](https://calc-digi.vercel.app/calculators/electronics/voltage-divider-calculator): 
+- [Wire Gauge Calculator](https://calc-digi.vercel.app/calculators/electronics/wire-gauge-calculator): 
+
+### Engineering & Mechanics (12 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/engineering
+- [Beam Load Calculator](https://calc-digi.vercel.app/calculators/engineering/beam-load-calculator): 
+- [Bolt Torque Calculator](https://calc-digi.vercel.app/calculators/engineering/bolt-torque-calculator): 
+- [Concrete Mix Calculator](https://calc-digi.vercel.app/calculators/engineering/concrete-mix-calculator): 
+- [Electrical Load Calculator](https://calc-digi.vercel.app/calculators/engineering/electrical-load-calculator): 
+- [Gear Ratio Calculator](https://calc-digi.vercel.app/calculators/engineering/gear-ratio-calculator): 
+- [Heat Transfer Calculator](https://calc-digi.vercel.app/calculators/engineering/heat-transfer-calculator): 
+- [HVAC Load Calculator](https://calc-digi.vercel.app/calculators/engineering/hvac-load-calculator): 
+- [Pipe Flow Calculator](https://calc-digi.vercel.app/calculators/engineering/pipe-flow-calculator): 
+- [Pump Calculator](https://calc-digi.vercel.app/calculators/engineering/pump-calculator): 
+- [Reynolds Number Calculator](https://calc-digi.vercel.app/calculators/engineering/reynolds-number-calculator): 
+- [Signal-to-Noise Ratio Calculator](https://calc-digi.vercel.app/calculators/engineering/signal-to-noise-calculator): 
+- [Structural Steel Calculator](https://calc-digi.vercel.app/calculators/engineering/structural-steel-calculator): 
+
+### Entertainment & Games (10 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/entertainment
+- [Book Reading Time Calculator](https://calc-digi.vercel.app/calculators/entertainment/book-reading-time-calculator): 
+- [Concert Ticket Calculator](https://calc-digi.vercel.app/calculators/entertainment/concert-ticket-calculator): 
+- [Gaming PC Build Cost Calculator](https://calc-digi.vercel.app/calculators/entertainment/gaming-pc-build-calculator): 
+- [Movie Ticket Price Calculator](https://calc-digi.vercel.app/calculators/entertainment/movie-ticket-price-calculator): 
+- [Party Planning Cost Calculator](https://calc-digi.vercel.app/calculators/entertainment/party-planning-calculator): 
+- [Podcast Length Calculator](https://calc-digi.vercel.app/calculators/entertainment/podcast-length-calculator): 
+- [Spotify Listening Stats Calculator](https://calc-digi.vercel.app/calculators/entertainment/spotify-listening-stats-calculator): 
+- [Streaming Cost Calculator](https://calc-digi.vercel.app/calculators/entertainment/streaming-cost-calculator): 
+- [Vacation Entertainment Budget Calculator](https://calc-digi.vercel.app/calculators/entertainment/travel-entertainment-calculator): 
+- [Video Game Hours Calculator](https://calc-digi.vercel.app/calculators/entertainment/video-game-hours-calculator): 
+
+### Environment & Carbon Footprint (8 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/environment
+- [Air Quality Index (AQI) Calculator](https://calc-digi.vercel.app/calculators/environment/air-quality-index-calculator): 
+- [Carbon Footprint Calculator](https://calc-digi.vercel.app/calculators/environment/carbon-footprint-calculator): 
+- [Electric Vehicle Savings Calculator](https://calc-digi.vercel.app/calculators/environment/electric-vehicle-savings-calculator): 
+- [Energy Consumption Calculator](https://calc-digi.vercel.app/calculators/environment/energy-consumption-calculator): 
+- [Recycling Savings Calculator](https://calc-digi.vercel.app/calculators/environment/recycling-savings-calculator): 
+- [Solar Panel Calculator](https://calc-digi.vercel.app/calculators/environment/solar-panel-calculator): 
+- [Tree Planting Calculator](https://calc-digi.vercel.app/calculators/environment/tree-planting-calculator): 
+- [Water Usage Calculator](https://calc-digi.vercel.app/calculators/environment/water-usage-calculator): 
+
+### Finance, Loans & Taxation (40 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/finance
+- [401(k) Calculator](https://calc-digi.vercel.app/calculators/finance/401k-calculator): Estimate your 401(k) balance at retirement from your contribution rate, employer match, raises and investment returns — using the 2026 IRS c...
+- [Alimony Calculator](https://calc-digi.vercel.app/calculators/finance/alimony-calculator): Get a rough estimate of spousal support and its likely duration from both spouses' incomes and the length of the marriage. — Formula: `Annual support = 30% of payer&rsquo;s gross income − 20% of payee&rsquo;s gross income`
+- [APR Calculator](https://calc-digi.vercel.app/calculators/finance/apr-calculator): Find the true annual cost of a loan once upfront fees are included, so you can compare offers with different rates and fees side by side. — Formula: `Loan − Fees = Σ Payment ÷ (1 + APR/12)^k, for k = 1 … n`
+- [APY Calculator](https://calc-digi.vercel.app/calculators/finance/apy-calculator): Convert a nominal interest rate into annual percentage yield (APY) and see how compounding frequency changes what you actually earn. — Formula: `APY = (1 + r ÷ n)^n − 1`
+- [Auto Loan Calculator](https://calc-digi.vercel.app/calculators/finance/auto-loan-calculator): Estimate your monthly car payment including sales tax, dealer fees, your down payment and trade-in, and see how much interest the loan costs... — Formula: `Amount financed = Price + Sales tax + Fees + Trade-in payoff − Down payment − Trade-in value`
+- [Break-Even Calculator](https://calc-digi.vercel.app/calculators/finance/break-even-calculator): Work out how many units you need to sell — and how much revenue you need — before your business starts making a profit. — Formula: `Break-even units = Fixed costs ÷ (Price − Variable cost per unit)`
+- [Budget Calculator](https://calc-digi.vercel.app/calculators/finance/budget-calculator): Split your monthly take-home pay into needs, wants and savings with a simple budget rule — and see how your current spending compares.
+- [Business Profit Calculator](https://calc-digi.vercel.app/calculators/finance/business-profit-calculator): Turn revenue and costs into gross profit, EBITDA, operating profit and net profit — with the margin at each level.
+- [CD Calculator](https://calc-digi.vercel.app/calculators/finance/cd-calculator): Find out how much interest a certificate of deposit will earn and what it will be worth when it matures. — Formula: `Maturity value = Deposit × (1 + APY)^(months ÷ 12)`
+- [Child Support Calculator](https://calc-digi.vercel.app/calculators/finance/child-support-calculator): Estimate monthly child support using the income-shares approach that most US states follow.
+- [College Savings Calculator](https://calc-digi.vercel.app/calculators/finance/college-savings-calculator): Estimate what college will cost by the time your child enrolls and how much you need to save each month to pay for it.
+- [Compound Interest Calculator](https://calc-digi.vercel.app/calculators/finance/compound-interest-calculator): See how your savings grow when interest earns interest. Add a starting balance, regular monthly deposits and a rate to project your balance ... — Formula: `A = P(1 + r/n)^(n·t)`
+- [Credit Card Payoff Calculator](https://calc-digi.vercel.app/calculators/finance/credit-card-payoff-calculator): Find out how long it will take to clear your credit card balance and how much interest you'll pay — or what you need to pay each month to be...
+- [Crypto Profit Calculator](https://calc-digi.vercel.app/calculators/finance/crypto-profit-calculator): Work out the profit or loss on a cryptocurrency trade after exchange fees and taxes, and the price you need to sell at to break even. — Formula: `Coins = (Investment − Buy fee) ÷ Buy price`
+- [Currency Converter](https://calc-digi.vercel.app/calculators/finance/currency-converter): Convert between more than 160 world currencies using reference exchange rates that are refreshed every day. — Formula: `Amount in B = Amount in A × (rate of B ÷ rate of A)`
+- [Debt Payoff Calculator](https://calc-digi.vercel.app/calculators/finance/debt-payoff-calculator): See when you'll be debt-free at your current payment, and how much sooner an extra monthly payment gets you there.
+- [Dividend Calculator](https://calc-digi.vercel.app/calculators/finance/dividend-calculator): Project your dividend income and portfolio value over time, with or without reinvesting dividends. — Formula: `Dividend yield = Annual dividends per share ÷ Share price`
+- [Down Payment Calculator](https://calc-digi.vercel.app/calculators/finance/down-payment-calculator): See how much cash you need to buy a home — down payment plus closing costs — and how long it will take to save it.
+- [Emergency Fund Calculator](https://calc-digi.vercel.app/calculators/finance/emergency-fund-calculator): Work out how big your emergency fund should be, how far along you are, and when you'll reach your target.
+- [Freelancer Tax Calculator](https://calc-digi.vercel.app/calculators/finance/freelancer-tax-calculator): Estimate the taxes on your freelance or 1099 income — self-employment tax plus federal and state income tax — and how much to pay each quart... — Formula: `SE tax = Net profit × 92.35% × 15.3%`
+- [Home Affordability Calculator](https://calc-digi.vercel.app/calculators/finance/home-affordability-calculator): Find the most expensive home you can likely qualify for, based on your income, existing debts, down payment and today's mortgage rates. — Formula: `Front-end DTI = Housing payment ÷ Gross monthly income`
+- [Hourly to Salary Calculator](https://calc-digi.vercel.app/calculators/finance/hourly-to-salary-calculator): Turn an hourly wage into a yearly salary — including overtime — or work out the hourly rate behind a salary offer. — Formula: `Annual salary = Hourly wage × Hours per week × Weeks per year`
+- [Inflation Calculator](https://calc-digi.vercel.app/calculators/finance/inflation-calculator): See how much a dollar amount from any year since 1913 is worth today using official US Consumer Price Index data — or project future prices ... — Formula: `Value in year B = Amount × CPI(B) ÷ CPI(A)`
+- [Investment Calculator](https://calc-digi.vercel.app/calculators/finance/investment-calculator): Project how your investments could grow from a starting amount and regular monthly contributions, and see the result in today's dollars. — Formula: `Monthly rate = (1 + annual return)^(1/12) − 1`
+- [Loan Calculator](https://calc-digi.vercel.app/calculators/finance/loan-calculator): Work out the monthly payment and total interest on any fixed-rate loan, then see the full year-by-year amortization schedule. — Formula: `M = P × r ÷ [1 − (1 + r)^−n]`
+- [Mortgage Calculator](https://calc-digi.vercel.app/calculators/finance/mortgage-calculator): 
+- [Net Worth Calculator](https://calc-digi.vercel.app/calculators/finance/net-worth-calculator): Add up what you own and what you owe to find your net worth, and see how it compares with other US households your age. — Formula: `Net worth = Total assets − Total liabilities`
+- [PayPal Fee Calculator](https://calc-digi.vercel.app/calculators/finance/paypal-fee-calculator): Find out how much PayPal takes from a payment and what you'll receive — or how much to invoice so you end up with an exact amount. — Formula: `Charge = (Amount you want + fixed fee) ÷ (1 − percentage fee)`
+- [Rent vs. Buy Calculator](https://calc-digi.vercel.app/calculators/finance/rent-vs-buy-calculator): Compare where you'd end up financially if you bought a home versus renting and investing the money you'd otherwise put into it.
+- [Retirement Calculator](https://calc-digi.vercel.app/calculators/finance/retirement-calculator): See what your savings could grow to by retirement, how big a nest egg your target income needs, and how long your money will last. — Formula: `Needed = W × [1 − ((1 + g) ÷ (1 + r))^n] ÷ (r − g)`
+- [ROI Calculator](https://calc-digi.vercel.app/calculators/finance/roi-calculator): Measure the return on any investment — a stock, a property, a marketing campaign or a business project — as a total and as a yearly rate. — Formula: `ROI = (Amount returned − Amount invested) ÷ Amount invested × 100%`
+- [Roth IRA Calculator](https://calc-digi.vercel.app/calculators/finance/roth-ira-calculator): Project how much your Roth IRA could hold at retirement — all of it tax-free — and how much more that is than saving the same money in a tax...
+- [Salary Calculator](https://calc-digi.vercel.app/calculators/finance/salary-calculator): Convert any pay amount into hourly, daily, weekly, biweekly, semi-monthly, monthly, quarterly and annual figures.
+- [Sales Tax Calculator](https://calc-digi.vercel.app/calculators/finance/sales-tax-calculator): Add sales tax to a price, or back it out of a receipt total, using any US state's rate plus your local tax. — Formula: `Total = Price × (1 + rate)`
+- [Savings Calculator](https://calc-digi.vercel.app/calculators/finance/savings-calculator): Find out how much you need to set aside each month to reach a savings goal — or how much your regular deposits will grow to with interest. — Formula: `Monthly deposit = (Goal − Current × (1 + i)^n) × i ÷ [(1 + i)^n − 1]`
+- [Social Security Calculator](https://calc-digi.vercel.app/calculators/finance/social-security-calculator): See how your Social Security retirement benefit changes depending on when you claim, from age 62 to 70.
+- [Stock Return Calculator](https://calc-digi.vercel.app/calculators/finance/stock-return-calculator): Calculate the total and annualized return on a stock you bought, including dividends, trading costs and taxes. — Formula: `Total return = (Sale value − Cost − Fees + Dividends − Tax) ÷ Cost`
+- [Take-Home Pay Calculator](https://calc-digi.vercel.app/calculators/finance/take-home-pay-calculator): Estimate how much of your salary actually lands in your bank account each payday after taxes, retirement contributions and benefits.
+- [Income Tax Calculator](https://calc-digi.vercel.app/calculators/finance/tax-calculator): 
+- [VAT Calculator](https://calc-digi.vercel.app/calculators/finance/vat-calculator): Add VAT to a net price or extract the VAT from a gross price, using common country rates or your own. — Formula: `Gross = Net × (1 + VAT rate)`
+
+### Food, Cooking & Nutrition (10 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/food
+- [Alcohol Unit Calculator](https://calc-digi.vercel.app/calculators/food/alcohol-unit-calculator): 
+- [Baking Substitution Calculator](https://calc-digi.vercel.app/calculators/food/baking-substitution-calculator): 
+- [Calorie Burn Calculator](https://calc-digi.vercel.app/calculators/food/calorie-burn-calculator): 
+- [Caffeine Calculator](https://calc-digi.vercel.app/calculators/food/coffee-caffeine-calculator): 
+- [Cooking Conversion Calculator](https://calc-digi.vercel.app/calculators/food/cooking-conversion-calculator): 
+- [Cooking Time Calculator](https://calc-digi.vercel.app/calculators/food/cooking-time-calculator): 
+- [Food Cost Calculator](https://calc-digi.vercel.app/calculators/food/food-cost-calculator): 
+- [Nutrition Calculator](https://calc-digi.vercel.app/calculators/food/nutrition-calculator): 
+- [Recipe Scaler](https://calc-digi.vercel.app/calculators/food/recipe-scaler): 
+- [Tip Calculator](https://calc-digi.vercel.app/calculators/food/tip-calculator): 
+
+### Geography & Astronomy (6 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/geography
+- [Country Statistics Calculator](https://calc-digi.vercel.app/calculators/geography/country-area-population-calculator): 
+- [Distance Between Cities Calculator](https://calc-digi.vercel.app/calculators/geography/distance-between-cities-calculator): 
+- [Elevation Grade Calculator](https://calc-digi.vercel.app/calculators/geography/elevation-grade-calculator): 
+- [Latitude and Longitude Calculator](https://calc-digi.vercel.app/calculators/geography/latitude-longitude-calculator): 
+- [Map Scale Calculator](https://calc-digi.vercel.app/calculators/geography/map-scale-calculator): 
+- [Time Zone Difference Calculator](https://calc-digi.vercel.app/calculators/geography/time-zone-difference-calculator): 
+
+### Health, Fitness & Nutrition (35 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/health
+- [Alcohol Unit Calculator](https://calc-digi.vercel.app/calculators/health/alcohol-unit-calculator): Determine your Blood Alcohol Concentration (BAC) and trace metabolic elimination time using the clinical Widmark equation. Understand standa... — Formula: `BAC = [ (Alcohol in Grams × 5.14) ÷ (Body Weight in lbs × r) ] − (β × Elapsed Hours)`
+- [Baby Weight Percentile Calculator](https://calc-digi.vercel.app/calculators/health/baby-weight-calculator): Assess your infant's physical development against the World Health Organization (WHO) Child Growth Standards (0 to 24 months). Calculate exa... — Formula: `{"Z = \\frac{(W / M)^L - 1}{L \\cdot S} \\quad (L \\neq 0)"}`
+- [Blood Pressure Calculator](https://calc-digi.vercel.app/calculators/health/blood-pressure-calculator): Interpret your blood pressure numbers using the landmark 2017 ACC/AHA Clinical Practice Guidelines. Evaluate Mean Arterial Pressure (MAP) fo... — Formula: `MAP = Diastolic + 1/3 (Systolic - Diastolic)`
+- [BMI Calculator](https://calc-digi.vercel.app/calculators/health/bmi-calculator): Calculate your Body Mass Index in US or metric units and see where you fall on the WHO scale, plus the healthy weight range for your height. — Formula: `BMI = weight (kg) ÷ [height (m)]²`
+- [BMR Calculator](https://calc-digi.vercel.app/calculators/health/bmr-calculator): Accurately calculate your Basal Metabolic Rate (BMR)—the minimum daily calories your body burns at complete rest to sustain vital cellular, ... — Formula: `Men: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) + 5 {"\n"}Women: BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age in years) - 161`
+- [Body Fat Calculator](https://calc-digi.vercel.app/calculators/health/body-fat-calculator): Step-by-step instructions for taking accurate neck, waist, and hip measurements for the US Navy body fat formula. — Formula: `% Fat = 495 ÷ [1.0324 − 0.19077 × log₁₀(Waist − Neck) + 0.15456 × log₁₀(Height)] − 450`
+- [Body Shape Calculator](https://calc-digi.vercel.app/calculators/health/body-shape-calculator): Determine your precise anatomical body shape—Hourglass, Pear, Rectangle, Apple, or Inverted Triangle—using standardized anthropometric ratio... — Formula: `\text{WHR} = \frac{\text{Waist Circumference}}{\text{Hip Circumference}} ; \quad \text{BHR} = \frac{\text{Bust}}{\text{Hip}}`
+- [Bra Size Calculator](https://calc-digi.vercel.app/calculators/health/bra-size-calculator): Accurately determine your true bra size using modern snug-band anthropometry and volumetric sister-sizing principles. Avoid neck and shoulde... — Formula: `{"\\Delta = \\text{Bust} - \\text{Band}, \\quad V_{\\text{cup}} \\propto \\text{Band} \\times \\Delta"}`
+- [Calorie Burn Calculator](https://calc-digi.vercel.app/calculators/health/calorie-burn-calculator): Quantify workout energy expenditure using the validated 2024 Ainsworth Compendium of Physical Activities. Distinguish between gross total ex... — Formula: `1.0 MET = 3.5 mL of Oxygen (O2) per Kilogram of Body Mass per Minute`
+- [Calorie Calculator](https://calc-digi.vercel.app/calculators/health/calorie-calculator): Calculate your personalized daily calorie requirements for healthy weight loss, maintenance, or muscle gain. Powered by the clinically valid... — Formula: `BMR = (10 × weight in kg) + (6.25 × height in cm) − (5 × age in years) + 5`
+- [Child Height Predictor](https://calc-digi.vercel.app/calculators/health/child-height-predictor): Forecast your child's final adult stature using the clinical Tanner-Goldstein Mid-Parental Height (MPH) formula. Review pubertal peak height... — Formula: `{"\\text{Boy MPH} = \\frac{F + M + 13\\text{ cm}}{2}, \\quad \\text{Girl MPH} = \\frac{F + M - 13\\text{ cm}}{2}"}`
+- [Cycling Power & Speed Calculator](https://calc-digi.vercel.app/calculators/health/cycling-calculator): Top professional Grand Tour contenders and world championship cyclists. — Formula: `P_aero = 0.5 * rho * CdA * v^3`
+- [Fertility & Conception Calculator](https://calc-digi.vercel.app/calculators/health/fertility-calculator): Estimate your monthly conception probabilities and cumulative 12-month pregnancy rates based on maternal age, cycle consistency, and evidenc... — Formula: `{"P_{\\text{cumulative}} = 1 - (1 - f)^N"}`
+- [Heart Rate Zone Calculator](https://calc-digi.vercel.app/calculators/health/heart-rate-zone-calculator): Accurately determine your five cardiovascular training zones, maximum heart rate (HRmax), and optimal Zone 2 fat-burning aerobic target usin... — Formula: `1. Max Heart Rate (Tanaka): HRmax = 208 - (0.7 × Age) {"\n"}2. Heart Rate Reserve: HRR = HRmax - Resting Heart Rate (RHR) {"\n"}3. Target Heart Rate = (HRR × Intensity %) + Resting Heart Rate`
+- [Ideal Weight Calculator](https://calc-digi.vercel.app/calculators/health/ideal-weight-calculator): Determine your target healthy body weight by comparing four clinically validated medical formulas (Devine, Robinson, Miller, and Hamwi) alon... — Formula: `Men: IBW (kg) = 50.0 kg + 2.3 kg × (Height in inches - 60) {"\n"}Women: IBW (kg) = 45.5 kg + 2.3 kg × (Height in inches - 60)`
+- [Intermittent Fasting Calculator](https://calc-digi.vercel.app/calculators/health/intermittent-fasting-calculator): Determine your precise fasting and eating windows for 16:8, 18:6, 20:4 Warrior, and OMAD schedules. Calibrated to cellular autophagy biology... — Formula: `\text{Feeding Window} = [T_{\text{start}},\, T_{\text{start}} + \text{Hours}_{\text{eat}}] \pmod{24}`
+- [Lean Body Mass Calculator](https://calc-digi.vercel.app/calculators/health/lean-body-mass-calculator): Accurately determine your Lean Body Mass (LBM), skeletal muscle reserve, and Fat-Free Mass Index (FFMI) using the three clinical gold-standa... — Formula: `{"LBM_{male} = 0.407 \\cdot W + 0.267 \\cdot H - 19.2"}`
+- [Macro Calculator](https://calc-digi.vercel.app/calculators/health/macro-calculator): Calculate your optimal daily macronutrients (protein, carbohydrates, and fats) in grams and calories based on your body metrics and fitness ... — Formula: `Protein (g) = [Daily Calories × Protein %] ÷ 4 kcal/g`
+- [One Rep Max (1RM) Calculator](https://calc-digi.vercel.app/calculators/health/one-rep-max-calculator): Accurately estimate your single-repetition maximum (1RM) across 7 peer-reviewed exercise science models. Calculate target percentages, rep m... — Formula: `1RM = Weight × (1 + Reps / 30)`
+- [Ovulation Calculator](https://calc-digi.vercel.app/calculators/health/ovulation-calculator): Determine your precise day of ovulation, peak 6-day fertile window, and conception probabilities using evidence-based reproductive endocrino... — Formula: `\text{Ovulation Day} = \text{LMP} + (\text{Cycle Length} - \text{Luteal Phase (14 days)})`
+- [Running Pace Calculator](https://calc-digi.vercel.app/calculators/health/pace-calculator): Compute running paces, target finish splits, and distance projections across metric and imperial systems. Leverage Peter Riegel's endurance ... — Formula: `T2 = T1 × (D2 / D1)^1.06`
+- [Period Calculator](https://calc-digi.vercel.app/calculators/health/period-calculator): Forecast your upcoming menstrual periods, bleeding duration, and premenstrual (PMS) windows with clinical precision based on the Internation... — Formula: `\text{Next Period Date} = \text{LMP} + \text{Cycle Length (days)} \quad (\text{Normal: } 24 \le \text{Cycle} \le 38)`
+- [Pregnancy Due Date Calculator](https://calc-digi.vercel.app/calculators/health/pregnancy-due-date-calculator): Determine your Estimated Due Date (EDD), current gestational week, and trimester transitions using the obstetric gold-standard Naegele's Rul... — Formula: `{"\\text{Estimated Due Date (EDD)} = \\text{LMP} + 280 \\text{ days} + (\\text{Cycle Length} - 28 \\text{ days})"}`
+- [Protein Intake Calculator](https://calc-digi.vercel.app/calculators/health/protein-intake-calculator): Accurately calculate your optimal daily dietary protein requirements in grams and meal doses based on body weight, training intensity, and a... — Formula: `Optimal Daily Hypertrophy Protein = Body Weight (kg) × 1.6 to 2.2 g/kg {"\n"}Optimal Daily Hypertrophy Protein = Body Weight (lbs) × 0.8 to 1.0 g/lb`
+- [Pushup Test Calculator](https://calc-digi.vercel.app/calculators/health/pushup-test-calculator): Evaluate your upper-body muscular endurance and cardiorespiratory health against clinical American College of Sports Medicine (ACSM) standar... — Formula: `Endurance Percentile = f(Reps, Age, Biological Sex)`
+- [Sleep Calculator](https://calc-digi.vercel.app/calculators/health/sleep-calculator): Optimize your bedtime and wake times using the neurobiology of 90-minute ultradian sleep cycles. Align your alarm with light sleep or REM bo... — Formula: `\text{Target Wake Time} = \text{Bedtime} + \text{Latency (15 min)} + N \cdot 90 \text{ min}`
+- [Smoking Cost Calculator](https://calc-digi.vercel.app/calculators/health/smoking-cost-calculator): Direct retail expenditure on tobacco packs and excise taxes. — Formula: `Future Wealth = Annual Outflow × [((1 + r)^n − 1) ÷ r] × (1 + r)`
+- [Steps to Calories Calculator](https://calc-digi.vercel.app/calculators/health/steps-to-calories-calculator): Accurately convert your daily pedometer or smartwatch step count into total calories burned and distance traversed. Tailored to your anatomi... — Formula: `Stride Length (inches) = Standing Height (inches) × 0.415`
+- [Swim Pace Calculator](https://calc-digi.vercel.app/calculators/health/swim-pace-calculator): Calculate swim paces across 100-meter and 100-yard standards, predict pool and open-water race times, and establish training zones using Cri... — Formula: `CSS (m/s) = (D1 - D2) / (T1 - T2) = (400 - 200) / (T400 - T200)`
+- [TDEE Calculator](https://calc-digi.vercel.app/calculators/health/tdee-calculator): Accurately determine your Total Daily Energy Expenditure (TDEE)—the exact number of calories you burn each day across resting metabolism, da... — Formula: `TDEE = BMR × PAL Multiplier`
+- [VO2 Max Calculator](https://calc-digi.vercel.app/calculators/health/vo2-max-calculator): Accurately calculate your maximal oxygen uptake (VO2 max) in milliliters of oxygen consumed per kilogram of body weight per minute (mL/kg/mi... — Formula: `VO2max = Cardiac Output (Q) × (CaO2 - CvO2)`
+- [Waist to Height Ratio Calculator](https://calc-digi.vercel.app/calculators/health/waist-to-height-ratio-calculator): Evaluate your cardiometabolic health and visceral fat accumulation using the universally validated Waist-to-Height Ratio (WHtR). Built on Dr... — Formula: `\text{WHtR} = \frac{\text{Waist Circumference}}{\text{Standing Height}} \quad (\text{Threshold: } \text{WHtR} < 0.50)`
+- [Waist to Hip Ratio Calculator](https://calc-digi.vercel.app/calculators/health/waist-to-hip-ratio-calculator): Accurately compute your Waist-to-Hip Ratio (WHR) and assess central visceral adiposity and cardiovascular disease vulnerability according to... — Formula: `\text{WHR} = \frac{\text{Waist Circumference}}{\text{Hip Circumference}} \quad (\text{WHO Android Threshold: } \ge 0.85 \text{ female},\, \ge 0.95 \text{ male})`
+- [Water Intake Calculator](https://calc-digi.vercel.app/calculators/health/water-intake-calculator): Calculate your personalized daily fluid intake requirement based on body weight, exercise sweat loss, ambient climate, and metabolic hydrati... — Formula: `Baseline Hydration (oz) = Body Weight (lbs) × 0.55 {"\n"}Exercise Sweat Buffer (oz) = (Workout Minutes ÷ 30) × 12 oz {"\n"}Total Fluid Requirement = (Baseline + Sweat Buffer) × Climate Multiplier (1.0 to 1.25)`
+- [Weight Loss Calculator](https://calc-digi.vercel.app/calculators/health/weight-loss-calculator): Calculate your scientific daily caloric intake, healthy target deficit, and realistic goal timeline. Powered by Mifflin-St Jeor resting calo... — Formula: `Daily Calories = Maintenance TDEE - Target Deficit`
+
+### Housing, Construction & Real Estate (17 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/housing
+- [Concrete Calculator](https://calc-digi.vercel.app/calculators/housing/concrete-calculator): Calculate cubic yards, cubic feet, and bag counts for slabs, foundations, driveways, patios, and cylindrical post holes with safety waste ma... — Formula: `Volume (cu yd) = [Length (ft) × Width (ft) × (Thickness (in) ÷ 12)] ÷ 27 × (1 + Waste Factor)`
+- [Down Payment Calculator](https://calc-digi.vercel.app/calculators/housing/down-payment-calculator): Determine your required cash to close, compare down payment percentage tiers (3% to 20%), evaluate PMI costs, and project your savings timel... — Formula: `Total Cash to Close = Down Payment + Lender Closing Costs + Prepaid Taxes & Insurance Escrow`
+- [Electricity Cost Calculator](https://calc-digi.vercel.app/calculators/housing/electricity-cost-calculator): Calculate the exact electricity cost to operate any appliance or device based on wattage, daily runtime, and regional utility kilowatt-hour ... — Formula: `Daily kWh = (Appliance Wattage * Operating Hours Per Day) / 1000`
+- [Fence Cost Calculator](https://calc-digi.vercel.app/calculators/housing/fence-cost-calculator): Estimate installed fence costs and exact material requirements including posts, 8-foot panels, gates, and post-hole concrete bags. — Formula: `Number of Panels = Ceil(Total Linear Feet ÷ Post Spacing)`
+- [Flooring Calculator](https://calc-digi.vercel.app/calculators/housing/flooring-calculator): Calculate exact flooring square footage, required box counts, pattern waste allowances, underlayment rolls, and total material budget. — Formula: `Net Room Area (sq ft) = Length (ft) × Width (ft)`
+- [Home Affordability Calculator](https://calc-digi.vercel.app/calculators/housing/home-affordability-calculator): Determine how much home you can afford based on gross household income, monthly debts, down payment, and Fannie Mae 28/36 debt-to-income ben... — Formula: `Front-End Max Housing = Gross Monthly Income × 0.28`
+- [Home Equity Calculator](https://calc-digi.vercel.app/calculators/housing/home-equity-calculator): Determine your accumulated home equity, current loan-to-value ratio, and maximum cash you can borrow through a HELOC or home equity loan. — Formula: `Total Home Equity = Current Market Value - Total Outstanding Mortgage Debt`
+- [Land Area Calculator](https://calc-digi.vercel.app/calculators/housing/land-area-calculator): Calculate property acreage, square footage, boundary fencing perimeter, and zoning building coverage from boundary dimensions. — Formula: `Acres = [Length (ft) × Width (ft)] ÷ 43,560`
+- [Paint Calculator](https://calc-digi.vercel.app/calculators/housing/paint-calculator): Calculate exact paint gallons and primer needed for walls and ceilings with automatic window, door, and trim deductions. — Formula: `Room Perimeter = 2 × (Length + Width)`
+- [Property Tax Calculator](https://calc-digi.vercel.app/calculators/housing/property-tax-calculator): Calculate your annual and monthly property tax bill based on market value, county assessment ratios, millage rates, and homestead exemptions... — Formula: `Assessed Value = Fair Market Value * (Assessment Ratio / 100)`
+- [Mortgage Refinance Calculator](https://calc-digi.vercel.app/calculators/housing/refinance-calculator): Determine your monthly payment savings, breakeven timeline in months, and total lifetime interest saved by refinancing your home loan. — Formula: `Monthly Payment Savings = Old Monthly P&I Payment - New Monthly P&I Payment`
+- [Renovation Cost Calculator](https://calc-digi.vercel.app/calculators/housing/renovation-cost-calculator): Estimate realistic home remodeling budgets across kitchens, bathrooms, basements, and full houses with material and labor breakdowns. — Formula: `Total Project Budget = Base Construction Estimate × (1 + Contingency Factor)`
+- [Rent Affordability Calculator](https://calc-digi.vercel.app/calculators/housing/rent-calculator): Determine your maximum sustainable monthly rent budget based on salary, existing debt payments, utilities, and landlord 40x qualification cr... — Formula: `Max Rent (30% HUD Rule) = (Annual Gross Income / 12) * 0.30`
+- [Rent vs Buy Calculator](https://calc-digi.vercel.app/calculators/housing/rent-vs-buy-calculator): Determine whether renting or buying builds more wealth over your planned timeline using real-world appreciation, equity amortization, and op... — Formula: `Price-to-Rent Ratio = Home Purchase Price ÷ (Monthly Rent × 12)`
+- [Roof Area Calculator](https://calc-digi.vercel.app/calculators/housing/roof-area-calculator): Calculate true sloped roof surface square footage, roofing squares, shingle bundle counts, and underlayment rolls from ground footprint and ... — Formula: `Flat Footprint with Overhangs = (Length + 2 × Overhang) × (Width + 2 × Overhang)`
+- [Room Area Calculator](https://calc-digi.vercel.app/calculators/housing/room-area-calculator): Determine exact floor square footage, net wall paint surface area, room perimeter for baseboards, and interior cubic volume with opening ded... — Formula: `Floor Area = Length × Width`
+- [Square Footage Calculator](https://calc-digi.vercel.app/calculators/housing/square-footage-calculator): Accurately calculate square footage and square meters for single rooms, multi-room houses, L-shaped layouts, and circular spaces with custom... — Formula: `Square Footage = Length (ft) × Width (ft)`
+
+### Internet, Networking & Bandwidth (12 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/internet
+- [Bandwidth Calculator](https://calc-digi.vercel.app/calculators/internet/bandwidth-calculator): 
+- [Cloud Storage Calculator](https://calc-digi.vercel.app/calculators/internet/cloud-storage-calculator): 
+- [Data Usage Calculator](https://calc-digi.vercel.app/calculators/internet/data-usage-calculator): 
+- [Download Time Calculator](https://calc-digi.vercel.app/calculators/internet/download-time-calculator): 
+- [Email Size Calculator](https://calc-digi.vercel.app/calculators/internet/email-size-calculator): 
+- [Internet Speed Calculator](https://calc-digi.vercel.app/calculators/internet/internet-speed-calculator): 
+- [IP Subnet Calculator](https://calc-digi.vercel.app/calculators/internet/ip-subnet-calculator): 
+- [Ping and Latency Calculator](https://calc-digi.vercel.app/calculators/internet/ping-latency-calculator): 
+- [Server Uptime Calculator](https://calc-digi.vercel.app/calculators/internet/server-uptime-calculator): 
+- [Streaming Quality Calculator](https://calc-digi.vercel.app/calculators/internet/streaming-quality-calculator): 
+- [VPN Speed Calculator](https://calc-digi.vercel.app/calculators/internet/vpn-speed-calculator): 
+- [Website Load Time Calculator](https://calc-digi.vercel.app/calculators/internet/website-load-time-calculator): 
+
+### Mathematics & Statistics (46 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/math
+- [Absolute Value Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/absolute-value-calculator): Calculate real and complex absolute values, solve absolute value equations and inequalities, and evaluate coordinate distances with complete... — Formula: `|x| = x if x ≥ 0; |x| = −x if x &lt; 0`
+- [Area Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/area-calculator): Calculate the area of squares, rectangles, triangles, circles, trapezoids, ellipses, and complex irregular polygons with complete step-by-st... — Formula: `Area = [ (a + b) ÷ 2 ] × h`
+- [Average Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/average-calculator): Calculate the arithmetic mean, median, mode, range, variance, and standard deviation for any list of numbers with step-by-step mathematical ... — Formula: `Mean (x̄) = (x₁ + x₂ + x₃ + ... + xₙ) ÷ n = (Σ xᵢ) ÷ n`
+- [Big Number Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/big-number-calculator): Execute arbitrary-precision arithmetic, calculate exact factorials and powers of immense integers without rounding truncation errors. — Formula: `MAX_SAFE_INTEGER = 2⁵³ − 1 = 9,007,199,254,740,991`
+- [Binary Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/binary-calculator): Execute binary arithmetic, evaluate bitwise logic gates, calculate Two's Complement, and convert between binary, octal, decimal, and hexadec... — Formula: `N = b_n × 2ⁿ + ... + b₂ × 2² + b₁ × 2¹ + b₀ × 2⁰ where b_i ∈ (0, 1)`
+- [Circle Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/circle-calculator): Calculate the area, circumference, radius, diameter, arc length, sector area, and chord length of any circle with complete step-by-step math... — Formula: `Area = ∫₀ᴿ 2πr dr = 2π [ r² ÷ 2 ]₀ᴿ = πR²`
+- [Combination Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/combination-calculator): Calculate combinations without repetition and with replacement, explore Pascal triangle coefficients, and evaluate sampling probabilities. — Formula: `nCr = C(n, r) = (n¦r) = n! ÷ [ r! × (n - r)! ]`
+- [Confidence Interval Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/confidence-interval-calculator): Calculate confidence intervals, margins of error, and standard errors for population means and proportions at any confidence level with comp... — Formula: `CI = x̄ ± z* × (fracσsqrtn)`
+- [Decimal to Fraction Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/decimal-to-fraction-calculator): Convert any terminating or repeating decimal into an exact, fully simplified fraction or mixed number with step-by-step algebraic derivation... — Formula: `x = N ÷ 10^k`
+- [Distance Formula Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/distance-formula-calculator): Calculate 2D and 3D Euclidean distance, coordinate displacement, midpoint, and vector length between any two points with complete step-by-st... — Formula: `d² = (Δx)² + (Δy)² = (x₂ − x₁)² + (y₂ − y₁)²`
+- [Exponent Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/exponent-calculator): Calculate powers, fractional exponents, negative indices, scientific power expansions, and compound exponential growth with complete step-by... — Formula: `b^(m ÷ n) = ⁿ√(bᵐ) = ( ⁿ√b )ᵐ`
+- [Factor Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/factor-calculator): Find all positive and negative factors, factor pairs, canonical prime factorizations, and aliquot divisor sums with complete step-by-step ma... — Formula: `√72 ≈ 8.485 (Integer Bound: ⌊√72⌋ = 8)`
+- [Factorial Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/factorial-calculator): Compute exact factorials, explore permutation scales, Stirling approximations, and Gamma continuations with ISO-compliant algorithmic precis... — Formula: `n! = ∏_(i=1)^n i = n × (n - 1) × (n - 2) × ... × 3 × 2 × 1`
+- [Fraction Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/fraction-calculator): Add, subtract, multiply, and divide fractions, mixed numbers, and improper fractions with detailed step-by-step arithmetic derivations and a... — Formula: `LCD = lcm(b, d) = (b × d) ÷ gcd(b, d)`
+- [GCF Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/gcf-calculator): Find the greatest common divisor with step-by-step Euclidean division, prime factor trees, and modular arithmetic precision. — Formula: `gcd(a, b) = gcd(b, a mod b) where gcd(a, 0) = |a|`
+- [Hex Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/hex-calculator): Execute hexadecimal arithmetic, perform 4-bit nibble binary conversions, inspect memory byte structures, and evaluate bitwise logic. — Formula: `Value = d_n × 16ⁿ + ... + d₂ × 16² + d₁ × 16¹ + d₀ × 16⁰`
+- [LCM Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/lcm-calculator): Calculate least common multiples instantly using Euclidean GCF duality, prime factor trees, and multi-integer ladder methods. — Formula: `LCM(a, b) = (|a × b|) ÷ GCF(a, b)`
+- [Logarithm Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/logarithm-calculator): Calculate natural logarithms (ln), common logarithms (log₁₀), binary logarithms (log₂), and arbitrary custom bases with complete step-by-ste... — Formula: `log_b(x) = y iff bʸ = x`
+- [Long Division Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/long-division-calculator): Solve long division problems step-by-step with integer remainders, repeating decimal expansions, quotient derivations, and algebraic proofs. — Formula: `a = b × q + r where 0 ≤ r &lt; b`
+- [Matrix Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/matrix-calculator): Perform matrix addition, subtraction, multiplication, determinants, inverses, eigenvalues, and rank evaluations step-by-step with complete a... — Formula: `C_ij = Σ (A_ir × B_rj) from r = 1 to k`
+- [Median Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/median-calculator): Calculate the median, quartiles, interquartile range (IQR), and five-number summary for any numerical dataset with complete step-by-step exp... — Formula: `Median = x_((n+1)/2)`
+- [Number Sequence Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/number-sequence-calculator): Analyze arithmetic, geometric, and Fibonacci sequences. Calculate the nth term, common difference, common ratio, and finite/infinite series ... — Formula: `a_n = a₁ + (n − 1) × d`
+- [Percent Error Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/percent-error-calculator): Calculate absolute error, relative error, and percentage error between experimental measurements and theoretical reference standards with co... — Formula: `Absolute Error = |V_exp − V_theor|`
+- [Percentage Calculator](https://calc-digi.vercel.app/calculators/math/percentage-calculator): Step-by-step instructions to calculate percentages of numbers, proportions, and percentage changes. — Formula: `Value = (P ÷ 100) × Total`
+- [Percentage Change Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/percentage-change-calculator): Calculate percent increase, percent decrease, and relative difference between any two values with complete step-by-step mathematical derivat... — Formula: `Percentage Change = [ (V₂ − V₁) ÷ |V₁| ] × 100%`
+- [Permutation Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/permutation-calculator): Calculate ordered sequences, arrangements with and without repetition, multinomial word anagrams, and circular permutations. — Formula: `nPr = P(n, r) = n × (n - 1) × (n - 2) × ... × (n - r + 1)`
+- [Prime Number Checker | CalcDigi](https://calc-digi.vercel.app/calculators/math/prime-number-checker): Test any integer for primality, calculate canonical prime factorizations, inspect prime factor trees, and identify twin primes with complete... — Formula: `π(x) ~ x ÷ ln(x)`
+- [Probability Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/probability-calculator): Calculate event probabilities, joint outcomes (AND/OR), conditional probabilities, complementary odds, and Bayes' theorem with step-by-step ... — Formula: `P(A) = fracn(A)n(S) = fractextNumber of favorable outcomestextTotal possible outcomes`
+- [Pythagorean Theorem Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/pythagorean-theorem-calculator): Calculate the hypotenuse, missing legs, perimeter, area, and acute angles of any right triangle with step-by-step proofs and Pythagorean tri... — Formula: `a² + b² = c²`
+- [Quadratic Equation Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/quadratic-equation-calculator): Solve quadratic equations ax² + bx + c = 0 step-by-step using the quadratic formula, completing the square, discriminant analysis, and parab... — Formula: `ax² + bx + c = 0`
+- [Random Number Generator | CalcDigi](https://calc-digi.vercel.app/calculators/math/random-number-generator): Generate uniform random numbers, randomized integer sets, cryptographic sequences, and reproducible pseudo-random distributions. — Formula: `X_(n+1) = (a × X_n + c) mod m`
+- [Ratio Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/ratio-calculator): Simplify ratios, solve proportions, determine equivalent scales, and convert part-to-part and part-to-whole relationships with complete step... — Formula: `A ÷ B = C ÷ D`
+- [Roman Numeral Converter | CalcDigi](https://calc-digi.vercel.app/calculators/math/roman-numeral-converter): Convert standard Arabic numbers to Roman numerals and Roman numerals to numbers (1 to 3,999,999), with complete subtractive rules and vincul... — Formula: `XVI = 10 + 5 + 1 = 16; CLXXII = 100 + 50 + 10 + 10 + 1 + 1 = 172`
+- [Rounding Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/rounding-calculator): Round numbers to any decimal place, nearest integer, significant figures, or fraction using standard arithmetic, bankers' rounding, floor, c... — Formula: `round_up(x) = ⌊x + 0.5⌋`
+- [Sample Size Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/sample-size-calculator): Calculate required sample sizes for surveys, clinical trials, and scientific experiments with confidence levels, margins of error, and finit... — Formula: `n = fracz^2 × p(1 − p)e^2`
+- [Scientific Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/scientific-calculator): Advanced multi-function scientific calculator supporting trigonometry, logarithms, exponentiation, root radicals, combinatorics, and memory ... — Formula: `2 + 3 × 4 → RPN: 2 3 4 × + → 2 + 12 = 14`
+- [Scientific Notation Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/scientific-notation-calculator): Convert decimal values to normalized scientific and engineering notation, perform arithmetic operations, and inspect orders of magnitude. — Formula: `x = m × 10ⁿ`
+- [Significant Figures Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/significant-figures-calculator): Count significant figures, format decimal measurements, apply rounding arithmetic rules, and convert to scientific notation. — Formula: `142.1 + 0.354 + 2.05 = 144.504 → Rounds to 144.5 (one decimal place)`
+- [Slope Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/slope-calculator): Calculate the slope, angle of inclination, distance, midpoint, and linear equations (slope-intercept and point-slope) between any two points... — Formula: `Slope (m) = Δy ÷ Δx = (y₂ − y₁) ÷ (x₂ − x₁)`
+- [Square Root Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/square-root-calculator): Calculate principal square roots, simplify radical expressions, evaluate fractional exponents, and compute imaginary roots with complete ste... — Formula: `x_(n+1) = (1 ÷ 2) × ( x_n + S ÷ x_n )`
+- [Standard Deviation Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/standard-deviation-calculator): Calculate sample and population standard deviation, variance, mean, and sum of squared deviations for any dataset with step-by-step mathemat... — Formula: `s = √[ (Σ (xᵢ − x̄)²) ÷ (n − 1) ]`
+- [Surface Area Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/surface-area-calculator): Calculate total and lateral surface area for spheres, cylinders, cones, cubes, rectangular prisms, and pyramids with complete step-by-step m... — Formula: `Surface Area = ∬_D || ∂r/∂u × ∂r/∂v || du dv`
+- [Triangle Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/triangle-calculator): Solve any triangle using SSS, SAS, ASA, or AAS configurations. Calculate unknown sides, interior angles, area, perimeter, inradius, and circ... — Formula: `A + B + C = 180°`
+- [Variance Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/variance-calculator): Calculate sample variance (s²), population variance (σ²), sum of squares, and standard deviation for any dataset with step-by-step algebraic... — Formula: `s² = [ Σ (xᵢ − x̄)² ] ÷ (n − 1)`
+- [Volume Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/volume-calculator): Calculate 3D volume and liquid capacity for boxes, cylinders, spheres, cones, pyramids, and storage tanks with complete step-by-step mathema... — Formula: `Volume = A_base × h = π × r² × h`
+- [Z-Score Calculator | CalcDigi](https://calc-digi.vercel.app/calculators/math/z-score-calculator): Calculate standard scores (z), p-values, percentile ranks, and tail probabilities for individual values and sample means with step-by-step s... — Formula: `z = (x − μ) ÷ σ`
+
+### Measurements & Unit Conversions (20 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/measurements
+- [Angle Converter](https://calc-digi.vercel.app/calculators/measurements/angle-converter): 
+- [Area Converter](https://calc-digi.vercel.app/calculators/measurements/area-converter): 
+- [Clothing Size Converter](https://calc-digi.vercel.app/calculators/measurements/clothing-size-converter): 
+- [Cooking Measurement Converter](https://calc-digi.vercel.app/calculators/measurements/cooking-measurement-converter): 
+- [Currency Converter](https://calc-digi.vercel.app/calculators/measurements/currency-converter): 
+- [Data Storage Converter](https://calc-digi.vercel.app/calculators/measurements/data-storage-converter): 
+- [Energy Converter](https://calc-digi.vercel.app/calculators/measurements/energy-converter): 
+- [Fuel Economy Converter](https://calc-digi.vercel.app/calculators/measurements/fuel-economy-converter): 
+- [Length Converter](https://calc-digi.vercel.app/calculators/measurements/length-converter): 
+- [Number System Converter](https://calc-digi.vercel.app/calculators/measurements/number-system-converter): 
+- [Power Converter](https://calc-digi.vercel.app/calculators/measurements/power-converter): 
+- [Pressure Converter](https://calc-digi.vercel.app/calculators/measurements/pressure-converter): 
+- [Roman Numeral Converter](https://calc-digi.vercel.app/calculators/measurements/roman-numeral-converter): 
+- [Shoe Size Converter](https://calc-digi.vercel.app/calculators/measurements/shoe-size-converter): 
+- [Speed Converter](https://calc-digi.vercel.app/calculators/measurements/speed-converter): 
+- [Temperature Converter](https://calc-digi.vercel.app/calculators/measurements/temperature-converter): 
+- [Time Unit Converter](https://calc-digi.vercel.app/calculators/measurements/time-converter): 
+- [Torque Converter](https://calc-digi.vercel.app/calculators/measurements/torque-converter): 
+- [Volume Converter](https://calc-digi.vercel.app/calculators/measurements/volume-converter): 
+- [Weight Converter](https://calc-digi.vercel.app/calculators/measurements/weight-converter): 
+
+### Physics & Thermodynamics (15 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/physics
+- [Acceleration Calculator](https://calc-digi.vercel.app/calculators/physics/acceleration-calculator): 
+- [Circular Motion Calculator](https://calc-digi.vercel.app/calculators/physics/circular-motion-calculator): 
+- [Force Calculator](https://calc-digi.vercel.app/calculators/physics/force-calculator): 
+- [Free Fall Calculator](https://calc-digi.vercel.app/calculators/physics/free-fall-calculator): 
+- [Gravitational Force Calculator](https://calc-digi.vercel.app/calculators/physics/gravitational-force-calculator): 
+- [Kinetic Energy Calculator](https://calc-digi.vercel.app/calculators/physics/kinetic-energy-calculator): 
+- [Momentum Calculator](https://calc-digi.vercel.app/calculators/physics/momentum-calculator): 
+- [Potential Energy Calculator](https://calc-digi.vercel.app/calculators/physics/potential-energy-calculator): 
+- [Power Calculator](https://calc-digi.vercel.app/calculators/physics/power-calculator): 
+- [Pressure Calculator](https://calc-digi.vercel.app/calculators/physics/pressure-calculator): 
+- [Projectile Motion Calculator](https://calc-digi.vercel.app/calculators/physics/projectile-motion-calculator): 
+- [Torque Calculator](https://calc-digi.vercel.app/calculators/physics/torque-calculator): 
+- [Velocity Calculator](https://calc-digi.vercel.app/calculators/physics/velocity-calculator): 
+- [Wave Frequency Calculator](https://calc-digi.vercel.app/calculators/physics/wave-frequency-calculator): 
+- [Work Calculator](https://calc-digi.vercel.app/calculators/physics/work-energy-calculator): 
+
+### Science & Chemistry (15 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/science
+- [Boiling Point Calculator](https://calc-digi.vercel.app/calculators/science/boiling-point-calculator): 
+- [Buffer Calculator](https://calc-digi.vercel.app/calculators/science/buffer-calculator): 
+- [Concentration Calculator](https://calc-digi.vercel.app/calculators/science/concentration-calculator): 
+- [Density Calculator](https://calc-digi.vercel.app/calculators/science/density-calculator): 
+- [Empirical Formula Calculator](https://calc-digi.vercel.app/calculators/science/empirical-formula-calculator): 
+- [Half-Life Calculator](https://calc-digi.vercel.app/calculators/science/half-life-calculator): 
+- [Ideal Gas Law Calculator](https://calc-digi.vercel.app/calculators/science/ideal-gas-law-calculator): 
+- [Molarity Calculator](https://calc-digi.vercel.app/calculators/science/molarity-calculator): 
+- [Molecular Weight Calculator](https://calc-digi.vercel.app/calculators/science/molecular-weight-calculator): 
+- [Ohm's Law Calculator](https://calc-digi.vercel.app/calculators/science/ohms-law-calculator): 
+- [Osmolarity Calculator](https://calc-digi.vercel.app/calculators/science/osmolarity-calculator): 
+- [Percent Yield Calculator](https://calc-digi.vercel.app/calculators/science/percent-yield-calculator): 
+- [pH Calculator](https://calc-digi.vercel.app/calculators/science/ph-calculator): 
+- [Specific Heat Calculator](https://calc-digi.vercel.app/calculators/science/specific-heat-calculator): 
+- [Stoichiometry Calculator](https://calc-digi.vercel.app/calculators/science/stoichiometry-calculator): 
+
+### Transportation & Fuel Efficiency (15 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/transportation
+- [Cycling Pace Calculator](https://calc-digi.vercel.app/calculators/transportation/bike-pace-calculator): 
+- [Car Depreciation Calculator](https://calc-digi.vercel.app/calculators/transportation/car-depreciation-calculator): 
+- [Car Payment Calculator](https://calc-digi.vercel.app/calculators/transportation/car-payment-calculator): Estimate your exact monthly car payment, total loan interest, and true out-the-door cost with sales tax, dealer documentation fees, down pay... — Formula: `Monthly Payment = P × [r(1 + r)^n] ÷ [(1 + r)^n − 1]`
+- [Commute Cost Calculator](https://calc-digi.vercel.app/calculators/transportation/commute-cost-calculator): 
+- [Distance Calculator](https://calc-digi.vercel.app/calculators/transportation/distance-calculator): 
+- [EV Savings Calculator](https://calc-digi.vercel.app/calculators/transportation/ev-savings-calculator): 
+- [Flight Time Calculator](https://calc-digi.vercel.app/calculators/transportation/flight-time-calculator): 
+- [Fuel Cost Calculator](https://calc-digi.vercel.app/calculators/transportation/fuel-cost-calculator): 
+- [Moving Cost Calculator](https://calc-digi.vercel.app/calculators/transportation/moving-cost-calculator): 
+- [MPG Calculator](https://calc-digi.vercel.app/calculators/transportation/mpg-calculator): 
+- [Parking Cost Calculator](https://calc-digi.vercel.app/calculators/transportation/parking-cost-calculator): 
+- [Road Trip Cost Calculator](https://calc-digi.vercel.app/calculators/transportation/road-trip-cost-calculator): 
+- [Speed Distance Time Calculator](https://calc-digi.vercel.app/calculators/transportation/speed-distance-time-calculator): 
+- [Tire Size Calculator](https://calc-digi.vercel.app/calculators/transportation/tire-size-calculator): 
+- [Toll Cost Calculator](https://calc-digi.vercel.app/calculators/transportation/toll-cost-calculator): 
+
+### Weather & Meteorology (8 Calculators)
+Hub URL: https://calc-digi.vercel.app/pages/weather
+- [Dew Point Calculator](https://calc-digi.vercel.app/calculators/weather/dew-point-calculator): 
+- [Heat Index Calculator](https://calc-digi.vercel.app/calculators/weather/heat-index-calculator): 
+- [Humidity Calculator](https://calc-digi.vercel.app/calculators/weather/humidity-calculator): 
+- [Rainfall Calculator](https://calc-digi.vercel.app/calculators/weather/rainfall-calculator): 
+- [Lightning Distance Calculator](https://calc-digi.vercel.app/calculators/weather/severe-weather-calculator): 
+- [Snowfall Calculator](https://calc-digi.vercel.app/calculators/weather/snowfall-calculator): 
+- [UV Index Calculator](https://calc-digi.vercel.app/calculators/weather/uv-index-calculator): 
+- [Wind Chill Calculator](https://calc-digi.vercel.app/calculators/weather/wind-chill-calculator): 
