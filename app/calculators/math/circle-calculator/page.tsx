@@ -1,6 +1,6 @@
+import CircleCalculator from "@/components/calcs/math/circle-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
@@ -240,13 +240,15 @@ export default function Page() {
           <p>
             To expand your quantitative toolkit, explore our specialized <Link href="/calculators/math/area-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Area Calculator</Link>, <Link href="/calculators/math/surface-area-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Surface Area Calculator</Link>, <Link href="/calculators/math/volume-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Volume Calculator</Link>, and <Link href="/calculators/math/triangle-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Triangle Calculator</Link>.
           </p>
-        </>
+        
+          <h2>Transcendental Constants, Polar Coordinates & Keplerian Orbits</h2>
+          <p>
+            The geometric perfection of the circle is mathematically governed by the transcendental constant π = 3.1415926535..., proven by Ferdinand von Lindemann in 1882 to be non-algebraic, definitively establishing the impossibility of squaring the circle using Euclidean compass and straightedge constructions alone. In polar coordinates (r, θ), circles centered at the origin reduce to the exceptionally elegant single-variable equation r = R, eliminating the trigonometric square-root dependencies inherent to Cartesian equations x² + y² = R². In celestial astrophysics and satellite mechanics, circular orbits represent the ideal minimum-energy orbital trajectory where gravitational centripetal acceleration GMm/r² exactly matches required kinetic centrifugal acceleration mv²/r, forming the baseline reference for calculating Keplerian orbital velocity and Hohmann transfer maneuvers.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Circle Calculator</h2><div class=\"form-group\"><label for=\"cc-type\">Known Value</label><select id=\"cc-type\"><option value=\"radius\">Radius</option><option value=\"diameter\">Diameter</option><option value=\"circumference\">Circumference</option><option value=\"area\">Area</option></select></div><div class=\"form-group\"><label for=\"cc-value\">Value</label><input id=\"cc-value\" min=\"0.0001\" step=\"any\" type=\"number\" value=\"7\"/></div><button class=\"calc-btn\" onclick=\"calcCircle()\">Calculate</button><button class=\"calc-btn\" onclick=\"document.getElementById('cc-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"cc-result\" style=\"display:none;\"><div id=\"cc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cc-chart\" width=\"160\"></canvas></div><div class=\"ai-box\" id=\"cc-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-cc-result\" onclick=\"printResult('cc-result','Circle Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Circle Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-circle-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcCircle(){\\n  const type=document.getElementById('cc-type').value;\\n  const val=parseFloat(document.getElementById('cc-value').value);\\n  if(isNaN(val)||val<=0){alert('Enter a positive number.');return;}\\n  let r;\\n  if(type==='radius')r=val;\\n  else if(type==='diameter')r=val/2;\\n  else if(type==='circumference')r=val/(2*Math.PI);\\n  else r=Math.sqrt(val/Math.PI);\\n  const diameter=2*r, circumference=2*Math.PI*r, area=Math.PI*r*r;\\n  document.getElementById('cc-ri').innerHTML=\\n    ri('Radius','<strong style=\\\"font-size:20px;color:var(--c-accent)\\\">'+r.toFixed(4)+'</strong>',true)+\\n    ri('Diameter',diameter.toFixed(4))+\\n    ri('Circumference',circumference.toFixed(4))+\\n    ri('Area',area.toFixed(4));\\n  document.getElementById('cc-result').style.display='block';\\n  drawDonut('cc-chart',['Radius','Rest of Diameter'],[r,diameter-r],['#1a5c3a','#c8832a']);\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <CircleCalculator />
     </CalcPage>
   );
 }

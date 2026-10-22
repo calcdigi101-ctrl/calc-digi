@@ -1,6 +1,6 @@
+import LcmCalculator from "@/components/calcs/math/lcm-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
@@ -227,10 +227,7 @@ export default function Page() {
         </>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n\n<h2>LCM Calculator</h2>\n<div class=\"form-group\"><label for=\"lcm-numbers\">Enter Numbers (comma separated)</label><input id=\"lcm-numbers\" type=\"text\" value=\"4, 6, 8\"/></div>\n<button class=\"calc-btn\" onclick=\"calcLCM()\">Calculate LCM</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('lcm-numbers').value='';document.getElementById('lcm-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"lcm-result\" style=\"display:none;\">\n<div id=\"lcm-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"140\" id=\"lcm-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"lcm-ai\" style=\"display:none;\"></div>\n</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-lcm-result\" onclick=\"printResult('lcm-result','LCM Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('LCM Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n\n</div>" }} />
-        <Script id="calc-script-lcm-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\\nfunction gcdFn(a,b){return b===0?a:gcdFn(b,a%b);}\\nfunction lcmTwo(a,b){return(a*b)/gcdFn(a,b);}\\nfunction calcLCM(){\\n  const nums=document.getElementById('lcm-numbers').value.split(',').map(s=>Math.abs(parseInt(s.trim()))).filter(n=>!isNaN(n)&&n>0);\\n  if(nums.length<2){alert('Please enter at least 2 positive integers.');return;}\\n  let result=nums[0];\\n  for(let i=1;i<nums.length;i++)result=lcmTwo(result,nums[i]);\\n  document.getElementById('lcm-ri').innerHTML=\\n    ri('LCM','<strong style=\\\"font-size:28px;color:var(--c-accent)\\\">'+result.toLocaleString()+'</strong>',true)+\\n    ri('Numbers',nums.join(', '))+\\n    ri('Verification',nums.map(n=>result+'÷'+n+'='+(result/n)).join(' | '));\\n  document.getElementById('lcm-result').style.display='block';\\n  drawBar('lcm-chart',nums.map(String),nums,'#1a5c3a');\\n  const ai=document.getElementById('lcm-ai');\\n  ai.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';\\n  ai.style.display='block';\\n  getAIInsight('LCM of '+nums.join(', ')+' is '+result+'. In 2 sentences explain a practical use case for this result.')\\n  .then(t=>{if(t)ai.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';else ai.style.display='none';});\\n}\\n\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <LcmCalculator />
     </CalcPage>
   );
 }

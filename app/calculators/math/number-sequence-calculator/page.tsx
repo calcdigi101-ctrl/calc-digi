@@ -1,6 +1,6 @@
+import NumberSequenceCalculator from "@/components/calcs/math/number-sequence-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
@@ -27,7 +27,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How do you calculate the sum of an infinite geometric series?",
-    a: "An infinite geometric series converges to a finite sum if and only if the absolute value of the common ratio is strictly less than 1 (|r| < 1): S_∞ = a₁ / (1 − r). If |r| ≥ 1, the series diverges to infinity.",
+    a: "An infinite geometric series converges to a finite sum if and only if the absolute value of the common ratio is strictly less than 1 (|r| &lt; 1): S_∞ = a₁ / (1 − r). If |r| ≥ 1, the series diverges to infinity.",
   },
   {
     q: "What is the Fibonacci sequence and what is its recurrence relation?",
@@ -50,7 +50,7 @@ const FAQ_ITEMS = [
 const SEQUENCE_TYPES_ROWS = [
   ["Arithmetic Progression", "a_n = a₁ + (n − 1)d", "Constant common difference d = a_k − a_{k−1}", "S_n = (n/2)(a₁ + a_n)"],
   ["Geometric Progression", "a_n = a₁ × r^(n−1)", "Constant common ratio r = a_k ÷ a_{k−1}", "S_n = a₁(1 − rⁿ) ÷ (1 − r)"],
-  ["Infinite Geometric Series", "S_∞ = a₁ ÷ (1 − r)", "Converges if and only if |r| < 1", "Zeno's paradox / fractal area"],
+  ["Infinite Geometric Series", "S_∞ = a₁ ÷ (1 − r)", "Converges if and only if |r| &lt; 1", "Zeno's paradox / fractal area"],
   ["Fibonacci Sequence", "F_n = F_(n-1) + F_(n-2)", "Each term is sum of two predecessors", "Binet formula: (φⁿ − ψⁿ)/√5"],
   ["Harmonic Progression", "h_n = 1 ÷ [a₁ + (n − 1)d]", "Reciprocal of arithmetic progression", "Musical acoustic overtone nodes"],
   ["Triangular Numbers", "T_n = [n(n + 1)] ÷ 2", "Number of objects in equilateral triangle grid", "1, 3, 6, 10, 15, 21, 28..."],
@@ -196,15 +196,6 @@ export default function Page() {
             By translating discrete recurrence equations into continuous algebraic functions, generating functions allow mathematicians to solve complex integer partition problems and count permutations in polynomial time.
           </p>
 
-          <h2>The Collatz Conjecture (The 3n + 1 Problem)</h2>
-          <p>
-            One of the most famous unsolved problems in mathematics involves a deceptively simple recursive sequence proposed by Lothar Collatz in 1937. Take any positive integer <em>n</em> and apply the following recursive rule:
-          </p>
-          <Formula>f(n) = n ÷ 2   if n is even;   f(n) = 3n + 1   if n is odd</Formula>
-          <p>
-            The <strong>Collatz Conjecture</strong> asserts that regardless of the initial starting number, the sequence will always eventually reach the repeating cycle 4 → 2 → 1. Despite being verified computationally for all starting values up to 2⁶⁸, a rigorous mathematical proof remains elusive, leading Paul Erdős to famously comment: &ldquo;Mathematics is not yet ripe enough for such problems.&rdquo;
-          </p>
-
           <h2>The Fibonacci Sequence and Binet&apos;s Closed-Form Formula</h2>
           <p>
             Defined recursively by F_n = F_(n-1) + F_(n-2) with F₁ = 1, F₂ = 1, the ratio of consecutive Fibonacci numbers converges to the Golden Ratio φ = (1 + √5)/2. Using the characteristic polynomial r² − r − 1 = 0, French mathematician Jacques Philippe Marie Binet derived the exact non-recursive formula:
@@ -212,32 +203,6 @@ export default function Page() {
           <Formula>F_n = [ φⁿ − ψⁿ ] ÷ √5</Formula>
           <p>
             Where φ = (1 + √5)/2 ≈ 1.618034 and ψ = (1 − √5)/2 ≈ −0.618034. Because |ψ| &lt; 1, ψⁿ vanishes rapidly for large n, meaning F_n equals the nearest integer to φⁿ / √5: F_n = round(φⁿ / √5).
-          </p>
-
-          <h2>The Harmonic Series and the Riemann Zeta Function</h2>
-          <p>
-            The sum of the reciprocals of positive integers forms the classical <strong>Harmonic Series</strong>:
-          </p>
-          <Formula>H_n = 1 + 1/2 + 1/3 + 1/4 + ... + 1/n = Σ (1 ÷ k)</Formula>
-          <p>
-            Although individual terms shrink toward zero, medieval French mathematician Nicole Oresme proved circa 1350 that the harmonic series diverges to infinity, albeit at a remarkably slow logarithmic rate. As <em>n</em> approaches infinity, the difference between H_n and ln(n) converges to the fundamental <strong>Euler-Mascheroni Constant (γ)</strong>:
-          </p>
-          <Formula>lim (n → ∞) [ H_n − ln(n) ] = γ ≈ 0.5772156649...</Formula>
-          <p>
-            Generalizing the harmonic series by raising denominators to power <em>s</em> produces the iconic <strong>Riemann Zeta Function</strong>:
-          </p>
-          <Formula>ζ(s) = Σ (1 ÷ nˢ)   for Re(s) &gt; 1</Formula>
-          <p>
-            Euler proved the celebrated Basel problem solution ζ(2) = Σ 1/n² = π²/6 in 1734. Bernhard Riemann later showed in 1859 that the distribution of prime numbers is intimately encoded within the complex zeros of the zeta function, formulating the Riemann Hypothesis.
-          </p>
-
-          <h2>Benford&apos;s Law and Scale-Invariant Geometric Distributions</h2>
-          <p>
-            When a geometric sequence expands across multiple orders of magnitude (such as powers of 2 or 3), the distribution of leading significant digits is not uniform; rather, it adheres strictly to <strong>Benford&apos;s Law (the First-Digit Law)</strong>:
-          </p>
-          <Formula>P(d) = log₁₀( 1 + 1 ÷ d )   for d ∈ [1, 2, ..., 9]</Formula>
-          <p>
-            Under Benford&apos;s logarithmic distribution, the digit 1 appears as the leading numeral approximately 30.1% of the time, whereas 9 appears only 4.6% of the time. Forensic accountants and tax auditors deploy Benford analysis of geometric financial distributions to detect fraudulent ledger fabrication and embezzlement.
           </p>
 
           <h2>Real-World Applications Across Technology and Quantitative Finance</h2>
@@ -255,13 +220,15 @@ export default function Page() {
           <p>
             To expand your quantitative toolkit, explore our specialized <Link href="/calculators/math/matrix-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Matrix Calculator</Link>, <Link href="/calculators/math/exponent-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Exponent Calculator</Link>, <Link href="/calculators/math/logarithm-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Logarithm Calculator</Link>, and <Link href="/calculators/math/quadratic-equation-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Quadratic Equation Calculator</Link>.
           </p>
-        </>
+        
+          <h2>Generating Functions, Cauchy Convergence & Fibonacci Ratios</h2>
+          <p>
+            Number sequences form the foundational discrete building blocks of numerical analysis and discrete mathematics. In formal sequence theory, an infinite sequence (aₙ) converges to a limit L if for every ε &gt; 0, there exists integer N such that |aₙ − L| &lt; ε for all n &gt; N, as formalized in Cauchy's convergence criterion. Geometric series Σ arⁿ converge to finite analytic sums a / (1 − r) if and only if |r| &lt; 1, providing the mathematical basis for infinite annuity valuations and Z-transform filter synthesis. In the famous Fibonacci sequence, the ratio between consecutive terms aₙ₊₁ / aₙ asymptotically converges to the golden ratio φ = (1 + √5)/2 ≈ 1.6180339887..., linking discrete recursive difference equations directly to logarithmic phyllotaxis spiral patterns in biological morphogenesis.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Number Sequence Calculator</h2><div class=\"form-group\"><label for=\"ns-type\">Sequence Type</label><select id=\"ns-type\"><option value=\"arithmetic\">Arithmetic</option><option value=\"geometric\">Geometric</option></select></div><div class=\"form-group\"><label for=\"ns-a1\">First Term (a₁)</label><input id=\"ns-a1\" step=\"any\" type=\"number\" value=\"3\"/></div><div class=\"form-group\"><label for=\"ns-d\">Common Difference / Ratio</label><input id=\"ns-d\" step=\"any\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"ns-n\">Find Term Number (n)</label><input id=\"ns-n\" min=\"1\" step=\"1\" type=\"number\" value=\"10\"/></div><button class=\"calc-btn\" onclick=\"calcSequence()\">Calculate</button><button class=\"calc-btn\" onclick=\"document.getElementById('ns-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"ns-result\" style=\"display:none;\"><div id=\"ns-ri\"></div><div class=\"ai-box\" id=\"ns-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-ns-result\" onclick=\"printResult('ns-result','Number Sequence Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Number Sequence Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-number-sequence-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcSequence(){\\n  const type=document.getElementById('ns-type').value;\\n  const a1=parseFloat(document.getElementById('ns-a1').value);\\n  const d=parseFloat(document.getElementById('ns-d').value);\\n  const n=parseInt(document.getElementById('ns-n').value);\\n  if(isNaN(a1)||isNaN(d)||isNaN(n)||n<1){alert('Enter valid values for first term, difference/ratio, and n.');return;}\\n  let an,sum,terms=[];\\n  if(type==='arithmetic'){\\n    an=a1+(n-1)*d;\\n    sum=n/2*(2*a1+(n-1)*d);\\n  } else {\\n    an=a1*Math.pow(d,n-1);\\n    sum=(d===1)?a1*n:a1*(Math.pow(d,n)-1)/(d-1);\\n  }\\n  const showCount=Math.min(n,10);\\n  for(let i=1;i<=showCount;i++){\\n    terms.push(type==='arithmetic'?(a1+(i-1)*d):(a1*Math.pow(d,i-1)));\\n  }\\n  const fmt=v=>Number.isFinite(v)?parseFloat(v.toFixed(4)).toString():'—';\\n  document.getElementById('ns-ri').innerHTML=\\n    ri('Term a'+n,'<strong style=\\\"font-size:21px;color:var(--c-accent)\\\">'+fmt(an)+'</strong>',true)+\\n    ri('Sum of First '+n+' Terms',fmt(sum))+\\n    ri('First '+showCount+' Terms',terms.map(fmt).join(', ')+(n>10?', ...':''));\\n  document.getElementById('ns-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <NumberSequenceCalculator />
     </CalcPage>
   );
 }

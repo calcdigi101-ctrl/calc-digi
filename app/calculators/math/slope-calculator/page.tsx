@@ -1,6 +1,6 @@
+import SlopeCalculator from "@/components/calcs/math/slope-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
@@ -251,13 +251,15 @@ export default function Page() {
           <p>
             To expand your quantitative toolkit, explore our specialized <Link href="/calculators/math/distance-formula-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Distance Formula Calculator</Link>, <Link href="/calculators/math/pythagorean-theorem-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Pythagorean Theorem Calculator</Link>, <Link href="/calculators/math/triangle-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Triangle Calculator</Link>, and <Link href="/calculators/math/area-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Area Calculator</Link>.
           </p>
-        </>
+        
+          <h2>Differential Calculus Foundations, Tangent Vectors & Directional Gradients</h2>
+          <p>
+            The geometric concept of slope represents the foundational intuitive cornerstone of differential calculus. While linear algebra models constant rate of change m = Δy / Δx across straight Cartesian line segments, Gottfried Wilhelm Leibniz and Sir Isaac Newton generalized this concept to arbitrary non-linear curves via the derivative limit: f'(x) = lim_(h→0) [f(x + h) − f(x)] / h. In multivariable scalar fields z = f(x, y), the 1D slope generalizes into the vector gradient ∇f = (∂f/∂x, ∂f/∂y), whose magnitude represents the steepest directional slope and whose direction indicates the path of maximum spatial increase, forming the core algorithmic engine of gradient descent optimization in machine learning.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Slope Calculator</h2><div class=\"form-row\"><div class=\"form-group\"><label for=\"sl-x1\">x₁</label><input id=\"sl-x1\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"sl-y1\">y₁</label><input id=\"sl-y1\" step=\"any\" type=\"number\" value=\"2\"/></div></div><div class=\"form-row\"><div class=\"form-group\"><label for=\"sl-x2\">x₂</label><input id=\"sl-x2\" step=\"any\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"sl-y2\">y₂</label><input id=\"sl-y2\" step=\"any\" type=\"number\" value=\"14\"/></div></div><button class=\"calc-btn\" onclick=\"calcSlope()\">Calculate Slope</button><button class=\"calc-btn\" onclick=\"document.getElementById('sl-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"sl-result\" style=\"display:none;\"><div id=\"sl-ri\"></div><div class=\"ai-box\" id=\"sl-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-sl-result\" onclick=\"printResult('sl-result','Slope Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Slope Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-slope-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcSlope(){\\n  const x1=parseFloat(document.getElementById('sl-x1').value);\\n  const y1=parseFloat(document.getElementById('sl-y1').value);\\n  const x2=parseFloat(document.getElementById('sl-x2').value);\\n  const y2=parseFloat(document.getElementById('sl-y2').value);\\n  if([x1,y1,x2,y2].some(function(v){return isNaN(v);})){alert('Enter valid numbers for all coordinates.');return;}\\n  if(x1===x2){\\n    document.getElementById('sl-ri').innerHTML=\\n      ri('Slope','<strong style=\\\"font-size:20px;color:var(--c-accent)\\\">Undefined (vertical line)</strong>',true)+\\n      ri('Line Equation','x = '+x1);\\n  } else {\\n    const m=(y2-y1)/(x2-x1);\\n    const b=y1-m*x1;\\n    const angle=Math.atan(m)*180/Math.PI;\\n    document.getElementById('sl-ri').innerHTML=\\n      ri('Slope (m)','<strong style=\\\"font-size:24px;color:var(--c-accent)\\\">'+m.toFixed(4)+'</strong>',true)+\\n      ri('Line Equation','y = '+m.toFixed(3)+'x '+(b>=0?'+ ':'- ')+Math.abs(b).toFixed(3))+\\n      ri('Angle',angle.toFixed(2)+'°')+\\n      ri('Direction',m>0?'Rising (positive)':(m<0?'Falling (negative)':'Horizontal (flat)'));\\n  }\\n  document.getElementById('sl-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <SlopeCalculator />
     </CalcPage>
   );
 }

@@ -1,6 +1,6 @@
+import BigNumberCalculator from "@/components/calcs/math/big-number-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
@@ -209,10 +209,7 @@ export default function Page() {
         </>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Big Number Calculator</h2><div class=\"form-group\"><label for=\"bn-a\">Number A</label><input id=\"bn-a\" placeholder=\"e.g. 123456789123456789\" type=\"text\" value=\"123456789123456789\"/></div><div class=\"form-group\"><label for=\"bn-op\">Operation</label><select id=\"bn-op\"><option value=\"add\">A + B</option><option value=\"sub\">A − B</option><option value=\"mul\">A × B</option><option value=\"div\">A ÷ B</option></select></div><div class=\"form-group\"><label for=\"bn-b\">Number B</label><input id=\"bn-b\" placeholder=\"e.g. 987654321\" type=\"text\" value=\"987654321\"/></div><button class=\"calc-btn\" onclick=\"calcBigNumber()\">Calculate</button><button class=\"calc-btn\" onclick=\"document.getElementById('bn-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"bn-result\" style=\"display:none;\"><div id=\"bn-ri\"></div><div class=\"ai-box\" id=\"bn-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-bn-result\" onclick=\"printResult('bn-result','Big Number Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Big Number Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-big-number-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcBigNumber(){\\n  const aStr=document.getElementById('bn-a').value.trim();\\n  const bStr=document.getElementById('bn-b').value.trim();\\n  const op=document.getElementById('bn-op').value;\\n  if(!/^-?\\\\d+$/.test(aStr)||!/^-?\\\\d+$/.test(bStr)){alert('Enter valid whole numbers (integers only, no decimals).');return;}\\n  let a,b;\\n  try{a=BigInt(aStr);b=BigInt(bStr);}catch(e){alert('Invalid number.');return;}\\n  let result, remainder=null;\\n  if(op==='add')result=a+b;\\n  else if(op==='sub')result=a-b;\\n  else if(op==='mul')result=a*b;\\n  else{\\n    if(b===0n){alert('Cannot divide by zero.');return;}\\n    result=a/b; remainder=a%b;\\n  }\\n  document.getElementById('bn-ri').innerHTML=\\n    ri('Result','<strong style=\\\"font-size:17px;color:var(--c-accent);word-break:break-all;\\\">'+result.toString()+'</strong>',true)+\\n    (remainder!==null?ri('Remainder',remainder.toString()):'')+\\n    ri('Digits in Result',result.toString().replace('-','').length);\\n  document.getElementById('bn-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <BigNumberCalculator />
     </CalcPage>
   );
 }

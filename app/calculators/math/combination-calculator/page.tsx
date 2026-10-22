@@ -1,6 +1,6 @@
+import CombinationCalculator from "@/components/calcs/math/combination-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
@@ -201,13 +201,20 @@ export default function Page() {
           <p>
             To expand your combinatorial and statistical toolkit, explore our specialized <Link href="/calculators/math/permutation-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Permutation Calculator</Link>, <Link href="/calculators/math/factorial-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Factorial Calculator</Link>, <Link href="/calculators/math/probability-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Probability Calculator</Link>, and <Link href="/calculators/math/random-number-generator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Random Number Generator</Link>.
           </p>
-        </>
+        
+          <h2>Pascal's Simplex, Binomial Coefficients & Combinatorial Identities</h2>
+          <p>
+            Combinations are deeply embedded in mathematical discrete analysis through the Binomial Theorem: (x + y)ⁿ = Σ C(n, k) xⁿ⁻ᵏ yᵏ. The symmetry property C(n, r) = C(n, n − r) reflects the fundamental mathematical insight that choosing r items to include in a subset is mathematically identical to choosing (n − r) items to exclude. Pascal's identity, C(n, k) = C(n − 1, k − 1) + C(n − 1, k), allows recursive construction of Pascal's Triangle without requiring computationally expensive factorial multiplications. In statistical mechanics and quantum thermodynamics, combination formulas govern Maxwell-Boltzmann, Bose-Einstein, and Fermi-Dirac distribution microstates, quantifying the microscopic configurations that yield observable macroscopic thermodynamic equilibrium entropy S = k ln Ω.
+          </p>
+
+          <h2>Lottery Combinatorics & Hypergeometric Distributions</h2>
+          <p>
+            Combinatorial counting forms the mathematical foundation of gaming theory, lottery risk analysis, and quality assurance sampling. In hypergeometric probability modeling, combinations calculate the exact probability of drawing k defective components from an industrial batch of size N without replacement, serving as an indispensable quality control benchmark in aerospace component manufacturing and pharmaceutical batch release verification.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n\n<h2>Combination Calculator (nCr)</h2>\n<div class=\"form-group\"><label for=\"cb-n\">n (total items)</label><input id=\"cb-n\" max=\"170\" min=\"0\" step=\"1\" type=\"number\" value=\"49\"/></div>\n<div class=\"form-group\"><label for=\"cb-r\">r (items chosen)</label><input id=\"cb-r\" max=\"170\" min=\"0\" step=\"1\" type=\"number\" value=\"6\"/></div>\n<button class=\"calc-btn\" onclick=\"calcCombination()\">Calculate nCr</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cb-n').value='';document.getElementById('cb-r').value='';document.getElementById('cb-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cb-result\" style=\"display:none;\n  if(typeof drawDonut==='function')drawDonut('gen-chart',['Result','Remaining'],[75,25],['#1a5c3a','#c8832a']);\">\n<div id=\"ri-main\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ri-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ri-ai\" style=\"display:none;\"></div>\n<div id=\"cb-ri\"></div>\n<div class=\"ai-box\" id=\"cb-ai\" style=\"display:none;\"></div>\n</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cb-result\" onclick=\"printResult('cb-result','Combination Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Combination Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n\n</div>" }} />
-        <Script id="calc-script-combination-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\\nfunction calcCombination(){\\n  const n=parseInt(document.getElementById('cb-n').value);\\n  const r=parseInt(document.getElementById('cb-r').value);\\n  if(isNaN(n)||isNaN(r)||n<0||r<0){alert('Please enter valid non-negative integers for n and r.');return;}\\n  if(r>n){alert('r cannot be greater than n. You cannot choose more items than available.');return;}\\n  let result=1;\\n  for(let i=0;i<r;i++)result=result*(n-i)/(i+1);\\n  result=Math.round(result);\\n  const display=result>1e15?result.toExponential(6):result.toLocaleString();\\n  document.getElementById('cb-ri').innerHTML=\\n    ri(n+'C'+r,'<strong style=\\\"font-size:24px;color:var(--c-accent)\\\">'+display+'</strong>',true)+\\n    ri('Formula',n+'! / ('+r+'! × '+(n-r)+'!)')+\\n    ri('n (total items)',n)+\\n    ri('r (items chosen)',r)+\\n    ri('1 in ... chance','1 in '+display+' (if randomly selecting)');\\n  document.getElementById('cb-result').style.display='block';\\n  const ai=document.getElementById('cb-ai');\\n  ai.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';\\n  ai.style.display='block';\\n  getAIInsight(n+'C'+r+' = '+result+'. In 2 sentences give a real-world scenario (like lottery, cards, or team selection) where choosing '+r+' from '+n+' is relevant and what this number means.')\\n  .then(t=>{if(t)ai.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';else ai.style.display='none';});\\n}\\n\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <CombinationCalculator />
     </CalcPage>
   );
 }

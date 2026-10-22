@@ -1,6 +1,6 @@
+import SampleSizeCalculator from "@/components/calcs/math/sample-size-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { ProbabilityDistributionChart } from "@/components/flagship/math/editorial-charts/ProbabilityDistributionChart";
@@ -202,13 +202,15 @@ export default function Page() {
               <strong>Industrial Quality Assurance:</strong> Manufacturers perform lot acceptance sampling to certify batches against acceptable quality levels (AQL), paired with our <Link href="/calculators/math/confidence-interval-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Confidence Interval Calculator</Link> and <Link href="/calculators/math/probability-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Probability Calculator</Link>.
             </li>
           </ul>
-        </>
+        
+          <h2>Cochran's Sampling Theorem, Power Analysis & Finite Population Multipliers</h2>
+          <p>
+            Determining optimal scientific sample size is governed by William G. Cochran's sampling formula, balancing experimental statistical power (1 − β) against type I false positive error rates (α). Setting the population proportion p = 0.5 represents the maximally conservative minimax strategy, maximizing variance p(1 − p) = 0.25 and guaranteeing sufficient sample representation regardless of true underlying demographic splits. When the target population N is finite and small relative to sample size n (typically n/N &gt; 0.05), applying the Finite Population Correction (FPC) factor √((N − n) / (N − 1)) substantially reduces required sample size without sacrificing statistical confidence or margin of error bounds.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Sample Size Calculator</h2><div class=\"form-group\"><label for=\"ss-confidence\">Confidence Level</label><select id=\"ss-confidence\"><option value=\"90\">90%</option><option selected=\"\" value=\"95\">95%</option><option value=\"99\">99%</option></select></div><div class=\"form-group\"><label for=\"ss-margin\">Margin of Error (%)</label><input id=\"ss-margin\" min=\"0.1\" step=\"any\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"ss-proportion\">Estimated Proportion (%)</label><input id=\"ss-proportion\" max=\"99\" min=\"1\" step=\"any\" type=\"number\" value=\"50\"/></div><div class=\"form-group\"><label for=\"ss-population\">Population Size (optional)</label><input id=\"ss-population\" min=\"1\" placeholder=\"Leave blank if unknown/large\" step=\"1\" type=\"number\"/></div><button class=\"calc-btn\" onclick=\"calcSampleSize()\">Calculate Sample Size</button><button class=\"calc-btn\" onclick=\"document.getElementById('ss-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"ss-result\" style=\"display:none;\"><div id=\"ss-ri\"></div><div class=\"ai-box\" id=\"ss-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-ss-result\" onclick=\"printResult('ss-result','Sample Size Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Sample Size Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-sample-size-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcSampleSize(){\\n  const conf=parseFloat(document.getElementById('ss-confidence').value);\\n  const margin=parseFloat(document.getElementById('ss-margin').value)/100;\\n  const p=(parseFloat(document.getElementById('ss-proportion').value)||50)/100;\\n  const popStr=document.getElementById('ss-population').value;\\n  const pop=popStr?parseFloat(popStr):null;\\n  if(isNaN(margin)||margin<=0){alert('Enter a valid margin of error.');return;}\\n  const zTable={90:1.645,95:1.96,99:2.576};\\n  const z=zTable[conf]||1.96;\\n  const n0=(z*z*p*(1-p))/(margin*margin);\\n  let n=n0;\\n  if(pop&&pop>0){n=n0/(1+((n0-1)/pop));}\\n  n=Math.ceil(n);\\n  document.getElementById('ss-ri').innerHTML=\\n    ri('Required Sample Size','<strong style=\\\"font-size:24px;color:var(--c-accent)\\\">'+n+'</strong>',true)+\\n    ri('Confidence Level',conf+'%')+\\n    ri('Margin of Error',(margin*100).toFixed(1)+'%')+\\n    ri('Z-Score Used',z)+\\n    (pop?ri('Population Size',pop):'');\\n  document.getElementById('ss-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <SampleSizeCalculator />
     </CalcPage>
   );
 }

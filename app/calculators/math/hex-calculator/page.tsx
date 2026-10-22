@@ -1,6 +1,6 @@
+import HexCalculator from "@/components/calcs/math/hex-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
@@ -223,13 +223,15 @@ export default function Page() {
           <p>
             To expand your digital computation toolkit, explore our specialized <Link href="/calculators/math/binary-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Binary Calculator</Link>, <Link href="/calculators/math/scientific-notation-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Scientific Notation Calculator</Link>, <Link href="/calculators/math/big-number-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Big Number Calculator</Link>, and <Link href="/calculators/math/scientific-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Scientific Calculator</Link>.
           </p>
-        </>
+        
+          <h2>Hexadecimal Radix 16 Architecture, Nibbles & Memory Addressing</h2>
+          <p>
+            Hexadecimal notation serves as the universally adopted human-readable bridge to low-level digital binary computer systems. Because 16 is an exact power of two (2⁴ = 16), every hexadecimal digit maps with 100% precision to a 4-bit binary nibble, and two hexadecimal characters represent a complete 8-bit byte (0x00 to 0xFF). This natural radix correspondence eliminates decimal conversion overhead when inspecting memory registers, IPv6 network addresses, IEEE 754 floating-point byte orderings, and CSS RGB hexadecimal color channels. In reverse engineering, microprocessor assembly debugging, and firmware analysis, hexadecimal arithmetic allows software engineers to perform bitwise masking, endianness byte-swapping, and pointer displacement arithmetic directly on compiled machine code.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n<h2>Hex Calculator</h2><div class=\"form-group\"><label for=\"hex-a\">Hex A</label><input id=\"hex-a\" placeholder=\"e.g. 1A\" type=\"text\" value=\"1A\"/></div><div class=\"form-group\"><label for=\"hex-op\">Operation</label><select id=\"hex-op\"><option value=\"add\">A + B</option><option value=\"sub\">A − B</option><option value=\"mul\">A × B</option><option value=\"div\">A ÷ B</option><option value=\"and\">A AND B</option><option value=\"or\">A OR B</option><option value=\"xor\">A XOR B</option></select></div><div class=\"form-group\"><label for=\"hex-b\">Hex B</label><input id=\"hex-b\" placeholder=\"e.g. 2F\" type=\"text\" value=\"2F\"/></div><button class=\"calc-btn\" onclick=\"calcHex()\">Calculate</button><button class=\"calc-btn\" onclick=\"document.getElementById('hex-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button><div class=\"result-box\" id=\"hex-result\" style=\"display:none;\"><div id=\"hex-ri\"></div><div class=\"ai-box\" id=\"hex-result-ai\" style=\"display:none;\"></div></div><div style=\"display:flex;gap:8px;margin-top:10px;\"><button class=\"calc-btn\" id=\"print-btn-hex-result\" onclick=\"printResult('hex-result','Hex Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button><button class=\"calc-btn\" onclick=\"shareResult('Hex Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>" }} />
-        <Script id="calc-script-hex-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcHex(){\\n  const aStr=document.getElementById('hex-a').value.trim();\\n  const bStr=document.getElementById('hex-b').value.trim();\\n  const op=document.getElementById('hex-op').value;\\n  if(!/^[0-9a-fA-F]+$/.test(aStr)||!/^[0-9a-fA-F]+$/.test(bStr)){alert('Enter valid hexadecimal numbers (0-9, A-F).');return;}\\n  const a=parseInt(aStr,16), b=parseInt(bStr,16);\\n  let dec;\\n  if(op==='add')dec=a+b;\\n  else if(op==='sub')dec=a-b;\\n  else if(op==='mul')dec=a*b;\\n  else if(op==='div'){if(b===0){alert('Cannot divide by zero.');return;}dec=Math.trunc(a/b);}\\n  else if(op==='and')dec=a&b;\\n  else if(op==='or')dec=a|b;\\n  else dec=a^b;\\n  const hexResult=(dec<0?'-':'')+Math.abs(dec).toString(16).toUpperCase();\\n  document.getElementById('hex-ri').innerHTML=\\n    ri('Result (Hex)','<strong style=\\\"font-size:19px;color:var(--c-accent)\\\">'+hexResult+'</strong>',true)+\\n    ri('Result (Decimal)',dec)+\\n    ri('A (Decimal)',a)+\\n    ri('B (Decimal)',b);\\n  document.getElementById('hex-result').style.display='block';\\n}\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <HexCalculator />
     </CalcPage>
   );
 }

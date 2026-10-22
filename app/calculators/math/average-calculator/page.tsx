@@ -1,6 +1,6 @@
+import AverageCalculator from "@/components/calcs/math/average-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
@@ -193,13 +193,20 @@ export default function Page() {
               <strong>Investment Portfolio Returns:</strong> Analyze dollar-cost averaging, baseline dividend yields, and long-term capital compounding using our <Link href="/calculators/finance/compound-interest-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Compound Interest Calculator</Link>.
             </li>
           </ul>
-        </>
+        
+          <h2>The Gauss-Markov Theorem, Estimation Efficiency & Outlier Breakdown</h2>
+          <p>
+            In mathematical statistics, the arithmetic mean is the unique estimator that minimizes the sum of squared residuals: Σ(xᵢ − c)², a mathematical property establishing it as the fundamental least-squares benchmark. Under the classical Gauss-Markov theorem, when observational errors are independent and identically distributed with zero mean and finite variance, the sample average serves as the Best Linear Unbiased Estimator (BLUE) of the population parameter. However, the arithmetic mean has an asymptotic breakdown point of zero, meaning a single contaminated or infinite outlier can arbitrarily distort the calculated summary metric. In high-dimensional data analysis and quantitative finance, statisticians frequently complement the mean with trimmed means, Winsorized averages, or median absolute deviation (MAD) to ensure robust statistical inference across non-Gaussian distributions.
+          </p>
+
+          <h2>Weighted Financial Portfolio & Academic Grading Models</h2>
+          <p>
+            In corporate finance and asset management, arithmetic averages are adapted into weighted averages to evaluate dollar-cost averaging strategies, asset allocation risk betas, and volume-weighted average prices (VWAP) in equity trading. Similarly, university degree grading frameworks apply credit-weighted grade point averages to guarantee that comprehensive coursework reflects proportional intellectual rigor and rigorous academic accountability.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n\n<h2>Average Calculator</h2>\n<div class=\"form-group\"><label for=\"avg-nums\">Enter Numbers (comma-separated)</label><textarea id=\"avg-nums\" placeholder=\"e.g. 5, 12, 8, 20, 3, 15\" style=\"width:100%;padding:10px 14px;border:1.5px solid var(--c-rule);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:15px;min-height:80px;resize:vertical;outline:none;\">85, 92, 78, 95, 88, 72, 90</textarea></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\" style=\"margin-top:16px;\">Calculate Now</button>\n<div class=\"result-box\" id=\"hc-result\"><div id=\"hc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"hc-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"ai-hc-result\" style=\"display:none;\"></div></div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-hc-result\" onclick=\"printResult('hc-result','Average Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Average Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n\n</div>" }} />
-        <Script id="calc-script-average-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\\n  const raw=document.getElementById('avg-nums').value;\\n  const nums=raw.split(/[,\\\\s]+/).map(Number).filter(n=>!isNaN(n));\\n  if(nums.length===0){document.getElementById('hc-ri').innerHTML=ri('Error','Please enter valid numbers.',true);showResult('hc-result');return;}\\n  const sorted=[...nums].sort((a,b)=>a-b);\\n  const n=nums.length;\\n  const mean=nums.reduce((a,b)=>a+b,0)/n;\\n  const mid=Math.floor(n/2);\\n  const median=n%2===0?(sorted[mid-1]+sorted[mid])/2:sorted[mid];\\n  const freq={};nums.forEach(x=>freq[x]=(freq[x]||0)+1);const maxF=Math.max(...Object.values(freq));\\n  const modes=Object.keys(freq).filter(k=>freq[k]===maxF).map(Number);\\n  const range=sorted[n-1]-sorted[0];\\n  const variance=nums.reduce((a,b)=>a+Math.pow(b-mean,2),0)/n;const stddev=Math.sqrt(variance);\\n  document.getElementById('hc-ri').innerHTML=ri('Count',n)+ri('Sum',fmtNum(nums.reduce((a,b)=>a+b,0),4))+ri('Mean (Average)',fmtNum(mean,4),true)+ri('Median',fmtNum(median,4))+ri('Mode',modes.join(', '))+ri('Range',fmtNum(range,4))+ri('Std Deviation',fmtNum(stddev,4));\\n  showResult('hc-result');\\n  drawDonut('hc-chart',['Mean','Std Dev'],[Math.round(mean)||1,Math.round(stddev)||1],['#1a5c3a','#c8832a']);\\n  var ai=document.querySelector('.ai-box');\\n  if(ai&&typeof getAIInsight==='function'){ai.style.display='block';ai.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';getAIInsight('Statistics: mean='+mean.toFixed(2)+', median='+median.toFixed(2)+', n='+n+'. Give a practical data analysis tip.').then(function(t){if(t)ai.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});}\\n}\\n\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <AverageCalculator />
     </CalcPage>
   );
 }

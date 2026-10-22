@@ -1,6 +1,6 @@
+import GcfCalculator from "@/components/calcs/math/gcf-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
@@ -203,13 +203,15 @@ export default function Page() {
           <p>
             To expand your arithmetic toolkit, explore our specialized <Link href="/calculators/math/lcm-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">LCM Calculator</Link>, <Link href="/calculators/math/factor-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Factor Calculator</Link>, <Link href="/calculators/math/prime-number-checker" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Prime Number Checker</Link>, and <Link href="/calculators/math/fraction-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Fraction Calculator</Link>.
           </p>
-        </>
+        
+          <h2>The Euclidean Algorithm, Bézout's Identity & Diophantine Solvability</h2>
+          <p>
+            The Greatest Common Factor is efficiently computed using Euclid's algorithm, published around 300 BCE in Euclid's Elements and recognized as one of the oldest and most elegant numerical algorithms still in active computer science use. Operating with logarithmic time complexity O(log(min(a, b))), the algorithm leverages the recurrence gcd(a, b) = gcd(b, a mod b). The Extended Euclidean Algorithm extends this relationship to establish Bézout's identity: ax + by = gcd(a, b), generating integer coefficients x and y that solve linear Diophantine equations and determine modular multiplicative inverses. In modular arithmetic, this identity is indispensable for computing decryption exponents in RSA cryptography and validating coprimality conditions in the Chinese Remainder Theorem.
+          </p>
+</>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n\n<h2>GCF Calculator</h2>\n<div class=\"form-group\">\n<label for=\"gcf-numbers\">Enter Numbers (comma separated)</label>\n<input id=\"gcf-numbers\" type=\"text\" value=\"24, 36, 60\"/>\n</div>\n<button class=\"calc-btn\" onclick=\"calcGCF()\">Calculate GCF</button>\n<div class=\"result-box\" id=\"gcf-result\">\n<div id=\"gcf-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"140\" id=\"gcf-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"gcf-ai\" style=\"display:none;\"></div>\n</div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-gcf-result\" onclick=\"printResult('gcf-result','GCF Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('GCF Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n\n</div>" }} />
-        <Script id="calc-script-gcf-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function gcd(a,b){return b===0?a:gcd(b,a%b);}\\nfunction calcGCF(){\\n  const raw=document.getElementById('gcf-numbers').value;\\n  const nums=raw.split(',').map(s=>Math.abs(parseInt(s.trim()))).filter(n=>!isNaN(n)&&n>0);\\n  if(nums.length<2){alert('Please enter at least 2 positive integers separated by commas.');return;}\\n  let result=nums[0];\\n  for(let i=1;i<nums.length;i++){result=gcd(result,nums[i]);}\\n  document.getElementById('gcf-ri').innerHTML=\\n    ri('GCF','<strong style=\\\"font-size:28px;color:var(--c-accent)\\\">'+result+'</strong>',true)+\\n    ri('Numbers',nums.join(', '))+\\n    ri('Simplified Ratio',nums.map(n=>n/result).join(' : '))+\\n    ri('Each number ÷ GCF',nums.map(n=>n+'÷'+result+'='+n/result).join(', '));\\n  showResult('gcf-result');\\n  drawBar('gcf-chart',nums.map(String),nums,'#1a5c3a');\\n  const aiBox=document.getElementById('gcf-ai');\\n  aiBox.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';\\n  aiBox.style.display='block';\\n  getAIInsight('GCF of '+nums.join(', ')+' is '+result+'. Simplified ratio: '+nums.map(n=>n/result).join(':')+'. In 2-3 sentences explain what this GCF means practically and one real-world use case.')\\n  .then(function(t){if(t){aiBox.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';}else {aiBox.style.display='none';}});\\n}\\n\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <GcfCalculator />
     </CalcPage>
   );
 }

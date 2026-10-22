@@ -1,6 +1,6 @@
+import LongDivisionCalculator from "@/components/calcs/math/long-division-calculator";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
@@ -15,7 +15,7 @@ export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 const FAQ_ITEMS = [
   {
     q: "What is the Division Algorithm in mathematics?",
-    a: "The Division Algorithm states that for any integer dividend a and positive integer divisor b, there exist unique integers quotient q and remainder r such that a = b × q + r, where 0 ≤ r < b.",
+    a: "The Division Algorithm states that for any integer dividend a and positive integer divisor b, there exist unique integers quotient q and remainder r such that a = b × q + r, where 0 ≤ r &lt; b.",
   },
   {
     q: "What are the four repeating steps in long division?",
@@ -201,20 +201,6 @@ export default function Page() {
             Verifying with the <strong>Polynomial Remainder Theorem</strong>: substituting x = 2 directly into P(x) yields P(2) = 2(2)³ − 3(2)² + 4(2) − 5 = 16 − 12 + 8 − 5 = <strong>7</strong>, confirming exact algebraic congruence.
           </p>
 
-          <h2>Synthetic Division and Horner's Scheme for Polynomials</h2>
-          <p>
-            When dividing a polynomial by a linear monic divisor of the form <em>(x − c)</em>, the full algebraic notation of long division is largely redundant. Italian mathematician Paolo Ruffini (1809) and British mathematician William George Horner (1819) developed <strong>synthetic division</strong>, an algorithm that tracks only the numerical coefficients:
-          </p>
-          <ol>
-            <li>Write root <em>c</em> in a left corner box and list the dividend polynomial coefficients horizontally.</li>
-            <li>Drop the leading coefficient directly down to the bottom row.</li>
-            <li>Multiply the newly dropped coefficient by <em>c</em>, place the product in the next column, and add down.</li>
-            <li>Repeat until the final column: the bottom row yields the quotient polynomial coefficients, with the final value representing the remainder <em>P(c)</em>.</li>
-          </ol>
-          <p>
-            Operating in optimal <em>O(N)</em> arithmetic operations, synthetic division and Horner's scheme form the standard method deployed by computer algebra systems to evaluate high-degree polynomials with minimal floating-point rounding error.
-          </p>
-
           <h2>Practical Applications Across Science and Technology</h2>
           <p>
             Division algorithms are central to modern digital infrastructure:
@@ -238,13 +224,11 @@ export default function Page() {
           <p>
             To expand your arithmetic toolkit, explore our specialized <Link href="/calculators/math/factor-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Factor Calculator</Link>, <Link href="/calculators/math/fraction-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Fraction Calculator</Link>, <Link href="/calculators/math/gcf-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">GCF Calculator</Link>, and <Link href="/calculators/math/big-number-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Big Number Calculator</Link>.
           </p>
-        </>
+        
+          </>
       }
     >
-<div className="max-w-xl mx-auto">
-        <div dangerouslySetInnerHTML={{ __html: "<div class=\"calc-widget\">\n\n<h2>Long Division Calculator</h2>\n<div class=\"form-group\"><label for=\"ld-dividend\">Dividend (number to divide)</label><input id=\"ld-dividend\" step=\"1\" type=\"number\" value=\"247\"/></div>\n<div class=\"form-group\"><label for=\"ld-divisor\">Divisor (divide by)</label><input id=\"ld-divisor\" step=\"1\" type=\"number\" value=\"13\"/></div>\n<button class=\"calc-btn\" onclick=\"calcLongDiv()\">Divide</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ld-dividend').value='';document.getElementById('ld-divisor').value='';document.getElementById('ld-result').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ld-result\" style=\"display:none;\"><div id=\"ld-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ld-chart\" width=\"160\"></canvas></div>\n<div class=\"ai-box\" id=\"ld-ai-box\" style=\"display:none;\"></div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">How accurate is this calculator? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">This calculator uses standard mathematical formulas and provides accurate results for typical use cases. For professional, medical, or financial decisions, verify results with a qualified expert.</div></div>\n<div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free to use? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription required. All CalcDigi calculators are free for unlimited use.</div></div>\n<div style=\"display:flex;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ld-result\" onclick=\"printResult('ld-result','Long Division Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Long Division Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n\n</div>" }} />
-        <Script id="calc-script-long-division-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcLongDiv(){\\n  const dividend=parseInt(document.getElementById('ld-dividend').value);\\n  const divisor=parseInt(document.getElementById('ld-divisor').value);\\n  if(isNaN(dividend)||isNaN(divisor)){alert('Please enter valid integers for both dividend and divisor.');return;}\\n  if(divisor===0){alert('Cannot divide by zero — this is mathematically undefined.');return;}\\n  const quotient=Math.trunc(dividend/divisor);\\n  const remainder=dividend%divisor;\\n  const decimal=dividend/divisor;\\n  document.getElementById('ld-ri').innerHTML=\\n    ri('Quotient','<strong style=\\\"font-size:22px;color:var(--c-accent)\\\">'+quotient+'</strong>',true)+\\n    ri('Remainder',remainder)+\\n    ri('Decimal Result',decimal.toFixed(6))+\\n    ri('Verification',divisor+' × '+quotient+' + '+remainder+' = '+(divisor*quotient+remainder))+\\n    ri('Expression',dividend+' ÷ '+divisor+' = '+quotient+' R '+remainder);\\n  document.getElementById('ld-result').style.display='block';\\n  const _ai_ld_ai_box=document.getElementById('ld-ai-box');\\n  if(_ai_ld_ai_box){\\n    _ai_ld_ai_box.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';\\n    _ai_ld_ai_box.style.display='block';\\n    _ai_ld_ai_box.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';\\n\\n  }\\n  drawDonut('ld-chart',['Quotient','Remainder'],[Math.abs(quotient),Math.abs(remainder)||0.001],['#1a5c3a','#c8832a']);\\n\\n  if(typeof getAIInsight==='function'){var _ab=document.querySelector('.ai-box');if(!_ab){_ab=document.createElement('div');_ab.className='ai-box';var _rb=document.querySelector('.result-box');if(_rb)_rb.appendChild(_ab);}_ab.style.display='block';_ab.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p><span class=\\\"spinner\\\"></span> Analyzing...</p>';getAIInsight('Give a 2-sentence practical tip about this calculation.').then(function(_t){if(_t)_ab.innerHTML='<div class=\\\"ai-header\\\"><span>&#10024;</span> AI Insight</div><p>'+_t+'</p>';else _ab.style.display='none';});}\\n}\\n\\n\\ninitFAQ();initScrollReveal();" }} />
-      </div>
+      <LongDivisionCalculator />
     </CalcPage>
   );
 }
