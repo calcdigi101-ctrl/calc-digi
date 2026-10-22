@@ -204,6 +204,70 @@ export default function IntermittentFastingPage() {
           />
         </section>
       
+        
+        {/* Molecular Bioenergetics & Autophagy Kinetics */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Molecular Bioenergetics: Autophagy, AMPK Activation &amp; Sirtuins
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Intermittent fasting triggers a systematic shift in cellular energetics known as the metabolic switch. As hepatic glycogen stores deplete over 12 to 16 hours of continuous fasting, circulating blood glucose drops and the insulin-to-glucagon ratio flips, stimulating hormone-sensitive lipase (HSL) in adipose tissue to release non-esterified free fatty acids into systemic circulation.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">AMPK vs. mTOR Molecular Signaling</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Fasting elevates the intracellular AMP/ATP ratio, activating AMP-activated protein kinase (AMPK) and downregulating mechanistic target of rapamycin (mTORC1). This molecular suppression initiates chaperone-mediated autophagy, recycling damaged mitochondria (mitophagy) and unfolded protein aggregates.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Ketogenesis &amp; Neuroprotection</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                The liver converts mobilized fatty acids into ketone bodies (beta-hydroxybutyrate, acetoacetate, and acetone). Beta-hydroxybutyrate crosses the blood-brain barrier to serve as an efficient neuronal fuel, stimulating brain-derived neurotrophic factor (BDNF) and promoting cellular stress resistance.
+              </p>
+            </div>
+          </div>
+          <h2>Electrolyte Balance &amp; Fasting Fluid Protocols</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            During extended fasting, low insulin accelerates renal sodium and potassium excretion (natriuresis of fasting). Supplementing non-caloric fluids with unrefined mineral salt and bioavailable magnesium prevents tension headaches, postural dizziness, and muscular fatigue while preserving lean muscle mass.
+          </p>
+        </section>
+
+        
+          <h2>Fasting Best Practices: Sustaining Energy &amp; Preventing Burnout</h2>
+          <p>
+            Optimize your intermittent fasting journey with these foundational clinical best practices:
+          </p>
+          <ul>
+            <li><strong>Hydrate Continuously During Fasting:</strong> Drink plenty of plain water, mineral water, and unsweetened black coffee or green tea. Staying hydrated prevents mild headaches and blunts hunger sensations.</li>
+            <li><strong>Break Fasts with Gentle, Nutrient-Dense Foods:</strong> Avoid breaking your fast with large amounts of refined carbohydrates or greasy foods. Start with lean protein, healthy fats (avocado, eggs), and cooked vegetables to prevent digestive distress and blood sugar spikes.</li>
+            <li><strong>Prioritize Protein Intake in Feeding Windows:</strong> Consume adequate protein (1.6 to 2.2 g/kg of body weight) spread across your meals to preserve lean muscle tissue and support cellular repair.</li>
+            <li><strong>Listen to Your Body:</strong> If you experience severe dizziness, persistent fatigue, or weakness, break your fast gently. Intermittent fasting should support your health and energy, not cause chronic exhaustion.</li>
+          </ul>
+          <p>
+            Combine consistent fasting windows with balanced nutrition, regular strength training, and restorative sleep for optimal metabolic longevity.
+          </p>
+
+
+        
+          <h2>Circadian Fasting Alignment &amp; Glycemic Sensitivity</h2>
+          <p>
+            Aligning your intermittent fasting window with natural circadian biology—consuming meals earlier in the daytime and concluding food intake before nightfall (Early Time-Restricted Feeding)—yields superior glycemic improvements compared to late-evening eating windows. Human beta-cell insulin secretion and peripheral tissue insulin sensitivity naturally decline in the evening under the influence of melatonin.
+          </p>
+          <p>
+            Concluding meals at least 3 hours prior to sleep optimizes nocturnal metabolic switching, supports deep restorative sleep architecture, and enhances morning fasting glucose regulation.
+          </p>
+
+
+        
+          <h2>Sirtuin Signaling &amp; Cellular Quality Control</h2>
+          <p>
+            Prolonging the inter-meal fasting window elevates cellular NAD+ levels, which in turn activates the sirtuin family of enzymes (specifically SIRT1 and SIRT3). Sirtuins act as master epigenetic regulators that deacetylate transcription factors involved in mitochondrial biogenesis, oxidative stress defense, and DNA repair.
+          </p>
+          <p>
+            Simultaneously, hepatic glycogen depletion stimulates ketogenesis, producing beta-hydroxybutyrate (BHB). Beyond functioning as an alternative fuel for the central nervous system, BHB acts as an epigenetic signaling metabolite that inhibits the NLRP3 inflammasome, dampening chronic systemic vascular inflammation.
+          </p>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

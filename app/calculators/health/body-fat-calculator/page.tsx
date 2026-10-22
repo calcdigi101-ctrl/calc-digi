@@ -236,6 +236,44 @@ export default function Page() {
             </li>
           </ol>
 
+          
+        {/* Diagnostic Modalities: DEXA, Hydrostatic & 4C Models */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Gold-Standard Diagnostic Modalities: DEXA, Hydrostatic &amp; 4C Models
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Accurately quantifying human body composition requires understanding the limitations and physics of various diagnostic methodologies. In clinical research, body composition is evaluated across multi-compartment models separating total body mass into water, mineral, protein, and fat:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Dual-Energy X-ray Absorptiometry (DEXA)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                DEXA uses low-dose dual-energy X-ray beams to evaluate bone mineral density, lean soft tissue, and fat mass across anatomical regions. DEXA carries a clinical error margin of ±1.5% to 2.5%, though acute hydration fluctuations can shift measured lean tissue mass by 1 to 2 kg.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Four-Compartment (4C) Benchmark</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                The undisputed research gold standard combines underwater hydrostatic weighing (body volume), deuterium dilution (total body water), and DEXA (bone mineral content). This 4C model eliminates individual biological variation in tissue hydration and mineral density.
+              </p>
+            </div>
+          </div>
+          <h2>Essential Fat Requirements &amp; Female Hormonal Health</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Essential body fat (~3% in men, 10%–13% in women) is required for cellular membrane phospholipid structure, myelination of nerve fibers, and reproductive endocrine signaling. When female body fat drops below 14% to 16%, aromatization of androgens into estrogens declines, precipitating oligomenorrhea, follicular atresia, and early bone demineralization.
+          </p>
+        </section>
+
+          
+          <h2>Comparative Body Composition Modalities: DEXA vs Hydrostatic Weighing</h2>
+          <p>
+            While the US Navy circumference method offers an accessible ±3% accuracy benchmark for field estimates, clinical research utilizes four-compartment (4C) models and Dual-Energy X-ray Absorptiometry (DEXA) as gold standards. DEXA passes low-dose X-ray beams through bodily tissues to distinguish bone mineral content, lean soft tissue mass, and visceral versus subcutaneous adipose volume across discrete anatomical regions.
+          </p>
+          <p>
+            Hydrostatic (underwater) weighing utilizes Archimedes&apos; principle of buoyancy to calculate whole-body density, though air trapped in pulmonary residual volume introduces minor variance. Skinfold calipers measure subcutaneous fat folds across standard Jackson-Pollock sites; however, caliper reliability relies heavily on technician experience and cannot measure deep visceral fat surrounding internal organs.
+          </p>
+
           <Faq items={FAQ_ITEMS} />
         </Editorial>
       </CalculatorPage>

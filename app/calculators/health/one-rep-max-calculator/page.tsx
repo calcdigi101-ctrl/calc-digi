@@ -230,6 +230,61 @@ export default function OneRepMaxPage() {
           </ul>
         </section>
       
+        
+        {/* Henneman's Size Principle & Velocity-Based Training */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Henneman&apos;s Size Principle, Neuromuscular Potentiation &amp; VBT
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            A true 1-Repetition Maximum (1RM) represents the ultimate expression of maximal voluntary muscular contraction (MVC). The neuromuscular capacity to generate peak force is governed by Henneman&apos;s Size Principle: motor units are recruited in a progressive hierarchy from smallest low-threshold Type I slow-twitch endurance units to high-threshold Type IIa and Type IIx fast-twitch glycolytic motor units capable of generating massive mechanical tension.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Velocity-Based Training (VBT) Calibration</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Modern sports science utilizes linear positional transducers to track mean concentric barbell velocity (m/s). In powerlifting movements, minimum velocity thresholds at true 1RM are remarkably consistent: ~0.15 m/s on the back squat, ~0.17 m/s on the bench press, and ~0.12 m/s on the conventional deadlift, allowing lifters to gauge daily readiness without testing to failure.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Post-Activation Performance Enhancement (PAPE)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Performing heavy near-maximal conditioning contractions (&ge;85%–90% 1RM) induces myosin regulatory light chain phosphorylation and transiently enhances central nervous system excitability. This neuromuscular potentiation enhances subsequent explosive athletic power output for 4 to 8 minutes post-warmup.
+              </p>
+            </div>
+          </div>
+          <h2>Periodized Strength Training: Programming Around Your 1RM</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Structure your training blocks around percentage-based periodization: 65%–75% for hypertrophy (8–12 reps), 80%–88% for maximal strength (4–6 reps), and 90%–95% for neuromuscular peaking (1–3 reps) to progress safely and systematically.
+          </p>
+        </section>
+
+        
+          <h2>Periodized Strength Training: Programming Around Your 1RM</h2>
+          <p>
+            Structure your weekly resistance training using percentage-based periodization calibrated to your estimated 1RM:
+          </p>
+          <ul>
+            <li><strong>Hypertrophy Phase (65%–75% 1RM):</strong> Perform 3 to 4 sets of 8 to 12 repetitions. Stimulates muscle fiber cross-sectional growth, connective tissue durability, and metabolic conditioning.</li>
+            <li><strong>Strength Phase (80%–88% 1RM):</strong> Perform 3 to 5 sets of 4 to 6 repetitions. Enhances neuromuscular recruitment, motor unit synchronization, and maximal force production.</li>
+            <li><strong>Peaking Phase (90%–95% 1RM):</strong> Perform 2 to 3 sets of 1 to 3 repetitions. Prepares the central nervous system to handle near-maximal loads with high technical precision.</li>
+            <li><strong>Deload Week (50%–60% 1RM):</strong> Reduce volume and intensity every 4 to 6 weeks to allow joint connective tissue, central nervous system, and endocrine recovery.</li>
+          </ul>
+          <p>
+            Prioritize flawless lifting technique and progressive overload to build lasting strength and prevent injury.
+          </p>
+
+
+        
+          <h2>Rate of Force Development (RFD) &amp; Central Fatigue Management</h2>
+          <p>
+            Maximal strength involves both structural muscle cross-sectional area and neurological efficiency. Rate of Force Development (RFD)—the speed with which active motor units can produce peak force—relies on high-frequency motor unit firing rates and synchronized recruitment.
+          </p>
+          <p>
+            Avoid testing true 1RM too frequently (limit to once every 8 to 12 weeks) to prevent excessive central nervous system fatigue and joint connective tissue strain, relying on calibrated submaximal estimation formulas for weekly programming.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

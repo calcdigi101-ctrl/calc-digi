@@ -186,6 +186,61 @@ export default function CalorieBurnPage() {
           </ul>
         </section>
       
+        
+        {/* EPOC Bioenergetics & Substrate Crossover */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Excess Post-Exercise Oxygen Consumption (EPOC) &amp; Substrate Oxidation
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The total energetic footprint of physical exercise extends beyond the calories burned during active exertion. Following strenuous cardiovascular conditioning or high-volume resistance training, the metabolic rate remains elevated for hours during the recovery phase—a phenomenon known as Excess Post-Exercise Oxygen Consumption (EPOC).
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Physiological Drivers of EPOC</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                During the post-workout recovery window, additional oxygen is consumed to replenish intramuscular phosphocreatine (PCr) stores, clear circulating lactate via hepatic gluconeogenesis (Cori cycle), restore muscle and blood myoglobin oxygen reserves, and normalize core body temperature and elevated catecholamines.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Substrate Crossover Concept</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                As exercise intensity increases, the relative contribution of fat oxidation decreases while intramuscular glycogen and glucose oxidation surge. However, high-intensity workouts stimulate superior total 24-hour calorie expenditure and trigger higher post-exercise fat oxidation during rest.
+              </p>
+            </div>
+          </div>
+          <h2>Wearable Tracking Error Margins &amp; True Energy Burn</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Commercial wearable fitness trackers carry error margins of 15% to 40% when estimating exercise calories. Combine compound multi-joint movements with structured HIIT workouts, and monitor weekly body composition trends for reliable metabolic guidance.
+          </p>
+        </section>
+
+        
+          <h2>Maximizing Exercise Calorie Burn &amp; Metabolic Conditioning</h2>
+          <p>
+            Optimize your workout energy expenditure and post-exercise recovery with these proven training guidelines:
+          </p>
+          <ul>
+            <li><strong>Incorporate Compound Multi-Joint Movements:</strong> Exercises that recruit large muscle groups (squats, deadlifts, rowing, kettlebell swings) burn significantly more calories per minute than isolation exercises.</li>
+            <li><strong>Integrate High-Intensity Interval Training (HIIT):</strong> Alternating periods of maximal exertion with brief rest periods stimulates high caloric expenditure during workouts and elevates post-exercise oxygen consumption (EPOC).</li>
+            <li><strong>Maintain Consistent Daily Movement (NEAT):</strong> Do not compensate for hard workouts by becoming sedentary the rest of the day. Maintain daily walking and spontaneous movement to maximize total 24-hour calorie burn.</li>
+            <li><strong>Fuel &amp; Hydrate Adequately:</strong> Consume balanced meals with complex carbohydrates and protein to power high-intensity workouts and support rapid muscular recovery.</li>
+          </ul>
+          <p>
+            Combine structured exercise sessions with an active daily lifestyle for sustainable fitness and metabolic health.
+          </p>
+
+
+        
+          <h2>Biomechanics, Work Efficiency &amp; Wearable Device Discrepancies</h2>
+          <p>
+            Commercial wearable fitness trackers estimate caloric burn based on heart rate and accelerometer data, but studies in the <em>Journal of Personalized Medicine</em> show that wearable devices carry error margins of 15% to 40% when estimating exercise calorie expenditure.
+          </p>
+          <p>
+            Calibrating workouts using standardized Metabolic Equivalent of Task (MET) calculations and monitoring weekly body composition trends provides a significantly more reliable gauge of true metabolic expenditure than wrist-based trackers.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

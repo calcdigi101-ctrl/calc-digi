@@ -167,6 +167,61 @@ export default function PaceCalculatorPage() {
           </ul>
         </section>
       
+        
+        {/* Running Economy & Critical Speed Pacing Models */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Running Economy, Biomechanical Cadence &amp; Critical Speed Modeling
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In distance running and endurance pacing, maximal oxygen uptake (VO2 max) establishes the functional physiological engine, but Running Economy (RE)—defined as the steady-state oxygen consumption required to sustain a given velocity—determines race-day finish times. Two athletes with identical VO2 max scores can exhibit 20% to 30% differences in race pacing based purely on running economy and mechanical efficiency.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Step Cadence &amp; Ground Contact Time (GCT)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Elite distance runners typically operate at cadences between 170 and 185 strides per minute. Maintaining a cadence near this optimal window minimizes vertical center-of-mass oscillation, reduces braking ground reaction forces, and shortens ground contact time (&lt;200 milliseconds), maximizing the elastic recoil of the Achilles tendon and plantar fascia.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Negative Split Pacing Strategy</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Historical marathon world record progressions demonstrate that running a negative split—completing the second half of the race 1% to 2% faster than the first half—spares glycogen, limits early core hyperthermia, and prevents premature central nervous system fatigue.
+              </p>
+            </div>
+          </div>
+          <h2>Race Day Pacing Strategies: 5K, 10K &amp; Marathon</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Practice goal race pace during weekly threshold intervals, maintain controlled discipline through early kilometers, and fuel with 30 to 60 grams of carbohydrates per hour for events exceeding 75 minutes.
+          </p>
+        </section>
+
+        
+          <h2>Race Day Pacing Strategies: 5K, 10K, Half &amp; Full Marathon</h2>
+          <p>
+            Execute race day with precision using calibrated pacing splits tailored to each event distance:
+          </p>
+          <ul>
+            <li><strong>5K Pacing Strategy:</strong> Run the first kilometer at controlled goal pace to avoid early anaerobic lactate flooding. Settle into threshold pace through kilometer 4, and unleash a progressive finishing kick over the final 800 meters.</li>
+            <li><strong>10K Pacing Strategy:</strong> Target an even pace for the first 5 kilometers. Begin increasing effort slightly from kilometers 6 through 8, maintaining mental toughness through the critical mid-race kilometers.</li>
+            <li><strong>Half Marathon Pacing Strategy:</strong> Start 3 to 5 seconds per kilometer slower than goal pace for the first 3 kilometers. Settle into steady rhythm through kilometer 15, then accelerate over the final 6 kilometers for a negative split finish.</li>
+            <li><strong>Marathon Pacing Strategy:</strong> Discipline during the first 10 miles is paramount. Running even 10 seconds per mile too fast early depletes glycogen stores and causes &quot;hitting the wall&quot; at mile 20. Preserve fuel and hydration for a strong finish.</li>
+          </ul>
+          <p>
+            Practice your goal race pace during weekly tempo runs and tune-up races to build pace intuition and mental confidence.
+          </p>
+
+
+        
+          <h2>Aerobic Base Development &amp; Lactate Clearance Running</h2>
+          <p>
+            Building sustainable running pace requires developing the body's aerobic base through consistent low-intensity mileage. Training at conversational paces expands capillary networks in active muscle fibers, increases intracellular mitochondrial density, and upregulates monocarboxylate transporters (MCT-1) responsible for clearing and recycling lactate as fuel.
+          </p>
+          <p>
+            Maintaining disciplined pacing during easy runs ensures you recover fully for quality speed workouts and tempo intervals.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

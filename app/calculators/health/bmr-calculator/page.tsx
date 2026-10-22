@@ -177,6 +177,64 @@ export default function Page() {
             <li><strong>Prioritize 7 to 9 Hours of Sleep:</strong> Sleep deprivation increases nighttime cortisol, blunts insulin sensitivity, and reduces next-day resting metabolic rate by up to 8%.</li>
             <li><strong>Adequate Hydration:</strong> Drinking 500 ml (17 fl oz) of water induces mild water-induced thermogenesis, temporarily boosting metabolic rate by 24% to 30% for 40 to 60 minutes.</li>
           </ol>
+        
+        {/* Organ Energetics & Cellular Transmembrane Pumping */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Internal Organ Energetics: Why the Brain, Liver &amp; Kidneys Dominate BMR
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            A common misconception in exercise physiology is that skeletal muscle consumes the vast majority of resting calories. In reality, while resting skeletal muscle accounts for 40% of total body weight, it is responsible for only 20% to 22% of Basal Metabolic Rate (~13 kcal/kg/day). In contrast, internal visceral organs represent less than 6% of body mass but command over 60% to 70% of 24-hour resting energy expenditure:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">High-Metabolic-Rate Organ Breakdown</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                The human liver is the most metabolically demanding organ, burning ~200 kcal/kg/day (27% of BMR) for protein synthesis, glycogen turnover, and gluconeogenesis. The brain consumes ~240 kcal/kg/day (19% of BMR) primarily for sodium-potassium pump neuronal repolarization, while the heart burns ~440 kcal/kg/day (7% of BMR) maintaining nonstop ventricular contractions.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Age-Related Metabolic Stability (Science 2021)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Groundbreaking research published in <em>Science</em> analyzing doubly labeled water across 6,400 individuals aged 8 days to 95 years revealed that mass-adjusted human metabolism remains remarkably stable from age 20 to 60. The perceived middle-age metabolic slowdown is overwhelmingly driven by progressive loss of lean muscle mass (sarcopenia) and lifestyle sedentariness rather than intrinsic cellular decline.
+              </p>
+            </div>
+          </div>
+          <h2>Preserving BMR Across the Decades</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Preserve your resting metabolic foundation across decades by engaging in progressive resistance training 3 to 4 times weekly and sustaining adequate dietary protein (0.8 to 1.0 grams per pound of body weight).
+          </p>
+        </section>
+        
+          <h2>Clinical Strategies to Maximize 24-Hour Metabolic Expenditure</h2>
+          <p>
+            While your baseline BMR is anchored by vital organ demands and lean body mass, specific lifestyle interventions help optimize daily metabolic rate:
+          </p>
+          <ul>
+            <li><strong>Progressive Overload Resistance Training:</strong> Adding 5 to 10 pounds of contractile skeletal muscle elevates 24-hour resting caloric expenditure by 50 to 100 calories daily while enhancing insulin-independent GLUT4 glucose uptake.</li>
+            <li><strong>High-Protein Thermogenic Eating:</strong> Dietary protein requires 20% to 30% of its caloric value simply for digestive breakdown, elevating postprandial thermogenesis compared to carbohydrate or fat-dominant meals.</li>
+            <li><strong>Circadian Sleep Consistency:</strong> Chronic sleep restriction (&lt;6 hours nightly) elevates evening cortisol, suppresses active thyroid hormone (free T3), and lowers resting metabolic rate by 5% to 8%.</li>
+            <li><strong>Cold Thermogenesis &amp; Brown Adipose Tissue (BAT):</strong> Mild cool exposure activates uncoupling protein 1 (UCP-1) in brown adipose depots, converting chemical energy directly into heat and stimulating caloric burn.</li>
+          </ul>
+          <p>
+            Calculate your maintenance energy by scaling BMR with your empirical Physical Activity Level (PAL) to establish precise caloric targets for body recomposition.
+          </p>
+
+        
+          <h2>Organ-Specific Metabolic Demands &amp; Mitochondrial Turnover</h2>
+          <p>
+            Your Basal Metabolic Rate accounts for 60% to 75% of total 24-hour calorie expenditure, driven by basal cellular maintenance, transmembrane ion pumping, protein synthesis, and vital organ function. The brain, liver, kidneys, and heart consume over 60% of resting calories despite representing less than 6% of total body weight:
+          </p>
+          <ul>
+            <li><strong>Hepatic Metabolism (~200 kcal/kg/day):</strong> The liver conducts gluconeogenesis, transamination of amino acids, and bile acid synthesis, commanding ~27% of baseline BMR.</li>
+            <li><strong>Cerebral Glycolysis (~240 kcal/kg/day):</strong> The human brain utilizes approximately 19% of BMR exclusively for sodium-potassium ATPase pump neuronal repolarization and neurotransmitter synthesis.</li>
+            <li><strong>Renal Ultrafiltration (~440 kcal/kg/day):</strong> The kidneys consume ~10% of BMR filtering approximately 180 liters of blood plasma daily and actively reabsorbing glucose, amino acids, and electrolytes.</li>
+          </ul>
+          <h2>Preserving BMR Across the Decades</h2>
+          <p>
+            Contrary to conventional belief, human cellular metabolism does not decline inherently between ages 20 and 60. The perceived middle-age metabolic slowdown is overwhelmingly driven by the progressive loss of skeletal muscle mass (sarcopenia) and decreased spontaneous daily activity. Engaging in progressive overload strength training 3 to 4 times weekly paired with 0.8 to 1.0 grams of protein per pound of body weight effectively preserves baseline metabolic rate into older age.
+          </p>
+
         </>
       }
     >

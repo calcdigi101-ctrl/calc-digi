@@ -193,6 +193,61 @@ export default function WeightLossPage() {
           </ul>
         </section>
       
+        
+        {/* Set-Point Theory & Neuroendocrine Regulation */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Set-Point Theory, Dual-Intervention Model &amp; Long-Term Maintenance
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Sustaining long-term fat reduction involves overcoming homeostatic neuroendocrine defense mechanisms designed by evolutionary biology to prevent starvation. The Dual-Intervention Point model suggests that human body weight is bounded by upper and lower physiological set-points governed by hypothalamic leptin sensitivity and circulating orexigenic neuropeptide Y (NPY).
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Defending Against Post-Diet Rebound</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Following substantial weight reduction, circulating leptin drops disproportionately to fat mass loss, triggering persistent hyperphagia (heightened appetite drive) and increased reward responsiveness to calorie-dense foods. Maintaining high dietary protein (&ge;1.0 g/lb lean mass) and high dietary fiber blunts these neurochemical signals.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The 1-Year Weight Stability Landmark</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Clinical research demonstrates that individuals who maintain a lower target weight for a full consecutive 12 months experience partial normalization of ghrelin and resting metabolic rate, effectively settling the body&apos;s lower homeostatic set-point to their new leaner baseline.
+              </p>
+            </div>
+          </div>
+          <h2>National Weight Control Registry Behavioral Habits</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Individuals who maintain significant weight loss for years accumulate an average of 60 minutes of daily physical activity, weigh themselves weekly, maintain consistent eating patterns, and prioritize whole foods and high dietary protein.
+          </p>
+        </section>
+
+        
+          <h2>Behavioral Habits for Permanent Weight Loss Maintenance</h2>
+          <p>
+            The National Weight Control Registry (tracking over 10,000 individuals who maintained significant weight loss for years) identifies these universal behavioral habits:
+          </p>
+          <ul>
+            <li><strong>Consistent Daily Physical Activity:</strong> Registry members accumulate an average of 60 minutes of physical activity daily, most commonly brisk walking or cycling.</li>
+            <li><strong>Regular Self-Monitoring:</strong> Weighed themselves under standardized conditions at least once weekly to catch small weight fluctuations before they become major rebounds.</li>
+            <li><strong>Consistent Dietary Routine:</strong> Maintained similar dietary patterns across weekdays and weekends, avoiding extreme boom-and-bust cheat cycles.</li>
+            <li><strong>Eating Breakfast &amp; Prioritizing Whole Foods:</strong> Emphasized whole, minimally processed foods, high dietary fiber, and adequate protein across all meals.</li>
+          </ul>
+          <p>
+            Build sustainable daily habits, celebrate non-scale victories, and cultivate a lifestyle centered around physical vitality and long-term health.
+          </p>
+
+
+        
+          <h2>Hypertrophy vs Catabolism: Safeguarding Metabolic Tissue</h2>
+          <p>
+            The fundamental goal of a healthy weight reduction protocol is the selective loss of adipose tissue while completely preserving functional lean skeletal muscle. Catabolizing lean tissue during dieting lowers baseline resting metabolic rate, increases physical frailty, and elevates post-diet weight rebound risk.
+          </p>
+          <p>
+            Consuming 1.6 to 2.2 grams of protein per kilogram of body weight paired with consistent progressive resistance training protects muscle protein synthesis and ensures that 85% to 95% of weight lost comes directly from adipose reserves.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

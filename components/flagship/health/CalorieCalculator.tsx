@@ -343,6 +343,21 @@ export function CalorieCalculator() {
             </div>
           </div>
 
+          {/* Calculate Button */}
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("calorie-result-panel");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }}
+            className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-base shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <Flame className="w-5 h-5 text-emerald-200" />
+            <span>Calculate Calories</span>
+          </button>
+
           {/* Reset */}
           <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
             <button
@@ -363,7 +378,7 @@ export function CalorieCalculator() {
       </div>
 
       {/* RIGHT COLUMN: Sticky Result Card (5 Cols) */}
-      <div className="lg:sticky lg:top-24 lg:col-span-5 space-y-4">
+      <div id="calorie-result-panel" className="scroll-mt-20 lg:sticky lg:top-24 lg:col-span-5 space-y-4">
         <div className="rounded-2xl border border-emerald-200/80 dark:border-emerald-900/60 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
             <span>Daily Calorie Target</span>

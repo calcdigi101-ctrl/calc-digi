@@ -185,6 +185,64 @@ export default function CyclingPage() {
           </div>
         </section>
       
+        
+        {/* Power-to-Weight Dynamics & Aerodynamic CdA Optimization */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Power-to-Weight (W/kg), CdA Aerodynamics &amp; FTP Racing Benchmarks
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In competitive cycling and road performance, total energy demand shifts based on terrain gradient. On flat terrain at speeds exceeding 30 km/h (18.6 mph), aerodynamic drag accounts for over 85% of total mechanical resistance. Conversely, on steep mountain ascents (&gt;7% gradient), gravity dominates, making functional power-to-weight ratio (Watts per kilogram) the primary determinant of climbing velocity.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Functional Threshold Power (FTP) Categories</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Standardized Coggan racing classifications benchmark 60-minute sustained power: Untrained individuals average 2.0 W/kg; Category 3 competitive amateurs achieve 3.5 to 4.2 W/kg; domestic elite racers reach 4.5 to 5.2 W/kg; and Grand Tour general classification contenders sustain 5.8 to 6.5 W/kg.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Optimizing Aerodynamic Drag (CdA)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                A standard road cyclist in upright hood position exhibits an aerodynamic drag area (CdA) of ~0.32 m². Transitioning to an aero tuck drops CdA to ~0.26 m², while a dedicated time-trial (TT) setup reaches ~0.21 m²—saving 60 to 90 Watts of power output at 40 km/h.
+              </p>
+            </div>
+          </div>
+          <h2>Field Testing &amp; Progressive Power Training Strategies</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Conduct a 20-minute field test (multiplying average power by 0.95) every 6 to 8 weeks to update training zones, dial in cadence efficiency (85–95 RPM), and gauge physiological cardiovascular adaptations.
+          </p>
+        </section>
+
+        
+          <h2>Field Testing &amp; Progressive Power Training Strategies</h2>
+          <p>
+            Maximize cycling performance and speed through structured power-based training methodologies:
+          </p>
+          <ul>
+            <li><strong>Functional Threshold Power (FTP) Testing:</strong> Perform a standardized 20-minute all-out time trial effort on a steady grade or indoor smart trainer. Multiply your 20-minute average power by 0.95 to calculate your FTP.</li>
+            <li><strong>Calibrating Power Training Zones:</strong> Establish Coggan power zones: Zone 1 Active Recovery (&lt;55% FTP), Zone 2 Endurance (56%–75% FTP), Zone 3 Tempo (76%–90% FTP), Zone 4 Sweet Spot / Threshold (91%–105% FTP), and Zone 5 VO2 Max (106%–120% FTP).</li>
+            <li><strong>Targeting Cadence Efficiency:</strong> Train at cadences between 85 and 95 RPM on flat terrain to reduce neuromuscular fatigue, shifting cardiovascular load to the aerobic system.</li>
+            <li><strong>Dialing In Aerodynamic Positioning:</strong> Lowering your torso, bringing elbows inward, and utilizing drop handlebars reduces frontal drag area ((C_d A)), yielding 2 to 4 km/h of speed increase at identical wattage output.</li>
+          </ul>
+          <p>
+            Re-test your FTP every 6 to 8 weeks to track conditioning gains and update power targets across all training blocks.
+          </p>
+
+
+        
+          <h2>Rolling Resistance, Incline Dynamics &amp; Aerodynamic Power Scaling</h2>
+          <p>
+            Mechanical cycling power output is partitioned across three physical resistive forces: rolling resistance (Frr = Crr × m × g), gravity on gradients (Fg = m × g × sin(θ)), and aerodynamic drag (Fdrag = 0.5 × ρ × v² × Cd × A).
+          </p>
+          <p>
+            Because aerodynamic drag scales with the square of velocity and aerodynamic power scales with the cube of velocity (Paero = Fdrag × v ∝ v³), doubling road speed from 20 km/h to 40 km/h requires an eight-fold increase in aerodynamic power output. Optimizing tire pressure, selecting low-rolling-resistance tires, and refining torso aerodynamics allow cyclists to gain significant speed without requiring additional physiological exertion.
+          </p>
+          <p>
+            Proper saddle height (ensuring a 25 to 35-degree knee flexion angle at bottom dead center) maximizes power transfer through the patellar tendon while preventing anterior knee compression or hamstring overextension across long endurance rides.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

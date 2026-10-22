@@ -167,6 +167,74 @@ export default function SwimPacePage() {
           </div>
         </section>
       
+        
+        {/* Hydrodynamic Drag Physics & Critical Swim Speed */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Hydrodynamic Drag Physics &amp; Critical Swim Speed (CSS) Modeling
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In aquatic locomotion, water is approximately 800 times denser than air, meaning that water resistance increases quadratically with velocity (Fdrag = 0.5 × ρ × v² × Cd × A). Consequently, technical adjustments that streamline the body and reduce frontal surface area yield vastly greater pacing enhancements than attempting to overpower water resistance through sheer metabolic power output.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">CSS Field Testing Protocol</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Critical Swim Speed (CSS) represents your theoretical aerobic threshold pace—the fastest pace you can sustain continuously without accumulating severe muscular fatigue. Calculate CSS by swimming a maximal 400m time trial, resting for 20 minutes, and performing a maximal 200m time trial: CSS (m/sec) = (400 − 200) / (T400 − T200).
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Stroke Rate vs. Stroke Length Synergy</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Swim velocity is the product of Stroke Rate (SR, cycles/min) and Distance Per Stroke (DPS, meters/cycle). Elite distance swimmers prioritize core body rotation, high-elbow catch mechanics, and tight streamline kick amplitude to sustain DPS before attempting to increase stroke turnover frequency.
+              </p>
+            </div>
+          </div>
+          <h2>Structured CSS Swim Training Sets &amp; Pacing Splits</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Integrate your calculated Critical Swim Speed into structured weekly pool workouts to build endurance and pacing discipline:
+          </p>
+          <ul>
+            <li><strong>Threshold Building CSS Intervals:</strong> 10 × 100 meters at CSS pace with 15 seconds rest between repetitions. Focus on hitting the exact second on every single 100m split without starting too fast.</li>
+            <li><strong>Aerobic Over-Distance Endurance:</strong> 5 × 200 meters at CSS + 2 seconds per 100m with 20 seconds rest. Develops rhythmic stroke pacing and mental focus for continuous open water swims.</li>
+            <li><strong>Pacing Ladder Drill:</strong> 400m at CSS + 4s, 300m at CSS + 2s, 200m at CSS pace, and 100m at CSS − 2s with 30 seconds rest between sets. Teaches progressive negative split acceleration.</li>
+            <li><strong>Technique &amp; Streamline Drills:</strong> Intersperse interval sets with 50m kick drills, fingertip drag recovery drills, and bilateral breathing practice to refine hydrodynamic streamlining.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Re-test your CSS pace every 6 to 8 weeks with a standardized 400m/200m time trial to track physiological conditioning and update workout paces.
+          </p>
+        </section>
+
+        
+          <h2>Structured CSS Swim Training Workouts &amp; Pacing Splits</h2>
+          <p>
+            Integrate your calculated Critical Swim Speed (CSS) into structured weekly pool workouts to build endurance and pacing discipline:
+          </p>
+          <ul>
+            <li><strong>Threshold Building CSS Intervals:</strong> (10 \\times 100) meters at CSS pace with 15 seconds rest between repetitions. Focus on hitting the exact second on every single 100m split without starting too fast.</li>
+            <li><strong>Aerobic Over-Distance Endurance:</strong> (5 \\times 200) meters at CSS (+ 2) seconds per 100m with 20 seconds rest. Develops rhythmic stroke pacing and mental focus for continuous open water swims.</li>
+            <li><strong>Pacing Ladder Drill:</strong> 400m at CSS (+ 4)s, 300m at CSS (+ 2)s, 200m at CSS pace, and 100m at CSS (- 2)s with 30 seconds rest between sets. Teaches progressive negative split acceleration.</li>
+            <li><strong>Technique &amp; Distance Per Stroke (DPS) Recovery:</strong> Intersperse interval sets with 50m kick drills, fingertip drag recovery drills, and bilateral breathing practice to refine hydrodynamic streamlining.</li>
+          </ul>
+          <p>
+            Re-test your CSS pace every 6 to 8 weeks with a standardized 400m/200m time trial to track physiological conditioning and update workout paces.
+          </p>
+
+
+        
+          <h2>Hydrodynamic Drag Physics &amp; Critical Swim Speed (CSS)</h2>
+          <p>
+            Water is roughly 800 times denser than air, meaning that hydrodynamic drag increases quadratically with velocity ((F_d \\propto v^2)). In swimming, reducing resistance through streamlined body position produces vastly greater speed gains than attempting to overpower the water through sheer physical effort. Keeping the head aligned, hips high at the surface, and maintaining a compact flutter kick dramatically lowers the body's frontal surface area.
+          </p>
+          <p>
+            Critical Swim Speed (CSS) represents your theoretical aerobic threshold pace—the fastest pace you can sustain continuously without accumulating severe muscular fatigue. Testing your CSS every 6 to 8 weeks (via a 400m and 200m time trial) provides an objective benchmark for calibrating interval training sets.
+          </p>
+          <h2>Stroke Rate vs Stroke Length Synergy</h2>
+          <p>
+            Total swimming speed is the mathematical product of Stroke Rate (cycles per minute) and Distance Per Stroke (DPS, meters per cycle). Elite distance swimmers focus on maintaining a long, smooth catch and high-elbow pull before attempting to increase stroke turnover. Incorporating structured CSS intervals (e.g. (10 \\times 100) meters at CSS pace with 15 seconds rest) builds aerobic pacing discipline and sustainable race speed.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

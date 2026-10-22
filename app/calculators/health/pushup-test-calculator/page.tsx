@@ -176,6 +176,67 @@ export default function PushupTestPage() {
             </li>
           </ul>
         </section>
+      
+        {/* Closed Kinetic Chain Mechanics & Cardiovascular Hazard */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Biomechanical Load Profiling &amp; Harvard Cardiovascular Findings
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The standard pushup is a closed-kinetic-chain multi-joint movement that evaluates upper-body muscular endurance, core anti-extension stability, and scapulothoracic rhythm. Biomechanical force plate studies confirm that a standard pushup requires supporting approximately 64% of total body mass at the top lockout position and 69% to 75% at the bottom 90-degree elbow flexion inflection point.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Harvard 40-Pushup Cardiovascular Study</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                A landmark 10-year prospective study published in <em>JAMA Network Open</em> evaluated active middle-aged men and discovered that individuals capable of completing 40 or more pushups exhibited a 96% lower hazard of incident cardiovascular events (coronary artery disease, heart failure, myocardial infarction) compared to those completing fewer than 10 pushups.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Core Lumbo-Pelvic Alignment &amp; Shoulder Safety</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Flawless pushup biomechanics require maintaining an isometric core plank: rectus abdominis, obliques, and gluteus maximus must fire synchronously to eliminate lumbar lordotic sagging. Flare elbows at a 45-degree angle relative to the torso to protect the subacromial space from rotator cuff impingement.
+              </p>
+            </div>
+          </div>
+          <h2>Progressive Overload Pushup Training Protocols</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Systematically increasing pushup muscular endurance requires structured overload without training to catastrophic muscular failure on every set:
+          </p>
+          <ul>
+            <li><strong>Incline &amp; Elevation Progressions:</strong> Novices should begin with hands elevated on a bench or sturdy bar, gradually lowering the incline angle as core and chest strength develop before progressing to floor pushups.</li>
+            <li><strong>Submaximal Density Sets:</strong> Rather than testing one all-out exhaustion set daily, perform 5 to 8 sets throughout the day at 50% to 60% of your maximum rep count. This builds neuromuscular motor pattern efficiency with zero recovery debt.</li>
+            <li><strong>Eccentric Slow-Cadence Reps:</strong> Lower the chest over 3 to 4 seconds before pressing up explosively. Eccentric overload strengthens connective tendons and builds muscle protein synthesis.</li>
+            <li><strong>Isometric Bottom Pauses:</strong> Pausing for 1 to 2 seconds at the 90-degree bottom position eliminates elastic stretch-reflex recoil, building pure starting strength from the pectoral muscles and triceps.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Retest your maximum pushup capacity every 4 to 8 weeks using strict clinical cadence (touching chest to floor without pausing or breaking hip alignment) to measure genuine upper-body functional stamina.
+          </p>
+        </section>
+      
+          <h2>Progressive Pushup Training Protocols: From Novice to 40+ Reps</h2>
+          <p>
+            Systematically increasing pushup muscular endurance requires structured overload without training to catastrophic muscular failure on every set:
+          </p>
+          <ul>
+            <li><strong>Incline &amp; Elevation Progressions:</strong> Novices should begin with hands elevated on a bench or sturdy bar, gradually lowering the incline angle as core and chest strength develop before progressing to floor pushups.</li>
+            <li><strong>Submaximal Density Sets (The Grease the Groove Method):</strong> Rather than testing one all-out exhaustion set daily, perform 5 to 8 sets throughout the day at 50% to 60% of your maximum rep count (e.g. sets of 10 reps if max is 20). This builds neuromuscular motor pattern efficiency with zero recovery debt.</li>
+            <li><strong>Eccentric Slow-Cadence Reps:</strong> Lower the chest over 3 to 4 seconds before pressing up explosively. Eccentric overload strengthens connective tendons and builds muscle protein synthesis.</li>
+            <li><strong>Isometric Bottom Pauses:</strong> Pausing for 1 to 2 seconds at the 90-degree bottom position eliminates elastic stretch-reflex recoil, building pure starting strength from the pectoral muscles and triceps.</li>
+          </ul>
+          <p>
+            Test your maximum consecutive pushup count once every 4 to 6 weeks under strict clinical standards to benchmark functional upper-body fitness.
+          </p>
+
+      
+          <h2>Core Anti-Extension Strength &amp; Scapular Rhythm</h2>
+          <p>
+            Performing consecutive pushups with clinical precision demands robust isometric core endurance. The anterior kinetic chain—primarily the rectus abdominis, transversus abdominis, and internal obliques—must fire isometrically to resist gravity-induced lumbar hyperextension. Allowing the hips to sag indicates anterior core muscular fatigue, which transfers compressive shear stress onto the lumbosacral facet joints.
+          </p>
+          <p>
+            Simultaneously, the serratus anterior and middle/lower trapezius muscles must coordinate smooth scapular protraction and retraction along the thoracic ribcage. Maintaining active scapular control prevents winging and optimizes pectoral and triceps recruitment throughout the full range of motion.
+          </p>
+
       </article>
     </CalcPage>
   );

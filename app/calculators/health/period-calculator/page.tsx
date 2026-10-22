@@ -193,6 +193,79 @@ export default function PeriodPage() {
           />
         </section>
       
+        
+        {/* Neuroendocrine Pulsatility & Luteal Insufficiency */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Neuroendocrine Pulsatility: The HPO Axis &amp; Luteal Sufficiency
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The menstrual cycle is orchestrated by the rhythmic, pulsatile secretion of Gonadotropin-Releasing Hormone (GnRH) from the arcuate nucleus of the hypothalamus. GnRH stimulates the anterior pituitary to secrete Follicle-Stimulating Hormone (FSH) and Luteinizing Hormone (LH), which coordinate follicular maturation, estrogen synthesis, and subsequent ovulation. ACOG recognizes the menstrual cycle as a critical fifth vital sign reflecting endocrine, metabolic, and bone health.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Luteal Phase Defect (LPD) &amp; Progesterone Deficits</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Following ovulation, the collapsed follicle transforms into the vascular corpus luteum, which secretes progesterone to convert the proliferative endometrium into a receptive secretory lining. A post-ovulatory luteal phase shorter than 10 days indicates inadequate corpus luteum progesterone production, preventing complete endometrial secretory transformation and elevating early pregnancy loss risk.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Relative Energy Deficiency in Sport (RED-S)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                When daily dietary energy intake drops below 30 kcal/kg fat-free mass per day (due to excessive exercise volume, disordered eating, or chronic calorie restriction), hypothalamic kisspeptin neurons suppress GnRH pulsatility. This downregulates ovarian estrogen production, causing functional hypothalamic amenorrhea, accelerated trabecular bone demineralization, and early osteopenia.
+              </p>
+            </div>
+          </div>
+          <h2>Diagnostic Criteria for Cycle Irregularities</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Consult an OB-GYN or reproductive endocrinologist if your cycles deviate from established clinical norms:
+          </p>
+          <ul>
+            <li><strong>Polymenorrhea (Cycles &lt; 21 days):</strong> Abnormally frequent cycles often caused by anovulation, short luteal phase, or perimenopausal follicular acceleration.</li>
+            <li><strong>Oligomenorrhea (Cycles &gt; 35 days):</strong> Infrequent menses strongly associated with Polycystic Ovary Syndrome (PCOS), thyroid dysfunction (hypothyroidism), or elevated serum prolactin (hyperprolactinemia).</li>
+            <li><strong>Secondary Amenorrhea (No menses for &gt; 90 days):</strong> Requires diagnostic evaluation including serum beta-hCG, prolactin, TSH, FSH, and pelvic ultrasonography.</li>
+            <li><strong>Menorrhagia (Heavy Menstrual Bleeding):</strong> Blood loss exceeding 80 mL per cycle (soaking through a pad/tampon every hour for 2+ consecutive hours) requires evaluation for uterine fibroids, adenomyosis, or von Willebrand factor coagulopathies.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Log cycle dates and symptoms in a digital tracker for at least 3 consecutive months to establish your personalized baseline patterns.
+          </p>
+        </section>
+
+        
+          <h2>Symptom Tracking &amp; Managing Premenstrual Symptoms (PMS)</h2>
+          <p>
+            Tracking subjective somatic and psychological symptoms across your menstrual cycle empowers proactive hormonal management:
+          </p>
+          <ul>
+            <li><strong>Early Follicular Phase (Days 1–5):</strong> Estrogen and progesterone are at baseline. Prioritize rest, restorative gentle movement, and iron-rich foods (lentils, spinach, lean meats) to replace menstrual blood loss.</li>
+            <li><strong>Late Follicular Phase (Days 6–13):</strong> Rising estradiol boosts energy, insulin sensitivity, and cognitive alertness. This represents an optimal window for high-intensity workouts and progressive resistance training.</li>
+            <li><strong>Ovulatory Phase (Days 14–16):</strong> Peak estrogen and LH surge drive elevated confidence and physical strength. Stay attuned to unilateral pelvic mittelschmerz sensations and cervical mucus transitions.</li>
+            <li><strong>Luteal Phase (Days 17–28):</strong> Progesterone elevates basal metabolic rate by 100 to 200 calories daily while increasing water retention and food cravings. Supplementing magnesium glycinate (300 mg) and Vitamin B6 (50 mg) helps alleviate premenstrual irritability, breast tenderness, and fluid retention.</li>
+          </ul>
+          <p>
+            Record cycle dates and symptoms in a digital tracker for at least 3 consecutive months to establish your personalized baseline patterns.
+          </p>
+
+
+        
+          <h2>Endocrine Pulsatility &amp; Luteal Phase Sufficiency</h2>
+          <p>
+            The menstrual cycle is regulated by the rhythmic, pulsatile secretion of Gonadotropin-Releasing Hormone (GnRH) from the arcuate nucleus of the hypothalamus. GnRH stimulates the anterior pituitary to secrete Follicle-Stimulating Hormone (FSH) and Luteinizing Hormone (LH), which drive ovarian follicular maturation and estrogen synthesis.
+          </p>
+          <p>
+            Following ovulation, the collapsed follicle transforms into the vascular corpus luteum, which secretes progesterone to convert the proliferative endometrium into a receptive secretory lining. A post-ovulatory luteal phase shorter than 10 days indicates inadequate corpus luteum progesterone production, reducing implantation windows. Tracking cycle consistency provides crucial early warnings for thyroid imbalances, hyperprolactinemia, or polycystic ovary syndrome (PCOS).
+          </p>
+
+
+        
+          <h2>Endometrial Prostaglandins &amp; Vasomotor Uterine Dynamics</h2>
+          <p>
+            The onset of menstrual bleeding is initiated by the rapid withdrawal of progesterone and estradiol as the corpus luteum undergoes luteolysis. In response to dropping hormonal levels, endometrial lysosomal membranes destabilize, releasing phospholipase A2 and synthesizing cyclooxygenase-mediated prostaglandins (PGF2-alpha and PGE2).
+          </p>
+          <p>
+            Prostaglandin F2-alpha stimulates rhythmic uterine myometrial contractions and vasoconstriction of spiral arterioles, shedding the functionalis layer of the endometrium. Excessive local prostaglandin production is the primary driver of primary dysmenorrhea (menstrual cramping), which responds favorably to targeted anti-inflammatory nutrition and heat therapy.
+          </p>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

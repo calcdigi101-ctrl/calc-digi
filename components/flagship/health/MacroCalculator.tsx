@@ -320,26 +320,26 @@ export function MacroCalculator() {
             <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">
               Primary Fitness Goal
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
               {[
                 { id: "aggressive_cut", label: "Aggressive Cut", sub: "−750 kcal" },
                 { id: "cut", label: "Fat Loss / Cut", sub: "−500 kcal" },
                 { id: "maintain", label: "Maintain Weight", sub: "TDEE match" },
-                { id: "lean_bulk", label: "Lean Muscle Gain", sub: "+300 kcal" },
+                { id: "lean_bulk", label: "Lean Muscle", sub: "+300 kcal" },
                 { id: "bulk", label: "Maximum Bulk", sub: "+500 kcal" },
               ].map((g) => (
                 <button
                   key={g.id}
                   type="button"
                   onClick={() => setGoal(g.id as Goal)}
-                  className={`p-2.5 rounded-xl border text-left transition-all ${
+                  className={`p-2.5 rounded-xl border text-center sm:text-left transition-all ${
                     goal === g.id
-                      ? "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 ring-2 ring-emerald-500/20"
-                      : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-slate-300"
-                  }`}
+                      ? "border-emerald-500 bg-emerald-50/80 dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-100 ring-2 ring-emerald-500/30 font-semibold"
+                      : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/40"
+                  } ${g.id === "maintain" ? "col-span-2 sm:col-span-1" : ""}`}
                 >
-                  <div className="text-xs font-bold">{g.label}</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">{g.sub}</div>
+                  <div className="text-xs font-bold leading-tight">{g.label}</div>
+                  <div className={`text-[11px] mt-0.5 ${goal === g.id ? "text-emerald-600 dark:text-emerald-400 font-medium" : "text-slate-400"}`}>{g.sub}</div>
                 </button>
               ))}
             </div>
@@ -361,40 +361,56 @@ export function MacroCalculator() {
                   key={d.id}
                   type="button"
                   onClick={() => setDietPlan(d.id as DietPlan)}
-                  className={`p-2.5 rounded-xl border text-left transition-all ${
+                  className={`p-2.5 rounded-xl border text-center sm:text-left transition-all ${
                     dietPlan === d.id
-                      ? "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 ring-2 ring-emerald-500/20"
-                      : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-slate-300"
+                      ? "border-emerald-500 bg-emerald-50/80 dark:bg-emerald-950/50 text-emerald-900 dark:text-emerald-100 ring-2 ring-emerald-500/30 font-semibold"
+                      : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/40"
                   }`}
                 >
-                  <div className="text-xs font-bold">{d.label}</div>
-                  <div className="text-[10px] text-slate-400 mt-0.5">{d.sub}</div>
+                  <div className="text-xs font-bold leading-tight">{d.label}</div>
+                  <div className={`text-[11px] mt-0.5 font-medium ${dietPlan === d.id ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400"}`}>{d.sub}</div>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Reset */}
-          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">
+          {/* Action Buttons: Calculate + Reset */}
+          <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
             <button
               type="button"
               onClick={() => {
-                setUnit("us"); setSex("male"); setAge("28");
-                setFt("5"); setInch("10"); setLb("170");
-                setActivity(1.55); setGoal("maintain"); setDietPlan("balanced");
+                const el = document.getElementById("macro-result-panel");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
               }}
-              className="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-medium"
+              className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-base shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset to Defaults</span>
+              <Flame className="w-5 h-5 text-emerald-200" />
+              <span>Calculate Macros</span>
             </button>
-            <span className="text-slate-400">Clinical IIFYM Standard</span>
+
+            <div className="flex justify-between items-center text-xs">
+              <button
+                type="button"
+                onClick={() => {
+                  setUnit("us"); setSex("male"); setAge("28");
+                  setFt("5"); setInch("10"); setLb("170");
+                  setActivity(1.55); setGoal("maintain"); setDietPlan("balanced");
+                }}
+                className="inline-flex items-center gap-1.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors font-medium"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>Reset to Defaults</span>
+              </button>
+              <span className="text-slate-400">Clinical IIFYM Standard</span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* RIGHT COLUMN: Sticky Result Card (5 Cols) */}
-      <div className="lg:sticky lg:top-24 lg:col-span-5 space-y-4">
+      <div id="macro-result-panel" className="scroll-mt-20 lg:sticky lg:top-24 lg:col-span-5 space-y-4">
         <div className="rounded-2xl border border-emerald-200/80 dark:border-emerald-900/60 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
             <span>Daily Macro Targets</span>

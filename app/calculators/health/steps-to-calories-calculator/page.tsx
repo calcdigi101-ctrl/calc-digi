@@ -157,6 +157,79 @@ export default function StepsToCaloriesPage() {
           </div>
         </section>
       
+        
+        {/* Locomotor Biomechanics & All-Cause Mortality Curves */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Locomotor Biomechanics, Step Cadence &amp; Mortality Risk Curves
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The caloric expenditure of human ambulation is governed by fundamental biomechanical physics: work equals mass multiplied by acceleration over distance. While horizontal walking on flat pavement consumes roughly 0.04 to 0.05 calories per step for an average adult, altering stride length, locomotor speed, step frequency (cadence), or surface grade dramatically shifts kinetic demands and metabolic energy expenditure.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Cadence Thresholds for Cardiovascular Benefit</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Epidemiological research establishes that a cadence of 100 steps per minute represents the standardized threshold for moderate-intensity physical activity (~3.0 METs). Brisk walking at 120 to 130 steps per minute stimulates endothelial nitric oxide production, improves arterial compliance, and accelerates postprandial glucose clearance via non-insulin-dependent GLUT4 translocation in active leg musculature.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The 8,000 to 10,000 Step Longevity Plateau</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Comprehensive meta-analyses published in <em>The Lancet Public Health</em> and <em>JAMA</em> demonstrate that increasing daily step volume from 4,000 to 8,000–10,000 steps reduces all-cause mortality hazard by 40% to 53%, with incremental cardiovascular risk reductions plateauing near 10,000 to 12,000 steps.
+              </p>
+            </div>
+          </div>
+          <h2>Practical Movement Stacking Protocols for Busy Schedules</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Accumulating consistent daily steps does not require uninterrupted hours of walking; stacking small movement bouts throughout the day builds substantial volume:
+          </p>
+          <ul>
+            <li><strong>Post-Prandial Walking Ritual:</strong> A 10-minute stroll immediately following breakfast, lunch, and dinner adds 3,000 to 4,000 steps while blunting post-meal blood glucose spikes by up to 30%.</li>
+            <li><strong>Active Audio Calls:</strong> Conduct one-on-one phone meetings while walking outdoors or pacing the office corridor, accumulating 2,000+ active steps per call.</li>
+            <li><strong>Incline Grade Multiplier:</strong> Walking on a treadmill at a 5% to 8% incline doubles the caloric burn per mile compared to flat walking, heavily activating the gluteus maximus, hamstrings, and calves without joint impact.</li>
+            <li><strong>Sedentary Interruption Bouts:</strong> Standing up and walking for 2 minutes every hour clears lipoprotein lipase suppression and restores lower extremity venous circulation.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Anchor your daily physical activity with a minimum step floor (e.g. 8,000 steps) to protect metabolic health and prevent subconscious sedentary compensation during fat loss phases.
+          </p>
+        </section>
+
+        
+          <h2>Practical Habit Stacking: Seamlessly Integrating 10,000 Steps Daily</h2>
+          <p>
+            Achieving consistent daily step volume does not require hours of dedicated treadmill walking; stacking movement habits throughout your existing schedule builds effortless activity:
+          </p>
+          <ul>
+            <li><strong>Post-Meal Walking Rituals:</strong> A 10-minute walk after breakfast, lunch, and dinner contributes 3,000 to 4,000 steps while blunting postprandial blood glucose spikes by up to 30%.</li>
+            <li><strong>Walking Meetings &amp; Phone Calls:</strong> Pace or walk outdoors during audio calls and meetings, turning sedentary screen time into 2,000+ active steps.</li>
+            <li><strong>Active Commuting &amp; Errands:</strong> Park at the distant perimeter of parking lots, take stairs rather than elevators, and walk short neighborhood errands.</li>
+            <li><strong>Desk Treadmill / Walking Pad:</strong> Utilizing an under-desk walking pad at a slow 1.2 to 1.5 mph pace while reading emails or typing generates 3,000 to 5,000 steps per hour without cognitive disruption.</li>
+          </ul>
+          <p>
+            Anchor your daily physical activity with a minimum step floor (e.g. 8,000 steps) to protect metabolic health and prevent subconscious sedentary compensation during fat loss phases.
+          </p>
+
+
+        
+          <h2>Postprandial Blood Glucose Regulation &amp; Step Timing</h2>
+          <p>
+            Taking a short 10 to 15-minute walk immediately following meals utilizes active skeletal muscle contraction to clear circulating glucose from the bloodstream via non-insulin-dependent GLUT4 transporter translocation.
+          </p>
+          <p>
+            This postprandial walking protocol blunts post-meal blood glucose spikes by up to 30%, reduces insulin demand, and prevents the reactive hypoglycemia and energy crashes commonly experienced after carbohydrate-dense meals.
+          </p>
+
+
+        
+          <h2>Biomechanical Step Cadence &amp; Glucose Clearance Kinetics</h2>
+          <p>
+            The metabolic cost of walking is not strictly linear across all speeds; cadence (steps per minute) fundamentally influences muscular work and fuel selection. Walking at 100 to 119 steps per minute represents moderate-intensity physical activity (approx. 3.5 to 4.0 METs), where slow-twitch postural muscle fibers rely predominantly on intramuscular fatty acid oxidation.
+          </p>
+          <p>
+            When cadence accelerates above 120 steps per minute (brisk walking) or exceeds 130 steps per minute, mechanical efficiency decreases, triggering higher recruitment of glycolytic motor units. Taking a 15-minute brisk walk immediately following carbohydrate-dense meals activates non-insulin-mediated GLUT4 glucose transporters in skeletal muscle, blunting postprandial glycemic excursions by 25% to 40% compared to remaining seated.
+          </p>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

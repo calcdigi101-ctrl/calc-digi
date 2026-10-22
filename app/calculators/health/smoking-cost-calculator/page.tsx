@@ -197,6 +197,74 @@ export default function SmokingCostPage() {
           </div>
         </section>
       
+        
+          <h2>Physiological Recovery &amp; Long-Term Economic Compounding</h2>
+          <p>
+            The health dividends of smoking cessation begin within minutes of extinguishing your final cigarette. Clinical data from the World Health Organization (WHO) and the US Surgeon General demonstrate that cardiovascular, pulmonary, and oncological risk curves reverse rapidly following cessation:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Cardiovascular &amp; Pulmonary Milestones</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                At 20 minutes, heart rate and blood pressure normalize. At 12 hours, blood carbon monoxide drops to baseline. Between 2 weeks and 3 months, circulation and forced expiratory volume (FEV1) improve by up to 30%. At 1 year, excess coronary heart disease risk drops by 50%, and at 5 years, stroke hazard mirrors that of a lifelong non-smoker.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Life &amp; Health Insurance Dividend</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Term life insurance premiums for verified non-smokers are typically 50% to 70% lower than identical policies for active smokers, saving between $1,200 and $3,500 annually. Additionally, medical dental claims decrease dramatically due to reduced periodontal disease and oral tissue healing.
+              </p>
+            </div>
+          </div>
+          <h2>Actionable Strategies for Permanent Cessation</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Maximize your cessation success by combining behavioral strategies with clinical support:
+          </p>
+          <ul>
+            <li><strong>Nicotine Replacement Therapy (NRT):</strong> Clinical trials confirm that combining a long-acting nicotine patch with a short-acting nicotine gum or lozenge doubles long-term quit rates by managing cravings.</li>
+            <li><strong>Automated Reinvestment:</strong> Open a dedicated high-yield savings account or investment app and automate the exact daily amount previously spent on tobacco. Watching your balance compound provides powerful tangible reinforcement.</li>
+            <li><strong>Disrupt Environmental Triggers:</strong> Identify habitual triggers (morning coffee, driving, post-meal habits) and substitute healthier physical routines (brisk walking, herbal tea, deep diaphragmatic breathing).</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Every smoke-free day improves your lung function, lowers cardiovascular risk, and builds lasting health and multi-generational financial vitality.
+          </p>
+
+
+        
+          <h2>Behavioral Strategies for Long-Term Smoking Cessation</h2>
+          <p>
+            Maximize your cessation success by combining behavioral strategies with clinical support:
+          </p>
+          <ul>
+            <li><strong>Identify &amp; Disrupt Triggers:</strong> Recognize environmental and emotional triggers (morning coffee, post-meal habits, stress) and substitute healthier routines (brisk walking, herbal tea, deep breathing).</li>
+            <li><strong>Nicotine Replacement Therapy (NRT):</strong> Clinical trials confirm that combining a long-acting nicotine patch with a short-acting nicotine gum or lozenge doubles long-term quit rates by managing cravings.</li>
+            <li><strong>Track Your Growing Financial Savings:</strong> Open a dedicated high-yield savings account or investment app and automate the exact daily amount previously spent on tobacco. Watching your balance grow provides powerful tangible reinforcement.</li>
+            <li><strong>Seek Social &amp; Professional Support:</strong> Join a cessation support group, utilize national quitlines (e.g. 1-800-QUIT-NOW), and consult your doctor about prescription cessation medications if needed.</li>
+          </ul>
+          <p>
+            Every smoke-free day improves your lung function, lowers cardiovascular risk, and builds lasting health and financial vitality.
+          </p>
+
+
+        
+          <h2>Vascular Endothelial Recovery &amp; Wealth Reinvestment</h2>
+          <p>
+            Within 24 to 48 hours of smoking cessation, blood carbon monoxide levels normalize, restoring the oxygen-carrying capacity of hemoglobin. Over the following 2 to 12 weeks, vascular endothelial function improves significantly, lowering systemic blood pressure and reducing thrombotic hazard.
+          </p>
+          <p>
+            Redirecting cigarette expenditures into disciplined automated investments yields a double dividend: eliminating life-shortening toxic exposures while building a substantial financial nest egg.
+          </p>
+
+
+        
+          <h2>Platelet Activation &amp; Microvascular Perfusion Recovery</h2>
+          <p>
+            Cigarette combustion releases reactive oxygen species and acrolein, which oxidize circulating LDL cholesterol and cause immediate platelet hyper-aggregability. This pro-thrombotic vascular state increases the immediate likelihood of acute coronary thrombus formation.
+          </p>
+          <p>
+            Upon quitting, platelet reactivity normalizes within days, microvascular capillary blood flow to the skin and peripheral extremities improves by 30%, and systemic endothelial shear stress returns to baseline physiological levels.
+          </p>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

@@ -188,6 +188,70 @@ export default function WaistToHipRatioPage() {
           />
         </section>
       
+        
+        {/* Visceral Pathophysiology & Ethnic WHR Criteria */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Pathophysiology of Visceral Adiposity &amp; Ethnic WHR Thresholds
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Unlike peripheral subcutaneous adipose tissue deposited around the thighs and gluteal region, deep visceral adipose tissue surrounding the mesenteric and omental organs drains directly into the hepatic portal system. This delivers high concentrations of unesterified free fatty acids directly to the liver, driving hepatic steatosis, elevated very-low-density lipoproteins (VLDL), and peripheral insulin receptor downregulation.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Ethnic-Specific Cutoffs (WHO / IDF)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                The International Diabetes Federation (IDF) and WHO note that South Asian, East Asian, and Indigenous populations exhibit greater visceral fat deposition and metabolic syndrome onset at lower absolute WHR thresholds (&gt;0.85 for men, &gt;0.80 for women) compared to European cohorts, requiring earlier clinical screening.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Metabolic Syndrome Diagnostic Criteria (ATP III)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                According to the NCEP ATP III guidelines, central adiposity measured via waist circumference and WHR serves as the primary gateway criterion for metabolic syndrome, defined by central adiposity plus any two of: fasting triglycerides &ge; 150 mg/dL, HDL &lt; 40 mg/dL (men) or &lt; 50 mg/dL (women), blood pressure &ge; 130/85 mmHg, or fasting glucose &ge; 100 mg/dL.
+              </p>
+            </div>
+          </div>
+          <h2>Actionable Strategies for Visceral Circumference Reduction</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Targeting visceral fat requires specific nutritional and metabolic stimuli that activate beta-adrenergic lipolytic pathways:
+          </p>
+          <ul>
+            <li><strong>Zone 2 Cardiovascular Base Training:</strong> Performing 30 to 45 minutes of steady aerobic exercise 3 to 4 times weekly stimulates fat oxidation and preferentially mobilizes visceral adipose stores.</li>
+            <li><strong>Progressive Resistance Training:</strong> Building full-body muscle mass enhances whole-body insulin sensitivity, directing ingested calories into muscle glycogen stores rather than visceral fat.</li>
+            <li><strong>Eliminate Refined Sugars &amp; Ultra-Processed Foods:</strong> High-fructose corn syrup and trans fats accelerate visceral fat deposition. Focus on whole foods, lean proteins, and complex fiber-rich carbohydrates.</li>
+            <li><strong>Sleep &amp; Stress Management:</strong> Chronically elevated cortisol promotes visceral fat storage around abdominal organs. Maintain 7 to 9 hours of quality sleep to normalize glucocorticoid rhythms.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Measure waist and hip circumferences once every month under standardized morning conditions to evaluate genuine body recomposition.
+          </p>
+        </section>
+
+        
+          <h2>Targeted Action Plan for Visceral Fat Reduction</h2>
+          <p>
+            Reduce central waist circumference and optimize Waist-to-Hip Ratio with these clinical lifestyle strategies:
+          </p>
+          <ul>
+            <li><strong>Zone 2 Cardiovascular Base Training:</strong> Performing 30 to 45 minutes of steady aerobic exercise 3 to 4 times weekly stimulates fat oxidation and preferentially mobilizes visceral adipose stores.</li>
+            <li><strong>Progressive Resistance Training:</strong> Building full-body muscle mass enhances whole-body insulin sensitivity, directing ingested calories into muscle glycogen stores rather than visceral fat.</li>
+            <li><strong>Eliminate Refined Sugars &amp; Ultra-Processed Foods:</strong> High-fructose corn syrup and trans fats accelerate visceral fat deposition. Focus on whole foods, lean proteins, and complex fiber-rich carbohydrates.</li>
+            <li><strong>Sleep &amp; Stress Management:</strong> Chronically elevated cortisol promotes visceral fat storage around abdominal organs. Maintain 7 to 9 hours of quality sleep to normalize glucocorticoid rhythms.</li>
+          </ul>
+          <p>
+            Measure waist and hip circumferences once every month under standardized morning conditions to evaluate genuine body recomposition.
+          </p>
+
+
+        
+          <h2>Cardiometabolic Risk Profiling &amp; Portal Vein Dynamics</h2>
+          <p>
+            Visceral abdominal fat drains directly into the hepatic portal vein, delivering high concentrations of unesterified free fatty acids to the liver. This stimulates excessive hepatic triglyceride synthesis and drives non-alcoholic fatty liver disease (NAFLD), systemic insulin resistance, and elevated C-reactive protein (CRP).
+          </p>
+          <p>
+            Monitoring your Waist-to-Hip Ratio monthly provides an accurate, early-warning assessment of visceral reduction that is far more clinically predictive of cardiovascular health than scale weight alone.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

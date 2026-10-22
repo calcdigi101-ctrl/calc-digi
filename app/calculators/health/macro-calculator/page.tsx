@@ -209,6 +209,61 @@ export default function Page() {
             </li>
           </ol>
 
+          
+        {/* Protein Leverage Hypothesis & Micronutrient Synergy */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Protein Leverage Hypothesis &amp; Micronutrient Synergy
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Macronutrient partitioning exerts profound influence over appetite regulation, metabolic rate, and body composition. The landmark Protein Leverage Hypothesis posits that the human appetite mechanism prioritizes absolute daily protein intake above all other energy substrates:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Satiety Signaling &amp; PYY / GLP-1</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Dietary protein stimulates the enteric secretion of peptide YY (PYY) and glucagon-like peptide-1 (GLP-1) while suppressing the orexigenic hunger hormone ghrelin. Diets low in protein lead to compensatory overconsumption of fats and carbohydrates to satisfy amino acid requirements.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Essential Fatty Acid &amp; Fiber Floor</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Regardless of diet model, dietary fat should never drop below 0.3 g/lb (0.65 g/kg) to protect endocrine hormone synthesis and lipid-soluble vitamin (A, D, E, K) absorption. Concurrently, maintain a minimum of 14 grams of dietary fiber per 1,000 consumed calories to support short-chain fatty acid gut fermentation.
+              </p>
+            </div>
+          </div>
+          <h2>Practical Meal Prep &amp; Food Scale Measurement</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Measuring food in grams with a digital kitchen scale provides 30% to 50% greater accuracy than measuring cups or spoons. Tailor carbohydrate intake around intensive training bouts to maximize muscle glycogen resynthesis and cellular nutrient partitioning.
+          </p>
+        </section>
+
+          
+          <h2>Practical Meal Prep &amp; Macro Tracking Guidelines</h2>
+          <p>
+            Execute your macronutrient targets consistently with these proven dietary tracking strategies:
+          </p>
+          <ul>
+            <li><strong>Weigh Food Raw with a Digital Kitchen Scale:</strong> Measuring food in grams or ounces provides 30% to 50% greater accuracy than measuring cups, spoons, or eyeball estimation.</li>
+            <li><strong>Batch Cook Lean Protein Sources:</strong> Prepare chicken breast, lean ground beef, tofu, or hard-boiled eggs in advance to ensure high-protein options are always accessible.</li>
+            <li><strong>Prioritize High-Volume Vegetables:</strong> Fill your plate with leafy greens, broccoli, zucchini, and peppers to add volume, micronutrients, and dietary fiber without exceeding carbohydrate targets.</li>
+            <li><strong>Account for Cooking Oils &amp; Condiments:</strong> A single tablespoon of cooking oil adds 120 calories and 14 grams of fat. Measure cooking oils and salad dressings precisely to avoid unintentional calorie surplus.</li>
+          </ul>
+          <p>
+            Stay consistent with your daily macronutrient targets, and adjust total calories based on real-world body composition progress every 2 to 3 weeks.
+          </p>
+
+
+          
+          <h2>Glycogen Supercompensation &amp; Lean Tissue Hydration</h2>
+          <p>
+            Intramuscular glycogen storage capacity averages approximately 400 to 600 grams in trained adults. Each gram of stored glycogen binds approximately 3 to 4 grams of intracellular water, providing muscles with fullness, mechanical tension, and cellular hydration.
+          </p>
+          <p>
+            Tailoring carbohydrate intake to training demands ensures that active muscles maintain optimal glycogen stores during resistance training while preventing unnecessary spillover into de novo lipogenesis.
+          </p>
+
+
           <Faq items={FAQ_ITEMS} />
         </Editorial>
       </CalculatorPage>

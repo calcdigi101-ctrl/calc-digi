@@ -212,6 +212,74 @@ export default function BodyShapePage() {
           />
         </section>
       
+        
+        {/* Endocrine Adipose Partitioning & Anthropometric Science */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Endocrine Adipose Partitioning: Somatotype Genetics &amp; Visceral Risk
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Human phenotypic body geometry reflects an interplay of skeletal pelvic architecture, biacromial shoulder width, androgen-to-estrogen receptor densities, and genetic somatotypic foundation (ectomorph, mesomorph, and endomorph). While commercial fashion categorizes silhouettes into superficial shapes (hourglass, pear, apple, rectangle, inverted triangle), clinical anthropometry evaluates these proportions as direct reflections of hormonal balance and systemic cardiometabolic health.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Android (Apple) Adiposity &amp; Portal Vein Dynamics</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Central abdominal adiposity is stimulated by higher androgen-to-estrogen ratios and heightened cortisol receptor density in visceral omental tissue. Visceral fat possesses high lipolytic sensitivity, dumping free fatty acids directly into the hepatic portal vein. This drives hepatic triglyceride accumulation, downregulates insulin clearance, and promotes atherogenic dyslipidemia characterized by elevated small dense LDL particles and suppressed HDL.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Gynoid (Pear) Subcutaneous Reserves &amp; LPL Activity</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Gluteofemoral subcutaneous fat accumulation is driven by estrogen receptor alpha (ER-alpha) signaling, which upregulates lipoprotein lipase (LPL) activity while suppressing lipolysis via high alpha-2 adrenergic receptor concentrations. Subcutaneous lower-body fat acts as an evolutionary metabolic sink, sequestering excess fatty acids away from vital organs and secreting protective high-molecular-weight adiponectin.
+              </p>
+            </div>
+          </div>
+          <h2>Biomechanical Alignment &amp; Targeted Physical Programming</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Understanding your anatomical frame enables personalized training adaptations that enhance both aesthetic balance and functional orthopedic longevity:
+          </p>
+          <ul>
+            <li><strong>Hourglass Silhouettes:</strong> Symmetrical skeletal proportions benefit from full-body multi-joint compound resistance training (squats, deadlifts, overhead presses) paired with core anti-rotational stability drills (Pallof presses, side planks) to protect the lumbosacral junction.</li>
+            <li><strong>Pear Silhouettes:</strong> Emphasize progressive overhead and lateral deltoid hypertrophy (lateral raises, pull-ups) to broaden the upper thoracic silhouette while employing moderate-load lower-body resistance movements that tone tissue without exacerbating joint strain.</li>
+            <li><strong>Apple Silhouettes:</strong> Prioritize metabolic conditioning combining Zone 2 low-intensity cardiovascular volume with compound resistance exercises. Minimizing liquid refined sugars and alcohol preferentially mobilizes deep visceral fat reserves.</li>
+            <li><strong>Inverted Triangle Silhouettes:</strong> Direct training volume toward lower-body posterior chain development (hip thrusts, Bulgarian split squats, Romanian deadlifts) to build muscular lower-body fullness that harmonizes broad clavicular dimensions.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Reassess circumferences every 4 to 8 weeks with a flexible vinyl tape measure under identical morning conditions to monitor structural body recomposition and cardiovascular risk reduction.
+          </p>
+        </section>
+
+        
+          <h2>Actionable Lifestyle &amp; Exercise Programming for Your Profile</h2>
+          <p>
+            Translating body shape analysis into functional physical results requires harmonizing resistance exercises and nutritional timing to your natural skeletal leverage:
+          </p>
+          <ul>
+            <li><strong>Android (Apple) Strategy:</strong> Prioritize high-volume compound resistance training (squats, Romanian deadlifts, overhead presses) combined with moderate-intensity steady-state (Zone 2) cardio. Minimizing refined sugars and alcohol preferentially mobilizes deep visceral mesenteric fat while stabilizing fasting insulin.</li>
+            <li><strong>Gynoid (Pear) Strategy:</strong> Focus on progressive upper-body hypertrophy (overhead presses, pull-ups, lateral raises) to broaden the shoulder silhouette while utilizing lower-body compound movements to tone gluteofemoral tissue without overtraining.</li>
+            <li><strong>Hourglass Strategy:</strong> Emphasize full-body functional strength training maintaining symmetrical anterior-to-posterior kinetic balance. Prioritize core anti-rotational exercises (Pallof presses, side planks) to protect lumbar spinal integrity.</li>
+            <li><strong>Inverted Triangle Strategy:</strong> Direct training volume toward lower-body posterior chain development (hip thrusts, walking lunges, Bulgarian split squats) to build lower-body muscular fullness that balances broad clavicular dimensions.</li>
+          </ul>
+          <p>
+            Reassess your anthropometric circumferences every 4 to 8 weeks with a flexible vinyl tape measure under identical morning conditions to monitor structural body recomposition.
+          </p>
+
+
+        
+          <h2>Visceral vs Subcutaneous Fat Deposition &amp; Hormonal Receptors</h2>
+          <p>
+            Regional human adipose tissue patterning is primarily orchestrated by local sex steroid receptor densities. In android (apple) silhouettes, elevated androgen-to-estrogen receptor ratios and high glucocorticoid receptor expression in mesenteric adipocytes favor visceral trunk fat deposition. Visceral adipocytes possess high beta-1 and beta-2 adrenergic receptor densities, rendering them sensitive to lipolytic catecholamine stimulation during high-intensity exercise.
+          </p>
+          <p>
+            Conversely, gynoid (pear) fat distribution is driven by estrogen receptor alpha (ER-alpha) expression, which upregulates lipoprotein lipase (LPL) activity in gluteofemoral subcutaneous depots while suppressing lipolysis via high alpha-2 adrenergic receptor concentrations. Consequently, gluteofemoral fat serves as an evolutionary energy reserve for pregnancy and lactation, mobilizing more slowly than abdominal depots.
+          </p>
+          <h2>Biomechanical Posture &amp; Spinal Load Ergonomics</h2>
+          <p>
+            Your skeletal silhouette directly impacts spinal ergonomics and pelvic alignment. Hourglass and pear profiles with wider pelvic dimensions experience increased femoral Q-angles, requiring targeted gluteus medius strengthening to stabilize knee tracking. Android profiles carrying excess anterior abdominal load often develop compensatory lumbar hyperlordosis and anterior pelvic tilt, benefiting from targeted core anti-extension training.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

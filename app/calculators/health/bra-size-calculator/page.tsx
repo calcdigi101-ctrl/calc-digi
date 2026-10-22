@@ -214,6 +214,70 @@ export default function BraSizePage() {
           </ul>
         </section>
       
+        
+        {/* Orthopedic Mastopexy & Thoracic Musculoskeletal Health */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Orthopedic Mastopexy: Cooper&apos;s Ligaments &amp; Kinetic Load Distribution
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Female breast tissue is composed primarily of glandular lobules and adipose tissue without internal skeletal or muscular architecture. Anatomical support relies entirely on the superficial fascial system and delicate retinacula cutis known as Cooper&apos;s suspensory ligaments. During physical locomotion, running, or high-impact jumping, unsupported breasts undergo three-dimensional figure-eight displacement averaging up to 15 centimeters of vertical, lateral, and anterior-posterior oscillation.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The 80/20 Band-to-Strap Weight Distribution Rule</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                In a properly fitted brassiere, exactly 80% to 85% of total breast mass support must originate from the firm anchorage of the underbust ribcage band, while shoulder straps should contribute no more than 15% to 20%. Wearing an overly loose band forces shoulder straps to bear excessive downward traction, compressing the subclavicular brachial plexus nerve bundle and predisposing wearers to chronic cervicothoracic postural headaches and trapezius myofascial trigger points.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Center Gore &amp; Wire Alignment Diagnostics</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                A flawless clinical fit requires that the central rigid bridge (the gore) rest completely flush against the sternum bone without lifting, twisting, or floating. Furthermore, underwire channels must trace the natural inframammary fold without encroaching upon or digging into peripheral axillary glandular tail of Spence tissue.
+              </p>
+            </div>
+          </div>
+          <h2>Sister Sizing Mechanics: Equivalent Cup Volumes</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Cup letters are not fixed volumes; a 32D, 34C, and 36B all hold the identical volume of breast tissue (~390 cc). If a band feels too loose or tight, navigate sister sizes to adjust ribcage circumference without altering cup volume:
+          </p>
+          <ul>
+            <li><strong>To tighten the band:</strong> Step down one band size and increase one cup letter (e.g. 36C becomes 34D).</li>
+            <li><strong>To loosen the band:</strong> Step up one band size and decrease one cup letter (e.g. 32D becomes 34C).</li>
+            <li><strong>Hook Adjustment Protocol:</strong> A new bra should fit snugly on the loosest outer hook, reserving the inner tighter hooks for when elastic naturally stretches over months of wear.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Because hormonal shifts during pregnancy, lactation, weight fluctuations, and hormonal contraceptive use continuously modify thoracic dimensions, measure every 6 to 12 months using a flexible non-elastic sewing tape.
+          </p>
+        </section>
+
+        
+          <h2>Fitting Checklist: 5 Signs of an Incorrect Bra Fit</h2>
+          <p>
+            Ensure your brassiere delivers optimal orthopedic support by evaluating these 5 clinical fitting checkpoints:
+          </p>
+          <ul>
+            <li><strong>Band Riding Up in the Back:</strong> If the back band arches upward toward your shoulder blades rather than resting parallel to the floor, the band is too large. Step down a band size and sister-size up in the cup.</li>
+            <li><strong>Shoulder Digging &amp; Red Grooves:</strong> Deep red indentations on your trapezius muscles confirm that shoulder straps are overcompensating for an unsupportive band. The band must support 80%+ of the breast weight.</li>
+            <li><strong>Spillage or Quadraboob:</strong> If breast tissue bulges over the top or sides of the cups, the cup volume is too small. Increase the cup letter by one or two sizes.</li>
+            <li><strong>Floating Central Gore:</strong> If the central fabric/wire bridge does not sit flat against your sternum bone, the cup depth is inadequate or the band is too loose.</li>
+            <li><strong>Wrinkling or Gap in Cups:</strong> Empty space or fabric wrinkling at the top of the cup indicates an overly large cup volume or a mismatched cup projection shape.</li>
+          </ul>
+          <p>
+            Re-measure with a non-elastic tape measure every 6 to 12 months or after any significant change in body weight, training intensity, or hormonal profile.
+          </p>
+
+
+        
+          <h2>Musculoskeletal Posture &amp; Brachial Plexus Decompression</h2>
+          <p>
+            Wearing an incorrectly fitted brassiere—specifically a band that is too large paired with cups that are too small—forces the shoulder straps to support excessive weight. The downward vector of strap tension compresses the upper fibers of the trapezius muscle, levator scapulae, and the subclavian neurovascular bundle, predisposing women to thoracic outlet syndrome symptoms, tension headaches, and scapular dyskinesis.
+          </p>
+          <p>
+            A snug, level band acts as a cantilever foundation that distributes gravitational breast weight across the entire thoracic ribcage, instantly decompressing cervical and thoracic spinal segments. Reassessing your bra size after hormonal shifts, postpartum recovery, or fitness body composition changes ensures optimal postural alignment.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

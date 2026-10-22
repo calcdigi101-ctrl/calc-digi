@@ -178,6 +178,71 @@ export default function Page() {
             <li><strong>Lower Mass Burn:</strong> A lighter body requires fewer calories to move across space. A 200-lb person who reaches 180 lbs has reduced their maintenance TDEE by roughly 150 to 200 calories simply by carrying 20 fewer pounds.</li>
             <li><strong>Calorie Tracking Creep:</strong> Unmeasured cooking oils, salad dressings, sauces, and weekend cheat meals often erase a weekday calorie deficit. Weigh food with a digital scale for 7 days to audit actual intake.</li>
           </ol>
+        
+        {/* Metabolic Adaptation & Reverse Dieting Protocols */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Neuroendocrine Adaptation &amp; Strategic Reverse Dieting
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            During sustained caloric restriction, the human neuroendocrine axis downregulates active thyroid hormone (free T3), leptin, and testosterone while elevating cortisol and ghrelin. This biological defense mechanism lowers baseline resting metabolism by 10% to 15% beyond what is predicted by tissue loss alone. Simultaneously, subconscious physical movement (NEAT) drops significantly.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Step Anchoring to Defend Energy Expenditure</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                The most potent buffer against post-diet hyperphagia and weight rebound is establishing a non-negotiable daily step anchor (e.g. 8,000 to 10,000 steps). Maintaining consistent step volume prevents the subconscious sedentary decline that accounts for up to 400 lost calories of daily energy burn.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Structured Reverse Diet Protocol</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Rather than jumping immediately from a deficit back to pre-diet maintenance, systematically add 50 to 100 kcal per day each week (primarily from complex carbohydrates). This gradually revives thyroid hormone production, restores leptin signaling, and upregulates spontaneous physical movement without fat overshoot.
+              </p>
+            </div>
+          </div>
+          <h2>Customizing Caloric Intake for Your Primary Goal</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Align your daily caloric intake with your specific fitness objectives:
+          </p>
+          <ul>
+            <li><strong>Sustainable Fat Loss (TDEE − 500 kcal):</strong> Creates a safe 3,500 kcal weekly deficit producing approximately 1.0 lb of fat loss per week without triggering metabolic adaptation or muscle catabolism.</li>
+            <li><strong>Aggressive Cut (TDEE − 750 kcal):</strong> Reserved for individuals with higher initial body fat or short-term dieting phases. Pair with high protein (&ge;1.0 g/lb) to protect lean muscle tissue.</li>
+            <li><strong>Weight Maintenance (TDEE match):</strong> Keeps weight completely stable while supporting optimal training performance, hormone production, and recovery.</li>
+            <li><strong>Lean Muscle Hypertrophy (TDEE + 250 to 350 kcal):</strong> Provides a mild caloric surplus to fuel new muscle protein synthesis while minimizing unnecessary fat gain.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Recalculate your TDEE every 10 to 15 pounds of weight change to ensure caloric targets align with your evolving physiological mass and metabolic output.
+          </p>
+        </section>
+        
+          <h2>Customizing Caloric Intake for Your Primary Fitness Goal</h2>
+          <p>
+            Once you have established your Total Daily Energy Expenditure, align your daily caloric intake with your specific fitness objectives:
+          </p>
+          <ul>
+            <li><strong>Sustainable Fat Loss (TDEE − 500 kcal):</strong> Creates a safe 3,500 kcal weekly deficit producing approximately 1.0 lb of fat loss per week without triggering metabolic adaptation or muscle catabolism.</li>
+            <li><strong>Aggressive Cut (TDEE − 750 kcal):</strong> Reserved for individuals with higher initial body fat or short-term dieting phases. Pair with high protein (&ge;1.0 g/lb) to protect lean muscle tissue.</li>
+            <li><strong>Weight Maintenance (TDEE match):</strong> Keeps weight completely stable while supporting optimal training performance, hormone production, and recovery.</li>
+            <li><strong>Lean Muscle Hypertrophy (TDEE + 250 to 350 kcal):</strong> Provides a mild caloric surplus to fuel new muscle protein synthesis while minimizing unnecessary fat gain.</li>
+          </ul>
+          <p>
+            Track body weight trends over 2 to 3 weeks and make subtle 100 to 150-calorie adjustments based on real-world scale and body composition changes.
+          </p>
+
+        
+          <h2>Non-Exercise Activity Thermogenesis (NEAT) Variance</h2>
+          <p>
+            While Basal Metabolic Rate and the Thermic Effect of Food remain relatively predictable based on body mass and caloric intake, Non-Exercise Activity Thermogenesis (NEAT) represents the single most volatile component of daily calorie expenditure. NEAT encompasses all subconscious physical movement: pacing, standing, typing, maintaining posture, taking the stairs, and daily steps.
+          </p>
+          <p>
+            In controlled laboratory overfeeding and underfeeding studies, daily NEAT expenditure varied by up to 800 to 1,000 calories between individuals of identical weight and height. When dieting, the body instinctively downregulates NEAT to conserve energy—causing people to sit more and move less without realizing it. Establishing an anchored daily step target (e.g. 8,000 to 10,000 steps) prevents this unconscious metabolic drop.
+          </p>
+          <h2>Strategic Reverse Dieting Protocols</h2>
+          <p>
+            Following a successful fat loss phase, jumping immediately back to pre-diet caloric intake frequently triggers rapid body fat regain due to suppressed leptin and elevated ghrelin. A structured reverse diet—adding 50 to 100 calories per day each week while monitoring scale weight and training energy—allows the metabolic rate to recover gracefully while preserving a lean physique.
+          </p>
+
         </>
       }
     >

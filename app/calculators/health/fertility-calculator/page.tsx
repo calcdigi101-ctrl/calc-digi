@@ -212,6 +212,74 @@ export default function FertilityPage() {
           </div>
         </section>
       
+        
+        {/* Gamete Longevity & Epigenetic Preconception Protocols */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Gamete Longevity, Anti-Müllerian Hormone (AMH) &amp; Preconception Epigenetics
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Human female reproductive longevity is governed by the progressive depletion of the non-renewable primordial follicle pool. Serum Anti-Müllerian Hormone (AMH), secreted by pre-antral and small antral ovarian follicles, provides an objective biomarker of remaining ovarian reserve alongside transvaginal ultrasound antral follicle counts (AFC). Understanding gamete viability curves enables precise timing of coitus during the fertile window.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Oocyte Mitochondrial Energetics &amp; Spindle Health</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                During the 90 to 120-day follicular maturation window preceding ovulation, oocytes require intense mitochondrial ATP production for proper meiotic spindle assembly. In maternal age beyond 35, mitochondrial DNA mutations increase, elevating the incidence of meiotic non-disjunction and chromosomal aneuploidies. Supplementing Coenzyme Q10 (CoQ10, 400–600 mg/day) and active antioxidant support helps preserve mitochondrial energy output.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Paternal Semen Parameters &amp; DNA Fragmentation</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Spermatogenesis spans approximately 74 days. Paternal factors contribute to 40% to 50% of subfertility cases. Mitigating testicular thermal stress (avoiding hot tubs, laptops on lap, tight cycling gear), minimizing alcohol intake, and optimizing dietary zinc and selenium enhance progressive sperm motility and protect against elevated DNA fragmentation index (DFI).
+              </p>
+            </div>
+          </div>
+          <h2>Preconception Micronutrient Protocol for Conception</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Implementing foundational preconception care 3 to 6 months prior to attempting pregnancy optimizes embryonic implantation receptivity:
+          </p>
+          <ul>
+            <li><strong>Active Methylfolate (5-MTHF, 400–800 mcg):</strong> Essential for homocysteine remethylation, DNA synthesis, and preventing neural tube defects during early embryogenesis.</li>
+            <li><strong>Vitamin D3 &amp; Endometrial Decidualization:</strong> Optimal serum 25-hydroxyvitamin D levels (&gt;30 ng/mL) are strongly correlated with higher clinical pregnancy rates in both natural conception and assisted reproductive technology (IVF).</li>
+            <li><strong>Thyroid Hormone Optimization:</strong> The American Thyroid Association (ATA) recommends maintaining serum TSH &lt; 2.5 mIU/L during the preconception window to support early corpus luteum function and embryonic neurodevelopment.</li>
+            <li><strong>Eliminate Endocrine Disrupting Chemicals:</strong> Minimize exposure to synthetic phthalates, bisphenol A (BPA), and per- and polyfluoroalkyl substances (PFAS) in food packaging and personal care products.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Couples under age 35 are clinically recommended to seek reproductive evaluation after 12 months of timed intercourse, while those aged 35 and older should pursue evaluation after 6 months.
+          </p>
+        </section>
+
+        
+          <h2>Preconception Lifestyle Checklist for Both Partners</h2>
+          <p>
+            Optimize gamete health and reproductive longevity by implementing this comprehensive preconception checklist 3 to 6 months prior to attempting conception:
+          </p>
+          <ul>
+            <li><strong>Prenatal Micronutrient Supplementation:</strong> Women should begin taking daily prenatal vitamins containing at least 400 to 800 mcg of active methylfolate (5-MTHF) to prevent neural tube defects and support early embryogenesis.</li>
+            <li><strong>Optimizing Body Composition:</strong> Both maternal and paternal body mass index (BMI) within the healthy range (18.5–24.9) optimizes hormonal ovulation regularity and semen parameters.</li>
+            <li><strong>Eliminating Toxic Environmental Exposures:</strong> Discontinue smoking, moderate or eliminate alcohol consumption, and avoid recreational drugs and excess caffeine to protect egg and sperm DNA integrity.</li>
+            <li><strong>Comprehensive Medical Review:</strong> Schedule a preconception checkup to review chronic medications, check rubella and varicella immunity, and optimize thyroid (TSH &lt; 2.5 mIU/L) and blood glucose levels.</li>
+          </ul>
+          <p>
+            Maintain open communication with your healthcare provider to personalize your pathway to a healthy, supported pregnancy.
+          </p>
+
+
+        
+          <h2>Oocyte Meiotic Spindle Integrity &amp; Maternal Age Curve</h2>
+          <p>
+            Unlike biological males who continuously generate new spermatozoa throughout life, females are born with their lifetime complement of primordial follicles (~1 to 2 million at birth, declining to ~300,000 at menarche and ~1,000 at menopause). As maternal age advances beyond 35, the primary challenge to conception is not simply follicle quantity, but oocyte meiotic spindle integrity.
+          </p>
+          <p>
+            Aging oocytes experience mitochondrial DNA deletions and reduced cellular ATP production, elevating the incidence of non-disjunction meiotic errors that lead to chromosomal aneuploidies. Clinical studies demonstrate that coenzyme Q10 (CoQ10, 400–600 mg/day) and active antioxidant support can enhance mitochondrial energy output during the 90-day follicular recruitment window.
+          </p>
+          <h2>Semen Parameters &amp; Paternal DNA Fragmentation</h2>
+          <p>
+            Paternal factors contribute to approximately 50% of conception challenges. Evaluating a comprehensive semen analysis (volume &ge; 1.5 mL, total sperm count &ge; 39 million, progressive motility &ge; 32%, and normal Kruger strict morphology &ge; 4%) is critical. Minimizing testicular heat exposure (saunas, tight cycling gear), reducing alcohol intake, and optimizing dietary zinc and selenium protect sperm DNA integrity.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

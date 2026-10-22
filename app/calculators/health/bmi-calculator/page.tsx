@@ -272,6 +272,61 @@ export default function Page() {
             or your <a href="/calculators/health/waist-to-height-ratio-calculator">waist-to-height ratio</a>.
           </p>
 
+          
+        {/* Adiposity Phenotyping: Normal Weight Obesity & Ethnic Cutoffs */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Adiposity Phenotyping: Normal Weight Obesity &amp; Ethnic Cutoffs
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            While Body Mass Index remains the global epidemiology benchmark due to its zero calculation cost, clinical practice increasingly recognizes its limitations as a surrogate for individual metabolic health. Because BMI equation cannot differentiate between dense lean contractile skeletal muscle, bone mineral mass, and adipose tissue, relying solely on BMI generates substantial diagnostic misclassification:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Normal Weight Obesity (NWO)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Up to 30% of adults categorized as Normal weight by standard BMI (18.5–24.9) possess excessively high body fat percentages (&gt;30% in females, &gt;25% in males) coupled with low skeletal muscle mass. These individuals exhibit elevated systemic insulin resistance, dyslipidemia, subclinical coronary atherosclerosis, and all-cause mortality rates matching clinical obesity.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">WHO Asian Population Specific Thresholds</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Extensive World Health Organization epidemiological data confirm that Asian populations develop type 2 diabetes and cardiovascular disease at significantly lower BMI thresholds. Consequently, WHO established revised Asian criteria: Overweight begins at BMI &ge; 23.0 kg/m² and Obesity at &ge; 27.5 kg/m².
+              </p>
+            </div>
+          </div>
+          <h2>Dual Assessment: Combining BMI with Waist Circumference</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The NIH and WHO advise pairing BMI calculations with waist circumference. Keeping waist circumference below 35 inches for women and 40 inches for men ensures visceral fat remains low even if overall body weight is elevated due to muscular development.
+          </p>
+        </section>
+
+          
+          <h2>Comprehensive Health Assessment: Moving Beyond BMI Alone</h2>
+          <p>
+            Utilize Body Mass Index as an initial demographic baseline while incorporating these essential clinical metrics:
+          </p>
+          <ul>
+            <li><strong>Waist Circumference &amp; WHtR:</strong> Keeping waist circumference below 35 inches for women and 40 inches for men (and Waist-to-Height Ratio under 0.50) ensures visceral fat remains low regardless of BMI.</li>
+            <li><strong>Body Fat Percentage &amp; Lean Mass:</strong> Body fat measurements (via DEXA, skinfold calipers, or circumference methods) distinguish between dense muscular athletes and individuals with normal-weight obesity.</li>
+            <li><strong>Blood Pressure &amp; Resting Heart Rate:</strong> Normal resting blood pressure (&lt;120/80 mmHg) and heart rate (60–80 bpm) reflect strong cardiovascular conditioning and arterial compliance.</li>
+            <li><strong>Metabolic Biomarkers:</strong> Fasting blood glucose, HbA1c, and lipid panels (specifically the triglyceride-to-HDL ratio) provide direct diagnostic visibility into internal metabolic health.</li>
+          </ul>
+          <p>
+            Combine multiple health metrics for an accurate, individualized view of your wellness and long-term vitality.
+          </p>
+
+
+          
+          <h2>Dual Assessment: Combining BMI with Waist Circumference</h2>
+          <p>
+            The National Institutes of Health (NIH) and World Health Organization strongly advise pairing BMI calculations with waist circumference measurements. An individual with an &quot;Overweight&quot; BMI (25–29.9) who maintains a waist circumference below 35 inches (for women) or 40 inches (for men) exhibits significantly lower cardiometabolic disease risk than an individual with identical BMI and high central adiposity.
+          </p>
+          <p>
+            Use BMI as an initial demographic baseline, followed by body composition and waist measurements for personalized health guidance.
+          </p>
+
+
           <h2>Frequently asked questions</h2>
           <Faq items={FAQ} />
         </Editorial>

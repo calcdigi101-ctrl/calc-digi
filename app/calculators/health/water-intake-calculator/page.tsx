@@ -161,6 +161,74 @@ export default function Page() {
             </p>
           </div>
     
+        
+        {/* Neuroendocrine Hydration & Renal Solute Clearance */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Neuroendocrine Hydration Control: Arginine Vasopressin &amp; Aquaporins
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Human systemic fluid balance is regulated by central hypothalamic osmoreceptors capable of detecting shifts in plasma osmolality as minute as 1% to 2%. When extracellular osmolality exceeds the physiological baseline of 285 to 295 mOsm/kg H2O, the posterior pituitary gland secretes arginine vasopressin (AVP / Antidiuretic Hormone). AVP binds to basolateral V2 receptors on renal collecting duct principal cells, mobilizing intracellular Aquaporin-2 water channels to reclaim water from urine into peritubular capillaries.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Hyponatremia &amp; Overhydration Hazards</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Excessive plain hypotonic water ingestion exceeding renal excretory clearance capacity (~800 to 1,000 mL per hour) dilutes serum sodium below 135 mEq/L, triggering exercise-associated hyponatremia (EAH). The osmotic gradient drives fluid into cerebral neurons, causing cerebral edema, confusion, and ataxia. Endurance athletes must co-ingest sodium electrolytes (300–600 mg/L) during prolonged exertion.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Cognitive &amp; Neuromuscular Performance Decay</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Mild hypohydration equivalent to just 1.5% to 2.0% body mass loss significantly impairs executive working memory, reaction time, subjective vigor, and thermoregulatory sweat rates. In resistance training, 2% hypohydration reduces muscular power output and total repetition volume by up to 15%.
+              </p>
+            </div>
+          </div>
+          <h2>Renal Solute Load &amp; Circadian Fluid Intake Scheduling</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Timing your fluid intake with circadian biology maximizes physical energy and protects uninterrupted sleep:
+          </p>
+          <ul>
+            <li><strong>Morning Awakening (500–750 mL):</strong> Rehydrate immediately upon waking to replace nocturnal respiratory fluid loss and stimulate gastrointestinal peristalsis.</li>
+            <li><strong>Pre-Workout Hydration (350–500 mL):</strong> Consume fluids with a pinch of mineral salt 60 to 90 minutes prior to exercise to elevate plasma volume and optimize heat dissipation.</li>
+            <li><strong>Intra-Workout Maintenance (150–250 mL every 15–20 min):</strong> For workouts exceeding 60 minutes in warm conditions, sip cool electrolyte fluids containing sodium and potassium.</li>
+            <li><strong>Evening Taper:</strong> Taper fluid volume 2 hours before bed to prevent nocturnal bladder distention (nocturia) from interrupting deep slow-wave N3 and REM sleep architecture.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Monitor morning urine specific gravity or compare urine color against the standardized Armstrong 8-level visual hydration scale: levels 1 to 3 indicate optimal euhydration.
+          </p>
+        </section>
+        
+          <h2>Practical Hydration Scheduling: Optimizing Circadian Fluid Intake</h2>
+          <p>
+            Achieving optimal cellular hydration involves more than drinking random quantities of water; timing your fluid intake with circadian biology maximizes physical energy and protects uninterrupted sleep:
+          </p>
+          <ul>
+            <li><strong>Morning Awakening (500–750 mL):</strong> Rehydrate immediately upon waking to replace nocturnal respiratory and transdermal fluid loss, jumpstart renal filtration, and stimulate gastrointestinal peristalsis.</li>
+            <li><strong>Pre-Workout Hydration (350–500 mL):</strong> Consume fluids with a pinch of mineral salt 60 to 90 minutes prior to exercise to elevate plasma volume and optimize cardiovascular heat dissipation during sweating.</li>
+            <li><strong>Intra-Workout Maintenance (150–250 mL every 15–20 minutes):</strong> For workouts exceeding 60 minutes in warm conditions, sip cool electrolyte fluids containing 300 to 500 mg of sodium per liter to maintain cardiac stroke volume.</li>
+            <li><strong>Evening Taper (Limit large boluses 2 hours before bed):</strong> Taper fluid volume in the late evening to prevent nocturnal bladder distention (nocturia) from interrupting deep slow-wave N3 and REM sleep architecture.</li>
+          </ul>
+          <p>
+            Pair your baseline water intake with potassium-rich whole foods (bananas, potatoes, spinach) to maintain optimal intracellular-to-extracellular osmotic equilibrium throughout every day.
+          </p>
+
+        
+          <h2>Renal Solute Load &amp; Electrolyte Osmolality Dynamics</h2>
+          <p>
+            The physiological requirement for daily water intake is fundamentally dictated by renal solute load—the total quantity of nitrogenous urea, sodium, potassium, and chloride ions requiring urinary excretion. Under typical dietary conditions, an adult must excrete approximately 600 to 900 milliosmoles (mOsm) of metabolic solutes per day. Because maximal human renal urine concentrating capacity reaches approximately 1,200 mOsm/kg H2O, maintaining obligatory urine volume requires at least 500 to 750 mL of water simply to prevent azotemia.
+          </p>
+          <p>
+            When engaging in vigorous endurance exercise or working in hot humid conditions, dermal sweat rates can reach 1.0 to 2.5 liters per hour. Sodium concentrations in sweat range between 20 and 80 mEq/L, meaning that rehydrating solely with pure hypotonic water without sodium replacement drops serum osmolality and triggers exercise-associated hyponatremia. Consuming electrolyte-rich beverages containing 300 to 500 mg of sodium per liter restores plasma volume, prevents muscular cramping, and optimizes cellular hydration.
+          </p>
+          <h2>Diuretic Beverages &amp; Total Body Water Equilibrium</h2>
+          <p>
+            A persistent myth in recreational wellness is that caffeinated coffee and tea do not contribute toward daily hydration due to diuretic properties. Controlled crossover trials confirm that in habitual consumers, moderate caffeine doses (&le;400 mg/day) produce negligible acute diuretic effects. The fluid volume consumed in brewed coffee and tea contributes effectively to 24-hour total body water balance.
+          </p>
+          <p>
+            Assess your daily hydration by checking morning urine color against the validated Armstrong 8-level visual chart: levels 1 to 3 indicate healthy euhydration, while levels 4 through 8 warrant immediate fluid consumption.
+          </p>
+
         </>
       }
     >

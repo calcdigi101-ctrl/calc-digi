@@ -208,6 +208,19 @@ export default function BabyWeightPage() {
           </ul>
         </section>
       
+        
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+            WHO Child Growth Velocity &amp; Catch-Up Trajectories
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Pediatricians evaluate infant growth velocity across serial clinical well-child visits rather than relying on a single static measurement. Healthy infants typically regain birth weight within 10 to 14 days of delivery, double their birth weight by 4 to 6 months, and triple birth weight by their first birthday.
+          </p>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Cross-percentile shifts exceeding two major quartile channels warrant close nutritional evaluation of maternal lactation volumes, formula reconstitution precision, and pediatric gastrointestinal absorption efficiency.
+          </p>
+        </section>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

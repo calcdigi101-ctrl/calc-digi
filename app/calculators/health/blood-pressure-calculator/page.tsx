@@ -189,6 +189,60 @@ export default function BloodPressurePage() {
           </ul>
         </section>
       
+        
+        {/* Arterial Compliance, Endothelial Nitric Oxide & Nocturnal Dipping */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Arterial Compliance, Endothelial Nitric Oxide &amp; Nocturnal Dipping
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Systemic blood pressure reflects the interplay between cardiac output (the volume of blood pumped per minute) and total systemic vascular resistance. As blood surges from the left ventricle into the aorta during systole, healthy compliant elastic arteries expand, dampening the pulse wave. In chronic hypertension, arterial wall remodeling, collagen cross-linking, and elastin degradation reduce arterial compliance, producing elevated pulse pressure and cardiac left ventricular hypertrophy.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Prognostic Meaning of Nocturnal Dipping</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                In healthy circadian physiology, nocturnal systolic and diastolic blood pressure drops by 10% to 20% during sleep (dippers) due to parasympathetic autonomic dominance. Individuals exhibiting a blunted drop of less than 10% (non-dippers) or nocturnal blood pressure spikes have double the long-term risk of stroke, congestive heart failure, and renal insufficiency.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Dietary Sodium-to-Potassium Ratio</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Clinical trials such as the DASH study demonstrate that dietary potassium intake (&ge; 3,500 to 4,700 mg/day) promotes renal natriuresis (sodium excretion) and relaxes vascular smooth muscle tone. Elevating dietary potassium from whole foods (potatoes, leafy greens, avocados) often matches the antihypertensive efficacy of single-agent pharmacotherapy.
+              </p>
+            </div>
+          </div>
+          <h2>Evidence-Based Interventions for Hypertension Reduction</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Adhere strictly to standardized measurement guidelines: sit quietly with back supported for 5 minutes, keep arm at heart level, and avoid caffeine or tobacco for 30 minutes prior to cuff inflation. Incorporate the DASH nutritional pattern, regular aerobic exercise, and isometric wall squats for sustained vascular health.
+          </p>
+        </section>
+
+        
+          <h2>Clinical Lifestyle Interventions for Hypertension Reduction</h2>
+          <p>
+            Evidence-based non-pharmacological interventions yield dramatic systolic and diastolic blood pressure reductions comparable to multiple antihypertensive medications:
+          </p>
+          <ul>
+            <li><strong>The DASH Nutritional Model:</strong> Adopting a Dietary Approaches to Stop Hypertension (DASH) eating plan—rich in fruits, vegetables, whole grains, and low-fat dairy—reduces systolic blood pressure by 8 to 14 mmHg.</li>
+            <li><strong>Aerobic &amp; Isometric Exercise:</strong> Engaging in 150 minutes of moderate aerobic conditioning weekly lowers systolic pressure by 5 to 8 mmHg. Additionally, isometric wall squat holds (4 sets of 2 minutes, 3 times weekly) induce vascular shear stress that lowers resting blood pressure by 8 to 10 mmHg.</li>
+            <li><strong>Sodium Moderation &amp; Potassium Optimization:</strong> Capping dietary sodium below 2,300 mg daily (or 1,500 mg for hypertensive adults) while increasing dietary potassium to 3,500–4,700 mg daily restores renal natriuretic balance.</li>
+            <li><strong>Stress Reduction &amp; Slow Breathing:</strong> Practicing resonance frequency diaphragmatic breathing (6 breaths per minute for 10 minutes) stimulates parasympathetic vagal tone and lowers systemic peripheral resistance.</li>
+          </ul>
+          <p>
+            Log daily morning and evening seated readings under standardized conditions and share the records with your physician during clinical wellness visits.
+          </p>
+
+
+        
+          <h2>Endothelial Nitric Oxide &amp; Nocturnal Blood Pressure Dipping</h2>
+          <p>
+            Healthy vascular endothelium synthesizes nitric oxide (NO) via endothelial nitric oxide synthase (eNOS) to stimulate vascular smooth muscle relaxation and maintain low systemic arterial resistance. Chronic oxidative stress and high sodium intake uncouple eNOS, reducing NO bioavailability and increasing central aortic stiffness.
+          </p>
+          <p>
+            In normal circadian physiology, systolic and diastolic blood pressure decrease by 10% to 20% during nocturnal sleep (&quot;dipping&quot; pattern). Non-dippers—individuals whose blood pressure fails to decline overnight—experience significantly elevated risks of stroke, left ventricular hypertrophy, and renal failure.
+          </p>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

@@ -231,6 +231,70 @@ export default function ChildHeightPredictorPage() {
           </ul>
         </section>
       
+        
+        {/* Epiphyseal Chondrocyte Dynamics & Endocrine Regulators */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Epiphyseal Plate Biology, Growth Velocity &amp; Endocrine Regulators
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Longitudinal human skeletal growth occurs at the epiphyseal cartilage plates located at the metaphyses of tubular long bones. Chondrocytes undergo rapid proliferation, hypertrophy, and matrix calcification before being replaced by osteoblasts and trabecular bone. This cellular elongation is tightly orchestrated by endocrine signaling cascades involving pituitary growth hormone (GH), hepatic insulin-like growth factor 1 (IGF-1), thyroid hormones (T3/T4), and gonadal steroids.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Pubertal Growth Spurt &amp; Estrogenic Fusion</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                During puberty, peak height velocity (PHV) reaches approximately 8 to 10 cm/year in girls (typically Tanner Stage 2–3, around age 11.5–12) and 9 to 12 cm/year in boys (Tanner Stage 3–4, around age 13.5–14). Paradoxically, circulating estrogen in both biological sexes is the ultimate molecular trigger for epiphyseal plate senescence and permanent growth plate fusion.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Nutritional &amp; Sleep Optimization</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                While genetics dictate approximately 80% of final adult stature, chronic childhood malnutrition, systemic inflammation, or severe sleep deprivation blunts IGF-1 secretion. Deep non-REM slow-wave sleep accounts for over 60% of daily growth hormone pulses, making 9 to 11 hours of nocturnal sleep foundational for growing adolescents.
+              </p>
+            </div>
+          </div>
+          <h2>Pediatric Growth Milestones &amp; Nutritional Foundation</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Ensure growing children receive adequate high-quality dietary protein, bioavailable calcium and Vitamin D3 for bone mineralization, and daily weight-bearing physical play to stimulate bone mineral density.
+          </p>
+        </section>
+
+        
+          <h2>Pediatric Growth Milestones &amp; Nutritional Foundation</h2>
+          <p>
+            Support your child's natural genetic growth potential with foundational lifestyle and nutritional habits:
+          </p>
+          <ul>
+            <li><strong>Adequate High-Quality Protein:</strong> Children and adolescents require 0.85 to 1.1 grams of protein per kilogram of body weight to support tissue growth, collagen synthesis, and immune defense.</li>
+            <li><strong>Calcium &amp; Vitamin D3 Bone Accrual:</strong> Ensure adequate dietary calcium (dairy, fortified plant milks, leafy greens) paired with Vitamin D3 (sunlight, fortified foods, supplements) to optimize bone mineralization and growth plate elongation.</li>
+            <li><strong>Consistent Nocturnal Sleep:</strong> Up to 60% of human growth hormone is secreted during deep slow-wave sleep. School-age children require 9 to 11 hours and adolescents require 8 to 10 hours of sleep per night.</li>
+            <li><strong>Daily Weight-Bearing Physical Play:</strong> Running, jumping, and youth sports place healthy mechanical stress on long bones, stimulating bone mineral density and muscular development.</li>
+          </ul>
+          <p>
+            Plot your child's height and weight percentiles at regular pediatric well-visits to ensure steady tracking along their individualized growth trajectory.
+          </p>
+
+
+        
+          <h2>Nutritional Micronutrients, Zinc &amp; Endocrine Growth Vectors</h2>
+          <p>
+            Maximizing childhood genetic growth potential requires adequate micronutrient availability during critical developmental windows. Dietary zinc acts as an essential cofactor for over 300 enzymes, including alkaline phosphatase and DNA polymerases involved in cellular elongation. Mild zinc deficiency in growing children impairs hepatic IGF-1 synthesis and leads to reversible growth deceleration.
+          </p>
+          <p>
+            Ensuring adequate dietary intake of calcium, Vitamin D3, bioavailable protein, and essential fatty acids supports optimal bone mineral accrual and epiphyseal chondrocyte proliferation throughout prepubertal and adolescent growth spurts.
+          </p>
+
+
+        
+          <h2>Epiphyseal Fusion Biology &amp; Tanner Pubertal Staging</h2>
+          <p>
+            Linear human growth occurs at the epiphyseal growth plates located at the ends of long bones. Chondrocytes in the resting and proliferative zones replicate and synthesize extracellular cartilage matrix before undergoing hypertrophy and ossification.
+          </p>
+          <p>
+            During puberty (Tanner Stages 2 through 4), rising sex steroids (estrogen in both biological females and males via peripheral aromatization of testosterone) trigger the adolescent growth spurt. Ultimately, higher adult concentrations of estrogen induce terminal epiphyseal fusion, concluding linear skeletal growth.
+          </p>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

@@ -190,6 +190,75 @@ export default function Page() {
             a waist-to-height ratio under 0.50 and resistance training 3 days per week to support functional longevity over
             obsessing over a single arbitrary number on the scale.
           </p>
+        
+        {/* Pharmacotherapy Dosing & Body Composition Nuance */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Clinical Pharmacology Applications &amp; Frame Size Adjustments
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            While originally conceived for public health insurance tables, Ideal Body Weight (IBW) equations serve a vital role in modern clinical pharmacokinetics and critical care medicine. Many hydrophilic therapeutic agents, neuromuscular blockers, and mechanical ventilator tidal volume parameters must be calibrated to IBW rather than total actual body weight (ABW):
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Adjusted Body Weight (AdjBW) in Obesity</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                When actual weight exceeds 120% of IBW, hydrophilic drug distribution into expanded adipose tissue requires the Adjusted Body Weight formulation: AdjBW = IBW + 0.4 × (ABW − IBW). This prevents lethal drug toxicity in aminoglycoside antibiotics and chemotherapeutic dosing.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Skeletal Frame Size Calibration</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Standard Devine and Hamwi formulas assume average skeletal frame and muscular development. In clinical practice, wrist circumference is utilized to adjust IBW: small frames subtract 10% from calculated IBW, while large skeletal frames add 10% to account for greater bone mineral mass.
+              </p>
+            </div>
+          </div>
+          <h2>Holistic Body Composition: Moving Beyond Scale Weight</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Achieving a healthy body weight involves evaluating functional body composition rather than fixating on an arbitrary scale number:
+          </p>
+          <ul>
+            <li><strong>Prioritize Muscle Mass &amp; Strength:</strong> Muscle tissue is dense, active metabolic tissue that burns calories at rest, regulates blood glucose, and supports bone mineral density. A higher scale weight driven by lean muscle is cardioprotective.</li>
+            <li><strong>Monitor Waist Circumference:</strong> Keeping waist circumference below 35 inches (women) or 40 inches (men) ensures visceral fat remains low even if overall body weight is above traditional charts.</li>
+            <li><strong>Track Biomarkers of Metabolic Health:</strong> Fasting blood glucose, HbA1c, lipid panels (triglycerides to HDL ratio), and resting blood pressure provide vastly superior clinical data compared to bathroom scales.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Treat IBW figures as clinical baselines rather than rigid lifestyle targets, prioritizing body composition, waist circumference, and blood lipid profiles.
+          </p>
+        </section>
+        
+          <h2>Holistic Body Composition: Moving Beyond Scale Weight</h2>
+          <p>
+            Achieving a healthy body weight involves evaluating functional body composition rather than fixating on an arbitrary scale number:
+          </p>
+          <ul>
+            <li><strong>Prioritize Muscle Mass &amp; Strength:</strong> Muscle tissue is dense, active metabolic tissue that burns calories at rest, regulates blood glucose, and supports bone mineral density. A higher scale weight driven by lean muscle is cardioprotective.</li>
+            <li><strong>Monitor Waist Circumference:</strong> Keeping waist circumference below 35 inches (women) or 40 inches (men) ensures visceral fat remains low even if overall body weight is above traditional charts.</li>
+            <li><strong>Track Biomarkers of Metabolic Health:</strong> Fasting blood glucose, HbA1c, lipid panels (triglycerides to HDL ratio), and resting blood pressure provide vastly superior clinical data compared to bathroom scales.</li>
+            <li><strong>Focus on Functional Stamina:</strong> Cardiovascular endurance, joint mobility, resting heart rate, and subjective daily energy reflect true physiological vitality.</li>
+          </ul>
+          <p>
+            Use Ideal Body Weight figures as a general demographic reference point while tailoring lifestyle goals around body composition, strength, and clinical health markers.
+          </p>
+
+        
+          <h2>Historical Formulation Limitations &amp; Frame Size Adjustments</h2>
+          <p>
+            The traditional Ideal Body Weight formulas—Devine (1974), Robinson (1983), Miller (1983), and Hamwi (1964)—were originally designed for pharmacotherapy dosing calculations rather than aesthetic or athletic body composition goals. These formulas assume average bone mineral density, average skeletal frame circumference, and sedentary muscular mass.
+          </p>
+          <p>
+            In clinical practice, wrist circumference is utilized to adjust IBW for skeletal frame size:
+          </p>
+          <ul>
+            <li><strong>Small Frame:</strong> Subtract 10% from calculated IBW (wrist circumference &lt; 6.5 in for men, &lt; 6.0 in for women).</li>
+            <li><strong>Medium Frame:</strong> Utilize standard calculated IBW (wrist circumference 6.5–7.5 in for men, 6.0–6.5 in for women).</li>
+            <li><strong>Large Frame:</strong> Add 10% to calculated IBW (wrist circumference &gt; 7.5 in for men, &gt; 6.5 in for women).</li>
+          </ul>
+          <h2>Athletic Body Composition &amp; Fat-Free Mass</h2>
+          <p>
+            Muscular strength athletes, bodybuilders, and power athletes routinely surpass their calculated IBW while maintaining healthy single-digit or low-teen body fat percentages. In these populations, Body Fat Percentage, Waist-to-Height Ratio, and blood lipid biomarkers provide vastly superior clinical guidance compared to simple scale weight tables.
+          </p>
+
         </>
       }
     >

@@ -261,6 +261,16 @@ export default function LeanBodyMassPage() {
           </div>
         </section>
       
+        
+        <section className="space-y-4">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">
+            Clinical FFMI Cutoffs &amp; Functional Muscle Quality
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Fat-Free Mass Index (FFMI) normalizes lean body mass to height squared, providing an objective benchmark for muscular development independent of adipose tissue. In natural populations, biological male FFMI plateaus near 25.0 kg/m², while values below 17.5 in men or 15.0 in women indicate sarcopenic vulnerability requiring progressive resistance training.
+          </p>
+        </section>
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

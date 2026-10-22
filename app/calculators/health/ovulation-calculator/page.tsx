@@ -192,6 +192,69 @@ export default function OvulationPage() {
           </div>
         </section>
       
+        
+        {/* Fertile Window Triangulation & Cervical Hydrogels */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Triangulating the Fertile Window: LH Surge, Cervical Mucus &amp; BBT
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The biological fertile window encompasses exactly six days: the five days preceding ovulation plus the day of ovum release. Because human spermatozoa maintain fertilizing capacity in alkaline cervical crypts for up to 120 hours (5 days) while the ovum survives only 12 to 24 hours post-follicular rupture, coitus occurring 1 to 2 days prior to ovulation yields the highest per-cycle conception probability (~28%–32%).
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Cervical Mucus Billings Method</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Rising pre-ovulatory estrogen stimulates endocervical glands to secrete copious, thin, clear, and stretchy &quot;egg-white&quot; cervical mucus (Spinnbarkeit &gt; 8 cm). This alkaline hydrogel filters morphologically abnormal sperm and creates longitudinal micro-channels facilitating rapid sperm transit into the uterine cavity.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Basal Body Temperature (BBT) Shift</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Progesterone produced by the post-ovulatory corpus luteum acts directly on the preoptic hypothalamic thermoregulatory center, inducing a sustained temperature rise of 0.4°F to 1.0°F (0.2°C–0.5°C). BBT confirms ovulation retrospectively after the fertile window has closed, helping establish individualized luteal phase lengths.
+              </p>
+            </div>
+          </div>
+          <h2>Urine Luteinizing Hormone (LH) Testing Kinetics</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            The biological trigger for follicular rupture is the mid-cycle surge of pituitary luteinizing hormone (LH):
+          </p>
+          <ul>
+            <li><strong>Surge Onset to Ovulation:</strong> Ovulation typically occurs 24 to 36 hours after the initial onset of the LH surge and 10 to 12 hours after the peak concentration.</li>
+            <li><strong>Optimal Urine Testing Window:</strong> Because LH is synthesized overnight and cleared into urine throughout the day, testing urine between 11:00 AM and 3:00 PM (avoiding excessive morning hydration dilution) provides peak detection accuracy.</li>
+            <li><strong>Coital Timing Protocol:</strong> Have intercourse every 1 to 2 days during the 5 days leading up to and including the day of ovulation to ensure continuous viable sperm presence in the fallopian ampulla.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Combining digital urine luteinizing hormone (LH) test kits with daily cervical mucus observation provides the most reliable at-home method for identifying peak fertile days.
+          </p>
+        </section>
+
+        
+          <h2>Fertility Awareness &amp; Optimizing Conception Timelines</h2>
+          <p>
+            Maximize your conception probability by combining digital ovulation calculation with at-home biological markers:
+          </p>
+          <ul>
+            <li><strong>Cervical Mucus Observation:</strong> As ovulation approaches, estrogen stimulates clear, slippery, stretchy &quot;egg-white&quot; mucus that nourishes and transports sperm. Intercourse during egg-white mucus days yields the highest pregnancy rates.</li>
+            <li><strong>Urine Luteinizing Hormone (LH) Test Strips:</strong> Test urine mid-day starting 3 to 4 days before your predicted ovulation date. A positive LH test indicates that ovulation will occur within 24 to 36 hours.</li>
+            <li><strong>Coital Timing Protocol:</strong> Have intercourse every 1 to 2 days during the 5 days leading up to and including the day of ovulation to ensure continuous viable sperm presence in the reproductive tract.</li>
+            <li><strong>Basal Body Temperature (BBT) Confirmation:</strong> A sustained 0.4°F to 1.0°F temperature rise confirms that ovulation has successfully occurred, marking the close of the fertile window.</li>
+          </ul>
+          <p>
+            Consult an OB-GYN or reproductive endocrinologist if conception does not occur after 12 months of timed intercourse (or 6 months if aged 35 or older).
+          </p>
+
+
+        
+          <h2>Follicular Waves &amp; Sperm Longevity Dynamics</h2>
+          <p>
+            In human reproductive biology, human spermatozoa can survive in alkaline, estrogenic cervical crypts for up to 5 days (120 hours). In contrast, a released secondary oocyte remains viable for fertilization for only 12 to 24 hours post-follicular rupture. Consequently, the window of highest conception probability occurs when intercourse takes place 1 to 2 days prior to ovulation, ensuring that capacitated sperm are already waiting in the fallopian tube ampulla when the ovum arrives.
+          </p>
+          <p>
+            Tracking cervical mucus texture—transitioning from dry or sticky to slippery, clear &quot;egg-white&quot; consistency—correlates closely with rising estradiol and peak fertile probability.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

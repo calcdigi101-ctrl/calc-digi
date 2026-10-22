@@ -198,6 +198,62 @@ export default function SleepPage() {
           />
         </section>
       
+        
+        {/* Neurobiology of Sleep Architecture & Glymphatic Drainage */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Neurobiology of Sleep Architecture: Delta Slow-Waves &amp; Glymphatic Clearance
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Sleep is not a passive cessation of consciousness but an active, highly orchestrated neurological sequence regulated by two opposing biological processes: Process S (homeostatic sleep pressure driven by progressive adenosine accumulation in the basal forebrain) and Process C (the 24-hour circadian rhythm orchestrated by the suprachiasmatic nucleus).
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Glymphatic Brain Waste Clearance</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                During deep slow-wave N3 sleep, astroglial water channels (aquaporin-4) open, and interstitial space expands by up to 60%. This allows cerebrospinal fluid to flush metabolic neurotoxins, including amyloid-beta peptides and hyperphosphorylated tau proteins, out of cerebral tissue.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Anabolic Endocrine Secretion</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Up to 70% of 24-hour human growth hormone (HGH) pulsatile secretion occurs during the early non-REM slow-wave sleep cycles. Chronic sleep restriction dampens testosterone secretion, elevates morning cortisol, and impairs muscular protein synthesis.
+              </p>
+            </div>
+          </div>
+          <h2>Evidence-Based Sleep Hygiene Foundations</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Anchor a consistent wake time 7 days a week, view morning outdoor sunlight within 30 minutes of waking, maintain a cool bedroom (65°F to 68°F / 18°C to 20°C), and observe an 8 to 10-hour caffeine cutoff to ensure deep, restorative nocturnal sleep cycles.
+          </p>
+        </section>
+
+        
+          <h2>Evidence-Based Sleep Hygiene: 5 Foundations of Restorative Rest</h2>
+          <p>
+            Optimize your sleep architecture and daytime alertness by establishing these 5 clinical sleep hygiene habits:
+          </p>
+          <ul>
+            <li><strong>Anchor a Consistent Wake Time:</strong> Wake up at the exact same time 7 days a week, including weekends. This stabilizes your master circadian clock and ensures predictable nocturnal sleep pressure.</li>
+            <li><strong>Get Morning Outdoor Sunlight:</strong> View natural outdoor light for 10 to 30 minutes within 1 hour of waking to set your biological clock and stimulate healthy evening melatonin release.</li>
+            <li><strong>Cool, Dark &amp; Quiet Bedroom Environment:</strong> Keep your bedroom cool (65°F to 68°F / 18°C to 20°C), completely pitch-black using blackout shades, and quiet to prevent micro-arousals during deep slow-wave sleep.</li>
+            <li><strong>Implement a 10-Hour Caffeine Cutoff:</strong> Because caffeine has an average metabolic half-life of 5 to 7 hours, avoid coffee, energy drinks, and caffeinated teas for at least 8 to 10 hours before your scheduled bedtime.</li>
+            <li><strong>Limit Evening Blue Light Exposure:</strong> Dim overhead lights and turn off smartphones, tablets, and computer screens at least 60 minutes before bed to protect natural pineal melatonin secretion.</li>
+          </ul>
+          <p>
+            Prioritize 7 to 9 hours of quality sleep nightly to support cognitive performance, emotional stability, and immune defense.
+          </p>
+
+
+        
+          <h2>Adenosine Homeostasis, Circadian Zeitgebers &amp; Sleep Hygiene</h2>
+          <p>
+            High-quality nocturnal sleep requires the synchronized alignment of homeostatic sleep pressure (Process S) and circadian rhythmicity (Process C). Throughout waking hours, cellular ATP breakdown generates extracellular adenosine in the basal forebrain. Adenosine binds to inhibitory A1 receptors, progressively increasing subjective sleepiness. Caffeine acts as a competitive antagonist at these adenosine receptors, temporarily blocking sleep pressure without clearing the underlying chemical fatigue.
+          </p>
+          <p>
+            Circadian rhythm is anchored by environmental timing cues (zeitgebers), most importantly morning sunlight entering retinal ganglion cells. Viewing outdoor sunlight within 30 to 60 minutes of waking triggers an early cortisol pulse and sets an internal 14 to 16-hour biological timer for nocturnal melatonin secretion, ensuring rapid sleep onset and deep restorative slow-wave cycles.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

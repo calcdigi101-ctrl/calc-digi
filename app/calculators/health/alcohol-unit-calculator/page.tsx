@@ -227,6 +227,70 @@ export default function AlcoholUnitPage() {
           </p>
         </section>
       
+        
+        {/* Hepatic Clearance Kinetics & Holiday Heart Syndrome */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Hepatic Clearance Kinetics, Acetaldehyde &amp; Cardiovascular Impact
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Ethanol clearance occurs primarily via hepatic alcohol dehydrogenase (ADH), converting ethanol into toxic acetaldehyde, which is rapidly converted by aldehyde dehydrogenase 2 (ALDH2) into non-toxic acetate. Acetate is subsequently released into the systemic circulation and metabolized into carbon dioxide and water in peripheral tissues at a constant zero-order rate of approximately 0.015% BAC per hour.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Holiday Heart Syndrome &amp; Arrhythmias</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Even in young, healthy individuals without pre-existing cardiac disease, acute binge drinking can trigger supraventricular arrhythmias, most commonly atrial fibrillation—a clinical phenomenon termed &quot;Holiday Heart Syndrome.&quot; Ethanol and acetaldehyde elevate circulating catecholamines, increase myocardial oxygen demand, and shorten atrial refractory periods.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">REM Sleep Architecture Collapse</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                While ethanol initially acts as a sedative GABA agonist facilitating sleep onset, nocturnal clearance leads to sympathetic rebound arousal. Alcohol suppresses rapid eye movement (REM) sleep by up to 50%, impairs nocturnal growth hormone secretion, and exacerbates obstructive sleep apnea.
+              </p>
+            </div>
+          </div>
+          <h2>Evidence-Based Guidelines for Harm Reduction</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Minimize the acute and chronic health hazards of alcohol consumption by adopting evidence-based harm reduction strategies:
+          </p>
+          <ul>
+            <li><strong>Follow Recommended Weekly Limits:</strong> Health guidelines recommend consuming no more than 14 units per week (UK standard) or 1 to 2 standard drinks per day (US CDC guideline), distributed across 3 or more days with alcohol-free days.</li>
+            <li><strong>Eat a Balanced Meal Before Drinking:</strong> Ingesting protein, complex carbohydrates, and healthy fats slows gastric emptying, blunts the rate of alcohol absorption, and prevents rapid BAC spikes.</li>
+            <li><strong>Alternate with Mineral Water:</strong> Drink a full glass of water or electrolyte beverage between alcoholic drinks to combat dehydration and moderate overall consumption pacing.</li>
+            <li><strong>Allow Sufficient Recovery Time:</strong> Give your liver at least 48 to 72 consecutive hours of complete alcohol abstinence weekly to allow hepatic enzyme regeneration and cellular repair.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Never drive or operate machinery after consuming alcohol, and utilize rideshare or designated drivers to ensure personal and community safety.
+          </p>
+        </section>
+
+        
+          <h2>Safer Drinking Guidelines &amp; Recovery Protocols</h2>
+          <p>
+            Minimize the acute and chronic health hazards of alcohol consumption by adopting evidence-based harm reduction strategies:
+          </p>
+          <ul>
+            <li><strong>Follow Recommended Weekly Limits:</strong> Health guidelines recommend consuming no more than 14 units per week (UK standard) or 1 to 2 standard drinks per day (US CDC guideline), distributed across 3 or more days with alcohol-free days.</li>
+            <li><strong>Eat a Balanced Meal Before Drinking:</strong> Ingesting protein, complex carbohydrates, and healthy fats slows gastric emptying, blunts the rate of alcohol absorption, and prevents rapid BAC spikes.</li>
+            <li><strong>Alternate with Mineral Water:</strong> Drink a full glass of water or electrolyte beverage between alcoholic drinks to combat dehydration and moderate overall consumption pacing.</li>
+            <li><strong>Allow Sufficient Recovery Time:</strong> Give your liver at least 48 to 72 consecutive hours of complete alcohol abstinence weekly to allow hepatic enzyme regeneration and cellular repair.</li>
+          </ul>
+          <p>
+            Never drive or operate machinery after consuming alcohol, and utilize rideshare or designated drivers to ensure personal and community safety.
+          </p>
+
+
+        
+          <h2>Ethanol Dehydrogenase Kinetics &amp; REM Rebound Disruption</h2>
+          <p>
+            Ethanol is metabolized by hepatic alcohol dehydrogenase (ADH) at a constant zero-order rate of approximately 0.015% BAC per hour, independent of circulating concentration. Popular remedies like cold showers, black coffee, or vigorous exercise cannot accelerate this hepatic rate-limiting enzymatic bottleneck.
+          </p>
+          <p>
+            While alcohol facilitates rapid initial sleep onset via GABA-A receptor agonism, its subsequent nocturnal clearance causes an autonomic sympathetic rebound during the second half of the night. This fragments deep restorative REM sleep, suppresses human growth hormone secretion, and causes early morning awakening with elevated heart rate.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

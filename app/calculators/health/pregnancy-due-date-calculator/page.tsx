@@ -214,6 +214,75 @@ export default function PregnancyDueDatePage() {
           </div>
         </section>
       
+        
+        {/* Advanced Clinical Obstetric Surveillance & Perinatal Guidelines */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            Advanced Clinical Obstetric Surveillance: Sonography &amp; Gestational Protocols
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            In modern evidence-based obstetrics, establishing an accurate Estimated Due Date (EDD) serves as the clinical foundation for timing diagnostic screenings, monitoring intrauterine growth velocity, and preventing complications of post-term gestation. While historical Naegele&apos;s Rule assumes an idealized 28-day menstrual cycle with ovulation occurring precisely on Day 14, empirical human biological variation requires continuous clinical reconciliation between menstrual dating and high-resolution sonographic biometry.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">First-Trimester Crown-Rump Length (CRL) Accuracy</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Prior to 14 weeks gestation, biological growth variance among human embryos is practically non-existent. A high-resolution CRL measurement performed between 8 and 13 weeks carries an exceptional clinical accuracy of ±3 to 5 days. According to American College of Obstetricians and Gynecologists (ACOG) Committee Opinion No. 700, if the sonographic CRL differs from the menstrual LMP calculation by more than 5 days (up to 8 6/7 weeks) or more than 7 days (between 9 and 13 6/7 weeks), the ultrasound dating permanently supersedes the menstrual date.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Amniotic Fluid Index (AFI) &amp; Late-Term Surveillance</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                As pregnancies progress beyond 40 completed weeks, placental syncytiotrophoblast vascular resistance rises and perfusion gradually declines. Clinicians evaluate amniotic fluid volume using the four-quadrant Amniotic Fluid Index (AFI, normal range 5 to 25 cm) or single deepest pocket (&gt;2 cm). Oligohydramnios (AFI &lt; 5 cm) reflects decreased fetal renal perfusion and signals progressive uteroplacental insufficiency, warranting planned labor induction.
+              </p>
+            </div>
+          </div>
+          <h2>Essential Antenatal Screening Milestones Across Trimesters</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Navigating a healthy pregnancy requires systematic prenatal surveillance calibrated to your calculated gestational age:
+          </p>
+          <ul>
+            <li><strong>Weeks 10 to 13 (Cell-Free Fetal DNA Screening):</strong> Non-invasive prenatal testing (NIPT) analyzes circulating trophoblastic fragments in maternal plasma to screen for Trisomy 21 (Down syndrome), Trisomy 18, and Trisomy 13 with sensitivity exceeding 99%.</li>
+            <li><strong>Weeks 18 to 22 (Comprehensive Level II Anatomy Scan):</strong> Detailed anatomical survey evaluating cerebral ventricles, facial profile, cardiac four-chamber and outflow tract views, spine, kidneys, and umbilical cord vessel count.</li>
+            <li><strong>Weeks 24 to 28 (Gestational Diabetes Screening):</strong> 50-gram oral glucose tolerance challenge to assess maternal pancreatic beta-cell insulin compensation against placental human placental lactogen (hPL).</li>
+            <li><strong>Weeks 35 to 37 (Group B Streptococcus Screening):</strong> Rectovaginal culture identifies maternal GBS colonization, guiding intrapartum prophylactic intravenous penicillin administration during labor.</li>
+          </ul>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Fewer than 5% of spontaneous deliveries occur on the exact calculated due date; spontaneous delivery between 37 weeks 0 days and 41 weeks 6 days is clinically normal and safe under regular medical supervision.
+          </p>
+        </section>
+
+        
+          <h2>Evidence-Based Antenatal Timeline: First to Third Trimester Milestones</h2>
+          <p>
+            Navigating a healthy pregnancy requires systematic prenatal surveillance calibrated to your calculated gestational age:
+          </p>
+          <ul>
+            <li><strong>Weeks 6 to 10 (Initial Viability Scan):</strong> Transvaginal or transabdominal ultrasound confirms intrauterine gestation, visualizes the fetal pole, detects embryonic cardiac activity (&gt;110 bpm), and establishes baseline crown-rump length (CRL).</li>
+            <li><strong>Weeks 11 to 14 (Aneuploidy &amp; Nuchal Translucency):</strong> Non-invasive prenatal testing (NIPT / cell-free fetal DNA screening) paired with nuchal translucency (NT) sonography screens for chromosomal trisomies (Trisomy 21, 18, 13) with over 99% clinical sensitivity.</li>
+            <li><strong>Weeks 18 to 22 (Comprehensive Level II Anatomy Survey):</strong> Detailed sonographic evaluation of fetal intracranial structures, cardiac four-chamber views, spinal cord integrity, renal morphology, and placental cord insertion.</li>
+            <li><strong>Weeks 24 to 28 (Gestational Diabetes Screening):</strong> 50-gram oral glucose challenge test (GCT) evaluates pancreatic beta-cell insulin compensation to prevent gestational hyperglycemia and fetal macrosomia.</li>
+            <li><strong>Weeks 36 to 37 (Group B Streptococcus Screening):</strong> Routine rectovaginal culture identifies GBS colonization to guide intrapartum prophylactic intravenous antibiotic administration during labor.</li>
+          </ul>
+          <p>
+            Coordinate closely with your obstetrician or certified nurse-midwife to personalize prenatal visits, monitor blood pressure, and maintain optimal maternal-fetal wellness.
+          </p>
+
+
+        
+          <h2>Obstetric Dating Sonography: Crown-Rump vs Biparietal Diameter</h2>
+          <p>
+            In clinical obstetrics, ultrasound biometry provides the definitive benchmark for confirming or revising menstrual due dates. Before 14 weeks gestation, biological variation in embryonic growth is virtually absent, making crown-rump length (CRL) measurements accurate to within ±3 to 5 days. If a first-trimester ultrasound measurement differs from the menstrual Naegele calculation by more than 5 days (up to 8 6/7 weeks) or more than 7 days (from 9 to 13 6/7 weeks), ACOG guidelines mandate that the ultrasound date replaces the menstrual LMP date.
+          </p>
+          <p>
+            During the second and third trimesters, sonographic dating utilizes composite anatomical metrics—including biparietal diameter (BPD), head circumference (HC), abdominal circumference (AC), and femur length (FL). Because genetic variations and maternal placental perfusion introduce natural anatomical divergence, second-trimester scans carry a wider margin of error (±7 to 10 days), and third-trimester scans carry an error margin of ±14 to 21 days.
+          </p>
+          <h2>Late-Term Management &amp; Labor Induction Standards</h2>
+          <p>
+            Between 41 weeks 0 days and 41 weeks 6 days (late term), uteroplacental vascular resistance increases, elevating risks of oligohydramnios and meconium aspiration syndrome. The landmark ARRIVE trial demonstrated that elective induction of labor at 39 weeks in low-risk nulliparous women reduced rates of cesarean delivery and neonatal respiratory morbidity compared to expectant management beyond 40 weeks.
+          </p>
+
+
         {/* Related Companion Tools Contextual Section */}
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>

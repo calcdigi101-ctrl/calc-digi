@@ -181,6 +181,61 @@ export default function Page() {
             </p>
           </div>
     
+        
+        {/* Leucine Threshold & Splanchnic First-Pass Extraction */}
+        <section className="space-y-4">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
+            The Leucine Trigger Hypothesis, Muscle Full Effect &amp; Splanchnic Extraction
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Skeletal muscle mass is determined by the net balance between Muscle Protein Synthesis (MPS) and Muscle Protein Breakdown (MPB) over time. Dietary amino acids do not merely serve as physical structural building blocks; specific branched-chain amino acids (BCAAs)—most notably L-leucine—act as potent intracellular molecular signaling ligands that activate the mechanistic target of rapamycin complex 1 (mTORC1).
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Leucine Threshold (2.5g to 3.5g per Bolus)</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                To trigger the fractional synthetic rate of new muscle tissue, an individual meal must deliver sufficient leucine to cross the intracellular threshold (typically ~2.7–3.0 grams of leucine, found in 25–35g of intact whey, beef, eggs, or poultry). Once crossed, MPS peaks at 90 to 120 minutes and returns to baseline within 3 to 4 hours (muscle full effect), indicating that spreading protein across 3 to 5 meals optimizes daily net protein balance.
+              </p>
+            </div>
+            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">First-Pass Splanchnic Extraction in Aging</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Ingested dietary protein does not pass directly into systemic circulation; between 40% and 55% of dietary amino acids are extracted on first pass by the gut mucosa and liver (splanchnic bed) for local turnover and urea synthesis. In older adults suffering from anabolic resistance, splanchnic extraction increases, necessitating higher per-meal protein boluses (0.40–0.45 g/kg/meal) to stimulate youthful MPS rates.
+              </p>
+            </div>
+          </div>
+          <h2>Collagen Synthesis &amp; Connective Tissue Recovery</h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Consuming 15 to 20 grams of collagen peptides paired with 50 mg of Vitamin C approximately 45 to 60 minutes prior to tendon-loading exercise accelerates collagen synthesis, protects articular cartilage, and reinforces tendon durability.
+          </p>
+        </section>
+        
+          <h2>Quality Scoring &amp; Plant vs Animal Protein Bioavailability</h2>
+          <p>
+            Not all dietary protein sources are metabolized with equal biological efficiency. Nutrition science utilizes the Digestible Indispensable Amino Acid Score (DIAAS) to evaluate true ileal amino acid digestibility:
+          </p>
+          <ul>
+            <li><strong>Whey Protein Isolate &amp; Whole Eggs (DIAAS &gt; 1.15):</strong> Rapidly digested, highly bioavailable, and exceptionally rich in branched-chain amino acids (leucine, isoleucine, valine) that rapidly saturate the muscle protein synthesis trigger.</li>
+            <li><strong>Lean Meats, Poultry &amp; Fish (DIAAS 1.00–1.15):</strong> Complete essential amino acid profiles providing highly bioavailable micronutrients including heme iron, zinc, selenium, and preformed creatine.</li>
+            <li><strong>Plant-Based Sources (Soy, Pea, Legumes, Rice, DIAAS 0.70–0.90):</strong> Plant proteins often exhibit lower concentrations of specific essential amino acids (methionine in legumes, lysine in grains). Plant-based athletes should combine complementary sources (e.g. pea and rice protein) and increase total daily intake by 10% to 15% (~1.8–2.2 g/kg) to match animal protein anabolic efficacy.</li>
+          </ul>
+          <p>
+            Distribute protein evenly across 3 to 5 meals per day (25–40g per meal) to maintain continuous positive nitrogen balance and support muscle recovery.
+          </p>
+
+        
+          <h2>Muscle Protein Synthesis (MPS) vs Breakdown &amp; Leucine Saturation</h2>
+          <p>
+            Skeletal muscle hypertrophy and recovery are governed by the dynamic equilibrium between Muscle Protein Synthesis (MPS) and Muscle Protein Breakdown (MPB). Ingesting dietary protein provides the essential amino acids (EAAs) required to synthesize new structural proteins. Specifically, the branched-chain amino acid L-leucine serves as the primary biochemical trigger that activates the intracellular mTORC1 pathway.
+          </p>
+          <p>
+            To fully saturate the leucine trigger, each meal should deliver approximately 2.5 to 3.5 grams of leucine (found in roughly 25 to 40 grams of animal protein or 35 to 50 grams of complementary plant protein). Once triggered, muscle protein synthesis peaks at 90 to 120 minutes and returns to baseline within 3 to 4 hours. Distributing daily protein across 3 to 5 meals ensures continuous positive net protein balance throughout the day.
+          </p>
+          <h2>Anabolic Resistance in Older Adults</h2>
+          <p>
+            As adults age beyond 50, skeletal muscle tissue develops anabolic resistance—a blunted protein synthetic response to both dietary amino acids and mechanical tension. Overcoming anabolic resistance requires higher per-meal protein doses (0.40–0.45 g/kg/meal) and consistent resistance exercise to stimulate youthful rates of muscle repair and prevent sarcopenic muscle loss.
+          </p>
+
         </>
       }
     >
