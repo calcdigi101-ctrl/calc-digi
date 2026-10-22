@@ -82,7 +82,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Square Root Calculator | CalcDigi"
+      title="Square Root Calculator"
       intro="Calculate principal square roots, simplify radical expressions, evaluate fractional exponents, and compute imaginary roots with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -69,7 +69,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Factor Calculator | CalcDigi"
+      title="Factor Calculator"
       intro="Find all positive and negative factors, factor pairs, canonical prime factorizations, and aliquot divisor sums with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

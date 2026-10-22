@@ -70,7 +70,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Factorial Calculator | CalcDigi"
+      title="Factorial Calculator"
       intro="Compute exact factorials, explore permutation scales, Stirling approximations, and Gamma continuations with ISO-compliant algorithmic precision."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "rounding-calc",
   title: "Rounding Numbers Calculator",
+  presets: [
+    { label: "Currency (2 Decimals)", values: { num: 147.658, precision: "2" } },
+    { label: "Nearest Whole (0 Decimals)", values: { num: 49.85, precision: "0" } },
+    { label: "Nearest Ten (-1 Place)", values: { num: 147, precision: "-1" } },
+    { label: "Nearest Hundred (-2 Place)", values: { num: 1478, precision: "-2" } },
+  ],
   fields: [
     { kind: "number", key: "num", label: "Enter Number", default: 147.658 },
     {

@@ -77,7 +77,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Number Sequence Calculator | CalcDigi"
+      title="Number Sequence Calculator"
       intro="Analyze arithmetic, geometric, and Fibonacci sequences. Calculate the nth term, common difference, common ratio, and finite/infinite series sums with complete step-by-step proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -98,9 +98,9 @@ export default function ScientificCalculator() {
   };
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
+    <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-start">
       {/* LEFT: Scientific Keypad (7 Cols) */}
-      <div className="lg:col-span-7 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm">
+      <div className="md:col-span-7 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm">
         {/* LCD Display */}
         <div className="mb-4 rounded-xl bg-slate-900 dark:bg-slate-950 p-4 text-right border border-slate-800">
           <div className="h-5 text-xs font-mono text-emerald-400/80 truncate">
@@ -175,7 +175,7 @@ export default function ScientificCalculator() {
       </div>
 
       {/* RIGHT: Result & History Panel (5 Cols) */}
-      <div className="lg:sticky lg:top-24 lg:col-span-5 space-y-4">
+      <div className="md:sticky md:top-24 md:col-span-5 space-y-4">
         <div className="rounded-2xl border border-emerald-200/80 dark:border-emerald-900/60 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 p-6 shadow-sm">
           <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
             <span>Result</span>

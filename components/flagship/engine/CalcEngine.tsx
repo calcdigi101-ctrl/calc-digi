@@ -287,6 +287,34 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
           </Disclosure>
         );
       })}
+
+      {config.presets && config.presets.length > 0 ? (
+        <div className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3.5 dark:border-slate-800 dark:bg-slate-950/50">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <span>💡</span> Quick Presets / Examples
+            </span>
+            <span className="text-[11px] text-slate-400">Click to autofill</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {config.presets.map((pr) => (
+              <button
+                key={pr.label}
+                type="button"
+                onClick={() => {
+                  for (const [k, v] of Object.entries(pr.values)) {
+                    setValue(k, String(v), { shouldValidate: true, shouldDirty: true });
+                  }
+                }}
+                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-700 shadow-2xs cursor-pointer active:scale-95"
+              >
+                {pr.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       <Button type="submit" className="w-full text-base">
         Calculate
       </Button>
@@ -294,10 +322,20 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
   );
 
   const resultPanel = (
-    <section id={`${id}-result`} aria-labelledby={`${id}-result-h`} className={cn(card, "scroll-mt-20 p-5 sm:p-6")}>
-      <h2 id={`${id}-result-h`} className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
-        {"error" in output ? "Result" : output.hero.label}
-      </h2>
+    <section
+      id={`${id}-result`}
+      aria-labelledby={`${id}-result-h`}
+      className={cn(
+        card,
+        "scroll-mt-20 p-5 sm:p-6 border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 shadow-sm"
+      )}
+    >
+      <div className="flex items-center justify-between mb-2">
+        <h2 id={`${id}-result-h`} className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+          {"error" in output ? "Result" : output.hero.label}
+        </h2>
+        <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Live Result</span>
+      </div>
       <div aria-live="polite" aria-atomic="true">
         {"error" in output ? (
           <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-800 dark:bg-red-950/40 dark:text-red-200">{output.error}</p>
@@ -340,6 +378,19 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
                   </div>
                 ))}
               </dl>
+            ) : null}
+
+            {output.steps && output.steps.length > 0 ? (
+              <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/30 text-xs sm:text-sm">
+                <div className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1.5">
+                  <span>📝</span> Step-by-Step Calculation:
+                </div>
+                <ol className="list-decimal pl-4 space-y-1.5 text-slate-700 dark:text-slate-300 font-mono text-xs">
+                  {output.steps.map((st, i) => (
+                    <li key={i}>{st}</li>
+                  ))}
+                </ol>
+              </div>
             ) : null}
 
             {output.note ? <p className={cn("mt-3 rounded-lg p-3 text-sm", NOTE_TONES[output.note.tone ?? "info"])}>{output.note.text}</p> : null}

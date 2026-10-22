@@ -75,7 +75,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Average Calculator | CalcDigi"
+      title="Average Calculator"
       intro="Calculate the arithmetic mean, median, mode, range, variance, and standard deviation for any list of numbers with step-by-step mathematical solutions."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

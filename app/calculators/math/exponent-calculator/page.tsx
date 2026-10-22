@@ -78,7 +78,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Exponent Calculator | CalcDigi"
+      title="Exponent Calculator"
       intro="Calculate powers, fractional exponents, negative indices, scientific power expansions, and compound exponential growth with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

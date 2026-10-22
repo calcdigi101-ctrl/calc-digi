@@ -7,6 +7,11 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "matrix-calc",
   title: "Matrix Calculator (2×2 Matrix Operations)",
+  presets: [
+    { label: "2\u00d72 Matrix Add", values: { op: "add", a11: 4, a12: 2, a21: 1, a22: 3, b11: 2, b12: 5, b21: 0, b22: 1 } },
+    { label: "2\u00d72 Matrix Multiply", values: { op: "mul", a11: 1, a12: 2, a21: 3, a22: 4, b11: 2, b12: 0, b21: 1, b22: 2 } },
+    { label: "Determinant det(A)", values: { op: "det", a11: 3, a12: 8, a21: 4, a22: 6, b11: 1, b12: 0, b21: 0, b22: 1 } },
+  ],
   fields: [
     {
       kind: "choice",

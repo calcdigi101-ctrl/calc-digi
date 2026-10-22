@@ -7,6 +7,12 @@ import { num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "big-num-calc",
   title: "Big Number Calculator (Arbitrary Precision Arithmetic)",
+  presets: [
+    { label: "Huge Addition (20 Digits)", values: { a: "12345678901234567890", op: "add", b: "98765432109876543210" } },
+    { label: "Big Multiplication", values: { a: "1000000000000", op: "mul", b: "999999999999" } },
+    { label: "Exponent 2^64", values: { a: "2", op: "pow", b: "64" } },
+    { label: "Large Subtraction", values: { a: "50000000000000000000", op: "sub", b: "12345678901234567890" } },
+  ],
   fields: [
     { kind: "text", key: "a", label: "Number A", default: "12345678901234567890", hint: "Arbitrary length integer digits." },
     {

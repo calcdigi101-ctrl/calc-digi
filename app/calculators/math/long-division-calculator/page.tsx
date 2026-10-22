@@ -69,7 +69,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Long Division Calculator | CalcDigi"
+      title="Long Division Calculator"
       intro="Solve long division problems step-by-step with integer remainders, repeating decimal expansions, quotient derivations, and algebraic proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

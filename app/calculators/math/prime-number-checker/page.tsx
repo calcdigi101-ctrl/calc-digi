@@ -70,7 +70,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Prime Number Checker | CalcDigi"
+      title="Prime Number Checker"
       intro="Test any integer for primality, calculate canonical prime factorizations, inspect prime factor trees, and identify twin primes with complete mathematical rigor."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

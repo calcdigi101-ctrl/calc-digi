@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "slope-calc",
   title: "Slope Calculator (Rise over Run & Line Equation)",
+  presets: [
+    { label: "Points (2,3) to (6,11) [m=2]", values: { x1: 2, y1: 3, x2: 6, y2: 11 } },
+    { label: "Horizontal Line (y=5)", values: { x1: 0, y1: 5, x2: 10, y2: 5 } },
+    { label: "Negative Slope m = -1.5", values: { x1: 0, y1: 6, x2: 4, y2: 0 } },
+    { label: "45-Degree Line m = 1", values: { x1: 1, y1: 1, x2: 5, y2: 5 } },
+  ],
   fields: [
     { kind: "number", key: "x1", label: "Point 1: x₁", default: 2 },
     { kind: "number", key: "y1", label: "Point 1: y₁", default: 3 },

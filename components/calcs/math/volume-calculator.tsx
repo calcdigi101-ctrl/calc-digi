@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "volume-calc",
   title: "Volume Calculator (3D Geometric Solids)",
+  presets: [
+    { label: "Box 10 \u00d7 6 \u00d7 4", values: { shape: "box", length: 10, width: 6, height: 4 } },
+    { label: "Cube Side 5", values: { shape: "cube", side: 5 } },
+    { label: "Cylinder r=4, h=10", values: { shape: "cylinder", radius: 4, height: 10 } },
+    { label: "Sphere Radius 5", values: { shape: "sphere", radius: 5 } },
+  ],
   fields: [
     {
       kind: "choice",

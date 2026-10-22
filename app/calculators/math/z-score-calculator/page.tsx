@@ -86,7 +86,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Z-Score Calculator | CalcDigi"
+      title="Z-Score Calculator"
       intro="Calculate standard scores (z), p-values, percentile ranks, and tail probabilities for individual values and sample means with step-by-step solutions."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

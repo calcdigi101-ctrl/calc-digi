@@ -27,6 +27,12 @@ function nPr(n: number, r: number): number {
 export const config: CalcConfig = {
   id: "combination-calc",
   title: "Combination Calculator (nCr)",
+  presets: [
+    { label: "Lottery 6 of 49", values: { n: 49, r: 6 } },
+    { label: "Poker Hand 5 of 52", values: { n: 52, r: 5 } },
+    { label: "Committee 3 of 10", values: { n: 10, r: 3 } },
+    { label: "Team 4 of 12", values: { n: 12, r: 4 } },
+  ],
   fields: [
     { kind: "number", key: "n", label: "Total Items (n)", default: 10, integer: true, min: 0, max: 100 },
     { kind: "number", key: "r", label: "Items Chosen (r)", default: 3, integer: true, min: 0, max: 100 },

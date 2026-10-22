@@ -46,6 +46,12 @@ function countSigFigs(str: string): { count: number; rules: string[] } {
 export const config: CalcConfig = {
   id: "sig-figs-calc",
   title: "Significant Figures (Sig Figs) Calculator",
+  presets: [
+    { label: "Decimal SigFigs 0.0045020", values: { num: "0.0045020" } },
+    { label: "Ambiguous 1200", values: { num: "1200" } },
+    { label: "Scientific 6.020 \u00d7 10^23", values: { num: "6.020e23" } },
+    { label: "High Precision 100.050", values: { num: "100.050" } },
+  ],
   fields: [
     { kind: "text", key: "num", label: "Enter Number", default: "0.0045020", hint: "e.g. 0.0045020, 12000, 4.50e6" },
   ],

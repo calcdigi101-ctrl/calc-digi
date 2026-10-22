@@ -72,7 +72,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Big Number Calculator | CalcDigi"
+      title="Big Number Calculator"
       intro="Execute arbitrary-precision arithmetic, calculate exact factorials and powers of immense integers without rounding truncation errors."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

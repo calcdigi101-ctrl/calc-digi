@@ -76,7 +76,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Standard Deviation Calculator | CalcDigi"
+      title="Standard Deviation Calculator"
       intro="Calculate sample and population standard deviation, variance, mean, and sum of squared deviations for any dataset with step-by-step mathematical solutions."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

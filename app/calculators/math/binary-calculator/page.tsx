@@ -70,7 +70,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Binary Calculator | CalcDigi"
+      title="Binary Calculator"
       intro="Execute binary arithmetic, evaluate bitwise logic gates, calculate Two's Complement, and convert between binary, octal, decimal, and hexadecimal."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

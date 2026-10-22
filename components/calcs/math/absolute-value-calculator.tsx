@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "abs-val-calc",
   title: "Absolute Value Calculator (|x| & Distance |A − B|)",
+  presets: [
+    { label: "Single: |-27.5|", values: { mode: "single", x: "-27.5" } },
+    { label: "Single: |42|", values: { mode: "single", x: "42" } },
+    { label: "Distance: |15 \u2212 42|", values: { mode: "distance", a: "15", b: "42" } },
+    { label: "Distance: |-12 \u2212 8|", values: { mode: "distance", a: "-12", b: "8" } },
+  ],
   fields: [
     {
       kind: "choice",

@@ -7,6 +7,12 @@ import { num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "binary-calc",
   title: "Binary Calculator (Add, Subtract, Bitwise)",
+  presets: [
+    { label: "Binary Add (22 + 10)", values: { bin1: "10110", op: "add", bin2: "1010" } },
+    { label: "Binary Multiply (7 \u00d7 5)", values: { bin1: "111", op: "mul", bin2: "101" } },
+    { label: "Binary Sub (15 \u2212 6)", values: { bin1: "1111", op: "sub", bin2: "0110" } },
+    { label: "Byte Overflow (255 + 1)", values: { bin1: "11111111", op: "add", bin2: "1" } },
+  ],
   fields: [
     { kind: "text", key: "bin1", label: "Binary A", default: "10110", hint: "Only 0 and 1 digits allowed." },
     {

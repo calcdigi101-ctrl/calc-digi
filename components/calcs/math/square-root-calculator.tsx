@@ -7,6 +7,12 @@ import { fixed, num } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "square-root-calc",
   title: "Square Root & Radical Calculator",
+  presets: [
+    { label: "Square Root \u221a144 = 12", values: { x: 144, degree: 2 } },
+    { label: "Cube Root \u221b125 = 5", values: { x: 125, degree: 3 } },
+    { label: "Fourth Root \u221c625 = 5", values: { x: 625, degree: 4 } },
+    { label: "Irrational \u221a2 = 1.414", values: { x: 2, degree: 2 } },
+  ],
   fields: [
     { kind: "number", key: "x", label: "Enter Number (x)", default: 144, min: 0 },
     {

@@ -85,7 +85,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Sample Size Calculator | CalcDigi"
+      title="Sample Size Calculator"
       intro="Calculate required sample sizes for surveys, clinical trials, and scientific experiments with confidence levels, margins of error, and finite population adjustments."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

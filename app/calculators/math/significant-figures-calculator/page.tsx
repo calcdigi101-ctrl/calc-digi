@@ -70,7 +70,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Significant Figures Calculator | CalcDigi"
+      title="Significant Figures Calculator"
       intro="Count significant figures, format decimal measurements, apply rounding arithmetic rules, and convert to scientific notation."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

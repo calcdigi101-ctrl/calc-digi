@@ -77,7 +77,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Median Calculator | CalcDigi"
+      title="Median Calculator"
       intro="Calculate the median, quartiles, interquartile range (IQR), and five-number summary for any numerical dataset with complete step-by-step explanations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

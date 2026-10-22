@@ -82,7 +82,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Pythagorean Theorem Calculator | CalcDigi"
+      title="Pythagorean Theorem Calculator"
       intro="Calculate the hypotenuse, missing legs, perimeter, area, and acute angles of any right triangle with step-by-step proofs and Pythagorean triple analysis."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

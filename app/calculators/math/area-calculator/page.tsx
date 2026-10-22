@@ -80,7 +80,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Area Calculator | CalcDigi"
+      title="Area Calculator"
       intro="Calculate the area of squares, rectangles, triangles, circles, trapezoids, ellipses, and complex irregular polygons with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -7,6 +7,13 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "circle-calc",
   title: "Circle Calculator (Radius, Area, Circumference)",
+  presets: [
+    { label: "Radius r = 5 (Standard)", values: { known: "radius", val: 5 } },
+    { label: "Diameter d = 12 (Clock)", values: { known: "diameter", val: 12 } },
+    { label: "Circumference C = 31.42", values: { known: "circumference", val: 31.4159 } },
+    { label: "Area A = 100 (Round Table)", values: { known: "area", val: 100 } },
+    { label: "Unit Circle (r = 1)", values: { known: "radius", val: 1 } },
+  ],
   fields: [
     {
       kind: "choice",
@@ -39,6 +46,14 @@ export const config: CalcConfig = {
     const c = 2 * Math.PI * r;
     const a = Math.PI * r * r;
 
+    const steps = [
+      `Input Dimension: ${known} = ${val}`,
+      `Calculated Radius: r = ${fixed(r, 4)}`,
+      `Diameter: d = 2r = 2 × ${fixed(r, 4)} = ${fixed(d, 4)}`,
+      `Circumference: C = 2πr = 2 × π × ${fixed(r, 4)} = ${fixed(c, 4)}`,
+      `Circle Area: A = πr² = π × (${fixed(r, 4)})² = ${fixed(a, 4)}`,
+    ];
+
     return {
       hero: {
         label: "Circle Area",
@@ -55,6 +70,7 @@ export const config: CalcConfig = {
         { label: "Circumference (C)", value: fixed(c, 4), strong: true },
         { label: "Area (A)", value: fixed(a, 4) },
       ],
+      steps,
       note: {
         text: `Formulas: d = 2r | C = 2πr = ${fixed(c, 2)} | A = πr² = ${fixed(a, 2)}.`,
         tone: "neutral",

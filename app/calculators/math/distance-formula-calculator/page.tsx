@@ -69,7 +69,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Distance Formula Calculator | CalcDigi"
+      title="Distance Formula Calculator"
       intro="Calculate 2D and 3D Euclidean distance, coordinate displacement, midpoint, and vector length between any two points with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

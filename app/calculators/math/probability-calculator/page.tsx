@@ -81,7 +81,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Probability Calculator | CalcDigi"
+      title="Probability Calculator"
       intro="Calculate event probabilities, joint outcomes (AND/OR), conditional probabilities, complementary odds, and Bayes' theorem with step-by-step mathematical explanations."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

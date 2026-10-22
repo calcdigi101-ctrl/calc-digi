@@ -75,11 +75,17 @@ export type Spectrum = {
   label?: string;
 };
 
+export type Preset = {
+  label: string;
+  values: Record<string, number | string>;
+};
+
 export type Output = {
   hero: { label: string; value: string; unit?: string; sub?: ReactNode };
   badge?: { text: string; tone: Tone };
   spectrum?: Spectrum;
   rows?: { label: string; value: string; strong?: boolean }[];
+  steps?: string[];
   chart?: Chart;
   /** Wide charts/tables rendered full-width below the tool grid. */
   details?: {
@@ -97,6 +103,7 @@ export type CalcConfig = {
   id: string;
   title: string;
   fields: Field[];
+  presets?: Preset[];
   compute: (v: Values) => Output | { error: string };
   /** Extra validation across fields; return field key → message. */
   validate?: (v: Values) => Partial<Record<string, string>> | void;

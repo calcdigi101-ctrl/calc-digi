@@ -7,6 +7,12 @@ import { num, fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "median-calc",
   title: "Median & Quartiles Calculator",
+  presets: [
+    { label: "Odd Sample (7 values)", values: { dataset: "12, 3, 5, 8, 19, 21, 2" } },
+    { label: "Even Sample (8 values)", values: { dataset: "10, 15, 20, 25, 30, 35, 40, 45" } },
+    { label: "Skewed Income (with outlier)", values: { dataset: "35000, 42000, 48000, 52000, 58000, 2500000" } },
+    { label: "Exam Scores", values: { dataset: "72, 85, 90, 68, 94, 88, 79, 83" } },
+  ],
   fields: [
     {
       kind: "text",

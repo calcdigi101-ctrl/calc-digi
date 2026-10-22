@@ -18,6 +18,13 @@ function gcd2(a: number, b: number): number {
 export const config: CalcConfig = {
   id: "dec-to-frac-calc",
   title: "Decimal to Fraction Converter",
+  presets: [
+    { label: "2.625 (Mixed 2 5/8)", values: { decimal: "2.625" } },
+    { label: "0.75 (Three Quarters 3/4)", values: { decimal: "0.75" } },
+    { label: "0.333333 (One Third 1/3)", values: { decimal: "0.333333" } },
+    { label: "3.14159265 (Pi Approx)", values: { decimal: "3.14159265" } },
+    { label: "0.125 (One Eighth 1/8)", values: { decimal: "0.125" } },
+  ],
   fields: [
     { kind: "text", key: "decimal", label: "Enter Decimal Number", default: "2.625", hint: "e.g. 0.75, 2.625, -0.125" },
   ],

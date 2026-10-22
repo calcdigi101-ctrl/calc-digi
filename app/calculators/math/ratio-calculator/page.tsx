@@ -83,7 +83,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Ratio Calculator | CalcDigi"
+      title="Ratio Calculator"
       intro="Simplify ratios, solve proportions, determine equivalent scales, and convert part-to-part and part-to-whole relationships with complete step-by-step mathematical proofs."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

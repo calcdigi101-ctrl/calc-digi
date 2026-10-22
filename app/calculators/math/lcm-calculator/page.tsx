@@ -68,7 +68,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="LCM Calculator | CalcDigi"
+      title="LCM Calculator"
       intro="Calculate least common multiples instantly using Euclidean GCF duality, prime factor trees, and multi-integer ladder methods."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -79,7 +79,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Percentage Change Calculator | CalcDigi"
+      title="Percentage Change Calculator"
       intro="Calculate percent increase, percent decrease, and relative difference between any two values with complete step-by-step mathematical derivations and asymmetry analysis."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

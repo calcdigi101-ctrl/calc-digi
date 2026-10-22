@@ -13,6 +13,12 @@ function seededRandom(seed: number) {
 export const config: CalcConfig = {
   id: "rng-calc",
   title: "Random Number Generator (PRNG)",
+  presets: [
+    { label: "Lottery 6 of 49", values: { min: 1, max: 49, count: 6 } },
+    { label: "Dice Roll (1 to 6)", values: { min: 1, max: 6, count: 2 } },
+    { label: "Percentile (1 to 100)", values: { min: 1, max: 100, count: 5 } },
+    { label: "Coin Toss (0 or 1)", values: { min: 0, max: 1, count: 10 } },
+  ],
   fields: [
     { kind: "number", key: "min", label: "Minimum Value", default: 1, integer: true },
     { kind: "number", key: "max", label: "Maximum Value", default: 100, integer: true },

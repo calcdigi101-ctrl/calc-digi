@@ -70,7 +70,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="Combination Calculator | CalcDigi"
+      title="Combination Calculator"
       intro="Calculate combinations without repetition and with replacement, explore Pascal triangle coefficients, and evaluate sampling probabilities."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -18,6 +18,12 @@ function gcd2(a: number, b: number): number {
 export const config: CalcConfig = {
   id: "fraction-calc",
   title: "Fraction Calculator (Add, Subtract, Multiply, Divide)",
+  presets: [
+    { label: "3/4 + 1/2", values: { n1: 3, d1: 4, op: "add", n2: 1, d2: 2 } },
+    { label: "5/8 \u2212 1/4", values: { n1: 5, d1: 8, op: "sub", n2: 1, d2: 4 } },
+    { label: "2/3 \u00d7 9/10", values: { n1: 2, d1: 3, op: "mul", n2: 9, d2: 10 } },
+    { label: "7/12 \u00f7 3/4", values: { n1: 7, d1: 12, op: "div", n2: 3, d2: 4 } },
+  ],
   fields: [
     { kind: "number", key: "n1", label: "Numerator 1", default: 3, integer: true },
     { kind: "number", key: "d1", label: "Denominator 1", default: 4, integer: true },

@@ -68,7 +68,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/math", label: "Math" }}
-      title="GCF Calculator | CalcDigi"
+      title="GCF Calculator"
       intro="Find the greatest common divisor with step-by-step Euclidean division, prime factor trees, and modular arithmetic precision."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

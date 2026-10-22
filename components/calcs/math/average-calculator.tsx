@@ -7,6 +7,13 @@ import { num, fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "average-calc",
   title: "Average Calculator (Mean, Median, Mode)",
+  presets: [
+    { label: "Exam Scores (72–95)", values: { dataset: "85, 92, 78, 95, 88, 72, 90" } },
+    { label: "Class Grades (60–98)", values: { dataset: "65, 78, 88, 92, 95, 84, 98, 71" } },
+    { label: "Daily Temp (°F)", values: { dataset: "68, 72, 75, 71, 69, 74, 76" } },
+    { label: "Weekly Hours Worked", values: { dataset: "8, 8.5, 7.5, 9, 8" } },
+    { label: "Stock Returns (%)", values: { dataset: "3.2, -1.5, 4.0, 0.8, -2.1, 1.4" } },
+  ],
   fields: [
     {
       kind: "text",
@@ -59,6 +66,17 @@ export const config: CalcConfig = {
     const sampVar = n > 1 ? ss / (n - 1) : 0;
     const sampSd = Math.sqrt(sampVar);
 
+    const steps = [
+      `Sum of all values (Σx) = ${nums.join(" + ")} = ${fixed(sum, 2)}`,
+      `Total sample count (n) = ${n}`,
+      `Arithmetic Mean (x̄) = Σx ÷ n = ${fixed(sum, 2)} ÷ ${n} = ${fixed(mean, 2)}`,
+      `Ordered dataset = [${sorted.join(", ")}]`,
+      `Median (50th percentile) = ${fixed(median, 2)}`,
+      `Mode (highest frequency) = ${modeStr}`,
+      `Range = Max (${max}) − Min (${min}) = ${fixed(range, 2)}`,
+      `Sample Standard Deviation (s) = √[Σ(x − x̄)² ÷ (n − 1)] = ${n > 1 ? fixed(sampSd, 4) : "N/A"}`,
+    ];
+
     return {
       hero: {
         label: "Arithmetic Mean (Average)",
@@ -79,13 +97,17 @@ export const config: CalcConfig = {
         { label: "Minimum Value", value: String(min) },
         { label: "Maximum Value", value: String(max) },
       ],
+      steps,
       chart: {
-        type: "donut",
-        title: "Sample Dispersion Breakdown",
+        type: "bar",
+        title: "5-Point Summary & Central Benchmarks",
+        x: "metric",
+        series: [{ key: "value", name: "Value", color: "#10b981" }],
         data: [
-          { name: "Mean Baseline", value: Math.max(0.01, Math.abs(mean)) },
-          { name: "Std Deviation", value: Math.max(0.01, sampSd) },
-          { name: "Range Span", value: Math.max(0.01, range) },
+          { metric: "Minimum", value: min },
+          { metric: "Median", value: median },
+          { metric: "Mean", value: Number(mean.toFixed(2)) },
+          { metric: "Maximum", value: max },
         ],
       },
       note: {

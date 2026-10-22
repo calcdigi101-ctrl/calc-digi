@@ -7,6 +7,12 @@ import { fixed } from "@/components/flagship/engine/format";
 export const config: CalcConfig = {
   id: "distance-formula-calc",
   title: "Distance Formula Calculator (2D & 3D Euclidean)",
+  presets: [
+    { label: "2D Points (1,2) to (4,6)", values: { dim: "2d", x1: 1, y1: 2, x2: 4, y2: 6 } },
+    { label: "2D Origin to (5,12)", values: { dim: "2d", x1: 0, y1: 0, x2: 5, y2: 12 } },
+    { label: "3D Points (1,2,0) to (4,6,5)", values: { dim: "3d", x1: 1, y1: 2, z1: 0, x2: 4, y2: 6, z2: 5 } },
+    { label: "3D Diagonal (0,0,0) to (10,10,10)", values: { dim: "3d", x1: 0, y1: 0, z1: 0, x2: 10, y2: 10, z2: 10 } },
+  ],
   fields: [
     {
       kind: "choice",
