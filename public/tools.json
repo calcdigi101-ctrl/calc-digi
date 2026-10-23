@@ -1,6 +1,6 @@
 {
   "version": "2026.1.0",
-  "site": "https://calc-digi.vercel.app",
+  "site": "https://calcdigi.com",
   "updated": "2026-10-23",
   "total_calculators": 341,
   "categories": [
@@ -29,7 +29,7 @@
     {
       "category": "baby",
       "slug": "baby-feeding-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/baby-feeding-calculator",
+      "url": "https://calcdigi.com/calculators/baby/baby-feeding-calculator",
       "title": "Baby Feeding Calculator",
       "description": "",
       "formulas": [],
@@ -38,7 +38,7 @@
     {
       "category": "baby",
       "slug": "baby-name-popularity-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/baby-name-popularity-calculator",
+      "url": "https://calcdigi.com/calculators/baby/baby-name-popularity-calculator",
       "title": "Baby Name Popularity Calculator",
       "description": "",
       "formulas": [],
@@ -47,7 +47,7 @@
     {
       "category": "baby",
       "slug": "baby-sleep-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/baby-sleep-calculator",
+      "url": "https://calcdigi.com/calculators/baby/baby-sleep-calculator",
       "title": "Baby Sleep Calculator",
       "description": "",
       "formulas": [],
@@ -56,7 +56,7 @@
     {
       "category": "baby",
       "slug": "baby-weight-percentile-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/baby-weight-percentile-calculator",
+      "url": "https://calcdigi.com/calculators/baby/baby-weight-percentile-calculator",
       "title": "Baby Weight Percentile Calculator",
       "description": "",
       "formulas": [],
@@ -65,7 +65,7 @@
     {
       "category": "baby",
       "slug": "child-height-predictor-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/child-height-predictor-calculator",
+      "url": "https://calcdigi.com/calculators/baby/child-height-predictor-calculator",
       "title": "Child Height Predictor Calculator",
       "description": "",
       "formulas": [],
@@ -74,7 +74,7 @@
     {
       "category": "baby",
       "slug": "childcare-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/childcare-cost-calculator",
+      "url": "https://calcdigi.com/calculators/baby/childcare-cost-calculator",
       "title": "Childcare Cost Calculator",
       "description": "",
       "formulas": [],
@@ -83,7 +83,7 @@
     {
       "category": "baby",
       "slug": "diaper-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/diaper-cost-calculator",
+      "url": "https://calcdigi.com/calculators/baby/diaper-cost-calculator",
       "title": "Diaper Cost Calculator",
       "description": "",
       "formulas": [],
@@ -92,7 +92,7 @@
     {
       "category": "baby",
       "slug": "due-date-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/baby/due-date-calculator",
+      "url": "https://calcdigi.com/calculators/baby/due-date-calculator",
       "title": "Pregnancy Due Date Calculator",
       "description": "",
       "formulas": [],
@@ -101,7 +101,7 @@
     {
       "category": "business",
       "slug": "break-even-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/break-even-calculator",
+      "url": "https://calcdigi.com/calculators/business/break-even-calculator",
       "title": "Break Even Calculator",
       "description": "",
       "formulas": [],
@@ -110,7 +110,7 @@
     {
       "category": "business",
       "slug": "burn-rate-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/burn-rate-calculator",
+      "url": "https://calcdigi.com/calculators/business/burn-rate-calculator",
       "title": "Burn Rate Calculator",
       "description": "",
       "formulas": [],
@@ -119,7 +119,7 @@
     {
       "category": "business",
       "slug": "business-loan-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/business-loan-calculator",
+      "url": "https://calcdigi.com/calculators/business/business-loan-calculator",
       "title": "Business Loan Calculator",
       "description": "",
       "formulas": [],
@@ -128,7 +128,7 @@
     {
       "category": "business",
       "slug": "business-revenue-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/business-revenue-calculator",
+      "url": "https://calcdigi.com/calculators/business/business-revenue-calculator",
       "title": "Business Revenue Calculator",
       "description": "",
       "formulas": [],
@@ -137,7 +137,7 @@
     {
       "category": "business",
       "slug": "cac-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/cac-calculator",
+      "url": "https://calcdigi.com/calculators/business/cac-calculator",
       "title": "CAC Calculator",
       "description": "",
       "formulas": [],
@@ -146,7 +146,7 @@
     {
       "category": "business",
       "slug": "cogs-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/cogs-calculator",
+      "url": "https://calcdigi.com/calculators/business/cogs-calculator",
       "title": "COGS Calculator",
       "description": "",
       "formulas": [],
@@ -155,7 +155,7 @@
     {
       "category": "business",
       "slug": "discount-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/discount-calculator",
+      "url": "https://calcdigi.com/calculators/business/discount-calculator",
       "title": "Discount Calculator",
       "description": "",
       "formulas": [],
@@ -164,7 +164,7 @@
     {
       "category": "business",
       "slug": "ecommerce-profit-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/ecommerce-profit-calculator",
+      "url": "https://calcdigi.com/calculators/business/ecommerce-profit-calculator",
       "title": "Ecommerce Profit Calculator",
       "description": "",
       "formulas": [],
@@ -173,7 +173,7 @@
     {
       "category": "business",
       "slug": "employee-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/employee-cost-calculator",
+      "url": "https://calcdigi.com/calculators/business/employee-cost-calculator",
       "title": "Employee Cost Calculator",
       "description": "",
       "formulas": [],
@@ -182,7 +182,7 @@
     {
       "category": "business",
       "slug": "freelance-rate-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/freelance-rate-calculator",
+      "url": "https://calcdigi.com/calculators/business/freelance-rate-calculator",
       "title": "Freelance Rate Calculator",
       "description": "",
       "formulas": [],
@@ -191,7 +191,7 @@
     {
       "category": "business",
       "slug": "invoice-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/invoice-calculator",
+      "url": "https://calcdigi.com/calculators/business/invoice-calculator",
       "title": "Invoice Calculator",
       "description": "",
       "formulas": [],
@@ -200,7 +200,7 @@
     {
       "category": "business",
       "slug": "ltv-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/ltv-calculator",
+      "url": "https://calcdigi.com/calculators/business/ltv-calculator",
       "title": "LTV Calculator",
       "description": "",
       "formulas": [],
@@ -209,7 +209,7 @@
     {
       "category": "business",
       "slug": "markup-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/markup-calculator",
+      "url": "https://calcdigi.com/calculators/business/markup-calculator",
       "title": "Markup Calculator",
       "description": "",
       "formulas": [],
@@ -218,7 +218,7 @@
     {
       "category": "business",
       "slug": "payroll-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/payroll-calculator",
+      "url": "https://calcdigi.com/calculators/business/payroll-calculator",
       "title": "Payroll Calculator",
       "description": "",
       "formulas": [],
@@ -227,7 +227,7 @@
     {
       "category": "business",
       "slug": "profit-margin-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/profit-margin-calculator",
+      "url": "https://calcdigi.com/calculators/business/profit-margin-calculator",
       "title": "Profit Margin Calculator",
       "description": "",
       "formulas": [],
@@ -236,7 +236,7 @@
     {
       "category": "business",
       "slug": "roi-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/roi-calculator",
+      "url": "https://calcdigi.com/calculators/business/roi-calculator",
       "title": "ROI Calculator",
       "description": "",
       "formulas": [],
@@ -245,7 +245,7 @@
     {
       "category": "business",
       "slug": "sales-tax-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/sales-tax-calculator",
+      "url": "https://calcdigi.com/calculators/business/sales-tax-calculator",
       "title": "Sales Tax Calculator",
       "description": "",
       "formulas": [],
@@ -254,7 +254,7 @@
     {
       "category": "business",
       "slug": "shrinkage-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/shrinkage-calculator",
+      "url": "https://calcdigi.com/calculators/business/shrinkage-calculator",
       "title": "Inventory Shrinkage Calculator",
       "description": "",
       "formulas": [],
@@ -263,7 +263,7 @@
     {
       "category": "business",
       "slug": "startup-valuation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/startup-valuation-calculator",
+      "url": "https://calcdigi.com/calculators/business/startup-valuation-calculator",
       "title": "Startup Valuation Calculator",
       "description": "",
       "formulas": [],
@@ -272,7 +272,7 @@
     {
       "category": "business",
       "slug": "wholesale-price-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/business/wholesale-price-calculator",
+      "url": "https://calcdigi.com/calculators/business/wholesale-price-calculator",
       "title": "Wholesale Price Calculator",
       "description": "",
       "formulas": [],
@@ -281,7 +281,7 @@
     {
       "category": "datetime",
       "slug": "age-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/age-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/age-calculator",
       "title": "Age Calculator",
       "description": "Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday, zodiac sign, and fun generation stats instantly.",
       "formulas": [
@@ -309,7 +309,7 @@
     {
       "category": "datetime",
       "slug": "birthday-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/birthday-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/birthday-calculator",
       "title": "Birthday Calculator",
       "description": "",
       "formulas": [],
@@ -318,7 +318,7 @@
     {
       "category": "datetime",
       "slug": "date-difference-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/date-difference-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/date-difference-calculator",
       "title": "Date Difference Calculator",
       "description": "",
       "formulas": [],
@@ -327,7 +327,7 @@
     {
       "category": "datetime",
       "slug": "date-to-day-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/date-to-day-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/date-to-day-calculator",
       "title": "Day of Week Calculator",
       "description": "",
       "formulas": [],
@@ -336,7 +336,7 @@
     {
       "category": "datetime",
       "slug": "days-until-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/days-until-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/days-until-calculator",
       "title": "Days Until Calculator",
       "description": "",
       "formulas": [],
@@ -345,7 +345,7 @@
     {
       "category": "datetime",
       "slug": "leap-year-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/leap-year-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/leap-year-calculator",
       "title": "Leap Year Calculator",
       "description": "",
       "formulas": [],
@@ -354,7 +354,7 @@
     {
       "category": "datetime",
       "slug": "month-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/month-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/month-calculator",
       "title": "Month Calculator",
       "description": "",
       "formulas": [],
@@ -363,7 +363,7 @@
     {
       "category": "datetime",
       "slug": "time-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/time-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/time-calculator",
       "title": "Time Calculator",
       "description": "",
       "formulas": [],
@@ -372,7 +372,7 @@
     {
       "category": "datetime",
       "slug": "time-duration-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/time-duration-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/time-duration-calculator",
       "title": "Time Duration Calculator",
       "description": "",
       "formulas": [],
@@ -381,7 +381,7 @@
     {
       "category": "datetime",
       "slug": "time-zone-converter",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/time-zone-converter",
+      "url": "https://calcdigi.com/calculators/datetime/time-zone-converter",
       "title": "Time Zone Converter",
       "description": "",
       "formulas": [],
@@ -390,7 +390,7 @@
     {
       "category": "datetime",
       "slug": "unix-timestamp-converter",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/unix-timestamp-converter",
+      "url": "https://calcdigi.com/calculators/datetime/unix-timestamp-converter",
       "title": "Unix Timestamp Converter",
       "description": "",
       "formulas": [],
@@ -399,7 +399,7 @@
     {
       "category": "datetime",
       "slug": "week-number-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/week-number-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/week-number-calculator",
       "title": "Week Number Calculator",
       "description": "",
       "formulas": [],
@@ -408,7 +408,7 @@
     {
       "category": "datetime",
       "slug": "workdays-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/workdays-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/workdays-calculator",
       "title": "Working Days Calculator",
       "description": "",
       "formulas": [],
@@ -417,7 +417,7 @@
     {
       "category": "datetime",
       "slug": "year-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/datetime/year-calculator",
+      "url": "https://calcdigi.com/calculators/datetime/year-calculator",
       "title": "Year Calculator",
       "description": "",
       "formulas": [],
@@ -426,7 +426,7 @@
     {
       "category": "education",
       "slug": "act-score-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/act-score-calculator",
+      "url": "https://calcdigi.com/calculators/education/act-score-calculator",
       "title": "ACT Score Calculator",
       "description": "",
       "formulas": [],
@@ -435,7 +435,7 @@
     {
       "category": "education",
       "slug": "attendance-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/attendance-calculator",
+      "url": "https://calcdigi.com/calculators/education/attendance-calculator",
       "title": "Attendance Calculator",
       "description": "",
       "formulas": [],
@@ -444,7 +444,7 @@
     {
       "category": "education",
       "slug": "cgpa-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/cgpa-calculator",
+      "url": "https://calcdigi.com/calculators/education/cgpa-calculator",
       "title": "CGPA Calculator",
       "description": "",
       "formulas": [],
@@ -453,7 +453,7 @@
     {
       "category": "education",
       "slug": "class-rank-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/class-rank-calculator",
+      "url": "https://calcdigi.com/calculators/education/class-rank-calculator",
       "title": "Class Rank Calculator",
       "description": "",
       "formulas": [],
@@ -462,7 +462,7 @@
     {
       "category": "education",
       "slug": "college-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/college-cost-calculator",
+      "url": "https://calcdigi.com/calculators/education/college-cost-calculator",
       "title": "College Cost Calculator",
       "description": "",
       "formulas": [],
@@ -471,7 +471,7 @@
     {
       "category": "education",
       "slug": "final-grade-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/final-grade-calculator",
+      "url": "https://calcdigi.com/calculators/education/final-grade-calculator",
       "title": "Final Grade Calculator",
       "description": "",
       "formulas": [],
@@ -480,7 +480,7 @@
     {
       "category": "education",
       "slug": "gpa-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/gpa-calculator",
+      "url": "https://calcdigi.com/calculators/education/gpa-calculator",
       "title": "GPA Calculator",
       "description": "",
       "formulas": [],
@@ -489,7 +489,7 @@
     {
       "category": "education",
       "slug": "grade-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/grade-calculator",
+      "url": "https://calcdigi.com/calculators/education/grade-calculator",
       "title": "Grade Calculator",
       "description": "",
       "formulas": [],
@@ -498,7 +498,7 @@
     {
       "category": "education",
       "slug": "percentage-grade-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/percentage-grade-calculator",
+      "url": "https://calcdigi.com/calculators/education/percentage-grade-calculator",
       "title": "Percentage Grade Calculator",
       "description": "",
       "formulas": [],
@@ -507,7 +507,7 @@
     {
       "category": "education",
       "slug": "reading-speed-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/reading-speed-calculator",
+      "url": "https://calcdigi.com/calculators/education/reading-speed-calculator",
       "title": "Reading Speed Calculator",
       "description": "",
       "formulas": [],
@@ -516,7 +516,7 @@
     {
       "category": "education",
       "slug": "sat-score-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/sat-score-calculator",
+      "url": "https://calcdigi.com/calculators/education/sat-score-calculator",
       "title": "SAT Score Calculator",
       "description": "",
       "formulas": [],
@@ -525,7 +525,7 @@
     {
       "category": "education",
       "slug": "scholarship-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/scholarship-calculator",
+      "url": "https://calcdigi.com/calculators/education/scholarship-calculator",
       "title": "Scholarship Calculator",
       "description": "",
       "formulas": [],
@@ -534,7 +534,7 @@
     {
       "category": "education",
       "slug": "student-loan-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/student-loan-calculator",
+      "url": "https://calcdigi.com/calculators/education/student-loan-calculator",
       "title": "Student Loan Calculator",
       "description": "",
       "formulas": [],
@@ -543,7 +543,7 @@
     {
       "category": "education",
       "slug": "study-hours-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/study-hours-calculator",
+      "url": "https://calcdigi.com/calculators/education/study-hours-calculator",
       "title": "Study Hours Calculator",
       "description": "",
       "formulas": [],
@@ -552,7 +552,7 @@
     {
       "category": "education",
       "slug": "test-score-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/education/test-score-calculator",
+      "url": "https://calcdigi.com/calculators/education/test-score-calculator",
       "title": "Test Score Calculator",
       "description": "",
       "formulas": [],
@@ -561,7 +561,7 @@
     {
       "category": "electronics",
       "slug": "battery-life-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/battery-life-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/battery-life-calculator",
       "title": "Battery Life Calculator",
       "description": "",
       "formulas": [],
@@ -570,7 +570,7 @@
     {
       "category": "electronics",
       "slug": "capacitor-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/capacitor-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/capacitor-calculator",
       "title": "Capacitor Calculator",
       "description": "",
       "formulas": [],
@@ -579,7 +579,7 @@
     {
       "category": "electronics",
       "slug": "decibel-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/decibel-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/decibel-calculator",
       "title": "Decibel Calculator",
       "description": "",
       "formulas": [],
@@ -588,7 +588,7 @@
     {
       "category": "electronics",
       "slug": "frequency-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/frequency-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/frequency-calculator",
       "title": "Frequency Calculator",
       "description": "",
       "formulas": [],
@@ -597,7 +597,7 @@
     {
       "category": "electronics",
       "slug": "inductor-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/inductor-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/inductor-calculator",
       "title": "Inductor Calculator",
       "description": "",
       "formulas": [],
@@ -606,7 +606,7 @@
     {
       "category": "electronics",
       "slug": "led-resistor-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/led-resistor-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/led-resistor-calculator",
       "title": "LED Resistor Calculator",
       "description": "",
       "formulas": [],
@@ -615,7 +615,7 @@
     {
       "category": "electronics",
       "slug": "ohms-law-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/ohms-law-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/ohms-law-calculator",
       "title": "Ohm's Law Calculator",
       "description": "",
       "formulas": [],
@@ -624,7 +624,7 @@
     {
       "category": "electronics",
       "slug": "power-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/power-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/power-calculator",
       "title": "Electrical Power Calculator",
       "description": "",
       "formulas": [],
@@ -633,7 +633,7 @@
     {
       "category": "electronics",
       "slug": "rc-time-constant-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/rc-time-constant-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/rc-time-constant-calculator",
       "title": "RC Time Constant Calculator",
       "description": "",
       "formulas": [],
@@ -642,7 +642,7 @@
     {
       "category": "electronics",
       "slug": "resistor-color-code-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/resistor-color-code-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/resistor-color-code-calculator",
       "title": "Resistor Color Code Calculator",
       "description": "",
       "formulas": [],
@@ -651,7 +651,7 @@
     {
       "category": "electronics",
       "slug": "solar-panel-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/solar-panel-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/solar-panel-calculator",
       "title": "Solar Panel Calculator",
       "description": "",
       "formulas": [],
@@ -660,7 +660,7 @@
     {
       "category": "electronics",
       "slug": "three-phase-power-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/three-phase-power-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/three-phase-power-calculator",
       "title": "Three Phase Power Calculator",
       "description": "",
       "formulas": [],
@@ -669,7 +669,7 @@
     {
       "category": "electronics",
       "slug": "transformer-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/transformer-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/transformer-calculator",
       "title": "Transformer Calculator",
       "description": "",
       "formulas": [],
@@ -678,7 +678,7 @@
     {
       "category": "electronics",
       "slug": "voltage-divider-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/voltage-divider-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/voltage-divider-calculator",
       "title": "Voltage Divider Calculator",
       "description": "",
       "formulas": [],
@@ -687,7 +687,7 @@
     {
       "category": "electronics",
       "slug": "wire-gauge-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/electronics/wire-gauge-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/wire-gauge-calculator",
       "title": "Wire Gauge Calculator",
       "description": "",
       "formulas": [],
@@ -696,7 +696,7 @@
     {
       "category": "engineering",
       "slug": "beam-load-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/beam-load-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/beam-load-calculator",
       "title": "Beam Load Calculator",
       "description": "",
       "formulas": [],
@@ -705,7 +705,7 @@
     {
       "category": "engineering",
       "slug": "bolt-torque-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/bolt-torque-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/bolt-torque-calculator",
       "title": "Bolt Torque Calculator",
       "description": "",
       "formulas": [],
@@ -714,7 +714,7 @@
     {
       "category": "engineering",
       "slug": "concrete-mix-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/concrete-mix-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/concrete-mix-calculator",
       "title": "Concrete Mix Calculator",
       "description": "",
       "formulas": [],
@@ -723,7 +723,7 @@
     {
       "category": "engineering",
       "slug": "electrical-load-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/electrical-load-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/electrical-load-calculator",
       "title": "Electrical Load Calculator",
       "description": "",
       "formulas": [],
@@ -732,7 +732,7 @@
     {
       "category": "engineering",
       "slug": "gear-ratio-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/gear-ratio-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/gear-ratio-calculator",
       "title": "Gear Ratio Calculator",
       "description": "",
       "formulas": [],
@@ -741,7 +741,7 @@
     {
       "category": "engineering",
       "slug": "heat-transfer-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/heat-transfer-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/heat-transfer-calculator",
       "title": "Heat Transfer Calculator",
       "description": "",
       "formulas": [],
@@ -750,7 +750,7 @@
     {
       "category": "engineering",
       "slug": "hvac-load-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/hvac-load-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/hvac-load-calculator",
       "title": "HVAC Load Calculator",
       "description": "",
       "formulas": [],
@@ -759,7 +759,7 @@
     {
       "category": "engineering",
       "slug": "pipe-flow-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/pipe-flow-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/pipe-flow-calculator",
       "title": "Pipe Flow Calculator",
       "description": "",
       "formulas": [],
@@ -768,7 +768,7 @@
     {
       "category": "engineering",
       "slug": "pump-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/pump-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/pump-calculator",
       "title": "Pump Calculator",
       "description": "",
       "formulas": [],
@@ -777,7 +777,7 @@
     {
       "category": "engineering",
       "slug": "reynolds-number-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/reynolds-number-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/reynolds-number-calculator",
       "title": "Reynolds Number Calculator",
       "description": "",
       "formulas": [],
@@ -786,7 +786,7 @@
     {
       "category": "engineering",
       "slug": "signal-to-noise-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/signal-to-noise-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/signal-to-noise-calculator",
       "title": "Signal-to-Noise Ratio Calculator",
       "description": "",
       "formulas": [],
@@ -795,7 +795,7 @@
     {
       "category": "engineering",
       "slug": "structural-steel-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/engineering/structural-steel-calculator",
+      "url": "https://calcdigi.com/calculators/engineering/structural-steel-calculator",
       "title": "Structural Steel Calculator",
       "description": "",
       "formulas": [],
@@ -804,7 +804,7 @@
     {
       "category": "entertainment",
       "slug": "book-reading-time-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/book-reading-time-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/book-reading-time-calculator",
       "title": "Book Reading Time Calculator",
       "description": "",
       "formulas": [],
@@ -813,7 +813,7 @@
     {
       "category": "entertainment",
       "slug": "concert-ticket-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/concert-ticket-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/concert-ticket-calculator",
       "title": "Concert Ticket Calculator",
       "description": "",
       "formulas": [],
@@ -822,7 +822,7 @@
     {
       "category": "entertainment",
       "slug": "gaming-pc-build-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/gaming-pc-build-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/gaming-pc-build-calculator",
       "title": "Gaming PC Build Cost Calculator",
       "description": "",
       "formulas": [],
@@ -831,7 +831,7 @@
     {
       "category": "entertainment",
       "slug": "movie-ticket-price-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/movie-ticket-price-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/movie-ticket-price-calculator",
       "title": "Movie Ticket Price Calculator",
       "description": "",
       "formulas": [],
@@ -840,7 +840,7 @@
     {
       "category": "entertainment",
       "slug": "party-planning-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/party-planning-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/party-planning-calculator",
       "title": "Party Planning Cost Calculator",
       "description": "",
       "formulas": [],
@@ -849,7 +849,7 @@
     {
       "category": "entertainment",
       "slug": "podcast-length-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/podcast-length-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/podcast-length-calculator",
       "title": "Podcast Length Calculator",
       "description": "",
       "formulas": [],
@@ -858,7 +858,7 @@
     {
       "category": "entertainment",
       "slug": "spotify-listening-stats-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/spotify-listening-stats-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/spotify-listening-stats-calculator",
       "title": "Spotify Listening Stats Calculator",
       "description": "",
       "formulas": [],
@@ -867,7 +867,7 @@
     {
       "category": "entertainment",
       "slug": "streaming-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/streaming-cost-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/streaming-cost-calculator",
       "title": "Streaming Cost Calculator",
       "description": "",
       "formulas": [],
@@ -876,7 +876,7 @@
     {
       "category": "entertainment",
       "slug": "travel-entertainment-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/travel-entertainment-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/travel-entertainment-calculator",
       "title": "Vacation Entertainment Budget Calculator",
       "description": "",
       "formulas": [],
@@ -885,7 +885,7 @@
     {
       "category": "entertainment",
       "slug": "video-game-hours-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/entertainment/video-game-hours-calculator",
+      "url": "https://calcdigi.com/calculators/entertainment/video-game-hours-calculator",
       "title": "Video Game Hours Calculator",
       "description": "",
       "formulas": [],
@@ -894,7 +894,7 @@
     {
       "category": "environment",
       "slug": "air-quality-index-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/air-quality-index-calculator",
+      "url": "https://calcdigi.com/calculators/environment/air-quality-index-calculator",
       "title": "Air Quality Index (AQI) Calculator",
       "description": "",
       "formulas": [],
@@ -903,7 +903,7 @@
     {
       "category": "environment",
       "slug": "carbon-footprint-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/carbon-footprint-calculator",
+      "url": "https://calcdigi.com/calculators/environment/carbon-footprint-calculator",
       "title": "Carbon Footprint Calculator",
       "description": "",
       "formulas": [],
@@ -912,7 +912,7 @@
     {
       "category": "environment",
       "slug": "electric-vehicle-savings-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/electric-vehicle-savings-calculator",
+      "url": "https://calcdigi.com/calculators/environment/electric-vehicle-savings-calculator",
       "title": "Electric Vehicle Savings Calculator",
       "description": "",
       "formulas": [],
@@ -921,7 +921,7 @@
     {
       "category": "environment",
       "slug": "energy-consumption-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/energy-consumption-calculator",
+      "url": "https://calcdigi.com/calculators/environment/energy-consumption-calculator",
       "title": "Energy Consumption Calculator",
       "description": "",
       "formulas": [],
@@ -930,7 +930,7 @@
     {
       "category": "environment",
       "slug": "recycling-savings-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/recycling-savings-calculator",
+      "url": "https://calcdigi.com/calculators/environment/recycling-savings-calculator",
       "title": "Recycling Savings Calculator",
       "description": "",
       "formulas": [],
@@ -939,7 +939,7 @@
     {
       "category": "environment",
       "slug": "solar-panel-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/solar-panel-calculator",
+      "url": "https://calcdigi.com/calculators/environment/solar-panel-calculator",
       "title": "Solar Panel Calculator",
       "description": "",
       "formulas": [],
@@ -948,7 +948,7 @@
     {
       "category": "environment",
       "slug": "tree-planting-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/tree-planting-calculator",
+      "url": "https://calcdigi.com/calculators/environment/tree-planting-calculator",
       "title": "Tree Planting Calculator",
       "description": "",
       "formulas": [],
@@ -957,7 +957,7 @@
     {
       "category": "environment",
       "slug": "water-usage-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/environment/water-usage-calculator",
+      "url": "https://calcdigi.com/calculators/environment/water-usage-calculator",
       "title": "Water Usage Calculator",
       "description": "",
       "formulas": [],
@@ -966,7 +966,7 @@
     {
       "category": "finance",
       "slug": "401k-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/401k-calculator",
+      "url": "https://calcdigi.com/calculators/finance/401k-calculator",
       "title": "401(k) Calculator",
       "description": "Estimate your 401(k) balance at retirement from your contribution rate, employer match, raises and investment returns \u2014 using the 2026 IRS contribution limits.",
       "formulas": [],
@@ -975,7 +975,7 @@
     {
       "category": "finance",
       "slug": "alimony-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/alimony-calculator",
+      "url": "https://calcdigi.com/calculators/finance/alimony-calculator",
       "title": "Alimony Calculator",
       "description": "Get a rough estimate of spousal support and its likely duration from both spouses' incomes and the length of the marriage.",
       "formulas": [
@@ -986,7 +986,7 @@
     {
       "category": "finance",
       "slug": "apr-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/apr-calculator",
+      "url": "https://calcdigi.com/calculators/finance/apr-calculator",
       "title": "APR Calculator",
       "description": "Find the true annual cost of a loan once upfront fees are included, so you can compare offers with different rates and fees side by side.",
       "formulas": [
@@ -997,7 +997,7 @@
     {
       "category": "finance",
       "slug": "apy-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/apy-calculator",
+      "url": "https://calcdigi.com/calculators/finance/apy-calculator",
       "title": "APY Calculator",
       "description": "Convert a nominal interest rate into annual percentage yield (APY) and see how compounding frequency changes what you actually earn.",
       "formulas": [
@@ -1009,7 +1009,7 @@
     {
       "category": "finance",
       "slug": "auto-loan-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/auto-loan-calculator",
+      "url": "https://calcdigi.com/calculators/finance/auto-loan-calculator",
       "title": "Auto Loan Calculator",
       "description": "Estimate your monthly car payment including sales tax, dealer fees, your down payment and trade-in, and see how much interest the loan costs.",
       "formulas": [
@@ -1021,7 +1021,7 @@
     {
       "category": "finance",
       "slug": "break-even-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/break-even-calculator",
+      "url": "https://calcdigi.com/calculators/finance/break-even-calculator",
       "title": "Break-Even Calculator",
       "description": "Work out how many units you need to sell \u2014 and how much revenue you need \u2014 before your business starts making a profit.",
       "formulas": [
@@ -1034,7 +1034,7 @@
     {
       "category": "finance",
       "slug": "budget-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/budget-calculator",
+      "url": "https://calcdigi.com/calculators/finance/budget-calculator",
       "title": "Budget Calculator",
       "description": "Split your monthly take-home pay into needs, wants and savings with a simple budget rule \u2014 and see how your current spending compares.",
       "formulas": [],
@@ -1043,7 +1043,7 @@
     {
       "category": "finance",
       "slug": "business-profit-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/business-profit-calculator",
+      "url": "https://calcdigi.com/calculators/finance/business-profit-calculator",
       "title": "Business Profit Calculator",
       "description": "Turn revenue and costs into gross profit, EBITDA, operating profit and net profit \u2014 with the margin at each level.",
       "formulas": [],
@@ -1052,7 +1052,7 @@
     {
       "category": "finance",
       "slug": "cd-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/cd-calculator",
+      "url": "https://calcdigi.com/calculators/finance/cd-calculator",
       "title": "CD Calculator",
       "description": "Find out how much interest a certificate of deposit will earn and what it will be worth when it matures.",
       "formulas": [
@@ -1064,7 +1064,7 @@
     {
       "category": "finance",
       "slug": "child-support-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/child-support-calculator",
+      "url": "https://calcdigi.com/calculators/finance/child-support-calculator",
       "title": "Child Support Calculator",
       "description": "Estimate monthly child support using the income-shares approach that most US states follow.",
       "formulas": [],
@@ -1073,7 +1073,7 @@
     {
       "category": "finance",
       "slug": "college-savings-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/college-savings-calculator",
+      "url": "https://calcdigi.com/calculators/finance/college-savings-calculator",
       "title": "College Savings Calculator",
       "description": "Estimate what college will cost by the time your child enrolls and how much you need to save each month to pay for it.",
       "formulas": [],
@@ -1082,7 +1082,7 @@
     {
       "category": "finance",
       "slug": "compound-interest-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/compound-interest-calculator",
+      "url": "https://calcdigi.com/calculators/finance/compound-interest-calculator",
       "title": "Compound Interest Calculator",
       "description": "See how your savings grow when interest earns interest. Add a starting balance, regular monthly deposits and a rate to project your balance year by year.",
       "formulas": [
@@ -1094,7 +1094,7 @@
     {
       "category": "finance",
       "slug": "credit-card-payoff-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/credit-card-payoff-calculator",
+      "url": "https://calcdigi.com/calculators/finance/credit-card-payoff-calculator",
       "title": "Credit Card Payoff Calculator",
       "description": "Find out how long it will take to clear your credit card balance and how much interest you'll pay \u2014 or what you need to pay each month to be debt-free by a date you choose.",
       "formulas": [],
@@ -1103,7 +1103,7 @@
     {
       "category": "finance",
       "slug": "crypto-profit-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/crypto-profit-calculator",
+      "url": "https://calcdigi.com/calculators/finance/crypto-profit-calculator",
       "title": "Crypto Profit Calculator",
       "description": "Work out the profit or loss on a cryptocurrency trade after exchange fees and taxes, and the price you need to sell at to break even.",
       "formulas": [
@@ -1115,7 +1115,7 @@
     {
       "category": "finance",
       "slug": "currency-converter",
-      "url": "https://calc-digi.vercel.app/calculators/finance/currency-converter",
+      "url": "https://calcdigi.com/calculators/finance/currency-converter",
       "title": "Currency Converter",
       "description": "Convert between more than 160 world currencies using reference exchange rates that are refreshed every day.",
       "formulas": [
@@ -1126,7 +1126,7 @@
     {
       "category": "finance",
       "slug": "debt-payoff-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/debt-payoff-calculator",
+      "url": "https://calcdigi.com/calculators/finance/debt-payoff-calculator",
       "title": "Debt Payoff Calculator",
       "description": "See when you'll be debt-free at your current payment, and how much sooner an extra monthly payment gets you there.",
       "formulas": [],
@@ -1135,7 +1135,7 @@
     {
       "category": "finance",
       "slug": "dividend-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/dividend-calculator",
+      "url": "https://calcdigi.com/calculators/finance/dividend-calculator",
       "title": "Dividend Calculator",
       "description": "Project your dividend income and portfolio value over time, with or without reinvesting dividends.",
       "formulas": [
@@ -1146,7 +1146,7 @@
     {
       "category": "finance",
       "slug": "down-payment-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/down-payment-calculator",
+      "url": "https://calcdigi.com/calculators/finance/down-payment-calculator",
       "title": "Down Payment Calculator",
       "description": "See how much cash you need to buy a home \u2014 down payment plus closing costs \u2014 and how long it will take to save it.",
       "formulas": [],
@@ -1155,7 +1155,7 @@
     {
       "category": "finance",
       "slug": "emergency-fund-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/emergency-fund-calculator",
+      "url": "https://calcdigi.com/calculators/finance/emergency-fund-calculator",
       "title": "Emergency Fund Calculator",
       "description": "Work out how big your emergency fund should be, how far along you are, and when you'll reach your target.",
       "formulas": [],
@@ -1164,7 +1164,7 @@
     {
       "category": "finance",
       "slug": "freelancer-tax-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/freelancer-tax-calculator",
+      "url": "https://calcdigi.com/calculators/finance/freelancer-tax-calculator",
       "title": "Freelancer Tax Calculator",
       "description": "Estimate the taxes on your freelance or 1099 income \u2014 self-employment tax plus federal and state income tax \u2014 and how much to pay each quarter.",
       "formulas": [
@@ -1175,7 +1175,7 @@
     {
       "category": "finance",
       "slug": "home-affordability-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/home-affordability-calculator",
+      "url": "https://calcdigi.com/calculators/finance/home-affordability-calculator",
       "title": "Home Affordability Calculator",
       "description": "Find the most expensive home you can likely qualify for, based on your income, existing debts, down payment and today's mortgage rates.",
       "formulas": [
@@ -1187,7 +1187,7 @@
     {
       "category": "finance",
       "slug": "hourly-to-salary-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/hourly-to-salary-calculator",
+      "url": "https://calcdigi.com/calculators/finance/hourly-to-salary-calculator",
       "title": "Hourly to Salary Calculator",
       "description": "Turn an hourly wage into a yearly salary \u2014 including overtime \u2014 or work out the hourly rate behind a salary offer.",
       "formulas": [
@@ -1198,7 +1198,7 @@
     {
       "category": "finance",
       "slug": "inflation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/inflation-calculator",
+      "url": "https://calcdigi.com/calculators/finance/inflation-calculator",
       "title": "Inflation Calculator",
       "description": "See how much a dollar amount from any year since 1913 is worth today using official US Consumer Price Index data \u2014 or project future prices at an average inflation rate.",
       "formulas": [
@@ -1210,7 +1210,7 @@
     {
       "category": "finance",
       "slug": "investment-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/investment-calculator",
+      "url": "https://calcdigi.com/calculators/finance/investment-calculator",
       "title": "Investment Calculator",
       "description": "Project how your investments could grow from a starting amount and regular monthly contributions, and see the result in today's dollars.",
       "formulas": [
@@ -1221,7 +1221,7 @@
     {
       "category": "finance",
       "slug": "loan-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/loan-calculator",
+      "url": "https://calcdigi.com/calculators/finance/loan-calculator",
       "title": "Loan Calculator",
       "description": "Work out the monthly payment and total interest on any fixed-rate loan, then see the full year-by-year amortization schedule.",
       "formulas": [
@@ -1232,7 +1232,7 @@
     {
       "category": "finance",
       "slug": "mortgage-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/mortgage-calculator",
+      "url": "https://calcdigi.com/calculators/finance/mortgage-calculator",
       "title": "Mortgage Calculator",
       "description": "",
       "formulas": [],
@@ -1241,7 +1241,7 @@
     {
       "category": "finance",
       "slug": "net-worth-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/net-worth-calculator",
+      "url": "https://calcdigi.com/calculators/finance/net-worth-calculator",
       "title": "Net Worth Calculator",
       "description": "Add up what you own and what you owe to find your net worth, and see how it compares with other US households your age.",
       "formulas": [
@@ -1252,7 +1252,7 @@
     {
       "category": "finance",
       "slug": "paypal-fee-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/paypal-fee-calculator",
+      "url": "https://calcdigi.com/calculators/finance/paypal-fee-calculator",
       "title": "PayPal Fee Calculator",
       "description": "Find out how much PayPal takes from a payment and what you'll receive \u2014 or how much to invoice so you end up with an exact amount.",
       "formulas": [
@@ -1263,7 +1263,7 @@
     {
       "category": "finance",
       "slug": "rent-vs-buy-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/rent-vs-buy-calculator",
+      "url": "https://calcdigi.com/calculators/finance/rent-vs-buy-calculator",
       "title": "Rent vs. Buy Calculator",
       "description": "Compare where you'd end up financially if you bought a home versus renting and investing the money you'd otherwise put into it.",
       "formulas": [],
@@ -1272,7 +1272,7 @@
     {
       "category": "finance",
       "slug": "retirement-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/retirement-calculator",
+      "url": "https://calcdigi.com/calculators/finance/retirement-calculator",
       "title": "Retirement Calculator",
       "description": "See what your savings could grow to by retirement, how big a nest egg your target income needs, and how long your money will last.",
       "formulas": [
@@ -1283,7 +1283,7 @@
     {
       "category": "finance",
       "slug": "roi-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/roi-calculator",
+      "url": "https://calcdigi.com/calculators/finance/roi-calculator",
       "title": "ROI Calculator",
       "description": "Measure the return on any investment \u2014 a stock, a property, a marketing campaign or a business project \u2014 as a total and as a yearly rate.",
       "formulas": [
@@ -1295,7 +1295,7 @@
     {
       "category": "finance",
       "slug": "roth-ira-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/roth-ira-calculator",
+      "url": "https://calcdigi.com/calculators/finance/roth-ira-calculator",
       "title": "Roth IRA Calculator",
       "description": "Project how much your Roth IRA could hold at retirement \u2014 all of it tax-free \u2014 and how much more that is than saving the same money in a taxable account.",
       "formulas": [],
@@ -1304,7 +1304,7 @@
     {
       "category": "finance",
       "slug": "salary-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/salary-calculator",
+      "url": "https://calcdigi.com/calculators/finance/salary-calculator",
       "title": "Salary Calculator",
       "description": "Convert any pay amount into hourly, daily, weekly, biweekly, semi-monthly, monthly, quarterly and annual figures.",
       "formulas": [],
@@ -1313,7 +1313,7 @@
     {
       "category": "finance",
       "slug": "sales-tax-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/sales-tax-calculator",
+      "url": "https://calcdigi.com/calculators/finance/sales-tax-calculator",
       "title": "Sales Tax Calculator",
       "description": "Add sales tax to a price, or back it out of a receipt total, using any US state's rate plus your local tax.",
       "formulas": [
@@ -1325,7 +1325,7 @@
     {
       "category": "finance",
       "slug": "savings-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/savings-calculator",
+      "url": "https://calcdigi.com/calculators/finance/savings-calculator",
       "title": "Savings Calculator",
       "description": "Find out how much you need to set aside each month to reach a savings goal \u2014 or how much your regular deposits will grow to with interest.",
       "formulas": [
@@ -1336,7 +1336,7 @@
     {
       "category": "finance",
       "slug": "social-security-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/social-security-calculator",
+      "url": "https://calcdigi.com/calculators/finance/social-security-calculator",
       "title": "Social Security Calculator",
       "description": "See how your Social Security retirement benefit changes depending on when you claim, from age 62 to 70.",
       "formulas": [],
@@ -1345,7 +1345,7 @@
     {
       "category": "finance",
       "slug": "stock-return-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/stock-return-calculator",
+      "url": "https://calcdigi.com/calculators/finance/stock-return-calculator",
       "title": "Stock Return Calculator",
       "description": "Calculate the total and annualized return on a stock you bought, including dividends, trading costs and taxes.",
       "formulas": [
@@ -1357,7 +1357,7 @@
     {
       "category": "finance",
       "slug": "take-home-pay-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/take-home-pay-calculator",
+      "url": "https://calcdigi.com/calculators/finance/take-home-pay-calculator",
       "title": "Take-Home Pay Calculator",
       "description": "Estimate how much of your salary actually lands in your bank account each payday after taxes, retirement contributions and benefits.",
       "formulas": [],
@@ -1366,7 +1366,7 @@
     {
       "category": "finance",
       "slug": "tax-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/tax-calculator",
+      "url": "https://calcdigi.com/calculators/finance/tax-calculator",
       "title": "Income Tax Calculator",
       "description": "",
       "formulas": [],
@@ -1375,7 +1375,7 @@
     {
       "category": "finance",
       "slug": "vat-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/finance/vat-calculator",
+      "url": "https://calcdigi.com/calculators/finance/vat-calculator",
       "title": "VAT Calculator",
       "description": "Add VAT to a net price or extract the VAT from a gross price, using common country rates or your own.",
       "formulas": [
@@ -1388,7 +1388,7 @@
     {
       "category": "food",
       "slug": "alcohol-unit-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/alcohol-unit-calculator",
+      "url": "https://calcdigi.com/calculators/food/alcohol-unit-calculator",
       "title": "Alcohol Unit Calculator",
       "description": "",
       "formulas": [],
@@ -1397,7 +1397,7 @@
     {
       "category": "food",
       "slug": "baking-substitution-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/baking-substitution-calculator",
+      "url": "https://calcdigi.com/calculators/food/baking-substitution-calculator",
       "title": "Baking Substitution Calculator",
       "description": "",
       "formulas": [],
@@ -1406,7 +1406,7 @@
     {
       "category": "food",
       "slug": "calorie-burn-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/calorie-burn-calculator",
+      "url": "https://calcdigi.com/calculators/food/calorie-burn-calculator",
       "title": "Calorie Burn Calculator",
       "description": "",
       "formulas": [],
@@ -1415,7 +1415,7 @@
     {
       "category": "food",
       "slug": "coffee-caffeine-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/coffee-caffeine-calculator",
+      "url": "https://calcdigi.com/calculators/food/coffee-caffeine-calculator",
       "title": "Caffeine Calculator",
       "description": "",
       "formulas": [],
@@ -1424,7 +1424,7 @@
     {
       "category": "food",
       "slug": "cooking-conversion-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/cooking-conversion-calculator",
+      "url": "https://calcdigi.com/calculators/food/cooking-conversion-calculator",
       "title": "Cooking Conversion Calculator",
       "description": "",
       "formulas": [],
@@ -1433,7 +1433,7 @@
     {
       "category": "food",
       "slug": "cooking-time-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/cooking-time-calculator",
+      "url": "https://calcdigi.com/calculators/food/cooking-time-calculator",
       "title": "Cooking Time Calculator",
       "description": "",
       "formulas": [],
@@ -1442,7 +1442,7 @@
     {
       "category": "food",
       "slug": "food-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/food-cost-calculator",
+      "url": "https://calcdigi.com/calculators/food/food-cost-calculator",
       "title": "Food Cost Calculator",
       "description": "",
       "formulas": [],
@@ -1451,7 +1451,7 @@
     {
       "category": "food",
       "slug": "nutrition-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/nutrition-calculator",
+      "url": "https://calcdigi.com/calculators/food/nutrition-calculator",
       "title": "Nutrition Calculator",
       "description": "",
       "formulas": [],
@@ -1460,7 +1460,7 @@
     {
       "category": "food",
       "slug": "recipe-scaler",
-      "url": "https://calc-digi.vercel.app/calculators/food/recipe-scaler",
+      "url": "https://calcdigi.com/calculators/food/recipe-scaler",
       "title": "Recipe Scaler",
       "description": "",
       "formulas": [],
@@ -1469,7 +1469,7 @@
     {
       "category": "food",
       "slug": "tip-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/food/tip-calculator",
+      "url": "https://calcdigi.com/calculators/food/tip-calculator",
       "title": "Tip Calculator",
       "description": "",
       "formulas": [],
@@ -1478,7 +1478,7 @@
     {
       "category": "geography",
       "slug": "country-area-population-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/geography/country-area-population-calculator",
+      "url": "https://calcdigi.com/calculators/geography/country-area-population-calculator",
       "title": "Country Statistics Calculator",
       "description": "",
       "formulas": [],
@@ -1487,7 +1487,7 @@
     {
       "category": "geography",
       "slug": "distance-between-cities-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/geography/distance-between-cities-calculator",
+      "url": "https://calcdigi.com/calculators/geography/distance-between-cities-calculator",
       "title": "Distance Between Cities Calculator",
       "description": "",
       "formulas": [],
@@ -1496,7 +1496,7 @@
     {
       "category": "geography",
       "slug": "elevation-grade-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/geography/elevation-grade-calculator",
+      "url": "https://calcdigi.com/calculators/geography/elevation-grade-calculator",
       "title": "Elevation Grade Calculator",
       "description": "",
       "formulas": [],
@@ -1505,7 +1505,7 @@
     {
       "category": "geography",
       "slug": "latitude-longitude-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/geography/latitude-longitude-calculator",
+      "url": "https://calcdigi.com/calculators/geography/latitude-longitude-calculator",
       "title": "Latitude and Longitude Calculator",
       "description": "",
       "formulas": [],
@@ -1514,7 +1514,7 @@
     {
       "category": "geography",
       "slug": "map-scale-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/geography/map-scale-calculator",
+      "url": "https://calcdigi.com/calculators/geography/map-scale-calculator",
       "title": "Map Scale Calculator",
       "description": "",
       "formulas": [],
@@ -1523,7 +1523,7 @@
     {
       "category": "geography",
       "slug": "time-zone-difference-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/geography/time-zone-difference-calculator",
+      "url": "https://calcdigi.com/calculators/geography/time-zone-difference-calculator",
       "title": "Time Zone Difference Calculator",
       "description": "",
       "formulas": [],
@@ -1532,7 +1532,7 @@
     {
       "category": "health",
       "slug": "alcohol-unit-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/alcohol-unit-calculator",
+      "url": "https://calcdigi.com/calculators/health/alcohol-unit-calculator",
       "title": "Alcohol Unit Calculator",
       "description": "Determine your Blood Alcohol Concentration (BAC) and trace metabolic elimination time using the clinical Widmark equation. Understand standard drink equivalents and legal impairment thresholds.",
       "formulas": [
@@ -1568,7 +1568,7 @@
     {
       "category": "health",
       "slug": "baby-weight-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/baby-weight-calculator",
+      "url": "https://calcdigi.com/calculators/health/baby-weight-calculator",
       "title": "Baby Weight Percentile Calculator",
       "description": "Assess your infant's physical development against the World Health Organization (WHO) Child Growth Standards (0 to 24 months). Calculate exact centiles, Z-scores, and longitudinal growth velocity.",
       "formulas": [
@@ -1580,7 +1580,7 @@
     {
       "category": "health",
       "slug": "blood-pressure-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/blood-pressure-calculator",
+      "url": "https://calcdigi.com/calculators/health/blood-pressure-calculator",
       "title": "Blood Pressure Calculator",
       "description": "Interpret your blood pressure numbers using the landmark 2017 ACC/AHA Clinical Practice Guidelines. Evaluate Mean Arterial Pressure (MAP) for vital organ perfusion and Pulse Pressure for arterial vascular compliance.",
       "formulas": [
@@ -1592,7 +1592,7 @@
     {
       "category": "health",
       "slug": "bmi-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/bmi-calculator",
+      "url": "https://calcdigi.com/calculators/health/bmi-calculator",
       "title": "BMI Calculator",
       "description": "Calculate your Body Mass Index in US or metric units and see where you fall on the WHO scale, plus the healthy weight range for your height.",
       "formulas": [
@@ -1631,7 +1631,7 @@
     {
       "category": "health",
       "slug": "bmr-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/bmr-calculator",
+      "url": "https://calcdigi.com/calculators/health/bmr-calculator",
       "title": "BMR Calculator",
       "description": "Accurately calculate your Basal Metabolic Rate (BMR)\u2014the minimum daily calories your body burns at complete rest to sustain vital cellular, brain, and cardiac functions.",
       "formulas": [
@@ -1644,7 +1644,7 @@
     {
       "category": "health",
       "slug": "body-fat-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/body-fat-calculator",
+      "url": "https://calcdigi.com/calculators/health/body-fat-calculator",
       "title": "Body Fat Calculator",
       "description": "Step-by-step instructions for taking accurate neck, waist, and hip measurements for the US Navy body fat formula.",
       "formulas": [
@@ -1681,7 +1681,7 @@
     {
       "category": "health",
       "slug": "body-shape-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/body-shape-calculator",
+      "url": "https://calcdigi.com/calculators/health/body-shape-calculator",
       "title": "Body Shape Calculator",
       "description": "Determine your precise anatomical body shape\u2014Hourglass, Pear, Rectangle, Apple, or Inverted Triangle\u2014using standardized anthropometric ratios and WHO cardiometabolic risk indices.",
       "formulas": [
@@ -1692,7 +1692,7 @@
     {
       "category": "health",
       "slug": "bra-size-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/bra-size-calculator",
+      "url": "https://calcdigi.com/calculators/health/bra-size-calculator",
       "title": "Bra Size Calculator",
       "description": "Accurately determine your true bra size using modern snug-band anthropometry and volumetric sister-sizing principles. Avoid neck and shoulder strain by finding your ideal biomechanical fit.",
       "formulas": [
@@ -1704,7 +1704,7 @@
     {
       "category": "health",
       "slug": "calorie-burn-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/calorie-burn-calculator",
+      "url": "https://calcdigi.com/calculators/health/calorie-burn-calculator",
       "title": "Calorie Burn Calculator",
       "description": "Quantify workout energy expenditure using the validated 2024 Ainsworth Compendium of Physical Activities. Distinguish between gross total expenditure and true net exercise burn across cardiovascular, resistance, and sports modalities.",
       "formulas": [
@@ -1718,7 +1718,7 @@
     {
       "category": "health",
       "slug": "calorie-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/calorie-calculator",
+      "url": "https://calcdigi.com/calculators/health/calorie-calculator",
       "title": "Calorie Calculator",
       "description": "Calculate your personalized daily calorie requirements for healthy weight loss, maintenance, or muscle gain. Powered by the clinically validated Mifflin-St Jeor formula with instant macronutrient breakdown.",
       "formulas": [
@@ -1755,7 +1755,7 @@
     {
       "category": "health",
       "slug": "child-height-predictor",
-      "url": "https://calc-digi.vercel.app/calculators/health/child-height-predictor",
+      "url": "https://calcdigi.com/calculators/health/child-height-predictor",
       "title": "Child Height Predictor",
       "description": "Forecast your child's final adult stature using the clinical Tanner-Goldstein Mid-Parental Height (MPH) formula. Review pubertal peak height velocity schedules, epiphyseal fusion milestones, and endocrinological growth standards.",
       "formulas": [
@@ -1767,7 +1767,7 @@
     {
       "category": "health",
       "slug": "cycling-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/cycling-calculator",
+      "url": "https://calcdigi.com/calculators/health/cycling-calculator",
       "title": "Cycling Power & Speed Calculator",
       "description": "Top professional Grand Tour contenders and world championship cyclists.",
       "formulas": [
@@ -1782,7 +1782,7 @@
     {
       "category": "health",
       "slug": "fertility-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/fertility-calculator",
+      "url": "https://calcdigi.com/calculators/health/fertility-calculator",
       "title": "Fertility & Conception Calculator",
       "description": "Estimate your monthly conception probabilities and cumulative 12-month pregnancy rates based on maternal age, cycle consistency, and evidence-based reproductive endocrinology standards.",
       "formulas": [
@@ -1794,7 +1794,7 @@
     {
       "category": "health",
       "slug": "heart-rate-zone-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/heart-rate-zone-calculator",
+      "url": "https://calcdigi.com/calculators/health/heart-rate-zone-calculator",
       "title": "Heart Rate Zone Calculator",
       "description": "Accurately determine your five cardiovascular training zones, maximum heart rate (HRmax), and optimal Zone 2 fat-burning aerobic target using the clinically validated Karvonen Heart Rate Reserve (HRR) and Tanaka formulas.",
       "formulas": [
@@ -1806,7 +1806,7 @@
     {
       "category": "health",
       "slug": "ideal-weight-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/ideal-weight-calculator",
+      "url": "https://calcdigi.com/calculators/health/ideal-weight-calculator",
       "title": "Ideal Weight Calculator",
       "description": "Determine your target healthy body weight by comparing four clinically validated medical formulas (Devine, Robinson, Miller, and Hamwi) alongside World Health Organization (WHO) BMI reference standards.",
       "formulas": [
@@ -1821,7 +1821,7 @@
     {
       "category": "health",
       "slug": "intermittent-fasting-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/intermittent-fasting-calculator",
+      "url": "https://calcdigi.com/calculators/health/intermittent-fasting-calculator",
       "title": "Intermittent Fasting Calculator",
       "description": "Determine your precise fasting and eating windows for 16:8, 18:6, 20:4 Warrior, and OMAD schedules. Calibrated to cellular autophagy biology, circadian metabolic rhythms, and hepatic glycogen depletion.",
       "formulas": [
@@ -1832,7 +1832,7 @@
     {
       "category": "health",
       "slug": "lean-body-mass-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/lean-body-mass-calculator",
+      "url": "https://calcdigi.com/calculators/health/lean-body-mass-calculator",
       "title": "Lean Body Mass Calculator",
       "description": "Accurately determine your Lean Body Mass (LBM), skeletal muscle reserve, and Fat-Free Mass Index (FFMI) using the three clinical gold-standard equations: Boer, James, and Hume.",
       "formulas": [
@@ -1851,7 +1851,7 @@
     {
       "category": "health",
       "slug": "macro-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/macro-calculator",
+      "url": "https://calcdigi.com/calculators/health/macro-calculator",
       "title": "Macro Calculator",
       "description": "Calculate your optimal daily macronutrients (protein, carbohydrates, and fats) in grams and calories based on your body metrics and fitness goals. Includes flexible diet presets, visual donut charts, and per-meal distributions.",
       "formulas": [
@@ -1889,7 +1889,7 @@
     {
       "category": "health",
       "slug": "one-rep-max-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/one-rep-max-calculator",
+      "url": "https://calcdigi.com/calculators/health/one-rep-max-calculator",
       "title": "One Rep Max (1RM) Calculator",
       "description": "Accurately estimate your single-repetition maximum (1RM) across 7 peer-reviewed exercise science models. Calculate target percentages, rep maxes, and periodized training loads without risking musculoskeletal injury from maximal testing.",
       "formulas": [
@@ -1904,7 +1904,7 @@
     {
       "category": "health",
       "slug": "ovulation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/ovulation-calculator",
+      "url": "https://calcdigi.com/calculators/health/ovulation-calculator",
       "title": "Ovulation Calculator",
       "description": "Determine your precise day of ovulation, peak 6-day fertile window, and conception probabilities using evidence-based reproductive endocrinology calibrated to your unique menstrual cycle.",
       "formulas": [
@@ -1915,7 +1915,7 @@
     {
       "category": "health",
       "slug": "pace-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/pace-calculator",
+      "url": "https://calcdigi.com/calculators/health/pace-calculator",
       "title": "Running Pace Calculator",
       "description": "Compute running paces, target finish splits, and distance projections across metric and imperial systems. Leverage Peter Riegel's endurance formula to forecast race-day performance from 5K to the 26.2-mile marathon distance.",
       "formulas": [
@@ -1927,7 +1927,7 @@
     {
       "category": "health",
       "slug": "period-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/period-calculator",
+      "url": "https://calcdigi.com/calculators/health/period-calculator",
       "title": "Period Calculator",
       "description": "Forecast your upcoming menstrual periods, bleeding duration, and premenstrual (PMS) windows with clinical precision based on the International Federation of Gynecology and Obstetrics (FIGO) standards.",
       "formulas": [
@@ -1938,7 +1938,7 @@
     {
       "category": "health",
       "slug": "pregnancy-due-date-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/pregnancy-due-date-calculator",
+      "url": "https://calcdigi.com/calculators/health/pregnancy-due-date-calculator",
       "title": "Pregnancy Due Date Calculator",
       "description": "Determine your Estimated Due Date (EDD), current gestational week, and trimester transitions using the obstetric gold-standard Naegele's Rule, calibrated to your individual menstrual cycle length.",
       "formulas": [
@@ -1950,7 +1950,7 @@
     {
       "category": "health",
       "slug": "protein-intake-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/protein-intake-calculator",
+      "url": "https://calcdigi.com/calculators/health/protein-intake-calculator",
       "title": "Protein Intake Calculator",
       "description": "Accurately calculate your optimal daily dietary protein requirements in grams and meal doses based on body weight, training intensity, and athletic goals according to International Society of Sports Nutrition (ISSN) guidelines.",
       "formulas": [
@@ -1962,7 +1962,7 @@
     {
       "category": "health",
       "slug": "pushup-test-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/pushup-test-calculator",
+      "url": "https://calcdigi.com/calculators/health/pushup-test-calculator",
       "title": "Pushup Test Calculator",
       "description": "Evaluate your upper-body muscular endurance and cardiorespiratory health against clinical American College of Sports Medicine (ACSM) standards. Discover your percentile ranking and assess cardiovascular longevity risk.",
       "formulas": [
@@ -1973,7 +1973,7 @@
     {
       "category": "health",
       "slug": "sleep-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/sleep-calculator",
+      "url": "https://calcdigi.com/calculators/health/sleep-calculator",
       "title": "Sleep Calculator",
       "description": "Optimize your bedtime and wake times using the neurobiology of 90-minute ultradian sleep cycles. Align your alarm with light sleep or REM boundaries to eliminate morning sleep inertia.",
       "formulas": [
@@ -1984,7 +1984,7 @@
     {
       "category": "health",
       "slug": "smoking-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/smoking-cost-calculator",
+      "url": "https://calcdigi.com/calculators/health/smoking-cost-calculator",
       "title": "Smoking Cost Calculator",
       "description": "Direct retail expenditure on tobacco packs and excise taxes.",
       "formulas": [
@@ -2016,7 +2016,7 @@
     {
       "category": "health",
       "slug": "steps-to-calories-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/steps-to-calories-calculator",
+      "url": "https://calcdigi.com/calculators/health/steps-to-calories-calculator",
       "title": "Steps to Calories Calculator",
       "description": "Accurately convert your daily pedometer or smartwatch step count into total calories burned and distance traversed. Tailored to your anatomical height, body weight, biological sex, and walking cadence.",
       "formulas": [
@@ -2029,7 +2029,7 @@
     {
       "category": "health",
       "slug": "swim-pace-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/swim-pace-calculator",
+      "url": "https://calcdigi.com/calculators/health/swim-pace-calculator",
       "title": "Swim Pace Calculator",
       "description": "Calculate swim paces across 100-meter and 100-yard standards, predict pool and open-water race times, and establish training zones using Critical Swim Speed (CSS) threshold methodology.",
       "formulas": [
@@ -2041,7 +2041,7 @@
     {
       "category": "health",
       "slug": "tdee-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/tdee-calculator",
+      "url": "https://calcdigi.com/calculators/health/tdee-calculator",
       "title": "TDEE Calculator",
       "description": "Accurately determine your Total Daily Energy Expenditure (TDEE)\u2014the exact number of calories you burn each day across resting metabolism, daily steps, digestion, and physical training.",
       "formulas": [
@@ -2053,7 +2053,7 @@
     {
       "category": "health",
       "slug": "vo2-max-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/vo2-max-calculator",
+      "url": "https://calcdigi.com/calculators/health/vo2-max-calculator",
       "title": "VO2 Max Calculator",
       "description": "Accurately calculate your maximal oxygen uptake (VO2 max) in milliliters of oxygen consumed per kilogram of body weight per minute (mL/kg/min). Assess cardiorespiratory endurance and all-cause mortality risk across validated clinical field tests.",
       "formulas": [
@@ -2069,7 +2069,7 @@
     {
       "category": "health",
       "slug": "waist-to-height-ratio-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/waist-to-height-ratio-calculator",
+      "url": "https://calcdigi.com/calculators/health/waist-to-height-ratio-calculator",
       "title": "Waist to Height Ratio Calculator",
       "description": "Evaluate your cardiometabolic health and visceral fat accumulation using the universally validated Waist-to-Height Ratio (WHtR). Built on Dr. Margaret Ashwell's landmark clinical meta-analyses.",
       "formulas": [
@@ -2080,7 +2080,7 @@
     {
       "category": "health",
       "slug": "waist-to-hip-ratio-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/waist-to-hip-ratio-calculator",
+      "url": "https://calcdigi.com/calculators/health/waist-to-hip-ratio-calculator",
       "title": "Waist to Hip Ratio Calculator",
       "description": "Accurately compute your Waist-to-Hip Ratio (WHR) and assess central visceral adiposity and cardiovascular disease vulnerability according to World Health Organization (WHO) epidemiological benchmarks.",
       "formulas": [
@@ -2091,7 +2091,7 @@
     {
       "category": "health",
       "slug": "water-intake-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/water-intake-calculator",
+      "url": "https://calcdigi.com/calculators/health/water-intake-calculator",
       "title": "Water Intake Calculator",
       "description": "Calculate your personalized daily fluid intake requirement based on body weight, exercise sweat loss, ambient climate, and metabolic hydration needs according to National Academies of Sciences standards.",
       "formulas": [
@@ -2103,7 +2103,7 @@
     {
       "category": "health",
       "slug": "weight-loss-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/health/weight-loss-calculator",
+      "url": "https://calcdigi.com/calculators/health/weight-loss-calculator",
       "title": "Weight Loss Calculator",
       "description": "Calculate your scientific daily caloric intake, healthy target deficit, and realistic goal timeline. Powered by Mifflin-St Jeor resting calorimetry and the National Institutes of Health (NIH) dynamic metabolic adaptation model.",
       "formulas": [
@@ -2114,7 +2114,7 @@
     {
       "category": "housing",
       "slug": "concrete-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/concrete-calculator",
+      "url": "https://calcdigi.com/calculators/housing/concrete-calculator",
       "title": "Concrete Calculator",
       "description": "Calculate cubic yards, cubic feet, and bag counts for slabs, foundations, driveways, patios, and cylindrical post holes with safety waste margins.",
       "formulas": [
@@ -2127,7 +2127,7 @@
     {
       "category": "housing",
       "slug": "down-payment-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/down-payment-calculator",
+      "url": "https://calcdigi.com/calculators/housing/down-payment-calculator",
       "title": "Down Payment Calculator",
       "description": "Determine your required cash to close, compare down payment percentage tiers (3% to 20%), evaluate PMI costs, and project your savings timeline.",
       "formulas": [
@@ -2142,7 +2142,7 @@
     {
       "category": "housing",
       "slug": "electricity-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/electricity-cost-calculator",
+      "url": "https://calcdigi.com/calculators/housing/electricity-cost-calculator",
       "title": "Electricity Cost Calculator",
       "description": "Calculate the exact electricity cost to operate any appliance or device based on wattage, daily runtime, and regional utility kilowatt-hour (kWh) rates.",
       "formulas": [
@@ -2157,7 +2157,7 @@
     {
       "category": "housing",
       "slug": "fence-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/fence-cost-calculator",
+      "url": "https://calcdigi.com/calculators/housing/fence-cost-calculator",
       "title": "Fence Cost Calculator",
       "description": "Estimate installed fence costs and exact material requirements including posts, 8-foot panels, gates, and post-hole concrete bags.",
       "formulas": [
@@ -2171,7 +2171,7 @@
     {
       "category": "housing",
       "slug": "flooring-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/flooring-calculator",
+      "url": "https://calcdigi.com/calculators/housing/flooring-calculator",
       "title": "Flooring Calculator",
       "description": "Calculate exact flooring square footage, required box counts, pattern waste allowances, underlayment rolls, and total material budget.",
       "formulas": [
@@ -2185,7 +2185,7 @@
     {
       "category": "housing",
       "slug": "home-affordability-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/home-affordability-calculator",
+      "url": "https://calcdigi.com/calculators/housing/home-affordability-calculator",
       "title": "Home Affordability Calculator",
       "description": "Determine how much home you can afford based on gross household income, monthly debts, down payment, and Fannie Mae 28/36 debt-to-income benchmarks.",
       "formulas": [
@@ -2199,7 +2199,7 @@
     {
       "category": "housing",
       "slug": "home-equity-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/home-equity-calculator",
+      "url": "https://calcdigi.com/calculators/housing/home-equity-calculator",
       "title": "Home Equity Calculator",
       "description": "Determine your accumulated home equity, current loan-to-value ratio, and maximum cash you can borrow through a HELOC or home equity loan.",
       "formulas": [
@@ -2213,7 +2213,7 @@
     {
       "category": "housing",
       "slug": "land-area-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/land-area-calculator",
+      "url": "https://calcdigi.com/calculators/housing/land-area-calculator",
       "title": "Land Area Calculator",
       "description": "Calculate property acreage, square footage, boundary fencing perimeter, and zoning building coverage from boundary dimensions.",
       "formulas": [
@@ -2227,7 +2227,7 @@
     {
       "category": "housing",
       "slug": "paint-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/paint-calculator",
+      "url": "https://calcdigi.com/calculators/housing/paint-calculator",
       "title": "Paint Calculator",
       "description": "Calculate exact paint gallons and primer needed for walls and ceilings with automatic window, door, and trim deductions.",
       "formulas": [
@@ -2242,7 +2242,7 @@
     {
       "category": "housing",
       "slug": "property-tax-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/property-tax-calculator",
+      "url": "https://calcdigi.com/calculators/housing/property-tax-calculator",
       "title": "Property Tax Calculator",
       "description": "Calculate your annual and monthly property tax bill based on market value, county assessment ratios, millage rates, and homestead exemptions.",
       "formulas": [
@@ -2257,7 +2257,7 @@
     {
       "category": "housing",
       "slug": "refinance-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/refinance-calculator",
+      "url": "https://calcdigi.com/calculators/housing/refinance-calculator",
       "title": "Mortgage Refinance Calculator",
       "description": "Determine your monthly payment savings, breakeven timeline in months, and total lifetime interest saved by refinancing your home loan.",
       "formulas": [
@@ -2271,7 +2271,7 @@
     {
       "category": "housing",
       "slug": "renovation-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/renovation-cost-calculator",
+      "url": "https://calcdigi.com/calculators/housing/renovation-cost-calculator",
       "title": "Renovation Cost Calculator",
       "description": "Estimate realistic home remodeling budgets across kitchens, bathrooms, basements, and full houses with material and labor breakdowns.",
       "formulas": [
@@ -2283,7 +2283,7 @@
     {
       "category": "housing",
       "slug": "rent-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/rent-calculator",
+      "url": "https://calcdigi.com/calculators/housing/rent-calculator",
       "title": "Rent Affordability Calculator",
       "description": "Determine your maximum sustainable monthly rent budget based on salary, existing debt payments, utilities, and landlord 40x qualification criteria.",
       "formulas": [
@@ -2297,7 +2297,7 @@
     {
       "category": "housing",
       "slug": "rent-vs-buy-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/rent-vs-buy-calculator",
+      "url": "https://calcdigi.com/calculators/housing/rent-vs-buy-calculator",
       "title": "Rent vs Buy Calculator",
       "description": "Determine whether renting or buying builds more wealth over your planned timeline using real-world appreciation, equity amortization, and opportunity costs.",
       "formulas": [
@@ -2311,7 +2311,7 @@
     {
       "category": "housing",
       "slug": "roof-area-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/roof-area-calculator",
+      "url": "https://calcdigi.com/calculators/housing/roof-area-calculator",
       "title": "Roof Area Calculator",
       "description": "Calculate true sloped roof surface square footage, roofing squares, shingle bundle counts, and underlayment rolls from ground footprint and roof pitch.",
       "formulas": [
@@ -2327,7 +2327,7 @@
     {
       "category": "housing",
       "slug": "room-area-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/room-area-calculator",
+      "url": "https://calcdigi.com/calculators/housing/room-area-calculator",
       "title": "Room Area Calculator",
       "description": "Determine exact floor square footage, net wall paint surface area, room perimeter for baseboards, and interior cubic volume with opening deductions.",
       "formulas": [
@@ -2343,7 +2343,7 @@
     {
       "category": "housing",
       "slug": "square-footage-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/housing/square-footage-calculator",
+      "url": "https://calcdigi.com/calculators/housing/square-footage-calculator",
       "title": "Square Footage Calculator",
       "description": "Accurately calculate square footage and square meters for single rooms, multi-room houses, L-shaped layouts, and circular spaces with custom waste factors.",
       "formulas": [
@@ -2359,7 +2359,7 @@
     {
       "category": "internet",
       "slug": "bandwidth-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/bandwidth-calculator",
+      "url": "https://calcdigi.com/calculators/internet/bandwidth-calculator",
       "title": "Bandwidth Calculator",
       "description": "",
       "formulas": [],
@@ -2368,7 +2368,7 @@
     {
       "category": "internet",
       "slug": "cloud-storage-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/cloud-storage-calculator",
+      "url": "https://calcdigi.com/calculators/internet/cloud-storage-calculator",
       "title": "Cloud Storage Calculator",
       "description": "",
       "formulas": [],
@@ -2377,7 +2377,7 @@
     {
       "category": "internet",
       "slug": "data-usage-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/data-usage-calculator",
+      "url": "https://calcdigi.com/calculators/internet/data-usage-calculator",
       "title": "Data Usage Calculator",
       "description": "",
       "formulas": [],
@@ -2386,7 +2386,7 @@
     {
       "category": "internet",
       "slug": "download-time-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/download-time-calculator",
+      "url": "https://calcdigi.com/calculators/internet/download-time-calculator",
       "title": "Download Time Calculator",
       "description": "",
       "formulas": [],
@@ -2395,7 +2395,7 @@
     {
       "category": "internet",
       "slug": "email-size-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/email-size-calculator",
+      "url": "https://calcdigi.com/calculators/internet/email-size-calculator",
       "title": "Email Size Calculator",
       "description": "",
       "formulas": [],
@@ -2404,7 +2404,7 @@
     {
       "category": "internet",
       "slug": "internet-speed-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/internet-speed-calculator",
+      "url": "https://calcdigi.com/calculators/internet/internet-speed-calculator",
       "title": "Internet Speed Calculator",
       "description": "",
       "formulas": [],
@@ -2413,7 +2413,7 @@
     {
       "category": "internet",
       "slug": "ip-subnet-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/ip-subnet-calculator",
+      "url": "https://calcdigi.com/calculators/internet/ip-subnet-calculator",
       "title": "IP Subnet Calculator",
       "description": "",
       "formulas": [],
@@ -2422,7 +2422,7 @@
     {
       "category": "internet",
       "slug": "ping-latency-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/ping-latency-calculator",
+      "url": "https://calcdigi.com/calculators/internet/ping-latency-calculator",
       "title": "Ping and Latency Calculator",
       "description": "",
       "formulas": [],
@@ -2431,7 +2431,7 @@
     {
       "category": "internet",
       "slug": "server-uptime-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/server-uptime-calculator",
+      "url": "https://calcdigi.com/calculators/internet/server-uptime-calculator",
       "title": "Server Uptime Calculator",
       "description": "",
       "formulas": [],
@@ -2440,7 +2440,7 @@
     {
       "category": "internet",
       "slug": "streaming-quality-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/streaming-quality-calculator",
+      "url": "https://calcdigi.com/calculators/internet/streaming-quality-calculator",
       "title": "Streaming Quality Calculator",
       "description": "",
       "formulas": [],
@@ -2449,7 +2449,7 @@
     {
       "category": "internet",
       "slug": "vpn-speed-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/vpn-speed-calculator",
+      "url": "https://calcdigi.com/calculators/internet/vpn-speed-calculator",
       "title": "VPN Speed Calculator",
       "description": "",
       "formulas": [],
@@ -2458,7 +2458,7 @@
     {
       "category": "internet",
       "slug": "website-load-time-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/internet/website-load-time-calculator",
+      "url": "https://calcdigi.com/calculators/internet/website-load-time-calculator",
       "title": "Website Load Time Calculator",
       "description": "",
       "formulas": [],
@@ -2467,7 +2467,7 @@
     {
       "category": "math",
       "slug": "absolute-value-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/absolute-value-calculator",
+      "url": "https://calcdigi.com/calculators/math/absolute-value-calculator",
       "title": "Absolute Value Calculator | CalcDigi",
       "description": "Calculate real and complex absolute values, solve absolute value equations and inequalities, and evaluate coordinate distances with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -2518,7 +2518,7 @@
     {
       "category": "math",
       "slug": "area-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/area-calculator",
+      "url": "https://calcdigi.com/calculators/math/area-calculator",
       "title": "Area Calculator | CalcDigi",
       "description": "Calculate the area of squares, rectangles, triangles, circles, trapezoids, ellipses, and complex irregular polygons with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -2565,7 +2565,7 @@
     {
       "category": "math",
       "slug": "average-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/average-calculator",
+      "url": "https://calcdigi.com/calculators/math/average-calculator",
       "title": "Average Calculator | CalcDigi",
       "description": "Calculate the arithmetic mean, median, mode, range, variance, and standard deviation for any list of numbers with step-by-step mathematical solutions.",
       "formulas": [
@@ -2615,7 +2615,7 @@
     {
       "category": "math",
       "slug": "big-number-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/big-number-calculator",
+      "url": "https://calcdigi.com/calculators/math/big-number-calculator",
       "title": "Big Number Calculator | CalcDigi",
       "description": "Execute arbitrary-precision arithmetic, calculate exact factorials and powers of immense integers without rounding truncation errors.",
       "formulas": [
@@ -2668,7 +2668,7 @@
     {
       "category": "math",
       "slug": "binary-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/binary-calculator",
+      "url": "https://calcdigi.com/calculators/math/binary-calculator",
       "title": "Binary Calculator | CalcDigi",
       "description": "Execute binary arithmetic, evaluate bitwise logic gates, calculate Two's Complement, and convert between binary, octal, decimal, and hexadecimal.",
       "formulas": [
@@ -2717,7 +2717,7 @@
     {
       "category": "math",
       "slug": "circle-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/circle-calculator",
+      "url": "https://calcdigi.com/calculators/math/circle-calculator",
       "title": "Circle Calculator | CalcDigi",
       "description": "Calculate the area, circumference, radius, diameter, arc length, sector area, and chord length of any circle with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -2769,7 +2769,7 @@
     {
       "category": "math",
       "slug": "combination-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/combination-calculator",
+      "url": "https://calcdigi.com/calculators/math/combination-calculator",
       "title": "Combination Calculator | CalcDigi",
       "description": "Calculate combinations without repetition and with replacement, explore Pascal triangle coefficients, and evaluate sampling probabilities.",
       "formulas": [
@@ -2823,7 +2823,7 @@
     {
       "category": "math",
       "slug": "confidence-interval-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/confidence-interval-calculator",
+      "url": "https://calcdigi.com/calculators/math/confidence-interval-calculator",
       "title": "Confidence Interval Calculator | CalcDigi",
       "description": "Calculate confidence intervals, margins of error, and standard errors for population means and proportions at any confidence level with complete mathematical derivations.",
       "formulas": [
@@ -2875,7 +2875,7 @@
     {
       "category": "math",
       "slug": "decimal-to-fraction-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/decimal-to-fraction-calculator",
+      "url": "https://calcdigi.com/calculators/math/decimal-to-fraction-calculator",
       "title": "Decimal to Fraction Calculator | CalcDigi",
       "description": "Convert any terminating or repeating decimal into an exact, fully simplified fraction or mixed number with step-by-step algebraic derivations and period analysis.",
       "formulas": [
@@ -2924,7 +2924,7 @@
     {
       "category": "math",
       "slug": "distance-formula-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/distance-formula-calculator",
+      "url": "https://calcdigi.com/calculators/math/distance-formula-calculator",
       "title": "Distance Formula Calculator | CalcDigi",
       "description": "Calculate 2D and 3D Euclidean distance, coordinate displacement, midpoint, and vector length between any two points with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -2976,7 +2976,7 @@
     {
       "category": "math",
       "slug": "exponent-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/exponent-calculator",
+      "url": "https://calcdigi.com/calculators/math/exponent-calculator",
       "title": "Exponent Calculator | CalcDigi",
       "description": "Calculate powers, fractional exponents, negative indices, scientific power expansions, and compound exponential growth with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -3028,7 +3028,7 @@
     {
       "category": "math",
       "slug": "factor-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/factor-calculator",
+      "url": "https://calcdigi.com/calculators/math/factor-calculator",
       "title": "Factor Calculator | CalcDigi",
       "description": "Find all positive and negative factors, factor pairs, canonical prime factorizations, and aliquot divisor sums with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -3077,7 +3077,7 @@
     {
       "category": "math",
       "slug": "factorial-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/factorial-calculator",
+      "url": "https://calcdigi.com/calculators/math/factorial-calculator",
       "title": "Factorial Calculator | CalcDigi",
       "description": "Compute exact factorials, explore permutation scales, Stirling approximations, and Gamma continuations with ISO-compliant algorithmic precision.",
       "formulas": [
@@ -3132,7 +3132,7 @@
     {
       "category": "math",
       "slug": "fraction-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/fraction-calculator",
+      "url": "https://calcdigi.com/calculators/math/fraction-calculator",
       "title": "Fraction Calculator | CalcDigi",
       "description": "Add, subtract, multiply, and divide fractions, mixed numbers, and improper fractions with detailed step-by-step arithmetic derivations and automatic reduction.",
       "formulas": [
@@ -3182,7 +3182,7 @@
     {
       "category": "math",
       "slug": "gcf-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/gcf-calculator",
+      "url": "https://calcdigi.com/calculators/math/gcf-calculator",
       "title": "GCF Calculator | CalcDigi",
       "description": "Find the greatest common divisor with step-by-step Euclidean division, prime factor trees, and modular arithmetic precision.",
       "formulas": [
@@ -3235,7 +3235,7 @@
     {
       "category": "math",
       "slug": "hex-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/hex-calculator",
+      "url": "https://calcdigi.com/calculators/math/hex-calculator",
       "title": "Hex Calculator | CalcDigi",
       "description": "Execute hexadecimal arithmetic, perform 4-bit nibble binary conversions, inspect memory byte structures, and evaluate bitwise logic.",
       "formulas": [
@@ -3286,7 +3286,7 @@
     {
       "category": "math",
       "slug": "lcm-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/lcm-calculator",
+      "url": "https://calcdigi.com/calculators/math/lcm-calculator",
       "title": "LCM Calculator | CalcDigi",
       "description": "Calculate least common multiples instantly using Euclidean GCF duality, prime factor trees, and multi-integer ladder methods.",
       "formulas": [
@@ -3341,7 +3341,7 @@
     {
       "category": "math",
       "slug": "logarithm-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/logarithm-calculator",
+      "url": "https://calcdigi.com/calculators/math/logarithm-calculator",
       "title": "Logarithm Calculator | CalcDigi",
       "description": "Calculate natural logarithms (ln), common logarithms (log\u2081\u2080), binary logarithms (log\u2082), and arbitrary custom bases with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -3391,7 +3391,7 @@
     {
       "category": "math",
       "slug": "long-division-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/long-division-calculator",
+      "url": "https://calcdigi.com/calculators/math/long-division-calculator",
       "title": "Long Division Calculator | CalcDigi",
       "description": "Solve long division problems step-by-step with integer remainders, repeating decimal expansions, quotient derivations, and algebraic proofs.",
       "formulas": [
@@ -3441,7 +3441,7 @@
     {
       "category": "math",
       "slug": "matrix-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/matrix-calculator",
+      "url": "https://calcdigi.com/calculators/math/matrix-calculator",
       "title": "Matrix Calculator | CalcDigi",
       "description": "Perform matrix addition, subtraction, multiplication, determinants, inverses, eigenvalues, and rank evaluations step-by-step with complete algebraic derivations.",
       "formulas": [
@@ -3492,7 +3492,7 @@
     {
       "category": "math",
       "slug": "median-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/median-calculator",
+      "url": "https://calcdigi.com/calculators/math/median-calculator",
       "title": "Median Calculator | CalcDigi",
       "description": "Calculate the median, quartiles, interquartile range (IQR), and five-number summary for any numerical dataset with complete step-by-step explanations.",
       "formulas": [
@@ -3540,7 +3540,7 @@
     {
       "category": "math",
       "slug": "number-sequence-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/number-sequence-calculator",
+      "url": "https://calcdigi.com/calculators/math/number-sequence-calculator",
       "title": "Number Sequence Calculator | CalcDigi",
       "description": "Analyze arithmetic, geometric, and Fibonacci sequences. Calculate the nth term, common difference, common ratio, and finite/infinite series sums with complete step-by-step proofs.",
       "formulas": [
@@ -3594,7 +3594,7 @@
     {
       "category": "math",
       "slug": "percent-error-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/percent-error-calculator",
+      "url": "https://calcdigi.com/calculators/math/percent-error-calculator",
       "title": "Percent Error Calculator | CalcDigi",
       "description": "Calculate absolute error, relative error, and percentage error between experimental measurements and theoretical reference standards with complete uncertainty derivations.",
       "formulas": [
@@ -3643,7 +3643,7 @@
     {
       "category": "math",
       "slug": "percentage-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/percentage-calculator",
+      "url": "https://calcdigi.com/calculators/math/percentage-calculator",
       "title": "Percentage Calculator",
       "description": "Step-by-step instructions to calculate percentages of numbers, proportions, and percentage changes.",
       "formulas": [
@@ -3696,7 +3696,7 @@
     {
       "category": "math",
       "slug": "percentage-change-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/percentage-change-calculator",
+      "url": "https://calcdigi.com/calculators/math/percentage-change-calculator",
       "title": "Percentage Change Calculator | CalcDigi",
       "description": "Calculate percent increase, percent decrease, and relative difference between any two values with complete step-by-step mathematical derivations and asymmetry analysis.",
       "formulas": [
@@ -3744,7 +3744,7 @@
     {
       "category": "math",
       "slug": "permutation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/permutation-calculator",
+      "url": "https://calcdigi.com/calculators/math/permutation-calculator",
       "title": "Permutation Calculator | CalcDigi",
       "description": "Calculate ordered sequences, arrangements with and without repetition, multinomial word anagrams, and circular permutations.",
       "formulas": [
@@ -3798,7 +3798,7 @@
     {
       "category": "math",
       "slug": "prime-number-checker",
-      "url": "https://calc-digi.vercel.app/calculators/math/prime-number-checker",
+      "url": "https://calcdigi.com/calculators/math/prime-number-checker",
       "title": "Prime Number Checker | CalcDigi",
       "description": "Test any integer for primality, calculate canonical prime factorizations, inspect prime factor trees, and identify twin primes with complete mathematical rigor.",
       "formulas": [
@@ -3844,7 +3844,7 @@
     {
       "category": "math",
       "slug": "probability-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/probability-calculator",
+      "url": "https://calcdigi.com/calculators/math/probability-calculator",
       "title": "Probability Calculator | CalcDigi",
       "description": "Calculate event probabilities, joint outcomes (AND/OR), conditional probabilities, complementary odds, and Bayes' theorem with step-by-step mathematical explanations.",
       "formulas": [
@@ -3895,7 +3895,7 @@
     {
       "category": "math",
       "slug": "pythagorean-theorem-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/pythagorean-theorem-calculator",
+      "url": "https://calcdigi.com/calculators/math/pythagorean-theorem-calculator",
       "title": "Pythagorean Theorem Calculator | CalcDigi",
       "description": "Calculate the hypotenuse, missing legs, perimeter, area, and acute angles of any right triangle with step-by-step proofs and Pythagorean triple analysis.",
       "formulas": [
@@ -3942,7 +3942,7 @@
     {
       "category": "math",
       "slug": "quadratic-equation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/quadratic-equation-calculator",
+      "url": "https://calcdigi.com/calculators/math/quadratic-equation-calculator",
       "title": "Quadratic Equation Calculator | CalcDigi",
       "description": "Solve quadratic equations ax\u00b2 + bx + c = 0 step-by-step using the quadratic formula, completing the square, discriminant analysis, and parabolic vertex derivations.",
       "formulas": [
@@ -3989,7 +3989,7 @@
     {
       "category": "math",
       "slug": "random-number-generator",
-      "url": "https://calc-digi.vercel.app/calculators/math/random-number-generator",
+      "url": "https://calcdigi.com/calculators/math/random-number-generator",
       "title": "Random Number Generator | CalcDigi",
       "description": "Generate uniform random numbers, randomized integer sets, cryptographic sequences, and reproducible pseudo-random distributions.",
       "formulas": [
@@ -4036,7 +4036,7 @@
     {
       "category": "math",
       "slug": "ratio-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/ratio-calculator",
+      "url": "https://calcdigi.com/calculators/math/ratio-calculator",
       "title": "Ratio Calculator | CalcDigi",
       "description": "Simplify ratios, solve proportions, determine equivalent scales, and convert part-to-part and part-to-whole relationships with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -4087,7 +4087,7 @@
     {
       "category": "math",
       "slug": "roman-numeral-converter",
-      "url": "https://calc-digi.vercel.app/calculators/math/roman-numeral-converter",
+      "url": "https://calcdigi.com/calculators/math/roman-numeral-converter",
       "title": "Roman Numeral Converter | CalcDigi",
       "description": "Convert standard Arabic numbers to Roman numerals and Roman numerals to numbers (1 to 3,999,999), with complete subtractive rules and vinculum notation.",
       "formulas": [
@@ -4135,7 +4135,7 @@
     {
       "category": "math",
       "slug": "rounding-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/rounding-calculator",
+      "url": "https://calcdigi.com/calculators/math/rounding-calculator",
       "title": "Rounding Calculator | CalcDigi",
       "description": "Round numbers to any decimal place, nearest integer, significant figures, or fraction using standard arithmetic, bankers' rounding, floor, ceiling, and truncation modes.",
       "formulas": [
@@ -4181,7 +4181,7 @@
     {
       "category": "math",
       "slug": "sample-size-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/sample-size-calculator",
+      "url": "https://calcdigi.com/calculators/math/sample-size-calculator",
       "title": "Sample Size Calculator | CalcDigi",
       "description": "Calculate required sample sizes for surveys, clinical trials, and scientific experiments with confidence levels, margins of error, and finite population adjustments.",
       "formulas": [
@@ -4230,7 +4230,7 @@
     {
       "category": "math",
       "slug": "scientific-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/scientific-calculator",
+      "url": "https://calcdigi.com/calculators/math/scientific-calculator",
       "title": "Scientific Calculator | CalcDigi",
       "description": "Advanced multi-function scientific calculator supporting trigonometry, logarithms, exponentiation, root radicals, combinatorics, and memory registers.",
       "formulas": [
@@ -4283,7 +4283,7 @@
     {
       "category": "math",
       "slug": "scientific-notation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/scientific-notation-calculator",
+      "url": "https://calcdigi.com/calculators/math/scientific-notation-calculator",
       "title": "Scientific Notation Calculator | CalcDigi",
       "description": "Convert decimal values to normalized scientific and engineering notation, perform arithmetic operations, and inspect orders of magnitude.",
       "formulas": [
@@ -4337,7 +4337,7 @@
     {
       "category": "math",
       "slug": "significant-figures-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/significant-figures-calculator",
+      "url": "https://calcdigi.com/calculators/math/significant-figures-calculator",
       "title": "Significant Figures Calculator | CalcDigi",
       "description": "Count significant figures, format decimal measurements, apply rounding arithmetic rules, and convert to scientific notation.",
       "formulas": [
@@ -4383,7 +4383,7 @@
     {
       "category": "math",
       "slug": "slope-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/slope-calculator",
+      "url": "https://calcdigi.com/calculators/math/slope-calculator",
       "title": "Slope Calculator | CalcDigi",
       "description": "Calculate the slope, angle of inclination, distance, midpoint, and linear equations (slope-intercept and point-slope) between any two points step-by-step.",
       "formulas": [
@@ -4436,7 +4436,7 @@
     {
       "category": "math",
       "slug": "square-root-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/square-root-calculator",
+      "url": "https://calcdigi.com/calculators/math/square-root-calculator",
       "title": "Square Root Calculator | CalcDigi",
       "description": "Calculate principal square roots, simplify radical expressions, evaluate fractional exponents, and compute imaginary roots with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -4484,7 +4484,7 @@
     {
       "category": "math",
       "slug": "standard-deviation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/standard-deviation-calculator",
+      "url": "https://calcdigi.com/calculators/math/standard-deviation-calculator",
       "title": "Standard Deviation Calculator | CalcDigi",
       "description": "Calculate sample and population standard deviation, variance, mean, and sum of squared deviations for any dataset with step-by-step mathematical solutions.",
       "formulas": [
@@ -4531,7 +4531,7 @@
     {
       "category": "math",
       "slug": "surface-area-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/surface-area-calculator",
+      "url": "https://calcdigi.com/calculators/math/surface-area-calculator",
       "title": "Surface Area Calculator | CalcDigi",
       "description": "Calculate total and lateral surface area for spheres, cylinders, cones, cubes, rectangular prisms, and pyramids with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -4584,7 +4584,7 @@
     {
       "category": "math",
       "slug": "triangle-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/triangle-calculator",
+      "url": "https://calcdigi.com/calculators/math/triangle-calculator",
       "title": "Triangle Calculator | CalcDigi",
       "description": "Solve any triangle using SSS, SAS, ASA, or AAS configurations. Calculate unknown sides, interior angles, area, perimeter, inradius, and circumradius with complete mathematical derivations.",
       "formulas": [
@@ -4637,7 +4637,7 @@
     {
       "category": "math",
       "slug": "variance-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/variance-calculator",
+      "url": "https://calcdigi.com/calculators/math/variance-calculator",
       "title": "Variance Calculator | CalcDigi",
       "description": "Calculate sample variance (s\u00b2), population variance (\u03c3\u00b2), sum of squares, and standard deviation for any dataset with step-by-step algebraic derivations.",
       "formulas": [
@@ -4684,7 +4684,7 @@
     {
       "category": "math",
       "slug": "volume-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/volume-calculator",
+      "url": "https://calcdigi.com/calculators/math/volume-calculator",
       "title": "Volume Calculator | CalcDigi",
       "description": "Calculate 3D volume and liquid capacity for boxes, cylinders, spheres, cones, pyramids, and storage tanks with complete step-by-step mathematical proofs.",
       "formulas": [
@@ -4732,7 +4732,7 @@
     {
       "category": "math",
       "slug": "z-score-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/math/z-score-calculator",
+      "url": "https://calcdigi.com/calculators/math/z-score-calculator",
       "title": "Z-Score Calculator | CalcDigi",
       "description": "Calculate standard scores (z), p-values, percentile ranks, and tail probabilities for individual values and sample means with step-by-step solutions.",
       "formulas": [
@@ -4781,7 +4781,7 @@
     {
       "category": "measurements",
       "slug": "angle-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/angle-converter",
+      "url": "https://calcdigi.com/calculators/measurements/angle-converter",
       "title": "Angle Converter",
       "description": "",
       "formulas": [],
@@ -4790,7 +4790,7 @@
     {
       "category": "measurements",
       "slug": "area-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/area-converter",
+      "url": "https://calcdigi.com/calculators/measurements/area-converter",
       "title": "Area Converter",
       "description": "",
       "formulas": [],
@@ -4799,7 +4799,7 @@
     {
       "category": "measurements",
       "slug": "clothing-size-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/clothing-size-converter",
+      "url": "https://calcdigi.com/calculators/measurements/clothing-size-converter",
       "title": "Clothing Size Converter",
       "description": "",
       "formulas": [],
@@ -4808,7 +4808,7 @@
     {
       "category": "measurements",
       "slug": "cooking-measurement-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/cooking-measurement-converter",
+      "url": "https://calcdigi.com/calculators/measurements/cooking-measurement-converter",
       "title": "Cooking Measurement Converter",
       "description": "",
       "formulas": [],
@@ -4817,7 +4817,7 @@
     {
       "category": "measurements",
       "slug": "currency-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/currency-converter",
+      "url": "https://calcdigi.com/calculators/measurements/currency-converter",
       "title": "Currency Converter",
       "description": "",
       "formulas": [],
@@ -4826,7 +4826,7 @@
     {
       "category": "measurements",
       "slug": "data-storage-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/data-storage-converter",
+      "url": "https://calcdigi.com/calculators/measurements/data-storage-converter",
       "title": "Data Storage Converter",
       "description": "",
       "formulas": [],
@@ -4835,7 +4835,7 @@
     {
       "category": "measurements",
       "slug": "energy-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/energy-converter",
+      "url": "https://calcdigi.com/calculators/measurements/energy-converter",
       "title": "Energy Converter",
       "description": "",
       "formulas": [],
@@ -4844,7 +4844,7 @@
     {
       "category": "measurements",
       "slug": "fuel-economy-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/fuel-economy-converter",
+      "url": "https://calcdigi.com/calculators/measurements/fuel-economy-converter",
       "title": "Fuel Economy Converter",
       "description": "",
       "formulas": [],
@@ -4853,7 +4853,7 @@
     {
       "category": "measurements",
       "slug": "length-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/length-converter",
+      "url": "https://calcdigi.com/calculators/measurements/length-converter",
       "title": "Length Converter",
       "description": "",
       "formulas": [],
@@ -4862,7 +4862,7 @@
     {
       "category": "measurements",
       "slug": "number-system-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/number-system-converter",
+      "url": "https://calcdigi.com/calculators/measurements/number-system-converter",
       "title": "Number System Converter",
       "description": "",
       "formulas": [],
@@ -4871,7 +4871,7 @@
     {
       "category": "measurements",
       "slug": "power-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/power-converter",
+      "url": "https://calcdigi.com/calculators/measurements/power-converter",
       "title": "Power Converter",
       "description": "",
       "formulas": [],
@@ -4880,7 +4880,7 @@
     {
       "category": "measurements",
       "slug": "pressure-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/pressure-converter",
+      "url": "https://calcdigi.com/calculators/measurements/pressure-converter",
       "title": "Pressure Converter",
       "description": "",
       "formulas": [],
@@ -4889,7 +4889,7 @@
     {
       "category": "measurements",
       "slug": "roman-numeral-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/roman-numeral-converter",
+      "url": "https://calcdigi.com/calculators/measurements/roman-numeral-converter",
       "title": "Roman Numeral Converter",
       "description": "",
       "formulas": [],
@@ -4898,7 +4898,7 @@
     {
       "category": "measurements",
       "slug": "shoe-size-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/shoe-size-converter",
+      "url": "https://calcdigi.com/calculators/measurements/shoe-size-converter",
       "title": "Shoe Size Converter",
       "description": "",
       "formulas": [],
@@ -4907,7 +4907,7 @@
     {
       "category": "measurements",
       "slug": "speed-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/speed-converter",
+      "url": "https://calcdigi.com/calculators/measurements/speed-converter",
       "title": "Speed Converter",
       "description": "",
       "formulas": [],
@@ -4916,7 +4916,7 @@
     {
       "category": "measurements",
       "slug": "temperature-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/temperature-converter",
+      "url": "https://calcdigi.com/calculators/measurements/temperature-converter",
       "title": "Temperature Converter",
       "description": "",
       "formulas": [],
@@ -4925,7 +4925,7 @@
     {
       "category": "measurements",
       "slug": "time-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/time-converter",
+      "url": "https://calcdigi.com/calculators/measurements/time-converter",
       "title": "Time Unit Converter",
       "description": "",
       "formulas": [],
@@ -4934,7 +4934,7 @@
     {
       "category": "measurements",
       "slug": "torque-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/torque-converter",
+      "url": "https://calcdigi.com/calculators/measurements/torque-converter",
       "title": "Torque Converter",
       "description": "",
       "formulas": [],
@@ -4943,7 +4943,7 @@
     {
       "category": "measurements",
       "slug": "volume-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/volume-converter",
+      "url": "https://calcdigi.com/calculators/measurements/volume-converter",
       "title": "Volume Converter",
       "description": "",
       "formulas": [],
@@ -4952,7 +4952,7 @@
     {
       "category": "measurements",
       "slug": "weight-converter",
-      "url": "https://calc-digi.vercel.app/calculators/measurements/weight-converter",
+      "url": "https://calcdigi.com/calculators/measurements/weight-converter",
       "title": "Weight Converter",
       "description": "",
       "formulas": [],
@@ -4961,7 +4961,7 @@
     {
       "category": "physics",
       "slug": "acceleration-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/acceleration-calculator",
+      "url": "https://calcdigi.com/calculators/physics/acceleration-calculator",
       "title": "Acceleration Calculator",
       "description": "",
       "formulas": [],
@@ -4970,7 +4970,7 @@
     {
       "category": "physics",
       "slug": "circular-motion-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/circular-motion-calculator",
+      "url": "https://calcdigi.com/calculators/physics/circular-motion-calculator",
       "title": "Circular Motion Calculator",
       "description": "",
       "formulas": [],
@@ -4979,7 +4979,7 @@
     {
       "category": "physics",
       "slug": "force-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/force-calculator",
+      "url": "https://calcdigi.com/calculators/physics/force-calculator",
       "title": "Force Calculator",
       "description": "",
       "formulas": [],
@@ -4988,7 +4988,7 @@
     {
       "category": "physics",
       "slug": "free-fall-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/free-fall-calculator",
+      "url": "https://calcdigi.com/calculators/physics/free-fall-calculator",
       "title": "Free Fall Calculator",
       "description": "",
       "formulas": [],
@@ -4997,7 +4997,7 @@
     {
       "category": "physics",
       "slug": "gravitational-force-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/gravitational-force-calculator",
+      "url": "https://calcdigi.com/calculators/physics/gravitational-force-calculator",
       "title": "Gravitational Force Calculator",
       "description": "",
       "formulas": [],
@@ -5006,7 +5006,7 @@
     {
       "category": "physics",
       "slug": "kinetic-energy-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/kinetic-energy-calculator",
+      "url": "https://calcdigi.com/calculators/physics/kinetic-energy-calculator",
       "title": "Kinetic Energy Calculator",
       "description": "",
       "formulas": [],
@@ -5015,7 +5015,7 @@
     {
       "category": "physics",
       "slug": "momentum-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/momentum-calculator",
+      "url": "https://calcdigi.com/calculators/physics/momentum-calculator",
       "title": "Momentum Calculator",
       "description": "",
       "formulas": [],
@@ -5024,7 +5024,7 @@
     {
       "category": "physics",
       "slug": "potential-energy-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/potential-energy-calculator",
+      "url": "https://calcdigi.com/calculators/physics/potential-energy-calculator",
       "title": "Potential Energy Calculator",
       "description": "",
       "formulas": [],
@@ -5033,7 +5033,7 @@
     {
       "category": "physics",
       "slug": "power-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/power-calculator",
+      "url": "https://calcdigi.com/calculators/physics/power-calculator",
       "title": "Power Calculator",
       "description": "",
       "formulas": [],
@@ -5042,7 +5042,7 @@
     {
       "category": "physics",
       "slug": "pressure-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/pressure-calculator",
+      "url": "https://calcdigi.com/calculators/physics/pressure-calculator",
       "title": "Pressure Calculator",
       "description": "",
       "formulas": [],
@@ -5051,7 +5051,7 @@
     {
       "category": "physics",
       "slug": "projectile-motion-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/projectile-motion-calculator",
+      "url": "https://calcdigi.com/calculators/physics/projectile-motion-calculator",
       "title": "Projectile Motion Calculator",
       "description": "",
       "formulas": [],
@@ -5060,7 +5060,7 @@
     {
       "category": "physics",
       "slug": "torque-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/torque-calculator",
+      "url": "https://calcdigi.com/calculators/physics/torque-calculator",
       "title": "Torque Calculator",
       "description": "",
       "formulas": [],
@@ -5069,7 +5069,7 @@
     {
       "category": "physics",
       "slug": "velocity-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/velocity-calculator",
+      "url": "https://calcdigi.com/calculators/physics/velocity-calculator",
       "title": "Velocity Calculator",
       "description": "",
       "formulas": [],
@@ -5078,7 +5078,7 @@
     {
       "category": "physics",
       "slug": "wave-frequency-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/wave-frequency-calculator",
+      "url": "https://calcdigi.com/calculators/physics/wave-frequency-calculator",
       "title": "Wave Frequency Calculator",
       "description": "",
       "formulas": [],
@@ -5087,7 +5087,7 @@
     {
       "category": "physics",
       "slug": "work-energy-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/physics/work-energy-calculator",
+      "url": "https://calcdigi.com/calculators/physics/work-energy-calculator",
       "title": "Work Calculator",
       "description": "",
       "formulas": [],
@@ -5096,7 +5096,7 @@
     {
       "category": "science",
       "slug": "boiling-point-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/boiling-point-calculator",
+      "url": "https://calcdigi.com/calculators/science/boiling-point-calculator",
       "title": "Boiling Point Calculator",
       "description": "",
       "formulas": [],
@@ -5105,7 +5105,7 @@
     {
       "category": "science",
       "slug": "buffer-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/buffer-calculator",
+      "url": "https://calcdigi.com/calculators/science/buffer-calculator",
       "title": "Buffer Calculator",
       "description": "",
       "formulas": [],
@@ -5114,7 +5114,7 @@
     {
       "category": "science",
       "slug": "concentration-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/concentration-calculator",
+      "url": "https://calcdigi.com/calculators/science/concentration-calculator",
       "title": "Concentration Calculator",
       "description": "",
       "formulas": [],
@@ -5123,7 +5123,7 @@
     {
       "category": "science",
       "slug": "density-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/density-calculator",
+      "url": "https://calcdigi.com/calculators/science/density-calculator",
       "title": "Density Calculator",
       "description": "",
       "formulas": [],
@@ -5132,7 +5132,7 @@
     {
       "category": "science",
       "slug": "empirical-formula-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/empirical-formula-calculator",
+      "url": "https://calcdigi.com/calculators/science/empirical-formula-calculator",
       "title": "Empirical Formula Calculator",
       "description": "",
       "formulas": [],
@@ -5141,7 +5141,7 @@
     {
       "category": "science",
       "slug": "half-life-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/half-life-calculator",
+      "url": "https://calcdigi.com/calculators/science/half-life-calculator",
       "title": "Half-Life Calculator",
       "description": "",
       "formulas": [],
@@ -5150,7 +5150,7 @@
     {
       "category": "science",
       "slug": "ideal-gas-law-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/ideal-gas-law-calculator",
+      "url": "https://calcdigi.com/calculators/science/ideal-gas-law-calculator",
       "title": "Ideal Gas Law Calculator",
       "description": "",
       "formulas": [],
@@ -5159,7 +5159,7 @@
     {
       "category": "science",
       "slug": "molarity-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/molarity-calculator",
+      "url": "https://calcdigi.com/calculators/science/molarity-calculator",
       "title": "Molarity Calculator",
       "description": "",
       "formulas": [],
@@ -5168,7 +5168,7 @@
     {
       "category": "science",
       "slug": "molecular-weight-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/molecular-weight-calculator",
+      "url": "https://calcdigi.com/calculators/science/molecular-weight-calculator",
       "title": "Molecular Weight Calculator",
       "description": "",
       "formulas": [],
@@ -5177,7 +5177,7 @@
     {
       "category": "science",
       "slug": "ohms-law-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/ohms-law-calculator",
+      "url": "https://calcdigi.com/calculators/science/ohms-law-calculator",
       "title": "Ohm's Law Calculator",
       "description": "",
       "formulas": [],
@@ -5186,7 +5186,7 @@
     {
       "category": "science",
       "slug": "osmolarity-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/osmolarity-calculator",
+      "url": "https://calcdigi.com/calculators/science/osmolarity-calculator",
       "title": "Osmolarity Calculator",
       "description": "",
       "formulas": [],
@@ -5195,7 +5195,7 @@
     {
       "category": "science",
       "slug": "percent-yield-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/percent-yield-calculator",
+      "url": "https://calcdigi.com/calculators/science/percent-yield-calculator",
       "title": "Percent Yield Calculator",
       "description": "",
       "formulas": [],
@@ -5204,7 +5204,7 @@
     {
       "category": "science",
       "slug": "ph-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/ph-calculator",
+      "url": "https://calcdigi.com/calculators/science/ph-calculator",
       "title": "pH Calculator",
       "description": "",
       "formulas": [],
@@ -5213,7 +5213,7 @@
     {
       "category": "science",
       "slug": "specific-heat-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/specific-heat-calculator",
+      "url": "https://calcdigi.com/calculators/science/specific-heat-calculator",
       "title": "Specific Heat Calculator",
       "description": "",
       "formulas": [],
@@ -5222,7 +5222,7 @@
     {
       "category": "science",
       "slug": "stoichiometry-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/science/stoichiometry-calculator",
+      "url": "https://calcdigi.com/calculators/science/stoichiometry-calculator",
       "title": "Stoichiometry Calculator",
       "description": "",
       "formulas": [],
@@ -5231,7 +5231,7 @@
     {
       "category": "transportation",
       "slug": "bike-pace-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/bike-pace-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/bike-pace-calculator",
       "title": "Cycling Pace Calculator",
       "description": "",
       "formulas": [],
@@ -5240,7 +5240,7 @@
     {
       "category": "transportation",
       "slug": "car-depreciation-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/car-depreciation-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/car-depreciation-calculator",
       "title": "Car Depreciation Calculator",
       "description": "",
       "formulas": [],
@@ -5249,7 +5249,7 @@
     {
       "category": "transportation",
       "slug": "car-payment-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/car-payment-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/car-payment-calculator",
       "title": "Car Payment Calculator",
       "description": "Estimate your exact monthly car payment, total loan interest, and true out-the-door cost with sales tax, dealer documentation fees, down payment, trade-in equity, and a complete amortization schedule.",
       "formulas": [
@@ -5281,7 +5281,7 @@
     {
       "category": "transportation",
       "slug": "commute-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/commute-cost-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/commute-cost-calculator",
       "title": "Commute Cost Calculator",
       "description": "",
       "formulas": [],
@@ -5290,7 +5290,7 @@
     {
       "category": "transportation",
       "slug": "distance-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/distance-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/distance-calculator",
       "title": "Distance Calculator",
       "description": "",
       "formulas": [],
@@ -5299,7 +5299,7 @@
     {
       "category": "transportation",
       "slug": "ev-savings-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/ev-savings-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/ev-savings-calculator",
       "title": "EV Savings Calculator",
       "description": "",
       "formulas": [],
@@ -5308,7 +5308,7 @@
     {
       "category": "transportation",
       "slug": "flight-time-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/flight-time-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/flight-time-calculator",
       "title": "Flight Time Calculator",
       "description": "",
       "formulas": [],
@@ -5317,7 +5317,7 @@
     {
       "category": "transportation",
       "slug": "fuel-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/fuel-cost-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/fuel-cost-calculator",
       "title": "Fuel Cost Calculator",
       "description": "",
       "formulas": [],
@@ -5326,7 +5326,7 @@
     {
       "category": "transportation",
       "slug": "moving-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/moving-cost-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/moving-cost-calculator",
       "title": "Moving Cost Calculator",
       "description": "",
       "formulas": [],
@@ -5335,7 +5335,7 @@
     {
       "category": "transportation",
       "slug": "mpg-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/mpg-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/mpg-calculator",
       "title": "MPG Calculator",
       "description": "",
       "formulas": [],
@@ -5344,7 +5344,7 @@
     {
       "category": "transportation",
       "slug": "parking-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/parking-cost-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/parking-cost-calculator",
       "title": "Parking Cost Calculator",
       "description": "",
       "formulas": [],
@@ -5353,7 +5353,7 @@
     {
       "category": "transportation",
       "slug": "road-trip-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/road-trip-cost-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/road-trip-cost-calculator",
       "title": "Road Trip Cost Calculator",
       "description": "",
       "formulas": [],
@@ -5362,7 +5362,7 @@
     {
       "category": "transportation",
       "slug": "speed-distance-time-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/speed-distance-time-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/speed-distance-time-calculator",
       "title": "Speed Distance Time Calculator",
       "description": "",
       "formulas": [],
@@ -5371,7 +5371,7 @@
     {
       "category": "transportation",
       "slug": "tire-size-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/tire-size-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/tire-size-calculator",
       "title": "Tire Size Calculator",
       "description": "",
       "formulas": [],
@@ -5380,7 +5380,7 @@
     {
       "category": "transportation",
       "slug": "toll-cost-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/transportation/toll-cost-calculator",
+      "url": "https://calcdigi.com/calculators/transportation/toll-cost-calculator",
       "title": "Toll Cost Calculator",
       "description": "",
       "formulas": [],
@@ -5389,7 +5389,7 @@
     {
       "category": "weather",
       "slug": "dew-point-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/dew-point-calculator",
+      "url": "https://calcdigi.com/calculators/weather/dew-point-calculator",
       "title": "Dew Point Calculator",
       "description": "",
       "formulas": [],
@@ -5398,7 +5398,7 @@
     {
       "category": "weather",
       "slug": "heat-index-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/heat-index-calculator",
+      "url": "https://calcdigi.com/calculators/weather/heat-index-calculator",
       "title": "Heat Index Calculator",
       "description": "",
       "formulas": [],
@@ -5407,7 +5407,7 @@
     {
       "category": "weather",
       "slug": "humidity-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/humidity-calculator",
+      "url": "https://calcdigi.com/calculators/weather/humidity-calculator",
       "title": "Humidity Calculator",
       "description": "",
       "formulas": [],
@@ -5416,7 +5416,7 @@
     {
       "category": "weather",
       "slug": "rainfall-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/rainfall-calculator",
+      "url": "https://calcdigi.com/calculators/weather/rainfall-calculator",
       "title": "Rainfall Calculator",
       "description": "",
       "formulas": [],
@@ -5425,7 +5425,7 @@
     {
       "category": "weather",
       "slug": "severe-weather-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/severe-weather-calculator",
+      "url": "https://calcdigi.com/calculators/weather/severe-weather-calculator",
       "title": "Lightning Distance Calculator",
       "description": "",
       "formulas": [],
@@ -5434,7 +5434,7 @@
     {
       "category": "weather",
       "slug": "snowfall-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/snowfall-calculator",
+      "url": "https://calcdigi.com/calculators/weather/snowfall-calculator",
       "title": "Snowfall Calculator",
       "description": "",
       "formulas": [],
@@ -5443,7 +5443,7 @@
     {
       "category": "weather",
       "slug": "uv-index-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/uv-index-calculator",
+      "url": "https://calcdigi.com/calculators/weather/uv-index-calculator",
       "title": "UV Index Calculator",
       "description": "",
       "formulas": [],
@@ -5452,7 +5452,7 @@
     {
       "category": "weather",
       "slug": "wind-chill-calculator",
-      "url": "https://calc-digi.vercel.app/calculators/weather/wind-chill-calculator",
+      "url": "https://calcdigi.com/calculators/weather/wind-chill-calculator",
       "title": "Wind Chill Calculator",
       "description": "",
       "formulas": [],

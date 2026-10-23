@@ -4,7 +4,7 @@
 > Designed for Answer Engines, AI Search, and Generative Assistants (ChatGPT, Claude, Perplexity, Gemini, Copilot).
 
 ## Global Specifications
-- Domain: https://calc-digi.vercel.app
+- Domain: https://calcdigi.com
 - Framework: Next.js 15, React 19, TypeScript, Tailwind CSS, Lucide Icons.
 - Execution Model: Client-side WebAssembly & TypeScript calculation engine (`CalcEngine`). Zero server-side state, zero external tracking.
 - Standard Publication Date: 2026-10-23
@@ -12,215 +12,215 @@
 ---
 
 # Category: Baby & Parenting
-Category Hub: https://calc-digi.vercel.app/pages/baby
+Category Hub: https://calcdigi.com/pages/baby
 Total Calculators: 8
 
 ## Baby Feeding Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/baby-feeding-calculator
+- **URL:** https://calcdigi.com/calculators/baby/baby-feeding-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 ## Baby Name Popularity Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/baby-name-popularity-calculator
+- **URL:** https://calcdigi.com/calculators/baby/baby-name-popularity-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 ## Baby Sleep Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/baby-sleep-calculator
+- **URL:** https://calcdigi.com/calculators/baby/baby-sleep-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 ## Baby Weight Percentile Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/baby-weight-percentile-calculator
+- **URL:** https://calcdigi.com/calculators/baby/baby-weight-percentile-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 ## Child Height Predictor Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/child-height-predictor-calculator
+- **URL:** https://calcdigi.com/calculators/baby/child-height-predictor-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 ## Childcare Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/childcare-cost-calculator
+- **URL:** https://calcdigi.com/calculators/baby/childcare-cost-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 ## Diaper Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/diaper-cost-calculator
+- **URL:** https://calcdigi.com/calculators/baby/diaper-cost-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 ## Pregnancy Due Date Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/baby/due-date-calculator
+- **URL:** https://calcdigi.com/calculators/baby/due-date-calculator
 - **Category:** Baby & Parenting
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Business & Entrepreneurship
-Category Hub: https://calc-digi.vercel.app/pages/business
+Category Hub: https://calcdigi.com/pages/business
 Total Calculators: 20
 
 ## Break Even Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/break-even-calculator
+- **URL:** https://calcdigi.com/calculators/business/break-even-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Burn Rate Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/burn-rate-calculator
+- **URL:** https://calcdigi.com/calculators/business/burn-rate-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Business Loan Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/business-loan-calculator
+- **URL:** https://calcdigi.com/calculators/business/business-loan-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Business Revenue Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/business-revenue-calculator
+- **URL:** https://calcdigi.com/calculators/business/business-revenue-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## CAC Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/cac-calculator
+- **URL:** https://calcdigi.com/calculators/business/cac-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## COGS Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/cogs-calculator
+- **URL:** https://calcdigi.com/calculators/business/cogs-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Discount Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/discount-calculator
+- **URL:** https://calcdigi.com/calculators/business/discount-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Ecommerce Profit Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/ecommerce-profit-calculator
+- **URL:** https://calcdigi.com/calculators/business/ecommerce-profit-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Employee Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/employee-cost-calculator
+- **URL:** https://calcdigi.com/calculators/business/employee-cost-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Freelance Rate Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/freelance-rate-calculator
+- **URL:** https://calcdigi.com/calculators/business/freelance-rate-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Invoice Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/invoice-calculator
+- **URL:** https://calcdigi.com/calculators/business/invoice-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## LTV Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/ltv-calculator
+- **URL:** https://calcdigi.com/calculators/business/ltv-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Markup Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/markup-calculator
+- **URL:** https://calcdigi.com/calculators/business/markup-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Payroll Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/payroll-calculator
+- **URL:** https://calcdigi.com/calculators/business/payroll-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Profit Margin Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/profit-margin-calculator
+- **URL:** https://calcdigi.com/calculators/business/profit-margin-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## ROI Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/roi-calculator
+- **URL:** https://calcdigi.com/calculators/business/roi-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Sales Tax Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/sales-tax-calculator
+- **URL:** https://calcdigi.com/calculators/business/sales-tax-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Inventory Shrinkage Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/shrinkage-calculator
+- **URL:** https://calcdigi.com/calculators/business/shrinkage-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Startup Valuation Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/startup-valuation-calculator
+- **URL:** https://calcdigi.com/calculators/business/startup-valuation-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 ## Wholesale Price Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/business/wholesale-price-calculator
+- **URL:** https://calcdigi.com/calculators/business/wholesale-price-calculator
 - **Category:** Business & Entrepreneurship
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Date & Time
-Category Hub: https://calc-digi.vercel.app/pages/datetime
+Category Hub: https://calcdigi.com/pages/datetime
 Total Calculators: 14
 
 ## Age Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/age-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/age-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday, zodiac sign, and fun generation stats instantly.
 - **Mathematical Formula(s):**
@@ -238,549 +238,549 @@ Total Calculators: 14
 ---
 
 ## Birthday Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/birthday-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/birthday-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Date Difference Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/date-difference-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/date-difference-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Day of Week Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/date-to-day-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/date-to-day-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Days Until Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/days-until-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/days-until-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Leap Year Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/leap-year-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/leap-year-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Month Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/month-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/month-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Time Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/time-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/time-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Time Duration Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/time-duration-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/time-duration-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Time Zone Converter
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/time-zone-converter
+- **URL:** https://calcdigi.com/calculators/datetime/time-zone-converter
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Unix Timestamp Converter
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/unix-timestamp-converter
+- **URL:** https://calcdigi.com/calculators/datetime/unix-timestamp-converter
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Week Number Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/week-number-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/week-number-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Working Days Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/workdays-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/workdays-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 ## Year Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/datetime/year-calculator
+- **URL:** https://calcdigi.com/calculators/datetime/year-calculator
 - **Category:** Date & Time
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Education & Academics
-Category Hub: https://calc-digi.vercel.app/pages/education
+Category Hub: https://calcdigi.com/pages/education
 Total Calculators: 15
 
 ## ACT Score Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/act-score-calculator
+- **URL:** https://calcdigi.com/calculators/education/act-score-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Attendance Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/attendance-calculator
+- **URL:** https://calcdigi.com/calculators/education/attendance-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## CGPA Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/cgpa-calculator
+- **URL:** https://calcdigi.com/calculators/education/cgpa-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Class Rank Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/class-rank-calculator
+- **URL:** https://calcdigi.com/calculators/education/class-rank-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## College Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/college-cost-calculator
+- **URL:** https://calcdigi.com/calculators/education/college-cost-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Final Grade Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/final-grade-calculator
+- **URL:** https://calcdigi.com/calculators/education/final-grade-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## GPA Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/gpa-calculator
+- **URL:** https://calcdigi.com/calculators/education/gpa-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Grade Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/grade-calculator
+- **URL:** https://calcdigi.com/calculators/education/grade-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Percentage Grade Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/percentage-grade-calculator
+- **URL:** https://calcdigi.com/calculators/education/percentage-grade-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Reading Speed Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/reading-speed-calculator
+- **URL:** https://calcdigi.com/calculators/education/reading-speed-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## SAT Score Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/sat-score-calculator
+- **URL:** https://calcdigi.com/calculators/education/sat-score-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Scholarship Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/scholarship-calculator
+- **URL:** https://calcdigi.com/calculators/education/scholarship-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Student Loan Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/student-loan-calculator
+- **URL:** https://calcdigi.com/calculators/education/student-loan-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Study Hours Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/study-hours-calculator
+- **URL:** https://calcdigi.com/calculators/education/study-hours-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Test Score Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/education/test-score-calculator
+- **URL:** https://calcdigi.com/calculators/education/test-score-calculator
 - **Category:** Education & Academics
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Electronics & Electrical Engineering
-Category Hub: https://calc-digi.vercel.app/pages/electronics
+Category Hub: https://calcdigi.com/pages/electronics
 Total Calculators: 15
 
 ## Battery Life Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/battery-life-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/battery-life-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Capacitor Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/capacitor-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/capacitor-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Decibel Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/decibel-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/decibel-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Frequency Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/frequency-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/frequency-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Inductor Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/inductor-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/inductor-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## LED Resistor Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/led-resistor-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/led-resistor-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Ohm's Law Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/ohms-law-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/ohms-law-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Electrical Power Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/power-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/power-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## RC Time Constant Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/rc-time-constant-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/rc-time-constant-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Resistor Color Code Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/resistor-color-code-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/resistor-color-code-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Solar Panel Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/solar-panel-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/solar-panel-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Three Phase Power Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/three-phase-power-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/three-phase-power-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Transformer Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/transformer-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/transformer-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Voltage Divider Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/voltage-divider-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/voltage-divider-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 ## Wire Gauge Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/electronics/wire-gauge-calculator
+- **URL:** https://calcdigi.com/calculators/electronics/wire-gauge-calculator
 - **Category:** Electronics & Electrical Engineering
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Engineering & Mechanics
-Category Hub: https://calc-digi.vercel.app/pages/engineering
+Category Hub: https://calcdigi.com/pages/engineering
 Total Calculators: 12
 
 ## Beam Load Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/beam-load-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/beam-load-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Bolt Torque Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/bolt-torque-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/bolt-torque-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Concrete Mix Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/concrete-mix-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/concrete-mix-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Electrical Load Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/electrical-load-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/electrical-load-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Gear Ratio Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/gear-ratio-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/gear-ratio-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Heat Transfer Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/heat-transfer-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/heat-transfer-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## HVAC Load Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/hvac-load-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/hvac-load-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Pipe Flow Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/pipe-flow-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/pipe-flow-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Pump Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/pump-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/pump-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Reynolds Number Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/reynolds-number-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/reynolds-number-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Signal-to-Noise Ratio Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/signal-to-noise-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/signal-to-noise-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Structural Steel Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/engineering/structural-steel-calculator
+- **URL:** https://calcdigi.com/calculators/engineering/structural-steel-calculator
 - **Category:** Engineering & Mechanics
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Entertainment & Games
-Category Hub: https://calc-digi.vercel.app/pages/entertainment
+Category Hub: https://calcdigi.com/pages/entertainment
 Total Calculators: 10
 
 ## Book Reading Time Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/book-reading-time-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/book-reading-time-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Concert Ticket Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/concert-ticket-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/concert-ticket-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Gaming PC Build Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/gaming-pc-build-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/gaming-pc-build-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Movie Ticket Price Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/movie-ticket-price-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/movie-ticket-price-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Party Planning Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/party-planning-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/party-planning-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Podcast Length Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/podcast-length-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/podcast-length-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Spotify Listening Stats Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/spotify-listening-stats-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/spotify-listening-stats-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Streaming Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/streaming-cost-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/streaming-cost-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Vacation Entertainment Budget Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/travel-entertainment-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/travel-entertainment-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 ## Video Game Hours Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/entertainment/video-game-hours-calculator
+- **URL:** https://calcdigi.com/calculators/entertainment/video-game-hours-calculator
 - **Category:** Entertainment & Games
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Environment & Carbon Footprint
-Category Hub: https://calc-digi.vercel.app/pages/environment
+Category Hub: https://calcdigi.com/pages/environment
 Total Calculators: 8
 
 ## Air Quality Index (AQI) Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/air-quality-index-calculator
+- **URL:** https://calcdigi.com/calculators/environment/air-quality-index-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 ## Carbon Footprint Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/carbon-footprint-calculator
+- **URL:** https://calcdigi.com/calculators/environment/carbon-footprint-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 ## Electric Vehicle Savings Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/electric-vehicle-savings-calculator
+- **URL:** https://calcdigi.com/calculators/environment/electric-vehicle-savings-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 ## Energy Consumption Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/energy-consumption-calculator
+- **URL:** https://calcdigi.com/calculators/environment/energy-consumption-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 ## Recycling Savings Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/recycling-savings-calculator
+- **URL:** https://calcdigi.com/calculators/environment/recycling-savings-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 ## Solar Panel Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/solar-panel-calculator
+- **URL:** https://calcdigi.com/calculators/environment/solar-panel-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 ## Tree Planting Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/tree-planting-calculator
+- **URL:** https://calcdigi.com/calculators/environment/tree-planting-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 ## Water Usage Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/environment/water-usage-calculator
+- **URL:** https://calcdigi.com/calculators/environment/water-usage-calculator
 - **Category:** Environment & Carbon Footprint
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Finance, Loans & Taxation
-Category Hub: https://calc-digi.vercel.app/pages/finance
+Category Hub: https://calcdigi.com/pages/finance
 Total Calculators: 40
 
 ## 401(k) Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/401k-calculator
+- **URL:** https://calcdigi.com/calculators/finance/401k-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Estimate your 401(k) balance at retirement from your contribution rate, employer match, raises and investment returns — using the 2026 IRS contribution limits.
 
 ---
 
 ## Alimony Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/alimony-calculator
+- **URL:** https://calcdigi.com/calculators/finance/alimony-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Get a rough estimate of spousal support and its likely duration from both spouses' incomes and the length of the marriage.
 - **Mathematical Formula(s):**
@@ -789,7 +789,7 @@ Total Calculators: 40
 ---
 
 ## APR Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/apr-calculator
+- **URL:** https://calcdigi.com/calculators/finance/apr-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Find the true annual cost of a loan once upfront fees are included, so you can compare offers with different rates and fees side by side.
 - **Mathematical Formula(s):**
@@ -798,7 +798,7 @@ Total Calculators: 40
 ---
 
 ## APY Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/apy-calculator
+- **URL:** https://calcdigi.com/calculators/finance/apy-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Convert a nominal interest rate into annual percentage yield (APY) and see how compounding frequency changes what you actually earn.
 - **Mathematical Formula(s):**
@@ -808,7 +808,7 @@ Total Calculators: 40
 ---
 
 ## Auto Loan Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/auto-loan-calculator
+- **URL:** https://calcdigi.com/calculators/finance/auto-loan-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Estimate your monthly car payment including sales tax, dealer fees, your down payment and trade-in, and see how much interest the loan costs.
 - **Mathematical Formula(s):**
@@ -818,7 +818,7 @@ Total Calculators: 40
 ---
 
 ## Break-Even Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/break-even-calculator
+- **URL:** https://calcdigi.com/calculators/finance/break-even-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Work out how many units you need to sell — and how much revenue you need — before your business starts making a profit.
 - **Mathematical Formula(s):**
@@ -829,21 +829,21 @@ Total Calculators: 40
 ---
 
 ## Budget Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/budget-calculator
+- **URL:** https://calcdigi.com/calculators/finance/budget-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Split your monthly take-home pay into needs, wants and savings with a simple budget rule — and see how your current spending compares.
 
 ---
 
 ## Business Profit Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/business-profit-calculator
+- **URL:** https://calcdigi.com/calculators/finance/business-profit-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Turn revenue and costs into gross profit, EBITDA, operating profit and net profit — with the margin at each level.
 
 ---
 
 ## CD Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/cd-calculator
+- **URL:** https://calcdigi.com/calculators/finance/cd-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Find out how much interest a certificate of deposit will earn and what it will be worth when it matures.
 - **Mathematical Formula(s):**
@@ -853,21 +853,21 @@ Total Calculators: 40
 ---
 
 ## Child Support Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/child-support-calculator
+- **URL:** https://calcdigi.com/calculators/finance/child-support-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Estimate monthly child support using the income-shares approach that most US states follow.
 
 ---
 
 ## College Savings Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/college-savings-calculator
+- **URL:** https://calcdigi.com/calculators/finance/college-savings-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Estimate what college will cost by the time your child enrolls and how much you need to save each month to pay for it.
 
 ---
 
 ## Compound Interest Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/compound-interest-calculator
+- **URL:** https://calcdigi.com/calculators/finance/compound-interest-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** See how your savings grow when interest earns interest. Add a starting balance, regular monthly deposits and a rate to project your balance year by year.
 - **Mathematical Formula(s):**
@@ -877,14 +877,14 @@ Total Calculators: 40
 ---
 
 ## Credit Card Payoff Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/credit-card-payoff-calculator
+- **URL:** https://calcdigi.com/calculators/finance/credit-card-payoff-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Find out how long it will take to clear your credit card balance and how much interest you'll pay — or what you need to pay each month to be debt-free by a date you choose.
 
 ---
 
 ## Crypto Profit Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/crypto-profit-calculator
+- **URL:** https://calcdigi.com/calculators/finance/crypto-profit-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Work out the profit or loss on a cryptocurrency trade after exchange fees and taxes, and the price you need to sell at to break even.
 - **Mathematical Formula(s):**
@@ -894,7 +894,7 @@ Total Calculators: 40
 ---
 
 ## Currency Converter
-- **URL:** https://calc-digi.vercel.app/calculators/finance/currency-converter
+- **URL:** https://calcdigi.com/calculators/finance/currency-converter
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Convert between more than 160 world currencies using reference exchange rates that are refreshed every day.
 - **Mathematical Formula(s):**
@@ -903,14 +903,14 @@ Total Calculators: 40
 ---
 
 ## Debt Payoff Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/debt-payoff-calculator
+- **URL:** https://calcdigi.com/calculators/finance/debt-payoff-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** See when you'll be debt-free at your current payment, and how much sooner an extra monthly payment gets you there.
 
 ---
 
 ## Dividend Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/dividend-calculator
+- **URL:** https://calcdigi.com/calculators/finance/dividend-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Project your dividend income and portfolio value over time, with or without reinvesting dividends.
 - **Mathematical Formula(s):**
@@ -919,21 +919,21 @@ Total Calculators: 40
 ---
 
 ## Down Payment Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/down-payment-calculator
+- **URL:** https://calcdigi.com/calculators/finance/down-payment-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** See how much cash you need to buy a home — down payment plus closing costs — and how long it will take to save it.
 
 ---
 
 ## Emergency Fund Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/emergency-fund-calculator
+- **URL:** https://calcdigi.com/calculators/finance/emergency-fund-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Work out how big your emergency fund should be, how far along you are, and when you'll reach your target.
 
 ---
 
 ## Freelancer Tax Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/freelancer-tax-calculator
+- **URL:** https://calcdigi.com/calculators/finance/freelancer-tax-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Estimate the taxes on your freelance or 1099 income — self-employment tax plus federal and state income tax — and how much to pay each quarter.
 - **Mathematical Formula(s):**
@@ -942,7 +942,7 @@ Total Calculators: 40
 ---
 
 ## Home Affordability Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/home-affordability-calculator
+- **URL:** https://calcdigi.com/calculators/finance/home-affordability-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Find the most expensive home you can likely qualify for, based on your income, existing debts, down payment and today's mortgage rates.
 - **Mathematical Formula(s):**
@@ -952,7 +952,7 @@ Total Calculators: 40
 ---
 
 ## Hourly to Salary Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/hourly-to-salary-calculator
+- **URL:** https://calcdigi.com/calculators/finance/hourly-to-salary-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Turn an hourly wage into a yearly salary — including overtime — or work out the hourly rate behind a salary offer.
 - **Mathematical Formula(s):**
@@ -961,7 +961,7 @@ Total Calculators: 40
 ---
 
 ## Inflation Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/inflation-calculator
+- **URL:** https://calcdigi.com/calculators/finance/inflation-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** See how much a dollar amount from any year since 1913 is worth today using official US Consumer Price Index data — or project future prices at an average inflation rate.
 - **Mathematical Formula(s):**
@@ -971,7 +971,7 @@ Total Calculators: 40
 ---
 
 ## Investment Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/investment-calculator
+- **URL:** https://calcdigi.com/calculators/finance/investment-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Project how your investments could grow from a starting amount and regular monthly contributions, and see the result in today's dollars.
 - **Mathematical Formula(s):**
@@ -980,7 +980,7 @@ Total Calculators: 40
 ---
 
 ## Loan Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/loan-calculator
+- **URL:** https://calcdigi.com/calculators/finance/loan-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Work out the monthly payment and total interest on any fixed-rate loan, then see the full year-by-year amortization schedule.
 - **Mathematical Formula(s):**
@@ -989,14 +989,14 @@ Total Calculators: 40
 ---
 
 ## Mortgage Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/mortgage-calculator
+- **URL:** https://calcdigi.com/calculators/finance/mortgage-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** 
 
 ---
 
 ## Net Worth Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/net-worth-calculator
+- **URL:** https://calcdigi.com/calculators/finance/net-worth-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Add up what you own and what you owe to find your net worth, and see how it compares with other US households your age.
 - **Mathematical Formula(s):**
@@ -1005,7 +1005,7 @@ Total Calculators: 40
 ---
 
 ## PayPal Fee Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/paypal-fee-calculator
+- **URL:** https://calcdigi.com/calculators/finance/paypal-fee-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Find out how much PayPal takes from a payment and what you'll receive — or how much to invoice so you end up with an exact amount.
 - **Mathematical Formula(s):**
@@ -1014,14 +1014,14 @@ Total Calculators: 40
 ---
 
 ## Rent vs. Buy Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/rent-vs-buy-calculator
+- **URL:** https://calcdigi.com/calculators/finance/rent-vs-buy-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Compare where you'd end up financially if you bought a home versus renting and investing the money you'd otherwise put into it.
 
 ---
 
 ## Retirement Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/retirement-calculator
+- **URL:** https://calcdigi.com/calculators/finance/retirement-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** See what your savings could grow to by retirement, how big a nest egg your target income needs, and how long your money will last.
 - **Mathematical Formula(s):**
@@ -1030,7 +1030,7 @@ Total Calculators: 40
 ---
 
 ## ROI Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/roi-calculator
+- **URL:** https://calcdigi.com/calculators/finance/roi-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Measure the return on any investment — a stock, a property, a marketing campaign or a business project — as a total and as a yearly rate.
 - **Mathematical Formula(s):**
@@ -1040,21 +1040,21 @@ Total Calculators: 40
 ---
 
 ## Roth IRA Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/roth-ira-calculator
+- **URL:** https://calcdigi.com/calculators/finance/roth-ira-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Project how much your Roth IRA could hold at retirement — all of it tax-free — and how much more that is than saving the same money in a taxable account.
 
 ---
 
 ## Salary Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/salary-calculator
+- **URL:** https://calcdigi.com/calculators/finance/salary-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Convert any pay amount into hourly, daily, weekly, biweekly, semi-monthly, monthly, quarterly and annual figures.
 
 ---
 
 ## Sales Tax Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/sales-tax-calculator
+- **URL:** https://calcdigi.com/calculators/finance/sales-tax-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Add sales tax to a price, or back it out of a receipt total, using any US state's rate plus your local tax.
 - **Mathematical Formula(s):**
@@ -1064,7 +1064,7 @@ Total Calculators: 40
 ---
 
 ## Savings Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/savings-calculator
+- **URL:** https://calcdigi.com/calculators/finance/savings-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Find out how much you need to set aside each month to reach a savings goal — or how much your regular deposits will grow to with interest.
 - **Mathematical Formula(s):**
@@ -1073,14 +1073,14 @@ Total Calculators: 40
 ---
 
 ## Social Security Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/social-security-calculator
+- **URL:** https://calcdigi.com/calculators/finance/social-security-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** See how your Social Security retirement benefit changes depending on when you claim, from age 62 to 70.
 
 ---
 
 ## Stock Return Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/stock-return-calculator
+- **URL:** https://calcdigi.com/calculators/finance/stock-return-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Calculate the total and annualized return on a stock you bought, including dividends, trading costs and taxes.
 - **Mathematical Formula(s):**
@@ -1090,21 +1090,21 @@ Total Calculators: 40
 ---
 
 ## Take-Home Pay Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/take-home-pay-calculator
+- **URL:** https://calcdigi.com/calculators/finance/take-home-pay-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Estimate how much of your salary actually lands in your bank account each payday after taxes, retirement contributions and benefits.
 
 ---
 
 ## Income Tax Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/tax-calculator
+- **URL:** https://calcdigi.com/calculators/finance/tax-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** 
 
 ---
 
 ## VAT Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/finance/vat-calculator
+- **URL:** https://calcdigi.com/calculators/finance/vat-calculator
 - **Category:** Finance, Loans & Taxation
 - **Direct Answer / Description:** Add VAT to a net price or extract the VAT from a gross price, using common country rates or your own.
 - **Mathematical Formula(s):**
@@ -1115,131 +1115,131 @@ Total Calculators: 40
 ---
 
 # Category: Food, Cooking & Nutrition
-Category Hub: https://calc-digi.vercel.app/pages/food
+Category Hub: https://calcdigi.com/pages/food
 Total Calculators: 10
 
 ## Alcohol Unit Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/alcohol-unit-calculator
+- **URL:** https://calcdigi.com/calculators/food/alcohol-unit-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Baking Substitution Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/baking-substitution-calculator
+- **URL:** https://calcdigi.com/calculators/food/baking-substitution-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Calorie Burn Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/calorie-burn-calculator
+- **URL:** https://calcdigi.com/calculators/food/calorie-burn-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Caffeine Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/coffee-caffeine-calculator
+- **URL:** https://calcdigi.com/calculators/food/coffee-caffeine-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Cooking Conversion Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/cooking-conversion-calculator
+- **URL:** https://calcdigi.com/calculators/food/cooking-conversion-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Cooking Time Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/cooking-time-calculator
+- **URL:** https://calcdigi.com/calculators/food/cooking-time-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Food Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/food-cost-calculator
+- **URL:** https://calcdigi.com/calculators/food/food-cost-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Nutrition Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/nutrition-calculator
+- **URL:** https://calcdigi.com/calculators/food/nutrition-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Recipe Scaler
-- **URL:** https://calc-digi.vercel.app/calculators/food/recipe-scaler
+- **URL:** https://calcdigi.com/calculators/food/recipe-scaler
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 ## Tip Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/food/tip-calculator
+- **URL:** https://calcdigi.com/calculators/food/tip-calculator
 - **Category:** Food, Cooking & Nutrition
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Geography & Astronomy
-Category Hub: https://calc-digi.vercel.app/pages/geography
+Category Hub: https://calcdigi.com/pages/geography
 Total Calculators: 6
 
 ## Country Statistics Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/geography/country-area-population-calculator
+- **URL:** https://calcdigi.com/calculators/geography/country-area-population-calculator
 - **Category:** Geography & Astronomy
 - **Direct Answer / Description:** 
 
 ---
 
 ## Distance Between Cities Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/geography/distance-between-cities-calculator
+- **URL:** https://calcdigi.com/calculators/geography/distance-between-cities-calculator
 - **Category:** Geography & Astronomy
 - **Direct Answer / Description:** 
 
 ---
 
 ## Elevation Grade Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/geography/elevation-grade-calculator
+- **URL:** https://calcdigi.com/calculators/geography/elevation-grade-calculator
 - **Category:** Geography & Astronomy
 - **Direct Answer / Description:** 
 
 ---
 
 ## Latitude and Longitude Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/geography/latitude-longitude-calculator
+- **URL:** https://calcdigi.com/calculators/geography/latitude-longitude-calculator
 - **Category:** Geography & Astronomy
 - **Direct Answer / Description:** 
 
 ---
 
 ## Map Scale Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/geography/map-scale-calculator
+- **URL:** https://calcdigi.com/calculators/geography/map-scale-calculator
 - **Category:** Geography & Astronomy
 - **Direct Answer / Description:** 
 
 ---
 
 ## Time Zone Difference Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/geography/time-zone-difference-calculator
+- **URL:** https://calcdigi.com/calculators/geography/time-zone-difference-calculator
 - **Category:** Geography & Astronomy
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Health, Fitness & Nutrition
-Category Hub: https://calc-digi.vercel.app/pages/health
+Category Hub: https://calcdigi.com/pages/health
 Total Calculators: 35
 
 ## Alcohol Unit Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/alcohol-unit-calculator
+- **URL:** https://calcdigi.com/calculators/health/alcohol-unit-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Determine your Blood Alcohol Concentration (BAC) and trace metabolic elimination time using the clinical Widmark equation. Understand standard drink equivalents and legal impairment thresholds.
 - **Mathematical Formula(s):**
@@ -1261,7 +1261,7 @@ Total Calculators: 35
 ---
 
 ## Baby Weight Percentile Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/baby-weight-calculator
+- **URL:** https://calcdigi.com/calculators/health/baby-weight-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Assess your infant's physical development against the World Health Organization (WHO) Child Growth Standards (0 to 24 months). Calculate exact centiles, Z-scores, and longitudinal growth velocity.
 - **Mathematical Formula(s):**
@@ -1271,7 +1271,7 @@ Total Calculators: 35
 ---
 
 ## Blood Pressure Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/blood-pressure-calculator
+- **URL:** https://calcdigi.com/calculators/health/blood-pressure-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Interpret your blood pressure numbers using the landmark 2017 ACC/AHA Clinical Practice Guidelines. Evaluate Mean Arterial Pressure (MAP) for vital organ perfusion and Pulse Pressure for arterial vascular compliance.
 - **Mathematical Formula(s):**
@@ -1281,7 +1281,7 @@ Total Calculators: 35
 ---
 
 ## BMI Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/bmi-calculator
+- **URL:** https://calcdigi.com/calculators/health/bmi-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Calculate your Body Mass Index in US or metric units and see where you fall on the WHO scale, plus the healthy weight range for your height.
 - **Mathematical Formula(s):**
@@ -1306,7 +1306,7 @@ Total Calculators: 35
 ---
 
 ## BMR Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/bmr-calculator
+- **URL:** https://calcdigi.com/calculators/health/bmr-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately calculate your Basal Metabolic Rate (BMR)—the minimum daily calories your body burns at complete rest to sustain vital cellular, brain, and cardiac functions.
 - **Mathematical Formula(s):**
@@ -1317,7 +1317,7 @@ Total Calculators: 35
 ---
 
 ## Body Fat Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/body-fat-calculator
+- **URL:** https://calcdigi.com/calculators/health/body-fat-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Step-by-step instructions for taking accurate neck, waist, and hip measurements for the US Navy body fat formula.
 - **Mathematical Formula(s):**
@@ -1340,7 +1340,7 @@ Total Calculators: 35
 ---
 
 ## Body Shape Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/body-shape-calculator
+- **URL:** https://calcdigi.com/calculators/health/body-shape-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Determine your precise anatomical body shape—Hourglass, Pear, Rectangle, Apple, or Inverted Triangle—using standardized anthropometric ratios and WHO cardiometabolic risk indices.
 - **Mathematical Formula(s):**
@@ -1349,7 +1349,7 @@ Total Calculators: 35
 ---
 
 ## Bra Size Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/bra-size-calculator
+- **URL:** https://calcdigi.com/calculators/health/bra-size-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately determine your true bra size using modern snug-band anthropometry and volumetric sister-sizing principles. Avoid neck and shoulder strain by finding your ideal biomechanical fit.
 - **Mathematical Formula(s):**
@@ -1359,7 +1359,7 @@ Total Calculators: 35
 ---
 
 ## Calorie Burn Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/calorie-burn-calculator
+- **URL:** https://calcdigi.com/calculators/health/calorie-burn-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Quantify workout energy expenditure using the validated 2024 Ainsworth Compendium of Physical Activities. Distinguish between gross total expenditure and true net exercise burn across cardiovascular, resistance, and sports modalities.
 - **Mathematical Formula(s):**
@@ -1371,7 +1371,7 @@ Total Calculators: 35
 ---
 
 ## Calorie Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/calorie-calculator
+- **URL:** https://calcdigi.com/calculators/health/calorie-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Calculate your personalized daily calorie requirements for healthy weight loss, maintenance, or muscle gain. Powered by the clinically validated Mifflin-St Jeor formula with instant macronutrient breakdown.
 - **Mathematical Formula(s):**
@@ -1394,7 +1394,7 @@ Total Calculators: 35
 ---
 
 ## Child Height Predictor
-- **URL:** https://calc-digi.vercel.app/calculators/health/child-height-predictor
+- **URL:** https://calcdigi.com/calculators/health/child-height-predictor
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Forecast your child's final adult stature using the clinical Tanner-Goldstein Mid-Parental Height (MPH) formula. Review pubertal peak height velocity schedules, epiphyseal fusion milestones, and endocrinological growth standards.
 - **Mathematical Formula(s):**
@@ -1404,7 +1404,7 @@ Total Calculators: 35
 ---
 
 ## Cycling Power & Speed Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/cycling-calculator
+- **URL:** https://calcdigi.com/calculators/health/cycling-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Top professional Grand Tour contenders and world championship cyclists.
 - **Mathematical Formula(s):**
@@ -1417,7 +1417,7 @@ Total Calculators: 35
 ---
 
 ## Fertility & Conception Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/fertility-calculator
+- **URL:** https://calcdigi.com/calculators/health/fertility-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Estimate your monthly conception probabilities and cumulative 12-month pregnancy rates based on maternal age, cycle consistency, and evidence-based reproductive endocrinology standards.
 - **Mathematical Formula(s):**
@@ -1427,7 +1427,7 @@ Total Calculators: 35
 ---
 
 ## Heart Rate Zone Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/heart-rate-zone-calculator
+- **URL:** https://calcdigi.com/calculators/health/heart-rate-zone-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately determine your five cardiovascular training zones, maximum heart rate (HRmax), and optimal Zone 2 fat-burning aerobic target using the clinically validated Karvonen Heart Rate Reserve (HRR) and Tanaka formulas.
 - **Mathematical Formula(s):**
@@ -1437,7 +1437,7 @@ Total Calculators: 35
 ---
 
 ## Ideal Weight Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/ideal-weight-calculator
+- **URL:** https://calcdigi.com/calculators/health/ideal-weight-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Determine your target healthy body weight by comparing four clinically validated medical formulas (Devine, Robinson, Miller, and Hamwi) alongside World Health Organization (WHO) BMI reference standards.
 - **Mathematical Formula(s):**
@@ -1450,7 +1450,7 @@ Total Calculators: 35
 ---
 
 ## Intermittent Fasting Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/intermittent-fasting-calculator
+- **URL:** https://calcdigi.com/calculators/health/intermittent-fasting-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Determine your precise fasting and eating windows for 16:8, 18:6, 20:4 Warrior, and OMAD schedules. Calibrated to cellular autophagy biology, circadian metabolic rhythms, and hepatic glycogen depletion.
 - **Mathematical Formula(s):**
@@ -1459,7 +1459,7 @@ Total Calculators: 35
 ---
 
 ## Lean Body Mass Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/lean-body-mass-calculator
+- **URL:** https://calcdigi.com/calculators/health/lean-body-mass-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately determine your Lean Body Mass (LBM), skeletal muscle reserve, and Fat-Free Mass Index (FFMI) using the three clinical gold-standard equations: Boer, James, and Hume.
 - **Mathematical Formula(s):**
@@ -1476,7 +1476,7 @@ Total Calculators: 35
 ---
 
 ## Macro Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/macro-calculator
+- **URL:** https://calcdigi.com/calculators/health/macro-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Calculate your optimal daily macronutrients (protein, carbohydrates, and fats) in grams and calories based on your body metrics and fitness goals. Includes flexible diet presets, visual donut charts, and per-meal distributions.
 - **Mathematical Formula(s):**
@@ -1500,7 +1500,7 @@ Total Calculators: 35
 ---
 
 ## One Rep Max (1RM) Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/one-rep-max-calculator
+- **URL:** https://calcdigi.com/calculators/health/one-rep-max-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately estimate your single-repetition maximum (1RM) across 7 peer-reviewed exercise science models. Calculate target percentages, rep maxes, and periodized training loads without risking musculoskeletal injury from maximal testing.
 - **Mathematical Formula(s):**
@@ -1513,7 +1513,7 @@ Total Calculators: 35
 ---
 
 ## Ovulation Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/ovulation-calculator
+- **URL:** https://calcdigi.com/calculators/health/ovulation-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Determine your precise day of ovulation, peak 6-day fertile window, and conception probabilities using evidence-based reproductive endocrinology calibrated to your unique menstrual cycle.
 - **Mathematical Formula(s):**
@@ -1522,7 +1522,7 @@ Total Calculators: 35
 ---
 
 ## Running Pace Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/pace-calculator
+- **URL:** https://calcdigi.com/calculators/health/pace-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Compute running paces, target finish splits, and distance projections across metric and imperial systems. Leverage Peter Riegel's endurance formula to forecast race-day performance from 5K to the 26.2-mile marathon distance.
 - **Mathematical Formula(s):**
@@ -1532,7 +1532,7 @@ Total Calculators: 35
 ---
 
 ## Period Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/period-calculator
+- **URL:** https://calcdigi.com/calculators/health/period-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Forecast your upcoming menstrual periods, bleeding duration, and premenstrual (PMS) windows with clinical precision based on the International Federation of Gynecology and Obstetrics (FIGO) standards.
 - **Mathematical Formula(s):**
@@ -1541,7 +1541,7 @@ Total Calculators: 35
 ---
 
 ## Pregnancy Due Date Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/pregnancy-due-date-calculator
+- **URL:** https://calcdigi.com/calculators/health/pregnancy-due-date-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Determine your Estimated Due Date (EDD), current gestational week, and trimester transitions using the obstetric gold-standard Naegele's Rule, calibrated to your individual menstrual cycle length.
 - **Mathematical Formula(s):**
@@ -1551,7 +1551,7 @@ Total Calculators: 35
 ---
 
 ## Protein Intake Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/protein-intake-calculator
+- **URL:** https://calcdigi.com/calculators/health/protein-intake-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately calculate your optimal daily dietary protein requirements in grams and meal doses based on body weight, training intensity, and athletic goals according to International Society of Sports Nutrition (ISSN) guidelines.
 - **Mathematical Formula(s):**
@@ -1561,7 +1561,7 @@ Total Calculators: 35
 ---
 
 ## Pushup Test Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/pushup-test-calculator
+- **URL:** https://calcdigi.com/calculators/health/pushup-test-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Evaluate your upper-body muscular endurance and cardiorespiratory health against clinical American College of Sports Medicine (ACSM) standards. Discover your percentile ranking and assess cardiovascular longevity risk.
 - **Mathematical Formula(s):**
@@ -1570,7 +1570,7 @@ Total Calculators: 35
 ---
 
 ## Sleep Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/sleep-calculator
+- **URL:** https://calcdigi.com/calculators/health/sleep-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Optimize your bedtime and wake times using the neurobiology of 90-minute ultradian sleep cycles. Align your alarm with light sleep or REM boundaries to eliminate morning sleep inertia.
 - **Mathematical Formula(s):**
@@ -1579,7 +1579,7 @@ Total Calculators: 35
 ---
 
 ## Smoking Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/smoking-cost-calculator
+- **URL:** https://calcdigi.com/calculators/health/smoking-cost-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Direct retail expenditure on tobacco packs and excise taxes.
 - **Mathematical Formula(s):**
@@ -1599,7 +1599,7 @@ Total Calculators: 35
 ---
 
 ## Steps to Calories Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/steps-to-calories-calculator
+- **URL:** https://calcdigi.com/calculators/health/steps-to-calories-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately convert your daily pedometer or smartwatch step count into total calories burned and distance traversed. Tailored to your anatomical height, body weight, biological sex, and walking cadence.
 - **Mathematical Formula(s):**
@@ -1610,7 +1610,7 @@ Total Calculators: 35
 ---
 
 ## Swim Pace Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/swim-pace-calculator
+- **URL:** https://calcdigi.com/calculators/health/swim-pace-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Calculate swim paces across 100-meter and 100-yard standards, predict pool and open-water race times, and establish training zones using Critical Swim Speed (CSS) threshold methodology.
 - **Mathematical Formula(s):**
@@ -1620,7 +1620,7 @@ Total Calculators: 35
 ---
 
 ## TDEE Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/tdee-calculator
+- **URL:** https://calcdigi.com/calculators/health/tdee-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately determine your Total Daily Energy Expenditure (TDEE)—the exact number of calories you burn each day across resting metabolism, daily steps, digestion, and physical training.
 - **Mathematical Formula(s):**
@@ -1630,7 +1630,7 @@ Total Calculators: 35
 ---
 
 ## VO2 Max Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/vo2-max-calculator
+- **URL:** https://calcdigi.com/calculators/health/vo2-max-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately calculate your maximal oxygen uptake (VO2 max) in milliliters of oxygen consumed per kilogram of body weight per minute (mL/kg/min). Assess cardiorespiratory endurance and all-cause mortality risk across validated clinical field tests.
 - **Mathematical Formula(s):**
@@ -1644,7 +1644,7 @@ Total Calculators: 35
 ---
 
 ## Waist to Height Ratio Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/waist-to-height-ratio-calculator
+- **URL:** https://calcdigi.com/calculators/health/waist-to-height-ratio-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Evaluate your cardiometabolic health and visceral fat accumulation using the universally validated Waist-to-Height Ratio (WHtR). Built on Dr. Margaret Ashwell's landmark clinical meta-analyses.
 - **Mathematical Formula(s):**
@@ -1653,7 +1653,7 @@ Total Calculators: 35
 ---
 
 ## Waist to Hip Ratio Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/waist-to-hip-ratio-calculator
+- **URL:** https://calcdigi.com/calculators/health/waist-to-hip-ratio-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Accurately compute your Waist-to-Hip Ratio (WHR) and assess central visceral adiposity and cardiovascular disease vulnerability according to World Health Organization (WHO) epidemiological benchmarks.
 - **Mathematical Formula(s):**
@@ -1662,7 +1662,7 @@ Total Calculators: 35
 ---
 
 ## Water Intake Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/water-intake-calculator
+- **URL:** https://calcdigi.com/calculators/health/water-intake-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Calculate your personalized daily fluid intake requirement based on body weight, exercise sweat loss, ambient climate, and metabolic hydration needs according to National Academies of Sciences standards.
 - **Mathematical Formula(s):**
@@ -1672,7 +1672,7 @@ Total Calculators: 35
 ---
 
 ## Weight Loss Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/health/weight-loss-calculator
+- **URL:** https://calcdigi.com/calculators/health/weight-loss-calculator
 - **Category:** Health, Fitness & Nutrition
 - **Direct Answer / Description:** Calculate your scientific daily caloric intake, healthy target deficit, and realistic goal timeline. Powered by Mifflin-St Jeor resting calorimetry and the National Institutes of Health (NIH) dynamic metabolic adaptation model.
 - **Mathematical Formula(s):**
@@ -1681,11 +1681,11 @@ Total Calculators: 35
 ---
 
 # Category: Housing, Construction & Real Estate
-Category Hub: https://calc-digi.vercel.app/pages/housing
+Category Hub: https://calcdigi.com/pages/housing
 Total Calculators: 17
 
 ## Concrete Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/concrete-calculator
+- **URL:** https://calcdigi.com/calculators/housing/concrete-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Calculate cubic yards, cubic feet, and bag counts for slabs, foundations, driveways, patios, and cylindrical post holes with safety waste margins.
 - **Mathematical Formula(s):**
@@ -1696,7 +1696,7 @@ Total Calculators: 17
 ---
 
 ## Down Payment Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/down-payment-calculator
+- **URL:** https://calcdigi.com/calculators/housing/down-payment-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Determine your required cash to close, compare down payment percentage tiers (3% to 20%), evaluate PMI costs, and project your savings timeline.
 - **Mathematical Formula(s):**
@@ -1709,7 +1709,7 @@ Total Calculators: 17
 ---
 
 ## Electricity Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/electricity-cost-calculator
+- **URL:** https://calcdigi.com/calculators/housing/electricity-cost-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Calculate the exact electricity cost to operate any appliance or device based on wattage, daily runtime, and regional utility kilowatt-hour (kWh) rates.
 - **Mathematical Formula(s):**
@@ -1722,7 +1722,7 @@ Total Calculators: 17
 ---
 
 ## Fence Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/fence-cost-calculator
+- **URL:** https://calcdigi.com/calculators/housing/fence-cost-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Estimate installed fence costs and exact material requirements including posts, 8-foot panels, gates, and post-hole concrete bags.
 - **Mathematical Formula(s):**
@@ -1734,7 +1734,7 @@ Total Calculators: 17
 ---
 
 ## Flooring Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/flooring-calculator
+- **URL:** https://calcdigi.com/calculators/housing/flooring-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Calculate exact flooring square footage, required box counts, pattern waste allowances, underlayment rolls, and total material budget.
 - **Mathematical Formula(s):**
@@ -1746,7 +1746,7 @@ Total Calculators: 17
 ---
 
 ## Home Affordability Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/home-affordability-calculator
+- **URL:** https://calcdigi.com/calculators/housing/home-affordability-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Determine how much home you can afford based on gross household income, monthly debts, down payment, and Fannie Mae 28/36 debt-to-income benchmarks.
 - **Mathematical Formula(s):**
@@ -1758,7 +1758,7 @@ Total Calculators: 17
 ---
 
 ## Home Equity Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/home-equity-calculator
+- **URL:** https://calcdigi.com/calculators/housing/home-equity-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Determine your accumulated home equity, current loan-to-value ratio, and maximum cash you can borrow through a HELOC or home equity loan.
 - **Mathematical Formula(s):**
@@ -1770,7 +1770,7 @@ Total Calculators: 17
 ---
 
 ## Land Area Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/land-area-calculator
+- **URL:** https://calcdigi.com/calculators/housing/land-area-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Calculate property acreage, square footage, boundary fencing perimeter, and zoning building coverage from boundary dimensions.
 - **Mathematical Formula(s):**
@@ -1782,7 +1782,7 @@ Total Calculators: 17
 ---
 
 ## Paint Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/paint-calculator
+- **URL:** https://calcdigi.com/calculators/housing/paint-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Calculate exact paint gallons and primer needed for walls and ceilings with automatic window, door, and trim deductions.
 - **Mathematical Formula(s):**
@@ -1795,7 +1795,7 @@ Total Calculators: 17
 ---
 
 ## Property Tax Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/property-tax-calculator
+- **URL:** https://calcdigi.com/calculators/housing/property-tax-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Calculate your annual and monthly property tax bill based on market value, county assessment ratios, millage rates, and homestead exemptions.
 - **Mathematical Formula(s):**
@@ -1808,7 +1808,7 @@ Total Calculators: 17
 ---
 
 ## Mortgage Refinance Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/refinance-calculator
+- **URL:** https://calcdigi.com/calculators/housing/refinance-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Determine your monthly payment savings, breakeven timeline in months, and total lifetime interest saved by refinancing your home loan.
 - **Mathematical Formula(s):**
@@ -1820,7 +1820,7 @@ Total Calculators: 17
 ---
 
 ## Renovation Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/renovation-cost-calculator
+- **URL:** https://calcdigi.com/calculators/housing/renovation-cost-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Estimate realistic home remodeling budgets across kitchens, bathrooms, basements, and full houses with material and labor breakdowns.
 - **Mathematical Formula(s):**
@@ -1830,7 +1830,7 @@ Total Calculators: 17
 ---
 
 ## Rent Affordability Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/rent-calculator
+- **URL:** https://calcdigi.com/calculators/housing/rent-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Determine your maximum sustainable monthly rent budget based on salary, existing debt payments, utilities, and landlord 40x qualification criteria.
 - **Mathematical Formula(s):**
@@ -1842,7 +1842,7 @@ Total Calculators: 17
 ---
 
 ## Rent vs Buy Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/rent-vs-buy-calculator
+- **URL:** https://calcdigi.com/calculators/housing/rent-vs-buy-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Determine whether renting or buying builds more wealth over your planned timeline using real-world appreciation, equity amortization, and opportunity costs.
 - **Mathematical Formula(s):**
@@ -1854,7 +1854,7 @@ Total Calculators: 17
 ---
 
 ## Roof Area Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/roof-area-calculator
+- **URL:** https://calcdigi.com/calculators/housing/roof-area-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Calculate true sloped roof surface square footage, roofing squares, shingle bundle counts, and underlayment rolls from ground footprint and roof pitch.
 - **Mathematical Formula(s):**
@@ -1868,7 +1868,7 @@ Total Calculators: 17
 ---
 
 ## Room Area Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/room-area-calculator
+- **URL:** https://calcdigi.com/calculators/housing/room-area-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Determine exact floor square footage, net wall paint surface area, room perimeter for baseboards, and interior cubic volume with opening deductions.
 - **Mathematical Formula(s):**
@@ -1882,7 +1882,7 @@ Total Calculators: 17
 ---
 
 ## Square Footage Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/housing/square-footage-calculator
+- **URL:** https://calcdigi.com/calculators/housing/square-footage-calculator
 - **Category:** Housing, Construction & Real Estate
 - **Direct Answer / Description:** Accurately calculate square footage and square meters for single rooms, multi-room houses, L-shaped layouts, and circular spaces with custom waste factors.
 - **Mathematical Formula(s):**
@@ -1896,99 +1896,99 @@ Total Calculators: 17
 ---
 
 # Category: Internet, Networking & Bandwidth
-Category Hub: https://calc-digi.vercel.app/pages/internet
+Category Hub: https://calcdigi.com/pages/internet
 Total Calculators: 12
 
 ## Bandwidth Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/bandwidth-calculator
+- **URL:** https://calcdigi.com/calculators/internet/bandwidth-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Cloud Storage Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/cloud-storage-calculator
+- **URL:** https://calcdigi.com/calculators/internet/cloud-storage-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Data Usage Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/data-usage-calculator
+- **URL:** https://calcdigi.com/calculators/internet/data-usage-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Download Time Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/download-time-calculator
+- **URL:** https://calcdigi.com/calculators/internet/download-time-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Email Size Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/email-size-calculator
+- **URL:** https://calcdigi.com/calculators/internet/email-size-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Internet Speed Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/internet-speed-calculator
+- **URL:** https://calcdigi.com/calculators/internet/internet-speed-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## IP Subnet Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/ip-subnet-calculator
+- **URL:** https://calcdigi.com/calculators/internet/ip-subnet-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Ping and Latency Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/ping-latency-calculator
+- **URL:** https://calcdigi.com/calculators/internet/ping-latency-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Server Uptime Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/server-uptime-calculator
+- **URL:** https://calcdigi.com/calculators/internet/server-uptime-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Streaming Quality Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/streaming-quality-calculator
+- **URL:** https://calcdigi.com/calculators/internet/streaming-quality-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## VPN Speed Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/vpn-speed-calculator
+- **URL:** https://calcdigi.com/calculators/internet/vpn-speed-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 ## Website Load Time Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/internet/website-load-time-calculator
+- **URL:** https://calcdigi.com/calculators/internet/website-load-time-calculator
 - **Category:** Internet, Networking & Bandwidth
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Mathematics & Statistics
-Category Hub: https://calc-digi.vercel.app/pages/math
+Category Hub: https://calcdigi.com/pages/math
 Total Calculators: 46
 
 ## Absolute Value Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/absolute-value-calculator
+- **URL:** https://calcdigi.com/calculators/math/absolute-value-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate real and complex absolute values, solve absolute value equations and inequalities, and evaluate coordinate distances with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -2021,7 +2021,7 @@ Total Calculators: 46
 ---
 
 ## Area Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/area-calculator
+- **URL:** https://calcdigi.com/calculators/math/area-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate the area of squares, rectangles, triangles, circles, trapezoids, ellipses, and complex irregular polygons with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -2050,7 +2050,7 @@ Total Calculators: 46
 ---
 
 ## Average Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/average-calculator
+- **URL:** https://calcdigi.com/calculators/math/average-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate the arithmetic mean, median, mode, range, variance, and standard deviation for any list of numbers with step-by-step mathematical solutions.
 - **Mathematical Formula(s):**
@@ -2082,7 +2082,7 @@ Total Calculators: 46
 ---
 
 ## Big Number Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/big-number-calculator
+- **URL:** https://calcdigi.com/calculators/math/big-number-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Execute arbitrary-precision arithmetic, calculate exact factorials and powers of immense integers without rounding truncation errors.
 - **Mathematical Formula(s):**
@@ -2117,7 +2117,7 @@ Total Calculators: 46
 ---
 
 ## Binary Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/binary-calculator
+- **URL:** https://calcdigi.com/calculators/math/binary-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Execute binary arithmetic, evaluate bitwise logic gates, calculate Two's Complement, and convert between binary, octal, decimal, and hexadecimal.
 - **Mathematical Formula(s):**
@@ -2148,7 +2148,7 @@ Total Calculators: 46
 ---
 
 ## Circle Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/circle-calculator
+- **URL:** https://calcdigi.com/calculators/math/circle-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate the area, circumference, radius, diameter, arc length, sector area, and chord length of any circle with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -2182,7 +2182,7 @@ Total Calculators: 46
 ---
 
 ## Combination Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/combination-calculator
+- **URL:** https://calcdigi.com/calculators/math/combination-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate combinations without repetition and with replacement, explore Pascal triangle coefficients, and evaluate sampling probabilities.
 - **Mathematical Formula(s):**
@@ -2218,7 +2218,7 @@ Total Calculators: 46
 ---
 
 ## Confidence Interval Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/confidence-interval-calculator
+- **URL:** https://calcdigi.com/calculators/math/confidence-interval-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate confidence intervals, margins of error, and standard errors for population means and proportions at any confidence level with complete mathematical derivations.
 - **Mathematical Formula(s):**
@@ -2252,7 +2252,7 @@ Total Calculators: 46
 ---
 
 ## Decimal to Fraction Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/decimal-to-fraction-calculator
+- **URL:** https://calcdigi.com/calculators/math/decimal-to-fraction-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Convert any terminating or repeating decimal into an exact, fully simplified fraction or mixed number with step-by-step algebraic derivations and period analysis.
 - **Mathematical Formula(s):**
@@ -2283,7 +2283,7 @@ Total Calculators: 46
 ---
 
 ## Distance Formula Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/distance-formula-calculator
+- **URL:** https://calcdigi.com/calculators/math/distance-formula-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate 2D and 3D Euclidean distance, coordinate displacement, midpoint, and vector length between any two points with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -2317,7 +2317,7 @@ Total Calculators: 46
 ---
 
 ## Exponent Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/exponent-calculator
+- **URL:** https://calcdigi.com/calculators/math/exponent-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate powers, fractional exponents, negative indices, scientific power expansions, and compound exponential growth with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -2351,7 +2351,7 @@ Total Calculators: 46
 ---
 
 ## Factor Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/factor-calculator
+- **URL:** https://calcdigi.com/calculators/math/factor-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Find all positive and negative factors, factor pairs, canonical prime factorizations, and aliquot divisor sums with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -2382,7 +2382,7 @@ Total Calculators: 46
 ---
 
 ## Factorial Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/factorial-calculator
+- **URL:** https://calcdigi.com/calculators/math/factorial-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Compute exact factorials, explore permutation scales, Stirling approximations, and Gamma continuations with ISO-compliant algorithmic precision.
 - **Mathematical Formula(s):**
@@ -2419,7 +2419,7 @@ Total Calculators: 46
 ---
 
 ## Fraction Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/fraction-calculator
+- **URL:** https://calcdigi.com/calculators/math/fraction-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Add, subtract, multiply, and divide fractions, mixed numbers, and improper fractions with detailed step-by-step arithmetic derivations and automatic reduction.
 - **Mathematical Formula(s):**
@@ -2451,7 +2451,7 @@ Total Calculators: 46
 ---
 
 ## GCF Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/gcf-calculator
+- **URL:** https://calcdigi.com/calculators/math/gcf-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Find the greatest common divisor with step-by-step Euclidean division, prime factor trees, and modular arithmetic precision.
 - **Mathematical Formula(s):**
@@ -2486,7 +2486,7 @@ Total Calculators: 46
 ---
 
 ## Hex Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/hex-calculator
+- **URL:** https://calcdigi.com/calculators/math/hex-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Execute hexadecimal arithmetic, perform 4-bit nibble binary conversions, inspect memory byte structures, and evaluate bitwise logic.
 - **Mathematical Formula(s):**
@@ -2519,7 +2519,7 @@ Total Calculators: 46
 ---
 
 ## LCM Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/lcm-calculator
+- **URL:** https://calcdigi.com/calculators/math/lcm-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate least common multiples instantly using Euclidean GCF duality, prime factor trees, and multi-integer ladder methods.
 - **Mathematical Formula(s):**
@@ -2556,7 +2556,7 @@ Total Calculators: 46
 ---
 
 ## Logarithm Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/logarithm-calculator
+- **URL:** https://calcdigi.com/calculators/math/logarithm-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate natural logarithms (ln), common logarithms (log₁₀), binary logarithms (log₂), and arbitrary custom bases with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -2588,7 +2588,7 @@ Total Calculators: 46
 ---
 
 ## Long Division Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/long-division-calculator
+- **URL:** https://calcdigi.com/calculators/math/long-division-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Solve long division problems step-by-step with integer remainders, repeating decimal expansions, quotient derivations, and algebraic proofs.
 - **Mathematical Formula(s):**
@@ -2620,7 +2620,7 @@ Total Calculators: 46
 ---
 
 ## Matrix Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/matrix-calculator
+- **URL:** https://calcdigi.com/calculators/math/matrix-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Perform matrix addition, subtraction, multiplication, determinants, inverses, eigenvalues, and rank evaluations step-by-step with complete algebraic derivations.
 - **Mathematical Formula(s):**
@@ -2653,7 +2653,7 @@ Total Calculators: 46
 ---
 
 ## Median Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/median-calculator
+- **URL:** https://calcdigi.com/calculators/math/median-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate the median, quartiles, interquartile range (IQR), and five-number summary for any numerical dataset with complete step-by-step explanations.
 - **Mathematical Formula(s):**
@@ -2683,7 +2683,7 @@ Total Calculators: 46
 ---
 
 ## Number Sequence Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/number-sequence-calculator
+- **URL:** https://calcdigi.com/calculators/math/number-sequence-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Analyze arithmetic, geometric, and Fibonacci sequences. Calculate the nth term, common difference, common ratio, and finite/infinite series sums with complete step-by-step proofs.
 - **Mathematical Formula(s):**
@@ -2719,7 +2719,7 @@ Total Calculators: 46
 ---
 
 ## Percent Error Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/percent-error-calculator
+- **URL:** https://calcdigi.com/calculators/math/percent-error-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate absolute error, relative error, and percentage error between experimental measurements and theoretical reference standards with complete uncertainty derivations.
 - **Mathematical Formula(s):**
@@ -2750,7 +2750,7 @@ Total Calculators: 46
 ---
 
 ## Percentage Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/math/percentage-calculator
+- **URL:** https://calcdigi.com/calculators/math/percentage-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Step-by-step instructions to calculate percentages of numbers, proportions, and percentage changes.
 - **Mathematical Formula(s):**
@@ -2785,7 +2785,7 @@ Total Calculators: 46
 ---
 
 ## Percentage Change Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/percentage-change-calculator
+- **URL:** https://calcdigi.com/calculators/math/percentage-change-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate percent increase, percent decrease, and relative difference between any two values with complete step-by-step mathematical derivations and asymmetry analysis.
 - **Mathematical Formula(s):**
@@ -2815,7 +2815,7 @@ Total Calculators: 46
 ---
 
 ## Permutation Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/permutation-calculator
+- **URL:** https://calcdigi.com/calculators/math/permutation-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate ordered sequences, arrangements with and without repetition, multinomial word anagrams, and circular permutations.
 - **Mathematical Formula(s):**
@@ -2851,7 +2851,7 @@ Total Calculators: 46
 ---
 
 ## Prime Number Checker | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/prime-number-checker
+- **URL:** https://calcdigi.com/calculators/math/prime-number-checker
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Test any integer for primality, calculate canonical prime factorizations, inspect prime factor trees, and identify twin primes with complete mathematical rigor.
 - **Mathematical Formula(s):**
@@ -2879,7 +2879,7 @@ Total Calculators: 46
 ---
 
 ## Probability Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/probability-calculator
+- **URL:** https://calcdigi.com/calculators/math/probability-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate event probabilities, joint outcomes (AND/OR), conditional probabilities, complementary odds, and Bayes' theorem with step-by-step mathematical explanations.
 - **Mathematical Formula(s):**
@@ -2912,7 +2912,7 @@ Total Calculators: 46
 ---
 
 ## Pythagorean Theorem Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/pythagorean-theorem-calculator
+- **URL:** https://calcdigi.com/calculators/math/pythagorean-theorem-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate the hypotenuse, missing legs, perimeter, area, and acute angles of any right triangle with step-by-step proofs and Pythagorean triple analysis.
 - **Mathematical Formula(s):**
@@ -2941,7 +2941,7 @@ Total Calculators: 46
 ---
 
 ## Quadratic Equation Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/quadratic-equation-calculator
+- **URL:** https://calcdigi.com/calculators/math/quadratic-equation-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Solve quadratic equations ax² + bx + c = 0 step-by-step using the quadratic formula, completing the square, discriminant analysis, and parabolic vertex derivations.
 - **Mathematical Formula(s):**
@@ -2970,7 +2970,7 @@ Total Calculators: 46
 ---
 
 ## Random Number Generator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/random-number-generator
+- **URL:** https://calcdigi.com/calculators/math/random-number-generator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Generate uniform random numbers, randomized integer sets, cryptographic sequences, and reproducible pseudo-random distributions.
 - **Mathematical Formula(s):**
@@ -2999,7 +2999,7 @@ Total Calculators: 46
 ---
 
 ## Ratio Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/ratio-calculator
+- **URL:** https://calcdigi.com/calculators/math/ratio-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Simplify ratios, solve proportions, determine equivalent scales, and convert part-to-part and part-to-whole relationships with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -3032,7 +3032,7 @@ Total Calculators: 46
 ---
 
 ## Roman Numeral Converter | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/roman-numeral-converter
+- **URL:** https://calcdigi.com/calculators/math/roman-numeral-converter
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Convert standard Arabic numbers to Roman numerals and Roman numerals to numbers (1 to 3,999,999), with complete subtractive rules and vinculum notation.
 - **Mathematical Formula(s):**
@@ -3062,7 +3062,7 @@ Total Calculators: 46
 ---
 
 ## Rounding Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/rounding-calculator
+- **URL:** https://calcdigi.com/calculators/math/rounding-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Round numbers to any decimal place, nearest integer, significant figures, or fraction using standard arithmetic, bankers' rounding, floor, ceiling, and truncation modes.
 - **Mathematical Formula(s):**
@@ -3090,7 +3090,7 @@ Total Calculators: 46
 ---
 
 ## Sample Size Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/sample-size-calculator
+- **URL:** https://calcdigi.com/calculators/math/sample-size-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate required sample sizes for surveys, clinical trials, and scientific experiments with confidence levels, margins of error, and finite population adjustments.
 - **Mathematical Formula(s):**
@@ -3121,7 +3121,7 @@ Total Calculators: 46
 ---
 
 ## Scientific Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/scientific-calculator
+- **URL:** https://calcdigi.com/calculators/math/scientific-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Advanced multi-function scientific calculator supporting trigonometry, logarithms, exponentiation, root radicals, combinatorics, and memory registers.
 - **Mathematical Formula(s):**
@@ -3156,7 +3156,7 @@ Total Calculators: 46
 ---
 
 ## Scientific Notation Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/scientific-notation-calculator
+- **URL:** https://calcdigi.com/calculators/math/scientific-notation-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Convert decimal values to normalized scientific and engineering notation, perform arithmetic operations, and inspect orders of magnitude.
 - **Mathematical Formula(s):**
@@ -3192,7 +3192,7 @@ Total Calculators: 46
 ---
 
 ## Significant Figures Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/significant-figures-calculator
+- **URL:** https://calcdigi.com/calculators/math/significant-figures-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Count significant figures, format decimal measurements, apply rounding arithmetic rules, and convert to scientific notation.
 - **Mathematical Formula(s):**
@@ -3220,7 +3220,7 @@ Total Calculators: 46
 ---
 
 ## Slope Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/slope-calculator
+- **URL:** https://calcdigi.com/calculators/math/slope-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate the slope, angle of inclination, distance, midpoint, and linear equations (slope-intercept and point-slope) between any two points step-by-step.
 - **Mathematical Formula(s):**
@@ -3255,7 +3255,7 @@ Total Calculators: 46
 ---
 
 ## Square Root Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/square-root-calculator
+- **URL:** https://calcdigi.com/calculators/math/square-root-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate principal square roots, simplify radical expressions, evaluate fractional exponents, and compute imaginary roots with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -3285,7 +3285,7 @@ Total Calculators: 46
 ---
 
 ## Standard Deviation Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/standard-deviation-calculator
+- **URL:** https://calcdigi.com/calculators/math/standard-deviation-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate sample and population standard deviation, variance, mean, and sum of squared deviations for any dataset with step-by-step mathematical solutions.
 - **Mathematical Formula(s):**
@@ -3314,7 +3314,7 @@ Total Calculators: 46
 ---
 
 ## Surface Area Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/surface-area-calculator
+- **URL:** https://calcdigi.com/calculators/math/surface-area-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate total and lateral surface area for spheres, cylinders, cones, cubes, rectangular prisms, and pyramids with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -3349,7 +3349,7 @@ Total Calculators: 46
 ---
 
 ## Triangle Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/triangle-calculator
+- **URL:** https://calcdigi.com/calculators/math/triangle-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Solve any triangle using SSS, SAS, ASA, or AAS configurations. Calculate unknown sides, interior angles, area, perimeter, inradius, and circumradius with complete mathematical derivations.
 - **Mathematical Formula(s):**
@@ -3384,7 +3384,7 @@ Total Calculators: 46
 ---
 
 ## Variance Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/variance-calculator
+- **URL:** https://calcdigi.com/calculators/math/variance-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate sample variance (s²), population variance (σ²), sum of squares, and standard deviation for any dataset with step-by-step algebraic derivations.
 - **Mathematical Formula(s):**
@@ -3413,7 +3413,7 @@ Total Calculators: 46
 ---
 
 ## Volume Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/volume-calculator
+- **URL:** https://calcdigi.com/calculators/math/volume-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate 3D volume and liquid capacity for boxes, cylinders, spheres, cones, pyramids, and storage tanks with complete step-by-step mathematical proofs.
 - **Mathematical Formula(s):**
@@ -3443,7 +3443,7 @@ Total Calculators: 46
 ---
 
 ## Z-Score Calculator | CalcDigi
-- **URL:** https://calc-digi.vercel.app/calculators/math/z-score-calculator
+- **URL:** https://calcdigi.com/calculators/math/z-score-calculator
 - **Category:** Mathematics & Statistics
 - **Direct Answer / Description:** Calculate standard scores (z), p-values, percentile ranks, and tail probabilities for individual values and sample means with step-by-step solutions.
 - **Mathematical Formula(s):**
@@ -3474,387 +3474,387 @@ Total Calculators: 46
 ---
 
 # Category: Measurements & Unit Conversions
-Category Hub: https://calc-digi.vercel.app/pages/measurements
+Category Hub: https://calcdigi.com/pages/measurements
 Total Calculators: 20
 
 ## Angle Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/angle-converter
+- **URL:** https://calcdigi.com/calculators/measurements/angle-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Area Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/area-converter
+- **URL:** https://calcdigi.com/calculators/measurements/area-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Clothing Size Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/clothing-size-converter
+- **URL:** https://calcdigi.com/calculators/measurements/clothing-size-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Cooking Measurement Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/cooking-measurement-converter
+- **URL:** https://calcdigi.com/calculators/measurements/cooking-measurement-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Currency Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/currency-converter
+- **URL:** https://calcdigi.com/calculators/measurements/currency-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Data Storage Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/data-storage-converter
+- **URL:** https://calcdigi.com/calculators/measurements/data-storage-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Energy Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/energy-converter
+- **URL:** https://calcdigi.com/calculators/measurements/energy-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Fuel Economy Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/fuel-economy-converter
+- **URL:** https://calcdigi.com/calculators/measurements/fuel-economy-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Length Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/length-converter
+- **URL:** https://calcdigi.com/calculators/measurements/length-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Number System Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/number-system-converter
+- **URL:** https://calcdigi.com/calculators/measurements/number-system-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Power Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/power-converter
+- **URL:** https://calcdigi.com/calculators/measurements/power-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Pressure Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/pressure-converter
+- **URL:** https://calcdigi.com/calculators/measurements/pressure-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Roman Numeral Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/roman-numeral-converter
+- **URL:** https://calcdigi.com/calculators/measurements/roman-numeral-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Shoe Size Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/shoe-size-converter
+- **URL:** https://calcdigi.com/calculators/measurements/shoe-size-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Speed Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/speed-converter
+- **URL:** https://calcdigi.com/calculators/measurements/speed-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Temperature Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/temperature-converter
+- **URL:** https://calcdigi.com/calculators/measurements/temperature-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Time Unit Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/time-converter
+- **URL:** https://calcdigi.com/calculators/measurements/time-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Torque Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/torque-converter
+- **URL:** https://calcdigi.com/calculators/measurements/torque-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Volume Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/volume-converter
+- **URL:** https://calcdigi.com/calculators/measurements/volume-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 ## Weight Converter
-- **URL:** https://calc-digi.vercel.app/calculators/measurements/weight-converter
+- **URL:** https://calcdigi.com/calculators/measurements/weight-converter
 - **Category:** Measurements & Unit Conversions
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Physics & Thermodynamics
-Category Hub: https://calc-digi.vercel.app/pages/physics
+Category Hub: https://calcdigi.com/pages/physics
 Total Calculators: 15
 
 ## Acceleration Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/acceleration-calculator
+- **URL:** https://calcdigi.com/calculators/physics/acceleration-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Circular Motion Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/circular-motion-calculator
+- **URL:** https://calcdigi.com/calculators/physics/circular-motion-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Force Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/force-calculator
+- **URL:** https://calcdigi.com/calculators/physics/force-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Free Fall Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/free-fall-calculator
+- **URL:** https://calcdigi.com/calculators/physics/free-fall-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Gravitational Force Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/gravitational-force-calculator
+- **URL:** https://calcdigi.com/calculators/physics/gravitational-force-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Kinetic Energy Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/kinetic-energy-calculator
+- **URL:** https://calcdigi.com/calculators/physics/kinetic-energy-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Momentum Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/momentum-calculator
+- **URL:** https://calcdigi.com/calculators/physics/momentum-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Potential Energy Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/potential-energy-calculator
+- **URL:** https://calcdigi.com/calculators/physics/potential-energy-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Power Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/power-calculator
+- **URL:** https://calcdigi.com/calculators/physics/power-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Pressure Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/pressure-calculator
+- **URL:** https://calcdigi.com/calculators/physics/pressure-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Projectile Motion Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/projectile-motion-calculator
+- **URL:** https://calcdigi.com/calculators/physics/projectile-motion-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Torque Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/torque-calculator
+- **URL:** https://calcdigi.com/calculators/physics/torque-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Velocity Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/velocity-calculator
+- **URL:** https://calcdigi.com/calculators/physics/velocity-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Wave Frequency Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/wave-frequency-calculator
+- **URL:** https://calcdigi.com/calculators/physics/wave-frequency-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 ## Work Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/physics/work-energy-calculator
+- **URL:** https://calcdigi.com/calculators/physics/work-energy-calculator
 - **Category:** Physics & Thermodynamics
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Science & Chemistry
-Category Hub: https://calc-digi.vercel.app/pages/science
+Category Hub: https://calcdigi.com/pages/science
 Total Calculators: 15
 
 ## Boiling Point Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/boiling-point-calculator
+- **URL:** https://calcdigi.com/calculators/science/boiling-point-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Buffer Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/buffer-calculator
+- **URL:** https://calcdigi.com/calculators/science/buffer-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Concentration Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/concentration-calculator
+- **URL:** https://calcdigi.com/calculators/science/concentration-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Density Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/density-calculator
+- **URL:** https://calcdigi.com/calculators/science/density-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Empirical Formula Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/empirical-formula-calculator
+- **URL:** https://calcdigi.com/calculators/science/empirical-formula-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Half-Life Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/half-life-calculator
+- **URL:** https://calcdigi.com/calculators/science/half-life-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Ideal Gas Law Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/ideal-gas-law-calculator
+- **URL:** https://calcdigi.com/calculators/science/ideal-gas-law-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Molarity Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/molarity-calculator
+- **URL:** https://calcdigi.com/calculators/science/molarity-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Molecular Weight Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/molecular-weight-calculator
+- **URL:** https://calcdigi.com/calculators/science/molecular-weight-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Ohm's Law Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/ohms-law-calculator
+- **URL:** https://calcdigi.com/calculators/science/ohms-law-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Osmolarity Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/osmolarity-calculator
+- **URL:** https://calcdigi.com/calculators/science/osmolarity-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Percent Yield Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/percent-yield-calculator
+- **URL:** https://calcdigi.com/calculators/science/percent-yield-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## pH Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/ph-calculator
+- **URL:** https://calcdigi.com/calculators/science/ph-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Specific Heat Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/specific-heat-calculator
+- **URL:** https://calcdigi.com/calculators/science/specific-heat-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 ## Stoichiometry Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/science/stoichiometry-calculator
+- **URL:** https://calcdigi.com/calculators/science/stoichiometry-calculator
 - **Category:** Science & Chemistry
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Transportation & Fuel Efficiency
-Category Hub: https://calc-digi.vercel.app/pages/transportation
+Category Hub: https://calcdigi.com/pages/transportation
 Total Calculators: 15
 
 ## Cycling Pace Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/bike-pace-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/bike-pace-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Car Depreciation Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/car-depreciation-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/car-depreciation-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Car Payment Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/car-payment-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/car-payment-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** Estimate your exact monthly car payment, total loan interest, and true out-the-door cost with sales tax, dealer documentation fees, down payment, trade-in equity, and a complete amortization schedule.
 - **Mathematical Formula(s):**
@@ -3874,144 +3874,144 @@ Total Calculators: 15
 ---
 
 ## Commute Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/commute-cost-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/commute-cost-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Distance Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/distance-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/distance-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## EV Savings Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/ev-savings-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/ev-savings-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Flight Time Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/flight-time-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/flight-time-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Fuel Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/fuel-cost-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/fuel-cost-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Moving Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/moving-cost-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/moving-cost-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## MPG Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/mpg-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/mpg-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Parking Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/parking-cost-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/parking-cost-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Road Trip Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/road-trip-cost-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/road-trip-cost-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Speed Distance Time Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/speed-distance-time-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/speed-distance-time-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Tire Size Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/tire-size-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/tire-size-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 ## Toll Cost Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/transportation/toll-cost-calculator
+- **URL:** https://calcdigi.com/calculators/transportation/toll-cost-calculator
 - **Category:** Transportation & Fuel Efficiency
 - **Direct Answer / Description:** 
 
 ---
 
 # Category: Weather & Meteorology
-Category Hub: https://calc-digi.vercel.app/pages/weather
+Category Hub: https://calcdigi.com/pages/weather
 Total Calculators: 8
 
 ## Dew Point Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/dew-point-calculator
+- **URL:** https://calcdigi.com/calculators/weather/dew-point-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 
 ---
 
 ## Heat Index Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/heat-index-calculator
+- **URL:** https://calcdigi.com/calculators/weather/heat-index-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 
 ---
 
 ## Humidity Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/humidity-calculator
+- **URL:** https://calcdigi.com/calculators/weather/humidity-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 
 ---
 
 ## Rainfall Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/rainfall-calculator
+- **URL:** https://calcdigi.com/calculators/weather/rainfall-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 
 ---
 
 ## Lightning Distance Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/severe-weather-calculator
+- **URL:** https://calcdigi.com/calculators/weather/severe-weather-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 
 ---
 
 ## Snowfall Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/snowfall-calculator
+- **URL:** https://calcdigi.com/calculators/weather/snowfall-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 
 ---
 
 ## UV Index Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/uv-index-calculator
+- **URL:** https://calcdigi.com/calculators/weather/uv-index-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 
 ---
 
 ## Wind Chill Calculator
-- **URL:** https://calc-digi.vercel.app/calculators/weather/wind-chill-calculator
+- **URL:** https://calcdigi.com/calculators/weather/wind-chill-calculator
 - **Category:** Weather & Meteorology
 - **Direct Answer / Description:** 
 

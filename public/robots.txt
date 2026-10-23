@@ -36,6 +36,6 @@ User-agent: Bytespider
 Allow: /
 
 # Sitemaps & Machine-Readable Feeds
-Sitemap: https://calc-digi.vercel.app/sitemap.xml
-llms-txt: https://calc-digi.vercel.app/llms.txt
-llms-full-txt: https://calc-digi.vercel.app/llms-full.txt
+Sitemap: https://calcdigi.com/sitemap.xml
+llms-txt: https://calcdigi.com/llms.txt
+llms-full-txt: https://calcdigi.com/llms-full.txt
