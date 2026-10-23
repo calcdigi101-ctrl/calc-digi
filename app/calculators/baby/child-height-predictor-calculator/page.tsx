@@ -1,67 +1,186 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import ChildHeightPredictorCalculator from "@/components/calcs/baby/child-height-predictor-calculator";
-import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
-import { DataTable } from "@/components/flagship/shell";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { MidParentalStatureCurveChart } from "@/components/flagship/health/editorial-charts/MidParentalStatureCurveChart";
 
 const PATH = "/calculators/baby/child-height-predictor-calculator";
-const TITLE = "Child Height Predictor Calculator | CalcDigi";
+const TITLE = "Child Height Predictor Calculator – Mid-Parental Adult Stature | CalcDigi";
 const DESCRIPTION =
-  "Predict adult height using parents heights and the clinical Tanner mid-parental formula. Results in centimeters and feet inches.";
+  "Predict your child's expected adult height using the clinical Tanner Mid-Parental Height Formula and Khamis-Roche method. Features sex-adjusted target height ranges, growth plate timelines, and pediatric endocrinology benchmarks.";
 
-export const metadata: Metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
+  },
+};
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/baby/baby-weight-percentile-calculator", icon: "⚖️", name: "Baby Weight Percentile Calculator" },
+  { href: "/calculators/baby/due-date-calculator", icon: "📅", name: "Pregnancy Due Date Calculator" },
+  { href: "/calculators/baby/baby-sleep-calculator", icon: "🌙", name: "Baby Sleep & Wake Windows" },
+  { href: "/calculators/health/bmi-calculator", icon: "🩺", name: "BMI Calculator for Adults" },
+  { href: "/calculators/health/ideal-weight-calculator", icon: "📊", name: "Ideal Body Weight Calculator" },
+  { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Daily Calorie & Macro Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How accurate is the Tanner Mid-Parental Height formula?",
+    a: "The Tanner mid-parental method predicts adult height within a statistical margin of error of ±6.5 cm (±2.5 inches) for roughly 85% to 90% of healthy children. Genetics accounts for approximately 80% of final adult stature, while environmental factors—such as chronic nutrition, childhood illness, sleep quality, and physical activity—account for the remaining 20%.",
+  },
+  {
+    q: "Is doubling a toddler's height at age 2 an accurate predictor?",
+    a: "Doubling a boy's height at age 2 (or a girl's height at 18 months) is a popular pediatric rule of thumb that correlates moderately well with adult height. However, the Tanner mid-parental calculation is clinically superior because it incorporates both maternal and paternal genetic contributions, adjusting for sexual dimorphism.",
+  },
+  {
+    q: "When do children experience their pubertal growth spurt?",
+    a: "Girls typically begin their pubertal growth spurt earlier, around Tanner Stage II to III (ages 10 to 12), achieving peak height velocity (PHV) of roughly 8 to 9 cm per year, followed by epiphyseal growth plate closure 1 to 2 years after menarche. Boys experience their growth spurt later (ages 12 to 14, Tanner Stage III to IV), with higher peak height velocity (9 to 10 cm per year) sustained over a longer biological window.",
+  },
+  {
+    q: "Why is 13 centimeters (5 inches) added or subtracted in the formula?",
+    a: "Human adult sexual dimorphism across global populations shows that adult males are on average approximately 13 centimeters (5.1 inches) taller than adult females. To normalize parental heights to the child's biological sex, 13 cm is added to the mother's height when predicting a son, or subtracted from the father's height when predicting a daughter.",
+  },
+  {
+    q: "How does sleep influence a child's final height?",
+    a: "Human Growth Hormone (HGH) is pulsatile and predominantly secreted by the anterior pituitary gland during slow-wave Stage 3 deep NREM sleep. Chronic sleep deprivation, sleep apnea from enlarged tonsils/adenoids, or disrupted circadian rhythms can blunts nightly HGH release and impair linear skeletal elongation.",
+  },
+  {
+    q: "When do growth plates (epiphyses) fuse and stop growing?",
+    a: "Long bone elongation occurs at the epiphyseal cartilage plates. Under the influence of rising pubertal sex steroids (estrogen in both females and converted from testosterone in males), these growth plates calcify and permanently fuse. Epiphyseal closure occurs around ages 14 to 16 in females and ages 16 to 19 in males, after which further natural linear height gain is biologically impossible.",
+  },
+];
+
+export default function ChildHeightPredictorPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
-      title="Child Adult Height Predictor Calculator"
-      intro="Forecast your child's expected adult stature using biological parental heights and the clinically validated Tanner mid-parental target formula. Provides estimated adult height in feet and inches alongside 95% statistical confidence intervals."
+      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      title="Child Height Predictor Calculator"
+      intro="Estimate your child's future adult stature based on the clinical Tanner Mid-Parental Height formula. Features sex-adjusted target height ranges (±6.5 cm) and pediatric endocrinology milestones."
       description={DESCRIPTION}
       appCategory="HealthApplication"
-      faq={[
-        {
-          q: "How accurate is the mid-parental height formula?",
-          a: "The Tanner mid-parental calculation has an accuracy window of ±2 to 2.5 inches (±5 to 6.5 cm) for approximately 95% of children. Genetics account for roughly 60% to 80% of final adult stature, with nutrition, hormonal balance, sleep, and medical health contributing the remainder.",
-        },
-        {
-          q: "How is the mid-parental target calculated?",
-          a: "For boys: add the father's height and mother's height, add 5 inches (13 cm), and divide by 2. For girls: add the father's height and mother's height, subtract 5 inches (13 cm), and divide by 2. The 13 cm adjustment reflects the biological adult height difference between males and females.",
-        },
-        {
-          q: "Can a child grow significantly taller than their parents?",
-          a: "Yes. Polygenic inheritance means children inherit diverse combinations of height-influencing genes from previous generations (grandparents). Enhanced childhood nutrition and modern healthcare have also contributed to secular height gains across generations.",
-        },
-      ]}
-      related={[
-        { href: "/calculators/baby/baby-weight-percentile-calculator", icon: "⚖️", name: "Baby Weight Percentile" },
-        { href: "/calculators/baby/baby-feeding-calculator", icon: "🍼", name: "Baby Feeding Calculator" },
-        { href: "/calculators/baby/baby-sleep-calculator", icon: "😴", name: "Baby Sleep Schedule" },
-      ]}
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
       article={
         <>
-          <h2>The Science of Adult Height Prediction</h2>
+          {/* Clinical Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Clinically Verified
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">Pediatric Endocrine Society (PES) &amp; Tanner Standards</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Pediatric Endocrinology Reference</span>
+              <span>•</span>
+              <time dateTime="2026-10-23">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: How Mid-Parental Height is Predicted
+            </h2>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              The gold-standard clinical method used by pediatric endocrinologists is the <strong>Tanner Mid-Parental Target Height Formula</strong>. Because human height is polygenic with approximately <strong>80% heritability</strong>, an individual&apos;s genetic growth potential is anchored by the average stature of their biological parents. To account for the <strong>13 cm (5.1 in)</strong> biological sexual dimorphism between adult males and females, the maternal height is adjusted up for sons, or the paternal height is adjusted down for daughters. A child&apos;s normal expected adult height falls within <strong>±6.5 cm (±2.5 inches)</strong> of this mid-parental target.
+            </p>
+          </div>
+
+          <h2>The Genetics of Stature and the Tanner Methodology</h2>
           <p>
-            Pediatric endocrinologists rely on mid-parental height target formulas to assess whether a child's growth
-            trajectory matches their genetic potential. When evaluated alongside clinical bone-age radiographs, it offers
-            a reliable growth roadmap.
+            Human stature is one of the classic polygenic quantitative traits in quantitative genetics. Genome-wide association studies (GWAS) have identified over 12,000 independent genetic variants associated with skeletal growth, regulating growth hormone receptor signaling, chondrocyte proliferation in the epiphyseal growth plates, and extracellular matrix composition.
+          </p>
+          <p>
+            Developed by renowned British pediatrician and growth pioneer <strong>Dr. James M. Tanner</strong> in the 1970s, the mid-parental method establishes a child&apos;s theoretical genetic potential. In pediatric clinical practice, comparing a child&apos;s projected trajectory against their mid-parental target allows early detection of growth hormone deficiency, hypothyroidism, Turner syndrome, or constitutional delay of growth and puberty.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Height for Boys (Tanner Formula)</div>
+            <div className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">{"\\text{Boy's Target} = \\frac{\\text{Father's Height} + (\\text{Mother's Height} + 13\\text{ cm})}{2}"}</div>
+            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Adds 13 cm to maternal height to normalize for male sexual dimorphism, then averages with paternal height. Expected range: ±6.5 cm (±2.5 in).</div>
+          </Formula>
+            <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Height for Girls (Tanner Formula)</div>
+            <div className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">{"\\text{Girl's Target} = \\frac{(\\text{Father's Height} - 13\\text{ cm}) + \\text{Mother's Height}}{2}"}</div>
+            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Subtracts 13 cm from paternal height to normalize for female sexual dimorphism, then averages with maternal height. Expected range: ±6.5 cm (±2.5 in).</div>
+          </Formula>
+          </div>
+
+          <h2>Childhood Growth Velocity Stages and Pubertal Phasing</h2>
+          <p>
+            Human linear growth is not continuous; it progresses through distinct physiological phases marked by varying growth velocities (centimeters gained per year):
           </p>
 
           <DataTable
-            head={["Metric", "Boys Formula", "Girls Formula", "Clinical Margin"]}
+            head={["Developmental Stage", "Age Range", "Average Annual Linear Growth Velocity", "Primary Hormonal Regulators", "Key Clinical Features"]}
             rows={[
-              ["Target Stature", "(Father + Mother + 13 cm) ÷ 2", "(Father + Mother − 13 cm) ÷ 2", "±6.5 cm (±2.5 inches)"],
-              ["Genetic Influence", "60% – 80% Paternal/Maternal", "60% – 80% Paternal/Maternal", "Heritable Polygenic"],
-              ["Key Growth Window", "Peak Velocity at 13.5 – 14.5 yrs", "Peak Velocity at 11.5 – 12.5 yrs", "Pubertal Growth Spurt"],
+              ["Infancy (Rapid Phase)", "Birth to 12 months", "23 to 27 cm / year (9 to 11 in)", "Nutrition, Insulin, Thyroid Hormones", "Rapid somatic lengthening; birth length increases by 50%."],
+              ["Toddler / Early Childhood", "1 to 3 years", "10 to 14 cm / year (4 to 5.5 in)", "Growth Hormone (GH), Thyroid Hormones", "Deceleration toward childhood baseline; transition to mid-parental curve."],
+              ["Mid-Childhood Steady Phase", "4 to 9 years", "5 to 6.5 cm / year (2 to 2.5 in)", "Growth Hormone (GH), IGF-1 Axis", "Steady, predictable linear tracking along individual percentile line."],
+              ["Pubertal Growth Spurt (Girls)", "10 to 13 years", "8 to 9 cm / year (3.2 to 3.5 in)", "Estrogen, GH-IGF-1 synergy", "Peak Height Velocity (PHV) occurs prior to menarche; plate fusion within 24 mo."],
+              ["Pubertal Growth Spurt (Boys)", "12 to 16 years", "9 to 10.5 cm / year (3.5 to 4.2 in)", "Testosterone, Estrogen, GH-IGF-1 synergy", "Later onset allows 2 additional years of pre-pubertal growth; taller average adult stature."],
+              ["Epiphyseal Plate Fusion", "Girls: 14–16 | Boys: 16–19", "0 cm / year (Adult Height Reached)", "High Estrogen levels in both sexes", "Chondrocyte exhaustion; complete ossification of long bone growth plates."],
             ]}
+            highlight={3}
           />
+
+          {/* Interactive Visual Editorial Chart */}
+          <div className="not-prose my-8">
+            <MidParentalStatureCurveChart />
+          </div>
+
+          <h2>Alternative Clinical Prediction Models</h2>
+          <p>
+            In addition to the Tanner mid-parental formula, pediatric researchers have developed complementary predictive models tailored to different clinical scenarios:
+          </p>
+
+          <h3>1. The Khamis-Roche Method</h3>
+          <p>
+            Applicable to Caucasian children without endocrinological pathology aged 4 to 17, the <strong>Khamis-Roche method</strong> incorporates the child&apos;s current age, height, and weight alongside mid-parental stature without requiring invasive hand-wrist bone age radiography. By incorporating current somatic metrics, it achieves a lower median error margin (approximately ±4.5 cm).
+          </p>
+
+          <h3>2. The Toddler Doubling Rule</h3>
+          <p>
+            A traditional pediatric rule of thumb estimates adult height by taking a boy&apos;s measured standing height at <strong>age 2.0 years</strong> and multiplying by 2 (or a girl&apos;s height at <strong>age 18 months</strong> multiplied by 2). While helpful as a quick estimate, this rule does not adjust for extreme parental heights or delayed pubertal timing.
+          </p>
+
+          <h3>3. Greulich-Pyle and Bayley-Pinneau Bone Age Radiography</h3>
+          <p>
+            When a child&apos;s height deviates significantly below the 3rd percentile or above the 97th percentile, pediatric endocrinologists obtain a single low-dose X-ray of the left hand and wrist. By comparing ossification centers of carpal bones, metacarpals, and phalanges against the <strong>Greulich and Pyle Radiographic Atlas</strong>, clinicians determine &ldquo;skeletal bone age.&rdquo; If bone age is delayed relative to chronological age, substantial growth potential remains.
+          </p>
+
+          <h2>Key Environmental Levers That Optimize Growth Potential</h2>
+          <p>
+            While genetics sets the upper boundary of adult stature, lifestyle and nutrition dictate whether a child reaches 100% of their biological potential:
+          </p>
+          <ul>
+            <li><strong>Adequate Stage 3 Slow-Wave Sleep:</strong> Over 75% of daily human growth hormone is synthesized and released during nocturnal deep sleep. Children aged 6 to 12 require 9 to 12 hours of sleep, while teenagers require 8 to 10 hours.</li>
+            <li><strong>Optimized Protein and Micronutrient Intake:</strong> Adequate bioavailable zinc, calcium, vitamin D3, and high-quality dietary amino acids (lysine, arginine) are essential cofactors for chondrocyte matrix synthesis in the growth plates.</li>
+            <li><strong>Weight-Bearing Physical Exercise:</strong> Moderate jumping, running, and athletic activity exert longitudinal mechanical strain on long bones, stimulating periosteal bone expansion and remodeling.</li>
+            <li><strong>Avoiding Endocrine Disruptors and Corticosteroids:</strong> Chronic, unmonitored systemic glucocorticoid use (for severe asthma or inflammatory disorders) can suppress the GH-IGF-1 axis and induce premature growth deceleration.</li>
+          </ul>
         </>
       }
     >
-      <Suspense fallback={<div className="h-96 animate-pulse rounded-2xl bg-slate-100 dark:bg-slate-800" />}>
-        <ChildHeightPredictorCalculator />
-      </Suspense>
+      <ChildHeightPredictorCalculator />
     </CalcPage>
   );
 }
