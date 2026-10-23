@@ -1,9 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 interface NamingEra {
   era: string;
+  shortLabel: string;
   timeSpan: string;
   topBoy: string;
   topGirl: string;
@@ -13,19 +23,21 @@ interface NamingEra {
   linguisticDriver: string;
 }
 
-const ERAS: NamingEra[] = [
+const NAMING_DATA: NamingEra[] = [
   {
     era: 'Victorian Classic',
+    shortLabel: '1880–1910',
     timeSpan: '1880 – 1910',
     topBoy: 'John / William',
     topGirl: 'Mary / Anna',
     top10SharePct: 34.5,
     diversityPer1k: 28,
     keyTrend: 'High consensus; 1 in 3 babies shared a top-10 moniker.',
-    linguisticDriver: 'Biblical heritage, royal family namesake, patronymic family tradition.',
+    linguisticDriver: 'Biblical heritage, royal family namesake, patronymic continuity.',
   },
   {
     era: 'Postwar Baby Boom',
+    shortLabel: '1945–1965',
     timeSpan: '1945 – 1965',
     topBoy: 'Michael / James',
     topGirl: 'Linda / Mary',
@@ -36,6 +48,7 @@ const ERAS: NamingEra[] = [
   },
   {
     era: 'Gen X & Millennial Wave',
+    shortLabel: '1975–1999',
     timeSpan: '1975 – 1999',
     topBoy: 'Michael / Christopher',
     topGirl: 'Jessica / Ashley',
@@ -46,6 +59,7 @@ const ERAS: NamingEra[] = [
   },
   {
     era: '100-Year Vintage Revival',
+    shortLabel: '2000–2019',
     timeSpan: '2000 – 2019',
     topBoy: 'Jacob / Noah',
     topGirl: 'Emily / Emma',
@@ -56,6 +70,7 @@ const ERAS: NamingEra[] = [
   },
   {
     era: 'Modern Eclectic & Nature',
+    shortLabel: '2020–2026',
     timeSpan: '2020 – 2026',
     topBoy: 'Liam / Noah',
     topGirl: 'Olivia / Amelia',
@@ -66,9 +81,26 @@ const ERAS: NamingEra[] = [
   },
 ];
 
+const tooltipStyle = {
+  contentStyle: {
+    borderRadius: '12px',
+    border: '1px solid #cbd5e1',
+    fontSize: '12px',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
+    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+  },
+};
+
 export function BabyNamePopularityEraSpectrumChart() {
-  const [activeIdx, setActiveIdx] = useState<number>(4); // Modern Eclectic default
-  const cur = ERAS[activeIdx];
+  const [mounted, setMounted] = useState(false);
+  const [activeIdx, setActiveIdx] = useState<number>(4); // Modern default
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cur = NAMING_DATA[activeIdx];
 
   return (
     <div className="w-full rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 transition-all">
@@ -82,7 +114,7 @@ export function BabyNamePopularityEraSpectrumChart() {
             </h3>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            US Social Security Administration (SSA) historical registry: 140-year concentration collapse
+            US Social Security Administration (SSA) registry: 140-year collapse of naming concentration (% of newborns)
           </p>
         </div>
         <span className="self-start sm:self-auto rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 ring-1 ring-inset ring-amber-600/20">
@@ -96,11 +128,11 @@ export function BabyNamePopularityEraSpectrumChart() {
           Select Historical Era:
         </div>
         <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-thin">
-          {ERAS.map((e, idx) => {
+          {NAMING_DATA.map((e, idx) => {
             const isSelected = activeIdx === idx;
             return (
               <button
-                key={e.era}
+                key={e.shortLabel}
                 type="button"
                 onClick={() => setActiveIdx(idx)}
                 className={`shrink-0 rounded-xl px-3 py-2 text-xs font-bold transition-all min-h-[44px] flex items-center gap-1 ${
@@ -109,31 +141,53 @@ export function BabyNamePopularityEraSpectrumChart() {
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 }`}
               >
-                <span>{e.era.split(' ')[0]} ({e.timeSpan.split(' ')[0]})</span>
+                <span>{e.era.split(' ')[0]} ({e.shortLabel.split('–')[0]})</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Visual Concentration Collapse Meter */}
-      <div className="mb-5 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-        <div className="flex items-center justify-between text-xs font-medium text-slate-700 dark:text-slate-200 mb-2">
-          <span>Top 10 Moniker Concentration ({cur.era}):</span>
-          <span className="font-bold text-amber-600 dark:text-amber-400">{cur.top10SharePct}% of all newborns</span>
-        </div>
-        <div className="h-3.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-          <div
-            className="h-full bg-gradient-to-r from-amber-500 to-rose-500 transition-all duration-300"
-            style={{ width: `${(cur.top10SharePct / 40) * 100}%` }}
-          />
-        </div>
-        <div className="mt-2 flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-mono">
-          <span>0%</span>
-          <span>10% (Modern Diversity)</span>
-          <span>25% (Mid-Century)</span>
-          <span>35% (Victorian Peak)</span>
-        </div>
+      {/* Recharts Area Chart */}
+      <div className="h-[250px] sm:h-[280px] w-full mb-4">
+        {mounted ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={NAMING_DATA} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+              <defs>
+                <linearGradient id="namingCollapseGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#d97706" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#d97706" stopOpacity={0.02} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.7} vertical={false} />
+              <XAxis dataKey="shortLabel" tick={{ fontSize: 11, fill: '#64748b' }} tickLine={false} axisLine={false} />
+              <YAxis
+                tickFormatter={(v) => `${v}%`}
+                tick={{ fontSize: 11, fill: '#64748b' }}
+                tickLine={false}
+                axisLine={false}
+                width={45}
+                domain={[0, 40]}
+              />
+              <Tooltip
+                {...tooltipStyle}
+                formatter={(val) => [`${val}% of newborns`, 'Top 10 Moniker Share']}
+                labelFormatter={(label) => `Era: ${label}`}
+              />
+              <Area
+                type="monotone"
+                dataKey="top10SharePct"
+                name="Top 10 Name Share"
+                stroke="#d97706"
+                strokeWidth={3}
+                fillOpacity={1}
+                fill="url(#namingCollapseGrad)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-full w-full rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+        )}
       </div>
 
       {/* Metric Cards Grid */}
@@ -156,19 +210,20 @@ export function BabyNamePopularityEraSpectrumChart() {
           <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Diversity Index</span>
           <div className="mt-1">
             <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 leading-tight block">{cur.diversityPer1k} names</span>
-            <span className="text-xs text-slate-400 block font-normal">per 1,000 babies</span>
+            <span className="text-xs text-slate-400 block font-normal">per 1,000 births</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Era Time Horizon</span>
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Top 10 Moniker Share</span>
           <div className="mt-1">
-            <span className="text-xs font-bold text-slate-900 dark:text-white leading-tight block">{cur.timeSpan}</span>
+            <span className="text-sm font-bold text-amber-600 dark:text-amber-400 leading-tight block">{cur.top10SharePct}%</span>
+            <span className="text-xs text-slate-400 block font-normal">of all newborns</span>
           </div>
         </div>
       </div>
 
-      {/* Guidance Card */}
+      {/* Guidance Box */}
       <div className="rounded-xl border border-amber-100 bg-amber-50/60 p-3.5 text-xs dark:border-amber-900/40 dark:bg-amber-950/20">
         <div className="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5 mb-1">
           <span>📜</span>

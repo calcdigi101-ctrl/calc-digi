@@ -95,15 +95,21 @@ export default function BabyWeightPercentilePage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: Understanding Infant Weight Percentiles
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               The <strong>World Health Organization (WHO) Child Growth Standards</strong> establish the global gold standard for infant physical development between birth and 24 months. Rather than assessing whether an infant is &ldquo;big&rdquo; or &ldquo;small,&rdquo; percentiles provide a statistical benchmark: a baby at the <strong>50th percentile</strong> represents the biological median weight. Any percentile between the <strong>3rd and 97th percentile</strong> is considered within normal physiological limits, provided the child grows steadily along their individual growth curve over consecutive pediatrician wellness checkups. Ensure caloric intake meets demands using our <a href="/calculators/baby/baby-feeding-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby feeding calculator</a>.
             </p>
           </div>
 
-          <h2>The Methodology Behind WHO Child Growth Standards</h2>
+          <h2>The Methodology Behind WHO Child Growth Standards &amp; Percentile Curves</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <WhoInfantGrowthVisualizerChart />
+          </div>
+
           <p>
             Between 1997 and 2003, the World Health Organization conducted the landmark <strong>Multicentre Growth Reference Study (MGRS)</strong>, monitoring over 8,400 healthy infants across six socioeconomically and culturally diverse countries: Brazil, Ghana, India, Norway, Oman, and the United States. Compute precise chronological days and weeks for checkup scheduling with our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>.
           </p>
@@ -137,11 +143,6 @@ export default function BabyWeightPercentilePage() {
             ]}
             highlight={4}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <WhoInfantGrowthVisualizerChart />
-          </div>
 
           <h2>Interpreting Percentiles: Trajectory vs. Absolute Values</h2>
           <p>

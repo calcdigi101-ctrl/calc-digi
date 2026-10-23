@@ -95,15 +95,21 @@ export default function ChildHeightPredictorPage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: How Mid-Parental Height is Predicted
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               The gold-standard clinical method used by pediatric endocrinologists is the <strong>Tanner Mid-Parental Target Height Formula</strong>. Because human height is polygenic with approximately <strong>80% heritability</strong> (analyzable on our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>), an individual&apos;s genetic growth potential is anchored by the mid-parental average of their biological parents. To account for the <strong>13 cm (5.1 in)</strong> biological sexual dimorphism between adult males and females, the maternal height is adjusted up for sons, or the paternal height is adjusted down for daughters. A child&apos;s normal expected adult height falls within <strong>±6.5 cm (±2.5 inches)</strong> of this mid-parental target.
             </p>
           </div>
 
-          <h2>The Genetics of Stature and the Tanner Methodology</h2>
+          <h2>The Genetics of Stature, Tanner Methodology &amp; Growth Plate Progression</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <ChildHeightGrowthPlateVisualizer />
+          </div>
+
           <p>
             Human stature is one of the classic polygenic quantitative traits in quantitative genetics. Genome-wide association studies (GWAS) have identified over 12,000 independent genetic variants associated with skeletal growth, regulating growth hormone receptor signaling, chondrocyte proliferation in the epiphyseal growth plates, and extracellular matrix composition. Track infant baseline growth trajectory from birth using our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a>.
           </p>
@@ -141,11 +147,6 @@ export default function ChildHeightPredictorPage() {
             ]}
             highlight={3}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <ChildHeightGrowthPlateVisualizer />
-          </div>
 
           <h2>Alternative Clinical Prediction Models</h2>
           <p>

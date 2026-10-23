@@ -95,15 +95,21 @@ export default function ChildcareCostPage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Financial Summary: Childcare Costs &amp; Tax Reduction Strategies
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               Childcare represents the single largest household expense for working parents with children under age 5, frequently exceeding average mortgage payments or college tuition. Center-based infant daycare averages <strong>$14,000 to $22,000 annually</strong>, licensed in-home care averages <strong>$10,000 to $13,000</strong>, and private dedicated nannies range from <strong>$35,000 to $48,000</strong>. Parents can legally mitigate this expense through the <strong>Dependent Care FSA (IRC § 129)</strong>, which shelters up to $5,000 in pre-tax earnings to deliver <strong>$1,500 to $2,100 in direct tax relief</strong> (measurable on our <a href="/calculators/finance/tax-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">tax calculator</a>).
             </p>
           </div>
 
-          <h2>The Structural Economics of Early Childhood Care</h2>
+          <h2>The Structural Economics &amp; Care Modality Cost Comparison</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <ChildcareCareModelComparisonChart />
+          </div>
+
           <p>
             The fundamental economic driver of childcare pricing is labor intensity. While secondary schools operate with student-to-teacher ratios of 20:1 or 30:1, state early-childhood licensing bodies mandate strict caregiver-to-infant ratios—typically <strong>1:3 or 1:4</strong>—to guarantee neonatal safety, feeding responsiveness, and infant airway supervision.
           </p>
@@ -132,11 +138,6 @@ export default function ChildcareCostPage() {
             ]}
             highlight={0}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <ChildcareCareModelComparisonChart />
-          </div>
 
           <h2>Federal Tax Optimization: Dependent Care FSA vs. CDCTC</h2>
           <p>

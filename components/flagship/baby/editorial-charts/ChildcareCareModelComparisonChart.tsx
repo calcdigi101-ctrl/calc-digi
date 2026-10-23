@@ -1,6 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 interface CareModel {
   model: string;
@@ -14,7 +24,7 @@ interface CareModel {
   budgetTradeoff: string;
 }
 
-const CARE_MODELS: CareModel[] = [
+const CARE_DATA: CareModel[] = [
   {
     model: 'Daycare Center (Infant Room)',
     shortLabel: 'Daycare (Infant)',
@@ -22,9 +32,9 @@ const CARE_MODELS: CareModel[] = [
     annualGross: 17400,
     fsaTaxSavings: 1650,
     netAnnualOutOfPocket: 15750,
-    ratio: '1:3 or 1:4 (strict state ratio)',
-    keyAdvantage: 'Fully licensed facilities, structured early motor/sensory curriculum, backup teacher coverage.',
-    budgetTradeoff: 'Highest infant pricing due to mandated staffing; strict exclusion rules for mild illnesses.',
+    ratio: '1:3 or 1:4',
+    keyAdvantage: 'Fully licensed facilities, structured early curriculum, backup teacher coverage.',
+    budgetTradeoff: 'Highest infant pricing due to strict ratios; sickness exclusion rules.',
   },
   {
     model: 'Daycare Center (Toddler / Pre-K)',
@@ -33,9 +43,9 @@ const CARE_MODELS: CareModel[] = [
     annualGross: 13800,
     fsaTaxSavings: 1650,
     netAnnualOutOfPocket: 12150,
-    ratio: '1:6 to 1:10 (expanded ratio)',
-    keyAdvantage: '20% lower monthly tuition; peer socialization, language explosion, and toilet training support.',
-    budgetTradeoff: 'Larger classroom group sizes; fixed morning drop-off and afternoon pickup schedules.',
+    ratio: '1:6 to 1:10',
+    keyAdvantage: '20% lower monthly tuition; peer socialization and toilet training support.',
+    budgetTradeoff: 'Larger classroom group sizes; fixed drop-off and pickup schedules.',
   },
   {
     model: 'Licensed Family Child Care (In-Home)',
@@ -44,20 +54,20 @@ const CARE_MODELS: CareModel[] = [
     annualGross: 11040,
     fsaTaxSavings: 1650,
     netAnnualOutOfPocket: 9390,
-    ratio: '1:4 to 1:6 (mixed age)',
-    keyAdvantage: 'Homelike environment, consistent single-caregiver attachment, multi-age sibling companionship.',
-    budgetTradeoff: 'Center closes when the sole provider takes annual vacation or experiences personal illness.',
+    ratio: '1:4 to 1:6',
+    keyAdvantage: 'Homelike setting, lower monthly tuition, multi-age peer modeling, strong bond.',
+    budgetTradeoff: 'Center closes when sole home provider takes personal vacation or illness.',
   },
   {
-    model: 'Nanny Share (Shared with 2nd Family)',
+    model: 'Nanny Share (2 Families)',
     shortLabel: 'Nanny Share',
     monthlyGross: 1850,
     annualGross: 22200,
     fsaTaxSavings: 1650,
     netAnnualOutOfPocket: 20550,
-    ratio: '1:2 (infants)',
-    keyAdvantage: 'In-home comfort, custom feeding/nap pacing, peer companionship at 35% savings vs solo nanny.',
-    budgetTradeoff: 'Requires schedule and illness philosophy coordination between both host families.',
+    ratio: '1:2 infants',
+    keyAdvantage: 'In-home comfort, custom feeding/nap pacing, peer companionship at 35% savings.',
+    budgetTradeoff: 'Requires schedule and sick-day alignment between both host families.',
   },
   {
     model: 'Private Dedicated Nanny (Solo)',
@@ -66,19 +76,32 @@ const CARE_MODELS: CareModel[] = [
     annualGross: 38400,
     fsaTaxSavings: 1650,
     netAnnualOutOfPocket: 36750,
-    ratio: '1:1 (dedicated)',
-    keyAdvantage: 'Ultimate schedule autonomy, 100% bespoke care in your own home, infant laundry assistance.',
-    budgetTradeoff: 'Highest annual expense; household employer tax compliance (Schedule H) and workers comp.',
+    ratio: '1:1 dedicated',
+    keyAdvantage: 'Ultimate schedule autonomy, 100% bespoke care in your own home, laundry help.',
+    budgetTradeoff: 'Highest annual expense; household employer tax compliance (Schedule H).',
   },
 ];
 
-export function ChildcareCareModelComparisonChart() {
-  const [activeIdx, setActiveIdx] = useState<number>(0); // Infant Daycare default
-  const cur = CARE_MODELS[activeIdx];
+const tooltipStyle = {
+  contentStyle: {
+    borderRadius: '12px',
+    border: '1px solid #cbd5e1',
+    fontSize: '12px',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
+    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+  },
+};
 
-  const maxVal = 40000;
-  const netPct = Math.round((cur.netAnnualOutOfPocket / maxVal) * 100);
-  const fsaPct = Math.round((cur.fsaTaxSavings / maxVal) * 100);
+export function ChildcareCareModelComparisonChart() {
+  const [mounted, setMounted] = useState(false);
+  const [activeIdx, setActiveIdx] = useState<number>(0); // Infant Daycare default
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cur = CARE_DATA[activeIdx];
 
   return (
     <div className="w-full rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 transition-all">
@@ -88,11 +111,11 @@ export function ChildcareCareModelComparisonChart() {
           <div className="flex items-center gap-2">
             <span className="text-xl">🧸</span>
             <h3 className="text-base font-bold text-slate-900 dark:text-white sm:text-lg">
-              Childcare Modality &amp; FSA Tax Shield Comparison
+              Childcare Modality &amp; FSA Tax Relief Spectrum
             </h3>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            National average gross tuition vs net out-of-pocket with pre-tax Dependent Care FSA ($5,000 cap)
+            Comparative national benchmarks: Gross Annual Tuition vs Net Out-of-Pocket with pre-tax Dependent Care FSA ($5,000 cap)
           </p>
         </div>
         <span className="self-start sm:self-auto rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 ring-1 ring-inset ring-blue-600/20">
@@ -103,14 +126,14 @@ export function ChildcareCareModelComparisonChart() {
       {/* Model Pills */}
       <div className="mb-4">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
-          Select Childcare Model:
+          Select Childcare Modality:
         </div>
         <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-thin">
-          {CARE_MODELS.map((m, idx) => {
+          {CARE_DATA.map((m, idx) => {
             const isSelected = activeIdx === idx;
             return (
               <button
-                key={m.model}
+                key={m.shortLabel}
                 type="button"
                 onClick={() => setActiveIdx(idx)}
                 className={`shrink-0 rounded-xl px-3 py-2 text-xs font-bold transition-all min-h-[44px] flex items-center gap-1 ${
@@ -126,38 +149,34 @@ export function ChildcareCareModelComparisonChart() {
         </div>
       </div>
 
-      {/* Visual Annual Outlay vs Tax Shield Bar */}
-      <div className="mb-5 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-        <div className="flex items-center justify-between text-xs font-medium text-slate-700 dark:text-slate-200 mb-2">
-          <span>Gross Annual Outlay: <strong>${cur.annualGross.toLocaleString()} / year</strong></span>
-          <span className="font-bold text-emerald-600 dark:text-emerald-400">Save ${cur.fsaTaxSavings.toLocaleString()} in taxes</span>
-        </div>
-
-        {/* Stacked visual bar */}
-        <div className="h-3.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700 flex">
-          <div
-            className="h-full bg-blue-600 transition-all duration-300"
-            style={{ width: `${netPct}%` }}
-            title={`Net Out of Pocket: $${cur.netAnnualOutOfPocket}`}
-          />
-          <div
-            className="h-full bg-emerald-500 transition-all duration-300"
-            style={{ width: `${fsaPct}%` }}
-            title={`FSA Tax Shield: $${cur.fsaTaxSavings}`}
-          />
-        </div>
-
-        {/* Bar Legend */}
-        <div className="mt-2.5 flex items-center justify-between text-xs font-medium">
-          <span className="flex items-center gap-1.5 text-blue-700 dark:text-blue-300">
-            <span className="inline-block h-2 w-2 rounded-full bg-blue-600" />
-            Net Out-of-Pocket: ${cur.netAnnualOutOfPocket.toLocaleString()}
-          </span>
-          <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-300">
-            <span className="inline-block h-2 w-2 rounded-full bg-emerald-500" />
-            Tax Relief: -${cur.fsaTaxSavings.toLocaleString()}
-          </span>
-        </div>
+      {/* Recharts Bar Chart */}
+      <div className="h-[250px] sm:h-[280px] w-full mb-4">
+        {mounted ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={CARE_DATA} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.7} vertical={false} />
+              <XAxis dataKey="shortLabel" tick={{ fontSize: 11, fill: '#64748b' }} tickLine={false} axisLine={false} />
+              <YAxis
+                tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
+                tick={{ fontSize: 11, fill: '#64748b' }}
+                tickLine={false}
+                axisLine={false}
+                width={45}
+                domain={[0, 42000]}
+              />
+              <Tooltip
+                {...tooltipStyle}
+                formatter={(val, name) => [`$${Number(val).toLocaleString()}/year`, name === 'annualGross' ? 'Gross Annual Tuition' : 'Net Out-of-Pocket (with FSA)']}
+                labelFormatter={(label) => `Model: ${label}`}
+              />
+              <Legend iconType="circle" wrapperStyle={{ fontSize: 11, paddingTop: 6 }} />
+              <Bar dataKey="annualGross" name="Gross Tuition" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="netAnnualOutOfPocket" name="Net Out-of-Pocket" fill="#10b981" radius={[6, 6, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-full w-full rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+        )}
       </div>
 
       {/* Metric Cards Grid */}
@@ -173,29 +192,29 @@ export function ChildcareCareModelComparisonChart() {
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
           <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Staff-to-Child Ratio</span>
           <div className="mt-1">
-            <span className="text-sm font-bold text-purple-600 dark:text-purple-400 leading-tight">{cur.ratio.split(' (')[0]}</span>
-            <span className="text-xs text-slate-400 block font-normal">state licensed ratio</span>
+            <span className="text-sm font-bold text-purple-600 dark:text-purple-400 leading-tight">{cur.ratio}</span>
+            <span className="text-xs text-slate-400 block font-normal">licensed ratio</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Net Annual Expense</span>
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Net Annual Cost</span>
           <div className="mt-1">
-            <span className="text-sm font-bold text-blue-600 dark:text-blue-400 leading-tight">${cur.netAnnualOutOfPocket.toLocaleString()}</span>
+            <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 leading-tight">${cur.netAnnualOutOfPocket.toLocaleString()}</span>
             <span className="text-xs text-slate-400 block font-normal">after FSA tax offset</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">FSA Tax Shield</span>
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">FSA Tax Relief</span>
           <div className="mt-1">
-            <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400 leading-tight">-${cur.fsaTaxSavings.toLocaleString()}</span>
+            <span className="text-sm font-bold text-blue-600 dark:text-blue-400 leading-tight">-${cur.fsaTaxSavings.toLocaleString()}</span>
             <span className="text-xs text-slate-400 block font-normal">IRC Section 129</span>
           </div>
         </div>
       </div>
 
-      {/* Advantage and Tradeoff Cards */}
+      {/* Advantage & Tradeoff Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
         <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-3 dark:border-emerald-900/40 dark:bg-emerald-950/20">
           <strong className="text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5 mb-1">

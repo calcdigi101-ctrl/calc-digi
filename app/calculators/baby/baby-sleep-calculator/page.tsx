@@ -95,15 +95,21 @@ export default function BabySleepPage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: The Science of Infant Sleep &amp; Wake Windows
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               Infant sleep operates on a fundamentally different neurobiological rhythm than adult sleep tracked on our <a href="/calculators/health/sleep-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">adult sleep calculator</a>. While adults cycle through 90-minute sleep stages, infants experience <strong>45 to 50-minute ultradian cycles</strong> with a high percentage of active REM sleep essential for synaptic pruning and memory consolidation. By calculating bedtime from morning wake time using <strong>age-calibrated wake windows</strong> (determined by chronological age on our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>), parents prevent homeostatic sleep pressure from overflowing into cortisol-driven overtiredness, allowing longer consolidated nocturnal sleep stretches.
             </p>
           </div>
 
-          <h2>Infant Sleep Architecture: Active REM vs. Quiet Sleep</h2>
+          <h2>Infant Sleep Architecture, Circadian Rhythms &amp; 24-Hour Sleep Budgets</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <InfantSleepScheduleVisualizer />
+          </div>
+
           <p>
             During the first three months of life, neonatal sleep is divided into two primary biological states: <strong>Active Sleep</strong> (the evolutionary precursor to REM sleep) and <strong>Quiet Sleep</strong> (the precursor to non-REM slow-wave sleep). For premature infants, developmental sleep expectations must be adjusted based on their original <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a>.
           </p>
@@ -135,11 +141,6 @@ export default function BabySleepPage() {
             ]}
             highlight={2}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <InfantSleepScheduleVisualizer />
-          </div>
 
           <h2>The 4-Month Sleep Regression: What Actually Happens</h2>
           <p>

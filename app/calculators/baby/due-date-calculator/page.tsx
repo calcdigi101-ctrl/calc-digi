@@ -95,15 +95,21 @@ export default function DueDatePage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: How Pregnancy Due Dates Are Calculated
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               Your <strong>estimated date of delivery (EDD)</strong> represents the 40-week (280-day) completion mark of human gestation, measured from the first day of your last menstrual period (LMP). Because biological conception occurs around ovulation (typically cycle day 14 of a 28-day cycle, tracked via an <a href="/calculators/health/ovulation-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ovulation calculator</a>), an infant is embryologically 38 weeks old at birth. Our tool adjusts for individual cycle lengths using <strong>Parikh’s formula</strong>, ensuring irregular cycles do not produce inaccurate dating or premature labor inductions.
             </p>
           </div>
 
-          <h2>The Clinical Science of Due Date Estimation</h2>
+          <h2>The Clinical Science of Due Date Estimation &amp; Fetal Milestones</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <PregnancyMilestoneVisualizer />
+          </div>
+
           <p>
             Establishing an accurate gestational age is the cornerstone of modern obstetrical care. It determines the timing of vital biochemical screenings, anatomical scans, glucose tolerance testing, and clinical management in high-risk scenarios. When clinicians track pregnancy progress, they count in completed weeks and days rather than calendar months because fetal organogenesis follows a strict daily chronological biological timeline. You can track exact remaining calendar days using our <a href="/calculators/datetime/date-difference-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">date difference calculator</a>.
           </p>
@@ -133,11 +139,6 @@ export default function DueDatePage() {
             ]}
             highlight={2}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <PregnancyMilestoneVisualizer />
-          </div>
 
           <h2>Trimester Breakdown and Developmental Milestones</h2>
           <p>
