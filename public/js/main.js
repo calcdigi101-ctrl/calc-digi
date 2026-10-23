@@ -421,7 +421,7 @@ function printResult(resultId, title) {
     '@media print{body{padding:0;}.pi-wrap{border:none;border-radius:0;}}' +
     '</style></head><body>' +
     '<div class="pi-wrap">' +
-    '<div class="pi-head"><div class="pi-brand">CalcDigi<small>Free Online Calculators</small></div><div class="pi-badge">calc-digi.vercel.app</div></div>' +
+    '<div class="pi-head"><div class="pi-brand">CalcDigi<small>Free Online Calculators</small></div><div class="pi-badge">calcdigi.com</div></div>' +
     '<div class="pi-title">' + printEscapeHtml(title) + '</div>' +
     '<div class="pi-meta">Generated ' + dateStr + ' at ' + timeStr + '</div>' +
     bodyHtml +

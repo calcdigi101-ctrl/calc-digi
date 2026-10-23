@@ -27,15 +27,15 @@ export default function Page() {
               {
                 "@type": "BreadcrumbList",
                 "itemListElement": [
-                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://calc-digi.vercel.app/" },
-                  { "@type": "ListItem", "position": 2, "name": "Date & Time Calculators", "item": "https://calc-digi.vercel.app/pages/datetime" },
-                  { "@type": "ListItem", "position": 3, "name": "Age Calculator", "item": "https://calc-digi.vercel.app/calculators/datetime/age-calculator" }
+                  { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://calcdigi.com/" },
+                  { "@type": "ListItem", "position": 2, "name": "Date & Time Calculators", "item": "https://calcdigi.com/pages/datetime" },
+                  { "@type": "ListItem", "position": 3, "name": "Age Calculator", "item": "https://calcdigi.com/calculators/datetime/age-calculator" }
                 ]
               },
               {
                 "@type": "WebApplication",
                 "name": "Age Calculator",
-                "url": "https://calc-digi.vercel.app/calculators/datetime/age-calculator",
+                "url": "https://calcdigi.com/calculators/datetime/age-calculator",
                 "description": "Calculate your exact age in years, months, days, hours, and minutes. Find days until your next birthday instantly.",
                 "applicationCategory": "UtilitiesApplication",
                 "operatingSystem": "Any",

@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(
       {
-        site: "https://calc-digi.vercel.app",
+        site: "https://calcdigi.com",
         updated: data.updated,
         total: tools.length,
         tools,
