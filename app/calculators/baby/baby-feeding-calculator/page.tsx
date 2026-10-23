@@ -89,7 +89,7 @@ export default function BabyFeedingPage() {
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
               <span>Pediatric Nutrition Reference</span>
               <span>•</span>
-              <time dateTime="2026-10-23">Updated October 2026</time>
+              <time dateTime="2026-10-24">Updated October 2026</time>
             </div>
           </div>
 
@@ -99,27 +99,27 @@ export default function BabyFeedingPage() {
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: AAP Rule of Thumb for Infant Feeding
             </h2>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              According to the <strong>American Academy of Pediatrics (AAP)</strong>, a healthy infant requires approximately <strong>2.5 ounces (74 ml)</strong> of formula or breast milk for every <strong>pound of body weight</strong> per 24 hours (roughly 150 to 160 ml/kg/day). Because infant gastric volume is minute during early life, this daily volume must be apportioned across 8 to 12 small feeds for newborns, gradually consolidating to 4 to 6 larger feeds as stomach capacity expands. Most pediatricians recommend keeping daily bottle intake under <strong>32 ounces (960 ml)</strong> once solid foods begin.
+              According to the <strong>American Academy of Pediatrics (AAP)</strong>, a healthy infant requires approximately <strong>2.5 ounces (74 ml)</strong> of formula or breast milk for every <strong>pound of body weight</strong> per 24 hours (roughly 150 to 160 ml/kg/day). Because infant gastric volume is minute during early life, this daily volume must be apportioned across 8 to 12 small feeds for newborns, gradually consolidating to 4 to 6 larger feeds as stomach capacity expands. Verify your baby&apos;s growth trajectory on our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a> to ensure weight gain tracks along their personal clinical curve.
             </p>
           </div>
 
           <h2>Pediatric Caloric Requirements and the 2.5 oz/lb Rule</h2>
           <p>
-            During the first year of life, human infants experience the most intense metabolic growth rate of their lifespan, tripling their birth weight and expanding their brain volume by over 100%. Standard human breast milk and commercial infant formulas provide approximately <strong>20 kilocalories per fluid ounce</strong> (0.67 kcal/ml). To satisfy a baseline energy requirement of 100 to 110 kcal per kilogram per day, an infant must consume between 2.2 and 2.7 ounces per pound of body weight.
+            During the first year of life, human infants experience the most intense metabolic growth rate of their lifespan, tripling their birth weight and expanding their brain volume by over 100%. Standard human breast milk and commercial infant formulas provide approximately <strong>20 kilocalories per fluid ounce</strong> (0.67 kcal/ml), which can be analyzed using our <a href="/calculators/health/calorie-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">calorie calculator</a>. To satisfy a baseline energy requirement of 100 to 110 kcal per kilogram per day, an infant must consume between 2.2 and 2.7 ounces per pound of body weight.
           </p>
           <p>
-            The universally recognized pediatric benchmark simplifies this calculation into the 2.5 oz/lb formula:
+            For premature infants born earlier than their clinical <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a>, pediatricians calculate nutritional milestones using corrected age determined via our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>. The universally recognized pediatric benchmark simplifies this daily volume calculation into the 2.5 oz/lb formula:
           </p>
 
           <Formula>
             <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">AAP Weight-Based Daily Feeding Volume Formula</div>
             <div className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">{"\\text{Daily Volume (oz)} = \\text{Infant Weight (lbs)} \\times 2.5\\text{ oz/lb}"}</div>
-            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Yields the total 24-hour target fluid volume in ounces. Divide by the daily feeding frequency (e.g., 8 feeds) to calculate individual bottle portions.</div>
+            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Yields total 24-hour target fluid volume in ounces. Divide by daily feeding frequency (e.g., 8 feeds) to calculate individual bottle portions.</div>
           </Formula>
 
           <h2>Infant Stomach Capacity and Anatomical Progression</h2>
           <p>
-            One of the most frequent sources of parental anxiety is worrying that a newborn is not drinking enough milk. In reality, the physiological capacity of a newborn stomach is astonishingly small at birth. Elasticity expands gradually over the first month to accommodate larger milk volumes without inducing gastroesophageal reflux.
+            One of the most frequent sources of parental anxiety is worrying that a newborn is not drinking enough milk. In reality, the physiological capacity of a newborn stomach is astonishingly small at birth. Elasticity expands gradually over the first month to accommodate larger milk volumes without inducing gastroesophageal reflux. When preparing powder formula, ensure precise water-to-scoop ratios using our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a> to prevent hypernatremic dehydration.
           </p>
 
           <DataTable
@@ -136,14 +136,14 @@ export default function BabyFeedingPage() {
             highlight={3}
           />
 
-          {/* Interactive Visual Editorial Chart */}
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
           <div className="not-prose my-8">
             <InfantFeedingVolumeTimelineChart />
           </div>
 
           <h2>Recognizing Hunger Cues vs. Satiety Signs</h2>
           <p>
-            Rigid clock-based feeding schedules are less effective than responsive feeding based on biological hunger cues. Crying is a late indicator of hunger; infants communicate appetite through subtle autonomic cues long before shedding tears.
+            Rigid clock-based feeding schedules are less effective than responsive feeding based on biological hunger cues. Crying is a late indicator of hunger; infants communicate appetite through subtle autonomic cues long before shedding tears. Coordinating daytime feedings with restorative wake intervals tracked on our <a href="/calculators/baby/baby-sleep-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby sleep calculator</a> ensures infants feed while alert rather than overtired.
           </p>
 
           <h3>Early Hunger Indicators</h3>
@@ -167,12 +167,12 @@ export default function BabyFeedingPage() {
           <ol>
             <li><strong>Hold the Baby Semi-Upright:</strong> Never lay the baby flat on their back, which increases ear infection and choking risks.</li>
             <li><strong>Keep the Bottle Horizontal:</strong> Hold the bottle parallel to the floor so the nipple is only half full of milk, requiring the infant to actively draw milk.</li>
-            <li><strong>Incorporate Regular Pauses:</strong> Tilt the bottle downward every 20 to 30 seconds to simulate natural breast pauses, giving the stomach stretch receptors time to signal fullness.</li>
+            <li><strong>Incorporate Regular Pauses:</strong> Tilt the bottle downward every 20 to 30 seconds to simulate natural breast pauses, giving the stomach stretch receptors time to signal fullness. Adequate hydration will produce steady wet diaper counts tracked on our <a href="/calculators/baby/diaper-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">diaper cost calculator</a>.</li>
           </ol>
 
           <h2>Milk Preparation and Storage Safety Standards</h2>
           <p>
-            Infant immune systems are immature and susceptible to foodborne pathogens such as <em>Cronobacter sakazakii</em> and <em>Salmonella</em>. Strict adherence to CDC hygiene protocols protects against gastrointestinal infections:
+            Infant immune systems are immature and susceptible to foodborne pathogens such as <em>Cronobacter sakazakii</em> and <em>Salmonella</em>. Nursing mothers must also ensure adequate daily fluid replenishment via our <a href="/calculators/health/water-intake-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">water intake calculator</a>. Strict adherence to CDC hygiene protocols protects against gastrointestinal infections:
           </p>
 
           <DataTable
@@ -187,7 +187,7 @@ export default function BabyFeedingPage() {
 
           <h2>Complementary Foods Introduction (The 6-Month Mark)</h2>
           <p>
-            Around 6 months of age, maternal iron stores accumulated during gestation begin depleting. The introduction of complementary foods at this milestone provides critical bioavailable iron and zinc. Single-ingredient iron-fortified baby cereals, pureed meats, mashed avocados, and steamed root vegetables are ideal initial choices. Introduce single foods one at a time over 3 to 5 days to monitor for adverse allergic reactions or digestive intolerance.
+            Around 6 months of age, maternal iron stores accumulated during gestation begin depleting. The introduction of complementary foods at this milestone provides critical bioavailable iron and zinc. Single-ingredient iron-fortified baby cereals, pureed meats, mashed avocados, and steamed root vegetables are ideal initial choices. When preparing for daycare enrollment, coordinate your child&apos;s bottle schedule with center staff using our <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare cost calculator</a> and factor recurring monthly formula purchases into your <a href="/calculators/finance/budget-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">family household budget calculator</a>.
           </p>
         </>
       }

@@ -89,7 +89,7 @@ export default function DiaperCostPage() {
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
               <span>Family Financial Planning Reference</span>
               <span>•</span>
-              <time dateTime="2026-10-23">Updated October 2026</time>
+              <time dateTime="2026-10-24">Updated October 2026</time>
             </div>
           </div>
 
@@ -99,7 +99,7 @@ export default function DiaperCostPage() {
               <span className="text-blue-600 dark:text-blue-400">💡</span> Financial Summary: Total Diapering Expenses to Potty Training
             </h2>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              Between birth and daytime toilet training independence (average age of <strong>30 months</strong>), an infant requires approximately <strong>5,500 to 6,000 diaper changes</strong>. Depending on brand selection, total disposable diaper spending ranges from <strong>$1,100 (store brands)</strong> to <strong>$2,200 (national name brands)</strong>, and up to <strong>$3,200+ (premium organic brands)</strong>. Incorporating baby wipes adds another <strong>$350 to $500</strong>. Families switching to modern reusable cloth diapers spend between <strong>$800 and $1,200</strong> in total (including laundry utilities), yielding net household savings exceeding <strong>$1,200</strong> per child.
+              Between birth and daytime toilet training independence (average age of <strong>30 months</strong>, trackable on our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>), an infant requires approximately <strong>5,500 to 6,000 diaper changes</strong>. Depending on brand selection, total disposable diaper spending ranges from <strong>$1,100 (store brands)</strong> to <strong>$2,200 (national name brands)</strong>, and up to <strong>$3,200+ (premium organic brands)</strong>. Incorporating baby wipes adds another <strong>$350 to $500</strong>. Families switching to modern reusable cloth diapers spend between <strong>$800 and $1,200</strong> in total (including laundry utilities), yielding net household savings exceeding <strong>$1,200</strong> per child.
             </p>
           </div>
 
@@ -108,18 +108,18 @@ export default function DiaperCostPage() {
             Diapering represents one of the largest non-medical, recurring cash-flow expenses of early parenthood. Many first-time parents anticipate a flat monthly expense, only to discover that unit economics shift dramatically as children grow. While infants require fewer diaper changes as they mature, the cost per individual diaper rises by up to 150% from Size Newborn to Size 6.
           </p>
           <p>
-            Understanding stage duration, unit pricing dynamics, and bulk packaging strategies enables parents to systematically reduce annual diapering costs by 40% to 55% without sacrificing skin barrier protection or absorbency.
+            When preparing nursery supplies ahead of your clinical <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a>, understanding stage duration, unit pricing dynamics, and bulk packaging strategies enables parents to systematically reduce annual diapering costs by 40% to 55% without sacrificing skin barrier protection or absorbency.
           </p>
 
           <Formula>
             <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Lifetime Diaper & Wipes Expense Formula</div>
             <div className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">{"\\text{Total Outlay} = \\sum_{s=\\text{NB}}^{6} \\left(\\text{Days}_s \\times \\text{Diapers/Day}_s \\times \\text{Price/Unit}_s\\right) + (\\text{Total Changes} \\times 2.8 \\times \\text{Price/Wipe})"}</div>
-            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Computes exact cumulative cost across all 7 diaper size stages, adding corresponding wipe consumption based on an average 2.8 wipes per diaper change.</div>
+            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Computes exact cumulative cost across all 7 diaper size stages, adding corresponding wipe consumption based on an average 2.8 wipes per diaper change. Calculate relative discounts with our percentage calculator.</div>
           </Formula>
 
           <h2>Diaper Size Progression, Daily Usage, and Unit Pricing</h2>
           <p>
-            The table below breaks down the typical weight windows, stage durations, daily change frequencies, and market pricing tiers across all developmental diaper sizes:
+            The table below breaks down the typical weight windows, stage durations, daily change frequencies, and market pricing tiers across all developmental diaper sizes. Monitor infant weight milestones on our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a> to ensure you size up before compression leaks occur:
           </p>
 
           <DataTable
@@ -136,14 +136,14 @@ export default function DiaperCostPage() {
             highlight={3}
           />
 
-          {/* Interactive Visual Editorial Chart */}
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
           <div className="not-prose my-8">
             <DiaperStageExpenseTimelineChart />
           </div>
 
           <h2>Brand Tier Breakdown: What Are You Paying For?</h2>
           <p>
-            The retail diaper landscape is divided into three distinct commercial market tiers:
+            The retail diaper landscape is divided into three distinct commercial market tiers, which can be evaluated against your <a href="/calculators/finance/budget-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">family budget calculator</a>:
           </p>
 
           <h3>1. Store Brand &amp; Value Tiers ($0.18 to $0.28 per unit)</h3>
@@ -180,11 +180,14 @@ export default function DiaperCostPage() {
           />
 
           <h2>Tactical Ways to Cut Diapering Expenses by 30% to 50%</h2>
+          <p>
+            Reinvesting the $1,400+ saved from smart diaper shopping into compound wealth vehicles—analyzable on our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a> or dedicated <a href="/calculators/finance/college-savings-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">college savings calculator</a>—can grow into over $5,000 by high school graduation. Implement these tactical budgeting rules:
+          </p>
           <ul>
-            <li><strong>Avoid Overbuying Newborn Sizes:</strong> Most babies outgrow Size Newborn diapers within 3 to 4 weeks. Purchase at most 2 boxes of Newborn diapers; Size 1 can be safely folded down at the waistband if needed.</li>
-            <li><strong>Leverage Amazon Subscribe &amp; Save / Target RedCard:</strong> Combining diaper subscriptions with store loyalty credit cards routinely provides an automatic 15% to 20% discount on monthly replenishment shipments.</li>
+            <li><strong>Avoid Overbuying Newborn Sizes:</strong> Most babies outgrow Size Newborn diapers within 3 to 4 weeks. Purchase at most 2 boxes of Newborn diapers; Size 1 can be safely folded down at the waistband if needed. Track daily feeding intake on our <a href="/calculators/baby/baby-feeding-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby feeding calculator</a> to forecast stool frequency.</li>
+            <li><strong>Build a Baby Emergency Cushion:</strong> Set aside modest nursery emergency reserves using our <a href="/calculators/finance/emergency-fund-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">emergency fund calculator</a> and plan for daycare transition costs on our <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare cost calculator</a>.</li>
             <li><strong>Embrace Hybrid Diapering:</strong> Utilizing cloth diapers during daytime hours at home while relying on high-absorbency disposables for overnight sleep and daycare centers cuts disposable consumption by 65%.</li>
-            <li><strong>Monitor Fit to Prevent Leaks:</strong> Blowouts and leaks are rarely caused by poor absorbency; they occur when the diaper is too small. Move to the next size up when red marks appear on the thighs or when daytime leaks occur frequently.</li>
+            <li><strong>Monitor Fit to Prevent Leaks:</strong> Blowouts and leaks are rarely caused by poor absorbency; they occur when the diaper is too small. Move to the next size up when red marks appear on the thighs or when daytime leaks occur frequently. Track monthly timelines on our <a href="/calculators/datetime/month-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">month calculator</a>.</li>
           </ul>
         </>
       }

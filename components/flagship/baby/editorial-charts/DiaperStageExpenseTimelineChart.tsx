@@ -4,291 +4,230 @@ import React, { useState } from 'react';
 
 interface DiaperStage {
   stage: string;
-  weightLbs: string;
+  weightRange: string;
   durationMonths: number;
-  diapersPerDay: number;
+  dailyChanges: number;
   totalDiapers: number;
   storeCost: number;
   premiumCost: number;
   clothCost: number;
-  milestone: string;
+  clinicalMilestone: string;
 }
 
-const DIAPER_STAGES: DiaperStage[] = [
+const STAGES: DiaperStage[] = [
   {
     stage: 'Newborn (NB)',
-    weightLbs: '< 10 lbs',
+    weightRange: 'Up to 10 lbs (< 4.5 kg)',
     durationMonths: 1.5,
-    diapersPerDay: 11,
+    dailyChanges: 11,
     totalDiapers: 500,
-    storeCost: 90,
+    storeCost: 95,
     premiumCost: 175,
     clothCost: 45,
-    milestone: 'Umbilical cord notch cut-out; high change frequency prevents newborn moisture dermatitis.',
+    clinicalMilestone: 'Umbilical notch cut-out; high change frequency protects fragile newborn epidermal skin barrier.',
   },
   {
     stage: 'Size 1',
-    weightLbs: '8–14 lbs',
+    weightRange: '8–14 lbs (3.6–6.4 kg)',
     durationMonths: 2.5,
-    diapersPerDay: 9,
+    dailyChanges: 9,
     totalDiapers: 675,
-    storeCost: 121,
-    premiumCost: 236,
+    storeCost: 125,
+    premiumCost: 240,
     clothCost: 55,
-    milestone: 'Fastest infant weight gain; leg cuff elastic seal prevents liquid blowout leaks.',
+    clinicalMilestone: 'Fastest post-natal growth spurt; elastic leg cuffs prevent liquid blowout leaks.',
   },
   {
     stage: 'Size 2',
-    weightLbs: '12–18 lbs',
+    weightRange: '12–18 lbs (5.4–8.2 kg)',
     durationMonths: 3.0,
-    diapersPerDay: 8,
+    dailyChanges: 8,
     totalDiapers: 720,
-    storeCost: 136,
-    premiumCost: 266,
+    storeCost: 140,
+    premiumCost: 270,
     clothCost: 65,
-    milestone: 'Stool consolidation begins; rolling and kicking requires flexible waistbands.',
+    clinicalMilestone: 'Rolling and active leg kicking; flexible elastic waistband accommodates infant motility.',
   },
   {
     stage: 'Size 3',
-    weightLbs: '16–28 lbs',
+    weightRange: '16–28 lbs (7.3–12.7 kg)',
     durationMonths: 7.0,
-    diapersPerDay: 6,
+    dailyChanges: 6,
     totalDiapers: 1260,
-    storeCost: 264,
-    premiumCost: 504,
+    storeCost: 275,
+    premiumCost: 520,
     clothCost: 135,
-    milestone: 'Longest stage in infant diapering; crawling, sitting, and solid food introduction.',
+    clinicalMilestone: 'Longest infant diaper stage; crawling and solid food introduction increases absorbency demands.',
   },
   {
     stage: 'Size 4',
-    weightLbs: '22–37 lbs',
+    weightRange: '22–37 lbs (10.0–16.8 kg)',
     durationMonths: 8.0,
-    diapersPerDay: 5,
+    dailyChanges: 5,
     totalDiapers: 1200,
-    storeCost: 288,
-    premiumCost: 552,
+    storeCost: 295,
+    premiumCost: 560,
     clothCost: 150,
-    milestone: 'Walking, climbing, active toddlers; overnight absorbency core becomes essential.',
+    clinicalMilestone: 'Walking and active climbing; dedicated 12-hour overnight absorption core becomes essential.',
   },
   {
     stage: 'Size 5 / 6 (Training)',
-    weightLbs: '27+ lbs',
+    weightRange: '27+ lbs (12.2+ kg)',
     durationMonths: 8.0,
-    diapersPerDay: 4,
+    dailyChanges: 4,
     totalDiapers: 960,
-    storeCost: 259,
-    premiumCost: 480,
+    storeCost: 265,
+    premiumCost: 490,
     clothCost: 120,
-    milestone: 'Transition to pull-on training pants; readiness for independent toilet training (approx 30 mo).',
+    clinicalMilestone: 'Transition to pull-on training pants; readiness for independent daytime toilet mastery (~30 mo).',
   },
 ];
 
 export function DiaperStageExpenseTimelineChart() {
   const [activeIdx, setActiveIdx] = useState<number>(3); // Size 3 default
-  const cur = DIAPER_STAGES[activeIdx];
-
-  const svgWidth = 640;
-  const svgHeight = 260;
-  const padLeft = 60;
-  const padRight = 35;
-  const padTop = 30;
-  const padBottom = 40;
-
-  const plotW = svgWidth - padLeft - padRight;
-  const plotH = svgHeight - padTop - padBottom;
+  const cur = STAGES[activeIdx];
 
   // Cumulative costs
-  let runningStore = 0;
-  let runningPremium = 0;
-  const cumulativeData = DIAPER_STAGES.map((s) => {
-    runningStore += s.storeCost;
-    runningPremium += s.premiumCost;
-    return {
-      stage: s.stage,
-      store: runningStore,
-      premium: runningPremium,
-    };
+  let runStore = 0;
+  let runPremium = 0;
+  let runCloth = 0;
+  STAGES.forEach((s, idx) => {
+    if (idx <= activeIdx) {
+      runStore += s.storeCost;
+      runPremium += s.premiumCost;
+      runCloth += s.clothCost;
+    }
   });
 
-  const maxCost = 2500;
-  const scaleX = (i: number) => padLeft + (i / (DIAPER_STAGES.length - 1)) * plotW;
-  const scaleY = (cost: number) => padTop + plotH - (cost / maxCost) * plotH;
-
-  const storePoints = cumulativeData.map((d, i) => `${scaleX(i)},${scaleY(d.store)}`).join(' ');
-  const premPoints = cumulativeData.map((d, i) => `${scaleX(i)},${scaleY(d.premium)}`).join(' ');
-
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div className="w-full rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 transition-all">
       {/* Header */}
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3 dark:border-slate-800">
+      <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
         <div>
-          <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <span>🧷</span> Diaper Size Progression &amp; Cumulative Expense Curve
-          </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Cumulative financial outlay from birth to potty training (30 months): Store Brand vs Premium Brand
+          <div className="flex items-center gap-2">
+            <span className="text-xl">🧷</span>
+            <h3 className="text-base font-bold text-slate-900 dark:text-white sm:text-lg">
+              Diaper Size Progression &amp; Cost Curve Visualizer
+            </h3>
+          </div>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Real-world unit economics from newborn to potty training: Store brand vs Name brand vs Cloth systems
           </p>
         </div>
-        <div className="flex items-center gap-3 text-xs font-medium">
-          <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            Store Brand ($1,158)
-          </span>
-          <span className="flex items-center gap-1.5 text-purple-600 dark:text-purple-400">
-            <span className="inline-block h-2.5 w-2.5 rounded-full bg-purple-500" />
-            Premium Tier ($2,213)
-          </span>
+        <span className="self-start sm:self-auto rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 ring-1 ring-inset ring-emerald-600/20">
+          Consumer Economics Data
+        </span>
+      </div>
+
+      {/* Stage Pills */}
+      <div className="mb-4">
+        <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
+          Select Diaper Size:
         </div>
-      </div>
-
-      {/* Buttons */}
-      <div className="mb-4 flex flex-wrap gap-1.5">
-        {DIAPER_STAGES.map((s, idx) => (
-          <button
-            key={s.stage}
-            type="button"
-            onClick={() => setActiveIdx(idx)}
-            className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
-              activeIdx === idx
-                ? 'bg-emerald-600 text-white shadow-sm dark:bg-emerald-500'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
-            }`}
-          >
-            {s.stage}
-          </button>
-        ))}
-      </div>
-
-      {/* SVG Chart */}
-      <div className="relative overflow-x-auto">
-        <svg
-          viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          className="w-full min-w-[540px] select-none text-xs"
-        >
-          {/* Grid lines */}
-          {[500, 1000, 1500, 2000].map((val) => (
-            <g key={val}>
-              <line
-                x1={padLeft}
-                y1={scaleY(val)}
-                x2={padLeft + plotW}
-                y2={scaleY(val)}
-                stroke="currentColor"
-                strokeDasharray="3 3"
-                className="text-slate-200 dark:text-slate-800"
-              />
-              <text
-                x={padLeft - 8}
-                y={scaleY(val) + 4}
-                textAnchor="end"
-                className="fill-slate-400 font-mono text-[10px]"
-              >
-                ${val}
-              </text>
-            </g>
-          ))}
-
-          {/* Premium Polyline */}
-          <polyline
-            points={premPoints}
-            fill="none"
-            stroke="#9333ea"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-
-          {/* Store Polyline */}
-          <polyline
-            points={storePoints}
-            fill="none"
-            stroke="#059669"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-
-          {/* Points */}
-          {DIAPER_STAGES.map((s, i) => {
-            const cx = scaleX(i);
-            const isSelected = activeIdx === i;
+        <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-thin">
+          {STAGES.map((s, idx) => {
+            const isSelected = activeIdx === idx;
             return (
-              <g key={s.stage} onClick={() => setActiveIdx(i)} className="cursor-pointer">
-                {isSelected && (
-                  <line
-                    x1={cx}
-                    y1={padTop}
-                    x2={cx}
-                    y2={padTop + plotH}
-                    stroke="#059669"
-                    strokeWidth="1.5"
-                    strokeDasharray="2 2"
-                  />
-                )}
-                {/* Store Circle */}
-                <circle
-                  cx={cx}
-                  cy={scaleY(cumulativeData[i].store)}
-                  r={isSelected ? 5 : 3.5}
-                  fill="#059669"
-                  stroke="#ffffff"
-                  strokeWidth="2"
-                />
-                {/* Premium Circle */}
-                <circle
-                  cx={cx}
-                  cy={scaleY(cumulativeData[i].premium)}
-                  r={isSelected ? 5 : 3.5}
-                  fill="#9333ea"
-                  stroke="#ffffff"
-                  strokeWidth="2"
-                />
-                {/* X-axis label */}
-                <text
-                  x={cx}
-                  y={padTop + plotH + 18}
-                  textAnchor="middle"
-                  className={`font-mono text-[10px] ${
-                    isSelected ? 'fill-emerald-600 font-bold dark:fill-emerald-400' : 'fill-slate-500'
-                  }`}
-                >
-                  {s.stage.split(' ')[0]}
-                </text>
-              </g>
+              <button
+                key={s.stage}
+                type="button"
+                onClick={() => setActiveIdx(idx)}
+                className={`shrink-0 rounded-xl px-3 py-2 text-xs font-bold transition-all min-h-[44px] flex items-center gap-1 ${
+                  isSelected
+                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-500/20 scale-[1.02] dark:bg-emerald-500'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+                }`}
+              >
+                <span>{s.stage.split(' (')[0]}</span>
+              </button>
             );
           })}
-        </svg>
-      </div>
-
-      {/* Selected Stage Detail Card */}
-      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 rounded-xl border border-emerald-100 bg-emerald-50/50 p-3.5 text-xs dark:border-emerald-900/50 dark:bg-emerald-950/20">
-        <div>
-          <span className="block text-slate-500 dark:text-slate-400">Weight Range:</span>
-          <span className="text-sm font-bold text-slate-900 dark:text-white">{cur.weightLbs}</span>
-        </div>
-        <div>
-          <span className="block text-slate-500 dark:text-slate-400">Daily Frequency:</span>
-          <span className="text-sm font-bold text-emerald-700 dark:text-emerald-300">
-            {cur.diapersPerDay} changes / day
-          </span>
-        </div>
-        <div>
-          <span className="block text-slate-500 dark:text-slate-400">Total Diapers in Stage:</span>
-          <span className="text-sm font-bold text-slate-900 dark:text-white">
-            {cur.totalDiapers.toLocaleString()} units
-          </span>
-        </div>
-        <div>
-          <span className="block text-slate-500 dark:text-slate-400">Stage Cost Difference:</span>
-          <span className="text-sm font-bold text-purple-700 dark:text-purple-300">
-            +${cur.premiumCost - cur.storeCost} for premium
-          </span>
         </div>
       </div>
 
-      <p className="mt-3 text-xs text-slate-600 dark:text-slate-300">
-        <strong>Pediatric &amp; Practical Milestone:</strong> {cur.milestone}
-      </p>
+      {/* Cumulative Outlay Comparison Card */}
+      <div className="mb-5 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between text-xs font-medium text-slate-700 dark:text-slate-200 mb-2.5">
+          <span>Cumulative Spend through <strong>{cur.stage}</strong>:</span>
+          <span className="text-xs text-emerald-600 dark:text-emerald-400 font-bold">
+            Save ${(runPremium - runStore).toLocaleString()} with Store Brand
+          </span>
+        </div>
+
+        {/* Brand Comparison Bars (Mobile Friendly) */}
+        <div className="space-y-2">
+          <div>
+            <div className="flex justify-between text-[11px] mb-1 font-medium">
+              <span className="text-slate-600 dark:text-slate-400">Store Brand (Costco/Target):</span>
+              <strong className="text-emerald-600 dark:text-emerald-400 font-mono">${runStore}</strong>
+            </div>
+            <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+              <div
+                className="h-full bg-emerald-500 transition-all duration-300"
+                style={{ width: `${Math.min(100, (runStore / 2400) * 100)}%` }}
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="flex justify-between text-[11px] mb-1 font-medium">
+              <span className="text-slate-600 dark:text-slate-400">Premium / Eco Brand:</span>
+              <strong className="text-purple-600 dark:text-purple-400 font-mono">${runPremium}</strong>
+            </div>
+            <div className="h-2.5 w-full rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+              <div
+                className="h-full bg-purple-500 transition-all duration-300"
+                style={{ width: `${Math.min(100, (runPremium / 2400) * 100)}%` }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Metric Cards Grid */}
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 mb-4">
+        <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Weight Range</span>
+          <div className="mt-1">
+            <span className="text-xs font-bold text-slate-900 dark:text-white leading-tight block">{cur.weightRange}</span>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Daily Changes</span>
+          <div className="mt-1">
+            <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{cur.dailyChanges} changes</span>
+            <span className="text-xs text-slate-400 block font-normal">per 24 hours</span>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Diapers in Stage</span>
+          <div className="mt-1">
+            <span className="text-sm font-bold text-slate-900 dark:text-white">{cur.totalDiapers.toLocaleString()}</span>
+            <span className="text-xs text-slate-400 block font-normal">approx {cur.durationMonths} months</span>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Stage Savings</span>
+          <div className="mt-1">
+            <span className="text-sm font-bold text-blue-600 dark:text-blue-400">-${cur.premiumCost - cur.storeCost}</span>
+            <span className="text-xs text-slate-400 block font-normal">by choosing store brand</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Clinical Guidance Card */}
+      <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-3.5 text-xs dark:border-emerald-900/40 dark:bg-emerald-950/20">
+        <div className="font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-1.5 mb-1">
+          <span>👶</span>
+          <span>Pediatric Developmental Note ({cur.stage}):</span>
+        </div>
+        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+          {cur.clinicalMilestone}
+        </p>
+      </div>
     </div>
   );
 }

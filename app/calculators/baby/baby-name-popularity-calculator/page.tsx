@@ -89,7 +89,7 @@ export default function BabyNamePopularityPage() {
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
               <span>Onomastics &amp; Demographic Trends</span>
               <span>•</span>
-              <time dateTime="2026-10-23">Updated October 2026</time>
+              <time dateTime="2026-10-24">Updated October 2026</time>
             </div>
           </div>
 
@@ -99,7 +99,7 @@ export default function BabyNamePopularityPage() {
               <span className="text-blue-600 dark:text-blue-400">💡</span> Demographic Summary: How Baby Name Rankings &amp; Trends Work
             </h2>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              Baby name popularity is tracked in the United States by the <strong>Social Security Administration (SSA)</strong> based on applications for Social Security cards dating back to 1880. A rank of <strong>#1</strong> indicates the most frequently chosen name of the year for that biological sex. However, due to unprecedented 21st-century naming diversification, a top-ranked name today represents only <strong>~1% of total births</strong>, compared to <strong>over 5% in the 1950s</strong>. Parents can safely choose a top-50 name today without fear that their child will share their name with multiple classmates.
+              Baby name popularity is tracked in the United States by the <strong>Social Security Administration (SSA)</strong> based on applications for Social Security cards dating back to 1880. A rank of <strong>#1</strong> indicates the most frequently chosen name of the year for that biological sex. However, due to unprecedented 21st-century naming diversification, a top-ranked name today represents only <strong>~1% of total births</strong>, compared to <strong>over 5% in the 1950s</strong>. Parents can safely choose a top-50 name today ahead of their clinical <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a> without fear that their child will share their name with multiple classmates.
             </p>
           </div>
 
@@ -108,7 +108,7 @@ export default function BabyNamePopularityPage() {
             The study of personal names (known as <em>onomastics</em>) reveals profound shifts in cultural values, individualism, and sociological cohesion over the past 140 years. In the late 19th and early 20th centuries, naming conventions were anchored in patriarchal continuity and biblical tradition. Parents routinely named firstborn sons after fathers or grandfathers, concentrating a massive percentage of births into a tiny roster of perennial classics.
           </p>
           <p>
-            Beginning in the 1970s and accelerating with the internet era, cultural emphasis shifted toward personal expression, phonetic lyricism, and distinctiveness. The table below illustrates this historic collapse in naming concentration across five key American demographic eras:
+            Beginning in the 1970s and accelerating with the internet era, cultural emphasis shifted toward personal expression, phonetic lyricism, and distinctiveness. Historical generational milestones can be explored using our <a href="/calculators/datetime/year-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">year calculator</a> and <a href="/calculators/datetime/birthday-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">birthday calculator</a>. The table below illustrates this historic collapse in naming concentration across five key American demographic eras:
           </p>
 
           <DataTable
@@ -123,7 +123,7 @@ export default function BabyNamePopularityPage() {
             highlight={4}
           />
 
-          {/* Interactive Visual Editorial Chart */}
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
           <div className="not-prose my-8">
             <BabyNamePopularityEraSpectrumChart />
           </div>
@@ -136,13 +136,13 @@ export default function BabyNamePopularityPage() {
             <li><strong>Generation 1 (Peak Popularity):</strong> The name is ubiquitous, associated with youth and vitality (e.g., Hazel, Arthur, or Clara in 1910).</li>
             <li><strong>Generation 2 (Aging Association):</strong> Thirty years later, the name is associated with mature parents; new parents view it as standard.</li>
             <li><strong>Generation 3 (The &ldquo;Old Person&rdquo; Stigma):</strong> Sixty to seventy years later, the name belongs to elderly grandparents and nursing homes. New parents perceive it as unfashionable and outmoded.</li>
-            <li><strong>Generation 4 (The Vintage Rebirth):</strong> At the 90 to 100-year mark, the original generation has largely passed into history. The name is rediscovered as an antique, distinguished heirloom with historical elegance.</li>
+            <li><strong>Generation 4 (The Vintage Rebirth):</strong> At the 90 to 100-year mark, the original generation has largely passed into history. The name is rediscovered as an antique, distinguished heirloom with historical elegance. Track generational ages with our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>.</li>
           </ol>
 
           <Formula>
             <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Name Uniqueness Percentile Formula</div>
             <div className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">{"\\text{Uniqueness Score} = 100 \\times \\left(1 - \\frac{\\text{National Frequency of Name}}{\\text{Total Births in Gender Cohort}}\\right)"}</div>
-            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Quantifies the relative exclusivity of a moniker across the national infant population. A score of 99.5+ denotes extreme distinction; scores below 90 indicate high mainstream familiarity.</div>
+            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Quantifies relative exclusivity of a moniker across national infant population. Check exact percentile splits with our percentage calculator.</div>
           </Formula>
 
           <h2>Linguistic Phonetics: Evaluating Flow, Cadence, and Rhythm</h2>
@@ -165,12 +165,14 @@ export default function BabyNamePopularityPage() {
             In an increasingly interconnected global economy, names with intuitive vowel-consonant-vowel structures (such as Maya, Leo, Nina, Kai, or Elena) boast superior cross-cultural portability, remaining effortless to pronounce across Romance, Germanic, and Asian linguistic families without mispronunciation.
           </p>
 
-          <h2>Checklist for Finalizing Your Baby&apos;s Name</h2>
+          <h2>Holistic Family Milestone Planning Alongside Baby Naming</h2>
+          <p>
+            Naming your baby is the first of hundreds of family decisions. Pair your naming process with comprehensive long-term financial and physical preparation:
+          </p>
           <ul>
-            <li><strong>The &ldquo;Playground Shout&rdquo; Test:</strong> Say the first and last name aloud multiple times at normal shouting volume to evaluate natural breath cadence and vocal clarity.</li>
-            <li><strong>Monogram &amp; Initials Review:</strong> Check the three-letter monogram (First, Middle, Last) to avoid unintended embarrassing acronyms on school backpacks or legal documents.</li>
-            <li><strong>Spelling Intuition:</strong> Consider whether the child will spend their life correcting standard phonetic spelling. Classic names with dozens of modern spelling permutations (e.g., Jackson / Jaxon / Jaxen) can create avoidable administrative friction.</li>
-            <li><strong>Digital Distinguishability:</strong> Run a brief search to ensure the prospective full name is not shared by high-profile controversial public figures or fictional villains.</li>
+            <li><strong>Growth Projections:</strong> Project your child&apos;s adult stature alongside family genetic parameters using our <a href="/calculators/baby/child-height-predictor-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">child height predictor calculator</a> and monitor early physical gains on our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a>.</li>
+            <li><strong>Nursery Logistics:</strong> Set up realistic post-natal sleep schedules on our <a href="/calculators/baby/baby-sleep-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby sleep calculator</a> and feeding routines using our <a href="/calculators/baby/baby-feeding-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby feeding calculator</a>.</li>
+            <li><strong>Financial Foundation:</strong> Balance household budgets on our <a href="/calculators/finance/budget-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">family budget calculator</a>, compare regional childcare options on our <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare cost calculator</a>, and open a tax-advantaged college savings vehicle with our <a href="/calculators/finance/college-savings-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">college savings calculator</a>.</li>
           </ul>
         </>
       }
