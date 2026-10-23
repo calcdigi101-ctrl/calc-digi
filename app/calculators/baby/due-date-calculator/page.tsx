@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import DueDateCalculator from "@/components/calcs/baby/due-date-calculator";
 import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
-import { PregnancyFetalGrowthCurveChart } from "@/components/flagship/health/editorial-charts/PregnancyFetalGrowthCurveChart";
+import { PregnancyMilestoneVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/due-date-calculator";
 const TITLE = "Due Date Calculator – Clinical Pregnancy EDD & Gestation Timeline | CalcDigi";
@@ -89,7 +89,7 @@ export default function DueDatePage() {
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
               <span>Obstetric Clinical Reference</span>
               <span>•</span>
-              <time dateTime="2026-10-23">Updated October 2026</time>
+              <time dateTime="2026-10-24">Updated October 2026</time>
             </div>
           </div>
 
@@ -99,16 +99,16 @@ export default function DueDatePage() {
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: How Pregnancy Due Dates Are Calculated
             </h2>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              Your <strong>estimated date of delivery (EDD)</strong> represents the 40-week (280-day) completion mark of human gestation, measured from the first day of your last menstrual period (LMP). Because biological conception occurs around ovulation (typically cycle day 14 of a 28-day cycle), an infant is embryologically 38 weeks old at birth. Our calculator adjusts for your specific cycle length using <strong>Parikh’s formula</strong>, ensuring irregular cycles do not produce inaccurate dating or premature labor inductions.
+              Your <strong>estimated date of delivery (EDD)</strong> represents the 40-week (280-day) completion mark of human gestation, measured from the first day of your last menstrual period (LMP). Because biological conception occurs around ovulation (typically cycle day 14 of a 28-day cycle, tracked via an <a href="/calculators/health/ovulation-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ovulation calculator</a>), an infant is embryologically 38 weeks old at birth. Our tool adjusts for individual cycle lengths using <strong>Parikh’s formula</strong>, ensuring irregular cycles do not produce inaccurate dating or premature labor inductions.
             </p>
           </div>
 
           <h2>The Clinical Science of Due Date Estimation</h2>
           <p>
-            Establishing an accurate gestational age is the cornerstone of modern obstetrical care. It determines the timing of vital biochemical screenings, anatomical scans, glucose tolerance testing, and clinical management in high-risk scenarios. When clinicians track pregnancy progress, they count in completed weeks and days rather than calendar months because fetal organogenesis follows a strict daily chronological biological timeline.
+            Establishing an accurate gestational age is the cornerstone of modern obstetrical care. It determines the timing of vital biochemical screenings, anatomical scans, glucose tolerance testing, and clinical management in high-risk scenarios. When clinicians track pregnancy progress, they count in completed weeks and days rather than calendar months because fetal organogenesis follows a strict daily chronological biological timeline. You can track exact remaining calendar days using our <a href="/calculators/datetime/date-difference-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">date difference calculator</a>.
           </p>
           <p>
-            Dating conventions rely on three validated methodologies: menstrual dating via <strong>Naegele’s Rule</strong>, biometric crown-rump length (CRL) sonography, and documented assisted reproductive technology (ART) transfer dates.
+            Dating conventions rely on three validated methodologies: menstrual dating via <strong>Naegele’s Rule</strong> (linked to regular menses tracked on a <a href="/calculators/health/period-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">period calculator</a>), biometric crown-rump length (CRL) sonography, and documented fertile window intercourse recorded with a <a href="/calculators/health/fertility-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">fertility calculator</a>.
           </p>
 
           <Formula>
@@ -119,7 +119,7 @@ export default function DueDatePage() {
 
           <h2>ACOG Gestational Age Classification Standards</h2>
           <p>
-            In clinical practice, the term &ldquo;due date&rdquo; does not denote an absolute day of spontaneous labor. According to landmark studies published by the <em>American College of Obstetricians and Gynecologists</em> (ACOG) and the <em>Society for Maternal-Fetal Medicine</em> (SMFM), neonatal outcomes vary significantly across gestational weeks 37 to 42. Deliveries at 39 to 40 completed weeks exhibit the lowest incidences of respiratory distress syndrome, neonatal intensive care unit (NICU) admissions, and thermoregulation difficulties.
+            In clinical practice, the term &ldquo;due date&rdquo; does not denote an absolute day of spontaneous labor. According to landmark studies published by the <em>American College of Obstetricians and Gynecologists</em> (ACOG) and the <em>Society for Maternal-Fetal Medicine</em> (SMFM), neonatal outcomes vary significantly across gestational weeks 37 to 42. Deliveries at 39 to 40 completed weeks exhibit the lowest incidences of respiratory distress syndrome, neonatal intensive care unit (NICU) admissions, and thermoregulation difficulties. Post-birth infant weight can be benchmarked immediately with our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a>.
           </p>
 
           <DataTable
@@ -134,9 +134,9 @@ export default function DueDatePage() {
             highlight={2}
           />
 
-          {/* Interactive Visual Editorial Chart */}
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
           <div className="not-prose my-8">
-            <PregnancyFetalGrowthCurveChart />
+            <PregnancyMilestoneVisualizer />
           </div>
 
           <h2>Trimester Breakdown and Developmental Milestones</h2>
@@ -146,17 +146,17 @@ export default function DueDatePage() {
 
           <h3>First Trimester (Conception to Week 13 + 6 Days)</h3>
           <p>
-            The first trimester encompasses the conversion of a single fertilized zygote into an anatomically complete human fetus. During gestational weeks 3 through 8 (the embryonic period), major organ systems differentiate: the neural tube closes by week 6, the primitive cardiac tube initiates rhythmic contractions around day 22, and limb buds form digits. Between weeks 11 and 13, first-trimester screening (combining maternal serum PAPP-A/hCG with ultrasound nuchal translucency) provides early chromosomal risk assessment.
+            The first trimester encompasses the conversion of a single fertilized zygote into an anatomically complete human fetus. During gestational weeks 3 through 8 (the embryonic period), major organ systems differentiate: the neural tube closes by week 6, the primitive cardiac tube initiates rhythmic contractions around day 22, and limb buds form digits. Between weeks 11 and 13, first-trimester screening (combining maternal serum PAPP-A/hCG with ultrasound nuchal translucency) provides early chromosomal risk assessment. Maternal hydration is vital during this period; monitor daily fluid goals with our <a href="/calculators/health/water-intake-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">water intake calculator</a>.
           </p>
 
           <h3>Second Trimester (Week 14 + 0 Days to Week 27 + 6 Days)</h3>
           <p>
-            Frequently referred to as the &ldquo;golden period&rdquo; of pregnancy due to the subsiding of morning nausea, the second trimester focuses on rapid skeletal ossification and somatic growth. The pivotal milestone occurs between weeks 18 and 22 with the comprehensive <strong>Anatomy Scan (Level II Ultrasound)</strong>, examining cardiac outflow tracts, cerebral ventricles, renal architecture, and placental cord insertion. Fetal viability—the threshold at which modern neonatal intensive care can support survival outside the womb—is reached between 23 and 24 weeks gestation.
+            Frequently referred to as the &ldquo;golden period&rdquo; of pregnancy due to the subsiding of morning nausea, the second trimester focuses on rapid skeletal ossification and somatic growth. The pivotal milestone occurs between weeks 18 and 22 with the comprehensive <strong>Anatomy Scan (Level II Ultrasound)</strong>, examining cardiac outflow tracts, cerebral ventricles, renal architecture, and placental cord insertion. Fetal viability—the threshold at which modern neonatal intensive care can support survival outside the womb—is reached between 23 and 24 weeks gestation. Parents often begin researching names at this stage using our <a href="/calculators/baby/baby-name-popularity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby name popularity calculator</a>.
           </p>
 
           <h3>Third Trimester (Week 28 + 0 Days to Delivery)</h3>
           <p>
-            The final stretch prioritizes exponential weight gain, pulmonary alveolar development, and brain sulcal folding. During weeks 32 through 36, the fetus deposits subcutaneous brown adipose tissue to regulate body temperature post-birth and synthesizes surfactant in the lungs to prevent alveolar collapse upon the first breath. Maternal screening during the third trimester includes the 1-hour glucose challenge test (24–28 weeks) for gestational diabetes and the recto-vaginal swab for Group B Streptococcus (GBS) at 36 weeks.
+            The final stretch prioritizes exponential weight gain, pulmonary alveolar development, and brain sulcal folding. During weeks 32 through 36, the fetus deposits subcutaneous brown adipose tissue to regulate body temperature post-birth and synthesizes surfactant in the lungs to prevent alveolar collapse upon the first breath. Expectant parents should begin planning postpartum routines, including newborn feeding protocols with our <a href="/calculators/baby/baby-feeding-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby feeding calculator</a>, infant sleep schedules with our <a href="/calculators/baby/baby-sleep-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby sleep calculator</a>, and recurring nursery expenses with our <a href="/calculators/baby/diaper-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">diaper cost calculator</a>.
           </p>
 
           <h2>Ultrasound Dating vs. Menstrual LMP Dating: The Discrepancy Rule</h2>
@@ -178,12 +178,12 @@ export default function DueDatePage() {
 
           <h2>Practical Tips for Expectant Mothers and Families</h2>
           <p>
-            To optimize prenatal maternal-fetal outcomes and prepare smoothly for labor and delivery, obstetrical authorities recommend establishing the following health routines early:
+            To optimize prenatal maternal-fetal outcomes and prepare smoothly for labor, delivery, and postpartum financial transitions, obstetrical authorities recommend establishing the following health and budgetary routines early:
           </p>
           <ul>
             <li><strong>Folic Acid Supplementation:</strong> Ingest 400 to 800 mcg of folic acid daily during pre-conception and the first trimester to reduce neural tube defect risks by up to 70%.</li>
             <li><strong>Hydration and Hemoglobin Support:</strong> Maternal plasma volume expands by 45% during pregnancy. Maintain at least 2.5 to 3 liters of water daily and consume dietary iron to prevent physiological gestational anemia.</li>
-            <li><strong>Labor Bag &amp; Pediatrician Selection:</strong> Complete nursery preparation, hospital packing, and newborn pediatrician selection by week 35 to prevent logistical stress during early term spontaneous labor.</li>
+            <li><strong>Nursery &amp; Household Budgeting:</strong> Early preparation prevents financial strain. Structure your family finances with our <a href="/calculators/finance/budget-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">household budget calculator</a> and establish a liquidity buffer with our <a href="/calculators/finance/emergency-fund-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">emergency fund calculator</a> to accommodate upcoming delivery deductibles and future <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare costs</a>.</li>
             <li><strong>Fetal Kick Counting:</strong> From week 28 onward, monitor fetal movements daily during a quiet rest period. Feeling at least 10 distinct movements within a 2-hour window indicates reassuring fetal well-being.</li>
           </ul>
         </>

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import BabySleepCalculator from "@/components/calcs/baby/baby-sleep-calculator";
 import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
-import { SleepArchitectureCyclesChart } from "@/components/flagship/health/editorial-charts/SleepArchitectureCyclesChart";
+import { InfantSleepScheduleVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/baby-sleep-calculator";
 const TITLE = "Baby Sleep Calculator – Wake Windows, Bedtime & Nap Schedules | CalcDigi";
@@ -89,7 +89,7 @@ export default function BabySleepPage() {
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
               <span>Pediatric Sleep Medicine Reference</span>
               <span>•</span>
-              <time dateTime="2026-10-23">Updated October 2026</time>
+              <time dateTime="2026-10-24">Updated October 2026</time>
             </div>
           </div>
 
@@ -99,27 +99,27 @@ export default function BabySleepPage() {
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: The Science of Infant Sleep &amp; Wake Windows
             </h2>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              Infant sleep operates on a fundamentally different neurobiological rhythm than adult sleep. While adults cycle through 90-minute sleep stages, infants experience <strong>45 to 50-minute ultradian cycles</strong> with a high percentage of active REM sleep essential for synaptic pruning and memory consolidation. By calculating bedtime from morning wake time using <strong>age-calibrated wake windows</strong>, parents prevent homeostatic sleep pressure from overflowing into cortisol-driven overtiredness, allowing longer consolidated nocturnal sleep stretches.
+              Infant sleep operates on a fundamentally different neurobiological rhythm than adult sleep tracked on our <a href="/calculators/health/sleep-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">adult sleep calculator</a>. While adults cycle through 90-minute sleep stages, infants experience <strong>45 to 50-minute ultradian cycles</strong> with a high percentage of active REM sleep essential for synaptic pruning and memory consolidation. By calculating bedtime from morning wake time using <strong>age-calibrated wake windows</strong> (determined by chronological age on our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>), parents prevent homeostatic sleep pressure from overflowing into cortisol-driven overtiredness, allowing longer consolidated nocturnal sleep stretches.
             </p>
           </div>
 
           <h2>Infant Sleep Architecture: Active REM vs. Quiet Sleep</h2>
           <p>
-            During the first three months of life, neonatal sleep is divided into two primary biological states: <strong>Active Sleep</strong> (the evolutionary precursor to REM sleep) and <strong>Quiet Sleep</strong> (the precursor to non-REM slow-wave sleep).
+            During the first three months of life, neonatal sleep is divided into two primary biological states: <strong>Active Sleep</strong> (the evolutionary precursor to REM sleep) and <strong>Quiet Sleep</strong> (the precursor to non-REM slow-wave sleep). For premature infants, developmental sleep expectations must be adjusted based on their original <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a>.
           </p>
           <p>
-            Newborns spend roughly 50% of their total sleep duration in active REM sleep. In active sleep, the infant&apos;s brain is intensely metabolically active: breathing is irregular, eyes flutter under eyelids, and subtle facial grimaces or limb twitches occur. Parents often mistake these normal active sleep movements for waking and inadvertently intervene, interrupting the infant&apos;s natural transition into quiet restorative sleep.
+            Newborns spend roughly 50% of their total sleep duration in active REM sleep (analyzable on our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>). In active sleep, the infant&apos;s brain is intensely metabolically active: breathing is irregular, eyes flutter under eyelids, and subtle facial grimaces or limb twitches occur. Parents often mistake these normal active sleep movements for waking and inadvertently intervene, interrupting the infant&apos;s natural transition into quiet restorative sleep. Coordinating feed intervals on our <a href="/calculators/baby/baby-feeding-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby feeding calculator</a> ensures infant awakenings are driven by true physiological hunger rather than sleep stage transitions.
           </p>
 
           <Formula>
             <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Bedtime Calculation Formula</div>
             <div className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">{"\\text{Bedtime} = \\text{Wake Time} + \\sum(\\text{Wake Windows}) + \\sum(\\text{Nap Durations})"}</div>
-            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Projects ideal evening sleep onset by sequencing progressive daytime wake windows and restorative nap periods, avoiding overtired bedtime hyperarousal.</div>
+            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Projects ideal evening sleep onset by sequencing progressive daytime wake windows and restorative nap periods, avoiding overtired bedtime hyperarousal. Calculate exact minutes with our time duration calculator.</div>
           </Formula>
 
           <h2>Age-Calibrated Wake Windows and Sleep Benchmarks (0 to 36 Months)</h2>
           <p>
-            The table below synthesizes consensus recommendations from the <em>American Academy of Pediatrics</em> (AAP) and the <em>American Academy of Sleep Medicine</em> (AASM):
+            The table below synthesizes consensus recommendations from the <em>American Academy of Pediatrics</em> (AAP) and the <em>American Academy of Sleep Medicine</em> (AASM). Sum precise daytime nap durations using our <a href="/calculators/datetime/time-duration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">time duration calculator</a> and convert wake targets with our <a href="/calculators/datetime/time-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">time calculator</a>:
           </p>
 
           <DataTable
@@ -136,9 +136,9 @@ export default function BabySleepPage() {
             highlight={2}
           />
 
-          {/* Interactive Visual Editorial Chart */}
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
           <div className="not-prose my-8">
-            <SleepArchitectureCyclesChart />
+            <InfantSleepScheduleVisualizer />
           </div>
 
           <h2>The 4-Month Sleep Regression: What Actually Happens</h2>
@@ -148,7 +148,7 @@ export default function BabySleepPage() {
           <ol>
             <li><strong>Sleep Architecture Matures:</strong> Infant sleep transitions from a 2-stage newborn pattern into the 4 distinct adult sleep stages (Stage 1 Light, Stage 2 True Sleep, Stage 3 Deep Slow-Wave, and REM).</li>
             <li><strong>Sleep Cycle Transitions Become Conscious:</strong> At the end of every 45-minute cycle, the infant enters a brief arousal period. If the infant relied on maternal nursing, vigorous rocking, or a pacifier to fall asleep initially, they discover those conditions missing upon awakening and alert their parents with cries.</li>
-            <li><strong>Establishing Healthy Sleep Associations:</strong> Putting the infant down &ldquo;drowsy but awake&rdquo; teaches the neurological pathways of self-regulation, allowing the baby to connect sleep cycles independently throughout the night.</li>
+            <li><strong>Establishing Healthy Sleep Associations:</strong> Putting the infant down &ldquo;drowsy but awake&rdquo; teaches the neurological pathways of self-regulation, allowing the baby to connect sleep cycles independently throughout the night. Steady nocturnal growth can be cross-checked on our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a>.</li>
           </ol>
 
           <h2>AAP Safe Sleep Protocols (The ABCs of Sleep)</h2>
@@ -158,7 +158,7 @@ export default function BabySleepPage() {
           <ul>
             <li><strong>A — Alone:</strong> The infant should always sleep in their own dedicated sleep space. Never share an adult bed, couch, or armchair with an infant, which increases asphyxiation and entrapment risks exponentially.</li>
             <li><strong>B — on their Back:</strong> Always place the infant on their back for every sleep period (naps and nighttime). Side and stomach sleeping restrict airway patency and impair arousal reflexes.</li>
-            <li><strong>C — in a Crib:</strong> Use a Consumer Product Safety Commission (CPSC) approved crib, bassinet, or play yard with a firm, flat, non-inclined mattress and a tightly fitted sheet. Keep the sleep surface completely bare—no pillows, quilts, weighted swaddles, sheepskins, or bumper pads.</li>
+            <li><strong>C — in a Crib:</strong> Use a Consumer Product Safety Commission (CPSC) approved crib, bassinet, or play yard with a firm, flat, non-inclined mattress and a tightly fitted sheet. Keep the sleep surface completely bare—no pillows, quilts, weighted swaddles, sheepskins, or bumper pads. Choosing high-absorbency overnight diapers calculated on our <a href="/calculators/baby/diaper-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">diaper cost calculator</a> prevents midnight diaper-rash leakages.</li>
           </ul>
 
           <h2>Designing an Optimal Sleep Environment</h2>
@@ -168,7 +168,7 @@ export default function BabySleepPage() {
           <ul>
             <li><strong>Ambient Temperature:</strong> Maintain the infant nursery between <strong>68°F and 72°F (20°C to 22°C)</strong>. Overheating is an established major risk factor for SIDS; dress the infant in no more than one layer more than an adult would wear.</li>
             <li><strong>White Noise:</strong> Continuous, low-frequency white noise (around 50 to 60 decibels, placed at least 7 feet from the crib) masks domestic household noise and simulates the maternal intra-uterine acoustic environment.</li>
-            <li><strong>Complete Darkness:</strong> Melatonin secretion is light-sensitive. Utilize blackout window treatments for both nighttime sleep and daytime naps once the infant passes 10 weeks of age.</li>
+            <li><strong>Daycare Nap Pacing:</strong> When coordinating infant nap rhythms with external childcare, share your child&apos;s wake-window schedule with caregivers modeled on our <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare cost calculator</a> and track nursing hydration with our <a href="/calculators/health/water-intake-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">water intake calculator</a>.</li>
           </ul>
         </>
       }

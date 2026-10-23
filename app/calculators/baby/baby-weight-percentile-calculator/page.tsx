@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import BabyWeightPercentileCalculator from "@/components/calcs/baby/baby-weight-percentile-calculator";
 import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
-import { WhoInfantGrowthPercentilesChart } from "@/components/flagship/health/editorial-charts/WhoInfantGrowthPercentilesChart";
+import { WhoInfantGrowthVisualizerChart } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/baby-weight-percentile-calculator";
 const TITLE = "Baby Weight Percentile Calculator – WHO Growth Standards (0–24 Months) | CalcDigi";
@@ -89,7 +89,7 @@ export default function BabyWeightPercentilePage() {
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
               <span>Pediatric Anthropometry Reference</span>
               <span>•</span>
-              <time dateTime="2026-10-23">Updated October 2026</time>
+              <time dateTime="2026-10-24">Updated October 2026</time>
             </div>
           </div>
 
@@ -99,13 +99,13 @@ export default function BabyWeightPercentilePage() {
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: Understanding Infant Weight Percentiles
             </h2>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              The <strong>World Health Organization (WHO) Child Growth Standards</strong> establish the global gold standard for infant physical development between birth and 24 months. Rather than assessing whether an infant is &ldquo;big&rdquo; or &ldquo;small,&rdquo; percentiles provide a statistical benchmark: a baby at the <strong>50th percentile</strong> represents the biological median weight. Any percentile between the <strong>3rd and 97th percentile</strong> is considered within normal physiological limits, provided the child grows steadily along their individual growth curve over consecutive pediatrician wellness checkups.
+              The <strong>World Health Organization (WHO) Child Growth Standards</strong> establish the global gold standard for infant physical development between birth and 24 months. Rather than assessing whether an infant is &ldquo;big&rdquo; or &ldquo;small,&rdquo; percentiles provide a statistical benchmark: a baby at the <strong>50th percentile</strong> represents the biological median weight. Any percentile between the <strong>3rd and 97th percentile</strong> is considered within normal physiological limits, provided the child grows steadily along their individual growth curve over consecutive pediatrician wellness checkups. Ensure caloric intake meets demands using our <a href="/calculators/baby/baby-feeding-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby feeding calculator</a>.
             </p>
           </div>
 
           <h2>The Methodology Behind WHO Child Growth Standards</h2>
           <p>
-            Between 1997 and 2003, the World Health Organization conducted the landmark <strong>Multicentre Growth Reference Study (MGRS)</strong>, monitoring over 8,400 healthy infants across six socioeconomically and culturally diverse countries: Brazil, Ghana, India, Norway, Oman, and the United States.
+            Between 1997 and 2003, the World Health Organization conducted the landmark <strong>Multicentre Growth Reference Study (MGRS)</strong>, monitoring over 8,400 healthy infants across six socioeconomically and culturally diverse countries: Brazil, Ghana, India, Norway, Oman, and the United States. Compute precise chronological days and weeks for checkup scheduling with our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>.
           </p>
           <p>
             The profound discovery of the MGRS was that when infants receive optimal nutrition (exclusive breastfeeding for at least 4 to 6 months), timely complementary foods, standard pediatric immunizations, and clean environments, <em>infants grow at nearly identical rates regardless of geographical origin or ethnicity</em>. Thus, the WHO charts function as a prescriptive standard (how children <em>should</em> grow) rather than a descriptive historical average.
@@ -114,12 +114,12 @@ export default function BabyWeightPercentilePage() {
           <Formula>
             <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">LMS Box-Cox Z-Score Transformation Formula</div>
             <div className="font-mono text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">{"Z = \\frac{\\left(\\frac{W}{M}\\right)^L - 1}{L \\times S}"}</div>
-            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Where W is infant weight, M is the median weight for age and sex, L is the Box-Cox power skewness parameter, and S is the generalized coefficient of variation. When L = 0, Z = ln(W / M) / S.</div>
+            <div className="font-sans text-xs text-slate-500 dark:text-slate-400">Where W is infant weight, M is median weight for age and sex, L is Box-Cox power skewness parameter, and S is generalized coefficient of variation. When L = 0, Z = ln(W / M) / S. Check exact statistical deviations with our z-score calculator.</div>
           </Formula>
 
           <h2>WHO Infant Weight Reference Ranges (0 to 24 Months)</h2>
           <p>
-            The table below provides sex-specific median (50th percentile) and normal reference bounds (3rd to 97th percentiles, corresponding to $\pm 1.88$ standard deviations) across major developmental milestones:
+            The table below provides sex-specific median (50th percentile) and normal reference bounds (3rd to 97th percentiles, corresponding to $\pm 1.88$ standard deviations evaluated on our <a href="/calculators/math/standard-deviation-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">standard deviation calculator</a>) across major developmental milestones:
           </p>
 
           <DataTable
@@ -138,19 +138,19 @@ export default function BabyWeightPercentilePage() {
             highlight={4}
           />
 
-          {/* Interactive Visual Editorial Chart */}
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
           <div className="not-prose my-8">
-            <WhoInfantGrowthPercentilesChart />
+            <WhoInfantGrowthVisualizerChart />
           </div>
 
           <h2>Interpreting Percentiles: Trajectory vs. Absolute Values</h2>
           <p>
-            A common misconception among parents is assuming that a higher percentile is superior to a lower percentile. A baby thriving at the 15th percentile whose head circumference, length, and cognitive motor milestones progress steadily is just as healthy as a baby tracking at the 85th percentile.
+            A common misconception among parents is assuming that a higher percentile is superior to a lower percentile. A baby thriving at the 15th percentile whose head circumference, length, and cognitive motor milestones progress steadily is just as healthy as a baby tracking at the 85th percentile. Pediatricians contrast infant percentiles with adult metrics such as our <a href="/calculators/health/bmi-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">BMI calculator</a> and <a href="/calculators/health/ideal-weight-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ideal weight calculator</a>, noting that childhood growth emphasizes personal growth channels over static BMI cut-offs.
           </p>
 
           <h3>Normal Growth Trajectory (Consistent Tracking)</h3>
           <p>
-            Healthy infants generally maintain their personal growth channel over time (e.g., following between the 25th and 50th percentile lines). Minor transient fluctuations of 5 to 10 percentile points are common following mild viral illnesses, teething, or brief nursing strikes.
+            Healthy infants generally maintain their personal growth channel over time (e.g., following between the 25th and 50th percentile lines). Minor transient fluctuations of 5 to 10 percentile points, measurable with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, are common following mild viral illnesses, teething, or brief nursing strikes. Ensure restorative sleep cycles with our <a href="/calculators/baby/baby-sleep-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby sleep calculator</a> to support human growth hormone production.
           </p>
 
           <h3>Percentile Channel Crossing (When to Consult a Pediatrician)</h3>
@@ -159,22 +159,23 @@ export default function BabyWeightPercentilePage() {
           </p>
           <ul>
             <li><strong>Nutritional Intake Insufficiency:</strong> Ineffective latch, low maternal milk production, improper formula dilution, or feeding aversion.</li>
-            <li><strong>Increased Caloric Expenditure:</strong> Congenital heart defects, hypermetabolism, or chronic respiratory distress.</li>
+            <li><strong>Increased Caloric Expenditure:</strong> Congenital heart defects, hypermetabolism, or chronic respiratory distress, which elevate basal energy burn measured on our <a href="/calculators/health/calorie-burn-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">calorie burn calculator</a>.</li>
             <li><strong>Gastrointestinal Malabsorption:</strong> Celiac disease, cow&apos;s milk protein allergy (CMPA), or gastroesophageal reflux disease (GERD).</li>
           </ul>
 
           <h2>Prematurity and the Concept of Corrected Age</h2>
           <p>
-            When evaluating the physical growth of infants born prematurely (before 37 weeks gestation), calculating percentiles against chronological age produces an artificial appearance of severe growth delay. For instance, an infant born 8 weeks early who is 16 weeks old chronologically has a <strong>corrected age of 8 weeks</strong> ($16 - 8 = 8$).
+            When evaluating the physical growth of infants born prematurely (before 37 weeks gestation based on the initial clinical <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a>), calculating percentiles against chronological age produces an artificial appearance of severe growth delay. For instance, an infant born 8 weeks early who is 16 weeks old chronologically has a <strong>corrected age of 8 weeks</strong> ($16 - 8 = 8$).
           </p>
           <p>
-            Pediatric guidelines dictate that growth parameters must be plotted using corrected age until <strong>24 to 36 months of age</strong>, allowing adequate biological time for neurodevelopmental and physical catch-up growth.
+            Pediatric guidelines dictate that growth parameters must be plotted using corrected age until <strong>24 to 36 months of age</strong>, allowing adequate biological time for neurodevelopmental and physical catch-up growth. Future adult stature can be modeled alongside parental genetics on our <a href="/calculators/baby/child-height-predictor-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">child height predictor calculator</a>.
           </p>
 
           <h2>Healthy Weight Gain Strategies for Nursing and Formula-Fed Infants</h2>
           <ul>
             <li><strong>Ensure Nutritive Swallowing:</strong> Verify deep, wide-latch nursing where rhythmic jaw pauses indicate active milk transfer rather than non-nutritive pacifying.</li>
-            <li><strong>Do Not Dilute Formula:</strong> Always follow exact water-to-powder ratios; adding excess water dilutes vital electrolytes and calories, which can lead to life-threatening water intoxication and hyponatremia.</li>
+            <li><strong>Size Diapers Appropriately:</strong> As weight increases along WHO percentiles, adjust diaper sizing promptly to avoid leakages and compression marks using our <a href="/calculators/baby/diaper-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">diaper cost calculator</a>.</li>
+            <li><strong>Do Not Overdilute Formula:</strong> Always follow exact water-to-powder ratios; adding excess water dilutes vital electrolytes and calories, which can lead to life-threatening water intoxication and hyponatremia.</li>
             <li><strong>Introduce Calorie-Dense Solid Foods:</strong> Once cleared for solids at 6 months, incorporate healthy fats such as full-fat yogurt, avocado, olive oil drizzles, and nut butters (thinned safely) alongside iron-fortified cereals.</li>
           </ul>
         </>
