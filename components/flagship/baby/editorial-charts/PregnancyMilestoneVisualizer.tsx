@@ -1,200 +1,263 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
-interface Milestone {
+interface MilestoneData {
   week: number;
+  weekLabel: string;
   weightGrams: number;
+  weightLbs: number;
   lengthCm: number;
+  lengthIn: number;
   fruit: string;
   fruitEmoji: string;
   trimester: string;
-  trimesterColor: string;
   milestoneTitle: string;
   clinicalNote: string;
 }
 
-const MILESTONES: Milestone[] = [
+const FETAL_DATA: MilestoneData[] = [
   {
     week: 8,
+    weekLabel: 'Wk 8',
     weightGrams: 1,
+    weightLbs: 0.002,
     lengthCm: 1.6,
+    lengthIn: 0.6,
     fruit: 'Raspberry',
     fruitEmoji: '🫐',
-    trimester: 'First Trimester',
-    trimesterColor: 'bg-emerald-500',
-    milestoneTitle: 'Embryonic Cardiac Rhythm & Limb Buds',
-    clinicalNote: 'Neural tube closure complete; cardiac tube contracts rhythmically at 140–170 bpm; webbed digits form.',
+    trimester: '1st Trimester',
+    milestoneTitle: 'Cardiac Activity & Limb Buds',
+    clinicalNote: 'Neural tube closure complete; primitive cardiac tube pulses at 140–170 bpm; webbed digits form.',
   },
   {
     week: 12,
+    weekLabel: 'Wk 12',
     weightGrams: 14,
+    weightLbs: 0.03,
     lengthCm: 5.4,
+    lengthIn: 2.1,
     fruit: 'Plum',
     fruitEmoji: '🍑',
-    trimester: 'First Trimester',
-    trimesterColor: 'bg-emerald-500',
-    milestoneTitle: 'End of 1st Trimester & Reflex Formation',
+    trimester: '1st Trimester',
+    milestoneTitle: 'End of 1st Trimester & Reflexes',
     clinicalNote: 'Nuchal translucency scan window; primitive reflexes appear; kidneys produce amniotic fluid.',
   },
   {
     week: 16,
+    weekLabel: 'Wk 16',
     weightGrams: 100,
+    weightLbs: 0.22,
     lengthCm: 11.6,
+    lengthIn: 4.6,
     fruit: 'Avocado',
     fruitEmoji: '🥑',
-    trimester: 'Second Trimester',
-    trimesterColor: 'bg-blue-500',
-    milestoneTitle: 'Rapid Somatic Elongation & Light Perception',
-    clinicalNote: 'Eyes perceive light through fused eyelids; skeleton undergoes rapid endochondral ossification.',
+    trimester: '2nd Trimester',
+    milestoneTitle: 'Rapid Somatic Elongation',
+    clinicalNote: 'Eyes perceive light through fused eyelids; circulatory system pumps ~25 quarts of blood daily.',
   },
   {
     week: 20,
+    weekLabel: 'Wk 20',
     weightGrams: 300,
+    weightLbs: 0.66,
     lengthCm: 25.6,
+    lengthIn: 10.1,
     fruit: 'Banana',
     fruitEmoji: '🍌',
-    trimester: 'Second Trimester',
-    trimesterColor: 'bg-blue-500',
-    milestoneTitle: 'Mid-Pregnancy Anatomy Scan (Level II)',
-    clinicalNote: 'Detailed organ sonogram (heart 4-chamber view, spine, kidneys); maternal quickening fetal kicks felt.',
+    trimester: '2nd Trimester',
+    milestoneTitle: 'Level II Anatomy Ultrasound',
+    clinicalNote: 'Detailed 4-chamber cardiac view and spinal integrity confirmed; maternal quickening kicks felt.',
   },
   {
     week: 24,
+    weekLabel: 'Wk 24',
     weightGrams: 600,
+    weightLbs: 1.32,
     lengthCm: 30.0,
+    lengthIn: 11.8,
     fruit: 'Ear of Corn',
     fruitEmoji: '🌽',
-    trimester: 'Second Trimester',
-    trimesterColor: 'bg-blue-500',
-    milestoneTitle: 'Clinical Fetal Viability Milestone',
-    clinicalNote: 'Viability threshold reached; inner ear cochlea fully formed; pulmonary surfactant synthesis begins.',
+    trimester: '2nd Trimester',
+    milestoneTitle: 'Clinical Fetal Viability Threshold',
+    clinicalNote: 'Viability landmark; inner ear cochlea fully formed; pulmonary alveolar surfactant begins synthesis.',
   },
   {
     week: 28,
+    weekLabel: 'Wk 28',
     weightGrams: 1000,
+    weightLbs: 2.2,
     lengthCm: 37.6,
+    lengthIn: 14.8,
     fruit: 'Eggplant',
     fruitEmoji: '🍆',
-    trimester: 'Third Trimester',
-    trimesterColor: 'bg-purple-500',
-    milestoneTitle: 'Third Trimester & REM Brain Waves',
-    clinicalNote: 'Eyes open and track; rapid cerebral cortex gyri folding; daily fetal kick counts recommended.',
+    trimester: '3rd Trimester',
+    milestoneTitle: 'Third Trimester & Eye Blinking',
+    clinicalNote: 'Eyes open and blink; rapid cerebral cortex gyri folding; daily fetal kick monitoring recommended.',
   },
   {
     week: 32,
+    weekLabel: 'Wk 32',
     weightGrams: 1700,
+    weightLbs: 3.75,
     lengthCm: 42.4,
+    lengthIn: 16.7,
     fruit: 'Butternut Squash',
     fruitEmoji: '🎃',
-    trimester: 'Third Trimester',
-    trimesterColor: 'bg-purple-500',
-    milestoneTitle: 'Adipose Layer & Thermal Regulation',
-    clinicalNote: 'Subcutaneous white and brown adipose deposition accelerates; bone mineral density peaks.',
+    trimester: '3rd Trimester',
+    milestoneTitle: 'Adipose Layer & Thermoregulation',
+    clinicalNote: 'Subcutaneous white and brown adipose stores accumulate; bone mineral density rapidly ossifies.',
   },
   {
     week: 36,
+    weekLabel: 'Wk 36',
     weightGrams: 2600,
+    weightLbs: 5.73,
     lengthCm: 47.4,
+    lengthIn: 18.7,
     fruit: 'Papaya',
     fruitEmoji: '🍈',
-    trimester: 'Third Trimester',
-    trimesterColor: 'bg-purple-500',
-    milestoneTitle: 'Pulmonary Maturity & Pelvic Engagement',
-    clinicalNote: 'Lungs synthesize mature surfactant (L/S ratio > 2.0); fetus descends into maternal pelvic inlet.',
+    trimester: '3rd Trimester',
+    milestoneTitle: 'Pulmonary Maturity & Engagement',
+    clinicalNote: 'Mature lung surfactant synthesis; fetus descends into maternal pelvic inlet (lightening).',
   },
   {
     week: 40,
+    weekLabel: 'Wk 40',
     weightGrams: 3450,
+    weightLbs: 7.6,
     lengthCm: 51.2,
+    lengthIn: 20.2,
     fruit: 'Small Watermelon',
     fruitEmoji: '🍉',
-    trimester: 'Full Term Delivery',
-    trimesterColor: 'bg-rose-500',
-    milestoneTitle: 'Full Term Gestation & Delivery Readiness',
-    clinicalNote: 'Optimal neurodevelopmental maturity; maternal antibodies transferred across placenta for neonatal immunity.',
+    trimester: 'Full Term',
+    milestoneTitle: 'Full Term Gestational Maturity',
+    clinicalNote: 'Complete neurodevelopmental maturation; maternal placental IgG antibodies transferred for newborn immunity.',
   },
 ];
 
-export function PregnancyMilestoneVisualizer() {
-  const [activeIdx, setActiveIdx] = useState<number>(3); // Week 20 default
-  const cur = MILESTONES[activeIdx];
+const tooltipStyle = {
+  contentStyle: {
+    borderRadius: '12px',
+    border: '1px solid #cbd5e1',
+    fontSize: '12px',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
+    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+  },
+};
 
-  const pct = Math.round((cur.week / 40) * 100);
-  const weightLbs = (cur.weightGrams / 453.592).toFixed(1);
-  const lengthIn = (cur.lengthCm / 2.54).toFixed(1);
+export function PregnancyMilestoneVisualizer() {
+  const [mounted, setMounted] = useState(false);
+  const [activeWeek, setActiveWeek] = useState<number>(20);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cur = FETAL_DATA.find((d) => d.week === activeWeek) || FETAL_DATA[3];
 
   return (
     <div className="w-full rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 transition-all">
-      {/* Header */}
+      {/* Chart Header */}
       <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xl">📅</span>
+            <span className="text-xl">📈</span>
             <h3 className="text-base font-bold text-slate-900 dark:text-white sm:text-lg">
-              Fetal Growth &amp; Gestation Timeline
+              Fetal Growth Trajectory &amp; Gestation Curve
             </h3>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Interactive week-by-week fetal anatomical development, weight curves, and ultrasound milestones
+            ACOG clinical fetal biometric benchmarks: Median fetal weight gain curve (grams) from Week 8 to Week 40
           </p>
         </div>
-        <span className="self-start sm:self-auto rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 ring-1 ring-inset ring-emerald-600/20">
-          ACOG Clinical Milestones
+        <span className="self-start sm:self-auto rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 ring-1 ring-inset ring-blue-600/20">
+          ACOG Clinical Standards
         </span>
       </div>
 
-      {/* Touch-Friendly Horizontally Scrollable Week Pills */}
+      {/* Touch-Friendly Gestation Week Pills */}
       <div className="mb-4">
         <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-2">
-          Select Gestational Week:
+          Select Gestational Week Milestone:
         </div>
         <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-thin">
-          {MILESTONES.map((m, idx) => {
-            const isSelected = activeIdx === idx;
+          {FETAL_DATA.map((d) => {
+            const isSelected = activeWeek === d.week;
             return (
               <button
-                key={m.week}
+                key={d.week}
                 type="button"
-                onClick={() => setActiveIdx(idx)}
+                onClick={() => setActiveWeek(d.week)}
                 className={`shrink-0 rounded-xl px-3 py-2 text-xs font-bold transition-all min-h-[44px] flex items-center gap-1.5 ${
                   isSelected
                     ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20 scale-[1.02] dark:bg-blue-500'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 }`}
               >
-                <span>{m.fruitEmoji}</span>
-                <span>Wk {m.week}</span>
+                <span>{d.fruitEmoji}</span>
+                <span>Wk {d.week}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Visual Gestation Progress Bar */}
-      <div className="mb-5 rounded-xl bg-slate-50 p-3.5 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-        <div className="flex items-center justify-between text-xs font-medium text-slate-600 dark:text-slate-300 mb-1.5">
-          <span>Gestation Progress: <strong>Week {cur.week} of 40</strong></span>
-          <span className="font-bold text-blue-600 dark:text-blue-400">{pct}% Completed</span>
-        </div>
-        <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-          <div
-            className="h-full bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-600 transition-all duration-300"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
-        <div className="mt-2 flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-mono">
-          <span>Wk 1 (Conception)</span>
-          <span>Wk 13 (2nd Tri)</span>
-          <span>Wk 28 (3rd Tri)</span>
-          <span>Wk 40 (Due Date)</span>
-        </div>
+      {/* Real Recharts Interactive Area Chart (Fluid Width & Responsive Height) */}
+      <div className="h-[250px] sm:h-[280px] w-full mb-4">
+        {mounted ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={FETAL_DATA} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+              <defs>
+                <linearGradient id="fetalWeightGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.02} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.7} vertical={false} />
+              <XAxis dataKey="weekLabel" tick={{ fontSize: 11, fill: '#64748b' }} tickLine={false} axisLine={false} />
+              <YAxis
+                tickFormatter={(v) => `${(v / 1000).toFixed(1)}kg`}
+                tick={{ fontSize: 11, fill: '#64748b' }}
+                tickLine={false}
+                axisLine={false}
+                width={50}
+              />
+              <Tooltip
+                {...tooltipStyle}
+                formatter={(val) => [`${Number(val).toLocaleString()} g (${(Number(val) / 453.592).toFixed(1)} lbs)`, 'Fetal Weight']}
+                labelFormatter={(label) => `Gestational ${label}`}
+              />
+              <Area
+                type="monotone"
+                dataKey="weightGrams"
+                name="Weight"
+                stroke="#2563eb"
+                strokeWidth={3}
+                fillOpacity={1}
+                fill="url(#fetalWeightGrad)"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-full w-full rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+        )}
       </div>
 
-      {/* Active Week Highlights Card (Fluid Responsive Grid) */}
+      {/* Selected Week Metrics Grid */}
       <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 mb-4">
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Size Analogy</span>
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Size Comparison</span>
           <div className="mt-1 flex items-center gap-1.5">
             <span className="text-xl">{cur.fruitEmoji}</span>
             <span className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{cur.fruit}</span>
@@ -204,8 +267,10 @@ export function PregnancyMilestoneVisualizer() {
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
           <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Estimated Weight</span>
           <div className="mt-1">
-            <span className="text-sm font-bold text-blue-600 dark:text-blue-400">{cur.weightGrams >= 1000 ? `${(cur.weightGrams / 1000).toFixed(2)} kg` : `${cur.weightGrams} g`}</span>
-            <span className="text-xs text-slate-400 block font-normal">({weightLbs} lbs)</span>
+            <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
+              {cur.weightGrams >= 1000 ? `${(cur.weightGrams / 1000).toFixed(2)} kg` : `${cur.weightGrams} g`}
+            </span>
+            <span className="text-xs text-slate-400 block font-normal">({cur.weightLbs} lbs)</span>
           </div>
         </div>
 
@@ -213,15 +278,15 @@ export function PregnancyMilestoneVisualizer() {
           <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Crown-to-Heel Length</span>
           <div className="mt-1">
             <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{cur.lengthCm} cm</span>
-            <span className="text-xs text-slate-400 block font-normal">({lengthIn} in)</span>
+            <span className="text-xs text-slate-400 block font-normal">({cur.lengthIn} in)</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
           <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Trimester Stage</span>
           <div className="mt-1">
-            <span className="text-xs font-bold text-purple-600 dark:text-purple-400 block leading-tight">{cur.trimester}</span>
-            <span className="text-[10px] text-slate-400 block">Weeks {cur.week <= 13 ? '1–13' : cur.week <= 27 ? '14–27' : '28–40'}</span>
+            <span className="text-xs font-bold text-purple-600 dark:text-purple-400 leading-tight block">{cur.trimester}</span>
+            <span className="text-[10px] text-slate-400 block">Week {cur.week} of 40</span>
           </div>
         </div>
       </div>
@@ -230,7 +295,7 @@ export function PregnancyMilestoneVisualizer() {
       <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3.5 text-xs dark:border-blue-900/40 dark:bg-blue-950/20">
         <div className="font-bold text-blue-900 dark:text-blue-300 flex items-center gap-1.5 mb-1">
           <span>🔬</span>
-          <span>Week {cur.week} Milestone: {cur.milestoneTitle}</span>
+          <span>Week {cur.week} Developmental Milestone: {cur.milestoneTitle}</span>
         </div>
         <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
           {cur.clinicalNote}

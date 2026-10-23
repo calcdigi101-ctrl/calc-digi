@@ -95,15 +95,21 @@ export default function DiaperCostPage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Financial Summary: Total Diapering Expenses to Potty Training
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               Between birth and daytime toilet training independence (average age of <strong>30 months</strong>, trackable on our <a href="/calculators/datetime/age-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">age calculator</a>), an infant requires approximately <strong>5,500 to 6,000 diaper changes</strong>. Depending on brand selection, total disposable diaper spending ranges from <strong>$1,100 (store brands)</strong> to <strong>$2,200 (national name brands)</strong>, and up to <strong>$3,200+ (premium organic brands)</strong>. Incorporating baby wipes adds another <strong>$350 to $500</strong>. Families switching to modern reusable cloth diapers spend between <strong>$800 and $1,200</strong> in total (including laundry utilities), yielding net household savings exceeding <strong>$1,200</strong> per child.
             </p>
           </div>
 
-          <h2>The Economics of Infant Diapering Over 30 Months</h2>
+          <h2>The Economics of Infant Diapering Across Growth Stages (0–30 Months)</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <DiaperStageExpenseTimelineChart />
+          </div>
+
           <p>
             Diapering represents one of the largest non-medical, recurring cash-flow expenses of early parenthood. Many first-time parents anticipate a flat monthly expense, only to discover that unit economics shift dramatically as children grow. While infants require fewer diaper changes as they mature, the cost per individual diaper rises by up to 150% from Size Newborn to Size 6.
           </p>
@@ -135,11 +141,6 @@ export default function DiaperCostPage() {
             ]}
             highlight={3}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <DiaperStageExpenseTimelineChart />
-          </div>
 
           <h2>Brand Tier Breakdown: What Are You Paying For?</h2>
           <p>

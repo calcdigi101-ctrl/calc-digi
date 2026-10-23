@@ -95,15 +95,21 @@ export default function BabyNamePopularityPage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Demographic Summary: How Baby Name Rankings &amp; Trends Work
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               Baby name popularity is tracked in the United States by the <strong>Social Security Administration (SSA)</strong> based on applications for Social Security cards dating back to 1880. A rank of <strong>#1</strong> indicates the most frequently chosen name of the year for that biological sex. However, due to unprecedented 21st-century naming diversification, a top-ranked name today represents only <strong>~1% of total births</strong>, compared to <strong>over 5% in the 1950s</strong>. Parents can safely choose a top-50 name today ahead of their clinical <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a> without fear that their child will share their name with multiple classmates.
             </p>
           </div>
 
-          <h2>The Historical Evolution of American Naming Patterns</h2>
+          <h2>The Historical Evolution &amp; Concentration Spectrum of American Naming Patterns</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <BabyNamePopularityEraSpectrumChart />
+          </div>
+
           <p>
             The study of personal names (known as <em>onomastics</em>) reveals profound shifts in cultural values, individualism, and sociological cohesion over the past 140 years. In the late 19th and early 20th centuries, naming conventions were anchored in patriarchal continuity and biblical tradition. Parents routinely named firstborn sons after fathers or grandfathers, concentrating a massive percentage of births into a tiny roster of perennial classics.
           </p>
@@ -122,11 +128,6 @@ export default function BabyNamePopularityPage() {
             ]}
             highlight={4}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <BabyNamePopularityEraSpectrumChart />
-          </div>
 
           <h2>The Mathematical &ldquo;100-Year Cycle&rdquo; in Onomastics</h2>
           <p>

@@ -95,15 +95,21 @@ export default function BabyFeedingPage() {
 
           {/* Quick AEO Answer Block */}
           <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
-            <h2 className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span className="text-blue-600 dark:text-blue-400">💡</span> Clinical Summary: AAP Rule of Thumb for Infant Feeding
-            </h2>
+            </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               According to the <strong>American Academy of Pediatrics (AAP)</strong>, a healthy infant requires approximately <strong>2.5 ounces (74 ml)</strong> of formula or breast milk for every <strong>pound of body weight</strong> per 24 hours (roughly 150 to 160 ml/kg/day). Because infant gastric volume is minute during early life, this daily volume must be apportioned across 8 to 12 small feeds for newborns, gradually consolidating to 4 to 6 larger feeds as stomach capacity expands. Verify your baby&apos;s growth trajectory on our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a> to ensure weight gain tracks along their personal clinical curve.
             </p>
           </div>
 
-          <h2>Pediatric Caloric Requirements and the 2.5 oz/lb Rule</h2>
+          <h2>Pediatric Caloric Requirements &amp; Daily Milk Volume Trajectory</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <InfantFeedingVolumeTimelineChart />
+          </div>
+
           <p>
             During the first year of life, human infants experience the most intense metabolic growth rate of their lifespan, tripling their birth weight and expanding their brain volume by over 100%. Standard human breast milk and commercial infant formulas provide approximately <strong>20 kilocalories per fluid ounce</strong> (0.67 kcal/ml), which can be analyzed using our <a href="/calculators/health/calorie-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">calorie calculator</a>. To satisfy a baseline energy requirement of 100 to 110 kcal per kilogram per day, an infant must consume between 2.2 and 2.7 ounces per pound of body weight.
           </p>
@@ -135,11 +141,6 @@ export default function BabyFeedingPage() {
             ]}
             highlight={3}
           />
-
-          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
-          <div className="not-prose my-8">
-            <InfantFeedingVolumeTimelineChart />
-          </div>
 
           <h2>Recognizing Hunger Cues vs. Satiety Signs</h2>
           <p>

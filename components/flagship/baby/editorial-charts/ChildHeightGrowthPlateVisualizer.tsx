@@ -1,9 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 interface GrowthPhase {
   stage: string;
+  shortLabel: string;
   ageSpan: string;
   velocityCmYr: number;
   velocityInYr: number;
@@ -12,28 +23,31 @@ interface GrowthPhase {
   clinicalNote: string;
 }
 
-const PHASES: GrowthPhase[] = [
+const PHASES_DATA: GrowthPhase[] = [
   {
     stage: 'Infancy (Rapid Phase)',
-    ageSpan: 'Birth to 12 months',
+    shortLabel: 'Infancy',
+    ageSpan: '0–12 mo',
     velocityCmYr: 25,
     velocityInYr: 9.8,
     hormones: 'Nutrition, Thyroid, Insulin',
-    plateStatus: 'Wide cartilaginous physis, rapid matrix synthesis',
+    plateStatus: 'Wide cartilaginous physis',
     clinicalNote: 'Fastest post-natal linear growth velocity of lifetime; infant gains ~50% in standing length.',
   },
   {
     stage: 'Toddlerhood',
-    ageSpan: '1 to 3 years old',
+    shortLabel: 'Toddler',
+    ageSpan: '1–3 yrs',
     velocityCmYr: 12,
     velocityInYr: 4.7,
     hormones: 'Growth Hormone (GH) & Thyroid',
-    plateStatus: 'Transition to genetic growth channel',
+    plateStatus: 'Transition to genetic channel',
     clinicalNote: 'Growth decelerates toward childhood baseline; child shifts toward parental genetic percentile channel.',
   },
   {
     stage: 'Mid-Childhood Steady',
-    ageSpan: '4 to 9 years old',
+    shortLabel: 'Childhood',
+    ageSpan: '4–9 yrs',
     velocityCmYr: 6,
     velocityInYr: 2.4,
     hormones: 'Pulsatile GH & IGF-1 Axis',
@@ -42,30 +56,48 @@ const PHASES: GrowthPhase[] = [
   },
   {
     stage: 'Pubertal Spurt (Peak Velocity)',
-    ageSpan: 'Girls: 10–13 | Boys: 12–15',
+    shortLabel: 'Puberty',
+    ageSpan: '10–14 yrs',
     velocityCmYr: 9.5,
     velocityInYr: 3.7,
-    hormones: 'Estrogen, Testosterone & GH Synergy',
+    hormones: 'Estrogen, Testosterone & GH',
     plateStatus: 'Maximum chondrocyte hypertrophy',
-    clinicalNote: 'Peak Height Velocity (PHV); girls gain ~8–9 cm/yr prior to menarche; boys gain ~9–10 cm/yr over longer duration.',
+    clinicalNote: 'Peak Height Velocity (PHV); girls gain ~8–9 cm/yr; boys gain ~9–10 cm/yr over longer duration.',
   },
   {
     stage: 'Epiphyseal Fusion (Final Stature)',
-    ageSpan: 'Girls: 14–16 | Boys: 16–19',
+    shortLabel: 'Adult Fusion',
+    ageSpan: '16–19 yrs',
     velocityCmYr: 0,
     velocityInYr: 0,
     hormones: 'High Estrogen in both sexes',
     plateStatus: 'Complete ossification & plate closure',
-    clinicalNote: 'Chondrocytes exhausted; epiphyseal cartilage completely calcifies into solid bone; adult stature permanently locked.',
+    clinicalNote: 'Chondrocytes exhausted; epiphyseal cartilage completely calcifies into solid bone; adult stature locked.',
   },
 ];
 
-export function ChildHeightGrowthPlateVisualizer() {
-  const [activeIdx, setActiveIdx] = useState<number>(3); // Pubertal Spurt default
-  const cur = PHASES[activeIdx];
+const COLORS = ['#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#64748b'];
 
-  const maxVelocity = 25;
-  const velocityPct = Math.round((cur.velocityCmYr / maxVelocity) * 100);
+const tooltipStyle = {
+  contentStyle: {
+    borderRadius: '12px',
+    border: '1px solid #cbd5e1',
+    fontSize: '12px',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
+    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+  },
+};
+
+export function ChildHeightGrowthPlateVisualizer() {
+  const [mounted, setMounted] = useState(false);
+  const [activeIdx, setActiveIdx] = useState<number>(3); // Pubertal spurt default
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cur = PHASES_DATA[activeIdx];
 
   return (
     <div className="w-full rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 transition-all">
@@ -75,11 +107,11 @@ export function ChildHeightGrowthPlateVisualizer() {
           <div className="flex items-center gap-2">
             <span className="text-xl">📏</span>
             <h3 className="text-base font-bold text-slate-900 dark:text-white sm:text-lg">
-              Linear Growth Velocity &amp; Epiphyseal Plate Timeline
+              Linear Growth Velocity &amp; Pubertal Spurt Curve
             </h3>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Pediatric endocrinology benchmarks: Annual growth velocity (cm/year) and growth plate maturation
+            Tanner pediatric endocrinology standards: Annual skeletal elongation velocity (cm/year) by developmental stage
           </p>
         </div>
         <span className="self-start sm:self-auto rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 ring-1 ring-inset ring-emerald-600/20">
@@ -93,11 +125,11 @@ export function ChildHeightGrowthPlateVisualizer() {
           Select Childhood Stage:
         </div>
         <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-thin">
-          {PHASES.map((p, idx) => {
+          {PHASES_DATA.map((p, idx) => {
             const isSelected = activeIdx === idx;
             return (
               <button
-                key={p.stage}
+                key={p.shortLabel}
                 type="button"
                 onClick={() => setActiveIdx(idx)}
                 className={`shrink-0 rounded-xl px-3 py-2 text-xs font-bold transition-all min-h-[44px] flex items-center gap-1 ${
@@ -106,62 +138,87 @@ export function ChildHeightGrowthPlateVisualizer() {
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
                 }`}
               >
-                <span>{p.stage.split(' (')[0]}</span>
+                <span>{p.shortLabel}</span>
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* Annual Linear Velocity Meter */}
-      <div className="mb-5 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-        <div className="flex items-center justify-between text-xs font-medium text-slate-700 dark:text-slate-200 mb-2">
-          <span>Annual Height Velocity: <strong>{cur.stage}</strong></span>
-          <span className="font-bold text-blue-600 dark:text-blue-400">{cur.velocityCmYr} cm / year ({cur.velocityInYr} in/yr)</span>
-        </div>
-        <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-          <div
-            className="h-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-300"
-            style={{ width: `${velocityPct}%` }}
-          />
-        </div>
-        <div className="mt-2 flex justify-between text-[10px] text-slate-400 dark:text-slate-500 font-mono">
-          <span>0 cm/yr (Adult)</span>
-          <span>6 cm/yr (Steady Childhood)</span>
-          <span>10 cm/yr (Pubertal Peak)</span>
-          <span>25 cm/yr (Infant Peak)</span>
-        </div>
+      {/* Recharts Bar Chart */}
+      <div className="h-[250px] sm:h-[280px] w-full mb-4">
+        {mounted ? (
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={PHASES_DATA} margin={{ top: 10, right: 10, left: -15, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" strokeOpacity={0.7} vertical={false} />
+              <XAxis dataKey="shortLabel" tick={{ fontSize: 11, fill: '#64748b' }} tickLine={false} axisLine={false} />
+              <YAxis
+                tickFormatter={(v) => `${v}cm`}
+                tick={{ fontSize: 11, fill: '#64748b' }}
+                tickLine={false}
+                axisLine={false}
+                width={48}
+                domain={[0, 28]}
+              />
+              <Tooltip
+                {...tooltipStyle}
+                formatter={(val) => [`${val} cm/year (${(Number(val) / 2.54).toFixed(1)} in/yr)`, 'Growth Velocity']}
+                labelFormatter={(label) => `Stage: ${label}`}
+              />
+              <Bar dataKey="velocityCmYr" name="Linear Velocity" radius={[8, 8, 0, 0]}>
+                {PHASES_DATA.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={index === activeIdx ? '#2563eb' : COLORS[index % COLORS.length]}
+                    opacity={index === activeIdx ? 1 : 0.75}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <div className="h-full w-full rounded-xl bg-slate-100 dark:bg-slate-800 animate-pulse" />
+        )}
       </div>
 
       {/* Metric Cards Grid */}
-      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 mb-4">
+      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4 mb-4">
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Typical Age Span</span>
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Annual Velocity</span>
           <div className="mt-1">
-            <span className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{cur.ageSpan}</span>
+            <span className="text-sm font-bold text-blue-600 dark:text-blue-400">{cur.velocityCmYr} cm / yr</span>
+            <span className="text-xs text-slate-400 block font-normal">({cur.velocityInYr} in / year)</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Primary Hormones</span>
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Stage Duration</span>
           <div className="mt-1">
-            <span className="text-xs font-bold text-purple-600 dark:text-purple-400 leading-tight">{cur.hormones}</span>
+            <span className="text-sm font-bold text-slate-900 dark:text-white leading-tight block">{cur.ageSpan}</span>
+            <span className="text-xs text-slate-400 block font-normal">pediatric window</span>
           </div>
         </div>
 
-        <div className="col-span-2 sm:col-span-1 rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
-          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Epiphyseal Status</span>
+        <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Hormonal Drivers</span>
           <div className="mt-1">
-            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 leading-tight">{cur.plateStatus}</span>
+            <span className="text-xs font-bold text-purple-600 dark:text-purple-400 leading-tight block">{cur.hormones}</span>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
+          <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Growth Plate Status</span>
+          <div className="mt-1">
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 leading-tight block">{cur.plateStatus}</span>
           </div>
         </div>
       </div>
 
-      {/* Clinical Guidance Card */}
+      {/* Clinical Guidance Box */}
       <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-3.5 text-xs dark:border-blue-900/40 dark:bg-blue-950/20">
         <div className="font-bold text-blue-900 dark:text-blue-300 flex items-center gap-1.5 mb-1">
           <span>🦴</span>
-          <span>Endocrinological Growth Note:</span>
+          <span>Endocrinology Growth Insight ({cur.stage}):</span>
         </div>
         <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
           {cur.clinicalNote}
