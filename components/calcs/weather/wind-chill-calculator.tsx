@@ -25,6 +25,12 @@ export const windChillConfig: CalcConfig = {
       max: 80.0,
     },
   ],
+  presets: [
+    { label: "Brisk Breeze (30°F, 15 mph)", values: { ambientTempF: 30.0, windSpeedMph: 15.0 } },
+    { label: "Advisory Level (10°F, 25 mph)", values: { ambientTempF: 10.0, windSpeedMph: 25.0 } },
+    { label: "Sub-Zero Danger (-5°F, 30 mph)", values: { ambientTempF: -5.0, windSpeedMph: 30.0 } },
+    { label: "Polar Vortex Extreme (-20°F, 45 mph)", values: { ambientTempF: -20.0, windSpeedMph: 45.0 } },
+  ],
   compute: (vals) => {
     const t = Math.min(50.0, Number(vals.ambientTempF) || 15.0);
     const v = Math.max(3.0, Number(vals.windSpeedMph) || 25.0);
@@ -66,7 +72,7 @@ export const windChillConfig: CalcConfig = {
         text: frostbiteRisk,
         tone: tone,
       },
-      secondary: [
+      rows: [
         {
           label: "Convective Wind Cooling Penalty",
           value: `-${diff.toFixed(1)}°F colder than calm air`,

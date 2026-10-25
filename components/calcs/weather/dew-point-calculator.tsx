@@ -33,6 +33,12 @@ export const dewPointConfig: CalcConfig = {
       max: 1100.0,
     },
   ],
+  presets: [
+    { label: "Pleasant Spring (68°F, 45% RH)", values: { temperatureF: 68.0, relativeHumidity: 45.0, barometricPressureHpa: 1013.25 } },
+    { label: "Muggy Summer (88°F, 70% RH)", values: { temperatureF: 88.0, relativeHumidity: 70.0, barometricPressureHpa: 1013.25 } },
+    { label: "Tropical Swelter (95°F, 75% RH)", values: { temperatureF: 95.0, relativeHumidity: 75.0, barometricPressureHpa: 1010.0 } },
+    { label: "Arid Desert (102°F, 15% RH)", values: { temperatureF: 102.0, relativeHumidity: 15.0, barometricPressureHpa: 1012.0 } },
+  ],
   compute: (vals) => {
     const tF = Number(vals.temperatureF) || 75.0;
     const rh = Math.min(100.0, Math.max(1.0, Number(vals.relativeHumidity) || 65.0));
@@ -81,7 +87,7 @@ export const dewPointConfig: CalcConfig = {
         text: comfort,
         tone: tone,
       },
-      secondary: [
+      rows: [
         {
           label: "Dew Point Spread (T - Td)",
           value: `${spreadF.toFixed(1)}°F (${(tC - dpC).toFixed(1)}°C)`,

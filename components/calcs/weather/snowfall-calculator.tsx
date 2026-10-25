@@ -33,6 +33,12 @@ export const snowfallConfig: CalcConfig = {
       max: 40.0,
     },
   ],
+  presets: [
+    { label: "Heavy Wet Slush (1.0\" Liquid, 33°F)", values: { liquidPrecipInches: 1.0, surfaceTempF: 33.0, snowRatioInput: 0.0 } },
+    { label: "Climatological Average (0.75\" Liquid, 26°F)", values: { liquidPrecipInches: 0.75, surfaceTempF: 26.0, snowRatioInput: 0.0 } },
+    { label: "Fluffy Dry Powder (0.85\" Liquid, 18°F)", values: { liquidPrecipInches: 0.85, surfaceTempF: 18.0, snowRatioInput: 0.0 } },
+    { label: "Champagne Ski Powder (1.2\" Liquid, 8°F)", values: { liquidPrecipInches: 1.2, surfaceTempF: 8.0, snowRatioInput: 0.0 } },
+  ],
   compute: (vals) => {
     const liquidIn = Math.max(0.01, Number(vals.liquidPrecipInches) || 0.85);
     const tempF = Number(vals.surfaceTempF) || 27.0;
@@ -82,7 +88,7 @@ export const snowfallConfig: CalcConfig = {
         text: `${slr.toFixed(0)}:1 Snow-to-Liquid Ratio (${snowType})`,
         tone: tone,
       },
-      secondary: [
+      rows: [
         {
           label: "Snowpack Roof / Ground Weight",
           value: `${snowWeightPerSqFt.toFixed(1)} lbs / sq ft`,

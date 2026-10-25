@@ -33,6 +33,12 @@ export const heatIndexConfig: CalcConfig = {
       max: 50.0,
     },
   ],
+  presets: [
+    { label: "Moderate Summer (86°F, 50% RH)", values: { ambientTempF: 86.0, relativeHumidity: 50.0, windSpeedMph: 5.0 } },
+    { label: "Caution Advisory (92°F, 60% RH)", values: { ambientTempF: 92.0, relativeHumidity: 60.0, windSpeedMph: 4.0 } },
+    { label: "Danger Level (98°F, 70% RH)", values: { ambientTempF: 98.0, relativeHumidity: 70.0, windSpeedMph: 3.0 } },
+    { label: "Extreme Danger (104°F, 65% RH)", values: { ambientTempF: 104.0, relativeHumidity: 65.0, windSpeedMph: 2.0 } },
+  ],
   compute: (vals) => {
     const t = Number(vals.ambientTempF) || 92.0;
     const r = Math.min(100.0, Math.max(1.0, Number(vals.relativeHumidity) || 60.0));
@@ -100,7 +106,7 @@ export const heatIndexConfig: CalcConfig = {
         text: danger,
         tone: tone,
       },
-      secondary: [
+      rows: [
         {
           label: "Heat Index Premium (HI - Temp)",
           value: `+${diff.toFixed(1)}°F apparent heat penalty`,

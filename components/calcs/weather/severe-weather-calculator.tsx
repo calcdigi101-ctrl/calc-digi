@@ -41,6 +41,12 @@ export const severeWeatherConfig: CalcConfig = {
       max: 700.0,
     },
   ],
+  presets: [
+    { label: "Weak Pulse Convection (800 CAPE, 15 kts)", values: { surfaceCape: 800.0, bulkShearKnots: 15.0, liftedIndex: -2.0, stormRelativeHelicity: 60.0 } },
+    { label: "Multicell Squall Line (1,800 CAPE, 35 kts)", values: { surfaceCape: 1800.0, bulkShearKnots: 35.0, liftedIndex: -5.0, stormRelativeHelicity: 120.0 } },
+    { label: "Tornadic Supercell (3,000 CAPE, 50 kts)", values: { surfaceCape: 3000.0, bulkShearKnots: 50.0, liftedIndex: -7.0, stormRelativeHelicity: 240.0 } },
+    { label: "Violent Outbreak (4,200 CAPE, 65 kts)", values: { surfaceCape: 4200.0, bulkShearKnots: 65.0, liftedIndex: -10.0, stormRelativeHelicity: 380.0 } },
+  ],
   compute: (vals) => {
     const cape = Math.max(0.0, Number(vals.surfaceCape) || 2200.0);
     const shear = Math.max(0.0, Number(vals.bulkShearKnots) || 45.0);
@@ -85,7 +91,7 @@ export const severeWeatherConfig: CalcConfig = {
         text: stormType,
         tone: tone,
       },
-      secondary: [
+      rows: [
         {
           label: "Theoretical Peak Updraft Velocity (Wmax)",
           value: `${wMax.toFixed(1)} m/s (${(wMax * 2.23694).toFixed(0)} mph)`,

@@ -51,6 +51,12 @@ export const uvIndexConfig: CalcConfig = {
       max: 15000.0,
     },
   ],
+  presets: [
+    { label: "Moderate Spring Sun (UV 4.5, Type III)", values: { uvIndexValue: 4.5, fitzpatrickSkinType: "3", surfaceReflectivity: "grass", altitudeFeet: 500.0 } },
+    { label: "Intense Midday Summer (UV 9.5, Type II)", values: { uvIndexValue: 9.5, fitzpatrickSkinType: "2", surfaceReflectivity: "grass", altitudeFeet: 0.0 } },
+    { label: "Tropical Beach Resort (UV 11.5, Type II)", values: { uvIndexValue: 11.5, fitzpatrickSkinType: "2", surfaceReflectivity: "sand", altitudeFeet: 0.0 } },
+    { label: "Alpine Snow Glacier (UV 8.5, Type I, 9k ft)", values: { uvIndexValue: 8.5, fitzpatrickSkinType: "1", surfaceReflectivity: "snow", altitudeFeet: 9000.0 } },
+  ],
   compute: (vals) => {
     const rawUv = Math.max(0.5, Number(vals.uvIndexValue) || 8.0);
     const skinType = Number(vals.fitzpatrickSkinType) || 2;
@@ -101,7 +107,7 @@ export const uvIndexConfig: CalcConfig = {
         text: `Effective UV Index ${effectiveUv.toFixed(1)} (${tier})`,
         tone: tone,
       },
-      secondary: [
+      rows: [
         {
           label: "Recommended Sunscreen SPF",
           value: effectiveUv >= 8 ? "SPF 50+ Broad Spectrum" : effectiveUv >= 6 ? "SPF 30 Broad Spectrum" : "SPF 15+",
