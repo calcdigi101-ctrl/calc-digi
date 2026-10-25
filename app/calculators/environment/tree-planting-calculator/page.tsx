@@ -1,26 +1,222 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import TreePlantingCalculator from "@/components/calcs/environment/tree-planting-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TreePlantingCarbonSequestrationTimelineChart } from "@/components/flagship/environment/editorial-charts";
+
+const PATH = "/calculators/environment/tree-planting-calculator";
+const TITLE = "Tree Planting Calculator | Carbon Offset, Forest Sizing & Seedling Estimation";
+const DESCRIPTION =
+  "Calculate the number of saplings and mature trees required to offset annual carbon dioxide (CO2) emissions. Model forest land area in acres, species sequestration rates, and 30-year carbon timelines.";
 
 export const metadata: Metadata = {
-  "title": "Tree Planting Calculator – Trees to Offset CO2 | CalcDigi",
-  "description": "Calculate trees needed to offset your carbon footprint. Compare CO2 absorption rates by species and plan your offset strategy.",
-  "openGraph": {
-    "title": "Tree Planting Calculator – Trees to Offset CO2 | CalcDigi",
-    "description": "Calculate trees needed to offset your carbon footprint. Compare CO2 absorption rates by species and plan your offset strategy.",
-    "type": "website",
-    "url": "/calculators/environment/tree-planting-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/environment/tree-planting-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Annual Carbon Footprint" },
+  { href: "/calculators/environment/air-quality-index-calculator", icon: "💨", name: "Air Quality Index (AQI)" },
+  { href: "/calculators/environment/recycling-savings-calculator", icon: "♻️", name: "Recycling Resource Savings" },
+  { href: "/calculators/environment/water-usage-calculator", icon: "💧", name: "Water Usage Calculator" },
+  { href: "/calculators/math/ratio-calculator", icon: "📐", name: "Forestry Tree Density Ratio" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Seedling Survival Rate Percentage" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How much carbon dioxide does a single mature tree absorb per year?",
+    a: "According to the US Forest Service (USFS) and the Arbor Day Foundation, a healthy, fully mature temperate hardwood tree (such as an oak, sugar maple, or European beech) absorbs approximately 21.8 kilograms (48 pounds) of carbon dioxide annually. Fast-growing pioneer species like hybrid poplars and willows absorb 30 to 35 kg during early growth, while coniferous pines average 15 to 20 kg annually due to lower wood density.",
+  },
+  {
+    q: "How many trees must be planted to offset the average American household?",
+    a: "The average American individual generates approximately 16.0 metric tons (16,000 kg) of greenhouse gas emissions annually. At an average mature sequestration rate of 22 kg CO2 per tree per year, offsetting one person requires 728 mature surviving trees. Assuming an 80% field survival rate during early sapling establishment, you must plant approximately 910 saplings, requiring roughly 1.8 acres of reforested land.",
+  },
+  {
+    q: "Why do trees sequester carbon along an S-curve (sigmoidal growth curve)?",
+    a: "Trees do not absorb maximum carbon immediately upon planting. During the first 1 to 5 years (seedling/sapling stage), trees prioritize root development, absorbing under 1 to 3 kg of CO2 annually. Between years 10 and 30 (vigorous canopy stage), leaf surface area expands exponentially, reaching peak annual carbon capture. Beyond year 50 to 80 (mature climax stage), annual sequestration gradually plateaus as cellular respiration balances photosynthesis.",
+  },
+  {
+    q: "What is seedling mortality and why must survival rates be factored into planting models?",
+    a: "In commercial and restoration forestry, young bare-root or containerized seedlings face severe environmental stressors: summer drought, winter frost heaving, rodent and deer browsing, invasive weed competition, and fungal root blight. Professional silviculture projects plan for 15% to 25% mortality over the first five years, requiring planting 120 to 130 saplings for every 100 target mature canopy trees.",
+  },
+  {
+    q: "How much land area is required to plant a certified carbon offset forest?",
+    a: "Standard professional forestry spacing utilizes an 8-by-8 foot grid (~680 trees per acre) or a 10-by-10 foot grid (~435 trees per acre). High-density initial planting encourages straight vertical stem growth and natural self-pruning. Planting 1,000 saplings at standard silvicultural spacing requires approximately 2.0 to 2.3 acres of contiguous land area (87,000 to 100,000 square feet).",
+  },
+  {
+    q: "What is the permanence and additionality criteria for certified carbon credits?",
+    a: "In voluntary and compliance carbon credit markets, forestry projects must satisfy 'additionality' (the forest would not have been planted or preserved without carbon finance) and 'permanence' (the sequestered carbon remains securely locked away for at least 40 to 100 years). Projects must establish dedicated buffer insurance pools to protect against catastrophic reversals from wildfires, pest epidemics, or illegal logging.",
+  },
+];
+
+export default function TreePlantingPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Environment Calculators\", \"item\": \"https://calcdigi.com/pages/environment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Tree Planting Calculator\", \"item\": \"https://calcdigi.com/calculators/environment/tree-planting-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Tree Planting Calculator\", \"url\": \"https://calcdigi.com/calculators/environment/tree-planting-calculator\", \"description\": \"Calculate trees needed to offset your carbon footprint. Compare CO2 absorption rates by species and plan your offset strategy.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much CO2 does a tree absorb per year?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A mature tree absorbs 21-48 kg of CO2 per year on average. Species and size matter greatly: a fast-growing Loblolly Pine absorbs ~48 kg/year, while a slow-growing oak absorbs ~22 kg/year. Mangroves absorb up to 308 kg/year.\"}}, {\"@type\": \"Question\", \"name\": \"How many trees do I need to offset my carbon footprint?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 21 kg CO2 per tree per year: to offset 16 tonnes (US average) you need 762 trees. At 48 kg/tree: 333 trees. These must be maintained permanently — if they die or are cut, the carbon is released.\"}}, {\"@type\": \"Question\", \"name\": \"Do trees really offset carbon effectively?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Trees are valuable but limited. They take decades to mature and must survive permanently. A newly planted tree takes 10-20 years to reach significant absorption rates. Protecting existing forests is more effective than planting new ones.\"}}, {\"@type\": \"Question\", \"name\": \"What trees absorb the most CO2?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Fast-growing large trees: Loblolly Pine (48 kg/yr), Douglas Fir (45 kg/yr). Exceptional absorbers: Mangroves (308 kg/yr), Bamboo (100-200 kg/yr). For reforestation, fast-growing native species with long lifespans are ideal.\"}}, {\"@type\": \"Question\", \"name\": \"Can I offset my entire carbon footprint with trees?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Theoretically yes, but practically very difficult. Offsetting 16 tonnes requires 762+ trees maintained permanently. Tree planting is best used alongside direct emission reductions in driving, flying, diet, and home energy.\"}}, {\"@type\": \"Question\", \"name\": \"What is the best tree planting charity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Well-rated organizations: American Forests (verified US planting), One Tree Planted (global projects), Trees for the Future (agroforestry in Africa), Eden Reforestation Projects (employment + trees). Look for Gold Standard or VCS certification for verified carbon accounting.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/environment\">Environment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Tree Planting Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Tree Planting Calculator</h1>\n<p class=\"calc-intro\">Calculate how many trees are needed to offset your annual carbon footprint. Compare CO2 absorption rates by tree species, find how long full offset takes, and discover the most effective reforestation strategies.</p>\n<p class=\"calc-intro\">One mature tree absorbs 21-48 kg of CO2 per year depending on species and size. To offset the average American carbon footprint of 16 tonnes, you would need to plant and maintain 333-762 trees permanently. Tree planting is most effective as a supplement to direct emission reductions, not a replacement.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Trees Needed = Annual CO2 (kg) / CO2 per Tree per Year | Years to Offset = Total CO2 / (Trees x Annual Absorption)</div></div>\n<div class=\"content-section\"><h2>Carbon Offset Through Trees – Science and Reality</h2>\n<p>Trees are powerful carbon sinks — they absorb CO2 from the atmosphere through photosynthesis and store the carbon in their wood, roots, and soil. A single mature tree absorbs between 21 and 48 kg of CO2 per year, depending on the species, age, local climate, and soil conditions. Forests cover 31% of Earth's land area and absorb about 2.6 billion tonnes of CO2 annually — roughly 7% of global emissions.</p>\n<p>However, tree planting alone cannot solve the climate crisis. The math is challenging: offsetting the average American's 16-tonne annual footprint would require maintaining 333-762 trees indefinitely. Trees also take decades to reach full carbon absorption potential. Direct emission reductions are more immediate and reliable. Trees are most effective as a complement to aggressive emission cuts, not a substitute for them.</p>\n<h3>CO2 Absorption by Tree Species</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Species</th><th style=\"padding:10px 14px;text-align:left;\">CO2 Absorbed/Year</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Douglas Fir</td><td style=\"padding:10px 14px;\">45 kg/year</td><td style=\"padding:10px 14px;\">Fast growing, excellent carbon sink</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">American Sweetgum</td><td style=\"padding:10px 14px;\">35 kg/year</td><td style=\"padding:10px 14px;\">Common eastern US hardwood</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Oak (White/Red)</td><td style=\"padding:10px 14px;\">22 kg/year</td><td style=\"padding:10px 14px;\">Slow growing, long-lived sink</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Pine (Loblolly)</td><td style=\"padding:10px 14px;\">48 kg/year</td><td style=\"padding:10px 14px;\">Fastest growing US tree, commercial forestry</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Maple (Sugar)</td><td style=\"padding:10px 14px;\">25 kg/year</td><td style=\"padding:10px 14px;\">Common deciduous, good urban tree</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Average Mixed Forest</td><td style=\"padding:10px 14px;\">21 kg/year</td><td style=\"padding:10px 14px;\">Used in general calculations</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Mangrove</td><td style=\"padding:10px 14px;\">308 kg/year</td><td style=\"padding:10px 14px;\">Exceptional coastal carbon storage</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Bamboo</td><td style=\"padding:10px 14px;\">100-200 kg/year</td><td style=\"padding:10px 14px;\">Fastest terrestrial carbon sequester</td></tr></tbody></table></div>\n<h3>Effective Reforestation Strategies</h3>\n<p>Not all tree planting is equally effective. Best practices for maximum carbon impact: Plant native species adapted to local conditions (higher survival rate, better ecosystem integration). Protect existing old-growth forests — a 100-year-old tree stores far more carbon than a newly planted one and cannot be replaced for a century. Avoid monocultures — diverse mixed forests are more resilient to pests, disease, and climate stress. Ensure permanence — trees must survive for decades to provide lasting carbon storage. Support verified programs: American Forests, One Tree Planted, and Trees for the Future all use verified accounting methods.</p>\n<h3>Tree Survival and Long-Term Carbon</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Tree Age</th><th style=\"padding:10px 14px;text-align:left;\">CO2 Absorption</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Year 1-5</td><td style=\"padding:10px 14px;\">5-10 kg/year</td><td style=\"padding:10px 14px;\">Young tree, establishing roots</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Year 5-20</td><td style=\"padding:10px 14px;\">15-25 kg/year</td><td style=\"padding:10px 14px;\">Growing phase, increasing absorption</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Year 20-50</td><td style=\"padding:10px 14px;\">25-45 kg/year</td><td style=\"padding:10px 14px;\">Peak absorption period</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Year 50+</td><td style=\"padding:10px 14px;\">Slowing</td><td style=\"padding:10px 14px;\">Carbon stored in wood/soil long-term</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Old Growth</td><td style=\"padding:10px 14px;\">Net zero new</td><td style=\"padding:10px 14px;\">But massive stored carbon bank</td></tr></tbody></table></div>\n<h3>Beyond Personal Tree Planting</h3>\n<p>Individual tree planting is meaningful but limited in scale. The most impactful reforestation actions are: Supporting legislation that protects existing forests (deforestation releases stored carbon — the Amazon releases 1.1 billion tonnes of CO2/year). Choosing certified sustainable wood products (FSC certification ensures forests are managed responsibly). Supporting indigenous land rights — indigenous-managed forests have significantly lower deforestation rates than nationally managed ones. Eating less beef — cattle ranching is the leading driver of tropical deforestation. Corporate supply chain transparency in wood, palm oil, and soy products.</p></div>\n<div class=\"content-section\"><h3>Why Environmental Calculators Matter</h3>\n<p>Understanding your personal environmental impact is the first step toward meaningful change. These calculators help you identify where your biggest impacts are and where small changes can make the largest difference. Whether measuring your carbon footprint, evaluating solar panels, or tracking recycling impact, data-driven decisions lead to better environmental outcomes.</p>\n<h3>Taking Action on Your Results</h3>\n<p>Once you have your results, prioritize the highest-impact changes first. Small improvements across many areas often add up faster than one large change. Share your results with family and friends to multiply your impact. Consider offsetting remaining emissions through verified carbon credit programs while working toward long-term reductions in your footprint.</p>\n</div>\n<div class=\"content-section\"><h3>Taking Action on Results</h3>\n<p>Once you have your results, share them with family and friends to multiply your impact. Consider combining calculator results for a comprehensive picture of your total environmental footprint. CalcDigi offers free environmental calculators covering carbon footprint, solar panels, water usage, energy consumption, EV savings, recycling impact, air quality, and tree planting — all in one place with no registration required.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much CO2 does a tree absorb per year? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A mature tree absorbs 21-48 kg of CO2 per year on average. Species and size matter greatly: a fast-growing Loblolly Pine absorbs ~48 kg/year, while a slow-growing oak absorbs ~22 kg/year. Mangroves absorb up to 308 kg/year.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many trees do I need to offset my carbon footprint? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 21 kg CO2 per tree per year: to offset 16 tonnes (US average) you need 762 trees. At 48 kg/tree: 333 trees. These must be maintained permanently — if they die or are cut, the carbon is released.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Do trees really offset carbon effectively? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Trees are valuable but limited. They take decades to mature and must survive permanently. A newly planted tree takes 10-20 years to reach significant absorption rates. Protecting existing forests is more effective than planting new ones.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What trees absorb the most CO2? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Fast-growing large trees: Loblolly Pine (48 kg/yr), Douglas Fir (45 kg/yr). Exceptional absorbers: Mangroves (308 kg/yr), Bamboo (100-200 kg/yr). For reforestation, fast-growing native species with long lifespans are ideal.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I offset my entire carbon footprint with trees? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Theoretically yes, but practically very difficult. Offsetting 16 tonnes requires 762+ trees maintained permanently. Tree planting is best used alongside direct emission reductions in driving, flying, diet, and home energy.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the best tree planting charity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Well-rated organizations: American Forests (verified US planting), One Tree Planted (global projects), Trees for the Future (agroforestry in Africa), Eden Reforestation Projects (employment + trees). Look for Gold Standard or VCS certification for verified carbon accounting.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/environment/carbon-footprint-calculator\"><span class=\"rc-icon\">🌿</span><span class=\"rc-name\">Carbon Footprint</span></a><a class=\"related-card\" href=\"/calculators/environment/solar-panel-calculator\"><span class=\"rc-icon\">☀️</span><span class=\"rc-name\">Solar Panel</span></a><a class=\"related-card\" href=\"/calculators/environment/water-usage-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Water Usage</span></a><a class=\"related-card\" href=\"/calculators/environment/energy-consumption-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Consumption</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Tree Planting Calculator – Offset Carbon with Trees</h2><div class=\"form-group\"><label for=\"tco2\">Annual Carbon Footprint (tonnes CO2)</label><input id=\"tco2\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"16\"/></div><div class=\"form-group\"><label for=\"tsp\">Tree Species</label><select id=\"tsp\"><option selected=\"\" value=\"21\">Average Mixed Forest (21 kg/yr)</option><option value=\"48\">Loblolly Pine (48 kg/yr)</option><option value=\"45\">Douglas Fir (45 kg/yr)</option><option value=\"35\">Sweetgum (35 kg/yr)</option><option value=\"22\">Oak (22 kg/yr)</option><option value=\"308\">Mangrove (308 kg/yr)</option></select></div><div class=\"form-group\"><label for=\"tsurvive\">Expected Tree Survival Rate (%)</label><input id=\"tsurvive\" max=\"100\" min=\"10\" type=\"number\" value=\"80\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ev-result').style.display='none';document.getElementById('ev-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ev-result\" style=\"display:none;\">\n<div id=\"ev-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ev-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"ev-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"ev-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ev\" onclick=\"printResult('ev-result','Tree Planting Calculator – Offset Carbon with Trees')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Tree Planting Calculator – Offset Carbon with Trees')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-tree-planting-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var co2=parseFloat(document.getElementById('tco2').value)||16;\n  var kgPerTree=parseFloat(document.getElementById('tsp').value)||21;\n  var surv=parseFloat(document.getElementById('tsurvive').value)||80;\n  var co2kg=co2*1000;\n  var treesIdeal=Math.ceil(co2kg/kgPerTree);\n  var treesActual=Math.ceil(treesIdeal/(surv/100));\n  var fullOffsetYears=20;\n  var cost10=treesActual*1;\n  var cost50=treesActual*5;\n  \n  var aiPrompt='Need '+treesActual+' trees to offset '+co2+' tonnes CO2/year at '+kgPerTree+'kg absorption/tree. Survival rate: '+surv+'%';\n  \n  document.getElementById('ev-ri').innerHTML=\n    ri('Trees Needed (ideal)','<strong style=\"font-size:26px;color:var(--c-accent)\">'+treesIdeal+' trees</strong>',true)+\n    ri('Trees to Plant (with '+surv+'% survival)',treesActual+' trees')+\n    ri('CO2 Offset per Year',co2.toFixed(1)+' tonnes ('+co2kg.toFixed(0)+' kg)')+\n    ri('Absorption per Tree',kgPerTree+' kg CO2/year')+\n    ri('Est. Planting Cost ($1/tree)','$'+cost10.toFixed(0)+' – $'+cost50.toFixed(0)+' ($1-5/tree range)')+\n    ri('Note','Trees take 10-20 years to reach full absorption. Reduce emissions first.');\n  \n  document.getElementById('ev-result').style.display='block';\n  document.getElementById('ev-actions').style.display='flex';\n  drawDonut('ev-chart',['Trees Needed','Survival Loss'],[treesIdeal,treesActual-treesIdeal],['#1a5c3a','#c84a4a']);\n  \n  var ai=document.getElementById('ev-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the environmental impact and one actionable tip.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/environment", label: "Environment" }}
+      title="Tree Planting Carbon Offset Calculator"
+      intro="Calculate the number of saplings and mature trees required to offset annual carbon dioxide (CO2) emissions. Model forest land area in acres, species sequestration rates, and 30-year carbon timelines."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                USFS FIA & IPCC AFOLU Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Silviculture Biomass Protocols</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Allometric Equations
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How Many Trees Must You Plant to Offset Your Carbon?
+                </strong>
+                <p className="mt-1">
+                  A mature temperate hardwood tree absorbs approximately 22 kilograms (48.5 lbs) of CO2 per year. Offsetting one metric ton (1,000 kg) of annual emissions requires 45 mature surviving trees. Factoring in an 80% sapling survival rate over early establishment years, you must plant roughly 57 saplings per metric ton. Offsetting an average American lifestyle (16 metric tons CO2e annually) requires planting approximately 910 saplings, establishing a thriving 728-tree forest stand across 1.8 to 2.1 acres of land.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>30-Year Cumulative Carbon Sequestration Growth Trajectories</h2>
+          <div className="not-prose my-6">
+            <TreePlantingCarbonSequestrationTimelineChart />
+          </div>
+
+          <p>
+            Biological carbon sequestration through afforestation (planting trees on land that has not supported forests in recent history) and reforestation (re-establishing tree cover on degraded or harvested forestland) constitutes the most scalable, cost-effective nature-based climate solution on Earth. Photosynthesis utilizes solar photon energy to split water molecules and capture atmospheric carbon dioxide, converting gaseous carbon into durable, solid organic polymers: cellulose, hemicellulose, and lignin.
+          </p>
+
+          <p>
+            Approximately 50% of the dry biomass of a tree&apos;s woody trunk, branches, and root systems consists of elemental carbon permanently removed from the atmosphere. Beyond carbon sequestration, establishing biodiverse forest ecosystems delivers profound co-benefits: stabilizing vulnerable watershed soils, filtering urban airborne particulates, recharging depleted groundwater aquifers, and providing essential habitat for threatened wildlife species.
+          </p>
+
+          <p>
+            To evaluate your household baseline emissions before designing an offset planting plan, cross-reference our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>. To examine how urban tree canopies capture airborne dust and lower localized particulate concentrations, explore our <Link href="/calculators/environment/air-quality-index-calculator">Air Quality Index Calculator</Link> and calculate water retention with our <Link href="/calculators/environment/water-usage-calculator">Water Usage Calculator</Link>.
+          </p>
+
+          <h2>Mathematical Principles of Allometric Tree Biomass & Carbon Accounting</h2>
+
+          <p>
+            Silviculturists estimate tree carbon storage using allometric biomass equations that relate measurable tree trunk diameter at breast height (DBH, measured 4.5 feet above ground) and total tree height to total above-ground and below-ground dry mass:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Mature Tree Annual Sequestration & Sapling Sizing Equations</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">N_mature = ceil(Target_CO2_kg / Species_kg_per_tree) | N_saplings = ceil(N_mature / Survival_Rate%)</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where E_target is annual target carbon emissions in metric tons CO2e; S_species is annual mature sequestration in kilograms per tree (typically 18 to 40 kg); and sigma_survival is the fractional seedling survival rate (typically 0.75 to 0.85).</div>
+          </Formula>
+
+          <p>
+            The required forestry land footprint and project capital investment are calculated as follows:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Forest Land Footprint & Capital Investment Formulas</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Forest_Acres = (N_saplings * Spacing_sqft) / 43,560 | Total_Cost = N_saplings * Seedling_Cost</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where d_spacing is inter-tree planting distance in feet (typically 8 to 10 feet); 43,560 is square feet per acre; and C_seedling is the turnkey cost per bare-root sapling including shelter tubes and planting labor.</div>
+          </Formula>
+
+          <h2>Sequestration Rates & Silvicultural Characteristics by Tree Species</h2>
+
+          <p>
+            The rate of carbon sequestration varies significantly depending on wood density, crown geometry, and growth kinetics. The following reference table presents values compiled from USFS Forest Inventory and Analysis (FIA) data:
+          </p>
+
+          <DataTable
+            head={["Tree Classification", "Representative Species", "Mature CO2 (kg/yr)", "Peak Growth Decades", "Wood Specific Gravity", "Key Ecological Strengths"]}
+            rows={[
+              ["Mixed Temperate Hardwood", "Sugar Maple, White Oak, American Beech", "22 kg CO2 / yr", "Years 20 to 60", "0.60 – 0.72 (High)", "Extreme longevity, high timber durability, deep fungal root networks"],
+              ["Fast-Growing Deciduous", "Hybrid Poplar, Black Willow, Paper Birch", "32 kg CO2 / yr", "Years 5 to 25", "0.35 – 0.45 (Low)", "Rapid early carbon capture, quick canopy closure, riparian soil stabilization"],
+              ["Long-Lived Native Oak", "Red Oak, Bur Oak, American Chestnut", "25 kg CO2 / yr", "Years 25 to 80", "0.68 – 0.75 (High)", "Resilient wildfire bark, high acorn mast for wildlife, massive root biomass"],
+              ["Coniferous Evergreen", "Douglas Fir, Eastern White Pine, Loblolly", "18 kg CO2 / yr", "Years 15 to 45", "0.42 – 0.52 (Medium)", "Year-round photosynthetic canopy, excellent winter windbreak, rapid softwood growth"],
+              ["Tropical Agroforestry", "Teak, Mahogany, Inga Edulis, Cacao shade", "40 kg CO2 / yr", "Years 5 to 30", "0.55 – 0.70 (Medium)", "Continuous 12-month equatorial growing season, rich biodiversity canopy layers"],
+            ]}
+          />
+
+          <p>
+            For evaluating acreage ratios and survival percentages across planting plots, consult our <Link href="/calculators/math/ratio-calculator">Ratio Calculator</Link> and <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
+          </p>
+
+          <h2>Understanding the Sigmoidal (S-Curve) Sequestration Timeline</h2>
+
+          <p>
+            A common mistake in offset calculations is assuming that a newly planted seedling absorbs 22 kg of CO2 in its very first year. Biological tree growth follows a classic logistic or sigmoidal curve:
+          </p>
+
+          <ul>
+            <li>
+              <strong>Establishment Phase (Years 1–4):</strong> Saplings focus biological energy on radical root elongation and mycorrhizal fungal symbiosis. Carbon absorption is modest, averaging 0.5 to 2.5 kg CO2 annually.
+            </li>
+            <li>
+              <strong>Exponential Pole & Sapling Phase (Years 5–15):</strong> Rapid lateral branch expansion and vertical height growth produce dense leafy crowns. Sequestration rates triple, absorbing 8 to 18 kg CO2 annually.
+            </li>
+            <li>
+              <strong>Mature Climax Phase (Years 16–45):</strong> Trunk diameter expands significantly. Heartwood density reaches peak mass accretion, absorbing 20 to 35 kg CO2 per year.
+            </li>
+            <li>
+              <strong>Old-Growth Equilibrium Phase (Years 60+):</strong> While annual growth increments slow, large mature trees store immense reservoirs of total accumulated carbon and maintain rich soil fungal carbon networks.
+            </li>
+          </ul>
+
+          <h2>The Critical Superiority of Mixed Native Hardwoods over Monocultures</h2>
+
+          <p>
+            Early commercial offset initiatives often planted dense monoculture plantations of non-native, fast-growing pines or eucalyptus. While rapid in early growth, monoculture stands are acutely vulnerable to catastrophic pest outbreaks (such as emerald ash borers or pine bark beetles) and carry extreme wildfire crown fire risks.
+          </p>
+
+          <p>
+            Modern conservation silviculture mandates planting biodiverse mixtures of native hardwood and understory species. Diverse root systems occupy distinct soil strata, fostering resilient fungal networks that transfer nutrients between trees and maximizing carbon storage permanence across centuries.
+          </p>
+
+          <h2>Soil Organic Carbon (SOC) & Riparian Buffer Zone Dynamics</h2>
+
+          <p>
+            An essential dimension of forest carbon dynamics is subterranean soil organic carbon (SOC). In temperate hardwood ecosystems, forest soils store between 40% and 50% of total carbon stocks in deep root exudates and fungal mycelium networks. When lands are reforested, soil microbial communities rebuild rapidly, locking away tons of carbon beneath the plow layer where it remains immune to surface wildfires.
+          </p>
+
+          <p>
+            Furthermore, establishing riparian forest buffers along streams prevents agricultural nutrient runoff from reaching waterways, stabilizing stream banks while creating vital wildlife movement corridors.
+          </p>
+
+          <p>
+            To investigate how reducing household resource waste complements biological forestry initiatives, consult our <Link href="/calculators/environment/recycling-savings-calculator">Recycling Savings Calculator</Link> and track residential electricity impacts with the <Link href="/calculators/environment/energy-consumption-calculator">Energy Consumption Calculator</Link>.
+          </p>
+        </>
+      }
+    >
+      <TreePlantingCalculator />
+    </CalcPage>
   );
 }

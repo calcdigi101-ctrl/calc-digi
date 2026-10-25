@@ -1,26 +1,222 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import EnergyConsumptionCalculator from "@/components/calcs/environment/energy-consumption-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { EnergyConsumptionByApplianceChart } from "@/components/flagship/environment/editorial-charts";
+
+const PATH = "/calculators/environment/energy-consumption-calculator";
+const TITLE = "Energy Consumption Calculator | Appliance Watts to kWh & Utility Bill Cost";
+const DESCRIPTION =
+  "Calculate electric appliance power consumption, convert watts to daily and annual kilowatt-hours (kWh), and estimate utility electricity costs based on runtime, duty cycles, and electric tariffs.";
 
 export const metadata: Metadata = {
-  "title": "Energy Consumption Calculator – Electricity Usage | CalcDigi",
-  "description": "Calculate electricity usage in kWh and cost for any appliance. Find annual costs and reduce your electricity bill.",
-  "openGraph": {
-    "title": "Energy Consumption Calculator – Electricity Usage | CalcDigi",
-    "description": "Calculate electricity usage in kWh and cost for any appliance. Find annual costs and reduce your electricity bill.",
-    "type": "website",
-    "url": "/calculators/environment/energy-consumption-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/environment/energy-consumption-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/environment/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar Offset" },
+  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
+  { href: "/calculators/environment/electric-vehicle-savings-calculator", icon: "⚡", name: "EV Charging Cost Calculator" },
+  { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Load Calculator" },
+  { href: "/calculators/engineering/heat-loss-calculator", icon: "🔥", name: "Home Heat Loss Sizing" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Utility Bill Budget Share" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the difference between Watts (power) and Kilowatt-Hours (energy)?",
+    a: "Watts (W) or kilowatts (kW, where 1 kW = 1,000 W) measure the instantaneous rate of electrical power consumption at any single moment. Kilowatt-hours (kWh) measure total electrical energy consumed over time. For example, running a 1,500-watt space heater continuously for two hours consumes: 1,500 W * 2 hours / 1,000 = 3.0 kilowatt-hours of electrical energy. Electric utility companies bill customers based on cumulative kWh consumed.",
+  },
+  {
+    q: "How much does one kilowatt-hour (kWh) of electricity cost in the United States?",
+    a: "According to the US Energy Information Administration (EIA), the national average residential electricity tariff is approximately $0.164 per kilowatt-hour. However, regional electric rates vary dramatically across the country: states like Louisiana and Idaho average $0.11 to $0.12/kWh, while California, Massachusetts, and Hawaii regularly exceed $0.28 to $0.42/kWh due to transmission maintenance and clean energy mandates.",
+  },
+  {
+    q: "What is an appliance duty cycle and why does it affect energy calculations?",
+    a: "A duty cycle is the percentage of time an appliance actively draws peak rated wattage during its operational cycle. Thermostatically controlled devices—such as refrigerators, air conditioners, heat pumps, and water heaters—do not run compressors continuously. A modern refrigerator might be plugged in for 24 hours per day, but its compressor only runs roughly 35% to 45% of that time, cycling on and off as interior temperatures dictate.",
+  },
+  {
+    q: "What constitutes 'phantom load' or vampire power in modern homes?",
+    a: "Phantom load refers to electrical standby power consumed by electronic devices while switched off or in sleep mode. Smart TVs, cable boxes, Wi-Fi routers, game consoles, microwave clocks, and smart speakers continuously draw between 1 and 25 watts to maintain network connectivity and clock displays. The Lawrence Berkeley National Laboratory estimates phantom loads account for 5% to 10% of total residential electric consumption.",
+  },
+  {
+    q: "Which household appliances consume the highest amount of electricity annually?",
+    a: "Thermal heating and cooling appliances dominate residential electric bills. Central air conditioning systems consume 2,500 to 4,500 kWh annually ($400–$750/yr), electric resistance water heaters consume 2,500 to 3,500 kWh ($400–$550/yr), clothes dryers consume 800 to 1,200 kWh ($130–$200/yr), and portable space heaters running 8 hours daily throughout winter consume 1,400 to 1,800 kWh ($220–$300/yr).",
+  },
+  {
+    q: "How do Energy Star certified appliances reduce electricity consumption?",
+    a: "Appliances bearing the EPA Energy Star label meet rigorous energy efficiency performance standards established by the Department of Energy. For instance, Energy Star refrigerators use advanced high-efficiency variable-speed compressors and enhanced vacuum polyurethane insulation, using 15% less energy than federal standards and over 40% less energy than units manufactured before 2005.",
+  },
+];
+
+export default function EnergyConsumptionPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Environment Calculators\", \"item\": \"https://calcdigi.com/pages/environment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Energy Consumption Calculator\", \"item\": \"https://calcdigi.com/calculators/environment/energy-consumption-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Energy Consumption Calculator\", \"url\": \"https://calcdigi.com/calculators/environment/energy-consumption-calculator\", \"description\": \"Calculate electricity usage in kWh and cost for any appliance. Find annual costs and reduce your electricity bill.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate kWh for an appliance?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"kWh = Watts x Hours / 1000. A 100W light bulb on for 10 hours uses 1 kWh. At $0.16/kWh, that costs $0.16. Annual cost = kWh per day x 365 x electricity rate.\"}}, {\"@type\": \"Question\", \"name\": \"What uses the most electricity in a home?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Heating and cooling: 48%. Water heating: 18%. Appliances: 14%. Lighting: 12%. Electronics: 4%. Air conditioning is usually the single largest electricity consumer in warm climates.\"}}, {\"@type\": \"Question\", \"name\": \"What is the average electricity bill in the US?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"About $137/month ($1,644/year) for a typical US household using 900 kWh/month at ~$0.16/kWh. This varies significantly by state: Hawaii averages $180/month; Louisiana $125/month.\"}}, {\"@type\": \"Question\", \"name\": \"How much electricity does an LED vs incandescent use?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"An LED bulb (10W) uses 83% less electricity than a 60W incandescent bulb for the same light output. Running 8 hours/day: LED costs $6/year vs $35/year for incandescent — saving $29/year per bulb.\"}}, {\"@type\": \"Question\", \"name\": \"What is a kilowatt-hour (kWh)?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The standard unit of electricity measurement. 1 kWh = 1,000 watts running for 1 hour. Examples: 10 x 100W light bulbs for 1 hour, or 1 x 1,000W microwave for 1 hour, or a 60W laptop for ~17 hours.\"}}, {\"@type\": \"Question\", \"name\": \"How can I reduce my electricity bill?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Switch to LED lighting (saves $225/yr), use a smart thermostat (saves $50-180/yr), run appliances on off-peak hours if TOU pricing, unplug vampire loads (save $100-200/yr), upgrade old refrigerator (save $200/yr), and consider solar panels.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/environment\">Environment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Energy Consumption Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Energy Consumption Calculator</h1>\n<p class=\"calc-intro\">Calculate energy consumption (kWh) and electricity cost for any household appliance. Find annual costs, compare energy-efficient alternatives, and identify the biggest opportunities to reduce your electricity bill.</p>\n<p class=\"calc-intro\">The average US household uses 900 kWh of electricity per month, costing about $137. Heating and cooling accounts for 48% of energy use, followed by water heating (18%), appliances (14%), and lighting (12%). Small efficiency improvements across multiple appliances can add up to hundreds of dollars in annual savings.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">kWh = Watts x Hours / 1000 | Daily Cost = kWh x Rate | Annual Cost = Daily Cost x 365 | CO2 = kWh x 0.386 kg</div></div>\n<div class=\"content-section\"><h2>Understanding Electricity Consumption and Costs</h2>\n<p>Energy consumption is measured in kilowatt-hours (kWh) — the amount of energy used by a 1,000-watt appliance running for one hour. Your electricity bill charges you per kWh at a rate that varies by location (US average: ~$0.16/kWh in 2024). Understanding each appliance's consumption helps you identify where your electricity dollars are going and where to focus efficiency improvements.</p>\n<p>The average US household electricity bill is $137/month ($1,644/year). Energy costs have risen 30% since 2020. Energy-efficient appliances, LED lighting, smart thermostats, and behavioral changes can cut electricity bills by 25-50% without sacrificing comfort.</p>\n<h3>Common Appliance Energy Consumption</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Appliance</th><th style=\"padding:10px 14px;text-align:left;\">Power</th><th style=\"padding:10px 14px;text-align:left;\">Annual Cost (at $0.16/kWh)</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Central AC (3-ton)</td><td style=\"padding:10px 14px;\">3,500 W</td><td style=\"padding:10px 14px;\">$1,344/yr (8hr/day, 6mo)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Electric water heater</td><td style=\"padding:10px 14px;\">4,500 W</td><td style=\"padding:10px 14px;\">$600-900/yr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Clothes dryer</td><td style=\"padding:10px 14px;\">5,000 W</td><td style=\"padding:10px 14px;\">$130/yr (avg use)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Refrigerator (new)</td><td style=\"padding:10px 14px;\">150 W</td><td style=\"padding:10px 14px;\">$210/yr (continuous)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Refrigerator (old 1990s)</td><td style=\"padding:10px 14px;\">400 W</td><td style=\"padding:10px 14px;\">$560/yr (continuous)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">LED bulb</td><td style=\"padding:10px 14px;\">10 W</td><td style=\"padding:10px 14px;\">$6/yr (8hr/day)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Incandescent bulb</td><td style=\"padding:10px 14px;\">60 W</td><td style=\"padding:10px 14px;\">$35/yr (8hr/day)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Gaming console</td><td style=\"padding:10px 14px;\">120-200 W</td><td style=\"padding:10px 14px;\">$65-110/yr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Electric vehicle charger</td><td style=\"padding:10px 14px;\">7,200 W</td><td style=\"padding:10px 14px;\">$700-900/yr</td></tr></tbody></table></div>\n<h3>Energy Star Savings</h3>\n<p>Energy Star certified appliances use 10-50% less energy than standard models. Savings examples: Energy Star refrigerator vs old model: $200-350/year savings. Energy Star dishwasher: saves 3,870 gallons of water and $40 in energy annually. Energy Star washing machine: saves $45/year in energy and $35 in water costs. Heat pump water heater vs electric resistance: saves $300-500/year. LED lighting vs incandescent: saves $225/year for a typical home. The payback period for energy-efficient appliances is typically 1-5 years.</p>\n<h3>Time-of-Use Electricity Pricing</h3>\n<p>Many utilities offer Time-of-Use (TOU) rates where electricity costs more during peak demand hours (typically 4-9 PM weekdays) and less during off-peak hours (nights, weekends). Shifting high-consumption tasks to off-peak hours — running dishwasher and laundry overnight, charging EV at night — can reduce electricity bills by 10-20% on TOU plans. Smart appliances and home energy management systems automate this optimization.</p></div>\n<div class=\"content-section\"><h3>About CalcDigi Environment Calculators</h3>\n<p>CalcDigi provides free, accurate environmental calculators using data from the EPA, IPCC, Department of Energy, and peer-reviewed research. All tools are updated regularly to reflect current emission factors, electricity rates, and scientific consensus. No registration required — all calculators are completely free to use.</p></div>\n<div class=\"content-section\"><h3>Data Sources and Accuracy</h3>\n<p>CalcDigi environmental calculators use emission factors, energy data, and environmental benchmarks from authoritative sources including the US Environmental Protection Agency (EPA), International Energy Agency (IEA), Intergovernmental Panel on Climate Change (IPCC), and the US Department of Energy. Calculations represent estimates based on typical conditions — actual results may vary based on local factors, specific equipment, and individual behavior patterns.</p>\n<h3>Taking Action on Results</h3>\n<p>Once you have your results, share them with family and friends to multiply your impact. Consider combining calculator results for a comprehensive picture of your total environmental footprint. CalcDigi offers free environmental calculators covering carbon footprint, solar panels, water usage, energy consumption, EV savings, recycling impact, air quality, and tree planting — all in one place with no registration required.</p></div>\n<div class=\"content-section\"><h3>Key Environmental Statistics</h3>\n<p>Global average carbon footprint: 4 tonnes CO2 per person per year. Average US household electricity use: 900 kWh per month. Average American water use: 80-100 gallons per day. US recycling rate: approximately 35% of total waste. EV adoption in the US reached 7.6% of new car sales in 2023. Global renewable energy capacity has grown 300% in the last decade, driven by dramatic cost reductions in solar and wind power.</p>\n<h3>Individual vs Systemic Change</h3>\n<p>Individual actions matter but systemic change is essential. Personal choices — diet, transportation, energy, and consumption — account for about 70% of global emissions when supply chains are included. At the same time, policy changes, infrastructure investment, and corporate accountability are needed to achieve the scale of transformation required. The most effective individual actions combine personal behavior change with civic engagement, supporting climate-positive businesses and policies.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate kWh for an appliance? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">kWh = Watts x Hours / 1000. A 100W light bulb on for 10 hours uses 1 kWh. At $0.16/kWh, that costs $0.16. Annual cost = kWh per day x 365 x electricity rate.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What uses the most electricity in a home? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Heating and cooling: 48%. Water heating: 18%. Appliances: 14%. Lighting: 12%. Electronics: 4%. Air conditioning is usually the single largest electricity consumer in warm climates.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the average electricity bill in the US? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">About $137/month ($1,644/year) for a typical US household using 900 kWh/month at ~$0.16/kWh. This varies significantly by state: Hawaii averages $180/month; Louisiana $125/month.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much electricity does an LED vs incandescent use? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">An LED bulb (10W) uses 83% less electricity than a 60W incandescent bulb for the same light output. Running 8 hours/day: LED costs $6/year vs $35/year for incandescent — saving $29/year per bulb.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a kilowatt-hour (kWh)? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The standard unit of electricity measurement. 1 kWh = 1,000 watts running for 1 hour. Examples: 10 x 100W light bulbs for 1 hour, or 1 x 1,000W microwave for 1 hour, or a 60W laptop for ~17 hours.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How can I reduce my electricity bill? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Switch to LED lighting (saves $225/yr), use a smart thermostat (saves $50-180/yr), run appliances on off-peak hours if TOU pricing, unplug vampire loads (save $100-200/yr), upgrade old refrigerator (save $200/yr), and consider solar panels.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/environment/carbon-footprint-calculator\"><span class=\"rc-icon\">🌱</span><span class=\"rc-name\">Carbon Footprint</span></a><a class=\"related-card\" href=\"/calculators/environment/solar-panel-calculator\"><span class=\"rc-icon\">☀️</span><span class=\"rc-name\">Solar Panel</span></a><a class=\"related-card\" href=\"/calculators/environment/water-usage-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Water Usage</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Energy Consumption Calculator – kWh and Electricity Cost</h2>\n<div class=\"form-group\"><label for=\"ew\">Appliance Power (Watts)</label><input id=\"ew\" min=\"1\" type=\"number\" value=\"1500\"/></div><div class=\"form-group\"><label for=\"eh\">Hours Used per Day</label><input id=\"eh\" min=\"0.1\" step=\"0.5\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"erate\">Electricity Rate ($/kWh)</label><input id=\"erate\" min=\"0.01\" step=\"0.01\" type=\"number\" value=\"0.16\"/></div><div class=\"form-group\"><label for=\"ecount\">Number of Appliances</label><input id=\"ecount\" min=\"1\" type=\"number\" value=\"1\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ev-result').style.display='none';document.getElementById('ev-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ev-result\" style=\"display:none;\">\n<div id=\"ev-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ev-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"ev-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"ev-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ev\" onclick=\"printResult('ev-result','Energy Consumption Calculator – kWh and Electricity Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Energy Consumption Calculator – kWh and Electricity Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-energy-consumption-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var w=parseFloat(document.getElementById('ew').value)||0;\n  var h=parseFloat(document.getElementById('eh').value)||0;\n  var rate=parseFloat(document.getElementById('erate').value)||0.16;\n  var n=parseFloat(document.getElementById('ecount').value)||1;\n  \n  var dailyKWh=w*h/1000*n;\n  var monthKWh=dailyKWh*30;\n  var annualKWh=dailyKWh*365;\n  var dailyCost=dailyKWh*rate;\n  var monthCost=monthKWh*rate;\n  var annualCost=annualKWh*rate;\n  var co2=annualKWh*0.386;\n  \n  var aiPrompt='Appliance: '+w+'W, '+h+'hrs/day, '+n+' units. Daily: '+dailyKWh.toFixed(3)+' kWh ($'+dailyCost.toFixed(3)+'), Annual: '+annualKWh.toFixed(0)+' kWh ($'+annualCost.toFixed(2)+')';\n  \n  document.getElementById('ev-ri').innerHTML=\n    ri('Daily Usage','<strong style=\"font-size:26px;color:var(--c-accent)\">'+dailyKWh.toFixed(3)+' kWh</strong>',true)+\n    ri('Daily Cost','$'+dailyCost.toFixed(3))+\n    ri('Monthly Usage',monthKWh.toFixed(1)+' kWh')+\n    ri('Monthly Cost','$'+monthCost.toFixed(2))+\n    ri('Annual Usage',annualKWh.toFixed(0)+' kWh')+\n    ri('Annual Cost','$'+annualCost.toFixed(2))+\n    ri('CO2 Emissions',co2.toFixed(1)+' kg CO2/year');\n  \n  document.getElementById('ev-result').style.display='block';\n  document.getElementById('ev-actions').style.display='flex';\n  drawDonut('ev-chart',['Daily kWh x100','Monthly Cost x10','Annual Cost'],[Math.round(dailyKWh*100)||1,Math.round(monthCost*10)||1,Math.round(annualCost)||1],['#1a5c3a','#c8832a','#3a7abf']);\n  \n  var ai=document.getElementById('ev-ai');\n  ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the environmental significance and what action this person can take.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/environment", label: "Environment" }}
+      title="Energy Consumption Calculator"
+      intro="Calculate electric appliance power consumption, convert watts to daily and annual kilowatt-hours (kWh), and estimate utility electricity costs based on runtime, duty cycles, and electric tariffs."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                US EIA RECS & DOE Energy Star Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>IEEE Power Standards</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Tariff Modeling
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How Do You Calculate Appliance Energy Usage and Cost?
+                </strong>
+                <p className="mt-1">
+                  To calculate an appliance&apos;s electrical energy consumption, multiply its rated power in watts (W) by daily operating hours, multiply by the active compressor duty cycle percentage, and divide by 1,000 to convert to kilowatt-hours (kWh): Daily kWh = (Watts * Hours * Duty%) / 1,000. Multiplying daily kWh by your local utility electricity tariff ($/kWh) yields daily operating cost. Multiplying by 365 gives your annual utility bill impact. For example, a 1,500W space heater running 8 hours/day at 100% duty cycle uses 12.0 kWh daily, costing $1.92 per day or $57.60 monthly at $0.16/kWh.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>Household Appliance Energy Usage & Annual Electricity Cost</h2>
+          <div className="not-prose my-6">
+            <EnergyConsumptionByApplianceChart />
+          </div>
+
+          <p>
+            Understanding electrical energy consumption is the foundational step toward reducing utility expenses and curbing household greenhouse gas emissions. In modern homes, electricity powers everything from life-safety environmental conditioning (heating and cooling) to refrigeration, food preparation, entertainment, computing, and personal vehicle transportation.
+          </p>
+
+          <p>
+            However, because electrical power is invisible and delivered continuously on demand through wall receptacles, most consumers have little intuitive understanding of how much individual devices cost to operate. A tiny 9-watt LED bulb left illuminated all night costs mere pennies per month, whereas an unnoticed 1,500-watt ceramic space heater operating in a cold basement can add over $60 to a single monthly electric bill.
+          </p>
+
+          <p>
+            To evaluate how generating your own clean power offsets these appliance loads, cross-reference our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link>. For sizing home heating capacity or evaluating whole-home electrical breaker panel demand, explore our <Link href="/calculators/engineering/electrical-load-calculator">Electrical Load Calculator</Link> and <Link href="/calculators/engineering/heat-loss-calculator">Home Heat Loss Sizing Calculator</Link>.
+          </p>
+
+          <h2>Mathematical Principles of Electrical Energy & Cost Calculations</h2>
+
+          <p>
+            Electrical energy accounting is rooted in fundamental physical principles. Power represents the instantaneous rate of energy transfer, defined in watts (where 1 watt equals 1 joule of energy per second):
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Appliance Energy Consumption Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Daily_kWh = [ (Watts * Hours * Duty_Cycle%) / 1,000 ] * Quantity</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where P_watts is the nameplate power rating in watts; t_hours is daily operating time; delta_duty is the active fractional compressor duty cycle (between 0.10 and 1.0); and N_units is the number of identical devices.</div>
+          </Formula>
+
+          <p>
+            Once daily kilowatt-hours are established, utility bill expenditure and annual grid emissions are derived via linear rate multiplication:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Monthly Cost & Annual Carbon Footprint Formulas</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Monthly_Cost = Daily_kWh * 30.42 * Electric_Tariff | Annual_CO2_kg = (Daily_kWh * 365) * 0.386</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where R_rate is the retail electric utility tariff in dollars per kilowatt-hour; 30.42 represents the average days in a calendar month; and 0.386 is the EPA national grid average carbon intensity in kilograms of CO2e per kWh.</div>
+          </Formula>
+
+          <h2>Appliance Power Rating Benchmarks & Typical Annual Consumption</h2>
+
+          <p>
+            The following authoritative reference table provides standard power ratings, typical daily duty cycles, and average annual utility costs compiled from the US Department of Energy:
+          </p>
+
+          <DataTable
+            head={["Appliance / Device", "Rated Power (Watts)", "Average Daily Run Time", "Duty Cycle %", "Annual Energy (kWh)", "Annual Cost ($0.16/kWh)"]}
+            rows={[
+              ["Central Air Conditioner (3-Ton)", "3,500 W", "8 hours / day (summer)", "65% cycling", "3,640 kWh", "$582.40 / yr"],
+              ["Electric Water Heater (50-Gal)", "4,500 W", "3 hours / day", "80% cycling", "3,150 kWh", "$504.00 / yr"],
+              ["Portable Space Heater", "1,500 W", "8 hours / day (winter)", "100% full draw", "1,440 kWh", "$230.40 / yr"],
+              ["Clothes Dryer (Electric)", "3,000 W", "1 hour / day (5 loads/wk)", "90% cycling", "985 kWh", "$157.60 / yr"],
+              ["Energy Star Refrigerator", "180 W", "24 hours / day", "40% cycling", "630 kWh", "$100.80 / yr"],
+              ["Gaming Desktop Rig + Dual Monitors", "550 W", "5 hours / day", "85% load", "853 kWh", "$136.48 / yr"],
+              ["Modern Dishwasher (Heated Dry)", "1,200 W", "1.2 hours / run", "75% cycling", "394 kWh", "$63.04 / yr"],
+              ["Whole-Home LED Lighting (10 Bulbs)", "90 W (combined)", "6 hours / day", "100% draw", "197 kWh", "$31.52 / yr"],
+            ]}
+          />
+
+          <p>
+            For evaluating budget allocation shares across appliance classes, see our <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link> and assess household carbon contributions with the <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>.
+          </p>
+
+          <h2>Understanding Duty Cycles: Resistive vs. Inductive Cycling Loads</h2>
+
+          <p>
+            A common point of confusion when computing energy consumption involves the difference between purely resistive electrical loads and thermostatically cycled inductive motor loads:
+          </p>
+
+          <ul>
+            <li>
+              <strong>Purely Resistive Loads (100% Duty Cycle):</strong> Space heaters, hair dryers, toasters, and incandescent filaments convert electrical current directly into heat via Ohm&apos;s law resistance (P = I^2 * R). When switched on, they draw their full nameplate wattage continuously until physically switched off.
+            </li>
+            <li>
+              <strong>Thermostatically Cycled Compressor Loads (35%–70% Duty Cycle):</strong> Air conditioners, heat pumps, freezers, and water heaters are governed by temperature setpoints. When the setpoint is reached, the compressor shuts down while low-power sensors remain idle. Calculating energy based on 24 hours of peak wattage would over-estimate consumption by two to three times.
+            </li>
+            <li>
+              <strong>Variable-Speed Inverter Motors:</strong> Modern inverter heat pumps and refrigerators modulate compressor speed continuously between 20% and 100% capacity rather than cycling violently on and off, saving up to 30% in seasonal energy consumption.
+            </li>
+          </ul>
+
+          <h2>Mitigating Vampire Power & Standby Electric Waste</h2>
+
+          <p>
+            Standby power, often termed &apos;vampire draw,&apos; represents continuous low-wattage leakage across consumer electronics. While an individual device drawing 4 watts seems inconsequential, 25 interconnected smart devices drawing an average of 4 watts each continuously consume 100 watts around the clock. Over one full year, that unnoticed leakage totals 876 kWh—costing over $140 on utility bills.
+          </p>
+
+          <p>
+            Deploying smart power strips with master-controlled outlets, setting computers to sleep mode after 15 minutes of inactivity, and unplugging secondary basement entertainment centers eliminates over 90% of standby electric waste.
+          </p>
+
+          <h2>Time-of-Use (TOU) Rate Structures & Peak Demand Shifting</h2>
+
+          <p>
+            An increasing number of electrical utility providers have migrated customers from flat-rate kilowatt-hour pricing to dynamic Time-of-Use (TOU) tariffs. Under TOU structures, electricity consumed during high-demand afternoon hours (typically 4:00 PM to 9:00 PM on weekdays) carries a premium rate up to three times higher than baseline off-peak overnight rates.
+          </p>
+
+          <p>
+            By utilizing programmable delay timers on energy-intensive appliances—running electric dishwashers, clothes dryers, and pool circulation pumps after 10:00 PM—households can reduce annual electric utility expenses by 25% to 40% without reducing their actual kilowatt-hour consumption.
+          </p>
+
+          <p>
+            To examine how pairing energy efficiency with rooftop photovoltaic generation can create a net-zero home, consult our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link> and evaluate home conservation benefits with the <Link href="/calculators/environment/water-usage-calculator">Water Usage Calculator</Link>.
+          </p>
+        </>
+      }
+    >
+      <EnergyConsumptionCalculator />
+    </CalcPage>
   );
 }

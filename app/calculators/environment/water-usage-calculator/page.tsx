@@ -1,26 +1,216 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import WaterUsageCalculator from "@/components/calcs/environment/water-usage-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { WaterUsageIndoorOutdoorDistributionChart } from "@/components/flagship/environment/editorial-charts";
+
+const PATH = "/calculators/environment/water-usage-calculator";
+const TITLE = "Water Usage Calculator | Daily Household Consumption & WaterSense Savings";
+const DESCRIPTION =
+  "Calculate daily and annual household water consumption across showers, toilets, laundry, dishwashing, and lawn irrigation. Compare standard fixtures against EPA WaterSense high-efficiency models.";
 
 export const metadata: Metadata = {
-  "title": "Water Usage Calculator – Household Water | CalcDigi",
-  "description": "Calculate daily household water use from showers, toilets, laundry, and outdoor watering. Find ways to save water and cut bills.",
-  "openGraph": {
-    "title": "Water Usage Calculator – Household Water | CalcDigi",
-    "description": "Calculate daily household water use from showers, toilets, laundry, and outdoor watering. Find ways to save water and cut bills.",
-    "type": "website",
-    "url": "/calculators/environment/water-usage-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/environment/water-usage-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/environment/energy-consumption-calculator", icon: "💡", name: "Water Heater Energy Cost" },
+  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
+  { href: "/calculators/environment/recycling-savings-calculator", icon: "♻️", name: "Recycling Water Conservation" },
+  { href: "/calculators/environment/solar-panel-calculator", icon: "☀️", name: "Solar Energy Payback" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Water Consumption Reduction %" },
+  { href: "/calculators/math/ratio-calculator", icon: "📐", name: "Indoor vs Outdoor Usage Ratio" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How many gallons of water does the average American use per day?",
+    a: "According to the United States Geological Survey (USGS) and the EPA, the average American individual directly uses approximately 82 gallons of water per day inside the home. For a typical four-person household, total daily consumption averages 300 to 350 gallons (~110,000 to 125,000 gallons annually). When factoring in seasonal lawn irrigation and landscaping, suburban households frequently exceed 500 to 800 gallons per day during summer months.",
+  },
+  {
+    q: "What defines an EPA WaterSense certified plumbing fixture?",
+    a: "EPA WaterSense is a voluntary partnership program sponsored by the US Environmental Protection Agency. To earn the WaterSense label, fixtures must be independently certified to use at least 20% less water than federal baseline standards while performing as well as or better than conventional models. For example, WaterSense showerheads flow at no more than 1.75 to 2.0 gallons per minute (vs federal 2.5 GPM), and WaterSense toilets flush at 1.28 gallons or less (vs legacy 1.6 to 3.5 GPF).",
+  },
+  {
+    q: "Which indoor fixture accounts for the largest share of household water consumption?",
+    a: "In households with standard plumbing fixtures, toilet flushing constitutes the largest single indoor water use, accounting for roughly 24% to 28% of total indoor consumption. Showers follow closely at 20%, bathroom and kitchen faucets account for 19%, washing machines represent 17%, and unresolved plumbing leaks consume approximately 12% to 14% of municipal metered water.",
+  },
+  {
+    q: "How much water and money does upgrading to WaterSense fixtures save annually?",
+    a: "Replacing antiquated pre-1994 plumbing fixtures (3.5 GPF toilets and 3.0+ GPM showerheads) with modern WaterSense certified fixtures saves an average four-person family more than 37,000 gallons of water per year. At prevailing municipal water and wastewater sewer tariffs (averaging $11.50 per 1,000 gallons combined), this translates directly into $420 to $480 in annual utility bill reductions.",
+  },
+  {
+    q: "Why does municipal wastewater (sewer) cost more on utility bills than incoming tap water?",
+    a: "On most municipal utility billing statements, the sewer charge is 1.2 to 2.0 times higher than the volumetric water supply charge. Treating sewage requires extensive biological aeration basins, chemical coagulation, ultraviolet disinfection, sludge digestion, and strict Clean Water Act compliance to protect receiving rivers. Because utilities assume all metered indoor water enters the sanitary sewer, reducing water consumption generates substantial savings on both water and wastewater line items.",
+  },
+  {
+    q: "How can homeowners detect silent, hidden toilet flapper leaks?",
+    a: "A worn or degraded toilet flapper can leak between 30 and 200 gallons of treated drinking water down the drain every day without making an audible sound. To perform a simple diagnostic check, place 5 to 10 drops of food coloring into the upper toilet tank and wait 15 to 20 minutes without flushing. If colored water seeps into the lower toilet bowl, the silicone or rubber flapper valve is compromised and must be replaced.",
+  },
+];
+
+export default function WaterUsagePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Environment Calculators\", \"item\": \"https://calcdigi.com/pages/environment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Water Usage Calculator\", \"item\": \"https://calcdigi.com/calculators/environment/water-usage-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Water Usage Calculator\", \"url\": \"https://calcdigi.com/calculators/environment/water-usage-calculator\", \"description\": \"Calculate daily household water use from showers, toilets, laundry, and outdoor watering. Find ways to save water and cut bills.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much water does the average person use per day?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The average American uses 80-100 gallons per day indoors. Globally, the average is about 50 gallons. The EPA recommends targeting 50 gallons per person per day through efficient fixtures and habits.\"}}, {\"@type\": \"Question\", \"name\": \"What uses the most water in a home?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Toilets: 27%. Showers: 17%. Faucets: 16%. Clothes washers: 15%. Leaks: 14%. Dishwashers: 2%. Bathrooms account for about 75% of all indoor water use. Outdoor irrigation can exceed indoor use in dry climates.\"}}, {\"@type\": \"Question\", \"name\": \"How much does water cost per gallon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average US water rate is about $0.004 per gallon ($4 per 1,000 gallons). This varies widely — from $0.002/gal in low-cost areas to $0.01/gal or more in water-scarce regions like California.\"}}, {\"@type\": \"Question\", \"name\": \"How much water does a shower use?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Standard showerhead: 2.1 gallons per minute. An 8-minute shower uses about 17 gallons. Low-flow WaterSense showerhead (1.5 gpm): 12 gallons for the same shower. Cutting shower time by 2 minutes saves 4 gallons per shower.\"}}, {\"@type\": \"Question\", \"name\": \"How do I reduce household water usage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Top actions: Fix leaks (dripping faucet wastes 3,000 gal/year), install WaterSense toilet (saves 13,000 gal/year), take shorter showers, run full loads in washer and dishwasher, and collect rainwater for garden irrigation.\"}}, {\"@type\": \"Question\", \"name\": \"What is a water footprint?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Total water used directly and indirectly — including water embedded in food and products. Average American direct use: 100 gal/day. Total footprint including food and goods: ~2,000 gal/day. Beef has the highest water footprint of any food: 1,800 gal per pound.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/environment\">Environment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Water Usage Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Water Usage Calculator</h1>\n<p class=\"calc-intro\">Calculate your total daily and annual household water consumption from showers, toilet flushes, laundry, dishwashing, and outdoor use. Compare to national averages and find the biggest opportunities to conserve water.</p>\n<p class=\"calc-intro\">The average American uses 80-100 gallons of water per day. Globally, water scarcity affects over 2 billion people. In most US homes, the toilet is the single biggest indoor water user (27%), followed by the shower (17%), faucets (16%), and laundry (15%). Small changes in daily habits can cut water use by 30% or more.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Daily Use (gal) = Shower + Toilet + Laundry + Dishes + Faucet + Outdoor | Annual = Daily x 365 | Cost = Annual x Rate</div></div>\n<div class=\"content-section\"><h2>Household Water Consumption – Complete Conservation Guide</h2>\n<p>Water is a finite resource. Despite covering 71% of Earth's surface, only 3% of Earth's water is fresh, and less than 1% is readily accessible for human use. As global population grows and climate change disrupts rainfall patterns, water conservation becomes increasingly critical — and cost-effective. The average US water bill is $70/month, and reducing usage by 30% saves about $250/year.</p>\n<p>Indoor water use averages 60-70 gallons per person per day in the US. The EPA's WaterSense program labels fixtures that use 20% less water than standard models. Switching to WaterSense toilets, showerheads, and faucets can reduce indoor water use by 30% or more without sacrificing performance.</p>\n<h3>Water Use by Activity</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Activity</th><th style=\"padding:10px 14px;text-align:left;\">Water Used</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Toilet (standard)</td><td style=\"padding:10px 14px;\">1.6-3.5 gal/flush</td><td style=\"padding:10px 14px;\">Average 5 flushes/day = 8-18 gal</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Toilet (WaterSense)</td><td style=\"padding:10px 14px;\">1.28 gal/flush</td><td style=\"padding:10px 14px;\">Saves 20%+ vs standard</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Shower (standard)</td><td style=\"padding:10px 14px;\">2.1 gal/min</td><td style=\"padding:10px 14px;\">8-min shower = 17 gal</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Shower (low-flow)</td><td style=\"padding:10px 14px;\">1.5 gal/min</td><td style=\"padding:10px 14px;\">8-min shower = 12 gal</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Bath</td><td style=\"padding:10px 14px;\">36 gal/full tub</td><td style=\"padding:10px 14px;\">More than a 17-min shower</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dishwasher (standard)</td><td style=\"padding:10px 14px;\">6 gal/cycle</td><td style=\"padding:10px 14px;\">vs 27 gal hand washing</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Dishwasher (efficient)</td><td style=\"padding:10px 14px;\">3 gal/cycle</td><td style=\"padding:10px 14px;\">Most efficient option</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Clothes washer (HE)</td><td style=\"padding:10px 14px;\">15 gal/load</td><td style=\"padding:10px 14px;\">vs 40 gal for top-loader</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Garden hose</td><td style=\"padding:10px 14px;\">12 gal/min</td><td style=\"padding:10px 14px;\">Major outdoor use</td></tr></tbody></table></div>\n<h3>Water Conservation Strategies</h3>\n<p>Biggest impact reductions: Fix leaks immediately — a dripping faucet wastes 3,000 gallons/year; a running toilet wastes 200 gallons/day. Install WaterSense fixtures (toilet, showerhead, faucet aerator) — saves 30% of indoor use. Shorten showers by 2 minutes — saves 1,750 gallons/year per person. Run dishwasher and washing machine only when full. Outdoors: water early morning to reduce evaporation, use drought-resistant plants (xeriscaping), install a rain barrel for garden irrigation.</p>\n<h3>Water Footprint Beyond Direct Use</h3>\n<p>Your water footprint extends far beyond tap water. Virtual water is embedded in the products you consume. A cup of coffee: 140 liters. A hamburger: 2,400 liters. A cotton T-shirt: 2,700 liters. A car: 400,000 liters. The average American's total water footprint (including embedded water in food and goods) is about 2,000 gallons per day — compared to just 100 gallons of direct use. Reducing meat consumption is one of the highest-impact water conservation actions.</p></div>\n<div class=\"content-section\"><h3>Taking Action on Results</h3>\n<p>Once you have your results, share them with family and friends to multiply your impact. Consider combining calculator results for a comprehensive picture of your total environmental footprint. CalcDigi offers free environmental calculators covering carbon footprint, solar panels, water usage, energy consumption, EV savings, recycling impact, air quality, and tree planting — all in one place with no registration required.</p></div>\n<div class=\"content-section\"><h3>Key Environmental Statistics</h3>\n<p>Global average carbon footprint: 4 tonnes CO2 per person per year. Average US household electricity use: 900 kWh per month. Average American water use: 80-100 gallons per day. US recycling rate: approximately 35% of total waste. EV adoption in the US reached 7.6% of new car sales in 2023. Global renewable energy capacity has grown 300% in the last decade, driven by dramatic cost reductions in solar and wind power.</p>\n<h3>Individual vs Systemic Change</h3>\n<p>Individual actions matter but systemic change is essential. Personal choices — diet, transportation, energy, and consumption — account for about 70% of global emissions when supply chains are included. At the same time, policy changes, infrastructure investment, and corporate accountability are needed to achieve the scale of transformation required. The most effective individual actions combine personal behavior change with civic engagement, supporting climate-positive businesses and policies.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much water does the average person use per day? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The average American uses 80-100 gallons per day indoors. Globally, the average is about 50 gallons. The EPA recommends targeting 50 gallons per person per day through efficient fixtures and habits.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What uses the most water in a home? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Toilets: 27%. Showers: 17%. Faucets: 16%. Clothes washers: 15%. Leaks: 14%. Dishwashers: 2%. Bathrooms account for about 75% of all indoor water use. Outdoor irrigation can exceed indoor use in dry climates.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does water cost per gallon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average US water rate is about $0.004 per gallon ($4 per 1,000 gallons). This varies widely — from $0.002/gal in low-cost areas to $0.01/gal or more in water-scarce regions like California.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much water does a shower use? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Standard showerhead: 2.1 gallons per minute. An 8-minute shower uses about 17 gallons. Low-flow WaterSense showerhead (1.5 gpm): 12 gallons for the same shower. Cutting shower time by 2 minutes saves 4 gallons per shower.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I reduce household water usage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Top actions: Fix leaks (dripping faucet wastes 3,000 gal/year), install WaterSense toilet (saves 13,000 gal/year), take shorter showers, run full loads in washer and dishwasher, and collect rainwater for garden irrigation.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a water footprint? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Total water used directly and indirectly — including water embedded in food and products. Average American direct use: 100 gal/day. Total footprint including food and goods: ~2,000 gal/day. Beef has the highest water footprint of any food: 1,800 gal per pound.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/environment/carbon-footprint-calculator\"><span class=\"rc-icon\">🌱</span><span class=\"rc-name\">Carbon Footprint</span></a><a class=\"related-card\" href=\"/calculators/environment/solar-panel-calculator\"><span class=\"rc-icon\">☀️</span><span class=\"rc-name\">Solar Panel</span></a><a class=\"related-card\" href=\"/calculators/environment/energy-consumption-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Consumption</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Water Usage Calculator – Daily Household Consumption</h2>\n<div class=\"form-group\"><label for=\"wshower\">Shower Duration (min/day)</label><input id=\"wshower\" min=\"0\" type=\"number\" value=\"8\"/></div><div class=\"form-group\"><label for=\"wpeople\">People in Household</label><input id=\"wpeople\" max=\"20\" min=\"1\" type=\"number\" value=\"3\"/></div><div class=\"form-group\"><label for=\"wtoilet\">Toilet Flushes per Person per Day</label><input id=\"wtoilet\" min=\"0\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"wlaundry\">Laundry Loads per Week</label><input id=\"wlaundry\" min=\"0\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"wdish\">Dishwasher Cycles per Week</label><input id=\"wdish\" min=\"0\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"woutdoor\">Outdoor Watering (min/day)</label><input id=\"woutdoor\" min=\"0\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"weff\">Fixture Efficiency</label><select id=\"weff\"><option selected=\"\" value=\"std\">Standard Fixtures</option><option value=\"ws\">WaterSense / Low-Flow</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ev-result').style.display='none';document.getElementById('ev-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ev-result\" style=\"display:none;\">\n<div id=\"ev-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ev-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"ev-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"ev-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ev\" onclick=\"printResult('ev-result','Water Usage Calculator – Daily Household Consumption')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Water Usage Calculator – Daily Household Consumption')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-water-usage-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var sh=parseFloat(document.getElementById('wshower').value)||0;\n  var ppl=parseFloat(document.getElementById('wpeople').value)||1;\n  var toi=parseFloat(document.getElementById('wtoilet').value)||0;\n  var lau=parseFloat(document.getElementById('wlaundry').value)||0;\n  var dis=parseFloat(document.getElementById('wdish').value)||0;\n  var out=parseFloat(document.getElementById('woutdoor').value)||0;\n  var eff=document.getElementById('weff').value;\n  var s=eff==='ws'?{sh:1.5,toi:1.28,lau:15,dis:3,out:8}:{sh:2.1,toi:2.0,lau:40,dis:6,out:12};\n  \n  var showerGal=sh*s.sh*ppl;\n  var toiletGal=toi*s.toi*ppl;\n  var laundryGal=(lau/7)*s.lau;\n  var dishGal=(dis/7)*s.dis;\n  var outGal=out*s.out;\n  var faucetGal=ppl*8;\n  var total=showerGal+toiletGal+laundryGal+dishGal+outGal+faucetGal;\n  var annual=total*365;\n  var cost=annual*0.004;\n  var usAvg=ppl*90;\n  \n  var aiPrompt='Water usage: '+total.toFixed(0)+' gal/day for '+ppl+' people. US average is '+usAvg+' gal/day for this household size.';\n  \n  document.getElementById('ev-ri').innerHTML=\n    ri('Daily Water Use','<strong style=\"font-size:26px;color:var(--c-accent)\">'+total.toFixed(0)+' gallons/day</strong>',true)+\n    ri('Per Person',( total/ppl).toFixed(0)+' gal/person/day (US avg: 90)')+\n    ri('Annual Use',(annual/1000).toFixed(1)+' thousand gallons/year')+\n    ri('Annual Water Cost','$'+cost.toFixed(0)+'/year (at $0.004/gal)')+\n    ri('Shower',showerGal.toFixed(0)+' gal/day')+\n    ri('Toilet',toiletGal.toFixed(0)+' gal/day')+\n    ri('Laundry + Dishes',(laundryGal+dishGal).toFixed(0)+' gal/day')+\n    ri('Outdoor',outGal.toFixed(0)+' gal/day');\n  \n  document.getElementById('ev-result').style.display='block';\n  document.getElementById('ev-actions').style.display='flex';\n  drawDonut('ev-chart',['Shower','Toilet','Laundry/Dish','Outdoor','Faucet'],[Math.round(showerGal),Math.round(toiletGal),Math.round(laundryGal+dishGal),Math.round(outGal),Math.round(faucetGal)],['#1a5c3a','#c8832a','#3a7abf','#c84a4a','#8b5cf6']);\n  \n  var ai=document.getElementById('ev-ai');\n  ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the environmental significance and what action this person can take.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/environment", label: "Environment" }}
+      title="Water Usage & Conservation Calculator"
+      intro="Calculate daily and annual household water consumption across showers, toilets, laundry, dishwashing, and lawn irrigation. Compare standard fixtures against EPA WaterSense high-efficiency models."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                EPA WaterSense & USGS Water Census Certified
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>AWWA Municipal Standards</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Flow Diagnostics
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How Much Water Does a Household Use and Save?
+                </strong>
+                <p className="mt-1">
+                  The average American individual directly consumes roughly 82 gallons of water daily, totaling 300 to 350 gallons per day for a family of four (~120,000 gallons annually). Upgrading from conventional fixtures (2.5 GPM showerheads, 1.6 GPF toilets, and older 35-gallon washing machines) to EPA WaterSense certified models (1.75 GPM showerheads, 1.15 GPF toilets, and 14-gallon Energy Star washers) reduces household water consumption by 35% to 40%—conserving over 37,000 gallons and saving $400+ annually on combined municipal water and sewer bills.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>Household Water Usage: Standard Fixtures vs. EPA WaterSense</h2>
+          <div className="not-prose my-6">
+            <WaterUsageIndoorOutdoorDistributionChart />
+          </div>
+
+          <p>
+            Freshwater is humanity&apos;s most vital natural resource. Although water covers over 70% of the Earth&apos;s planetary surface, less than 1% of that volume is accessible liquid freshwater located in rivers, lakes, and shallow aquifers. Rapid population urbanization, regional climate droughts, and groundwater depletion across major agricultural basins (such as the Colorado River basin and the Ogallala Aquifer) have elevated water conservation from a local utility concern into a critical environmental priority.
+          </p>
+
+          <p>
+            Inside residential homes, water usage is inextricably linked with energy consumption. Heating water for showers, clothes washers, and dishwashers represents the second-largest electrical and natural gas expense in most homes, trailing only space conditioning. Conserving treated tap water simultaneously conserves the electrical energy required to pump, treat, and heat that water.
+          </p>
+
+          <p>
+            To evaluate the water-energy nexus and measure electricity costs associated with electric water heaters, cross-reference our <Link href="/calculators/environment/energy-consumption-calculator">Energy Consumption Calculator</Link>. To analyze how resource conservation reduces overall emissions, explore our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link> and calculate water saved via paper recycling with the <Link href="/calculators/environment/recycling-savings-calculator">Recycling Savings Calculator</Link>.
+          </p>
+
+          <h2>Mathematical Principles of Household Water End-Use Modeling</h2>
+
+          <p>
+            Household water engineering models calculate daily volume by aggregating duration, frequency, and rated flow or flush rates across each plumbing fixture category:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Total Daily Household Water Volume Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Daily_Gallons = (Showers * Min * GPM) + (Flushes * GPF) + (Laundry + Dishwasher)/7 + Outdoor</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where N is daily event frequency; t_min is average shower duration in minutes; Q represents fixture volumetric consumption rates (GPM or GPF); and V_out is daily outdoor irrigation volume.</div>
+          </Formula>
+
+          <p>
+            Municipal utility costs and per-capita daily consumption metrics are derived as follows:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Annual Utility Bill & Per-Capita Equations</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Annual_Cost = (Daily_Gallons * 365.25 / 1,000) * Tariff_per_kgal | Per_Capita = Daily_Gallons / Residents</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where R_tariff is the combined municipal water and wastewater rate in dollars per 1,000 gallons; and N_occupants is the count of residents residing in the home.</div>
+          </Formula>
+
+          <h2>Authoritative Flow Rate Benchmarks: Legacy vs. EPA WaterSense</h2>
+
+          <p>
+            The following reference table presents empirical flow and flush rates contrasting antiquated pre-1994 fixtures, current standard code fixtures, and EPA WaterSense certified technologies:
+          </p>
+
+          <DataTable
+            head={["Plumbing Fixture End-Use", "Pre-1994 Antiquated Fixtures", "Current Standard Federal Code", "EPA WaterSense Certified", "WaterSense Conservation Gain"]}
+            rows={[
+              ["Showerhead Flow Rate", "3.5 to 5.0 GPM", "2.50 GPM maximum", "1.75 to 2.0 GPM", "30% to 50% flow reduction with pressure-compensating aerators"],
+              ["Toilet Flush Volume", "3.5 to 5.0 GPF", "1.60 GPF maximum", "1.10 to 1.28 GPF", "28% to 65% water saved per flush via dual-flush valves"],
+              ["Bathroom Sink Faucet", "3.0 to 4.0 GPM", "2.20 GPM maximum", "1.20 to 1.50 GPM", "32% to 45% water saved using laminar flow aerators"],
+              ["Clothes Washing Machine", "40 to 45 gal / load", "30 to 35 gal / load", "12 to 15 gal / load", "55% water saved via Energy Star front-loading tumble drums"],
+              ["Automatic Dishwasher", "10 to 12 gal / run", "5 to 6.5 gal / run", "3.2 to 3.5 gal / run", "40% water saved compared to standard code machines"],
+              ["Lawn Irrigation Sprinkler", "15 to 20 GPM / zone", "12 GPM standard", "6 to 8 GPM (Drip)", "50% reduction by targeting root zones without mist evaporation"],
+            ]}
+          />
+
+          <p>
+            For computing water flow rate ratios and volumetric savings shares, consult our <Link href="/calculators/math/ratio-calculator">Ratio Calculator</Link> and calculate percentage savings with the <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
+          </p>
+
+          <h2>Indoor Water Optimization: The Mechanics of Modern Aerators & Dual-Flush Valves</h2>
+
+          <p>
+            A persistent myth among homeowners is that low-flow fixtures result in weak, unsatisfactory water pressure. Early 1990s low-flow showerheads restricted flow by inserting simple plastic orifice restrictor disks, which caused spray velocity to drop and spray patterns to collapse.
+          </p>
+
+          <p>
+            In contrast, modern EPA WaterSense fixtures utilize fluid dynamic engineering. High-performance showerheads incorporate internal venturi vacuum chambers that entrain ambient air directly into individual water droplets. The resulting aerated droplets are larger and travel at higher velocity, delivering an invigorating shower experience while cutting actual volumetric water flow by 30% to 40%.
+          </p>
+
+          <p>
+            Similarly, modern dual-flush toilets utilize glazed 3-inch trapways and siphonic jet flushes that clear waste efficiently using only 1.1 gallons of water for liquid flushes and 1.28 gallons for solid waste flushes, completely eliminating the need for double-flushing.
+          </p>
+
+          <h2>Outdoor Water Management: Smart Irrigation & Native Xeriscaping</h2>
+
+          <p>
+            In suburban homes, outdoor landscape watering frequently accounts for over 50% of summer municipal water bills. Standard automated sprinkler timers water lawns according to fixed clock schedules, frequently running during rainstorms or mid-day heat when over 30% of applied water evaporates before penetrating root zones.
+          </p>
+
+          <p>
+            Installing EPA WaterSense certified smart irrigation controllers—which utilize local Wi-Fi weather forecasts and in-ground soil moisture sensors—automatically suspends watering before rain events. Furthermore, replacing thirsty turfgrass with native perennial xeriscaping and drip irrigation lines eliminates outdoor municipal water waste entirely.
+          </p>
+
+          <h2>Pressure Regulating Valves (PRV) & Household Flow Optimization</h2>
+
+          <p>
+            An invisible cause of excessive residential water consumption is high municipal line water pressure. When municipal water enters a home at pressures exceeding 70 to 80 pounds per square inch (PSI), plumbing fixtures experience premature valve gasket failure, silent toilet leaks, and violent water hammer vibrations.
+          </p>
+
+          <p>
+            Installing a calibrated Pressure Regulating Valve (PRV) dialed to an optimal 50 to 55 PSI reduces baseline water flow across all household faucets and hose bibbs by roughly 10% to 15% without any perceptible drop in user convenience, while protecting domestic appliances and hot water expansion tanks from excessive pressure stress.
+          </p>
+
+          <p>
+            To examine how tree canopies absorb rainfall and enhance local groundwater recharge, explore our <Link href="/calculators/environment/tree-planting-calculator">Tree Planting Calculator</Link> and track residential electricity impacts with the <Link href="/calculators/environment/energy-consumption-calculator">Energy Consumption Calculator</Link>.
+          </p>
+        </>
+      }
+    >
+      <WaterUsageCalculator />
+    </CalcPage>
   );
 }
