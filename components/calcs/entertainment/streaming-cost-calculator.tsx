@@ -138,8 +138,21 @@ export const config: CalcConfig = {
         label: `$${annualTotal.toFixed(0)} Annually across ${activeServicesCount} Active Subscriptions`,
       },
       badge: {
-        text: cableBill > 0 ? (isSaving ? `Saves $${annualDifference.toFixed(0)}/yr vs Cable` : `Spends $${Math.abs(annualDifference).toFixed(0)}/yr more than Cable`) : `${activeServicesCount} Active Services`,
+        text: cableBill > 0 ? (isSaving ? `Saves ${annualDifference.toFixed(0)}/yr vs Cable` : `Spends ${Math.abs(annualDifference).toFixed(0)}/yr more than Cable`) : `${activeServicesCount} Active Services`,
         tone: isSaving ? "good" : cableBill > 0 ? "warn" : "info",
+      },
+      chart: {
+        type: "donut",
+        title: "Monthly Spend by Service ($)",
+        data: [
+          { name: `Netflix (${cNetflix})`, value: Math.max(0.01, cNetflix), color: "#ef4444" },
+          { name: `Disney (${cDisney})`, value: Math.max(0.01, cDisney), color: "#06b6d4" },
+          { name: `Max (${cMax})`, value: Math.max(0.01, cMax), color: "#8b5cf6" },
+          { name: `Hulu (${cHulu})`, value: Math.max(0.01, cHulu), color: "#10b981" },
+          { name: `Prime (${cPrime})`, value: Math.max(0.01, cPrime), color: "#f59e0b" },
+          { name: `Music (${cMusic})`, value: Math.max(0.01, cMusic), color: "#3b82f6" },
+        ].filter(d => d.value > 0.01),
+        format: "usd",
       },
       rows: [
         { label: "Total Monthly Streaming Spend", value: `$${monthlyTotal.toFixed(2)} / month` },

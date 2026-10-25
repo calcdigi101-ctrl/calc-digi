@@ -92,8 +92,20 @@ export const config: CalcConfig = {
         label: `Total All-In Night Spend ($${costPerPerson.toFixed(2)} / Person for ${quantity} Guests)`,
       },
       badge: {
-        text: feePct > 28 ? "High Fee Burden (> 28%)" : "Standard Platform Fee",
-        tone: feePct > 28 ? "warn" : "info",
+        text: `Total ${grandTotal.toFixed(0)} Outing`,
+        tone: "info",
+      },
+      chart: {
+        type: "donut",
+        title: "Concert Outing Expense Distribution",
+        data: [
+          { name: `Base Tickets ($${baseTotal.toFixed(0)})`, value: Math.max(0.1, Math.round(baseTotal)), color: "#3b82f6" },
+          { name: `Service Fees ($${feesTotal.toFixed(0)})`, value: Math.max(0.1, Math.round(feesTotal)), color: "#ef4444" },
+          { name: `Parking ($${parking.toFixed(0)})`, value: Math.max(0.1, Math.round(parking)), color: "#f59e0b" },
+          { name: `Food & Drinks ($${concessions.toFixed(0)})`, value: Math.max(0.1, Math.round(concessions)), color: "#10b981" },
+          { name: `Merchandise ($${merch.toFixed(0)})`, value: Math.max(0.1, Math.round(merch)), color: "#8b5cf6" },
+        ].filter(d => d.value > 0.1),
+        format: "usd0",
       },
       rows: [
         { label: "Base Tickets Face Value", value: `$${baseTotal.toFixed(2)} (${quantity} × $${basePrice.toFixed(2)})` },

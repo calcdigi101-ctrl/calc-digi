@@ -87,8 +87,18 @@ export const config: CalcConfig = {
         label: `To Finish ${pages} Pages (${totalReadingHours.toFixed(1)} Total Hours)`,
       },
       badge: {
-        text: daysToFinish <= 7 ? "Quick Read (< 1 Week)" : daysToFinish <= 30 ? "Monthly Goal Target" : "Long-Term Project",
-        tone: daysToFinish <= 7 ? "good" : daysToFinish <= 30 ? "info" : "warn",
+        text: `${daysToFinish} Days to Finish`,
+        tone: "good",
+      },
+      chart: {
+        type: "donut",
+        title: "Reading Hours vs Audiobook Equivalent",
+        data: [
+          { name: `Reading (${totalReadingHours.toFixed(1)}h)`, value: Math.max(0.1, Number(totalReadingHours.toFixed(1))), color: "#065f46" },
+          { name: `Audiobook 1x (${audiobookHours.toFixed(1)}h)`, value: Math.max(0.1, Number(audiobookHours.toFixed(1))), color: "#10b981" },
+          { name: `Audiobook 1.25x (${audioAt125.toFixed(1)}h)`, value: Math.max(0.1, Number(audioAt125.toFixed(1))), color: "#34d399" },
+        ],
+        format: "plain",
       },
       rows: [
         { label: "Total Estimated Words", value: `${totalWords.toLocaleString()} words` },

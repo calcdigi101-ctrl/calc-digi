@@ -7,11 +7,11 @@ export const config: CalcConfig = {
   id: "solar-panel-calc",
   title: "Rooftop Solar Panel System Size, Cost, ITC & Payback Calculator",
   presets: [
-    { label: "Sun Belt Residence (Arizona/Texas, 5.8 Peak Sun Hrs)", values: { monthlyKwh: 1100, sunHours: 5.8, elecRate: 0.15, costPerWatt: 2.85, itcPercent: 30, panelWatts: 400 } },
-    { label: "Average US Suburban Home (Midwest, 4.5 Peak Sun Hrs)", values: { monthlyKwh: 900, sunHours: 4.5, elecRate: 0.17, costPerWatt: 2.95, itcPercent: 30, panelWatts: 400 } },
-    { label: "Northeast High-Utility Grid (4.0 Sun Hrs, $0.26/kWh)", values: { monthlyKwh: 750, sunHours: 4.0, elecRate: 0.26, costPerWatt: 3.10, itcPercent: 30, panelWatts: 400 } },
-    { label: "High-Consumption Family + EV Charging (1,500 kWh/mo)", values: { monthlyKwh: 1500, sunHours: 4.8, elecRate: 0.18, costPerWatt: 2.80, itcPercent: 30, panelWatts: 410 } },
-    { label: "Energy-Efficient Cottage (500 kWh/mo)", values: { monthlyKwh: 500, sunHours: 4.6, elecRate: 0.16, costPerWatt: 3.20, itcPercent: 30, panelWatts: 400 } },
+    { label: "Sun Belt (5.8 Peak Sun Hrs)", values: { monthlyKwh: 1100, sunHours: 5.8, elecRate: 0.15, costPerWatt: 2.85, itcPercent: 30, panelWatts: 400 } },
+    { label: "Midwest Suburban (4.5 Sun Hrs)", values: { monthlyKwh: 900, sunHours: 4.5, elecRate: 0.17, costPerWatt: 2.95, itcPercent: 30, panelWatts: 400 } },
+    { label: "Northeast High Tariff ($0.26/kWh)", values: { monthlyKwh: 750, sunHours: 4.0, elecRate: 0.26, costPerWatt: 3.10, itcPercent: 30, panelWatts: 400 } },
+    { label: "High-Consumption + EV (1,500 kWh)", values: { monthlyKwh: 1500, sunHours: 4.8, elecRate: 0.18, costPerWatt: 2.80, itcPercent: 30, panelWatts: 410 } },
+    { label: "Energy-Efficient Cottage (500 kWh)", values: { monthlyKwh: 500, sunHours: 4.6, elecRate: 0.16, costPerWatt: 3.20, itcPercent: 30, panelWatts: 400 } },
   ],
   fields: [
     {
@@ -30,7 +30,7 @@ export const config: CalcConfig = {
       default: 4.5,
       min: 2.0,
       max: 8.0,
-      hint: "NREL solar insolation equivalent (4.0-4.5 in Northeast/Midwest, 5.5-6.5 in Southwest)",
+      hint: "NREL solar insolation equivalent (4.0-4.5 in Midwest, 5.5-6.5 in Southwest)",
     },
     {
       kind: "number",
@@ -77,22 +77,16 @@ export const config: CalcConfig = {
     const itcPercent = Number(vals.itcPercent) || 30;
     const panelWatts = Math.max(200, Number(vals.panelWatts) || 400);
 
-    // Target daily production = monthlyKwh / 30.42
-    // System size (kW) needed = Daily kWh / (Peak Sun Hours * System Derate Factor ~0.82)
-    // Derate accounts for inverter conversion loss (96%), wiring loss, temperature coefficient, and dust/soiling.
     const derateFactor = 0.82;
     const dailyKWhNeeded = monthlyKwh / 30.4167;
     const systemSizeKW = dailyKWhNeeded / (sunHours * derateFactor);
 
-    // Panel count
     const totalWattsNeeded = systemSizeKW * 1000;
     const panelCount = Math.ceil(totalWattsNeeded / panelWatts);
     const actualSystemKW = (panelCount * panelWatts) / 1000;
 
-    // Actual annual generation (kWh)
     const annualGenerationKWh = actualSystemKW * sunHours * 365.25 * derateFactor;
 
-    // Financial calculations
     const annualBillSavings = annualGenerationKWh * elecRate;
     const monthlyBillSavings = annualBillSavings / 12;
 
@@ -102,51 +96,60 @@ export const config: CalcConfig = {
 
     const paybackYears = annualBillSavings > 0 ? netSystemCost / annualBillSavings : 99;
 
-    // 25-Year cumulative net financial profit (assuming 0.5% panel degradation and 2.5% annual utility rate escalation)
     let cumulativeSavings25 = 0;
     let currentRate = elecRate;
     let currentYearGen = annualGenerationKWh;
     for (let yr = 1; yr <= 25; yr++) {
       cumulativeSavings25 += currentYearGen * currentRate;
-      currentYearGen *= 0.995; // 0.5% degradation
-      currentRate *= 1.025; // 2.5% annual utility inflation
+      currentYearGen *= 0.995;
+      currentRate *= 1.025;
     }
     const net25YearProfit = cumulativeSavings25 - netSystemCost;
     const roi25Percent = (net25YearProfit / netSystemCost) * 100;
 
-    // Environmental offset: 1 kWh = 0.386 kg CO2e
     const annualCo2OffsetMT = (annualGenerationKWh * 0.386) / 1000;
-    const lifetimeCo2OffsetMT = annualCo2OffsetMT * 25 * 0.94; // with degradation
+    const lifetimeCo2OffsetMT = annualCo2OffsetMT * 25 * 0.94;
 
     const isFavorable = paybackYears <= 10;
 
     return {
       hero: {
         value: `${actualSystemKW.toFixed(1)} kW DC`,
-        label: `${panelCount} Panels (${panelWatts}W) · $${annualBillSavings.toFixed(0)}/yr Utility Savings`,
+        label: "Recommended Solar Array",
+        sub: `${panelCount} Panels (${panelWatts}W) · $${annualBillSavings.toFixed(0)}/yr Utility Savings`,
       },
       badge: {
-        text: `Payback in ${paybackYears.toFixed(1)} Years`,
+        text: `Payback in ${paybackYears.toFixed(1)} Yrs`,
         tone: isFavorable ? "good" : "warn",
       },
+      chart: {
+        type: "donut",
+        title: "Capital & Incentive Allocation",
+        data: [
+          { name: `Net Investment ($${Math.round(netSystemCost).toLocaleString()})`, value: Math.max(1, Math.round(netSystemCost)), color: "#10b981" },
+          { name: `30% Federal Credit ($${Math.round(federalTaxCredit).toLocaleString()})`, value: Math.max(1, Math.round(federalTaxCredit)), color: "#06b6d4" },
+          { name: `Year 1 Savings ($${Math.round(annualBillSavings).toLocaleString()})`, value: Math.max(1, Math.round(annualBillSavings)), color: "#f59e0b" },
+        ],
+        format: "usd0",
+      },
       rows: [
-        { label: "Recommended System Size", value: `${actualSystemKW.toFixed(2)} kW DC (${(actualSystemKW * 1000).toFixed(0)} Watts)` },
-        { label: "Number of Solar Panels", value: `${panelCount} monocrystalline panels` },
-        { label: "Estimated Annual Clean Generation", value: `${Math.round(annualGenerationKWh).toLocaleString()} kWh / year` },
-        { label: "Annual Electric Utility Bill Savings", value: `$${annualBillSavings.toFixed(2)} / year ($${monthlyBillSavings.toFixed(2)}/mo)` },
-        { label: "Gross Turnkey Installation Cost", value: `$${grossSystemCost.toFixed(2)}` },
-        { label: "Federal Clean Energy Credit (ITC 30%)", value: `-$${federalTaxCredit.toFixed(2)}` },
-        { label: "Net Solar System Investment", value: `$${netSystemCost.toFixed(2)}` },
+        { label: "Recommended System Size", value: `${actualSystemKW.toFixed(2)} kW DC (${(actualSystemKW * 1000).toFixed(0)} W)`, strong: true },
+        { label: "Required Solar Panels", value: `${panelCount} panels (${panelWatts}W)` },
+        { label: "Annual Clean Generation", value: `${Math.round(annualGenerationKWh).toLocaleString()} kWh / year` },
+        { label: "Annual Utility Savings", value: `$${annualBillSavings.toFixed(2)} / yr ($${monthlyBillSavings.toFixed(2)}/mo)`, strong: true },
+        { label: "Gross Turnkey Cost", value: `$${grossSystemCost.toFixed(2)}` },
+        { label: "30% Federal ITC Credit", value: `-$${federalTaxCredit.toFixed(2)}` },
+        { label: "Net Solar Investment", value: `$${netSystemCost.toFixed(2)}`, strong: true },
         { label: "Simple Payback Period", value: `${paybackYears.toFixed(1)} years` },
-        { label: "25-Year Cumulative Net Financial Return", value: `$${net25YearProfit.toFixed(2)} (${roi25Percent.toFixed(0)}% ROI)` },
-        { label: "25-Year Clean Carbon Abatement", value: `${lifetimeCo2OffsetMT.toFixed(1)} metric tons CO2e` },
+        { label: "25-Year Net Financial Gain", value: `$${net25YearProfit.toFixed(2)} (${roi25Percent.toFixed(0)}% ROI)`, strong: true },
+        { label: "25-Year Carbon Offset", value: `${lifetimeCo2OffsetMT.toFixed(1)} metric tons CO2e` },
       ],
       steps: [
-        `Determine daily energy requirement: ${monthlyKwh} kWh / 30.42 days = ${dailyKWhNeeded.toFixed(2)} kWh/day.`,
-        `Size DC solar array: ${dailyKWhNeeded.toFixed(2)} kWh / (${sunHours} peak sun hrs * 0.82 derate factor) = ${systemSizeKW.toFixed(2)} kW target size.`,
-        `Panel count calculation: (${systemSizeKW.toFixed(2)} kW * 1000) / ${panelWatts}W = ${panelCount} panels (yielding ${actualSystemKW.toFixed(2)} kW).`,
-        `Calculate capital outlay and incentives: ${actualSystemKW.toFixed(2)} kW * 1000 W * $${costPerWatt.toFixed(2)}/W = $${grossSystemCost.toFixed(2)} gross cost - $${federalTaxCredit.toFixed(2)} (30% ITC) = $${netSystemCost.toFixed(2)} net.`,
-        `Compute simple capital payback: $${netSystemCost.toFixed(2)} net cost / $${annualBillSavings.toFixed(2)} annual savings = ${paybackYears.toFixed(1)} years.`,
+        `Daily requirement: ${monthlyKwh} kWh / 30.42 days = ${dailyKWhNeeded.toFixed(2)} kWh/day.`,
+        `Size DC array: ${dailyKWhNeeded.toFixed(2)} kWh / (${sunHours} peak sun hrs * 0.82 derate factor) = ${systemSizeKW.toFixed(2)} kW target size.`,
+        `Panel count: (${systemSizeKW.toFixed(2)} kW * 1000) / ${panelWatts}W = ${panelCount} panels (yielding ${actualSystemKW.toFixed(2)} kW).`,
+        `Capital & incentives: ${actualSystemKW.toFixed(2)} kW * 1000 W * $${costPerWatt.toFixed(2)}/W = $${grossSystemCost.toFixed(2)} gross - $${federalTaxCredit.toFixed(2)} (30% ITC) = $${netSystemCost.toFixed(2)} net.`,
+        `Simple payback: $${netSystemCost.toFixed(2)} net cost / $${annualBillSavings.toFixed(2)} annual savings = ${paybackYears.toFixed(1)} years.`,
       ],
       note: {
         text: "The federal Section 25D 30% tax credit directly reduces tax liability dollar-for-dollar without a maximum cap, substantially reducing the barrier to clean renewable energy.",
