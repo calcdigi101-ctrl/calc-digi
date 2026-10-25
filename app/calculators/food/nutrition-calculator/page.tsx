@@ -1,26 +1,292 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import NutritionCalculatorComponent from "@/components/calcs/food/nutrition-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { MacronutrientCaloricDensityChart } from "@/components/flagship/food/editorial-charts";
+
+const PATH = "/calculators/food/nutrition-calculator";
+const TITLE = "Nutrition Calculator | Macronutrient Splits, Calories & Fiber Targets";
+const DESCRIPTION =
+  "Calculate daily calories, protein, carbohydrates, fats, and dietary fiber intake across meals based on USDA Acceptable Macronutrient Distribution Ranges.";
 
 export const metadata: Metadata = {
-  "title": "Nutrition Calculator – Calories and Macros | CalcDigi",
-  "description": "Calculate calories, protein, carbs, and fat per serving. Add ingredients to find total recipe macros and per-serving nutrition.",
-  "openGraph": {
-    "title": "Nutrition Calculator – Calories and Macros | CalcDigi",
-    "description": "Calculate calories, protein, carbs, and fat per serving. Add ingredients to find total recipe macros and per-serving nutrition.",
-    "type": "website",
-    "url": "/calculators/food/nutrition-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/food/nutrition-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+  { href: "/calculators/food/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
+  { href: "/calculators/food/coffee-caffeine-calculator", icon: "☕", name: "Coffee Caffeine Calculator" },
+  { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
+  { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
+  { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
+];
+
+export default function NutritionCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Food & Cooking Calculators\", \"item\": \"https://calcdigi.com/pages/food\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Nutrition Calculator\", \"item\": \"https://calcdigi.com/calculators/food/nutrition-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Nutrition Calculator\", \"url\": \"https://calcdigi.com/calculators/food/nutrition-calculator\", \"description\": \"Calculate calories, protein, carbs, and fat per serving. Add ingredients to find total recipe macros and per-serving nutrition.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate calories in a homemade recipe?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Add up calories from each ingredient based on amount used. For each ingredient: (calories per 100g × grams used) / 100 = ingredient calories. Sum all ingredient calories = total recipe calories. Divide by number of servings = calories per serving. Most tracking apps (MyFitnessPal, Cronometer) allow you to create custom recipes with this method.\"}}, {\"@type\": \"Question\", \"name\": \"How many calories should a meal have?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For most adults: breakfast 300-500 calories, lunch 400-600 calories, dinner 500-700 calories, snacks 100-200 calories. Total: 1,600-2,000 calories (women) or 2,000-2,500 calories (men) for weight maintenance. For weight loss: reduce by 300-500 calories/day. These are guidelines — individual needs vary significantly.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good protein per meal target?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Protein recommendations: for muscle building 0.7-1g per pound bodyweight daily, spread across 3-4 meals. A 150 lb person aiming for 1g/lb: 150g protein/day ÷ 4 meals = ~38g per meal. High-protein meal example: 5 oz chicken (44g protein) + 1 cup Greek yogurt (17g) = 61g. Most people benefit from 25-40g protein per meal for muscle protein synthesis.\"}}, {\"@type\": \"Question\", \"name\": \"How do I track macros for a recipe?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Weigh every ingredient in grams on a kitchen scale (more accurate than volume). Look up nutrition per 100g for each ingredient (USDA FoodData Central database). Calculate: ingredient macros = (nutrition per 100g × grams used) / 100. Sum all ingredients. Divide by servings. Log total weight of finished recipe, then log your portion by weight ratio.\"}}, {\"@type\": \"Question\", \"name\": \"What are good macros for weight loss?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A commonly recommended weight-loss macro split: 40% protein, 30% carbs, 30% fat. At 1,500 calories: 150g protein (40% × 1500/4), 112g carbs (30% × 1500/4), 50g fat (30% × 1500/9). High protein helps preserve muscle during calorie restriction and increases satiety. Low carb diets (20-50g carbs) are another effective approach for many people.\"}}, {\"@type\": \"Question\", \"name\": \"How many calories are in homemade pasta sauce?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A basic tomato meat sauce (ground beef, canned tomatoes, onion, garlic, olive oil) yields approximately 150-200 calories per 1/2 cup serving. Meat-free marinara: 80-100 cal per 1/2 cup. Alfredo sauce: 200-350 cal per 1/2 cup (cream and butter). Use this calculator to find exact calories based on your specific recipe and ingredient quantities.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/food\">Food &amp; Cooking</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Nutrition Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Nutrition Calculator</h1>\n<p class=\"calc-intro\">Calculate total calories, protein, carbohydrates, and fat for any recipe by entering ingredients and their nutritional values. Find macros per serving for meal planning, fitness tracking, and dietary management.</p>\n<p class=\"calc-intro\">Knowing the nutritional content of your homemade meals is essential for calorie tracking, macro counting, and managing dietary conditions. This calculator lets you build any recipe from ingredients and instantly see total and per-serving calories, protein, carbs, and fat content.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Total Calories = Sum of (Ingredient Calories × Amount Used) | Macros per Serving = Total Macros / Servings | Cal from protein = protein × 4, fat × 9, carbs × 4</div></div>\n<div class=\"content-section\">\n<h2>Understanding Macronutrients</h2>\n<p>The three macronutrients provide all dietary calories. Protein and carbohydrates each provide 4 calories per gram. Fat provides 9 calories per gram — more than twice as calorie-dense. This is why high-fat foods (oils, nuts, cheese) are calorie-dense even in small amounts, while vegetables (mostly water and fiber) are low in calories despite large volume.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Macronutrient</th><th style=\"padding:11px 14px;text-align:left;\">Calories/g</th><th style=\"padding:11px 14px;text-align:left;\">Primary Role</th><th style=\"padding:11px 14px;text-align:left;\">Daily Target</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Protein</td><td style=\"padding:10px 14px;\">4 cal/gram</td><td style=\"padding:10px 14px;\">Muscle building, satiety, enzymes</td><td style=\"padding:10px 14px;\">0.7-1g per lb bodyweight</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Carbohydrates</td><td style=\"padding:10px 14px;\">4 cal/gram</td><td style=\"padding:10px 14px;\">Primary energy source, fiber</td><td style=\"padding:10px 14px;\">45-65% of calories (DRI)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Fat</td><td style=\"padding:10px 14px;\">9 cal/gram</td><td style=\"padding:10px 14px;\">Hormones, vitamin absorption, satiety</td><td style=\"padding:10px 14px;\">20-35% of calories (DRI)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Alcohol</td><td style=\"padding:10px 14px;\">7 cal/gram</td><td style=\"padding:10px 14px;\">No nutritional value</td><td style=\"padding:10px 14px;\">Empty calories</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Fiber</td><td style=\"padding:10px 14px;\">~2 cal/gram (net)</td><td style=\"padding:10px 14px;\">Gut health, blood sugar control</td><td style=\"padding:10px 14px;\">25-38g per day DRI</td></tr></tbody></table></div>\n<h3>Common Ingredient Nutrition per 100g</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Ingredient</th><th style=\"padding:11px 14px;text-align:left;\">Calories</th><th style=\"padding:11px 14px;text-align:left;\">Protein</th><th style=\"padding:11px 14px;text-align:left;\">Carbs</th><th style=\"padding:11px 14px;text-align:left;\">Fat</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Chicken breast (cooked)</td><td style=\"padding:10px 14px;\">165 cal</td><td style=\"padding:10px 14px;\">31g protein</td><td style=\"padding:10px 14px;\">0g carbs</td><td style=\"padding:10px 14px;\">3.6g fat</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Brown rice (cooked)</td><td style=\"padding:10px 14px;\">112 cal</td><td style=\"padding:10px 14px;\">2.6g protein</td><td style=\"padding:10px 14px;\">23g carbs</td><td style=\"padding:10px 14px;\">0.9g fat</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Salmon (cooked)</td><td style=\"padding:10px 14px;\">208 cal</td><td style=\"padding:10px 14px;\">20g protein</td><td style=\"padding:10px 14px;\">0g carbs</td><td style=\"padding:10px 14px;\">13g fat</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Broccoli (raw)</td><td style=\"padding:10px 14px;\">34 cal</td><td style=\"padding:10px 14px;\">2.8g protein</td><td style=\"padding:10px 14px;\">7g carbs</td><td style=\"padding:10px 14px;\">0.4g fat</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Olive oil</td><td style=\"padding:10px 14px;\">884 cal</td><td style=\"padding:10px 14px;\">0g protein</td><td style=\"padding:10px 14px;\">0g carbs</td><td style=\"padding:10px 14px;\">100g fat</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Cheddar cheese</td><td style=\"padding:10px 14px;\">402 cal</td><td style=\"padding:10px 14px;\">25g protein</td><td style=\"padding:10px 14px;\">1.3g carbs</td><td style=\"padding:10px 14px;\">33g fat</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Whole egg</td><td style=\"padding:10px 14px;\">155 cal</td><td style=\"padding:10px 14px;\">13g protein</td><td style=\"padding:10px 14px;\">1.1g carbs</td><td style=\"padding:10px 14px;\">11g fat</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Oats (dry)</td><td style=\"padding:10px 14px;\">389 cal</td><td style=\"padding:10px 14px;\">17g protein</td><td style=\"padding:10px 14px;\">66g carbs</td><td style=\"padding:10px 14px;\">7g fat</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate calories in a homemade recipe? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Add up calories from each ingredient based on amount used. For each ingredient: (calories per 100g × grams used) / 100 = ingredient calories. Sum all ingredient calories = total recipe calories. Divide by number of servings = calories per serving. Most tracking apps (MyFitnessPal, Cronometer) allow you to create custom recipes with this method.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories should a meal have? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For most adults: breakfast 300-500 calories, lunch 400-600 calories, dinner 500-700 calories, snacks 100-200 calories. Total: 1,600-2,000 calories (women) or 2,000-2,500 calories (men) for weight maintenance. For weight loss: reduce by 300-500 calories/day. These are guidelines — individual needs vary significantly.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good protein per meal target? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Protein recommendations: for muscle building 0.7-1g per pound bodyweight daily, spread across 3-4 meals. A 150 lb person aiming for 1g/lb: 150g protein/day ÷ 4 meals = ~38g per meal. High-protein meal example: 5 oz chicken (44g protein) + 1 cup Greek yogurt (17g) = 61g. Most people benefit from 25-40g protein per meal for muscle protein synthesis.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I track macros for a recipe? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Weigh every ingredient in grams on a kitchen scale (more accurate than volume). Look up nutrition per 100g for each ingredient (USDA FoodData Central database). Calculate: ingredient macros = (nutrition per 100g × grams used) / 100. Sum all ingredients. Divide by servings. Log total weight of finished recipe, then log your portion by weight ratio.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are good macros for weight loss? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A commonly recommended weight-loss macro split: 40% protein, 30% carbs, 30% fat. At 1,500 calories: 150g protein (40% × 1500/4), 112g carbs (30% × 1500/4), 50g fat (30% × 1500/9). High protein helps preserve muscle during calorie restriction and increases satiety. Low carb diets (20-50g carbs) are another effective approach for many people.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories are in homemade pasta sauce? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A basic tomato meat sauce (ground beef, canned tomatoes, onion, garlic, olive oil) yields approximately 150-200 calories per 1/2 cup serving. Meat-free marinara: 80-100 cal per 1/2 cup. Alfredo sauce: 200-350 cal per 1/2 cup (cream and butter). Use this calculator to find exact calories based on your specific recipe and ingredient quantities.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Food &amp; Cooking Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/food/recipe-scaler\"><span class=\"rc-icon\">🍽️</span><span class=\"rc-name\">Recipe Scaler</span></a><a class=\"related-card\" href=\"/calculators/food/cooking-conversion-calculator\"><span class=\"rc-icon\">🔄</span><span class=\"rc-name\">Cooking Conversions</span></a><a class=\"related-card\" href=\"/calculators/food/food-cost-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Food Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/food/coffee-caffeine-calculator\"><span class=\"rc-icon\">☕</span><span class=\"rc-name\">Caffeine Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Nutrition Calculator – Recipe Calories and Macros Per Serving</h2><p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:6px;\">Enter ingredients (per 100g values):</p><div style=\"border:1px solid var(--c-rule);border-radius:8px;padding:8px;margin-bottom:8px;\">\n<input id=\"nu-n0\" aria-label=\"Ingredient name\" placeholder=\"Ingredient name\" style=\"width:100%;padding:6px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:12px;background:var(--c-bg);color:var(--c-ink);margin-bottom:6px;\" type=\"text\" value=\"Chicken Breast\"/>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;\">\n<div><label for=\"nu-g0\" style=\"font-size:9px;color:var(--c-ink2);\">Grams</label><input id=\"nu-g0\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"150\"/></div><div><label for=\"nu-c0\" style=\"font-size:9px;color:var(--c-ink2);\">Cal/100g</label><input id=\"nu-c0\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"165\"/></div><div><label for=\"nu-p0\" style=\"font-size:9px;color:var(--c-ink2);\">Prot/100g</label><input id=\"nu-p0\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"31\"/></div><div><label for=\"nu-cb0\" style=\"font-size:9px;color:var(--c-ink2);\">Carb/100g</label><input id=\"nu-cb0\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"nu-f0\" style=\"font-size:9px;color:var(--c-ink2);\">Fat/100g</label><input id=\"nu-f0\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"3.6\"/></div>\n</div></div><div style=\"border:1px solid var(--c-rule);border-radius:8px;padding:8px;margin-bottom:8px;\">\n<input id=\"nu-n1\" aria-label=\"Ingredient name\" placeholder=\"Ingredient name\" style=\"width:100%;padding:6px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:12px;background:var(--c-bg);color:var(--c-ink);margin-bottom:6px;\" type=\"text\" value=\"Brown Rice\"/>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;\">\n<div><label for=\"nu-g1\" style=\"font-size:9px;color:var(--c-ink2);\">Grams</label><input id=\"nu-g1\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"100\"/></div><div><label for=\"nu-c1\" style=\"font-size:9px;color:var(--c-ink2);\">Cal/100g</label><input id=\"nu-c1\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"112\"/></div><div><label for=\"nu-p1\" style=\"font-size:9px;color:var(--c-ink2);\">Prot/100g</label><input id=\"nu-p1\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2.6\"/></div><div><label for=\"nu-cb1\" style=\"font-size:9px;color:var(--c-ink2);\">Carb/100g</label><input id=\"nu-cb1\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"23\"/></div><div><label for=\"nu-f1\" style=\"font-size:9px;color:var(--c-ink2);\">Fat/100g</label><input id=\"nu-f1\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0.9\"/></div>\n</div></div><div style=\"border:1px solid var(--c-rule);border-radius:8px;padding:8px;margin-bottom:8px;\">\n<input id=\"nu-n2\" aria-label=\"Ingredient name\" placeholder=\"Ingredient name\" style=\"width:100%;padding:6px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:12px;background:var(--c-bg);color:var(--c-ink);margin-bottom:6px;\" type=\"text\" value=\"Broccoli\"/>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;\">\n<div><label for=\"nu-g2\" style=\"font-size:9px;color:var(--c-ink2);\">Grams</label><input id=\"nu-g2\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"80\"/></div><div><label for=\"nu-c2\" style=\"font-size:9px;color:var(--c-ink2);\">Cal/100g</label><input id=\"nu-c2\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"34\"/></div><div><label for=\"nu-p2\" style=\"font-size:9px;color:var(--c-ink2);\">Prot/100g</label><input id=\"nu-p2\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2.8\"/></div><div><label for=\"nu-cb2\" style=\"font-size:9px;color:var(--c-ink2);\">Carb/100g</label><input id=\"nu-cb2\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"7\"/></div><div><label for=\"nu-f2\" style=\"font-size:9px;color:var(--c-ink2);\">Fat/100g</label><input id=\"nu-f2\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0.4\"/></div>\n</div></div><div style=\"border:1px solid var(--c-rule);border-radius:8px;padding:8px;margin-bottom:8px;\">\n<input id=\"nu-n3\" aria-label=\"Ingredient name\" placeholder=\"Ingredient name\" style=\"width:100%;padding:6px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:12px;background:var(--c-bg);color:var(--c-ink);margin-bottom:6px;\" type=\"text\" value=\"Olive Oil\"/>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;\">\n<div><label for=\"nu-g3\" style=\"font-size:9px;color:var(--c-ink2);\">Grams</label><input id=\"nu-g3\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"15\"/></div><div><label for=\"nu-c3\" style=\"font-size:9px;color:var(--c-ink2);\">Cal/100g</label><input id=\"nu-c3\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"884\"/></div><div><label for=\"nu-p3\" style=\"font-size:9px;color:var(--c-ink2);\">Prot/100g</label><input id=\"nu-p3\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"nu-cb3\" style=\"font-size:9px;color:var(--c-ink2);\">Carb/100g</label><input id=\"nu-cb3\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"nu-f3\" style=\"font-size:9px;color:var(--c-ink2);\">Fat/100g</label><input id=\"nu-f3\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"100\"/></div>\n</div></div><div style=\"border:1px solid var(--c-rule);border-radius:8px;padding:8px;margin-bottom:8px;\">\n<input id=\"nu-n4\" aria-label=\"Ingredient name\" placeholder=\"Ingredient name\" style=\"width:100%;padding:6px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:12px;background:var(--c-bg);color:var(--c-ink);margin-bottom:6px;\" type=\"text\" value=\"\"/>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:4px;\">\n<div><label for=\"nu-g4\" style=\"font-size:9px;color:var(--c-ink2);\">Grams</label><input id=\"nu-g4\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"nu-c4\" style=\"font-size:9px;color:var(--c-ink2);\">Cal/100g</label><input id=\"nu-c4\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"nu-p4\" style=\"font-size:9px;color:var(--c-ink2);\">Prot/100g</label><input id=\"nu-p4\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"nu-cb4\" style=\"font-size:9px;color:var(--c-ink2);\">Carb/100g</label><input id=\"nu-cb4\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"nu-f4\" style=\"font-size:9px;color:var(--c-ink2);\">Fat/100g</label><input id=\"nu-f4\" min=\"0\" step=\"any\" style=\"width:100%;padding:5px;border:1.5px solid var(--c-rule);border-radius:6px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div></div><div class=\"form-group\"><label for=\"nu-serv\">Servings</label><input id=\"nu-serv\" min=\"1\" step=\"0.5\" type=\"number\" value=\"4\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fd-result').style.display='none';document.getElementById('fd-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fd-result\" style=\"display:none;\"><div id=\"fd-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fd-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fd-ai\" style=\"display:none;\"></div></div>\n<div id=\"fd-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fd\" onclick=\"printResult('fd-result','Nutrition Calculator – Recipe Calories and Macros Per Serving')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Nutrition Calculator – Recipe Calories and Macros Per Serving')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-nutrition-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var totCal=0,totP=0,totC=0,totF=0,items=[];\n  for(var i=0;i<5;i++){\n    var n=document.getElementById('nu-n'+i).value||'Ingredient '+(i+1);\n    var g=parseFloat(document.getElementById('nu-g'+i).value)||0;\n    var c=parseFloat(document.getElementById('nu-c'+i).value)||0;\n    var p=parseFloat(document.getElementById('nu-p'+i).value)||0;\n    var cb=parseFloat(document.getElementById('nu-cb'+i).value)||0;\n    var f=parseFloat(document.getElementById('nu-f'+i).value)||0;\n    if(g>0&&c>0){\n      var fac=g/100;\n      totCal+=c*fac;totP+=p*fac;totC+=cb*fac;totF+=f*fac;\n      items.push({n:n,cal:Math.round(c*fac)});\n    }\n  }\n  var serv=parseFloat(document.getElementById('nu-serv').value)||4;\n  if(items.length===0){alert('Please enter at least one ingredient with grams and calories.');return;}\n  var aiPrompt='Recipe: '+Math.round(totCal)+' cal total, '+totP.toFixed(0)+'g protein, '+totC.toFixed(0)+'g carbs, '+totF.toFixed(0)+'g fat, '+serv+' servings';\n  document.getElementById('fd-ri').innerHTML=\n    ri('Calories Per Serving','<strong style=\"font-size:24px;color:var(--c-accent)\">'+Math.round(totCal/serv)+' cal</strong>',true)+\n    ri('Protein Per Serving',(totP/serv).toFixed(1)+'g')+\n    ri('Carbs Per Serving',(totC/serv).toFixed(1)+'g')+\n    ri('Fat Per Serving',(totF/serv).toFixed(1)+'g')+\n    ri('Total Recipe Calories',Math.round(totCal)+' cal')+\n    items.map(function(x){return ri(x.n,x.cal+' cal');}).join('');\n  document.getElementById('fd-result').style.display='block';document.getElementById('fd-actions').style.display='flex';\n  drawDonut('fd-chart',['Protein','Carbs','Fat'],[Math.round(totP*4),Math.round(totC*4),Math.round(totF*9)],['#1a5c3a','#c8832a','#3a7abf']);\n  var ai=document.getElementById('fd-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical cooking or nutrition tip about recipe nutrition and balanced macro planning.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/food", label: "Food & Cooking" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Dietary Science Summary: Atwater Energy Factors & AMDR Guidelines
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              The human metabolic engine combusts macronutrients according to thermodynamic Atwater energy coefficients: 4.0 kcal/g for proteins and available carbohydrates, and 9.0 kcal/g for dietary lipids. The National Academy of Medicine recommends Acceptable Macronutrient Distribution Ranges (AMDR): 10%–35% protein, 45%–65% carbohydrate, and 20%–35% fat. Balance dietary energy with physical burn in our{" "}
+              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
+                calorie burn calculator
+              </Link>{" "}
+              and beverage intake in the{" "}
+              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium underline hover:text-amber-900">
+                alcohol unit calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Macronutrient Thermodynamics & The Atwater Energy Factor System</h2>
+          <MacronutrientCaloricDensityChart />
+          <p>
+            Nutritional bioenergetics measures chemical bond enthalpy released during cellular respiration. Established by Wilbur Olin Atwater in the late 19th century via bomb calorimetry, dietary energy factors account for incomplete gastrointestinal digestion and fecal/urinary losses.
+          </p>
+          <p>
+            While pure carbohydrates release 4.15 kcal/g in a physical bomb calorimeter, human fecal loss reduces available physiological energy to 4.0 kcal/g. Similarly, protein oxidation produces urea, yielding an effective net energy yield of 4.0 kcal/g. Ingredient gram weights can be converted from kitchen volume using our{" "}
+            <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              cooking conversion calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"\text{Total Energy (kcal)} = (4 \times \text{Protein (g)}) + (4 \times \text{Carbohydrate (g)}) + (9 \times \text{Fat (g)}) + (7 \times \text{Ethanol (g)})"}
+          </Formula>
+
+          <Formula>
+            {"\text{Protein Target (g)} = \frac{\text{Daily Calories (kcal)} \times (\text{Protein \%} / 100)}{4.0\,\text{kcal/g}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Dietary Fiber Requirement} = \frac{\text{Daily Calories}}{1{,}000\,\text{kcal}} \times 14.0\,\text{grams (USDA Standard)}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Per-Meal Allocation} = \frac{\text{Macronutrient Daily Mass}}{\text{Feeding Frequency (Meals per Day)}}"}
+          </Formula>
+
+          <h2>Dietary Reference Intakes & Macronutrient Target Matrix</h2>
+          <p>
+            The reference matrix below establishes standard macronutrient distribution splits across lifestyle, athletic, and metabolic health profiles:
+          </p>
+
+          <DataTable
+            head={[
+              "Dietary Profile / Objective",
+              "Protein % (Share)",
+              "Carbohydrate %",
+              "Dietary Fat %",
+              "Protein Density (g/kg)",
+              "Primary Physiological Target",
+            ]}
+            rows={[
+              ["Balanced Healthy Maintenance", "25.0%", "45.0%", "30.0%", "1.2 - 1.6 g/kg", "Cardiometabolic longevity"],
+              ["Hypertrophy & Strength Training", "30.0%", "45.0%", "25.0%", "1.8 - 2.2 g/kg", "Muscle protein synthesis (MPS)"],
+              ["Endurance Athlete (Marathon/Tri)", "20.0%", "55.0%", "25.0%", "1.4 - 1.8 g/kg", "Glycogen resynthesis & stamina"],
+              ["Weight Loss / Calorie Deficit", "35.0%", "35.0%", "30.0%", "2.0 - 2.4 g/kg", "Lean mass retention & satiety"],
+              ["Ketogenic / Very Low Carb", "25.0%", "5.0%", "70.0%", "1.4 - 1.8 g/kg", "Hepatic ketone production"],
+              ["Clinical Mediterranean Diet", "20.0%", "50.0%", "30.0%", "1.2 - 1.5 g/kg", "Polyphenol & monounsaturated lipids"],
+            ]}
+          />
+
+          <h2>Worked Nutritional Case Study: Active Strength Athlete Meal Plan</h2>
+          <p>
+            Consider a 75 kg recreational athlete aiming for a 2,400 kcal daily intake to support strength training while utilizing our{" "}
+            <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              calorie burn calculator
+            </Link>{" "}
+            and managing recipe portions with the{" "}
+            <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              recipe scaler
+            </Link>. With a target macro split of 30% protein, 40% carbohydrate, and 30% fat divided across 4 meals:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Protein Allocation (30%):</strong>
+              <Formula>
+                {"\text{Protein} = \frac{2{,}400 \times 0.30}{4.0} = \frac{720\,\text{kcal}}{4.0} = 180\,\text{g/day} \quad (2.4\,\text{g/kg body weight})"}
+              </Formula>
+              Per meal = 180g / 4 meals = 45.0 grams protein per meal (sufficient to exceed the 3g leucine MPS threshold).
+            </li>
+            <li>
+              <strong>Carbohydrate Allocation (40%):</strong>
+              <Formula>
+                {"\text{Carbohydrate} = \frac{2{,}400 \times 0.40}{4.0} = \frac{960\,\text{kcal}}{4.0} = 240\,\text{g/day}"}
+              </Formula>
+              Per meal = 240g / 4 meals = 60.0 grams carbohydrate per meal.
+            </li>
+            <li>
+              <strong>Dietary Fat Allocation (30%):</strong>
+              <Formula>
+                {"\text{Lipids} = \frac{2{,}400 \times 0.30}{9.0} = \frac{720\,\text{kcal}}{9.0} = 80\,\text{g/day}"}
+              </Formula>
+              Per meal = 80g / 4 meals = 20.0 grams fat per meal.
+            </li>
+            <li>
+              <strong>Mandatory Dietary Fiber Floor:</strong> At 2,400 kcal, USDA guidelines require:
+              <Formula>
+                {"\text{Fiber} = \frac{2{,}400}{1{,}000} \times 14 = 33.6\,\text{grams soluble/insoluble fiber}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Recipe Adaptation & Costs:</strong> The athlete prepares home-cooked high-protein dishes formulated with our{" "}
+              <Link href="/calculators/food/baking-substitution-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                baking substitution calculator
+              </Link>{" "}
+              and checks grocery expenditures using the{" "}
+              <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                food cost calculator
+              </Link>.
+            </li>
+          </ul>
+
+          <h2>The Thermic Effect of Food (TEF) & Leucine Trigger Mechanics</h2>
+          <p>
+            Dietary energy balance is modulated by the Thermic Effect of Food (TEF)—the metabolic cost of mastication, gastrointestinal motility, enzyme secretion, and active amino acid transport. Protein possesses the highest TEF by a wide margin: 20% to 30% of ingested protein energy is expended purely during metabolic assimilation. In contrast, carbohydrates exhibit a TEF of 5% to 10%, and dietary fats exhibit only 0% to 3%.
+          </p>
+          <p>
+            For muscular adaptation, protein distribution across the day is superior to single-bolus feeding. Achieving the &quot;leucine trigger&quot; (approximately 2.7 to 3.5 grams of the essential branched-chain amino acid leucine per meal) activates intracellular mechanistic target of rapamycin complex 1 (mTORC1), driving muscle protein synthesis.
+
+          <h2>Nitrogen Balance Dynamics & Short-Chain Fatty Acid Fermentation</h2>
+          <p>
+            Nutritional protein status is clinically quantified through whole-body nitrogen balance: Nitrogen Balance = N_intake - (N_urinary_urea + N_fecal + N_integumentary). Because pure dietary amino acids contain on average 16% elemental nitrogen by weight, multiplying dietary protein mass by 0.16 yields dietary nitrogen input. In positive nitrogen balance (characteristic of muscular hypertrophy or adolescent growth), nitrogen retention exceeds excretion, indicating net tissue accretion.
+          </p>
+          <p>
+            Equally essential is the metabolic fate of non-digestible complex carbohydrates and soluble prebiotic fibers. Resisting enzymatic hydrolysis in the human stomach and upper small intestine, soluble polysaccharides reach the cecum and ascending colon intact. Anaerobic commensal gut microbiota ferment these oligosaccharides into short-chain fatty acids (SCFAs), predominantly acetate, propionate, and butyrate. Butyrate serves as the primary energetic fuel for colonic epithelial colonocytes, while propionate undergoes hepatic portal transport to regulate de novo lipogenesis and systemic insulin sensitivity.
+          </p>
+          </p>
+
+          <h2>Operational Pitfalls, Micronutrient Neglect & Caloric Tracking</h2>
+          <p>
+            Vigilant nutrition planning avoids common metabolic pitfalls:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Raw vs Cooked Weight Distortion:</strong> Thermal roasting and searing cause significant evaporative water loss and lipid rendering, reducing raw muscle weight by 20% to 30%. Because macronutrient grams remain conserved while total moisture decreases, cooked proteins display much higher apparent nutrient density per 100 grams. Failure to distinguish raw from cooked weights creates substantial macro tracking distortion. Raw chicken breast loses 20% to 25% water during roasting timed with our{" "}
+              <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                cooking time calculator
+              </Link>. Weighing cooked meat while applying raw USDA database entries overestimates protein intake by 30%.
+            </li>
+            <li>
+              <strong>Hidden Liquid Cooking Fats:</strong> Adding just two tablespoons of unmeasured extra virgin olive oil to a saute pan adds 240 calories and 28 grams of fat, silently erasing an intended daily caloric deficit.
+            </li>
+            <li>
+              <strong>Caffeine & Energy Hydration:</strong> Stimulants tracked in our{" "}
+              <Link href="/calculators/food/coffee-caffeine-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                coffee caffeine calculator
+              </Link>{" "}
+              elevate resting metabolic rate but do not replace wholesome micronutrient intake.
+            </li>
+            <li>
+              <strong>Hospitality Gratuity & Social Dining:</strong> When dining out, balancing social nutrition with guest check splits via our{" "}
+              <Link href="/calculators/food/tip-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                tip calculator
+              </Link>{" "}
+              preserves both dietary and financial wellness.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why do proteins and carbohydrates provide 4 kcal/g while fat provides 9 kcal/g?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Fatty acid triglyceride hydrocarbon chains are highly reduced and hydrophobic, containing very little oxygen. When oxidized, they yield significantly more ATP and metabolic energy per carbon atom than carbohydrates or proteins, which are already partially oxygenated.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How much protein can the human body utilize in a single meal?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                While the gastrointestinal tract can absorb virtually unlimited protein over time, the muscle protein synthesis response plateaus around 0.40 to 0.55 g/kg per meal (roughly 30 to 45 grams for a standard adult). Excess amino acids are oxidized for energy or converted to urea.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the difference between total carbohydrates and net carbohydrates?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Net carbohydrates equal total carbohydrates minus dietary fiber and non-digestible sugar alcohols. Because dietary fiber passes through the small intestine without breaking down into monosaccharides, it exerts minimal impact on blood glucose and circulating insulin.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does alcohol intake distort daily macronutrient targets?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Alcohol provides 7.0 kcal per gram of pure ethanol, as modeled in our{" "}
+                <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  alcohol unit calculator
+                </Link>. Because ethanol cannot be stored, hepatic tissue prioritizes clearing ethanol, suppressing peripheral fat oxidation by up to 73%.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do commercial food manufacturers verify nutrition labels?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Commercial food companies calculate batch recipe nutrition using scaled ingredient densities with our{" "}
+                <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  cooking conversion calculator
+                </Link>{" "}
+                and verify compliance with FDA Nutrition Facts panel regulations.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do restaurant kitchen portion costs align with healthy macro planning?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                High-protein lean meats and fresh vegetables carry higher wholesale costs than refined starches. Chefs model these ingredient trade-offs with our{" "}
+                food cost analysis protocols{" "}
+                to offer nutritious meals while maintaining viable restaurant gross margins.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Dietary Standards & Clinical Nutrition Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>National Academies of Sciences, Engineering, and Medicine (NAM):</strong> Dietary Reference Intakes (DRIs) for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, and Protein.
+            </li>
+            <li>
+              <strong>USDA & Department of Health and Human Services (HHS):</strong> Dietary Guidelines for Americans 2020-2025.
+            </li>
+            <li>
+              <strong>Food and Agriculture Organization (FAO / WHO):</strong> Food energy - methods of analysis and conversion factors (Atwater system guidelines).
+            </li>
+            <li>
+              <strong>International Society of Sports Nutrition (ISSN):</strong> Protein and exercise position stand regarding dietary timing and anabolic thresholds.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <NutritionCalculatorComponent />
+    </CalcPage>
   );
 }

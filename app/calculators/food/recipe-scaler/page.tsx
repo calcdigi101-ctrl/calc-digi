@@ -1,26 +1,288 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import RecipeScalerComponent from "@/components/calcs/food/recipe-scaler";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { RecipeBatchScalingFactorChart } from "@/components/flagship/food/editorial-charts";
+
+const PATH = "/calculators/food/recipe-scaler";
+const TITLE = "Recipe Scaler | Baker's Percentages, Batch Multipliers & Pan Scaling";
+const DESCRIPTION =
+  "Scale recipes up or down using baker's percentages, surface area pan conversion, non-linear seasoning dampening, and gram weight accuracy.";
 
 export const metadata: Metadata = {
-  "title": "Recipe Scaler – Scale Recipes Up or Down | CalcDigi",
-  "description": "Scale any recipe up or down by changing serving size. Instantly recalculates all ingredient amounts for any number of portions.",
-  "openGraph": {
-    "title": "Recipe Scaler – Scale Recipes Up or Down | CalcDigi",
-    "description": "Scale any recipe up or down by changing serving size. Instantly recalculates all ingredient amounts for any number of portions.",
-    "type": "website",
-    "url": "/calculators/food/recipe-scaler"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/food/recipe-scaler"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
+  { href: "/calculators/food/baking-substitution-calculator", icon: "🧁", name: "Baking Substitution" },
+  { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
+  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
+  { href: "/calculators/food/cooking-time-calculator", icon: "⏱️", name: "Cooking Time" },
+  { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
+];
+
+export default function RecipeScalerPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Food & Cooking Calculators\", \"item\": \"https://calcdigi.com/pages/food\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Recipe Scaler\", \"item\": \"https://calcdigi.com/calculators/food/recipe-scaler\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Recipe Scaler\", \"url\": \"https://calcdigi.com/calculators/food/recipe-scaler\", \"description\": \"Scale any recipe up or down by changing serving size. Instantly recalculates all ingredient amounts for any number of portions.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I scale a recipe from 4 to 6 servings?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide desired servings by original: 6/4 = 1.5 (scale factor). Multiply every ingredient by 1.5. 1 cup flour → 1.5 cups. 2 eggs → 3 eggs. 1 tsp salt → 1.5 tsp (or 1 tsp + 1/2 tsp). Cooking time stays approximately the same — test for doneness rather than relying on time.\"}}, {\"@type\": \"Question\", \"name\": \"Can you double any recipe?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most savory recipes (soups, stews, pasta sauces) double easily. Baking recipes can be doubled but may need slight adjustments: reduce leavening (baking powder/soda) to 75% of doubled amount, use the same amount of salt as doubled (not 2×), keep cooking temperature the same, and monitor doneness with a thermometer rather than time.\"}}, {\"@type\": \"Question\", \"name\": \"What is a recipe scaling factor?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The scaling factor is the ratio of desired servings to original servings. Scale factor = desired servings / original servings. Factor of 2.0 = double the recipe. Factor of 0.5 = halve the recipe. Factor of 1.5 = recipe for 6 when original serves 4. Multiply every ingredient by this factor.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert a recipe to fewer servings?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide desired servings by original to get scale factor (e.g., 2/6 = 0.333 for a 6-serving recipe scaled to 2). Multiply all ingredients by 0.333. Challenge: fractional eggs. Solution: beat the egg and use the proportional amount (1 egg beaten × 0.333 = about 1 tablespoon of beaten egg). Or round to 1 egg and adjust liquid slightly.\"}}, {\"@type\": \"Question\", \"name\": \"Does cooking time change when scaling a recipe?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Cooking time rarely scales proportionally. More food in the same pot reaches boiling point at similar times. Baking: same size pan = same time. Larger pan = different depth = adjust time. Roasting more meat: check internal temperature, not time. The key rule: always check doneness with appropriate tools (thermometer, toothpick, texture test) rather than relying on scaled time.\"}}, {\"@type\": \"Question\", \"name\": \"How do restaurants scale recipes to large quantities?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Professional kitchens use baker percentages and weight-based scaling rather than volume measurements. They express all ingredients as a percentage of the main ingredient (flour for baking, protein for entrees). Weight measurements are more accurate than volume at large scale. They also test-scale recipes in batches before full production.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/food\">Food &amp; Cooking</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Recipe Scaler</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Recipe Scaler</h1>\n<p class=\"calc-intro\">Scale any recipe up or down instantly by entering the original servings and your desired serving count. All ingredient quantities are automatically recalculated proportionally — perfect for cooking for a crowd, halving a recipe, or meal prepping.</p>\n<p class=\"calc-intro\">Whether you are doubling a cake recipe for a party or halving a soup recipe for one, scaling recipes accurately is essential for consistent results. This calculator handles the math instantly — no more mental arithmetic or fractions when you need to adjust serving sizes.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Scaled Amount = Original Amount × (Desired Servings / Original Servings) | Scale Factor = Desired / Original</div></div>\n<div class=\"content-section\">\n<h2>How to Scale Recipes Successfully</h2>\n<p>Most ingredients scale linearly — double the servings, double everything. However, some ingredients and techniques need adjustment when dramatically scaling recipes. Understanding these exceptions prevents scaling disasters.</p>\n<h3>Ingredients That Do Not Scale Linearly</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Ingredient/Factor</th><th style=\"padding:11px 14px;text-align:left;\">Scaling Rule</th><th style=\"padding:11px 14px;text-align:left;\">Reason</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Salt &amp; spices</td><td style=\"padding:10px 14px;\">Scale to 75% when doubling — taste and adjust</td><td style=\"padding:10px 14px;\">Too much salt cannot be fixed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Leavening (baking powder/soda)</td><td style=\"padding:10px 14px;\">Use 75-80% when scaling up 2-3×</td><td style=\"padding:10px 14px;\">Excess causes bitter, fallen cakes</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Eggs</td><td style=\"padding:10px 14px;\">Round to nearest whole egg</td><td style=\"padding:10px 14px;\">Cannot halve an egg precisely</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Alcohol/extracts</td><td style=\"padding:10px 14px;\">Scale at 50-75%</td><td style=\"padding:10px 14px;\">Volatile flavors intensify</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Cooking time</td><td style=\"padding:10px 14px;\">Does NOT scale — test with thermometer</td><td style=\"padding:10px 14px;\">More food ≠ longer time always</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Pan size</td><td style=\"padding:10px 14px;\">Scaling recipe often requires different pan</td><td style=\"padding:10px 14px;\">Depth and heat transfer change</td></tr></tbody></table></div>\n<h3>Scaling for Baking vs Cooking</h3>\n<p>Cooking (soups, stews, sauces) scales easily — most recipes can be doubled or tripled without adjustment beyond ingredient amounts. Baking is more sensitive — chemical reactions between leavening, flour, and moisture are precise. When scaling baked goods by more than 2×, consider making multiple batches instead of one large batch for more consistent results.</p>\n<h3>Pan Size for Scaled Recipes</h3>\n<p>When scaling baked goods, pan size matters critically. Double a 9×9 cake: use two 9×9 pans (not one huge pan). For a different pan size, calculate the area ratio: 9×13 pan (117 sq in) vs 8×8 pan (64 sq in) = 1.83× — scale the recipe by 1.83. Never fill a baking pan more than 2/3 full.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I scale a recipe from 4 to 6 servings? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide desired servings by original: 6/4 = 1.5 (scale factor). Multiply every ingredient by 1.5. 1 cup flour → 1.5 cups. 2 eggs → 3 eggs. 1 tsp salt → 1.5 tsp (or 1 tsp + 1/2 tsp). Cooking time stays approximately the same — test for doneness rather than relying on time.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can you double any recipe? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most savory recipes (soups, stews, pasta sauces) double easily. Baking recipes can be doubled but may need slight adjustments: reduce leavening (baking powder/soda) to 75% of doubled amount, use the same amount of salt as doubled (not 2×), keep cooking temperature the same, and monitor doneness with a thermometer rather than time.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a recipe scaling factor? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The scaling factor is the ratio of desired servings to original servings. Scale factor = desired servings / original servings. Factor of 2.0 = double the recipe. Factor of 0.5 = halve the recipe. Factor of 1.5 = recipe for 6 when original serves 4. Multiply every ingredient by this factor.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert a recipe to fewer servings? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide desired servings by original to get scale factor (e.g., 2/6 = 0.333 for a 6-serving recipe scaled to 2). Multiply all ingredients by 0.333. Challenge: fractional eggs. Solution: beat the egg and use the proportional amount (1 egg beaten × 0.333 = about 1 tablespoon of beaten egg). Or round to 1 egg and adjust liquid slightly.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does cooking time change when scaling a recipe? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Cooking time rarely scales proportionally. More food in the same pot reaches boiling point at similar times. Baking: same size pan = same time. Larger pan = different depth = adjust time. Roasting more meat: check internal temperature, not time. The key rule: always check doneness with appropriate tools (thermometer, toothpick, texture test) rather than relying on scaled time.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do restaurants scale recipes to large quantities? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Professional kitchens use baker percentages and weight-based scaling rather than volume measurements. They express all ingredients as a percentage of the main ingredient (flour for baking, protein for entrees). Weight measurements are more accurate than volume at large scale. They also test-scale recipes in batches before full production.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Food &amp; Cooking Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/food/cooking-conversion-calculator\"><span class=\"rc-icon\">🔄</span><span class=\"rc-name\">Cooking Conversions</span></a><a class=\"related-card\" href=\"/calculators/food/food-cost-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Food Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/food/coffee-caffeine-calculator\"><span class=\"rc-icon\">☕</span><span class=\"rc-name\">Caffeine Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Recipe Scaler – Scale Any Recipe to Any Number of Servings</h2><div class=\"form-group\"><label for=\"rs-orig\">Original Recipe Servings</label><input id=\"rs-orig\" max=\"1000\" min=\"0.5\" step=\"0.5\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"rs-want\">Desired Servings</label><input id=\"rs-want\" max=\"1000\" min=\"0.5\" step=\"0.5\" type=\"number\" value=\"6\"/></div><p style=\"font-size:12px;color:var(--c-ink2);margin:12px 0 6px;\">Enter ingredient amounts (optional):</p><div style=\"display:grid;grid-template-columns:1fr 80px 80px;gap:6px;margin-bottom:6px;align-items:end;\"><div><label for=\"ri-name0\" style=\"font-size:11px;color:var(--c-ink2);\">Ingredient 1</label><input id=\"ri-name0\" placeholder=\"Name\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Flour\"/></div><div><label for=\"ri-amt0\" style=\"font-size:11px;color:var(--c-ink2);\">Amount</label><input id=\"ri-amt0\" min=\"0\" step=\"any\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div><div><label for=\"ri-unit0\" style=\"font-size:11px;color:var(--c-ink2);\">Unit</label><input id=\"ri-unit0\" placeholder=\"cup/tsp\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"cups\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 80px 80px;gap:6px;margin-bottom:6px;align-items:end;\"><div><label for=\"ri-name1\" style=\"font-size:11px;color:var(--c-ink2);\">Ingredient 2</label><input id=\"ri-name1\" placeholder=\"Name\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Sugar\"/></div><div><label for=\"ri-amt1\" style=\"font-size:11px;color:var(--c-ink2);\">Amount</label><input id=\"ri-amt1\" min=\"0\" step=\"any\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div><label for=\"ri-unit1\" style=\"font-size:11px;color:var(--c-ink2);\">Unit</label><input id=\"ri-unit1\" placeholder=\"cup/tsp\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"cups\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 80px 80px;gap:6px;margin-bottom:6px;align-items:end;\"><div><label for=\"ri-name2\" style=\"font-size:11px;color:var(--c-ink2);\">Ingredient 3</label><input id=\"ri-name2\" placeholder=\"Name\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Butter\"/></div><div><label for=\"ri-amt2\" style=\"font-size:11px;color:var(--c-ink2);\">Amount</label><input id=\"ri-amt2\" min=\"0\" step=\"any\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0.5\"/></div><div><label for=\"ri-unit2\" style=\"font-size:11px;color:var(--c-ink2);\">Unit</label><input id=\"ri-unit2\" placeholder=\"cup/tsp\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"cup\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 80px 80px;gap:6px;margin-bottom:6px;align-items:end;\"><div><label for=\"ri-name3\" style=\"font-size:11px;color:var(--c-ink2);\">Ingredient 4</label><input id=\"ri-name3\" placeholder=\"Name\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Eggs\"/></div><div><label for=\"ri-amt3\" style=\"font-size:11px;color:var(--c-ink2);\">Amount</label><input id=\"ri-amt3\" min=\"0\" step=\"any\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div><div><label for=\"ri-unit3\" style=\"font-size:11px;color:var(--c-ink2);\">Unit</label><input id=\"ri-unit3\" placeholder=\"cup/tsp\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"eggs\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 80px 80px;gap:6px;margin-bottom:6px;align-items:end;\"><div><label for=\"ri-name4\" style=\"font-size:11px;color:var(--c-ink2);\">Ingredient 5</label><input id=\"ri-name4\" placeholder=\"Name\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Milk\"/></div><div><label for=\"ri-amt4\" style=\"font-size:11px;color:var(--c-ink2);\">Amount</label><input id=\"ri-amt4\" min=\"0\" step=\"any\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div><label for=\"ri-unit4\" style=\"font-size:11px;color:var(--c-ink2);\">Unit</label><input id=\"ri-unit4\" placeholder=\"cup/tsp\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"cup\"/></div></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fd-result').style.display='none';document.getElementById('fd-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fd-result\" style=\"display:none;\"><div id=\"fd-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fd-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fd-ai\" style=\"display:none;\"></div></div>\n<div id=\"fd-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fd\" onclick=\"printResult('fd-result','Recipe Scaler – Scale Any Recipe to Any Number of Servings')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Recipe Scaler – Scale Any Recipe to Any Number of Servings')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-recipe-scaler" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function fmtNum(n){\n  var f=Math.round(n*8)/8;\n  var whole=Math.floor(f);\n  var frac=f-whole;\n  var fracStr=frac===0?'':frac===0.125?' 1/8':frac===0.25?' 1/4':frac===0.375?' 3/8':frac===0.5?' 1/2':frac===0.625?' 5/8':frac===0.75?' 3/4':frac===0.875?' 7/8':'';\n  return (whole>0?whole:'')+fracStr||(n.toFixed(2));\n}\nfunction doCalc(){\n  var orig=parseFloat(document.getElementById('rs-orig').value)||0;\n  var want=parseFloat(document.getElementById('rs-want').value)||0;\n  if(!orig||!want){alert('Please enter original and desired servings.');return;}\n  var factor=want/orig;\n  var rows=ri('Scale Factor','<strong style=\"font-size:22px;color:var(--c-accent)\">×'+factor.toFixed(3)+'</strong>',true)+\n    ri('Original Servings',orig)+ri('Scaled Servings',want);\n  var hasIngredients=false;\n  for(var i=0;i<5;i++){\n    var name=document.getElementById('ri-name'+i).value;\n    var amt=parseFloat(document.getElementById('ri-amt'+i).value)||0;\n    var unit=document.getElementById('ri-unit'+i).value;\n    if(name&&amt>0){\n      hasIngredients=true;\n      var scaled=amt*factor;\n      rows+=ri(name,fmtNum(scaled)+' '+unit+' <span style=\"color:var(--c-ink2);font-size:11px;\">(was '+fmtNum(amt)+')</span>');\n    }\n  }\n  if(!hasIngredients) rows+=ri('Tip','Enter ingredients above to see scaled amounts');\n  document.getElementById('fd-ri').innerHTML=rows;\n  document.getElementById('fd-result').style.display='block';document.getElementById('fd-actions').style.display='flex';\n  drawDonut('fd-chart',['Original','Additional'],[Math.round(orig*10),Math.round((want-orig)*10)||0.001],['#1a5c3a','#c8832a']);\n  var aiPrompt='Recipe scaled by '+factor.toFixed(2)+'x from '+orig+' to '+want+' servings';\n  var ai=document.getElementById('fd-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical cooking or nutrition tip about scaling recipes and cooking for different group sizes.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/food", label: "Food & Cooking" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Culinary Engineering Summary: Linear vs Non-Linear Batch Scaling
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              Scaling a recipe from 4 servings to 40 servings is rarely a simple linear 10x multiplication. While bulk starches, proteins, and water scale proportionally, pan surface area, chemical leaveners, pungent spices, and liquid evaporation follow non-linear physical laws. You can verify weight-to-volume conversions with our{" "}
+              <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium underline hover:text-amber-900">
+                cooking conversion calculator
+              </Link>{" "}
+              and analyze recipe ingredient costs in the{" "}
+              <Link href="/calculators/food/food-cost-calculator" className="font-medium underline hover:text-amber-900">
+                food cost calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Culinary Physics of Batch Scaling & The Baker&apos;s Percentage Law</h2>
+          <RecipeBatchScalingFactorChart />
+          <p>
+            In professional baking and commercial culinary operations, ingredient formulations are standardized using the Baker&apos;s Percentage system. Unlike conventional percentages where all components sum to 100%, the total flour (or primary bulk starch/protein) is defined as the immutable 100% baseline. Every other ingredient is mathematically expressed as a ratio of that flour mass.
+          </p>
+          <p>
+            When recipes are scaled up or down, baker&apos;s percentages preserve the fundamental hydration ratio, lipid tenderness, and yeast fermentation kinetics regardless of whether the baker produces 500 grams or 50 kilograms of dough. Substitutions can be verified with our{" "}
+            <Link href="/calculators/food/baking-substitution-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              baking substitution calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"\text{Batch Multiplier Factor } (M) = \frac{\text{Desired Yield (Servings)}}{\text{Original Yield (Servings)}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Baker's Percentage (\%)} = \left(\frac{\text{Ingredient Weight (g)}}{\text{Total Flour Weight (g)}}\right) \times 100"}
+          </Formula>
+
+          <Formula>
+            {"\text{Pan Area Scaling Factor} = \frac{\text{Target Area } (\pi r_{\text{new}}^2)}{\text{Original Area } (\pi r_{\text{old}}^2)} = \frac{d_{\text{new}}^2}{d_{\text{old}}^2}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Non-Linear Seasoning Scaling } (M > 2.0) = M^{0.85} \approx M \times 0.88"}
+          </Formula>
+
+          <h2>Culinary Scaling Matrix & Component Adjustment Rules</h2>
+          <p>
+            The reference table below outlines how various culinary ingredient categories behave across small, moderate, and massive scaling multipliers:
+          </p>
+
+          <DataTable
+            head={[
+              "Ingredient Category",
+              "Scaling Behavior",
+              "Scaling Rule (2x - 4x Batch)",
+              "Scaling Rule (>5x Large Batch)",
+              "Key Confounding Variable",
+            ]}
+            rows={[
+              ["Flour, Grains & Starches", "Strictly Linear (1.0x)", "Multiply exactly by M", "Multiply exactly by M", "Moisture absorption variability"],
+              ["Water, Milk & Broths", "Sub-Linear (0.95x)", "Multiply by M", "Multiply by M * 0.90", "Surface evaporation stays constant"],
+              ["Chemical Leaveners (Soda/Powder)", "Sub-Linear (0.80x)", "Use 85% of scaled leavener", "Use 75% of scaled leavener", "Excess gas collapses crumb structure"],
+              ["Table Salt & Kosher Salt", "Sub-Linear (0.85x)", "Multiply by M * 0.90", "Multiply by M * 0.80", "Taste bud sensitivity non-linear"],
+              ["Whole Chicken Eggs", "Discrete Linear Units", "Round to nearest whole egg", "Measure by gram weight (50g/egg)", "Fractional egg white/yolk ratio"],
+              ["Pungent Spices (Cayenne/Cloves)", "Sub-Linear (0.75x)", "Multiply by M * 0.80", "Multiply by M * 0.65", "Volatile essential oil saturation"],
+              ["Cooking Fats & Searing Oils", "Surface Area Proportional", "Scale with pan surface area", "Scale with pan surface area", "Pan footprint vs pot volume"],
+            ]}
+          />
+
+          <h2>Worked Commercial Scaling Scenario: Scaling Artisan Focaccia 4x</h2>
+          <p>
+            Consider a bakery manager scaling a small 2-loaf home focaccia formula into an 8-loaf commercial batch for cafe sandwich service while tracking nutritional density with our{" "}
+            <Link href="/calculators/food/nutrition-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              nutrition calculator
+            </Link>{" "}
+            and oven scheduling in the{" "}
+            <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              cooking time calculator
+            </Link>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Baseline Formula (2 Loaves):</strong> Bread flour = 500g (100%), Water = 400g (80% hydration), Extra Virgin Olive Oil = 30g (6%), Salt = 10g (2%), Instant Dry Yeast = 4g (0.8%). Total dough mass = 944 grams.
+            </li>
+            <li>
+              <strong>Batch Multiplier Calculation:</strong> Desired yield = 8 loaves. Original yield = 2 loaves.
+              <Formula>
+                {"M = \frac{8}{2} = 4.0\,\text{Multiplier Factor}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Bulk Ingredient Linear Scaling:</strong>
+              <br />
+              Flour = 500g * 4.0 = 2,000 grams (2.0 kg).
+              <br />
+              Olive Oil = 30g * 4.0 = 120 grams.
+            </li>
+            <li>
+              <strong>Sub-Linear Liquid & Evaporation Compensation:</strong> Baking in a commercial deck oven with high steam retention reduces evaporation loss. We scale water to 78% baker&apos;s hydration: 2,000g * 0.78 = 1,560 grams water (instead of 1,600g).
+            </li>
+            <li>
+              <strong>Yeast & Salt Non-Linear Adjustment:</strong> In large dough masses, friction from commercial spiral mixers elevates dough temperature, accelerating yeast metabolism. Yeast is scaled at 0.70% of flour: 2,000g * 0.007 = 14.0 grams (instead of 16g). Salt scales at 1.8%: 2,000g * 0.018 = 36.0 grams (instead of 40g).
+            </li>
+            <li>
+              <strong>Total Commercial Yield:</strong> Final scaled dough = 2,000 + 1,560 + 120 + 36 + 14 = 3,730 grams, dividing into 8 uniform portions of 466 grams per sheet pan.
+            </li>
+            <li>
+              <strong>Cost & Gratuity Reconciliation:</strong> The food enterprise evaluates margin targets using our{" "}
+              <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                food cost calculator
+              </Link>{" "}
+              and dining check distributions via the{" "}
+              <Link href="/calculators/food/tip-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                tip calculator
+              </Link>.
+            </li>
+          </ul>
+
+          <h2>Geometric Pan Conversions & The Square-Cube Law</h2>
+          <p>
+            When scaling cake or bread formulas to different pan dimensions, cooks often mistakenly scale by diameter rather than surface area. Because the area of a circle scales with the square of its radius (A = pi * r^2), doubling a cake pan&apos;s diameter from 8 inches to 16 inches quadruples (4x) the surface area and batter capacity, not doubles it:
+          </p>
+
+          <Formula>
+            {"\text{Area}_{8\text{-inch}} = \pi \times (4)^2 = 16\pi \approx 50.27\,\text{sq in}, \quad \text{Area}_{10\text{-inch}} = \pi \times (5)^2 = 25\pi \approx 78.54\,\text{sq in}"}
+          </Formula>
+
+          <p>
+            Scaling from an 8-inch to a 10-inch round cake pan requires a multiplier factor of 78.54 / 50.27 = 1.56x, rather than the 1.25x suggested by linear diameter. Failing to account for geometric area causes batter overflow or shallow, dry cakes.
+
+          <p>
+            Moreover, vertical pan depth limits thermal conduction velocity. When bakers attempt to scale a batter into a pan with deeper side walls (exceeding 2.5 inches / 6.5 cm), heat conduction through the outer batter boundary layers takes significantly longer to reach the cool core. Consequently, the exterior crumb over-bakes and dries out before the moist center can set, necessitating a 25°F (14°C) reduction in oven temperature and an extended baking duration.
+          </p>
+          </p>
+
+          <h2>Operational Pitfalls in Large-Scale Catering Production</h2>
+          <p>
+            Avoid these critical mistakes when scaling culinary production:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>The Chemical Leavening Explosion:</strong> Multiplying baking powder linearly by 8x in large cake batches produces an overabundance of carbon dioxide gas during baking. The cell walls stretch beyond their tensile strength, causing the center of the cake to collapse into a sunken crater.
+            </li>
+            <li>
+              <strong>Alcohol Evaporation Invariance:</strong> Wine in braises simmered in deep stockpots loses significantly less alcohol to evaporation than wine in wide shallow skillets. Monitor alcohol loads with our{" "}
+              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                alcohol unit calculator
+              </Link>.
+            </li>
+            <li>
+              <strong>Physical Prep & Labor Fatigue:</strong> Hand-whipping or kneading scaled batches burns substantial energy, which can be monitored with our{" "}
+              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                calorie burn calculator
+              </Link>{" "}
+              alongside barista caffeine pacing in the{" "}
+              <Link href="/calculators/food/coffee-caffeine-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                coffee caffeine calculator
+              </Link>.
+            </li>
+            <li>
+              <strong>Compounding Volumetric Errors:</strong> Measuring 20 individual cups of flour introduces up to 300 grams of cumulative error. Always weigh bulk ingredients in kilograms on commercial scales.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is a baker&apos;s percentage and why is it superior to standard percentages?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                In baker&apos;s percentages, total flour weight is always designated as 100%. Every other ingredient is calculated as a direct percentage of that flour weight. This enables commercial bakers to scale batch sizes instantly by multiplying target flour weight by each ingredient&apos;s fixed percentage.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why should spices and salt not be scaled linearly when multiplying a recipe by 4x or more?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Human sensory perception of piquancy and salinity is logarithmic rather than linear. In addition, large-batch cooking pots have lower surface-area-to-volume ratios, trapping volatile aromatic compounds that would otherwise escape during small-skillet cooking. Scale seasonings at 75% to 85% of linear multiplication.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do I scale a recipe that calls for 3 large eggs when halving the recipe?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Halving 3 large eggs requires 1.5 eggs. Because 1 large shelled egg weighs approximately 50 grams, crack and whisk 2 eggs together (100g total), then weigh out exactly 75 grams of beaten egg mixture, discarding or refrigerating the remainder.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Does cooking time double when doubling a recipe?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                No. Cooking time depends on food thickness and geometry, not total batch mass. Two identical 8-inch cakes bake in roughly the same time as one cake, provided the oven has adequate airflow. Roasting larger cuts of meat requires verifying doneness via our{" "}
+                <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  cooking time calculator
+                </Link>.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do I convert a 9x13 inch rectangular baking pan to round cake pans?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                A 9x13 inch pan has an area of 117 square inches. Two 8-inch round pans have a combined area of approximately 100 square inches (50 sq in each), and two 9-inch round pans provide 127 square inches. A 9x13 batch divides cleanly across two 8-inch or 9-inch round pans with minimal baking time variation.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does scaling recipes affect commercial food cost percentage?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Scaling up recipes allows food establishments to purchase wholesale bulk packaging at lower unit prices, reducing food cost percentages modeled in our{" "}
+                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  food cost calculator
+                </Link>{" "}
+                by several percentage points.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Culinary Arts Standards & Professional Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Culinary Institute of America (The Professional Chef 9th Edition):</strong> Baker&apos;s formulas, pan scaling ratios, and kitchen yields.
+            </li>
+            <li>
+              <strong>American Association of Cereal Chemists (AACC International):</strong> Methods for laboratory dough hydration and flour testing standards.
+            </li>
+            <li>
+              <strong>National Restaurant Association Educational Foundation (ManageFirst):</strong> Inventory and recipe management protocols.
+            </li>
+            <li>
+              <strong>King Arthur Baking Company:</strong> Professional Baker&apos;s Percentage guide and test kitchen scaling principles.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <RecipeScalerComponent />
+    </CalcPage>
   );
 }

@@ -1,26 +1,282 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import AlcoholUnitCalculatorComponent from "@/components/calcs/food/alcohol-unit-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { AlcoholMetabolismEliminationCurveChart } from "@/components/flagship/food/editorial-charts";
+
+const PATH = "/calculators/food/alcohol-unit-calculator";
+const TITLE = "Alcohol Unit Calculator | Standard Drinks, Pure Ethanol & BAC Clearance";
+const DESCRIPTION =
+  "Calculate UK alcohol units, US standard drinks, pure ethanol grams, caloric load, and hepatic metabolism clearance time across beer, wine, and spirits.";
 
 export const metadata: Metadata = {
-  "title": "Alcohol Unit Calculator – Standard Drinks | CalcDigi",
-  "description": "Calculate units in beer, wine, and spirits by ABV. Compare to weekly safe drinking limits and find standard drink equivalents.",
-  "openGraph": {
-    "title": "Alcohol Unit Calculator – Standard Drinks | CalcDigi",
-    "description": "Calculate units in beer, wine, and spirits by ABV. Compare to weekly safe drinking limits and find standard drink equivalents.",
-    "type": "website",
-    "url": "/calculators/food/alcohol-unit-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/food/alcohol-unit-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+  { href: "/calculators/food/coffee-caffeine-calculator", icon: "☕", name: "Coffee Caffeine Calculator" },
+  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
+  { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
+  { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
+  { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
+];
+
+export default function AlcoholUnitCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Food & Cooking Calculators\", \"item\": \"https://calcdigi.com/pages/food\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Alcohol Unit Calculator\", \"item\": \"https://calcdigi.com/calculators/food/alcohol-unit-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Alcohol Unit Calculator\", \"url\": \"https://calcdigi.com/calculators/food/alcohol-unit-calculator\", \"description\": \"Calculate units in beer, wine, and spirits by ABV. Compare to weekly safe drinking limits and find standard drink equivalents.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many units are in a bottle of wine?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A standard 750ml bottle of wine at 13% ABV contains: 750 × 13 / 1000 = 9.75 UK units or approximately 6.5 US standard drinks. At 14% ABV: 10.5 units. This is why a bottle of wine between two people is 4.9 units each — already a significant portion of the weekly 14-unit recommendation.\"}}, {\"@type\": \"Question\", \"name\": \"What is one standard drink?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"US standard drink = 14g pure alcohol = approximately: 12 oz regular beer (5%), 5 oz wine (12%), 1.5 oz spirits (40%). UK unit = 10ml (8g) pure alcohol = approximately: half pint of regular beer (3.5-4%), 1 small glass of wine (125ml at 8%), or 1 single shot of spirits (25ml at 40%). These differ — always specify which system.\"}}, {\"@type\": \"Question\", \"name\": \"How long does alcohol stay in your system?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Blood alcohol concentration (BAC) drops at approximately 0.015% per hour for most people — equivalent to about 1 UK unit per hour. A person with BAC of 0.08% (legal driving limit in US) takes about 5.5 hours to sober completely. Coffee, cold showers, and food do not speed this up — time is the only method.\"}}, {\"@type\": \"Question\", \"name\": \"How many units can I drink and drive?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"There is no guaranteed-safe amount for driving — alcohol affects reaction time even below legal limits. UK legal limit: 80mg/100ml blood = approximately 2-3 units for an average person (varies by individual). US limit: 0.08% BAC. The safest approach for driving is zero alcohol. Even one unit can impair night vision, reaction time, and risk assessment.\"}}, {\"@type\": \"Question\", \"name\": \"What are the weekly alcohol guidelines?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"UK: no more than 14 units per week, spread over 3+ days. US: up to 7 standard drinks/week for women, 14 for men (moderate). Australia: no more than 10 standard drinks/week, no more than 4 on any single day. WHO: more than 10 standard drinks/week considered hazardous. These are low-risk thresholds — any alcohol carries some health risk.\"}}, {\"@type\": \"Question\", \"name\": \"How many calories are in alcohol?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Alcohol contains 7 calories per gram (between protein/carbs at 4 and fat at 9). A pint of regular beer: approximately 180-220 calories. Large glass of wine (250ml, 13%): 200-230 calories. Single gin and tonic: 100-120 calories. Cocktails vary enormously: mojito 160-240 cal, pina colada 300-400+ cal. Heavy drinkers can easily consume 500-1,000+ extra calories per day from alcohol.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/food\">Food &amp; Cooking</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Alcohol Unit Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Alcohol Unit Calculator</h1>\n<p class=\"calc-intro\">Calculate the number of alcohol units in any drink based on volume and ABV percentage. Find standard drink equivalents, compare to weekly safe drinking guidelines, and understand the alcohol content in beer, wine, spirits, and cocktails.</p>\n<p class=\"calc-intro\">One UK alcohol unit = 10ml or 8g of pure alcohol. One US standard drink = 14g pure alcohol. Understanding units helps you track alcohol intake against health guidelines — UK recommends no more than 14 units per week. This calculator works for any drink from light beer to strong cocktails.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Units (UK) = Volume (ml) × ABV% / 1000 | US Standard Drinks = Volume (oz) × ABV% / 0.6 | Pure Alcohol (g) = Volume (ml) × ABV% × 0.789 / 100</div></div>\n<div class=\"content-section\">\n<h2>Alcohol Units by Drink Type</h2>\n<p>Alcohol content varies enormously by drink type, serving size, and brand. Understanding units helps you make informed decisions about alcohol consumption and stay within recommended health guidelines.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Drink</th><th style=\"padding:11px 14px;text-align:left;\">UK Units</th><th style=\"padding:11px 14px;text-align:left;\">US Equivalents</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Regular beer (5%, pint 568ml)</td><td style=\"padding:10px 14px;\">2.8 UK units</td><td style=\"padding:10px 14px;\">1.9 US standard drinks</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Strong beer (7.5%, pint)</td><td style=\"padding:10px 14px;\">4.2 UK units</td><td style=\"padding:10px 14px;\">2.9 US standard drinks</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Wine (13%, 175ml glass)</td><td style=\"padding:10px 14px;\">2.3 UK units</td><td style=\"padding:10px 14px;\">1.6 US standard drinks</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Wine (13%, 250ml large glass)</td><td style=\"padding:10px 14px;\">3.25 UK units</td><td style=\"padding:10px 14px;\">2.2 US standard drinks</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Single spirits (40%, 25ml)</td><td style=\"padding:10px 14px;\">1.0 UK unit</td><td style=\"padding:10px 14px;\">0.7 US standard drinks</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Double spirits (40%, 50ml)</td><td style=\"padding:10px 14px;\">2.0 UK units</td><td style=\"padding:10px 14px;\">1.4 US standard drinks</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Champagne (12%, 125ml flute)</td><td style=\"padding:10px 14px;\">1.5 UK units</td><td style=\"padding:10px 14px;\">1.0 US standard drinks</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Cocktail (varies widely)</td><td style=\"padding:10px 14px;\">1-3+ UK units</td><td style=\"padding:10px 14px;\">Depends on recipe</td></tr></tbody></table></div>\n<h3>Safe Drinking Guidelines</h3>\n<p>UK Chief Medical Officers guidance: no more than 14 UK units per week, spread over 3 or more days, with several alcohol-free days. 14 units = 6 pints of average beer or 10 small glasses of wine. US Dietary Guidelines: up to 1 standard drink/day for women, up to 2 for men (moderate drinking). There is no completely safe level — guidelines indicate low-risk levels, not risk-free.</p>\n<h3>How the Body Processes Alcohol</h3>\n<p>The liver processes approximately 1 UK unit (10ml pure alcohol) per hour. Factors affecting BAC: body weight (heavier = lower BAC), sex (women typically reach higher BAC than men at same intake), food consumption (food slows absorption), and hydration. After 2 UK units, cognitive function begins to be affected. At 4-5 units, driving is significantly impaired. Heavy episodic drinking damages the liver regardless of total weekly units.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many units are in a bottle of wine? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A standard 750ml bottle of wine at 13% ABV contains: 750 × 13 / 1000 = 9.75 UK units or approximately 6.5 US standard drinks. At 14% ABV: 10.5 units. This is why a bottle of wine between two people is 4.9 units each — already a significant portion of the weekly 14-unit recommendation.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is one standard drink? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">US standard drink = 14g pure alcohol = approximately: 12 oz regular beer (5%), 5 oz wine (12%), 1.5 oz spirits (40%). UK unit = 10ml (8g) pure alcohol = approximately: half pint of regular beer (3.5-4%), 1 small glass of wine (125ml at 8%), or 1 single shot of spirits (25ml at 40%). These differ — always specify which system.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does alcohol stay in your system? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Blood alcohol concentration (BAC) drops at approximately 0.015% per hour for most people — equivalent to about 1 UK unit per hour. A person with BAC of 0.08% (legal driving limit in US) takes about 5.5 hours to sober completely. Coffee, cold showers, and food do not speed this up — time is the only method.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many units can I drink and drive? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">There is no guaranteed-safe amount for driving — alcohol affects reaction time even below legal limits. UK legal limit: 80mg/100ml blood = approximately 2-3 units for an average person (varies by individual). US limit: 0.08% BAC. The safest approach for driving is zero alcohol. Even one unit can impair night vision, reaction time, and risk assessment.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are the weekly alcohol guidelines? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">UK: no more than 14 units per week, spread over 3+ days. US: up to 7 standard drinks/week for women, 14 for men (moderate). Australia: no more than 10 standard drinks/week, no more than 4 on any single day. WHO: more than 10 standard drinks/week considered hazardous. These are low-risk thresholds — any alcohol carries some health risk.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories are in alcohol? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Alcohol contains 7 calories per gram (between protein/carbs at 4 and fat at 9). A pint of regular beer: approximately 180-220 calories. Large glass of wine (250ml, 13%): 200-230 calories. Single gin and tonic: 100-120 calories. Cocktails vary enormously: mojito 160-240 cal, pina colada 300-400+ cal. Heavy drinkers can easily consume 500-1,000+ extra calories per day from alcohol.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Food &amp; Cooking Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/food/recipe-scaler\"><span class=\"rc-icon\">🍽️</span><span class=\"rc-name\">Recipe Scaler</span></a><a class=\"related-card\" href=\"/calculators/food/cooking-conversion-calculator\"><span class=\"rc-icon\">🔄</span><span class=\"rc-name\">Cooking Conversions</span></a><a class=\"related-card\" href=\"/calculators/food/food-cost-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Food Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/food/coffee-caffeine-calculator\"><span class=\"rc-icon\">☕</span><span class=\"rc-name\">Caffeine Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Alcohol Unit Calculator – Units in Beer, Wine and Spirits</h2><div class=\"form-group\"><label for=\"au-drink\">Drink Type</label><select id=\"au-drink\"><option selected=\"\" value=\"beer\">Regular Beer</option><option value=\"strong_beer\">Strong Beer/IPA</option><option value=\"wine\">Wine</option><option value=\"spirits\">Spirits/Whiskey/Vodka</option><option value=\"cocktail\">Cocktail</option><option value=\"cider\">Cider</option><option value=\"champagne\">Champagne/Prosecco</option><option value=\"custom\">Custom</option></select></div><div class=\"form-group\"><label for=\"au-vol\">Volume (ml)</label><input id=\"au-vol\" max=\"2000\" min=\"1\" step=\"1\" type=\"number\" value=\"568\"/></div><div class=\"form-group\"><label for=\"au-abv\">ABV % (Alcohol by Volume)</label><input id=\"au-abv\" max=\"70\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"au-drinks\">Number of Drinks</label><input id=\"au-drinks\" max=\"20\" min=\"1\" step=\"1\" type=\"number\" value=\"1\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fd-result').style.display='none';document.getElementById('fd-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fd-result\" style=\"display:none;\"><div id=\"fd-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fd-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fd-ai\" style=\"display:none;\"></div></div>\n<div id=\"fd-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fd\" onclick=\"printResult('fd-result','Alcohol Unit Calculator – Units in Beer, Wine and Spirits')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Alcohol Unit Calculator – Units in Beer, Wine and Spirits')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-alcohol-unit-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var DRINK_DEFAULTS={beer:{vol:568,abv:5},strong_beer:{vol:568,abv:7.5},wine:{vol:175,abv:13},spirits:{vol:50,abv:40},cocktail:{vol:200,abv:12},cider:{vol:568,abv:4.5},champagne:{vol:125,abv:12},custom:{vol:250,abv:5}};\ndocument.getElementById('au-drink').addEventListener('change',function(){\n  var d=DRINK_DEFAULTS[this.value];\n  document.getElementById('au-vol').value=d.vol;\n  document.getElementById('au-abv').value=d.abv;\n});\nfunction doCalc(){\n  var vol=parseFloat(document.getElementById('au-vol').value)||0;\n  var abv=parseFloat(document.getElementById('au-abv').value)||0;\n  var num=parseInt(document.getElementById('au-drinks').value)||1;\n  if(!vol||!abv){alert('Please enter volume and ABV.');return;}\n  var unitsUK=vol*abv/1000;\n  var unitsUS=(vol/29.5735)*abv/0.6/100;\n  var pureAlcG=vol*abv*0.789/100;\n  var calories=Math.round(pureAlcG*7);\n  var totalUnits=unitsUK*num;\n  var weeklyPct=(totalUnits/14*100);\n  var risk=totalUnits<2?'Low':totalUnits<4?'Moderate':'High — Consider pacing';\n  var aiPrompt='Alcohol: '+num+'× drink ('+vol+'ml, '+abv+'% ABV) = '+totalUnits.toFixed(1)+' UK units, '+Math.round(calories*num)+' calories';\n  document.getElementById('fd-ri').innerHTML=\n    ri('UK Units Per Drink','<strong style=\"font-size:24px;color:var(--c-accent)\">'+unitsUK.toFixed(2)+' units</strong>',true)+\n    ri('US Standard Drinks',unitsUS.toFixed(2)+' standard drinks')+\n    ri('Total ('+num+' drinks)',totalUnits.toFixed(1)+' UK units')+\n    ri('% of Weekly Guideline',weeklyPct.toFixed(0)+'% of 14 units/week')+\n    ri('Pure Alcohol',pureAlcG.toFixed(1)+'g per drink')+\n    ri('Calories',calories+' cal/drink ('+Math.round(calories*num)+' total)');\n  document.getElementById('fd-result').style.display='block';document.getElementById('fd-actions').style.display='flex';\n  drawDonut('fd-chart',['Units Consumed','Weekly Remaining'],[Math.round(totalUnits*10),Math.max(Math.round((14-totalUnits)*10),0.001)],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('fd-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical cooking or nutrition tip about responsible drinking and understanding alcohol content.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/food", label: "Food & Cooking" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Quick Summary & Alcohol Metrology Formula
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              One United Kingdom alcohol unit represents exactly 10 milliliters (or 7.89 grams) of pure ethyl alcohol. In contrast, one United States standard drink contains 14.0 grams (17.7 ml) of pure ethanol. For dietary energy budgeting, ethanol yields 7.0 kilocalories per gram, which you can track alongside your daily metabolic targets using our{" "}
+              <Link href="/calculators/food/nutrition-calculator" className="font-medium underline hover:text-amber-900">
+                nutrition calculator
+              </Link>{" "}
+              and physical exercise expenditure in the{" "}
+              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
+                calorie burn calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Pharmacokinetics of Ethanol Metabolism & Blood Elimination Kinetics</h2>
+          <AlcoholMetabolismEliminationCurveChart />
+          <p>
+            Ethanol metabolism in the human organism follows zero-order elimination kinetics at blood alcohol concentrations (BAC) exceeding minimal physiological thresholds. Unlike the first-order clearance mechanics observed in our{" "}
+            <Link href="/calculators/food/coffee-caffeine-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              coffee caffeine calculator
+            </Link>{" "}
+            where drug half-life dictates a constant percentage elimination rate, hepatic alcohol dehydrogenase (ADH) enzymes operate at near-total substrate saturation. Consequently, healthy adult human hepatic tissue metabolizes absolute alcohol at a fixed stoichiometric rate of approximately 0.015g% BAC per hour, equating to 7 to 10 grams of ethanol or roughly 1.0 UK unit per 60 minutes.
+          </p>
+          <p>
+            The fundamental conversion between beverage liquid volume, nominal percentage concentration, and absolute ethanol mass depends upon the physical density of pure alcohol. Ethanol exhibits a specific gravity of 0.78924 g/cm3 at 20 degrees Celsius. In industrial and regulatory food science, drinks are measured by alcohol by volume (ABV), representing volume percentages of ethanol dissolved in aqueous solutions:
+          </p>
+
+          <Formula>
+            {"\text{UK Units} = \frac{\text{Volume (ml)} \times \text{ABV (\%)}}{1{,}000}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Pure Ethanol Mass (g)} = \text{Volume (ml)} \times \left(\frac{\text{ABV}}{100}\right) \times 0.78924\,\text{g/ml}"}
+          </Formula>
+
+          <Formula>
+            {"\text{US Standard Drinks} = \frac{\text{Pure Ethanol Mass (g)}}{14.0\,\text{g}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Metabolic Energy Load (kcal)} = \text{Pure Ethanol Mass (g)} \times 7.0\,\text{kcal/g} + \text{Residual Carbohydrate Calories}"}
+          </Formula>
+
+          <h2>International Regulatory Thresholds & Beverage Unit Density Matrix</h2>
+          <p>
+            National public health authorities maintain divergent definitions of a standard alcoholic beverage unit. Understanding volumetric equivalencies is essential when converting serving sizes in commercial culinary recipes, brewing formulations, and bar operations:
+          </p>
+
+          <DataTable
+            head={[
+              "Beverage Classification",
+              "Standard Serving (ml)",
+              "Nominal ABV (%)",
+              "UK Units",
+              "US Standard Drinks",
+              "Pure Ethanol (g)",
+              "Alcoholic Energy (kcal)",
+            ]}
+            rows={[
+              ["Standard Commercial Lager", "568 ml (1 Imperial Pint)", "4.5%", "2.56", "1.44", "20.18 g", "141 kcal"],
+              ["Craft India Pale Ale (IPA)", "440 ml (Can)", "6.5%", "2.86", "1.61", "22.57 g", "158 kcal"],
+              ["Double West Coast IPA", "473 ml (1 US Pint)", "8.2%", "3.88", "2.18", "30.61 g", "214 kcal"],
+              ["Dry Red Table Wine (Cabernet)", "175 ml (Medium Glass)", "13.5%", "2.36", "1.33", "18.64 g", "131 kcal"],
+              ["Full Bottle Table Wine", "750 ml (Standard Bottle)", "13.0%", "9.75", "5.49", "76.95 g", "539 kcal"],
+              ["Fortified Port Wine", "100 ml (Dessert Snifter)", "20.0%", "2.00", "1.13", "15.78 g", "111 kcal"],
+              ["Distilled Spirits (Vodka / Whiskey)", "50 ml (Double Pour)", "40.0%", "2.00", "1.13", "15.78 g", "111 kcal"],
+              ["Cask-Strength Single Malt Scotch", "35 ml (Single Measure)", "58.0%", "2.03", "1.14", "16.02 g", "112 kcal"],
+            ]}
+          />
+
+          <h2>Worked Analytical Case Study: Metabolic Clearance & Caloric Budgeting</h2>
+          <p>
+            Consider a social hospitality scenario where an individual consumes two pints of craft pale ale (568 ml each at 5.2% ABV) followed by a 175 ml glass of red wine (13.5% ABV) during a dinner meal. To budget operational energy alongside culinary planning with our{" "}
+            <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              recipe scaler
+            </Link>{" "}
+            and{" "}
+            <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              food cost calculator
+            </Link>, we derive total units, ethanol grams, and biological clearance duration:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Pint 1 and Pint 2 Craft Ale:</strong> Volume = 1,136 ml total at 5.2% ABV.
+              <br />
+              <Formula>
+                {"\text{Units}_{\text{beer}} = \frac{1{,}136 \times 5.2}{1{,}000} = 5.907\,\text{UK Units}"}
+              </Formula>
+              Pure Ethanol = 1,136 ml * 0.052 * 0.78924 g/ml = 46.62 grams.
+            </li>
+            <li>
+              <strong>Glass of Table Wine:</strong> Volume = 175 ml at 13.5% ABV.
+              <br />
+              <Formula>
+                {"\text{Units}_{\text{wine}} = \frac{175 \times 13.5}{1{,}000} = 2.363\,\text{UK Units}"}
+              </Formula>
+              Pure Ethanol = 175 ml * 0.135 * 0.78924 g/ml = 18.65 grams.
+            </li>
+            <li>
+              <strong>Cumulative Ethanol Exposure:</strong> Total units = 5.907 + 2.363 = 8.27 UK units. Pure alcohol mass = 46.62 + 18.65 = 65.27 grams of absolute ethanol, representing 4.66 US standard drinks.
+            </li>
+            <li>
+              <strong>Ethanol Caloric Load:</strong> Direct alcohol energy = 65.27 g * 7.0 kcal/g = 456.9 kcal (excluding unfermented wort carbohydrates).
+            </li>
+            <li>
+              <strong>Hepatic Clearance Timeline:</strong> Based on the basal clearance rate of 1.0 unit per hour, complete systemic clearance requires approximately 8.3 hours from the cessation of gastrointestinal absorption.
+            </li>
+          </ul>
+
+          <h2>Biochemical Pathways & The Energy Density Paradox</h2>
+          <p>
+            Unlike macronutrients like starches, complex carbohydrates, and dietary lipids analyzed in our{" "}
+            <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              cooking conversion calculator
+            </Link>, ethanol cannot be sequestered into glycogen storage polymers or adipose triglycerides for gradual mobilization. The human biochemical apparatus treats circulating acetaldehyde as a toxic xenobiotic intermediate.
+          </p>
+          <p>
+            In hepatic cytosol, the alcohol dehydrogenase enzyme family converts ethanol into acetaldehyde, reducing nicotinamide adenine dinucleotide (NAD+) to NADH. Subsequently, mitochondrial aldehyde dehydrogenase (ALDH2) metabolizes acetaldehyde into acetate. This metabolic cascade profoundly shifts the intracellular NADH/NAD+ ratio, suppressing gluconeogenesis, downregulating Krebs cycle beta-oxidation, and prioritizing ethanol oxidation over dietary carbohydrates and fatty acids.
+
+          <p>
+            When circulating blood alcohol concentrations surge during heavy single-session consumption, the secondary Microsomal Ethanol Oxidizing System (MEOS), mediated by cytochrome P450 2E1 (CYP2E1), becomes actively recruited. Unlike cytosolic ADH pathways that generate usable metabolic intermediates, the inducible CYP2E1 enzyme system consumes reduced nicotinamide adenine dinucleotide phosphate (NADPH) and molecular oxygen without synthesizing adenosine triphosphate. Consequently, a substantial fraction of ethanol chemical bond enthalpy is dissipated directly as futile metabolic heat, explaining the pronounced cutaneous flushing and thermogenic inefficiency characteristic of acute heavy alcohol consumption.
+          </p>
+          </p>
+
+          <h2>Operational Pitfalls, Glassware Metrology & Gastric Emptying Dynamics</h2>
+          <p>
+            Precise calculation of alcoholic units frequently encounters real-world confounding variables that distort nominal consumption calculations:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Glassware Geometry Bias:</strong> Fluted or curved pint glasses cause subjective over-pouring by up to 22% compared to calibrated straight-sided vessels.
+            </li>
+            <li>
+              <strong>Post-Prandial Gastric Retention:</strong> Co-ingestion of high-lipid foods, such as balanced baked dishes scaled using our{" "}
+              <Link href="/calculators/food/baking-substitution-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                baking substitution calculator
+              </Link>, decelerates gastric emptying into the duodenum where 80% of alcohol uptake occurs, attenuating peak BAC amplitude by 30% to 50%.
+            </li>
+            <li>
+              <strong>Thermal Evaporation in Culinary Flambes:</strong> Contrary to culinary myth, wine and spirits simmered in sauces retain 5% to 85% of their initial alcohol content depending on pan surface geometry and simmer duration.
+            </li>
+            <li>
+              <strong>Gratuity & Hospitality Verification:</strong> In dining establishments, accurate accounting of drink counts helps manage hospitality bill totals calculated via our{" "}
+              <Link href="/calculators/food/tip-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                tip calculator
+              </Link>.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What constitutes one UK alcohol unit versus a standard drink in the United States?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                A UK alcohol unit is defined as exactly 10 milliliters (7.89 grams) of 100% pure ethanol. In contrast, the US National Institute on Alcohol Abuse and Alcoholism (NIAAA) defines a standard drink as 14.0 grams (17.7 ml) of pure ethanol. Consequently, 1 US standard drink equals approximately 1.77 UK units.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Does physical exertion or coffee consumption accelerate ethanol clearance?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                No. Because hepatic alcohol dehydrogenase operates under zero-order kinetic enzyme saturation, running, perspiration, cold showers, or caffeine intake verified with our{" "}
+                <Link href="/calculators/food/coffee-caffeine-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  coffee caffeine calculator
+                </Link>{" "}
+                cannot accelerate enzymatic elimination. Only biological time allows liver tissue to clear circulating ethanol at roughly 0.015g% per hour.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How many calories does alcohol provide compared to protein, carbs, and fats?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Pure ethanol provides 7.0 kilocalories per gram, placing its energetic density second only to pure fat (9 kcal/g), and significantly higher than protein or carbohydrates (4 kcal/g each), as demonstrated in our{" "}
+                <Link href="/calculators/food/nutrition-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  nutrition calculator
+                </Link>.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does body mass and total body water impact blood alcohol concentration?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Ethanol distributes water-solubly throughout total body water (TBW). Because adipose tissue has low water content, leaner individuals exhibit a larger volume of distribution (Vd), yielding a lower peak BAC for an identical gram dose of alcohol compared to individuals with higher body fat percentages.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Does cooking meat or stew with wine completely eliminate the alcohol content?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                No. Research conducted by the USDA Agricultural Research Service demonstrated that boiling or baking alcohol for 15 minutes retains 40% of the alcohol, and even after 2.5 hours of braising meat timed with our{" "}
+                <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  cooking time calculator
+                </Link>, approximately 5% of the initial ethanol remains bound within the culinary emulsion.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does alcohol consumption affect resting metabolic rate and physical endurance?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Ethanol impairs muscle glycogen resynthesis and disrupts nocturnal growth hormone secretion by up to 70%. When tracking athletic training or energy burn with our{" "}
+                <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  calorie burn calculator
+                </Link>, acute alcohol consumption inhibits peripheral lipid oxidation, depressing net athletic training adaptation.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Clinical Health Standards & Metrology Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>World Health Organization (WHO):</strong> Global Information System on Alcohol and Health (GISAH) international beverage metrology standards.
+            </li>
+            <li>
+              <strong>UK National Health Service (NHS Digital):</strong> Guidelines for lower-risk alcohol consumption thresholds and hepatic clearance models.
+            </li>
+            <li>
+              <strong>US National Institute on Alcohol Abuse and Alcoholism (NIAAA):</strong> Standard drink definition and Widmark pharmacokinetic blood alcohol concentration formulae.
+            </li>
+            <li>
+              <strong>USDA Agricultural Research Service:</strong> Nutrient Data Laboratory retention tables for ethyl alcohol retention across cooking and culinary methods.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <AlcoholUnitCalculatorComponent />
+    </CalcPage>
   );
 }

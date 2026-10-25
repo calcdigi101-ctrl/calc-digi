@@ -1,26 +1,285 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import CookingConversionCalculatorComponent from "@/components/calcs/food/cooking-conversion-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CulinaryDensityWeightVolumeChart } from "@/components/flagship/food/editorial-charts";
+
+const PATH = "/calculators/food/cooking-conversion-calculator";
+const TITLE = "Cooking Conversion Calculator | Weight, Volume & Bulk Density";
+const DESCRIPTION =
+  "Convert recipe cups, grams, ounces, milliliters, and tablespoons using ingredient-specific bulk densities for flour, sugar, butter, and liquids.";
 
 export const metadata: Metadata = {
-  "title": "Cooking Conversion Calculator | CalcDigi",
-  "description": "Convert cups to tablespoons, teaspoons to ml, ounces to grams, and all kitchen measurement units for any recipe.",
-  "openGraph": {
-    "title": "Cooking Conversion Calculator | CalcDigi",
-    "description": "Convert cups to tablespoons, teaspoons to ml, ounces to grams, and all kitchen measurement units for any recipe.",
-    "type": "website",
-    "url": "/calculators/food/cooking-conversion-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/food/cooking-conversion-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/food/baking-substitution-calculator", icon: "🧁", name: "Baking Substitution" },
+  { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
+  { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
+  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
+  { href: "/calculators/food/cooking-time-calculator", icon: "⏱️", name: "Cooking Time" },
+  { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
+];
+
+export default function CookingConversionCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Food & Cooking Calculators\", \"item\": \"https://calcdigi.com/pages/food\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Cooking Conversion Calculator\", \"item\": \"https://calcdigi.com/calculators/food/cooking-conversion-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Cooking Conversion Calculator\", \"url\": \"https://calcdigi.com/calculators/food/cooking-conversion-calculator\", \"description\": \"Convert cups to tablespoons, teaspoons to ml, ounces to grams, and all kitchen measurement units for any recipe.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many tablespoons are in a cup?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 cup = 16 tablespoons = 48 teaspoons = 8 fluid ounces = 236.6 milliliters. Half cup = 8 tablespoons. Quarter cup = 4 tablespoons. One third cup = 5 tablespoons + 1 teaspoon (5.33 tablespoons).\"}}, {\"@type\": \"Question\", \"name\": \"How many teaspoons in a tablespoon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 tablespoon = 3 teaspoons = 0.5 fluid ounces = 14.79 milliliters. This is one of the most important kitchen conversions. When a recipe calls for 1/2 tablespoon, measure 1.5 teaspoons. Quarter tablespoon = 3/4 teaspoon.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert cups to milliliters?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"US cup to ml: multiply cups by 236.6. Half cup = 118.3 ml. Quarter cup = 59.15 ml. Third cup = 78.86 ml. For metric cups (UK, Canada, Australia): 1 cup = 250 ml. Always check which cup measurement a recipe uses — US and metric cups differ by about 5.7%.\"}}, {\"@type\": \"Question\", \"name\": \"How many grams in a cup of flour?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Flour is tricky because it compresses. All-purpose flour: 1 cup = 120-130g (spooned and leveled). Bread flour: 1 cup = 127g. Cake flour: 1 cup = 100g. Almond flour: 1 cup = 96g. For consistent baking results, always weigh flour rather than using cups. Scooping directly from the bag can result in 150-160g per cup.\"}}, {\"@type\": \"Question\", \"name\": \"How many ml in a teaspoon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 US teaspoon = 4.929 ml (approximately 5 ml). Most cooking and medical dosing uses the rounded 5 ml = 1 teaspoon approximation. This is precise enough for cooking. 1 tablespoon = 14.79 ml (approximately 15 ml). For medicine or scientific applications, use a calibrated syringe rather than a kitchen teaspoon.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert ounces to grams for cooking?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply ounces by 28.35 to get grams. Common cooking conversions: 1 oz = 28g, 2 oz = 57g, 4 oz = 113g, 8 oz = 227g, 16 oz (1 lb) = 454g. Quick mental trick: multiply oz by 28 for an approximate gram conversion that is accurate enough for most cooking applications.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/food\">Food &amp; Cooking</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Cooking Conversion Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Cooking Conversion Calculator</h1>\n<p class=\"calc-intro\">Convert between all cooking measurement units instantly — cups to tablespoons, teaspoons to milliliters, ounces to grams, and more. Essential for following international recipes, scaling ingredient amounts, and converting between US and metric cooking measurements.</p>\n<p class=\"calc-intro\">Cooking measurements can be confusing — especially when recipes switch between volume and weight, or when you only have certain measuring tools available. This calculator handles all standard US and metric cooking conversions for both volume and weight measurements.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Volume: 1 cup = 16 tbsp = 48 tsp = 8 fl oz = 236.6 ml | Weight: 1 oz = 28.35g | 1 lb = 453.6g</div></div>\n<div class=\"content-section\">\n<h2>Complete Cooking Measurement Reference</h2>\n<p>Understanding the relationships between cooking measurements lets you adapt recipes to available tools, scale quantities, and follow recipes from any country. The US uses volume measurements (cups, tablespoons) while most of the world uses weight (grams, kilograms) — both systems are represented here.</p>\n<h3>Volume Conversion Chart</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Measurement</th><th style=\"padding:11px 14px;text-align:left;\">Tablespoons</th><th style=\"padding:11px 14px;text-align:left;\">Fluid Oz</th><th style=\"padding:11px 14px;text-align:left;\">Milliliters</th><th style=\"padding:11px 14px;text-align:left;\">Teaspoons</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 tablespoon</td><td style=\"padding:10px 14px;\">3 teaspoons</td><td style=\"padding:10px 14px;\">0.5 fl oz</td><td style=\"padding:10px 14px;\">14.79 ml</td><td style=\"padding:10px 14px;\">1/16 cup</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1/4 cup</td><td style=\"padding:10px 14px;\">4 tablespoons</td><td style=\"padding:10px 14px;\">2 fl oz</td><td style=\"padding:10px 14px;\">59.15 ml</td><td style=\"padding:10px 14px;\">12 teaspoons</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1/3 cup</td><td style=\"padding:10px 14px;\">5 tbsp + 1 tsp</td><td style=\"padding:10px 14px;\">2.67 fl oz</td><td style=\"padding:10px 14px;\">78.86 ml</td><td style=\"padding:10px 14px;\">16 tsp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1/2 cup</td><td style=\"padding:10px 14px;\">8 tablespoons</td><td style=\"padding:10px 14px;\">4 fl oz</td><td style=\"padding:10px 14px;\">118.3 ml</td><td style=\"padding:10px 14px;\">24 tsp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 cup</td><td style=\"padding:10px 14px;\">16 tablespoons</td><td style=\"padding:10px 14px;\">8 fl oz</td><td style=\"padding:10px 14px;\">236.6 ml</td><td style=\"padding:10px 14px;\">48 tsp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 pint</td><td style=\"padding:10px 14px;\">2 cups</td><td style=\"padding:10px 14px;\">16 fl oz</td><td style=\"padding:10px 14px;\">473.2 ml</td><td style=\"padding:10px 14px;\">32 tbsp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 quart</td><td style=\"padding:10px 14px;\">4 cups</td><td style=\"padding:10px 14px;\">32 fl oz</td><td style=\"padding:10px 14px;\">946.4 ml</td><td style=\"padding:10px 14px;\">64 tbsp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 gallon</td><td style=\"padding:10px 14px;\">16 cups</td><td style=\"padding:10px 14px;\">128 fl oz</td><td style=\"padding:10px 14px;\">3,785 ml</td><td style=\"padding:10px 14px;\">256 tbsp</td></tr></tbody></table></div>\n<h3>Weight Conversions</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Unit</th><th style=\"padding:11px 14px;text-align:left;\">Metric</th><th style=\"padding:11px 14px;text-align:left;\">Imperial</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 ounce (oz)</td><td style=\"padding:10px 14px;\">28.35 grams</td><td style=\"padding:10px 14px;\">0.0625 lbs</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 pound (lb)</td><td style=\"padding:10px 14px;\">453.6 grams</td><td style=\"padding:10px 14px;\">16 ounces</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">100 grams</td><td style=\"padding:10px 14px;\">3.527 oz</td><td style=\"padding:10px 14px;\">0.220 lbs</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 kilogram</td><td style=\"padding:10px 14px;\">1000 grams</td><td style=\"padding:10px 14px;\">2.205 lbs</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 stone (UK)</td><td style=\"padding:10px 14px;\">6,350 grams</td><td style=\"padding:10px 14px;\">14 lbs</td></tr></tbody></table></div>\n<h3>US vs UK vs Australian Measurements</h3>\n<p>US cup = 236.6 ml. UK/Canadian cup = 250 ml (metric cup). Australian tablespoon = 20 ml (vs US 14.79 ml). Australian cup = 250 ml. These differences matter most in baking — a UK recipe using 250 ml cups vs a US cook using 236.6 ml cups = 5.7% difference per cup. For most savory recipes this is negligible; for precise baking, use weight measurements.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many tablespoons are in a cup? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 cup = 16 tablespoons = 48 teaspoons = 8 fluid ounces = 236.6 milliliters. Half cup = 8 tablespoons. Quarter cup = 4 tablespoons. One third cup = 5 tablespoons + 1 teaspoon (5.33 tablespoons).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many teaspoons in a tablespoon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 tablespoon = 3 teaspoons = 0.5 fluid ounces = 14.79 milliliters. This is one of the most important kitchen conversions. When a recipe calls for 1/2 tablespoon, measure 1.5 teaspoons. Quarter tablespoon = 3/4 teaspoon.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert cups to milliliters? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">US cup to ml: multiply cups by 236.6. Half cup = 118.3 ml. Quarter cup = 59.15 ml. Third cup = 78.86 ml. For metric cups (UK, Canada, Australia): 1 cup = 250 ml. Always check which cup measurement a recipe uses — US and metric cups differ by about 5.7%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many grams in a cup of flour? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Flour is tricky because it compresses. All-purpose flour: 1 cup = 120-130g (spooned and leveled). Bread flour: 1 cup = 127g. Cake flour: 1 cup = 100g. Almond flour: 1 cup = 96g. For consistent baking results, always weigh flour rather than using cups. Scooping directly from the bag can result in 150-160g per cup.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many ml in a teaspoon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 US teaspoon = 4.929 ml (approximately 5 ml). Most cooking and medical dosing uses the rounded 5 ml = 1 teaspoon approximation. This is precise enough for cooking. 1 tablespoon = 14.79 ml (approximately 15 ml). For medicine or scientific applications, use a calibrated syringe rather than a kitchen teaspoon.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert ounces to grams for cooking? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply ounces by 28.35 to get grams. Common cooking conversions: 1 oz = 28g, 2 oz = 57g, 4 oz = 113g, 8 oz = 227g, 16 oz (1 lb) = 454g. Quick mental trick: multiply oz by 28 for an approximate gram conversion that is accurate enough for most cooking applications.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Food &amp; Cooking Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/food/recipe-scaler\"><span class=\"rc-icon\">🍽️</span><span class=\"rc-name\">Recipe Scaler</span></a><a class=\"related-card\" href=\"/calculators/food/food-cost-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Food Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/food/coffee-caffeine-calculator\"><span class=\"rc-icon\">☕</span><span class=\"rc-name\">Caffeine Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Cooking Conversion Calculator – Cups, Tablespoons, ml and Grams</h2><div class=\"form-group\"><label for=\"cv-from\">Convert From</label><select id=\"cv-from\"><option value=\"tsp\">Teaspoon (tsp)</option><option selected=\"\" value=\"tbsp\">Tablespoon (tbsp)</option><option value=\"cup\">Cup</option><option value=\"floz\">Fluid Ounce (fl oz)</option><option value=\"ml\">Milliliter (ml)</option><option value=\"l\">Liter (L)</option><option value=\"oz\">Ounce weight (oz)</option><option value=\"lb\">Pound (lb)</option><option value=\"g\">Gram (g)</option><option value=\"kg\">Kilogram (kg)</option></select></div><div class=\"form-group\"><label for=\"cv-amount\">Amount</label><input id=\"cv-amount\" min=\"0\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"cv-to\">Convert To</label><select id=\"cv-to\"><option value=\"tsp\">Teaspoon (tsp)</option><option value=\"tbsp\">Tablespoon (tbsp)</option><option selected=\"\" value=\"cup\">Cup</option><option value=\"floz\">Fluid Ounce (fl oz)</option><option value=\"ml\">Milliliter (ml)</option><option value=\"l\">Liter (L)</option><option value=\"oz\">Ounce weight (oz)</option><option value=\"lb\">Pound (lb)</option><option value=\"g\">Gram (g)</option><option value=\"kg\">Kilogram (kg)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fd-result').style.display='none';document.getElementById('fd-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fd-result\" style=\"display:none;\"><div id=\"fd-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fd-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fd-ai\" style=\"display:none;\"></div></div>\n<div id=\"fd-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fd\" onclick=\"printResult('fd-result','Cooking Conversion Calculator – Cups, Tablespoons, ml and Grams')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Cooking Conversion Calculator – Cups, Tablespoons, ml and Grams')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-cooking-conversion-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var TO_ML={tsp:4.92892,tbsp:14.7868,cup:236.588,floz:29.5735,ml:1,l:1000};\nvar TO_G={oz:28.3495,lb:453.592,g:1,kg:1000};\nvar VOL=['tsp','tbsp','cup','floz','ml','l'];\nvar WGT=['oz','lb','g','kg'];\nfunction doCalc(){\n  var from=document.getElementById('cv-from').value;\n  var amt=parseFloat(document.getElementById('cv-amount').value)||0;\n  var to=document.getElementById('cv-to').value;\n  if(!amt){alert('Please enter an amount.');return;}\n  var result,note='';\n  var fromVol=VOL.includes(from),toVol=VOL.includes(to);\n  var fromWgt=WGT.includes(from),toWgt=WGT.includes(to);\n  if(fromVol&&toVol){result=amt*TO_ML[from]/TO_ML[to];}\n  else if(fromWgt&&toWgt){result=amt*TO_G[from]/TO_G[to];}\n  else{result=null;note='Volume ↔ Weight conversion requires ingredient density. Use ingredient-specific charts.';}\n  var fromNames={tsp:'tsp',tbsp:'tbsp',cup:'cup',floz:'fl oz',ml:'ml',l:'L',oz:'oz',lb:'lb',g:'g',kg:'kg'};\n  document.getElementById('fd-ri').innerHTML=\n    ri('Converted Amount',result!==null?'<strong style=\"font-size:24px;color:var(--c-accent)\">'+result.toFixed(4).replace(/\\.?0+$/,'')+' '+fromNames[to]+'</strong>':'<span style=\"color:#c8832a\">'+note+'</span>',true)+\n    ri('Original',amt+' '+fromNames[from])+\n    (result!==null?ri('In ml / g',fromVol?(amt*TO_ML[from]).toFixed(2)+' ml':(amt*TO_G[from]).toFixed(2)+'g'):'')+\n    ri('Common Conversions','1 cup=16 tbsp | 1 tbsp=3 tsp | 1 cup=236.6ml');\n  document.getElementById('fd-result').style.display='block';document.getElementById('fd-actions').style.display='flex';\n  drawDonut('fd-chart',['Original','Converted'],[Math.round(amt*100)||1,Math.round((result||1)*100)||1],['#1a5c3a','#c8832a']);\n  var aiPrompt='Cooking conversion: '+amt+' '+from+' = '+(result?result.toFixed(3):'N/A')+' '+to;\n  var ai=document.getElementById('fd-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical cooking or nutrition tip about accurate cooking measurements and baking precision.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/food", label: "Food & Cooking" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Culinary Metrology Summary: Volumetric vs Gravimetric Accuracy
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              In professional culinary arts and baking science, measuring ingredients by weight (gravimetric) eliminates the 20% to 35% volumetric error caused by aerated settling. One United States legal cup represents exactly 240 milliliters, but its gram mass ranges from 120 grams for all-purpose flour to 340 grams for raw honey. Cross-reference conversions with our{" "}
+              <Link href="/calculators/food/recipe-scaler" className="font-medium underline hover:text-amber-900">
+                recipe scaler
+              </Link>{" "}
+              and formulate pastry replacements in the{" "}
+              <Link href="/calculators/food/baking-substitution-calculator" className="font-medium underline hover:text-amber-900">
+                baking substitution calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Culinary Bulk Density Mechanics & Gravimetric Metrology</h2>
+          <CulinaryDensityWeightVolumeChart />
+          <p>
+            The physical density of culinary commodities is governed by particulate morphology, moisture content, and interstitial aeration. When a home cook dips a measuring cup directly into a bag of wheat flour, the powder compresses, packing up to 150 grams into a single cup. Conversely, aerating or sifting flour produces a cup weighing as little as 110 grams.
+          </p>
+          <p>
+            Professional commercial gastronomy standardizes ingredient measurement through bulk density constants (rho = mass / volume). Liquids like water, vinegar, and low-fat milk exhibit specific gravities close to 1.00 g/ml, whereas viscous syrups, lipid emulsions, and crystalline sugars possess distinct gravimetric factors:
+          </p>
+
+          <Formula>
+            {"\text{Mass (grams)} = \text{Volume (ml)} \times \rho\,(\text{Bulk Density in g/ml})"}
+          </Formula>
+
+          <Formula>
+            {"\text{US Cups to Grams} = \text{Cups} \times 236.588\,\text{ml/cup} \times \rho\,(\text{g/ml})"}
+          </Formula>
+
+          <Formula>
+            {"1\,\text{US Fluid Ounce (fl oz)} = 29.5735\,\text{ml} \approx 2\,\text{Tablespoons}"}
+          </Formula>
+
+          <Formula>
+            {"1\,\text{Imperial Cup} = 284.13\,\text{ml}, \quad 1\,\text{Metric Cup} = 250.0\,\text{ml}, \quad 1\,\text{US Legal Cup} = 240.0\,\text{ml}"}
+          </Formula>
+
+          <h2>Comprehensive Culinary Density & Volumetric Conversion Table</h2>
+          <p>
+            The reference table below establishes verified bulk density metrics across common culinary staples, allowing seamless translation between Imperial, Metric, and US customary units:
+          </p>
+
+          <DataTable
+            head={[
+              "Ingredient Specification",
+              "Bulk Density (g/ml)",
+              "Weight per 1 US Cup (240 ml)",
+              "Weight per 1 Metric Cup (250 ml)",
+              "Grams per 1 Tablespoon (15 ml)",
+              "Ounces per US Cup (oz)",
+            ]}
+            rows={[
+              ["All-Purpose Flour (Dip & Sweep)", "0.507 g/ml", "120 g", "127 g", "7.6 g", "4.23 oz"],
+              ["All-Purpose Flour (Packed)", "0.633 g/ml", "150 g", "158 g", "9.5 g", "5.29 oz"],
+              ["Granulated White Cane Sugar", "0.845 g/ml", "200 g", "211 g", "12.7 g", "7.05 oz"],
+              ["Packed Dark Brown Sugar", "0.930 g/ml", "220 g", "233 g", "14.0 g", "7.76 oz"],
+              ["Confectioners' Powdered Sugar", "0.507 g/ml", "120 g", "127 g", "7.6 g", "4.23 oz"],
+              ["Unsalted Butter (Room Temp)", "0.959 g/ml", "227 g (2 Sticks)", "240 g", "14.2 g", "8.00 oz"],
+              ["Pure Vegetable / Olive Oil", "0.920 g/ml", "218 g", "230 g", "13.8 g", "7.69 oz"],
+              ["Raw Clover Honey / Corn Syrup", "1.420 g/ml", "340 g", "355 g", "21.3 g", "11.99 oz"],
+              ["Table Salt (Fine Sodium Chloride)", "1.200 g/ml", "288 g", "300 g", "18.0 g", "10.16 oz"],
+              ["Diamond Crystal Kosher Salt", "0.575 g/ml", "138 g", "144 g", "8.6 g", "4.87 oz"],
+            ]}
+          />
+
+          <h2>Worked Analytical Scenario: Converting European Pastry Formulas</h2>
+          <p>
+            Consider a professional pastry chef adapting a classical French brioche recipe originally documented in European metric grams into US customary bakery volume measures for kitchen prep. The chef also tracks nutritional yield with our{" "}
+            <Link href="/calculators/food/nutrition-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              nutrition calculator
+            </Link>{" "}
+            and ingredient cost with the{" "}
+            <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              food cost calculator
+            </Link>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Flour Formulation:</strong> 500 grams French T45 flour (bulk density 0.507 g/ml).
+              <Formula>
+                {"\text{Volume (ml)} = \frac{500\,\text{g}}{0.507\,\text{g/ml}} = 986.2\,\text{ml} \div 236.59\,\text{ml/cup} = 4.17\,\text{US Cups}"}
+              </Formula>
+              Target volume: 4 cups plus 2.7 tablespoons of sifted flour.
+            </li>
+            <li>
+              <strong>Butter Component:</strong> 250 grams European unsalted butter (82% butterfat).
+              <Formula>
+                {"\text{US Butter Sticks} = \frac{250\,\text{g}}{113.4\,\text{g/stick}} = 2.20\,\text{sticks} \approx 1.10\,\text{US Cups}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Liquid Hydration (Whole Milk):</strong> 125 ml milk at density 1.032 g/ml.
+              <Formula>
+                {"\text{Mass} = 125\,\text{ml} \times 1.032\,\text{g/ml} = 129.0\,\text{g} = 0.528\,\text{US Cups}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Kosher Salt Density Discrepancy:</strong> The recipe calls for 10 grams of salt. Using fine table salt (density 1.20 g/ml) requires 0.56 tablespoons (1.7 tsp), whereas Diamond Crystal kosher salt (density 0.575 g/ml) requires 1.16 tablespoons (3.5 tsp). Failing to adjust for salt crystal density would ruin the flavor balance.
+            </li>
+            <li>
+              <strong>Baking & Energy Balancing:</strong> The pastry chef coordinates oven temperature and duration with our{" "}
+              <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                cooking time calculator
+              </Link>{" "}
+              and evaluates energy burn from intensive dough kneading in the{" "}
+              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                calorie burn calculator
+              </Link>.
+            </li>
+          </ul>
+
+          <h2>The Meniscus Error & Temperature Volumetric Expansion</h2>
+          <p>
+            When utilizing transparent liquid measuring cylinders, parallax error and surface tension can alter volume readings by up to 5%. In aqueous solutions, surface wetting creates a concave meniscus where the bottom of the curve represents the true volumetric level.
+          </p>
+          <p>
+            Furthermore, thermal expansion modifies culinary liquid density. Boiling water at 100°C possesses a density of 0.958 g/ml compared to 0.998 g/ml at 20°C room temperature. While negligible in single-portion cooking, this 4% volumetric expansion causes significant yield errors in commercial soup and broth production.
+
+          <h2>Powder Compaction Mechanics: The Carr Index & Hausner Ratio</h2>
+          <p>
+            In culinary bulk material science and industrial food engineering, the disparity between loose aerated powder volume and compressed settled mass is evaluated using the Carr Compressibility Index and the Hausner Ratio. Fine particulate starches like wheat flour and cornstarch exhibit cohesive inter-particle friction driven by electrostatic surface forces and van der Waals attractions:
+          </p>
+          <p>
+            When a culinary vessel or bulk hopper is subjected to ambient vibration or mechanical tapping during shipping, loose particle bridges collapse, expelling interstitial void air. The Carr Index quantifies this transition: Carr Index = 100 * (1 - rho_loose / rho_tapped). Highly compressible powders exhibit Carr indices exceeding 25%, meaning their effective density increases by over a quarter simply through storage compaction.
+          </p>
+          <p>
+            Relative atmospheric humidity further exacerbates volumetric inaccuracy. Because wheat flour is naturally hygroscopic, storing flour at 80% relative ambient humidity allows grain starches to adsorb up to 14% water vapor by mass. A measuring cup dipped into humid, compacted flour can weigh up to 160 grams—introducing massive structural failure into delicate cake batters if not corrected via gravimetric digital scales.
+          </p>
+          </p>
+
+          <h2>Operational Pitfalls in Culinary Metrology & Scale Calibration</h2>
+          <p>
+            Preventing culinary errors requires vigilant measurement hygiene:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>The Kosher Salt Trap:</strong> The physical geometry of sodium chloride crystals dictates volumetric density. Diamond Crystal kosher salt is manufactured via open-pan evaporation, producing hollow, brittle pyramidal flakes that crush easily. Morton kosher salt is produced via mechanical roll pressing, yielding dense, compact flakes that pack nearly twice as much sodium chloride into a single measuring tablespoon. Morton Kosher salt is nearly twice as dense as Diamond Crystal Kosher salt. Swapping brands on a 1:1 volumetric basis makes savory food unpalatably salty.
+            </li>
+            <li>
+              <strong>Ounce Ambiguity (Mass vs Fluid):</strong> A fluid ounce (fl oz) measures volume (29.57 ml), whereas an avoirdupois ounce (oz) measures gravitational mass (28.35 g). Only pure water at 4°C shares exact numerical equivalence between fluid and mass ounces.
+            </li>
+            <li>
+              <strong>Brown Sugar Compaction:</strong> Recipes specifying &quot;packed brown sugar&quot; require compressing out air pockets to achieve 220g per cup. Unpacked brown sugar weighs only 170g per cup.
+            </li>
+            <li>
+              <strong>Beverage & Alcohol Volume Standardization:</strong> In beverage programs, accurate milliliter conversions ensure compliance with alcohol unit tracking via our{" "}
+              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                alcohol unit calculator
+              </Link>{" "}
+              and caffeine concentration in the{" "}
+              <Link href="/calculators/food/coffee-caffeine-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                coffee caffeine calculator
+              </Link>.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why do professional pastry chefs refuse to use volumetric cup measures?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Measuring cups exhibit a 20% to 30% margin of error due to flour compaction, humidity, and scooping force. Electronic digital scales provide gravimetric accuracy to within 1 gram, ensuring identical cake crumb texture, oven rise, and consistency across every production batch.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How many tablespoons are in one-quarter cup of liquid or dry ingredients?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                There are exactly 4 tablespoons in 1/4 US cup (60 ml or 2 fluid ounces). For smaller fractional amounts, 1 tablespoon equals 3 teaspoons.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the difference between a US legal cup and a Metric cup?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                A United States customary cup equals 236.59 ml, an FDA legal nutrition cup equals exactly 240 ml, and a Commonwealth Metric cup (used in Australia, New Zealand, and Canada) equals 250 ml. Using a Metric cup in an American recipe introduces a 5% excess liquid bias.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do I convert stick butter into tablespoons, ounces, and grams?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                In the United States, 1 stick of butter equals 8 tablespoons, 1/2 cup, 4 avoirdupois ounces, or 113.4 grams. Two full sticks equal 1 cup (227 grams).
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does ingredient density affect large-scale recipe batch multipliers?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                When scaling catering batches up to 50 portions with our{" "}
+                <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  recipe scaler
+                </Link>, volumetric errors compound rapidly. Converting to gram weight avoids ruined emulsions and dough hydration imbalances.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do restaurant kitchen conversions protect prime food margins?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                In hospitality cost accounting, standardizing portion yields through bulk density conversion allows chefs using our{" "}
+                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  food cost calculator
+                </Link>{" "}
+                to calculate true portion costs and prevent ingredient over-portioning.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Culinary Metrology Standards & National Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>National Institute of Standards and Technology (NIST Handbook 44):</strong> Specifications and tolerances for commercial kitchen weighing and volumetric devices.
+            </li>
+            <li>
+              <strong>United States Department of Agriculture (USDA FoodData Central):</strong> Standard reference nutrient and food density databases.
+            </li>
+            <li>
+              <strong>International Organization for Standardization (ISO 31-3):</strong> Quantities and units of mechanics, volume, and density.
+            </li>
+            <li>
+              <strong>The Culinary Institute of America (The Professional Chef 9th Edition):</strong> Standard kitchen ratios and gravimetric conversion rules.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <CookingConversionCalculatorComponent />
+    </CalcPage>
   );
 }
