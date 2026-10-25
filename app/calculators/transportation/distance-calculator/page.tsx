@@ -1,26 +1,293 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import DistanceCalculatorComponent from "@/components/calcs/transportation/distance-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TransitModeSpeedDistanceMatrixChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/distance-calculator";
+const TITLE = "Distance Calculator | Travel Time, Transit Speed & CO2 Emissions";
+const DESCRIPTION =
+  "Calculate travel distance, elapsed door-to-door transit time, average speed, terminal buffers, and greenhouse gas carbon emissions across transit modes.";
 
 export const metadata: Metadata = {
-  "title": "Distance Calculator – Miles Between Cities | CalcDigi",
-  "description": "Calculate straight-line distance between locations using GPS coordinates. Convert miles to kilometers and estimate travel time easily.",
-  "openGraph": {
-    "title": "Distance Calculator – Miles Between Cities | CalcDigi",
-    "description": "Calculate straight-line distance between locations using GPS coordinates. Convert miles to kilometers and estimate travel time easily.",
-    "type": "website",
-    "url": "/calculators/transportation/distance-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/distance-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
+  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/moving-cost-calculator", icon: "📦", name: "Moving Cost Calculator" },
+  { href: "/calculators/transportation/bike-pace-calculator", icon: "🚲", name: "Bike Pace Calculator" },
+  { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
+];
+
+export default function DistanceCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Distance Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/distance-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Distance Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/distance-calculator\", \"description\": \"Calculate straight-line distance between locations using GPS coordinates. Convert miles to kilometers and estimate travel time easily.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate the distance between two cities?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For straight-line distance: use the Haversine formula with latitude and longitude coordinates. For driving distance: use a mapping service (Google Maps, Apple Maps). This calculator computes straight-line (great-circle) distance. Multiply by 1.2-1.4 to estimate driving distance for most routes.\"}}, {\"@type\": \"Question\", \"name\": \"What is the formula for calculating distance between two GPS coordinates?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The Haversine formula: d = 2R × arcsin(√(sin²(Δlat/2) + cos(lat1) × cos(lat2) × sin²(Δlon/2))), where R = 3,959 miles (Earth radius), lat1/lat2 are the latitudes, lon1/lon2 are the longitudes, and Δ represents the difference. This gives the great-circle (shortest surface) distance.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between miles and kilometers?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 mile = 1.60934 kilometers. 1 kilometer = 0.621371 miles. The US, UK (for road signs), and a few other countries use miles. Most of the world uses kilometers. Quick conversion: miles × 1.6 ≈ kilometers. Kilometers × 0.62 ≈ miles.\"}}, {\"@type\": \"Question\", \"name\": \"What is a great circle distance?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The great-circle distance is the shortest path between two points on the surface of a sphere. On a globe, this path is an arc of a great circle (a circle whose center is Earth center). Airplanes and ships navigate using great circle routes to minimize travel distance and fuel. The Haversine formula calculates this distance from GPS coordinates.\"}}, {\"@type\": \"Question\", \"name\": \"How far is 1 degree of latitude in miles?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 degree of latitude = approximately 69 miles (111 km) everywhere on Earth (latitude lines are equally spaced). 1 degree of longitude varies by latitude: at the equator = 69 miles, at 45° latitude = 49 miles, at the poles = 0 miles. This is why longitude lines converge at the poles.\"}}, {\"@type\": \"Question\", \"name\": \"What is the circumference of the Earth?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Earth circumference: approximately 24,901 miles (40,075 km) at the equator. Slightly less pole-to-pole (24,860 miles / 40,008 km) because Earth is an oblate spheroid — slightly flattened at the poles. The radius is approximately 3,959 miles (6,371 km) as used in the Haversine formula.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Distance Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Distance Calculator</h1>\n<p class=\"calc-intro\">Calculate the straight-line (as the crow flies) distance between any two points using latitude and longitude coordinates, or look up approximate distances between major cities. Convert between miles and kilometers and estimate driving or flying time.</p>\n<p class=\"calc-intro\">Distance calculation is fundamental to travel planning, logistics, and geography. The Haversine formula calculates the great-circle distance — the shortest path between two points on Earth sphere surface. This differs from driving distance, which follows roads and can be 20-40% longer than straight-line distance.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Haversine Formula: d = 2R × arcsin(√(sin²(Δlat/2) + cos(lat1) × cos(lat2) × sin²(Δlon/2))) | R = 3,959 miles (Earth radius)</div></div>\n<div class=\"content-section\">\n<h2>Major City Distances Reference</h2>\n<p>Great-circle (straight-line) distances between major cities give a baseline for flight time estimation. Actual driving distances are 20-40% longer due to road routing. Use these reference points to sanity-check your calculations.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Route</th><th style=\"padding:11px 14px;text-align:left;\">Straight-Line Distance</th><th style=\"padding:11px 14px;text-align:left;\">Typical Travel Time</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">New York to Los Angeles</td><td style=\"padding:10px 14px;\">2,451 mi (3,944 km)</td><td style=\"padding:10px 14px;\">5.5 hr flight / ~42 hr drive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">London to Paris</td><td style=\"padding:10px 14px;\">214 mi (344 km)</td><td style=\"padding:10px 14px;\">1.5 hr flight / ~7 hr drive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Chicago to Dallas</td><td style=\"padding:10px 14px;\">803 mi (1,293 km)</td><td style=\"padding:10px 14px;\">2.5 hr flight / ~14 hr drive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Sydney to Melbourne</td><td style=\"padding:10px 14px;\">440 mi (708 km)</td><td style=\"padding:10px 14px;\">1.5 hr flight / ~9 hr drive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Tokyo to Seoul</td><td style=\"padding:10px 14px;\">806 mi (1,298 km)</td><td style=\"padding:10px 14px;\">2.5 hr flight / ferry+drive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Mumbai to Delhi</td><td style=\"padding:10px 14px;\">716 mi (1,152 km)</td><td style=\"padding:10px 14px;\">2 hr flight / ~24 hr drive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">New York to London</td><td style=\"padding:10px 14px;\">3,459 mi (5,570 km)</td><td style=\"padding:10px 14px;\">7 hr flight / not drivable</td></tr></tbody></table></div>\n<h3>Great Circle vs Driving Distance</h3>\n<p>The great-circle distance (Haversine formula) calculates the shortest path between two points on Earth spherical surface. Driving distance follows roads and is always longer. Ratio of driving to straight-line: urban areas: 1.2-1.5×. Rural/interstate highways: 1.1-1.3×. Mountain terrain: 1.5-2.0×. When you enter two cities and get straight-line distance, add 20-30% for approximate driving distance.</p>\n<h3>GPS Coordinates</h3>\n<p>All locations on Earth can be described with two coordinates: latitude (north-south, -90 to +90°, equator = 0°) and longitude (east-west, -180 to +180°, prime meridian = 0°). New York: 40.7128°N, 74.0060°W. London: 51.5074°N, 0.1278°W. Sydney: 33.8688°S, 151.2093°E. Tokyo: 35.6762°N, 139.6503°E.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate the distance between two cities? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For straight-line distance: use the Haversine formula with latitude and longitude coordinates. For driving distance: use a mapping service (Google Maps, Apple Maps). This calculator computes straight-line (great-circle) distance. Multiply by 1.2-1.4 to estimate driving distance for most routes.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the formula for calculating distance between two GPS coordinates? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The Haversine formula: d = 2R × arcsin(√(sin²(Δlat/2) + cos(lat1) × cos(lat2) × sin²(Δlon/2))), where R = 3,959 miles (Earth radius), lat1/lat2 are the latitudes, lon1/lon2 are the longitudes, and Δ represents the difference. This gives the great-circle (shortest surface) distance.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between miles and kilometers? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 mile = 1.60934 kilometers. 1 kilometer = 0.621371 miles. The US, UK (for road signs), and a few other countries use miles. Most of the world uses kilometers. Quick conversion: miles × 1.6 ≈ kilometers. Kilometers × 0.62 ≈ miles.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a great circle distance? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The great-circle distance is the shortest path between two points on the surface of a sphere. On a globe, this path is an arc of a great circle (a circle whose center is Earth center). Airplanes and ships navigate using great circle routes to minimize travel distance and fuel. The Haversine formula calculates this distance from GPS coordinates.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How far is 1 degree of latitude in miles? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 degree of latitude = approximately 69 miles (111 km) everywhere on Earth (latitude lines are equally spaced). 1 degree of longitude varies by latitude: at the equator = 69 miles, at 45° latitude = 49 miles, at the poles = 0 miles. This is why longitude lines converge at the poles.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the circumference of the Earth? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Earth circumference: approximately 24,901 miles (40,075 km) at the equator. Slightly less pole-to-pole (24,860 miles / 40,008 km) because Earth is an oblate spheroid — slightly flattened at the poles. The radius is approximately 3,959 miles (6,371 km) as used in the Haversine formula.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Distance Calculator – Miles Between Cities and Locations</h2><div class=\"form-group\"><label for=\"dc-lat1\">Point 1 Latitude (°)</label><input id=\"dc-lat1\" max=\"90\" min=\"-90\" step=\"any\" type=\"number\" value=\"40.7128\"/></div><div class=\"form-group\"><label for=\"dc-lon1\">Point 1 Longitude (°)</label><input id=\"dc-lon1\" max=\"180\" min=\"-180\" step=\"any\" type=\"number\" value=\"-74.0060\"/></div><div class=\"form-group\"><label for=\"dc-lat2\">Point 2 Latitude (°)</label><input id=\"dc-lat2\" max=\"90\" min=\"-90\" step=\"any\" type=\"number\" value=\"34.0522\"/></div><div class=\"form-group\"><label for=\"dc-lon2\">Point 2 Longitude (°)</label><input id=\"dc-lon2\" max=\"180\" min=\"-180\" step=\"any\" type=\"number\" value=\"-118.2437\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Distance Calculator – Miles Between Cities and Locations')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Distance Calculator – Miles Between Cities and Locations')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-distance-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function toRad(d){return d*Math.PI/180;}\nfunction doCalc(){\n  var lat1=parseFloat(document.getElementById('dc-lat1').value);\n  var lon1=parseFloat(document.getElementById('dc-lon1').value);\n  var lat2=parseFloat(document.getElementById('dc-lat2').value);\n  var lon2=parseFloat(document.getElementById('dc-lon2').value);\n  if(isNaN(lat1)||isNaN(lon1)||isNaN(lat2)||isNaN(lon2)){alert('Please enter valid coordinates.');return;}\n  var R=3958.8;\n  var dLat=toRad(lat2-lat1); var dLon=toRad(lon2-lon1);\n  var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)*Math.sin(dLon/2);\n  var c=2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));\n  var miles=R*c; var km=miles*1.60934;\n  var driveEst=miles*1.3; var flyHrs=miles/550;\n  var driveHrs=miles/55;\n  var aiPrompt='Distance: '+miles.toFixed(0)+' miles ('+km.toFixed(0)+' km) straight-line, drive est. '+driveEst.toFixed(0)+' miles';\n  document.getElementById('tr-ri').innerHTML=\n    ri('Straight-Line Distance','<strong style=\"font-size:22px;color:var(--c-accent)\">'+miles.toFixed(1)+' miles</strong>',true)+\n    ri('In Kilometers',km.toFixed(1)+' km')+\n    ri('Driving Estimate (×1.3)','~'+driveEst.toFixed(0)+' miles')+\n    ri('Flight Time Estimate','~'+(Math.floor(flyHrs))+'h '+(Math.round((flyHrs%1)*60))+'min')+\n    ri('Drive Time Estimate (55mph)','~'+(Math.floor(driveHrs))+'h '+(Math.round((driveHrs%1)*60))+'min')+\n    ri('Coordinates','('+lat1+', '+lon1+') → ('+lat2+', '+lon2+')');\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Straight Line (mi)','Drive Extra (est.)'],[Math.round(miles),Math.round(driveEst-miles)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about travel planning using distance calculations.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Travel Kinematics Summary: Door-to-Door Transit Velocity
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              Measuring long-distance journey duration requires distinguishing between nominal cruising speed and true door-to-door effective velocity. For trips under 300 miles, high-speed rail and personal driving frequently outperform commercial aviation when accounting for airport security check-in and boarding buffers. You can evaluate vehicular trip pacing in our{" "}
+              <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-medium underline hover:text-amber-900">
+                speed distance time calculator
+              </Link>{" "}
+              and fuel costs in the{" "}
+              <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium underline hover:text-amber-900">
+                fuel cost calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Transit Modality Physics & Total Door-to-Door Travel Dynamics</h2>
+          <TransitModeSpeedDistanceMatrixChart />
+          <p>
+            In transportation engineering and regional spatial analysis, travel time is modeled through discrete phase components: access time, terminal buffer processing, active in-motion cruising transit, en-route congestion or dwell intervals, and egress time to the final destination.
+          </p>
+          <p>
+            While commercial jetliners achieve cruising speeds of 480 to 520 mph (770 to 830 km/h), the mandatory 90- to 120-minute airport security and taxiing overhead depresses effective door-to-door velocity on short-haul corridors. Conversely, modern passenger high-speed rail (operating at 125 to 190 mph / 200 to 300 km/h) delivers city-center-to-city-center connectivity with negligible terminal dwell. Commute impacts can be modeled in our{" "}
+            <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              commute cost calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"T_{\text{total}} = T_{\text{in-motion}} + T_{\text{terminal buffer}} + T_{\text{congestion}} = \left(\frac{D}{v_{\text{cruise}}}\right) + \Delta t_{\text{buffer}}"}
+          </Formula>
+
+          <Formula>
+            {"v_{\text{effective}} = \frac{\text{Total Geographic Distance } (D)}{T_{\text{total}}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{CO}_2\text{e Footprint (kg)} = D \times \frac{\text{Emissions Factor (g CO}_2\text{e / passenger-mile)}}{1{,}000}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Distance Conversion: } D_{\text{km}} = D_{\text{miles}} \times 1.609344, \quad D_{\text{nmi}} = D_{\text{miles}} \times 0.868976"}
+          </Formula>
+
+          <h2>Transportation Modality Velocity, Efficiency & Emissions Matrix</h2>
+          <p>
+            The comparative matrix below illustrates nominal operating speeds, terminal buffer overheads, and lifecycle greenhouse gas emissions across standardized travel modes:
+          </p>
+
+          <DataTable
+            head={[
+              "Transportation Modality",
+              "Nominal Speed (mph / km/h)",
+              "Typical Terminal Buffer",
+              "Optimal Distance Range",
+              "Energy Efficiency (BTU/p-mi)",
+              "Carbon Intensity (g CO2e/mi)",
+            ]}
+            rows={[
+              ["Interstate Passenger Car (Solo)", "65 mph / 105 km/h", "5 - 15 minutes", "20 - 400 miles", "3,100 BTU", "210 g CO2e / mi"],
+              ["Carpool Vehicle (3 Occupants)", "65 mph / 105 km/h", "10 - 20 minutes", "20 - 400 miles", "1,030 BTU", "70 g CO2e / p-mi"],
+              ["Intercity Motorcoach / Bus", "55 mph / 88 km/h", "20 - 30 minutes", "50 - 350 miles", "920 BTU", "85 g CO2e / p-mi"],
+              ["Conventional Passenger Rail", "75 mph / 120 km/h", "20 - 30 minutes", "50 - 500 miles", "1,550 BTU", "110 g CO2e / p-mi"],
+              ["High-Speed Electric Rail (HSR)", "150 mph / 240 km/h", "15 - 25 minutes", "100 - 600 miles", "780 BTU", "45 g CO2e / p-mi"],
+              ["Commercial Jet Aircraft (Short-Haul)", "450 mph / 725 km/h", "90 - 120 minutes", "400 - 3,000 miles", "2,850 BTU", "220 g CO2e / p-mi"],
+              ["Long-Haul Commercial Aircraft", "520 mph / 835 km/h", "120 - 150 minutes", ">1,500 miles", "2,200 BTU", "160 g CO2e / p-mi"],
+            ]}
+          />
+
+          <h2>Worked Analytical Scenario: 350-Mile Regional Travel Comparison</h2>
+          <p>
+            Consider a business professional traveling 350.0 statute miles between two major metropolitan centers (e.g., Los Angeles to San Francisco, or Washington DC to Boston). We compare door-to-door transit velocity, total time, and carbon footprint against long-distance moving logistics in our{" "}
+            <Link href="/calculators/transportation/moving-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              moving cost calculator
+            </Link>{" "}
+            and vehicle depreciation in the{" "}
+            <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              car depreciation calculator
+            </Link>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Option 1: Interstate Highway Driving (Personal Vehicle):</strong>
+              <br />
+              Cruising speed = 65 mph.
+              <Formula>
+                {"T_{\text{driving}} = \frac{350\,\text{miles}}{65\,\text{mph}} + 0.5\,\text{hr (fuel/rest stop)} = 5.38 + 0.5 = 5.88\,\text{hours (5h 53m)}"}
+              </Formula>
+              Effective velocity = 350 / 5.88 = 59.5 mph. Emissions = 350 * 210g = 73.5 kg CO2e.
+            </li>
+            <li>
+              <strong>Option 2: Commercial Air Travel (Regional Flight):</strong>
+              <br />
+              Airborne flight duration at 450 mph = 350 / 450 = 0.78 hours (47 minutes).
+              <br />
+              Terminal overhead: 90 min pre-departure security + 25 min airport taxi-out/in + 30 min baggage claim/egress = 145 minutes (2.42 hours).
+              <Formula>
+                {"T_{\text{aviation}} = 0.78 + 2.42 = 3.20\,\text{hours (3h 12m)}"}
+              </Formula>
+              Effective velocity = 350 / 3.20 = 109.4 mph. Emissions = 350 * 220g = 77.0 kg CO2e.
+            </li>
+            <li>
+              <strong>Option 3: High-Speed Electric Rail:</strong>
+              <br />
+              Cruising speed = 135 mph average with stops.
+              <Formula>
+                {"T_{\text{rail}} = \frac{350\,\text{miles}}{135\,\text{mph}} + 0.33\,\text{hr (station arrival)} = 2.59 + 0.33 = 2.92\,\text{hours (2h 55m)}"}
+              </Formula>
+              Effective velocity = 350 / 2.92 = 119.9 mph. Emissions = 350 * 45g = 15.8 kg CO2e.
+            </li>
+            <li>
+              <strong>The 350-Mile Crossover Verdict:</strong> High-speed rail is the fastest door-to-door option (2h 55m) while generating 80% fewer carbon emissions than flying or driving.
+            </li>
+          
+            <li>
+              <strong>Geodesic Great-Circle vs Terrestrial Highway Circuity:</strong> The mathematical ratio between actual road distance and the theoretical spherical great-circle chord is known as the Route Circuity Factor (RCF). Across North American and European highway corridors, terrestrial circuity averages 1.18 to 1.25 due to geographic mountain topography, water barriers, and land easements. In long-haul transport logistics, intermodal rail lines operate at circuity factors near 1.22, whereas commercial jetliners fly within 1.04 of true geodesic orthodromes outside of military airspace diversions.
+            </li>
+          </ul>
+
+          <h2>Great Circle Distance vs Highway Route Tortuosity</h2>
+          <p>
+            When calculating distances between geographic coordinates, straight-line geodesics (the Great Circle distance across the Earth&apos;s oblate spheroid, calculated via the Haversine or Vincenty equations) diverge significantly from terrestrial surface roads:
+          </p>
+
+          <Formula>
+            {"d = 2r \arcsin\left(\sqrt{\sin^2\left(\frac{\Delta \phi}{2}\right) + \cos(\phi_1)\cos(\phi_2)\sin^2\left(\frac{\Delta \lambda}{2}\right)}\right)"}
+          </Formula>
+
+          <p>
+            In highway routing, the ratio of actual road distance to geodesic straight-line distance is called the "route tortuosity factor." In flat, grid-based Midwestern geography, highway tortuosity averages 1.15 to 1.20 (roads are 15% to 20% longer than straight lines). In mountainous terrain, terrain circumvention inflates tortuosity up to 1.35 to 1.50.
+          </p>
+
+          <h2>Operational Pitfalls in Distance Planning & Travel Scheduling</h2>
+          <p>
+            Preventing travel disruptions requires accounting for systemic delays:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Ignoring Metropolitan Peak-Hour Congestion:</strong> Driving schedules calculated using free-flow highway speed limits fail severely when passing through major metro centers during peak rush hours (07:00-09:30 and 16:30-19:00), adding 30% to 75% in transit duration.
+            </li>
+            <li>
+              <strong>The Short-Haul Flight Fallacy:</strong> For journeys under 250 miles, taking a commercial flight rarely saves time over driving when accounting for airport commutes and security lines, while adding hundreds of dollars in flight costs.
+            </li>
+            <li>
+              <strong>Physical Athletic Energy Expended:</strong> Active travel modalities such as long-distance cycling routes require energy budgeting tracked in our{" "}
+              <Link href="/calculators/transportation/bike-pace-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                bike pace calculator
+              </Link>.
+            </li>
+            <li>
+              <strong>Fuel Tank Range & Refueling Buffers:</strong> Failing to plan refueling stops on long rural interstate corridors risks fuel starvation, with fuel usage modeled in our{" "}
+              <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                fuel cost calculator
+              </Link>.
+            </li>
+          
+            <li>
+              <strong>Geodesic Great-Circle vs Terrestrial Highway Circuity:</strong> The mathematical ratio between actual road distance and the theoretical spherical great-circle chord is known as the Route Circuity Factor (RCF). Across North American and European highway corridors, terrestrial circuity averages 1.18 to 1.25 due to geographic mountain topography, water barriers, and land easements. In long-haul transport logistics, intermodal rail lines operate at circuity factors near 1.22, whereas commercial jetliners fly within 1.04 of true geodesic orthodromes outside of military airspace diversions.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the difference between a statute mile, nautical mile, and kilometer?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                A statute mile (standard US road mile) equals exactly 5,280 feet or 1,609.344 meters. A nautical mile (used in aviation and maritime navigation) equals exactly 1,852 meters (approx 1.1508 statute miles), representing one minute of latitude arc along a meridian. A kilometer equals 1,000 meters (0.621371 statute miles).
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do airlines calculate flight block time versus actual flight time?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                "Flight time" represents the duration the aircraft is airborne from wheels-up takeoff to touchdown. "Block time" (gate-to-gate) begins when the aircraft pushes back from the departure gate and concludes when it parks at the arrival gate, encompassing pushback, engine start, taxiway queues, and runway taxiing.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why does high-speed rail generate significantly lower CO2 emissions than flying?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Electric high-speed trains draw power from national electric grids increasingly powered by renewables, nuclear, and hydro. Furthermore, steel wheels on steel rails exhibit minimal rolling friction, and trains carry hundreds of passengers per vehicle without expending fuel to lift mass to 35,000 feet.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does vehicle speed affect highway travel fuel consumption?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Because aerodynamic air drag increases with the square of speed, cruising at 80 mph consumes roughly 25% more fuel per mile than cruising at 65 mph, substantially accelerating fuel costs calculated in our{" "}
+                <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  fuel cost calculator
+                </Link>.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does travel distance impact household moving budgets?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                In long-distance interstate moves, freight mileage dictates diesel fuel, driver line-haul rates, and lodging expenses modeled in our{" "}
+                <Link href="/calculators/transportation/moving-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  moving cost calculator
+                </Link>.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does commute distance impact vehicle loan financing decisions?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                High-distance commuting rapidly exhausts warranty thresholds while accelerating depreciation, making short-term financing modeled in our{" "}
+                <Link href="/calculators/transportation/car-payment-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  car payment calculator
+                </Link>{" "}
+                vital to avoid negative equity.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Transportation Geodesy & Emissions Standards</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>US Department of Transportation (Bureau of Transportation Statistics):</strong> National Transit Database and intercity passenger rail operational benchmarks.
+            </li>
+            <li>
+              <strong>International Civil Aviation Organization (ICAO):</strong> Carbon Emissions Calculator Methodology for Passenger Flights.
+            </li>
+            <li>
+              <strong>Environmental Protection Agency (EPA SmartWay):</strong> Greenhouse gas emission factors for freight, commercial, and personal transportation modes.
+            </li>
+            <li>
+              <strong>National Geodetic Survey (NOAA):</strong> Geodetic distance, ellipsoidal coordinates, and Vincenty formula standards.
+            </li>
+          
+            <li>
+              <strong>Geodesic Great-Circle vs Terrestrial Highway Circuity:</strong> The mathematical ratio between actual road distance and the theoretical spherical great-circle chord is known as the Route Circuity Factor (RCF). Across North American and European highway corridors, terrestrial circuity averages 1.18 to 1.25 due to geographic mountain topography, water barriers, and land easements. In long-haul transport logistics, intermodal rail lines operate at circuity factors near 1.22, whereas commercial jetliners fly within 1.04 of true geodesic orthodromes outside of military airspace diversions.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <DistanceCalculatorComponent />
+    </CalcPage>
   );
 }

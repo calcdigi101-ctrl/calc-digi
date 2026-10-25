@@ -1,26 +1,210 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import TireSizeCalculatorComponent from "@/components/calcs/transportation/tire-size-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TireDiameterSpeedometerVarianceChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/tire-size-calculator";
+const TITLE = "Tire Size Calculator | Diameter, Sidewall & Speedometer Error";
+const DESCRIPTION =
+  "Compare tire dimensions, overall diameter, sidewall height, wheel circumference, revolutions per mile, and speedometer calibration error.";
 
 export const metadata: Metadata = {
-  "title": "Tire Size Calculator – Compare Tire Dimensions | CalcDigi",
-  "description": "Decode tire size codes and calculate diameter and sidewall. Compare two tire sizes and check speedometer error after changing tires.",
-  "openGraph": {
-    "title": "Tire Size Calculator – Compare Tire Dimensions | CalcDigi",
-    "description": "Decode tire size codes and calculate diameter and sidewall. Compare two tire sizes and check speedometer error after changing tires.",
-    "type": "website",
-    "url": "/calculators/transportation/tire-size-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/tire-size-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
+  { href: "/calculators/transportation/mpg-calculator", icon: "📊", name: "MPG Calculator" },
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+  { href: "/calculators/transportation/road-trip-cost-calculator", icon: "🗺️", name: "Road Trip Cost Calculator" },
+];
+
+export default function TireSizeCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Tire Size Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/tire-size-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Tire Size Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/tire-size-calculator\", \"description\": \"Decode tire size codes and calculate diameter and sidewall. Compare two tire sizes and check speedometer error after changing tires.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I read a tire size?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Tire size 225/65R17: 225 = section width in mm, 65 = aspect ratio (sidewall height as % of width = 146mm), R = radial construction, 17 = wheel diameter in inches. Total tire diameter = 17in + 2 × (225 × 0.65)/25.4 = 17 + 11.52 = 28.52 inches.\"}}, {\"@type\": \"Question\", \"name\": \"How does changing tire size affect my speedometer?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Your speedometer uses wheel rotations to calculate speed — it is calibrated for your stock tire circumference. Larger tires rotate fewer times per mile, making your speedometer read LOW (you are going faster than it shows). Smaller tires read HIGH (you are going slower than shown). A 3% larger tire: actual speed 65 mph when speedometer shows 63 mph.\"}}, {\"@type\": \"Question\", \"name\": \"What happens if I put the wrong tire size on my car?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Minor size differences (±3%): generally fine, minor speedometer error. Moderate differences (3-5%): speedometer error noticeable, possible ABS and traction control calibration issues. Large differences (>5%): tires may rub on wheel well or suspension components, significant handling changes, ABS and stability control errors, and possible odometer inaccuracy affecting maintenance schedules.\"}}, {\"@type\": \"Question\", \"name\": \"Can I use a different tire size than recommended?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"You can use different sizes within reason. Stay within ±3% of total diameter. Width changes: going wider (up to 20mm) generally fine for summer tires and improves grip. Going narrower reduces grip. Always check physical clearance in the wheel well. The vehicle door jamb sticker shows the approved tire size and inflation pressures.\"}}, {\"@type\": \"Question\", \"name\": \"What does the R mean in tire size?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"R stands for Radial construction — the most common type, where tire cords run perpendicular to the direction of travel. Nearly all modern passenger car tires are radial. You may also see: P (P-metric, passenger), LT (Light Truck), ST (Special Trailer), or no letter prefix (Metric European sizing).\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between low profile and regular tires?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Low profile tires have a smaller aspect ratio (45 or below vs 65+), meaning shorter sidewalls relative to width. Low profile: better handling and cornering response, sportier appearance, worse ride quality on rough roads, more vulnerable to pothole damage. Regular profile: better ride comfort, more sidewall protection, better for rough roads.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Tire Size Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Tire Size Calculator</h1>\n<p class=\"calc-intro\">Calculate tire dimensions (diameter, width, sidewall height, circumference) from standard tire size codes like 225/65R17. Compare two tire sizes and see how changing tires affects your speedometer reading and actual speed.</p>\n<p class=\"calc-intro\">Tire size codes look cryptic but contain all the information about a tire dimensions. Changing tire size — for wider tires, bigger wheels, or winter tires — affects your speedometer accuracy, ground clearance, and handling. This calculator decodes any tire size and compares two sizes to ensure compatibility.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Tire Diameter (in) = Wheel Diameter + 2 × (Section Width × Aspect Ratio / 100) / 25.4 | Circumference = π × Diameter</div></div>\n<div class=\"content-section\">\n<h2>How to Read a Tire Size Code</h2>\n<p>A tire size like 225/65R17 contains three key numbers: Section Width (225mm — the width of the tire), Aspect Ratio (65 — sidewall height as a percentage of section width), and Wheel Diameter (17 inches). Decoding these tells you the complete tire geometry.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Tire Size</th><th style=\"padding:11px 14px;text-align:left;\">Width</th><th style=\"padding:11px 14px;text-align:left;\">Sidewall</th><th style=\"padding:11px 14px;text-align:left;\">Wheel</th><th style=\"padding:11px 14px;text-align:left;\">Total Diameter</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">225/65R17</td><td style=\"padding:10px 14px;\">225mm wide</td><td style=\"padding:10px 14px;\">146mm sidewall</td><td style=\"padding:10px 14px;\">17\" wheel</td><td style=\"padding:10px 14px;\">27.5\" total diameter</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">205/55R16</td><td style=\"padding:10px 14px;\">205mm wide</td><td style=\"padding:10px 14px;\">113mm sidewall</td><td style=\"padding:10px 14px;\">16\" wheel</td><td style=\"padding:10px 14px;\">24.9\" total diameter</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">265/70R18</td><td style=\"padding:10px 14px;\">265mm wide</td><td style=\"padding:10px 14px;\">186mm sidewall</td><td style=\"padding:10px 14px;\">18\" wheel</td><td style=\"padding:10px 14px;\">31.6\" total diameter</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">235/45R19</td><td style=\"padding:10px 14px;\">235mm wide</td><td style=\"padding:10px 14px;\">106mm sidewall</td><td style=\"padding:10px 14px;\">19\" wheel</td><td style=\"padding:10px 14px;\">27.1\" total diameter</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">195/65R15</td><td style=\"padding:10px 14px;\">195mm wide</td><td style=\"padding:10px 14px;\">127mm sidewall</td><td style=\"padding:10px 14px;\">15\" wheel</td><td style=\"padding:10px 14px;\">25.0\" total diameter</td></tr></tbody></table></div>\n<h3>Why Tire Size Matters</h3>\n<p>Changing tire size affects: speedometer accuracy (larger diameter = speedometer reads lower than actual speed), ground clearance, handling (wider tires improve grip but increase rolling resistance), fuel economy (larger tires are heavier, slightly worse MPG), and whether the tire physically fits the wheel well. Most vehicles tolerate ±3% diameter change without issues.</p>\n<h3>Plus Sizing Tires</h3>\n<p>Plus sizing increases wheel diameter while reducing tire sidewall height to maintain approximately the same overall diameter. Going from 205/65R15 to 225/50R16 (+1 sizing) or 235/40R17 (+2 sizing) maintains similar outer diameter while increasing wheel size for appearance and handling. The goal is to keep total diameter within 3% of stock.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I read a tire size? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Tire size 225/65R17: 225 = section width in mm, 65 = aspect ratio (sidewall height as % of width = 146mm), R = radial construction, 17 = wheel diameter in inches. Total tire diameter = 17in + 2 × (225 × 0.65)/25.4 = 17 + 11.52 = 28.52 inches.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does changing tire size affect my speedometer? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Your speedometer uses wheel rotations to calculate speed — it is calibrated for your stock tire circumference. Larger tires rotate fewer times per mile, making your speedometer read LOW (you are going faster than it shows). Smaller tires read HIGH (you are going slower than shown). A 3% larger tire: actual speed 65 mph when speedometer shows 63 mph.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What happens if I put the wrong tire size on my car? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Minor size differences (±3%): generally fine, minor speedometer error. Moderate differences (3-5%): speedometer error noticeable, possible ABS and traction control calibration issues. Large differences (&gt;5%): tires may rub on wheel well or suspension components, significant handling changes, ABS and stability control errors, and possible odometer inaccuracy affecting maintenance schedules.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I use a different tire size than recommended? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">You can use different sizes within reason. Stay within ±3% of total diameter. Width changes: going wider (up to 20mm) generally fine for summer tires and improves grip. Going narrower reduces grip. Always check physical clearance in the wheel well. The vehicle door jamb sticker shows the approved tire size and inflation pressures.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What does the R mean in tire size? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">R stands for Radial construction — the most common type, where tire cords run perpendicular to the direction of travel. Nearly all modern passenger car tires are radial. You may also see: P (P-metric, passenger), LT (Light Truck), ST (Special Trailer), or no letter prefix (Metric European sizing).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between low profile and regular tires? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Low profile tires have a smaller aspect ratio (45 or below vs 65+), meaning shorter sidewalls relative to width. Low profile: better handling and cornering response, sportier appearance, worse ride quality on rough roads, more vulnerable to pothole damage. Regular profile: better ride comfort, more sidewall protection, better for rough roads.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Tire Size Calculator – Diameter, Width and Speedometer Difference</h2><p style=\"font-size:12px;font-weight:600;color:var(--c-ink2);margin-bottom:8px;\">Tire 1 (e.g. 225/65R17)</p><div class=\"form-group\"><label for=\"t1-width\">Section Width (mm)</label><input id=\"t1-width\" max=\"400\" min=\"100\" step=\"5\" type=\"number\" value=\"225\"/></div><div class=\"form-group\"><label for=\"t1-ratio\">Aspect Ratio (%)</label><input id=\"t1-ratio\" max=\"90\" min=\"20\" step=\"5\" type=\"number\" value=\"65\"/></div><div class=\"form-group\"><label for=\"t1-wheel\">Wheel Diameter (inches)</label><input id=\"t1-wheel\" max=\"30\" min=\"10\" step=\"1\" type=\"number\" value=\"17\"/></div><p style=\"font-size:12px;font-weight:600;color:var(--c-ink2);margin:12px 0 8px;\">Tire 2 (optional comparison)</p><div class=\"form-group\"><label for=\"t2-width\">Section Width (mm)</label><input id=\"t2-width\" max=\"400\" min=\"100\" step=\"5\" type=\"number\" value=\"235\"/></div><div class=\"form-group\"><label for=\"t2-ratio\">Aspect Ratio (%)</label><input id=\"t2-ratio\" max=\"90\" min=\"20\" step=\"5\" type=\"number\" value=\"60\"/></div><div class=\"form-group\"><label for=\"t2-wheel\">Wheel Diameter (inches)</label><input id=\"t2-wheel\" max=\"30\" min=\"10\" step=\"1\" type=\"number\" value=\"17\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Tire Size Calculator – Diameter, Width and Speedometer Difference')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Tire Size Calculator – Diameter, Width and Speedometer Difference')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-tire-size-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function calcTire(w,r,d){\n  var sidewall=w*r/100;\n  var diam=d+2*sidewall/25.4;\n  var circ=Math.PI*diam;\n  return {sidewall:sidewall,diam:diam,circ:circ};\n}\nfunction doCalc(){\n  var w1=parseFloat(document.getElementById('t1-width').value)||225;\n  var r1=parseFloat(document.getElementById('t1-ratio').value)||65;\n  var d1=parseFloat(document.getElementById('t1-wheel').value)||17;\n  var w2=parseFloat(document.getElementById('t2-width').value)||0;\n  var r2=parseFloat(document.getElementById('t2-ratio').value)||0;\n  var d2=parseFloat(document.getElementById('t2-wheel').value)||0;\n  var t1=calcTire(w1,r1,d1);\n  var hasT2=w2>0&&r2>0&&d2>0;\n  var rows=ri('Tire 1 Diameter',t1.diam.toFixed(2)+'\" ('+( t1.diam*25.4).toFixed(0)+'mm)',true)+\n    ri('Tire 1 Sidewall',t1.sidewall.toFixed(1)+'mm')+\n    ri('Tire 1 Circumference',t1.circ.toFixed(2)+'\"');\n  if(hasT2){\n    var t2=calcTire(w2,r2,d2);\n    var diffPct=((t2.diam-t1.diam)/t1.diam*100);\n    var speedErr=diffPct;\n    rows+=ri('Tire 2 Diameter',t2.diam.toFixed(2)+'\"')+\n      ri('Diameter Difference',(t2.diam-t1.diam>0?'+':'')+( t2.diam-t1.diam).toFixed(2)+'\" ('+diffPct.toFixed(1)+'%)')+\n      ri('Speedometer Effect',diffPct>0?'Reads '+Math.abs(speedErr).toFixed(1)+'% LOW (going faster)':'Reads '+Math.abs(speedErr).toFixed(1)+'% HIGH (going slower)')+\n      ri('Compatibility',Math.abs(diffPct)<3?'✅ Safe (within 3%)':Math.abs(diffPct)<5?'⚠️ Marginal (3-5%)':'❌ Too Different (>5%)');\n  }\n  document.getElementById('tr-ri').innerHTML=rows;\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Width (mm)','Sidewall (mm)','Wheel (in×10)'],[w1,Math.round(t1.sidewall),d1*10],['#1a5c3a','#c8832a','#3a7abf']);\n  var aiPrompt='Tire: '+w1+'/'+r1+'R'+d1+', diameter '+t1.diam.toFixed(1)+'in'+(hasT2?', vs '+w2+'/'+r2+'R'+d2:'');\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about choosing the right tire size and maintaining vehicle safety.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Tire Sizing Quick Guidance:</strong> Changing automotive tire or wheel specifications directly modifies the rolling circumference of your vehicle's driven wheels. A standard ISO metric tire designation such as <strong>225/50R17</strong> defines a section width of 225 millimeters, an aspect ratio where sidewall height equals 50% of width (112.5 mm), and a wheel rim diameter of 17 inches. When you increase overall tire diameter by more than 3% without recalibrating your vehicle's transmission speed sensor, your speedometer will read slower than your actual ground speed, falsifying fuel economy numbers modeled in our <Link href="/calculators/transportation/mpg-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">MPG calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Speedometer Reading Error Across Tire Outer Diameter Variations
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern vehicle instrument clusters and powertrain control modules (PCMs) determine ground speed by measuring wheel rotational velocity via anti-lock braking system (ABS) tone rings or transmission output shafts. The onboard computer assumes a fixed factory rolling circumference. Installing larger all-terrain tires or aftermarket alloy wheels causes the wheel to cover more ground per revolution. Drivers monitoring interstate velocities with our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link> must account for this discrepancy to avoid inadvertent speeding citations.
+          </p>
+
+          <TireDiameterSpeedometerVarianceChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The comparison chart above illustrates true ground speed versus instrument cluster readouts across varying tire outer diameter modifications. When upgrading to an oversize tire with +1.0 inch greater diameter (+3.7% circumference increase), an indicated 70 mph speedometer reading corresponds to an actual road speed of 72.6 mph. With an aggressive +2.0 inch oversize fitment (+7.5% increase), an indicated 70 mph represents 75.3 mph. Conversely, downsizing tire diameter causes the speedometer to read faster than actual road speed while artificially inflating odometer mileage.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Formulation of Tire Geometry & Speedometer Calibration
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            ISO metric tire dimensions translate nominal section width (<Formula>{"W"}</Formula> in mm), aspect ratio (<Formula>{"AR"}</Formula> as a percentage), and rim diameter (<Formula>{"R"}</Formula> in inches) into total overall outer diameter (<Formula>{"D_{tire}"}</Formula>) and rolling circumference (<Formula>{"C_{rolling}"}</Formula>):
+          </p>
+
+          <Formula>
+            {"H_{sidewall} = W \times \left( \frac{AR}{100} \right) \times \frac{1}{25.4} \quad \text{(inches)}"}
+          </Formula>
+
+          <Formula>
+            {"D_{tire} = R + \left( 2 \times H_{sidewall} \right) \quad \text{(inches)}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Rolling circumference <Formula>{"C_{tire}"}</Formula> and wheel revolutions per mile (<Formula>{"Rev/mi"}</Formula>) are subsequently modeled as:
+          </p>
+
+          <Formula>
+            {"C_{tire} = \pi \times D_{tire}, \qquad \text{Revolutions Per Mile} = \frac{63,360\text{ inches/mile}}{C_{tire}}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            When transitioning from an original factory tire (<Formula>{"D_{orig}"}</Formula>) to a replacement specification (<Formula>{"D_{new}"}</Formula>), the speedometer calibration variance and actual true velocity (<Formula>{"V_{actual}"}</Formula>) at any indicated speed (<Formula>{"V_{indicated}"}</Formula>) follow:
+          </p>
+
+          <Formula>
+            {"\% \text{ Variance} = \left( \frac{D_{new} - D_{orig}}{D_{orig}} \right) \times 100, \qquad V_{actual} = V_{indicated} \times \left( \frac{D_{new}}{D_{orig}} \right)"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Odometer drift from oversized tires artificially reduces recorded mileage, which can alter vehicle market valuation calculated in our <Link href="/calculators/transportation/car-depreciation-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">car depreciation calculator</Link> and distort long-distance fuel expenditure computed via our <Link href="/calculators/transportation/fuel-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">fuel cost calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Specification Comparison Table: Plus-Sizing & Wheel Upgrade Profiles
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below demonstrates the engineering principle of 'Plus-Sizing'—increasing wheel rim diameter while reducing tire aspect ratio to maintain OEM rolling circumference within the safe 3% industry tolerance:
+          </p>
+
+          <DataTable
+            head={["Tire Specification", "Section Width / Sidewall", "Total Diameter", "Rev / Mile", "Speed @ 65 Indicated", "Fitment Classification"]}
+            rows={[
+              ["205/55R16 (OEM Base)", "205 mm / 4.44 in", "24.88 in (632 mm)", "810 rev/mi", "65.0 mph", "Factory OEM stock specification"],
+              ["225/45R17 (Plus-One)", "225 mm / 3.99 in", "24.97 in (634 mm)", "807 rev/mi", "65.2 mph", "+0.36% (Ideal performance upgrade)"],
+              ["225/40R18 (Plus-Two)", "225 mm / 3.54 in", "25.09 in (637 mm)", "803 rev/mi", "65.5 mph", "+0.84% (Ideal track / sport upgrade)"],
+              ["245/45R18 (Oversized)", "245 mm / 4.34 in", "26.68 in (678 mm)", "755 rev/mi", "69.7 mph", "+7.23% (Unsafe; rubs fender & error)"],
+              ["195/65R15 (Winter Fit)", "195 mm / 4.99 in", "24.98 in (634 mm)", "807 rev/mi", "65.2 mph", "+0.40% (Optimal snow tire narrow setup)"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The Plus-One and Plus-Two upgrades preserve factory overall diameter within 1%, maintaining accurate speedometer calibration, factory ABS braking response, and original transmission shift timing. Conversely, the oversized 245/45R18 configuration introduces a dangerous 7.23% speedometer error, causing an indicated 65 mph to actually travel at nearly 70 mph. When planning cross-country itineraries with our <Link href="/calculators/transportation/road-trip-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">road trip cost calculator</Link> and checking route distances with our <Link href="/calculators/transportation/distance-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">distance calculator</Link>, verified tire dimensions ensure accurate trip logs.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mechanical & Dynamics Tradeoffs: Ride Quality, Gearing & Fuel Economy
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Selecting non-factory tire dimensions alters vehicle dynamics far beyond speedometer readouts:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Effective Final Drive Ratio:</strong> Installing larger diameter tires effectively creates taller gearing. While taller gearing can marginally lower engine cruising RPM on level freeways, it degrades off-the-line torque, sluggishly retards low-speed acceleration, and forces automatic transmissions to hunt between gears on highway inclines.
+            </li>
+            <li>
+              <strong>Unsprung Mass & Rotational Inertia:</strong> Larger wheels and wider tires significantly increase unsprung weight at each corner of the vehicle. Heavier wheel assemblies degrade suspension damper response, increase ride harshness over road imperfections, and slightly elevate vehicle energy consumption modeled in our <Link href="/calculators/transportation/ev-savings-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">EV savings calculator</Link>.
+            </li>
+            <li>
+              <strong>Sidewall Compliance vs Cornering Rigidity:</strong> Lower profile tires (aspect ratios below 45) feature stiffer sidewalls that deliver sharper steering response and higher lateral cornering grip. However, shorter sidewalls provide minimal impact cushioning, elevating the risk of rim fractures and tire pinch flats from metropolitan potholes.
+            </li>
+            <li>
+              <strong>Wheel Well Clearance & Scrub Radius:</strong> Oversized tires or altered wheel offsets can cause tire rub against inner plastic fender liners, suspension struts, or brake calipers during full steering lock or heavy suspension compression.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Wheel Offset (ET), Scrub Radius & Structural Tire Construction Classes
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When upsizing wheels and tires, automotive enthusiasts often focus exclusively on section width and rim diameter while overlooking wheel offset (commonly denoted as ET, from the German <em>Einpresstiefe</em>). Offset represents the distance in millimeters from the wheel's centerline to its mounting hub pad. Altering wheel offset shifts the wheel inward toward the suspension strut or outward toward the exterior fender lip, fundamentally altering the vehicle's scrub radius—the distance between the steering kingpin axis and the center of the tire contact patch. Commuters evaluating daily running outlays with our <Link href="/calculators/transportation/commute-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">commute cost calculator</Link> will notice that improper offset accelerates outer shoulder tire tread wear and increases steering wheel tug over highway expansion joints.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, truck and SUV owners frequently choose between standard Passenger-metric (P-metric) tires and heavy-duty Light Truck (LT-metric) specifications. P-metric tires prioritize low rolling resistance, compliant passenger ride comfort, and reduced curb weight. In contrast, LT-metric tires feature 10-ply rated (Load Range E) structural carcasses with reinforced steel belts and thicker sidewalls designed to withstand severe rock cuts and heavy payload towing. However, the added rotational unsprung mass of LT tires reduces fuel efficiency, which can be tracked alongside monthly vehicle financing with our <Link href="/calculators/transportation/car-payment-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">car payment calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Finally, tire speed ratings (ranging from Q for off-road rubber to Y and (Y) for exotic supercars) reflect the maximum sustained velocity a tire can dissipate centrifugal heat without experiencing sudden structural tread delamination. Matching both the load index and speed rating specified on your vehicle's door jamb tire placard is mandatory to ensure safety when cruising at highway speeds modeled in our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link>.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Tire Pressure Monitoring Systems (TPMS) & Calibration Procedures
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Whenever automotive enthusiasts alter wheel rim diameters or swap tire aspect ratios, recalibrating the Tire Pressure Monitoring System (TPMS) is essential to preserve safety compliance. Modern automobiles deploy either Direct TPMS (utilizing battery-powered radio sensors mounted inside the valve stems measuring actual gauge pressure and temperature) or Indirect TPMS (utilizing ABS wheel speed sensors to compute rotational rate differentials indicative of under-inflation). When mounting aftermarket alloy wheels, Direct TPMS sensors must either be cloned to duplicate factory sensor serial IDs or relearned through the vehicle's onboard diagnostic computer. With Indirect TPMS setups, an intentional tire diameter change alters rotational circumference, requiring the driver to perform an explicit dashboard reset procedure while driving at steady highway cruise speeds to establish a new rotational baseline. Furthermore, maintaining accurate cold tire inflation pressures according to door jamb placard specifications prevents irregular center tread wear, maximizes hydroplaning resistance, and optimizes vehicle braking distances under emergency stopping conditions. Routine cross-rotation every 5,000 to 7,500 miles also equalizes tread depth differences across driven and non-driven axles, extending usable tire life.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About Automotive Tire Sizing
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What is the maximum safe percentage change in tire diameter?
+              </h3>
+              <p>
+                The universal automotive engineering rule of thumb recommends keeping replacement tire diameter within plus or minus 3% of original factory equipment specifications. Changes exceeding 3% disrupt speedometer accuracy, degrade ABS and Electronic Stability Control (ESC) braking algorithms, cause transmission gear hunting, and can lead to mechanical rubbing against suspension components.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How do I read tire size markings like 225/45R18 95W?
+              </h3>
+              <p>
+                In 225/45R18 95W: <strong>225</strong> is section width in millimeters; <strong>45</strong> is aspect ratio (sidewall height equals 45% of 225 mm, or 101.25 mm); <strong>R</strong> indicates radial construction; <strong>18</strong> is wheel rim diameter in inches; <strong>95</strong> is the load index (1,521 lbs per tire); and <strong>W</strong> is the maximum speed rating (up to 168 mph).
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Does changing tire size void my vehicle warranty?
+              </h3>
+              <p>
+                Installing reasonable Plus-One or Plus-Two sizes that match OEM rolling diameter within 1-2% does not void vehicle warranties. However, fitting massive oversized tires or extreme lift setups that strain wheel bearings, ball joints, or differential gearing may cause dealerships to deny warranty coverage for premature drivetrain and suspension failures.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why are narrower tires recommended for winter driving?
+              </h3>
+              <p>
+                A narrower tire (such as a 195 mm width compared to a 225 mm standard tire) concentrates vehicle curb weight over a smaller contact area. This increased ground contact pressure enables the tire to slice through slush and pack snow, delivering superior mechanical traction and braking bite compared to wide tires that tend to hydroplane and float over loose winter precipitation.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <TireSizeCalculatorComponent />
+    </CalcPage>
   );
 }

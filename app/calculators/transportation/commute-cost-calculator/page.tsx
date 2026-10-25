@@ -1,26 +1,284 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import CommuteCostCalculatorComponent from "@/components/calcs/transportation/commute-cost-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CommuteCostDistanceComparisonChart } from "@/components/flagship/transportation/editorial-charts"; // wait, transportation charts
+
+const PATH = "/calculators/transportation/commute-cost-calculator";
+const TITLE = "Commute Cost Calculator | Fuel, Tolls, Wear & Monthly Expense";
+const DESCRIPTION =
+  "Calculate daily, monthly, and annual commuting costs, fuel consumption, highway tolls, parking fees, and IRS wear-and-tear vehicle depreciation.";
 
 export const metadata: Metadata = {
-  "title": "Commute Cost Calculator – Daily & Annual Cost | CalcDigi",
-  "description": "Calculate daily and annual commute cost including gas, parking, tolls, and time value. Compare driving vs public transit costs.",
-  "openGraph": {
-    "title": "Commute Cost Calculator – Daily & Annual Cost | CalcDigi",
-    "description": "Calculate daily and annual commute cost including gas, parking, tolls, and time value. Compare driving vs public transit costs.",
-    "type": "website",
-    "url": "/calculators/transportation/commute-cost-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/commute-cost-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
+  { href: "/calculators/transportation/car-payment-calculator", icon: "💳", name: "Car Payment Calculator" },
+  { href: "/calculators/transportation/ev-savings-calculator", icon: "⚡", name: "EV Savings Calculator" },
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+  { href: "/calculators/transportation/bike-pace-calculator", icon: "🚲", name: "Bike Pace Calculator" },
+];
+
+export default function CommuteCostCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Commute Cost Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/commute-cost-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Commute Cost Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/commute-cost-calculator\", \"description\": \"Calculate daily and annual commute cost including gas, parking, tolls, and time value. Compare driving vs public transit costs.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate my commute cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Daily commute cost = (One-way miles × 2) × cost per mile + daily parking + daily tolls. At the $0.725 IRS rate, 20 miles one-way: 40 × $0.725 = $29.00/day + $10 parking = $39.00/day × 250 work days = $9,750/year. Many people are shocked by their true annual commute cost.\"}}, {\"@type\": \"Question\", \"name\": \"Is it cheaper to drive or take public transit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Depends on route, parking costs, and transit frequency. In cities with good transit and expensive parking: transit usually wins. Example: NYC subway ($2.90 × 2 = $5.80/day) vs driving 15 miles ($0.725 × 30 = $21.75 + $30 parking = $51.75/day). Transit saves about $46/day = $11,500/year. In suburbs with cheap/free parking: driving may be cheaper.\"}}, {\"@type\": \"Question\", \"name\": \"How much does the average person spend on commuting?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The average US worker spends approximately $2,500-3,500 per year on commuting costs (fuel-only basis). Using the full IRS cost including depreciation and maintenance: $6,000-10,000 per year for typical suburban commuters driving 25-35 miles each way. Time cost adds thousands more in opportunity cost.\"}}, {\"@type\": \"Question\", \"name\": \"How do I reduce my commute cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Best strategies: negotiate remote work days (each day saves $20-50), carpool to split costs, use transit if available and convenient, move closer to work (saves money and time), use a fuel-efficient vehicle or EV, avoid expensive parking by parking farther and walking, and qualify for employer transit benefits (pre-tax transit up to $340/month).\"}}, {\"@type\": \"Question\", \"name\": \"What is the IRS mileage rate for commuting?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Important: the IRS mileage rate ($0.725/mile for 2026) applies to business driving — NOT your regular commute from home to work. Personal commuting is not tax-deductible. However, if you have a home office, mileage from your home office to client sites is deductible at the IRS rate.\"}}, {\"@type\": \"Question\", \"name\": \"How many hours per year do Americans spend commuting?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The average US one-way commute is 27.6 minutes (2023 data). Round trip: 55 minutes/day × 250 work days = 229 hours per year — nearly 10 full 24-hour days spent commuting. Workers with 45-minute one-way commutes spend 375 hours/year commuting — equivalent to 9.4 full work weeks annually.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Commute Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Commute Cost Calculator</h1>\n<p class=\"calc-intro\">Calculate the true total cost of your daily commute including fuel, parking, tolls, vehicle wear, and the monetary value of your time. Compare driving vs public transit to find which saves you more money annually.</p>\n<p class=\"calc-intro\">The average American spends $2,000-4,000 per year on commuting costs — and that is before counting the value of time spent in traffic. A 45-minute one-way commute costs roughly 1.5 hours of your day, equivalent to 375 hours per year. Understanding your true commute cost helps you evaluate remote work, relocation, or transit options.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Daily Commute Cost = (Distance × 2 × Cost/Mile) + Parking + Tolls | Annual Cost = Daily Cost × Work Days | Time Value = Commute Hours × Hourly Rate</div></div>\n<div class=\"content-section\">\n<h2>True Cost of Commuting</h2>\n<p>Most people underestimate their commute cost by only counting gas. The IRS mileage rate of $0.725/mile (2026) accounts for fuel, maintenance, depreciation, and insurance — the true per-mile cost of operating a vehicle. Using this rate gives a much more accurate picture of commuting expense.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Method</th><th style=\"padding:11px 14px;text-align:left;\">Cost/Mile</th><th style=\"padding:11px 14px;text-align:left;\">What it Includes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Gas only</td><td style=\"padding:10px 14px;\">$0.10-0.14/mile</td><td style=\"padding:10px 14px;\">Fuel cost only — significantly underestimates true cost</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">IRS Standard Rate</td><td style=\"padding:10px 14px;\">$0.725/mile (2026)</td><td style=\"padding:10px 14px;\">Fuel + maintenance + depreciation + insurance</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">AAA True Cost</td><td style=\"padding:10px 14px;\">$0.55-0.85/mile</td><td style=\"padding:10px 14px;\">Comprehensive cost varies by vehicle type</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Electric Vehicle</td><td style=\"padding:10px 14px;\">$0.04-0.06/mile</td><td style=\"padding:10px 14px;\">Fuel only; depreciation similar to gas car</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Public Transit</td><td style=\"padding:10px 14px;\">$2-5/trip avg</td><td style=\"padding:10px 14px;\">Fixed cost, no depreciation or parking</td></tr></tbody></table></div>\n<h3>Commute Cost by City</h3>\n<p>Commute costs vary enormously by location. NYC: average commute 45 min each way, but subway at $2.90/ride = $1,508/year — much cheaper than driving with $20-50/day parking. Los Angeles: average 32 min, mostly driving, 15-20 miles each way = $4,000-6,000/year in driving costs. Suburban areas: 25-35 miles one-way common, $3,000-5,000/year in vehicle costs plus opportunity cost of time.</p>\n<h3>The Value of Remote Work</h3>\n<p>Full-time remote work saving 25 miles/day round trip at $0.725/mile = $18.13/day. Over 250 work days = $4,531/year in direct commute savings. Add time savings: 1 hour/day × 250 days = 250 hours. At $25/hour value = $6,250 additional value. Total annual value of full-time remote work (vs office): $10,000+ for many workers.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my commute cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Daily commute cost = (One-way miles × 2) × cost per mile + daily parking + daily tolls. At the $0.725 IRS rate, 20 miles one-way: 40 × $0.725 = $29.00/day + $10 parking = $39.00/day × 250 work days = $9,750/year. Many people are shocked by their true annual commute cost.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is it cheaper to drive or take public transit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Depends on route, parking costs, and transit frequency. In cities with good transit and expensive parking: transit usually wins. Example: NYC subway ($2.90 × 2 = $5.80/day) vs driving 15 miles ($0.725 × 30 = $21.75 + $30 parking = $51.75/day). Transit saves about $46/day = $11,500/year. In suburbs with cheap/free parking: driving may be cheaper.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does the average person spend on commuting? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The average US worker spends approximately $2,500-3,500 per year on commuting costs (fuel-only basis). Using the full IRS cost including depreciation and maintenance: $6,000-10,000 per year for typical suburban commuters driving 25-35 miles each way. Time cost adds thousands more in opportunity cost.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I reduce my commute cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Best strategies: negotiate remote work days (each day saves $20-50), carpool to split costs, use transit if available and convenient, move closer to work (saves money and time), use a fuel-efficient vehicle or EV, avoid expensive parking by parking farther and walking, and qualify for employer transit benefits (pre-tax transit up to $340/month).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the IRS mileage rate for commuting? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Important: the IRS mileage rate ($0.725/mile for 2026) applies to business driving — NOT your regular commute from home to work. Personal commuting is not tax-deductible. However, if you have a home office, mileage from your home office to client sites is deductible at the IRS rate.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many hours per year do Americans spend commuting? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The average US one-way commute is 27.6 minutes (2023 data). Round trip: 55 minutes/day × 250 work days = 229 hours per year — nearly 10 full 24-hour days spent commuting. Workers with 45-minute one-way commutes spend 375 hours/year commuting — equivalent to 9.4 full work weeks annually.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Commute Cost Calculator – True Cost of Your Daily Commute</h2><div class=\"form-group\"><label for=\"cc-dist\">One-Way Commute Distance (miles)</label><input id=\"cc-dist\" min=\"0.1\" step=\"0.5\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"cc-days\">Work Days per Year</label><input id=\"cc-days\" max=\"365\" min=\"1\" step=\"1\" type=\"number\" value=\"250\"/></div><div class=\"form-group\"><label for=\"cc-rate\">Cost Per Mile Method</label><select id=\"cc-rate\"><option selected=\"\" value=\"0.725\">IRS Rate $0.725/mile (full cost)</option><option value=\"0.14\">Fuel Only (~$0.14/mile)</option><option value=\"0.55\">AAA Conservative ($0.55/mile)</option><option value=\"0.85\">AAA High ($0.85/mile, luxury car)</option></select></div><div class=\"form-group\"><label for=\"cc-parking\">Daily Parking Cost ($)</label><input id=\"cc-parking\" min=\"0\" step=\"1\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"cc-tolls\">Daily Tolls ($)</label><input id=\"cc-tolls\" min=\"0\" step=\"0.25\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"cc-wage\">Your Hourly Wage ($)</label><input id=\"cc-wage\" min=\"5\" step=\"1\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"cc-time\">One-Way Commute Time (min)</label><input id=\"cc-time\" max=\"300\" min=\"1\" step=\"1\" type=\"number\" value=\"35\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Commute Cost Calculator – True Cost of Your Daily Commute')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Commute Cost Calculator – True Cost of Your Daily Commute')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-commute-cost-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var dist=parseFloat(document.getElementById('cc-dist').value)||0;\n  var days=parseInt(document.getElementById('cc-days').value)||250;\n  var rate=parseFloat(document.getElementById('cc-rate').value)||0.725;\n  var parking=parseFloat(document.getElementById('cc-parking').value)||0;\n  var tolls=parseFloat(document.getElementById('cc-tolls').value)||0;\n  var wage=parseFloat(document.getElementById('cc-wage').value)||25;\n  var time=parseFloat(document.getElementById('cc-time').value)||35;\n  if(!dist){alert('Please enter commute distance.');return;}\n  var dailyDriving=dist*2*rate;\n  var dailyTotal=dailyDriving+parking+tolls;\n  var annualTotal=dailyTotal*days;\n  var annualHours=time*2/60*days;\n  var timeValue=annualHours*wage;\n  var totalWithTime=annualTotal+timeValue;\n  var aiPrompt='Commute: '+dist+' miles each way, $'+dailyTotal.toFixed(2)+'/day, $'+annualTotal.toFixed(0)+'/year, '+annualHours.toFixed(0)+' hours/year time cost';\n  document.getElementById('tr-ri').innerHTML=\n    ri('Annual Commute Cost','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+annualTotal.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Daily Commute Cost','$'+dailyTotal.toFixed(2))+\n    ri('Monthly Commute Cost','$'+(annualTotal/12).toFixed(0))+\n    ri('Annual Time Spent',annualHours.toFixed(0)+' hours ('+( annualHours/8).toFixed(0)+' work days)')+\n    ri('Time Value of Commute','$'+timeValue.toFixed(0)+'/year')+\n    ri('Total True Annual Cost','$'+totalWithTime.toLocaleString('en-US',{maximumFractionDigits:0})+' (incl. time)');\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Driving Cost','Parking','Tolls','Time Value'],[Math.round(dailyDriving*days),Math.round(parking*days)||0.001,Math.round(tolls*days)||0.001,Math.round(timeValue)],['#c8832a','#1a5c3a','#3a7abf','#8a4abf']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about reducing commute costs and evaluating remote work options.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Urban Transportation Summary: The Hidden Full Cost of Commuting
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              Most drivers dramatically underestimate their commuting expense by calculating only the price of gasoline at the pump. According to data from the American Automobile Association (AAA) and the Internal Revenue Service (IRS), direct combustible fuel represents less than 35% of the total cost of operating a commuter car. You can calculate direct trip fuel in our{" "}
+              <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium underline hover:text-amber-900">
+                fuel cost calculator
+              </Link>{" "}
+              and monitor asset depreciation in the{" "}
+              <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium underline hover:text-amber-900">
+                car depreciation calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Commuting Economics & The Comprehensive Operational Cost Model</h2>
+          <CommuteCostDistanceComparisonChart />
+          <p>
+            In labor economics and urban geography, a daily vehicular commute is a major recurring operational drain on household net income. The total cost of commuting incorporates variable marginal operating costs (fuel consumed, engine oil degradation, tire tread wear, brake pad friction wear, and unexpected mechanical servicing) alongside direct trip-specific outlays (highway express lane tolls and central business district parking fees).
+          </p>
+          <p>
+            Furthermore, every commuting mile driven accelerates vehicle asset depreciation, pushing the vehicle closer toward major maintenance milestones (such as timing belts, transmission fluid exchanges, and suspension bushing overhauls). Route journey intervals can be verified in our{" "}
+            <Link href="/calculators/transportation/distance-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              distance calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"C_{\text{daily}} = \left(2 \cdot d_{\text{one-way}} \times \frac{P_{\text{gas}}}{\text{MPG}}\right) + \text{Tolls} + \text{Parking} + \left(2 \cdot d_{\text{one-way}} \times C_{\text{wear}}\right)"}
+          </Formula>
+
+          <Formula>
+            {"C_{\text{annual}} = C_{\text{daily}} \times N_{\text{days/week}} \times 50\,\text{Work Weeks}"}
+          </Formula>
+
+          <Formula>
+            {"C_{\text{monthly}} = \frac{C_{\text{annual}}}{12}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Effective Cost Per Mile} = \frac{C_{\text{daily}}}{2 \cdot d_{\text{one-way}}}"}
+          </Formula>
+
+          <h2>Commute Distance, Vehicle Segment & Annual Expense Matrix</h2>
+          <p>
+            The benchmark matrix below models annual commuting financial outlays across various one-way distances and vehicular platforms (assuming 5 days/week, 50 weeks/year, gas at $3.65/gal, and $5/day tolls/parking):
+          </p>
+
+          <DataTable
+            head={[
+              "One-Way Commute Distance",
+              "Vehicle Type & MPG",
+              "Annual Miles Driven",
+              "Annual Fuel Cost ($)",
+              "Tolls & Parking ($)",
+              "Wear & Depreciation ($)",
+              "Grand Annual Commute Outlay",
+            ]}
+            rows={[
+              ["10 Miles (20 mi/day)", "Compact Sedan (34 MPG)", "5,000 miles", "$537", "$1,250", "$750", "$2,537 ($211/mo)"],
+              ["15 Miles (30 mi/day)", "Midsize Sedan (28 MPG)", "7,500 miles", "$978", "$1,250", "$1,125", "$3,353 ($279/mo)"],
+              ["25 Miles (50 mi/day)", "Crossover SUV (24 MPG)", "12,500 miles", "$1,901", "$1,250", "$1,875", "$5,026 ($419/mo)"],
+              ["35 Miles (70 mi/day)", "Full-Size Pickup (18 MPG)", "17,500 miles", "$3,549", "$1,250", "$2,625", "$7,424 ($619/mo)"],
+              ["45 Miles (90 mi/day)", "Hybrid Sedan (50 MPG)", "22,500 miles", "$1,643", "$1,250", "$3,375", "$6,268 ($522/mo)"],
+              ["50 Miles (100 mi/day)", "Battery EV (3.5 mi/kWh)", "25,000 miles", "$1,071 (Electric)", "$1,250", "$3,750", "$6,071 ($506/mo)"],
+            ]}
+          />
+
+          <h2>Worked Analytical Scenario: Evaluating a 30-Mile Suburban Commute</h2>
+          <p>
+            Consider an employee living 30.0 statute miles from their suburban corporate campus who drives a midsize crossover (rated at 25.0 MPG) 5 days per week. With local fuel averaging $3.75 per gallon, daily electronic highway tolls of $3.50, and monthly parking subsidized to zero, we evaluate full annual commuting costs alongside auto financing in our{" "}
+            <Link href="/calculators/transportation/car-payment-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              car payment calculator
+            </Link>{" "}
+            and potential bicycle commuting in the{" "}
+            <Link href="/calculators/transportation/bike-pace-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              bike pace calculator
+            </Link>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Daily Mileage & Fuel Burden:</strong> Round-trip commute = 30 miles * 2 = 60.0 miles per day.
+              <Formula>
+                {"\text{Fuel Consumed} = \frac{60.0\,\text{miles}}{25.0\,\text{MPG}} = 2.40\,\text{gallons/day}"}
+              </Formula>
+              Daily fuel expense = 2.40 gallons * $3.75/gal = $9.00 per day.
+            </li>
+            <li>
+              <strong>Direct Tolls & Incidental Expenses:</strong> Daily electronic transponder toll = $3.50.
+            </li>
+            <li>
+              <strong>Mechanical Wear & Tire Depreciation:</strong> Applying the IRS baseline vehicle wear-and-tear benchmark factor of $0.15 per mile:
+              <Formula>
+                {"\text{Daily Wear Burden} = 60.0\,\text{miles} \times \$0.15/\text{mile} = \$9.00/\text{day}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Total Daily Outlay:</strong> $9.00 (Fuel) + $3.50 (Tolls) + $9.00 (Wear) = $21.50 per commuting day.
+            </li>
+            <li>
+              <strong>Annualized Working Outlay (250 Days):</strong>
+              <Formula>
+                {"C_{\text{annual}} = \$21.50 \times 250\,\text{work days} = \$5{,}375\,\text{per year} \quad (\$447.92/\text{month})"}
+              </Formula>
+              The employee travels 15,000 miles per year solely in commuting transit.
+            </li>
+            <li>
+              <strong>Comparative EV Transition:</strong> Transitioning this 15,000-mile commute to an electric vehicle analyzed in our{" "}
+              <Link href="/calculators/transportation/ev-savings-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                ev savings calculator
+              </Link>{" "}
+              would reduce annual fuel costs from $2,250 down to approximately $650, saving over $1,600 per year in direct energy expenses.
+            </li>
+          
+            <li>
+              <strong>Telework & Hybrid Schedule Compounding Savings:</strong> Shifting from five daily office trips to a three-day hybrid schedule does not merely reduce variable fuel and turnpike toll expenses by 40%; it fundamentally lowers long-term capital maintenance. Reduced annual mileage extends tire replacement intervals from 3 to 5 years, postpones major brake rotor servicing, and qualifies vehicle owners for low-mileage auto insurance policy tier discounts.
+            </li>
+          </ul>
+
+          <h2>The Opportunity Cost of Commuting Time & Quality of Life Economics</h2>
+          <p>
+            Beyond direct cash disbursements for gasoline, tolls, and brake pads, the single most valuable resource consumed by a vehicular commute is unrecoverable human time. A 45-minute one-way commute consumes 1.5 hours per day, equating to 7.5 hours per week or 375 hours per year.
+          </p>
+          <p>
+            In labor economics, 375 commuting hours represents over nine full 40-hour work weeks spent sitting behind a steering wheel. Valuing this personal time at even a modest $25 per hour represents an implicit opportunity cost of $9,375 per year. Furthermore, chronic long-distance solo driving correlates epidemiologically with elevated blood pressure, sleep deprivation, and reduced physical exercise.
+          </p>
+
+          <h2>Operational Strategies to Reduce Commuting Expenditures</h2>
+          <p>
+            Households can deploy deliberate operational tactics to curb commuting drains:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Hybrid Remote Work Negotiation:</strong> Negotiating two work-from-home days per week immediately eliminates 40% of fuel consumption, toll charges, and vehicle wear, saving the average driver $1,800 to $2,500 annually.
+            </li>
+            <li>
+              <strong>Eco-Driving & Speed Moderation:</strong> Aerodynamic drag scales cubically at highway speeds. Reducing interstate cruising speed from 75 mph to 65 mph improves vehicle fuel economy by 12% to 15%, saving hundreds of dollars in fuel.
+            </li>
+            <li>
+              <strong>Ridesharing & Carpooling Cost Splitting:</strong> Splitting fuel and toll charges with colleagues using our{" "}
+              <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                fuel cost calculator
+              </Link>{" "}
+              cuts driving outlays in half while granting access to high-occupancy vehicle (HOV) diamond lanes.
+            </li>
+            <li>
+              <strong>Relocation & Household Moving:</strong> In many urban regions, moving closer to employment hubs calculated in our{" "}
+              <Link href="/calculators/transportation/moving-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                moving cost calculator
+              </Link>{" "}
+              justifies higher rent through massive transportation savings.
+            </li>
+          
+            <li>
+              <strong>Telework & Hybrid Schedule Compounding Savings:</strong> Shifting from five daily office trips to a three-day hybrid schedule does not merely reduce variable fuel and turnpike toll expenses by 40%; it fundamentally lowers long-term capital maintenance. Reduced annual mileage extends tire replacement intervals from 3 to 5 years, postpones major brake rotor servicing, and qualifies vehicle owners for low-mileage auto insurance policy tier discounts.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does the IRS standard mileage rate compare to real-world commuting costs?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                The IRS standard mileage rate (67 cents per mile for 2024) reflects the comprehensive cost of operating an average vehicle, including fuel, insurance, registration, maintenance, and capital depreciation. Standard commuting costs typically fall between 45 and 65 cents per mile depending on vehicle age and fuel economy.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Can I deduct my daily home-to-work commuting expenses on my income taxes?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Under IRS tax regulations, standard commuting expenses between your personal residence and your regular permanent workplace are non-deductible personal expenses. However, travel between two separate job sites, travel to temporary assignments, or travel from a qualified home office to client locations is tax-deductible.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How much money does switching to an electric vehicle save on a 40-mile daily commute?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                On a 40-mile daily round-trip commute (10,000 miles/year), driving a 25 MPG gasoline car at $3.75/gal costs $1,500 in gas. An electric vehicle achieving 3.5 miles/kWh charged at home ($0.14/kWh) costs only $400 in electricity, saving $1,100 per year in direct energy.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the financial impact of stop-and-go highway traffic on commute costs?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Severe stop-and-go congestion reduces internal combustion fuel economy by 25% to 40% due to engine idling and repeated acceleration inertia. In addition, frequent braking accelerates brake pad wear, increasing overall maintenance costs per mile.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does commuting distance impact vehicle resale depreciation?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                A 35-mile one-way commute adds 17,500 miles annually just in work travel. This elevated mileage accelerates vehicle depreciation modeled in our{" "}
+                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  car depreciation calculator
+                </Link>, reducing resale market value by $1,200 to $2,000 per year faster than low-mileage vehicles.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do pre-tax commuter transit benefit accounts (FSA) work?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Under IRS Section 132(f), employers can provide qualified transportation fringe benefits allowing employees to set aside pre-tax payroll funds (up to $315 per month in 2024) for public transit passes, vanpools, and qualified commuter parking, saving 25% to 40% in income taxes.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Commuting Research & Urban Transit Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>US Census Bureau (American Community Survey):</strong> Commuting Characteristics, Travel Time to Work, and Means of Transportation Data.
+            </li>
+            <li>
+              <strong>Bureau of Transportation Statistics (BTS):</strong> National Household Travel Survey (NHTS) vehicle passenger-mile cost benchmarks.
+            </li>
+            <li>
+              <strong>American Automobile Association (AAA Your Driving Costs):</strong> Annual proprietary research on vehicle operating costs, fuel, and depreciation.
+            </li>
+            <li>
+              <strong>Federal Highway Administration (FHWA):</strong> Urban congestion monitoring and highway performance evaluation studies.
+            </li>
+          
+            <li>
+              <strong>Telework & Hybrid Schedule Compounding Savings:</strong> Shifting from five daily office trips to a three-day hybrid schedule does not merely reduce variable fuel and turnpike toll expenses by 40%; it fundamentally lowers long-term capital maintenance. Reduced annual mileage extends tire replacement intervals from 3 to 5 years, postpones major brake rotor servicing, and qualifies vehicle owners for low-mileage auto insurance policy tier discounts.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <CommuteCostCalculatorComponent />
+    </CalcPage>
   );
 }

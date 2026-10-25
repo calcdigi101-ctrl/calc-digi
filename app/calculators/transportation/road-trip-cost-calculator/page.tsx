@@ -1,26 +1,204 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import RoadTripCostCalculatorComponent from "@/components/calcs/transportation/road-trip-cost-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { RoadTripCostCategoryWaterfallChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/road-trip-cost-calculator";
+const TITLE = "Road Trip Cost Calculator | Fuel, Lodging, Tolls & Split Budget";
+const DESCRIPTION =
+  "Estimate total road trip driving expenses, fuel consumption across highway speeds, overnight lodging, tollway fees, and passenger cost-per-person splits.";
 
 export const metadata: Metadata = {
-  "title": "Road Trip Cost Calculator – Total Gas Cost | CalcDigi",
-  "description": "Calculate total gas cost, drive time, and cost per person for any road trip. Plan your complete travel budget in one tool.",
-  "openGraph": {
-    "title": "Road Trip Cost Calculator – Total Gas Cost | CalcDigi",
-    "description": "Calculate total gas cost, drive time, and cost per person for any road trip. Plan your complete travel budget in one tool.",
-    "type": "website",
-    "url": "/calculators/transportation/road-trip-cost-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/road-trip-cost-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/toll-cost-calculator", icon: "🛣️", name: "Toll Cost Calculator" },
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+  { href: "/calculators/transportation/mpg-calculator", icon: "📊", name: "MPG Calculator" },
+  { href: "/calculators/transportation/parking-cost-calculator", icon: "🅿️", name: "Parking Cost Calculator" },
+  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
+];
+
+export default function RoadTripCostCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Road Trip Cost Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/road-trip-cost-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Road Trip Cost Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/road-trip-cost-calculator\", \"description\": \"Calculate total gas cost, drive time, and cost per person for any road trip. Plan your complete travel budget in one tool.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate gas cost for a road trip?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gas cost = Distance / MPG × Gas price per gallon. For a 500-mile trip at 28 MPG with $3.50/gal: 500/28 × $3.50 = 17.86 gallons × $3.50 = $62.50 total. Divide by number of passengers for per-person cost. Add 10-15% buffer for detours and traffic.\"}}, {\"@type\": \"Question\", \"name\": \"How much does a 1000 mile road trip cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 28 MPG and $3.50/gal: fuel = 1000/28 × $3.50 = $125. Add food: 2 days × 2 people × $30/day = $120. Hotel (1 night): $100. Total: ~$345 for 2 people, or $172/person. Gas alone: $62.50/person for 4 passengers. Costs vary widely by vehicle, group size, and accommodation choices.\"}}, {\"@type\": \"Question\", \"name\": \"What is the cheapest way to take a road trip?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Pack your own food (save $30-50/day vs restaurants), camp instead of hotel ($20-40 vs $100+), drive a fuel-efficient vehicle or rent a hybrid, find free or cheap campgrounds (BLM land in western US), use Harvest Hosts for overnight stays at wineries and farms, and avoid toll roads when time allows.\"}}, {\"@type\": \"Question\", \"name\": \"How long does it take to drive 1000 miles?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 65 mph average: 1000/65 = 15.4 hours driving. With stops: add 1-2 hours. Realistic: 16-18 hours total — typically spread over 2 days. US recommended maximum driving is 8-10 hours per day for safety and comfort. Plan rest stops every 2 hours to reduce fatigue-related accident risk.\"}}, {\"@type\": \"Question\", \"name\": \"Is it better to drive fast or slow to save gas?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The fuel-efficient sweet spot is 45-55 mph for most vehicles. Above 55 mph, aerodynamic drag increases rapidly. Driving 65 mph vs 75 mph saves approximately 10-15% fuel — on a 1,000-mile trip at 28 MPG, that is 5-7 gallons ($17-25) saved. Aggressive acceleration is the single biggest fuel waster in city driving.\"}}, {\"@type\": \"Question\", \"name\": \"How do I split road trip costs fairly?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Common methods: split total gas cost equally (simplest), have each person pay for one fill-up (works for similar tank sizes), use apps like Splitwise or TripSplit that track all expenses including gas, food, and lodging, or calculate exact cost per mile and charge each person for miles they join/leave the trip.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Road Trip Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Road Trip Cost Calculator</h1>\n<p class=\"calc-intro\">Calculate the total gas cost for any road trip, estimated travel time, cost per person, and complete travel budget. Plan your road trip finances accurately with fuel costs, tolls, food stops, and accommodation in one easy calculator.</p>\n<p class=\"calc-intro\">Planning a road trip budget starts with knowing your gas cost — the biggest variable expense. A 1,000-mile trip at 28 MPG with $3.50 gas costs $125 in fuel. Split four ways, that is just $31.25 per person — far cheaper than flying. This calculator helps you budget every aspect of your road trip.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Trip Fuel Cost = Distance / MPG × Gas Price | Travel Time = Distance / Average Speed | Cost Per Person = Total Cost / Passengers</div></div>\n<div class=\"content-section\">\n<h2>Road Trip Cost Breakdown</h2>\n<p>A complete road trip budget includes more than just gas. Experienced road trippers budget for fuel (largest variable cost), meals ($10-20 per person per day), accommodations ($80-150 per night for budget hotels), tolls (varies dramatically by route), parking, and unexpected expenses. Build in a 15-20% buffer for surprises.</p>\n<h3>Gas Cost by Distance and MPG</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Distance</th><th style=\"padding:11px 14px;text-align:left;\">MPG</th><th style=\"padding:11px 14px;text-align:left;\">Gas Price</th><th style=\"padding:11px 14px;text-align:left;\">Fuel Cost</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">100 miles</td><td style=\"padding:10px 14px;\">25 MPG</td><td style=\"padding:10px 14px;\">$3.50/gal</td><td style=\"padding:10px 14px;\">$14.00 total / $3.50 pp (4 people)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">500 miles</td><td style=\"padding:10px 14px;\">28 MPG</td><td style=\"padding:10px 14px;\">$3.50/gal</td><td style=\"padding:10px 14px;\">$62.50 total / $15.63 pp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1,000 miles</td><td style=\"padding:10px 14px;\">30 MPG</td><td style=\"padding:10px 14px;\">$3.50/gal</td><td style=\"padding:10px 14px;\">$116.67 total / $29.17 pp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">2,000 miles</td><td style=\"padding:10px 14px;\">25 MPG</td><td style=\"padding:10px 14px;\">$3.80/gal</td><td style=\"padding:10px 14px;\">$304 total / $76 pp</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">LA to NYC (~2,800 mi)</td><td style=\"padding:10px 14px;\">28 MPG</td><td style=\"padding:10px 14px;\">$3.60/gal</td><td style=\"padding:10px 14px;\">$360 total / $90 pp</td></tr></tbody></table></div>\n<h3>Tips for Cheaper Road Trips</h3>\n<p>Reduce road trip costs: use GasBuddy to find cheapest gas along your route, fill up in rural areas and lower-tax states (avoid California, Illinois), maintain 60-65 mph for best highway fuel economy, pack food for the first day to avoid restaurant costs, use hotel loyalty programs and booking apps (Hotels.com, Priceline) for last-minute deals, carpool to split all costs, and drive off-peak (avoid Friday afternoon departures).</p>\n<h3>Road Trip vs Flying Cost Comparison</h3>\n<p>When does driving beat flying? Consider: flight tickets + baggage fees + airport transportation + rental car vs gas cost + tolls + hotel en route. For a 4-person family on a 500-mile trip: driving costs $62 gas + $100 snacks = ~$162. Flying: 4 tickets ($150 each) + bags ($100) + rental car ($200) = $900. Driving saves $738 — a 3-hour vs 5-hour total time tradeoff.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate gas cost for a road trip? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gas cost = Distance / MPG × Gas price per gallon. For a 500-mile trip at 28 MPG with $3.50/gal: 500/28 × $3.50 = 17.86 gallons × $3.50 = $62.50 total. Divide by number of passengers for per-person cost. Add 10-15% buffer for detours and traffic.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does a 1000 mile road trip cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 28 MPG and $3.50/gal: fuel = 1000/28 × $3.50 = $125. Add food: 2 days × 2 people × $30/day = $120. Hotel (1 night): $100. Total: ~$345 for 2 people, or $172/person. Gas alone: $62.50/person for 4 passengers. Costs vary widely by vehicle, group size, and accommodation choices.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the cheapest way to take a road trip? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Pack your own food (save $30-50/day vs restaurants), camp instead of hotel ($20-40 vs $100+), drive a fuel-efficient vehicle or rent a hybrid, find free or cheap campgrounds (BLM land in western US), use Harvest Hosts for overnight stays at wineries and farms, and avoid toll roads when time allows.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does it take to drive 1000 miles? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 65 mph average: 1000/65 = 15.4 hours driving. With stops: add 1-2 hours. Realistic: 16-18 hours total — typically spread over 2 days. US recommended maximum driving is 8-10 hours per day for safety and comfort. Plan rest stops every 2 hours to reduce fatigue-related accident risk.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is it better to drive fast or slow to save gas? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The fuel-efficient sweet spot is 45-55 mph for most vehicles. Above 55 mph, aerodynamic drag increases rapidly. Driving 65 mph vs 75 mph saves approximately 10-15% fuel — on a 1,000-mile trip at 28 MPG, that is 5-7 gallons ($17-25) saved. Aggressive acceleration is the single biggest fuel waster in city driving.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I split road trip costs fairly? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Common methods: split total gas cost equally (simplest), have each person pay for one fill-up (works for similar tank sizes), use apps like Splitwise or TripSplit that track all expenses including gas, food, and lodging, or calculate exact cost per mile and charge each person for miles they join/leave the trip.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Road Trip Cost Calculator – Gas, Time and Per Person Cost</h2><div class=\"form-group\"><label for=\"rt-dist\">Total Distance (miles)</label><input id=\"rt-dist\" min=\"1\" step=\"1\" type=\"number\" value=\"500\"/></div><div class=\"form-group\"><label for=\"rt-mpg\">Vehicle MPG</label><input id=\"rt-mpg\" max=\"200\" min=\"1\" step=\"0.1\" type=\"number\" value=\"28\"/></div><div class=\"form-group\"><label for=\"rt-price\">Gas Price ($/gallon)</label><input id=\"rt-price\" max=\"15\" min=\"0.5\" step=\"0.01\" type=\"number\" value=\"3.50\"/></div><div class=\"form-group\"><label for=\"rt-people\">Number of Passengers</label><input id=\"rt-people\" max=\"10\" min=\"1\" step=\"1\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"rt-speed\">Average Speed (mph)</label><input id=\"rt-speed\" max=\"100\" min=\"20\" step=\"5\" type=\"number\" value=\"60\"/></div><div class=\"form-group\"><label for=\"rt-tolls\">Estimated Tolls ($)</label><input id=\"rt-tolls\" min=\"0\" step=\"1\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Road Trip Cost Calculator – Gas, Time and Per Person Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Road Trip Cost Calculator – Gas, Time and Per Person Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-road-trip-cost-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var dist=parseFloat(document.getElementById('rt-dist').value)||0;\n  var mpg=parseFloat(document.getElementById('rt-mpg').value)||28;\n  var price=parseFloat(document.getElementById('rt-price').value)||3.50;\n  var people=parseInt(document.getElementById('rt-people').value)||1;\n  var speed=parseFloat(document.getElementById('rt-speed').value)||60;\n  var tolls=parseFloat(document.getElementById('rt-tolls').value)||0;\n  if(!dist){alert('Please enter trip distance.');return;}\n  var gas=dist/mpg*price;\n  var total=gas+tolls;\n  var perPerson=total/people;\n  var hours=dist/speed;\n  var hrs=Math.floor(hours); var mins=Math.round((hours-hrs)*60);\n  var timeStr=hrs+'h '+(mins<10?'0':'')+mins+'min';\n  var gals=(dist/mpg).toFixed(1);\n  var aiPrompt='Road trip: '+dist+' miles, $'+gas.toFixed(0)+' gas, '+timeStr+' drive, $'+perPerson.toFixed(2)+' per person';\n  document.getElementById('tr-ri').innerHTML=\n    ri('Total Gas Cost','<strong style=\"font-size:24px;color:var(--c-accent)\">$'+gas.toFixed(2)+'</strong>',true)+\n    ri('Cost Per Person','$'+perPerson.toFixed(2)+' ('+people+' passengers)')+\n    ri('Total Trip Cost','$'+total.toFixed(2)+' (incl. tolls)')+\n    ri('Drive Time',timeStr)+\n    ri('Gallons Needed',gals+' gallons')+\n    ri('Fuel Efficiency',mpg+' MPG');\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Gas','Tolls','Other (est.)'],[Math.round(gas),Math.round(tolls)||0.001,Math.round(total*0.2)],['#c8832a','#1a5c3a','#3a7abf']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical money-saving tip about road trip budgeting and saving on travel costs.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Road Expedition Summary:</strong> Planning an overland road trip requires synthesizing multiple financial variables far beyond pump gasoline. For journeys under 400 miles, fuel represents 60% to 75% of total outlays. However, as expedition distance expands beyond 800 miles, overnight hotel lodging, roadside restaurant meals, turnpike fees from our <Link href="/calculators/transportation/toll-cost-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">toll cost calculator</Link>, and vehicle maintenance sinking funds rapidly overtake raw fuel costs. Splitting these expenses across 3 or 4 passengers frequently slashes per-person travel expenses by over 65% compared to commercial airline bookings.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Overland Road Trip Budget Breakdown Across Travel Distances
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The fundamental financial mistake made by cross-country road trippers is underestimating ancillary non-fuel liabilities. While pump fuel scales predictably with odometer miles and vehicle efficiency, overnight accommodation and dining compounds with travel duration and party size. Cross-referencing your total driving mileage with our <Link href="/calculators/transportation/distance-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">distance calculator</Link> establishes realistic driving segments that prevent driver fatigue while optimizing overnight stops.
+          </p>
+
+          <RoadTripCostCategoryWaterfallChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The stacked budget waterfall chart above illustrates the changing composition of road trip expenses across distance tiers ranging from a 300-mile weekend excursion to a 3,000-mile cross-continental journey. On day-trips under 600 miles, fuel and incidental snacks dominate. Once the journey requires overnight stays, hotel accommodation and sit-down meals become the primary cost drivers. Furthermore, incorporating vehicle wear-and-tear sinking funds (depreciation, tire wear, and oil life) ensures vehicle owners are fairly compensated when sharing road trip expenses among friends.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Modeling of Multi-Modal Road Trip Budgeting
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A comprehensive road trip budget models the sum of variable transit costs, fixed per-diem living expenses, and vehicle asset amortization. Calculating fuel consumption relies on baseline highway efficiency adjusted for aerodynamic drag penalties at interstate cruise speeds (75 to 80 mph), which you can fine-tune using our <Link href="/calculators/transportation/mpg-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">MPG calculator</Link>:
+          </p>
+
+          <Formula>
+            {"C_{total} = \left( \frac{D}{MPG_{adj}} \times P_{fuel} \right) + T_{tolls} + P_{parking} + (N_{nights} \times C_{hotel}) + (N_{days} \times C_{food} \times N_{pass}) + (D \times R_{maint})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"D"}</Formula> is total one-way or round-trip road distance in miles, <Formula>{"MPG_{adj}"}</Formula> is highway fuel economy under real-world vehicle payload, <Formula>{"P_{fuel}"}</Formula> is the average retail fuel price per gallon, <Formula>{"T_{tolls}"}</Formula> represents all highway and bridge tollway fees, <Formula>{"P_{parking}"}</Formula> accounts for hotel valet and destination parking fees from our <Link href="/calculators/transportation/parking-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">parking cost calculator</Link>, <Formula>{"N_{nights}"}</Formula> is total overnight stops, and <Formula>{"R_{maint}"}</Formula> is the mechanical maintenance depreciation allowance (typically $0.06 to $0.10/mile).
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            When dividing shared vehicular expenses among traveling companions, the per-passenger equitable liability <Formula>{"C_{person}"}</Formula> is derived via:
+          </p>
+
+          <Formula>
+            {"C_{person} = \frac{C_{shared\_vehicle} + C_{shared\_lodging}}{N_{passengers}} + C_{individual\_per\_diem}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Travelers wishing to evaluate long-term asset wear before embarking on high-mileage road trips should review residual value depreciation curves using our <Link href="/calculators/transportation/car-depreciation-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">car depreciation calculator</Link> and calculate direct gas pump cost sensitivity with our <Link href="/calculators/transportation/fuel-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">fuel cost calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Case Study: 1,800-Mile Interstate Road Trip (4 Passengers)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Four friends plan a 1,800-mile round-trip vacation across 5 days driving a midsize crossover SUV (rated 28 mpg highway, carrying 4 adults and luggage, reducing effective efficiency to 25 mpg). Gasoline averages $3.60 per gallon. The route traverses turnpikes totaling $65 in tolls, includes 4 nights of lodging ($140/night for a double-queen hotel room), destination parking totaling $80, food budgeting of $45 per person daily, and an owner maintenance sinking fund of $0.08 per mile.
+          </p>
+
+          <DataTable
+            head={["Expense Category", "Total Gross Outlay", "Per Passenger Share", "% of Total Budget", "Financial Classification"]}
+            rows={[
+              ["Vehicle Fuel (72 Gallons @ $3.60)", "$259.20", "$64.80", "13.8%", "Shared transit operating expense"],
+              ["Highway & Bridge Tolls", "$65.00", "$16.25", "3.5%", "Shared fixed route infrastructure tariff"],
+              ["Hotel Lodging (4 Nights @ $140)", "$560.00", "$140.00", "29.8%", "Shared accommodation expense"],
+              ["Destination & Hotel Parking", "$80.00", "$20.00", "4.3%", "Shared terminal vehicle storage"],
+              ["Vehicle Wear & Tire Fund ($0.08/mi)", "$144.00", "$36.00", "7.7%", "Direct reimbursement to vehicle owner"],
+              ["Meals & Dining ($45/day/person)", "$770.00", "$192.50", "40.9%", "Individual direct sustenance outlay"],
+              ["Total Expedition Expenditure", "$1,878.20", "$469.55", "100.0%", "Complete door-to-door trip cost per person"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            At $469.55 per person all-inclusive, the overland road trip provides dramatic savings compared to purchasing 4 round-trip commercial airline tickets (averaging $350 each, plus baggage fees, airport parking, and rental cars totaling over $2,100). Furthermore, reimbursing the vehicle owner $144 for tire and maintenance wear ensures that the asset holder is not unfairly burdened by long-term mechanical depreciation.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Strategic Optimization: Cruise Speed, Fuel Stops & Payload Aerodynamics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Small behavioral adjustments during long highway stretches deliver compounding reductions in both trip cost and transit stress. Implementing these proven practices enhances overall travel efficiency:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Interstate Speed Management:</strong> Aerodynamic drag scales quadratically with velocity. Cruising at 68 mph rather than 78 mph on open interstate corridors improves vehicle fuel economy by 14% to 18%, saving $35 to $60 on a 1,500-mile trip while only adding approximately 1.5 hours of cumulative seat time. Drivers can model this speed-distance trade-off using our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link>.
+            </li>
+            <li>
+              <strong>Rooftop Cargo Box Penalties:</strong> Mounted exterior cargo carriers, rooftop ski boxes, and bike racks increase aerodynamic frontal area, degrading highway fuel efficiency by 12% to 25%. Stowing luggage inside the cabin or utilizing hitch-mounted aerodynamic rear trays preserves factory fuel efficiency.
+            </li>
+            <li>
+              <strong>State-Line Fuel Price Arbitrage:</strong> State fuel excise taxes vary by more than $0.40 per gallon across bordering states (e.g., California vs Arizona or Pennsylvania vs Ohio). Strategic planning with mobile fuel apps enables fill-ups immediately before entering high-tax jurisdictions.
+            </li>
+            <li>
+              <strong>Tire Inflation Pre-Trip Calibration:</strong> Under-inflated tires increase rolling resistance and operating temperatures, reducing fuel economy by up to 3% while increasing tire tread wear. Verifying tire dimensions and cold pressures using our <Link href="/calculators/transportation/tire-size-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">tire size calculator</Link> ensures optimal contact patch performance.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Expedition Logistics: National Park Passes, Contingency Sinking Funds & Multi-Driver Fatigue
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Long-distance overland road trips involve unforeseen operational overhead that rarely appears on initial travel spreadsheets. Seasoned road trippers establish a mandatory 15% to 20% contingency reserve fund to cover unanticipated roadside emergencies such as tire punctures, windshield rock chips, alternator failures, or emergency towing services outside of roadside assistance coverage radiuses. Calculating route distances with our <Link href="/calculators/transportation/distance-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">distance calculator</Link> enables drivers to identify emergency service centers and certified repair facilities along remote desert or mountain highway corridors.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For expeditions touring public lands and scenic monuments, purchasing an annual national park interagency pass ($80 flat fee) delivers immediate break-even savings after visiting just three premier parks (such as Yellowstone, Yosemite, or Grand Canyon, where single-vehicle entrance fees typically range from $30 to $35 per vehicle). Furthermore, managing human driver fatigue requires structured duty rotations. Commercial freight regulations enforce strict 11-hour driving limits; for passenger vehicles, swapping drivers every 2.5 to 3 hours maintains cognitive alertness and mitigates micro-sleep hazards, ensuring passenger safety across multi-state itineraries.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Finally, travelers driving battery-electric vehicles should integrate Level 3 DC fast-charging dwell buffers into their itinerary planning. While gasoline fill-ups require 5 to 8 minutes, high-voltage EV charging from 10% to 80% state of charge requires 20 to 38 minutes depending on pack architecture and ambient temperature. Comparing these energy economics via our <Link href="/calculators/transportation/ev-savings-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">EV savings calculator</Link> helps travelers strike the perfect balance between charging stop frequency and overall route speed.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Vehicle Loading Capacities & Gross Vehicle Weight Rating (GVWR) Compliance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Prior to setting out on multi-thousand-mile overland expeditions, vehicle owners must verify that total passenger weight, luggage, roof racks, and camping gear do not breach the vehicle's Gross Vehicle Weight Rating (GVWR) stamped on the B-pillar driver's door jamb. Overloading a passenger vehicle degrades braking performance, overheats wheel bearings and tire sidewalls, and compresses suspension travel, leading to frequent bottoming out over highway undulations. Furthermore, an overloaded powertrain operates outside its optimal thermal efficiency window, increasing internal friction, straining transmission fluid life, and precipitating premature mechanical wear that inflates long-term vehicle depreciation outlays. Distributing luggage weight evenly between front and rear axles prevents aerodynamic rear squat, preserving vehicle steering geometry and headlight aim on unlit rural highway stretches.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About Road Trip Cost Planning
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How should road trip expenses be split fairly among passengers?
+              </h3>
+              <p>
+                The most equitable approach divides all shared vehicle operating costs—gasoline, highway tolls, parking fees, and a vehicle wear allowance ($0.05 to $0.08 per mile)—equally among all passengers including the driver. If the vehicle owner drives their personal car, passengers often waive the owner's share of gasoline or cover their lodging to compensate for unbilled vehicle depreciation.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Is it cheaper to drive an EV or a gas car on a road trip?
+              </h3>
+              <p>
+                For daily local driving, electric vehicles are dramatically cheaper. However, on long-distance road trips relying exclusively on Level 3 DC fast-charging networks (which charge $0.38 to $0.52 per kWh), charging costs approach parity with a 35-to-40 MPG hybrid gasoline vehicle. Review our <Link href="/calculators/transportation/ev-savings-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">EV savings calculator</Link> to analyze electricity rates versus fuel pump costs along your planned corridor.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How many miles should you plan to drive per day on a road trip?
+              </h3>
+              <p>
+                A sustainable long-distance pace is 450 to 550 miles per day (approximately 7 to 8 hours of wheel time plus rest stops). Exceeding 650 miles in a single day significantly elevates driver fatigue, increases accident risks, and forces late-night hotel check-ins that diminish overall travel enjoyment.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How much does vehicle wear-and-tear actually cost on a long road trip?
+              </h3>
+              <p>
+                While the federal IRS business mileage rate is $0.67 per mile (incorporating full capital depreciation and insurance), direct mechanical wear-and-tear for a personal road trip—primarily oil breakdown, brake wear, and tire tread consumption—ranges from $0.06 to $0.10 per mile. On a 2,000-mile journey, true mechanical wear accounts for $120 to $200 in deferred maintenance costs.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <RoadTripCostCalculatorComponent />
+    </CalcPage>
   );
 }
