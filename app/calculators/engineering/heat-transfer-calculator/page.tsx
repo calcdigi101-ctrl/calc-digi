@@ -1,26 +1,164 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import HeatTransferCalculator from "@/components/calcs/engineering/heat-transfer-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ThermalConductivityResistanceChart } from "@/components/flagship/engineering/editorial-charts";
+
+const PATH = "/calculators/engineering/heat-transfer-calculator";
+const TITLE = "Heat Transfer Calculator — Conduction, Convection & Radiation Heat Rate | CalcDigi";
+const DESCRIPTION =
+  "Calculate multi-mode thermal heat transfer rates (Watts & BTU/h), heat flux (W/m²), thermal resistance R-value, overall U-factor, and wall assembly surface temperatures across conduction (Fourier), convection (Newton), and radiation (Stefan-Boltzmann).";
 
 export const metadata: Metadata = {
-  "title": "Heat Transfer Calculator – R-Value & U-Value | CalcDigi",
-  "description": "Calculate conduction, convection, and radiation heat rates. Find R-value, thermal resistance, and heat flux for any material.",
-  "openGraph": {
-    "title": "Heat Transfer Calculator – R-Value & U-Value | CalcDigi",
-    "description": "Calculate conduction, convection, and radiation heat rates. Find R-value, thermal resistance, and heat flux for any material.",
-    "type": "website",
-    "url": "/calculators/engineering/heat-transfer-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/engineering/heat-transfer-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/engineering/hvac-load-calculator", icon: "❄️", name: "HVAC Load & Cooling Tonnage" },
+  { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Chilled Water Sizing" },
+  { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Thermal Demand Sizing" },
+  { href: "/calculators/physics/force-calculator", icon: "🔥", name: "Thermal Force & Work Calculator" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Thermal Efficiency Percentage" },
+  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Insulation Energy Payback Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is Fourier's Law of Thermal Conduction?",
+    a: "Fourier's Law states that the rate of conductive heat transfer through a homogeneous material is directly proportional to surface area and temperature gradient, and inversely proportional to material thickness: Q = (k * A * Delta_T) / L. Here, Q is heat transfer rate in Watts, k is material thermal conductivity in W/(m·K), A is cross-sectional surface area in m², Delta_T is temperature differential in Kelvin or Celsius, and L is material layer thickness in meters.",
+  },
+  {
+    q: "How does Newton's Law of Cooling describe convective heat transfer?",
+    a: "Convective heat transfer between a solid surface and a moving fluid (air, water, or oil) is governed by Newton's Law of Cooling: Q = h * A * (T_surface - T_fluid). The convective heat transfer coefficient h (in W/(m²·K)) depends on fluid velocity, viscosity, thermodynamic properties, and surface orientation. In natural air convection, h ranges from 5 to 25 W/(m²·K), while forced turbulent water convection reaches 1,000 to 15,000 W/(m²·K).",
+  },
+  {
+    q: "What is the Stefan-Boltzmann Law for thermal radiation heat exchange?",
+    a: "Thermal radiation is electromagnetic radiation emitted by all matter above absolute zero. The net radiative heat exchange between a grey surface and its surrounding environment is governed by the Stefan-Boltzmann Law: Q = epsilon * sigma * A * (T_surface^4 - T_ambient^4). Here, epsilon is surface emissivity (0 <= epsilon <= 1.0), sigma is the Stefan-Boltzmann constant (5.670374e-8 W/(m²·K⁴)), and temperatures MUST be expressed in absolute Kelvin.",
+  },
+  {
+    q: "What is the mathematical relationship between thermal conductivity (k), R-value, and U-factor?",
+    a: "Thermal resistance (R-value in m²·K/W or hr·ft²·°F/BTU) is thickness divided by thermal conductivity: R = L / k. The overall heat transfer coefficient (U-factor) is the reciprocal of total composite thermal resistance: U = 1 / R_total = 1 / (R_si + R_layer1 + R_layer2 + ... + R_se). A lower U-factor indicates superior thermal insulation performance.",
+  },
+  {
+    q: "Why are radiation heat transfer calculations so sensitive to temperature changes?",
+    a: "Because radiative emission scales with absolute temperature raised to the fourth power (T⁴), doubling absolute temperature (e.g., from 300 K to 600 K) causes radiative heat flux to surge by 2⁴ = 16 times. At moderate ambient temperatures, conduction and convection dominate; however, in high-temperature applications (furnaces, combustion chambers, re-entry heat shields), radiation quickly becomes the overwhelming heat transfer mechanism.",
+  },
+  {
+    q: "How do thermal contact resistance and air films affect multi-layer composite walls?",
+    a: "In addition to solid material layers, real-world heat transfer through building walls or heat sink interfaces is impeded by boundary fluid air films (inside air film R_si ≈ 0.13 m²·K/W, outside air film R_se ≈ 0.04 m²·K/W) and microscopic air gaps between imperfectly flat solid surfaces. Applying thermal interface paste (TIM) eliminates microscopic air voids, dramatically lowering contact resistance in microelectronic cooling.",
+  },
+];
+
+export default function HeatTransferPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engineering Calculators\", \"item\": \"https://calcdigi.com/pages/engineering\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Heat Transfer Calculator\", \"item\": \"https://calcdigi.com/calculators/engineering/heat-transfer-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Heat Transfer Calculator\", \"url\": \"https://calcdigi.com/calculators/engineering/heat-transfer-calculator\", \"description\": \"Calculate conduction, convection, and radiation heat rates. Find R-value, thermal resistance, and heat flux for any material.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is R-value in insulation?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"R = L/k (thickness divided by thermal conductivity, m2K/W). Additive for multiple layers. US units: hr·ft2·F/BTU. R-13 (US) = 2.29 m2K/W wall insulation. R-30 for attics. Higher R = better insulation. Double the R-value = halve the heat transfer rate.\"}}, {\"@type\": \"Question\", \"name\": \"What is U-value?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"U = 1/R_total. Thermal transmittance in W/m2K. Lower U = better insulation. Modern double-pane window: U=1.2-1.8 W/m2K. Well-insulated wall: U=0.2-0.3. Passive House wall: U<0.15. Building codes specify maximum U-values for envelope elements.\"}}, {\"@type\": \"Question\", \"name\": \"How to calculate heat loss through a wall?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Q = U x A x dT. U-value (W/m2K) x area (m2) x temperature difference (K). A 20m2 wall (U=0.3) with 25C indoor and -10C outdoor (dT=35K): Q = 0.3 x 20 x 35 = 210 W = 0.21 kW. Annual heating energy = Q x hours x 1/furnace efficiency.\"}}, {\"@type\": \"Question\", \"name\": \"What is thermal conductivity k?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Rate of heat flow per unit area per unit temperature gradient (W/m·K). Still air: 0.025. Glass wool: 0.04. EPS foam: 0.036. Brick: 0.72. Concrete: 1.7. Steel: 50. Aluminum: 200. Lower k = better insulator. Insulation works by trapping still air in small spaces.\"}}, {\"@type\": \"Question\", \"name\": \"How much insulation do I need?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Target R-value depends on climate zone and building code. Cold climates (Zone 5-6): walls R-20+5, attic R-49. Formula: R_required = L/k. For glass wool (k=0.04): R-20 requires L=0.04x20=0.8m? No: R-value (US) needs conversion. R-20 (US) = 3.52 m2K/W = L/0.04 = 141mm glass wool.\"}}, {\"@type\": \"Question\", \"name\": \"What is the effect of thermal bridges?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Steel studs (k=50) in a glass wool wall (k=0.04) reduce effective R-value by 30-50%. A nominally R-13 wall with 16-inch steel stud spacing has effective R-value of only R-7 to R-9. Continuous exterior insulation eliminates this bridging. Thermal imaging reveals actual thermal bridge locations.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/engineering\">Engineering</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Heat Transfer Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Heat Transfer Calculator</h1>\n<p class=\"calc-intro\">Calculate heat transfer rate through walls, roofs, and insulation using Fourier Law of conduction. Find thermal resistance R-value, U-value, and heat flux for any building material or industrial insulation application.</p>\n<p class=\"calc-intro\">Heat transfer by conduction through a flat wall: Q = kA(T1-T2)/L. The thermal resistance R = L/k is the building insulation industry standard. Higher R means lower heat transfer. Total R for multiple layers adds arithmetically: R_total = R1 + R2 + R3 + surface resistances.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Q = kA(T1-T2)/L (conduction) | R = L/k | U = 1/R_total | Q = UA(Ts-T∞) | R_total = R_inside + ΣR_layers + R_outside</div></div>\n<div class=\"content-section\"><h2>Heat Transfer Engineering – Thermal Design Guide</h2>\n<p>Heat transfer occurs through three mechanisms: conduction (through solids, Q = kA dT/L), convection (fluid movement, Q = hA dT), and radiation (electromagnetic waves, Q = εσA(T14-T24)). In building thermal design, conduction through the wall assembly is typically the dominant mechanism, with surface convection resistances added as boundary conditions.</p>\n<h3>Thermal Conductivity of Common Materials</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Material</th><th style=\"padding:10px 14px;text-align:left;\">k (W/m·K)</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Still air</td><td style=\"padding:10px 14px;\">0.025</td><td style=\"padding:10px 14px;\">Excellent insulator if sealed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Glass wool / mineral wool</td><td style=\"padding:10px 14px;\">0.032-0.045</td><td style=\"padding:10px 14px;\">Common building insulation</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Expanded polystyrene (EPS)</td><td style=\"padding:10px 14px;\">0.033-0.040</td><td style=\"padding:10px 14px;\">Rigid foam board</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Polyisocyanurate (PIR)</td><td style=\"padding:10px 14px;\">0.022-0.028</td><td style=\"padding:10px 14px;\">Best common rigid insulation</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Plywood / OSB</td><td style=\"padding:10px 14px;\">0.12-0.13</td><td style=\"padding:10px 14px;\">Structural sheathing</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Brick (common)</td><td style=\"padding:10px 14px;\">0.60-0.80</td><td style=\"padding:10px 14px;\">Masonry wall</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Concrete (normal weight)</td><td style=\"padding:10px 14px;\">1.4-1.7</td><td style=\"padding:10px 14px;\">Structural concrete</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Glass (window)</td><td style=\"padding:10px 14px;\">0.96-1.05</td><td style=\"padding:10px 14px;\">Single pane window</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Steel</td><td style=\"padding:10px 14px;\">45-50</td><td style=\"padding:10px 14px;\">Thermal bridge element</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Aluminum</td><td style=\"padding:10px 14px;\">200-210</td><td style=\"padding:10px 14px;\">Major thermal bridge</td></tr></tbody></table></div>\n<h3>Building Energy Code R-Value Requirements</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Region</th><th style=\"padding:10px 14px;text-align:left;\">Wall R-value</th><th style=\"padding:10px 14px;text-align:left;\">Attic R-value</th><th style=\"padding:10px 14px;text-align:left;\">Floor R-value</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Climate Zone 1-2 (hot)</td><td style=\"padding:10px 14px;\">R-13 wall</td><td style=\"padding:10px 14px;\">R-30 attic</td><td style=\"padding:10px 14px;\">R-15 floor</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Climate Zone 3-4 (mixed)</td><td style=\"padding:10px 14px;\">R-20 wall</td><td style=\"padding:10px 14px;\">R-38 attic</td><td style=\"padding:10px 14px;\">R-19 floor</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Climate Zone 5-6 (cold)</td><td style=\"padding:10px 14px;\">R-20+5 wall</td><td style=\"padding:10px 14px;\">R-49 attic</td><td style=\"padding:10px 14px;\">R-30 floor</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Climate Zone 7-8 (very cold)</td><td style=\"padding:10px 14px;\">R-20+10 wall</td><td style=\"padding:10px 14px;\">R-60 attic</td><td style=\"padding:10px 14px;\">R-38 floor</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Passive House standard</td><td style=\"padding:10px 14px;\">R-40+ wall</td><td style=\"padding:10px 14px;\">R-60+ roof</td><td style=\"padding:10px 14px;\">R-40+ floor</td></tr></tbody></table></div>\n<h3>Thermal Bridging Effects</h3>\n<p>Thermal bridges are conductive paths that bypass insulation. Steel studs in a wall have k=50 W/m·K vs glass wool k=0.04 W/m·K — 1250x more conductive. Even though studs are small, they can reduce effective R-value by 30-50% in a steel-stud wall. Solutions: continuous insulation outside the structure (breaks thermal bridge path), thermally broken framing, or structural insulated panels (SIPs). Thermal imaging cameras reveal bridge locations in completed buildings.</p></div>\n<div class=\"content-section\"><h3>Safety Factors and Code Compliance</h3>\n<p>Engineering design always includes safety factors to account for material variability, load uncertainty, construction tolerances, and progressive deterioration. Typical safety factors: structural steel bending 1.67 (ASD), concrete compression 1.5-2.0, bolts in tension 2.0-3.0, pressure vessels 3.5-4.0. Always verify that your design complies with applicable local codes, national standards, and industry regulations before construction or installation.</p>\n</div>\n<div class=\"content-section\"><h3>Documentation Best Practices</h3>\n<p>Professional engineering calculations should always be documented with: the calculation title and date, applicable codes and standards, all assumptions clearly stated, all input values with sources, step-by-step calculation showing intermediate results, final answer with units, comparison to allowable limits, and conclusion (pass or fail). This documentation protects the engineer professionally and allows others to check, correct, or update the calculation as conditions change.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is R-value in insulation? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">R = L/k (thickness divided by thermal conductivity, m2K/W). Additive for multiple layers. US units: hr·ft2·F/BTU. R-13 (US) = 2.29 m2K/W wall insulation. R-30 for attics. Higher R = better insulation. Double the R-value = halve the heat transfer rate.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is U-value? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">U = 1/R_total. Thermal transmittance in W/m2K. Lower U = better insulation. Modern double-pane window: U=1.2-1.8 W/m2K. Well-insulated wall: U=0.2-0.3. Passive House wall: U&lt;0.15. Building codes specify maximum U-values for envelope elements.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to calculate heat loss through a wall? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Q = U x A x dT. U-value (W/m2K) x area (m2) x temperature difference (K). A 20m2 wall (U=0.3) with 25C indoor and -10C outdoor (dT=35K): Q = 0.3 x 20 x 35 = 210 W = 0.21 kW. Annual heating energy = Q x hours x 1/furnace efficiency.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is thermal conductivity k? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Rate of heat flow per unit area per unit temperature gradient (W/m·K). Still air: 0.025. Glass wool: 0.04. EPS foam: 0.036. Brick: 0.72. Concrete: 1.7. Steel: 50. Aluminum: 200. Lower k = better insulator. Insulation works by trapping still air in small spaces.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much insulation do I need? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Target R-value depends on climate zone and building code. Cold climates (Zone 5-6): walls R-20+5, attic R-49. Formula: R_required = L/k. For glass wool (k=0.04): R-20 requires L=0.04x20=0.8m? No: R-value (US) needs conversion. R-20 (US) = 3.52 m2K/W = L/0.04 = 141mm glass wool.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the effect of thermal bridges? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Steel studs (k=50) in a glass wool wall (k=0.04) reduce effective R-value by 30-50%. A nominally R-13 wall with 16-inch steel stud spacing has effective R-value of only R-7 to R-9. Continuous exterior insulation eliminates this bridging. Thermal imaging reveals actual thermal bridge locations.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Engineering Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/engineering/gear-ratio-calculator\"><span class=\"rc-icon\">⚙</span><span class=\"rc-name\">Gear Ratio</span></a><a class=\"related-card\" href=\"/calculators/engineering/pipe-flow-calculator\"><span class=\"rc-icon\">🔆</span><span class=\"rc-name\">Pipe Flow</span></a><a class=\"related-card\" href=\"/calculators/engineering/electrical-load-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Electrical Load</span></a><a class=\"related-card\" href=\"/calculators/engineering/bolt-torque-calculator\"><span class=\"rc-icon\">🔧</span><span class=\"rc-name\">Bolt Torque</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Heat Transfer Calculator – Conduction R-Value and U-Value</h2><div class=\"form-group\"><label for=\"hTh\">Hot Side Temp (°C)</label><input id=\"hTh\" step=\"any\" type=\"number\" value=\"22\"/></div><div class=\"form-group\"><label for=\"hTc\">Cold Side Temp (°C)</label><input id=\"hTc\" step=\"any\" type=\"number\" value=\"-10\"/></div><div class=\"form-group\"><label for=\"hA\">Area (m²)</label><input id=\"hA\" min=\"0.1\" step=\"any\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"hmat\">Material</label><select id=\"hmat\"><option value=\"brick\">Brick (k=0.72)</option><option value=\"concrete\">Concrete (k=1.7)</option><option value=\"wood\">Wood framing (k=0.13)</option><option selected=\"\" value=\"glass_w\">Glass wool (k=0.04)</option><option value=\"EPS\">EPS foam (k=0.036)</option><option value=\"PIR\">PIR board (k=0.025)</option><option value=\"glass\">Window glass (k=1.0)</option></select></div><div class=\"form-group\"><label for=\"hL\">Thickness (m)</label><input id=\"hL\" min=\"0.001\" step=\"0.001\" type=\"number\" value=\"0.10\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('eg-result').style.display='none';document.getElementById('eg-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"eg-result\" style=\"display:none;\">\n<div id=\"eg-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"eg-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"eg-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"eg-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-eg\" onclick=\"printResult('eg-result','Heat Transfer Calculator – Conduction R-Value and U-Value')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Heat Transfer Calculator – Conduction R-Value and U-Value')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-heat-transfer-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nvar MAT={brick:{k:0.72},concrete:{k:1.7},wood:{k:0.13},glass_w:{k:0.04},EPS:{k:0.036},PIR:{k:0.025},glass:{k:1.0}};\nfunction doCalc(){\n  var Th=parseFloat(document.getElementById('hTh').value)||22;\n  var Tc=parseFloat(document.getElementById('hTc').value)||-10;\n  var A=parseFloat(document.getElementById('hA').value)||20;\n  var mat=MAT[document.getElementById('hmat').value];\n  var L=parseFloat(document.getElementById('hL').value)||0.10;\n  var dT=Math.abs(Th-Tc);\n  var R=L/mat.k;\n  var Rtot=0.13+R+0.04;\n  var U=1/Rtot;\n  var Q=mat.k*A*dT/L;\n  var Qtot=U*A*dT;\n  var flux=Q/A;\n  var aiPrompt='Heat transfer: Q='+Q.toFixed(0)+'W, U='+U.toFixed(3)+'W/m2K, R='+R.toFixed(3)+'m2K/W, area='+A+'m2, dT='+dT+'K';\n  document.getElementById('eg-ri').innerHTML=\n    ri('Heat Transfer Rate','<strong style=\"font-size:24px;color:var(--c-accent)\">'+Qtot.toFixed(0)+' W</strong>',true)+\n    ri('Heat Flux',flux.toFixed(1)+' W/m²')+\n    ri('R-Value (material only)',R.toFixed(4)+' m²·K/W')+\n    ri('Total R (with surfaces)',Rtot.toFixed(4)+' m²·K/W')+\n    ri('U-Value',U.toFixed(4)+' W/m²·K')+\n    ri('Temperature Difference',dT+' °C');\n  document.getElementById('eg-result').style.display='block';document.getElementById('eg-actions').style.display='flex';\n  drawDonut('eg-chart',['Heat Loss (W)','R-value×100'],[Math.round(Qtot)||1,Math.round(R*100)||1],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('eg-ai');ai.style.display='block';ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain this heat loss for building energy performance.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/engineering", label: "Engineering" }}
+      title="Heat Transfer Calculator"
+      intro="Calculate multi-mode thermal heat transfer rates (Watts & BTU/h), heat flux (W/m²), thermal resistance R-value, overall U-factor, and wall surface temperatures across conduction (Fourier), convection (Newton), and radiation (Stefan-Boltzmann)."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Engineering Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 px-2.5 py-0.5 font-medium text-rose-700 ring-1 ring-inset ring-rose-600/20 dark:bg-rose-950/40 dark:text-rose-400 dark:ring-rose-500/30">
+                <svg className="size-3.5 shrink-0 text-rose-600 dark:text-rose-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ASME &amp; ASHRAE Thermal Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">ISO 6946 Building Components &amp; Incropera Fundamentals of Heat Transfer</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Thermodynamics &amp; Thermal Physics</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Engineering Answer: How Conduction, Convection and Radiation Are Sized
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Heat transfers through three fundamental physical mechanisms: <strong>Conduction</strong> (Fourier's Law: <code>Q = k · A · ΔT / L</code>), <strong>Convection</strong> (Newton's Cooling Law: <code>Q = h · A · ΔT</code>), and <strong>Radiation</strong> (Stefan-Boltzmann: <code>Q = ε · σ · A · (T₁⁴ - T₂⁴)</code>). In composite wall assemblies, overall heat transfer is governed by the <strong>U-factor: U = 1 / R_total</strong>, where thermal resistance is <code>R = L / k</code>. To size building air conditioning equipment based on envelope heat gain, use our <a href="/calculators/engineering/hvac-load-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">HVAC load calculator</a>, size heat exchanger fluid flow rates with our <a href="/calculators/engineering/pipe-flow-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pipe flow calculator</a>, or calculate electrical heating wattage with our <a href="/calculators/engineering/electrical-load-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">electrical load calculator</a>.
+            </p>
+          </div>
+
+          <h2>Thermal Conductivity vs. Insulation Resistance (R-Value)</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <ThermalConductivityResistanceChart />
+          </div>
+
+          <p>
+            Thermal engineering is essential across architectural building envelope design, high-performance electronics cooling, aerospace propulsion, power plant boiler design, and cryogenics. Whenever a temperature differential exists between two regions in physical space, thermal energy spontaneously migrates from higher temperature matter to lower temperature matter in strict accordance with the Second Law of Thermodynamics.
+          </p>
+          <p>
+            Selecting appropriate insulation materials requires analyzing thermal conductivity <em>k</em> (measured in W/(m·K) or BTU·in/(hr·ft²·°F)). While structural metals like copper and aluminum rapidly conduct heat away from sensitive computer processor dies, porous insulation materials like polyurethane foam and aerogel trap stagnant air pockets to arrest both conductive and convective heat migration. To evaluate insulation investment payback over time, use our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>, calculate thermal efficiency gain percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and assess thermal expansion forces with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Multi-Mode Heat Transfer Governing Equations</div>
+            Q_conduction = (k * A * (T_hot - T_cold)) / L
+            <br />
+            Q_convection = h * A * (T_surface - T_fluid)
+            <br />
+            Q_radiation = epsilon * sigma * A * (T_hot_K^4 - T_cold_K^4)
+            <br />
+            R_layer = L / k
+            <br />
+            R_total = R_si + Sum(R_layers) + R_se
+            <br />
+            U_overall = 1 / R_total
+            <br />
+            Heat_Flux (q) = Q / A = U * Delta_T (W/m^2)
+          </Formula>
+
+          <h2>Thermal Conductivity &amp; Resistance Properties of Common Materials</h2>
+          <p>
+            Thermal conductivity spans more than four orders of magnitude between high-conductivity metals and advanced synthetic insulating aerogels.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Thermal Conductivity (k) and 100mm Layer R-Values for Key Engineering Materials</p>
+          <DataTable
+            head={["Material Classification", "Thermal Conductivity k (W/m·K)", "R-Value per 100mm (m²·K/W)", "R-Value per 4 inch (hr·ft²·°F/BTU)", "Typical Engineering Use"]}
+            rows={[
+              ["Pure Copper (Electrolytic)", "385.0 W/m·K", "0.00026 m²·K/W", "R-0.0015", "CPU heat pipes, industrial heat exchangers, microelectronics"],
+              ["Structural Carbon Steel", "50.0 W/m·K", "0.0020 m²·K/W", "R-0.011", "Pressure vessels, boiler fire tubes, structural building framing"],
+              ["Dense Concrete / Brickwork", "1.30 W/m·K", "0.077 m²·K/W", "R-0.44", "Building exterior structural walls, thermal mass storage"],
+              ["Window Float Glass", "0.96 W/m·K", "0.104 m²·K/W", "R-0.59", "Architectural glazing, solar thermal collector glass covers"],
+              ["Fiberglass Batt Insulation", "0.038 W/m·K", "2.63 m²·K/W", "R-15.0", "Residential wall cavity and roof attic insulation"],
+              ["Polyisocyanurate (PIR) Board", "0.022 W/m·K", "4.55 m²·K/W", "R-26.0", "Continuous commercial building envelope, cryogenic cold storage"],
+            ]}
+          />
+
+          <h2>Combined Heat Transfer and Thermal Bridging</h2>
+          <p>
+            In practical engineering systems, heat transfer rarely occurs via a single isolated mode. In an architectural building envelope, solar radiation warms exterior cladding; heat conducts inward through siding, insulation, and timber or steel studs; and indoor room air warms via convection and radiation. When conductive steel studs penetrate insulation layers without continuous exterior foam breaks, a phenomenon known as <em>thermal bridging</em> occurs, degrading effective wall assembly R-values by up to 40% and creating cold indoor condensation hotspots prone to structural rot.
+          </p>
+        </>
+      }
+    >
+      <HeatTransferCalculator />
+    </CalcPage>
   );
 }

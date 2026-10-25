@@ -1,26 +1,161 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import ConcreteMixCalculator from "@/components/calcs/engineering/concrete-mix-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ConcreteMixProportionChart } from "@/components/flagship/engineering/editorial-charts";
+
+const PATH = "/calculators/engineering/concrete-mix-calculator";
+const TITLE = "Concrete Mix Calculator — Cement Bags, Sand, Gravel & Water Ratios | CalcDigi";
+const DESCRIPTION =
+  "Calculate total concrete volume, dry volume factor (1.54×), cement bag count (50 kg / 94 lb), sand tons, coarse aggregate stone tons, and water demand for M10, M15, M20, M25, and M30 grade concrete slabs, footings, and columns.";
 
 export const metadata: Metadata = {
-  "title": "Concrete Mix Calculator – Cement, Sand & Gravel | CalcDigi",
-  "description": "Calculate cement, sand, and aggregate for M10 to M40 grades. Get bags of cement and volumes for any concrete pour volume.",
-  "openGraph": {
-    "title": "Concrete Mix Calculator – Cement, Sand & Gravel | CalcDigi",
-    "description": "Calculate cement, sand, and aggregate for M10 to M40 grades. Get bags of cement and volumes for any concrete pour volume.",
-    "type": "website",
-    "url": "/calculators/engineering/concrete-mix-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/engineering/concrete-mix-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/engineering/beam-load-calculator", icon: "📐", name: "Beam Deflection & Load Calculator" },
+  { href: "/calculators/engineering/structural-steel-calculator", icon: "🏗️", name: "Structural Steel Column & Beam" },
+  { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Head Loss Calculator" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Proportional Ratio Calculator" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage Calculator" },
+  { href: "/calculators/geography/elevation-grade-calculator", icon: "⛰️", name: "Elevation Grade & Slope Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why is wet concrete volume multiplied by 1.54 to find dry volume?",
+    a: "When water is mixed with cement, fine aggregate (sand), and coarse aggregate (gravel), the dry constituents pack together tightly as sand particles fill the void spaces between gravel stones, and cement paste fills microscopic voids. During hydration, dry volume shrinks by approximately 35% in wet paste form. Consequently, civil engineering standards mandate multiplying wet formwork volume by a factor of 1.54 (1 / 0.65 = 1.538) to determine the actual unmixed dry bulk materials needed on site.",
+  },
+  {
+    q: "What are the standard volumetric mix ratios for M15, M20, and M25 concrete?",
+    a: "Standard nominal concrete mixes follow Cement : Sand : Coarse Aggregate volumetric proportions: M10 is 1:3:6 (compressive strength 10 MPa / 1,450 psi), M15 is 1:2:4 (15 MPa / 2,175 psi), M20 is 1:1.5:3 (20 MPa / 2,900 psi), and M25 is 1:1:2 (25 MPa / 3,625 psi). M20 is the minimum code requirement under IS 456 and ACI 318 for reinforced concrete (RCC) structural slabs, beams, and columns.",
+  },
+  {
+    q: "How many 50 kg bags of cement are in one cubic meter of concrete?",
+    a: "The number of cement bags depends on the design strength mix. For standard M20 nominal concrete (1:1.5:3 ratio with dry factor 1.54), dry volume per m³ is 1.54 m³. The cement volume share is 1 / (1 + 1.5 + 3) = 1/5.5 = 0.28 m³. Since one 50 kg bag of Portland cement occupies approximately 0.0347 m³ (density ~1,440 kg/m³), M20 requires approximately 0.28 / 0.0347 = 8.07 bags (around 8.2 bags including 2% wastage) per cubic meter.",
+  },
+  {
+    q: "What is the water-cement ratio and how does it affect concrete compressive strength?",
+    a: "The water-cement (w/c) ratio is the weight of mixing water divided by the weight of cement, typically maintained between 0.40 and 0.55 for structural work. Abrams' Law states that concrete compressive strength is inversely proportional to the water-cement ratio. Adding excess water creates capillary pores and bleeds out paste, drastically reducing 28-day compressive strength and increasing shrinkage cracking, while too little water impairs workability and prevents full cement hydration.",
+  },
+  {
+    q: "How much extra concrete should be ordered for construction site wastage?",
+    a: "Civil estimators recommend ordering 5% to 10% extra concrete beyond calculated formwork geometry. Simple rectangular suspended slabs require roughly 5% safety margin, whereas trench footings poured directly against uneven rough earth, bored piles, and complex foundation grade beams require 8% to 10% extra volume to compensate for ground undulations, spillage, and formwork bowing.",
+  },
+  {
+    q: "How long does concrete take to reach full design strength?",
+    a: "Concrete hardens through a continuous exothermic chemical reaction called hydration. Under standard curing temperatures (20°C / 68°F), concrete achieves approximately 16% of its characteristic design strength after 24 hours, 40% after 3 days, 65% to 70% after 7 days, and 99% to 100% of specified design strength after 28 days. Concrete continues gaining minor strength for years if moisture remains present.",
+  },
+];
+
+export default function ConcreteMixPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engineering Calculators\", \"item\": \"https://calcdigi.com/pages/engineering\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Concrete Mix Calculator\", \"item\": \"https://calcdigi.com/calculators/engineering/concrete-mix-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Concrete Mix Calculator\", \"url\": \"https://calcdigi.com/calculators/engineering/concrete-mix-calculator\", \"description\": \"Calculate cement, sand, and aggregate for M10 to M40 grades. Get bags of cement and volumes for any concrete pour volume.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the M20 concrete mix ratio?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"M20 nominal mix is 1:1.5:3 (cement:sand:aggregate by volume). For 1 m3 of M20 concrete: 8 bags of cement (50kg each), approximately 0.42 m3 sand, and 0.84 m3 coarse aggregate. Standard for residential slabs and beams.\"}}, {\"@type\": \"Question\", \"name\": \"How many bags of cement per cubic meter?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"M15 (1:2:4): ~6.5 bags per m3. M20 (1:1.5:3): ~8 bags per m3. M25 (1:1:2): ~11 bags per m3. Calculation: Dry volume = 1.54 x wet volume. Cement volume = Dry vol x cement ratio / sum of ratios. Mass = volume x 1440 kg/m3. Bags = mass / 50.\"}}, {\"@type\": \"Question\", \"name\": \"What is water-cement ratio?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Weight of water divided by weight of cement. M20: w/c = 0.50-0.55. Lower w/c = stronger concrete but less workable. Adding 1 extra liter of water per 50kg cement bag reduces 28-day strength by about 1.5 MPa. Always use minimum water for required workability.\"}}, {\"@type\": \"Question\", \"name\": \"Why is dry volume 1.54 times wet volume?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Dry materials (cement, sand, aggregate) contain voids between particles. When mixed with water, particles rearrange and voids are partially filled, reducing volume. Dry volume = 1.54 x wet volume accounts for this compaction. Always use this factor for accurate material estimation.\"}}, {\"@type\": \"Question\", \"name\": \"What is concrete slump?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Slump measures workability (consistency) of fresh concrete. Standard slump ranges: foundations and walls 25-75mm, slabs 75-100mm, columns and beams 75-125mm, pumped concrete 100-150mm. Higher slump means more water or superplasticizer, which can reduce strength if water is increased.\"}}, {\"@type\": \"Question\", \"name\": \"How long to cure concrete?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Minimum 7 days of moist curing. Cover with burlap, plastic sheeting, or apply curing compound within 20 minutes of finishing surface. Curing ensures cement continues hydrating and reaching design strength. Dry concrete stops gaining strength. Temperature affects rate: 20C is standard; cold weather slows, hot weather accelerates.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/engineering\">Engineering</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Concrete Mix Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Concrete Mix Calculator</h1>\n<p class=\"calc-intro\">Calculate cement bags, sand volume, and aggregate quantity for any concrete grade (M10-M30) and pour volume. Accurate material estimation prevents wastage and ensures correct concrete strength for slabs, beams, and columns.</p>\n<p class=\"calc-intro\">The concrete mix ratio determines compressive strength — M20 (1:1.5:3) achieves 20 MPa at 28 days and is the standard mix for residential slabs and beams. Dry materials volume = 1.54 × wet volume because ingredients compact during mixing with water.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Wet Vol = L × W × H | Dry Vol = Wet × 1.54 | Cement = Dry × C/(C+S+A) | Bags = Cement kg / 50 | w/c = 0.45-0.55</div></div>\n<div class=\"content-section\"><h3>Units and Conversions Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Grade</th><th style=\"padding:10px 14px;text-align:left;\">C:S:A Ratio</th><th style=\"padding:10px 14px;text-align:left;\">Strength</th><th style=\"padding:10px 14px;text-align:left;\">Use Case</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">M10</td><td style=\"padding:10px 14px;\">1:3:6</td><td style=\"padding:10px 14px;\">10 MPa</td><td style=\"padding:10px 14px;\">Lean concrete, blinding</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">M15</td><td style=\"padding:10px 14px;\">1:2:4</td><td style=\"padding:10px 14px;\">15 MPa</td><td style=\"padding:10px 14px;\">Mass concrete, footings</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">M20</td><td style=\"padding:10px 14px;\">1:1.5:3</td><td style=\"padding:10px 14px;\">20 MPa</td><td style=\"padding:10px 14px;\">Slabs, beams (standard)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">M25</td><td style=\"padding:10px 14px;\">1:1:2</td><td style=\"padding:10px 14px;\">25 MPa</td><td style=\"padding:10px 14px;\">Columns, bridges</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">M30</td><td style=\"padding:10px 14px;\">1:0.75:1.5</td><td style=\"padding:10px 14px;\">30 MPa</td><td style=\"padding:10px 14px;\">High-strength applications</td></tr></tbody></table></div>\n</div><div class=\"content-section\"><h2>Concrete Mix Design – Engineering Reference</h2>\n<p>Concrete is the most widely used construction material in the world — over 10 billion tonnes produced annually. Its strength and durability depend primarily on the water-cement ratio, cement content, aggregate quality, and proper curing. The nominal mix ratios (M10 through M25) are designed for standard conditions. For higher grades or special environments (marine, freeze-thaw, sulfate exposure), a designed mix with specific admixtures is required.</p>\n<h3>Water-Cement Ratio and Strength</h3>\n<p>The w/c ratio is the single most important factor controlling concrete strength. Lower w/c = higher strength but reduced workability. Normal range: 0.40-0.65. M20 concrete: w/c = 0.50-0.55. High-strength M40: w/c = 0.35-0.40. Every 0.01 increase in w/c reduces 28-day strength by approximately 1-1.5 MPa. Superplasticizers allow low w/c with adequate workability.</p>\n<h3>Curing and Strength Development</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Age</th><th style=\"padding:10px 14px;text-align:left;\">% of 28-day Strength</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 day</td><td style=\"padding:10px 14px;\">20-30%</td><td style=\"padding:10px 14px;\">No loading, minimal form strip</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">3 days</td><td style=\"padding:10px 14px;\">40-50%</td><td style=\"padding:10px 14px;\">Vertical forms can be removed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">7 days</td><td style=\"padding:10px 14px;\">65-75%</td><td style=\"padding:10px 14px;\">Light loading permitted</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">14 days</td><td style=\"padding:10px 14px;\">85-90%</td><td style=\"padding:10px 14px;\">Normal loading</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">28 days</td><td style=\"padding:10px 14px;\">100%</td><td style=\"padding:10px 14px;\">Full design strength</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">90 days</td><td style=\"padding:10px 14px;\">115-130%</td><td style=\"padding:10px 14px;\">Continues gaining strength</td></tr></tbody></table></div>\n<h3>Concrete Admixtures</h3>\n<p>Modern concrete uses admixtures to enhance properties beyond what the basic mix achieves. Superplasticizers reduce water demand 12-30%, enabling high-strength concrete. Retarders extend working time for hot weather and long hauls. Accelerators speed setting for cold weather. Air-entraining agents improve freeze-thaw durability. Fly ash and GGBS replace cement partially, reducing cost and CO2 while improving long-term strength and durability.</p></div>\n<div class=\"content-section\"><h3>Safety Factors and Code Compliance</h3>\n<p>Engineering design always includes safety factors to account for material variability, load uncertainty, construction tolerances, and progressive deterioration. Typical safety factors: structural steel bending 1.67 (ASD), concrete compression 1.5-2.0, bolts in tension 2.0-3.0, pressure vessels 3.5-4.0. Always verify that your design complies with applicable local codes, national standards, and industry regulations before construction or installation.</p>\n</div>\n<div class=\"content-section\"><h3>Free Engineering Resources</h3>\n<p>Supplement these calculators with free engineering references: AISC Steel Construction Manual (steel design), ACI 318 (concrete design), NFPA 70 NEC (electrical), ASHRAE Fundamentals Handbook (HVAC), and Machinery Handbook (mechanical). Engineering toolboxes, NIST databases, and professional society websites provide free access to many standards and reference materials for non-commercial educational use.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the M20 concrete mix ratio? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">M20 nominal mix is 1:1.5:3 (cement:sand:aggregate by volume). For 1 m3 of M20 concrete: 8 bags of cement (50kg each), approximately 0.42 m3 sand, and 0.84 m3 coarse aggregate. Standard for residential slabs and beams.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many bags of cement per cubic meter? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">M15 (1:2:4): ~6.5 bags per m3. M20 (1:1.5:3): ~8 bags per m3. M25 (1:1:2): ~11 bags per m3. Calculation: Dry volume = 1.54 x wet volume. Cement volume = Dry vol x cement ratio / sum of ratios. Mass = volume x 1440 kg/m3. Bags = mass / 50.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is water-cement ratio? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Weight of water divided by weight of cement. M20: w/c = 0.50-0.55. Lower w/c = stronger concrete but less workable. Adding 1 extra liter of water per 50kg cement bag reduces 28-day strength by about 1.5 MPa. Always use minimum water for required workability.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is dry volume 1.54 times wet volume? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Dry materials (cement, sand, aggregate) contain voids between particles. When mixed with water, particles rearrange and voids are partially filled, reducing volume. Dry volume = 1.54 x wet volume accounts for this compaction. Always use this factor for accurate material estimation.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is concrete slump? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Slump measures workability (consistency) of fresh concrete. Standard slump ranges: foundations and walls 25-75mm, slabs 75-100mm, columns and beams 75-125mm, pumped concrete 100-150mm. Higher slump means more water or superplasticizer, which can reduce strength if water is increased.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long to cure concrete? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Minimum 7 days of moist curing. Cover with burlap, plastic sheeting, or apply curing compound within 20 minutes of finishing surface. Curing ensures cement continues hydrating and reaching design strength. Dry concrete stops gaining strength. Temperature affects rate: 20C is standard; cold weather slows, hot weather accelerates.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Engineering Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/engineering/gear-ratio-calculator\"><span class=\"rc-icon\">⚙</span><span class=\"rc-name\">Gear Ratio Calc</span></a><a class=\"related-card\" href=\"/calculators/engineering/pipe-flow-calculator\"><span class=\"rc-icon\">🔆</span><span class=\"rc-name\">Pipe Flow Calc</span></a><a class=\"related-card\" href=\"/calculators/engineering/electrical-load-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Electrical Load</span></a><a class=\"related-card\" href=\"/calculators/engineering/bolt-torque-calculator\"><span class=\"rc-icon\">🔧</span><span class=\"rc-name\">Bolt Torque Calc</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Concrete Mix Calculator – Cement Sand Aggregate Quantities</h2><div class=\"form-group\"><label for=\"cgrade\">Concrete Grade</label><select id=\"cgrade\"><option value=\"m10\">M10 — 1:3:6 (10 MPa)</option><option value=\"m15\">M15 — 1:2:4 (15 MPa)</option><option selected=\"\" value=\"m20\">M20 — 1:1.5:3 (20 MPa)</option><option value=\"m25\">M25 — 1:1:2 (25 MPa)</option><option value=\"m30\">M30 — 1:0.75:1.5 (30 MPa)</option></select></div><div class=\"form-group\"><label for=\"cL\">Length (m)</label><input id=\"cL\" min=\"0.1\" step=\"any\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"cW\">Width (m)</label><input id=\"cW\" min=\"0.1\" step=\"any\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"cH\">Depth/Thickness (m)</label><input id=\"cH\" min=\"0.05\" step=\"0.01\" type=\"number\" value=\"0.15\"/></div><div class=\"form-group\"><label for=\"cwc\">Water-Cement Ratio</label><input id=\"cwc\" max=\"0.70\" min=\"0.30\" step=\"0.01\" type=\"number\" value=\"0.50\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('eg-result').style.display='none';document.getElementById('eg-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"eg-result\" style=\"display:none;\">\n<div id=\"eg-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"eg-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"eg-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"eg-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-eg\" onclick=\"printResult('eg-result','Concrete Mix Calculator – Cement Sand Aggregate Quantities')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Concrete Mix Calculator – Cement Sand Aggregate Quantities')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-concrete-mix-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nvar MX={m10:{c:1,s:3,a:6,mpa:10},m15:{c:1,s:2,a:4,mpa:15},m20:{c:1,s:1.5,a:3,mpa:20},m25:{c:1,s:1,a:2,mpa:25},m30:{c:1,s:0.75,a:1.5,mpa:30}};\nfunction doCalc(){\n  var g=document.getElementById('cgrade').value, mx=MX[g];\n  var L=parseFloat(document.getElementById('cL').value)||1;\n  var W=parseFloat(document.getElementById('cW').value)||1;\n  var H=parseFloat(document.getElementById('cH').value)||0.15;\n  var wc=parseFloat(document.getElementById('cwc').value)||0.50;\n  var wet=L*W*H, dry=wet*1.54, sum=mx.c+mx.s+mx.a;\n  var cV=dry*mx.c/sum, sV=dry*mx.s/sum, aV=dry*mx.a/sum;\n  var cKg=cV*1440, bags=Math.ceil(cKg/50), sKg=sV*1600, aKg=aV*1500, water=cKg*wc;\n  var aiPrompt='Concrete '+g.toUpperCase()+' ('+mx.mpa+'MPa): '+wet.toFixed(2)+'m3, '+bags+' bags cement, '+Math.round(sKg)+'kg sand, '+Math.round(aKg)+'kg agg, '+Math.round(water)+'L water';\n  document.getElementById('eg-ri').innerHTML=\n    ri('Volume','<strong style=\"font-size:24px;color:var(--c-accent)\">'+wet.toFixed(3)+' m³</strong>',true)+\n    ri('Grade',g.toUpperCase()+' — '+mx.mpa+' MPa ('+mx.c+':'+mx.s+':'+mx.a+')')+\n    ri('Cement',bags+' bags ('+Math.round(cKg)+' kg)')+\n    ri('Sand',Math.round(sKg)+' kg = '+sV.toFixed(3)+' m³')+\n    ri('Aggregate',Math.round(aKg)+' kg = '+aV.toFixed(3)+' m³')+\n    ri('Water',Math.round(water)+' L (w/c='+wc+')');\n  document.getElementById('eg-result').style.display='block';document.getElementById('eg-actions').style.display='flex';\n  drawDonut('eg-chart',['Cement','Sand','Aggregate'],[Math.round(cKg),Math.round(sKg),Math.round(aKg)],['#1a5c3a','#c8832a','#3a7abf']);\n  \n  var ai=document.getElementById('eg-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the engineering significance of this concrete mix design result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/engineering", label: "Engineering" }}
+      title="Concrete Mix Calculator"
+      intro="Calculate exact concrete wet volume, dry aggregate expansion factor (1.54×), cement bag count (50 kg or 94 lb), fine sand tonnage, coarse gravel stone, and water demand across M10, M15, M20, M25, and M30 grade specifications."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Engineering Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ACI &amp; IS 456 Structural Codes
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">ACI 211.1 Mix Design &amp; IS 456:2000 Plain and Reinforced Concrete</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Materials Engineering</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Engineering Answer: How Concrete Mix Proportions Are Calculated
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              To calculate raw constituents for concrete, multiply wet formwork volume by <strong>1.54 (Dry Volume Conversion Factor)</strong> because dry sand and cement pack into coarse aggregate interparticle voids. For standard <strong>M20 grade concrete (1:1.5:3 ratio)</strong>, one cubic meter of finished wet concrete requires <strong>~8.2 bags of cement (403 kg)</strong>, <strong>0.42 m³ of sand (672 kg)</strong>, <strong>0.84 m³ of gravel stone (1,344 kg)</strong>, and <strong>185 liters of water</strong> at a 0.45 water-cement ratio. Verify structural slab flexural capacity with our <a href="/calculators/engineering/beam-load-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">beam load calculator</a> or compute proportional split ratios with our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>.
+            </p>
+          </div>
+
+          <h2>Concrete Mix Constituent Proportions &amp; Strength Grades</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <ConcreteMixProportionChart />
+          </div>
+
+          <p>
+            Concrete is the world's most widely consumed manufactured building material. Achieving high durability and target characteristic compressive strength (<em>fck</em>) requires precise batching of ordinary Portland cement (OPC), graded fine sand, clean coarse aggregate crushed stone, and potable water. In reinforced concrete design, the nominal strength grade designation (such as M15, M20, M25, M30) represents the 28-day characteristic compressive strength in Megapascals (MPa) tested on standard 150 mm curing cubes.
+          </p>
+          <p>
+            When estimating site procurement, civil engineers distinguish strictly between <em>wet placed concrete volume</em> and <em>unmixed dry constituent volume</em>. Because dry bulk sand settles into gravel voids and cement fills interstitial capillaries during water hydration, dry raw materials shrink by approximately 35% when mixed. Hence, dry batching volume equals <code>V_dry = V_wet × 1.54</code>. To evaluate percentage material waste during pouring, consult our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, or evaluate hydraulic drainage slopes using our <a href="/calculators/geography/elevation-grade-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">elevation grade calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Concrete Volumetric Batching Equations</div>
+            V_wet = Length * Width * Thickness
+            <br />
+            V_dry = V_wet * 1.54 * (1 + Wastage_pct / 100)
+            <br />
+            Ratio_sum = C_part + S_part + A_part
+            <br />
+            Cement_volume = (C_part / Ratio_sum) * V_dry
+            <br />
+            Cement_bags = Cement_volume / 0.0347 m^3 (for 50 kg standard bag)
+            <br />
+            Water_liters = Cement_mass_kg * Water_Cement_Ratio
+          </Formula>
+
+          <h2>Nominal Concrete Mix Design Grades and Applications</h2>
+          <p>
+            Depending on structural exposure classes defined by ACI 318 and IS 456, different structural elements require distinct cement paste densities to resist carbonation, sulfate attack, and reinforcement rebar corrosion. Column footings transferring heavy axial loads into underlying soil must be designed in tandem with our <a href="/calculators/engineering/structural-steel-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">structural steel calculator</a>.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Standard Nominal Concrete Mix Ratios, 28-Day Strength &amp; Structural Applications</p>
+          <DataTable
+            head={["Grade Designation", "Mix Ratio (C:S:A)", "28-Day Strength (MPa / psi)", "Cement Bags / m³", "Primary Engineering Application"]}
+            rows={[
+              ["M10 Grade", "1 : 3 : 6", "10 MPa / 1,450 psi", "4.4 bags", "Plain Concrete Bedding (PCC), leveling course, non-structural pathways"],
+              ["M15 Grade", "1 : 2 : 4", "15 MPa / 2,175 psi", "6.3 bags", "Mass foundation concrete, residential boundary walls, unreinforced slabs"],
+              ["M20 Grade", "1 : 1.5 : 3", "20 MPa / 2,900 psi", "8.2 bags", "Standard Reinforced Concrete (RCC) for residential slabs, beams, and columns"],
+              ["M25 Grade", "1 : 1 : 2", "25 MPa / 3,625 psi", "11.1 bags", "Heavy commercial RCC columns, retaining walls, cantilever balconies"],
+              ["M30 Grade", "Design Mix", "30 MPa / 4,350 psi", "12.5 bags", "Water retaining tanks, highway bridges, industrial warehouse heavy floors"],
+            ]}
+          />
+
+          <h2>Water-Cement Ratio and Durability Control</h2>
+          <p>
+            The single most critical variable dictating the mechanical performance and lifespan of concrete is the <strong>water-cement ratio (w/c)</strong>. While adequate water is chemically required for hydration (approximately 0.25 kg water per kg cement for stoichiometric hydration plus 0.15 kg for gel pores), excessive water causes bleeding and segregation during vibration. When excess water evaporates, it leaves interconnected microscopic capillaries that allow moisture and chlorides to penetrate, leading to accelerated rebar rust and spalling. For pumpable concrete mixes supplied through pipelines, verify fluid head loss and delivery pressures using our <a href="/calculators/engineering/pipe-flow-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pipe flow calculator</a>.
+          </p>
+        </>
+      }
+    >
+      <ConcreteMixCalculator />
+    </CalcPage>
   );
 }

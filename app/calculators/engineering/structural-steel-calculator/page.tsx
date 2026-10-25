@@ -1,26 +1,167 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import StructuralSteelCalculator from "@/components/calcs/engineering/structural-steel-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SteelSectionStrengthWeightSpectrumChart } from "@/components/flagship/engineering/editorial-charts";
+
+const PATH = "/calculators/engineering/structural-steel-calculator";
+const TITLE = "Structural Steel Calculator — Column Buckling & AISC Section Capacity | CalcDigi";
+const DESCRIPTION =
+  "Calculate structural steel column axial compression capacity, Euler critical elastic buckling load, effective slenderness ratio (KL/r), AISC 360-16 ASD/LRFD allowable stress, and plastic flexural moment for W-beams, HSS tubes, and angles.";
 
 export const metadata: Metadata = {
-  "title": "Structural Steel Calculator – Section Weight | CalcDigi",
-  "description": "Calculate steel section weight per meter, total weight, and moment of inertia for W-shapes, channels, and hollow sections.",
-  "openGraph": {
-    "title": "Structural Steel Calculator – Section Weight | CalcDigi",
-    "description": "Calculate steel section weight per meter, total weight, and moment of inertia for W-shapes, channels, and hollow sections.",
-    "type": "website",
-    "url": "/calculators/engineering/structural-steel-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/engineering/structural-steel-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/engineering/beam-load-calculator", icon: "📐", name: "Beam Deflection & Bending Stress" },
+  { href: "/calculators/engineering/bolt-torque-calculator", icon: "🔩", name: "Bolt Torque & Preload Force" },
+  { href: "/calculators/engineering/concrete-mix-calculator", icon: "🧱", name: "Concrete Footing Mix Calculator" },
+  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Axial Compression Force Calculator" },
+  { href: "/calculators/math/pythagorean-theorem-calculator", icon: "📏", name: "Diagonal Truss Geometry Calculator" },
+  { href: "/calculators/geography/elevation-grade-calculator", icon: "⛰️", name: "Elevation Grade & Slope Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is Euler's critical column buckling formula?",
+    a: "Euler's elastic buckling load equation predicts the critical axial compressive load at which a slender column buckles elastically: P_cr = (pi^2 * E * I) / (K * L)^2 = (pi^2 * E * A) / (K * L / r)^2. Here, E is the elastic modulus (200 GPa / 29,000 ksi for structural steel), I is the second moment of area about the weak axis, A is cross-sectional area, K is the effective length factor based on boundary end restraints, L is unbraced clear length, and r = sqrt(I/A) is radius of gyration.",
+  },
+  {
+    q: "What are the effective length factors (K) for different column end support conditions?",
+    a: "Under AISC 360-16 Commentary Table C-A-1.1, the theoretical and design K-factors are: Pinned-Pinned (both ends free to rotate) K = 1.0 (design 1.0); Fixed-Fixed (both ends clamped against rotation and translation) theoretical K = 0.5 (design 0.65); Fixed-Pinned theoretical K = 0.7 (design 0.80); and Fixed-Free Cantilever theoretical K = 2.0 (design 2.10). For sway-permitted moment frames, K always exceeds 1.0.",
+  },
+  {
+    q: "What is the maximum allowable slenderness ratio (KL/r) for structural steel columns?",
+    a: "AISC 360-16 Section E2 recommends that the effective slenderness ratio (KL/r) for compression members not exceed 200: KL/r <= 200. While not an absolute strength limit, exceeding 200 makes members excessively flexible during fabrication, shipping, and erection, and drastically degrades compressive capacity due to initial geometric out-of-straightness.",
+  },
+  {
+    q: "What is the difference between elastic buckling and inelastic column buckling?",
+    a: "Elastic buckling occurs in slender columns where the slenderness ratio KL/r > 4.71 * sqrt(E / F_y) (approximately 133 for 50 ksi steel). The column buckles while material fibers remain below yield strength. Inelastic buckling occurs in stocky or intermediate columns (KL/r <= 133) where outer fibers yield under residual stresses before buckling ensues, governed by parabolic AISC equations.",
+  },
+  {
+    q: "Why is ASTM A992 the universal standard for wide-flange (W-shape) structural steel?",
+    a: "ASTM A992 replaced ASTM A36 and A572 Grade 50 as the preferred material specification for rolled wide-flange shapes in the late 1990s. A992 specifies a minimum yield strength of 50 ksi (345 MPa), a maximum yield-to-tensile ratio of 0.85 (ensuring ductile plastic deformation before fracture), and tight chemical composition controls that guarantee exceptional field weldability.",
+  },
+  {
+    q: "What is the difference between Allowable Strength Design (ASD) and LRFD in steel design?",
+    a: "In ASD (Allowable Strength Design), unfactored nominal service loads are compared against nominal material strength divided by a safety factor Omega (typically Omega_c = 1.67 for column compression). In LRFD (Load and Resistance Factor Design), service loads are multiplied by load factors (1.2 Dead + 1.6 Live) and compared against nominal strength multiplied by a resistance factor phi (phi_c = 0.90 for compression). Both methods yield virtually identical structural safety margins.",
+  },
+];
+
+export default function StructuralSteelPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engineering Calculators\", \"item\": \"https://calcdigi.com/pages/engineering\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Structural Steel Calculator\", \"item\": \"https://calcdigi.com/calculators/engineering/structural-steel-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Structural Steel Calculator\", \"url\": \"https://calcdigi.com/calculators/engineering/structural-steel-calculator\", \"description\": \"Calculate steel section weight per meter, total weight, and moment of inertia for W-shapes, channels, and hollow sections.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How is steel beam weight calculated?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Weight/m = Cross-section area (m2) x 7850 kg/m3. W300x74 has A=9480 mm2=0.00948m2. Weight = 0.00948 x 7850 = 74.4 kg/m. Total = 74.4 x 6m = 446 kg. Designation W300x74 means 300mm deep, 74 kg/m.\"}}, {\"@type\": \"Question\", \"name\": \"What is moment of inertia for a W-shape?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"I = [BH3 - (B-tw)(H-2tf)3]/12. For W300x150 (H=300, B=150, tw=9, tf=14mm): I = [150x3003 - 141x2723]/12 = [405,000,000 - 283,247,616]/12 = 10,146,199 mm4 = 10,146 cm4. Larger I = stiffer beam.\"}}, {\"@type\": \"Question\", \"name\": \"What is section modulus S?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"S = I / c where c = H/2 for symmetric sections. S determines bending strength. Allowable moment M = S x allowable stress. For A36 steel: M = S x 150 MPa (ASD). Higher S per unit weight = more efficient section. W-shapes have highest S/weight of standard sections.\"}}, {\"@type\": \"Question\", \"name\": \"What is radius of gyration?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"r = sqrt(I/A). Key parameter for column design. Slenderness ratio KL/r determines column buckling capacity. Higher r = more resistant to buckling. Wide flange columns have different rx and ry values — ry is typically limiting (smaller), hence the use of H-shaped and box sections for columns.\"}}, {\"@type\": \"Question\", \"name\": \"How to read steel beam designation?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"W200x100: W = wide flange, 200 = nominal depth in mm, 100 = weight in kg per meter. S310x47.3: S = standard I-beam, 310mm deep, 47.3 kg/m. HSS203x152x8: hollow structural section, 203mm x 152mm x 8mm wall. American designations use inches: W8x31 = 8 inch deep, 31 lb/ft.\"}}, {\"@type\": \"Question\", \"name\": \"Steel vs concrete beam — which is better?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Steel: lighter, faster to install, excellent tension and compression, predictable properties, recyclable. Concrete: cheaper material, better fire resistance, better compression, requires formwork and curing time. Composite beams (steel beam with concrete slab) combine advantages of both. Choice depends on span, loads, fire requirements, and local material costs.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/engineering\">Engineering</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Structural Steel Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Structural Steel Calculator</h1>\n<p class=\"calc-intro\">Calculate weight per meter, total weight, moment of inertia, and section modulus for structural steel W-shapes, HSS, channels, and custom sections. Essential for steel structure cost estimation and structural design.</p>\n<p class=\"calc-intro\">Steel density is constant at 7,850 kg/m3 for all structural steel grades. Weight per meter is determined entirely by cross-sectional area. Wide flange (W-shape) beams are the most efficient section for bending — their flanges carry most bending stress far from the neutral axis, maximizing moment of inertia per unit weight.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Weight/m = Area(m²) × 7850 | I_W = [BH³-(B-tw)(H-2tf)³]/12 | S = I/(H/2) | r = √(I/A) | Total = Weight/m × Length</div></div>\n<div class=\"content-section\"><h3>Professional Verification</h3>\n<p>These calculators provide preliminary estimates suitable for educational use, concept design, and quick checks. For structural, electrical, mechanical, or pressure system design that will be constructed or installed, results must be verified by a qualified licensed engineer who takes professional responsibility for the design. Always consult local codes and regulations for specific requirements in your jurisdiction.</p></div><div class=\"content-section\"><h2>Structural Steel Section Properties Guide</h2>\n<p>The efficiency of a structural steel section is measured by its section modulus (S = I/c) — the higher the S for a given weight, the more efficient the section in bending. Wide flange beams achieve high S by concentrating material in flanges far from the neutral axis. The I-shaped cross-section evolved from experience: material at the neutral axis contributes little to bending resistance, so it makes structural sense to minimize web area and maximize flange area.</p>\n<h3>Standard Steel Section Types</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Section</th><th style=\"padding:10px 14px;text-align:left;\">Use</th><th style=\"padding:10px 14px;text-align:left;\">I Formula</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">W-shape (Wide Flange)</td><td style=\"padding:10px 14px;\">Beams and columns</td><td style=\"padding:10px 14px;\">I=BH3/12 - web cutout</td><td style=\"padding:10px 14px;\">Most common structural section</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">S-shape (Standard I)</td><td style=\"padding:10px 14px;\">Legacy beams</td><td style=\"padding:10px 14px;\">Narrower flanges than W</td><td style=\"padding:10px 14px;\">Older standard, being phased out</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">HSS Rectangle</td><td style=\"padding:10px 14px;\">Columns, braces</td><td style=\"padding:10px 14px;\">(BH3-bh3)/12</td><td style=\"padding:10px 14px;\">Hollow structural section, clean look</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">HSS Round</td><td style=\"padding:10px 14px;\">Columns, railings</td><td style=\"padding:10px 14px;\">pi(D4-d4)/64</td><td style=\"padding:10px 14px;\">Round tube, torsion resistant</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">C-channel</td><td style=\"padding:10px 14px;\">Purlins, girts</td><td style=\"padding:10px 14px;\">Complex formula</td><td style=\"padding:10px 14px;\">Open channel section</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">L-angle</td><td style=\"padding:10px 14px;\">Bracing, connections</td><td style=\"padding:10px 14px;\">Complex, asymmetric</td><td style=\"padding:10px 14px;\">Angle iron, common in connections</td></tr></tbody></table></div>\n<h3>Steel Grade Properties</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Grade</th><th style=\"padding:10px 14px;text-align:left;\">Yield Fy</th><th style=\"padding:10px 14px;text-align:left;\">Tensile Fu</th><th style=\"padding:10px 14px;text-align:left;\">Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">A36</td><td style=\"padding:10px 14px;\">250 MPa</td><td style=\"padding:10px 14px;\">400 MPa</td><td style=\"padding:10px 14px;\">Plates, angles, older beams</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">A572 Gr.50</td><td style=\"padding:10px 14px;\">345 MPa</td><td style=\"padding:10px 14px;\">450 MPa</td><td style=\"padding:10px 14px;\">Most common W-shapes today</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">A992</td><td style=\"padding:10px 14px;\">345 MPa</td><td style=\"padding:10px 14px;\">450 MPa</td><td style=\"padding:10px 14px;\">W-shapes, seismic design</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">A500 Gr.C</td><td style=\"padding:10px 14px;\">317 MPa</td><td style=\"padding:10px 14px;\">427 MPa</td><td style=\"padding:10px 14px;\">HSS square/rectangular</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">A53 Gr.B</td><td style=\"padding:10px 14px;\">240 MPa</td><td style=\"padding:10px 14px;\">415 MPa</td><td style=\"padding:10px 14px;\">Round HSS pipe sections</td></tr></tbody></table></div>\n<h3>Calculating Section Properties for Custom Sections</h3>\n<p>For sections not in standard tables, calculate: Area = sum of component areas. Neutral axis = (sum of A×y) / total A. I = sum of [I_component + A×(y-NA)²] using parallel axis theorem. Section modulus S = I / c (c = distance from NA to extreme fiber). Radius of gyration r = sqrt(I/A) — key parameter for column buckling design.</p></div>\n<div class=\"content-section\"><h3>Safety Factors and Code Compliance</h3>\n<p>Engineering design always includes safety factors to account for material variability, load uncertainty, construction tolerances, and progressive deterioration. Typical safety factors: structural steel bending 1.67 (ASD), concrete compression 1.5-2.0, bolts in tension 2.0-3.0, pressure vessels 3.5-4.0. Always verify that your design complies with applicable local codes, national standards, and industry regulations before construction or installation.</p>\n</div>\n<div class=\"content-section\"><h2>Practical Engineering Tips</h2>\n<p>Engineering is both a science and a craft. Formulas provide exact answers when inputs are exact — but real engineering involves estimating loads, assuming material properties, and accounting for construction tolerances. The best engineers know which simplifications are conservative (on the safe side) and which might be unconservative, and they apply appropriate margins accordingly.</p>\n<h3>Free Engineering Resources</h3>\n<p>Supplement these calculators with free engineering references: AISC Steel Construction Manual (steel design), ACI 318 (concrete design), NFPA 70 NEC (electrical), ASHRAE Fundamentals Handbook (HVAC), and Machinery Handbook (mechanical). Engineering toolboxes, NIST databases, and professional society websites provide free access to many standards and reference materials for non-commercial educational use.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is steel beam weight calculated? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Weight/m = Cross-section area (m2) x 7850 kg/m3. W300x74 has A=9480 mm2=0.00948m2. Weight = 0.00948 x 7850 = 74.4 kg/m. Total = 74.4 x 6m = 446 kg. Designation W300x74 means 300mm deep, 74 kg/m.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is moment of inertia for a W-shape? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">I = [BH3 - (B-tw)(H-2tf)3]/12. For W300x150 (H=300, B=150, tw=9, tf=14mm): I = [150x3003 - 141x2723]/12 = [405,000,000 - 283,247,616]/12 = 10,146,199 mm4 = 10,146 cm4. Larger I = stiffer beam.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is section modulus S? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">S = I / c where c = H/2 for symmetric sections. S determines bending strength. Allowable moment M = S x allowable stress. For A36 steel: M = S x 150 MPa (ASD). Higher S per unit weight = more efficient section. W-shapes have highest S/weight of standard sections.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is radius of gyration? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">r = sqrt(I/A). Key parameter for column design. Slenderness ratio KL/r determines column buckling capacity. Higher r = more resistant to buckling. Wide flange columns have different rx and ry values — ry is typically limiting (smaller), hence the use of H-shaped and box sections for columns.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to read steel beam designation? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">W200x100: W = wide flange, 200 = nominal depth in mm, 100 = weight in kg per meter. S310x47.3: S = standard I-beam, 310mm deep, 47.3 kg/m. HSS203x152x8: hollow structural section, 203mm x 152mm x 8mm wall. American designations use inches: W8x31 = 8 inch deep, 31 lb/ft.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Steel vs concrete beam — which is better? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Steel: lighter, faster to install, excellent tension and compression, predictable properties, recyclable. Concrete: cheaper material, better fire resistance, better compression, requires formwork and curing time. Composite beams (steel beam with concrete slab) combine advantages of both. Choice depends on span, loads, fire requirements, and local material costs.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Engineering Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/engineering/gear-ratio-calculator\"><span class=\"rc-icon\">⚙</span><span class=\"rc-name\">Gear Ratio</span></a><a class=\"related-card\" href=\"/calculators/engineering/pipe-flow-calculator\"><span class=\"rc-icon\">🔆</span><span class=\"rc-name\">Pipe Flow</span></a><a class=\"related-card\" href=\"/calculators/engineering/electrical-load-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Electrical Load</span></a><a class=\"related-card\" href=\"/calculators/engineering/bolt-torque-calculator\"><span class=\"rc-icon\">🔧</span><span class=\"rc-name\">Bolt Torque</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Structural Steel Calculator – Section Weight and Properties</h2><div class=\"form-group\"><label for=\"sH\">Section Depth H (mm)</label><input id=\"sH\" min=\"50\" step=\"any\" type=\"number\" value=\"300\"/></div><div class=\"form-group\"><label for=\"sB\">Flange Width B (mm)</label><input id=\"sB\" min=\"30\" step=\"any\" type=\"number\" value=\"150\"/></div><div class=\"form-group\"><label for=\"stw\">Web Thickness tw (mm)</label><input id=\"stw\" min=\"3\" step=\"any\" type=\"number\" value=\"9\"/></div><div class=\"form-group\"><label for=\"stf\">Flange Thickness tf (mm)</label><input id=\"stf\" min=\"3\" step=\"any\" type=\"number\" value=\"14\"/></div><div class=\"form-group\"><label for=\"sL\">Member Length (m)</label><input id=\"sL\" min=\"0.1\" step=\"any\" type=\"number\" value=\"6\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('eg-result').style.display='none';document.getElementById('eg-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"eg-result\" style=\"display:none;\">\n<div id=\"eg-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"eg-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"eg-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"eg-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-eg\" onclick=\"printResult('eg-result','Structural Steel Calculator – Section Weight and Properties')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Structural Steel Calculator – Section Weight and Properties')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-structural-steel-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var H=parseFloat(document.getElementById('sH').value)||300;\n  var B=parseFloat(document.getElementById('sB').value)||150;\n  var tw=parseFloat(document.getElementById('stw').value)||9;\n  var tf=parseFloat(document.getElementById('stf').value)||14;\n  var L=parseFloat(document.getElementById('sL').value)||6;\n  var A=B*tf*2+(H-2*tf)*tw;\n  var I=(B*Math.pow(H,3)-(B-tw)*Math.pow(H-2*tf,3))/12;\n  var S=I/(H/2)/1e3;\n  var r=Math.sqrt(I/A);\n  var wpm=A*1e-6*7850;\n  var wT=wpm*L;\n  var aiPrompt='Steel: A='+Math.round(A)+'mm2, I='+( I/1e4).toFixed(0)+'cm4, S='+S.toFixed(0)+'cm3, '+wpm.toFixed(2)+'kg/m, '+wT.toFixed(1)+'kg total';\n  document.getElementById('eg-ri').innerHTML=\n    ri('Weight per Meter','<strong style=\"font-size:26px;color:var(--c-accent)\">'+wpm.toFixed(2)+' kg/m</strong>',true)+\n    ri('Total Weight ('+L+'m)',wT.toFixed(1)+' kg = '+(wT/1000).toFixed(3)+' tonnes')+\n    ri('Cross-Section Area',Math.round(A)+' mm² = '+(A/100).toFixed(1)+' cm²')+\n    ri('Moment of Inertia Ix',(I/1e4).toFixed(0)+' cm⁴')+\n    ri('Section Modulus Sx',S.toFixed(0)+' cm³')+\n    ri('Radius of Gyration rx',r.toFixed(1)+' mm');\n  document.getElementById('eg-result').style.display='block';document.getElementById('eg-actions').style.display='flex';\n  drawDonut('eg-chart',['Flanges (cm²)','Web (cm²)'],[Math.round(B*tf*2/100)||1,Math.round((H-2*tf)*tw/100)||1],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('eg-ai');ai.style.display='block';ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the structural significance of these section properties.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/engineering", label: "Engineering" }}
+      title="Structural Steel Calculator"
+      intro="Calculate structural steel column axial compression capacity, Euler critical elastic buckling load, effective slenderness ratio (KL/r), AISC 360-16 ASD/LRFD allowable stress, and plastic flexural moment for W-beams, HSS tubes, and angles."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Engineering Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-0.5 font-medium text-slate-800 ring-1 ring-inset ring-slate-600/20 dark:bg-slate-800/60 dark:text-slate-200 dark:ring-slate-500/30">
+                <svg className="size-3.5 shrink-0 text-slate-600 dark:text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                AISC &amp; Eurocode 3 Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">AISC 360-16 Chapter E (Compression) &amp; Chapter F (Flexure)</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Structural Mechanics</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Engineering Answer: How Steel Column Capacity and Buckling Are Calculated
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Structural steel column capacity is governed by the <strong>slenderness ratio (KL / r)</strong>, where <em>K</em> is the effective boundary length factor, <em>L</em> is unbraced height, and <em>r</em> is weak-axis radius of gyration. Euler elastic critical stress is <strong>F_e = (π² · E) / (KL / r)²</strong>. For intermediate columns (<em>KL/r ≤ 4.71√(E/Fy)</em>), AISC 360-16 Chapter E mandates the inelastic critical stress equation: <strong>F_cr = [0.658^(Fy / Fe)] · Fy</strong>. Allowable design axial capacity in ASD is <strong>P_allow = (F_cr · A) / 1.67</strong>. Check lateral beam deflection with our <a href="/calculators/engineering/beam-load-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">beam load calculator</a>, size base plate anchor bolts with our <a href="/calculators/engineering/bolt-torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">bolt torque calculator</a>, or design foundation footings with our <a href="/calculators/engineering/concrete-mix-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concrete mix calculator</a>.
+            </p>
+          </div>
+
+          <h2>Wide-Flange Section Plastic Moment vs. Weight Spectrum</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <SteelSectionStrengthWeightSpectrumChart />
+          </div>
+
+          <p>
+            Structural steel is the premier framing material for high-rise commercial towers, long-span stadiums, industrial manufacturing plants, and seismic-resistant bridges. With an ultimate tensile strength exceeding 450 MPa and an elastic modulus of 200 GPa, steel provides unrivaled structural efficiency. However, because steel members are thin-walled and slender, compression members are acutely vulnerable to instability phenomena including flexural column buckling, torsional buckling, and local plate wrinkling.
+          </p>
+          <p>
+            In building design, column stability is determined by weak-axis radius of gyration <code>r_y = sqrt(I_y / A)</code>. Providing intermediate lateral bracing along the weak axis cuts effective length <em>L_y</em> in half, increasing Euler critical buckling load fourfold. To calculate applied vertical dead and live forces, use our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, evaluate diagonal truss bracings using our <a href="/calculators/math/pythagorean-theorem-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">Pythagorean theorem calculator</a>, and calculate terrain grade changes with our <a href="/calculators/geography/elevation-grade-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">elevation grade calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">AISC 360-16 Column Compression &amp; Buckling Equations</div>
+            Slenderness = (K * L) / r
+            <br />
+            F_e = (pi^2 * E) / (Slenderness)^2
+            <br />
+            If (KL/r &lt;= 4.71 * sqrt(E / F_y)):
+            <br />
+            &nbsp;&nbsp;F_cr = [0.658^(F_y / F_e)] * F_y (Inelastic Buckling)
+            <br />
+            Else:
+            <br />
+            &nbsp;&nbsp;F_cr = 0.877 * F_e (Elastic Buckling)
+            <br />
+            P_n = F_cr * A_g
+            <br />
+            P_allow_ASD = P_n / 1.67
+            <br />
+            P_design_LRFD = 0.90 * P_n
+          </Formula>
+
+          <h2>AISC Effective Length Factors (K) and Boundary Conditions</h2>
+          <p>
+            The boundary conditions restraining a column's ends exert a dominant influence on its resistance to lateral buckling. Clamping column ends against rotation forces inflection points into the member, effectively shortening its buckling length.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">AISC Effective Length Factors (K) for Idealized Column Boundary Conditions</p>
+          <DataTable
+            head={["Boundary Condition", "Theoretical K", "AISC Recommended Design K", "Buckled Shape", "Practical Application"]}
+            rows={[
+              ["Pinned - Pinned", "1.00", "1.00", "Single half-sine wave", "Standard simple shear connections with seated web angles"],
+              ["Fixed - Pinned", "0.70", "0.80", "Inflection point at 0.7L", "Continuous column passing through braced floor level with pinned base"],
+              ["Fixed - Fixed", "0.50", "0.65", "Two inflection points", "Welded heavy moment frame column anchored to rigid concrete grade beams"],
+              ["Fixed - Free (Cantilever)", "2.00", "2.10", "Quarter sine wave", "Flagpole, cantilever sign post, or industrial crane support column"],
+              ["Fixed - Guided (Sidesway)", "1.00", "1.20", "S-curve with translation", "Unbraced multi-story portal frame column undergoing drift"],
+            ]}
+          />
+
+          <h2>Local Flange and Web Buckling Considerations</h2>
+          <p>
+            In addition to global member buckling, cross-sections must be verified against local buckling under AISC Table B4.1a. Wide-flange beams with wide, thin flanges or tall, thin webs can experience localized plate wrinkling before the overall column buckles. Sections are classified as <em>compact</em>, <em>non-compact</em>, or <em>slender</em> based on width-to-thickness ratios (<em>b/t</em> and <em>h/t_w</em>). For standard structural hot-rolled W-shapes (such as W14×90 and W12×65), flanges and webs are proportioned to ensure compact performance without premature local buckling failure.
+          </p>
+        </>
+      }
+    >
+      <StructuralSteelCalculator />
+    </CalcPage>
   );
 }

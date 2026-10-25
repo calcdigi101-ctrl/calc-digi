@@ -1,26 +1,174 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import BeamLoadCalculator from "@/components/calcs/engineering/beam-load-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BeamDeflectionStressSpectrumChart } from "@/components/flagship/engineering/editorial-charts";
+
+const PATH = "/calculators/engineering/beam-load-calculator";
+const TITLE = "Beam Load Calculator — Deflection, Bending Stress & Moment | CalcDigi";
+const DESCRIPTION =
+  "Calculate structural beam deflection, maximum bending moment, extreme fiber stress, and support reactions for simply supported and cantilever beams under point loads and uniform distributed loads (UDL). Evaluates IBC/AISC L/360 serviceability limits.";
 
 export const metadata: Metadata = {
-  "title": "Beam Load Calculator – Deflection & Stress | CalcDigi",
-  "description": "Calculate beam deflection, bending stress, and reactions for simply supported and cantilever beams under point and distributed loads.",
-  "openGraph": {
-    "title": "Beam Load Calculator – Deflection & Stress | CalcDigi",
-    "description": "Calculate beam deflection, bending stress, and reactions for simply supported and cantilever beams under point and distributed loads.",
-    "type": "website",
-    "url": "/calculators/engineering/beam-load-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/engineering/beam-load-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/engineering/structural-steel-calculator", icon: "🏗️", name: "Structural Steel Column & Beam" },
+  { href: "/calculators/engineering/bolt-torque-calculator", icon: "🔩", name: "Bolt Torque & Preload Force" },
+  { href: "/calculators/engineering/concrete-mix-calculator", icon: "🧱", name: "Concrete Mix Design & Bags" },
+  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Force & Newton Calculator" },
+  { href: "/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem Calculator" },
+  { href: "/calculators/geography/elevation-grade-calculator", icon: "⛰️", name: "Elevation Grade & Slope Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the formula for beam deflection under a center point load?",
+    a: "For a simply supported beam of span L with a concentrated center point load P, the maximum deflection occurring at midspan (x = L/2) is delta_max = (P * L^3) / (48 * E * I). Here, P represents applied load in Newtons, L is unsupported clear span in meters, E is modulus of elasticity in Pascals (e.g., 200 GPa for structural steel), and I is area moment of inertia in m^4. The deflection scales with the third power of span, meaning doubling span increases deflection eightfold.",
+  },
+  {
+    q: "How does beam deflection differ for a uniformly distributed load (UDL)?",
+    a: "Under a uniformly distributed load w (in N/m or kN/m) along the entire simply supported length, the maximum midspan deflection is delta_max = (5 * w * L^4) / (384 * E * I). For an equivalent total load (where total W = w * L = P), a distributed load causes approximately 38% less midspan deflection than a concentrated center point load because weight is spread closer to the rigid end supports.",
+  },
+  {
+    q: "Why do cantilever beams deflect so much more than simply supported beams?",
+    a: "A cantilever beam fixed at one end with a tip load P deflects by delta_max = (P * L^3) / (3 * E * I). Comparing this to a simply supported center point load (P * L^3 / 48EI), the cantilever beam deflects exactly 16 times more under identical load, span, and cross-section geometry. Cantilever beams lack intermediate boundary restraint, producing massive flexural curvature and hogging moments concentrated at the fixed root.",
+  },
+  {
+    q: "What is the allowable deflection limit according to building codes (L/360, L/240)?",
+    a: "The International Building Code (IBC Table 1604.3) and AISC 360-16 specify serviceability deflection ceilings to prevent architectural cracking and excessive floor bounce. For structural floor joists carrying live pedestrian loads, the ceiling is span divided by 360 (L/360). For total dead plus live load on plastered ceilings, L/240 applies. For roof purlins without plaster ceilings, L/180 is typically permitted.",
+  },
+  {
+    q: "How is maximum bending stress (flexural stress) calculated in a beam?",
+    a: "Flexural bending stress is governed by the Euler-Bernoulli beam equation: sigma = (M * c) / I, or sigma = M / S, where M is maximum bending moment (N·m), c is distance from the neutral axis to the extreme outer tension/compression fiber (m), I is moment of inertia (m^4), and S = I/c is elastic section modulus (m^3). Maximum stress must remain below the design yield strength divided by safety factor (e.g., 150 MPa allowable for ASTM A36 steel in ASD).",
+  },
+  {
+    q: "How does doubling the beam depth affect stiffness compared to doubling width?",
+    a: "For a rectangular cross-section, second moment of area is I = (b * h^3) / 12. Doubling beam width b merely doubles moment of inertia and doubles flexural stiffness. However, doubling beam depth (height h) increases moment of inertia by 2^3 = 8 times, providing 800% higher stiffness and an 87.5% reduction in deflection. This cubic relationship explains why structural engineers select deep I-beams rather than wide, shallow plates.",
+  },
+];
+
+export default function BeamLoadPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engineering Calculators\", \"item\": \"https://calcdigi.com/pages/engineering\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Beam Load Calculator\", \"item\": \"https://calcdigi.com/calculators/engineering/beam-load-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Beam Load Calculator\", \"url\": \"https://calcdigi.com/calculators/engineering/beam-load-calculator\", \"description\": \"Calculate beam deflection, bending stress, and reactions for simply supported and cantilever beams under point and distributed loads.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is beam deflection formula?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Simply supported beam with center point load: delta = PL3/(48EI). Cantilever with end load: delta = PL3/(3EI). Units: P in Newtons, L in meters, E in Pa, I in m4. Result in meters. Cantilever deflects 16x more than simply supported for same load.\"}}, {\"@type\": \"Question\", \"name\": \"What is bending stress formula?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Bending stress sigma = Mc/I. M = bending moment (N·m), c = distance from neutral axis to extreme fiber (m), I = moment of inertia (m4). For A36 steel: allowable bending stress = 150 MPa (ASD). Maximum stress at outermost fiber.\"}}, {\"@type\": \"Question\", \"name\": \"What is moment of inertia for rectangular beam?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"I = bh3/12. b = width, h = depth (height). Deeper beams are much stiffer. Doubling depth multiplies I by 8. A 100mm x 200mm beam: I = 100 x 200^3/12 = 66.7 x 10^6 mm4. Wide flanges (I-beams) have higher I per unit weight.\"}}, {\"@type\": \"Question\", \"name\": \"What is allowable deflection for floor beams?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"L/360 for live load deflection (L = span). A 6m beam: max deflection = 6000/360 = 16.7mm. L/240 for total load with plastered ceiling. L/180 for roof beams without attached finishes. Exceeding limits causes cracking and floor bounciness.\"}}, {\"@type\": \"Question\", \"name\": \"What is the elastic modulus of steel?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"E = 200 GPa (29,000 ksi) for ALL grades of structural steel (A36, A572-50, A992). This is constant regardless of steel grade. Aluminum: 70 GPa. Douglas Fir timber: 13.1 GPa. Concrete: 25-30 GPa. Higher E means less deflection for same load.\"}}, {\"@type\": \"Question\", \"name\": \"Simply supported vs cantilever beam?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Cantilever deflects 16x more than simply supported beam for same span, load, and section (PL3/3EI vs PL3/48EI). Cantilever maximum moment = PL (at fixed end) vs PL/4 (at center of SS beam). Cantilevers need much heavier sections for equivalent stiffness.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/engineering\">Engineering</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Beam Load Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Beam Load Calculator</h1>\n<p class=\"calc-intro\">Calculate maximum deflection, bending stress, and reaction forces for structural beams under point loads and uniformly distributed loads. Supports simply supported and cantilever configurations.</p>\n<p class=\"calc-intro\">Beam design must satisfy two criteria: strength (stress within allowable limits) and serviceability (deflection within code limits, typically L/360 for floors). Both must pass independently — a beam can be strong enough but deflect excessively, or have acceptable deflection but overstressed cross-section.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">δ = PL³/48EI (SS, center) | δ = PL³/3EI (cantilever) | σ = Mc/I | M = PL/4 | I_rect = bh³/12 | Allowable: L/360</div></div>\n<div class=\"content-section\"><h3>Units and Conversions Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Beam/Property</th><th style=\"padding:10px 14px;text-align:left;\">Formula/Value</th><th style=\"padding:10px 14px;text-align:left;\">Note</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Simply Supported + Center Load</td><td style=\"padding:10px 14px;\">PL³/48EI</td><td style=\"padding:10px 14px;\">Max deflection at center</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Simply Supported + UDL</td><td style=\"padding:10px 14px;\">5wL⁴/384EI</td><td style=\"padding:10px 14px;\">Uniform distributed load</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Cantilever + End Load</td><td style=\"padding:10px 14px;\">PL³/3EI</td><td style=\"padding:10px 14px;\">16x more than SS beam</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Cantilever + UDL</td><td style=\"padding:10px 14px;\">wL⁴/8EI</td><td style=\"padding:10px 14px;\">Max at free end</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Steel E</td><td style=\"padding:10px 14px;\">200 GPa</td><td style=\"padding:10px 14px;\">All structural steel grades</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Allowable Deflection</td><td style=\"padding:10px 14px;\">L/360 (live)</td><td style=\"padding:10px 14px;\">Floor beam standard</td></tr></tbody></table></div>\n</div><div class=\"content-section\"><h2>Structural Beam Design Guide</h2>\n<p>Every structural beam must be checked for both strength and deflection. Strength check: maximum bending stress sigma = Mc/I must be less than allowable stress (yield strength / safety factor). For A36 steel: allowable = 250/1.67 = 150 MPa. Serviceability check: maximum deflection must be less than L/360 for live load on floor beams (L = span length).</p>\n<h3>Common Beam Section Properties</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Section</th><th style=\"padding:10px 14px;text-align:left;\">Moment of Inertia I</th><th style=\"padding:10px 14px;text-align:left;\">c</th><th style=\"padding:10px 14px;text-align:left;\">Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Rectangle (b×h)</td><td style=\"padding:10px 14px;\">bh³/12</td><td style=\"padding:10px 14px;\">h/2</td><td style=\"padding:10px 14px;\">Timber, concrete</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Wide Flange (W-shape)</td><td style=\"padding:10px 14px;\">Tabulated AISC</td><td style=\"padding:10px 14px;\">d/2</td><td style=\"padding:10px 14px;\">Structural steel</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Circular solid (d)</td><td style=\"padding:10px 14px;\">πd⁴/64</td><td style=\"padding:10px 14px;\">d/2</td><td style=\"padding:10px 14px;\">Shafts, round bars</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Hollow rect (B×H, b×h)</td><td style=\"padding:10px 14px;\">(BH³-bh³)/12</td><td style=\"padding:10px 14px;\">H/2</td><td style=\"padding:10px 14px;\">HSS tubing</td></tr></tbody></table></div>\n<h3>Elastic Moduli by Material</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Material</th><th style=\"padding:10px 14px;text-align:left;\">E (Elastic Modulus)</th><th style=\"padding:10px 14px;text-align:left;\">Strength</th><th style=\"padding:10px 14px;text-align:left;\">Application</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Structural Steel (A36)</td><td style=\"padding:10px 14px;\">200 GPa</td><td style=\"padding:10px 14px;\">250 MPa yield</td><td style=\"padding:10px 14px;\">Most common structural</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Aluminum 6061-T6</td><td style=\"padding:10px 14px;\">69 GPa</td><td style=\"padding:10px 14px;\">276 MPa yield</td><td style=\"padding:10px 14px;\">Lightweight structures</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Douglas Fir Timber</td><td style=\"padding:10px 14px;\">13.1 GPa</td><td style=\"padding:10px 14px;\">30-40 MPa</td><td style=\"padding:10px 14px;\">Residential framing</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Reinforced Concrete</td><td style=\"padding:10px 14px;\">25-30 GPa</td><td style=\"padding:10px 14px;\">Compression only</td><td style=\"padding:10px 14px;\">Needs rebar for tension</td></tr></tbody></table></div>\n<h3>Safety Factors in Structural Design</h3>\n<p>ASD (Allowable Stress Design): allowable stress = yield / SF. AISC safety factor for bending: SF = 1.67. So for A36 steel: allowable bending stress = 250/1.67 = 150 MPa. LRFD (Load and Resistance Factor Design): factored loads (1.2D + 1.6L) must be less than factored resistance (phi × nominal). LRFD is the modern preferred method in US structural engineering practice.</p></div>\n<div class=\"content-section\"><h3>Safety Factors and Code Compliance</h3>\n<p>Engineering design always includes safety factors to account for material variability, load uncertainty, construction tolerances, and progressive deterioration. Typical safety factors: structural steel bending 1.67 (ASD), concrete compression 1.5-2.0, bolts in tension 2.0-3.0, pressure vessels 3.5-4.0. Always verify that your design complies with applicable local codes, national standards, and industry regulations before construction or installation.</p>\n</div>\n<div class=\"content-section\"><h2>Practical Engineering Tips</h2>\n<p>Engineering is both a science and a craft. Formulas provide exact answers when inputs are exact — but real engineering involves estimating loads, assuming material properties, and accounting for construction tolerances. The best engineers know which simplifications are conservative (on the safe side) and which might be unconservative, and they apply appropriate margins accordingly.</p>\n<h3>Checking Your Work</h3>\n<p>Always perform a sanity check on engineering calculations. Does the answer make physical sense? Is it in the right order of magnitude? A beam deflection of 50mm on a 3m span should immediately raise concern — that is L/60, far exceeding the L/360 limit. A pump power of 500 kW for a small building system similarly warrants rechecking. Dimensional analysis (checking units cancel correctly) catches the majority of formula errors.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is beam deflection formula? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Simply supported beam with center point load: delta = PL3/(48EI). Cantilever with end load: delta = PL3/(3EI). Units: P in Newtons, L in meters, E in Pa, I in m4. Result in meters. Cantilever deflects 16x more than simply supported for same load.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is bending stress formula? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Bending stress sigma = Mc/I. M = bending moment (N·m), c = distance from neutral axis to extreme fiber (m), I = moment of inertia (m4). For A36 steel: allowable bending stress = 150 MPa (ASD). Maximum stress at outermost fiber.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is moment of inertia for rectangular beam? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">I = bh3/12. b = width, h = depth (height). Deeper beams are much stiffer. Doubling depth multiplies I by 8. A 100mm x 200mm beam: I = 100 x 200^3/12 = 66.7 x 10^6 mm4. Wide flanges (I-beams) have higher I per unit weight.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is allowable deflection for floor beams? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">L/360 for live load deflection (L = span). A 6m beam: max deflection = 6000/360 = 16.7mm. L/240 for total load with plastered ceiling. L/180 for roof beams without attached finishes. Exceeding limits causes cracking and floor bounciness.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the elastic modulus of steel? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">E = 200 GPa (29,000 ksi) for ALL grades of structural steel (A36, A572-50, A992). This is constant regardless of steel grade. Aluminum: 70 GPa. Douglas Fir timber: 13.1 GPa. Concrete: 25-30 GPa. Higher E means less deflection for same load.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Simply supported vs cantilever beam? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Cantilever deflects 16x more than simply supported beam for same span, load, and section (PL3/3EI vs PL3/48EI). Cantilever maximum moment = PL (at fixed end) vs PL/4 (at center of SS beam). Cantilevers need much heavier sections for equivalent stiffness.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Engineering Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/engineering/gear-ratio-calculator\"><span class=\"rc-icon\">⚙</span><span class=\"rc-name\">Gear Ratio Calc</span></a><a class=\"related-card\" href=\"/calculators/engineering/pipe-flow-calculator\"><span class=\"rc-icon\">🔆</span><span class=\"rc-name\">Pipe Flow Calc</span></a><a class=\"related-card\" href=\"/calculators/engineering/electrical-load-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Electrical Load</span></a><a class=\"related-card\" href=\"/calculators/engineering/bolt-torque-calculator\"><span class=\"rc-icon\">🔧</span><span class=\"rc-name\">Bolt Torque Calc</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Beam Load Calculator – Deflection and Bending Stress</h2><div class=\"form-group\"><label for=\"bP\">Point Load P (kN)</label><input id=\"bP\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"btype\">Beam Type</label><select id=\"btype\"><option selected=\"\" value=\"ss\">Simply Supported - Center Load</option><option value=\"ss_udl\">Simply Supported - UDL</option><option value=\"cant\">Cantilever - End Load</option><option value=\"cant_udl\">Cantilever - UDL</option></select></div><div class=\"form-group\"><label for=\"bw\">Distributed Load w (kN/m)</label><input id=\"bw\" min=\"0\" step=\"any\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"bL\">Span L (m)</label><input id=\"bL\" min=\"0.1\" step=\"any\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"bE\">Elastic Modulus E (GPa)</label><input id=\"bE\" min=\"1\" step=\"any\" type=\"number\" value=\"200\"/></div><div class=\"form-group\"><label for=\"bI\">Moment of Inertia I (cm⁴)</label><input id=\"bI\" min=\"1\" step=\"any\" type=\"number\" value=\"8000\"/></div><div class=\"form-group\"><label for=\"bh\">Section Depth h (mm)</label><input id=\"bh\" min=\"10\" type=\"number\" value=\"300\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('eg-result').style.display='none';document.getElementById('eg-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"eg-result\" style=\"display:none;\">\n<div id=\"eg-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"eg-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"eg-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"eg-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-eg\" onclick=\"printResult('eg-result','Beam Load Calculator – Deflection and Bending Stress')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Beam Load Calculator – Deflection and Bending Stress')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-beam-load-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var P=parseFloat(document.getElementById('bP').value)||0;\n  var type=document.getElementById('btype').value;\n  var w=parseFloat(document.getElementById('bw').value)||0;\n  var L=parseFloat(document.getElementById('bL').value)||1;\n  var E=parseFloat(document.getElementById('bE').value)||200;\n  var I=parseFloat(document.getElementById('bI').value)||8000;\n  var h=parseFloat(document.getElementById('bh').value)||300;\n  var EI=E*1e9*I*1e-8;\n  var P_N=P*1e3, w_N=w*1e3;\n  var delta,M;\n  if(type==='ss'){delta=P_N*Math.pow(L,3)/(48*EI)*1000;M=P_N*L/4;}\n  else if(type==='ss_udl'){delta=5*w_N*Math.pow(L,4)/(384*EI)*1000;M=w_N*L*L/8;}\n  else if(type==='cant'){delta=P_N*Math.pow(L,3)/(3*EI)*1000;M=P_N*L;}\n  else{delta=w_N*Math.pow(L,4)/(8*EI)*1000;M=w_N*L*L/2;}\n  var allow=L*1000/360;\n  var sigma=M*(h/2/1000)/(I*1e-8)/1e6;\n  var aiPrompt='Beam deflection: '+delta.toFixed(2)+'mm (allow '+allow.toFixed(1)+'mm), stress: '+sigma.toFixed(1)+'MPa, span: '+L+'m';\n  document.getElementById('eg-ri').innerHTML=\n    ri('Max Deflection','<strong style=\"font-size:24px;color:'+(delta<=allow?'var(--c-accent)':'#c84a4a')+'\">'+delta.toFixed(3)+' mm</strong>',true)+\n    ri('Allowable L/360',allow.toFixed(1)+' mm '+(delta<=allow?'PASS ✅':'FAIL ❌'))+\n    ri('Max Bending Moment',(M/1000).toFixed(2)+' kN·m')+\n    ri('Bending Stress',sigma.toFixed(1)+' MPa'+(sigma<150?' (OK for A36 ✅)':' (Check section ❌)'))+\n    ri('EI Stiffness',(EI/1000).toFixed(0)+' kN·m²');\n  document.getElementById('eg-result').style.display='block';document.getElementById('eg-actions').style.display='flex';\n  drawDonut('eg-chart',['Deflection×10','Allowable×10'],[Math.round(delta*10)||1,Math.round(allow*10)||1],['#1a5c3a','#c8832a']);\n  \n  var ai=document.getElementById('eg-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the engineering significance of this structural beam deflection result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/engineering", label: "Engineering" }}
+      title="Beam Load Calculator"
+      intro="Calculate structural beam deflection, maximum flexural bending stress, internal shear, and support reactions for simply supported and cantilever beams under point and distributed loads. Includes AISC and IBC L/360 deflection serviceability checks."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Engineering Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 dark:bg-blue-950/40 dark:text-blue-400 dark:ring-blue-500/30">
+                <svg className="size-3.5 shrink-0 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Structural Engineering Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">AISC 360-16 Specification &amp; IBC Section 1604 Serviceability</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Mechanics of Materials</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Engineering Answer: How Beam Deflection and Bending Stress Are Calculated
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              For a <strong>simply supported beam</strong> carrying a center point load <em>P</em> over clear span <em>L</em>, maximum midspan deflection is <strong>δ = (P · L³) / (48 · E · I)</strong> and maximum bending moment is <strong>M = (P · L) / 4</strong>. Maximum bending stress at the outermost fiber is governed by the flexure formula <strong>σ = (M · c) / I = M / S</strong>. Under building codes such as <strong>IBC Table 1604.3</strong>, floor live-load deflection must not exceed <strong>L / 360</strong> (e.g., 16.7 mm on a 6.0 m span). For steel column buckling and compressive section checks, pair this tool with our <a href="/calculators/engineering/structural-steel-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">structural steel calculator</a>, or assess foundation requirements using our <a href="/calculators/engineering/concrete-mix-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concrete mix calculator</a>.
+            </p>
+          </div>
+
+          <h2>Beam Deflection Spectrum &amp; AISC Serviceability Limits</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <BeamDeflectionStressSpectrumChart />
+          </div>
+
+          <p>
+            In structural analysis and civil engineering, beams are horizontal members engineered to carry transverse loads spanning open distances between foundations, columns, or bearing walls. When a transverse load is applied, the beam experiences internal shear forces and flexural bending moments that deform its longitudinal axis into an elastic curve. If the member lacks sufficient moment of inertia (second moment of area, <em>I</em>) or material stiffness (modulus of elasticity, <em>E</em>), excessive sagging occurs. This causes cracked drywall finishes, dynamic floor vibrations, unsealed window frames, and long-term structural distress.
+          </p>
+          <p>
+            Beam behavior is dictated by support conditions and load distributions. In simply supported configurations resting on pin and roller boundaries, reactions at each support resist vertical gravity forces. For concentrated loads, evaluate applied forces using our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and when calculating physical member angles or diagonal truss hypotenuse spans, reference our <a href="/calculators/math/pythagorean-theorem-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">Pythagorean theorem calculator</a> and <a href="/calculators/geography/elevation-grade-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">elevation grade calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Beam Deflection &amp; Flexural Mechanics Equations</div>
+            delta_center_point = (P * L^3) / (48 * E * I)
+            <br />
+            delta_uniform_udl = (5 * w * L^4) / (384 * E * I)
+            <br />
+            delta_cantilever_tip = (P * L^3) / (3 * E * I)
+            <br />
+            sigma_bending = (M_max * c) / I = M_max / S
+            <br />
+            delta_allowable_floor = L_span / 360
+          </Formula>
+
+          <h2>Understanding Section Modulus and Moment of Inertia</h2>
+          <p>
+            The resistance of any beam profile to bending deformation is governed by its cross-sectional geometry, quantified as the second moment of area (<em>I</em>, expressed in mm⁴, cm⁴, or in⁴). For a standard solid rectangular timber or steel section of width <em>b</em> and depth <em>h</em>, the centroidal moment of inertia is <code>I = (b · h³) / 12</code>. Because depth is raised to the third power, deepening a beam yields disproportionately higher stiffness than widening it.
+          </p>
+          <p>
+            When fastening structural steel flanges, web stiffeners, or connection gussets, preload clamping force is critical to prevent joint slip under cyclical reversing moments. Ensure connection integrity using our <a href="/calculators/engineering/bolt-torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">bolt torque calculator</a>. For wide-flange beams (W-shapes), material is concentrated in outer flanges at maximum distance <em>c</em> from the neutral axis, optimizing both section modulus <code>S = I / c</code> and strength-to-weight ratio.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Common Structural Material Stiffness &amp; Allowable Flexural Stress Properties</p>
+          <DataTable
+            head={["Material Specification", "Elastic Modulus E (GPa)", "Yield Strength Fy (MPa)", "Allowable Bending Stress ASD (MPa)", "Density (kg/m³)"]}
+            rows={[
+              ["ASTM A36 Carbon Steel", "200 GPa", "250 MPa", "150 MPa (0.60 Fy)", "7,850 kg/m³"],
+              ["ASTM A992 High-Strength Steel (W-Shapes)", "200 GPa", "345 MPa", "225 MPa (0.65 Fy)", "7,850 kg/m³"],
+              ["6061-T6 Structural Aluminum", "69 GPa", "240 MPa", "135 MPa", "2,700 kg/m³"],
+              ["Douglas Fir-Larch Timber (No. 1)", "12.4 GPa", "14.5 MPa", "9.8 MPa", "530 kg/m³"],
+              ["Southern Yellow Pine Glue-Lam", "13.8 GPa", "16.2 MPa", "11.5 MPa", "560 kg/m³"],
+              ["Reinforced Concrete (C30/37 Uncracked)", "31 GPa", "N/A (Compression: 30 MPa)", "13.5 MPa (Service)", "2,400 kg/m³"],
+            ]}
+          />
+
+          <h2>Serviceability Limit States vs. Ultimate Failure</h2>
+          <p>
+            In modern structural engineering design frameworks (such as AISC LRFD and Eurocode 3), engineers evaluate members under two distinct operational paradigms:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Ultimate Limit State (ULS):</strong> Ensures the structural member will not undergo plastic hinge formation, catastrophic web shear failure, or lateral-torsional buckling under factored design combinations. Factors of safety typically range from 1.5 to 1.7 in ASD, or load factors of 1.2 Dead + 1.6 Live in LRFD.
+            </li>
+            <li>
+              <strong>Serviceability Limit State (SLS):</strong> Ensures the beam remains functional, aesthetic, and comfortable for human occupants under unfactored nominal service loads. SLS criteria govern deflections, floor vibration frequencies, and ponding instability on flat roofs.
+            </li>
+          </ul>
+          <p>
+            A beam may have adequate cross-sectional yield strength to prevent physical fracture, yet fail building code compliance because midspan deflection creates unsightly ceiling sags or jams interior doors. By checking both bending stress (σ ≤ σ_allowable) and span-to-deflection ratios (δ ≤ L/360) in our calculator above, engineers achieve balanced, code-compliant designs.
+          </p>
+        </>
+      }
+    >
+      <BeamLoadCalculator />
+    </CalcPage>
   );
 }
