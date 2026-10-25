@@ -1,26 +1,162 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import ReynoldsNumberCalculator from "@/components/calcs/engineering/reynolds-number-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ReynoldsFlowRegimeChart } from "@/components/flagship/engineering/editorial-charts";
+
+const PATH = "/calculators/engineering/reynolds-number-calculator";
+const TITLE = "Reynolds Number Calculator — Laminar, Transitional & Turbulent Flow | CalcDigi";
+const DESCRIPTION =
+  "Calculate the dimensionless Reynolds number (Re), determine fluid flow regimes (laminar Re < 2,300, transition, turbulent Re > 4,000), hydrodynamic entrance length, and boundary layer thickness across internal pipes and external airfoils.";
 
 export const metadata: Metadata = {
-  "title": "Reynolds Number Calculator – Laminar vs Turbulent | CalcDigi",
-  "description": "Calculate Reynolds number for pipe flow, flat plate, and channels. Determine laminar vs turbulent flow for any fluid.",
-  "openGraph": {
-    "title": "Reynolds Number Calculator – Laminar vs Turbulent | CalcDigi",
-    "description": "Calculate Reynolds number for pipe flow, flat plate, and channels. Determine laminar vs turbulent flow for any fluid.",
-    "type": "website",
-    "url": "/calculators/engineering/reynolds-number-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/engineering/reynolds-number-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Head Loss Calculator" },
+  { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & Head Calculator" },
+  { href: "/calculators/engineering/heat-transfer-calculator", icon: "🔥", name: "Convection Heat Transfer Sizing" },
+  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Fluid Velocity & Flow Speed" },
+  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Viscous Drag & Fluid Shear Force" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Inertial to Viscous Ratio Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical meaning of the Reynolds number?",
+    a: "The Reynolds number (Re) is a dimensionless quantity in fluid mechanics representing the ratio of inertial forces to viscous forces within a moving fluid: Re = (Inertial Forces) / (Viscous Forces) = (rho * v * L) / mu = (v * L) / nu. When Re is low, viscous forces dominate, dampening disturbances and keeping fluid streamlines parallel and orderly (laminar). When Re is high, inertial forces overwhelm viscosity, causing chaotic velocity fluctuations and turbulent vortex eddies.",
+  },
+  {
+    q: "What are the critical Reynolds number boundaries for internal pipe flow?",
+    a: "For Newtonian fluid flow inside circular enclosed pipes: Laminar Flow occurs when Re < 2,300; Transitional Flow occurs between 2,300 <= Re <= 4,000, where fluid alternates intermittently between laminar filaments and turbulent bursts; and Fully Turbulent Flow occurs when Re > 4,000, where chaotic eddies thoroughly mix fluid throughout the pipe cross-section.",
+  },
+  {
+    q: "How does the critical Reynolds number differ for flow over a flat plate or airfoil?",
+    a: "For external flow over an unconfined flat boundary plate or aircraft wing, the characteristic length is distance from the leading edge (x). The critical Reynolds number for external boundary layer laminar-to-turbulent transition is typically Re_crit ≈ 500,000 (5 * 10^5), which is orders of magnitude higher than internal pipe flow (Re_crit = 2,300) because there are no bounding pipe walls to amplify shear instability.",
+  },
+  {
+    q: "What is the difference between dynamic viscosity and kinematic viscosity?",
+    a: "Dynamic viscosity (mu, measured in Pa·s or Poise) represents a fluid's intrinsic internal resistance to shear deformation (e.g., water = 0.001 Pa·s at 20°C, SAE 30 motor oil ≈ 0.20 Pa·s). Kinematic viscosity (nu, measured in m²/s or Stokes) is dynamic viscosity divided by fluid density: nu = mu / rho. Kinematic viscosity measures a fluid's momentum diffusivity.",
+  },
+  {
+    q: "What is hydrodynamic entrance length and how does it depend on Reynolds number?",
+    a: "Hydrodynamic entrance length (L_h) is the distance from a pipe entrance required for the fluid velocity profile to become fully developed. In laminar flow, entrance length grows linearly with Reynolds number: L_h_laminar ≈ 0.05 * Re * D (meaning at Re = 2,000, entrance length is 100 pipe diameters). In turbulent flow, rapid turbulent mixing accelerates profile development, making entrance length much shorter: L_h_turbulent ≈ 10 * D to 60 * D.",
+  },
+  {
+    q: "Why does turbulent flow dramatically enhance heat and mass transfer?",
+    a: "In laminar flow, heat and mass transfer across fluid streamlines relies purely on molecular diffusion, which is very slow. In turbulent flow, macroscopic fluid eddies physically transport hot fluid packets from pipe walls into the cold core fluid, increasing the convective heat transfer coefficient h and the Nusselt number by up to 500% to 1,000%, which is why industrial heat exchangers operate strictly in turbulent flow.",
+  },
+];
+
+export default function ReynoldsNumberPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engineering Calculators\", \"item\": \"https://calcdigi.com/pages/engineering\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Reynolds Number Calculator\", \"item\": \"https://calcdigi.com/calculators/engineering/reynolds-number-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Reynolds Number Calculator\", \"url\": \"https://calcdigi.com/calculators/engineering/reynolds-number-calculator\", \"description\": \"Calculate Reynolds number for pipe flow, flat plate, and channels. Determine laminar vs turbulent flow for any fluid.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is Reynolds number?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Re = rho x v x L / mu. Ratio of inertial to viscous forces. Dimensionless. For pipe flow: Re < 2300 always laminar, Re > 4000 always turbulent. Named after Osborne Reynolds, 1883. Used to predict flow regime in any fluid system.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between laminar and turbulent flow?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Laminar (Re<2300): smooth parallel layers, no lateral mixing, f=64/Re, low pressure drop, dye stays in straight line. Turbulent (Re>4000): chaotic eddies and mixing, higher friction factor from Moody chart, much higher pressure drop but excellent heat/mass transfer. Transition zone (2300-4000) is unstable.\"}}, {\"@type\": \"Question\", \"name\": \"How to calculate Reynolds number for water in a pipe?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Re = rho x v x D / mu. Water at 20C: rho=998 kg/m3, mu=0.001 Pa·s. 100mm pipe at 2 m/s: Re = 998 x 2 x 0.1 / 0.001 = 199,600. Fully turbulent. For water in typical pipe sizes above 10mm at normal velocities, flow is almost always turbulent.\"}}, {\"@type\": \"Question\", \"name\": \"What is kinematic viscosity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"nu = mu/rho (m2/s). More convenient for Re = vL/nu. Water at 20C: nu = 0.001/998 = 1.004 x 10-6 m2/s = 1 cSt (centistoke). Air at 20C: 15.1 x 10-6 m2/s. Oil: 100 cSt (100x more viscous than water). Higher viscosity makes flow more laminar (lower Re for same velocity).\"}}, {\"@type\": \"Question\", \"name\": \"What is the critical Reynolds number?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For internal pipe flow: lower critical Re ≈ 2300 (laminar guaranteed). Upper critical ≈ 4000 (turbulent guaranteed). In very smooth pipes with no disturbances: laminar flow maintained to Re ≈ 100,000. For flow over a flat plate: transition at Re ≈ 500,000. For flow around sphere: drag crisis at Re ≈ 200,000.\"}}, {\"@type\": \"Question\", \"name\": \"Why is Reynolds number important for engineering?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"It determines friction factor (and pressure drop) for pipe sizing. It governs heat transfer coefficients (Nusselt number correlations). It determines mixing efficiency in chemical reactors. It controls boundary layer development on aircraft wings. It ensures similarity between model tests (wind tunnel) and full-scale prototypes. It is the universal parameter for fluid flow scaling.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/engineering\">Engineering</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Reynolds Number Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Reynolds Number Calculator</h1>\n<p class=\"calc-intro\">Calculate Reynolds number for pipe flow, flow over flat plates, and open channel flow to determine whether flow is laminar or turbulent. Supports water, air, oil, and custom fluids with dynamic and kinematic viscosity.</p>\n<p class=\"calc-intro\">The Reynolds number is the most important dimensionless parameter in fluid mechanics. It represents the ratio of inertial forces to viscous forces. Below Re=2300 in a pipe, flow is always laminar (smooth and predictable). Above Re=4000, flow is turbulent (chaotic mixing with higher friction losses but better heat and mass transfer).</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Re = ρvL/μ = vL/ν | Pipe: L=D, laminar Re&lt;2300, turbulent Re&gt;4000 | Flat plate: laminar Re&lt;500,000 | ν = μ/ρ</div></div>\n<div class=\"content-section\"><h2>Reynolds Number and Flow Regime – Fluid Mechanics Guide</h2>\n<p>The Reynolds number (Re) was introduced by Osborne Reynolds in 1883 through elegant experiments with dyed water injected into pipe flow. He observed that at low velocities, the dye filament remained straight and parallel (laminar flow), but above a critical velocity, the dye dispersed into chaotic mixing (turbulent flow). This simple observation led to one of the most fundamental dimensionless parameters in all of fluid mechanics.</p>\n<h3>Reynolds Number for Different Geometries</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Application</th><th style=\"padding:10px 14px;text-align:left;\">Formula</th><th style=\"padding:10px 14px;text-align:left;\">Length Scale</th><th style=\"padding:10px 14px;text-align:left;\">Regime Criteria</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Pipe/Duct flow</td><td style=\"padding:10px 14px;\">Re = ρvD/μ</td><td style=\"padding:10px 14px;\">D = pipe diameter</td><td style=\"padding:10px 14px;\">Laminar &lt;2300, turbulent &gt;4000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Flat plate</td><td style=\"padding:10px 14px;\">Re = ρvL/μ</td><td style=\"padding:10px 14px;\">L = plate length</td><td style=\"padding:10px 14px;\">Transition at Re ≈ 500,000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Sphere</td><td style=\"padding:10px 14px;\">Re = ρvD/μ</td><td style=\"padding:10px 14px;\">D = sphere diameter</td><td style=\"padding:10px 14px;\">Stokes law valid Re&lt;1</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Open channel</td><td style=\"padding:10px 14px;\">Re = ρvRh/μ</td><td style=\"padding:10px 14px;\">Rh = hydraulic radius</td><td style=\"padding:10px 14px;\">Laminar &lt;500, turbulent &gt;2000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Stirred tank</td><td style=\"padding:10px 14px;\">Re = ρND²/μ</td><td style=\"padding:10px 14px;\">N=rotation speed, D=impeller</td><td style=\"padding:10px 14px;\">Laminar &lt;10, turbulent &gt;10,000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Boundary layer</td><td style=\"padding:10px 14px;\">Re = ρvx/μ</td><td style=\"padding:10px 14px;\">x = distance from leading edge</td><td style=\"padding:10px 14px;\">Transition at Rex ≈ 500,000</td></tr></tbody></table></div>\n<h3>Viscosity of Common Fluids</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Fluid</th><th style=\"padding:10px 14px;text-align:left;\">Density ρ</th><th style=\"padding:10px 14px;text-align:left;\">Dynamic Viscosity μ</th><th style=\"padding:10px 14px;text-align:left;\">Kinematic ν</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Water (20°C)</td><td style=\"padding:10px 14px;\">998 kg/m³</td><td style=\"padding:10px 14px;\">0.001001 Pa·s</td><td style=\"padding:10px 14px;\">1.003×10⁻⁶ m²/s</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Water (60°C)</td><td style=\"padding:10px 14px;\">983 kg/m³</td><td style=\"padding:10px 14px;\">0.000467 Pa·s</td><td style=\"padding:10px 14px;\">4.75×10⁻⁷ m²/s</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Air (20°C)</td><td style=\"padding:10px 14px;\">1.204 kg/m³</td><td style=\"padding:10px 14px;\">1.81×10⁻⁵ Pa·s</td><td style=\"padding:10px 14px;\">1.50×10⁻⁵ m²/s</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">SAE 30 Oil (40°C)</td><td style=\"padding:10px 14px;\">885 kg/m³</td><td style=\"padding:10px 14px;\">0.1 Pa·s</td><td style=\"padding:10px 14px;\">1.13×10⁻⁴ m²/s</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Glycerin (20°C)</td><td style=\"padding:10px 14px;\">1260 kg/m³</td><td style=\"padding:10px 14px;\">1.412 Pa·s</td><td style=\"padding:10px 14px;\">1.12×10⁻³ m²/s</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Honey</td><td style=\"padding:10px 14px;\">1360 kg/m³</td><td style=\"padding:10px 14px;\">10 Pa·s</td><td style=\"padding:10px 14px;\">7.35×10⁻³ m²/s</td></tr></tbody></table></div>\n<h3>Engineering Significance of Flow Regime</h3>\n<p>Laminar flow: Friction factor f = 64/Re (exactly). Pressure drop proportional to velocity. No lateral mixing between fluid layers. Excellent for precision flow metering. Turbulent flow: Friction factor from Moody chart (depends on roughness). Pressure drop proportional to velocity squared. Intense lateral mixing — excellent for heat and mass transfer. Most industrial pipe flow is turbulent because the high velocities needed for practical flow rates produce Re well above 4000. Laminar flow occurs in microfluidics, lubrication oil films, blood flow in small vessels, and very viscous fluid flows.</p></div>\n<div class=\"content-section\"><h3>Safety Factors and Code Compliance</h3>\n<p>Engineering design always includes safety factors to account for material variability, load uncertainty, construction tolerances, and progressive deterioration. Typical safety factors: structural steel bending 1.67 (ASD), concrete compression 1.5-2.0, bolts in tension 2.0-3.0, pressure vessels 3.5-4.0. Always verify that your design complies with applicable local codes, national standards, and industry regulations before construction or installation.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is Reynolds number? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Re = rho x v x L / mu. Ratio of inertial to viscous forces. Dimensionless. For pipe flow: Re &lt; 2300 always laminar, Re &gt; 4000 always turbulent. Named after Osborne Reynolds, 1883. Used to predict flow regime in any fluid system.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between laminar and turbulent flow? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Laminar (Re&lt;2300): smooth parallel layers, no lateral mixing, f=64/Re, low pressure drop, dye stays in straight line. Turbulent (Re&gt;4000): chaotic eddies and mixing, higher friction factor from Moody chart, much higher pressure drop but excellent heat/mass transfer. Transition zone (2300-4000) is unstable.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to calculate Reynolds number for water in a pipe? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Re = rho x v x D / mu. Water at 20C: rho=998 kg/m3, mu=0.001 Pa·s. 100mm pipe at 2 m/s: Re = 998 x 2 x 0.1 / 0.001 = 199,600. Fully turbulent. For water in typical pipe sizes above 10mm at normal velocities, flow is almost always turbulent.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is kinematic viscosity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">nu = mu/rho (m2/s). More convenient for Re = vL/nu. Water at 20C: nu = 0.001/998 = 1.004 x 10-6 m2/s = 1 cSt (centistoke). Air at 20C: 15.1 x 10-6 m2/s. Oil: 100 cSt (100x more viscous than water). Higher viscosity makes flow more laminar (lower Re for same velocity).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the critical Reynolds number? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For internal pipe flow: lower critical Re ≈ 2300 (laminar guaranteed). Upper critical ≈ 4000 (turbulent guaranteed). In very smooth pipes with no disturbances: laminar flow maintained to Re ≈ 100,000. For flow over a flat plate: transition at Re ≈ 500,000. For flow around sphere: drag crisis at Re ≈ 200,000.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is Reynolds number important for engineering? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">It determines friction factor (and pressure drop) for pipe sizing. It governs heat transfer coefficients (Nusselt number correlations). It determines mixing efficiency in chemical reactors. It controls boundary layer development on aircraft wings. It ensures similarity between model tests (wind tunnel) and full-scale prototypes. It is the universal parameter for fluid flow scaling.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Engineering Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/engineering/gear-ratio-calculator\"><span class=\"rc-icon\">⚙</span><span class=\"rc-name\">Gear Ratio</span></a><a class=\"related-card\" href=\"/calculators/engineering/pipe-flow-calculator\"><span class=\"rc-icon\">🔆</span><span class=\"rc-name\">Pipe Flow</span></a><a class=\"related-card\" href=\"/calculators/engineering/electrical-load-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Electrical Load</span></a><a class=\"related-card\" href=\"/calculators/engineering/bolt-torque-calculator\"><span class=\"rc-icon\">🔧</span><span class=\"rc-name\">Bolt Torque</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Reynolds Number Calculator – Laminar vs Turbulent Flow</h2><div class=\"form-group\"><label for=\"rgeom\">Flow Geometry</label><select id=\"rgeom\"><option selected=\"\" value=\"pipe\">Pipe/Duct (L = Diameter)</option><option value=\"plate\">Flat Plate (L = Length)</option><option value=\"channel\">Open Channel (L = Hyd. Radius)</option></select></div><div class=\"form-group\"><label for=\"rfluid\">Fluid</label><select id=\"rfluid\"><option selected=\"\" value=\"w20\">Water 20°C</option><option value=\"w60\">Water 60°C</option><option value=\"air\">Air 20°C</option><option value=\"oil\">SAE30 Oil 40°C</option><option value=\"custom\">Custom</option></select></div><div class=\"form-group\"><label for=\"rrho\">Density ρ (kg/m³) — custom only</label><input id=\"rrho\" min=\"0.1\" step=\"any\" type=\"number\" value=\"998\"/></div><div class=\"form-group\"><label for=\"rmu\">Viscosity μ (Pa·s) — custom only</label><input id=\"rmu\" min=\"1e-7\" step=\"any\" type=\"number\" value=\"0.001\"/></div><div class=\"form-group\"><label for=\"rv\">Velocity v (m/s)</label><input id=\"rv\" min=\"0.001\" step=\"any\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"rL\">Characteristic Length L/D (m)</label><input id=\"rL\" min=\"0.001\" step=\"any\" type=\"number\" value=\"0.1\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('eg-result').style.display='none';document.getElementById('eg-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"eg-result\" style=\"display:none;\">\n<div id=\"eg-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"eg-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"eg-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"eg-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-eg\" onclick=\"printResult('eg-result','Reynolds Number Calculator – Laminar vs Turbulent Flow')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Reynolds Number Calculator – Laminar vs Turbulent Flow')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-reynolds-number-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nvar FL={w20:{r:998,m:0.001001},w60:{r:983,m:0.000467},air:{r:1.204,m:0.0000181},oil:{r:885,m:0.1}};\nfunction doCalc(){\n  var geom=document.getElementById('rgeom').value;\n  var fk=document.getElementById('rfluid').value;\n  var fl=fk==='custom'?{r:parseFloat(document.getElementById('rrho').value)||998,m:parseFloat(document.getElementById('rmu').value)||0.001}:FL[fk];\n  var v=parseFloat(document.getElementById('rv').value)||2;\n  var L=parseFloat(document.getElementById('rL').value)||0.1;\n  var Re=fl.r*v*L/fl.m;\n  var nu=fl.m/fl.r;\n  var regime,col;\n  if(geom==='pipe'){regime=Re<2300?'LAMINAR':Re<4000?'TRANSITIONAL':'TURBULENT';col=Re<2300?'#1a5c3a':Re<4000?'#c8832a':'#c84a4a';}\n  else if(geom==='plate'){regime=Re<5e5?'LAMINAR (flat plate)':'TURBULENT (flat plate)';col=Re<5e5?'#1a5c3a':'#c84a4a';}\n  else{regime=Re<500?'LAMINAR (channel)':Re<2000?'TRANSITIONAL':'TURBULENT (channel)';col=Re<500?'#1a5c3a':Re<2000?'#c8832a':'#c84a4a';}\n  var note=regime.includes('LAMINAR')?'Smooth flow. f=64/Re (pipe). Low pressure drop. No lateral mixing.':'Chaotic mixing. Higher friction losses. Better heat transfer. Use Moody chart.';\n  var aiPrompt='Re='+Math.round(Re).toLocaleString()+' ('+regime+'). v='+v+'m/s, L='+L+'m, nu='+nu.toExponential(2)+'m2/s';\n  document.getElementById('eg-ri').innerHTML=\n    ri('Reynolds Number','<strong style=\"font-size:28px;font-weight:700;color:'+col+'\">'+Math.round(Re).toLocaleString()+'</strong>',true)+\n    ri('Flow Regime','<strong style=\"color:'+col+'\">'+regime+'</strong>')+\n    ri('Note',note)+\n    ri('Kinematic Viscosity ν',nu.toExponential(3)+' m²/s')+\n    ri('Dynamic Viscosity μ',fl.m.toExponential(3)+' Pa·s')+\n    ri('Density ρ',fl.r+' kg/m³');\n  document.getElementById('eg-result').style.display='block';document.getElementById('eg-actions').style.display='flex';\n  drawDonut('eg-chart',['Re/1000','Laminar limit (2.3)','Turbulent start (4.0)'],[Math.max(Math.round(Re/1000),0.1),2.3,1.7],['#1a5c3a','#c8832a','#c84a4a']);\n  var ai=document.getElementById('eg-ai');ai.style.display='block';ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the engineering significance of this Reynolds number.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/engineering", label: "Engineering" }}
+      title="Reynolds Number Calculator"
+      intro="Calculate the dimensionless Reynolds number (Re), determine fluid flow regimes (laminar Re < 2,300, transition, turbulent Re > 4,000), hydrodynamic entrance length, and boundary layer thickness across internal pipes and external bodies."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Engineering Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-cyan-50 px-2.5 py-0.5 font-medium text-cyan-700 ring-1 ring-inset ring-cyan-600/20 dark:bg-cyan-950/40 dark:text-cyan-400 dark:ring-cyan-500/30">
+                <svg className="size-3.5 shrink-0 text-cyan-600 dark:text-cyan-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ASME &amp; AIAA Fluid Dynamics Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">ISO 5167 Flow Measurement &amp; White Fluid Mechanics Principles</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Fluid Dynamics &amp; Aerodynamics</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Engineering Answer: How the Reynolds Number and Flow Regime Are Calculated
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              The <strong>Reynolds number (Re)</strong> is the dimensionless ratio of fluid inertial forces to viscous forces: <strong>Re = (ρ · v · D) / μ = (v · D) / ν</strong>, where <em>ρ</em> is fluid density (kg/m³), <em>v</em> is flow velocity (m/s), <em>D</em> is internal pipe diameter (m), and <em>μ</em> is dynamic viscosity (Pa·s). In pipe flow, <strong>Re &lt; 2,300 is Laminar</strong>, <strong>2,300 to 4,000 is Transitional</strong>, and <strong>Re &gt; 4,000 is Fully Turbulent</strong>. Calculate downstream pressure loss with our <a href="/calculators/engineering/pipe-flow-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pipe flow calculator</a>, evaluate pumping electrical power with our <a href="/calculators/engineering/pump-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pump calculator</a>, or evaluate heat exchanger convective coefficients with our <a href="/calculators/engineering/heat-transfer-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">heat transfer calculator</a>.
+            </p>
+          </div>
+
+          <h2>Reynolds Number vs. Velocity Across Common Working Fluids</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <ReynoldsFlowRegimeChart />
+          </div>
+
+          <p>
+            Introduced by Osborne Reynolds in his classic 1883 dye-streak experiments, the Reynolds number is the single most important dimensionless parameter in fluid mechanics, chemical engineering, aerodynamics, and naval architecture. It provides the universal scaling criterion that enables engineers to predict whether a fluid will flow in calm, smooth, parallel laminar sheets or devolve into chaotic, energy-dissipating turbulent vortices.
+          </p>
+          <p>
+            The transition from laminar to turbulent flow fundamentally transforms hydraulic friction factors, wall shear stresses, boundary layer heat convection, and acoustic noise generation. To analyze flow velocity conversions, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate viscous drag forces with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and calculate dimensionless force ratios with our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Reynolds Number &amp; Boundary Layer Equations</div>
+            Re = (rho * v * D) / mu = (v * D) / nu
+            <br />
+            L_entrance_laminar = 0.05 * Re * D (for Re &lt; 2300)
+            <br />
+            L_entrance_turbulent = 1.359 * D * Re^(1/4) ≈ 10*D to 50*D
+            <br />
+            f_laminar = 64 / Re
+            <br />
+            delta_boundary_laminar = (5.0 * x) / sqrt(Re_x) (Flat plate)
+            <br />
+            delta_boundary_turbulent = (0.37 * x) / (Re_x)^(1/5) (Flat plate)
+          </Formula>
+
+          <h2>Fluid Thermophysical Properties at Standard Temperature (20°C / 68°F)</h2>
+          <p>
+            Viscosity and density vary dramatically across industrial fluids, altering the Reynolds number by up to six orders of magnitude under identical pipe geometries.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Density, Dynamic Viscosity and Kinematic Viscosity of Common Fluids at 20°C</p>
+          <DataTable
+            head={["Fluid Description", "Density ρ (kg/m³)", "Dynamic Viscosity μ (Pa·s)", "Kinematic Viscosity ν (m²/s)", "Typical Engineering Flow Regime"]}
+            rows={[
+              ["Atmospheric Air (1 atm, 20°C)", "1.204 kg/m³", "1.825 × 10⁻⁵ Pa·s", "1.516 × 10⁻⁵ m²/s", "Turbulent in HVAC ducts and vehicle aerodynamics"],
+              ["Pure Potable Water", "998.2 kg/m³", "1.002 × 10⁻³ Pa·s", "1.004 × 10⁻⁶ m²/s", "Turbulent in plumbing, municipal mains, and fire lines"],
+              ["Ethylene Glycol 50% (Antifreeze)", "1,070 kg/m³", "3.400 × 10⁻³ Pa·s", "3.178 × 10⁻⁶ m²/s", "Transitional / Turbulent in automotive cooling radiators"],
+              ["Engine Motor Oil (SAE 10W-30)", "875 kg/m³", "0.140 Pa·s", "1.600 × 10⁻⁴ m²/s", "Laminar inside engine oil galleries and journal bearings"],
+              ["Commercial Crude Oil (Heavy)", "920 kg/m³", "0.050 - 0.250 Pa·s", "5.4 × 10⁻⁵ m²/s", "Laminar / Transitional in cross-country export pipelines"],
+              ["Pure Honey / Molasses", "1,420 kg/m³", "10.0 Pa·s", "7.042 × 10⁻³ m²/s", "Strictly laminar creeping flow (Stokes flow, Re ≪ 1)"],
+            ]}
+          />
+
+          <h2>Dynamic Similitude and Wind Tunnel Testing</h2>
+          <p>
+            The Reynolds number is the cornerstone of <em>dynamic similitude</em> in experimental fluid dynamics. When testing scaled physical scale models of aircraft, submarines, Formula 1 racing cars, or skyscrapers inside wind tunnels or water flumes, kinematic and dynamic similarity with the full-scale prototype is guaranteed if and only if the model's Reynolds number matches the real-world operating Reynolds number (<code>Re_model = Re_prototype</code>). This foundational principle allows aerospace engineers to validate aerodynamic lift and drag coefficients long before manufacturing multi-million dollar full-scale aircraft.
+          </p>
+        </>
+      }
+    >
+      <ReynoldsNumberCalculator />
+    </CalcPage>
   );
 }

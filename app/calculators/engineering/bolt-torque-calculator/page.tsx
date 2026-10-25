@@ -1,26 +1,162 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import BoltTorqueCalculator from "@/components/calcs/engineering/bolt-torque-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BoltTorqueClampingForceChart } from "@/components/flagship/engineering/editorial-charts";
+
+const PATH = "/calculators/engineering/bolt-torque-calculator";
+const TITLE = "Bolt Torque Calculator — Tightening Torque, Preload Clamping & Nut Factor K | CalcDigi";
+const DESCRIPTION =
+  "Calculate bolt tightening torque (N·m & lb-ft), tensile preload clamping force (kN / lbs), proof load stresses, and K nut friction factors for ISO Grade 8.8, 10.9, 12.9, and SAE Grade 5 and 8 fasteners across dry, lubricated, and anti-seize conditions.";
 
 export const metadata: Metadata = {
-  "title": "Bolt Torque Calculator – Tightening Torque | CalcDigi",
-  "description": "Calculate tightening torque for any bolt size and grade. Find clamping force, bolt stress, and proof load for fastener design.",
-  "openGraph": {
-    "title": "Bolt Torque Calculator – Tightening Torque | CalcDigi",
-    "description": "Calculate tightening torque for any bolt size and grade. Find clamping force, bolt stress, and proof load for fastener design.",
-    "type": "website",
-    "url": "/calculators/engineering/bolt-torque-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/engineering/bolt-torque-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/engineering/structural-steel-calculator", icon: "🏗️", name: "Structural Steel AISC Connections" },
+  { href: "/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio & Shaft Torque" },
+  { href: "/calculators/engineering/beam-load-calculator", icon: "📐", name: "Beam Deflection & Bending Stress" },
+  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Tensile Clamping Force Calculator" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Bolt Yield Stress Percentage" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Thread Pitch & Friction Ratio" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the short-form bolt torque formula (T = K * F * d)?",
+    a: "The standard engineering formula for tightening torque is T = K * F_i * d. Here, T is the applied tightening torque (in N·m or lb·ft), K is the dimensionless torque coefficient (nut factor), F_i is target bolt tensile preload clamping force (in Newtons or pounds), and d is nominal bolt shank diameter (in meters or feet). Only about 10% to 15% of applied torque actually stretches the bolt into tension; the remaining 85% to 90% is consumed overcoming thread friction and under-head bearing face friction.",
+  },
+  {
+    q: "What target percentage of proof load or yield strength is recommended for bolt preload?",
+    a: "For rigid structural and mechanical clamped joints subjected to dynamic cyclical or fatigue loads, engineering codes (such as VDI 2230 and AISC) recommend preloading bolts to 70% to 75% of proof load (or roughly 65% to 75% of yield strength F_y). For permanent critical structural joints, preloads up to 85% to 90% of proof load are specified to prevent joint separation and transverse shear slip.",
+  },
+  {
+    q: "Why is lubrication (nut factor K) so critical to bolt tightening?",
+    a: "The nut factor K varies significantly with thread condition: dry zinc-plated steel has K ≈ 0.20 to 0.22, lightly oiled plain black oxide steel has K ≈ 0.15 to 0.18, and bolts treated with moly paste or copper anti-seize drop to K ≈ 0.10 to 0.12. If a mechanic applies a dry torque specification to a bolt lubricated with anti-seize, the actual clamping preload force will be nearly double the design intent, easily yielding or snapping the bolt shank.",
+  },
+  {
+    q: "What do ISO metric bolt property classes (8.8, 10.9, 12.9) mean?",
+    a: "In ISO metric property class markings, the first number represents one-hundredth of the nominal tensile strength in MPa, and the second number represents the ratio of yield strength to tensile strength multiplied by ten. For an ISO Grade 8.8 bolt: minimum tensile strength is 8 * 100 = 800 MPa, and yield strength is 800 * 0.8 = 640 MPa. For Grade 10.9: tensile strength is 1,000 MPa, yield is 900 MPa. For Grade 12.9: tensile is 1,200 MPa, yield is 1,080 MPa.",
+  },
+  {
+    q: "What is bolt tensile stress area (A_t) and how is it calculated?",
+    a: "The tensile stress area (A_t) is the effective cross-sectional area through the threaded portion of the bolt that resists tensile tension: A_t = (pi / 4) * [d - 0.9382 * p]^2 (for metric fasteners, where d is nominal diameter and p is thread pitch). Because threads cut grooves into the shank, A_t is always smaller than the gross nominal shank area (pi * d^2 / 4). Tensile preload force is F_i = sigma_proof * A_t * Target_Percentage.",
+  },
+  {
+    q: "Why do properly preloaded bolts rarely fail from fatigue?",
+    a: "In a properly designed rigid bolted joint, the clamped flange members are much stiffer than the flexible elongated bolt shank. When an external cyclic working tensile load is applied, approximately 90% of the load merely relieves compressive stress within the clamped joint flanges; only ~10% of the fluctuating load transfers into the bolt shank itself. As long as clamping preload prevents joint separation, the bolt experiences negligible cyclic stress amplitude, shielding it from fatigue failure.",
+  },
+];
+
+export default function BoltTorquePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engineering Calculators\", \"item\": \"https://calcdigi.com/pages/engineering\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Bolt Torque Calculator\", \"item\": \"https://calcdigi.com/calculators/engineering/bolt-torque-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Bolt Torque Calculator\", \"url\": \"https://calcdigi.com/calculators/engineering/bolt-torque-calculator\", \"description\": \"Calculate tightening torque for any bolt size and grade. Find clamping force, bolt stress, and proof load for fastener design.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is bolt tightening torque formula?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"T = K x d x F. K = torque coefficient (0.15-0.22), d = nominal bolt diameter (m), F = target clamping force (N). K=0.20 is standard for lightly lubricated bolts. M10 Grade 8.8 at 75% proof load: F=26.1 kN, T = 0.20 x 0.010 x 26100 = 52.2 N·m.\"}}, {\"@type\": \"Question\", \"name\": \"What is bolt proof load?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Maximum load without permanent deformation. Proof Load = Proof Strength x Stress Area. Grade 8.8 M10: Sp=600 MPa, As=58 mm2. Proof Load = 600 x 58 x 10-6 = 34,800 N = 34.8 kN. Standard practice: tighten to 75% of proof load. Never exceed proof load — bolt permanently deforms.\"}}, {\"@type\": \"Question\", \"name\": \"What does grade 8.8 mean?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"First digit x 100 = tensile strength (MPa). First digit x last digit x 10 = yield strength. Grade 8.8: tensile = 800 MPa, yield = 640 MPa. Grade 10.9: tensile = 1000 MPa, yield = 900 MPa. Grade 12.9: tensile = 1200 MPa, yield = 1080 MPa. Higher grade = stronger but more brittle and sensitive to hydrogen embrittlement.\"}}, {\"@type\": \"Question\", \"name\": \"Why does lubrication matter for bolt torque?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"85-90% of torque overcomes thread and under-head friction. Only 10-15% creates clamping force. K varies from 0.10 (well-lubricated) to 0.30 (rough and dry) — a 3x variation. Same torque with dry threads vs lubricated: clamping force differs by 2-3x. Always specify and control lubrication condition for consistent preload.\"}}, {\"@type\": \"Question\", \"name\": \"What is the tightening sequence for bolt patterns?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Always tighten bolts in a criss-cross (star) pattern, not around the perimeter. This ensures even load distribution and prevents gasket distortion. Tighten in three passes: 30%, 70%, 100% of final torque. For flanges with gaskets: final pass may include a fourth pass in the rotational direction for relaxation compensation.\"}}, {\"@type\": \"Question\", \"name\": \"What happens if bolts are over-tightened?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Bolt yields (permanently elongates), losing preload over time. Threaded hole may strip. Flanges crack or distort. Gaskets extrude and leak. Over-tightening is more common than under-tightening. Use torque wrench — never tighten by feel for critical connections. Yield-control tightening (turn-of-nut method) is most accurate for critical applications.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/engineering\">Engineering</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Bolt Torque Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Bolt Torque Calculator</h1>\n<p class=\"calc-intro\">Calculate required tightening torque for metric bolt sizes M6 to M24 in grades 4.6 through 12.9. Find clamping force, bolt stress, and proof load percentage for mechanical and structural engineering fastener design.</p>\n<p class=\"calc-intro\">Proper bolt torque is critical for joint integrity. Most (85-90%) of applied torque is consumed by friction in the threads and under the bolt head — only 10-15% creates clamping force. This is why lubrication condition dramatically affects the torque-to-preload relationship. Always use a calibrated torque wrench.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">T = K × d × F | F = Proof Load × Preload % | Proof Load = Sp × As | K = 0.20 (typical) | Bolt stress = F/As</div></div>\n<div class=\"content-section\">\n\n</div><div class=\"content-section\"><h2>Bolt Torque and Fastener Design Guide</h2>\n<p>Bolted joints are the most common mechanical connection in engineering. A properly tightened bolt functions as a spring — it stretches elastically during tightening, and this elastic stretch creates the clamping force that holds the joint together. The target preload is typically 75-90% of the bolt proof load, giving a margin against yielding while developing maximum clamping force.</p>\n<h3>Metric Bolt Grades and Properties</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Grade</th><th style=\"padding:10px 14px;text-align:left;\">Yield Fy</th><th style=\"padding:10px 14px;text-align:left;\">Tensile Fu</th><th style=\"padding:10px 14px;text-align:left;\">Proof Sp</th><th style=\"padding:10px 14px;text-align:left;\">Application</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">4.6</td><td style=\"padding:10px 14px;\">240 MPa</td><td style=\"padding:10px 14px;\">400 MPa</td><td style=\"padding:10px 14px;\">225 MPa</td><td style=\"padding:10px 14px;\">Low carbon steel, non-critical</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">5.8</td><td style=\"padding:10px 14px;\">400 MPa</td><td style=\"padding:10px 14px;\">500 MPa</td><td style=\"padding:10px 14px;\">380 MPa</td><td style=\"padding:10px 14px;\">General purpose</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">8.8</td><td style=\"padding:10px 14px;\">640 MPa</td><td style=\"padding:10px 14px;\">800 MPa</td><td style=\"padding:10px 14px;\">600 MPa</td><td style=\"padding:10px 14px;\">Most common high-strength</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">10.9</td><td style=\"padding:10px 14px;\">900 MPa</td><td style=\"padding:10px 14px;\">1000 MPa</td><td style=\"padding:10px 14px;\">830 MPa</td><td style=\"padding:10px 14px;\">High-strength machinery</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">12.9</td><td style=\"padding:10px 14px;\">1080 MPa</td><td style=\"padding:10px 14px;\">1200 MPa</td><td style=\"padding:10px 14px;\">970 MPa</td><td style=\"padding:10px 14px;\">Highest standard grade</td></tr></tbody></table></div>\n<h3>Torque Coefficient K Values</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">K Factor</th><th style=\"padding:10px 14px;text-align:left;\">Condition</th><th style=\"padding:10px 14px;text-align:left;\">Effect</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">K = 0.10-0.15</td><td style=\"padding:10px 14px;\">Lubricants, anti-seize paste</td><td style=\"padding:10px 14px;\">Maximum preload for given torque</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">K = 0.18-0.20</td><td style=\"padding:10px 14px;\">Light oil, zinc-plated bolts</td><td style=\"padding:10px 14px;\">Standard lubricated condition</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">K = 0.20-0.22</td><td style=\"padding:10px 14px;\">As-received (light oil from factory)</td><td style=\"padding:10px 14px;\">Most common assumption</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">K = 0.25-0.30</td><td style=\"padding:10px 14px;\">Rough, dry, or rusty threads</td><td style=\"padding:10px 14px;\">Less preload for given torque</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">K = 0.12-0.15</td><td style=\"padding:10px 14px;\">PTFE thread tape, anti-seize</td><td style=\"padding:10px 14px;\">Very low friction</td></tr></tbody></table></div>\n<h3>Torque Wrench Selection</h3>\n<p>Always use a calibrated torque wrench for precision fastener applications. Click-type torque wrenches: most common, ±4% accuracy at 20-80% of full scale. Digital torque wrenches: ±2-3%, preferred for critical applications. Beam-type: ±4%, simple and reliable but requires visual reading. Never use an impact wrench for torque-controlled fastening. Calibrate torque wrenches annually or every 5,000 cycles, whichever comes first.</p></div>\n<div class=\"content-section\"><h2>Engineering Applications and Industry Use</h2>\n<p>Engineering calculations are the foundation of every designed system — from the bolts holding a bridge together to the pipe carrying water to your tap. These free calculators cover the most commonly needed engineering formulas across civil, mechanical, electrical, and chemical engineering disciplines. All calculations use standard SI units and established engineering formulas from recognized references.</p>\n<h3>Safety Factors and Code Compliance</h3>\n<p>Engineering design always includes safety factors to account for material variability, load uncertainty, construction tolerances, and progressive deterioration. Typical safety factors: structural steel bending 1.67 (ASD), concrete compression 1.5-2.0, bolts in tension 2.0-3.0, pressure vessels 3.5-4.0. Always verify that your design complies with applicable local codes, national standards, and industry regulations before construction or installation.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is bolt tightening torque formula? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">T = K x d x F. K = torque coefficient (0.15-0.22), d = nominal bolt diameter (m), F = target clamping force (N). K=0.20 is standard for lightly lubricated bolts. M10 Grade 8.8 at 75% proof load: F=26.1 kN, T = 0.20 x 0.010 x 26100 = 52.2 N·m.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is bolt proof load? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Maximum load without permanent deformation. Proof Load = Proof Strength x Stress Area. Grade 8.8 M10: Sp=600 MPa, As=58 mm2. Proof Load = 600 x 58 x 10-6 = 34,800 N = 34.8 kN. Standard practice: tighten to 75% of proof load. Never exceed proof load — bolt permanently deforms.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What does grade 8.8 mean? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">First digit x 100 = tensile strength (MPa). First digit x last digit x 10 = yield strength. Grade 8.8: tensile = 800 MPa, yield = 640 MPa. Grade 10.9: tensile = 1000 MPa, yield = 900 MPa. Grade 12.9: tensile = 1200 MPa, yield = 1080 MPa. Higher grade = stronger but more brittle and sensitive to hydrogen embrittlement.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does lubrication matter for bolt torque? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">85-90% of torque overcomes thread and under-head friction. Only 10-15% creates clamping force. K varies from 0.10 (well-lubricated) to 0.30 (rough and dry) — a 3x variation. Same torque with dry threads vs lubricated: clamping force differs by 2-3x. Always specify and control lubrication condition for consistent preload.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the tightening sequence for bolt patterns? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Always tighten bolts in a criss-cross (star) pattern, not around the perimeter. This ensures even load distribution and prevents gasket distortion. Tighten in three passes: 30%, 70%, 100% of final torque. For flanges with gaskets: final pass may include a fourth pass in the rotational direction for relaxation compensation.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What happens if bolts are over-tightened? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Bolt yields (permanently elongates), losing preload over time. Threaded hole may strip. Flanges crack or distort. Gaskets extrude and leak. Over-tightening is more common than under-tightening. Use torque wrench — never tighten by feel for critical connections. Yield-control tightening (turn-of-nut method) is most accurate for critical applications.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Engineering Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/engineering/gear-ratio-calculator\"><span class=\"rc-icon\">⚙</span><span class=\"rc-name\">Gear Ratio</span></a><a class=\"related-card\" href=\"/calculators/engineering/pipe-flow-calculator\"><span class=\"rc-icon\">🔆</span><span class=\"rc-name\">Pipe Flow</span></a><a class=\"related-card\" href=\"/calculators/engineering/electrical-load-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Electrical Load</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Bolt Torque Calculator – Tightening Torque and Clamping Force</h2><div class=\"form-group\"><label for=\"bsize\">Bolt Size</label><select id=\"bsize\"><option value=\"M6\">M6 (6mm)</option><option value=\"M8\">M8 (8mm)</option><option selected=\"\" value=\"M10\">M10 (10mm)</option><option value=\"M12\">M12 (12mm)</option><option value=\"M16\">M16 (16mm)</option><option value=\"M20\">M20 (20mm)</option><option value=\"M24\">M24 (24mm)</option></select></div><div class=\"form-group\"><label for=\"bgrade\">Bolt Grade</label><select id=\"bgrade\"><option value=\"4.6\">Grade 4.6 (Sp=225 MPa)</option><option selected=\"\" value=\"8.8\">Grade 8.8 (Sp=600 MPa)</option><option value=\"10.9\">Grade 10.9 (Sp=830 MPa)</option><option value=\"12.9\">Grade 12.9 (Sp=970 MPa)</option></select></div><div class=\"form-group\"><label for=\"blub\">Lubrication</label><select id=\"blub\"><option selected=\"\" value=\"0.20\">Lubricated K=0.20</option><option value=\"0.22\">Dry clean K=0.22</option><option value=\"0.15\">Well-lubed K=0.15</option><option value=\"0.27\">Dry rough K=0.27</option></select></div><div class=\"form-group\"><label for=\"bpct\">Target Preload (% proof)</label><input id=\"bpct\" max=\"90\" min=\"50\" step=\"1\" type=\"number\" value=\"75\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('eg-result').style.display='none';document.getElementById('eg-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"eg-result\" style=\"display:none;\">\n<div id=\"eg-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"eg-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"eg-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"eg-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-eg\" onclick=\"printResult('eg-result','Bolt Torque Calculator – Tightening Torque and Clamping Force')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Bolt Torque Calculator – Tightening Torque and Clamping Force')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-bolt-torque-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nvar BOLTS={M6:{d:0.006,As:20.1e-6},M8:{d:0.008,As:36.6e-6},M10:{d:0.010,As:58.0e-6},M12:{d:0.012,As:84.3e-6},M16:{d:0.016,As:157e-6},M20:{d:0.020,As:245e-6},M24:{d:0.024,As:353e-6}};\nvar GR={'4.6':{Sp:225e6},'8.8':{Sp:600e6},'10.9':{Sp:830e6},'12.9':{Sp:970e6}};\nfunction doCalc(){\n  var bs=document.getElementById('bsize').value;\n  var bg=document.getElementById('bgrade').value;\n  var K=parseFloat(document.getElementById('blub').value)||0.20;\n  var pct=parseFloat(document.getElementById('bpct').value)/100||0.75;\n  var bolt=BOLTS[bs], grade=GR[bg];\n  var proofLoad=grade.Sp*bolt.As;\n  var F=proofLoad*pct;\n  var T=K*bolt.d*F;\n  var stress=F/bolt.As/1e6;\n  var aiPrompt=bs+' Grade '+bg+' bolt: T='+T.toFixed(1)+'Nm, F='+( F/1000).toFixed(2)+'kN, stress='+stress.toFixed(0)+'MPa';\n  document.getElementById('eg-ri').innerHTML=\n    ri('Tightening Torque','<strong style=\"font-size:26px;color:var(--c-accent)\">'+T.toFixed(1)+' N·m</strong>',true)+\n    ri('Clamping Force',(F/1000).toFixed(2)+' kN')+\n    ri('Bolt Stress',stress.toFixed(0)+' MPa ('+( stress/(grade.Sp/1e6)*100).toFixed(0)+'% of proof)')+\n    ri('Proof Load',(proofLoad/1000).toFixed(2)+' kN')+\n    ri('Bolt + Grade',bs+' Grade '+bg+', As='+(bolt.As*1e6).toFixed(1)+' mm²')+\n    ri('K Factor',K+' (friction coefficient)');\n  document.getElementById('eg-result').style.display='block';document.getElementById('eg-actions').style.display='flex';\n  drawDonut('eg-chart',['Preload (kN)','Reserve (kN)'],[Math.round(F/1000),Math.round((proofLoad-F)/1000)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('eg-ai');ai.style.display='block';ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the engineering importance of proper bolt preload.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/engineering", label: "Engineering" }}
+      title="Bolt Torque Calculator"
+      intro="Calculate fastener tightening torque (N·m & lb-ft), tensile clamping preload force (kN / lbs), proof load utilization, and K nut friction factors across ISO Metric Grades 8.8, 10.9, 12.9, and SAE Grades 5 and 8."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Engineering Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-orange-50 px-2.5 py-0.5 font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20 dark:bg-orange-950/40 dark:text-orange-400 dark:ring-orange-500/30">
+                <svg className="size-3.5 shrink-0 text-orange-600 dark:text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ASME &amp; VDI Fastener Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">ASME B1.13M, ISO 898-1 &amp; VDI 2230 Bolted Joint Guidelines</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Mechanical Fastener Engineering</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Engineering Answer: How Bolt Tightening Torque and Clamping Preload Are Calculated
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Tightening torque is calculated using the short-form equation <strong>T = K · F_preload · d</strong>, where <em>K</em> is the nut friction coefficient, <em>F_preload</em> is desired tensile clamping preload force, and <em>d</em> is nominal bolt shank diameter. Target preload is typically sized to <strong>75% of fastener proof load</strong> (<code>F_preload = 0.75 · σ_proof · A_t</code>). Friction condition heavily influences torque: dry zinc fasteners require <strong>K ≈ 0.20</strong>, lightly oiled fasteners require <strong>K ≈ 0.15</strong>, and anti-seize paste drops to <strong>K ≈ 0.12</strong>. For structural beam-to-column splice connections, verify flexural moment with our <a href="/calculators/engineering/structural-steel-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">structural steel calculator</a>, check rotating shaft torque with our <a href="/calculators/engineering/gear-ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">gear ratio calculator</a>, or evaluate joint tensile forces with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>.
+            </p>
+          </div>
+
+          <h2>Tightening Torque vs. Preload Clamping Force Across Lubricants</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <BoltTorqueClampingForceChart />
+          </div>
+
+          <p>
+            Threaded fasteners are among the most critical components in mechanical assemblies, automotive chassis, aerospace structures, and civil engineering infrastructure. The primary functional objective of tightening a threaded fastener is not merely to hold parts together, but to act as a stiff mechanical spring. Preloading the bolt into axial tension clamps the mating flange interfaces together under intense compressive pressure.
+          </p>
+          <p>
+            When external separation forces or shear moments act upon a bolted joint, high interface friction between the clamped joint plates prevents lateral slip and protects the bolt shank from cyclical shear fatigue. Applying accurate torque requires strict accounting of thread friction. To analyze beam connection bending stresses, use our <a href="/calculators/engineering/beam-load-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">beam load calculator</a>, evaluate proof load safety margin percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and calculate thread pitch ratios with our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Bolted Joint Mechanics &amp; Preload Equations</div>
+            A_t = (pi / 4) * [d - 0.9382 * p]^2 (Metric Tensile Stress Area)
+            <br />
+            F_preload = Target_Fraction * Proof_Stress * A_t
+            <br />
+            T = K * F_preload * d
+            <br />
+            T_dry (K = 0.20) = 0.20 * F_preload * d
+            <br />
+            T_oiled (K = 0.15) = 0.15 * F_preload * d
+            <br />
+            T_antiseize (K = 0.12) = 0.12 * F_preload * d
+          </Formula>
+
+          <h2>Fastener Property Classes and Proof Strength Ratings</h2>
+          <p>
+            Fastener materials are categorized into strength grades by ISO (metric) and SAE (inch) standards. The proof stress represents the maximum tensile stress a bolt can withstand without undergoing permanent plastic deformation.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Fastener Grade Mechanical Properties, Proof Stress &amp; Minimum Tensile Strengths</p>
+          <DataTable
+            head={["Fastener Specification", "Proof Strength (MPa / ksi)", "Yield Strength (MPa / ksi)", "Tensile Strength (MPa / ksi)", "Typical Application"]}
+            rows={[
+              ["ISO Grade 4.8 (Low Carbon)", "310 MPa / 45 ksi", "340 MPa / 49 ksi", "420 MPa / 61 ksi", "Non-critical covers, sheet metal brackets, furniture"],
+              ["ISO Grade 8.8 (Medium Carbon Quenched)", "580 MPa / 84 ksi", "640 MPa / 93 ksi", "800 MPa / 116 ksi", "Automotive chassis, general machinery, pipe flanges"],
+              ["ISO Grade 10.9 (Alloy Steel Quenched)", "830 MPa / 120 ksi", "940 MPa / 136 ksi", "1,040 MPa / 151 ksi", "Cylinder heads, engine connecting rods, crane hooks"],
+              ["ISO Grade 12.9 (High-Strength Alloy)", "970 MPa / 141 ksi", "1,100 MPa / 160 ksi", "1,220 MPa / 177 ksi", "High-stress hydraulic cylinders, race engine main studs"],
+              ["SAE Grade 5 (Medium Carbon Quenched)", "85 ksi / 586 MPa", "92 ksi / 634 MPa", "120 ksi / 827 MPa", "Standard North American machinery and truck frames"],
+              ["SAE Grade 8 (Medium Carbon Alloy)", "120 ksi / 827 MPa", "130 ksi / 896 MPa", "150 ksi / 1,034 MPa", "Heavy off-highway construction equipment, aerospace ground"],
+            ]}
+          />
+
+          <h2>Torque-Tension Scatter and Calibration Methods</h2>
+          <p>
+            A torque wrench measures rotational resistance, not direct clamping tension. Due to variations in surface roughness, zinc plating thickness, thread burrs, and operator technique, the torque-tension relationship exhibits up to ±25% scatter when using uncalibrated manual click-type torque wrenches. In mission-critical aerospace and structural steel connections, engineers utilize torque-angle (turn-of-nut) methods, direct tension indicator (DTI) squirt washers, or ultrasonic bolt elongation measurement to guarantee uniform preload clamping across joint arrays.
+          </p>
+        </>
+      }
+    >
+      <BoltTorqueCalculator />
+    </CalcPage>
   );
 }

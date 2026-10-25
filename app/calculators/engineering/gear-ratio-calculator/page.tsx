@@ -1,26 +1,161 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import GearRatioCalculator from "@/components/calcs/engineering/gear-ratio-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { GearSpeedTorqueTradeoffChart } from "@/components/flagship/engineering/editorial-charts";
+
+const PATH = "/calculators/engineering/gear-ratio-calculator";
+const TITLE = "Gear Ratio Calculator — Speed Reduction, Torque Multiplier & Efficiency | CalcDigi";
+const DESCRIPTION =
+  "Calculate gear train velocity ratio, output shaft RPM, torque multiplication, mechanical advantage, and transferred power (kW / HP) across spur, helical, planetary, and compound gearbox configurations.";
 
 export const metadata: Metadata = {
-  "title": "Gear Ratio Calculator – Speed & Torque | CalcDigi",
-  "description": "Calculate gear ratio, output RPM, output torque, and mechanical advantage for any gear pair from driver and driven gear teeth.",
-  "openGraph": {
-    "title": "Gear Ratio Calculator – Speed & Torque | CalcDigi",
-    "description": "Calculate gear ratio, output RPM, output torque, and mechanical advantage for any gear pair from driver and driven gear teeth.",
-    "type": "website",
-    "url": "/calculators/engineering/gear-ratio-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/engineering/gear-ratio-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/engineering/bolt-torque-calculator", icon: "🔩", name: "Bolt Torque & Preload Force" },
+  { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & Motor Sizing" },
+  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Angular & Linear Speed Calculator" },
+  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Force & Torque Newton Calculator" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Proportional Ratio Calculator" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Gear Efficiency Percentage" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How is gear ratio calculated between two meshed gears?",
+    a: "The gear ratio (R) is calculated by dividing the number of teeth on the driven gear (T_out) by the number of teeth on the driving gear (T_in): R = T_out / T_in. It can also be determined by the ratio of their pitch diameters (D_out / D_in). For example, if a 20-tooth drive pinion meshes with a 60-tooth driven gear, the gear ratio is 60 / 20 = 3:1 (a 3-to-1 speed reduction).",
+  },
+  {
+    q: "How does gear ratio affect output rotational speed (RPM)?",
+    a: "Rotational velocity is inversely proportional to gear ratio: RPM_out = RPM_in / R = RPM_in * (T_in / T_out). In a 4:1 speed-reducing gearbox driven by a 1,800 RPM electric motor, the output shaft will rotate at 1,800 / 4 = 450 RPM. Conversely, in an overdrive setup where R < 1, the output shaft spins faster than the input prime mover.",
+  },
+  {
+    q: "How does gear ratio multiply output torque?",
+    a: "Torque is directly multiplied by gear ratio and mechanical efficiency (eta): Torque_out = Torque_in * R * eta. Because mechanical power equals torque multiplied by angular velocity (P = tau * omega), reducing speed by half allows torque to double in an ideal frictionless system. With 95% stage efficiency, a 5:1 gearbox delivering 20 N·m input will produce 20 * 5 * 0.95 = 95 N·m at the output shaft.",
+  },
+  {
+    q: "What role do idler gears play in a gear train?",
+    a: "An idler gear inserted between the drive gear and driven gear alters the direction of rotation without changing the overall gear ratio. The idler tooth count cancels out mathematically in the velocity equation (R = T_idler/T_in * T_out/T_idler = T_out/T_in). Idler gears are utilized to bridge physical distance between shafts and reverse rotational sense.",
+  },
+  {
+    q: "How do you calculate compound gear train ratios?",
+    a: "In a compound gear train where multiple gears share common intermediate shafts, the total overall gear ratio is the product of individual gear stage ratios: R_total = R_stage1 * R_stage2 * ... * R_stageN = (T_driven1 / T_driver1) * (T_driven2 / T_driver2). This allows extremely high gear reductions (e.g., 100:1) within compact spatial enclosures.",
+  },
+  {
+    q: "What is the typical mechanical efficiency of different gear types?",
+    a: "Spur and helical gears with precision ground teeth achieve 97% to 99% efficiency per mesh. Straight bevel gears deliver 95% to 98% efficiency. In contrast, worm gear sets exhibit lower efficiency (50% to 90%) due to sliding friction between worm threads and gear teeth, though they offer massive single-stage reduction (up to 70:1) and natural back-driving self-locking capability.",
+  },
+];
+
+export default function GearRatioPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Engineering Calculators\", \"item\": \"https://calcdigi.com/pages/engineering\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Gear Ratio Calculator\", \"item\": \"https://calcdigi.com/calculators/engineering/gear-ratio-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Gear Ratio Calculator\", \"url\": \"https://calcdigi.com/calculators/engineering/gear-ratio-calculator\", \"description\": \"Calculate gear ratio, output RPM, output torque, and mechanical advantage for any gear pair from driver and driven gear teeth.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is gear ratio?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"GR = teeth on driven gear / teeth on driver gear = input speed / output speed. A 20-tooth driver and 80-tooth driven: GR = 80/20 = 4:1. Output turns 4x slower with 4x more torque (minus losses). Used to match motor speed-torque to load requirements.\"}}, {\"@type\": \"Question\", \"name\": \"How to calculate output RPM?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Output RPM = Input RPM / Gear Ratio. 1500 RPM motor with 5:1 gearbox: output = 1500/5 = 300 RPM. For gear pair: output RPM = input RPM x (driver teeth / driven teeth). Series gears multiply: 1500 RPM, two 4:1 stages: output = 1500/16 = 93.75 RPM.\"}}, {\"@type\": \"Question\", \"name\": \"How does gear ratio affect torque?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Output torque = Input torque x GR x efficiency. 10 N·m motor, 5:1 gearbox, 95% efficiency: output = 10 x 5 x 0.95 = 47.5 N·m. Higher ratio = more torque but less speed. Power = Torque x Angular velocity = constant (minus losses). You gain torque but lose speed.\"}}, {\"@type\": \"Question\", \"name\": \"What is mechanical advantage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"MA = output force/input force = GR x efficiency. A 10:1 worm gear at 80% efficiency: MA = 10 x 0.80 = 8. Every 1 N·m input produces 8 N·m output. Mechanical advantage trades speed for force — fundamental principle of all machines.\"}}, {\"@type\": \"Question\", \"name\": \"What is the efficiency of different gear types?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Spur gears: 95-99% per mesh. Helical: 95-99%. Bevel: 93-97%. Worm gears: 50-90% (varies with lead angle). Planetary: 95-98%. Compound gearboxes: multiply efficiency of each stage. A 3-stage spur train: 0.97^3 = 91.3% overall efficiency.\"}}, {\"@type\": \"Question\", \"name\": \"What is a compound gear train?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiple gear pairs in series. Total ratio = product of all individual ratios. Total efficiency = product of all stage efficiencies. Used to achieve very large ratios (10:1 to 1000:1) from compact designs. Planetary gearboxes pack multiple stages coaxially for space-efficient high-ratio drives.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/engineering\">Engineering</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Gear Ratio Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Gear Ratio Calculator</h1>\n<p class=\"calc-intro\">Calculate gear ratio, output shaft RPM, output torque, mechanical advantage, and power loss for any gear pair. Find transmission ratio from driver and driven gear teeth counts for motors, gearboxes, and drive systems.</p>\n<p class=\"calc-intro\">Gear ratios trade speed for torque while conserving power (minus friction losses). A 4:1 ratio means the output shaft turns at 1/4 input speed but produces 4 times the input torque. This fundamental relationship allows electric motors and engines to match their speed-torque characteristics to the load requirement.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">GR = T2/T1 = ω_in/ω_out | RPM_out = RPM_in/GR | T_out = T_in × GR × η | P = T × 2πN/60 | MA = GR × η</div></div>\n<div class=\"content-section\"><h3>Units and Conversions Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Application</th><th style=\"padding:10px 14px;text-align:left;\">Ratio</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Car 1st gear</td><td style=\"padding:10px 14px;\">3.5-4.0:1</td><td style=\"padding:10px 14px;\">High torque for starting</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Car top gear</td><td style=\"padding:10px 14px;\">0.7-1.0:1</td><td style=\"padding:10px 14px;\">High speed, fuel economy</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Bicycle low</td><td style=\"padding:10px 14px;\">0.5-1.0:1</td><td style=\"padding:10px 14px;\">Hill climbing</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Industrial reducer</td><td style=\"padding:10px 14px;\">5:1 to 100:1</td><td style=\"padding:10px 14px;\">Torque multiplication</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Worm gear</td><td style=\"padding:10px 14px;\">10:1 to 300:1</td><td style=\"padding:10px 14px;\">Self-locking, compact</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Spur gear efficiency</td><td style=\"padding:10px 14px;\">95-99%</td><td style=\"padding:10px 14px;\">Per mesh pair</td></tr></tbody></table></div>\n<h3>About This Calculator</h3>\n<p>This free engineering calculator uses established formulas from mechanical, civil, electrical, and chemical engineering. Results are computed instantly in your browser with no data sent to any server. For professional engineering applications, always verify calculations independently and have results reviewed by a qualified engineer. Use the Copy button to save results and Share to send this calculator to colleagues.</p></div><div class=\"content-section\"><h2>Mechanical Power Transmission – Gear Design Guide</h2>\n<p>Gears transmit rotational power between shafts while changing speed and torque. The gear ratio is simply the ratio of teeth on the driven gear to teeth on the driver gear. A 20-tooth driver meshing with an 80-tooth driven gear produces a 4:1 ratio — output turns at 1/4 speed with 4 times the torque (minus efficiency losses). This principle is used in virtually every machine from wristwatches to wind turbines.</p>\n<h3>Types of Gears and Efficiency</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Type</th><th style=\"padding:10px 14px;text-align:left;\">Shafts</th><th style=\"padding:10px 14px;text-align:left;\">Efficiency</th><th style=\"padding:10px 14px;text-align:left;\">Application</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Spur gears</td><td style=\"padding:10px 14px;\">Parallel shafts</td><td style=\"padding:10px 14px;\">95-99%</td><td style=\"padding:10px 14px;\">Simple, common, noisy at speed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Helical gears</td><td style=\"padding:10px 14px;\">Parallel/crossed</td><td style=\"padding:10px 14px;\">95-99%</td><td style=\"padding:10px 14px;\">Quieter, handles more load</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Bevel gears</td><td style=\"padding:10px 14px;\">Intersecting</td><td style=\"padding:10px 14px;\">93-97%</td><td style=\"padding:10px 14px;\">Right-angle drives</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Worm gears</td><td style=\"padding:10px 14px;\">Perpendicular</td><td style=\"padding:10px 14px;\">50-90%</td><td style=\"padding:10px 14px;\">High ratios, self-locking</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Planetary gears</td><td style=\"padding:10px 14px;\">Coaxial</td><td style=\"padding:10px 14px;\">95-98%</td><td style=\"padding:10px 14px;\">Compact, high ratios, automatic transmissions</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Rack and pinion</td><td style=\"padding:10px 14px;\">Rotary to linear</td><td style=\"padding:10px 14px;\">95-98%</td><td style=\"padding:10px 14px;\">Steering, linear positioning</td></tr></tbody></table></div>\n<h3>Motor Selection with Gear Ratio</h3>\n<p>Steps for selecting motor and gearbox: (1) Determine required output: speed (RPM) and torque (N·m). (2) Select motor: rated speed and torque from motor datasheet. (3) Calculate required gear ratio: GR = Motor RPM / Required output RPM. (4) Verify output torque = Motor torque x GR x efficiency meets load. (5) Check efficiency across the full operating range. (6) Consider starting torque requirements — some loads need 200-300% of running torque to start.</p>\n<h3>Compound Gear Trains</h3>\n<p>Multiple gear pairs in series (compound gear train) multiply individual ratios to achieve very large total ratios. Total GR = GR1 x GR2 x GR3. Total efficiency = η1 x η2 x η3. A 3-stage spur gearbox with 4:1 per stage: total GR = 64:1, total efficiency = 0.97^3 = 91.3%. Planetary gearboxes achieve high ratios (up to 100:1) in a compact package because the internal gear, planet gears, and sun gear all share the load.</p></div>\n<div class=\"content-section\"><h2>Engineering Applications and Industry Use</h2>\n<p>Engineering calculations are the foundation of every designed system — from the bolts holding a bridge together to the pipe carrying water to your tap. These free calculators cover the most commonly needed engineering formulas across civil, mechanical, electrical, and chemical engineering disciplines. All calculations use standard SI units and established engineering formulas from recognized references.</p>\n<h3>Safety Factors and Code Compliance</h3>\n<p>Engineering design always includes safety factors to account for material variability, load uncertainty, construction tolerances, and progressive deterioration. Typical safety factors: structural steel bending 1.67 (ASD), concrete compression 1.5-2.0, bolts in tension 2.0-3.0, pressure vessels 3.5-4.0. Always verify that your design complies with applicable local codes, national standards, and industry regulations before construction or installation.</p>\n</div>\n<div class=\"content-section\"><h3>Free Engineering Resources</h3>\n<p>Supplement these calculators with free engineering references: AISC Steel Construction Manual (steel design), ACI 318 (concrete design), NFPA 70 NEC (electrical), ASHRAE Fundamentals Handbook (HVAC), and Machinery Handbook (mechanical). Engineering toolboxes, NIST databases, and professional society websites provide free access to many standards and reference materials for non-commercial educational use.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is gear ratio? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">GR = teeth on driven gear / teeth on driver gear = input speed / output speed. A 20-tooth driver and 80-tooth driven: GR = 80/20 = 4:1. Output turns 4x slower with 4x more torque (minus losses). Used to match motor speed-torque to load requirements.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to calculate output RPM? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Output RPM = Input RPM / Gear Ratio. 1500 RPM motor with 5:1 gearbox: output = 1500/5 = 300 RPM. For gear pair: output RPM = input RPM x (driver teeth / driven teeth). Series gears multiply: 1500 RPM, two 4:1 stages: output = 1500/16 = 93.75 RPM.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does gear ratio affect torque? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Output torque = Input torque x GR x efficiency. 10 N·m motor, 5:1 gearbox, 95% efficiency: output = 10 x 5 x 0.95 = 47.5 N·m. Higher ratio = more torque but less speed. Power = Torque x Angular velocity = constant (minus losses). You gain torque but lose speed.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is mechanical advantage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">MA = output force/input force = GR x efficiency. A 10:1 worm gear at 80% efficiency: MA = 10 x 0.80 = 8. Every 1 N·m input produces 8 N·m output. Mechanical advantage trades speed for force — fundamental principle of all machines.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the efficiency of different gear types? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Spur gears: 95-99% per mesh. Helical: 95-99%. Bevel: 93-97%. Worm gears: 50-90% (varies with lead angle). Planetary: 95-98%. Compound gearboxes: multiply efficiency of each stage. A 3-stage spur train: 0.97^3 = 91.3% overall efficiency.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a compound gear train? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiple gear pairs in series. Total ratio = product of all individual ratios. Total efficiency = product of all stage efficiencies. Used to achieve very large ratios (10:1 to 1000:1) from compact designs. Planetary gearboxes pack multiple stages coaxially for space-efficient high-ratio drives.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Engineering Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/engineering/pipe-flow-calculator\"><span class=\"rc-icon\">🔆</span><span class=\"rc-name\">Pipe Flow Calc</span></a><a class=\"related-card\" href=\"/calculators/engineering/electrical-load-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Electrical Load</span></a><a class=\"related-card\" href=\"/calculators/engineering/bolt-torque-calculator\"><span class=\"rc-icon\">🔧</span><span class=\"rc-name\">Bolt Torque Calc</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Gear Ratio Calculator – Speed Torque and Mechanical Advantage</h2><div class=\"form-group\"><label for=\"gT1\">Driver Teeth (T1)</label><input id=\"gT1\" min=\"5\" step=\"1\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"gT2\">Driven Teeth (T2)</label><input id=\"gT2\" min=\"5\" step=\"1\" type=\"number\" value=\"80\"/></div><div class=\"form-group\"><label for=\"gRPM\">Input Speed (RPM)</label><input id=\"gRPM\" min=\"1\" step=\"any\" type=\"number\" value=\"1500\"/></div><div class=\"form-group\"><label for=\"gTin\">Input Torque (N·m)</label><input id=\"gTin\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"gEff\">Efficiency (%)</label><input id=\"gEff\" max=\"100\" min=\"50\" step=\"0.5\" type=\"number\" value=\"95\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('eg-result').style.display='none';document.getElementById('eg-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"eg-result\" style=\"display:none;\">\n<div id=\"eg-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"eg-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"eg-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"eg-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-eg\" onclick=\"printResult('eg-result','Gear Ratio Calculator – Speed Torque and Mechanical Advantage')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Gear Ratio Calculator – Speed Torque and Mechanical Advantage')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-gear-ratio-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var T1=parseFloat(document.getElementById('gT1').value)||20;\n  var T2=parseFloat(document.getElementById('gT2').value)||80;\n  var rpm=parseFloat(document.getElementById('gRPM').value)||1500;\n  var Tin=parseFloat(document.getElementById('gTin').value)||10;\n  var eff=parseFloat(document.getElementById('gEff').value)/100||0.95;\n  var GR=T2/T1, rpmOut=rpm/GR, Tout=Tin*GR*eff;\n  var Pin=Tin*rpm*2*Math.PI/60, Pout=Pin*eff;\n  var aiPrompt='Gear ratio '+GR.toFixed(2)+':1, in '+rpm+'RPM/'+Tin+'Nm, out '+rpmOut.toFixed(1)+'RPM/'+Tout.toFixed(1)+'Nm, eff '+(eff*100)+'%';\n  document.getElementById('eg-ri').innerHTML=\n    ri('Gear Ratio','<strong style=\"font-size:26px;color:var(--c-accent)\">'+GR.toFixed(3)+' : 1</strong>',true)+\n    ri('Output Speed',rpmOut.toFixed(1)+' RPM')+\n    ri('Output Torque',Tout.toFixed(2)+' N·m')+\n    ri('Mechanical Advantage',(GR*eff).toFixed(3))+\n    ri('Input Power',(Pin/1000).toFixed(3)+' kW')+\n    ri('Output Power',(Pout/1000).toFixed(3)+' kW')+\n    ri('Power Loss',((Pin-Pout)/1000).toFixed(3)+' kW');\n  document.getElementById('eg-result').style.display='block';document.getElementById('eg-actions').style.display='flex';\n  drawDonut('eg-chart',['Output Power','Power Loss'],[Math.round(Pout)||1,Math.round(Pin-Pout)||1],['#1a5c3a','#c8832a']);\n  \n  var ai=document.getElementById('eg-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the engineering significance of this gear ratio and mechanical transmission result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/engineering", label: "Engineering" }}
+      title="Gear Ratio Calculator"
+      intro="Calculate gearbox velocity ratio, output shaft rotational speed (RPM), torque multiplication, mechanical advantage, and transmitted shaft power (kW / HP) across spur, helical, planetary, and compound gear systems."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Engineering Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-violet-50 px-2.5 py-0.5 font-medium text-violet-700 ring-1 ring-inset ring-violet-600/20 dark:bg-violet-950/40 dark:text-violet-400 dark:ring-violet-500/30">
+                <svg className="size-3.5 shrink-0 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                AGMA &amp; ISO Machine Design
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">AGMA 2001-D04 Standards &amp; ISO 6336 Gear Rating Calculations</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Mechanical Power Transmission</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Engineering Answer: How Gear Ratio and Torque Multiplication Work
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              The <strong>gear ratio (R)</strong> equals driven gear teeth divided by driver gear teeth: <strong>R = T_out / T_in</strong>. Output shaft speed drops proportionally: <strong>RPM_out = RPM_in / R</strong>, while output torque increases proportionally multiplied by efficiency: <strong>Torque_out = Torque_in · R · η</strong>. Transmitted mechanical power is conserved: <strong>P (kW) = (Torque · RPM) / 9549</strong>. When bolting heavy planetary gearbox housings and motor flanges, determine exact bolt clamping torques with our <a href="/calculators/engineering/bolt-torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">bolt torque calculator</a>, or solve multi-stage reduction fractions using our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>.
+            </p>
+          </div>
+
+          <h2>Speed Reduction vs. Output Torque Tradeoff Curve</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <GearSpeedTorqueTradeoffChart />
+          </div>
+
+          <p>
+            Gears are among the most fundamental machine elements in mechanical engineering, providing positive, non-slip power transmission between rotating shafts. Whether in an electric vehicle transaxle, industrial conveyor reducer, robotics servo actuator, or wind turbine planetary drive, gear trains match the high-speed, low-torque operating characteristics of electric motors and internal combustion engines to the high-torque, low-speed demands of physical work loads.
+          </p>
+          <p>
+            Conservation of energy dictates that in an ideal mechanical transmission system, mechanical power input equals power output. Because rotational mechanical power is the product of torque and angular speed (<code>P = τ × ω</code>), reducing rotational velocity by a given gear factor enables a reciprocal increase in torque. To convert between linear vehicle velocities and rotational shaft speeds, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate required linear driving forces using our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and evaluate transmission mechanical loss percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Gear Train Kinematic &amp; Torque Equations</div>
+            Gear_Ratio (R) = T_out / T_in = D_out / D_in
+            <br />
+            RPM_out = RPM_in / R
+            <br />
+            Torque_out = Torque_in * R * eta_efficiency
+            <br />
+            Power_kW = (Torque_Nm * RPM) / 9549
+            <br />
+            Power_HP = (Torque_lb_ft * RPM) / 5252
+            <br />
+            Compound_Ratio = R1 * R2 * ... * Rn
+          </Formula>
+
+          <h2>Gearbox Configurations &amp; Mechanical Efficiency Comparison</h2>
+          <p>
+            Machine designers select specific gear tooth geometries based on noise limits, axial thrust loads, packaging envelope, and mechanical transmission efficiency. When driving high-pressure hydraulic pumps, size corresponding motor drive parameters with our <a href="/calculators/engineering/pump-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pump calculator</a>.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Standard Industrial Gearbox Topologies, Single-Stage Ratios &amp; Efficiencies</p>
+          <DataTable
+            head={["Gear Type", "Typical Ratio Range (Single Stage)", "Mechanical Efficiency (%)", "Backdrive Capability", "Common Engineering Applications"]}
+            rows={[
+              ["Spur Gears", "1:1 to 6:1", "97% - 99%", "Yes (Fully reversible)", "Automotive manual transmissions, clockwork, low-cost machinery"],
+              ["Helical Gears", "1:1 to 10:1", "96% - 98%", "Yes", "Industrial gear motors, vehicle final drives, smooth high-speed lines"],
+              ["Planetary (Epicyclic)", "3:1 to 10:1 (per stage)", "94% - 97%", "Yes", "Robotic joint actuators, automatic transmissions, wheel hub drives"],
+              ["Bevel Gears (Straight/Spiral)", "1:1 to 5:1", "95% - 98%", "Yes", "Right-angle shaft drives, automotive differentials, drill presses"],
+              ["Worm & Wheel", "5:1 to 70:1", "50% - 90%", "No (Self-locking when lead angle < 5°)", "Elevators, winches, conveyor safety holds, precision indexers"],
+            ]}
+          />
+
+          <h2>Involute Tooth Profile and Backlash Engineering</h2>
+          <p>
+            Modern industrial gears utilize an involute tooth profile, which ensures a constant velocity ratio even if shaft center-to-center distances experience minor thermal expansion or manufacturing deflection. When designing high-precision robotics and CNC machine drives, engineers must account for <em>backlash</em>—the deliberate clearance gap between non-driving tooth surfaces. Too little backlash causes tooth binding and thermal seizure, while excessive backlash introduces angular positioning errors and acoustic impact chatter under cyclical load reversal.
+          </p>
+        </>
+      }
+    >
+      <GearRatioCalculator />
+    </CalcPage>
   );
 }
