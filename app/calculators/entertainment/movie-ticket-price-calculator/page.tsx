@@ -1,26 +1,192 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import MovieTicketPriceCalculator from "@/components/calcs/entertainment/movie-ticket-price-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CinemaOutingExpenseSplitChart } from "@/components/flagship/entertainment/editorial-charts";
+
+const PATH = "/calculators/entertainment/movie-ticket-price-calculator";
+const TITLE = "Movie Ticket Price Calculator — Cinema Outing & Concession Costs | CalcDigi";
+const DESCRIPTION =
+  "Calculate the complete cost of a movie theater outing for individuals, couples, and families. Compare standard 2D, IMAX with Laser, Dolby Cinema, popcorn combos, snacks, and online convenience booking fees.";
 
 export const metadata: Metadata = {
-  "title": "Movie Ticket Price Calculator – Cinema Cost | CalcDigi",
-  "description": "Calculate total cinema cost for any group including tickets, concessions, and parking. Find your annual movie spending.",
-  "openGraph": {
-    "title": "Movie Ticket Price Calculator – Cinema Cost | CalcDigi",
-    "description": "Calculate total cinema cost for any group including tickets, concessions, and parking. Find your annual movie spending.",
-    "type": "website",
-    "url": "/calculators/entertainment/movie-ticket-price-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/entertainment/movie-ticket-price-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/entertainment/concert-ticket-calculator", icon: "🎟️", name: "Concert Ticket True Cost Calculator" },
+  { href: "/calculators/entertainment/streaming-cost-calculator", icon: "📺", name: "Streaming vs Cable TV Calculator" },
+  { href: "/calculators/entertainment/party-planning-calculator", icon: "🎉", name: "Party Food & Drinks Budget Planner" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Concession Markup Percentage" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Popcorn to Ticket Price Ratio" },
+  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Theater Subscription ROI Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why are movie theater popcorn and drink concessions so expensive?",
+    a: "Movie theater business economics are dictated by film studio distributor rental splits. For major blockbuster releases during opening weeks, studios command between 55% and 65% of all box office ticket revenues. After paying theater lease, heating/cooling, and projection equipment amortizations, theater chains make virtually zero net profit on admissions alone. Consequently, exhibition chains rely on high-margin concessions (popcorn costs roughly $0.30 to produce but sells for $9.00—an 85% to 90% gross profit margin) to generate over 75% of total theater operating profits.",
+  },
+  {
+    q: "What is the difference between IMAX with Laser and Dolby Cinema?",
+    a: "Both are premium large-format (PLF) theatrical experiences, but they differ in technical specifications. IMAX with Laser features massive proprietary screen aspect ratios (1.90:1 or 1.43:1 on select screens), dual 4K laser projection delivering exceptional brightness, and powerful 12-channel spatial sound. Dolby Cinema features Christie dual 4K laser projection with Dolby Vision high dynamic range (yielding true black levels with a 1,000,000:1 contrast ratio) and immersive Dolby Atmos object-based sound with motorized reclining seats.",
+  },
+  {
+    q: "How much cheaper are matinee movie tickets compared to evening shows?",
+    a: "Standard matinee screenings (typically scheduled before 4:00 PM or 5:00 PM) are discounted by 25% to 35% compared to prime evening peak showtimes. In addition, many major theater chains (such as AMC, Regal, and Cinemark) offer dedicated 'Discount Tuesday' promotions, reducing standard ticket prices to $6.00 to $8.00 for loyalty club members.",
+  },
+  {
+    q: "Are movie theater subscription passes (like AMC Stubs A-List or Regal Unlimited) worth it?",
+    a: "Yes, for regular moviegoers. AMC Stubs A-List costs $20 to $25/month and permits seeing up to 3 movies every week in ANY format (including premium IMAX, Dolby Cinema, and 3D) with zero online booking fees. Since a single prime Dolby Cinema ticket in major metropolitan areas costs $22 to $25, seeing just ONE premium movie per month completely covers the entire monthly subscription cost.",
+  },
+  {
+    q: "Why do third-party apps like Fandango charge convenience fees?",
+    a: "Online ticketing vendors and theater mobile apps charge convenience fees ($1.50 to $2.50 per ticket) to cover digital reservation infrastructure, seat map software licensing, credit card merchant gateway fees, and software development. Joining a theater chain's free tier loyalty rewards program (such as AMC Stubs Insider or Regal Crown Club) frequently waives booking fees when purchasing 4 or more tickets.",
+  },
+  {
+    q: "How much does the average family of four spend on a weekend cinema outing?",
+    a: "Industry data reveals that a family of four (2 adults, 2 children) attending a standard 2D weekend evening movie spends approximately $52 on tickets, $45 to $50 on two popcorn/drink combos and candy boxes, and $7 on booking fees—totaling $105 to $110. Upgrading to a premium format like IMAX with Laser pushes total family spend to $135 to $150.",
+  },
+];
+
+export default function MovieTicketPricePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Entertainment Calculators\", \"item\": \"https://calcdigi.com/pages/entertainment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Movie Ticket Price Calculator\", \"item\": \"https://calcdigi.com/calculators/entertainment/movie-ticket-price-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Movie Ticket Price Calculator\", \"url\": \"https://calcdigi.com/calculators/entertainment/movie-ticket-price-calculator\", \"description\": \"Calculate total cinema cost for any group including tickets, concessions, and parking. Find your annual movie spending.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much does a movie ticket cost in 2024?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average US movie ticket: $13.57 (2024 national average). Standard 2D: $11-14. 3D: $14-18. IMAX: $20-25. Premium (Dolby/4DX): $22-28. Matinee: $8-11. Tuesday discounts: $6-9.\"}}, {\"@type\": \"Question\", \"name\": \"How much does a family of 4 spend at the movies?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Typically $70-100 for a standard outing: 4 tickets ($50-56) + large popcorn ($9) + 2 drinks ($10) + candy ($5) + parking ($5-10). Premium formats add $15-40 more. Annual cost at once/month: $840-1,200.\"}}, {\"@type\": \"Question\", \"name\": \"What is the cheapest day to go to the movies?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Tuesday is the most common discount day — AMC charges $5, Regal $5, and Cinemark $5 on Tuesdays. Matinees (first showing or before noon) are 20-30% cheaper any day. Some theaters offer discount Mondays as well.\"}}, {\"@type\": \"Question\", \"name\": \"Is AMC A-List worth it?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At $25.95/month, AMC A-List covers 3 movies per week in any format. It pays off at just 2 movies/month if you watch IMAX or 3D ($20-25/ticket). Standard ticket watchers need 2-3 movies/month to break even.\"}}, {\"@type\": \"Question\", \"name\": \"Are movie theater concessions overpriced?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes — popcorn margins are typically 85-90%. A large popcorn costs $8-12 at theaters vs $0.50 in kernel cost. Drinks are similarly marked up. Bringing permitted outside snacks can save $15-25 per visit. Some theaters now allow outside food.\"}}, {\"@type\": \"Question\", \"name\": \"How many movies does the average American see per year?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"About 3-4 movies per year in theaters (2023 data post-COVID recovery). Pre-COVID: 4-5/year. Regular moviegoers (12+ per year) account for about 50% of all box office revenue despite being only 12% of the audience.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/entertainment\">Entertainment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Movie Ticket Price Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Movie Ticket Price Calculator</h1>\n<p class=\"calc-intro\">Calculate the total cost of a movie outing for any group size including tickets, concessions, and parking. Find your annual cinema spending and discover money-saving strategies like matinees, discount days, and membership programs.</p>\n<p class=\"calc-intro\">The average US movie ticket costs $13.57 (2024). A family of four going to a standard movie with popcorn and drinks typically spends $70-100 per outing. Annual cinema spending for regular moviegoers adds up quickly — understanding the full cost helps you find the best value options.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Total Cost = (Tickets x Price) + Concessions + Parking | Annual = Monthly outings x 12 | Cost per hour = Total / Film Length</div></div>\n<div class=\"content-section\"><h3>Getting the Most Value from Entertainment</h3>\n<p>Entertainment spending is one of the most flexible categories in any budget. Small adjustments — like choosing matinee screenings, sharing streaming subscriptions with family, or planning events during off-peak times — can significantly reduce costs without reducing enjoyment. The key is identifying which entertainment experiences bring you the most satisfaction per dollar spent.</p>\n<h3>Reference Data</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Format</th><th style=\"padding:10px 14px;text-align:left;\">Average Price</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Standard 2D</td><td style=\"padding:10px 14px;\">$11-14</td><td style=\"padding:10px 14px;\">Most common format</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">3D</td><td style=\"padding:10px 14px;\">$14-18</td><td style=\"padding:10px 14px;\">Add $3-5 premium</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">IMAX</td><td style=\"padding:10px 14px;\">$20-25</td><td style=\"padding:10px 14px;\">Large format premium</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dolby/4DX</td><td style=\"padding:10px 14px;\">$22-28</td><td style=\"padding:10px 14px;\">Premium audio/motion</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Drive-in</td><td style=\"padding:10px 14px;\">$8-12</td><td style=\"padding:10px 14px;\">Per car or per person</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Matinee (before noon)</td><td style=\"padding:10px 14px;\">$8-11</td><td style=\"padding:10px 14px;\">20-30% discount</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Tuesday discount</td><td style=\"padding:10px 14px;\">$6-9</td><td style=\"padding:10px 14px;\">Common national discount day</td></tr></tbody></table></div>\n</div><div class=\"content-section\"><h2>Cinema Pricing Guide – Saving Money at the Movies</h2>\n<p>Movie tickets are one of the most price-variable entertainment purchases. The same film can cost $6 at a Tuesday matinee or $28 in a premium Dolby Cinema seat. Understanding pricing tiers and using loyalty programs can cut annual cinema spending by 30-50%.</p>\n<h3>Movie Theater Membership Programs</h3>\n<p>AMC A-List ($25.95/month): 3 movies per week in any format including IMAX and Dolby. Regal Unlimited ($18-23/month): unlimited movies at standard screens, surcharge for premium. Cinemark Movie Club ($8.99/month): 1 movie/month rollover + 20% off concessions. These memberships pay off at 2+ movies per month. For frequent moviegoers (8+ movies/year), a membership typically saves $50-150 annually.</p>\n<h3>Best Ways to Save on Cinema Tickets</h3>\n<p>Matinee screenings (before noon or first showing): 20-30% cheaper. Tuesday discount days: many chains offer $5-8 tickets every Tuesday. AAA, military, student, and senior discounts: typically 10-20% off. Costco and Sam's Club discounted gift cards: save 10-20% on face value. Fandango and Atom apps: occasional promo codes for free popcorn or discounted tickets. Bringing your own snacks (where permitted) can save $15-25 per visit on concessions.</p></div>\n<div class=\"content-section\"><h2>Entertainment Budgeting Guide</h2>\n<p>Entertainment spending is one of the most flexible categories in any personal budget. Small adjustments — like choosing matinee screenings, rotating streaming subscriptions monthly, or buying concert tickets early — can cut costs by 30-50% without sacrificing enjoyment. The key is knowing the numbers before you spend.</p>\n<h3>How to Get the Best Value</h3>\n<p>Cost-per-hour is the most useful metric for comparing entertainment value. A $60 video game played 100 hours costs just $0.60/hour. A $15 movie ticket lasts 2 hours at $7.50/hour. A $200 concert with 3 hours of music costs $33/hour per person. Understanding these ratios helps you prioritize experiences that deliver maximum enjoyment per dollar spent and identify where your budget is going.</p>\n<h3>Monthly Entertainment Budget Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Category</th><th style=\"padding:10px 14px;text-align:left;\">Budget %</th><th style=\"padding:10px 14px;text-align:left;\">$50k Income (Monthly)</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Streaming Services</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$65-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dining and Going Out</td><td style=\"padding:10px 14px;\">5-8%</td><td style=\"padding:10px 14px;\">$175-280</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Events and Tickets</td><td style=\"padding:10px 14px;\">2-4%</td><td style=\"padding:10px 14px;\">$70-140</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Hobbies and Gaming</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$70-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Books and Education</td><td style=\"padding:10px 14px;\">1-2%</td><td style=\"padding:10px 14px;\">$35-70</td></tr>\n</tbody></table></div>\n<h3>Smart Entertainment Saving Tips</h3>\n<p>Use discount days (Tuesday movies, early bird events). Rotate streaming services monthly instead of keeping all active. Buy concert tickets early or last-minute (both beat peak prices). Use library cards for free ebooks, audiobooks (Libby app), and streaming. Look for bundle deals — Disney+/Hulu/ESPN+ bundle, Apple One, Amazon Prime. Credit card entertainment credits (Amex Platinum, Chase Sapphire) offset costs significantly for frequent users.</p>\n</div>\n<div class=\"content-section\"><h2>Industry Data and Statistics</h2>\n<p>Entertainment is one of the largest consumer spending categories in the United States. Americans spend an average of $3,458 per year on entertainment — about $288 per month. This includes streaming subscriptions, movies, concerts, sporting events, gaming, books, and recreational activities. Entertainment spending has shifted dramatically in recent years from physical media and venues toward digital subscriptions and on-demand experiences.</p>\n<h3>Entertainment Trends 2025</h3>\n<p>Streaming continues to dominate home entertainment with the average household subscribing to 4.5 services. Live events have seen a major surge post-pandemic with concert attendance at record highs and ticket prices up 80% since 2019. Gaming has become the largest entertainment sector by revenue globally, surpassing both music and film. Podcasting continues growing with over 4 million active podcasts and 500 million listeners worldwide. Books and reading have seen renewed interest with audiobooks the fastest-growing format at 25% annual growth.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does a movie ticket cost in 2024? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average US movie ticket: $13.57 (2024 national average). Standard 2D: $11-14. 3D: $14-18. IMAX: $20-25. Premium (Dolby/4DX): $22-28. Matinee: $8-11. Tuesday discounts: $6-9.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does a family of 4 spend at the movies? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Typically $70-100 for a standard outing: 4 tickets ($50-56) + large popcorn ($9) + 2 drinks ($10) + candy ($5) + parking ($5-10). Premium formats add $15-40 more. Annual cost at once/month: $840-1,200.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the cheapest day to go to the movies? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Tuesday is the most common discount day — AMC charges $5, Regal $5, and Cinemark $5 on Tuesdays. Matinees (first showing or before noon) are 20-30% cheaper any day. Some theaters offer discount Mondays as well.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is AMC A-List worth it? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At $25.95/month, AMC A-List covers 3 movies per week in any format. It pays off at just 2 movies/month if you watch IMAX or 3D ($20-25/ticket). Standard ticket watchers need 2-3 movies/month to break even.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Are movie theater concessions overpriced? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes — popcorn margins are typically 85-90%. A large popcorn costs $8-12 at theaters vs $0.50 in kernel cost. Drinks are similarly marked up. Bringing permitted outside snacks can save $15-25 per visit. Some theaters now allow outside food.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many movies does the average American see per year? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">About 3-4 movies per year in theaters (2023 data post-COVID recovery). Pre-COVID: 4-5/year. Regular moviegoers (12+ per year) account for about 50% of all box office revenue despite being only 12% of the audience.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/entertainment/streaming-cost-calculator\"><span class=\"rc-icon\">🎶</span><span class=\"rc-name\">Streaming Cost</span></a><a class=\"related-card\" href=\"/calculators/entertainment/video-game-hours-calculator\"><span class=\"rc-icon\">🎮</span><span class=\"rc-name\">Video Game Hours</span></a><a class=\"related-card\" href=\"/calculators/entertainment/party-planning-calculator\"><span class=\"rc-icon\">🎊</span><span class=\"rc-name\">Party Planning</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Movie Ticket Price Calculator – Group Cinema Cost</h2><div class=\"form-group\"><label for=\"mt\">Number of Tickets</label><input id=\"mt\" max=\"50\" min=\"1\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"mf\">Ticket Format</label><select id=\"mf\"><option value=\"11\">Standard 2D ($11)</option><option selected=\"\" value=\"13.57\">Average US ($13.57)</option><option value=\"16\">3D ($16)</option><option value=\"23\">IMAX ($23)</option><option value=\"26\">Dolby/4DX ($26)</option><option value=\"9\">Matinee ($9)</option><option value=\"6\">Tuesday Deal ($6)</option></select></div><div class=\"form-group\"><label for=\"mpop\">Popcorn (# large bags)</label><input id=\"mpop\" min=\"0\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"mdrink\">Drinks (# large)</label><input id=\"mdrink\" min=\"0\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"msnack\">Candy/Snacks ($)</label><input id=\"msnack\" min=\"0\" type=\"number\" value=\"8\"/></div><div class=\"form-group\"><label for=\"mpark\">Parking ($)</label><input id=\"mpark\" min=\"0\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"mmonth\">Times per Month</label><input id=\"mmonth\" min=\"1\" type=\"number\" value=\"2\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('en-result').style.display='none';document.getElementById('en-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"en-result\" style=\"display:none;\">\n<div id=\"en-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"en-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"en-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"en-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-en\" onclick=\"printResult('en-result','Movie Ticket Price Calculator – Group Cinema Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Movie Ticket Price Calculator – Group Cinema Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-movie-ticket-price-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var t=parseFloat(document.getElementById('mt').value)||1;\n  var tp=parseFloat(document.getElementById('mf').value)||13.57;\n  var pop=parseFloat(document.getElementById('mpop').value)||0;\n  var dr=parseFloat(document.getElementById('mdrink').value)||0;\n  var sn=parseFloat(document.getElementById('msnack').value)||0;\n  var park=parseFloat(document.getElementById('mpark').value)||0;\n  var mo=parseFloat(document.getElementById('mmonth').value)||1;\n  var tickets=t*tp; var conc=pop*9+dr*5.5+sn;\n  var total=tickets+conc+park;\n  var monthly=total*mo; var annual=monthly*12;\n  var perPerson=total/t;\n  var aiPrompt='Movie outing: '+t+' tickets at $'+tp+' each, total $'+total.toFixed(2)+', annual $'+annual.toFixed(0);\n  document.getElementById('en-ri').innerHTML=\n    ri('Total Outing Cost','<strong style=\"font-size:26px;color:var(--c-accent)\">$'+total.toFixed(2)+'</strong>',true)+\n    ri('Per Person','$'+perPerson.toFixed(2))+\n    ri('Tickets','$'+tickets.toFixed(2)+' ('+t+' x $'+tp+')')+\n    ri('Concessions','$'+conc.toFixed(2))+\n    ri('Parking','$'+park.toFixed(2))+\n    ri('Monthly Cost','$'+monthly.toFixed(2)+' ('+mo+'x/month)')+\n    ri('Annual Cost','$'+annual.toFixed(0)+'/year');\n  document.getElementById('en-result').style.display='block';\n  document.getElementById('en-actions').style.display='flex';\n  drawDonut('en-chart',['Tickets','Concessions','Parking'],[Math.round(tickets)||1,Math.round(conc)||1,Math.round(park)||0.1],['#1a5c3a','#c8832a','#3a7abf']);\n  \n  var ai=document.getElementById('en-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a fun and practical tip related to this entertainment calculation.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/entertainment", label: "Entertainment" }}
+      title="Movie Ticket Price Calculator"
+      intro="Calculate the complete cost of a movie theater outing for individuals, couples, and families. Compare standard 2D, IMAX with Laser, Dolby Cinema, popcorn combos, snacks, and online convenience booking fees."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-0.5 font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20 dark:bg-amber-950/40 dark:text-amber-400 dark:ring-amber-500/30">
+                <svg className="size-3.5 shrink-0 text-amber-600 dark:text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Theatrical Exhibition Industry Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Aligned with <strong className="font-semibold text-slate-800 dark:text-slate-200">National Association of Theatre Owners (NATO) &amp; MPA Reports</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Cinema Exhibition Economics</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Answer: How Much Does a Movie Theater Outing Cost?
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              A standard movie theater outing combines ticket admissions with food concessions and online booking fees: <strong>Total = (Adult Tickets + Child Tickets) + Popcorn/Drink Combos + Online Fees</strong>. While an adult ticket averages <strong>$14.50 for standard 2D</strong> and <strong>$21.50–$22.50 for IMAX/Dolby Cinema</strong>, concessions add another <strong>$15 to $25 per couple</strong>. A couple attending an evening movie spends an average of <strong>$57.50 for Standard 2D</strong> and <strong>$75.00 for IMAX</strong>, with concessions accounting for over <strong>40% of the total bill</strong>. Compare live music event costs with our <a href="/calculators/entertainment/concert-ticket-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concert ticket calculator</a>, calculate home streaming alternatives with our <a href="/calculators/entertainment/streaming-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">streaming cost calculator</a>, or calculate party budgets with our <a href="/calculators/entertainment/party-planning-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">party planning calculator</a>.
+            </p>
+          </div>
+
+          <h2>Movie Theater Outing Cost Breakdown &amp; Concession Share</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <CinemaOutingExpenseSplitChart />
+          </div>
+
+          <p>
+            The magic of the communal cinema experience—the massive silver screen, thunderous spatial sound, and buttery aroma of warm popcorn—remains a cherished cultural ritual worldwide. However, rising admission ticket prices combined with steep concession pricing have led many consumers to scrutinize the true all-in cost of a movie theater outing.
+          </p>
+          <p>
+            Understanding cinema economics demystifies why theater lobbies charge $8.50 for a soda. Because major Hollywood studios retain the lion's share of ticket sales during initial opening weekends, theaters function financially less like entertainment venues and more like restaurants with giant projection screens. To calculate concession markups as proportional ratios, use our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, analyze food markup percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and forecast annual theater subscription value using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Cinema Outing Total Cost Formulation</div>
+            Tickets_Subtotal = (Adult_Count * Adult_Rate) + (Child_Senior_Count * Child_Senior_Rate)
+            <br />
+            Concessions_Subtotal = (Combos_Count * 17.50) + Candy_Snacks_Total
+            <br />
+            Grand_Cinema_Total = Tickets_Subtotal + Concessions_Subtotal + Online_Booking_Fees
+            <br />
+            Cost_Per_Person = Grand_Cinema_Total / Total_Attendees
+            <br />
+            Concession_Share_Pct = (Concessions_Subtotal / Grand_Cinema_Total) * 100
+          </Formula>
+
+          <h2>Theatrical Screening Formats: Technical Comparison and Pricing</h2>
+          <p>
+            Modern movie theaters offer several distinct projection formats with varying price premiums:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Standard 2D Digital Cinema:</strong> Standard projection utilizing 2K or single 4K Xenon lamp projectors on conventional white screens. The most affordable option ($10.50 matinee, $14.50 evening), suitable for comedies, dramas, and indie releases.
+            </li>
+            <li>
+              <strong>IMAX with Laser:</strong> Giant-format curved screens with specialized dual 4K laser projection systems delivering intense brightness and rich color saturation. Screens with 1.90:1 aspect ratios expand the vertical viewing area by up to 26% for movies filmed with IMAX certified digital cameras ($20–$24/ticket).
+            </li>
+            <li>
+              <strong>Dolby Cinema at AMC:</strong> The gold standard for audio-visual fidelity. Combines dual 4K Christie laser projectors with Dolby Vision high dynamic range (HDR), producing true inky blacks and vibrant highlights, coupled with ceiling and wall mounted Dolby Atmos spatial audio speakers and transducer-equipped motorized recliners ($21–$25/ticket).
+            </li>
+            <li>
+              <strong>RealD 3D Screenings:</strong> Circularly polarized 3D glasses delivering stereoscopic depth. Requires higher projection lamp intensity to compensate for the light attenuation of 3D polarizing filters ($17–$19/ticket).
+            </li>
+          </ul>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Theatrical Screening Formats, Average Pricing &amp; Technical Specifications</p>
+          <DataTable
+            head={["Screening Format", "Avg Adult Ticket", "Avg Child/Senior Ticket", "Contrast Ratio", "Audio Specification", "Ideal Film Genre"]}
+            rows={[
+              ["Standard Digital 2D", "$14.50", "$11.50", "1,500 : 1 (Standard)", "5.1 / 7.1 Surround Sound", "Comedies, dramas, romance, dialogue-heavy films"],
+              ["Matinee Early Bird 2D", "$10.50", "$8.50", "1,500 : 1 (Standard)", "5.1 / 7.1 Surround Sound", "Budget family outings, solo daytime viewing"],
+              ["IMAX with Laser", "$21.50", "$17.50", "2,500 : 1 (High)", "12-Channel Immersive Audio", "Sci-fi blockbusters, epic action, documentary nature"],
+              ["Dolby Cinema", "$22.50", "$18.50", "1,000,000 : 1 (True HDR)", "Dolby Atmos Spatial Audio", "Visual effects spectacles, musical soundtracks, horror"],
+              ["RealD 3D Format", "$18.00", "$14.50", "1,200 : 1 (Polarized)", "7.1 Surround / Atmos", "Animated features, fantasy adventures, superhero epics"],
+            ]}
+          />
+
+          <h2>The Studio-Exhibitor Split: Why Concessions Keep Theaters Open</h2>
+          <p>
+            Under standard Hollywood exhibition contracts, film distributors negotiate tiered box office revenue splits. In the initial week of a highly anticipated superhero or franchise sequel release, the studio commands up to 60% to 65% of gross ticket revenues. As the theatrical run progresses into weeks 3 and 4, the exhibitor's share of ticket revenue increases to 50% or 60%, but overall attendance volumes typically plummet.
+          </p>
+          <p>
+            Concession sales, in contrast, are 100% retained by the theater chain. A 170-ounce tub of popcorn that sells for $9.50 incurs a wholesale cost of raw corn kernels, coconut oil, and butter flavoring of less than $0.50. This staggering 95% gross product margin pays the wages of projectionists, ushers, cleaning crews, and theater lease payments.
+          </p>
+
+          <h2>How to Maximize Movie Theater Value</h2>
+          <p>
+            Film lovers can dramatically lower their theatrical outing expenses without missing the big-screen experience:
+          </p>
+          <ol className="list-decimal pl-5 space-y-2">
+            <li>
+              <strong>Join Theater Subscription Clubs:</strong> If you see two or more movies per month, subscription programs like AMC Stubs A-List ($20–$25/mo for up to 3 movies weekly, including IMAX and Dolby) or Regal Unlimited provide massive savings.
+            </li>
+            <li>
+              <strong>Leverage Discount Days:</strong> Major chains host weekly discount days (typically Tuesdays) where standard tickets are slashed to $6 to $8, often accompanied by discounted small popcorn/soda combos.
+            </li>
+            <li>
+              <strong>Bypass App Convenience Fees:</strong> Join free loyalty rewards programs or purchase tickets directly at automated lobby kiosks on arrival to save $2.00 per ticket in convenience surcharges.
+            </li>
+          </ol>
+        </>
+      }
+    >
+      <MovieTicketPriceCalculator />
+    </CalcPage>
   );
 }

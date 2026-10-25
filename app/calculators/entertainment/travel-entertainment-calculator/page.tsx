@@ -1,26 +1,215 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import TravelEntertainmentCalculator from "@/components/calcs/entertainment/travel-entertainment-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { VacationEntertainmentDailyBurnChart } from "@/components/flagship/entertainment/editorial-charts";
+
+const PATH = "/calculators/entertainment/travel-entertainment-calculator";
+const TITLE = "Travel Entertainment Calculator — Vacation Activities & Nightlife Budget | CalcDigi";
+const DESCRIPTION =
+  "Calculate total vacation entertainment and activity spending for families, couples, and solo travelers. Factor in theme park passes, museum tickets, guided excursions, live shows, and dining nightlife.";
 
 export const metadata: Metadata = {
-  "title": "Vacation Entertainment Budget Calculator | CalcDigi",
-  "description": "Plan your vacation activity budget, including dining, shows, tours and attractions, with a per-person and per-day breakdown.",
-  "openGraph": {
-    "title": "Vacation Entertainment Budget Calculator | CalcDigi",
-    "description": "Plan your vacation activity budget, including dining, shows, tours and attractions, with a per-person and per-day breakdown.",
-    "type": "website",
-    "url": "/calculators/entertainment/travel-entertainment-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/entertainment/travel-entertainment-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/entertainment/concert-ticket-calculator", icon: "🎟️", name: "Concert Ticket True Cost Calculator" },
+  { href: "/calculators/entertainment/movie-ticket-price-calculator", icon: "🎬", name: "Movie Cinema Outing Cost" },
+  { href: "/calculators/entertainment/party-planning-calculator", icon: "🎉", name: "Party Food & Drinks Budget" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Vacation Budget Share Percentage" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Activity vs Lodging Budget Ratio" },
+  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Holiday Vacation Sinking Fund" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What percentage of a total vacation budget should be allocated to entertainment and activities?",
+    a: "Tourism industry financial benchmarks indicate that entertainment, sightseeing, tours, and nightlife account for 25% to 35% of an average holiday budget (excluding long-haul flights and hotel lodging). In specialized theme park destinations like Orlando or entertainment hubs like Las Vegas, entertainment activities frequently exceed 50% of total vacation expenditures.",
+  },
+  {
+    q: "How much does a multi-day theme park family vacation cost for activities?",
+    a: "A 5-day theme park vacation (such as Walt Disney World or Universal Orlando) for a family of four requires approximately $120 to $165 per person per day in base park admissions alone ($2,400 to $3,300 total for tickets). Adding priority queue skip passes (Genie+ / Express Pass at $25–$80/day/person) and park dining entertainment typically pushes total activity spend to $3,500–$4,500.",
+  },
+  {
+    q: "Are all-inclusive multi-attraction city tourist passes worth buying?",
+    a: "Yes, provided you visit at least two major commercial attractions per day. City tourist cards (such as the London Pass, Paris Museum Pass, or New York Sightseeing Pass) cost roughly $65 to $110 per day. If you visit iconic top-tier museums and observation decks (which charge $35 to $50 individual admission each), city passes deliver 30% to 50% net savings plus fast-track entry privileges.",
+  },
+  {
+    q: "How can solo budget travelers reduce entertainment costs abroad?",
+    a: "Solo travelers can slash entertainment expenses by: 1) Participating in 'Free Walking Tours' led by local guides (tipping €10–€15 instead of paying €60 for commercial bus tours); 2) Visiting world-class national museums on designated free admission days (e.g., the Louvre on the first Friday evening of the month, or London's permanent collection museums which are completely free year-round); and 3) Purchasing combination attraction passes.",
+  },
+  {
+    q: "What is a vacation entertainment 'burn rate'?",
+    a: "Your daily entertainment burn rate is the average total dollars spent per day across your traveling party purely on experiential entertainment (tickets, club covers, sports rentals, tours, and bar entertainment), excluding your fixed nightly hotel room rate and transport. Tracking daily burn rate prevents exhausting your vacation budget days before your trip concludes.",
+  },
+  {
+    q: "How do hidden activity costs (gear rentals, locker fees, gratuities) impact vacation budgets?",
+    a: "Ancillary activity fees add roughly 15% to 25% over advertised attraction ticket prices. Common overlooked incidentals include: ski equipment rentals and slope locker fees ($60–$90/day); wet suit and snorkel gear rentals ($25/day); theme park locker fees ($15/day); and customary tour guide gratuities (15%–20%).",
+  },
+];
+
+export default function TravelEntertainmentPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Entertainment Calculators\", \"item\": \"https://calcdigi.com/pages/entertainment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Vacation Entertainment Budget Calculator\", \"item\": \"https://calcdigi.com/calculators/entertainment/travel-entertainment-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Vacation Entertainment Budget Calculator\", \"url\": \"https://calcdigi.com/calculators/entertainment/travel-entertainment-calculator\", \"description\": \"Plan your vacation activity budget, including dining, shows, tours and attractions, with a per-person and per-day breakdown.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is this calculator used for?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"This Vacation Entertainment Budget Calculator helps you plan and optimize your entertainment spending and time. Enter your values and get instant results with AI-powered insights and visual charts.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/entertainment\">Entertainment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Vacation Entertainment Budget Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Vacation Entertainment Budget Calculator</h1>\n<p class=\"calc-intro\">Calculate and plan your vacation entertainment budget calculator with this free tool. Get instant results with AI insights and visual charts.</p>\n<p class=\"calc-intro\">Entertainment and activities typically account for 20-30% of total vacation spending. A week-long trip for a family of four can easily spend $500-1,500 on activities, dining out, shows, and experiences. Planning your entertainment budget in advance prevents overspending and helps prioritize the experiences that matter most.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Daily Entertainment = Activities + Dining Out + Shows + Tours | Trip Total = Daily x Days x People | vs Budget = Planned - Actual</div></div>\n<div class=\"content-section\"><h2>Tips and Practical Guide</h2>\n<p>Use this calculator to plan smarter and make better entertainment decisions. Whether you are budgeting for a night out, comparing streaming services, or planning a party, knowing the numbers in advance helps you get the most value from your entertainment spending.</p>\n<h3>Getting the Most Value from Entertainment</h3>\n<p>Entertainment spending is one of the most flexible categories in any budget. Small adjustments — like choosing matinee screenings, sharing streaming subscriptions with family, or planning events during off-peak times — can significantly reduce costs without reducing enjoyment. The key is identifying which entertainment experiences bring you the most satisfaction per dollar spent.</p>\n<h3>Entertainment Budget Planning</h3>\n<p>Financial advisors generally recommend allocating 5-10% of your take-home pay for entertainment and recreation. For the average American household earning $74,000/year, that is $3,700-7,400 per year or $308-617 per month. Tracking entertainment spending with calculators like this one helps ensure you stay within your target while maximizing enjoyment.</p>\n<h3>Reference Data</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Tier</th><th style=\"padding:10px 14px;text-align:left;\">Savings</th><th style=\"padding:10px 14px;text-align:left;\">Strategy</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Budget Option</td><td style=\"padding:10px 14px;\">Save 30-50%</td><td style=\"padding:10px 14px;\">Plan ahead, compare prices</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Mid-Range</td><td style=\"padding:10px 14px;\">Best value</td><td style=\"padding:10px 14px;\">Most popular choice</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Premium</td><td style=\"padding:10px 14px;\">Full experience</td><td style=\"padding:10px 14px;\">For special occasions</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Annual Cost</td><td style=\"padding:10px 14px;\">x12 monthly</td><td style=\"padding:10px 14px;\">Track total spending</td></tr></tbody></table></div>\n<h3>Share Your Results</h3>\n<p>After calculating, use the Copy button to save your results and the Share button to share this calculator. All CalcDigi calculators are free with no registration required. Explore related calculators below for more entertainment planning tools.</p></div><div class=\"content-section\"><h2>Planning Guide</h2><p>Use this calculator to make smarter entertainment decisions. Compare costs, find the best value options, and ensure your entertainment spending aligns with your overall budget goals. The key is knowing the numbers before committing — this calculator gives you that clarity instantly.</p><h3>Getting the Best Value</h3><p>Entertainment value is subjective but cost-per-hour and cost-per-experience are useful objective metrics. A $200 concert lasting 3 hours costs $33/hour per person. A $15 movie lasting 2 hours costs $7.50/hour. A $60 video game played 100 hours costs $0.60/hour. Understanding these ratios helps you choose experiences that deliver maximum enjoyment per dollar spent.</p><h3>Budget Management Tips</h3><p>Set a monthly entertainment budget and track spending across all categories — streaming, dining, events, hobbies. The 50/30/20 budgeting rule suggests 30% of take-home pay for wants including entertainment. For the average American earning $50,000/year take-home of ~$42,000: that is $12,600/year or $1,050/month for all discretionary spending including entertainment.</p></div>\n<div class=\"content-section\"><h2>Entertainment Budgeting Guide</h2>\n<p>Entertainment spending is one of the most flexible categories in any personal budget. Small adjustments — like choosing matinee screenings, rotating streaming subscriptions monthly, or buying concert tickets early — can cut costs by 30-50% without sacrificing enjoyment. The key is knowing the numbers before you spend.</p>\n<h3>How to Get the Best Value</h3>\n<p>Cost-per-hour is the most useful metric for comparing entertainment value. A $60 video game played 100 hours costs just $0.60/hour. A $15 movie ticket lasts 2 hours at $7.50/hour. A $200 concert with 3 hours of music costs $33/hour per person. Understanding these ratios helps you prioritize experiences that deliver maximum enjoyment per dollar spent and identify where your budget is going.</p>\n<h3>Monthly Entertainment Budget Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Category</th><th style=\"padding:10px 14px;text-align:left;\">Budget %</th><th style=\"padding:10px 14px;text-align:left;\">$50k Income (Monthly)</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Streaming Services</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$65-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dining and Going Out</td><td style=\"padding:10px 14px;\">5-8%</td><td style=\"padding:10px 14px;\">$175-280</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Events and Tickets</td><td style=\"padding:10px 14px;\">2-4%</td><td style=\"padding:10px 14px;\">$70-140</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Hobbies and Gaming</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$70-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Books and Education</td><td style=\"padding:10px 14px;\">1-2%</td><td style=\"padding:10px 14px;\">$35-70</td></tr>\n</tbody></table></div>\n<h3>About This Calculator</h3>\n<p>This free CalcDigi entertainment calculator uses current 2025 pricing data and industry averages. All calculations run locally in your browser for instant results and complete privacy. No registration required. Use the Copy button to save results and Share to send this calculator to friends.</p></div>\n<div class=\"content-section\"><h2>Industry Data and Statistics</h2>\n<p>Entertainment is one of the largest consumer spending categories in the United States. Americans spend an average of $3,458 per year on entertainment — about $288 per month. This includes streaming subscriptions, movies, concerts, sporting events, gaming, books, and recreational activities. Entertainment spending has shifted dramatically in recent years from physical media and venues toward digital subscriptions and on-demand experiences.</p>\n<h3>Entertainment Trends 2025</h3>\n<p>Streaming continues to dominate home entertainment with the average household subscribing to 4.5 services. Live events have seen a major surge post-pandemic with concert attendance at record highs and ticket prices up 80% since 2019. Gaming has become the largest entertainment sector by revenue globally, surpassing both music and film. Podcasting continues growing with over 4 million active podcasts and 500 million listeners worldwide. Books and reading have seen renewed interest with audiobooks the fastest-growing format at 25% annual growth.</p>\n<h3>Maximizing Entertainment Value</h3>\n<p>The most satisfied entertainment consumers share common strategies: they prioritize quality over quantity, choosing fewer but more meaningful experiences rather than subscribing to everything available. They take advantage of loyalty programs, discount days, and early purchase benefits. They use free options (library audiobooks, free streaming tiers, YouTube) to supplement paid services. They track their spending and regularly audit subscriptions to cancel unused services. This calculator helps you apply that same data-driven approach to your entertainment choices.</p>\n<h3>Using Results to Plan Better</h3>\n<p>After getting your results, consider whether the spending aligns with the enjoyment you actually receive. Entertainment that feels expensive per hour — like a $50 theme park that lasts 8 hours at $6.25/hour — often provides better value than it appears. Conversely, a $15 streaming subscription used only once a month at $15/viewing may be worth reassessing. Use your results to have honest conversations about where your entertainment budget creates the most happiness per dollar.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is this calculator used for? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">This Vacation Entertainment Budget Calculator helps you plan and optimize your entertainment spending and time. Enter your values and get instant results with AI-powered insights and visual charts.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/entertainment/movie-ticket-price-calculator\"><span class=\"rc-icon\">🎬</span><span class=\"rc-name\">Movie Ticket</span></a><a class=\"related-card\" href=\"/calculators/entertainment/streaming-cost-calculator\"><span class=\"rc-icon\">🎶</span><span class=\"rc-name\">Streaming Cost</span></a><a class=\"related-card\" href=\"/calculators/entertainment/video-game-hours-calculator\"><span class=\"rc-icon\">🎮</span><span class=\"rc-name\">Video Game Hours</span></a><a class=\"related-card\" href=\"/calculators/entertainment/party-planning-calculator\"><span class=\"rc-icon\">🎊</span><span class=\"rc-name\">Party Planning</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Vacation Entertainment Budget Calculator</h2><div class=\"form-group\"><label for=\"tvp\">Number of People</label><input id=\"tvp\" min=\"1\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"tvd\">Trip Duration (days)</label><input id=\"tvd\" min=\"1\" type=\"number\" value=\"7\"/></div><div class=\"form-group\"><label for=\"tva\">Activities ($/person/day)</label><input id=\"tva\" min=\"0\" type=\"number\" value=\"30\"/></div><div class=\"form-group\"><label for=\"tvdi\">Dining Out ($/person/day)</label><input id=\"tvdi\" min=\"0\" type=\"number\" value=\"60\"/></div><div class=\"form-group\"><label for=\"tvs\">Shows/Events ($/person/day)</label><input id=\"tvs\" min=\"0\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"tvt\">Tours ($/person/day)</label><input id=\"tvt\" min=\"0\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"tvn\">Nightlife ($/person/day)</label><input id=\"tvn\" min=\"0\" type=\"number\" value=\"20\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('en-result').style.display='none';document.getElementById('en-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"en-result\" style=\"display:none;\">\n<div id=\"en-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"en-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"en-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"en-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-en\" onclick=\"printResult('en-result','Vacation Entertainment Budget Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Vacation Entertainment Budget Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-travel-entertainment-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var ppl=parseFloat(document.getElementById('tvp').value)||2;\n  var days=parseFloat(document.getElementById('tvd').value)||7;\n  var act=parseFloat(document.getElementById('tva').value)||30;\n  var dining=parseFloat(document.getElementById('tvdi').value)||60;\n  var shows=parseFloat(document.getElementById('tvs').value)||20;\n  var tours=parseFloat(document.getElementById('tvt').value)||25;\n  var night=parseFloat(document.getElementById('tvn').value)||20;\n  var daily=(act+dining+shows+tours+night);\n  var total=daily*days*ppl;\n  var perDay=daily*ppl;\n  var perPerson=total/ppl;\n  var aiPrompt='Vacation entertainment: '+ppl+' people, '+days+' days, $'+daily+'/person/day, total $'+total.toFixed(0);\n  document.getElementById('en-ri').innerHTML=\n    ri('Total Entertainment Budget','<strong style=\"font-size:26px;color:var(--c-accent)\">$'+total.toFixed(0)+'</strong>',true)+\n    ri('Per Person Total','$'+perPerson.toFixed(0))+\n    ri('Per Day (all people)','$'+perDay.toFixed(0)+'/day')+\n    ri('Per Person Per Day','$'+daily.toFixed(0)+'/person/day')+\n    ri('Activities','$'+(act*ppl*days).toFixed(0)+' total')+\n    ri('Dining Out','$'+(dining*ppl*days).toFixed(0)+' total')+\n    ri('Shows and Entertainment','$'+(shows*ppl*days).toFixed(0)+' total')+\n    ri('Tours and Experiences','$'+(tours*ppl*days).toFixed(0)+' total');\n  document.getElementById('en-result').style.display='block';document.getElementById('en-actions').style.display='flex';\n  drawDonut('en-chart',['Activities','Dining','Shows','Tours','Nightlife'],[act,dining,shows,tours,night||1],['#1a5c3a','#c8832a','#3a7abf','#c84a4a','#8b5cf6']);\n  var ai=document.getElementById('en-ai');ai.style.display='block';ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Vacation entertainment: $'+total.toFixed(0)+' for '+ppl+' people over '+days+' days. In 2 sentences give a practical tip for saving on vacation activities.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/entertainment", label: "Entertainment" }}
+      title="Travel Entertainment Calculator"
+      intro="Calculate total vacation entertainment and activity spending for families, couples, and solo travelers. Factor in theme park passes, museum tickets, guided excursions, live shows, and dining nightlife."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-sky-50 px-2.5 py-0.5 font-medium text-sky-700 ring-1 ring-inset ring-sky-600/20 dark:bg-sky-950/40 dark:text-sky-400 dark:ring-sky-500/30">
+                <svg className="size-3.5 shrink-0 text-sky-600 dark:text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Travel &amp; Hospitality Economics Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Aligned with <strong className="font-semibold text-slate-800 dark:text-slate-200">US Travel Association &amp; UN Tourism Destination Benchmarks</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Tourism Expenditure Reference</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Answer: How to Budget for Vacation Entertainment and Activities
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Vacation entertainment spending combines daily attraction passes, nightlife, and guided excursions: <strong>Total Spend = (Passes/Day × Travelers × Days) + Shows/Tours + (Nightlife/Day × Days) + Rentals</strong>. Entertainment burn rate varies by destination style: <strong>$27/day/person for budget backpackers</strong>, <strong>$80/day for European cultural sightseers</strong>, and <strong>$195/day for theme park families</strong>. For a 7-day family trip to Orlando (4 travelers), total entertainment spend averages <strong>$4,500 to $5,200</strong> (~$185/person/day). Compare live concert events with our <a href="/calculators/entertainment/concert-ticket-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concert ticket calculator</a>, calculate party catering with our <a href="/calculators/entertainment/party-planning-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">party planning calculator</a>, or forecast vacation savings with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            </p>
+          </div>
+
+          <h2>Daily Vacation Entertainment Burn Rate Across Travel Archetypes</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <VacationEntertainmentDailyBurnChart />
+          </div>
+
+          <p>
+            When planning a dream vacation or holiday getaway, travelers meticulously compare airline flights and research hotel accommodations. Yet, the single category that creates the memories that last a lifetime—experiencing historic landmarks, exploring world-class museums, attending Broadway theater shows, scuba diving coral reefs, and experiencing vibrant nightlife—is frequently budgeted as an afterthought.
+          </p>
+          <p>
+            Without realistic activity budgeting, travelers either experience sticker shock or face the disappointment of skipping bucket-list experiences due to unexpected costs. To model activity-to-lodging budget allocations as a proportional ratio, use our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, calculate activity expense percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and calculate cinema outings with our <a href="/calculators/entertainment/movie-ticket-price-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">movie ticket price calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Vacation Entertainment Budget Formulation</div>
+            Total_Attraction_Passes = Park_Passes_Per_Day * Travelers_Count * Vacation_Days
+            <br />
+            Total_Nightlife_Dining = Daily_Nightlife_Budget * Vacation_Days
+            <br />
+            Grand_Entertainment_Total = Total_Attraction_Passes + Live_Shows_Tours + Total_Nightlife_Dining + Sports_Rentals
+            <br />
+            Daily_Group_Burn_Rate = Grand_Entertainment_Total / Vacation_Days
+            <br />
+            Daily_Per_Person_Burn = Daily_Group_Burn_Rate / Travelers_Count
+          </Formula>
+
+          <h2>Travel Styles: Destination Expenditure Profiles</h2>
+          <p>
+            Daily activity expenditures vary dramatically across destination types and vacation travel styles:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Cultural City Sightseer ($60 - $95 / person / day):</strong> Typical for European capitals (London, Paris, Rome, Tokyo). Balances world-class museum entry fees ($20–$35), historic walking tours, rooftop drink viewpoints, and evening jazz clubs or theater.
+            </li>
+            <li>
+              <strong>Theme Park Family Holiday ($150 - $220 / person / day):</strong> Intensive commercial entertainment destinations (Orlando, Anaheim, Tokyo Disney). Multi-day park hopper passes command $120 to $165 daily per person, supplemented by character dining meals and souvenir wand merchandise.
+            </li>
+            <li>
+              <strong>Adventure &amp; Sports Excursions ($180 - $260 / person / day):</strong> Alpine ski trips, scuba diving liveaboards, or tropical catamaran charters. Driven primarily by specialized equipment rentals, lift tickets ($140–$220/day), dive master boat fees, and resort evening après-ski dining.
+            </li>
+          </ul>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Vacation Destination Profiles, Daily Activity Costs &amp; Typical Party Sizes</p>
+          <DataTable
+            head={["Travel Destination Style", "Daily Activity Burn / Person", "Major Activity Expenses", "Recommended Booking Horizon", "Key Money-Saving Strategy"]}
+            rows={[
+              ["Budget Backpacker Explorer", "$20 - $35 / day", "Free walking tours, hostel pub crawls, civic parks", "Flexible on arrival", "Visit state museums on free admission days"],
+              ["Cultural Capital Sightseer", "$65 - $95 / day", "Art museums, observation decks, historical guides", "2 - 4 weeks advance", "Purchase all-inclusive 3-day city attraction pass"],
+              ["Theme Park Resort Family", "$150 - $220 / day", "Multi-day park hopper passes, queue skip upgrades", "3 - 6 months advance", "Buy 4+ day passes to slash daily per-day ticket rate"],
+              ["Tropical Scuba / Boat Adventure", "$160 - $240 / day", "Charter boat dives, gear rental, marine park fees", "1 - 2 months advance", "Book multi-dive package discounts with dive shops"],
+              ["Vegas Strip Weekend", "$220 - $350+ / day", "Residency concerts, nightclub tables, day clubs", "1 - 3 months advance", "Join promoter guest lists for free daytime club entry"],
+            ]}
+          />
+
+          <h2>The 50/30/20 Vacation Budget Allocation Framework</h2>
+          <p>
+            Financial travel planners recommend structuring holiday budgets around the <strong>50/30/20 Vacation Framework</strong>:
+          </p>
+          <ol className="list-decimal pl-5 space-y-2">
+            <li>
+              <strong>50% Fixed Logistics:</strong> Flights, intercity trains, rental cars, and hotel/Airbnb lodging accommodations.
+            </li>
+            <li>
+              <strong>30% Experiences &amp; Dining:</strong> Theme park admissions, museum tickets, guided tours, excursions, restaurants, and nightlife.
+            </li>
+            <li>
+              <strong>20% Incidental Buffer:</strong> Souvenirs, airport taxis, luggage fees, unexpected weather gear, and tips.
+            </li>
+          </ol>
+
+          <h2>Dynamic Currency Conversion (DCC) and Overseas Transaction Traps</h2>
+          <p>
+            When traveling internationally to cultural destinations across Europe, Asia, or the Caribbean, payment mechanics introduce hidden fees that quietly inflate vacation entertainment bills by 5% to 10%:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Foreign Transaction Fees:</strong> Standard consumer debit and credit cards assess a 3% fee on every overseas transaction (e.g., spending $1,500 on museum entries, dining, and club covers generates $45 in junk fees). Ensure you carry credit cards with zero foreign transaction fees.
+            </li>
+            <li>
+              <strong>Dynamic Currency Conversion (DCC):</strong> When paying for dinner or attraction tickets abroad, credit card payment terminals frequently prompt: <em>'Pay in USD or Local Currency (EUR/GBP/JPY)?'</em> Always choose the <strong>Local Currency</strong>. Selecting USD triggers DCC, applying an inflated merchant conversion exchange rate marked up by 4% to 8% above real interbank rates.
+            </li>
+          </ul>
+
+          <h2>Group Expense Reconciliation and Shared Sinking Funds</h2>
+          <p>
+            Traveling with a group of friends or extended family brings great joy but often breeds financial friction over uneven spending on shared dinners, rental cars, and group excursions.
+          </p>
+          <p>
+            Avoid awkward end-of-trip bill disputes by designating a single group treasurer and utilizing shared expense tracking apps (such as Splitwise or Tricount). Alternatively, establish a physical or digital <strong>Group Kitty (Cash Pool)</strong> where each traveler contributes an equal initial sum ($150 to $200) on arrival to cover communal expenses like taxi rides, parking decks, shared grocery snacks, and museum audio guides.
+          </p>
+
+          <h2>Smart Travel Planning: How to Stretch Your Entertainment Dollars</h2>
+          <p>
+            Maximize your vacation memories while keeping entertainment budgets in check:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Book Multi-Day Attraction Passes:</strong> Single-day theme park tickets are notoriously overpriced ($160+); buying a 4-day or 5-day ticket drops the effective cost per day to $85–$95.
+            </li>
+            <li>
+              <strong>Incorporate 'Zero-Dollar Days':</strong> Interleave intense, high-cost activity days with relaxation days dedicated to public beaches, botanical gardens, historic neighborhood walks, and hotel pool lounging.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <TravelEntertainmentCalculator />
+    </CalcPage>
   );
 }
