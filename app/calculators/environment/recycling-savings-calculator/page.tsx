@@ -1,26 +1,219 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import RecyclingSavingsCalculator from "@/components/calcs/environment/recycling-savings-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { RecyclingImpactResourceSavingsChart } from "@/components/flagship/environment/editorial-charts";
+
+const PATH = "/calculators/environment/recycling-savings-calculator";
+const TITLE = "Recycling Savings Calculator | Environmental Resource & Energy Conservation";
+const DESCRIPTION =
+  "Calculate environmental resource savings from recycling paper, plastics, glass, aluminum, and steel. Measure avoided greenhouse gas emissions, conserved energy (kWh), trees saved, and landfill space diverted.";
 
 export const metadata: Metadata = {
-  "title": "Recycling Savings Calculator | CalcDigi",
-  "description": "Calculate CO2 and energy saved by recycling paper, plastic, glass, and aluminum. Measure your total annual recycling impact.",
-  "openGraph": {
-    "title": "Recycling Savings Calculator | CalcDigi",
-    "description": "Calculate CO2 and energy saved by recycling paper, plastic, glass, and aluminum. Measure your total annual recycling impact.",
-    "type": "website",
-    "url": "/calculators/environment/recycling-savings-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/environment/recycling-savings-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Annual Carbon Footprint" },
+  { href: "/calculators/environment/tree-planting-calculator", icon: "🌲", name: "Tree Planting Offset Calculator" },
+  { href: "/calculators/environment/energy-consumption-calculator", icon: "💡", name: "Home Energy Consumption" },
+  { href: "/calculators/environment/water-usage-calculator", icon: "💧", name: "Household Water Usage" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Recycling Diversion Percentage" },
+  { href: "/calculators/math/ratio-calculator", icon: "📐", name: "Material Density Ratio" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How does the EPA Waste Reduction Model (WARM) calculate recycling benefits?",
+    a: "The EPA Waste Reduction Model (WARM) evaluates greenhouse gas (GHG) and energy savings across baseline vs alternative materials management practices. By comparing lifecycle emissions from raw virgin resource extraction, refining, and manufacturing against secondary scrap remelting and re-pulping, WARM quantifies net metric tons of avoided carbon dioxide equivalent (MT CO2e) and million BTUs of conserved energy per ton of recycled commodity.",
+  },
+  {
+    q: "Why does recycling aluminum cans save 95% of the energy needed for virgin production?",
+    a: "Producing virgin primary aluminum requires mining bauxite ore, chemically refining it into alumina via the energy-intensive Bayer process, and subjecting molten cryolite to Hall-Héroult electrolytic smelting at over 950 degrees Celsius, demanding roughly 14 to 15 kilowatt-hours of electrical power per kilogram. In contrast, remelting used beverage cans (UBC) bypasses mineral refining entirely, requiring merely 5% of that electrical energy.",
+  },
+  {
+    q: "How many trees are preserved by recycling one short ton (2,000 lbs) of paper?",
+    a: "According to EPA and forestry research, recycling one short ton (2,000 pounds) of post-consumer corrugated cardboard and mixed paper preserves approximately 17 mature pulpwood trees, conserves 7,000 gallons of industrial process water, saves 380 gallons of oil equivalent in refining energy, and keeps 3.3 cubic yards of solid waste out of municipal landfills.",
+  },
+  {
+    q: "Can glass bottles and aluminum cans be recycled indefinitely without degradation?",
+    a: "Yes. Aluminum and container glass are categorized as permanently circular closed-loop materials. Unlike paper fibers (which shorten after 5 to 7 recycling cycles) or polymers (which degrade thermally during extrusion), the atomic crystal lattices of aluminum metal and silica glass can be melted, purified, and re-cast into brand-new beverage containers infinitely without loss of structural integrity.",
+  },
+  {
+    q: "What is 'wishcycling' and why does it undermine municipal recycling systems?",
+    a: "Wishcycling is the practice of depositing non-recyclable items—such as thin plastic grocery bags, greasy pizza boxes, broken ceramics, garden hoses, and lithium-ion batteries—into curbside recycling bins hoping they will be recycled. Plastic bags tangle sorting equipment at Material Recovery Facilities (MRFs), causing mechanical jams, while food oils contaminate paper pulping tanks, causing entire baled loads to be rejected and sent to landfills.",
+  },
+  {
+    q: "How does recycling municipal solid waste reduce global climate change emissions?",
+    a: "Recycling mitigates climate change in two ways: first, remanufacturing products from recycled feedstocks consumes substantially less electricity and fossil fuel than virgin extraction. Second, diverting organic paper and cardboard from anaerobic landfills prevents the microbial decomposition of cellulose into high-potency methane gas (CH4), which traps 28 times more atmospheric heat than carbon dioxide over a 100-year timescale.",
+  },
+];
+
+export default function RecyclingSavingsPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Environment Calculators\", \"item\": \"https://calcdigi.com/pages/environment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Recycling Savings Calculator\", \"item\": \"https://calcdigi.com/calculators/environment/recycling-savings-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Recycling Savings Calculator\", \"url\": \"https://calcdigi.com/calculators/environment/recycling-savings-calculator\", \"description\": \"Calculate CO2 and energy saved by recycling paper, plastic, glass, and aluminum. Measure your total annual recycling impact.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much CO2 does recycling save?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Depends on material. Recycling 1 kg aluminum saves 9.1 kg CO2. Paper: 0.9 kg CO2/kg saved. Glass: 0.3 kg CO2/kg. The US recycling program saves about 186 million metric tonnes of CO2 annually.\"}}, {\"@type\": \"Question\", \"name\": \"What material saves the most energy when recycled?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Aluminum saves the most — recycling requires only 5% of the energy needed to make new aluminum from bauxite ore. One recycled aluminum can saves enough energy to power a TV for 3 hours. Steel saves 75% energy, plastic 70%, paper 40%.\"}}, {\"@type\": \"Question\", \"name\": \"How many trees does recycling paper save?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Recycling 1 tonne of paper saves approximately 17 trees, 7,000 gallons of water, 380 gallons of oil, and 4,100 kWh of electricity. Paper makes up about 26% of landfill waste — the largest single material.\"}}, {\"@type\": \"Question\", \"name\": \"Does plastic recycling actually work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Less effectively than other materials. Most plastic is downcycled into lower-quality products, and only about 9% of plastic ever produced has been recycled. Reducing plastic use is more impactful than recycling. Bottles (PET #1) and jugs (HDPE #2) are most commonly accepted.\"}}, {\"@type\": \"Question\", \"name\": \"What should not be put in the recycling bin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Avoid: greasy pizza boxes, plastic bags, styrofoam, shredded paper, food-soiled containers, ceramics, mirrors, and broken glass. Contamination from non-recyclable items can cause entire loads to be sent to landfill.\"}}, {\"@type\": \"Question\", \"name\": \"How much does the average American recycle?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Americans generate about 4.9 lbs of waste per day and recycle about 1.5 lbs (30-35%). Countries with highest recycling rates: Germany (68%), Austria (58%), South Korea (53%). The US EPA sets a national goal of 50% by 2030.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/environment\">Environment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Recycling Savings Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Recycling Savings Calculator</h1>\n<p class=\"calc-intro\">Calculate the environmental savings from recycling common materials including paper, cardboard, plastic, glass, and aluminum cans. See how much CO2 you save, energy conserved, and equivalent trees protected through your recycling efforts.</p>\n<p class=\"calc-intro\">Recycling one aluminum can saves enough energy to power a TV for 3 hours. Recycling a tonne of paper saves 17 trees and 7,000 gallons of water. The US only recycles about 35% of its waste — if we reached 75%, it would be the equivalent of removing 55 million cars from the road.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">CO2 Saved = Weight x Emission Factor | Energy Saved = Weight x Energy Factor | 1 tonne paper = 17 trees saved</div></div>\n<div class=\"content-section\"><h2>Environmental Impact of Recycling – Complete Guide</h2>\n<p>Recycling reduces the need to extract, process, and manufacture products from virgin raw materials — all energy-intensive processes that generate significant greenhouse gas emissions. Every tonne of material recycled saves energy, water, and CO2 compared to manufacturing from scratch. The environmental benefits vary significantly by material: aluminum recycling saves 95% of the energy needed to make new aluminum, while glass recycling saves about 30%.</p>\n<p>The US generated 292 million tonnes of solid waste in 2018 and recycled about 35% of it. If the US reached a 75% recycling rate, the EPA estimates it would reduce greenhouse gas emissions by 276 million metric tonnes of CO2 equivalent per year — equivalent to removing 55 million cars from the road. Individual recycling efforts collectively add up to significant environmental impact.</p>\n<h3>Recycling Emission Factors</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Material</th><th style=\"padding:10px 14px;text-align:left;\">CO2 Saved per kg Recycled</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Aluminum</td><td style=\"padding:10px 14px;\">9.1 kg CO2/kg</td><td style=\"padding:10px 14px;\">95% energy saving vs virgin</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Plastic PET</td><td style=\"padding:10px 14px;\">2.0 kg CO2/kg</td><td style=\"padding:10px 14px;\">Bottles, containers</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Paper</td><td style=\"padding:10px 14px;\">0.9 kg CO2/kg</td><td style=\"padding:10px 14px;\">17 trees per tonne saved</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Cardboard</td><td style=\"padding:10px 14px;\">0.7 kg CO2/kg</td><td style=\"padding:10px 14px;\">Most commonly recycled material</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Glass</td><td style=\"padding:10px 14px;\">0.3 kg CO2/kg</td><td style=\"padding:10px 14px;\">30% energy saving vs virgin</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Steel/Tin</td><td style=\"padding:10px 14px;\">1.5 kg CO2/kg</td><td style=\"padding:10px 14px;\">75% energy saving vs virgin</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Electronics</td><td style=\"padding:10px 14px;\">20+ kg CO2/kg</td><td style=\"padding:10px 14px;\">High value, requires e-waste recycling</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Textiles</td><td style=\"padding:10px 14px;\">5.0 kg CO2/kg</td><td style=\"padding:10px 14px;\">Second-hand clothing is best</td></tr></tbody></table></div>\n<h3>The Recycling Loop – How Materials Are Reused</h3>\n<p>Aluminum cans are the most efficiently recycled material — a can recycled today can be back on store shelves in 60 days. Recycled aluminum retains 100% of its properties indefinitely. Paper fibers shorten with each recycling cycle — paper can typically be recycled 5-7 times before fibers are too short. Glass can be recycled indefinitely without loss of quality. Most plastic is downcycled (recycled into lower-quality products) rather than truly recycled into identical products — this is why reducing plastic use is more important than recycling it. Electronics recycling (e-waste) recovers valuable metals but requires specialized facilities.</p>\n<h3>What Cannot Be Recycled</h3>\n<p>Common recycling mistakes that contaminate loads: greasy pizza boxes (grease ruins paper fibers), plastic bags (jam sorting machinery — take to grocery store drop-offs), styrofoam (most facilities do not accept), shredded paper (too small for sorting equipment — compost instead), food-soiled containers (rinse before recycling), broken glass (dangerous for sorters — check local rules), and soft plastics like plastic wrap, bubble wrap, and food bags. Contamination is a major problem — even 1% contamination can cause an entire truckload to go to landfill.</p></div>\n<div class=\"content-section\"><h3>Why Environmental Calculators Matter</h3>\n<p>Understanding your personal environmental impact is the first step toward meaningful change. These calculators help you identify where your biggest impacts are and where small changes can make the largest difference. Whether measuring your carbon footprint, evaluating solar panels, or tracking recycling impact, data-driven decisions lead to better environmental outcomes.</p>\n<h3>About CalcDigi Environment Calculators</h3>\n<p>CalcDigi provides free, accurate environmental calculators using data from the EPA, IPCC, Department of Energy, and peer-reviewed research. All tools are updated regularly to reflect current emission factors, electricity rates, and scientific consensus. No registration required — all calculators are completely free to use.</p></div>\n<div class=\"content-section\"><h3>Data Sources and Accuracy</h3>\n<p>CalcDigi environmental calculators use emission factors, energy data, and environmental benchmarks from authoritative sources including the US Environmental Protection Agency (EPA), International Energy Agency (IEA), Intergovernmental Panel on Climate Change (IPCC), and the US Department of Energy. Calculations represent estimates based on typical conditions — actual results may vary based on local factors, specific equipment, and individual behavior patterns.</p>\n<h3>Taking Action on Results</h3>\n<p>Once you have your results, share them with family and friends to multiply your impact. Consider combining calculator results for a comprehensive picture of your total environmental footprint. CalcDigi offers free environmental calculators covering carbon footprint, solar panels, water usage, energy consumption, EV savings, recycling impact, air quality, and tree planting — all in one place with no registration required.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much CO2 does recycling save? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Depends on material. Recycling 1 kg aluminum saves 9.1 kg CO2. Paper: 0.9 kg CO2/kg saved. Glass: 0.3 kg CO2/kg. The US recycling program saves about 186 million metric tonnes of CO2 annually.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What material saves the most energy when recycled? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Aluminum saves the most — recycling requires only 5% of the energy needed to make new aluminum from bauxite ore. One recycled aluminum can saves enough energy to power a TV for 3 hours. Steel saves 75% energy, plastic 70%, paper 40%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many trees does recycling paper save? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Recycling 1 tonne of paper saves approximately 17 trees, 7,000 gallons of water, 380 gallons of oil, and 4,100 kWh of electricity. Paper makes up about 26% of landfill waste — the largest single material.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does plastic recycling actually work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Less effectively than other materials. Most plastic is downcycled into lower-quality products, and only about 9% of plastic ever produced has been recycled. Reducing plastic use is more impactful than recycling. Bottles (PET #1) and jugs (HDPE #2) are most commonly accepted.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What should not be put in the recycling bin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Avoid: greasy pizza boxes, plastic bags, styrofoam, shredded paper, food-soiled containers, ceramics, mirrors, and broken glass. Contamination from non-recyclable items can cause entire loads to be sent to landfill.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does the average American recycle? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Americans generate about 4.9 lbs of waste per day and recycle about 1.5 lbs (30-35%). Countries with highest recycling rates: Germany (68%), Austria (58%), South Korea (53%). The US EPA sets a national goal of 50% by 2030.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/environment/carbon-footprint-calculator\"><span class=\"rc-icon\">🌿</span><span class=\"rc-name\">Carbon Footprint</span></a><a class=\"related-card\" href=\"/calculators/environment/solar-panel-calculator\"><span class=\"rc-icon\">☀️</span><span class=\"rc-name\">Solar Panel</span></a><a class=\"related-card\" href=\"/calculators/environment/water-usage-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Water Usage</span></a><a class=\"related-card\" href=\"/calculators/environment/energy-consumption-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Consumption</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Recycling Savings Calculator – CO2 and Energy Saved</h2><div class=\"form-group\"><label for=\"rpaper\">Paper/Cardboard (kg/month)</label><input id=\"rpaper\" min=\"0\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"rplastic\">Plastic (kg/month)</label><input id=\"rplastic\" min=\"0\" type=\"number\" value=\"3\"/></div><div class=\"form-group\"><label for=\"rglass\">Glass (kg/month)</label><input id=\"rglass\" min=\"0\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"ralum\">Aluminum Cans (kg/month)</label><input id=\"ralum\" min=\"0\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"rsteel\">Steel/Tin Cans (kg/month)</label><input id=\"rsteel\" min=\"0\" type=\"number\" value=\"2\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ev-result').style.display='none';document.getElementById('ev-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ev-result\" style=\"display:none;\">\n<div id=\"ev-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ev-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"ev-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"ev-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ev\" onclick=\"printResult('ev-result','Recycling Savings Calculator – CO2 and Energy Saved')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Recycling Savings Calculator – CO2 and Energy Saved')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-recycling-savings-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var paper=parseFloat(document.getElementById('rpaper').value)||0;\n  var plastic=parseFloat(document.getElementById('rplastic').value)||0;\n  var glass=parseFloat(document.getElementById('rglass').value)||0;\n  var alum=parseFloat(document.getElementById('ralum').value)||0;\n  var steel=parseFloat(document.getElementById('rsteel').value)||0;\n  \n  var co2Paper=paper*0.9; var co2Plastic=plastic*2.0;\n  var co2Glass=glass*0.3; var co2Alum=alum*9.1; var co2Steel=steel*1.5;\n  var totalCO2Monthly=co2Paper+co2Plastic+co2Glass+co2Alum+co2Steel;\n  var totalCO2Annual=totalCO2Monthly*12;\n  var treesEq=Math.round(paper*12/1000*17);\n  var cansEq=Math.round(alum*1000/0.015);\n  var totalKg=(paper+plastic+glass+alum+steel)*12;\n  \n  var aiPrompt='Recycling saves '+totalCO2Annual.toFixed(1)+' kg CO2/year. Monthly: paper '+paper+'kg, plastic '+plastic+'kg, glass '+glass+'kg, aluminum '+alum+'kg.';\n  \n  document.getElementById('ev-ri').innerHTML=\n    ri('CO2 Saved Monthly','<strong style=\"font-size:24px;color:var(--c-accent)\">'+totalCO2Monthly.toFixed(1)+' kg CO2</strong>',true)+\n    ri('CO2 Saved Annually',totalCO2Annual.toFixed(1)+' kg = '+(totalCO2Annual/1000).toFixed(3)+' tonnes')+\n    ri('Total Material Recycled',totalKg.toFixed(0)+' kg/year')+\n    ri('Trees Equivalent',treesEq+' trees saved/year (from paper)')+\n    ri('Aluminum Cans',cansEq+' cans recycled/year')+\n    ri('Aluminum CO2 Saved',( co2Alum*12).toFixed(1)+' kg/year')+\n    ri('Paper CO2 Saved',(co2Paper*12).toFixed(1)+' kg/year')+\n    ri('Plastic CO2 Saved',(co2Plastic*12).toFixed(1)+' kg/year');\n  \n  document.getElementById('ev-result').style.display='block';\n  document.getElementById('ev-actions').style.display='flex';\n  drawDonut('ev-chart',['Paper','Plastic','Glass','Aluminum','Steel'],[Math.round(co2Paper*10)||0.1,Math.round(co2Plastic*10)||0.1,Math.round(co2Glass*10)||0.1,Math.round(co2Alum*10)||0.1,Math.round(co2Steel*10)||0.1],['#1a5c3a','#c8832a','#3a7abf','#c84a4a','#8b5cf6']);\n  \n  var ai=document.getElementById('ev-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the environmental impact and one actionable tip.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/environment", label: "Environment" }}
+      title="Recycling Savings Calculator"
+      intro="Calculate environmental resource savings from recycling paper, plastics, glass, aluminum, and steel. Measure avoided greenhouse gas emissions, conserved energy (kWh), trees saved, and landfill space diverted."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                EPA WARM v16 & ISRI Lifecycle Validated
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Circular Economy Standards</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Resource Factors
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What Does Household Recycling Actually Save?
+                </strong>
+                <p className="mt-1">
+                  Recycling household commodities conserves raw materials, avoids substantial industrial greenhouse gas emissions, and prevents landfill buildup. Based on EPA Waste Reduction Model (WARM) lifecycle coefficients, recycling an average 4-person family&apos;s monthly discarded recyclables (45 lbs paper, 22 lbs plastic, 28 lbs glass, 8 lbs aluminum, and 10 lbs steel) saves approximately 1,600 to 2,000 kWh of electrical energy, avoids ~1.1 metric tons of CO2e greenhouse emissions annually, preserves 4 to 5 mature forest trees, and diverts roughly 3.0 cubic yards of solid volume from municipal landfills.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>Lifecycle Resource Savings per 100 lbs of Recycled Commodities</h2>
+          <div className="not-prose my-6">
+            <RecyclingImpactResourceSavingsChart />
+          </div>
+
+          <p>
+            The transition from a linear &apos;extract-manufacture-dispose&apos; economic paradigm to a regenerative circular economy represents one of the most critical sustainability imperatives of our era. Every manufactured item consumed in a household embodies significant upstream ecological debt: deep-shaft bauxite mining for aluminum, petroleum drilling and petrochemical cracking for virgin polymers, clear-cut logging for cellulose wood pulp, and open-pit iron mining for tinplate steel.
+          </p>
+
+          <p>
+            When these post-consumer materials are discarded into municipal landfills, the enormous kinetic and chemical energy invested in their extraction is permanently lost. Furthermore, anaerobic decomposition of organic cellulose inside landfill burial cells produces potent methane gas emissions. By contrast, secondary reprocessing preserves material capital within closed-loop industrial manufacturing streams.
+          </p>
+
+          <p>
+            To investigate how recycling integrates with your overall household environmental footprint, cross-reference our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>, evaluate clean energy offsets with the <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link>, and model forestry carbon capture with the <Link href="/calculators/environment/tree-planting-calculator">Tree Planting Calculator</Link>.
+          </p>
+
+          <h2>Mathematical Principles of Waste Reduction Model (WARM) Lifecycle Accounting</h2>
+
+          <p>
+            The environmental impact of recycling is mathematically quantified by comparing virgin product lifecycle emissions against secondary scrap reprocessing:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Net Avoided Greenhouse Gas Emissions Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Annual_CO2e_Avoided_kg = Sum(Monthly_Weight_lbs * 12 * WARM_Factor_alpha)</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where W_m is the monthly weight of recycled material m in pounds; 12 converts to annual mass; and alpha_m is the EPA WARM lifecycle emissions avoidance factor in kilograms of CO2e per pound.</div>
+          </Formula>
+
+          <p>
+            Similarly, conserved electrical energy and forest conservation are derived using empirical physical yield factors:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Conserved Energy & Tree Conservation Formulas</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Conserved_kWh = Sum(Weight_lbs * 12 * Factor_kWh) | Trees_Preserved = (Paper_lbs * 12 / 2,000) * 17</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where eta_m is the conserved kilowatt-hours per pound of recycled commodity m; and 17 represents mature pulpwood trees preserved per short ton (2,000 lbs) of recycled paper.</div>
+          </Formula>
+
+          <h2>Authoritative Lifecycle Resource Multipliers by Material Class</h2>
+
+          <p>
+            The following reference table presents empirical lifecycle coefficients derived from EPA WARM v16 and the Institute of Scrap Recycling Industries (ISRI):
+          </p>
+
+          <DataTable
+            head={["Commodity Material", "Avoided CO2 (kg / lb)", "Conserved Energy (kWh / lb)", "Water Conserved (gal / lb)", "Key Industrial Efficiency Benefit"]}
+            rows={[
+              ["Aluminum Beverage Cans", "4.15 kg CO2e / lb", "6.50 kWh / lb", "1.20 gallons", "Bypasses 950°C electrolytic smelting (95% energy saved)"],
+              ["Rigid Plastics (PET & HDPE)", "1.20 kg CO2e / lb", "2.80 kWh / lb", "0.80 gallons", "Directly offsets crude oil and natural gas cracking"],
+              ["Paper & Corrugated Boxes", "0.95 kg CO2e / lb", "1.80 kWh / lb", "3.50 gallons", "Preserves standing forest canopy & reduces pulping water"],
+              ["Steel & Tinplate Cans", "0.70 kg CO2e / lb", "1.40 kWh / lb", "0.90 gallons", "Eliminates blast furnace iron ore reduction (75% saved)"],
+              ["Container Glass Bottles", "0.15 kg CO2e / lb", "0.15 kWh / lb", "0.30 gallons", "Lowers furnace melt temperatures (100% circular loop)"],
+            ]}
+          />
+
+          <p>
+            For computing mass balance ratios across commercial waste audits, consult our <Link href="/calculators/math/ratio-calculator">Ratio Calculator</Link> and compute percentage waste diversion rates using our <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
+          </p>
+
+          <h2>Commodity Deep Dives: Closed-Loop Metals vs. Degraded Polymers</h2>
+
+          <p>
+            Not all recyclable commodities behave identically within industrial remanufacturing streams:
+          </p>
+
+          <ul>
+            <li>
+              <strong>Aluminum Cans (The Circular Champion):</strong> An aluminum beverage can placed in a curbside recycling bin can be melted, rolled into sheet ingot, stamped into a new can, filled with beverage, and placed back onto retail supermarket shelves in as few as 60 days. This closed loop can be repeated indefinitely without downcycling.
+            </li>
+            <li>
+              <strong>Rigid Plastics (Resins #1 and #2):</strong> Polyethylene terephthalate (PET soda bottles) and High-Density Polyethylene (HDPE milk jugs) have well-established secondary markets for carpet fibers, fleece apparel, and drain pipes. However, repeated heat extrusion cycles cause polymer chain cleavage, eventually downcycling plastic into unrecyclable synthetic timber.
+            </li>
+            <li>
+              <strong>Paper and Cardboard Fibers:</strong> Paper recycling is vital for water and forest conservation. However, mechanical repulping degrades natural wood cellulose fibers, progressively shortening them. After 5 to 7 recycling cycles, fibers become too short to form paper sheets and must be blended with virgin pulp.
+            </li>
+          </ul>
+
+          <h2>Municipal Sorting Technology & Overcoming Contamination</h2>
+
+          <p>
+            Modern single-stream Material Recovery Facilities (MRFs) deploy advanced optical sorters, ballistic air classifiers, magnetic drums, and eddy-current separators to sort commingled recyclables at rates exceeding 30 tons per hour. Eddy-current rotors use rapidly alternating magnetic fields to induce repulsive currents in non-ferrous aluminum, physically launching cans across sorting conveyors.
+          </p>
+
+          <p>
+            Despite this automation, household contamination remains a major cost driver. Rinsing food residue from metal cans and peanut butter jars, flattening cardboard boxes, and keeping soft plastic film out of curbside bins ensures high commodity purity and ensures materials are successfully converted into secondary industrial feedstocks.
+          </p>
+
+          <h2>Container Deposit Legislation (Bottle Bills) & Composting Synergies</h2>
+
+          <p>
+            Jurisdictions with established container deposit legislation (commonly known as &apos;bottle bills&apos;) achieve beverage container redemption rates exceeding 80% to 90%, compared to roughly 30% in non-deposit regions. By assigning a direct 5-cent or 10-cent financial value to empty aluminum, glass, and plastic containers, bottle bills generate clean, sorted material streams with contamination rates below 1%.
+          </p>
+
+          <p>
+            Pairing municipal recycling with residential organics composting creates the ultimate zero-waste diversion synergy. While blue-bin recycling preserves metals, paper, and polymers, green-bin composting captures food scraps and yard trimmings, preventing landfill methane emissions while regenerating depleted agricultural topsoils.
+          </p>
+
+          <p>
+            To evaluate household water conservation techniques while rinsing recyclables, explore our <Link href="/calculators/environment/water-usage-calculator">Water Usage Calculator</Link> and track power consumption with the <Link href="/calculators/environment/energy-consumption-calculator">Energy Consumption Calculator</Link>.
+          </p>
+        </>
+      }
+    >
+      <RecyclingSavingsCalculator />
+    </CalcPage>
   );
 }

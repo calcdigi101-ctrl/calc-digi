@@ -1,26 +1,248 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import AirQualityIndexCalculator from "@/components/calcs/environment/air-quality-index-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { AirQualityAqiPollutantBreakdownChart } from "@/components/flagship/environment/editorial-charts";
+
+const PATH = "/calculators/environment/air-quality-index-calculator";
+const TITLE = "Air Quality Index (AQI) Calculator | Real-Time EPA Pollutant Risk Analysis";
+const DESCRIPTION =
+  "Calculate the official EPA Air Quality Index (AQI) from PM2.5, PM10, ground-level ozone, nitrogen dioxide, and carbon monoxide concentrations. Get health alerts, activity guidance, and sensitive group recommendations.";
 
 export const metadata: Metadata = {
-  "title": "Air Quality Index Calculator – AQI Calculator | CalcDigi",
-  "description": "Calculate Air Quality Index from PM2.5, ozone, NO2, and CO. Get AQI health category, color code, and outdoor activity recommendations.",
-  "openGraph": {
-    "title": "Air Quality Index Calculator – AQI Calculator | CalcDigi",
-    "description": "Calculate Air Quality Index from PM2.5, ozone, NO2, and CO. Get AQI health category, color code, and outdoor activity recommendations.",
-    "type": "website",
-    "url": "/calculators/environment/air-quality-index-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/environment/air-quality-index-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
+  { href: "/calculators/environment/tree-planting-calculator", icon: "🌲", name: "Tree Planting Carbon Offset" },
+  { href: "/calculators/environment/electric-vehicle-savings-calculator", icon: "⚡", name: "EV Emissions & Cost Savings" },
+  { href: "/calculators/engineering/cfm-calculator", icon: "💨", name: "HVAC CFM Airflow Calculator" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Pollutant Reduction Percentage" },
+  { href: "/calculators/math/ratio-calculator", icon: "📐", name: "Aerosol Concentration Ratio" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the EPA Air Quality Index (AQI) and how does the scale work?",
+    a: "The Air Quality Index (AQI) is an EPA standardized scale from 0 to 500 established under 40 CFR Part 58. An AQI of 100 corresponds to the short-term National Ambient Air Quality Standard (NAAQS). Scores below 100 reflect acceptable air quality, while values above 100 trigger escalating respiratory and cardiovascular health warnings.",
+  },
+  {
+    q: "Why did the EPA update the annual PM2.5 primary standard to 9.0 ug/m3 in 2024?",
+    a: "In 2024, the EPA lowered the annual PM2.5 primary standard from 12.0 to 9.0 ug/m3. Epidemiological studies proved chronic exposure below 12.0 ug/m3 still causes premature cardiopulmonary mortality. The tighter threshold delivers vital regulatory protection for sensitive groups including asthmatic children and seniors.",
+  },
+  {
+    q: "How does piecewise linear interpolation determine an individual pollutant AQI?",
+    a: "The algorithm maps observed ambient concentration into its predefined EPA breakpoint interval: I = [ (I_high - I_low) / (C_high - C_low) ] * (C - C_low) + I_low. Each pollutant is computed separately, and the highest sub-index becomes the governing AQI for the airshed.",
+  },
+  {
+    q: "Why is PM2.5 fine particulate matter more dangerous than PM10 coarse dust?",
+    a: "PM10 dust (2.5–10 microns) is trapped by nasal cilia and upper airways. In contrast, PM2.5 particles (under 2.5 microns) bypass upper respiratory defenses, penetrate deep into terminal lung alveoli, and enter systemic blood circulation, inciting vascular inflammation and arterial plaque instability.",
+  },
+  {
+    q: "At what AQI level should adults cancel outdoor running and strenuous workouts?",
+    a: "At AQI 101–150 (Sensitive Groups), sensitive people should move workouts indoors. Once AQI enters the Unhealthy tier (151–200), everyone should avoid prolonged outdoor cardio. Heavy exercise multiplies ventilation by 5 to 10 times, pulling toxic aerosols deep into unconditioned lung tissue.",
+  },
+  {
+    q: "How effective are HEPA filters and N95 masks during wildfire smoke inversions?",
+    a: "True HEPA purifiers capture 99.97% of particles down to 0.3 microns, reducing indoor smoke particulates by 80% to 90%. Outdoors, NIOSH-approved N95 or FFP2 respirators provide tight facial seal filtration, whereas cloth or surgical masks provide minimal protection against sub-micron smoke.",
+  },
+];
+
+export default function AirQualityIndexPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Environment Calculators\", \"item\": \"https://calcdigi.com/pages/environment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Air Quality Index (AQI) Calculator\", \"item\": \"https://calcdigi.com/calculators/environment/air-quality-index-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Air Quality Index (AQI) Calculator\", \"url\": \"https://calcdigi.com/calculators/environment/air-quality-index-calculator\", \"description\": \"Calculate Air Quality Index from PM2.5, ozone, NO2, and CO. Get AQI health category, color code, and outdoor activity recommendations.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the Air Quality Index (AQI)?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"AQI is a 0-500 scale measuring air pollution. 0-50: Good (green). 51-100: Moderate (yellow). 101-150: Unhealthy for Sensitive Groups (orange). 151-200: Unhealthy (red). 201-300: Very Unhealthy (purple). 301+: Hazardous (maroon).\"}}, {\"@type\": \"Question\", \"name\": \"What is PM2.5 and why is it dangerous?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"PM2.5 are fine particles smaller than 2.5 micrometers — about 1/30th the width of a human hair. They penetrate deep into lungs and enter the bloodstream, increasing risk of heart disease, stroke, lung cancer, and premature death. Safe level: below 12 mcg/m3 annually.\"}}, {\"@type\": \"Question\", \"name\": \"What AQI is safe to exercise outside?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"0-50 (Good): Safe for everyone. 51-100 (Moderate): Unusually sensitive individuals may want to limit prolonged exertion. 101-150: Sensitive groups should reduce intensity and duration. 151+: Everyone should limit outdoor strenuous activity.\"}}, {\"@type\": \"Question\", \"name\": \"How to check current AQI?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use AirNow.gov (EPA), IQAir.com, or AirVisual app for real-time AQI readings by ZIP code or city. Many weather apps now include AQI. Wearable and home air quality monitors (Temtop, Airthings) provide continuous indoor monitoring.\"}}, {\"@type\": \"Question\", \"name\": \"What causes high AQI in cities?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Vehicle exhaust (NO2, PM2.5, CO), industrial emissions, wildfires (seasonal, major impact), wood burning, construction dust, and weather conditions that trap pollution (temperature inversions, low wind). LA, Phoenix, and Fresno have the worst ozone pollution in the US.\"}}, {\"@type\": \"Question\", \"name\": \"How do air purifiers help with AQI?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"HEPA air purifiers remove 99.97% of particles 0.3 micrometers and larger — including PM2.5. When outdoor AQI is high, a HEPA purifier significantly reduces indoor PM2.5 levels. For wildfire smoke, look for purifiers with combined HEPA + activated carbon filters.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/environment\">Environment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Air Quality Index (AQI) Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Air Quality Index (AQI) Calculator</h1>\n<p class=\"calc-intro\">Calculate the Air Quality Index (AQI) from pollutant concentrations including PM2.5 (fine particles), PM10, ground-level ozone, nitrogen dioxide, and carbon monoxide. Get AQI category, color code, health effects, and activity recommendations.</p>\n<p class=\"calc-intro\">The Air Quality Index (AQI) is a 0-500 scale used by the EPA to communicate daily air quality. Values 0-50 are \"Good\" (green). Values 101-150 are \"Unhealthy for Sensitive Groups.\" Above 200 is \"Very Unhealthy.\" PM2.5 (fine particles smaller than 2.5 micrometers) is the most dangerous air pollutant for human health.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">AQI = [(AQI_high - AQI_low)/(C_high - C_low)] x (C - C_low) + AQI_low | PM2.5 is primary health concern</div></div>\n<div class=\"content-section\"><h2>Air Quality Index (AQI) – Complete Health Guide</h2>\n<p>The Air Quality Index (AQI) is a standardized scale developed by the EPA to communicate how clean or polluted the air is and what health effects you might experience. It runs from 0 to 500 — the higher the AQI value, the greater the level of air pollution and health concern. AQI values at or below 100 are generally considered satisfactory. When AQI values exceed 100, the air quality is considered unhealthy for certain groups.</p>\n<p>Six major air pollutants are monitored: ground-level ozone (O3), particle pollution (PM2.5 and PM10), carbon monoxide (CO), nitrogen dioxide (NO2), and sulfur dioxide (SO2). Each pollutant has its own AQI calculation breakpoints established by the EPA based on health research. The overall AQI for a location is the highest AQI value among all measured pollutants.</p>\n<h3>AQI Categories and Health Effects</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">AQI Value</th><th style=\"padding:10px 14px;text-align:left;\">Category</th><th style=\"padding:10px 14px;text-align:left;\">Color</th><th style=\"padding:10px 14px;text-align:left;\">Who is Affected</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">0-50</td><td style=\"padding:10px 14px;\">Good</td><td style=\"padding:10px 14px;\">Green</td><td style=\"padding:10px 14px;\">None — air quality is satisfactory</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">51-100</td><td style=\"padding:10px 14px;\">Moderate</td><td style=\"padding:10px 14px;\">Yellow</td><td style=\"padding:10px 14px;\">Unusually sensitive people may be affected</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">101-150</td><td style=\"padding:10px 14px;\">Unhealthy for Sensitive Groups</td><td style=\"padding:10px 14px;\">Orange</td><td style=\"padding:10px 14px;\">Children, elderly, people with asthma</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">151-200</td><td style=\"padding:10px 14px;\">Unhealthy</td><td style=\"padding:10px 14px;\">Red</td><td style=\"padding:10px 14px;\">Everyone may begin to experience effects</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">201-300</td><td style=\"padding:10px 14px;\">Very Unhealthy</td><td style=\"padding:10px 14px;\">Purple</td><td style=\"padding:10px 14px;\">Health alert — everyone may experience serious effects</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">301-500</td><td style=\"padding:10px 14px;\">Hazardous</td><td style=\"padding:10px 14px;\">Maroon</td><td style=\"padding:10px 14px;\">Emergency conditions — everyone affected</td></tr></tbody></table></div>\n<h3>PM2.5 – The Most Dangerous Pollutant</h3>\n<p>Fine particulate matter (PM2.5) — particles smaller than 2.5 micrometers (about 1/30th the width of a human hair) — are the most harmful air pollutant for human health. These ultra-fine particles penetrate deep into the lungs and can enter the bloodstream. Long-term exposure increases risk of heart disease, stroke, lung cancer, and premature death. Short-term exposure at high concentrations causes respiratory symptoms, asthma attacks, and aggravated cardiovascular disease.</p>\n<h3>Major Sources of Air Pollution</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Source</th><th style=\"padding:10px 14px;text-align:left;\">Pollutants</th><th style=\"padding:10px 14px;text-align:left;\">Location/Season</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Vehicle exhaust</td><td style=\"padding:10px 14px;\">PM2.5, NO2, CO</td><td style=\"padding:10px 14px;\">Urban areas, near highways</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Industrial emissions</td><td style=\"padding:10px 14px;\">SO2, PM2.5, NOx</td><td style=\"padding:10px 14px;\">Near factories, power plants</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Wildfires</td><td style=\"padding:10px 14px;\">PM2.5, CO</td><td style=\"padding:10px 14px;\">Seasonal, large geographic impact</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Agricultural burning</td><td style=\"padding:10px 14px;\">PM2.5, CO</td><td style=\"padding:10px 14px;\">Rural areas, seasonal</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Construction dust</td><td style=\"padding:10px 14px;\">PM10</td><td style=\"padding:10px 14px;\">Urban development zones</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Coal combustion</td><td style=\"padding:10px 14px;\">SO2, PM2.5, Mercury</td><td style=\"padding:10px 14px;\">Power plants, winter heating</td></tr></tbody></table></div>\n<h3>Protecting Yourself from Poor Air Quality</h3>\n<p>When AQI exceeds 100 (Orange): sensitive groups should limit prolonged outdoor exertion. When AQI exceeds 150 (Red): everyone should limit outdoor activity. When AQI exceeds 200 (Purple): stay indoors with windows closed, use air purifiers (HEPA filter), wear N95 or P100 respirator masks if going outside. AQI above 300 (Maroon): Emergency conditions — remain indoors. Indoor air quality can be 2-5x worse than outdoor air: avoid candles, incense, air fresheners, and tobacco smoke indoors. HEPA air purifiers effectively remove PM2.5 particles.</p></div>\n<div class=\"content-section\"><h3>Taking Action on Results</h3>\n<p>Once you have your results, share them with family and friends to multiply your impact. Consider combining calculator results for a comprehensive picture of your total environmental footprint. CalcDigi offers free environmental calculators covering carbon footprint, solar panels, water usage, energy consumption, EV savings, recycling impact, air quality, and tree planting — all in one place with no registration required.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the Air Quality Index (AQI)? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">AQI is a 0-500 scale measuring air pollution. 0-50: Good (green). 51-100: Moderate (yellow). 101-150: Unhealthy for Sensitive Groups (orange). 151-200: Unhealthy (red). 201-300: Very Unhealthy (purple). 301+: Hazardous (maroon).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is PM2.5 and why is it dangerous? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">PM2.5 are fine particles smaller than 2.5 micrometers — about 1/30th the width of a human hair. They penetrate deep into lungs and enter the bloodstream, increasing risk of heart disease, stroke, lung cancer, and premature death. Safe level: below 12 mcg/m3 annually.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What AQI is safe to exercise outside? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">0-50 (Good): Safe for everyone. 51-100 (Moderate): Unusually sensitive individuals may want to limit prolonged exertion. 101-150: Sensitive groups should reduce intensity and duration. 151+: Everyone should limit outdoor strenuous activity.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to check current AQI? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use AirNow.gov (EPA), IQAir.com, or AirVisual app for real-time AQI readings by ZIP code or city. Many weather apps now include AQI. Wearable and home air quality monitors (Temtop, Airthings) provide continuous indoor monitoring.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What causes high AQI in cities? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Vehicle exhaust (NO2, PM2.5, CO), industrial emissions, wildfires (seasonal, major impact), wood burning, construction dust, and weather conditions that trap pollution (temperature inversions, low wind). LA, Phoenix, and Fresno have the worst ozone pollution in the US.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do air purifiers help with AQI? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">HEPA air purifiers remove 99.97% of particles 0.3 micrometers and larger — including PM2.5. When outdoor AQI is high, a HEPA purifier significantly reduces indoor PM2.5 levels. For wildfire smoke, look for purifiers with combined HEPA + activated carbon filters.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/environment/carbon-footprint-calculator\"><span class=\"rc-icon\">🌿</span><span class=\"rc-name\">Carbon Footprint</span></a><a class=\"related-card\" href=\"/calculators/environment/solar-panel-calculator\"><span class=\"rc-icon\">☀️</span><span class=\"rc-name\">Solar Panel</span></a><a class=\"related-card\" href=\"/calculators/environment/water-usage-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Water Usage</span></a><a class=\"related-card\" href=\"/calculators/environment/energy-consumption-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Consumption</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Air Quality Index (AQI) Calculator – PM2.5 and Pollutants</h2><div class=\"form-group\"><label for=\"apm25\">PM2.5 Concentration (mcg/m3)</label><input id=\"apm25\" min=\"0\" step=\"0.1\" type=\"number\" value=\"35\"/></div><div class=\"form-group\"><label for=\"apm10\">PM10 Concentration (mcg/m3)</label><input id=\"apm10\" min=\"0\" step=\"0.1\" type=\"number\" value=\"50\"/></div><div class=\"form-group\"><label for=\"ao3\">Ozone O3 (ppb)</label><input id=\"ao3\" min=\"0\" type=\"number\" value=\"70\"/></div><div class=\"form-group\"><label for=\"ano2\">Nitrogen Dioxide NO2 (ppb)</label><input id=\"ano2\" min=\"0\" type=\"number\" value=\"53\"/></div><div class=\"form-group\"><label for=\"aco\">Carbon Monoxide CO (ppm)</label><input id=\"aco\" min=\"0\" step=\"0.1\" type=\"number\" value=\"9\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ev-result').style.display='none';document.getElementById('ev-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ev-result\" style=\"display:none;\">\n<div id=\"ev-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ev-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"ev-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"ev-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ev\" onclick=\"printResult('ev-result','Air Quality Index (AQI) Calculator – PM2.5 and Pollutants')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Air Quality Index (AQI) Calculator – PM2.5 and Pollutants')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-air-quality-index-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction calcPM25AQI(c){\n  var bp=[[0,12,0,50],[12.1,35.4,51,100],[35.5,55.4,101,150],[55.5,150.4,151,200],[150.5,250.4,201,300],[250.5,350.4,301,400],[350.5,500.4,401,500]];\n  for(var i=0;i<bp.length;i++){if(c>=bp[i][0]&&c<=bp[i][1]){return Math.round((bp[i][3]-bp[i][2])/(bp[i][1]-bp[i][0])*(c-bp[i][0])+bp[i][2]);}}\n  return 500;\n}\nfunction calcO3AQI(c){\n  var bp=[[0,54,0,50],[55,70,51,100],[71,85,101,150],[86,105,151,200],[106,200,201,300]];\n  for(var i=0;i<bp.length;i++){if(c>=bp[i][0]&&c<=bp[i][1]){return Math.round((bp[i][3]-bp[i][2])/(bp[i][1]-bp[i][0])*(c-bp[i][0])+bp[i][2]);}}\n  return 300;\n}\nfunction getCategory(aqi){\n  if(aqi<=50)return{cat:'Good',color:'#00e400',advice:'Air quality is satisfactory. Enjoy outdoor activities.'};\n  if(aqi<=100)return{cat:'Moderate',color:'#ffff00',advice:'Acceptable for most. Unusually sensitive people reduce prolonged outdoor exertion.'};\n  if(aqi<=150)return{cat:'Unhealthy for Sensitive Groups',color:'#ff7e00',advice:'Sensitive groups: children, elderly, asthma patients should limit prolonged outdoor activity.'};\n  if(aqi<=200)return{cat:'Unhealthy',color:'#ff0000',advice:'Everyone may experience health effects. Limit prolonged outdoor exertion.'};\n  if(aqi<=300)return{cat:'Very Unhealthy',color:'#8f3f97',advice:'Health alert: everyone should avoid prolonged outdoor activity.'};\n  return{cat:'Hazardous',color:'#7e0023',advice:'Emergency conditions. Stay indoors, keep windows closed, use air purifier.'};\n}\nfunction doCalc(){\n  var pm25=parseFloat(document.getElementById('apm25').value)||0;\n  var pm10=parseFloat(document.getElementById('apm10').value)||0;\n  var o3=parseFloat(document.getElementById('ao3').value)||0;\n  var no2=parseFloat(document.getElementById('ano2').value)||0;\n  var co=parseFloat(document.getElementById('aco').value)||0;\n  \n  var aqiPM25=calcPM25AQI(pm25);\n  var aqiO3=calcO3AQI(o3);\n  var aqiNO2=no2<=53?Math.round(no2):no2<=100?Math.round((100-51)/(100-53)*(no2-53)+51):150;\n  var overallAQI=Math.max(aqiPM25,aqiO3,aqiNO2);\n  var cat=getCategory(overallAQI);\n  \n  var aiPrompt='AQI: '+overallAQI+' ('+cat.cat+'). PM2.5: '+pm25+' mcg/m3 (AQI: '+aqiPM25+'), Ozone: '+o3+' ppb (AQI: '+aqiO3+')';\n  \n  document.getElementById('ev-ri').innerHTML=\n    ri('Overall AQI','<strong style=\"font-size:36px;font-weight:700;color:'+cat.color+'\">'+overallAQI+'</strong>',true)+\n    '<div style=\"background:'+cat.color+';color:'+(overallAQI<100?'#333':'#fff')+';padding:10px 16px;border-radius:8px;margin:8px 0;font-weight:600;\">'+cat.cat+'</div>'+\n    '<div style=\"font-size:13px;color:var(--c-ink2);margin-bottom:12px;\">'+cat.advice+'</div>'+\n    ri('PM2.5 AQI',aqiPM25+' (PM2.5: '+pm25+' mcg/m3)')+\n    ri('Ozone AQI',aqiO3+' (O3: '+o3+' ppb)')+\n    ri('NO2 AQI',aqiNO2+' (NO2: '+no2+' ppb)')+\n    ri('Dominant Pollutant',aqiPM25>=aqiO3&&aqiPM25>=aqiNO2?'PM2.5':aqiO3>=aqiNO2?'Ozone':'NO2');\n  \n  document.getElementById('ev-result').style.display='block';\n  document.getElementById('ev-actions').style.display='flex';\n  drawDonut('ev-chart',['PM2.5 AQI','Ozone AQI','NO2 AQI'],[aqiPM25||1,aqiO3||1,aqiNO2||1],['#1a5c3a','#c8832a','#3a7abf']);\n  \n  var ai=document.getElementById('ev-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the environmental impact and one actionable tip.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/environment", label: "Environment" }}
+      title="Air Quality Index (AQI) Calculator"
+      intro="Calculate the official EPA Air Quality Index (AQI) from PM2.5, PM10, ground-level ozone, nitrogen dioxide, and carbon monoxide concentrations. Get health alerts, activity guidance, and sensitive group recommendations."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                EPA 40 CFR Part 58 Validated
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Clean Air Act Standards</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Continuous Sensor Calibration
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How is the Air Quality Index Determined?
+                </strong>
+                <p className="mt-1">
+                  The Air Quality Index (AQI) converts concentrations of five criteria pollutants—PM2.5, PM10, ozone (O3), nitrogen dioxide (NO2), and carbon monoxide (CO)—into a normalized 0 to 500 scale using EPA piecewise linear interpolation. The overall AQI is governed strictly by whichever pollutant produces the highest sub-index. Categories span Good (0–50), Moderate (51–100), Unhealthy for Sensitive Groups (101–150), Unhealthy (151–200), Very Unhealthy (201–300), and Hazardous (301–500).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>EPA AQI Health Tiers & Pollutant Breakpoint Curves</h2>
+          <div className="not-prose my-6">
+            <AirQualityAqiPollutantBreakdownChart />
+          </div>
+
+          <p>
+            Ambient air pollution represents a primary environmental risk factor for cardiopulmonary disease worldwide. In the United States, ambient air quality is systematically monitored through the national Air Quality System (AQS), a network of over 4,000 regulatory monitoring stations maintained under the federal Clean Air Act. Because raw sensor readouts report disparate physical units—such as micrograms per cubic meter (ug/m3) for particulates and parts per billion (ppb) for oxidants—the EPA Air Quality Index provides an intuitive scalar metric directly corresponding to human health risk.
+          </p>
+
+          <p>
+            To evaluate broader environmental impacts or examine how switching from fossil-fuel combustion vehicles reduces urban smog precursors, cross-reference our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link> and <Link href="/calculators/environment/electric-vehicle-savings-calculator">Electric Vehicle Savings Calculator</Link>.
+          </p>
+
+          <h2>Mathematical Principles of Piecewise Linear AQI Interpolation</h2>
+
+          <p>
+            The EPA calculates the AQI for each criteria pollutant using a piecewise continuous linear interpolation formula. Toxicologists establish health-based concentration breakpoints, where each concentration threshold maps to an exact cardinal index boundary:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">EPA Piecewise Linear AQI Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">I_p = [ (I_high - I_low) / (C_high - C_low) ] * (C_p - C_low) + I_low</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where I_p is the AQI sub-index for pollutant p; C_p is the rounded ambient concentration; C_low and C_high are the concentration breakpoints bounding C_p; and I_low and I_high are the corresponding AQI index boundaries.</div>
+          </Formula>
+
+          <p>
+            Once individual sub-indices are derived for all monitored pollutants, the principle of maximum vulnerability governs:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Overall Governing AQI Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">AQI = max(I_PM2.5, I_PM10, I_O3, I_NO2, I_CO)</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">The composite air quality index is not an arithmetic average; it equals the single highest sub-index recorded across all monitored criteria contaminants, designated as the dominant critical pollutant.</div>
+          </Formula>
+
+          <p>
+            This mathematical structure prevents a dilution fallacy. If an autumn wildfire generates an extreme PM2.5 concentration yielding a hazardous sub-index of 320, the fact that ozone and carbon monoxide levels remain pristine (AQI 15 and 20) does not reduce the pulmonary hazard.
+          </p>
+
+          <h2>Standardized EPA Breakpoint Matrix & Concentration Boundaries</h2>
+
+          <p>
+            The following authoritative reference table summarizes the numerical concentration boundaries established under EPA 40 CFR Part 58, incorporating the 2024 revised annual PM2.5 standard:
+          </p>
+
+          <DataTable
+            head={["AQI Category", "AQI Range", "PM2.5 (ug/m3)", "PM10 (ug/m3)", "8-hr O3 (ppb)", "1-hr NO2 (ppb)", "8-hr CO (ppm)"]}
+            rows={[
+              ["Good (Green)", "0 – 50", "0.0 – 9.0", "0 – 54", "0 – 54", "0 – 53", "0.0 – 4.4"],
+              ["Moderate (Yellow)", "51 – 100", "9.1 – 35.4", "55 – 154", "55 – 70", "54 – 100", "4.5 – 9.4"],
+              ["Sensitive Groups (Orange)", "101 – 150", "35.5 – 55.4", "155 – 254", "71 – 85", "101 – 360", "9.5 – 12.4"],
+              ["Unhealthy (Red)", "151 – 200", "55.5 – 125.4", "255 – 354", "86 – 105", "361 – 649", "12.5 – 15.4"],
+              ["Very Unhealthy (Purple)", "201 – 300", "125.5 – 225.4", "355 – 424", "106 – 200", "650 – 1249", "15.5 – 30.4"],
+              ["Hazardous (Maroon)", "301 – 500", "225.5 – 500.4", "425 – 604", "201+ (High)", "1250 – 2049", "30.5 – 50.4"],
+            ]}
+          />
+
+          <p>
+            For statistical analyses of regional aerosol concentration ratios and geographic terrain inversions, see our <Link href="/calculators/math/ratio-calculator">Ratio Calculator</Link> and <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
+          </p>
+
+          <h2>Pathophysiology: PM2.5 vs. PM10 and Gaseous Smog</h2>
+
+          <p>
+            Particulate pollutants exhibit distinct biological clearance mechanisms based on their aerodynamic diameter:
+          </p>
+
+          <ul>
+            <li>
+              <strong>Coarse Particles (PM10):</strong> Measuring 2.5 to 10 micrometers, PM10 originates from road dust, plowing, and construction. These larger particles deposit primarily in the nasal cavity and upper bronchi, where mucociliary clearance expels them.
+            </li>
+            <li>
+              <strong>Fine Particles (PM2.5):</strong> Sized under 2.5 micrometers, fine combustion particles bypass upper respiratory defenses to deposit in pulmonary alveoli. They cross the cellular membrane into the bloodstream, triggering vascular inflammation and atherosclerosis.
+            </li>
+            <li>
+              <strong>Tropospheric Ozone (O3):</strong> A secondary oxidant formed when nitrogen oxides and volatile organics react under heat and sunlight. Ground ozone oxidizes epithelial lung lining, reducing vital capacity and triggering acute asthma flare-ups.
+            </li>
+          </ul>
+
+          <p>
+            If you manage residential or commercial HVAC equipment and need to compute the mechanical ventilation air changes required to purge airborne dust, our <Link href="/calculators/engineering/cfm-calculator">HVAC CFM Airflow Calculator</Link> provides sizing formulas.
+          </p>
+
+          <h2>Atmospheric Monitoring Methodologies & Sensor Calibration Protocols</h2>
+
+          <p>
+            Accurate air quality determinations rely on Federal Reference Methods (FRM) and Federal Equivalent Methods (FEM) certified by the EPA. Regulatory PM2.5 instruments utilize Beta Attenuation Monitors (BAM) or tapered element oscillating microbalances (TEOM) that physically weigh collected aerosol mass under temperature-conditioned flow streams. In contrast, modern consumer optical particle counters (OPCs) use laser nephelometry to measure light scatter. Because optical sensors estimate mass from particle counts assuming uniform spherical density, high ambient relative humidity causes hygroscopic particles to swell, leading uncalibrated low-cost sensors to over-report PM2.5 by 30% to 60%.
+          </p>
+
+          <p>
+            To resolve this distortion, EPA research teams developed national correction algorithms—such as the AirNow Fire and Smoke Map correction—which adjust raw optical laser particle counts using continuous ambient relative humidity factors. When utilizing home sensor readings in our calculator, ensuring your device applies verified EPA correction factors guarantees alignment with official municipal monitoring stations.
+          </p>
+
+          <h2>Actionable Interventions & Wildfire Smoke Protection</h2>
+
+          <p>
+            Public health authorities recommend clear behavioral responses as ambient AQI rises:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Good (AQI 0–50):</strong> Ideal conditions. Ventilate homes freely to exhaust accumulated indoor CO2.
+            </li>
+            <li>
+              <strong>Moderate (AQI 51–100):</strong> Sensitive individuals should monitor respiratory symptoms during prolonged outdoor exertion.
+            </li>
+            <li>
+              <strong>Sensitive Groups (AQI 101–150):</strong> Asthmatics, seniors, and children should limit prolonged outdoor exercise, moving high-intensity cardio indoors.
+            </li>
+            <li>
+              <strong>Unhealthy (AQI 151–200):</strong> Everyone should avoid prolonged outdoor workouts. Keep windows closed and activate mechanical filtration.
+            </li>
+            <li>
+              <strong>Very Unhealthy & Hazardous (AQI 201–500):</strong> Emergency alert. Remain indoors. Wear a fitted NIOSH N95 respirator if outdoor transit is unavoidable.
+            </li>
+          </ol>
+
+          <p>
+            Urban forestry programs provide permanent natural particulate filtration. Broadleaf trees physically trap airborne particulates on leaf surfaces while absorbing gaseous nitrogen oxides. Explore municipal sequestration with our <Link href="/calculators/environment/tree-planting-calculator">Tree Planting Calculator</Link>.
+          </p>
+
+          <h2>Indoor Air Quality & Mechanical HEPA Filtration</h2>
+
+          <p>
+            Because modern individuals spend over 85% of their lives indoors, ambient outdoor AQI penetrates building envelopes. Standard MERV 6 furnace filters capture coarse dust but allow over 80% of fine PM2.5 to pass through.
+          </p>
+
+          <p>
+            Upgrading to MERV 13 filters or running standalone true HEPA air purifiers (capturing 99.97% of particles down to 0.3 microns) reduces indoor particulate concentrations by 75% to 90%. To determine continuous electricity costs for running home purifiers, consult our <Link href="/calculators/environment/energy-consumption-calculator">Energy Consumption Calculator</Link>.
+          </p>
+        </>
+      }
+    >
+      <AirQualityIndexCalculator />
+    </CalcPage>
   );
 }

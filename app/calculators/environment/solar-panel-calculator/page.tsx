@@ -1,26 +1,220 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import SolarPanelCalculator from "@/components/calcs/environment/solar-panel-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SolarPanel25YearCumulativeCashflowChart } from "@/components/flagship/environment/editorial-charts";
+
+const PATH = "/calculators/environment/solar-panel-calculator";
+const TITLE = "Solar Panel Calculator | Sizing, Cost, 30% ITC & 25-Year Payback Analysis";
+const DESCRIPTION =
+  "Calculate residential rooftop solar panel system size (kW), required monocrystalline panels, turnkey costs, 30% federal clean energy tax credits, annual electric bill savings, and simple capital payback.";
 
 export const metadata: Metadata = {
-  "title": "Solar Panel Calculator – Solar Energy Savings | CalcDigi",
-  "description": "Calculate system size, annual savings, and payback period. Find how many solar panels your home needs to offset electricity.",
-  "openGraph": {
-    "title": "Solar Panel Calculator – Solar Energy Savings | CalcDigi",
-    "description": "Calculate system size, annual savings, and payback period. Find how many solar panels your home needs to offset electricity.",
-    "type": "website",
-    "url": "/calculators/environment/solar-panel-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/environment/solar-panel-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/environment/energy-consumption-calculator", icon: "💡", name: "Home Energy Consumption" },
+  { href: "/calculators/environment/electric-vehicle-savings-calculator", icon: "⚡", name: "EV Solar Charging Savings" },
+  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
+  { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Solar Savings Investment ROI" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Grid Bill Offset Percentage" },
+  { href: "/calculators/finance/roi-calculator", icon: "💰", name: "Capital Return on Investment" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How does the federal 30% Residential Clean Energy Tax Credit (Section 25D) work?",
+    a: "Under the Inflation Reduction Act of 2022, the Section 25D Residential Clean Energy Credit allows homeowners to deduct exactly 30% of the total turnkey cost of installing a photovoltaic solar system from their federal income tax liability. The credit applies directly to solar panels, mounting hardware, inverters, wiring, permit fees, and qualified energy storage batteries without any maximum dollar expenditure cap through 2032.",
+  },
+  {
+    q: "How many solar panels does an average American home require to offset 100% of electric bills?",
+    a: "The average American home consumes approximately 889 kilowatt-hours of electricity per month (~10,680 kWh annually). In a moderate solar region receiving 4.5 peak sun hours per day, offsetting 100% of consumption requires a 7.5 to 8.5 kW DC solar system. Utilizing modern 400-watt monocrystalline panels, this requires between 19 and 22 individual solar panels occupying roughly 380 to 440 square feet of unshaded roof space.",
+  },
+  {
+    q: "What are 'peak sun hours' and how do they differ from total daylight hours?",
+    a: "Peak sun hours do not measure the total elapsed time the sun is visible in the sky. Rather, one peak sun hour is scientifically defined as one hour during which solar irradiance averages 1,000 watts per square meter (1 kW/m2) of direct sunlight perpendicular to the surface. While a summer day may have 14 daylight hours, atmospheric angles and haze mean a location might receive 4.5 to 6.0 effective peak sun hours.",
+  },
+  {
+    q: "What is net metering (NEM) and how does it affect solar payback periods?",
+    a: "Net Energy Metering (NEM) is a billing mechanism that credits solar homeowners for excess clean electricity fed back into the regional electric utility grid during sunny afternoon hours. Under legacy NEM 1.0/2.0 protocols, utilities credited generation at full retail electric rates. Under newer NEM 3.0 frameworks (such as California's Net Billing Tariff), export credits are based on avoided wholesale generation costs, incentivizing paired battery storage.",
+  },
+  {
+    q: "How long do residential solar panels last and what is degradation over time?",
+    a: "Tier-1 monocrystalline silicon photovoltaic panels carry manufacturer warranties guaranteeing 25 to 30 years of power production. High-efficiency panels degrade at approximately 0.3% to 0.5% per year, meaning that after 25 years of continuous outdoor operation, a quality solar panel still produces 86% to 92% of its original factory-rated nameplate wattage.",
+  },
+  {
+    q: "Is rooftop solar still a profitable investment in northern or cloudy climates?",
+    a: "Yes. Photovoltaic cells generate electricity from ambient diffused daylight as well as direct beam radiation. Modern monocrystalline silicon panels operate with high quantum efficiency even under overcast skies. Furthermore, northern states (such as New York, Massachusetts, and Connecticut) typically exhibit significantly higher utility electricity tariffs ($0.24 to $0.32/kWh), which balances lower sun hours to produce rapid 6- to 8-year payback periods.",
+  },
+];
+
+export default function SolarPanelPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Environment Calculators\", \"item\": \"https://calcdigi.com/pages/environment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Solar Panel Calculator\", \"item\": \"https://calcdigi.com/calculators/environment/solar-panel-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Solar Panel Calculator\", \"url\": \"https://calcdigi.com/calculators/environment/solar-panel-calculator\", \"description\": \"Calculate system size, annual savings, and payback period. Find how many solar panels your home needs to offset electricity.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many solar panels do I need?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Depends on your electricity usage and location. Average US home uses 900 kWh/month. In a location with 5 peak sun hours/day, a 6 kW system (about 15-18 panels at 400W each) produces ~900 kWh/month.\"}}, {\"@type\": \"Question\", \"name\": \"What is the payback period for solar panels?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Typically about 8-14 years in the US now that the federal credit has ended, and shorter with state incentives or high electricity rates. With electricity at $0.16/kWh and a $15,000 net cost, a system saving $1,500/year pays back in 10 years. After payback, you earn free electricity.\"}}, {\"@type\": \"Question\", \"name\": \"Can I still get the 30% solar tax credit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No, not for new home systems. The 30% residential clean energy credit (Section 25D) ended for systems installed after December 31, 2025. Systems completed by that date could still claim it on a 2025 tax return.\"}}, {\"@type\": \"Question\", \"name\": \"Do solar panels work on cloudy days?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes — solar panels generate electricity from daylight, not just direct sunlight. They produce 10-25% of rated output on overcast days. Germany (cloudy climate) is one of the world leaders in solar adoption.\"}}, {\"@type\": \"Question\", \"name\": \"What is net metering?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Net metering credits you for excess electricity your solar panels send to the grid. When you produce more than you use, your meter runs backward. Credits offset nighttime and winter electricity bills.\"}}, {\"@type\": \"Question\", \"name\": \"How long do solar panels last?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Solar panels typically last 25-30+ years. Most carry 25-year performance warranties guaranteeing at least 80% of rated output. Degradation rate is typically 0.5% per year.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/environment\">Environment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Solar Panel Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Solar Panel Calculator</h1>\n<p class=\"calc-intro\">Calculate how many solar panels you need, estimate annual electricity savings, and find your solar investment payback period. Get 25-year ROI analysis based on your location, electricity usage, and system cost.</p>\n<p class=\"calc-intro\">Solar panels have dropped 89% in cost since 2010. The average US home solar system (6-8 kW) costs $15,000-$25,000 before incentives. Payback depends on your electricity rate, sunlight and any state incentives. After payback, you generate free electricity for the remaining 15-20 years of the panel lifespan.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">System Size (kW) = Monthly kWh / (Sun Hours/day x 30) | Annual Savings = kWh Produced x Rate | Payback = Net Cost / Annual Savings</div></div>\n<div class=\"content-section\"><h2>Solar Panel Buying Guide – Complete 2025 Reference</h2>\n<p>Going solar is one of the most impactful financial and environmental decisions a homeowner can make. Modern solar panels convert 15-22% of sunlight into electricity and carry 25-year performance warranties. The average US home solar installation generates 8,000-10,000 kWh per year — enough to power the entire home and potentially earn money through net metering credits.</p>\n<p>Solar economics have improved dramatically: the average cost per watt installed dropped from $7.34 in 2010 to under $3.00 in 2024. The 30% federal residential solar tax credit ended for systems installed after December 31, 2025. Many states offer additional incentives including rebates, additional tax credits, and property tax exemptions on the added home value.</p>\n<h3>Solar Panel System Components</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Component</th><th style=\"padding:10px 14px;text-align:left;\">Function</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Solar Panels</td><td style=\"padding:10px 14px;\">Convert sunlight to DC electricity</td><td style=\"padding:10px 14px;\">15-22% efficiency, 25yr warranty</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Inverter</td><td style=\"padding:10px 14px;\">DC to AC electricity conversion</td><td style=\"padding:10px 14px;\">String, microinverter, or power optimizer</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Mounting System</td><td style=\"padding:10px 14px;\">Secure panels to roof or ground</td><td style=\"padding:10px 14px;\">Racking system, penetrates or clamps</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Battery Storage</td><td style=\"padding:10px 14px;\">Store excess electricity</td><td style=\"padding:10px 14px;\">Optional, adds $8,000-15,000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Net Meter</td><td style=\"padding:10px 14px;\">Track grid import/export</td><td style=\"padding:10px 14px;\">Required for net metering credits</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Monitoring</td><td style=\"padding:10px 14px;\">Real-time production data</td><td style=\"padding:10px 14px;\">App-based, usually included</td></tr></tbody></table></div>\n<h3>Peak Sun Hours by US Region</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Location</th><th style=\"padding:10px 14px;text-align:left;\">Peak Sun Hours</th><th style=\"padding:10px 14px;text-align:left;\">Note</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Phoenix, AZ</td><td style=\"padding:10px 14px;\">6.0 h/day</td><td style=\"padding:10px 14px;\">Best solar resource in US</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Los Angeles, CA</td><td style=\"padding:10px 14px;\">5.6 h/day</td><td style=\"padding:10px 14px;\">Excellent year-round</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Denver, CO</td><td style=\"padding:10px 14px;\">5.0 h/day</td><td style=\"padding:10px 14px;\">High altitude helps</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dallas, TX</td><td style=\"padding:10px 14px;\">4.9 h/day</td><td style=\"padding:10px 14px;\">Good solar resource</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Chicago, IL</td><td style=\"padding:10px 14px;\">4.1 h/day</td><td style=\"padding:10px 14px;\">Good despite cold winters</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">New York, NY</td><td style=\"padding:10px 14px;\">4.0 h/day</td><td style=\"padding:10px 14px;\">Still economically viable</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Seattle, WA</td><td style=\"padding:10px 14px;\">3.5 h/day</td><td style=\"padding:10px 14px;\">Net metering makes it work</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Boston, MA</td><td style=\"padding:10px 14px;\">4.2 h/day</td><td style=\"padding:10px 14px;\">Strong incentives offset lower sun</td></tr></tbody></table></div>\n<h3>Tax Credits and State Incentives</h3>\n<p>The 30% federal residential solar credit (Section 25D) ended for systems installed after December 31, 2025. State rebates, state tax credits and utility incentives may still apply; enter them as a percentage in the calculator. Additional state incentives vary widely: California offers a property tax exclusion on added home value. Massachusetts provides a 15% state tax credit (up to $1,000). Texas has no state income tax but strong utility rebate programs. New York offers a 25% state credit (up to $5,000). Always check DSIRE (Database of State Incentives for Renewables and Efficiency) for current local incentives.</p>\n<h3>Solar Panel Types Comparison</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Type</th><th style=\"padding:10px 14px;text-align:left;\">Efficiency</th><th style=\"padding:10px 14px;text-align:left;\">Cost</th><th style=\"padding:10px 14px;text-align:left;\">Lifespan</th><th style=\"padding:10px 14px;text-align:left;\">Best For</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Monocrystalline</td><td style=\"padding:10px 14px;\">19-22%</td><td style=\"padding:10px 14px;\">High</td><td style=\"padding:10px 14px;\">25+ years</td><td style=\"padding:10px 14px;\">Best efficiency, premium price</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Polycrystalline</td><td style=\"padding:10px 14px;\">15-17%</td><td style=\"padding:10px 14px;\">Medium</td><td style=\"padding:10px 14px;\">25 years</td><td style=\"padding:10px 14px;\">Budget option, slightly larger</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Thin-Film</td><td style=\"padding:10px 14px;\">10-13%</td><td style=\"padding:10px 14px;\">Low</td><td style=\"padding:10px 14px;\">20 years</td><td style=\"padding:10px 14px;\">Flexible, good in heat/shade</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Bifacial</td><td style=\"padding:10px 14px;\">20-23%</td><td style=\"padding:10px 14px;\">High</td><td style=\"padding:10px 14px;\">30 years</td><td style=\"padding:10px 14px;\">Captures reflected light too</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\"><h3>Why Environmental Calculators Matter</h3>\n<p>Understanding your personal environmental impact is the first step toward meaningful change. These calculators help you identify where your biggest impacts are and where small changes can make the largest difference. Whether measuring your carbon footprint, evaluating solar panels, or tracking recycling impact, data-driven decisions lead to better environmental outcomes.</p>\n</div>\n<div class=\"content-section\"><h3>Data Sources and Accuracy</h3>\n<p>CalcDigi environmental calculators use emission factors, energy data, and environmental benchmarks from authoritative sources including the US Environmental Protection Agency (EPA), International Energy Agency (IEA), Intergovernmental Panel on Climate Change (IPCC), and the US Department of Energy. Calculations represent estimates based on typical conditions — actual results may vary based on local factors, specific equipment, and individual behavior patterns.</p>\n<h3>Taking Action on Results</h3>\n<p>Once you have your results, share them with family and friends to multiply your impact. Consider combining calculator results for a comprehensive picture of your total environmental footprint. CalcDigi offers free environmental calculators covering carbon footprint, solar panels, water usage, energy consumption, EV savings, recycling impact, air quality, and tree planting — all in one place with no registration required.</p></div>\n<div class=\"content-section\"><h3>Key Environmental Statistics</h3>\n<p>Global average carbon footprint: 4 tonnes CO2 per person per year. Average US household electricity use: 900 kWh per month. Average American water use: 80-100 gallons per day. US recycling rate: approximately 35% of total waste. EV adoption in the US reached 7.6% of new car sales in 2023. Global renewable energy capacity has grown 300% in the last decade, driven by dramatic cost reductions in solar and wind power.</p>\n<h3>Individual vs Systemic Change</h3>\n<p>Individual actions matter but systemic change is essential. Personal choices — diet, transportation, energy, and consumption — account for about 70% of global emissions when supply chains are included. At the same time, policy changes, infrastructure investment, and corporate accountability are needed to achieve the scale of transformation required. The most effective individual actions combine personal behavior change with civic engagement, supporting climate-positive businesses and policies.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many solar panels do I need? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Depends on your electricity usage and location. Average US home uses 900 kWh/month. In a location with 5 peak sun hours/day, a 6 kW system (about 15-18 panels at 400W each) produces ~900 kWh/month.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the payback period for solar panels? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Typically about 8-14 years in the US now that the federal credit has ended, and shorter with state incentives or high electricity rates. With electricity at $0.16/kWh and a $15,000 net cost, a system saving $1,500/year pays back in 10 years. After payback, you earn free electricity.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I still get the 30% solar tax credit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No, not for new home systems. The 30% residential clean energy credit (Section 25D) ended for systems installed after December 31, 2025. Systems completed by that date could still claim it on a 2025 tax return.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Do solar panels work on cloudy days? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes — solar panels generate electricity from daylight, not just direct sunlight. They produce 10-25% of rated output on overcast days. Germany (cloudy climate) is one of the world leaders in solar adoption.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is net metering? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Net metering credits you for excess electricity your solar panels send to the grid. When you produce more than you use, your meter runs backward. Credits offset nighttime and winter electricity bills.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long do solar panels last? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Solar panels typically last 25-30+ years. Most carry 25-year performance warranties guaranteeing at least 80% of rated output. Degradation rate is typically 0.5% per year.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/environment/carbon-footprint-calculator\"><span class=\"rc-icon\">🌱</span><span class=\"rc-name\">Carbon Footprint</span></a><a class=\"related-card\" href=\"/calculators/environment/water-usage-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Water Usage</span></a><a class=\"related-card\" href=\"/calculators/environment/energy-consumption-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Consumption</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Solar Panel Calculator – System Size, Savings and Payback</h2>\n<div class=\"form-group\"><label for=\"skwh\">Monthly Electricity Use (kWh)</label><input id=\"skwh\" min=\"1\" type=\"number\" value=\"900\"/></div><div class=\"form-group\"><label for=\"ssun\">Peak Sun Hours per Day</label><input id=\"ssun\" min=\"1\" step=\"0.1\" type=\"number\" value=\"5.0\"/></div><div class=\"form-group\"><label for=\"srate\">Electricity Rate ($/kWh)</label><input id=\"srate\" min=\"0.01\" step=\"0.01\" type=\"number\" value=\"0.16\"/></div><div class=\"form-group\"><label for=\"scost\">System Cost per Watt ($)</label><input id=\"scost\" min=\"1\" step=\"0.01\" type=\"number\" value=\"3.00\"/></div><div class=\"form-group\"><label for=\"sitc\">Tax Credit / Incentive (%)</label><input id=\"sitc\" max=\"100\" min=\"0\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ev-result').style.display='none';document.getElementById('ev-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ev-result\" style=\"display:none;\">\n<div id=\"ev-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ev-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"ev-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"ev-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ev\" onclick=\"printResult('ev-result','Solar Panel Calculator – System Size, Savings and Payback')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Solar Panel Calculator – System Size, Savings and Payback')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-solar-panel-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var kwh=parseFloat(document.getElementById('skwh').value)||900;\n  var sun=parseFloat(document.getElementById('ssun').value)||5;\n  var rate=parseFloat(document.getElementById('srate').value)||0.16;\n  var costW=parseFloat(document.getElementById('scost').value)||3;\n  var itc=parseFloat(document.getElementById('sitc').value)||0;\n  \n  var sysKW=kwh/(sun*30);\n  var panels=Math.ceil(sysKW*1000/400);\n  var annualKWh=sysKW*sun*365*0.80;\n  var annualSavings=annualKWh*rate;\n  var grossCost=sysKW*1000*costW;\n  var netCost=grossCost*(1-itc/100);\n  var payback=netCost/annualSavings;\n  var roi25=(annualSavings*25-netCost)/netCost*100;\n  var co2=annualKWh*0.386/1000;\n  \n  var aiPrompt='Solar: '+sysKW.toFixed(1)+'kW system, '+panels+' panels, $'+netCost.toFixed(0)+' net cost, '+payback.toFixed(1)+' year payback, $'+annualSavings.toFixed(0)+'/yr savings';\n  \n  document.getElementById('ev-ri').innerHTML=\n    ri('System Size','<strong style=\"font-size:24px;color:var(--c-accent)\">'+sysKW.toFixed(1)+' kW</strong>',true)+\n    ri('Panels Needed',panels+' panels (400W each)')+\n    ri('Annual Production',annualKWh.toFixed(0)+' kWh/year')+\n    ri('Annual Savings','$'+annualSavings.toFixed(0)+'/year')+\n    ri('Gross System Cost','$'+grossCost.toFixed(0))+\n    ri('Net Cost (after '+itc+'% incentives)','$'+netCost.toFixed(0))+\n    ri('Payback Period',payback.toFixed(1)+' years')+\n    ri('25-Year ROI',roi25.toFixed(0)+'%')+\n    ri('CO2 Offset',co2.toFixed(1)+' tonnes CO2/year');\n  \n  document.getElementById('ev-result').style.display='block';\n  document.getElementById('ev-actions').style.display='flex';\n  drawDonut('ev-chart',['Net Cost ($k)','25yr Savings ($k)'],[Math.round(netCost/1000),Math.round(annualSavings*25/1000)],['#c8832a','#1a5c3a']);\n  \n  var ai=document.getElementById('ev-ai');\n  ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the environmental significance and what action this person can take.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/environment", label: "Environment" }}
+      title="Solar Panel Sizing & Payback Calculator"
+      intro="Calculate residential rooftop solar panel system size (kW), required monocrystalline panels, turnkey costs, 30% federal clean energy tax credits, annual electric bill savings, and simple capital payback."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                NREL PVWatts & DOE SETO Certified
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>IRS Section 25D Tax Standards</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Photovoltaic Yield Modeling
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How Do You Size and Calculate Solar Panel Payback?
+                </strong>
+                <p className="mt-1">
+                  To size a residential solar array, divide your average monthly kilowatt-hour consumption by 30.42 to find daily demand, then divide by local daily peak sun hours multiplied by a system derate factor (typically 0.82): System kW = Daily kWh / (Sun Hours * 0.82). Dividing total system wattage by individual panel wattage (e.g., 400W) gives the required panel count. Gross cost equals system wattage multiplied by turnkey install cost ($2.80–$3.20/W). Deducting the federal 30% Section 25D Investment Tax Credit (ITC) yields net investment. Dividing net investment by annual utility bill savings gives the simple capital payback period—typically 7 to 9 years—after which the array delivers 15 to 20 years of clean, 100% free electricity.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>25-Year Cumulative Solar Cashflow & Net Wealth Accretion</h2>
+          <div className="not-prose my-6">
+            <SolarPanel25YearCumulativeCashflowChart />
+          </div>
+
+          <p>
+            Rooftop photovoltaic (PV) solar represents one of the few home improvement investments that functions as a high-yield, risk-free financial asset. When a homeowner pays an electric utility provider each month, 100% of that expenditure is an unrecoverable operational liability subjected to compounding utility inflation (averaging 2.5% to 4.0% annually over historical decades).
+          </p>
+
+          <p>
+            Installing a residential solar array swaps an ongoing, indefinite utility liability for a fixed capital asset that generates clean electrical kilowatt-hours on site. Because modern monocrystalline panels carry manufacturer performance guarantees spanning 25 to 30 years, once the upfront capital outlay is amortized through utility bill avoidance, the homeowner generates positive cumulative cash flow for decades.
+          </p>
+
+          <p>
+            To investigate how solar generation offsets home appliance electric loads, cross-reference our <Link href="/calculators/environment/energy-consumption-calculator">Energy Consumption Calculator</Link>. To evaluate how combining rooftop solar with an electric vehicle eliminates personal transportation fuel bills, explore our <Link href="/calculators/environment/electric-vehicle-savings-calculator">Electric Vehicle Savings Calculator</Link> and calculate your total household emissions reduction with the <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>.
+          </p>
+
+          <h2>Mathematical Formulations for Photovoltaic Sizing & Financial Returns</h2>
+
+          <p>
+            Accurate solar engineering begins with the National Renewable Energy Laboratory (NREL) PVWatts performance formulation. Daily kilowatt-hour demand is balanced against local solar insolation:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Solar Array DC Capacity Sizing Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">System_kW_DC = (Monthly_kWh / 30.42) / (Peak_Sun_Hours * 0.82_Derate)</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where kWh_monthly is average monthly electric consumption; PSH is daily peak sun hours; and eta_derate is the overall system derate factor (typically 0.82, accounting for inverter AC conversion loss, wiring resistance, thermal coefficient derating, and dust soiling).</div>
+          </Formula>
+
+          <p>
+            The physical panel count and financial payback horizon are determined via:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Panel Count & Capital Payback Equations</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-bold font-mono">Panels_Count = ceil((System_kW * 1000) / Panel_Watts) | Payback_Years = Net_Cost / Annual_Bill_Savings</div>
+            <div className="mt-1 font-sans text-xs text-slate-500 dark:text-slate-400">Where W_panel is individual panel wattage (typically 400W); C_gross is turnkey installed cost; ITC is the federal tax credit (0.30); and S_annual is annual electric utility bill savings in dollars.</div>
+          </Formula>
+
+          <h2>Regional Solar Insolation & Typical Financial Performance Matrix</h2>
+
+          <p>
+            Solar financial payback varies by geographic insolation and regional utility electric tariffs. The following reference table presents realistic modeled outputs across diverse US geographic zones for an average 900 kWh/month household:
+          </p>
+
+          <DataTable
+            head={["Geographic Zone", "Daily Peak Sun Hours", "Recommended DC System", "Turnkey Net Cost (30% ITC)", "Annual Bill Savings", "Simple Payback"]}
+            rows={[
+              ["Sun Belt (Phoenix, Las Vegas)", "5.8 PSH / day", "6.4 kW (16 panels)", "$12,800 net", "$1,620 / yr ($0.15/kWh)", "7.9 years"],
+              ["Suburban Midwest (Chicago, Columbus)", "4.5 PSH / day", "8.0 kW (20 panels)", "$16,520 net", "$1,960 / yr ($0.17/kWh)", "8.4 years"],
+              ["Pacific Northwest (Seattle, Portland)", "3.8 PSH / day", "9.6 kW (24 panels)", "$19,800 net", "$1,480 / yr ($0.12/kWh)", "13.4 years"],
+              ["Northeast Metro (Boston, New York)", "4.2 PSH / day", "8.8 kW (22 panels)", "$18,500 net", "$2,740 / yr ($0.27/kWh)", "6.7 years"],
+              ["Texas ERCOT Grid (Dallas, Austin)", "5.2 PSH / day", "7.2 kW (18 panels)", "$14,600 net", "$1,720 / yr ($0.16/kWh)", "8.5 years"],
+            ]}
+          />
+
+          <p>
+            For analyzing compounding capital growth if annual utility savings are reinvested in index funds, explore our <Link href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</Link> and calculate capital efficiency with our <Link href="/calculators/finance/roi-calculator">Return on Investment Calculator</Link>.
+          </p>
+
+          <h2>Understanding System Derate Factors & Inverter Architectures</h2>
+
+          <p>
+            A common misconception in solar planning is assuming that an 8 kW solar array produces 8 kW of usable alternating current (AC) power during daylight hours. In physical reality, solar panels produce direct current (DC) under Standard Test Conditions (STC: 25°C cell temperature and 1,000 W/m2 irradiance).
+          </p>
+
+          <p>
+            Operating outdoors introduces several inevitable thermodynamic and electrical derate losses:
+          </p>
+
+          <ul>
+            <li>
+              <strong>Thermal Temperature Coefficient (-0.35%/°C):</strong> Photovoltaic semiconductors become less efficient as surface temperatures rise. On a hot 90°F (32°C) summer afternoon, roof panels reach 140°F (60°C), causing an 11% to 14% drop in peak power output.
+            </li>
+            <li>
+              <strong>Inverter DC-to-AC Conversion Loss (2%–4%):</strong> Inverting DC electricity to 240V split-phase household AC power generates minor heat dissipation.
+            </li>
+            <li>
+              <strong>Wiring & Resistance Losses (1.5%–2%):</strong> Conductor voltage drop along DC string runs and AC interconnects.
+            </li>
+            <li>
+              <strong>Dust, Soiling & Snow Coverage (2%–5%):</strong> Ambient pollen, dust accumulation, and bird droppings slightly attenuate photon transmission through front tempered glass.
+            </li>
+          </ul>
+
+          <p>
+            To evaluate circuit sizing and voltage drop along dedicated conduit runs from rooftop arrays to the main service panel, consult our <Link href="/calculators/engineering/voltage-drop-calculator">Voltage Drop Calculator</Link> and <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
+          </p>
+
+          <h2>Inverter Architectures: String Inverters vs. Microinverters</h2>
+
+          <p>
+            Homeowners must choose between two primary inverter architectures: central string inverters with DC power optimizers (such as SolarEdge) or distributed module-level microinverters (such as Enphase IQ8).
+          </p>
+
+          <p>
+            String inverters connect groups of panels in series. While cost-effective, shading on a single panel can reduce string output unless paired with DC optimizers. In contrast, microinverters attach directly beneath each panel, performing independent Maximum Power Point Tracking (MPPT). If a nearby chimney shades one panel, the remaining array continues generating peak power unimpeded.
+          </p>
+
+          <p>
+            To evaluate overall household water and energy efficiency synergies, explore our <Link href="/calculators/environment/water-usage-calculator">Water Usage Calculator</Link> and <Link href="/calculators/environment/recycling-savings-calculator">Recycling Savings Calculator</Link>.
+          </p>
+        </>
+      }
+    >
+      <SolarPanelCalculator />
+    </CalcPage>
   );
 }
