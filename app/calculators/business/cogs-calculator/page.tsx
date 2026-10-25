@@ -1,26 +1,255 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import CogsCalculatorComponent from "@/components/calcs/business/cogs-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CogsManufacturingCostStructureChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/cogs-calculator";
+const TITLE = "COGS Calculator | Cost of Goods Sold & Gross Margin Solver";
+const DESCRIPTION =
+  "Calculate Cost of Goods Sold (COGS), direct materials, direct labor, applied factory overhead, and gross margins across retail and manufacturing businesses.";
 
 export const metadata: Metadata = {
-  "title": "COGS Calculator – Cost of Goods Sold Formula | CalcDigi",
-  "description": "Calculate cost of goods sold from beginning inventory, purchases, and ending inventory. Find gross profit and gross margin percentage.",
-  "openGraph": {
-    "title": "COGS Calculator – Cost of Goods Sold Formula | CalcDigi",
-    "description": "Calculate cost of goods sold from beginning inventory, purchases, and ending inventory. Find gross profit and gross margin percentage.",
-    "type": "website",
-    "url": "/calculators/business/cogs-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/cogs-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Point" },
+  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margins" },
+  { href: "/calculators/business/markup-calculator", icon: "🏷️", name: "Markup Calculator" },
+  { href: "/calculators/business/wholesale-price-calculator", icon: "🏭", name: "Wholesale Pricing" },
+  { href: "/calculators/business/ecommerce-profit-calculator", icon: "🛒", name: "E-Commerce Profit" },
+  { href: "/calculators/business/shrinkage-calculator", icon: "📉", name: "Inventory Shrinkage" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the standard formula for Cost of Goods Sold (COGS)?",
+    a: "The standard periodic inventory COGS equation is: COGS = Beginning Inventory + Direct Purchases/Production - Ending Inventory. It measures the direct cost of inventory items sold during the accounting period, excluding administrative overhead, marketing, and corporate office costs.",
+  },
+  {
+    q: "What expenses are included in COGS versus Operating Expenses (OpEx)?",
+    a: "COGS includes only direct costs required to produce or acquire inventory: raw materials, direct factory labor, inbound freight, and allocated manufacturing overhead. Operating Expenses (OpEx) include general administrative payroll, office leases, marketing ads, software tools, and executive salaries.",
+  },
+  {
+    q: "How does ending inventory valuation directly impact reported gross profit?",
+    a: "Higher ending inventory values reduce reported COGS, which mathematically increases reported gross profit on the income statement. Conversely, writing down obsolete ending inventory increases COGS and reduces gross profit.",
+  },
+  {
+    q: "What is the difference between FIFO and LIFO inventory costing methods?",
+    a: "First-In, First-Out (FIFO) assumes the oldest inventory items are sold first. In inflationary environments, FIFO results in lower COGS and higher reported net income. Last-In, First-Out (LIFO) assumes the newest, more expensive items are sold first, resulting in higher COGS and lower corporate income taxes.",
+  },
+];
+
+export default function CogsCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"COGS Calculator\", \"item\": \"https://calcdigi.com/calculators/business/cogs-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"COGS Calculator\", \"url\": \"https://calcdigi.com/calculators/business/cogs-calculator\", \"description\": \"Calculate cost of goods sold from beginning inventory, purchases, and ending inventory. Find gross profit and gross margin percentage.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is cost of goods sold (COGS)?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"COGS is the direct cost of producing the goods or services a business sells during a period. Formula: COGS = Beginning Inventory + Purchases During Period - Ending Inventory. Example: Started with $10,000 inventory, purchased $40,000, ended with $12,000: COGS = $10,000 + $40,000 - $12,000 = $38,000.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between COGS and operating expenses?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"COGS: direct costs tied to producing/delivering what you sell (materials, direct labor, production overhead). Operating expenses (OPEX): indirect costs of running the business (marketing, salaries for non-production staff, office rent, legal, accounting). Gross Profit = Revenue - COGS. Operating Income = Gross Profit - OPEX.\"}}, {\"@type\": \"Question\", \"name\": \"How does COGS affect gross profit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gross Profit = Revenue - COGS. Higher COGS = Lower gross profit. Reducing COGS (through better supplier pricing, production efficiency, or reduced waste) directly increases gross profit dollar-for-dollar. A 10% reduction in COGS has a larger impact on profit than a 10% increase in revenue for businesses with tight margins.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good COGS percentage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"COGS as a percentage of revenue (inverse of gross margin) varies by industry. Manufacturing: 50-70%. Retail: 60-80%. Software/SaaS: 10-25%. Services: 20-40%. Restaurant: 28-35% food cost. Your COGS % should be compared to industry peers, not across industries. A declining COGS % over time indicates improving production efficiency.\"}}, {\"@type\": \"Question\", \"name\": \"How do inventory errors affect COGS?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Overstated ending inventory → understated COGS → overstated gross profit (error flatters financial results). Understated ending inventory → overstated COGS → understated gross profit. Errors carry forward: current period ending inventory becomes next period beginning inventory. Two-period errors can partially cancel or compound. Accurate inventory counting is essential for reliable financial statements.\"}}, {\"@type\": \"Question\", \"name\": \"What is gross profit vs gross margin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gross Profit is a dollar amount: Revenue - COGS = Gross Profit ($). Gross Margin is a percentage: Gross Profit / Revenue × 100 = Gross Margin (%). Both measure the same thing in different units. $40,000 gross profit on $100,000 revenue = 40% gross margin. Gross margin % allows comparison across companies of different sizes.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">COGS Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>COGS Calculator</h1>\n<p class=\"calc-intro\">Calculate Cost of Goods Sold (COGS) using the standard accounting formula with beginning inventory, purchases, and ending inventory. Find gross profit and gross margin percentage from your COGS results.</p>\n<p class=\"calc-intro\">COGS (Cost of Goods Sold) is the direct cost of producing the goods a company sells. It is the most important line item on the income statement after revenue — the difference between revenue and COGS is gross profit, which must cover all operating expenses and generate net profit.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">COGS = Beginning Inventory + Purchases - Ending Inventory | Gross Profit = Revenue - COGS | Gross Margin = Gross Profit / Revenue × 100</div></div>\n<div class=\"content-section\">\n<h2>What COGS Includes</h2>\n<p>COGS includes only direct costs tied to producing goods or services sold. It does not include indirect overhead, selling expenses, or administrative costs. Understanding what belongs in COGS vs operating expenses is critical for accurate financial reporting and meaningful margin analysis.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Cost Item</th><th style=\"padding:11px 14px;text-align:left;\">Category</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Raw materials</td><td style=\"padding:10px 14px;\">COGS</td><td style=\"padding:10px 14px;\">Direct material cost per unit</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Direct labor</td><td style=\"padding:10px 14px;\">COGS</td><td style=\"padding:10px 14px;\">Factory workers, production staff</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Manufacturing overhead</td><td style=\"padding:10px 14px;\">COGS</td><td style=\"padding:10px 14px;\">Equipment depreciation, factory utilities</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Freight-in</td><td style=\"padding:10px 14px;\">COGS</td><td style=\"padding:10px 14px;\">Cost to receive goods into inventory</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Sales commissions</td><td style=\"padding:10px 14px;\">Operating Expense</td><td style=\"padding:10px 14px;\">NOT in COGS</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Marketing/advertising</td><td style=\"padding:10px 14px;\">Operating Expense</td><td style=\"padding:10px 14px;\">NOT in COGS</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Office rent</td><td style=\"padding:10px 14px;\">Operating Expense</td><td style=\"padding:10px 14px;\">NOT in COGS</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Packaging (for sale)</td><td style=\"padding:10px 14px;\">COGS or OPEX</td><td style=\"padding:10px 14px;\">Depends on accounting policy</td></tr></tbody></table></div>\n<h3>COGS Accounting Methods</h3>\n<p>When inventory costs change over time, different accounting methods give different COGS: FIFO (First In, First Out) — oldest inventory cost is recognized first. LIFO (Last In, First Out) — most recent inventory cost first (allowed in US, not IFRS). Weighted Average — average cost of all inventory. In periods of rising prices: FIFO gives higher profits (lower COGS), LIFO gives lower profits (higher COGS, lower taxes). Most companies use FIFO for GAAP reporting.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is cost of goods sold (COGS)? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">COGS is the direct cost of producing the goods or services a business sells during a period. Formula: COGS = Beginning Inventory + Purchases During Period - Ending Inventory. Example: Started with $10,000 inventory, purchased $40,000, ended with $12,000: COGS = $10,000 + $40,000 - $12,000 = $38,000.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between COGS and operating expenses? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">COGS: direct costs tied to producing/delivering what you sell (materials, direct labor, production overhead). Operating expenses (OPEX): indirect costs of running the business (marketing, salaries for non-production staff, office rent, legal, accounting). Gross Profit = Revenue - COGS. Operating Income = Gross Profit - OPEX.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does COGS affect gross profit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gross Profit = Revenue - COGS. Higher COGS = Lower gross profit. Reducing COGS (through better supplier pricing, production efficiency, or reduced waste) directly increases gross profit dollar-for-dollar. A 10% reduction in COGS has a larger impact on profit than a 10% increase in revenue for businesses with tight margins.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good COGS percentage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">COGS as a percentage of revenue (inverse of gross margin) varies by industry. Manufacturing: 50-70%. Retail: 60-80%. Software/SaaS: 10-25%. Services: 20-40%. Restaurant: 28-35% food cost. Your COGS % should be compared to industry peers, not across industries. A declining COGS % over time indicates improving production efficiency.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do inventory errors affect COGS? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Overstated ending inventory → understated COGS → overstated gross profit (error flatters financial results). Understated ending inventory → overstated COGS → understated gross profit. Errors carry forward: current period ending inventory becomes next period beginning inventory. Two-period errors can partially cancel or compound. Accurate inventory counting is essential for reliable financial statements.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is gross profit vs gross margin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gross Profit is a dollar amount: Revenue - COGS = Gross Profit ($). Gross Margin is a percentage: Gross Profit / Revenue × 100 = Gross Margin (%). Both measure the same thing in different units. $40,000 gross profit on $100,000 revenue = 40% gross margin. Gross margin % allows comparison across companies of different sizes.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/profit-margin-calculator\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Profit Margin Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/markup-calculator\"><span class=\"rc-icon\">🏷️</span><span class=\"rc-name\">Markup Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>COGS Calculator – Cost of Goods Sold and Gross Profit</h2><div class=\"form-group\"><label for=\"cg-rev\">Revenue / Net Sales ($)</label><input id=\"cg-rev\" min=\"0\" step=\"1000\" type=\"number\" value=\"500000\"/></div><div class=\"form-group\"><label for=\"cg-begin\">Beginning Inventory ($)</label><input id=\"cg-begin\" min=\"0\" step=\"1000\" type=\"number\" value=\"80000\"/></div><div class=\"form-group\"><label for=\"cg-purch\">Purchases / Production Costs ($)</label><input id=\"cg-purch\" min=\"0\" step=\"1000\" type=\"number\" value=\"280000\"/></div><div class=\"form-group\"><label for=\"cg-end\">Ending Inventory ($)</label><input id=\"cg-end\" min=\"0\" step=\"1000\" type=\"number\" value=\"60000\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','COGS Calculator – Cost of Goods Sold and Gross Profit')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('COGS Calculator – Cost of Goods Sold and Gross Profit')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-cogs-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var rev=parseFloat(document.getElementById('cg-rev').value)||0;\n  var begin=parseFloat(document.getElementById('cg-begin').value)||0;\n  var purch=parseFloat(document.getElementById('cg-purch').value)||0;\n  var end=parseFloat(document.getElementById('cg-end').value)||0;\n  var cogs=begin+purch-end;\n  var gross=rev-cogs;\n  var gm=rev>0?gross/rev*100:0;\n  var cogsP=rev>0?cogs/rev*100:0;\n  var aiPrompt='COGS: $'+cogs.toLocaleString()+', Gross Profit: $'+gross.toLocaleString()+', Gross Margin: '+gm.toFixed(1)+'% on $'+rev.toLocaleString()+' revenue';\n  document.getElementById('bz-ri').innerHTML=\n    ri('Cost of Goods Sold','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+cogs.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Gross Profit','$'+gross.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Gross Margin',gm.toFixed(2)+'%')+\n    ri('COGS as % of Revenue',cogsP.toFixed(2)+'%')+\n    ri('Beginning + Purchases','$'+(begin+purch).toLocaleString())+\n    ri('Less Ending Inventory','−$'+end.toLocaleString());\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',['COGS','Gross Profit'],[Math.round(cogs),Math.max(Math.round(gross),0.001)],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about reducing COGS and improving gross margins.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="Cost of Goods Sold (COGS) Calculator"
+      intro="Compute Cost of Goods Sold (COGS), prime manufacturing costs, inventory adjustments, and gross profit margins across retail merchandise and factory production lines."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How COGS is Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Cost of Goods Sold (COGS) measures the direct costs attributable to the production of the goods sold by an enterprise: COGS = Beginning Inventory + New Production / Purchases - Ending Inventory. In manufacturing, new production blends Direct Raw Materials, Direct Labor, and Manufacturing Overhead. Subtracting COGS from total revenue yields Gross Profit. Businesses pair direct inventory costing with the <Link href="/calculators/business/markup-calculator">markup calculator</Link> and monitor overall operating returns via the <Link href="/calculators/business/profit-margin-calculator">profit margin solver</Link>.
+            </p>
+          </div>
+
+          <h2>COGS Cost Component Distribution by Manufacturing Sector (%)</h2>
+          <p>
+            Understanding the internal composition of direct production costs reveals whether a company is raw-material intensive (like food production) or labor intensive (like custom machinery fabrication).
+          </p>
+
+          <CogsManufacturingCostStructureChart />
+
+          <h2>First-Principles Inventory Costing Derivations & Formulations</h2>
+          <p>
+            Under International Accounting Standard 2 (IAS 2) and US GAAP (ASC 330), inventory costs encompass all purchase costs, conversion costs, and other costs incurred in bringing the inventories to their present location and condition. The fundamental periodic inventory formulation is:
+          </p>
+          <Formula>
+            {"\text{COGS} = \text{Beginning Inventory} + \text{Cost of Goods Manufactured (COGM)} - \text{Ending Inventory}"}
+          </Formula>
+          <p>
+            In a manufacturing environment, the Cost of Goods Manufactured represents the sum of Prime Costs (Direct Materials + Direct Labor) and Applied Factory Overhead:
+          </p>
+          <Formula>
+            {"\text{COGM} = \text{Raw Materials Used} + \text{Direct Labor} + \text{Factory Overhead} + \Delta\text{Work-in-Process (WIP)}"}
+          </Formula>
+          <p>
+            Gross profit margin reflects the percentage of revenue remaining after covering all direct manufacturing and merchandise acquisition expenses:
+          </p>
+          <Formula>
+            {"\text{Gross Profit} = \text{Net Revenue} - \text{COGS}, \quad \text{Gross Margin (\%)} = \left( \frac{\text{Gross Profit}}{\text{Net Revenue}} \right) \times 100\%"}
+          </Formula>
+          <p>
+            When financial controllers evaluate production thresholds, they link direct manufacturing outlays to the <Link href="/calculators/business/break-even-calculator">break-even point calculator</Link>, calibrate unit labor expenses with the <Link href="/calculators/business/employee-cost-calculator">employee cost calculator</Link>, and deduct physical stock losses using the <Link href="/calculators/business/shrinkage-calculator">inventory shrinkage calculator</Link>.
+          </p>
+
+          <h2>Manufacturing Sector COGS & Gross Margin Reference Standards</h2>
+          <p>
+            The table below compiles typical direct cost allocations, inventory turnover velocity, and standard gross margin benchmarks across prominent industrial and retail sectors.
+          </p>
+
+          <DataTable
+            head={["Industry Sector", "Direct Materials Share", "Direct Labor Share", "Overhead Share", "Benchmark Gross Margin"]}
+            rows={[
+              ["Packaged Consumer Foods", "60% – 70%", "15% – 20%", "15% – 20%", "28% – 38%"],
+              ["Automotive Parts Fabricators", "50% – 58%", "22% – 28%", "18% – 24%", "22% – 32%"],
+              ["Precision Electronics Hardware", "55% – 65%", "18% – 25%", "15% – 22%", "35% – 48%"],
+              ["Apparel & Footwear Brands", "40% – 50%", "30% – 40%", "15% – 25%", "50% – 62%"],
+              ["Commercial Specialty Printing", "38% – 45%", "28% – 35%", "25% – 32%", "32% – 42%"],
+              ["Wholesale Distribution", "85% – 92% (Finished)", "4% – 8% (Warehousing)", "4% – 8%", "12% – 20%"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Precision Metal Stamping Plant Production Run</h3>
+          <p>
+            A mid-sized automotive supplier stamps steel brackets for heavy commercial vehicles. At the beginning of the quarter, raw materials and finished bracket inventory on hand totaled $45,000. During the quarter, the plant purchased $125,000 in cold-rolled steel coils, incurred $68,000 in direct stamping press labor payroll, and absorbed $32,000 in plant electrical power, machine die maintenance, and lubricating fluids. Physical inventory auditing at quarter-end reveals $38,000 in unsold bracket stock. Gross invoiced sales revenue was $360,000.
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate total current period production costs:</strong>
+              <br />
+              Total Production = $125,000 (Materials) + $68,000 (Labor) + $32,000 (Overhead) = $225,000.
+            </li>
+            <li>
+              <strong>Calculate Cost of Goods Sold:</strong>
+              <br />
+              COGS = Beginning Inventory ($45,000) + Production ($225,000) - Ending Inventory ($38,000) = $232,000.
+            </li>
+            <li>
+              <strong>Determine gross profit and gross margin:</strong>
+              <br />
+              Gross Profit = $360,000 - $232,000 = $128,000.
+              <br />
+              Gross Margin = ($128,000 / $360,000) × 100% = 35.56%.
+              <br />
+              Management sets commercial B2B contract terms using the <Link href="/calculators/business/wholesale-price-calculator">wholesale price calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Direct-to-Consumer Skincare Brand Batch Sourcing</h3>
+          <p>
+            An organic skincare brand manufactures custom batches of facial serum. A single production run generates 10,000 bottled units. Bulk raw botanicals, glass dropper bottles, and outer cartons cost $3.80 per unit ($38,000 total). Contract manufacturing cleanroom filling labor costs $1.40 per unit ($14,000 total). Inbound ocean freight and customs brokerage fees average $0.80 per unit ($8,000 total). Each unit retails online for $36.00.
+          </p>
+          <ol>
+            <li>
+              <strong>Compute total landed unit COGS:</strong>
+              <br />
+              Unit COGS = $3.80 (Packaging & Ingredients) + $1.40 (Filling Labor) + $0.80 (Inbound Freight) = $6.00 per unit.
+              <br />
+              Total Batch COGS = 10,000 × $6.00 = $60,000.
+            </li>
+            <li>
+              <strong>Evaluate unit gross margin and markup:</strong>
+              <br />
+              Unit Gross Profit = $36.00 - $6.00 = $30.00.
+              <br />
+              Gross Margin = ($30.00 / $36.00) × 100% = 83.33%.
+              <br />
+              Markup over COGS = ($30.00 / $6.00) × 100% = 500.0%.
+            </li>
+            <li>
+              <strong>E-Commerce Bottom-Line Integration:</strong> The marketing director factors shipping and ad spend into downstream margins via the <Link href="/calculators/business/ecommerce-profit-calculator">e-commerce profit calculator</Link> and tracks customer acquisition payback with the <Link href="/calculators/business/cac-calculator">customer acquisition cost tool</Link>.
+            </li>
+          </ol>
+
+          <h2>Operational Constraints & Inventory Cost Accounting Distortions</h2>
+          <ol>
+            <li>
+              <strong>Under-Absorption vs. Over-Absorption of Fixed Overhead:</strong> Under standard absorption costing, fixed manufacturing overhead is allocated to units based on budgeted capacity. If factory production drops below expected capacity, unallocated overhead cannot be capitalized into inventory; it must be expensed immediately as a current-period volume variance, artificially depressing gross margins.
+            </li>
+            <li>
+              <strong>Net Realizable Value (NRV) Impairment Write-Downs:</strong> If retail market prices fall or perishable goods degrade, GAAP requires inventory to be written down to Net Realizable Value (estimated selling price minus completion and disposal costs). The resulting write-down flows directly into COGS, spiking reported production costs without an increase in physical output.
+            </li>
+            <li>
+              <strong>Landed Cost Omissions:</strong> Novice business operators frequently omit inbound freight, customs tariffs, port demurrage fees, and transit insurance from COGS calculations, improperly classifying them as operating expenses. This artificially inflates gross product margins while obscuring true manufacturing unit economics.
+            </li>
+          </ol>
+
+          <h2>Activity-Based Costing (ABC) & Modern Inventory Metrology</h2>
+          <p>
+            Traditional volume-based overhead allocation assigns indirect costs using a single metric (such as direct labor hours or machine run-time). In modern multi-product facilities, this distorts product profitability by over-costing simple high-volume items and under-costing complex low-volume items. Activity-Based Costing (ABC) traces overhead to discrete cost pools:
+          </p>
+          <Formula>
+            {"\text{Overhead Rate}_j = \frac{\text{Total Cost in Activity Pool}_j}{\text{Total Activity Driver Quantity}_j}"}
+          </Formula>
+          <p>
+            By assigning machine setup costs per production batch, engineering change orders per SKU, and quality inspection costs per test cycle, ABC accounting reveals the true landed COGS of individual catalog items. Corporate controllers integrate ABC data with <Link href="/calculators/business/break-even-calculator">break-even models</Link>, project working capital demands via the <Link href="/calculators/business/burn-rate-calculator">startup burn rate calculator</Link>, and model sales discounting strategies through the <Link href="/calculators/business/discount-calculator">commercial discount calculator</Link>.
+          </p>
+          <p>
+            In automated warehouse management systems (WMS), radio-frequency identification (RFID) tags track raw materials consumption in real time. Automated cycle counts update enterprise resource planning (ERP) perpetual inventory ledgers continuously, eliminating massive year-end physical inventory adjustments.
+          </p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Is shipping to customers included in Cost of Goods Sold?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Inbound shipping (freight-in required to transport raw materials or wholesale goods to your facility) is strictly included in COGS and capitalized into inventory value. Outbound shipping (freight-out to deliver finished goods to the end consumer) is typically classified as a fulfillment or operating selling expense, though some e-commerce businesses include it in direct fulfillment cost metrics.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why do service companies typically have zero or minimal COGS?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Pure service companies (law firms, software platforms, consulting agencies) do not sell physical merchandise, so they carry zero raw material or physical inventory. Instead, their direct delivery costs (billable consultant salaries, client cloud hosting) are categorized as Cost of Services (COS) or Cost of Revenue rather than traditional inventory COGS.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does reducing COGS impact business valuation?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Every dollar cut from COGS flows 100% directly to gross profit and EBITDA. For a manufacturing business valued at an 8.0× EBITDA multiple, a $100,000 reduction in annual direct material purchasing costs immediately increases the enterprise value of the company by $800,000. Evaluate enterprise valuation metrics using the <Link href="/calculators/business/startup-valuation-calculator">startup valuation calculator</Link>.
+              </p>
+            </div>
+          </div>
+
+
+          <p>
+            In modern ERP accounting suites, perpetual inventory systems continuously track moving-average unit costs. When raw material supplier purchase order prices fluctuate between batches, perpetual moving-average costing recalculates unit COGS after every shipment receipt. This prevents severe margin volatility and provides real-time gross margin visibility across changing commodity cycles.
+          </p>
+          <p>
+            Furthermore, manufacturing controllers monitor scrap rates and scrap rework labor. Excessive scrap in fabrication runs creates unabsorbed material variances that must be expensed as period losses rather than capitalized into inventory, ensuring reported inventory on the corporate balance sheet remains strictly conservative.
+          </p>
+
+          <h2>Authoritative International Standards & Cost Accounting Guidelines</h2>
+          <p>
+            For standardized inventory costing rules, absorption accounting principles, and managerial financial reporting guidelines, consult:
+          </p>
+          <ul>
+            <li>
+              <strong>International Accounting Standard 2 (IAS 2):</strong> Inventories — Measurement, Inclusions, and Net Realizable Value.
+            </li>
+            <li>
+              <strong>FASB Accounting Standards Codification (ASC 330):</strong> Inventory Costing, Lower of Cost or Market, and Cost Flow Assumptions.
+            </li>
+            <li>
+              <strong>Institute of Management Accountants (IMA SMA 4J):</strong> Activity-Based Costing for Competitive Advantage.
+            </li>
+            <li>
+              <strong>US Internal Revenue Code (IRC Section 471 & 263A):</strong> General Rule for Inventories and Uniform Capitalization Rules (UNICAP).
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <CogsCalculatorComponent />
+    </CalcPage>
   );
 }

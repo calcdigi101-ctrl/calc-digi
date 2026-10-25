@@ -1,26 +1,291 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PayrollCalculatorComponent from "@/components/calcs/business/payroll-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PayrollTaxDeductionSplitChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/payroll-calculator";
+const TITLE = "Payroll Calculator | Net Pay, Federal Withholding & FICA Taxes";
+const DESCRIPTION =
+  "Calculate employee net pay, employer payroll tax liabilities, federal and state income tax withholding, Social Security, Medicare, and pre-tax deductions.";
 
 export const metadata: Metadata = {
-  "title": "Payroll Calculator – Employee Net Pay | CalcDigi",
-  "description": "Calculate employee net pay and tax withholding including federal tax, FICA, and state taxes for any salary or hourly wage.",
-  "openGraph": {
-    "title": "Payroll Calculator – Employee Net Pay | CalcDigi",
-    "description": "Calculate employee net pay and tax withholding including federal tax, FICA, and state taxes for any salary or hourly wage.",
-    "type": "website",
-    "url": "/calculators/business/payroll-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/payroll-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/employee-cost-calculator", icon: "👥", name: "Employee Cost" },
+  { href: "/calculators/business/freelance-rate-calculator", icon: "💼", name: "Freelance Rate" },
+  { href: "/calculators/business/burn-rate-calculator", icon: "🔥", name: "Burn Rate" },
+  { href: "/calculators/business/business-loan-calculator", icon: "🏦", name: "Business Loans" },
+  { href: "/calculators/business/cogs-calculator", icon: "📦", name: "COGS Solver" },
+  { href: "/calculators/business/sales-tax-calculator", icon: "🏛️", name: "Sales Tax" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the difference between employee payroll withholdings and employer payroll taxes?",
+    a: "Employee withholdings are deducted directly from the worker's gross earnings and remitted to tax authorities on their behalf (federal income tax, state income tax, and the employee half of FICA). Employer payroll taxes are separate mandatory expenses paid directly out of company funds (the employer matching half of FICA, plus federal and state unemployment taxes).",
+  },
+  {
+    q: "What are the exact statutory rates for FICA taxes under federal law?",
+    a: "Under the Federal Insurance Contributions Act (FICA), the total tax rate is 15.30%, split evenly between employee and employer (7.65% each). Social Security comprises 6.2% on wages up to the annual statutory wage cap, while Medicare comprises 1.45% on all earnings without any cap. High earners are also subject to an Additional Medicare Tax of 0.9% paid solely by the employee.",
+  },
+  {
+    q: "How do pre-tax deductions reduce both employee and employer tax obligations?",
+    a: "Section 125 cafeteria plans (health insurance premiums, HSA, FSA) and traditional 401(k) retirement contributions are deducted before income taxes are calculated. Section 125 deductions also bypass FICA taxes, directly saving the employer 7.65% in matching payroll tax liabilities.",
+  },
+  {
+    q: "What is the difference between FUTA and SUTA unemployment taxes?",
+    a: "FUTA (Federal Unemployment Tax Act) carries a standard net effective rate of 0.6% on the first $7,000 of employee wages for employers receiving full state credit. SUTA (State Unemployment Tax Act) rates vary widely by state and an employer's individual experience rating, typically taxing between 1.5% and 8.0% of wages up to state-specific taxable wage bases.",
+  },
+  {
+    q: "What legal risks arise from misclassifying W-2 employees as 1099 independent contractors?",
+    a: "Worker misclassification violates IRS Common Law Rules and Department of Labor guidelines. Penalties include retroactive assessment of all unwithheld FICA and income taxes, substantial failure-to-file penalties, interest charges, and statutory wage penalties under the Fair Labor Standards Act (FLSA).",
+  },
+  {
+    q: "How does periodic payroll liability affect small business cash reserves?",
+    a: "Payroll is an unforgiving fixed cash drain. Failing to remit federal payroll tax trust funds exposes business owners to the IRS Trust Fund Recovery Penalty, where owners become personally liable for corporate tax debts.",
+  },
+];
+
+export default function PayrollCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Payroll Calculator\", \"item\": \"https://calcdigi.com/calculators/business/payroll-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Payroll Calculator\", \"url\": \"https://calcdigi.com/calculators/business/payroll-calculator\", \"description\": \"Calculate employee net pay and tax withholding including federal tax, FICA, and state taxes for any salary or hourly wage.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How is payroll tax calculated?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Employee payroll taxes: FICA = Gross Pay × 7.65% (6.2% SS + 1.45% Medicare). Federal Income Tax: calculated using tax brackets and W-4 allowances. State income tax: varies by state (0-13%). Net Pay = Gross Pay - All Tax Withholding - Benefits Deductions. Employer pays matching FICA (7.65%) plus unemployment taxes.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between gross pay and net pay?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gross pay: total earnings before any deductions (salary or hours × rate). Net pay (take-home): gross pay minus all taxes and deductions. Typical deductions: federal income tax (10-22% for middle income), FICA (7.65%), state income tax (0-13%), health insurance premium, 401k contribution, and other voluntary deductions. Most employees take home 65-80% of gross pay.\"}}, {\"@type\": \"Question\", \"name\": \"How much does an employer pay in payroll taxes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Employer payroll taxes: matching FICA 7.65% (6.2% SS + 1.45% Medicare), FUTA 0.6% (on first $7,000), SUTA varies by state (typically 1-5% on first $7,000-$40,000). Total employer tax burden beyond gross wages: approximately 10-15% of gross wages. This is in addition to benefits, workers comp, and other costs.\"}}, {\"@type\": \"Question\", \"name\": \"What is a W-4 form and how does it affect withholding?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The W-4 (Employee Withholding Certificate) tells your employer how much federal income tax to withhold from each paycheck. Since 2020, it uses a dollar-based system instead of allowances. Claiming higher deductions/credits reduces withholding (larger paycheck, potential tax bill at filing). Lower claims increase withholding (smaller paycheck, likely refund). Update your W-4 after major life changes.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate bi-weekly payroll?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Bi-weekly gross pay = Annual salary / 26 pay periods. Monthly salary: $5,000/month = $60,000/year = $60,000/26 = $2,307.69 bi-weekly. Bi-weekly FICA = $2,307.69 × 7.65% = $176.54. Federal income tax withholding depends on W-4 and tax brackets. Net pay after FICA only: $2,307.69 - $176.54 = $2,131.15 (before income tax and other deductions).\"}}, {\"@type\": \"Question\", \"name\": \"What states have no income tax?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Nine states have no state income tax: Alaska, Florida, Nevada, New Hampshire (interest/dividends only), South Dakota, Tennessee (interest/dividends only), Texas, Washington, Wyoming. Washington has no income tax but has a capital gains tax. Moving to a no-income-tax state can significantly increase take-home pay for high earners.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Payroll Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Payroll Calculator</h1>\n<p class=\"calc-intro\">Calculate employee net take-home pay after federal income tax withholding, Social Security, Medicare (FICA), and state taxes. Also shows the total employer payroll tax burden for any salary or hourly wage.</p>\n<p class=\"calc-intro\">Payroll processing requires calculating multiple taxes simultaneously — federal income tax withholding (based on W-4 allowances), FICA (Social Security 6.2% + Medicare 1.45%), state income tax, and any local taxes. This calculator estimates net pay for budgeting and helps employers understand total payroll cost.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Net Pay = Gross Pay - Federal Tax - FICA (7.65%) - State Tax - Other Deductions | Employer Cost = Gross Pay × (1 + Employer FICA 7.65%)</div></div>\n<div class=\"content-section\">\n<h2>2026 Payroll Tax Reference</h2>\n<p>Payroll taxes in the US include both employee and employer contributions. Understanding all components helps employees verify their paychecks and helps employers accurately budget labor costs.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Tax Component</th><th style=\"padding:11px 14px;text-align:left;\">Rate</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Social Security (employee)</td><td style=\"padding:10px 14px;\">6.2%</td><td style=\"padding:10px 14px;\">On first $184,500 of wages (2026)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Medicare (employee)</td><td style=\"padding:10px 14px;\">1.45%</td><td style=\"padding:10px 14px;\">On all wages</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Additional Medicare</td><td style=\"padding:10px 14px;\">0.9%</td><td style=\"padding:10px 14px;\">Employee only, wages over $200,000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Social Security (employer)</td><td style=\"padding:10px 14px;\">6.2%</td><td style=\"padding:10px 14px;\">Same as employee portion</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Medicare (employer)</td><td style=\"padding:10px 14px;\">1.45%</td><td style=\"padding:10px 14px;\">Same as employee portion</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Federal Unemployment (FUTA)</td><td style=\"padding:10px 14px;\">0.6%</td><td style=\"padding:10px 14px;\">Employer only, first $7,000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">State Unemployment (SUTA)</td><td style=\"padding:10px 14px;\">1-10%+</td><td style=\"padding:10px 14px;\">Employer only, varies by state/history</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Federal Income Tax</td><td style=\"padding:10px 14px;\">10-37%</td><td style=\"padding:10px 14px;\">Based on income bracket and W-4</td></tr></tbody></table></div>\n<h3>2026 Federal Income Tax Brackets (Single)</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Income Range</th><th style=\"padding:11px 14px;text-align:left;\">Tax Rate</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">$0 - $12,400</td><td style=\"padding:10px 14px;\">10%</td><td style=\"padding:10px 14px;\">Lowest bracket</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">$12,401 - $50,400</td><td style=\"padding:10px 14px;\">12%</td><td style=\"padding:10px 14px;\"></td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">$50,401 - $105,700</td><td style=\"padding:10px 14px;\">22%</td><td style=\"padding:10px 14px;\"></td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">$105,701 - $201,775</td><td style=\"padding:10px 14px;\">24%</td><td style=\"padding:10px 14px;\"></td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">$201,776 - $256,225</td><td style=\"padding:10px 14px;\">32%</td><td style=\"padding:10px 14px;\"></td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">$256,226 - $640,600</td><td style=\"padding:10px 14px;\">35%</td><td style=\"padding:10px 14px;\"></td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Over $640,600</td><td style=\"padding:10px 14px;\">37%</td><td style=\"padding:10px 14px;\">Highest bracket</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is payroll tax calculated? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Employee payroll taxes: FICA = Gross Pay × 7.65% (6.2% SS + 1.45% Medicare). Federal Income Tax: calculated using tax brackets and W-4 allowances. State income tax: varies by state (0-13%). Net Pay = Gross Pay - All Tax Withholding - Benefits Deductions. Employer pays matching FICA (7.65%) plus unemployment taxes.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between gross pay and net pay? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gross pay: total earnings before any deductions (salary or hours × rate). Net pay (take-home): gross pay minus all taxes and deductions. Typical deductions: federal income tax (10-22% for middle income), FICA (7.65%), state income tax (0-13%), health insurance premium, 401k contribution, and other voluntary deductions. Most employees take home 65-80% of gross pay.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does an employer pay in payroll taxes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Employer payroll taxes: matching FICA 7.65% (6.2% SS + 1.45% Medicare), FUTA 0.6% (on first $7,000), SUTA varies by state (typically 1-5% on first $7,000-$40,000). Total employer tax burden beyond gross wages: approximately 10-15% of gross wages. This is in addition to benefits, workers comp, and other costs.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a W-4 form and how does it affect withholding? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The W-4 (Employee Withholding Certificate) tells your employer how much federal income tax to withhold from each paycheck. Since 2020, it uses a dollar-based system instead of allowances. Claiming higher deductions/credits reduces withholding (larger paycheck, potential tax bill at filing). Lower claims increase withholding (smaller paycheck, likely refund). Update your W-4 after major life changes.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate bi-weekly payroll? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Bi-weekly gross pay = Annual salary / 26 pay periods. Monthly salary: $5,000/month = $60,000/year = $60,000/26 = $2,307.69 bi-weekly. Bi-weekly FICA = $2,307.69 × 7.65% = $176.54. Federal income tax withholding depends on W-4 and tax brackets. Net pay after FICA only: $2,307.69 - $176.54 = $2,131.15 (before income tax and other deductions).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What states have no income tax? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Nine states have no state income tax: Alaska, Florida, Nevada, New Hampshire (interest/dividends only), South Dakota, Tennessee (interest/dividends only), Texas, Washington, Wyoming. Washington has no income tax but has a capital gains tax. Moving to a no-income-tax state can significantly increase take-home pay for high earners.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/profit-margin-calculator\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Profit Margin Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/business-loan-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Business Loan Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Payroll Calculator – Net Pay, Withholding and Employer Taxes</h2><div class=\"form-group\"><label for=\"pr-type\">Pay Type</label><select id=\"pr-type\"><option selected=\"\" value=\"salary\">Annual Salary</option><option value=\"hourly\">Hourly Wage</option></select></div><div class=\"form-group\"><label for=\"pr-salary\">Annual Salary ($)</label><input id=\"pr-salary\" min=\"10000\" step=\"1000\" type=\"number\" value=\"65000\"/></div><div class=\"form-group\"><label for=\"pr-hourly\">Hourly Rate ($)</label><input id=\"pr-hourly\" min=\"7.25\" step=\"0.25\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"pr-hours\">Hours Per Week</label><input id=\"pr-hours\" max=\"80\" min=\"1\" step=\"0.5\" type=\"number\" value=\"40\"/></div><div class=\"form-group\"><label for=\"pr-state_tax\">State Income Tax Rate (%)</label><input id=\"pr-state_tax\" max=\"15\" min=\"0\" step=\"0.1\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"pr-benefits\">Pre-Tax Benefit Deductions (per paycheck $)</label><input id=\"pr-benefits\" min=\"0\" step=\"10\" type=\"number\" value=\"150\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','Payroll Calculator – Net Pay, Withholding and Employer Taxes')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Payroll Calculator – Net Pay, Withholding and Employer Taxes')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-payroll-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('pr-type').addEventListener('change',function(){\n  document.getElementById('pr-salary').parentElement.style.display=this.value==='salary'?'block':'none';\n  document.getElementById('pr-hourly').parentElement.style.display=this.value==='hourly'?'block':'none';\n  document.getElementById('pr-hours').parentElement.style.display=this.value==='hourly'?'block':'none';\n});\nfunction calcFedTax(annual){\n  var brackets=[[12400,0.10],[50400,0.12],[105700,0.22],[201775,0.24],[256225,0.32],[640600,0.35],[Infinity,0.37]];\n  var prev=0,tax=0;\n  for(var i=0;i<brackets.length;i++){\n    var upper=brackets[i][0],rate=brackets[i][1];\n    if(annual<=prev) break;\n    tax+=(Math.min(annual,upper)-prev)*rate;\n    prev=upper;\n  }\n  return tax;\n}\nfunction doCalc(){\n  var type=document.getElementById('pr-type').value;\n  var stateTax=parseFloat(document.getElementById('pr-state_tax').value)||0;\n  var benefits=parseFloat(document.getElementById('pr-benefits').value)||0;\n  var annualGross,ppGross;\n  if(type==='salary'){\n    annualGross=parseFloat(document.getElementById('pr-salary').value)||0;\n    ppGross=annualGross/26;\n  } else {\n    var rate=parseFloat(document.getElementById('pr-hourly').value)||0;\n    var hrs=parseFloat(document.getElementById('pr-hours').value)||40;\n    annualGross=rate*hrs*52; ppGross=annualGross/26;\n  }\n  if(!annualGross){alert('Please enter salary or hourly rate.');return;}\n  var taxableAnnual=Math.max(0,annualGross-benefits*26-16100);\n  var annualFed=calcFedTax(taxableAnnual);\n  var ppFed=annualFed/26;\n  var annualFICA=Math.min(annualGross,184500)*0.062+annualGross*0.0145;\n  var ppFICA=annualFICA/26;\n  var ppState=ppGross*stateTax/100;\n  var ppNet=ppGross-ppFed-ppFICA-ppState-benefits;\n  var employerCost=annualGross+annualFICA;\n  var effectiveRate=(ppFed+ppFICA+ppState)/ppGross*100;\n  var aiPrompt='Payroll: $'+annualGross.toLocaleString()+'/yr, net pay $'+ppNet.toFixed(0)+'/paycheck, effective tax '+effectiveRate.toFixed(1)+'%';\n  document.getElementById('bz-ri').innerHTML=\n    ri('Net Pay Per Paycheck','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+ppNet.toFixed(2)+'</strong>',true)+\n    ri('Annual Net Pay','$'+(ppNet*26).toFixed(0))+\n    ri('Federal Tax Withheld','$'+ppFed.toFixed(2)+'/paycheck')+\n    ri('FICA (SS + Medicare)','$'+ppFICA.toFixed(2)+'/paycheck')+\n    ri('State Tax ('+stateTax+'%)','$'+ppState.toFixed(2)+'/paycheck')+\n    ri('Effective Tax Rate',effectiveRate.toFixed(1)+'%')+\n    ri('Employer Total Cost','$'+employerCost.toFixed(0)+'/yr (incl. employer FICA)');\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',['Net Pay','Fed Tax','FICA','State Tax'],[Math.round(ppNet),Math.round(ppFed),Math.round(ppFICA),Math.round(ppState)||0.001],['#1a5c3a','#c8832a','#3a7abf','#8a4abf']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about payroll planning and tax optimization for employees and employers.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="Corporate Payroll & Tax Withholding Calculator"
+      intro="Compute employee net take-home pay, federal and state tax withholding, FICA contributions, Section 125 pre-tax deductions, and total employer payroll burden."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Corporate Payroll is Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              To calculate employee net pay, subtract pre-tax deductions (health insurance, 401k), employee FICA taxes (6.2% Social Security + 1.45% Medicare), and federal/state income tax withholdings from gross salary: Net Pay = Gross Pay - Pre-Tax Deductions - FICA - Income Tax - Post-Tax Deductions. Concurrently, employers fund matching FICA (7.65%) and unemployment taxes (FUTA/SUTA). Model fully burdened staffing overhead with the <Link href="/calculators/business/employee-cost-calculator">employee cost calculator</Link> and track burn velocity via the <Link href="/calculators/business/burn-rate-calculator">startup burn rate calculator</Link>.
+            </p>
+          </div>
+
+          <h2>Visual Analysis: Employee Net Pay vs Statutory Deductions & Employer Burden</h2>
+          <p>
+            The chart below visualizes the distribution of gross salary into employee net cash, statutory employee withholdings, and mandatory employer payroll tax contributions.
+          </p>
+
+          <PayrollTaxDeductionSplitChart />
+
+          <h2>First-Principles Payroll Formulations & Statutory Tax Mechanics</h2>
+          <p>
+            Payroll accounting governs two distinct balance sheets: the employee withholding remittance and the employer statutory tax liability. Under Internal Revenue Code (IRC) Section 3402, taxable wages for federal withholding evaluate to:
+          </p>
+          <Formula>
+            {"\\text{Taxable Wages (Income)} = \\text{Gross Wages} - \\text{Section 125 Pre-Tax} - \\text{Traditional 401(k)}"}
+          </Formula>
+          <p>
+            For Federal Insurance Contributions Act (FICA) taxes, 401(k) contributions remain taxable, whereas qualified Section 125 cafeteria benefits are fully exempt:
+          </p>
+          <Formula>
+            {"\\text{FICA Wages} = \\text{Gross Wages} - \\text{Section 125 Pre-Tax}"}
+          </Formula>
+          <Formula>
+            {"\\text{Employee FICA} = (\\text{FICA Wages} \\times 0.062) + (\\text{FICA Wages} \\times 0.0145)"}
+          </Formula>
+          <p>
+            The resulting net take-home pay delivered to the employee&apos;s bank account on pay date is:
+          </p>
+          <Formula>
+            {"\\text{Net Take-Home Pay} = \\text{Gross Pay} - \\text{Pre-Tax Deductions} - \\text{Employee FICA} - \\text{FIT Withholding} - \\text{SIT Withholding}"}
+          </Formula>
+          <p>
+            Concurrently, the employer must disburse mandatory matching taxes from corporate operational capital:
+          </p>
+          <Formula>
+            {"\\text{Total Employer Outlay} = \\text{Gross Pay} + \\text{Employer FICA (7.65\\%)} + \\text{FUTA (0.6\\%)} + \\text{SUTA (Rate\\%)}"}
+          </Formula>
+          <p>
+            Operating executives evaluate staffing capacity by calibrating project rates with the <Link href="/calculators/business/freelance-rate-calculator">freelance rate calculator</Link>, assessing commercial debt coverage via the <Link href="/calculators/business/business-loan-calculator">business loan calculator</Link>, and balancing corporate profit margins in the <Link href="/calculators/business/profit-margin-calculator">profit margin solver</Link>.
+          </p>
+
+          <h2>Standard Payroll Tax Deductions & Statutory Contribution Limits</h2>
+          <p>
+            The table below summarizes standard federal and state payroll tax tiers, statutory employer matching rules, wage base limits, and administrative remittance schedules.
+          </p>
+
+          <DataTable
+            head={["Payroll Tax Category", "Statutory Tax Rate", "Paid By", "Wage Base Cap", "Statutory Purpose"]}
+            rows={[
+              ["Social Security (OASDI)", "6.20%", "Split 50/50 (Employee & Employer)", "Annual statutory wage cap", "Federal retirement & disability trust funds"],
+              ["Medicare Hospital Insurance (HI)", "1.45%", "Split 50/50 (Employee & Employer)", "No wage limit (uncapped)", "Federal Medicare hospital insurance trust"],
+              ["Additional Medicare Tax", "0.90%", "100% Employee", "Threshold over $200k single / $250k joint", "Affordable Care Act funding provision"],
+              ["Federal Unemployment Tax (FUTA)", "0.60% (Net effective)", "100% Employer", "First $7,000 of annual wages per worker", "Federal unemployment administration & loans"],
+              ["State Unemployment Tax (SUTA)", "1.50% - 7.50% (Variable)", "100% Employer", "State-specific wage base limits", "State unemployment insurance trust funds"],
+              ["Workers' Comp Insurance", "0.50% - 9.00% (By Risk)", "100% Employer", "Total gross payroll wages", "Mandatory workplace injury insurance coverage"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Salaried Technology Engineer Semi-Monthly Payroll</h3>
+          <p>
+            A high-growth enterprise SaaS company compensates a senior cloud engineer with an annual base salary of $132,000.00 distributed across 24 semi-monthly payroll cycles ($5,500.00 gross per pay period). The engineer elects $300.00 per pay period in pre-tax Section 125 health and dental coverage, plus a 6.0% ($330.00) traditional 401(k) retirement contribution. Federal income tax withholding averages 15.0%, state income tax is 4.5%, and the employer&apos;s state unemployment (SUTA) experience rating is 2.8%:
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate taxable wage baselines:</strong>
+              <br />
+              FICA Taxable Base = $5,500.00 - $300.00 (Section 125) = $5,200.00.
+              <br />
+              Income Tax Taxable Base = $5,200.00 - $330.00 (401k) = $4,870.00.
+            </li>
+            <li>
+              <strong>Compute employee statutory withholdings:</strong>
+              <br />
+              Social Security (6.2%) = $5,200.00 &times; 0.062 = $322.40.
+              <br />
+              Medicare (1.45%) = $5,200.00 &times; 0.0145 = $75.40.
+              <br />
+              Federal Withholding (15%) = $4,870.00 &times; 0.15 = $730.50.
+              <br />
+              State Withholding (4.5%) = $4,870.00 &times; 0.045 = $219.15.
+              <br />
+              Total Employee Withholdings = $322.40 + $75.40 + $730.50 + $219.15 = $1,347.45.
+            </li>
+            <li>
+              <strong>Determine employee net take-home pay:</strong>
+              <br />
+              Net Pay = $5,500.00 - $630.00 (Pre-tax) - $1,347.45 (Taxes) = $3,522.55.
+            </li>
+            <li>
+              <strong>Calculate total employer cash disbursement:</strong>
+              <br />
+              Employer FICA Match = $322.40 + $75.40 = $397.80.
+              <br />
+              Employer Unemployment Taxes (FUTA + SUTA = 3.4%) = $5,500.00 &times; 0.034 = $187.00.
+              <br />
+              Total Employer Cost = $5,500.00 (Gross) + $397.80 (FICA) + $187.00 (SUTA) = $6,084.80.
+            </li>
+            <li>
+              <strong>Corporate Budget Alignment:</strong> Management audits engineering payroll allocation within the <Link href="/calculators/business/cogs-calculator">COGS solver</Link> and projects quarterly runway in the <Link href="/calculators/business/burn-rate-calculator">startup burn rate calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Hourly Light Manufacturing Assembly Shift</h3>
+          <p>
+            An electronics assembly contractor employs 10 hourly technicians at $22.00/hour working standard 80-hour bi-weekly shifts ($1,760.00 gross wages each). Each employee has $50.00 deducted for pre-tax group health insurance. Federal withholding averages 10.0%, state withholding is 3.5%, and worker compensation premiums run at 3.2% of gross payroll:
+          </p>
+          <ol>
+            <li>
+              <strong>Determine per-employee net take-home:</strong>
+              <br />
+              FICA Base = $1,760.00 - $50.00 = $1,710.00.
+              <br />
+              FICA Deduction (7.65%) = $1,710.00 &times; 0.0765 = $130.82.
+              <br />
+              Income Tax Base = $1,710.00. FIT + SIT (13.5%) = $1,710.00 &times; 0.135 = $230.85.
+              <br />
+              Net Pay = $1,760.00 - $50.00 - $130.82 - $230.85 = $1,348.33.
+            </li>
+            <li>
+              <strong>Evaluate total 10-person employer payroll burden:</strong>
+              <br />
+              Gross Shift Payroll = 10 &times; $1,760.00 = $17,600.00.
+              <br />
+              Employer FICA (7.65% on $17,100) = $1,308.15.
+              <br />
+              Workers&apos; Comp (3.2% on $17,600) = $563.20.
+              <br />
+              Unemployment Taxes (SUTA + FUTA @ 3.5%) = $616.00.
+              <br />
+              Total Employer Disbursement = $17,600 + $1,308.15 + $563.20 + $616.00 = $20,087.35.
+            </li>
+            <li>
+              <strong>Contract Pricing Verification:</strong> The contractor integrates factory labor into job quotes with the <Link href="/calculators/business/invoice-calculator">commercial invoice calculator</Link> and verifies markup buffers via the <Link href="/calculators/business/markup-calculator">markup calculator</Link>.
+            </li>
+          </ol>
+
+          <h2>IRS Fiduciary Compliance: Trust Fund Recovery Penalties & Audits</h2>
+          <p>
+            Payroll taxes withheld from employee paychecks represent statutory trust funds held in fiduciary escrow for the federal and state governments. Under Internal Revenue Code Section 6672, failure to remit withheld payroll taxes triggers the Trust Fund Recovery Penalty (TFRP), assessing a 100% personal liability penalty against any corporate officer, director, or payroll manager deemed a &quot;responsible person.&quot; This liability pierces corporate limited liability protections and cannot be discharged in personal bankruptcy.
+          </p>
+          <p>
+            Employers must deposit payroll liabilities electronically via the Electronic Federal Tax Payment System (EFTPS) according to strict monthly or semi-weekly schedules, filing quarterly IRS Form 941 reconciliations to verify compliance.
+          </p>
+          <p>
+            Furthermore, multi-state employers must adhere to reciprocal state tax agreements. In metropolitan areas spanning state borders, remote worker payroll systems must accurately apportion state income withholding across primary physical work locations and home residences to avoid cross-jurisdictional tax audit penalties.
+          </p>
+
+
+          <p>
+            In modern corporate human resource management, automated payroll platforms continuously synchronize with corporate general ledgers and employee benefit carriers. When employees adjust voluntary 401(k) percentage allocations, health savings account (HSA) contributions, or commuter transit passes, automated payroll rules recalculate statutory FICA and income tax withholding thresholds in real time. This automated synchronization prevents manual spreadsheet calculation errors and ensures compliance with annual IRS benefit contribution limits.
+          </p>
+
+          <h2>Operational Pitfalls in Corporate Payroll Administration</h2>
+          <ol>
+            <li>
+              <strong>Worker Misclassification (W-2 vs. 1099):</strong> Improperly treating regular employees as independent contractors to bypass FICA and unemployment taxes invites severe Department of Labor audits, back-tax assessments, and statutory wage penalties.
+            </li>
+            <li>
+              <strong>Overlooking State Multi-Nexus Withholding:</strong> In remote workforces, employers must register and withhold income taxes in every state where employees physically perform services, not merely the employer&apos;s corporate headquarters state.
+            </li>
+            <li>
+              <strong>Failing to Track Annual FICA Wage Caps:</strong> Once an employee&apos;s cumulative annual wages surpass the Social Security statutory cap, withholding the 6.2% tax must immediately cease, while the 1.45% Medicare tax continues indefinitely.
+            </li>
+            <li>
+              <strong>Mismanaging Pre-Tax Benefit Exclusions:</strong> Deducting non-qualifying voluntary fringe benefits on a pre-tax basis triggers payroll tax underpayment penalties and employee tax revisions during audit reviews.
+            </li>
+          </ol>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why does an employee cost significantly more than their gross salary?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Beyond gross salary, employers are legally required to fund matching FICA taxes (7.65%), federal and state unemployment insurance (1.5% - 8.0%), and workers&apos; compensation insurance (0.5% - 5.0%), plus elective benefits like health insurance and retirement matches, creating an overall employer burden multiplier of 1.25x to 1.40x gross compensation.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does Section 125 benefit both the employee and the employer?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Section 125 cafeteria plans permit employees to pay for health insurance premiums, HSA contributions, and FSA accounts using pre-tax dollars. This reduces the employee&apos;s taxable income for both income taxes and FICA, while simultaneously reducing the employer&apos;s matching 7.65% FICA tax liability dollar-for-dollar.
+              </p>
+            </div>
+          </div>
+
+
+          <p>
+            Furthermore, human resource directors evaluate employer contribution matching schedules for corporate retirement plans. Structuring tiered safe-harbor 401(k) matches satisfies non-discrimination testing requirements while optimizing business tax deductions under federal retirement guidelines.
+          </p>
+
+          <h2>Authoritative Regulatory Citations & Statutory Standards</h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Internal Revenue Service (IRS Publication 15 - Circular E):</strong> Employer&apos;s Tax Guide for federal income withholding, Social Security, Medicare, and FUTA taxes.
+            </li>
+            <li>
+              <strong>Federal Insurance Contributions Act (26 U.S. Code Chapter 21):</strong> Statutory provisions governing FICA tax rates, withholding duties, and trust fund liabilities.
+            </li>
+            <li>
+              <strong>Fair Labor Standards Act (FLSA - 29 U.S.C. 201):</strong> Federal overtime rules, non-exempt hourly tracking, and minimum wage compliance standards.
+            </li>
+            <li>
+              <strong>Department of Labor (DOL Rule 29 CFR Part 795):</strong> Standards for determining independent contractor versus employee status under federal law.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <PayrollCalculatorComponent />
+    </CalcPage>
   );
 }

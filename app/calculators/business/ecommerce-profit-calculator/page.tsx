@@ -1,26 +1,265 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import EcommerceProfitCalculatorComponent from "@/components/calcs/business/ecommerce-profit-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { EcommerceCostWaterfallChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/ecommerce-profit-calculator";
+const TITLE = "E-Commerce Profit Calculator | Store Margins & ROAS Unit Economics Solver";
+const DESCRIPTION =
+  "Calculate online store net profit, return on ad spend (ROAS), payment processing fees, 3PL fulfillment expenses, and true landed product margins.";
 
 export const metadata: Metadata = {
-  "title": "Ecommerce Profit Calculator – Online Store Profit | CalcDigi",
-  "description": "Calculate net profit per order including product cost, shipping, platform fees, ad spend, and returns for any online store.",
-  "openGraph": {
-    "title": "Ecommerce Profit Calculator – Online Store Profit | CalcDigi",
-    "description": "Calculate net profit per order including product cost, shipping, platform fees, ad spend, and returns for any online store.",
-    "type": "website",
-    "url": "/calculators/business/ecommerce-profit-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/ecommerce-profit-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/cogs-calculator", icon: "📦", name: "Cost of Goods Sold" },
+  { href: "/calculators/business/cac-calculator", icon: "🎯", name: "Customer Acquisition Cost" },
+  { href: "/calculators/business/ltv-calculator", icon: "💎", name: "Customer Lifetime Value" },
+  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margins" },
+  { href: "/calculators/business/discount-calculator", icon: "🏷️", name: "Discount Calculator" },
+  { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Point" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why do many fast-growing e-commerce stores fail to generate net profit?",
+    a: "E-commerce brands often focus exclusively on top-line revenue (GMV) or front-end Return on Ad Spend (ROAS) while ignoring hidden variable leakages: payment gateway processing fees, pick-and-pack warehouse surcharges, return shipping costs, damaged inventory, and customer service payroll, turning apparent marketing profits into net operating losses.",
+  },
+  {
+    q: "What is a healthy net profit margin for a direct-to-consumer (DTC) brand?",
+    a: "In modern direct-to-consumer retail, a net profit margin of 10% to 15% (after all COGS, ad spend, fulfillment, payment fees, and software overhead) is considered solid, while 15% to 20%+ represents elite operational efficiency. Stores operating below 8% net margin risk becoming unprofitable with minor shifts in ad costs.",
+  },
+  {
+    q: "How does product return rate alter e-commerce unit economics?",
+    a: "Returns are devastating to e-commerce profitability: the merchant pays for outbound shipping, inbound return freight, warehouse inspection labor, and repackaging fees, while the returned item often cannot be resold as new. In fashion apparel where return rates average 25% to 35%, accounting for return reverse logistics is critical.",
+  },
+  {
+    q: "What is the difference between ROAS and Marketing Efficiency Ratio (MER)?",
+    a: "Return on Ad Spend (ROAS) measures revenue attributed directly to specific ad campaigns (Attributed Revenue / Ad Spend), which is prone to pixel tracking errors. Marketing Efficiency Ratio (MER), also known as Blended ROAS, measures total store revenue divided by total marketing spend across all channels, providing an unskewed top-level efficiency metric.",
+  },
+];
+
+export default function EcommerceProfitCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Ecommerce Profit Calculator\", \"item\": \"https://calcdigi.com/calculators/business/ecommerce-profit-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Ecommerce Profit Calculator\", \"url\": \"https://calcdigi.com/calculators/business/ecommerce-profit-calculator\", \"description\": \"Calculate net profit per order including product cost, shipping, platform fees, ad spend, and returns for any online store.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate ecommerce profit per order?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Net Profit = Selling Price - Product Cost - Shipping - Platform/Marketplace Fee - Payment Processing Fee - Ad Spend per Order - Return Cost Allocation. Example: $50 product sold for $50 price: minus $15 COGS, $5 shipping, $5 Amazon fee (10%), $1.50 payment, $8 ad spend = $15.50 net profit = 31% margin.\"}}, {\"@type\": \"Question\", \"name\": \"What are Amazon FBA fees?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Amazon FBA fees: Referral fee: 8-15% of selling price (depends on category). FBA fulfillment fee: $3-7+ per unit (size and weight based). Storage fee: $0.87/cubic foot/month (Jan-Sep), $2.40 (Oct-Dec). Total fees often represent 30-40% of selling price. Calculate before sourcing products — many new sellers discover they are unprofitable after launch.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good profit margin for ecommerce?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Net profit margin targets: 10-15% is minimum viable for most ecommerce. 20-30% is healthy. Above 30% is excellent. Amazon FBA: realistic target 15-25% after all fees. Shopify D2C with ads: 15-25%. D2C with strong organic/email: 30-50%. Private label on Amazon often achieves 20-30% if sourced well.\"}}, {\"@type\": \"Question\", \"name\": \"How does return rate affect ecommerce profitability?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Returns destroy margins. If 10% of orders are returned: cost = return shipping ($5-15) + restocking fee + potential product damage. A product with 25% margin and 15% return rate might have its effective margin cut in half after accounting for returns and restocking. Categories with high return rates: clothing (20-30%), electronics (10-15%), shoes (20-25%).\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate ROAS for ecommerce?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"ROAS (Return on Ad Spend) = Revenue / Ad Spend. Break-even ROAS = 1 / Net Margin. If your net margin (before ads) is 25%: break-even ROAS = 1/0.25 = 4.0. You need $4 in revenue for every $1 in ad spend to break even. Target ROAS for profitability: 5-6× for most ecommerce. Low margins (15%) require 6-7× ROAS just to cover ad costs.\"}}, {\"@type\": \"Question\", \"name\": \"What payment processing fees does Shopify charge?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Shopify Payments rates (US, 2024): Basic Shopify: 2.9% + $0.30 per transaction. Shopify plan: 2.6% + $0.30. Advanced: 2.4% + $0.30. If using external payment processor: additional 0.5-2% transaction fee applies. For $50 average order on Basic: fee = $50 × 0.029 + $0.30 = $1.75. Annual processing cost at 1,000 orders/month: $21,000.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Ecommerce Profit Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Ecommerce Profit Calculator</h1>\n<p class=\"calc-intro\">Calculate your true net profit per order for any ecommerce product by factoring in product cost, shipping, platform fees, payment processing fees, advertising cost per order, and return rate. Find your actual profit margin after all ecommerce-specific costs.</p>\n<p class=\"calc-intro\">E-commerce profitability is more complex than product cost vs selling price. Seller fees (Amazon: 8-15%, Shopify: 2.9%+0.30), shipping, payment processing, advertising cost per acquisition, and return costs dramatically reduce apparent margins. This calculator reveals your true net profit per order.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Net Profit = Revenue - COGS - Shipping - Platform Fee - Payment Fee - Ad Spend per Order - Return Cost | Net Margin = Net Profit / Revenue × 100</div></div>\n<div class=\"content-section\">\n<h2>E-commerce Cost Structure</h2>\n<p>Successful e-commerce requires understanding all cost layers between product cost and net profit. Many online sellers overestimate profitability by ignoring platform fees, advertising costs, and return rates — leading to pricing decisions that look profitable but are actually losing money.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Cost Component</th><th style=\"padding:11px 14px;text-align:left;\">Typical Range</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Amazon FBA product cost</td><td style=\"padding:10px 14px;\">35-50%</td><td style=\"padding:10px 14px;\">Includes COGS + FBA fees + shipping</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Amazon Seller fees</td><td style=\"padding:10px 14px;\">8-15%</td><td style=\"padding:10px 14px;\">Category-dependent referral fee</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">FBA fulfillment fee</td><td style=\"padding:10px 14px;\">$3-7 per unit</td><td style=\"padding:10px 14px;\">Weight/dimension dependent</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Shopify + Stripe</td><td style=\"padding:10px 14px;\">2.9% + $0.30 per order</td><td style=\"padding:10px 14px;\">Standard rates</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Facebook/Google Ads CAC</td><td style=\"padding:10px 14px;\">$10-50+ per order</td><td style=\"padding:10px 14px;\">Highly variable by niche</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Return rate</td><td style=\"padding:10px 14px;\">5-30%</td><td style=\"padding:10px 14px;\">Industry and product dependent</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Net margin (typical FBA)</td><td style=\"padding:10px 14px;\">10-25%</td><td style=\"padding:10px 14px;\">After all costs</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Net margin (D2C Shopify)</td><td style=\"padding:10px 14px;\">15-35%</td><td style=\"padding:10px 14px;\">Higher without marketplace fee</td></tr></tbody></table></div>\n<h3>Amazon vs Shopify Profitability</h3>\n<p>Amazon FBA: higher fees (15% referral + FBA fulfillment), but built-in traffic means lower advertising costs. Margins typically 10-25%. Shopify D2C: lower fees (2.9% + $0.30), but you pay all traffic costs. Without paid ads, D2C margins can reach 40%+. With paid ads, similar to Amazon. Multichannel (both) increases revenue but complicates logistics and pricing.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate ecommerce profit per order? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Net Profit = Selling Price - Product Cost - Shipping - Platform/Marketplace Fee - Payment Processing Fee - Ad Spend per Order - Return Cost Allocation. Example: $50 product sold for $50 price: minus $15 COGS, $5 shipping, $5 Amazon fee (10%), $1.50 payment, $8 ad spend = $15.50 net profit = 31% margin.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are Amazon FBA fees? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Amazon FBA fees: Referral fee: 8-15% of selling price (depends on category). FBA fulfillment fee: $3-7+ per unit (size and weight based). Storage fee: $0.87/cubic foot/month (Jan-Sep), $2.40 (Oct-Dec). Total fees often represent 30-40% of selling price. Calculate before sourcing products — many new sellers discover they are unprofitable after launch.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good profit margin for ecommerce? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Net profit margin targets: 10-15% is minimum viable for most ecommerce. 20-30% is healthy. Above 30% is excellent. Amazon FBA: realistic target 15-25% after all fees. Shopify D2C with ads: 15-25%. D2C with strong organic/email: 30-50%. Private label on Amazon often achieves 20-30% if sourced well.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does return rate affect ecommerce profitability? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Returns destroy margins. If 10% of orders are returned: cost = return shipping ($5-15) + restocking fee + potential product damage. A product with 25% margin and 15% return rate might have its effective margin cut in half after accounting for returns and restocking. Categories with high return rates: clothing (20-30%), electronics (10-15%), shoes (20-25%).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate ROAS for ecommerce? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">ROAS (Return on Ad Spend) = Revenue / Ad Spend. Break-even ROAS = 1 / Net Margin. If your net margin (before ads) is 25%: break-even ROAS = 1/0.25 = 4.0. You need $4 in revenue for every $1 in ad spend to break even. Target ROAS for profitability: 5-6× for most ecommerce. Low margins (15%) require 6-7× ROAS just to cover ad costs.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What payment processing fees does Shopify charge? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Shopify Payments rates (US, 2024): Basic Shopify: 2.9% + $0.30 per transaction. Shopify plan: 2.6% + $0.30. Advanced: 2.4% + $0.30. If using external payment processor: additional 0.5-2% transaction fee applies. For $50 average order on Basic: fee = $50 × 0.029 + $0.30 = $1.75. Annual processing cost at 1,000 orders/month: $21,000.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/profit-margin-calculator\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Profit Margin Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/markup-calculator\"><span class=\"rc-icon\">🏷️</span><span class=\"rc-name\">Markup Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Ecommerce Profit Calculator – Net Profit Per Order</h2><div class=\"form-group\"><label for=\"ec-price\">Selling Price ($)</label><input id=\"ec-price\" min=\"0.01\" step=\"any\" type=\"number\" value=\"50\"/></div><div class=\"form-group\"><label for=\"ec-cogs\">Product Cost / COGS ($)</label><input id=\"ec-cogs\" min=\"0\" step=\"any\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"ec-ship\">Shipping Cost ($)</label><input id=\"ec-ship\" min=\"0\" step=\"any\" type=\"number\" value=\"5\"/></div><div class=\"form-group\"><label for=\"ec-fee\">Platform Fee (%)</label><input id=\"ec-fee\" max=\"50\" min=\"0\" step=\"0.1\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"ec-pay\">Payment Processing (%)</label><input id=\"ec-pay\" max=\"10\" min=\"0\" step=\"0.1\" type=\"number\" value=\"2.9\"/></div><div class=\"form-group\"><label for=\"ec-payfix\">+ Fixed Payment Fee ($)</label><input id=\"ec-payfix\" min=\"0\" step=\"0.01\" type=\"number\" value=\"0.30\"/></div><div class=\"form-group\"><label for=\"ec-ads\">Ad Spend Per Order ($)</label><input id=\"ec-ads\" min=\"0\" step=\"any\" type=\"number\" value=\"8\"/></div><div class=\"form-group\"><label for=\"ec-return\">Return Rate (%)</label><input id=\"ec-return\" max=\"100\" min=\"0\" step=\"1\" type=\"number\" value=\"5\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','Ecommerce Profit Calculator – Net Profit Per Order')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Ecommerce Profit Calculator – Net Profit Per Order')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-ecommerce-profit-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var price=parseFloat(document.getElementById('ec-price').value)||0;\n  var cogs=parseFloat(document.getElementById('ec-cogs').value)||0;\n  var ship=parseFloat(document.getElementById('ec-ship').value)||0;\n  var fee=parseFloat(document.getElementById('ec-fee').value)||0;\n  var pay=parseFloat(document.getElementById('ec-pay').value)||0;\n  var payfix=parseFloat(document.getElementById('ec-payfix').value)||0;\n  var ads=parseFloat(document.getElementById('ec-ads').value)||0;\n  var ret=parseFloat(document.getElementById('ec-return').value)||0;\n  if(!price){alert('Please enter selling price.');return;}\n  var platformFee=price*fee/100;\n  var payFee=price*pay/100+payfix;\n  var returnCost=(price*ret/100)*0.15;\n  var totalCost=cogs+ship+platformFee+payFee+ads+returnCost;\n  var profit=price-totalCost;\n  var margin=profit/price*100;\n  var color=profit>=0?'var(--c-accent)':'#c0392b';\n  var aiPrompt='Ecommerce: price $'+price+', costs $'+totalCost.toFixed(2)+', profit $'+profit.toFixed(2)+' ('+margin.toFixed(1)+'% margin)';\n  document.getElementById('bz-ri').innerHTML=\n    ri('Net Profit Per Order','<strong style=\"font-size:24px;color:'+color+'\">$'+profit.toFixed(2)+' ('+margin.toFixed(1)+'%)</strong>',true)+\n    ri('Platform Fee',platformFee.toFixed(2)+' ('+fee+'%)')+\n    ri('Payment Processing','$'+payFee.toFixed(2))+\n    ri('Ads Cost Per Order','$'+ads.toFixed(2))+\n    ri('Return Allowance','$'+returnCost.toFixed(2)+' ('+ret+'% rate)')+\n    ri('Total Costs','$'+totalCost.toFixed(2))+\n    ri('Break-Even Selling Price','$'+(totalCost/(1-0)).toFixed(2));\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',['Product Cost','Shipping','Fees','Ads','Profit'],[Math.round(cogs*10),Math.round(ship*10),Math.round((platformFee+payFee)*10),Math.round(ads*10),Math.max(Math.round(profit*10),0.001)],['#c8832a','#3a7abf','#8a4abf','#bf4a4a','#1a5c3a']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about improving ecommerce profit margins and reducing per-order costs.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="E-Commerce Profit Calculator"
+      intro="Compute net operating profit, return on ad spend (ROAS), blended marketing efficiency, and unit fulfillment margins across Shopify, Amazon, and DTC commerce platforms."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How E-Commerce Net Profit is Determined</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              E-commerce net profit equals gross store sales minus the sum of landed product COGS, paid digital ad spend, 3PL pick-pack and shipping fees, payment gateway transaction costs, and app software subscriptions: Net Profit = GMV - (COGS + Ads + Shipping + Payment Fees + Overhead). For example, generating $85,000 GMV with $23,800 COGS (28%), $24,000 ad spend, $8,250 fulfillment, and $3,050 gateway fees leaves $25,900 in net profit (30.47% net margin). Monitor manufacturing cost floors via the <Link href="/calculators/business/cogs-calculator">COGS calculator</Link> and track customer acquisition efficiency using the <Link href="/calculators/business/cac-calculator">customer acquisition cost calculator</Link>.
+            </p>
+          </div>
+
+          <h2>E-Commerce $100 Order Value Net Profit Waterfall Decomposition</h2>
+          <p>
+            Examining a standardized $100 average order value (AOV) illustrates how revenue cascades through variable operating expenses before reaching true retained net profit.
+          </p>
+
+          <EcommerceCostWaterfallChart />
+
+          <h2>First-Principles E-Commerce Unit Economics & Contribution Margins</h2>
+          <p>
+            In digital commerce, store profitability is governed by four distinct contribution margin tiers. Contribution Margin 1 (CM1) measures gross product profit after direct production:
+          </p>
+          <Formula>
+            {"\text{CM1} = \text{Gross Merchandise Value (GMV)} - \text{Landed Product COGS}"}
+          </Formula>
+          <p>
+            Contribution Margin 2 (CM2) subtracts direct pick, pack, and shipping fulfillment expenses:
+          </p>
+          <Formula>
+            {"\text{CM2} = \text{CM1} - \sum (\text{Outbound Freight} + \text{3PL Pick \& Pack} + \text{Packaging Material})"}
+          </Formula>
+          <p>
+            Contribution Margin 3 (CM3), or Order Contribution Margin, subtracts variable payment processing fees and direct performance advertising outlays:
+          </p>
+          <Formula>
+            {"\text{CM3} = \text{CM2} - \text{Paid Ad Spend} - \text{Payment Gateway Fees (2.9\% + \$0.30/tx)}"}
+          </Formula>
+          <p>
+            Finally, Operating Net Profit subtracts fixed operating overhead (Shopify apps, corporate salaries, warehouse storage, and returns processing):
+          </p>
+          <Formula>
+            {"\text{Net Profit} = \text{CM3} - \text{Fixed Software Overhead} - \text{Net Return Losses}"}
+          </Formula>
+          <p>
+            Store founders integrate contribution tiers with <Link href="/calculators/business/break-even-calculator">store break-even calculations</Link>, evaluate long-term repurchase value via the <Link href="/calculators/business/ltv-calculator">customer lifetime value tool</Link>, and model sales discounting strategies using the <Link href="/calculators/business/discount-calculator">discount calculator</Link>.
+          </p>
+
+          <h2>E-Commerce Operational Cost Benchmarks & Platform Standards</h2>
+          <p>
+            The table below compiles industry standard percentage allocations, average order values, and target profit margins across prominent online retail merchandise categories.
+          </p>
+
+          <DataTable
+            head={["Merchandise Category", "Typical Landed COGS", "Ad Spend Ratio (% Sales)", "Fulfillment & Shipping", "Target Net Profit Margin"]}
+            rows={[
+              ["Health Supplements & Wellness", "15% – 25%", "30% – 45%", "8% – 12%", "15% – 25%"],
+              ["Apparel & Footwear", "25% – 35%", "25% – 35%", "12% – 18% (High Returns)", "8% – 15%"],
+              ["Beauty & Cosmetics", "12% – 20%", "35% – 50%", "6% – 10%", "15% – 22%"],
+              ["Home Goods & Furniture", "35% – 48%", "20% – 30%", "18% – 28% (Heavy Freight)", "7% – 12%"],
+              ["Consumer Electronics", "50% – 65%", "15% – 25%", "6% – 10%", "5% – 10%"],
+              ["Specialty Gourmet Food", "30% – 42%", "22% – 32%", "14% – 22% (Cold Chain)", "8% – 14%"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Scaling Direct-to-Consumer Skincare Brand</h3>
+          <p>
+            A DTC skincare brand generates $120,000 in monthly Shopify gross sales across 2,000 completed customer orders (Average Order Value = $60.00). Landed product manufacturing and packaging costs are $15.00 per unit ($30,000 total COGS). The brand spends $36,000 per month on Meta and Google Ads. 3PL warehousing pick, pack, and postage costs $6.50 per order ($13,000 total). Payment gateway fees (Shopify Payments / Stripe) average 2.9% + $0.30 per transaction ($4,080 total). Monthly software app subscriptions (Klaviyo, Gorgias, Recharge) total $2,500.
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate Contribution Margin 3 (Marketing Contribution):</strong>
+              <br />
+              Gross Revenue = $120,000.
+              <br />
+              Total Variable Costs = $30,000 (COGS) + $13,000 (Shipping) + $4,080 (Gateway) + $36,000 (Ads) = $83,080.
+              <br />
+              CM3 = $120,000 - $83,080 = $36,920 (30.77% margin).
+            </li>
+            <li>
+              <strong>Determine final net operating profit:</strong>
+              <br />
+              Net Profit = $36,920 (CM3) - $2,500 (Software) = $34,420 per month.
+              <br />
+              Net Profit Margin = ($34,420 / $120,000) × 100% = 28.68%.
+              <br />
+              Return on Ad Spend (ROAS) = $120,000 / $36,000 = 3.33×. The CEO evaluates customer retention using the <Link href="/calculators/business/ltv-calculator">LTV calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: High-Volume Apparel Brand Returns Sensitivity</h3>
+          <p>
+            An online athleisure brand generates $250,000 monthly sales with an initial projected net margin of 14% ($35,000 net profit). However, due to sizing inconsistencies in a new leggings line, customer returns surge from a normal 12% to an unprecedented 28% of total orders.
+          </p>
+          <ol>
+            <li>
+              <strong>Evaluate revenue and refund impact:</strong>
+              <br />
+              Gross Sales = $250,000.
+              <br />
+              Refunded Sales (28%) = $70,000 lost revenue.
+              <br />
+              Net Retained Sales = $180,000.
+            </li>
+            <li>
+              <strong>Quantify reverse logistics losses:</strong>
+              <br />
+              The brand incurs $8.50 in unrecoverable two-way shipping, inspection, and restocking fees on every returned order (800 returned orders × $8.50 = $6,800).
+              <br />
+              Additionally, 15% of returned garments are unsellable due to wear, causing a $3,600 inventory write-off.
+            </li>
+            <li>
+              <strong>Operational Net Result:</strong> Monthly net operating income collapses from +$35,000 down to -$4,200 (a severe operating loss). Management re-engineers product sizing charts, evaluates wholesale vendor margins using the <Link href="/calculators/business/wholesale-price-calculator">wholesale price calculator</Link>, and tracks inventory losses through the <Link href="/calculators/business/shrinkage-calculator">shrinkage calculator</Link>.
+            </li>
+          </ol>
+
+          <h2>Operational Constraints & Digital Advertising Attribution Pitfalls</h2>
+          <ol>
+            <li>
+              <strong>Post-iOS 14.5 Tracking Degradation:</strong> Browser cookie restrictions and mobile privacy frameworks (Apple ATT) have degraded pixel tracking accuracy. Ad platforms routinely over-report attributed sales by 25% to 50% through generous view-through attribution windows. Relying on platform-reported ROAS rather than bank-settled cash receipts leads to severe overspending.
+            </li>
+            <li>
+              <strong>Customer Chargeback Ratios & Merchant Account Holds:</strong> If customer credit card chargebacks exceed 1.0% of total transaction volume, payment processors (Visa, Mastercard, Stripe) place merchants into excessive chargeback monitoring programs, imposing 10% to 20% rolling reserves on all gross sales or freezing funds entirely for 180 days.
+            </li>
+            <li>
+              <strong>Dimensional Weight (DIM) Shipping Surcharges:</strong> Freight carriers (UPS, FedEx, USPS) bill package delivery based on Dimensional Weight (Length × Width × Height / 139) rather than actual weight. Bulky, lightweight products (pillows, outerwear) incur severe shipping surcharges that consume up to 30% of total product revenue.
+            </li>
+          </ol>
+
+          <h2>First-Party Data Analytics & Automated Retention Funnels</h2>
+          <p>
+            To combat escalating customer acquisition costs, leading e-commerce operators focus on Owned Media retention channels: automated SMS and email lifecycle funnels that drive high-margin repeat purchases without incurring incremental ad spend. The mathematical formula for blended e-commerce equity is:
+          </p>
+          <Formula>
+            {"\text{Net Store Cashflow} = (\text{New Customers} \times \text{First-Order Margin}) + (\text{Repeat Customers} \times \text{Organic Margin})"}
+          </Formula>
+          <p>
+            Because repeat orders bypass paid search and social media bidding auctions, organic customer reorders frequently achieve net profit margins exceeding 45%. Merchandisers integrate email revenue metrics with <Link href="/calculators/business/business-revenue-calculator">annualized revenue models</Link>, calculate sales tax obligations through the <Link href="/calculators/business/sales-tax-calculator">sales tax calculator</Link>, and evaluate capital returns using the <Link href="/calculators/business/roi-calculator">ROI calculator</Link>.
+          </p>
+          <p>
+            In automated fulfillment centers, computer vision algorithms scan incoming return parcels, classifying garments into immediate restock, garment steaming, or outlet liquidation streams. This automated triage compresses return cycle times from three weeks to 48 hours, preserving working capital velocity.
+          </p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">What is a good break-even ROAS for an e-commerce store?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Break-even ROAS is calculated as 1 divided by your pre-marketing gross margin: Break-Even ROAS = 1 / (Gross Margin %). If your landed product COGS, shipping, and payment fees total 40% of revenue (leaving a 60% gross margin), your break-even ROAS is 1 / 0.60 = 1.67×. Any advertising campaign performing below 1.67× ROAS loses money on the first order.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How do e-commerce brands improve their Average Order Value (AOV)?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Merchants expand AOV by implementing free shipping thresholds (e.g., &quot;Free Shipping on Orders Over $75&quot;), post-purchase one-click upsells, bundled product kits, and tiered volume discounts. Increasing AOV by 20% dramatically expands net margins because fixed shipping pick fees and payment per-transaction fees remain constant.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why are payment gateway fees higher for international cards?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Payment processors charge an extra cross-border surcharge (typically +1.0% to +1.5%) plus currency conversion fees (1.0% to 2.0%) for international transactions. For an international sale, standard 2.9% fees can surge to 4.9% to 5.5% of gross revenue, quietly eroding international profitability unless international prices are calibrated upward.
+              </p>
+            </div>
+          </div>
+
+
+          <p>
+            In direct-to-consumer fulfillment networks, optimizing inventory split across regional fulfillment centers dramatically reduces shipping transit zones. Distributing fast-moving inventory across East Coast, Midwest, and West Coast 3PL nodes compresses carrier shipping expenses from Zone 7 ($12.50/package) down to Zone 2 ($6.20/package), immediately saving thousands of dollars per month in fulfillment overhead.
+          </p>
+          <p>
+            Furthermore, e-commerce brand operators track package dimensional weight divisor optimizations. Custom-engineered corrugated shipping boxes that eliminate void space prevent carriers from billing lightweight goods at inflated dimensional rates, protecting unit contribution margins on every outbound shipment.
+          </p>
+
+
+          <p>
+            Additionally, automated return management portals allow customers to initiate instant store credit exchanges with bonus incentives (e.g., &quot;Get a $10 bonus credit if you exchange for a new size instead of refunding&quot;). Retaining cash within the store ecosystem preserves working capital and minimizes unrecoverable merchant bank refund transaction fees.
+          </p>
+
+          <h2>Authoritative E-Commerce Standards & Retail Guidelines</h2>
+          <p>
+            For standardized retail accounting frameworks, digital merchant payment security rules, and direct-to-consumer trade metrics, consult:
+          </p>
+          <ul>
+            <li>
+              <strong>National Retail Federation (NRF Retail Financial Standards):</strong> Key Performance Indicators for Omni-Channel and Online Retail Operations.
+            </li>
+            <li>
+              <strong>Payment Card Industry Security Standards Council (PCI DSS):</strong> Data Security Standards for Digital Merchant Payment Gateways.
+            </li>
+            <li>
+              <strong>FASB ASC 606-10-55:</strong> Customer Return Rights and Refund Liabilities Accounting Treatment.
+            </li>
+            <li>
+              <strong>Global Standards 1 (GS1 General Specifications):</strong> International Standards for Barcodes, GTINs, and Electronic Commerce Supply Chains.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <EcommerceProfitCalculatorComponent />
+    </CalcPage>
   );
 }
