@@ -61,7 +61,7 @@ export default function LatitudeLongitudePage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/geography", label: "Geography" }}
+      category={{ href: "/pages/geography", label: "Geography" }}
       title="Latitude and Longitude Calculator"
       intro="Convert geographical coordinates between Decimal Degrees (DD) and Degrees-Minutes-Seconds (DMS), evaluate longitudinal meridian convergence, and determine exact antipodal coordinates."
       description={DESCRIPTION}

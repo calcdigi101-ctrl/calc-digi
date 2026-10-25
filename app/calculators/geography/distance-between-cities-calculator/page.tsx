@@ -61,7 +61,7 @@ export default function DistanceBetweenCitiesPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/geography", label: "Geography" }}
+      category={{ href: "/pages/geography", label: "Geography" }}
       title="Distance Between Cities Calculator"
       intro="Determine the shortest great-circle orthodromic distance, estimated commercial jet flight times, and initial forward navigation bearings between any two cities or geographic coordinates on Earth."
       description={DESCRIPTION}

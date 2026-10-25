@@ -61,7 +61,7 @@ export default function MapScalePage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/geography", label: "Geography" }}
+      category={{ href: "/pages/geography", label: "Geography" }}
       title="Map Scale Calculator"
       intro="Convert paper map measurements to real ground distances and surface areas, calculate representative fractions (RF), determine scale bar dimensions, and analyze cartographic spatial resolutions."
       description={DESCRIPTION}

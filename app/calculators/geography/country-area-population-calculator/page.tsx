@@ -61,7 +61,7 @@ export default function CountryAreaPopulationPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/geography", label: "Geography" }}
+      category={{ href: "/pages/geography", label: "Geography" }}
       title="Country Statistics Calculator"
       intro="Compute crude population density, nominal GDP per capita, demographic doubling horizons, and multi-decade population projections for any sovereign state or sub-national territory."
       description={DESCRIPTION}

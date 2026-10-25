@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       { source: "/calculators/housing/mortgage-calculator", destination: "/calculators/finance/mortgage-calculator", permanent: true },
       // Year dropped from the slug so the article URL doesn't go stale.
       { source: "/pages/blog/how-much-house-can-you-afford-2025", destination: "/pages/blog/how-much-house-can-you-afford", permanent: true },
+      // Category index fallbacks to canonical /pages/[category] landing pages
+      { source: "/calculators/geography", destination: "/pages/geography", permanent: true },
+      { source: "/calculators/baby", destination: "/pages/baby", permanent: true },
     ];
   },
 };
