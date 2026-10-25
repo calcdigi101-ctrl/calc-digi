@@ -103,7 +103,7 @@ export default function KineticEnergyCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Translational kinetic energy is calculated by multiplying half of an object's inertial mass by the square of its speed: KE = ½ · m · v². In standard SI units, entering mass in kilograms (kg) and velocity in meters per second (m/s) yields kinetic energy in Joules (J). A 1,500 kg automobile traveling at 100 km/h (27.78 m/s) possesses 578.7 kilojoules (kJ) of kinetic energy, equivalent to the explosive detonation energy of 138 grams of TNT.
-                </p>
+                 Compare dynamic motion against stored elevation energy with our <Link href="/calculators/physics/potential-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">potential energy calculator</Link>, measure linear impact impulse using the <Link href="/calculators/physics/momentum-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">momentum calculator</Link>, or calculate mechanical work transfer via our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -183,10 +183,11 @@ export default function KineticEnergyCalculatorPage() {
             For terrestrial automobiles and aircraft traveling below 1,000 m/s, the relativistic Lorentz factor evaluates to γ ≈ 1.000000000005, confirming that classical Newtonian mechanics remains exceptionally accurate across all civil and automotive engineering applications.
           </p>
 
-          <h2>Flywheel Kinetic Energy Storage & Grid Stabilization</h2>
+
+          <h2>Kinematic Conversion & Powertrain Optimization Tools</h2>
 
           <p>
-            Advanced mechanical energy storage systems utilize carbon-fiber composite flywheels rotating in high-vacuum magnetic levitation chambers to store kinetic energy: E_rot = ½ · I · ω². Operating at rotational speeds exceeding 60,000 RPM, modern utility-scale flywheel installations deliver instant response power within 4 milliseconds to stabilize electric grid frequency, offering round-trip conversion efficiencies exceeding 88% to 92%.
+            Kinetic energy governs braking distances, impact mechanics, and mechanical propulsion efficiency. Determine vehicle braking velocities using our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, convert metric energy units with the <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>, and evaluate continuous power delivery rates through our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>. For rotating flywheels and mechanical assemblies, compute centripetal loads with our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link> and shaft moments with the <Link href="/calculators/physics/torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

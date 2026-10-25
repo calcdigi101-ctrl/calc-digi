@@ -103,7 +103,7 @@ export default function VelocityCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   When acceleration is uniform, final velocity is determined by adding initial velocity to the product of acceleration and elapsed time: v = v₀ + a · t. Total displacement traversed during this period is given by d = v₀t + ½at². When dealing with variable speeds across equal distance intervals, average velocity is computed via the harmonic mean rather than a simple average. In metric conversions, 1 m/s exactly equals 3.6 km/h or approximately 2.237 mph.
-                </p>
+                 Calculate rate of speed variation with our <Link href="/calculators/physics/acceleration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">acceleration calculator</Link>, determine vertical drop speeds using the <Link href="/calculators/physics/free-fall-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">free fall calculator</Link>, or measure kinetic motion energy via our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -161,15 +161,10 @@ export default function VelocityCalculatorPage() {
           <p>
             When a vehicle travels around a circular roundabout of radius R = 50 meters at a constant speed of 10 m/s (36 km/h), its scalar speed remains completely unchanged. However, its velocity vector continuously rotates in space, requiring a constant centripetal acceleration directed toward the center of the turn: a_c = v² / R = 100 / 50 = 2.0 m/s². Upon completing one full orbit, the average velocity vector is exactly zero, despite the vehicle having consumed fuel and logged 314 meters of scalar road travel.
           </p>
-
-          <h2>Harmonic Mean in Multi-Stage Trip Analysis</h2>
-
-          <p>
-            When traveling between two destinations at varying speeds across equal distance intervals, standard arithmetic averaging produces an erroneous overestimation of true velocity. Because more time is spent traversing the slower segment, the harmonic mean must be applied:
-          </p>
+<h2>Transit Kinematics & Vector Motion Tools</h2>
 
           <p>
-            Consider a commuter driving 60 kilometers outward at 60 km/h (1.0 hour) and returning the same 60 kilometers through heavy congestion at 30 km/h (2.0 hours). The simple average of 60 and 30 is 45 km/h. However, the total displacement is 120 kilometers and total elapsed time is 3.0 hours. The true average velocity is: v_avg = 120 km ÷ 3.0 hr = 40.0 km/h, perfectly matching the harmonic formulation: (2 × 60 × 30) / (60 + 30) = 3600 / 90 = 40.0 km/h.
+            Velocity serves as the central metric across transportation logistics, sports biometrics, and ballistics. For journey planning and fleet operations, calculate total travel duration with our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed distance time calculator</Link>, convert international velocity units via the <Link href="/calculators/measurements/speed-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed converter</Link>, and measure precise elapsed clock time using our <Link href="/calculators/datetime/time-duration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">time duration calculator</Link>. In multi-dimensional mechanics, analyze vector velocity components with our <Link href="/calculators/physics/projectile-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">projectile motion calculator</Link> and evaluate centripetal speeds through our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

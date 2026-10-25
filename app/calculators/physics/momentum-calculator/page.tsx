@@ -103,7 +103,7 @@ export default function MomentumCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Linear momentum is the product of mass and velocity: p = m · v. An automobile with a mass of 1,500 kg traveling at 25 m/s (90 km/h or 56 mph) possesses 37,500 N·s (kg·m/s) of linear momentum. If the vehicle collides with a barrier and is arrested over an 80-millisecond (0.080s) crumple duration, the average collision impact force is F_avg = Δp / Δt = 37,500 / 0.080 = 468.8 Kilonewtons (105,390 lbf), subjecting the structure to an average deceleration of 31.9 g-forces.
-                </p>
+                 Evaluate kinetic energy before and after collision with our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>, compute dynamic impact forces using the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, or track velocity differentials via our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -189,11 +189,10 @@ export default function MomentumCalculatorPage() {
           <p>
             This equation reveals why rocket payloads constitute a tiny fraction (typically 2% to 4%) of total launch mass: achieving orbital velocity (Δv ≈ 9,500 m/s) requires that propellants account for over 90% of the vehicle's initial liftoff weight.
           </p>
-
-          <h2>Conservation of Angular Momentum in Rotating Systems</h2>
+<h2>Impact Dynamics & Kinematic Collision Tools</h2>
 
           <p>
-            In rotational mechanics, the rotational analog of linear momentum is angular momentum: L = I · ω, where I is the mass moment of inertia (kg·m²) and ω is angular velocity (rad/s). In the absence of external torques (Στ = 0), angular momentum is strictly conserved. A figure skater pulling their arms inward reduces their moment of inertia I, causing their rotational spin rate ω to increase dramatically to preserve constant angular momentum L.
+            Collision analysis requires linking momentum conservation with deceleration forces and spatial stopping envelopes. Calculate deceleration g-forces during vehicle impact with our <Link href="/calculators/physics/acceleration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">acceleration calculator</Link>, convert approach speeds using the <Link href="/calculators/measurements/speed-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed converter</Link>, and analyze stopping duration through our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed distance time calculator</Link>. For ballistics and ordnance design, calculate flight trajectories using our <Link href="/calculators/physics/projectile-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">projectile motion calculator</Link> and determine peak mechanical power with our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

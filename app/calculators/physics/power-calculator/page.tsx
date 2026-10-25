@@ -103,7 +103,7 @@ export default function PowerCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Power measures the rate of energy expenditure: P = E / t = W / t. Transforming 750,000 Joules of energy over 60 seconds delivers exactly 12,500 Watts (12.50 kW), equivalent to 16.76 mechanical brake horsepower (1 HP = 745.7 W). In electrical motor applications operating at 90% efficiency on a 240V supply, total electrical input demand is 13.89 kW, drawing 57.9 Amperes of current while dissipating 1.39 kW as thermal waste heat.
-                </p>
+                 Calculate cumulative energy delivered over time with our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>, determine rotating shaft power using the <Link href="/calculators/physics/torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque calculator</Link>, or evaluate kinetic energy transfer via our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -184,11 +184,10 @@ export default function PowerCalculatorPage() {
           <p>
             Here, V_LL represents line-to-line RMS voltage (typically 400V in Europe or 480V in North America), I_line is the line current in Amperes, and cos(φ) is the displacement power factor (typically 0.85 to 0.95 for industrial inductive motor loads). Apparent power is measured in Volt-Amperes (VA), while reactive power is measured in Volt-Amperes Reactive (VAR).
           </p>
-
-          <h2>Thermal Dissipation & Industrial Heat Sink Sizing</h2>
+<h2>Electrical & Mechanical Powertrain Tools</h2>
 
           <p>
-            Because electrical inefficiencies convert directly into thermal energy (P_loss = P_in - P_out), power electronics enclosures—such as solar inverters, electric vehicle motor drives, and variable frequency drives (VFDs)—require dedicated thermal management. Thermal dissipation is quantified in Watts of heat, demanding aluminum extruded heat sinks with thermal resistance R_th (measured in °C/W) to prevent junction temperatures from exceeding 125°C.
+            Power engineering bridges thermal, electrical, and rotational machinery. For electrical circuits, calculate voltage, current, and wattage with our <Link href="/calculators/electronics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">electrical power calculator</Link>, model commercial facility power demand using the <Link href="/calculators/engineering/electrical-load-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">electrical load calculator</Link>, and convert between mechanical horsepower and kilowatts with our <Link href="/calculators/measurements/power-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power converter</Link>. In vehicular drivetrains, correlate tractive force with our <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link> and calculate acceleration rates via our <Link href="/calculators/physics/acceleration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">acceleration calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

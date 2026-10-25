@@ -103,7 +103,7 @@ export default function TorqueCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Torque is calculated by multiplying applied force by lever arm length and the sine of the angle: τ = F · r · sin(θ). Applying 250 Newtons perpendicular (90°) to a 0.60-meter wrench generates exactly 150.0 N·m (110.6 lb-ft or 1,328 in-lb) of torque. At a shaft speed of 1,800 RPM, this torque produces 28.27 Kilowatts (kW), equivalent to 37.9 mechanical brake horsepower (HP).
-                </p>
+                 Analyze circular centripetal acceleration with our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link>, compute linear force demands using the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, or calculate rotational shaft horsepower via our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -195,6 +195,12 @@ export default function TorqueCalculatorPage() {
 
           <p>
             Heavy industrial machinery and robotics employ planetary gear trains and reduction drives to multiply output torque at the expense of rotational speed. In an ideal gear stage with driving gear teeth N_1 and driven gear teeth N_2, mechanical energy conservation dictates that torque multiplies by gear ratio G = N_2 / N_1, while output angular speed decreases by 1/G. Accounting for gear-mesh frictional efficiency &eta; (typically 94% to 98% in precision helical gearing): &tau;_out = &tau;_in &middot; (N_2 / N_1) &middot; &eta;.
+          </p>
+
+          <h2>Rotational Drivetrain & Fastener Tools</h2>
+
+          <p>
+            Rotational machinery integrates torque with mechanical gearing, bolted joints, and kinetic energy storage. Calculate mechanical gear reduction ratios using our <Link href="/calculators/engineering/gear-ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">gear ratio calculator</Link>, verify structural bolt clamping preload with the <Link href="/calculators/engineering/bolt-torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">bolt torque calculator</Link>, and convert between metric and imperial torque units via our <Link href="/calculators/measurements/torque-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque converter</Link>. Furthermore, determine rotational work done over angular displacement using our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link> and calculate flywheel rotational energy via our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

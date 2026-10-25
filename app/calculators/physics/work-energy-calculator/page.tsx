@@ -103,7 +103,7 @@ export default function WorkEnergyCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Mechanical work is calculated using the vector dot product formula: W = F · d · cos(θ). Applying a force F of 650 Newtons over a displacement d of 40 meters at an angle θ of 0° (parallel to motion) performs exactly 26,000 Joules (26.0 kJ or 19,177 ft-lbf) of mechanical work. If completed over 15 seconds, the average mechanical power delivery rate is 1,733 Watts (1.73 kW or 2.32 Horsepower). If the force is applied at 90°, work drops to zero.
-                </p>
+                 Analyze dynamic energy in motion with our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>, determine elevated potential energy using the <Link href="/calculators/physics/potential-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">potential energy calculator</Link>, or calculate mechanical power delivery rate via our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -169,28 +169,16 @@ export default function WorkEnergyCalculatorPage() {
               ["90° (Perpendicular)", "0.000", "0.0% Efficiency", "1000.0 N upward pull", "0.00 kJ (Zero Work Performed)"],
             ]}
           />
-
-
-          <h2>Thermodynamic Pressure-Volume Boundary Work in Engines</h2>
-
-          <p>
-            In mechanical and aerospace propulsion engineering, work is frequently delivered by fluid expansion rather than solid mechanical contact. In internal combustion cylinders and steam turbines, high-pressure gas expands against a reciprocating piston or rotating turbine blade, performing boundary work:
-          </p>
-
-          <Formula>
-            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">5. Thermodynamic Boundary Work Integral</div>
-            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">W_boundary = ∫ P dV</div>
-            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates mechanical work delivered by gas pressure P expanding across volume change dV.</div>
-          </Formula>
-
-          <p>
-            Under isobaric (constant pressure) conditions, boundary work simplifies to W = P · (V₂ - V₁). In closed thermodynamic cycles (such as the Otto cycle in gasoline engines or the Brayton cycle in jet turbines), the net work delivered per cycle equals the enclosed area on the pressure-volume (P-V) indicator diagram.
-          </p>
-
-          <h2>Non-Conservative Dissipation & Mechanical Friction Losses</h2>
+<h2>Non-Conservative Dissipation & Mechanical Friction Losses</h2>
 
           <p>
             Real mechanical systems inevitably encounter non-conservative frictional forces that dissipate useful work into thermal heat. In geared machinery, drive chains, and rolling element bearings, Coulomb friction and fluid shear resist relative displacement, ensuring that total useful mechanical work delivered (W_out) is always less than total input work expended (W_in). The difference manifests as ambient thermal temperature rise: Q_loss = W_in - W_out.
+          </p>
+
+          <h2>Applied Mechanical Work & Powertrain Tools</h2>
+
+          <p>
+            Mechanical work couples vector force exertion with spatial kinematic displacement. Compute applied vector motive force with our <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, convert mechanical joules into British Thermal Units and kWh via the <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>, and evaluate structural beam bending moments using our <Link href="/calculators/engineering/beam-load-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">beam load calculator</Link>. For shaft work and mechanical drives, model rotational torque with our <Link href="/calculators/physics/torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque calculator</Link> and analyze circular motion requirements via our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

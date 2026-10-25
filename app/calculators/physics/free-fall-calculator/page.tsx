@@ -103,7 +103,7 @@ export default function FreeFallCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   For an object dropped from rest under uniform gravity without air resistance, fall duration equals the square root of twice the height divided by gravity: t = √(2h / g). Terminal impact velocity is calculated via Torricelli's equation: v = √(2gh) = g · t. On Earth surface gravity (g = 9.80665 m/s²), dropping from a height of 45 meters takes 3.03 seconds and strikes the ground at 29.7 m/s (106.9 km/h or 66.4 mph).
-                </p>
+                 Analyze celestial gravitational attraction with our <Link href="/calculators/physics/gravitational-force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">gravitational force calculator</Link>, calculate 2D launch trajectories with the <Link href="/calculators/physics/projectile-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">projectile motion calculator</Link>, or evaluate terminal impact speeds using our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -190,6 +190,12 @@ export default function FreeFallCalculatorPage() {
             ]}
           />
 
+          <h2>Energy Conversion & Atmospheric Descent Tools</h2>
+
+          <p>
+            Free-fall dynamics seamlessly convert potential energy into kinetic energy during uninhibited downward descent. Track potential energy variations with our <Link href="/calculators/physics/potential-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">potential energy calculator</Link>, measure kinetic impact force using the <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>, and determine stopping collision impulse with our <Link href="/calculators/physics/momentum-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">momentum calculator</Link>. For high-altitude drops, assess atmospheric resistance via the <Link href="/calculators/physics/pressure-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pressure calculator</Link> and compute deceleration with our <Link href="/calculators/physics/acceleration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">acceleration calculator</Link>.
+          </p>
+
           <h2>Comparative Operational Worked Case Studies</h2>
 
           <p>
@@ -217,26 +223,7 @@ export default function FreeFallCalculatorPage() {
             <li><strong>Terminal Impact Energy:</strong> KE = m · g · h = 2.50 kg × 9.807 m/s² × 150.0 m = 3,678 Joules (3.68 kJ).</li>
             <li><strong>Collision Force:</strong> If stopped within d = 0.05 meters of soil deformation, mean impact force exceeds F = KE / d = 3,678 / 0.05 = 73,560 Newtons (16,537 lbf).</li>
           </ul>
-
-          <h2>Atmospheric Drag Boundary Conditions & Terminal Velocity</h2>
-
-          <p>
-            While pure vacuum kinematics provide the foundational baseline, real-world drops through Earth's troposphere encounter aerodynamic drag that limits acceleration:
-          </p>
-
-          <ol>
-            <li>
-              <strong>Aerodynamic Drag Force:</strong> Governed by Rayleigh's drag equation: F_d = ½ · ρ · v² · Cd · A. Air density (ρ ≈ 1.225 kg/m³ at sea level) exerts an upward braking force that scales quadratically with speed.
-            </li>
-            <li>
-              <strong>Terminal Velocity Equilibrium:</strong> When F_d equals gravitational weight (m · g), net vertical force vanishes (F_net = 0), and acceleration falls to zero. A compact, dense steel ball bearing has a very high terminal velocity exceeding 200 m/s, whereas a flat sheet of paper reaches terminal equilibrium at less than 1.5 m/s.
-            </li>
-            <li>
-              <strong>Atmospheric Density Lapse Rate:</strong> For extreme high-altitude skydives (such as Felix Baumgartner's 39,000-meter stratospheric drop), the ultra-thin air (ρ &lt; 0.02 kg/m³) provides negligible drag, allowing free-fallers to achieve supersonic velocities (Mach 1.25 = 377 m/s) before decelerating in denser lower atmospheric layers.
-            </li>
-          </ol>
-
-          <h2>Authoritative Kinematics & Metrology Standards</h2>
+<h2>Authoritative Kinematics & Metrology Standards</h2>
 
           <p>
             For verified gravitational and kinematic physical values:
