@@ -103,7 +103,7 @@ export default function PotentialEnergyCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Gravitational potential energy is calculated by multiplying mass by local gravitational acceleration and vertical elevation: PE = m · g · h. On Earth's surface (g = 9.80665 m/s²), hoisting an 85 kg mass to an elevation of 35 meters stores 29.18 kilojoules (kJ) of mechanical potential energy. If released into free fall, this stored potential energy completely converts into kinetic energy, striking the ground at 26.2 m/s (94.3 km/h or 58.6 mph).
-                </p>
+                 Model dynamic energy transfer into motion with our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>, calculate vertical descent velocity with the <Link href="/calculators/physics/free-fall-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">free fall calculator</Link>, or evaluate celestial gravity fields via our <Link href="/calculators/physics/gravitational-force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">gravitational force calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -183,10 +183,11 @@ export default function PotentialEnergyCalculatorPage() {
             Automotive suspension coil springs, industrial shock dampers, and archery bows utilize elastic potential energy to absorb kinetic impacts and smoothly release mechanical impulse without permanent material deformation.
           </p>
 
-          <h2>Gravitational Escape Velocity & Orbital Energy Wells</h2>
+
+          <h2>Hydrostatic & Gravitational Analytical Tools</h2>
 
           <p>
-            When an object is propelled with sufficient kinetic energy to permanently overcome a celestial body's gravitational potential well, it achieves escape velocity. Setting total mechanical energy equal to zero (KE + PE_grav = 0) at infinite separation yields: ½·m·v_esc² - (G·M·m / R) = 0. Solving for velocity derives the fundamental planetary escape speed: v_esc = √(2 · G · M / R) = √(2 · g · R). For planet Earth, escape velocity requires launching at 11.186 km/s (40,270 km/h or Mach 33).
+            Potential energy storage forms the foundation of civil hydro storage and mechanical lifting equipment. Determine external lifting work done against gravity with our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>, convert metric energy units with the <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>, and compute sustained lifting power through our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>. For hydroelectric penstocks, evaluate hydrostatic fluid pressure using our <Link href="/calculators/physics/pressure-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pressure calculator</Link> and assess fluid flow rates via the <Link href="/calculators/engineering/pipe-flow-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pipe flow calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

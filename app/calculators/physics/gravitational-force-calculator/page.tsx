@@ -103,7 +103,7 @@ export default function GravitationalForceCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Universal gravitational force is calculated using Newton's inverse-square formula: F = G · (M₁ · M₂) / r², where G = 6.67430 × 10⁻¹¹ N·m²/kg². For the Earth-Moon system (Earth M₁ = 5.972 × 10²⁴ kg, Moon M₂ = 7.342 × 10²² kg, distance r = 3.844 × 10⁸ m), the mutual gravitational attraction force is exactly 1.982 × 10²⁰ Newtons (4.456 × 10¹⁹ lbf), keeping the Moon locked in stable orbit at a velocity of 1.02 km/s.
-                </p>
+                 Calculate vertical downward drops with our <Link href="/calculators/physics/free-fall-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">free fall calculator</Link>, compute applied mass dynamics with the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, or examine orbital circular paths using our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -196,6 +196,12 @@ export default function GravitationalForceCalculatorPage() {
 
           <p>
             Over astronomical separations where gravity cannot be treated as uniform, gravitational potential energy is defined relative to infinity: U(r) = -G &middot; M &middot; m / r. Launching an interplanetary robotic probe outside Earth's gravitational binding basin requires supplying sufficient kinetic energy to overcome this negative potential well. Equating total orbital mechanical energy to zero derives planetary escape velocity: v_esc = &radic;(2 &middot; G &middot; M / R) = &radic;(2 &middot; g &middot; R). For Earth, escaping planetary gravity requires reaching 11.186 km/s (40,270 km/h).
+          </p>
+
+          <h2>Orbital Mechanics & Deep-Space Trajectory Tools</h2>
+
+          <p>
+            Astrophysical gravitational modeling requires multi-variable orbital calculations. Evaluate deep-space gravitational potential wells with our <Link href="/calculators/physics/potential-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">potential energy calculator</Link>, convert celestial masses using the <Link href="/calculators/measurements/weight-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">weight converter</Link>, and compute orbital kinetic energy via our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>. In mission launch planning, model escape trajectories using the <Link href="/calculators/physics/projectile-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">projectile motion calculator</Link> and calculate orbital insertion work with our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

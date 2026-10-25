@@ -102,7 +102,7 @@ export default function AccelerationCalculatorPage() {
                   Quick Answer: What are the primary formulas for calculating acceleration?
                 </strong>
                 <p className="mt-1">
-                  Average linear acceleration is calculated by dividing velocity differential by elapsed time: a = (v - v₀) / t. Through Newton's Second Law, acceleration is also defined by applied motive force divided by inertial mass: a = F / m. Under uniform kinematic acceleration, displacement equals d = v₀t + ½at², while velocity without time is solved via Torricelli's theorem: v² = v₀² + 2ad. To convert acceleration into standard Earth g-force, divide result by 9.80665 m/s².
+                  Average linear acceleration is calculated by dividing velocity differential by elapsed time: a = (v - v₀) / t. Through Newton's Second Law, acceleration is also defined by applied motive force divided by inertial mass: a = F / m. Under uniform kinematic acceleration, displacement equals d = v₀t + ½at², while velocity without time is solved via Torricelli's theorem: v² = v₀² + 2ad. To convert acceleration into standard Earth g-force, divide result by 9.80665 m/s². Explore underlying motion rates with our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, compute applied motive thrust via the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, or analyze natural gravitational drop rates with our <Link href="/calculators/physics/free-fall-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">free fall calculator</Link>.
                 </p>
               </div>
             </div>
@@ -171,6 +171,12 @@ export default function AccelerationCalculatorPage() {
             Modern anti-lock braking systems (ABS) modulate brake line pressure up to 20 times per second to keep tire slip ratios within the optimal 10% to 20% window, generating approximately 0.8g to 1.0g (7.8 to 9.8 m/s²) of emergency deceleration on dry asphalt. On wet pavement or packed snow, peak surface friction coefficients collapse from 0.85 down to 0.25 or 0.10, tripling or quadrupling the minimum safe following distance.
           </p>
 
+          <h2>Cross-Disciplinary Kinematic & Analytical Tools</h2>
+
+          <p>
+            Real-world mechanical dynamics often integrate multiple physical domains. To evaluate total elapsed transit duration during uniform acceleration phases, utilize our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed distance time calculator</Link>, convert velocity metrics between metric and imperial systems using the <Link href="/calculators/measurements/speed-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed converter</Link>, and quantify kinetic energy accumulation via our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>. Furthermore, when linear acceleration shifts into rotational motion, analyze centripetal forces using our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link> and shaft moments with the <Link href="/calculators/physics/torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque calculator</Link>.
+          </p>
+
           <h2>Comparative Engineering Worked Case Studies</h2>
 
           <p>
@@ -215,9 +221,6 @@ export default function AccelerationCalculatorPage() {
               <strong>Tire Friction & Traction Limits:</strong> In automotive engineering, peak surface traction is constrained by Coulomb friction: F_max = μ · m · g. On typical dry roadway pavement (μ ≈ 0.85 to 1.0), mechanical wheelspin restricts initial launch acceleration to approximately 1.0g regardless of available motor power, unless specialized aerodynamic downforce or chemical drag-strip compounds are applied.
             </li>
             <li>
-              <strong>Rotational Inertial Overhead:</strong> Internal vehicle components—such as transmission gearing, drive shafts, brake rotors, and wheels—require additional rotational kinetic energy (E_rot = ½·I·ω²), effectively increasing the apparent inertial mass of the vehicle by 5% to 12% in lower gear ratios.
-            </li>
-            <li>
               <strong>Human Physiological G-Limits:</strong> In aerospace design, sustained positive linear accelerations exceeding 5g induce cerebral ischemia. Structural airframe design frequently exceeds biological passenger thresholds, necessitating computerized envelope limits.
             </li>
           </ol>
@@ -236,9 +239,6 @@ export default function AccelerationCalculatorPage() {
             </li>
             <li>
               <strong>ISO 80000-3:2019:</strong> International Organization for Standardization specifications for quantities and units of space, time, velocity, and acceleration.
-            </li>
-            <li>
-              <strong>Society of Automotive Engineers (SAE J2452):</strong> Recommended practice for testing step-function automotive acceleration, rolling resistance, and braking deceleration envelopes.
             </li>
           </ul>
         </>

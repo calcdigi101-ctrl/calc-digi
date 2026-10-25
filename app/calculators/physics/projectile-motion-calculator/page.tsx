@@ -103,7 +103,7 @@ export default function ProjectileMotionCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Launch velocity v₀ is decomposed into horizontal (v₀x = v₀·cosθ) and vertical (v₀y = v₀·sinθ) components. Over level terrain without air resistance, maximum horizontal range is R = (v₀²·sin(2θ)) / g, reaching its peak at θ = 45°. The maximum apex altitude is H_max = y₀ + (v₀y²) / (2g), and total flight duration is solved via quadratic kinematic integration: t = [v₀y + √(v₀y² + 2gy₀)] / g.
-                </p>
+                 Evaluate horizontal and vertical launch components with our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, calculate gravitational descent with the <Link href="/calculators/physics/free-fall-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">free fall calculator</Link>, or analyze muzzle kinetic energy via our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -173,6 +173,12 @@ export default function ProjectileMotionCalculatorPage() {
             ]}
           />
 
+          <h2>Ballistic & Vector Kinematics Tools</h2>
+
+          <p>
+            Ballistic trajectories resolve 2D kinematic vectors into independent orthogonal axes. Resolve right-triangle velocity components using our <Link href="/calculators/math/pythagorean-theorem-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">Pythagorean theorem calculator</Link>, convert elevation launch angles with the <Link href="/calculators/measurements/angle-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">angle converter</Link>, and determine launch acceleration using our <Link href="/calculators/physics/acceleration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">acceleration calculator</Link>. For high-altitude artillery and orbital insertion, evaluate celestial gravity variations with our <Link href="/calculators/physics/gravitational-force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">gravitational force calculator</Link> and calculate circular orbit velocity via our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link>.
+          </p>
+
           <h2>Comparative Operational Worked Case Studies</h2>
 
           <p>
@@ -226,18 +232,7 @@ export default function ProjectileMotionCalculatorPage() {
           <p>
             In exterior military ballistics, trajectory modeling incorporates the Ballistic Coefficient (BC), measuring a projectile's ability to overcome air resistance: BC = m / (Cd · A). Projectiles with high ballistic coefficients (such as boat-tailed rifle bullets with BC &gt; 0.50) preserve a flatter trajectory closer to vacuum predictions. Conversely, low-BC projectiles (such as round musket balls) shed energy rapidly, causing their trajectory to collapse into a steep terminal plunge.
           </p>
-
-          <h2>Magnus Effect & Spin Aerodynamics in Sports Mechanics</h2>
-
-          <p>
-            When a spherical projectile rotates while translating through air, viscous skin friction drags boundary layer air around the circumference. On the side spinning in the direction of the relative oncoming airflow, air velocity increases, creating a localized pressure drop according to Bernoulli's principle. On the opposite side spinning counter to airflow, air velocity decelerates, generating high pressure.
-          </p>
-
-          <p>
-            This cross-stream pressure differential produces a perpendicular aerodynamic force known as the Magnus lift force: F_Magnus = ½ · ρ · Cl · A · v². In golf, driver clubs impart 2,500 to 3,500 RPM of pure backspin to the ball; the resulting upward Magnus lift counteracts gravity for several seconds, extending horizontal drive distance by 30% to 50% compared to a non-rotating launch. In soccer, baseball (curveballs), and tennis (topspin groundstrokes), lateral or forward spin curves the flight path horizontally or plunges it downward over the net.
-          </p>
-
-          <h2>Authoritative Ballistics & Physics Standards</h2>
+<h2>Authoritative Ballistics & Physics Standards</h2>
 
           <p>
             For verified ballistic calculation standards and trajectory tables:

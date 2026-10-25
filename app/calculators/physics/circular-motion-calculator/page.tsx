@@ -103,7 +103,7 @@ export default function CircularMotionCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Centripetal acceleration is calculated by dividing tangential velocity squared by the turn radius: a_c = v² / r. Inward centripetal force equals mass multiplied by acceleration: F_c = m · v² / r = m · ω² · r. Navigating a 1,400 kg car around a 45-meter radius highway curve at 80 km/h (22.22 m/s) generates 10.97 m/s² of centripetal acceleration (1.12 g-forces), requiring 15.36 Kilonewtons (kN) of inward friction force or an optimal road bank angle of 48.2°.
-                </p>
+                 Calculate linear acceleration equivalents with our <Link href="/calculators/physics/acceleration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">acceleration calculator</Link>, determine shaft twisting moments with the <Link href="/calculators/physics/torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque calculator</Link>, or evaluate celestial orbital attraction via our <Link href="/calculators/physics/gravitational-force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">gravitational force calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -194,6 +194,12 @@ export default function CircularMotionCalculatorPage() {
 
           <p>
             In celestial astrophysics and space station architecture, centripetal acceleration dictates orbital mechanics and human physiological endurance. Satellites in low Earth orbit maintain stable circular trajectories when Earth gravity provides 100% of the centripetal acceleration: v_orb = &radic;(G &middot; M / r). Meanwhile, rotating toroidal deep-space habitats create artificial gravity via spin: a_c = &omega;&sup2; &middot; r. To reproduce Earth normal gravity (9.80665 m/s&sup2;) while keeping rotation below 2 RPM to eliminate vestibular motion sickness and Coriolis nausea, the space habitat cylinder requires a minimum radius of 224 meters.
+          </p>
+
+          <h2>Integrated Rotational & Aerodynamic Dynamics Tools</h2>
+
+          <p>
+            Rotational systems interact closely with linear kinematics and mechanical transmission components. Track tangential velocity vectors along curved boundaries with our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, convert rotational peripheral velocities using the <Link href="/calculators/measurements/speed-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed converter</Link>, and analyze gear reductions with our <Link href="/calculators/engineering/gear-ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">gear ratio calculator</Link>. For ballistic and orbital launch trajectories, cross-reference 2D flight paths using the <Link href="/calculators/physics/projectile-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">projectile motion calculator</Link> and calculate orbital work inputs with our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

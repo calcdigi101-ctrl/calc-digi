@@ -103,7 +103,7 @@ export default function WaveFrequencyCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Wavelength and frequency are connected via wave speed: λ = v / f and f = v / λ. For light in a vacuum (c = 299,792,458 m/s), a standard Wi-Fi router operating at 2.40 GHz (2,400,000,000 Hz) emits microwave radiation with a wavelength of exactly 12.49 centimeters (124.9 mm) and an oscillation period of 0.417 nanoseconds. In acoustics, an audio tone at 440 Hz (Concert A) traveling through air at 343 m/s possesses an acoustic wavelength of 77.95 cm.
-                </p>
+                 Explore electronic oscillation and RF circuits with our <Link href="/calculators/electronics/frequency-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">frequency calculator</Link>, measure signal attenuation and acoustic levels using the <Link href="/calculators/electronics/decibel-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">decibel calculator</Link>, or evaluate photon kinetic energy via our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>.</p>
               </div>
             </div>
           </div>
@@ -197,6 +197,12 @@ export default function WaveFrequencyCalculatorPage() {
 
           <p>
             In quantum electrodynamics, electromagnetic waves exhibit dual particle-like behavior. Max Planck and Albert Einstein proved that light propagates in discrete localized packets of energy called photons, where individual photon energy E is strictly proportional to wave frequency f: E = h &middot; f = h &middot; c / &lambda;, where h = 6.62607015 &times; 10⁻³⁴ J&middot;s is Planck's constant. High-frequency cosmic gamma rays (10²⁰ Hz) carry millions of electron-volts capable of ionizing atomic electrons, whereas low-frequency FM radio waves (100 MHz) carry gentle 4.14 &times; 10⁻⁷ eV photons incapable of chemical bond disruption.
+          </p>
+
+          <h2>Acoustic, RF & Quantum Propagation Tools</h2>
+
+          <p>
+            Periodic wave mechanics governs telecommunications, medical ultrasonography, and photonics. Calculate medium wave propagation velocities with our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, convert oscillation periods with the <Link href="/calculators/measurements/time-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">time converter</Link>, and evaluate RF channel clarity using our <Link href="/calculators/engineering/signal-to-noise-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">signal-to-noise calculator</Link>. Furthermore, quantify wave power transmission rates using our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link> and determine radiant energy quantities with our <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>
