@@ -162,8 +162,20 @@ export default function BeamLoadPage() {
               <strong>Serviceability Limit State (SLS):</strong> Ensures the beam remains functional, aesthetic, and comfortable for human occupants under unfactored nominal service loads. SLS criteria govern deflections, floor vibration frequencies, and ponding instability on flat roofs.
             </li>
           </ul>
+          <h2>Continuous Multi-Span Beams &amp; Moment Redistribution</h2>
           <p>
-            A beam may have adequate cross-sectional yield strength to prevent physical fracture, yet fail building code compliance because midspan deflection creates unsightly ceiling sags or jams interior doors. By checking both bending stress (σ ≤ σ_allowable) and span-to-deflection ratios (δ ≤ L/360) in our calculator above, engineers achieve balanced, code-compliant designs.
+            While simply supported single-span beams are common in residential timber framing, commercial structural frameworks utilize continuous multi-span beams passing across multiple intermediate column supports.
+          </p>
+          <p>
+            Governed by <strong>Clapeyron's Three-Moment Equation</strong>, continuity introduces negative hogging bending moments over interior column supports. This continuity pulls upward against midspan sagging, reducing peak midspan positive bending moment from <code>w · L² / 8</code> (in simply supported beams) down to approximately <code>w · L² / 12</code>, while midspan deflection is slashed by more than 60%. Structural codes permit up to 10% to 20% plastic moment redistribution from highly stressed support sections into adjacent spans, enabling lighter, shallower steel beam profiles.
+          </p>
+
+          <h2>Composite Steel-Concrete Floor Beam Systems</h2>
+          <p>
+            In modern steel-framed office towers, efficiency is maximized by creating <strong>composite action</strong> between steel wide-flange beams and overlying cast-in-place reinforced concrete floor slabs. Heavy cylindrical <strong>headed shear studs</strong> (typically 19 mm diameter) are welded through profiled steel decking onto the top beam flange.
+          </p>
+          <p>
+            Under transformed section analysis (using the modular elasticity ratio <code>n = E_steel / E_concrete ≈ 8</code>), the concrete slab acts as an enormous supplementary compression flange, shifting the composite neutral axis upward into the slab. This composite synergy increases flexural stiffness (moment of inertia <em>I_eff</em>) by 250% to 350% and reduces required structural steel beam weight by 30% to 45%, providing large open column-free floor layouts.
           </p>
         </>
       }

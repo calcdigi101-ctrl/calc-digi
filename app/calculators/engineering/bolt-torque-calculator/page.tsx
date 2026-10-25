@@ -153,6 +153,27 @@ export default function BoltTorquePage() {
           <p>
             A torque wrench measures rotational resistance, not direct clamping tension. Due to variations in surface roughness, zinc plating thickness, thread burrs, and operator technique, the torque-tension relationship exhibits up to ±25% scatter when using uncalibrated manual click-type torque wrenches. In mission-critical aerospace and structural steel connections, engineers utilize torque-angle (turn-of-nut) methods, direct tension indicator (DTI) squirt washers, or ultrasonic bolt elongation measurement to guarantee uniform preload clamping across joint arrays.
           </p>
+
+          <h2>Turn-of-Nut Method and Torque-Angle Tightening</h2>
+          <p>
+            To eliminate the ±25% preload scatter caused by unpredictable thread friction coefficients, structural steel codes (such as the <strong>RCSC Specification for Structural Joints Using High-Strength Bolts</strong>) mandate the <strong>Turn-of-Nut tightening method</strong>.
+          </p>
+          <p>
+            Under this protocol, the joint is first brought to a uniform <strong>snug-tight condition</strong> using an ordinary spud wrench or impact wrench (typically 20% to 30% of target tension, bringing all faying steel surfaces into solid metal-to-metal contact). Subsequently, the nut is rotated through a specified angle (e.g., 1/3 turn or 120° for bolt lengths up to 4 diameters; 1/2 turn for lengths up to 8 diameters). Because nut rotation directly translates into axial elongation along the bolt thread lead (<code>ΔL = Angle / 360° · Pitch</code>), tension is determined by the bolt's elastic-plastic stress-strain curve rather than friction.
+          </p>
+
+          <h2>Embedment Relaxation and Joint Preload Loss</h2>
+          <p>
+            Immediately following fastener tightening, microscopic surface peaks and machining burrs on thread contact flanks and joint plates undergo localized plastic deformation under intense clamping pressure—a phenomenon known as <strong>embedment relaxation</strong>.
+          </p>
+          <p>
+            In rigid metal-to-metal joints, embedment causes an unavoidable 2% to 5% loss of initial preload tension within the first few minutes after torquing. In soft gasketed pipe joints or painted structural steel assemblies, creep relaxation can dissipate up to 15% to 20% of preload. To maintain persistent clamping force in vibrating or thermally cycling machinery, engineers incorporate conical <strong>Belleville disc spring washers</strong> that provide high elastic compliance to absorb joint relaxation without losing clamping seal integrity.
+          </p>
+
+          <h2>Stainless Steel Thread Galling and Galvanic Compatibility</h2>
+          <p>
+            When tightening austenitic stainless steel bolts (such as 304 / A2 or 316 / A4), high contact pressures and sliding friction strip away the microscopic passive chromium oxide film protecting the metal. Direct metal-to-metal contact leads to instantaneous microscopic cold-welding termed <strong>thread galling</strong>, permanently seizing threads and snapping bolt shanks before proper torque is reached. Applying PTFE-based thread lubricants or nickel anti-seize paste is mandatory for all stainless fasteners.
+          </p>
         </>
       }
     >

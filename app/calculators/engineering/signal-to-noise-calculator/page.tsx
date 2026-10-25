@@ -151,6 +151,30 @@ export default function SignalToNoisePage() {
           <p>
             When a communication receiver processes an incoming radio frequency signal, every cascaded hardware stage—including low-noise amplifiers (LNA), bandpass filters, mixers, and analog-to-digital converters (ADC)—adds intrinsic electronic thermal noise, inevitably degrading SNR. Engineers quantify hardware degradation using <em>Noise Figure (NF)</em>. According to Friis' formula for cascaded amplifiers, the noise figure of the very first front-end amplifier stage dominates overall system noise, emphasizing the critical importance of low-noise pre-amplification directly adjacent to receiving antennas.
           </p>
+
+          <h2>Energy per Bit to Noise Density Ratio (Eb/N0) &amp; FEC Coding</h2>
+          <p>
+            While raw SNR measures total signal power against total in-band noise, digital communications engineers evaluate bit error rates (BER) using the normalized metric <strong>Energy per Bit to Noise Spectral Density Ratio (Eb/N0)</strong>: <code>Eb/N0 = (P_signal / R_bit) / (P_noise / Bandwidth) = SNR · (Bandwidth / R_bit)</code>.
+          </p>
+          <p>
+            Shannon's fundamental channel coding theorem establishes an absolute physical threshold: no communications system can achieve error-free data transmission if <em>Eb/N0</em> falls below the theoretical <strong>Shannon Limit of -1.59 dB</strong> (for unconstrained bandwidth). Modern advanced <strong>Forward Error Correction (FEC)</strong> algorithms—specifically <strong>Low-Density Parity-Check (LDPC) codes</strong> used in 5G NR data payloads and Wi-Fi 7, and <strong>Polar codes</strong> deployed in 5G control signaling—operate within a mere 0.5 to 0.8 dB of this ultimate Shannon limit.
+          </p>
+
+          <h2>MIMO Spatial Multiplexing and Array Gain</h2>
+          <p>
+            In legacy single-antenna systems (SISO), multiplying data throughput required either doubling costly RF spectrum bandwidth or massively ramping up transmitter power. Modern 5G Massive MIMO (e.g., 64T64R base station active antenna units) and Wi-Fi 7 multi-user MIMO (MU-MIMO) fundamentally bypass Shannon bandwidth constraints through spatial domain multiplexing.
+          </p>
+          <p>
+            By transmitting independent data streams over rich multi-path scattering environments simultaneously on identical frequency channels, theoretical MIMO capacity scales linearly with the minimum number of transmit (<em>M</em>) and receive (<em>N</em>) antennas: <code>C_MIMO ≈ min(M, N) · Bandwidth · log2(1 + (SNR / M))</code>. Furthermore, digital adaptive beamforming focuses RF phase coherence directly at user terminals, yielding a concentrated <strong>Array Gain</strong> that boosts received SNR by up to 10 · log10(N) dB.
+          </p>
+
+          <h2>RF Link Budget and Free Space Path Loss (FSPL)</h2>
+          <p>
+            Engineering satellite uplinks, microwave backhaul links, or IoT LoRaWAN networks requires synthesizing transmitter power, antenna gains, path propagation losses, and receiver sensitivity into an end-to-end <strong>Link Budget</strong>.
+          </p>
+          <p>
+            The primary electromagnetic path attenuation over line-of-sight distance <em>d</em> is governed by the <strong>Free Space Path Loss (FSPL)</strong> equation: <code>FSPL (dB) = 20 · log10(d) + 20 · log10(f) + 20 · log10(4π / c)</code>. In high-frequency 5G millimeter-wave (mmWave) bands (28 GHz and 39 GHz), atmospheric attenuation from molecular oxygen resonance and raindrop absorption adds severe attenuation, requiring dense small-cell spacing and robust 15 dB to 20 dB link fade margins to maintain uninterrupted gigabit connectivity.
+          </p>
         </>
       }
     >

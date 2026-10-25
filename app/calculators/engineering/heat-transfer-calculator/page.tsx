@@ -155,6 +155,38 @@ export default function HeatTransferPage() {
           <p>
             In practical engineering systems, heat transfer rarely occurs via a single isolated mode. In an architectural building envelope, solar radiation warms exterior cladding; heat conducts inward through siding, insulation, and timber or steel studs; and indoor room air warms via convection and radiation. When conductive steel studs penetrate insulation layers without continuous exterior foam breaks, a phenomenon known as <em>thermal bridging</em> occurs, degrading effective wall assembly R-values by up to 40% and creating cold indoor condensation hotspots prone to structural rot.
           </p>
+
+          <h2>Extended Surfaces and Heat Sink Fin Efficiency</h2>
+          <p>
+            When convective heat transfer between a solid surface and surrounding ambient air is limited by low air convective coefficients (<em>h ≈ 10 to 25 W/m²·K</em> in natural convection), engineers attach <strong>extended surfaces (fins)</strong> to multiply active heat transfer area. Common examples include extruded aluminum heatsinks on microprocessors, pinned air-cooled cylinder heads on motorcycles, and spirally wound copper finned tubes in economizers.
+          </p>
+          <p>
+            However, adding fin length provides diminishing thermal returns because conductive resistance cools the fin tip relative to the root base. Thermal engineers quantify performance using <strong>Fin Efficiency (η_f)</strong>: <code>η_f = Q_actual / Q_ideal = tanh(m · L_c) / (m · L_c)</code>, where the fin performance parameter is <code>m = sqrt((h · P) / (k · A_c))</code>. If <em>m · L</em> exceeds 2.5, the outer tip of the fin drops to ambient temperature and transfers virtually zero additional heat, wasting material weight and increasing boundary air pressure drop.
+          </p>
+
+          <h2>Transient Heat Conduction and the Lumped Capacitance Method</h2>
+          <p>
+            In manufacturing thermal processing—such as metal billet quenching, glass tempering, and food thermal sterilization—temperature varies continuously over time <code>T = T(t)</code>. When internal conductive resistance within a solid is negligible compared to external convective resistance at its boundary, spatial temperature gradients across the body remain flat.
+          </p>
+          <p>
+            This operational assumption is verified using the dimensionless <strong>Biot Number (Bi)</strong>: <code>Bi = (h · L_c) / k_solid</code>, where characteristic length is volume divided by surface area <code>L_c = V / A_s</code>. When <strong>Bi &lt; 0.10</strong>, the <strong>Lumped Capacitance Method</strong> applies with greater than 95% accuracy. Temperature decay over time follows an exponential cooling curve governed by the thermal time constant <code>τ_thermal = (ρ · V · c_p) / (h · A_s) = R_th · C_th</code>:
+          </p>
+          <p>
+            <code>(T(t) - T_ambient) / (T_initial - T_ambient) = exp(- t / τ_thermal)</code>
+          </p>
+
+          <h2>Radiation View Factors and Cryogenic Radiation Shields</h2>
+          <p>
+            In vacuum environments where convective and conductive mediums are absent—such as satellite orbital instrumentation, thermonuclear fusion vessels, and liquid nitrogen dewars—thermal radiation is the only operative heat loss channel. The geometric orientation between two radiating surfaces is dictated by the <strong>Radiation View Factor (F₁₂)</strong>, representing the fraction of diffuse radiant energy leaving surface 1 that directly intercepts surface 2.
+          </p>
+          <p>
+            Inserting a thin, highly reflective radiation shield of emissivity ε_s between two parallel radiant plates introduces additional surface radiative resistances. For <em>N</em> radiation shields possessing equal emissivity, net radiative heat flux drops dramatically to <code>q_shielded = q_unshielded / (N + 1)</code>. In spacecraft aerospace thermal blankets (Multi-Layer Insulation, MLI), stacking 20 to 40 aluminized Mylar foils separated by Dacron scrim nets reduces radiant heat leakage by more than 97%, keeping sensitive cryogenic propellant tanks stable against solar heating.
+          </p>
+
+          <h2>Empirical Convection Correlations (Dittus-Boelter Equation)</h2>
+          <p>
+            In internal forced convective heat transfer inside turbulent pipes and heat exchangers, convective coefficient <em>h</em> is predicted using the dimensionless <strong>Nusselt Number (Nu)</strong>: <code>Nu = (h · D) / k_fluid</code>. The classic <strong>Dittus-Boelter correlation</strong> states: <code>Nu = 0.023 · Re^(0.8) · Pr^n</code>, where <em>Pr</em> is the fluid Prandtl number (ν/α), and exponent <em>n = 0.4</em> for fluid heating (or <em>0.3</em> for fluid cooling). This power-law coupling reinforces why turbulent velocity dramatically magnifies heat exchanger throughput.
+          </p>
         </>
       }
     >

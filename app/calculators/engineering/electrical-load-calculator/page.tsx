@@ -153,6 +153,27 @@ export default function ElectricalLoadPage() {
           <p>
             Under NEC Section 210.20, a continuous load is defined as any operational load where the maximum current is sustained for 3 hours or more. Continuous loads—most notably electric vehicle charging stations, commercial lighting banks, and continuous exhaust ventilation fans—must be calculated at 125% of their continuous rating. Failure to apply this 1.25 multiplier leads to steady thermal accumulation in circuit breaker bi-metallic strips, resulting in nuisance breaker trips even when operating within nominal rating.
           </p>
+
+          <h2>Voltage Drop Calculations and Feeder Length Limits (NEC 210.19)</h2>
+          <p>
+            While the National Electrical Code sets minimum wire gauges to prevent conductor insulation meltdown (ampacity sizing), long conductor runs introduce resistive voltage drop that degrades electrical equipment efficiency. Under <strong>NEC Section 210.19(A) Informational Note 4</strong>, total voltage drop must not exceed <strong>3% on branch circuits</strong> or <strong>5% across combined feeder and branch circuits</strong>.
+          </p>
+          <p>
+            For a single-phase 120/240V circuit carrying current <em>I</em> over one-way distance <em>L</em> (feet), voltage drop is calculated as: <code>V_drop = (2 · K · I · L) / Circular_Mils</code>, where <em>K</em> is conductor resistivity (12.9 ohms-cmil/ft for copper, 21.2 for aluminum). If voltage drops by more than 5%, electric motors draw increased amperage to maintain mechanical output, triggering overload relays and causing LED luminaires to visibly flicker.
+          </p>
+
+          <h2>Power Factor and Non-Linear Harmonic Loads</h2>
+          <p>
+            In modern commercial facilities dominated by non-linear electronics—such as computer server racks, variable frequency drives (VFD), and LED electronic drivers—current waveforms become distorted, creating high <strong>Total Harmonic Distortion (THD)</strong>.
+          </p>
+          <p>
+            Triplen harmonics (specifically the 3rd harmonic at 180 Hz and 9th at 540 Hz) do not cancel out in the neutral conductor of a three-phase 4-wire system; instead, they add together arithmetically. In high-density office buildings, neutral current can exceed 170% of phase current, causing severe transformer overheating. Electrical engineers resolve this by specifying 200% rated oversized neutral conductors and <strong>K-rated isolation transformers</strong> (e.g., K-13 or K-20) capable of dissipating high eddy current losses.
+          </p>
+
+          <h2>Short-Circuit Current Ratings (SCCR) and Arc Flash Safety</h2>
+          <p>
+            Service panel sizing must also account for <strong>Available Fault Current</strong> supplied by the utility substation transformer. Every circuit breaker has an <strong>Ampere Interrupting Capacity (AIC)</strong> rating—the maximum short-circuit fault current it can safely quench without violently rupturing. Standard residential panels provide 10,000 AIC (10 kA), whereas commercial service switchboards require 22,000 to 65,000 AIC ratings. Under <strong>NFPA 70E standards</strong>, calculating available bolted fault current determines incident arc-flash energy boundaries and required personal protective equipment (PPE).
+          </p>
         </>
       }
     >
