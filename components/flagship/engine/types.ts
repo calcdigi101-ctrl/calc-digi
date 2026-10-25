@@ -85,6 +85,7 @@ export type Output = {
   badge?: { text: string; tone: Tone };
   spectrum?: Spectrum;
   rows?: { label: string; value: string; strong?: boolean }[];
+  secondary?: { label: string; value: string; strong?: boolean }[];
   steps?: string[];
   chart?: Chart;
   /** Wide charts/tables rendered full-width below the tool grid. */

@@ -369,9 +369,9 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
               </div>
             ) : null}
 
-            {output.rows?.length ? (
+            {(output.rows ?? output.secondary)?.length ? (
               <dl className="mt-5 divide-y divide-slate-200 border-t border-slate-200 text-sm dark:divide-slate-800 dark:border-slate-800">
-                {output.rows.map((r) => (
+                {(output.rows ?? output.secondary)!.map((r) => (
                   <div key={r.label} className="flex items-start justify-between gap-3 py-2.5">
                     <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2">{r.label}</dt>
                     <dd className={cn("text-right tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words max-w-[55%]", r.strong ? "font-bold" : "font-semibold")}>{r.value}</dd>

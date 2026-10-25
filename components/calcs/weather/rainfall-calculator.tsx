@@ -41,6 +41,12 @@ export const rainfallConfig: CalcConfig = {
       max: 50.0,
     },
   ],
+  presets: [
+    { label: "Light Shower (0.5\" Rain, 1,500 sq ft)", values: { rainfallInches: 0.5, catchmentAreaSqFt: 1500.0, runoffCoefficient: 0.9, firstFlushGallons: 10.0 } },
+    { label: "Standard Storm (1.5\" Rain, 2,000 sq ft)", values: { rainfallInches: 1.5, catchmentAreaSqFt: 2000.0, runoffCoefficient: 0.9, firstFlushGallons: 10.0 } },
+    { label: "Heavy Downpour (2.5\" Rain, 2,500 sq ft)", values: { rainfallInches: 2.5, catchmentAreaSqFt: 2500.0, runoffCoefficient: 0.92, firstFlushGallons: 15.0 } },
+    { label: "Tropical Deluge (4.0\" Rain, 3,500 sq ft)", values: { rainfallInches: 4.0, catchmentAreaSqFt: 3500.0, runoffCoefficient: 0.95, firstFlushGallons: 20.0 } },
+  ],
   compute: (vals) => {
     const rainIn = Number(vals.rainfallInches) || 1.5;
     const area = Number(vals.catchmentAreaSqFt) || 2000.0;
@@ -63,7 +69,7 @@ export const rainfallConfig: CalcConfig = {
         text: `${rainIn}" rain on ${area.toLocaleString()} sq ft (${(coeff * 100).toFixed(0)}% runoff efficiency)`,
         tone: "good",
       },
-      secondary: [
+      rows: [
         {
           label: "Total Gross Rainfall Volume",
           value: `${Math.round(grossGallons).toLocaleString()} Gallons`,

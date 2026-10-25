@@ -33,6 +33,12 @@ export const humidityConfig: CalcConfig = {
       max: 1100.0,
     },
   ],
+  presets: [
+    { label: "Indoor Comfort (22°C, 45% RH)", values: { dryBulbTempC: 22.0, relativeHumidity: 45.0, atmosphericPressureHpa: 1013.25 } },
+    { label: "Humid Greenhouse (28°C, 80% RH)", values: { dryBulbTempC: 28.0, relativeHumidity: 80.0, atmosphericPressureHpa: 1012.0 } },
+    { label: "Dry Winter Heating (20°C, 20% RH)", values: { dryBulbTempC: 20.0, relativeHumidity: 20.0, atmosphericPressureHpa: 1018.0 } },
+    { label: "Tropical Coast (32°C, 75% RH)", values: { dryBulbTempC: 32.0, relativeHumidity: 75.0, atmosphericPressureHpa: 1008.0 } },
+  ],
   compute: (vals) => {
     const tc = Number(vals.dryBulbTempC) || 24.0;
     const rh = Math.min(100.0, Math.max(1.0, Number(vals.relativeHumidity) || 55.0));
@@ -64,7 +70,7 @@ export const humidityConfig: CalcConfig = {
         text: `${rh.toFixed(1)}% Relative Humidity @ ${tc.toFixed(1)}°C`,
         tone: rh >= 30 && rh <= 60 ? "good" : rh > 65 ? "warn" : "bad",
       },
-      secondary: [
+      rows: [
         {
           label: "Saturation Vapor Pressure (es)",
           value: `${es.toFixed(2)} hPa (Current e: ${e.toFixed(2)} hPa)`,
