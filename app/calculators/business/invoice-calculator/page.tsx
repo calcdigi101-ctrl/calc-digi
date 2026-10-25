@@ -1,26 +1,271 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import InvoiceCalculatorComponent from "@/components/calcs/business/invoice-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { InvoiceAgingCashFlowChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/invoice-calculator";
+const TITLE = "Invoice Calculator | Commercial Billing, Discounts & Sales Tax";
+const DESCRIPTION =
+  "Compute commercial invoice totals, trade discounts, freight additions, and sales tax across line items with automated payment terms and cash flow tracking.";
 
 export const metadata: Metadata = {
-  "title": "Invoice Calculator – Total with Tax & Discount | CalcDigi",
-  "description": "Calculate invoice totals with line items, discounts, and tax. Generate accurate billing totals for any freelance or business invoice.",
-  "openGraph": {
-    "title": "Invoice Calculator – Total with Tax & Discount | CalcDigi",
-    "description": "Calculate invoice totals with line items, discounts, and tax. Generate accurate billing totals for any freelance or business invoice.",
-    "type": "website",
-    "url": "/calculators/business/invoice-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/invoice-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/freelance-rate-calculator", icon: "💼", name: "Freelance Rate" },
+  { href: "/calculators/business/sales-tax-calculator", icon: "🏛️", name: "Sales Tax" },
+  { href: "/calculators/business/discount-calculator", icon: "🏷️", name: "Discount Engine" },
+  { href: "/calculators/business/cogs-calculator", icon: "📦", name: "COGS Solver" },
+  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margins" },
+  { href: "/calculators/business/markup-calculator", icon: "📈", name: "Markup Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the standard legal formula for commercial invoice reconciliation?",
+    a: "The standard commercial billing formula computes gross billable billings (services plus materials), applies trade or prompt-payment discounts, calculates destination sales tax on qualifying taxable subcomponents, and incorporates non-taxable freight delivery surcharges to determine the final legally binding net payable balance.",
+  },
+  {
+    q: "How do early payment terms such as 2/10 Net 30 function mathematically?",
+    a: "Under 2/10 Net 30 payment terms, the client receives an immediate 2.0% cash discount if the invoice is remitted in full within 10 calendar days; otherwise, the full face balance becomes legally mature within 30 days. Foregoing this 2% discount to hold cash for an extra 20 days equates to an annualized borrowing cost of 36.73%.",
+  },
+  {
+    q: "Are freight delivery charges subject to commercial sales tax?",
+    a: "Sales tax treatment on shipping and freight depends strictly on state and municipal jurisdiction nexus rules. In many states, if freight is separately stated on the invoice and delivered via a common carrier (e.g., FedEx or UPS), it remains tax-exempt. However, if shipping is bundled or combined with handling labor, it is frequently classified as fully taxable.",
+  },
+  {
+    q: "What mandatory compliance elements must every valid B2B invoice contain?",
+    a: "A legally enforceable B2B invoice must clearly display a unique sequential invoice number, vendor legal entity name and physical address, client legal billing entity, transaction date, formal payment due date, detailed line-item service or deliverable descriptions, itemized units and unit rates, applicable tax nexus registrations, and banking wire instructions.",
+  },
+  {
+    q: "How does invoice aging impact small business working capital cycles?",
+    a: "Invoices remaining uncollected past Net 30 or Net 60 days degrade cash conversion efficiency, forcing businesses to rely on expensive commercial credit lines or invoice factoring facilities. Statistical collection probability declines from 95% at 30 days to 73% at 90 days and below 25% past 180 days.",
+  },
+  {
+    q: "How does this invoice calculator interact with corporate payroll and expense budgets?",
+    a: "Commercial invoices bill direct project costs that fund corporate payroll obligations and operational overhead. Integrating accurate line-item billing ensures client billable rates sufficiently absorb employee burden multipliers and enterprise software subscriptions.",
+  },
+];
+
+export default function InvoiceCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Invoice Calculator\", \"item\": \"https://calcdigi.com/calculators/business/invoice-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Invoice Calculator\", \"url\": \"https://calcdigi.com/calculators/business/invoice-calculator\", \"description\": \"Calculate invoice totals with line items, discounts, and tax. Generate accurate billing totals for any freelance or business invoice.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What should be included on an invoice?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Required invoice elements: invoice number (unique sequential), invoice date, payment due date, your business name, address, and contact info, client name and billing address, itemized services/products with descriptions, quantities, and rates, subtotal, any discounts, applicable taxes with rate specified, total amount due, payment terms, and payment method instructions.\"}}, {\"@type\": \"Question\", \"name\": \"What are standard invoice payment terms?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most common: Net 30 (due within 30 days of invoice date). Small businesses and freelancers often use Net 15 or Due on Receipt. Large enterprises may negotiate Net 60 or Net 90. Early payment discount: 2/10 Net 30 means 2% discount if paid within 10 days, otherwise full amount in 30 days.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate invoice tax?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Sales tax on invoice = Subtotal (after discounts) × Tax Rate. Always apply discount before calculating tax — tax is calculated on the discounted amount. If invoice total is $1,000 with 10% discount and 8.25% tax: After discount = $900. Tax = $900 × 0.0825 = $74.25. Total due = $974.25.\"}}, {\"@type\": \"Question\", \"name\": \"What is a proforma invoice?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A proforma invoice is a preliminary invoice sent before goods or services are delivered. It shows the expected price and serves as a quotation. It is not an accounting document and does not create a legal obligation. Used for: customs clearance for international shipments, buyer financing applications, and formal project cost confirmations before work begins.\"}}, {\"@type\": \"Question\", \"name\": \"Can I charge late fees on unpaid invoices?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes, if disclosed in your contract or on the invoice before the due date. Common late fee: 1.5% per month (18% per year). Some states cap rates — check your state usury laws. To enforce late fees: include them in every contract, state them on every invoice (\\\"Invoices unpaid after 30 days subject to 1.5% monthly late fee\\\"), and send reminders before the due date.\"}}, {\"@type\": \"Question\", \"name\": \"How do I handle disputed invoices?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Best practices: clearly document all work with scope, timescopes, and deliverables in contracts. When disputes arise: respond promptly, gather supporting documentation, offer a structured payment plan if the client has genuine hardship, and consider credit for partial completion rather than writing off entirely. Small claims court is available for disputes up to $5,000-15,000 (varies by state) at low cost.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Invoice Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Invoice Calculator</h1>\n<p class=\"calc-intro\">Calculate your invoice total by adding line items with quantities and prices, applying discounts, adding sales tax, and finding the final amount due. Essential for freelancers, small businesses, and contractors creating professional invoices.</p>\n<p class=\"calc-intro\">Professional invoicing requires accurate calculation of subtotals, discounts, taxes, and totals. Errors in invoices damage business credibility and can cause payment delays. This calculator handles multi-line invoices with custom discounts and tax rates for accurate billing every time.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Subtotal = Sum of (Qty × Unit Price) | After Discount = Subtotal × (1 - Discount%) | Total Due = After Discount × (1 + Tax Rate%)</div></div>\n<div class=\"content-section\">\n<h2>Professional Invoice Best Practices</h2>\n<p>A professional invoice includes: unique invoice number, invoice date and due date, your business name and contact information, client name and address, itemized line items with descriptions, quantities, and unit prices, subtotal, discounts applied, taxes charged, total due, payment terms, and accepted payment methods.</p>\n<h3>Standard Payment Terms</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Terms</th><th style=\"padding:11px 14px;text-align:left;\">Meaning</th><th style=\"padding:11px 14px;text-align:left;\">Common Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Net 30</td><td style=\"padding:10px 14px;\">Payment due within 30 days</td><td style=\"padding:10px 14px;\">Most common for B2B invoices</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Net 15</td><td style=\"padding:10px 14px;\">Payment due within 15 days</td><td style=\"padding:10px 14px;\">Common for smaller amounts</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Net 60</td><td style=\"padding:10px 14px;\">Payment due within 60 days</td><td style=\"padding:10px 14px;\">Used for large enterprise clients</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">2/10 Net 30</td><td style=\"padding:10px 14px;\">2% discount if paid within 10 days</td><td style=\"padding:10px 14px;\">Incentivizes early payment</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Due on Receipt</td><td style=\"padding:10px 14px;\">Payment due immediately</td><td style=\"padding:10px 14px;\">Freelancers and project-based</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">50% upfront / 50% on completion</td><td style=\"padding:10px 14px;\">Split payment</td><td style=\"padding:10px 14px;\">Common for large projects</td></tr></tbody></table></div>\n<h3>Late Payment Fees</h3>\n<p>US businesses can legally charge late payment fees if disclosed in the original contract or invoice. Common late fees: 1.5% per month (18% annually) is the most common rate. Some states cap late fees at 10-15% annually. Always include payment terms and late fee policy in contracts and on invoices before the first invoice is issued — adding late fees retrospectively may not be enforceable.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What should be included on an invoice? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Required invoice elements: invoice number (unique sequential), invoice date, payment due date, your business name, address, and contact info, client name and billing address, itemized services/products with descriptions, quantities, and rates, subtotal, any discounts, applicable taxes with rate specified, total amount due, payment terms, and payment method instructions.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are standard invoice payment terms? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most common: Net 30 (due within 30 days of invoice date). Small businesses and freelancers often use Net 15 or Due on Receipt. Large enterprises may negotiate Net 60 or Net 90. Early payment discount: 2/10 Net 30 means 2% discount if paid within 10 days, otherwise full amount in 30 days.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate invoice tax? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Sales tax on invoice = Subtotal (after discounts) × Tax Rate. Always apply discount before calculating tax — tax is calculated on the discounted amount. If invoice total is $1,000 with 10% discount and 8.25% tax: After discount = $900. Tax = $900 × 0.0825 = $74.25. Total due = $974.25.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a proforma invoice? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A proforma invoice is a preliminary invoice sent before goods or services are delivered. It shows the expected price and serves as a quotation. It is not an accounting document and does not create a legal obligation. Used for: customs clearance for international shipments, buyer financing applications, and formal project cost confirmations before work begins.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I charge late fees on unpaid invoices? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes, if disclosed in your contract or on the invoice before the due date. Common late fee: 1.5% per month (18% per year). Some states cap rates — check your state usury laws. To enforce late fees: include them in every contract, state them on every invoice (\"Invoices unpaid after 30 days subject to 1.5% monthly late fee\"), and send reminders before the due date.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I handle disputed invoices? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Best practices: clearly document all work with scope, timescopes, and deliverables in contracts. When disputes arise: respond promptly, gather supporting documentation, offer a structured payment plan if the client has genuine hardship, and consider credit for partial completion rather than writing off entirely. Small claims court is available for disputes up to $5,000-15,000 (varies by state) at low cost.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/profit-margin-calculator\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Profit Margin Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/markup-calculator\"><span class=\"rc-icon\">🏷️</span><span class=\"rc-name\">Markup Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Invoice Calculator – Line Items, Tax, Discount and Total Due</h2><p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:8px;\">Line Items:</p><div style=\"display:grid;grid-template-columns:1fr 50px 80px;gap:4px;margin-bottom:6px;align-items:end;\"><div><label for=\"inv-d0\" style=\"font-size:10px;color:var(--c-ink2);\">Item 1 Description</label><input id=\"inv-d0\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Consulting Services\"/></div><div><label for=\"inv-q0\" style=\"font-size:10px;color:var(--c-ink2);\">Qty</label><input id=\"inv-q0\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"10\"/></div><div><label for=\"inv-p0\" style=\"font-size:10px;color:var(--c-ink2);\">Unit Price</label><input id=\"inv-p0\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"150\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 50px 80px;gap:4px;margin-bottom:6px;align-items:end;\"><div><label for=\"inv-d1\" style=\"font-size:10px;color:var(--c-ink2);\">Item 2 Description</label><input id=\"inv-d1\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Website Design\"/></div><div><label for=\"inv-q1\" style=\"font-size:10px;color:var(--c-ink2);\">Qty</label><input id=\"inv-q1\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div><label for=\"inv-p1\" style=\"font-size:10px;color:var(--c-ink2);\">Unit Price</label><input id=\"inv-p1\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2000\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 50px 80px;gap:4px;margin-bottom:6px;align-items:end;\"><div><label for=\"inv-d2\" style=\"font-size:10px;color:var(--c-ink2);\">Item 3 Description</label><input id=\"inv-d2\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Logo Design\"/></div><div><label for=\"inv-q2\" style=\"font-size:10px;color:var(--c-ink2);\">Qty</label><input id=\"inv-q2\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div><label for=\"inv-p2\" style=\"font-size:10px;color:var(--c-ink2);\">Unit Price</label><input id=\"inv-p2\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"800\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 50px 80px;gap:4px;margin-bottom:6px;align-items:end;\"><div><label for=\"inv-d3\" style=\"font-size:10px;color:var(--c-ink2);\">Item 4 Description</label><input id=\"inv-d3\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"SEO Audit\"/></div><div><label for=\"inv-q3\" style=\"font-size:10px;color:var(--c-ink2);\">Qty</label><input id=\"inv-q3\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"inv-p3\" style=\"font-size:10px;color:var(--c-ink2);\">Unit Price</label><input id=\"inv-p3\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"500\"/></div></div><div style=\"display:grid;grid-template-columns:1fr 50px 80px;gap:4px;margin-bottom:6px;align-items:end;\"><div><label for=\"inv-d4\" style=\"font-size:10px;color:var(--c-ink2);\">Item 5 Description</label><input id=\"inv-d4\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"\"/></div><div><label for=\"inv-q4\" style=\"font-size:10px;color:var(--c-ink2);\">Qty</label><input id=\"inv-q4\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div><label for=\"inv-p4\" style=\"font-size:10px;color:var(--c-ink2);\">Unit Price</label><input id=\"inv-p4\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div></div><div class=\"form-group\"><label for=\"inv-disc\">Discount (%)</label><input id=\"inv-disc\" max=\"100\" min=\"0\" step=\"0.5\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"inv-tax\">Tax Rate (%)</label><input id=\"inv-tax\" max=\"30\" min=\"0\" step=\"0.01\" type=\"number\" value=\"8.25\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','Invoice Calculator – Line Items, Tax, Discount and Total Due')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Invoice Calculator – Line Items, Tax, Discount and Total Due')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-invoice-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var sub=0,items=[];\n  for(var i=0;i<5;i++){\n    var d=document.getElementById('inv-d'+i).value||'Item '+(i+1);\n    var q=parseFloat(document.getElementById('inv-q'+i).value)||0;\n    var p=parseFloat(document.getElementById('inv-p'+i).value)||0;\n    if(q>0&&p>0){var amt=q*p;sub+=amt;items.push({d:d,q:q,p:p,amt:amt});}\n  }\n  var disc=parseFloat(document.getElementById('inv-disc').value)||0;\n  var tax=parseFloat(document.getElementById('inv-tax').value)||0;\n  if(items.length===0){alert('Please enter at least one line item.');return;}\n  var afterDisc=sub*(1-disc/100);\n  var discAmt=sub-afterDisc;\n  var taxAmt=afterDisc*tax/100;\n  var total=afterDisc+taxAmt;\n  var aiPrompt='Invoice: subtotal $'+sub.toFixed(2)+', discount $'+discAmt.toFixed(2)+', tax $'+taxAmt.toFixed(2)+', total due $'+total.toFixed(2);\n  var rows=ri('Total Due','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+total.toFixed(2)+'</strong>',true)+\n    ri('Subtotal','$'+sub.toFixed(2));\n  items.forEach(function(x){rows+=ri(x.d,x.q+' × $'+x.p.toFixed(2)+' = $'+x.amt.toFixed(2));});\n  rows+=ri('Discount ('+disc+'%)','−$'+discAmt.toFixed(2))+\n    ri('After Discount','$'+afterDisc.toFixed(2))+\n    ri('Tax ('+tax+'%)','$'+taxAmt.toFixed(2));\n  document.getElementById('bz-ri').innerHTML=rows;\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',items.map(function(x){return x.d;}),items.map(function(x){return Math.round(x.amt);}),['#1a5c3a','#c8832a','#3a7abf','#8a4abf','#bf4a4a']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about invoicing best practices and getting paid faster.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="Commercial Invoice & Billing Calculator"
+      intro="Compute commercial invoice totals, trade discounts, shipping additions, and sales tax across line items with automated payment terms and aging tracking."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Commercial Invoices are Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              To calculate an invoice total, sum all billable labor and itemized material line items to establish the gross subtotal. Apply any contractual trade or prompt-payment discounts, calculate applicable destination sales tax on taxable merchandise, and add flat non-taxable shipping or freight fees: Total Due = (Gross Subtotal - Discount) + Tax + Shipping. Independent consultants calibrate hourly service rates with the <Link href="/calculators/business/freelance-rate-calculator">freelance rate calculator</Link> and verify statutory state withholding via the <Link href="/calculators/business/sales-tax-calculator">sales tax calculator</Link>.
+            </p>
+          </div>
+
+          <h2>Visual Analysis: Commercial Invoice Aging & Receivables Recovery Curve</h2>
+          <p>
+            The chart below visualizes the empirical collection probability curve as outstanding commercial trade receivables age past contractual Net 30, Net 60, and Net 90 payment horizons.
+          </p>
+
+          <InvoiceAgingCashFlowChart />
+
+          <h2>First-Principles Invoicing Derivations & Cash Flow Mathematics</h2>
+          <p>
+            Under the Uniform Commercial Code (UCC Section 2-201) and international trade conventions, a valid invoice represents a binding settlement instrument. Line items decompose into billable consulting hours and physical merchandise units:
+          </p>
+          <Formula>
+            {"\\text{Subtotal} = \\sum_{i=1}^{m} (\\text{Hours}_i \\times \\text{Rate}_i) + \\sum_{j=1}^{k} (\\text{Quantity}_j \\times \\text{Unit Price}_j)"}
+          </Formula>
+          <p>
+            When volume trade discounts or prompt-settlement terms are applied, the taxable subtotal is adjusted before statutory local levies are assessed:
+          </p>
+          <Formula>
+            {"\\text{Discounted Subtotal} = \\text{Subtotal} \\times (1 - d), \\quad \\text{Tax Amount} = (\\text{Discounted Subtotal} - \\text{Exempt Labor}) \\times t_{\\text{tax}}"}
+          </Formula>
+          <p>
+            The final net remittance balance legally payable by the client incorporates non-taxable freight and logistics additions:
+          </p>
+          <Formula>
+            {"\\text{Total Due} = \\text{Discounted Subtotal} + \\text{Tax Amount} + \\text{Freight Delivery Surcharge}"}
+          </Formula>
+          <p>
+            When offering early settlement incentives like 2/10 Net 30, financial officers quantify the annualized cost of capital implied by client forfeiture using the standard trade credit formula:
+          </p>
+          <Formula>
+            {"\\text{APR} = \\left( \\frac{d}{1 - d} \\right) \\times \\left( \\frac{365}{\\text{Credit Period} - \\text{Discount Period}} \\right)"}
+          </Formula>
+          <p>
+            For a standard 2/10 Net 30 agreement, holding cash for an extra 20 days costs the customer an effective APR of 37.24%. Business controllers cross-reference wholesale product margins with the <Link href="/calculators/business/wholesale-price-calculator">wholesale price calculator</Link>, track inventory markups via the <Link href="/calculators/business/markup-calculator">markup calculator</Link>, and balance manufacturing outlays with the <Link href="/calculators/business/cogs-calculator">COGS solver</Link>.
+          </p>
+
+          <h2>Standard Commercial Billing Terms & Working Capital Metrics</h2>
+          <p>
+            The table below outlines standard B2B payment terms, default collection probabilities, cash conversion cycle impacts, and average bad debt allowances across major industrial sectors.
+          </p>
+
+          <DataTable
+            head={["Payment Credit Term", "Collection Window", "Effective Annual APR", "Default Risk Rate", "Standard Industry Application"]}
+            rows={[
+              ["Due on Receipt / Net 7", "1 - 7 calendar days", "0.0% (Immediate)", "< 0.8%", "Freelance creative & emergency technical dispatch"],
+              ["2/10 Net 30 (Prompt Discount)", "10 calendar days", "37.24% APR (if forfeited)", "1.2%", "Wholesale building materials & electronic distribution"],
+              ["Net 30 (Commercial Standard)", "30 calendar days", "Cost of capital baseline", "2.5%", "Enterprise software licensing & corporate consulting"],
+              ["Net 60 (Extended Enterprise)", "60 calendar days", "High working capital drag", "5.8%", "Big-box retail merchandising & tier-1 automotive"],
+              ["Net 90 / Net 120 (Government)", "90 - 120 calendar days", "Severe liquidity strain", "9.4%", "Federal defense contracting & municipal infrastructure"],
+              ["Milestone Retainer (50/50)", "50% upfront / 50% delivery", "Negative working capital", "< 0.5%", "Custom software development & architectural build"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Enterprise Systems Integration Milestone Billing</h3>
+          <p>
+            A technology consulting practice completes a Phase II cloud infrastructure migration for an enterprise healthcare client. The milestone billing includes 120 senior architect hours at $185.00/hour ($22,200 total), 8 enterprise server appliance licenses at $1,250.00 each ($10,000 total), an agreed 5.0% enterprise master service agreement (MSA) discount, an 8.25% state sales tax assessed exclusively on physical hardware appliances, and $350.00 in secure courier shipping:
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate gross milestone subtotal:</strong>
+              <br />
+              Gross Subtotal = $22,200 (Architecture Services) + $10,000 (Hardware Licenses) = $32,200.00.
+            </li>
+            <li>
+              <strong>Apply contractual enterprise discount:</strong>
+              <br />
+              Discount Amount = $32,200.00 &times; 5.0% = $1,610.00.
+              <br />
+              Discounted Net Subtotal = $32,200.00 - $1,610.00 = $30,590.00.
+            </li>
+            <li>
+              <strong>Segregate taxable tangible property and assess local nexus tax:</strong>
+              <br />
+              Discounted Hardware Base = $10,000.00 &times; (1 - 0.05) = $9,500.00.
+              <br />
+              Sales Tax Due = $9,500.00 &times; 8.25% = $783.75 (Professional services remain tax-exempt).
+            </li>
+            <li>
+              <strong>Calculate final legally binding remittance total:</strong>
+              <br />
+              Total Due = $30,590.00 (Net Subtotal) + $783.75 (Sales Tax) + $350.00 (Freight) = $31,723.75.
+            </li>
+            <li>
+              <strong>Downstream Treasury Management:</strong> Corporate finance monitors receivables collection velocity with the <Link href="/calculators/business/business-loan-calculator">commercial loan calculator</Link> and verifies operating margins through the <Link href="/calculators/business/profit-margin-calculator">profit margin calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Commercial Print Production Run with Prompt Discount</h3>
+          <p>
+            An industrial packaging fabricator prints 50,000 custom retail folding cartons for an e-commerce cosmetics brand. The invoice lists $12,500 in custom cardboard stock, $4,200 in 6-color offset press run labor, and $850 in freight delivery under 2/10 Net 30 terms. If the cosmetics client pays within 10 days, they capture the prompt 2.0% discount:
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate base production charges before freight:</strong>
+              <br />
+              Base Manufacturing Subtotal = $12,500 + $4,200 = $16,700.00.
+            </li>
+            <li>
+              <strong>Evaluate prompt payment discount deduction:</strong>
+              <br />
+              Prompt Discount (2.0%) = $16,700.00 &times; 0.02 = $334.00.
+              <br />
+              Discounted Manufacturing Net = $16,700.00 - $334.00 = $16,366.00.
+            </li>
+            <li>
+              <strong>Add non-discountable freight logistics:</strong>
+              <br />
+              Final Prompt Payment Remittance = $16,366.00 + $850.00 = $17,216.00.
+              <br />
+              Full Maturity Payment (after 10 days) = $16,700.00 + $850.00 = $17,550.00.
+            </li>
+            <li>
+              <strong>E-Commerce Working Capital Alignment:</strong> The cosmetics brand evaluates marketing payback via the <Link href="/calculators/business/cac-calculator">customer acquisition cost tool</Link> and balances monthly cash burn in the <Link href="/calculators/business/burn-rate-calculator">startup burn rate calculator</Link>.
+            </li>
+          </ol>
+
+          <h2>Corporate Treasury Working Capital & Receivables Factoring Dynamics</h2>
+          <p>
+            In advanced corporate treasury management, companies track Days Sales Outstanding (DSO) alongside Days Payable Outstanding (DPO) to optimize their Cash Conversion Cycle (CCC). When customer payments lag behind vendor liabilities, enterprises often deploy invoice factoring facilities or asset-based accounts receivable lending. While factoring provides immediate liquidity by advancing 80% to 90% of face invoice value, discount fees ranging from 1.5% to 3.5% per month rapidly compress net operating margins.
+          </p>
+          <p>
+            Furthermore, implementing automated accounts receivable collections software with predictive payment reminders and digital customer payment portals dramatically compresses payment cycle latency. Automated dispute escalation workflows identify billing discrepancies within hours of invoice transmission rather than at the 30-day maturity mark, eliminating payment delays and securing working capital stability.
+          </p>
+          <p>
+            Treasury officers evaluate the liquidity trade-off between factoring fees and commercial lines of credit, ensuring credit costs remain below the incremental return on capital reinvested into production or sales distribution.
+          </p>
+
+          <h2>Operational Pitfalls, Cash Conversion Drag & Audit Controls</h2>
+          <ol>
+            <li>
+              <strong>Unenforceable Payment Terms & Missing Disclosures:</strong> Invoices issued without clear, legally explicit payment deadlines (&quot;Net 30 from invoice receipt date&quot;) or lacking contractual late fee disclosures cannot support statutory interest claims during commercial arbitration or collection litigation.
+            </li>
+            <li>
+              <strong>Improper Commingling of Taxable and Exempt Line Items:</strong> Bundling taxable hardware with tax-exempt professional labor under a generic &quot;Turnkey Implementation&quot; line item triggers full sales tax assessments across the entire contract value during state sales tax audits.
+            </li>
+            <li>
+              <strong>Days Sales Outstanding (DSO) Cash Drag:</strong> Allowing average collection cycles to drift from 30 days to 65 days ties up hundreds of thousands of dollars in illiquid accounts receivable, impairing routine bi-weekly payroll obligations modeled in the <Link href="/calculators/business/payroll-calculator">payroll calculator</Link>.
+            </li>
+            <li>
+              <strong>Disputed Change Order Creep:</strong> Invoicing unauthorized project out-of-scope work without signed contractual addendums results in immediate invoice rejection by enterprise accounts payable portals, halting payment on undisputed line items.
+            </li>
+          </ol>
+
+          <h2>Electronic Invoicing Protocols & Enterprise ERP Integration</h2>
+          <p>
+            Modern international commerce relies increasingly on standardized electronic invoicing (e-invoicing) frameworks. In the European Union, Directive 2014/55/EU mandates that public sector entities accept structured XML invoices conforming to the European standard EN 16931 and Peppol BIS Billing 3.0 protocols. In Latin America and Asia, government tax portals enforce mandatory real-time electronic invoice validation before goods can legally clear customs.
+          </p>
+          <p>
+            Enterprise resource planning (ERP) suites like SAP S/4HANA and NetSuite automatically ingest structured invoice files, performing automated 3-way matching between purchase orders, receiving inspection dock receipts, and vendor invoices. By eliminating manual data entry, automated billing networks compress dispute resolution times, accelerate vendor early payment discounts, and stabilize corporate working capital cycles.
+          </p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">What is the difference between a proforma invoice and a commercial tax invoice?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                A proforma invoice is an advance preliminary quotation indicating estimated quantities, values, and specifications. It serves as an informational document for customs valuation or financing applications but does not create an accounting liability. In contrast, a commercial tax invoice is an official legal demand for payment that triggers formal accounts payable and accounts receivable entries on corporate general ledgers.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How do progressive milestone invoices protect long-term project cash flow?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Progressive milestone invoicing ties billing disbursements to verifiable project completion deliverables (such as architectural schematic approval, prototype delivery, or final system commissioning). This prevents contractors from financing client projects out of pocket, drastically reducing counterparty credit risk and default exposures.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative International Standards & Statutory Citations</h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Uniform Commercial Code (UCC Article 2 - Sales):</strong> Legal requirements for commercial invoice confirmations, acceptance of goods, and enforceable trade credit terms.
+            </li>
+            <li>
+              <strong>European Commission Directive 2014/55/EU:</strong> Electronic invoicing standards in public procurement and cross-border digital VAT compliance.
+            </li>
+            <li>
+              <strong>Financial Accounting Standards Board (FASB ASC 606):</strong> Revenue from Contracts with Customers and timing of accounts receivable recognition.
+            </li>
+            <li>
+              <strong>Internal Revenue Service (IRS Publication 583):</strong> Recordkeeping and documentation guidelines for business billing and tax audits.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <InvoiceCalculatorComponent />
+    </CalcPage>
   );
 }

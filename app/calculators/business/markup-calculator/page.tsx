@@ -1,26 +1,273 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import MarkupCalculatorComponent from "@/components/calcs/business/markup-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { MarkupVsMarginSpreadChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/markup-calculator";
+const TITLE = "Markup Calculator | Cost Markup vs Gross Margin Pricing Engine";
+const DESCRIPTION =
+  "Calculate cost markup percentages, selling price points, gross margin spreads, and dollar profit yields across retail and manufacturing inventory.";
 
 export const metadata: Metadata = {
-  "title": "Markup Calculator – Price Markup Percentage | CalcDigi",
-  "description": "Calculate selling price from cost and markup percentage. Convert between markup and margin and find profit per unit for any product.",
-  "openGraph": {
-    "title": "Markup Calculator – Price Markup Percentage | CalcDigi",
-    "description": "Calculate selling price from cost and markup percentage. Convert between markup and margin and find profit per unit for any product.",
-    "type": "website",
-    "url": "/calculators/business/markup-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/markup-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margins" },
+  { href: "/calculators/business/wholesale-price-calculator", icon: "🏷️", name: "Wholesale Pricing" },
+  { href: "/calculators/business/cogs-calculator", icon: "📦", name: "COGS Solver" },
+  { href: "/calculators/business/discount-calculator", icon: "✂️", name: "Discount Engine" },
+  { href: "/calculators/business/ecommerce-profit-calculator", icon: "🛒", name: "E-Commerce Profit" },
+  { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Point" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the critical mathematical distinction between markup and gross margin?",
+    a: "Markup expresses profit as a percentage of the original cost: Markup % = (Profit / Cost) * 100. Gross Margin expresses profit as a percentage of the final selling price: Margin % = (Profit / Selling Price) * 100. While dollar profit is identical, markup is always mathematically larger than margin for any profitable item.",
+  },
+  {
+    q: "How do you calculate selling price from cost and desired gross margin?",
+    a: "To achieve a specific gross margin, the selling price formula is: Selling Price = Cost / (1 - Desired Margin %). For example, if an item costs $60.00 and you require a 40% margin, Selling Price = $60.00 / (1 - 0.40) = $100.00. Multiplying cost by 1.40 yields only $84.00, resulting in an inadequate 28.57% margin.",
+  },
+  {
+    q: "What is keystone pricing in retail merchandising?",
+    a: "Keystone pricing is a traditional retail pricing standard where goods are marked up by exactly 100% of their wholesale cost, resulting in an exact 50.0% gross margin. If a merchant acquires apparel for $25.00, keystone pricing dictates an MSRP of $50.00.",
+  },
+  {
+    q: "Can gross margin ever exceed 100% in commercial accounting?",
+    a: "No. Gross margin can never reach or exceed 100% unless cost of goods sold is zero or negative. Conversely, markup percentage can rise infinitely: a 300% markup on a $10.00 cost yields a $40.00 price and a 75.0% gross margin.",
+  },
+  {
+    q: "How does price elasticity affect sustainable markup thresholds?",
+    a: "In highly commoditized retail sectors with high price elasticity, excessive markups trigger sharp volume declines as shoppers migrate to competing alternatives. In contrast, proprietary luxury goods or patented medical devices maintain inelastic demand, supporting markups in excess of 400% to 1,000%.",
+  },
+  {
+    q: "How does inventory shrinkage erode realized product markup?",
+    a: "The initial markup represents target profitability. However, warehouse theft, damage, and administrative discrepancies reduce realized gross margin below the theoretical plan, requiring calibration with an inventory shrinkage model.",
+  },
+];
+
+export default function MarkupCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Markup Calculator\", \"item\": \"https://calcdigi.com/calculators/business/markup-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Markup Calculator\", \"url\": \"https://calcdigi.com/calculators/business/markup-calculator\", \"description\": \"Calculate selling price from cost and markup percentage. Convert between markup and margin and find profit per unit for any product.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the difference between markup and profit margin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Markup = (Selling Price - Cost) / Cost × 100. Profit Margin = (Selling Price - Cost) / Selling Price × 100. A product costing $50 sold for $100: Markup = $50/$50 = 100%. Margin = $50/$100 = 50%. Same profit ($50), different percentages. Markup is based on cost; margin is based on revenue.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate selling price from cost and markup?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Selling Price = Cost × (1 + Markup/100). At 50% markup on a $30 cost: $30 × 1.50 = $45. At 100% markup: $30 × 2.00 = $60. At 200% markup: $30 × 3.00 = $90. Remember: 100% markup means doubling the price (not a 100% margin — that would mean giving the product away free).\"}}, {\"@type\": \"Question\", \"name\": \"What markup percentage should I use for my business?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Markup should cover: cost of goods, overhead allocated per unit, desired net profit margin, and competitive pricing pressure. Minimum viable markup = (Fixed costs / Units sold + Variable cost per unit) / Cost per unit. As a starting point: check industry averages, price-test with customers, and ensure your markup results in a net profit margin above your cost of capital.\"}}, {\"@type\": \"Question\", \"name\": \"What is keystone pricing in retail?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Keystone pricing means marking up items by 100% — doubling the wholesale cost. A product costing $25 wholesale sells for $50 retail (keystone). This 100% markup = 50% gross margin. Keystone has been a retail standard for decades, though increasing competition (especially from e-commerce) has compressed margins in many categories below keystone levels.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert markup to margin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Margin = Markup / (1 + Markup). Example: 50% markup → 50/150 = 33.3% margin. 100% markup → 100/200 = 50% margin. 200% markup → 200/300 = 66.7% margin. Reverse: Markup = Margin / (1 - Margin). 30% margin → 30/70 = 42.9% markup. 50% margin → 50/50 = 100% markup.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good markup percentage for retail?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Varies significantly by product category. Minimum for profitability: markup must exceed (overhead costs / units sold) / product cost. General retail: 50-100% markup (25-50% margin). Boutique/specialty: 100-200%+. Commodity goods (low differentiation): competitive pressure limits markup to 10-30%. Service businesses often apply 200-400% markup on parts and materials.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Markup Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Markup Calculator</h1>\n<p class=\"calc-intro\">Calculate selling price from cost and markup percentage, find what markup you are applying, or convert between markup percentage and profit margin. Essential for retail pricing, wholesale buying, and understanding the difference between markup and margin.</p>\n<p class=\"calc-intro\">Markup is the percentage added to cost to arrive at the selling price. Margin is profit as a percentage of the selling price. These two different measurements of the same profit are frequently confused — a 50% markup does NOT equal a 50% margin. This calculator handles all three calculations with clear explanations.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Selling Price = Cost × (1 + Markup%) | Markup% = (Price - Cost) / Cost × 100 | Margin% = (Price - Cost) / Price × 100</div></div>\n<div class=\"content-section\">\n<h2>Markup vs Margin — Key Difference</h2>\n<p>The most common pricing confusion in business: markup and margin are not the same number, even though both measure the same dollar amount of profit. Markup is profit as a percentage of COST. Margin is profit as a percentage of SELLING PRICE. For the same product, markup % is always higher than margin %.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Markup %</th><th style=\"padding:11px 14px;text-align:left;\">Equivalent Margin %</th><th style=\"padding:11px 14px;text-align:left;\">Example</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">10%</td><td style=\"padding:10px 14px;\">9.1%</td><td style=\"padding:10px 14px;\">Cost: $100, Price: $110</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">20%</td><td style=\"padding:10px 14px;\">16.7%</td><td style=\"padding:10px 14px;\">Cost: $100, Price: $120</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">25%</td><td style=\"padding:10px 14px;\">20.0%</td><td style=\"padding:10px 14px;\">Cost: $100, Price: $125</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">33.3%</td><td style=\"padding:10px 14px;\">25.0%</td><td style=\"padding:10px 14px;\">Cost: $100, Price: $133.33</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">50%</td><td style=\"padding:10px 14px;\">33.3%</td><td style=\"padding:10px 14px;\">Cost: $100, Price: $150</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">100%</td><td style=\"padding:10px 14px;\">50.0%</td><td style=\"padding:10px 14px;\">Cost: $100, Price: $200</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">200%</td><td style=\"padding:10px 14px;\">66.7%</td><td style=\"padding:10px 14px;\">Cost: $100, Price: $300</td></tr></tbody></table></div>\n<h3>Industry Standard Markups</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Industry</th><th style=\"padding:11px 14px;text-align:left;\">Typical Markup</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Retail clothing</td><td style=\"padding:10px 14px;\">100-300%</td><td style=\"padding:10px 14px;\">Keystone pricing (2×) is minimum</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Jewelry</td><td style=\"padding:10px 14px;\">50-300%</td><td style=\"padding:10px 14px;\">High markup for perceived value</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Electronics</td><td style=\"padding:10px 14px;\">5-25%</td><td style=\"padding:10px 14px;\">Low margin, high volume</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Grocery</td><td style=\"padding:10px 14px;\">15-40%</td><td style=\"padding:10px 14px;\">Produce: 40%+, packaged: 15-25%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Restaurant food</td><td style=\"padding:10px 14px;\">200-350%</td><td style=\"padding:10px 14px;\">Food cost 25-33% of menu price</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Software/SaaS</td><td style=\"padding:10px 14px;\">500-1000%</td><td style=\"padding:10px 14px;\">Near-zero COGS on digital goods</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Prescription drugs</td><td style=\"padding:10px 14px;\">200-1000%</td><td style=\"padding:10px 14px;\">Widely variable</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between markup and profit margin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Markup = (Selling Price - Cost) / Cost × 100. Profit Margin = (Selling Price - Cost) / Selling Price × 100. A product costing $50 sold for $100: Markup = $50/$50 = 100%. Margin = $50/$100 = 50%. Same profit ($50), different percentages. Markup is based on cost; margin is based on revenue.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate selling price from cost and markup? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Selling Price = Cost × (1 + Markup/100). At 50% markup on a $30 cost: $30 × 1.50 = $45. At 100% markup: $30 × 2.00 = $60. At 200% markup: $30 × 3.00 = $90. Remember: 100% markup means doubling the price (not a 100% margin — that would mean giving the product away free).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What markup percentage should I use for my business? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Markup should cover: cost of goods, overhead allocated per unit, desired net profit margin, and competitive pricing pressure. Minimum viable markup = (Fixed costs / Units sold + Variable cost per unit) / Cost per unit. As a starting point: check industry averages, price-test with customers, and ensure your markup results in a net profit margin above your cost of capital.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is keystone pricing in retail? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Keystone pricing means marking up items by 100% — doubling the wholesale cost. A product costing $25 wholesale sells for $50 retail (keystone). This 100% markup = 50% gross margin. Keystone has been a retail standard for decades, though increasing competition (especially from e-commerce) has compressed margins in many categories below keystone levels.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert markup to margin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Margin = Markup / (1 + Markup). Example: 50% markup → 50/150 = 33.3% margin. 100% markup → 100/200 = 50% margin. 200% markup → 200/300 = 66.7% margin. Reverse: Markup = Margin / (1 - Margin). 30% margin → 30/70 = 42.9% markup. 50% margin → 50/50 = 100% markup.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good markup percentage for retail? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Varies significantly by product category. Minimum for profitability: markup must exceed (overhead costs / units sold) / product cost. General retail: 50-100% markup (25-50% margin). Boutique/specialty: 100-200%+. Commodity goods (low differentiation): competitive pressure limits markup to 10-30%. Service businesses often apply 200-400% markup on parts and materials.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/profit-margin-calculator\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Profit Margin Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Markup Calculator – Selling Price, Markup % and Profit Margin</h2><div class=\"form-group\"><label for=\"mk-solve\">Calculate</label><select id=\"mk-solve\"><option selected=\"\" value=\"price\">Selling Price from Cost + Markup</option><option value=\"markup\">Markup % from Cost and Price</option><option value=\"cost\">Cost from Price and Markup</option></select></div><div class=\"form-group\"><label for=\"mk-cost\">Cost ($)</label><input id=\"mk-cost\" min=\"0.01\" step=\"any\" type=\"number\" value=\"50\"/></div><div class=\"form-group\"><label for=\"mk-markup\">Markup Percentage (%)</label><input id=\"mk-markup\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"mk-price\">Selling Price ($)</label><input id=\"mk-price\" min=\"0.01\" step=\"any\" type=\"number\" value=\"100\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','Markup Calculator – Selling Price, Markup % and Profit Margin')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Markup Calculator – Selling Price, Markup % and Profit Margin')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-markup-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('mk-solve').addEventListener('change',function(){\n  var v=this.value;\n  document.getElementById('mk-cost').parentElement.style.display=v!=='cost'?'block':'none';\n  document.getElementById('mk-markup').parentElement.style.display=v!=='markup'?'block':'none';\n  document.getElementById('mk-price').parentElement.style.display=v==='markup'?'block':'none';\n});\nfunction doCalc(){\n  var solve=document.getElementById('mk-solve').value;\n  var cost=parseFloat(document.getElementById('mk-cost').value)||0;\n  var markup=parseFloat(document.getElementById('mk-markup').value)||0;\n  var price=parseFloat(document.getElementById('mk-price').value)||0;\n  var sellingPrice,markupPct,margin,profit;\n  if(solve==='price'){\n    if(!cost||markup<0){alert('Enter cost and markup %.');return;}\n    sellingPrice=cost*(1+markup/100); markupPct=markup;\n  } else if(solve==='markup'){\n    if(!cost||!price||price<cost){alert('Enter cost and selling price (price must exceed cost).');return;}\n    sellingPrice=price; markupPct=(price-cost)/cost*100;\n  } else {\n    if(!markup||!price){alert('Enter markup % and selling price.');return;}\n    cost=price/(1+markup/100); sellingPrice=price; markupPct=markup;\n  }\n  profit=sellingPrice-cost;\n  margin=profit/sellingPrice*100;\n  var aiPrompt='Markup: cost $'+cost.toFixed(2)+', selling $'+sellingPrice.toFixed(2)+', markup '+markupPct.toFixed(1)+'%, margin '+margin.toFixed(1)+'%';\n  document.getElementById('bz-ri').innerHTML=\n    ri('Selling Price','<strong style=\"font-size:24px;color:var(--c-accent)\">$'+sellingPrice.toFixed(2)+'</strong>',true)+\n    ri('Markup Percentage',markupPct.toFixed(2)+'%')+\n    ri('Profit Margin',margin.toFixed(2)+'% (margin ≠ markup)')+\n    ri('Profit per Unit','$'+profit.toFixed(2))+\n    ri('Cost','$'+cost.toFixed(2))+\n    ri('Markup vs Margin','Markup on cost | Margin on price');\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',['Cost','Markup / Profit'],[Math.round(cost*100),Math.round(profit*100)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about pricing strategy and optimizing markup for profitability.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="Markup vs. Margin Pricing Calculator"
+      intro="Compute cost markup percentages, target selling prices, gross margin conversions, and dollar profit spreads across retail merchandise and wholesale catalogs."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Markup & Margin are Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Markup calculates profit as a percentage of cost: Markup % = (Profit / Cost) &times; 100. Gross Margin calculates profit as a percentage of selling price: Margin % = (Profit / Price) &times; 100. To achieve a target margin from a given cost, calculate: Selling Price = Cost / (1 - Margin%). Merchandisers pair markup models with the <Link href="/calculators/business/profit-margin-calculator">profit margin solver</Link> and establish supply chain pricing via the <Link href="/calculators/business/wholesale-price-calculator">wholesale price calculator</Link>.
+            </p>
+          </div>
+
+          <h2>Visual Analysis: The Exponential Divergence Between Markup and Margin</h2>
+          <p>
+            The chart below reveals the mathematical spread between markup percentage and resulting gross margin percentage, demonstrating why high margin targets require disproportionately larger cost markups.
+          </p>
+
+          <MarkupVsMarginSpreadChart />
+
+          <h2>First-Principles Pricing Formulations & Algebraic Conversions</h2>
+          <p>
+            The fundamental accounting relationship connecting unit cost \(C\), selling price \(P\), and gross profit \(\Pi\) is governed by standard linear balance equations:
+          </p>
+          <Formula>
+            {"\\Pi = P - C, \\quad \\text{Markup (\\%)} = \\left( \\frac{\\Pi}{C} \\right) \\times 100\\%, \\quad \\text{Margin (\\%)} = \\left( \\frac{\\Pi}{P} \\right) \\times 100\\%"}
+          </Formula>
+          <p>
+            To convert algebraically between cost Markup (\(M\)) and Gross Margin (\(G\)) expressed in decimal form:
+          </p>
+          <Formula>
+            {"G = \\frac{M}{1 + M}, \\quad M = \\frac{G}{1 - G}"}
+          </Formula>
+          <p>
+            To determine the mandatory retail selling price \(P\) required to achieve target gross margin \(G\) from unit cost \(C\):
+          </p>
+          <Formula>
+            {"P = \\frac{C}{1 - G}"}
+          </Formula>
+          <p>
+            When merchants mistakenly calculate price by multiplying cost by \((1 + G)\) instead of dividing by \((1 - G)\), an immediate gross margin shortfall occurs:
+          </p>
+          <Formula>
+            {"\\Delta G = G - \\left( \\frac{G}{1 + G} \\right) = \\frac{G^2}{1 + G}"}
+          </Formula>
+          <p>
+            For a business targeting a 40% gross margin, this error generates a 11.43% margin gap. Commercial controllers mitigate inventory leakage by tracking factory inputs in the <Link href="/calculators/business/cogs-calculator">COGS solver</Link>, evaluating volume markdowns with the <Link href="/calculators/business/discount-calculator">discount calculator</Link>, and balancing enterprise fixed overhead in the <Link href="/calculators/business/break-even-calculator">break-even point solver</Link>.
+          </p>
+
+          <h2>Retail Merchandising Markup & Margin Conversion Matrix</h2>
+          <p>
+            The table below demonstrates exact mathematical conversions between cost markups, realized gross margins, unit prices on a $100 baseline, and industry applications.
+          </p>
+
+          <DataTable
+            head={["Cost Markup (%)", "Equivalent Gross Margin (%)", "Selling Price on $100 Cost", "Dollar Profit Yield", "Standard Industry Application"]}
+            rows={[
+              ["15.0% Markup", "13.04% Margin", "$115.00", "$15.00", "High-volume wholesale grocery & commodity bulk grain"],
+              ["25.0% Markup", "20.00% Margin", "$125.00", "$25.00", "Consumer electronics, home appliances & commercial fleet"],
+              ["33.33% Markup", "25.00% Margin", "$133.33", "$33.33", "Hardware supplies, building materials & industrial tools"],
+              ["50.0% Markup", "33.33% Margin", "$150.00", "$50.00", "Sporting goods, automotive aftermarket & office products"],
+              ["100.0% Markup (Keystone)", "50.00% Margin", "$200.00", "$100.00", "Apparel, footwear, department store retail & giftware"],
+              ["300.0% Markup", "75.00% Margin", "$400.00", "$300.00", "Cosmetics, fine jewelry, luxury accessories & eyewear"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Specialty Outdoor Gear Retailer Pricing Optimization</h3>
+          <p>
+            A specialty outdoor retailer purchases technical waterproof mountaineering backpacks from an overseas manufacturer at a landed wholesale cost of $72.00 per unit. The executive board mandates a 45.0% minimum gross margin across technical gear to absorb physical retail leases and seasonal promotional clearances:
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate target selling price using margin formula:</strong>
+              <br />
+              Selling Price = $72.00 / (1 - 0.45) = $72.00 / 0.55 = $130.91.
+              <br />
+              Applying psychological retail rounding sets the MSRP at $129.99.
+            </li>
+            <li>
+              <strong>Evaluate the corresponding cost markup percentage:</strong>
+              <br />
+              Dollar Profit = $129.99 - $72.00 = $57.99.
+              <br />
+              Required Markup = ($57.99 / $72.00) &times; 100% = 80.54%.
+            </li>
+            <li>
+              <strong>Examine the error of naive additive markup:</strong>
+              <br />
+              If the buyer had naively applied a 45% markup: Price = $72.00 &times; 1.45 = $104.40.
+              <br />
+              Resulting Realized Margin = ($32.40 / $104.40) &times; 100% = 31.03% (A disastrous 13.97% margin erosion).
+            </li>
+            <li>
+              <strong>Downstream Commerce Integration:</strong> Retail leadership models outbound shipping and marketplace commissions via the <Link href="/calculators/business/ecommerce-profit-calculator">e-commerce profit calculator</Link> and verifies state checkout taxes with the <Link href="/calculators/business/sales-tax-calculator">sales tax calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Custom Architectural Cabinetry Contractor Bid Formulation</h3>
+          <p>
+            A high-end architectural millwork contractor bids on a custom residential cabinetry package. Direct hardwood lumber, Blum hardware, and finishing supplies total $14,500.00. Dedicated shop fabrication labor totals $9,200.00 (Total Direct Cost = $23,700.00). The contractor requires a 35.0% gross profit margin to fund commercial shop overhead and generate net income:
+          </p>
+          <ol>
+            <li>
+              <strong>Compute total contract bid price:</strong>
+              <br />
+              Contract Bid = $23,700.00 / (1 - 0.35) = $23,700.00 / 0.65 = $36,461.54.
+            </li>
+            <li>
+              <strong>Determine gross profit and markup on direct costs:</strong>
+              <br />
+              Gross Dollar Margin = $36,461.54 - $23,700.00 = $12,761.54.
+              <br />
+              Cost Markup = ($12,761.54 / $23,700.00) &times; 100% = 53.85%.
+            </li>
+            <li>
+              <strong>Review labor burden and subcontractor wages:</strong>
+              <br />
+              Contractor cross-references shop wages using the <Link href="/calculators/business/employee-cost-calculator">employee cost calculator</Link> and structures progressive billing with the <Link href="/calculators/business/invoice-calculator">commercial invoice calculator</Link>.
+            </li>
+            <li>
+              <strong>Operational Risk Verification:</strong> The contractor audits physical stock damage and cut scrap with the <Link href="/calculators/business/shrinkage-calculator">inventory shrinkage calculator</Link>.
+            </li>
+          </ol>
+
+          <h2>Dynamic Channel Pricing & Promotional Margin Protection</h2>
+          <p>
+            In multi-channel retail distribution, brand manufacturers must maintain pricing parity between direct-to-consumer (DTC) e-commerce sites and wholesale dealer networks. When establishing Manufacturer&apos;s Suggested Retail Price (MSRP), brands build in multi-tier wholesale margin cushions:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-300 my-4">
+            <li><strong>Wholesale Discount Allowance:</strong> Wholesale dealers require a 40% to 50% discount from MSRP (keystone pricing) to cover retail store leases and sales commissions.</li>
+            <li><strong>Promotional Clearance Cushion:</strong> Building a 15% promotional margin buffer into initial MSRP allows brands to run seasonal 20% off sales without pushing product gross margins below operating breakeven.</li>
+            <li><strong>Marketplace Platform Deductions:</strong> Selling on enterprise marketplaces (such as Amazon or Walmart) incurs referral fees of 15% and fulfillment fees of 10% to 18%, requiring higher initial markups than direct wholesale.</li>
+          </ul>
+          <p>
+            Strategic merchandisers also monitor inventory velocity when setting product markups. Fast-moving consumables with 10 inventory turns per year generate superior annualized return on invested capital at a 25% markup compared to slow-moving luxury hardware marked up by 150% that turns only once annually.
+          </p>
+
+
+          <p>
+            In omnichannel wholesale and retail merchandising, Category Managers track Initial Markup (IMU) versus Maintained Markup (MMU). While IMU establishes the opening list price on the retail floor, seasonal markdowns, promotional clearances, employee discounts, and point-of-sale coupons inevitably erode the realized selling price. Maintained markup captures the actual gross margin dollars collected across the entire product lifecycle after accounting for all promotional price reductions.
+          </p>
+          <p>
+            Additionally, enterprise ERP inventory systems deploy dynamic algorithmic repricing rules. By monitoring competitor catalog pricing, warehouse inventory aging velocity, and regional demand elasticity, automated pricing engines adjust cost markups in real time. This ensures slow-moving SKUs are cleared before obsolescence while high-demand items capture premium markups without dampening sales velocity.
+          </p>
+
+          <h2>Operational Pitfalls in Markup Execution & Pricing Governance</h2>
+          <ol>
+            <li>
+              <strong>Treating Markup as Margin in Budget Projections:</strong> Budgeting operating expenses against an anticipated 40% gross margin while applying a 40% markup to inventory purchases creates a structural budget deficit of 11.4% of total revenue, leading to acute cash shortages.
+            </li>
+            <li>
+              <strong>Failing to Include Inbound Freight in Base Cost:</strong> Calculating markup exclusively on invoice merchandise cost while expensing ocean freight and customs duties separately understates true landed unit cost, artificially inflating perceived margins.
+            </li>
+            <li>
+              <strong>Ignoring Price Elasticity of Demand:</strong> Aggressively escalating markups without assessing competitor price points induces severe demand destruction in commodity categories, reducing total dollar gross profit despite higher unit margins.
+            </li>
+            <li>
+              <strong>Slow Inventory Velocity Traps:</strong> High markups on slow-moving inventory tie up working capital. A 100% markup on an item that turns once a year generates lower annualized return on investment than a 30% markup on an item turning six times annually.
+            </li>
+          </ol>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why is cost markup always larger than gross margin?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Markup divides dollar profit by cost, whereas gross margin divides that same dollar profit by selling price. Because selling price is always larger than cost for profitable goods, the denominator in the margin equation is larger, making the resulting margin percentage mathematically smaller than the markup percentage.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does keystone pricing protect retail profitability?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Keystone pricing (100% markup / 50% gross margin) provides a generous margin buffer that absorbs retail store leases, employee wages, inventory shrinkage, and end-of-season promotional clearance markdowns while still leaving a healthy net operating profit.
+              </p>
+            </div>
+          </div>
+
+
+          <p>
+            In specialized industrial contracting, estimators incorporate tiered contingency markups on labor and materials to protect against unexpected job-site delays, volatile commodity price spikes, and subcontractor scheduling friction. Maintaining dedicated contingency markup reserves ensures contracted projects achieve target profitability even when unexpected operational challenges arise in field execution.
+          </p>
+
+          <h2>Authoritative Merchandising Standards & Regulatory Citations</h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Federal Trade Commission (FTC Guides Against Deceptive Pricing - 16 CFR Part 233):</strong> Regulations governing former price comparisons, list prices, and retail markup advertising.
+            </li>
+            <li>
+              <strong>National Retail Federation (NRF Pricing & Merchandising Standards):</strong> Industry benchmarks for retail keystone markup, inventory turnover, and markdown cadence.
+            </li>
+            <li>
+              <strong>Financial Accounting Standards Board (FASB ASC 330):</strong> Retail inventory accounting methods and gross margin realization rules.
+            </li>
+            <li>
+              <strong>Sherman Antitrust Act (15 U.S.C. Section 1):</strong> Legal parameters governing Minimum Advertised Price (MAP) policies and resale price maintenance.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <MarkupCalculatorComponent />
+    </CalcPage>
   );
 }

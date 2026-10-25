@@ -1,26 +1,291 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ProfitMarginCalculatorComponent from "@/components/calcs/business/profit-margin-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ProfitMarginWaterfallTiersChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/profit-margin-calculator";
+const TITLE = "Profit Margin Calculator | Gross, Operating & Net Margin Analyzer";
+const DESCRIPTION =
+  "Calculate Gross Margin, Operating Margin (EBIT), and Net Profit Margin percentages with comprehensive cost waterfall analysis and industry benchmark spreads.";
 
 export const metadata: Metadata = {
-  "title": "Profit Margin Calculator – Gross & Net Margin | CalcDigi",
-  "description": "Calculate gross, net, and operating profit margin from revenue and costs. Find required selling price for any target margin.",
-  "openGraph": {
-    "title": "Profit Margin Calculator – Gross & Net Margin | CalcDigi",
-    "description": "Calculate gross, net, and operating profit margin from revenue and costs. Find required selling price for any target margin.",
-    "type": "website",
-    "url": "/calculators/business/profit-margin-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/profit-margin-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/markup-calculator", icon: "📈", name: "Markup Calculator" },
+  { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Point" },
+  { href: "/calculators/business/cogs-calculator", icon: "📦", name: "COGS Solver" },
+  { href: "/calculators/business/ecommerce-profit-calculator", icon: "🛒", name: "E-Commerce Profit" },
+  { href: "/calculators/business/wholesale-price-calculator", icon: "🏷️", name: "Wholesale Pricing" },
+  { href: "/calculators/business/roi-calculator", icon: "📊", name: "ROI Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What are the three primary profit margin tiers on corporate income statements?",
+    a: "The three standard tiers are: 1. Gross Profit Margin = (Revenue - COGS) / Revenue. 2. Operating Margin (EBIT Margin) = Operating Income / Revenue, reflecting core profitability after SG&A expenses. 3. Net Profit Margin = Net Income after taxes and interest / Revenue, representing bottom-line retained earnings.",
+  },
+  {
+    q: "How does a high gross margin enable higher customer acquisition spend?",
+    a: "Gross margin dictates how many cents of every revenue dollar remain to fund customer acquisition and operational expansion. A SaaS firm with an 85% gross margin can deploy $0.85 per revenue dollar into marketing, whereas a grocery retailer with a 20% gross margin can deploy only $0.20 before operating in the red.",
+  },
+  {
+    q: "What is an average healthy net profit margin across US small businesses?",
+    a: "While margins vary dramatically by industry sector, the median net profit margin across US small businesses typically sits between 7.0% and 10.0%. Retail and grocery operate on lean 2.0% to 5.0% margins, manufacturing averages 8.0% to 12.0%, and enterprise software often exceeds 20.0% to 25.0%.",
+  },
+  {
+    q: "Why can an enterprise report strong operating profit yet negative net income?",
+    a: "A company can generate healthy operating profit (EBIT) yet post a net loss due to excessive debt service interest payments, non-operating asset write-downs, foreign currency losses, or heavy tax adjustments. Highly leveraged corporate acquisitions frequently suffer from this divergence.",
+  },
+  {
+    q: "What is operating leverage and how does it expand profit margins?",
+    a: "Operating leverage is the degree to which a firm uses fixed costs in its operational structure. When fixed costs (such as software development or factory leases) are high relative to variable costs, incremental revenue growth generates disproportionately massive operating margin expansion once the break-even threshold is surpassed.",
+  },
+  {
+    q: "How does this profit margin model connect with capital expenditure ROI?",
+    a: "Expanding operating profit margins directly elevates returns on invested capital. Evaluating capital deployment efficiency alongside our ROI Calculator ensures asset additions enhance long-term shareholder value.",
+  },
+];
+
+export default function ProfitMarginCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Profit Margin Calculator\", \"item\": \"https://calcdigi.com/calculators/business/profit-margin-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Profit Margin Calculator\", \"url\": \"https://calcdigi.com/calculators/business/profit-margin-calculator\", \"description\": \"Calculate gross, net, and operating profit margin from revenue and costs. Find required selling price for any target margin.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is a good profit margin for a small business?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For small businesses, net profit margins of 7-10% are average, 10-20% is above average, and above 20% is excellent. However, benchmarks vary significantly by industry. Retailers often operate on 2-5% net margins. Service businesses can achieve 20-30%. Technology companies 15-25%. Compare your margins to industry averages, not across industries.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between gross and net profit margin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gross profit margin = (Revenue - Cost of Goods Sold) / Revenue. Only deducts direct production costs. Net profit margin = Net Income / Revenue. Deducts ALL costs including COGS, operating expenses, interest, and taxes. A business can have a 60% gross margin but only 5% net margin if operating costs are high.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate my selling price from a target margin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Selling Price = Cost / (1 - Target Margin). Example: cost is $60, target gross margin is 40%: Price = $60 / (1 - 0.40) = $60 / 0.60 = $100. This is different from markup: a 40% margin is NOT the same as 40% markup. Markup is on cost (cost × 1.40 = $84), margin is on price.\"}}, {\"@type\": \"Question\", \"name\": \"Why is my gross margin high but net margin low?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"High gross but low net margin indicates operating expenses are consuming profit. Common causes: high marketing/advertising spend, excessive administrative overhead, high rent, large management team relative to revenue, high interest on debt, or significant depreciation. Review SG&A (Selling, General & Administrative) expenses as a percentage of revenue.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between margin and markup?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Margin is profit as a percentage of selling price. Markup is profit as a percentage of cost. A product costing $50 sold for $100: Margin = $50/$100 = 50%. Markup = $50/$50 = 100%. For the same product, markup % is always higher than margin %. Conversion: Margin = Markup / (1 + Markup). Markup = Margin / (1 - Margin).\"}}, {\"@type\": \"Question\", \"name\": \"How can I improve my profit margins?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Four levers: 1) Raise prices (test market elasticity — even 5-10% price increase dramatically improves margins if volume holds). 2) Reduce COGS (negotiate with suppliers, improve production efficiency, reduce waste). 3) Cut operating expenses (automate, consolidate vendors, reduce overhead). 4) Shift product mix (promote higher-margin products). Measure the impact of each change on all three margin types.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Profit Margin Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Profit Margin Calculator</h1>\n<p class=\"calc-intro\">Calculate gross profit margin, net profit margin, and operating margin from revenue and cost figures. Also find the required selling price to achieve any target profit margin — essential for pricing strategy and financial analysis.</p>\n<p class=\"calc-intro\">Profit margin is the percentage of revenue that becomes profit after accounting for costs. Gross margin shows manufacturing efficiency. Operating margin shows operational efficiency. Net margin shows overall profitability. Understanding all three gives a complete picture of business financial health.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Gross Margin = (Revenue - COGS) / Revenue × 100 | Net Margin = Net Profit / Revenue × 100 | Operating Margin = Operating Income / Revenue × 100</div></div>\n<div class=\"content-section\">\n<h2>Types of Profit Margin</h2>\n<p>There are three main profit margin metrics, each telling a different part of the profitability story. Analyzing all three reveals where value is created and where costs erode it — providing specific areas for improvement.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Margin Type</th><th style=\"padding:11px 14px;text-align:left;\">Formula</th><th style=\"padding:11px 14px;text-align:left;\">What It Measures</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Gross Profit Margin</td><td style=\"padding:10px 14px;\">(Revenue - COGS) / Revenue</td><td style=\"padding:10px 14px;\">Production/service delivery efficiency</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Operating Profit Margin</td><td style=\"padding:10px 14px;\">Operating Income / Revenue</td><td style=\"padding:10px 14px;\">Operational efficiency before interest/tax</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Net Profit Margin</td><td style=\"padding:10px 14px;\">Net Income / Revenue</td><td style=\"padding:10px 14px;\">Overall bottom-line profitability</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">EBITDA Margin</td><td style=\"padding:10px 14px;\">EBITDA / Revenue</td><td style=\"padding:10px 14px;\">Cash-flow based profitability</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Contribution Margin</td><td style=\"padding:10px 14px;\">(Revenue - Variable Costs) / Revenue</td><td style=\"padding:10px 14px;\">Variable cost efficiency</td></tr></tbody></table></div>\n<h3>Profit Margin Benchmarks by Industry</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Industry</th><th style=\"padding:11px 14px;text-align:left;\">Gross Margin</th><th style=\"padding:11px 14px;text-align:left;\">Net Margin</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Software / SaaS</td><td style=\"padding:10px 14px;\">60-85%</td><td style=\"padding:10px 14px;\">15-25%</td><td style=\"padding:10px 14px;\">High gross, high net</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Retail</td><td style=\"padding:10px 14px;\">20-40%</td><td style=\"padding:10px 14px;\">2-5%</td><td style=\"padding:10px 14px;\">Low net due to overhead</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Restaurants</td><td style=\"padding:10px 14px;\">60-70%</td><td style=\"padding:10px 14px;\">3-9%</td><td style=\"padding:10px 14px;\">High food cost, labor-intensive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Manufacturing</td><td style=\"padding:10px 14px;\">25-45%</td><td style=\"padding:10px 14px;\">5-10%</td><td style=\"padding:10px 14px;\">Equipment and labor costs</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Consulting / Services</td><td style=\"padding:10px 14px;\">60-80%</td><td style=\"padding:10px 14px;\">10-20%</td><td style=\"padding:10px 14px;\">Low COGS, high value</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Healthcare</td><td style=\"padding:10px 14px;\">30-50%</td><td style=\"padding:10px 14px;\">5-12%</td><td style=\"padding:10px 14px;\">Regulated, high overhead</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Construction</td><td style=\"padding:10px 14px;\">15-25%</td><td style=\"padding:10px 14px;\">2-6%</td><td style=\"padding:10px 14px;\">Low margin, high volume</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good profit margin for a small business? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For small businesses, net profit margins of 7-10% are average, 10-20% is above average, and above 20% is excellent. However, benchmarks vary significantly by industry. Retailers often operate on 2-5% net margins. Service businesses can achieve 20-30%. Technology companies 15-25%. Compare your margins to industry averages, not across industries.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between gross and net profit margin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gross profit margin = (Revenue - Cost of Goods Sold) / Revenue. Only deducts direct production costs. Net profit margin = Net Income / Revenue. Deducts ALL costs including COGS, operating expenses, interest, and taxes. A business can have a 60% gross margin but only 5% net margin if operating costs are high.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my selling price from a target margin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Selling Price = Cost / (1 - Target Margin). Example: cost is $60, target gross margin is 40%: Price = $60 / (1 - 0.40) = $60 / 0.60 = $100. This is different from markup: a 40% margin is NOT the same as 40% markup. Markup is on cost (cost × 1.40 = $84), margin is on price.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is my gross margin high but net margin low? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">High gross but low net margin indicates operating expenses are consuming profit. Common causes: high marketing/advertising spend, excessive administrative overhead, high rent, large management team relative to revenue, high interest on debt, or significant depreciation. Review SG&amp;A (Selling, General &amp; Administrative) expenses as a percentage of revenue.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between margin and markup? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Margin is profit as a percentage of selling price. Markup is profit as a percentage of cost. A product costing $50 sold for $100: Margin = $50/$100 = 50%. Markup = $50/$50 = 100%. For the same product, markup % is always higher than margin %. Conversion: Margin = Markup / (1 + Markup). Markup = Margin / (1 - Margin).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How can I improve my profit margins? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Four levers: 1) Raise prices (test market elasticity — even 5-10% price increase dramatically improves margins if volume holds). 2) Reduce COGS (negotiate with suppliers, improve production efficiency, reduce waste). 3) Cut operating expenses (automate, consolidate vendors, reduce overhead). 4) Shift product mix (promote higher-margin products). Measure the impact of each change on all three margin types.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/markup-calculator\"><span class=\"rc-icon\">🏷️</span><span class=\"rc-name\">Markup Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Profit Margin Calculator – Gross, Net and Operating Margin</h2><div class=\"form-group\"><label for=\"pm-rev\">Revenue / Selling Price ($)</label><input id=\"pm-rev\" min=\"0.01\" step=\"any\" type=\"number\" value=\"100000\"/></div><div class=\"form-group\"><label for=\"pm-cogs\">Cost of Goods Sold - COGS ($)</label><input id=\"pm-cogs\" min=\"0\" step=\"any\" type=\"number\" value=\"60000\"/></div><div class=\"form-group\"><label for=\"pm-opex\">Operating Expenses ($)</label><input id=\"pm-opex\" min=\"0\" step=\"any\" type=\"number\" value=\"20000\"/></div><div class=\"form-group\"><label for=\"pm-tax\">Tax Rate (%)</label><input id=\"pm-tax\" max=\"100\" min=\"0\" step=\"0.5\" type=\"number\" value=\"21\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','Profit Margin Calculator – Gross, Net and Operating Margin')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Profit Margin Calculator – Gross, Net and Operating Margin')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-profit-margin-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var rev=parseFloat(document.getElementById('pm-rev').value)||0;\n  var cogs=parseFloat(document.getElementById('pm-cogs').value)||0;\n  var opex=parseFloat(document.getElementById('pm-opex').value)||0;\n  var taxRate=parseFloat(document.getElementById('pm-tax').value)||21;\n  if(!rev){alert('Please enter revenue.');return;}\n  var gross=rev-cogs;\n  var grossM=gross/rev*100;\n  var opIncome=gross-opex;\n  var opM=opIncome/rev*100;\n  var tax=Math.max(opIncome,0)*taxRate/100;\n  var net=opIncome-tax;\n  var netM=net/rev*100;\n  var priceFor40=(cogs/(1-0.40));\n  var aiPrompt='Profit margins — Gross: '+grossM.toFixed(1)+'%, Operating: '+opM.toFixed(1)+'%, Net: '+netM.toFixed(1)+'% on $'+rev.toLocaleString()+' revenue';\n  document.getElementById('bz-ri').innerHTML=\n    ri('Gross Profit Margin','<strong style=\"font-size:22px;color:var(--c-accent)\">'+grossM.toFixed(1)+'%</strong>',true)+\n    ri('Gross Profit','$'+gross.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Operating Margin',opM.toFixed(1)+'% ($'+opIncome.toLocaleString('en-US',{maximumFractionDigits:0})+')')+\n    ri('Net Profit Margin',netM.toFixed(1)+'% ($'+net.toLocaleString('en-US',{maximumFractionDigits:0})+')')+\n    ri('Tax ('+taxRate+'%)','$'+tax.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Revenue','$'+rev.toLocaleString());\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',['COGS','OpEx','Tax','Net Profit'],[Math.round(cogs),Math.round(opex),Math.round(tax),Math.max(Math.round(net),0.001)],['#c8832a','#3a7abf','#8a4abf','#1a5c3a']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about improving profit margins and business financial performance.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="Profit Margin Waterfall & Financial Analysis Calculator"
+      intro="Analyze Gross Profit Margin, Operating Margin (EBIT), and Net Profit Margin percentages across corporate revenue streams with comprehensive cost waterfall decompositions."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Profit Margins are Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Corporate profitability decomposes into three core margin tiers: Gross Margin = (Revenue - COGS) / Revenue; Operating Margin = Operating Income (EBIT) / Revenue; and Net Margin = Net Income / Revenue. While gross margin isolates production efficiency, net margin measures bottom-line retained earnings after overhead, financing debt, and income taxes. Optimize catalog price points with the <Link href="/calculators/business/markup-calculator">markup calculator</Link> and determine enterprise break-even volumes using the <Link href="/calculators/business/break-even-calculator">break-even point solver</Link>.
+            </p>
+          </div>
+
+          <h2>Visual Analysis: Corporate Profit Margin Waterfall Decomposition</h2>
+          <p>
+            The visualization below depicts the financial waterfall progression as gross enterprise revenues are successively reduced by direct production costs, operating overhead, and capital financing charges.
+          </p>
+
+          <ProfitMarginWaterfallTiersChart />
+
+          <h2>First-Principles Margin Formulations & Income Statement Hierarchy</h2>
+          <p>
+            Under US GAAP (FASB ASC 225) and International Financial Reporting Standards (IAS 1), corporate profitability is structured hierarchically across three distinct operating tiers:
+          </p>
+          <Formula>
+            {"\\text{Gross Profit} = \\text{Net Sales Revenue} - \\text{COGS}, \\quad \\text{Gross Margin (\\%)} = \\left( \\frac{\\text{Gross Profit}}{\\text{Revenue}} \\right) \\times 100\\%"}
+          </Formula>
+          <p>
+            Operating income (Earnings Before Interest and Taxes / EBIT) deducts fixed operating expenses (SG&A, R&D, and corporate depreciation) to isolate core operational execution:
+          </p>
+          <Formula>
+            {"\\text{Operating Income (EBIT)} = \\text{Gross Profit} - \\text{Operating Expenses (SG\\&A + R\\&D)}"}
+          </Formula>
+          <Formula>
+            {"\\text{Operating Margin (\\%)} = \\left( \\frac{\\text{EBIT}}{\\text{Revenue}} \\right) \\times 100\\%"}
+          </Formula>
+          <p>
+            Final net earnings reconcile non-operating financing charges, capital loan interest, and statutory corporate income taxes:
+          </p>
+          <Formula>
+            {"\\text{Net Income} = \\text{EBIT} - \\text{Interest Expense} - \\text{Corporate Income Taxes} \\pm \\text{Non-Operating Items}"}
+          </Formula>
+          <Formula>
+            {"\\text{Net Margin (\\%)} = \\left( \\frac{\\text{Net Income}}{\\text{Revenue}} \\right) \\times 100\\%"}
+          </Formula>
+          <p>
+            Operating executives evaluate manufacturing inputs through the <Link href="/calculators/business/cogs-calculator">COGS solver</Link>, monitor wholesale tier pricing in the <Link href="/calculators/business/wholesale-price-calculator">wholesale price calculator</Link>, and balance capital asset returns using the <Link href="/calculators/business/roi-calculator">ROI calculator</Link>.
+          </p>
+
+          <h2>Standard Industry Margin Benchmarks Across US Sectors</h2>
+          <p>
+            The table below contrasts standard Gross, Operating, and Net profit margins across prominent economic sectors, illustrating structural trade-offs between asset velocity and margin depth.
+          </p>
+
+          <DataTable
+            head={["Industry Sector", "Gross Margin Benchmark", "Operating Margin (EBIT)", "Net Profit Margin", "Capital Intensity & Velocity"]}
+            rows={[
+              ["Enterprise Software (SaaS)", "75% - 88%", "22% - 35%", "18% - 28%", "Ultra-low COGS; high sales & marketing reinvestment"],
+              ["Commercial Banking & Finance", "N/A (Net Interest Spread)", "32% - 45%", "22% - 32%", "Highly leveraged balance sheets; regulated capital"],
+              ["Medical Devices & Pharmaceuticals", "65% - 80%", "25% - 38%", "16% - 25%", "Heavy patent protection; intensive R&D pipelines"],
+              ["General Contract Manufacturing", "22% - 32%", "8% - 14%", "5% - 9%", "High raw materials & machinery depreciation"],
+              ["Consumer Direct-to-Consumer Brands", "52% - 68%", "12% - 20%", "7% - 13%", "Moderate production cost; volatile ad spend"],
+              ["Supermarkets & Retail Grocery", "20% - 26%", "3.5% - 5.5%", "1.8% - 3.2%", "Ultra-lean margins compensated by 12x inventory turns"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Precision Engineering Component Manufacturer</h3>
+          <p>
+            A tier-2 aerospace component manufacturer reports annual gross revenues of $12,500,000.00. Direct CNC machining materials, skilled machinists, and factory power total $7,125,000.00 in COGS. Operating expenses include $1,850,000.00 in engineering and executive payroll, $420,000.00 in equipment leases, and $380,000.00 in sales administration. The company carries $2,500,000.00 in commercial bank debt at a 6.5% interest rate ($162,500.00 annual interest) and faces an effective 24.0% corporate income tax rate:
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate Gross Profit and Gross Margin:</strong>
+              <br />
+              Gross Profit = $12,500,000 - $7,125,000 = $5,375,000.00.
+              <br />
+              Gross Margin = ($5,375,000 / $12,500,000) &times; 100% = 43.00%.
+            </li>
+            <li>
+              <strong>Compute Operating Income (EBIT) and Operating Margin:</strong>
+              <br />
+              Total Operating Expenses = $1,850,000 + $420,000 + $380,000 = $2,650,000.00.
+              <br />
+              Operating Income (EBIT) = $5,375,000 - $2,650,000 = $2,725,000.00.
+              <br />
+              Operating Margin = ($2,725,000 / $12,500,000) &times; 100% = 21.80%.
+            </li>
+            <li>
+              <strong>Reconcile financing charges and compute Net Income:</strong>
+              <br />
+              Pre-Tax Income (EBT) = $2,725,000 - $162,500 = $2,562,500.00.
+              <br />
+              Corporate Taxes (24%) = $2,562,500 &times; 0.24 = $615,000.00.
+              <br />
+              Net Income = $2,562,500 - $615,000 = $1,947,500.00.
+              <br />
+              Net Profit Margin = ($1,947,500 / $12,500,000) &times; 100% = 15.58%.
+            </li>
+            <li>
+              <strong>Downstream Treasury Management:</strong> Management monitors debt coverage with the <Link href="/calculators/business/business-loan-calculator">business loan calculator</Link> and tracks payroll burden using the <Link href="/calculators/business/payroll-calculator">payroll calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Omnichannel E-Commerce Apparel Retailer</h3>
+          <p>
+            An activewear brand generates $4,200,000.00 in annual net online sales. Landed garment manufacturing and ocean freight total $1,344,000.00. Performance advertising across Meta and Google requires $1,180,000.00, 3PL pick-pack fulfillment costs $462,000.00, and software subscriptions total $140,000.00. General administrative overhead is $320,000.00 with zero long-term debt and a 21.0% federal tax bracket:
+          </p>
+          <ol>
+            <li>
+              <strong>Determine Gross Margin:</strong>
+              <br />
+              Gross Profit = $4,200,000 - $1,344,000 = $2,856,000.00 (68.00% Gross Margin).
+            </li>
+            <li>
+              <strong>Calculate Operating Expenses and EBIT:</strong>
+              <br />
+              Total OpEx = $1,180,000 (Ads) + $462,000 (3PL) + $140,000 (SaaS) + $320,000 (G&A) = $2,102,000.00.
+              <br />
+              Operating Income (EBIT) = $2,856,000 - $2,102,000 = $754,000.00 (17.95% Operating Margin).
+            </li>
+            <li>
+              <strong>Calculate Net Profit Margin:</strong>
+              <br />
+              Income Taxes (21%) = $754,000 &times; 0.21 = $158,340.00.
+              <br />
+              Net Income = $754,000 - $158,340 = $595,660.00 (14.18% Net Margin).
+            </li>
+            <li>
+              <strong>E-Commerce Bottom-Line Integration:</strong> Brand leadership models unit order contribution in the <Link href="/calculators/business/ecommerce-profit-calculator">e-commerce profit calculator</Link> and verifies promotional markdowns with the <Link href="/calculators/business/discount-calculator">discount calculator</Link>.
+            </li>
+          </ol>
+
+          <h2>Operating Leverage & Fixed-Cost Efficiency Compounding</h2>
+          <p>
+            Operating leverage measures the sensitivity of operating profit to fluctuations in top-line sales volume. It reflects the proportion of fixed versus variable costs embedded in an organization&apos;s cost structure:
+          </p>
+          <Formula>
+            {"\\text{Degree of Operating Leverage (DOL)} = \\frac{\\text{Contribution Margin}}{\\text{Operating Income (EBIT)}} = \\frac{\\text{Revenue} - \\text{Variable Costs}}{\\text{EBIT}}"}
+          </Formula>
+          <p>
+            In high fixed-cost enterprises (such as automated software platforms or chemical synthesis plants), initial sales must absorb substantial fixed amortization hurdles. However, once sales volume crosses the break-even threshold, incremental revenues incur minimal variable resistance, causing operating income and operating margins to expand exponentially.
+          </p>
+          <p>
+            Conversely, high variable-cost models (such as professional staffing or hand-crafted goods) exhibit low operating leverage. While resilient during macro downturns, their operating margins remain relatively flat during rapid expansion cycles.
+          </p>
+          <p>
+            Strategic FP&A analysts also conduct DuPont ROE decomposition to evaluate how net profit margins interact with asset turnover and financial leverage multipliers to drive total shareholder return on equity.
+          </p>
+
+
+          <p>
+            In institutional equity research and corporate turnaround management, financial analysts utilize the DuPont 3-Step ROE Analysis to decompose Return on Equity into Net Profit Margin, Asset Turnover, and Financial Leverage:
+          </p>
+          <Formula>
+            {"\\text{ROE} = \\left( \\frac{\\text{Net Income}}{\\text{Revenue}} \\right) \\times \\left( \\frac{\\text{Revenue}}{\\text{Total Assets}} \\right) \\times \\left( \\frac{\\text{Total Assets}}{\\text{Shareholders' Equity}} \\right)"}
+          </Formula>
+          <p>
+            This decomposition reveals whether an enterprise&apos;s profitability is generated through pricing power (high net profit margin), operational velocity (high asset turnover), or balance sheet risk (high financial leverage). A firm expanding ROE purely through debt leverage carries hidden insolvency risks, whereas an enterprise expanding ROE through operational margin expansion demonstrates genuine competitive moat advantage.
+          </p>
+          <p>
+            Furthermore, corporate FP&A teams perform variance analysis comparing standard budgeted margins against realized operational margins. By decomposing margin variances into sales price variances, sales volume variances, and material cost variances, management can implement targeted price increases and factory cost containment initiatives.
+          </p>
+
+          <h2>Operational Pitfalls in Corporate Margin Governance</h2>
+          <ol>
+            <li>
+              <strong>Confusing Operating Profit (EBIT) with Net Cash Flow:</strong> An enterprise can report an attractive 20% operating margin while bleeding cash if working capital is locked up in slow-moving inventory or uncollected accounts receivable.
+            </li>
+            <li>
+              <strong>Neglecting Capital Expenditure Depreciation Depreciation Drag:</strong> Aggressively capitalizing software development or machinery purchases temporarily flatters EBITDA margins, but subsequent multi-year depreciation deductions severely suppress future net earnings.
+            </li>
+            <li>
+              <strong>One-Time Gain Distortions:</strong> Artificially inflating reported net margins by including non-operating asset sales, litigation settlements, or tax valuation allowance reversals distorts underlying operational health.
+            </li>
+            <li>
+              <strong>Channel Blending Obscurity:</strong> Averaging profit margins across distinct retail, wholesale, and direct channels obscures unprofitable product lines, preventing surgical pricing corrections.
+            </li>
+          </ol>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why is EBITDA frequently preferred over Net Income in corporate valuations?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization) neutralizes variations in capital structure (debt vs. equity), statutory tax jurisdictions, and historical accounting depreciation schedules, providing a standardized measure of normalized core operational cash generation across competing firms.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does price elasticity directly impact operating profit margins?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                If a product possesses inelastic demand, raising prices flows 100% directly to gross profit and operating profit without diminishing unit transaction volume. For products with high price elasticity, price hikes trigger volume contraction that can diminish overall dollar gross margin despite a higher unit percentage.
+              </p>
+            </div>
+          </div>
+
+
+          <p>
+            In capital-intensive industrial enterprises, corporate controllers monitor Economic Value Added (EVA) alongside traditional accounting margins. EVA measures the true economic profit generated by subtracting the firm&apos;s total cost of capital from net operating profit after tax (NOPAT), verifying that reported profit margins exceed shareholder hurdle rate expectations.
+          </p>
+
+          <h2>Authoritative Accounting Standards & Corporate Citations</h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Financial Accounting Standards Board (FASB ASC 225 - Income Statement):</strong> Standard reporting criteria for gross margin, operating expenses, and discontinued operations.
+            </li>
+            <li>
+              <strong>International Accounting Standards Board (IAS 1 - Presentation of Financial Statements):</strong> Global guidelines for presenting profit waterfalls, operating items, and comprehensive income.
+            </li>
+            <li>
+              <strong>Securities and Exchange Commission (SEC Non-GAAP Financial Measures):</strong> Regulatory compliance standards regarding non-GAAP margin metrics like Adjusted EBITDA.
+            </li>
+            <li>
+              <strong>CFA Institute Financial Reporting and Analysis:</strong> Frameworks for ratio decomposition, DuPont analysis, and sustainable profit margin modeling.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <ProfitMarginCalculatorComponent />
+    </CalcPage>
   );
 }

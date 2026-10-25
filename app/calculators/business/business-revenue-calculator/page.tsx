@@ -1,26 +1,267 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import BusinessRevenueCalculatorComponent from "@/components/calcs/business/business-revenue-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { RecurringVsTransactionalRevenueChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/business-revenue-calculator";
+const TITLE = "Business Revenue Calculator | MRR, ARR & Blended Run-Rate Solver";
+const DESCRIPTION =
+  "Calculate total business revenue, monthly recurring revenue (MRR), annual recurring revenue (ARR), average order values, and blended commercial run-rates.";
 
 export const metadata: Metadata = {
-  "title": "Business Revenue Calculator – Annual Revenue | CalcDigi",
-  "description": "Calculate annual revenue from units, customers, or subscriptions. Project monthly and yearly revenue growth for any business.",
-  "openGraph": {
-    "title": "Business Revenue Calculator – Annual Revenue | CalcDigi",
-    "description": "Calculate annual revenue from units, customers, or subscriptions. Project monthly and yearly revenue growth for any business.",
-    "type": "website",
-    "url": "/calculators/business/business-revenue-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/business-revenue-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margin Solver" },
+  { href: "/calculators/business/ltv-calculator", icon: "💎", name: "Customer Lifetime Value" },
+  { href: "/calculators/business/cac-calculator", icon: "🎯", name: "Customer Acquisition Cost" },
+  { href: "/calculators/business/burn-rate-calculator", icon: "🔥", name: "Startup Burn Rate" },
+  { href: "/calculators/business/ecommerce-profit-calculator", icon: "🛒", name: "E-Commerce Profit" },
+  { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Point" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the difference between Monthly Recurring Revenue (MRR) and Annual Run-Rate (ARR)?",
+    a: "Monthly Recurring Revenue (MRR) measures the predictable, normalized subscription revenue generated in a single month. Annual Recurring Revenue (ARR) annualizes this monthly metric (MRR × 12) to reflect the forward-looking yearly subscription baseline, excluding one-time professional service fees or non-recurring transaction spikes.",
+  },
+  {
+    q: "How do one-off transactions differ from recurring subscriptions in business valuation?",
+    a: "Investors and acquirers value recurring subscription revenue significantly higher than one-off transactional sales (often 3× to 10× revenue multiples for SaaS versus 1× to 2× for transactional commerce). Recurring contracts provide predictable cash flow and compounding growth without requiring re-acquisition of the customer base each billing cycle.",
+  },
+  {
+    q: "What is Average Revenue Per User (ARPU) and how does it drive revenue growth?",
+    a: "ARPU is total recurring revenue divided by total active customers. Increasing ARPU through value-based tiered pricing, feature add-ons, or seat expansion accelerates top-line expansion without needing to scale customer acquisition volume proportionally.",
+  },
+  {
+    q: "What is net revenue retention (NRR) and why is it a critical benchmark?",
+    a: "Net Revenue Retention (NRR) measures the percentage of recurring revenue retained from an existing customer cohort over 12 months, factoring in contract expansion, upgrades, downgrades, and churn. An NRR above 100% means the business expands even if it adds zero new customers.",
+  },
+];
+
+export default function BusinessRevenueCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Business Revenue Calculator\", \"item\": \"https://calcdigi.com/calculators/business/business-revenue-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Business Revenue Calculator\", \"url\": \"https://calcdigi.com/calculators/business/business-revenue-calculator\", \"description\": \"Calculate annual revenue from units, customers, or subscriptions. Project monthly and yearly revenue growth for any business.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate my annual business revenue?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Annual Revenue = Sum of all revenue-generating activities for 12 months. For product businesses: Units Sold × Average Selling Price. For subscriptions: Monthly Customers × Monthly Price × 12. For services: Billable Hours × Hourly Rate. For e-commerce: Number of Orders × Average Order Value. Total revenue = all revenue streams combined.\"}}, {\"@type\": \"Question\", \"name\": \"What is MRR and ARR?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"MRR (Monthly Recurring Revenue) = total predictable revenue per month from active subscriptions. ARR (Annual Recurring Revenue) = MRR × 12. These metrics apply to subscription businesses. $50,000 MRR = $600,000 ARR. MRR growth rate = key health metric: (Current MRR - Previous MRR) / Previous MRR × 100. 10-15% monthly MRR growth = hypergrowth.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good revenue growth rate for a startup?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"T2D3 rule (popular SaaS benchmark): Triple revenue in years 1-2, Double in years 3-5. Year 1: $1M → $3M. Year 2: $3M → $9M. Year 3: $9M → $18M. Year 4: $18M → $36M. Year 5: $36M → $72M. Reaching $100M ARR in 7-10 years at this pace. Most startups fall short — 20-50% annual growth in years 3-5 is still healthy.\"}}, {\"@type\": \"Question\", \"name\": \"How do I project future revenue?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Simple projection: Future Revenue = Current Revenue × (1 + Monthly Growth Rate)^Months. At 10% monthly growth, $50,000 current MRR projects to $50,000 × (1.10)^12 = $156,920 in 12 months. More sophisticated: build a bottoms-up model from leads, conversion rates, and deal sizes. Top-down models (market share projections) are less reliable for early-stage companies.\"}}, {\"@type\": \"Question\", \"name\": \"What is the Rule of 40 for SaaS businesses?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Rule of 40: Revenue Growth Rate % + Profit Margin % should equal or exceed 40. A SaaS company growing 30% with 15% profit margin: 30 + 15 = 45 — above 40, healthy. A company growing 60% with -15% margin: 60 + (-15) = 45 — also healthy. Above 40 indicates a well-balanced growth and profitability tradeoff. Used by investors to evaluate SaaS company health.\"}}, {\"@type\": \"Question\", \"name\": \"What is gross revenue vs net revenue?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gross Revenue: total revenue before any deductions (all sales at full price). Net Revenue: gross revenue minus returns, discounts, and allowances. Discounts, promotional pricing, and return allowances are deducted to arrive at net revenue. Net revenue is what appears on the income statement. Gross and net revenue are important for understanding customer satisfaction (high returns = product issues) and pricing strategy effectiveness.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Business Revenue Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Business Revenue Calculator</h1>\n<p class=\"calc-intro\">Calculate your business revenue from unit sales, customer count, or subscription metrics. Project monthly and annual revenue with growth rates to set targets and plan for hiring, investment, and scaling decisions.</p>\n<p class=\"calc-intro\">Revenue is the top line of every business — the starting point for all profitability calculations. Whether you sell products, charge subscriptions, or bill by project, understanding your revenue drivers and projecting growth is essential for business planning, fundraising, and setting meaningful targets.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Revenue = Units Sold × Average Price | MRR = Customers × ARPU | Annual Revenue = MRR × 12 | Projected Revenue = Current × (1 + Growth Rate)^Months</div></div>\n<div class=\"content-section\">\n<h2>Revenue Models and Calculation</h2>\n<p>Different business models calculate revenue differently. Understanding your revenue model and key drivers allows accurate forecasting and identification of the highest-leverage growth levers for your specific business.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Business Model</th><th style=\"padding:11px 14px;text-align:left;\">Revenue Formula</th><th style=\"padding:11px 14px;text-align:left;\">Key Metric</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Product business</td><td style=\"padding:10px 14px;\">Units sold × Price per unit</td><td style=\"padding:10px 14px;\">Track average order value and units</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Subscription (SaaS)</td><td style=\"padding:10px 14px;\">Customers × ARPU × 12</td><td style=\"padding:10px 14px;\">MRR × 12 = ARR</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Service/agency</td><td style=\"padding:10px 14px;\">Billable hours × Rate</td><td style=\"padding:10px 14px;\">Utilization rate is key metric</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Marketplace</td><td style=\"padding:10px 14px;\">GMV × Take rate</td><td style=\"padding:10px 14px;\">GMV = Gross Merchandise Value</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Advertising</td><td style=\"padding:10px 14px;\">Page views × CPM / 1000</td><td style=\"padding:10px 14px;\">CPM = Cost per 1000 impressions</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Freemium</td><td style=\"padding:10px 14px;\">Free users × Conversion% × Paid ARPU</td><td style=\"padding:10px 14px;\">Conversion rate drives revenue</td></tr></tbody></table></div>\n<h3>Revenue Growth Benchmarks</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Stage</th><th style=\"padding:11px 14px;text-align:left;\">Annual Growth</th><th style=\"padding:11px 14px;text-align:left;\">Assessment</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Early-stage startup</td><td style=\"padding:10px 14px;\">100-300%/yr</td><td style=\"padding:10px 14px;\">Hypergrowth phase</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Growth-stage startup</td><td style=\"padding:10px 14px;\">50-100%/yr</td><td style=\"padding:10px 14px;\">Scaling efficiently</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Established startup</td><td style=\"padding:10px 14px;\">20-50%/yr</td><td style=\"padding:10px 14px;\">Sustainable growth</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Public SaaS company</td><td style=\"padding:10px 14px;\">20-40%/yr</td><td style=\"padding:10px 14px;\">Rule of 40 companies</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Traditional business</td><td style=\"padding:10px 14px;\">5-15%/yr</td><td style=\"padding:10px 14px;\">Healthy mature business</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Declining business</td><td style=\"padding:10px 14px;\">&lt;5% or negative</td><td style=\"padding:10px 14px;\">Needs intervention</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my annual business revenue? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Annual Revenue = Sum of all revenue-generating activities for 12 months. For product businesses: Units Sold × Average Selling Price. For subscriptions: Monthly Customers × Monthly Price × 12. For services: Billable Hours × Hourly Rate. For e-commerce: Number of Orders × Average Order Value. Total revenue = all revenue streams combined.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is MRR and ARR? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">MRR (Monthly Recurring Revenue) = total predictable revenue per month from active subscriptions. ARR (Annual Recurring Revenue) = MRR × 12. These metrics apply to subscription businesses. $50,000 MRR = $600,000 ARR. MRR growth rate = key health metric: (Current MRR - Previous MRR) / Previous MRR × 100. 10-15% monthly MRR growth = hypergrowth.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good revenue growth rate for a startup? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">T2D3 rule (popular SaaS benchmark): Triple revenue in years 1-2, Double in years 3-5. Year 1: $1M → $3M. Year 2: $3M → $9M. Year 3: $9M → $18M. Year 4: $18M → $36M. Year 5: $36M → $72M. Reaching $100M ARR in 7-10 years at this pace. Most startups fall short — 20-50% annual growth in years 3-5 is still healthy.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I project future revenue? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Simple projection: Future Revenue = Current Revenue × (1 + Monthly Growth Rate)^Months. At 10% monthly growth, $50,000 current MRR projects to $50,000 × (1.10)^12 = $156,920 in 12 months. More sophisticated: build a bottoms-up model from leads, conversion rates, and deal sizes. Top-down models (market share projections) are less reliable for early-stage companies.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the Rule of 40 for SaaS businesses? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Rule of 40: Revenue Growth Rate % + Profit Margin % should equal or exceed 40. A SaaS company growing 30% with 15% profit margin: 30 + 15 = 45 — above 40, healthy. A company growing 60% with -15% margin: 60 + (-15) = 45 — also healthy. Above 40 indicates a well-balanced growth and profitability tradeoff. Used by investors to evaluate SaaS company health.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is gross revenue vs net revenue? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gross Revenue: total revenue before any deductions (all sales at full price). Net Revenue: gross revenue minus returns, discounts, and allowances. Discounts, promotional pricing, and return allowances are deducted to arrive at net revenue. Net revenue is what appears on the income statement. Gross and net revenue are important for understanding customer satisfaction (high returns = product issues) and pricing strategy effectiveness.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/profit-margin-calculator\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Profit Margin Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/business-loan-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Business Loan Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Business Revenue Calculator – Annual Revenue and Growth Projection</h2><div class=\"form-group\"><label for=\"br-model\">Business Model</label><select id=\"br-model\"><option selected=\"\" value=\"product\">Product / E-commerce</option><option value=\"subscription\">Subscription / SaaS</option><option value=\"service\">Service / Agency</option><option value=\"marketplace\">Marketplace</option></select></div><div class=\"form-group\"><label for=\"br-units\">Units Sold per Month</label><input id=\"br-units\" min=\"0\" step=\"1\" type=\"number\" value=\"500\"/></div><div class=\"form-group\"><label for=\"br-price\">Average Selling Price ($)</label><input id=\"br-price\" min=\"0.01\" step=\"any\" type=\"number\" value=\"45\"/></div><div class=\"form-group\"><label for=\"br-customers\">Active Customers / Subscribers</label><input id=\"br-customers\" min=\"0\" step=\"1\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"br-arpu\">Monthly Revenue Per Customer ($)</label><input id=\"br-arpu\" min=\"0\" step=\"any\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"br-growth\">Monthly Growth Rate (%)</label><input id=\"br-growth\" max=\"100\" min=\"0\" step=\"0.5\" type=\"number\" value=\"8\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','Business Revenue Calculator – Annual Revenue and Growth Projection')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Business Revenue Calculator – Annual Revenue and Growth Projection')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-business-revenue-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('br-model').addEventListener('change',function(){\n  var isSub=this.value==='subscription';\n  var isProd=this.value==='product'||this.value==='marketplace';\n  document.getElementById('br-units').parentElement.style.display=isProd?'block':'none';\n  document.getElementById('br-price').parentElement.style.display=isProd?'block':'none';\n  document.getElementById('br-customers').parentElement.style.display=isSub||this.value==='service'?'block':'none';\n  document.getElementById('br-arpu').parentElement.style.display=isSub||this.value==='service'?'block':'none';\n});\nfunction doCalc(){\n  var model=document.getElementById('br-model').value;\n  var units=parseFloat(document.getElementById('br-units').value)||0;\n  var price=parseFloat(document.getElementById('br-price').value)||0;\n  var customers=parseFloat(document.getElementById('br-customers').value)||0;\n  var arpu=parseFloat(document.getElementById('br-arpu').value)||0;\n  var growth=parseFloat(document.getElementById('br-growth').value)||0;\n  var mrr=(model==='product'||model==='marketplace')?units*price:customers*arpu;\n  if(!mrr){alert('Please enter revenue inputs.');return;}\n  var arr=mrr*12;\n  var proj12=mrr*Math.pow(1+growth/100,12);\n  var proj12arr=proj12*12;\n  var aiPrompt='Revenue: $'+mrr.toFixed(0)+'/mo (MRR), $'+arr.toFixed(0)+'/yr (ARR), projected 12mo: $'+proj12.toFixed(0)+'/mo at '+growth+'% growth';\n  document.getElementById('bz-ri').innerHTML=\n    ri('Monthly Revenue (MRR)','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+mrr.toLocaleString('en-US',{maximumFractionDigits:0})+'</strong>',true)+\n    ri('Annual Revenue (ARR)','$'+arr.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Projected MRR (12 months)','$'+proj12.toFixed(0)+' (+'+growth+'%/mo)')+\n    ri('Projected ARR (12 months)','$'+proj12arr.toFixed(0))+\n    ri('Monthly Growth Rate',growth+'%')+\n    ri('Growth in 12 Months',((proj12/mrr-1)*100).toFixed(0)+'% total increase');\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',['Current MRR','Projected Growth'],[Math.round(mrr),Math.round(proj12-mrr)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about growing business revenue and setting growth targets.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="Business Revenue Calculator"
+      intro="Compute total commercial revenue streams, monthly recurring subscriptions (MRR), annualized run-rate (ARR), and one-off transactional sales volume."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Total Business Revenue is Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Total business revenue combines predictable recurring subscription income and variable one-off direct sales: Total Monthly Revenue = (Subscribers × ARPU) + (Transactional Units × Average Order Value). For example, 1,250 subscribers paying $89/month generates $111,250 in MRR ($1,335,000 ARR), which combines with 450 one-off orders at $150 ($67,500) to yield $178,750 in monthly revenue ($2,145,000 annual run-rate). Check product pricing via the <Link href="/calculators/business/markup-calculator">markup calculator</Link> and monitor operating profits using the <Link href="/calculators/business/profit-margin-calculator">profit margin calculator</Link>.
+            </p>
+          </div>
+
+          <h2>Quarterly Blended Revenue Expansion: Compounding MRR vs Transactional</h2>
+          <p>
+            Diversifying between compounding contract subscriptions and direct transaction channels creates commercial resilience. While direct sales provide upfront liquidity, recurring subscription layers build long-term enterprise valuation.
+          </p>
+
+          <RecurringVsTransactionalRevenueChart />
+
+          <h2>First-Principles Revenue Modeling & Run-Rate Formulations</h2>
+          <p>
+            In modern commercial accounting and financial planning, total revenue represents the aggregate economic consideration received or receivable from delivering goods and services. The core mathematical formulation is:
+          </p>
+          <Formula>
+            {"\text{Total Revenue} = \sum_{i=1}^{n} (P_i \cdot Q_i) = \text{Recurring Revenue} + \text{Transactional Revenue}"}
+          </Formula>
+          <p>
+            For subscription and SaaS business models, Monthly Recurring Revenue (MRR) reflects contracted normalized revenue:
+          </p>
+          <Formula>
+            {"\text{MRR} = \sum (\text{Active Subscription Seats} \times \text{Monthly ARPU}), \quad \text{ARR} = \text{MRR} \times 12"}
+          </Formula>
+          <p>
+            Net New MRR generated each billing period incorporates four distinct components:
+          </p>
+          <Formula>
+            {"\Delta \text{MRR} = \text{New MRR} + \text{Expansion MRR} - \text{Contraction MRR} - \text{Churned MRR}"}
+          </Formula>
+          <p>
+            When financial analysts forecast enterprise cash inflows, they cross-reference unit economics with the <Link href="/calculators/business/cac-calculator">customer acquisition cost tool</Link>, evaluate customer lifetime value using the <Link href="/calculators/business/ltv-calculator">LTV calculator</Link>, and model inventory manufacturing outflows through the <Link href="/calculators/business/cogs-calculator">Cost of Goods Sold calculator</Link>.
+          </p>
+
+          <h2>Business Model Revenue Dynamics & Valuation Multiples</h2>
+          <p>
+            The table below illustrates characteristic revenue models, typical recurring shares, gross profit margins, and public market enterprise valuation multiples across prominent corporate business sectors.
+          </p>
+
+          <DataTable
+            head={["Business Model Archetype", "Primary Revenue Engine", "Recurring Share (%)", "Gross Margin Range", "Typical EV / Revenue Multiple"]}
+            rows={[
+              ["Subscription Software (SaaS)", "Monthly / Annual User Seats", "85% – 100%", "75% – 85%", "6.0x – 14.0x"],
+              ["Marketplace / Platform", "Take Rate Transaction Fee (2-15%)", "15% – 30%", "65% – 80%", "3.0x – 7.0x"],
+              ["Direct-to-Consumer (DTC)", "One-Off Orders & Reorders", "10% – 25%", "45% – 60%", "0.8x – 2.0x"],
+              ["Managed Services / Agency", "Monthly Retainers + Hourly Scope", "50% – 75%", "40% – 55%", "1.2x – 2.5x"],
+              ["Industrial Manufacturing", "Direct Purchase Orders & Parts", "5% – 15%", "25% – 40%", "0.6x – 1.5x"],
+              ["Healthcare & Clinical Services", "Patient Visits & Insurance Payouts", "20% – 40%", "50% – 65%", "1.5x – 3.5x"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Hybrid B2B Software & Professional Services Firm</h3>
+          <p>
+            A B2B enterprise software provider offers a cloud workflow platform alongside specialized implementation consulting. The company currently has 450 active corporate clients subscribing at an average rate of $650 per month. Additionally, the professional services team completes 18 custom onboarding and systems integration packages per month at a fixed project price of $7,500 each.
+          </p>
+          <ol>
+            <li>
+              <strong>Compute monthly recurring subscription revenue:</strong>
+              <br />
+              MRR = 450 subscribers × $650 = $292,500 per month.
+              <br />
+              ARR = $292,500 × 12 = $3,510,000 per year.
+            </li>
+            <li>
+              <strong>Compute monthly transactional professional services revenue:</strong>
+              <br />
+              One-off Revenue = 18 projects × $7,500 = $135,000 per month.
+            </li>
+            <li>
+              <strong>Calculate blended monthly revenue and annual run-rate:</strong>
+              <br />
+              Total Monthly Revenue = $292,500 + $135,000 = $427,500 per month.
+              <br />
+              Annualized Blended Run-Rate = $427,500 × 12 = $5,130,000.
+              <br />
+              Recurring revenue represents 68.4% of total revenue. Corporate leadership tracks profitability using the <Link href="/calculators/business/profit-margin-calculator">profit margin solver</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: High-Volume E-Commerce Brand Multi-Channel Expansion</h3>
+          <p>
+            A direct-to-consumer health supplement brand sells products via one-time store purchases and a monthly subscription club. In a standard month, the brand processes 4,200 one-time cart transactions with an Average Order Value (AOV) of $68. Concurrently, 3,100 club subscribers receive automated recurring monthly deliveries at $45 per order.
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate transactional channel revenue:</strong>
+              <br />
+              One-Time Sales = 4,200 orders × $68 = $285,600.
+            </li>
+            <li>
+              <strong>Calculate subscription channel revenue:</strong>
+              <br />
+              Subscription MRR = 3,100 subscribers × $45 = $139,500.
+            </li>
+            <li>
+              <strong>Evaluate total monthly revenue:</strong>
+              <br />
+              Total Monthly Revenue = $285,600 + $139,500 = $425,100 ($5,101,200 annual run-rate).
+              <br />
+              Strategic Optimization: Converting 500 one-time buyers into recurring club members stabilizes monthly baseline cash flow, evaluated using the <Link href="/calculators/business/ecommerce-profit-calculator">e-commerce profit calculator</Link> and discount calculator.
+            </li>
+          </ol>
+
+          <h2>Operational Constraints & Revenue Recognition Governance</h2>
+          <ol>
+            <li>
+              <strong>ASC 606 & IFRS 15 Five-Step Revenue Recognition:</strong> Under modern accounting standards, revenue cannot be recognized when cash is collected or when an invoice is sent. Revenue must be recognized only as performance obligations are satisfied over time. Collecting an annual $120,000 upfront enterprise contract creates Deferred Revenue on the balance sheet, releasing exactly $10,000 to the income statement each month.
+            </li>
+            <li>
+              <strong>Gross vs. Net Revenue Reporting (Principal vs. Agent):</strong> E-commerce platforms and marketplace brokers must determine whether they act as the principal (reporting gross merchandise value) or as an agent (reporting only net commission take-rates). Reporting gross transaction flow when acting as a broker violates GAAP and inflates apparent scale.
+            </li>
+            <li>
+              <strong>Customer Concentration Risk:</strong> Having more than 20% of total revenue derived from a single anchor customer poses extreme commercial vulnerability. The loss of that single account can collapse operating margins and trigger commercial debt covenant breaches.
+            </li>
+          </ol>
+
+          <h2>Revenue Optimization Analytics & Unit Expansion Metrics</h2>
+          <p>
+            High-performance commercial enterprises continuously optimize Average Order Value (AOV) and customer expansion vectors. The mathematical relationship governing top-line growth acceleration is:
+          </p>
+          <Formula>
+            {"\text{Revenue Growth Rate} = (\text{Customer Acquisition Velocity} \times \text{Initial AOV}) + (\text{Cohort Expansion} \times \text{Base})"}
+          </Formula>
+          <p>
+            Dynamic pricing engines deploy machine learning algorithms to adjust prices based on supply elasticity and inventory turnover. Corporate controllers integrate live revenue dashboards with <Link href="/calculators/business/break-even-calculator">break-even models</Link>, project corporate tax obligations via the sales tax calculator, and plan inventory purchasing through the <Link href="/calculators/business/wholesale-price-calculator">wholesale price calculator</Link>.
+          </p>
+          <p>
+            In international software exports, multi-currency billing engines monitor foreign exchange (FX) hedging corridors. When invoicing European clients in Euros, automated currency forward contracts lock in dollar conversion rates, shielding gross revenue run-rates from foreign currency devaluation.
+          </p>
+
+
+          <h2>The Rule of 40 & Enterprise Growth Efficiency Dynamics</h2>
+          <p>
+            In institutional venture capital and private equity valuation, software and subscription businesses are evaluated against the Rule of 40—a capital efficiency benchmark stating that a software company &apos;s annualized revenue growth rate plus its free cash flow profit margin should equal or exceed 40%:
+          </p>
+          <Formula>
+            {"\text{Rule of 40 Score} = \text{Year-over-Year Revenue Growth (\%)} + \text{Free Cash Flow Margin (\%)} \ge 40\%"}
+          </Formula>
+          <p>
+            A high-growth startup expanding top-line revenue at 60% annually can sustain a -20% cash burn margin while remaining attractive to growth equity investors. Conversely, a mature company growing at 10% must generate a 30% free cash flow margin to satisfy the threshold. Companies balance these operational parameters by calculating contractor billing margins through the <Link href="/calculators/business/freelance-rate-calculator">freelance rate calculator</Link> and calibrating gross markup spreads with the <Link href="/calculators/business/markup-calculator">markup calculator</Link>.
+          </p>
+          <p>
+            Enterprise software providers also monitor Gross Revenue Retention (GRR), measuring recurring revenue retained from existing clients excluding all expansion upsells. Maintaining GRR above 88% prevents cohort revenue erosion, ensuring acquired subscriber cohorts continue generating stable baseline cash inflows.
+          </p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why is ARR calculated as MRR × 12 rather than trailing 12-month revenue?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Annual Recurring Revenue (ARR) is a forward-looking run-rate metric reflecting the contracted annual value of your current subscription base. Trailing twelve-month (TTM) revenue looks backwards at historical performance. For a rapidly growing company, current ARR will be substantially higher than TTM revenue because it reflects the current scaled customer baseline.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">What is the difference between bookings, billings, and revenue?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Bookings represent the total contracted value of customer agreements signed (a forward commitment). Billings represent the dollar amount actually invoiced to customers during the period. Revenue is the earned portion of billings recognized on the income statement as services are delivered in compliance with ASC 606.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does customer churn impact long-term revenue run-rate?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Customer churn acts as a leaky bucket. If a business generates $100,000 MRR but loses 5% of its revenue to monthly churn ($5,000), it must acquire $5,000 in new MRR every month just to remain flat. Minimizing churn is mathematically more powerful than scaling new sales acquisition. Evaluate retention with our <Link href="/calculators/business/ltv-calculator">LTV calculator</Link>.
+              </p>
+            </div>
+          </div>
+
+
+          <p>
+            In multi-product commercial enterprises, managing the sales mix between legacy high-volume products and emerging high-growth software tiers requires disciplined cohort analytics. Modern financial FP&A teams track customer concentration ratios, ensuring that no single enterprise account represents more than 15% of annual revenue, thereby mitigating credit default risks and protecting baseline cash flow predictability.
+          </p>
+
+          <h2>Authoritative Revenue Standards & International Metrology</h2>
+          <p>
+            For standardized revenue accounting frameworks, recurring revenue metrics, and international financial reporting rules, consult:
+          </p>
+          <ul>
+            <li>
+              <strong>FASB / IASB Joint Standard (ASC 606 / IFRS 15):</strong> Revenue from Contracts with Customers — Comprehensive Five-Step Recognition Framework.
+            </li>
+            <li>
+              <strong>SaaS Capital Industry Metrics Index:</strong> Standard Benchmarks for B2B SaaS ARR Multiples and Growth Trajectories.
+            </li>
+            <li>
+              <strong>Securities and Exchange Commission (SEC Regulation S-K):</strong> Non-GAAP Financial Measures and Key Performance Indicators Disclosures.
+            </li>
+            <li>
+              <strong>AICPA Audit and Accounting Guide:</strong> Revenue Recognition in Software and High-Technology Industries.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <BusinessRevenueCalculatorComponent />
+    </CalcPage>
   );
 }

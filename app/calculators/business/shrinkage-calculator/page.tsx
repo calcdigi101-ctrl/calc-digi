@@ -1,26 +1,272 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ShrinkageCalculatorComponent from "@/components/calcs/business/shrinkage-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { InventoryShrinkageLossBreakdownChart } from "@/components/flagship/business/editorial-charts";
+
+const PATH = "/calculators/business/shrinkage-calculator";
+const TITLE = "Shrinkage Calculator | Retail Inventory Loss & Theft Audit Solver";
+const DESCRIPTION =
+  "Calculate retail inventory shrinkage rates, dollar loss discrepancies between book and physical audits, shoplifting splits, and loss prevention benchmarks.";
 
 export const metadata: Metadata = {
-  "title": "Inventory Shrinkage Calculator – Retail Shrinkage | CalcDigi",
-  "description": "Calculate retail inventory shrinkage rate and dollar loss. See how theft and errors impact your gross margin and profitability.",
-  "openGraph": {
-    "title": "Inventory Shrinkage Calculator – Retail Shrinkage | CalcDigi",
-    "description": "Calculate retail inventory shrinkage rate and dollar loss. See how theft and errors impact your gross margin and profitability.",
-    "type": "website",
-    "url": "/calculators/business/shrinkage-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/business/shrinkage-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/business/cogs-calculator", icon: "📦", name: "COGS Solver" },
+  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margins" },
+  { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Point" },
+  { href: "/calculators/business/markup-calculator", icon: "📈", name: "Markup Calculator" },
+  { href: "/calculators/business/wholesale-price-calculator", icon: "🏷️", name: "Wholesale Pricing" },
+  { href: "/calculators/business/ecommerce-profit-calculator", icon: "🛒", name: "E-Commerce Profit" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the standard retail accounting formula for inventory shrinkage?",
+    a: "The standard shrinkage formula is: Shrinkage ($) = Recorded Book Inventory Value - Physical Audit Count Value. Shrinkage Rate as a percentage of sales is calculated as: Shrinkage Rate (%) = (Shrinkage $ / Total Net Retail Sales) * 100.",
+  },
+  {
+    q: "What are the primary root causes of inventory shrinkage in modern retail?",
+    a: "According to National Retail Federation (NRF) annual benchmarks, shrinkage breaks down into four primary categories: External Theft / Shoplifting (~36% - 38%), Internal Employee Theft (~28% - 30%), Administrative & Scanning Paperwork Errors (~20% - 22%), and Vendor Fraud / In-Transit Spoilage (~12% - 14%).",
+  },
+  {
+    q: "What is an average or healthy inventory shrinkage rate across US retail?",
+    a: "The US national average retail shrinkage rate typically hovers between 1.4% and 1.6% of total retail sales. Rates below 1.0% reflect world-class loss prevention controls, while rates exceeding 2.5% indicate severe inventory leakage that threatens business solvency.",
+  },
+  {
+    q: "How does inventory shrinkage directly impact Cost of Goods Sold (COGS)?",
+    a: "Shrinkage represents physical inventory that vanishes without generating sales revenue. When a physical audit reveals missing stock, the book inventory must be written down, directly increasing reported COGS and dollar-for-dollar eroding gross profit margins.",
+  },
+  {
+    q: "How do automated cycle counts mitigate annual physical inventory shrinkage surprises?",
+    a: "Rather than conducting a disruptive once-a-year full store audit, automated cycle counting continuously audits high-risk, high-value SKUs on daily or weekly schedules, catching theft patterns and scanning errors before losses compound across fiscal quarters.",
+  },
+  {
+    q: "How does loss prevention investment ROI compare against shrinkage reduction?",
+    a: "Investing in electronic article surveillance (EAS), computer vision security, and RFID tags generates positive ROI if the reduction in shrinkage dollars exceeds the annualized capital cost of security equipment and security staffing.",
+  },
+];
+
+export default function ShrinkageCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Business Calculators\", \"item\": \"https://calcdigi.com/pages/business\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Inventory Shrinkage Calculator\", \"item\": \"https://calcdigi.com/calculators/business/shrinkage-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Inventory Shrinkage Calculator\", \"url\": \"https://calcdigi.com/calculators/business/shrinkage-calculator\", \"description\": \"Calculate retail inventory shrinkage rate and dollar loss. See how theft and errors impact your gross margin and profitability.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is inventory shrinkage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Inventory shrinkage is the loss of inventory between the time it is purchased and the time it is sold or accounted for. Shrinkage Rate % = (Book Inventory Value - Physical Count Value) / Net Sales × 100. The book inventory is what should be there based on records; the physical count is what is actually there. The difference is shrinkage.\"}}, {\"@type\": \"Question\", \"name\": \"What is the average retail shrinkage rate?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The US National Retail Federation reports average retail shrinkage of 1.4-1.6% of retail sales annually. Dollar amount: approximately $112 billion in 2022. Highest shrinkage categories: electronics, fashion accessories, and health/beauty. Lowest: furniture, appliances. Shrinkage above 2% is considered a significant loss prevention problem requiring immediate intervention.\"}}, {\"@type\": \"Question\", \"name\": \"How does shrinkage affect profit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Shrinkage reduces gross profit dollar-for-dollar since lost inventory was already purchased. For a retailer with 35% gross margin and $1 million in sales: 2% shrinkage = $20,000 loss = $20,000 / (35% margin) = $57,143 in additional sales needed just to recover shrinkage losses. Reducing shrinkage by 0.5% on $1M sales = $5,000 profit improvement — often more impactful than increasing sales.\"}}, {\"@type\": \"Question\", \"name\": \"What causes the most retail shrinkage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"According to NRF 2023 survey: organized retail crime (ORC) and shoplifting represent the largest and fastest-growing component (~35-38%). Employee theft: ~28-35% (declining with better POS controls). Administrative error: ~16-20% (pricing errors, receiving mistakes, paperwork errors). Vendor fraud: ~5-6%. ORC (organized retail crime) has grown significantly and is now a major concern for all retail formats.\"}}, {\"@type\": \"Question\", \"name\": \"How do I reduce inventory shrinkage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Key loss prevention strategies: install EAS (Electronic Article Surveillance) tags on high-value items, implement CCTV with analytics, train staff on shoplifting awareness and response, conduct regular cycle counts (not just annual inventory), implement two-person receiving procedures, use POS exception reporting to identify suspicious employee transactions, and work with local law enforcement on ORC.\"}}, {\"@type\": \"Question\", \"name\": \"What is cycle counting vs annual inventory?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Annual physical inventory: count all inventory once a year — provides accurate snapshot but shrinkage accumulates all year. Cycle counting: count a portion of inventory daily or weekly, completing full count rotation over time. Benefits of cycle counting: identifies shrinkage patterns quickly, maintains higher inventory accuracy year-round, less disruptive than annual count shutdown, and catches errors before they accumulate. Most retailers doing cycle counting maintain 95-99% inventory accuracy vs 90-95% with annual-only counting.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/business\">Business</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Inventory Shrinkage Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Inventory Shrinkage Calculator</h1>\n<p class=\"calc-intro\">Calculate your retail inventory shrinkage rate, total dollar loss, and shrinkage as a percentage of sales. Understand how shoplifting, employee theft, administrative errors, and vendor fraud contribute to inventory shrinkage and its impact on profitability.</p>\n<p class=\"calc-intro\">Retail shrinkage — the loss of inventory due to theft, error, and fraud — costs US retailers over $112 billion annually (2023 NRF survey). The average shrinkage rate is 1.6% of retail sales. Even small improvements in shrinkage control directly increase profit, as shrinkage comes directly out of gross margin.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Shrinkage Rate = (Book Inventory - Actual Inventory) / Retail Sales × 100 | Dollar Shrink = Book Inventory - Physical Count | Shrink % Impact on Margin = Shrink Rate / Gross Margin %</div></div>\n<div class=\"content-section\">\n<h2>The Four Causes of Retail Shrinkage</h2>\n<p>Retail shrinkage has four main causes, each requiring different prevention strategies. Understanding the breakdown of your shrinkage by cause allows targeted loss prevention investments with measurable ROI.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Cause</th><th style=\"padding:11px 14px;text-align:left;\">% of Total Shrink</th><th style=\"padding:11px 14px;text-align:left;\">Prevention Strategy</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">External theft (shoplifting)</td><td style=\"padding:10px 14px;\">35-38%</td><td style=\"padding:10px 14px;\">EAS tags, CCTV, staff awareness training</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Employee theft</td><td style=\"padding:10px 14px;\">28-35%</td><td style=\"padding:10px 14px;\">Screening, POS controls, audits</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Administrative error</td><td style=\"padding:10px 14px;\">16-20%</td><td style=\"padding:10px 14px;\">Training, process improvement, audits</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Vendor/supplier fraud</td><td style=\"padding:10px 14px;\">5-6%</td><td style=\"padding:10px 14px;\">Receiving procedures, count verification</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Unknown</td><td style=\"padding:10px 14px;\">5-15%</td><td style=\"padding:10px 14px;\">Good inventory management reduces this</td></tr></tbody></table></div>\n<h3>Shrinkage Rate by Retail Sector</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Retail Sector</th><th style=\"padding:11px 14px;text-align:left;\">Avg Shrink Rate</th><th style=\"padding:11px 14px;text-align:left;\">Note</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Mass merchandise</td><td style=\"padding:10px 14px;\">1.8-2.2%</td><td style=\"padding:10px 14px;\">High volume, many SKUs</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Department stores</td><td style=\"padding:10px 14px;\">1.5-2.0%</td><td style=\"padding:10px 14px;\">High-value apparel and accessories</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Grocery/supermarket</td><td style=\"padding:10px 14px;\">1.0-1.5%</td><td style=\"padding:10px 14px;\">Food spoilage + theft</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Electronics</td><td style=\"padding:10px 14px;\">1.5-2.5%</td><td style=\"padding:10px 14px;\">High-value, concealable items</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Drug/pharmacy</td><td style=\"padding:10px 14px;\">1.0-1.8%</td><td style=\"padding:10px 14px;\">High-value drugs, OTC medication</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Specialty retail</td><td style=\"padding:10px 14px;\">1.2-1.8%</td><td style=\"padding:10px 14px;\">Varies by category</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Convenience stores</td><td style=\"padding:10px 14px;\">1.5-2.5%</td><td style=\"padding:10px 14px;\">High theft, limited staff</td></tr></tbody></table></div>\n<h3>Shrinkage and Profit Impact</h3>\n<p>Shrinkage hits gross margin dollar-for-dollar. A retailer with 35% gross margin and 2% shrinkage: net gross margin impact = 2% / 35% = 5.7% of gross margin lost to shrinkage. To recover $1 lost to shrinkage, a retailer with 35% gross margin must generate $1/0.35 = $2.86 in additional sales. Loss prevention ROI: $1 invested in LP should generate $3-5 in shrinkage reduction for a positive return.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is inventory shrinkage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Inventory shrinkage is the loss of inventory between the time it is purchased and the time it is sold or accounted for. Shrinkage Rate % = (Book Inventory Value - Physical Count Value) / Net Sales × 100. The book inventory is what should be there based on records; the physical count is what is actually there. The difference is shrinkage.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the average retail shrinkage rate? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The US National Retail Federation reports average retail shrinkage of 1.4-1.6% of retail sales annually. Dollar amount: approximately $112 billion in 2022. Highest shrinkage categories: electronics, fashion accessories, and health/beauty. Lowest: furniture, appliances. Shrinkage above 2% is considered a significant loss prevention problem requiring immediate intervention.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does shrinkage affect profit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Shrinkage reduces gross profit dollar-for-dollar since lost inventory was already purchased. For a retailer with 35% gross margin and $1 million in sales: 2% shrinkage = $20,000 loss = $20,000 / (35% margin) = $57,143 in additional sales needed just to recover shrinkage losses. Reducing shrinkage by 0.5% on $1M sales = $5,000 profit improvement — often more impactful than increasing sales.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What causes the most retail shrinkage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">According to NRF 2023 survey: organized retail crime (ORC) and shoplifting represent the largest and fastest-growing component (~35-38%). Employee theft: ~28-35% (declining with better POS controls). Administrative error: ~16-20% (pricing errors, receiving mistakes, paperwork errors). Vendor fraud: ~5-6%. ORC (organized retail crime) has grown significantly and is now a major concern for all retail formats.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I reduce inventory shrinkage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Key loss prevention strategies: install EAS (Electronic Article Surveillance) tags on high-value items, implement CCTV with analytics, train staff on shoplifting awareness and response, conduct regular cycle counts (not just annual inventory), implement two-person receiving procedures, use POS exception reporting to identify suspicious employee transactions, and work with local law enforcement on ORC.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is cycle counting vs annual inventory? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Annual physical inventory: count all inventory once a year — provides accurate snapshot but shrinkage accumulates all year. Cycle counting: count a portion of inventory daily or weekly, completing full count rotation over time. Benefits of cycle counting: identifies shrinkage patterns quickly, maintains higher inventory accuracy year-round, less disruptive than annual count shutdown, and catches errors before they accumulate. Most retailers doing cycle counting maintain 95-99% inventory accuracy vs 90-95% with annual-only counting.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Business Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/business/roi-calculator\"><span class=\"rc-icon\">📈</span><span class=\"rc-name\">ROI Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/break-even-calculator\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Break Even Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/profit-margin-calculator\"><span class=\"rc-icon\">💹</span><span class=\"rc-name\">Profit Margin Calculator</span></a><a class=\"related-card\" href=\"/calculators/business/business-loan-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Business Loan Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Inventory Shrinkage Calculator – Shrink Rate and Dollar Loss</h2><div class=\"form-group\"><label for=\"sh-book\">Book Inventory Value ($)</label><input id=\"sh-book\" min=\"0\" step=\"1000\" type=\"number\" value=\"850000\"/></div><div class=\"form-group\"><label for=\"sh-actual\">Actual Physical Count Value ($)</label><input id=\"sh-actual\" min=\"0\" step=\"1000\" type=\"number\" value=\"836000\"/></div><div class=\"form-group\"><label for=\"sh-sales\">Annual Net Sales ($)</label><input id=\"sh-sales\" min=\"1\" step=\"1000\" type=\"number\" value=\"1500000\"/></div><div class=\"form-group\"><label for=\"sh-margin\">Gross Margin (%)</label><input id=\"sh-margin\" max=\"90\" min=\"1\" step=\"1\" type=\"number\" value=\"35\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('bz-result').style.display='none';document.getElementById('bz-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"bz-result\" style=\"display:none;\"><div id=\"bz-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"bz-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"bz-ai\" style=\"display:none;\"></div></div>\n<div id=\"bz-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-bz\" onclick=\"printResult('bz-result','Inventory Shrinkage Calculator – Shrink Rate and Dollar Loss')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Inventory Shrinkage Calculator – Shrink Rate and Dollar Loss')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-shrinkage-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var book=parseFloat(document.getElementById('sh-book').value)||0;\n  var actual=parseFloat(document.getElementById('sh-actual').value)||0;\n  var sales=parseFloat(document.getElementById('sh-sales').value)||1;\n  var margin=parseFloat(document.getElementById('sh-margin').value)||35;\n  var shrinkDollars=book-actual;\n  var shrinkRate=shrinkDollars/sales*100;\n  var marginImpact=shrinkRate/margin*100;\n  var addSalesNeeded=shrinkDollars/( margin/100);\n  var industry=1.6;\n  var vsIndustry=shrinkRate-industry;\n  var color=shrinkRate<=1?'var(--c-accent)':shrinkRate<=2?'#c8832a':'#c0392b';\n  var aiPrompt='Shrinkage: $'+shrinkDollars.toLocaleString()+' ('+shrinkRate.toFixed(2)+'% of sales), '+marginImpact.toFixed(1)+'% of gross margin lost';\n  document.getElementById('bz-ri').innerHTML=\n    ri('Shrinkage Rate','<strong style=\"font-size:24px;color:'+color+'\">'+shrinkRate.toFixed(2)+'% of sales</strong>',true)+\n    ri('Total Dollar Shrinkage','$'+shrinkDollars.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('% of Gross Margin Lost',marginImpact.toFixed(1)+'%')+\n    ri('vs Industry Average (1.6%)',(vsIndustry>=0?'+':'')+vsIndustry.toFixed(2)+'%')+\n    ri('Extra Sales to Recover Shrink','$'+addSalesNeeded.toLocaleString('en-US',{maximumFractionDigits:0}))+\n    ri('Assessment',shrinkRate<=1?'Excellent ✅':shrinkRate<=1.6?'Average ✅':shrinkRate<=2.5?'Above Average ⚠️':'High — Act Now ❌');\n  document.getElementById('bz-result').style.display='block';document.getElementById('bz-actions').style.display='flex';\n  drawDonut('bz-chart',['Actual Inventory','Shrinkage'],[Math.round(actual),Math.round(shrinkDollars)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('bz-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical business tip about reducing retail shrinkage and improving loss prevention.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
+      title="Inventory Shrinkage & Loss Prevention Calculator"
+      intro="Compute physical audit inventory variances, dollar shrinkage losses, retail shrinkage rates as a percentage of sales, and loss category allocations."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Inventory Shrinkage is Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Inventory shrinkage measures the discrepancy between recorded accounting stock and physical on-hand inventory: Shrinkage ($) = Book Inventory Value - Physical Audit Count. The shrinkage rate is expressed as a percentage of sales: Shrinkage Rate (%) = (Shrinkage $ / Total Retail Sales) &times; 100. Retail operators factor inventory losses into landing margins via the <Link href="/calculators/business/cogs-calculator">COGS calculator</Link>, calibrate catalog price buffers with the <Link href="/calculators/business/markup-calculator">markup calculator</Link>, and evaluate net earnings in the <Link href="/calculators/business/profit-margin-calculator">profit margin solver</Link>.
+            </p>
+          </div>
+
+          <h2>Visual Analysis: Retail Inventory Shrinkage Cause Distribution Across Sectors</h2>
+          <p>
+            The chart below visualizes the allocation of inventory shrinkage losses across external theft, employee dishonesty, administrative scanning errors, and vendor fraud across major merchandising verticals.
+          </p>
+
+          <InventoryShrinkageLossBreakdownChart />
+
+          <h2>First-Principles Inventory Reconciliation & Shrinkage Mathematics</h2>
+          <p>
+            Under standard retail inventory method (RIM) accounting and US GAAP (FASB ASC 330), perpetual inventory balances track cumulative additions and subtractions across the fiscal cycle:
+          </p>
+          <Formula>
+            {"\\text{Book Inventory Value} = \\text{Beginning Inventory} + \\text{Purchases / Transfers} - \\text{Sales} - \\text{Documented Markdowns}"}
+          </Formula>
+          <p>
+            When an end-of-period physical count or automated RFID scan determines actual physical inventory, shrinkage dollar loss evaluates to:
+          </p>
+          <Formula>
+            {"\\text{Shrinkage Dollar Loss} = \\max(0, \\text{Book Inventory} - \\text{Physical Audit Value})"}
+          </Formula>
+          <p>
+            To evaluate shrinkage severity across divergent retail store formats, loss prevention directors compute the Shrinkage Percentage of Sales and Percentage of Book Inventory:
+          </p>
+          <Formula>
+            {"\\text{Shrinkage Rate (Sales \\%)} = \\left( \\frac{\\text{Shrinkage } \\$}{\\text{Total Net Sales}} \\right) \\times 100\\%"}
+          </Formula>
+          <Formula>
+            {"\\text{Shrinkage Rate (Inventory \\%)} = \\left( \\frac{\\text{Shrinkage } \\$}{\\text{Book Inventory}} \\right) \\times 100\\%"}
+          </Formula>
+          <p>
+            Store controllers balance shrinkage buffers by testing retail volume elasticity in the <Link href="/calculators/business/break-even-calculator">break-even calculator</Link>, calibrating wholesale price tiers with the <Link href="/calculators/business/wholesale-price-calculator">wholesale price calculator</Link>, and monitoring e-commerce return fraud through the <Link href="/calculators/business/ecommerce-profit-calculator">e-commerce profit calculator</Link>.
+          </p>
+
+          <h2>NRF Industry Shrinkage Benchmarks & Loss Allocation by Vertical</h2>
+          <p>
+            The table below contrasts standard retail shrinkage percentages, median loss rates as a percentage of sales, top loss drivers, and primary loss prevention countermeasures across commercial sectors.
+          </p>
+
+          <DataTable
+            head={["Retail Merchandising Sector", "Median Shrinkage Rate (% of Sales)", "Primary Loss Driver", "Physical Audit Frequency", "Standard Security Control"]}
+            rows={[
+              ["Supermarkets & Grocery", "2.10% - 2.80%", "Perishability & cashier scanning error", "Monthly cycle counts", "Automated POS weight scale sensors"],
+              ["Apparel & Specialty Fashion", "1.80% - 2.40%", "Organized retail crime & fitting room theft", "Quarterly audits", "RFID item-level hard tags & EAS gates"],
+              ["Consumer Electronics", "1.20% - 1.80%", "External grab-and-run theft", "Weekly high-value cycle", "Locked display glass & alarmed tether cables"],
+              ["Big-Box Home Improvement", "1.60% - 2.20%", "Bulk pallet fraud & external theft", "Bi-annual audits", "Overhead smart computer vision cameras"],
+              ["Pharmacies & Drugstores", "2.30% - 3.10%", "Small high-value OTC medicine theft", "Continuous cycle counts", "Anti-sweep locking hooks & facial analysis"],
+              ["Department Store Retail", "1.40% - 1.90%", "Employee dishonesty & markdown fraud", "Annual comprehensive", "Undercover asset protection & receipt check"],
+            ]}
+          />
+
+          <h2>Comparative Operational Business Worked Case Studies</h2>
+
+          <h3>Case Study A: Regional Sporting Goods Chain Physical Audit Reconciliation</h3>
+          <p>
+            A regional sporting goods retailer operates 12 retail stores generating $36,000,000.00 in annual net sales. At year-end fiscal reconciliation, the perpetual ERP ledger records ending book inventory at $8,450,000.00 at cost. A comprehensive physical inventory audit conducted by an independent third-party inventory auditing firm reveals actual on-hand stock valued at $7,820,000.00:
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate absolute shrinkage dollar loss:</strong>
+              <br />
+              Total Shrinkage Loss = $8,450,000.00 (Book) - $7,820,000.00 (Actual) = $630,000.00.
+            </li>
+            <li>
+              <strong>Determine shrinkage percentages across inventory and revenue:</strong>
+              <br />
+              Shrinkage % of Book Inventory = ($630,000.00 / $8,450,000.00) &times; 100% = 7.46%.
+              <br />
+              Shrinkage % of Annual Sales = ($630,000.00 / $36,000,000.00) &times; 100% = 1.75%.
+            </li>
+            <li>
+              <strong>Decompose root causes based on NRF retail survey benchmarks:</strong>
+              <br />
+              External Shoplifting (37%) = $630,000.00 &times; 0.37 = $233,100.00.
+              <br />
+              Internal Employee Theft (29%) = $630,000.00 &times; 0.29 = $182,700.00.
+              <br />
+              Administrative Scanning Errors (21%) = $630,000.00 &times; 0.21 = $132,300.00.
+              <br />
+              Vendor Spoilage & Receiving Fraud (13%) = $630,000.00 &times; 0.13 = $81,900.00.
+            </li>
+            <li>
+              <strong>Income Statement Impairment Adjustment:</strong> The controller writes down ending inventory by $630,000.00, immediately increasing COGS and reducing operating margins. Management evaluates staffing supervision via the <Link href="/calculators/business/employee-cost-calculator">employee cost calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: High-End Consumer Electronics Retailer EAS ROI Model</h3>
+          <p>
+            A high-traffic electronics retail store doing $5,000,000.00 in annual revenue suffers from a severe 2.80% shrinkage rate ($140,000.00 in annual losses). The loss prevention director proposes installing automated RFID smart overhead portals and smart alarmed display cases costing $45,000.00 in upfront hardware with $5,000.00 in annual maintenance, projected to compress shrinkage to 1.30%:
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate projected post-implementation shrinkage:</strong>
+              <br />
+              Target Shrinkage at 1.30% = $5,000,000.00 &times; 1.30% = $65,000.00.
+            </li>
+            <li>
+              <strong>Determine annual gross dollar savings:</strong>
+              <br />
+              Annual Shrinkage Reduction = $140,000.00 - $65,000.00 = $75,000.00 annual savings.
+            </li>
+            <li>
+              <strong>Compute first-year net financial return and capital payback:</strong>
+              <br />
+              First-Year Total Cost = $45,000.00 + $5,000.00 = $50,000.00.
+              <br />
+              Net First-Year Profit = $75,000.00 - $50,000.00 = $25,000.00.
+              <br />
+              Capital Payback Period = $45,000.00 / ($75,000 - $5,000) = 0.64 years (7.7 months).
+            </li>
+            <li>
+              <strong>Capital Allocation Integration:</strong> Leadership verifies security investment yield using the <Link href="/calculators/business/roi-calculator">ROI calculator</Link> and models working capital velocity via the <Link href="/calculators/business/burn-rate-calculator">burn rate calculator</Link>.
+            </li>
+          </ol>
+
+          <h2>Asset Protection Technologies: RFID & Computer Vision Metrology</h2>
+          <p>
+            Modern inventory loss prevention has evolved far beyond traditional magnetic EAS stickers. Retail leaders deploy item-level Radio Frequency Identification (RFID) microchips embedded directly into product hangtags and packaging. Overhead RFID ceiling readers continuously scan retail sales floors, updating inventory position coordinates in real time. This automated visibility enables stores to detect exactly when, where, and which specific SKUs were concealed or exited through emergency side doors.
+          </p>
+          <p>
+            Furthermore, artificial intelligence computer vision platforms analyze POS checkout video feeds to detect &quot;sweethearting&quot;—the practice where dishonest cashiers simulate barcode scanning without registering the transaction—and &quot;misscans&quot; where self-checkout shoppers substitute expensive organic produce barcodes for cheaper bulk items.
+          </p>
+
+
+          <p>
+            In modern supply chain and omni-channel retail distribution, logistics directors deploy automated smart cycle counts utilizing automated inventory scanning drones and autonomous mobile robots (AMRs). These autonomous systems traverse warehouse distribution aisles during overnight off-hours, performing optical barcode and RFID verification across thousands of pallet racks per hour. Automated robotic auditing detects misplaced inventory pallets, packaging damage, and transit spoilage within 24 hours of arrival rather than at year-end physical counts.
+          </p>
+          <p>
+            Furthermore, enterprise retail chains implement rigorous vendor compliance chargeback programs. When direct-store-delivery (DSD) vendors deliver short shipments, damaged outer cartons, or un-scannable barcodes, automated receiving software flags the discrepancies immediately on the receiving dock bill of lading. Generating automated invoice chargebacks transfers the financial loss back to the negligent vendor, safeguarding the retailer&apos;s baseline gross profit margins from supplier-side inventory shrinkage.
+          </p>
+          <p>
+            Loss prevention executives also conduct predictive exception-based reporting (EBR) on point-of-sale cash registers. By monitoring cashier transaction anomalies—such as excessive post-void transactions, manual price overrides, and cash drawer openings without sales—audit teams swiftly identify internal employee theft patterns before cumulative losses compound across fiscal quarters.
+          </p>
+
+          <h2>Operational Pitfalls in Inventory Shrinkage Management</h2>
+          <ol>
+            <li>
+              <strong>Delaying Physical Inventory Audits to Annual Intervals:</strong> Relying exclusively on once-a-year physical inventory counts allows theft rings and systematic warehouse scanning bugs to operate undetected for 11 months, compounding financial damage.
+            </li>
+            <li>
+              <strong>Failing to Isolate Administrative Scanning Errors from Real Theft:</strong> Misdiagnosing barcode data entry errors as physical shoplifting misallocates security capital into expensive security guards when staff training and barcode audit scans are what is required.
+            </li>
+            <li>
+              <strong>Ignoring Receiving Dock Discrepancies:</strong> Blindly signing bills of lading without validating piece counts allows supplier short-shipments to enter perpetual inventory records, creating phantom shrinkage before items even reach store shelves.
+            </li>
+            <li>
+              <strong>Over-Securing Merchandise and Inducing Demand Destruction:</strong> Locking everyday merchandise behind plexiglass display cases reduces theft but causes a catastrophic 20% to 35% decline in sales volume as frustrated shoppers abandon purchases.
+            </li>
+          </ol>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">What is phantom inventory and how does it relate to shrinkage?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Phantom inventory (or ghost inventory) refers to items that exist on perpetual computer ledgers but are physically missing due to unrecorded theft, damage, or misplacement. Phantom inventory prevents automated ERP systems from triggering replenishment purchase orders, resulting in out-of-stock shelves and lost customer sales.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does organized retail crime (ORC) differ from opportunistic shoplifting?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Opportunistic shoplifting involves individuals stealing items for personal consumption. Organized Retail Crime (ORC) involves professional criminal syndicates that systematically steal large volumes of high-value merchandise (infant formula, designer apparel, power tools) to fence online through digital marketplace storefronts.
+              </p>
+            </div>
+          </div>
+
+
+          <p>
+            In omnichannel warehouse fulfillment hubs, inventory controllers also monitor damage write-offs incurred during conveyor sortation and forklift transport. Documenting transit carton damage immediately upon receipt separates supplier logistics liabilities from internal warehouse handling shrinkage.
+          </p>
+
+          <h2>Authoritative Loss Prevention Standards & Retail Citations</h2>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>National Retail Federation (NRF National Retail Security Survey):</strong> Annual empirical benchmarks for shrinkage percentages, theft causation, and loss prevention budgets.
+            </li>
+            <li>
+              <strong>Retail Industry Leaders Association (RILA Loss Prevention Standards):</strong> Industry guidance on mitigating organized retail crime, supply chain integrity, and asset protection.
+            </li>
+            <li>
+              <strong>Financial Accounting Standards Board (FASB ASC 330 - Inventory):</strong> Accounting criteria for inventory lower of cost and net realizable value write-downs.
+            </li>
+            <li>
+              <strong>Loss Prevention Research Council (LPRC Metrology):</strong> Scientific evidence-based research on situational crime prevention and electronic surveillance effectiveness.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <ShrinkageCalculatorComponent />
+    </CalcPage>
   );
 }
