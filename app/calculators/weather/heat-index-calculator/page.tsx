@@ -1,26 +1,209 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import HeatIndexCalculatorComponent from "@/components/calcs/weather/heat-index-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { NoaaHeatIndexDangerZonesChart } from "@/components/flagship/weather/editorial-charts";
+
+const PATH = "/calculators/weather/heat-index-calculator";
+const TITLE = "Heat Index Calculator | NOAA Apparent Temperature & Heat Stress Scale";
+const DESCRIPTION =
+  "Calculate the NOAA Heat Index, apparent feels-like temperature, evaporative cooling penalty, thermal stress danger tier, and OSHA outdoor work-rest cycles.";
 
 export const metadata: Metadata = {
-  "title": "Heat Index Calculator – Feels Like Temperature | CalcDigi",
-  "description": "Calculate the feels-like temperature from air temperature and humidity. Find heat danger levels and safety tips for hot weather.",
-  "openGraph": {
-    "title": "Heat Index Calculator – Feels Like Temperature | CalcDigi",
-    "description": "Calculate the feels-like temperature from air temperature and humidity. Find heat danger levels and safety tips for hot weather.",
-    "type": "website",
-    "url": "/calculators/weather/heat-index-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/weather/heat-index-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌡️", name: "Dew Point Calculator" },
+  { href: "/calculators/weather/humidity-calculator", icon: "💧", name: "Humidity Calculator" },
+  { href: "/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
+  { href: "/calculators/weather/uv-index-calculator", icon: "☀️", name: "UV Index Calculator" },
+  { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
+  { href: "/calculators/weather/rainfall-calculator", icon: "🌧️", name: "Rainfall Calculator" },
+];
+
+export default function HeatIndexCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Weather Calculators\", \"item\": \"https://calcdigi.com/pages/weather\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Heat Index Calculator\", \"item\": \"https://calcdigi.com/calculators/weather/heat-index-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Heat Index Calculator\", \"url\": \"https://calcdigi.com/calculators/weather/heat-index-calculator\", \"description\": \"Calculate the feels-like temperature from air temperature and humidity. Find heat danger levels and safety tips for hot weather.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the heat index?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The heat index (also called apparent temperature or feels-like temperature) combines air temperature and relative humidity to represent how hot it actually feels to the human body. High humidity prevents sweat evaporation, reducing cooling efficiency and making temperatures feel much hotter than the actual thermometer reading.\"}}, {\"@type\": \"Question\", \"name\": \"At what heat index is it dangerous?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"90-103°F: Extreme Caution (heat cramps and exhaustion possible). 103-124°F: Danger (heat exhaustion likely, heatstroke possible). Above 124°F: Extreme Danger (heatstroke highly likely). The NWS issues Heat Advisories when heat index reaches 100-105°F and Excessive Heat Warnings above 105°F for 2+ consecutive days.\"}}, {\"@type\": \"Question\", \"name\": \"What is the highest heat index ever recorded?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The highest reliably recorded heat index was approximately 178°F (81°C) in Dhahran, Saudi Arabia on July 8, 2003, when the temperature was 108°F and dew point was 95°F (relative humidity ~68%). Conditions that extreme are instantly life-threatening to humans.\"}}, {\"@type\": \"Question\", \"name\": \"How does the heat index affect exercise?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Exercise generates significant body heat. During exercise in high heat index conditions: reduce intensity by 20-30% for every 5°F above 90°F heat index, hydrate with 16-20 oz water 2 hours before and 8 oz every 20 minutes during exercise, avoid outdoor activity between 10am-4pm, and recognize warning signs of heat exhaustion (heavy sweating, weakness, cold clammy skin).\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between heat index and dew point?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Heat index uses relative humidity (%) while dew point (°F or °C) directly measures moisture in the air. Dew point is more reliable across temperature ranges. Dew point below 55°F: comfortable. 55-65°F: somewhat humid. Above 65°F: oppressively humid. Meteorologists prefer dew point; heat index is used for public communication.\"}}, {\"@type\": \"Question\", \"name\": \"Why does heat index only apply above 80°F?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The heat index formula is only meaningful when temperature exceeds 80°F (27°C) and relative humidity exceeds 40%. Below these thresholds, humidity has minimal impact on perceived temperature. The NWS only publishes heat index values when temperature is at or above 80°F.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/weather\">Weather</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Heat Index Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Heat Index Calculator</h1>\n<p class=\"calc-intro\">Calculate the heat index (feels-like temperature) from air temperature and relative humidity. The heat index tells you how hot it actually feels to your body — which can be dramatically higher than the thermometer reading when humidity is high.</p>\n<p class=\"calc-intro\">High humidity prevents sweat from evaporating efficiently, reducing your body ability to cool itself. On a 95°F (35°C) day with 60% humidity, the heat index reaches 114°F (46°C) — dangerously hot. Understanding the heat index helps you make smart decisions about outdoor activity and heat safety.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Heat Index (°F) = -42.379 + 2.04901523T + 10.14333127RH − 0.22475541T×RH − 0.00683783T² − 0.05481717RH² + 0.00122874T²×RH + 0.00085282T×RH² − 0.00000199T²×RH²</div></div>\n<div class=\"content-section\">\n<h2>Heat Index Danger Levels</h2>\n<p>The National Weather Service (NWS) uses the heat index to issue heat advisories and warnings. The heat index is calculated using temperature and relative humidity and represents the apparent temperature felt by the human body in shaded conditions. Direct sunlight can add an additional 10-15°F to the heat index.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Heat Index</th><th style=\"padding:11px 14px;text-align:left;\">Danger Level</th><th style=\"padding:11px 14px;text-align:left;\">Risk</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">80-90°F (27-32°C)</td><td style=\"padding:10px 14px;\">Caution</td><td style=\"padding:10px 14px;\">Fatigue possible with prolonged exposure and physical activity</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">90-103°F (32-39°C)</td><td style=\"padding:10px 14px;\">Extreme Caution</td><td style=\"padding:10px 14px;\">Heat cramps and heat exhaustion possible</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">103-124°F (39-51°C)</td><td style=\"padding:10px 14px;\">Danger</td><td style=\"padding:10px 14px;\">Heat cramps and exhaustion likely; heatstroke possible</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">125°F+ (52°C+)</td><td style=\"padding:10px 14px;\">Extreme Danger</td><td style=\"padding:10px 14px;\">Heatstroke highly likely with continued exposure</td></tr></tbody></table></div>\n<h3>How Humidity Affects Heat Perception</h3>\n<p>At 100°F (38°C): 15% humidity feels like 99°F, 40% humidity feels like 109°F, 65% humidity feels like 124°F. Humidity prevents sweat evaporation — your body primary cooling mechanism. In dry desert heat, the body can cool itself effectively even at high temperatures. In humid conditions, the same temperature is far more dangerous.</p>\n<h3>Heat Safety Guidelines</h3>\n<p>When heat index exceeds 90°F: stay in air-conditioned spaces during peak hours (10am-4pm), drink water before you feel thirsty (minimum 8 oz per hour in heat), wear light loose-fitting clothing, never leave children or pets in parked cars, and check on elderly neighbors. Heat is the deadliest weather phenomenon in the US — killing more people than hurricanes, tornadoes, and floods combined.</p>\n<h3>Heat Index vs Apparent Temperature</h3>\n<p>The NWS heat index formula uses temperature in °F and relative humidity. It is most accurate between 80-112°F and humidity 40-100%. The Australian Bureau of Meteorology uses the Apparent Temperature formula which also includes wind speed. The two formulas give different results — this calculator uses the official NWS Rothfusz regression formula.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the heat index? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The heat index (also called apparent temperature or feels-like temperature) combines air temperature and relative humidity to represent how hot it actually feels to the human body. High humidity prevents sweat evaporation, reducing cooling efficiency and making temperatures feel much hotter than the actual thermometer reading.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">At what heat index is it dangerous? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">90-103°F: Extreme Caution (heat cramps and exhaustion possible). 103-124°F: Danger (heat exhaustion likely, heatstroke possible). Above 124°F: Extreme Danger (heatstroke highly likely). The NWS issues Heat Advisories when heat index reaches 100-105°F and Excessive Heat Warnings above 105°F for 2+ consecutive days.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the highest heat index ever recorded? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The highest reliably recorded heat index was approximately 178°F (81°C) in Dhahran, Saudi Arabia on July 8, 2003, when the temperature was 108°F and dew point was 95°F (relative humidity ~68%). Conditions that extreme are instantly life-threatening to humans.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does the heat index affect exercise? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Exercise generates significant body heat. During exercise in high heat index conditions: reduce intensity by 20-30% for every 5°F above 90°F heat index, hydrate with 16-20 oz water 2 hours before and 8 oz every 20 minutes during exercise, avoid outdoor activity between 10am-4pm, and recognize warning signs of heat exhaustion (heavy sweating, weakness, cold clammy skin).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between heat index and dew point? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Heat index uses relative humidity (%) while dew point (°F or °C) directly measures moisture in the air. Dew point is more reliable across temperature ranges. Dew point below 55°F: comfortable. 55-65°F: somewhat humid. Above 65°F: oppressively humid. Meteorologists prefer dew point; heat index is used for public communication.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does heat index only apply above 80°F? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The heat index formula is only meaningful when temperature exceeds 80°F (27°C) and relative humidity exceeds 40%. Below these thresholds, humidity has minimal impact on perceived temperature. The NWS only publishes heat index values when temperature is at or above 80°F.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Weather Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/weather/wind-chill-calculator\"><span class=\"rc-icon\">🌬️</span><span class=\"rc-name\">Wind Chill Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/humidity-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Humidity Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/rainfall-calculator\"><span class=\"rc-icon\">🌧️</span><span class=\"rc-name\">Rainfall Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Heat Index Calculator – Feels Like Temperature and Heat Danger</h2><div class=\"form-group\"><label for=\"hi-unit\">Temperature Unit</label><select id=\"hi-unit\"><option selected=\"\" value=\"f\">Fahrenheit (°F)</option><option value=\"c\">Celsius (°C)</option></select></div><div class=\"form-group\"><label for=\"hi-temp\">Air Temperature</label><input id=\"hi-temp\" max=\"150\" min=\"-50\" step=\"0.1\" type=\"number\" value=\"95\"/></div><div class=\"form-group\"><label for=\"hi-rh\">Relative Humidity (%)</label><input id=\"hi-rh\" max=\"100\" min=\"0\" step=\"1\" type=\"number\" value=\"60\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('wx-result').style.display='none';document.getElementById('wx-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"wx-result\" style=\"display:none;\"><div id=\"wx-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"wx-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"wx-ai\" style=\"display:none;\"></div></div>\n<div id=\"wx-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-wx\" onclick=\"printResult('wx-result','Heat Index Calculator – Feels Like Temperature and Heat Danger')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Heat Index Calculator – Feels Like Temperature and Heat Danger')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-heat-index-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var unit=document.getElementById('hi-unit').value;\n  var T=parseFloat(document.getElementById('hi-temp').value);\n  var RH=parseFloat(document.getElementById('hi-rh').value);\n  if(isNaN(T)||isNaN(RH)){alert('Please enter valid temperature and humidity.');return;}\n  var TF=unit==='c'?T*9/5+32:T;\n  if(TF<80){alert('Heat index is only meaningful above 80°F (27°C). Below this threshold, humidity has minimal effect on perceived temperature.');return;}\n  var HI=-42.379+2.04901523*TF+10.14333127*RH-0.22475541*TF*RH-0.00683783*TF*TF-0.05481717*RH*RH+0.00122874*TF*TF*RH+0.00085282*TF*RH*RH-0.00000199*TF*TF*RH*RH;\n  // Adjustments\n  if(RH<13&&TF>=80&&TF<=112) HI-=((13-RH)/4)*Math.sqrt((17-Math.abs(TF-95))/17);\n  if(RH>85&&TF>=80&&TF<=87) HI+=((RH-85)/10)*((87-TF)/5);\n  var HIC=(HI-32)*5/9;\n  var danger=HI<80?'No Risk':HI<90?'Caution':HI<103?'Extreme Caution':HI<124?'Danger':'Extreme Danger';\n  var color=HI<90?'#1a5c3a':HI<103?'#c8832a':HI<124?'#c0392b':'#7b241c';\n  var display=unit==='c'?HIC.toFixed(1)+'°C':HI.toFixed(1)+'°F';\n  var actual=unit==='c'?T+'°C':TF.toFixed(1)+'°F';\n  var aiPrompt='Heat index: '+display+' (actual temp: '+actual+', humidity: '+RH+'%), danger level: '+danger;\n  document.getElementById('wx-ri').innerHTML=\n    ri('Feels Like','<strong style=\"font-size:26px;color:'+color+'\">'+display+'</strong>',true)+\n    ri('Danger Level','<span style=\"color:'+color+'\">'+danger+'</span>')+\n    ri('Actual Temperature',actual)+\n    ri('Relative Humidity',RH+'%')+\n    ri('Heat Index (°F)',HI.toFixed(1)+'°F')+\n    ri('Heat Index (°C)',HIC.toFixed(1)+'°C');\n  document.getElementById('wx-result').style.display='block';document.getElementById('wx-actions').style.display='flex';\n  drawDonut('wx-chart',['Feels Like','Actual Temp'],[Math.round(HI),Math.round(TF)],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('wx-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical safety or comfort tip about heat safety and staying cool in hot weather.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/weather", label: "Weather & Nature" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Thermal Stress Quick Summary:</strong> The National Oceanic and Atmospheric Administration (NOAA) Heat Index quantifies the human body's perceived apparent temperature when high atmospheric moisture impedes cutaneous evaporative thermoregulation. The human body cools itself primarily through the latent heat of sweat vaporization (approximately 2,426 Joules per gram of evaporated sweat). When relative humidity rises above 50%, moisture vapor saturation in the air boundary layer suppresses sweat evaporation, trapping metabolic heat within core organs. Pairing heat index analysis with our <Link href="/calculators/weather/dew-point-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">dew point calculator</Link> reveals that an ambient 92°F day with 65% humidity creates a dangerous apparent heat index of 108°F, elevating heat exhaustion and heat stroke hazards.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            NOAA Apparent Heat Index Progression Across Humidity Gradients
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The relationship between air temperature and relative humidity is inherently non-linear. As ambient temperatures approach the human core temperature (98.6°F / 37.0°C), dry convective heat exchange from skin to air approaches zero. At this critical juncture, sweat evaporation becomes the sole biological mechanism capable of preventing hyperthermia. Drivers and outdoor athletes assessing transit weather alongside our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link> must incorporate mandatory hydration pauses as heat index values breach warning thresholds.
+          </p>
+
+          <NoaaHeatIndexDangerZonesChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The progression curves above display the exponential rise in apparent heat index calculated via the Steadman-Rothfusz regression equation across temperatures from 85°F to 105°F. At an ambient temperature of 85°F, elevating relative humidity from 30% to 90% increases apparent temperature by 13°F (from 84°F to 97°F). However, at an ambient temperature of 100°F, that identical humidity increase propels the heat index from 109°F to a catastrophic 185°F—a lethal atmospheric threshold where human survival without artificial air conditioning is measured in hours. In contrast to winter cooling modeled in our <Link href="/calculators/weather/wind-chill-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">wind chill calculator</Link>, summer humidity multiplies rather than mitigates ambient thermal discomfort.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Formulation: The Multi-Parameter Rothfusz Regression Model
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The formal NOAA Heat Index algorithm was derived by Lans P. Rothfusz (1990) by fitting a multi-variable 9-term polynomial regression to Robert G. Steadman's biometeorological human heat exchange model:
+          </p>
+
+          <Formula>
+            {"\begin{aligned} HI = &-42.379 + 2.04901523 T + 10.14333127 R - 0.22475541 TR - 0.00683783 T^2 \\ &- 0.05481717 R^2 + 0.00122874 T^2 R + 0.00085282 T R^2 - 0.00000199 T^2 R^2 \end{aligned}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"T"}</Formula> is ambient dry-bulb temperature in degrees Fahrenheit (<Formula>{"T \ge 80^\circ\text{F}"}</Formula>) and <Formula>{"R"}</Formula> is relative humidity as a percentage (<Formula>{"0 \le R \le 100"}</Formula>). NOAA applies two critical boundary adjustment terms under specific psychrometric extremes:
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            If <Formula>{"R < 13\%"}</Formula> and <Formula>{"80^\circ\text{F} \le T \le 112^\circ\text{F}"}</Formula>, dry atmospheric conditions enhance evaporative cooling beyond the baseline polynomial, requiring a downward subtraction adjustment:
+          </p>
+
+          <Formula>
+            {"\text{Adjustment}_{dry} = \left( \frac{13 - R}{4} \right) \sqrt{\frac{17 - |T - 95|}{17}}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Conversely, if <Formula>{"R > 85\%"}</Formula> and <Formula>{"80^\circ\text{F} \le T \le 87^\circ\text{F}"}</Formula>, heavy saturation limits cutaneous sweat dispersion, requiring an upward addition adjustment:
+          </p>
+
+          <Formula>
+            {"\text{Adjustment}_{humid} = \left( \frac{R - 85}{10} \right) \left( \frac{87 - T}{5} \right)"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Atmospheric scientists analyzing thermodynamic parcel lift for storm prediction examine concurrent moisture metrics using our <Link href="/calculators/weather/humidity-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">humidity calculator</Link> and monitor atmospheric buoyancy energy in our <Link href="/calculators/weather/severe-weather-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">severe weather calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            OSHA Thermal Stress Categories & Clinical Occupational Work-Rest Regimes
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The Occupational Safety and Health Administration (OSHA) and the National Institute for Occupational Safety and Health (NIOSH) establish mandatory workplace safety protocols based on four standardized heat index danger tiers:
+          </p>
+
+          <DataTable
+            head={["Heat Index Range (°F / °C)", "NOAA Risk Tier Classification", "Physiological Clinical Manifestations", "Recommended Work / Rest Ratio", "Hydration Intake Benchmark"]}
+            rows={[
+              ["80°F to 90°F (27°C to 32°C)", "Caution", "Fatigue possible with prolonged physical exposure", "50 min work / 10 min shade rest per hour", "16 oz water per hour of moderate exertion"],
+              ["91°F to 103°F (33°C to 39°C)", "Extreme Caution", "Heat cramps and heat exhaustion possible", "45 min work / 15 min shaded rest per hour", "24 to 32 oz electrolyte fluids per hour"],
+              ["104°F to 124°F (40°C to 51°C)", "Danger", "Heat exhaustion likely; heat stroke imminent with exertion", "30 min work / 30 min cooling rest per hour", "32 oz electrolyte fluids with active ice cooling"],
+              ["125°F+ (> 52°C)", "Extreme Danger", "Heat stroke / sunstroke highly likely; organ failure risk", "Cease all non-emergency outdoor physical work", "Immediate medical standby and chilled immersion tanks"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            As demonstrated in the table, once the heat index crosses 104°F, working continuously without structured rest cycles leads to involuntary dehydration and core temperature spikes exceeding 104°F (40°C), triggering neurological confusion and circulatory collapse. Furthermore, direct sunlight exposure adds an additional 15°F to the nominal heat index, which outdoor workers must factor alongside solar erythemal risk modeled in our <Link href="/calculators/weather/uv-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">UV index calculator</Link> and ground precipitation moisture tracked in our <Link href="/calculators/weather/rainfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">rainfall calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Physiological Mechanics: Wet-Bulb Globe Temperature vs Heat Index
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While the NOAA Heat Index is the recognized public weather standard, industrial hygienists and military commands utilize the Wet-Bulb Globe Temperature (WBGT) to govern athletic training and heavy physical labor:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Shade Assumption of the Heat Index:</strong> The standard Rothfusz Heat Index calculation assumes an average adult walking in the shade in light wind (approx. 5 mph). Performing strenuous manual labor in direct direct midday sunlight increases the effective apparent temperature by 10°F to 15°F due to shortwave solar radiation absorption.
+            </li>
+            <li>
+              <strong>Wet-Bulb Globe Temperature (WBGT) Composition:</strong> WBGT integrates natural wet-bulb temperature (<Formula>{"T_{nw}"}</Formula>, 70% weighting), black globe radiant heat temperature (<Formula>{"T_g"}</Formula>, 20% weighting), and ambient dry-bulb temperature (<Formula>{"T_d"}</Formula>, 10% weighting): <Formula>{"\text{WBGT} = 0.7 T_{nw} + 0.2 T_g + 0.1 T_d"}</Formula>. Military 'Black Flag' conditions are declared when WBGT exceeds 90°F (32.2°C).
+            </li>
+            <li>
+              <strong>Cardiovascular Strain & Electrolyte Depletion:</strong> Severe heat strain demands that cardiac output increase by up to 10 liters per minute to pump blood from core viscera to subcutaneous capillary beds. Heavy sweating expels up to 2.0 liters of saline water per hour, depleting sodium, potassium, and magnesium ions and inducing painful peripheral heat cramps.
+            </li>
+            <li>
+              <strong>Urban Heat Island (UHI) Microclimates:</strong> Dense metropolitan downtown cores with asphalt and concrete surfaces store thermal energy during the day and re-radiate longwave infrared heat at night, keeping nocturnal heat index values 8°F to 14°F higher than surrounding rural landscapes.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Biological Acclimatization Kinetics & Vehicle Air Conditioning Energy Loads
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Human physiological adaptation to elevated heat index environments—termed heat acclimatization—requires 10 to 14 days of progressive, supervised physical exertion in hot conditions. During acclimatization, biological hormonal shifts trigger plasma volume expansion by up to 20%, lowering resting heart rates and reducing cardiovascular strain. Furthermore, the body begins sweating at a lower core temperature threshold and doubles its maximum sweat secretion rate while dramatically reducing sodium chloride loss in perspiration. Unacclimatized workers and athletes face three times the incidence of clinical heat exhaustion during the initial days of a seasonal heat wave.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In transportation engineering, high heat index conditions significantly degrade vehicle fuel economy and electric vehicle battery range. Operating automotive air conditioning compressors under extreme heat index levels consumes 3.5 to 5.5 kW of mechanical or electrical power, reducing fuel efficiency by 15% to 25% in stop-and-go metropolitan traffic. Commuters calculating annual fuel budgets with our <Link href="/calculators/transportation/commute-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">commute cost calculator</Link> and analyzing environmental emissions in our <Link href="/calculators/environment/carbon-footprint-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">carbon footprint calculator</Link> must account for seasonal air conditioning fuel penalties during summer heat waves.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Additionally, commercial agricultural operations monitor livestock heat stress through the Temperature-Humidity Index (THI). Dairy cattle exposed to heat index values above 85°F experience dramatic drops in milk production and feed intake, necessitating high-velocity ventilation fans, evaporative mister nozzles, and shade structures to preserve herd health and welfare.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Hyperthermia Pathophysiology & Emergency Cold-Water Immersion Protocols
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            When human core body temperature rises above 104°F (40°C), cellular proteins begin denaturing, causing systemic inflammatory response syndrome (SIRS), microvascular thrombosis, and acute multi-organ dysfunction. The definitive gold-standard medical intervention for exertional heat stroke is immediate, aggressive Cold-Water Immersion (CWI). Submerging a hyperthermic patient in an ice-water bath (35°F to 50°F / 1.7°C to 10°C) with vigorous continuous water circulation cools the patient at an astounding rate of 0.35°F (0.20°C) per minute—more than ten times faster than fanning or applying ice packs to groin and axilla arterial pulse points. Athletic trainers enforce the clinical rule: 'Cool First, Transport Second,' requiring core body temperature to be reduced below 102°F (38.9°C) prior to emergency ambulance transit to prevent irreversible neurological damage. Emergency response protocols emphasize that applying wet towels or ice packs without full body immersion fails to arrest internal core heating during exertional hyperthermia crises.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About the NOAA Heat Index
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What is the critical physiological difference between heat exhaustion and heat stroke?
+              </h3>
+              <p>
+                Heat exhaustion is characterized by heavy sweating, pale clammy skin, rapid weak pulse, muscle cramps, and dizziness; core body temperature typically stays below 104°F (40°C), and the victim remains conscious. Heat stroke is a medical emergency where the body's thermoregulatory center fails: sweating ceases, skin becomes hot and red, core temperature spikes above 104°F, and confusion, seizures, or unconsciousness occur. Heat stroke requires immediate emergency medical transport and rapid cold-water immersion.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why does wind not cool you down when the heat index is extremely high?
+              </h3>
+              <p>
+                When ambient air temperature exceeds normal skin temperature (approximately 95°F / 35°C), air moving across the skin transfers heat into the body via forced convection rather than removing it. If the air is also humid, sweat cannot evaporate. Under these conditions, a fan acts like a convective convection oven, accelerating rather than mitigating heat stress.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Does drinking ice water cause stomach cramps during extreme heat?
+              </h3>
+              <p>
+                Contrary to popular mythology, drinking cool or chilled water (50°F to 60°F / 10°C to 15°C) is highly recommended during heat stress. Cool fluids absorb internal core heat, reduce gastric emptying latency, and rehydrate vascular volume faster than lukewarm fluids without inducing gastrointestinal distress.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why is the heat index only calculated for temperatures of 80°F (27°C) or higher?
+              </h3>
+              <p>
+                At temperatures below 80°F, natural biological skin temperature easily exceeds ambient air temperature, allowing effortless dry convective and radiative heat loss. Moisture in the air below 80°F does not suppress metabolic thermoregulation enough to create apparent heat strain, rendering the Rothfusz regression polynomial physiologically invalid below that baseline.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <HeatIndexCalculatorComponent />
+    </CalcPage>
   );
 }

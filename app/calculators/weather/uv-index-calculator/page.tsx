@@ -1,26 +1,211 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import UvIndexCalculatorComponent from "@/components/calcs/weather/uv-index-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { DiurnalUvIndexSunAngleExposureChart } from "@/components/flagship/weather/editorial-charts";
+
+const PATH = "/calculators/weather/uv-index-calculator";
+const TITLE = "UV Index Calculator | Solar Ultraviolet Radiation & Burn Time";
+const DESCRIPTION =
+  "Calculate solar UV index, Fitzpatrick skin phototype burn time in minutes, minimum erythemal dose (MED), altitude amplification, and SPF sunscreen requirements.";
 
 export const metadata: Metadata = {
-  "title": "UV Index Calculator – Sun Exposure and Burn Time | CalcDigi",
-  "description": "Calculate safe sun exposure time from UV index and skin type. Find the SPF sunscreen needed and burn time for any UV level.",
-  "openGraph": {
-    "title": "UV Index Calculator – Sun Exposure and Burn Time | CalcDigi",
-    "description": "Calculate safe sun exposure time from UV index and skin type. Find the SPF sunscreen needed and burn time for any UV level.",
-    "type": "website",
-    "url": "/calculators/weather/uv-index-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/weather/uv-index-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/weather/heat-index-calculator", icon: "☀️", name: "Heat Index Calculator" },
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌡️", name: "Dew Point Calculator" },
+  { href: "/calculators/weather/humidity-calculator", icon: "💧", name: "Humidity Calculator" },
+  { href: "/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
+  { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
+  { href: "/calculators/environment/solar-panel-calculator", icon: "🔋", name: "Solar Panel Calculator" },
+];
+
+export default function UvIndexCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Weather Calculators\", \"item\": \"https://calcdigi.com/pages/weather\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"UV Index Calculator\", \"item\": \"https://calcdigi.com/calculators/weather/uv-index-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"UV Index Calculator\", \"url\": \"https://calcdigi.com/calculators/weather/uv-index-calculator\", \"description\": \"Calculate safe sun exposure time from UV index and skin type. Find the SPF sunscreen needed and burn time for any UV level.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the UV index?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The UV Index (UVI) is a scale from 1 to 11+ measuring the strength of ultraviolet radiation from the sun at a specific location and time. Developed by WHO, it helps people understand daily sun protection needs. UV Index 1-2 is low risk; 3-5 is moderate; 6-7 is high; 8-10 is very high; 11+ is extreme.\"}}, {\"@type\": \"Question\", \"name\": \"How long can I stay in the sun without burning?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Burn time depends on UV index and skin type. Formula: Minutes before burn = (MPD value for skin type) / (UV Index × 0.025). At UV Index 8: Type 1 skin burns in ~5 minutes, Type 3 in ~15 minutes, Type 5 in ~30 minutes. Sunscreen with SPF 30 multiplies safe exposure time by 30.\"}}, {\"@type\": \"Question\", \"name\": \"What SPF sunscreen do I need for a given UV index?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"General guideline: SPF = UV Index × 2, minimum SPF 15. UV 3: SPF 15+. UV 6: SPF 30+. UV 8-10: SPF 50+. UV 11+: SPF 50+ reapplied every 90 minutes. No sunscreen blocks 100% of UV — SPF 50 blocks 98%, SPF 30 blocks 97%, SPF 15 blocks 93%.\"}}, {\"@type\": \"Question\", \"name\": \"Is UV dangerous on cloudy days?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. Clouds block some but not all UV radiation. Light cloud cover: 75-90% of UV still reaches you. Heavy overcast: 30-50% of UV still reaches you. Many people get severe sunburns on overcast summer days because they skip sunscreen. Always check UV index, not just cloud cover.\"}}, {\"@type\": \"Question\", \"name\": \"What is the highest UV index ever recorded?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The highest reliably recorded UV index was 43.3 in Licancabur volcano, Bolivia (5,916m altitude) on December 29, 2003. In the US, UV index above 12-13 is rare. Tropical locations regularly see UV index 11-12. High altitude + tropical location + clean air + snow reflection can produce extreme UV levels.\"}}, {\"@type\": \"Question\", \"name\": \"Can UV rays penetrate glass and clothing?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Standard glass blocks most UVB (the burn-causing ray) but transmits about 74% of UVA (the aging/cancer ray). Car side windows only block 71% of UVA. UV-protective clothing (UPF 50+) blocks 98% of UV. Wet cotton T-shirts only have UPF 3. Look for sun-protective clothing with UPF ratings for outdoor activities.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/weather\">Weather</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">UV Index Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>UV Index Calculator</h1>\n<p class=\"calc-intro\">Calculate your safe sun exposure time before burning based on UV index and your skin type. Find the minimum SPF sunscreen you need and understand UV index danger levels for outdoor activities, beach trips, and everyday sun protection.</p>\n<p class=\"calc-intro\">The UV index measures the strength of ultraviolet radiation from the sun. Even on cloudy days, UV can be 80% of full strength. Understanding the UV index for your location and time helps you protect your skin from sunburn, premature aging, and skin cancer — the most common cancer in the US.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Burn Time (min) = SED threshold for skin type / (UV Index × 0.025 SED/min) | SPF needed = UV Index / 2 + 1</div></div>\n<div class=\"content-section\">\n<h2>UV Index Scale and Danger Levels</h2>\n<p>The UV Index is a scale from 1 to 11+ developed by the World Health Organization (WHO) and United Nations Environment Programme. It predicts the UV radiation level on a scale and recommends protection measures. UV exposure causes sunburn, premature skin aging, eye damage (cataracts), and skin cancer (melanoma).</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">UV Index</th><th style=\"padding:11px 14px;text-align:left;\">Level</th><th style=\"padding:11px 14px;text-align:left;\">Recommendation</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1-2</td><td style=\"padding:10px 14px;\">Low</td><td style=\"padding:10px 14px;\">No protection needed for most people, sunscreen optional</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">3-5</td><td style=\"padding:10px 14px;\">Moderate</td><td style=\"padding:10px 14px;\">Seek shade near midday, wear sunscreen SPF 15-30+</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">6-7</td><td style=\"padding:10px 14px;\">High</td><td style=\"padding:10px 14px;\">Reduce sun exposure 10am-4pm, SPF 30+, wear hat and shirt</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">8-10</td><td style=\"padding:10px 14px;\">Very High</td><td style=\"padding:10px 14px;\">Minimize sun exposure, SPF 50+, UV-blocking sunglasses</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">11+</td><td style=\"padding:10px 14px;\">Extreme</td><td style=\"padding:10px 14px;\">Avoid sun exposure 10am-4pm, SPF 50+ essential, full coverage</td></tr></tbody></table></div>\n<h3>Skin Type and Burn Sensitivity</h3>\n<p>The Fitzpatrick scale classifies skin into 6 types based on UV sensitivity. Type 1 (very fair, always burns, never tans) can burn in as little as 10 minutes at UV Index 10. Type 6 (deeply pigmented, rarely burns) has 10× more natural UV protection. Regardless of skin type, no one is immune to UV damage at extreme levels.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Skin Type</th><th style=\"padding:11px 14px;text-align:left;\">Description</th><th style=\"padding:11px 14px;text-align:left;\">Burn Risk</th><th style=\"padding:11px 14px;text-align:left;\">Tan Ability</th><th style=\"padding:11px 14px;text-align:left;\">Burn Time UV10</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Type 1</td><td style=\"padding:10px 14px;\">Very fair, freckles</td><td style=\"padding:10px 14px;\">Always burns</td><td style=\"padding:10px 14px;\">Never tans</td><td style=\"padding:10px 14px;\">6-8 min at UV10</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Type 2</td><td style=\"padding:10px 14px;\">Fair skin</td><td style=\"padding:10px 14px;\">Burns easily</td><td style=\"padding:10px 14px;\">Tans minimally</td><td style=\"padding:10px 14px;\">10-12 min</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Type 3</td><td style=\"padding:10px 14px;\">Medium, olive</td><td style=\"padding:10px 14px;\">Burns moderately</td><td style=\"padding:10px 14px;\">Tans gradually</td><td style=\"padding:10px 14px;\">14-18 min</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Type 4</td><td style=\"padding:10px 14px;\">Olive/light brown</td><td style=\"padding:10px 14px;\">Burns minimally</td><td style=\"padding:10px 14px;\">Tans well</td><td style=\"padding:10px 14px;\">20-25 min</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Type 5</td><td style=\"padding:10px 14px;\">Brown skin</td><td style=\"padding:10px 14px;\">Rarely burns</td><td style=\"padding:10px 14px;\">Tans darkly</td><td style=\"padding:10px 14px;\">30-40 min</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Type 6</td><td style=\"padding:10px 14px;\">Deeply pigmented</td><td style=\"padding:10px 14px;\">Never burns</td><td style=\"padding:10px 14px;\">Always tan</td><td style=\"padding:10px 14px;\">40+ min</td></tr></tbody></table></div>\n<h3>UV Index Throughout the Day</h3>\n<p>UV radiation peaks at solar noon (12pm-1pm) when the sun is highest in the sky. Approximately 75% of daily UV exposure occurs between 9am and 3pm. UV is also stronger: at higher altitudes (3-5% more per 300m), near reflective surfaces (snow reflects 80% UV, sand 15%, water 10%), in summer vs winter, and at lower latitudes (tropics). Check UV index daily — it varies dramatically with cloud cover and season.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the UV index? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The UV Index (UVI) is a scale from 1 to 11+ measuring the strength of ultraviolet radiation from the sun at a specific location and time. Developed by WHO, it helps people understand daily sun protection needs. UV Index 1-2 is low risk; 3-5 is moderate; 6-7 is high; 8-10 is very high; 11+ is extreme.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long can I stay in the sun without burning? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Burn time depends on UV index and skin type. Formula: Minutes before burn = (MPD value for skin type) / (UV Index × 0.025). At UV Index 8: Type 1 skin burns in ~5 minutes, Type 3 in ~15 minutes, Type 5 in ~30 minutes. Sunscreen with SPF 30 multiplies safe exposure time by 30.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What SPF sunscreen do I need for a given UV index? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">General guideline: SPF = UV Index × 2, minimum SPF 15. UV 3: SPF 15+. UV 6: SPF 30+. UV 8-10: SPF 50+. UV 11+: SPF 50+ reapplied every 90 minutes. No sunscreen blocks 100% of UV — SPF 50 blocks 98%, SPF 30 blocks 97%, SPF 15 blocks 93%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is UV dangerous on cloudy days? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes. Clouds block some but not all UV radiation. Light cloud cover: 75-90% of UV still reaches you. Heavy overcast: 30-50% of UV still reaches you. Many people get severe sunburns on overcast summer days because they skip sunscreen. Always check UV index, not just cloud cover.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the highest UV index ever recorded? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The highest reliably recorded UV index was 43.3 in Licancabur volcano, Bolivia (5,916m altitude) on December 29, 2003. In the US, UV index above 12-13 is rare. Tropical locations regularly see UV index 11-12. High altitude + tropical location + clean air + snow reflection can produce extreme UV levels.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can UV rays penetrate glass and clothing? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Standard glass blocks most UVB (the burn-causing ray) but transmits about 74% of UVA (the aging/cancer ray). Car side windows only block 71% of UVA. UV-protective clothing (UPF 50+) blocks 98% of UV. Wet cotton T-shirts only have UPF 3. Look for sun-protective clothing with UPF ratings for outdoor activities.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Weather Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/weather/heat-index-calculator\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Heat Index Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/wind-chill-calculator\"><span class=\"rc-icon\">🌬️</span><span class=\"rc-name\">Wind Chill Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/humidity-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Humidity Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/rainfall-calculator\"><span class=\"rc-icon\">🌧️</span><span class=\"rc-name\">Rainfall Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>UV Index Calculator – Safe Sun Exposure Time and SPF Needed</h2><div class=\"form-group\"><label for=\"uv-skin\">Skin Type</label><select id=\"uv-skin\"><option value=\"1\">Type 1 — Very Fair (always burns)</option><option selected=\"\" value=\"2\">Type 2 — Fair (burns easily)</option><option value=\"3\">Type 3 — Medium (burns moderately)</option><option value=\"4\">Type 4 — Olive (burns minimally)</option><option value=\"5\">Type 5 — Brown (rarely burns)</option><option value=\"6\">Type 6 — Dark (never burns)</option></select></div><div class=\"form-group\"><label for=\"uv-index\">UV Index</label><input id=\"uv-index\" max=\"20\" min=\"1\" step=\"0.5\" type=\"number\" value=\"7\"/></div><div class=\"form-group\"><label for=\"uv-spf\">Your Sunscreen SPF (0 = none)</label><input id=\"uv-spf\" max=\"100\" min=\"0\" step=\"1\" type=\"number\" value=\"30\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('wx-result').style.display='none';document.getElementById('wx-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"wx-result\" style=\"display:none;\"><div id=\"wx-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"wx-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"wx-ai\" style=\"display:none;\"></div></div>\n<div id=\"wx-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-wx\" onclick=\"printResult('wx-result','UV Index Calculator – Safe Sun Exposure Time and SPF Needed')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('UV Index Calculator – Safe Sun Exposure Time and SPF Needed')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-uv-index-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var SKIN_MPD={1:150,2:250,3:350,4:450,5:600,6:800};\nfunction doCalc(){\n  var skin=parseInt(document.getElementById('uv-skin').value)||2;\n  var uvi=parseFloat(document.getElementById('uv-index').value)||0;\n  var spf=parseFloat(document.getElementById('uv-spf').value)||0;\n  if(uvi<=0){alert('Please enter a UV index value.');return;}\n  var mpd=SKIN_MPD[skin];\n  var burnMins=mpd/(uvi*25);\n  var protectedMins=spf>0?burnMins*spf:burnMins;\n  var spfNeeded=Math.max(Math.ceil(uvi*2),15);\n  var level=uvi<=2?'Low':uvi<=5?'Moderate':uvi<=7?'High':uvi<=10?'Very High':'Extreme';\n  var color=uvi<=2?'#1a5c3a':uvi<=5?'#c8832a':uvi<=7?'#e67e22':uvi<=10?'#c0392b':'#7b241c';\n  var fmtT=function(m){return m<1?(m*60).toFixed(0)+' sec':m.toFixed(0)+' min';};\n  var aiPrompt='UV Index '+uvi+' ('+level+'), skin type '+skin+', burn in '+fmtT(burnMins)+(spf>0?', SPF '+spf+' gives '+fmtT(protectedMins):'');\n  document.getElementById('wx-ri').innerHTML=\n    ri('UV Level','<strong style=\"font-size:22px;color:'+color+'\">'+level+' (UV '+uvi+')</strong>',true)+\n    ri('Unprotected Burn Time',fmtT(burnMins))+\n    ri('With SPF '+spf,spf>0?fmtT(protectedMins):'No sunscreen applied')+\n    ri('Minimum SPF Needed','SPF '+spfNeeded+'+')+\n    ri('Peak UV Hours','10am – 4pm (seek shade)')+\n    ri('Sunscreen Reapply','Every 90 min or after swimming');\n  document.getElementById('wx-result').style.display='block';document.getElementById('wx-actions').style.display='flex';\n  drawDonut('wx-chart',['Burn Time','Protected Time'],[Math.round(burnMins)||1,Math.round(protectedMins-burnMins)||0.001],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('wx-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical safety or comfort tip about UV protection and skin safety in the sun.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/weather", label: "Weather & Nature" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Photobiological Quick Summary:</strong> The Global Solar UV Index is an international standard measurement of human skin-damaging ultraviolet radiation developed by the World Health Organization (WHO) and World Meteorological Organization (WMO). The scale integrates ground-level spectral irradiance weighted by the CIE Erythema Action Spectrum (which quantifies skin redness and sunburn potential). For fair-skinned individuals (Fitzpatrick Skin Type I and II), unprotected exposure during peak midday summer hours (UV Index 9 to 11) produces painful erythemal burns in under 15 to 20 minutes. Correlating solar UV exposure with ambient heat stress evaluated in our <Link href="/calculators/weather/heat-index-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">heat index calculator</Link> establishes essential outdoor protective schedules.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Diurnal Solar UV Radiation Intensity Curves Across Seasonal Cycles
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Ground-level UV radiation is dictated primarily by the solar zenith angle—the angle between the sun and the vertical overhead sky. When the sun is high in the sky at solar noon, solar rays traverse the thinnest slice of Earth's protective stratospheric ozone layer. In contrast, during early morning and late afternoon hours, the oblique solar path through the atmosphere increases optical air mass, scattering and absorbing virtually all sunburn-inducing UVB rays. Homeowners and facility operators can compare solar radiation trends with residential energy generation using our <Link href="/calculators/environment/solar-panel-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">solar panel calculator</Link>.
+          </p>
+
+          <DiurnalUvIndexSunAngleExposureChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The diurnal chart above illustrates hourly UV Index progressions at 38° North latitude comparing the Summer Solstice (June peak 10.4), Spring Equinox (March peak 6.8), and Winter Solstice (December peak 3.1). More than 60% of daily erythemal UV radiation is delivered during the four-hour window between 11:00 AM and 3:00 PM. Notice that during midwinter, the maximum UV index barely reaches 3.0, allowing extended outdoor exposure without sunburn risk. In contrast, during summer, even morning hours at 10:00 AM exhibit a high UV Index of 5.6. In winter alpine snow environments evaluated in our <Link href="/calculators/weather/snowfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">snowfall calculator</Link>, intense ground reflection can elevate winter UV exposure back into dangerous tiers.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations of Erythemal Dose & Phototype Burn Times
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The standardized UV Index (<Formula>{"\text{UVI}"}</Formula>) is calculated by integrating ground spectral irradiance <Formula>{"E(\lambda)"}</Formula> weighted by the McKinley-Diffey CIE erythema action spectrum <Formula>{"s_{er}(\lambda)"}</Formula> across the 290 nm to 400 nm waveband:
+          </p>
+
+          <Formula>
+            {"\text{UVI} = 40 \times \int_{290\text{ nm}}^{400\text{ nm}} E(\lambda) \cdot s_{er}(\lambda) \, d\lambda"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where the multiplication factor of 40 scales the biologically effective irradiance (in <Formula>{"\text{W/m}^2"}</Formula>) to a convenient dimensionless index where 1 UVI unit equals <Formula>{"25\text{ mW/m}^2"}</Formula>.
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Local ground-level Effective UV Index (<Formula>{"\text{UVI}_{eff}"}</Formula>) adjusts baseline atmospheric UV for elevation above sea level (<Formula>{"H_{alt}"}</Formula> in thousands of feet) and surface albedo reflection (<Formula>{"A_{surf}"}</Formula>):
+          </p>
+
+          <Formula>
+            {"\text{UVI}_{eff} = \text{UVI}_{base} \times \left( 1 + 0.04 \cdot \frac{H_{alt}}{1000} \right) \times \left( 1 + A_{surf} \right)"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The Safe Exposure Time to Sunburn (<Formula>{"T_{burn}"}</Formula> in minutes) without topical sunscreen is derived from the Minimal Erythemal Dose (<Formula>{"\text{MED}"}</Formula>) corresponding to the individual's genetic Fitzpatrick skin phototype:
+          </p>
+
+          <Formula>
+            {"T_{burn} = \frac{\text{Base Minutes at UVI 10} \times 10}{\text{UVI}_{eff}}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Athletes training outdoors during extreme summer conditions can evaluate convective hydration demands in our <Link href="/calculators/weather/dew-point-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">dew point calculator</Link> and monitor atmospheric vapor pressure in our <Link href="/calculators/weather/humidity-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">humidity calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Fitzpatrick Skin Phototypes & Minimal Erythemal Dose (MED) Table
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below establishes the clinical dermatological Fitzpatrick skin phototyping scale alongside sunburn latency thresholds at a typical summer UV Index of 8.0:
+          </p>
+
+          <DataTable
+            head={["Skin Phototype", "Constitutive Skin Pigmentation", "Sun Sensitivity & Tanning Reaction", "Minimal Erythemal Dose (MED)", "Unprotected Burn Time @ UV 8", "Recommended Sunscreen Protection"]}
+            rows={[
+              ["Type I", "Very pale, ivory white; red/blond hair, freckles", "Always burns severely; never tans", "200 J/m² (Most sensitive)", "12 to 15 minutes", "SPF 50+ Broad Spectrum; UV clothing"],
+              ["Type II", "Fair white skin; blue/hazel eyes, blond/brown hair", "Burns easily; tans minimally and with difficulty", "250 J/m²", "15 to 20 minutes", "SPF 50+ Broad Spectrum; wide hat"],
+              ["Type III", "Medium white to light olive; dark hair and eyes", "Burns moderately; tans gradually to light brown", "350 J/m²", "25 to 30 minutes", "SPF 30 to 50 Broad Spectrum"],
+              ["Type IV", "Olive / Mediterranean / Hispanic / Asian tone", "Burns minimally; tans easily and deeply", "450 J/m²", "35 to 45 minutes", "SPF 30 Broad Spectrum"],
+              ["Type V", "Dark brown / Middle Eastern / Indian skin", "Rarely burns; tans profusely and quickly", "600 J/m²", "50 to 65 minutes", "SPF 15 to 30 Broad Spectrum"],
+              ["Type VI", "Deeply pigmented dark brown / African skin", "Never burns; deeply pigmented natural melanin", "1,000 J/m² (Highest protection)", "75 to 90+ minutes", "SPF 15+ (Focus on ocular UV protection)"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The data demonstrates that individuals with Fitzpatrick Type I skin can sustain acute cellular DNA damage leading to erythema in just 12 minutes during peak summer sunlight. Melanin pigment in Type V and VI skin absorbs and scatters photon energy, providing a natural biological sun protection factor of approximately SPF 13. However, regardless of skin phototype, ocular tissues remain vulnerable to UV damage (cataracts and photokeratitis), requiring 99% to 100% UV400 rated sunglasses. In cold weather with high wind chill modeled in our <Link href="/calculators/weather/wind-chill-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">wind chill calculator</Link>, cold wind masking solar heat leads to deceptively severe sunburns.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Environmental Amplification: Elevation, Surface Albedo & Cloud Scatter
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Several geographical and meteorological factors dramatically modulate the ground-level ultraviolet dose:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Elevational Altitude Gradient (+4% per 1,000 ft):</strong> Because air density and ozone column mass decrease with height, UV Index increases by approximately 10% to 12% per 1,000 meters (approx. 4% per 1,000 feet). A sea-level UV Index of 8.0 surges to over 11.2 at a mountain ski resort at 10,000 feet elevation.
+            </li>
+            <li>
+              <strong>Surface Albedo Reflection:</strong> While green grass reflects only 2% to 4% of UV rays, dry beach sand reflects 15% to 20%, open water reflects 8% to 10%, and fresh winter snow reflects up to 80% to 90%. Snow reflection exposes the underside of the nose, chin, and eyelids to intense reflected radiation.
+            </li>
+            <li>
+              <strong>Broken Cloud Optical Enhancements:</strong> While dense overcast storm clouds reduce UV by 70% to 90%, broken cumulus clouds (scattered fair-weather clouds) can act as focal lenses. Forward-scattering from cloud edges can temporarily amplify ground UV radiation by 10% to 25% above clear-sky baselines.
+            </li>
+            <li>
+              <strong>Vitamin D Synthesis Optimization:</strong> Vitamin D3 synthesis in the skin requires UVB photons (290 to 315 nm). Because the synthesis pathway saturates at roughly one-third of the Minimal Erythemal Dose, spending 10 to 15 minutes in summer sun with arms and legs exposed maximizes Vitamin D production without inducing DNA damage.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Stratospheric Ozone Column Dynamics & Polar Ocular Photokeratitis
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Total atmospheric ozone is quantified in Dobson Units (DU), where 1 DU represents a theoretical 0.01-millimeter thickness of pure ozone gas at standard temperature and pressure. The global average ozone layer thickness is approximately 300 DU (a 3-millimeter shield). Seasonal thinning of the stratospheric ozone layer—most famously manifested in Antarctic and Arctic polar ozone depletion holes—allows shortwave solar UVB photons to penetrate unimpeded to ground level, elevating the baseline UV Index by 15% to 35% during springtime polar inversions.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In snowbound alpine and high-latitude environments, unprotected eyes face acute photokeratitis, colloquially known as "snow blindness." The superficial corneal epithelium absorbs reflected UVB rays from snow surfaces, causing cellular apoptosis and corneal desquamation that manifests hours later as excruciating ocular pain, foreign body sensation, and temporary blindness. Outdoor winter recreationists should always pair UV eye protection with temperature checks in our <Link href="/calculators/weather/wind-chill-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">wind chill calculator</Link> and monitor atmospheric condensation in our <Link href="/calculators/weather/dew-point-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">dew point calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Furthermore, drivers operating convertibles or commercial transport vehicles across long distances modeled in our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link> must recognize that while automotive laminated glass windshields block virtually 96% to 99% of UVA and UVB rays, standard non-laminated tempered side window glass permits over 60% of aging UVA radiation to pass directly through, causing unilateral left-sided facial photodamage in frequent drivers. Applying clear ceramic UV-blocking window films to vehicle side windows blocks 99% of harmful UVA wavelengths, safeguarding daily commuters from cumulative long-term dermal photoaging and skin cancer hazards. Routine annual dermatological skin screenings complement daily sun protection, catching early melanomas before invasive metastasis occurs.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            CIE Erythema Action Spectrum Weighting & Solar Zenith Trigonometry
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The International Commission on Illumination (CIE) standardized erythema action spectrum quantifies how individual wavelengths of solar light trigger epidermal inflammation. Between 298 nm and 328 nm, biological erythemal effectiveness plummets by more than three orders of magnitude (1,000-fold reduction). Consequently, solar UV Index is exceptionally sensitive to solar zenith angle (<Formula>{'\theta_z'}</Formula>), which is determined by latitude, calendar day of the year, and local solar hour angle: <Formula>{'\cos(\theta_z) = \sin(\phi) \sin(\delta) + \cos(\phi) \cos(\delta) \cos(\omega)'}</Formula>. When the sun drops below 45 degrees elevation from the horizon, the extended optical atmospheric air mass absorbs virtually all UVB radiation, reducing the UV Index below 3.0 and eliminating sunburn hazards for most skin types.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About the Global Solar UV Index
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Can you get sunburned on a cool or cloudy day?
+              </h3>
+              <p>
+                Yes. Ambient temperature has zero correlation with ultraviolet radiation strength. You can sustain severe sunburn in 45°F (7°C) weather if the UV Index is high. Furthermore, thin cirrus and fair-weather clouds allow up to 80% of solar UV radiation to penetrate directly to the surface.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What is the difference between UVA and UVB radiation?
+              </h3>
+              <p>
+                UVB (280 to 315 nm) comprises about 5% of terrestrial ultraviolet rays; it possesses high photon energy, damages cellular DNA in the epidermis, triggers Vitamin D synthesis, and is the primary cause of sunburn. UVA (315 to 400 nm) comprises 95% of ground UV; it penetrates deeply into the dermal layers, degrades collagen and elastin fibers (causing skin aging and wrinkles), and generates harmful free radicals.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Does a higher SPF sunscreen allow you to stay in the sun twice as long?
+              </h3>
+              <p>
+                In clinical theory, an SPF 30 sunscreen filters out 96.7% of UVB photons, allowing a user to stay in the sun 30 times longer than unprotected skin. An SPF 50 filters out 98.0%. However, because sunscreen rubs off, breaks down under perspiration, and is rarely applied at the clinical laboratory density (2 mg/cm²), dermatologists advise reapplying every 2 hours regardless of SPF rating.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What was the highest UV Index ever recorded on Earth?
+              </h3>
+              <p>
+                The world record UV Index was measured at 43.3 atop the Licancabur volcano in the Bolivian Andes (altitude 19,400 feet) on December 29, 2003. In populated tropical areas, solar noon summer UV Index readings regularly reach 12 to 14, which falls into the Extreme Danger category.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <UvIndexCalculatorComponent />
+    </CalcPage>
   );
 }
