@@ -1,26 +1,302 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import FoodCostCalculatorComponent from "@/components/calcs/food/food-cost-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { RestaurantFoodCostMarginWaterfallChart } from "@/components/flagship/food/editorial-charts";
+
+const PATH = "/calculators/food/food-cost-calculator";
+const TITLE = "Food Cost Calculator | Recipe Portion Cost, Menu Pricing & Margins";
+const DESCRIPTION =
+  "Calculate commercial recipe portion cost, target food cost percentages, gross contribution margins, prime costs, and retail menu pricing.";
 
 export const metadata: Metadata = {
-  "title": "Food Cost Calculator – Cost Per Serving | CalcDigi",
-  "description": "Calculate cost per serving for any recipe. Add ingredients with prices to find total recipe cost and compare to restaurant prices.",
-  "openGraph": {
-    "title": "Food Cost Calculator – Cost Per Serving | CalcDigi",
-    "description": "Calculate cost per serving for any recipe. Add ingredients with prices to find total recipe cost and compare to restaurant prices.",
-    "type": "website",
-    "url": "/calculators/food/food-cost-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/food/food-cost-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
+  { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
+  { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
+  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
+  { href: "/calculators/food/cooking-time-calculator", icon: "⏱️", name: "Cooking Time" },
+  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+];
+
+export default function FoodCostCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Food & Cooking Calculators\", \"item\": \"https://calcdigi.com/pages/food\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Food Cost Calculator\", \"item\": \"https://calcdigi.com/calculators/food/food-cost-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Food Cost Calculator\", \"url\": \"https://calcdigi.com/calculators/food/food-cost-calculator\", \"description\": \"Calculate cost per serving for any recipe. Add ingredients with prices to find total recipe cost and compare to restaurant prices.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate the cost per serving of a recipe?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Total recipe cost = Sum of (each ingredient cost × fraction of package used). Cost per serving = Total cost / number of servings. Example: pasta recipe using $1.50 box of pasta (whole), $2.00 jar of sauce (half used = $1.00), $0.50 in oil and spices. Total: $3.00. For 4 servings: $0.75 per serving.\"}}, {\"@type\": \"Question\", \"name\": \"How much does the average home-cooked meal cost per person?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The average home-cooked dinner costs $2-4 per person including protein, vegetables, starch, and seasoning. Breakfast: $0.50-1.50. Lunch: $1.50-3.00. Compared to restaurant meals ($15-35 per person) or delivery ($20-30 with fees), cooking at home saves $10-25 per meal per person.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good food cost percentage for a restaurant?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The target food cost percentage varies by restaurant type. Full-service restaurant: 28-35%. Fast food/QSR: 25-30%. Pizza: 20-28%. Fine dining: 25-35%. Calculate: Food Cost % = (Ingredient Cost / Menu Price) × 100. If a burger costs $3.50 in ingredients and sells for $12: Food Cost % = 3.50/12 × 100 = 29.2%.\"}}, {\"@type\": \"Question\", \"name\": \"How much money can I save by cooking at home?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The average American family of 4 spends $200-400/month eating out. Cooking all meals at home: $400-600/month in groceries. Switching from all restaurant meals to home cooking: saves $2,000-4,000/year. Even cooking dinner at home 5 nights/week vs eating out: saves $3,000-6,000/year for a family of 4.\"}}, {\"@type\": \"Question\", \"name\": \"How do I price my homemade food products for sale?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use the 3× ingredient cost rule as a starting point: if ingredients cost $5, charge $15 minimum. Better method: Ingredient cost + Labor (your time × hourly rate) + Overhead (packaging, equipment depreciation) + Profit margin (20-30%). For cottage food businesses, research local competition and what the market will bear.\"}}, {\"@type\": \"Question\", \"name\": \"What ingredients add the most to recipe cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"High-cost ingredients: quality proteins (salmon $8-12/lb, steak $10-25/lb), specialty cheese, pine nuts ($15-20/lb), vanilla beans, saffron, and fresh herbs. Low-cost base ingredients: pasta ($1/lb), rice ($0.50-1/lb), canned beans ($0.75-1/can), eggs ($0.25-0.50 each), seasonal vegetables ($1-2/lb). Building meals around affordable bases dramatically reduces per-serving cost.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/food\">Food &amp; Cooking</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Food Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Food Cost Calculator</h1>\n<p class=\"calc-intro\">Calculate the total cost of any recipe and cost per serving by entering your ingredients, quantities, and prices. Essential for home budgeting, meal prep planning, restaurant menu pricing, and food business cost control.</p>\n<p class=\"calc-intro\">Knowing the exact cost of your meals helps you budget more effectively, compare homemade vs takeout, and price menu items correctly if you run a food business. A homemade dinner that costs $2.50 per serving vs $15 takeout — that is $12.50 saved per person, every meal.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Total Recipe Cost = Sum of (Ingredient Cost × Quantity Used / Package Size) | Cost Per Serving = Total Cost / Number of Servings</div></div>\n<div class=\"content-section\">\n<h2>Why Food Cost Matters</h2>\n<p>Understanding food cost per serving helps home cooks budget effectively, meal preppers plan weekly spending, and food businesses maintain profitability. The average American spends $3,000-4,000/year on groceries — tracking cost per meal helps identify savings opportunities without sacrificing nutrition.</p>\n<h3>Average Cost Per Serving by Meal Type</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Meal Type</th><th style=\"padding:11px 14px;text-align:left;\">Cost Per Person</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Homemade breakfast</td><td style=\"padding:10px 14px;\">$0.50-1.50</td><td style=\"padding:10px 14px;\">Eggs, toast, coffee</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Packed lunch</td><td style=\"padding:10px 14px;\">$1.50-3.00</td><td style=\"padding:10px 14px;\">Sandwich, salad, fruit</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Homemade dinner</td><td style=\"padding:10px 14px;\">$2.00-5.00</td><td style=\"padding:10px 14px;\">Protein + sides</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Restaurant lunch</td><td style=\"padding:10px 14px;\">$12-18</td><td style=\"padding:10px 14px;\">Fast casual average</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Restaurant dinner</td><td style=\"padding:10px 14px;\">$20-40</td><td style=\"padding:10px 14px;\">Sit-down restaurant</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Food delivery</td><td style=\"padding:10px 14px;\">$18-30</td><td style=\"padding:10px 14px;\">Including fees and tips</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Meal kit service</td><td style=\"padding:10px 14px;\">$8-12</td><td style=\"padding:10px 14px;\">Per serving, premium ingredients</td></tr></tbody></table></div>\n<h3>Restaurant Food Cost Percentage</h3>\n<p>Restaurants target 28-35% food cost percentage — meaning ingredients cost 28-35 cents of every dollar charged. A dish costing $4 in ingredients sells for $12-14 (30-33% food cost). Fine dining: 25-35%. Fast food: 25-30%. Pizza/pasta: 20-28% (high markup on cheap ingredients). Use the formula: Menu Price = Ingredient Cost / Target Food Cost %.  A $3.50 ingredient cost at 30% target: $3.50 / 0.30 = $11.67 menu price.</p>\n<h3>Reducing Food Cost at Home</h3>\n<p>Practical strategies: buy proteins in bulk and freeze, use seasonal produce (up to 50% cheaper), plan meals around weekly sales, reduce food waste (average American wastes $1,500/year in food), cook large batches and freeze portions, buy store brands for commodity ingredients (flour, sugar, oil), and grow herbs at home ($3 plant vs $3 for 2 weeks of fresh herbs).</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate the cost per serving of a recipe? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Total recipe cost = Sum of (each ingredient cost × fraction of package used). Cost per serving = Total cost / number of servings. Example: pasta recipe using $1.50 box of pasta (whole), $2.00 jar of sauce (half used = $1.00), $0.50 in oil and spices. Total: $3.00. For 4 servings: $0.75 per serving.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does the average home-cooked meal cost per person? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The average home-cooked dinner costs $2-4 per person including protein, vegetables, starch, and seasoning. Breakfast: $0.50-1.50. Lunch: $1.50-3.00. Compared to restaurant meals ($15-35 per person) or delivery ($20-30 with fees), cooking at home saves $10-25 per meal per person.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good food cost percentage for a restaurant? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The target food cost percentage varies by restaurant type. Full-service restaurant: 28-35%. Fast food/QSR: 25-30%. Pizza: 20-28%. Fine dining: 25-35%. Calculate: Food Cost % = (Ingredient Cost / Menu Price) × 100. If a burger costs $3.50 in ingredients and sells for $12: Food Cost % = 3.50/12 × 100 = 29.2%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much money can I save by cooking at home? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The average American family of 4 spends $200-400/month eating out. Cooking all meals at home: $400-600/month in groceries. Switching from all restaurant meals to home cooking: saves $2,000-4,000/year. Even cooking dinner at home 5 nights/week vs eating out: saves $3,000-6,000/year for a family of 4.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I price my homemade food products for sale? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use the 3× ingredient cost rule as a starting point: if ingredients cost $5, charge $15 minimum. Better method: Ingredient cost + Labor (your time × hourly rate) + Overhead (packaging, equipment depreciation) + Profit margin (20-30%). For cottage food businesses, research local competition and what the market will bear.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What ingredients add the most to recipe cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">High-cost ingredients: quality proteins (salmon $8-12/lb, steak $10-25/lb), specialty cheese, pine nuts ($15-20/lb), vanilla beans, saffron, and fresh herbs. Low-cost base ingredients: pasta ($1/lb), rice ($0.50-1/lb), canned beans ($0.75-1/can), eggs ($0.25-0.50 each), seasonal vegetables ($1-2/lb). Building meals around affordable bases dramatically reduces per-serving cost.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Food &amp; Cooking Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/food/recipe-scaler\"><span class=\"rc-icon\">🍽️</span><span class=\"rc-name\">Recipe Scaler</span></a><a class=\"related-card\" href=\"/calculators/food/cooking-conversion-calculator\"><span class=\"rc-icon\">🔄</span><span class=\"rc-name\">Cooking Conversions</span></a><a class=\"related-card\" href=\"/calculators/food/coffee-caffeine-calculator\"><span class=\"rc-icon\">☕</span><span class=\"rc-name\">Caffeine Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Food Cost Calculator – Recipe Cost and Cost Per Serving</h2><p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:8px;\">Enter up to 8 ingredients:</p><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n0\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 1</label>\n<input id=\"fc-n0\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Pasta\"/></div>\n<div><label for=\"fc-p0\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p0\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1.5\"/></div>\n<div><label for=\"fc-pk0\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk0\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"16\"/></div>\n<div><label for=\"fc-u0\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u0\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"12\"/></div>\n</div><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n1\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 2</label>\n<input id=\"fc-n1\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Tomato Sauce\"/></div>\n<div><label for=\"fc-p1\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p1\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2.0\"/></div>\n<div><label for=\"fc-pk1\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk1\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"24\"/></div>\n<div><label for=\"fc-u1\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u1\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"12\"/></div>\n</div><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n2\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 3</label>\n<input id=\"fc-n2\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Ground Beef\"/></div>\n<div><label for=\"fc-p2\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p2\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"5.0\"/></div>\n<div><label for=\"fc-pk2\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk2\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"16\"/></div>\n<div><label for=\"fc-u2\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u2\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"12\"/></div>\n</div><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n3\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 4</label>\n<input id=\"fc-n3\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Cheese\"/></div>\n<div><label for=\"fc-p3\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p3\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"3.0\"/></div>\n<div><label for=\"fc-pk3\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk3\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"8\"/></div>\n<div><label for=\"fc-u3\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u3\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"4\"/></div>\n</div><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n4\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 5</label>\n<input id=\"fc-n4\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Garlic\"/></div>\n<div><label for=\"fc-p4\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p4\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0.5\"/></div>\n<div><label for=\"fc-pk4\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk4\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"4\"/></div>\n<div><label for=\"fc-u4\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u4\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div>\n</div><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n5\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 6</label>\n<input id=\"fc-n5\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Olive Oil\"/></div>\n<div><label for=\"fc-p5\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p5\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"4.0\"/></div>\n<div><label for=\"fc-pk5\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk5\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"16\"/></div>\n<div><label for=\"fc-u5\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u5\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div>\n</div><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n6\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 7</label>\n<input id=\"fc-n6\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Onion\"/></div>\n<div><label for=\"fc-p6\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p6\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0.8\"/></div>\n<div><label for=\"fc-pk6\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk6\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"4\"/></div>\n<div><label for=\"fc-u6\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u6\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div>\n</div><div style=\"display:grid;grid-template-columns:1fr 60px 60px 60px;gap:4px;margin-bottom:6px;align-items:end;\">\n<div><label for=\"fc-n7\" style=\"font-size:10px;color:var(--c-ink2);\">Ingredient 8</label>\n<input id=\"fc-n7\" placeholder=\"Name\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\" type=\"text\" value=\"Herbs\"/></div>\n<div><label for=\"fc-p7\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg $</label>\n<input id=\"fc-p7\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1.0\"/></div>\n<div><label for=\"fc-pk7\" style=\"font-size:10px;color:var(--c-ink2);\">Pkg amt</label>\n<input id=\"fc-pk7\" min=\"0.01\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div>\n<div><label for=\"fc-u7\" style=\"font-size:10px;color:var(--c-ink2);\">Used</label>\n<input id=\"fc-u7\" min=\"0\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0.5\"/></div>\n</div><div class=\"form-group\"><label for=\"fc-serv\">Number of Servings</label><input id=\"fc-serv\" min=\"0.5\" step=\"0.5\" type=\"number\" value=\"4\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fd-result').style.display='none';document.getElementById('fd-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fd-result\" style=\"display:none;\"><div id=\"fd-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fd-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fd-ai\" style=\"display:none;\"></div></div>\n<div id=\"fd-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fd\" onclick=\"printResult('fd-result','Food Cost Calculator – Recipe Cost and Cost Per Serving')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Food Cost Calculator – Recipe Cost and Cost Per Serving')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-food-cost-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var total=0,items=[];\n  for(var i=0;i<8;i++){\n    var n=document.getElementById('fc-n'+i).value;\n    var p=parseFloat(document.getElementById('fc-p'+i).value)||0;\n    var pk=parseFloat(document.getElementById('fc-pk'+i).value)||1;\n    var u=parseFloat(document.getElementById('fc-u'+i).value)||0;\n    if(p>0&&u>0){var cost=p*(u/pk);total+=cost;items.push({n:n,cost:cost});}\n  }\n  var serv=parseFloat(document.getElementById('fc-serv').value)||4;\n  if(items.length===0){alert('Please enter at least one ingredient.');return;}\n  var perServ=total/serv;\n  var vsRestaurant=15-perServ;\n  var aiPrompt='Recipe costs $'+total.toFixed(2)+' total, $'+perServ.toFixed(2)+' per serving for '+serv+' servings';\n  document.getElementById('fd-ri').innerHTML=\n    ri('Total Recipe Cost','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+total.toFixed(2)+'</strong>',true)+\n    ri('Cost Per Serving','$'+perServ.toFixed(2)+' per serving')+\n    ri('vs Restaurant ($15 avg)','Save $'+Math.max(vsRestaurant,0).toFixed(2)+' per serving')+\n    ri('Annual Savings (1x/week)','$'+(Math.max(vsRestaurant,0)*serv*52).toFixed(0)+'/year')+\n    items.map(function(x){return ri(x.n,'$'+x.cost.toFixed(2));}).join('');\n  document.getElementById('fd-result').style.display='block';document.getElementById('fd-actions').style.display='flex';\n  drawDonut('fd-chart',items.map(function(x){return x.n;}),items.map(function(x){return Math.round(x.cost*100);}),['#1a5c3a','#c8832a','#3a7abf','#8a4abf','#bf4a4a','#4abf8a','#bf8a4a','#4a8abf']);\n  var ai=document.getElementById('fd-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical cooking or nutrition tip about reducing food costs and budget meal planning.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/food", label: "Food & Cooking" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Hospitality Accounting Summary: Target Food Cost & Prime Cost Formula
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              In commercial foodservice operations, the target food cost percentage typically ranges between 28% and 35% of menu price. Prime cost—the combination of ingredient cost of goods sold (COGS) and culinary labor—should never exceed 60% to 65% for viable profitability. You can scale catering quantities with our{" "}
+              <Link href="/calculators/food/recipe-scaler" className="font-medium underline hover:text-amber-900">
+                recipe scaler
+              </Link>{" "}
+              and evaluate server gratuity distribution in the{" "}
+              <Link href="/calculators/food/tip-calculator" className="font-medium underline hover:text-amber-900">
+                tip calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Hospitality Unit Economics & Contribution Margin Waterfall</h2>
+          <RestaurantFoodCostMarginWaterfallChart />
+          <p>
+            Culinary financial engineering is built upon cost-volume-profit (CVP) analysis and portion-level accounting. Every dollar of gross restaurant revenue must absorb food inventory expenditures, culinary preparation wages, front-of-house service labor, commercial kitchen occupancy overhead, utility gas/electricity, and credit card processing charges before yielding net operating profit.
+          </p>
+          <p>
+            Because food commodities are perishable and subject to trimming waste (the difference between As-Purchased [AP] and Edible Portion [EP] weight), precision costing requires standardizing ingredient unit prices in grams and milliliters using our{" "}
+            <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              cooking conversion calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"\text{Food Cost Per Portion} = \frac{\sum (\text{Ingredient AP Price} \times \text{Quantity Used})}{\text{Total Servings Yielded}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Suggested Menu Price} = \frac{\text{Food Cost Per Portion}}{\text{Target Food Cost \% / 100}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Gross Contribution Margin} = \text{Menu Price} - \text{Food Cost Per Portion}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Prime Cost} = \text{Food Cost} + \text{Direct Labor Cost} \quad (\text{Benchmark: } \le 60\%\text{ of Revenue})"}
+          </Formula>
+
+          <h2>Commercial Foodservice Segment Food Cost & Margin Benchmarks</h2>
+          <p>
+            Target food cost percentages vary significantly across culinary operating models due to varying labor intensities, seating velocity, and inventory perishability:
+          </p>
+
+          <DataTable
+            head={[
+              "Operating Segment",
+              "Target Food Cost %",
+              "Labor Burden %",
+              "Prime Cost %",
+              "Gross Margin %",
+              "Average Net Profit %",
+            ]}
+            rows={[
+              ["Fast-Casual / Quick Service (QSR)", "28.0%", "30.0%", "58.0%", "72.0%", "14.0% - 18.0%"],
+              ["Casual Dining & Brewpubs", "32.0%", "34.0%", "66.0%", "68.0%", "8.0% - 12.0%"],
+              ["Fine Dining & Tasting Menus", "36.0%", "40.0%", "76.0%", "64.0%", "5.0% - 9.0%"],
+              ["Artisan Pizzeria & Pasta Bars", "22.0%", "32.0%", "54.0%", "78.0%", "15.0% - 22.0%"],
+              ["Specialty Coffee & Espresso Bars", "18.0%", "38.0%", "56.0%", "82.0%", "16.0% - 24.0%"],
+              ["Commercial Catering & Events", "26.0%", "28.0%", "54.0%", "74.0%", "18.0% - 25.0%"],
+              ["Hospitality Bakery & Patisserie", "20.0%", "42.0%", "62.0%", "80.0%", "10.0% - 16.0%"],
+            ]}
+          />
+
+          <h2>Worked Financial Scenario: Menu Pricing a Pan-Seared Salmon Entree</h2>
+          <p>
+            Consider an executive chef developing an 8-portion pan-seared Atlantic salmon entree served with garlic mashed potatoes, roasted asparagus, and lemon-dill buerre blanc. To balance kitchen production with roasting durations in our{" "}
+            <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              cooking time calculator
+            </Link>{" "}
+            and baking components via the{" "}
+            <Link href="/calculators/food/baking-substitution-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              baking substitution calculator
+            </Link>, we calculate batch costs, plate costs, and menu pricing:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Fresh Salmon Fillet (AP):</strong> 3.0 lbs pin-boned salmon at $11.50/lb = $34.50. Yield after portioning = 8 six-ounce portions ($4.31/plate).
+            </li>
+            <li>
+              <strong>Starch & Vegetable Accompaniments:</strong> 2.5 lbs russet potatoes ($2.00), 1 lb fresh asparagus ($3.50), heavy cream and whole butter ($2.80) = $8.30 total ($1.04/plate).
+            </li>
+            <li>
+              <strong>Sauce, Seasoning & Garnish:</strong> White wine, fresh dill, lemon, shallots, and kosher salt = $3.20 total ($0.40/plate).
+            </li>
+            <li>
+              <strong>Total Batch Ingredient Cost:</strong> $34.50 + $8.30 + $3.20 = $46.00 total batch cost.
+              <Formula>
+                {"\text{Food Cost Per Portion} = \frac{\$46.00}{8} = \$5.75\,\text{per serving}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Retail Menu Pricing at 28% Food Cost:</strong>
+              <Formula>
+                {"\text{Menu Price} = \frac{\$5.75}{0.28} = \$20.54 \longrightarrow \text{Menu Price Point: } \$21.00"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Contribution Margin Analysis:</strong> At $21.00 menu price, gross contribution margin = $21.00 - $5.75 = $15.25 per plate to cover labor, lease, and profit.
+            </li>
+            <li>
+              <strong>Nutritional & Caloric Density:</strong> The culinary team documents protein and lipid macros using our{" "}
+              <Link href="/calculators/food/nutrition-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                nutrition calculator
+              </Link>{" "}
+              and physical staff stamina in the{" "}
+              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                calorie burn calculator
+              </Link>.
+            </li>
+          </ul>
+
+          <h2>The Menu Engineering Matrix: Stars, Plowhorses, Puzzles & Dogs</h2>
+          <p>
+            Modern hospitality operators combine food costing with the Boston Consulting Group menu engineering framework developed by Kasavana and Smith. Menu items are categorized across two orthogonal dimensions: popularity (sales volume share) and profitability (gross contribution margin):
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Stars (High Margin, High Popularity):</strong> The core profit drivers of the restaurant. Maintain strict recipe consistency and prominent visual placement on the menu.
+            </li>
+            <li>
+              <strong>Plowhorses (Low Margin, High Popularity):</strong> Fan favorites that generate substantial cash flow but exhibit high ingredient cost. Re-engineer portion sizes or subtly increase menu pricing.
+            </li>
+            <li>
+              <strong>Puzzles (High Margin, Low Popularity):</strong> Highly profitable items that struggle to sell. Retrain service staff to highlight these dishes, or reposition them on the guest check.
+            </li>
+            <li>
+              <strong>Dogs (Low Margin, Low Popularity):</strong> Unprofitable, slow-moving inventory items. Eliminate them from the menu to reduce culinary waste.
+            </li>
+          </ul>
+
+          <h2>Inventory Shrinkage, Theoretical vs Actual COGS & Waste Ledger Protocols</h2>
+          <p>
+            In commercial hospitality accounting, a critical variance exists between theoretical food cost (what the recipe cards mathematically dictate should have been spent based on register sales volume) and actual Cost of Goods Sold (derived from periodic physical storeroom inventory audits). Actual COGS is calculated using the standard inventory equation: Beginning Inventory + Purchases - Ending Inventory = Actual COGS.
+          </p>
+          <p>
+            The difference between actual and theoretical food cost represents operational inventory variance or &quot;shrink.&quot; Common drivers of excessive variance include unrecorded kitchen prep scrap, line burn, employee shift meals, over-portioning, spillage, and storeroom theft. In well-controlled commercial restaurants, inventory variance is rigorously constrained to within 1.0% to 2.0% of gross food sales. Implementing mandatory digital waste logs where culinary staff record every dropped, burned, or expired ingredient transforms invisible margin erosion into actionable management intelligence.
+          </p>
+          <p>
+            Furthermore, butcher yield tests must be performed periodically on whole primal cuts. When kitchen staff break down a whole beef strip loin or fresh salmon, documenting the precise weight of usable center-cut steaks, stew meat trim, fat cap trimmings, and rendering bones allows the chef to allocate cost across multiple menu categories rather than burdening the primary center-of-plate entree with the entire invoice wholesale cost.
+          </p>
+          
+
+          <h2>Operational Pitfalls in Culinary Inventory & Portion Drift</h2>
+          <p>
+            Food cost percentages frequently inflate due to subtle operational failures:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Portion Creep:</strong> A line cook over-portioning protein by just 0.5 oz on a $12/lb steak inflates food cost by $0.38 per dish, eroding thousands of dollars in annual net profit.
+            </li>
+            <li>
+              <strong>Ignoring Yield Factors (AP vs EP):</strong> Purchasing 10 lbs of raw whole onions yields only 8.8 lbs of peeled diced product (88% yield). Costing recipes on AP weight underestimates true portion cost.
+            </li>
+            <li>
+              <strong>Beverage Program Integration:</strong> Beverage and alcohol margins (typically running 15% to 20% beverage cost) offset higher kitchen food costs, with beverage volumes tracked in our{" "}
+              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                alcohol unit calculator
+              </Link>{" "}
+              and specialty coffee margins modeled in the{" "}
+              <Link href="/calculators/food/coffee-caffeine-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                coffee caffeine calculator
+              </Link>.
+            </li>
+            <li>
+              <strong>Gratuity & Front-of-House Labor:</strong> Front-of-house service staff rely on customer tips calculated in our{" "}
+              <Link href="/calculators/food/tip-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                tip calculator
+              </Link>, directly influencing dining room retention and operational harmony.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is an ideal food cost percentage for a full-service restaurant?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                For a standard full-service restaurant, the target food cost percentage typically sits between 28% and 35%. Lower-cost concepts like pizzerias often operate at 20% to 25%, while high-end steakhouses and seafood restaurants can operate profitably at 35% to 38% due to high dollar contribution margins.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the difference between food cost percentage and gross contribution margin?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Food cost percentage measures ingredient cost relative to selling price (Cost / Price). Contribution margin measures the actual cash dollars remaining after deducting food cost (Price - Cost). High contribution dollars pay the rent, not percentages alone.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What does prime cost represent in hospitality operations?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Prime cost is the sum of total Cost of Goods Sold (food and beverage inventory) plus total labor (culinary, service, management, taxes, and benefits). Prime cost should remain at or below 60% of total revenue in full-service operations.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does scaling recipe batches impact unit portion cost?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                When scaling production using our{" "}
+                <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  recipe scaler
+                </Link>, bulk commercial purchasing reduces unit ingredient costs, improving net dish margins by 3% to 8%.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why must kitchen staff account for As-Purchased vs Edible Portion weight?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Produce, meats, and seafood lose mass during peeling, trimming, and butchery. If an ingredient costs $10/lb and yields 80% usable product, the true Edible Portion cost is $10 / 0.80 = $12.50 per pound.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do guest check tips relate to overall restaurant operational health?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Gratuities calculated in our{" "}
+                <Link href="/calculators/food/tip-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  tip calculator
+                </Link>{" "}
+                provide the primary compensation for dining room staff. High guest tips reflect service excellence, correlating directly with repeat customer volume.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Hospitality Accounting Standards & Industry Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>National Restaurant Association (NRA):</strong> Uniform System of Accounts for Restaurants (USAR), 8th Edition.
+            </li>
+            <li>
+              <strong>Hospitality Financial and Technology Professionals (HFTP):</strong> Financial management and prime cost benchmarking standards.
+            </li>
+            <li>
+              <strong>Culinary Institute of America (The Professional Chef Culinary Math):</strong> Recipe costing, butcher yield tests, and portion control protocols.
+            </li>
+            <li>
+              <strong>Cornell School of Hotel Administration:</strong> Menu engineering and contribution margin optimization research publications.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <FoodCostCalculatorComponent />
+    </CalcPage>
   );
 }

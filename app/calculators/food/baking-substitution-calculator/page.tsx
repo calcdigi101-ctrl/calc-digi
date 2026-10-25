@@ -1,26 +1,273 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import BakingSubstitutionCalculatorComponent from "@/components/calcs/food/baking-substitution-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BakingIngredientHydrationRatioChart } from "@/components/flagship/food/editorial-charts";
+
+const PATH = "/calculators/food/baking-substitution-calculator";
+const TITLE = "Baking Substitution Calculator | Ratio, Hydration & Chemistry Balance";
+const DESCRIPTION =
+  "Calculate exact culinary ingredient substitutions for buttermilk, butter, eggs, sugar, and cake flour while preserving pastry hydration and moisture.";
 
 export const metadata: Metadata = {
-  "title": "Baking Substitution Calculator | CalcDigi",
-  "description": "Find the best substitute for eggs, butter, milk, flour, and sugar with exact amounts and tips for baking success.",
-  "openGraph": {
-    "title": "Baking Substitution Calculator | CalcDigi",
-    "description": "Find the best substitute for eggs, butter, milk, flour, and sugar with exact amounts and tips for baking success.",
-    "type": "website",
-    "url": "/calculators/food/baking-substitution-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/food/baking-substitution-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
+  { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
+  { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
+  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
+  { href: "/calculators/food/cooking-time-calculator", icon: "⏱️", name: "Cooking Time" },
+  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+];
+
+export default function BakingSubstitutionCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Food & Cooking Calculators\", \"item\": \"https://calcdigi.com/pages/food\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Baking Substitution Calculator\", \"item\": \"https://calcdigi.com/calculators/food/baking-substitution-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Baking Substitution Calculator\", \"url\": \"https://calcdigi.com/calculators/food/baking-substitution-calculator\", \"description\": \"Find the best substitute for eggs, butter, milk, flour, and sugar with exact amounts and tips for baking success.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What can I substitute for eggs in baking?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Common egg substitutes per egg: Flax egg (1 tbsp ground flax + 3 tbsp water, rest 5 min) — best for binding. Chia egg (1 tbsp chia seeds + 3 tbsp water) — similar to flax. Applesauce (1/4 cup) — adds moisture and sweetness. Aquafaba (3 tbsp) — closest to egg whites. Mashed banana (1/4 cup) — adds banana flavor. Commercial egg replacers — closest in performance.\"}}, {\"@type\": \"Question\", \"name\": \"Can I substitute oil for butter in baking?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes: use 3/4 cup oil for every 1 cup butter. Oil makes baked goods more moist (no water content that evaporates) but lacks butter flavor. Best for: chocolate cake, banana bread, muffins. Avoid for: cookies (lose their crisp edges), shortbreads, or pastries where butter structure is essential. Flavor difference is significant.\"}}, {\"@type\": \"Question\", \"name\": \"What is a substitute for buttermilk in baking?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Make buttermilk: add 1 tablespoon lemon juice or white vinegar to 1 cup milk, stir, let sit 5 minutes until slightly curdled. For dairy-free: use 1 cup plant milk + 1 tbsp lemon juice. These work because buttermilk role in baking is providing acid to react with baking soda for leavening. The curdling signals the acid is active.\"}}, {\"@type\": \"Question\", \"name\": \"Can I substitute baking soda for baking powder?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use 1/4 teaspoon baking soda for every 1 teaspoon baking powder. However, baking soda needs acid to activate — add 1/2 teaspoon cream of tartar or use acidic liquid (buttermilk, lemon juice, yogurt) in the recipe. The reverse: 1 tsp baking soda = 3 tsp baking powder (but reduces flavor complexity and may cause a chemical taste).\"}}, {\"@type\": \"Question\", \"name\": \"Can I substitute whole wheat flour for all-purpose flour?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use 3/4 cup whole wheat for every 1 cup all-purpose flour. Whole wheat has more fiber and protein, absorbing more liquid and producing a denser, heavier result. For best results: use white whole wheat flour (milder flavor), add 1-2 tablespoons extra liquid, and let batter rest 5-10 minutes for fiber to hydrate. Best for: muffins, quick breads, pancakes.\"}}, {\"@type\": \"Question\", \"name\": \"What can I use instead of sugar in baking?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Honey: use 3/4 cup + reduce liquid by 1/4 cup + add 1/4 tsp baking soda per cup sugar. Maple syrup: same as honey. Coconut sugar: 1:1 replacement, slight caramel flavor, similar to brown sugar. Applesauce: 1 cup per cup sugar + reduce other liquid. Erythritol/Monk fruit: 1:1 for most baking, does not brown like sugar.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/food\">Food &amp; Cooking</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Baking Substitution Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Baking Substitution Calculator</h1>\n<p class=\"calc-intro\">Find the best baking ingredient substitutes with exact amounts and success tips. Covers eggs, butter, milk, flour, sugar, baking powder, buttermilk, and more — with explanations of how each substitute affects the final result.</p>\n<p class=\"calc-intro\">Running out of an ingredient mid-recipe or accommodating dietary restrictions (dairy-free, egg-free, vegan) requires knowing the right substitutions. Baking is more chemistry than cooking — substitutions affect texture, rise, moisture, and flavor in predictable ways once you understand the science.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Substitution success depends on the role of the ingredient: binding (eggs), leavening (baking powder), moisture (milk), fat (butter), or structure (flour)</div></div>\n<div class=\"content-section\">\n<h2>Common Baking Substitution Guide</h2>\n<p>Every baking ingredient serves a specific function. Successful substitution means finding an alternative that performs the same function. Eggs bind and add structure — flax eggs work similarly. Butter adds fat and flavor — coconut oil or applesauce substitute depending on the desired result.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Original</th><th style=\"padding:11px 14px;text-align:left;\">Substitute</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 egg</td><td style=\"padding:10px 14px;\">1 tbsp ground flaxseed + 3 tbsp water (flax egg)</td><td style=\"padding:10px 14px;\">For binding in cookies and muffins</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 egg</td><td style=\"padding:10px 14px;\">1/4 cup unsweetened applesauce</td><td style=\"padding:10px 14px;\">Adds moisture, less binding — best for muffins</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 egg</td><td style=\"padding:10px 14px;\">3 tbsp aquafaba (chickpea liquid)</td><td style=\"padding:10px 14px;\">Closest to egg white for meringues</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 cup butter</td><td style=\"padding:10px 14px;\">1 cup coconut oil (solid)</td><td style=\"padding:10px 14px;\">1:1 for most recipes</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 cup butter</td><td style=\"padding:10px 14px;\">3/4 cup unsweetened applesauce</td><td style=\"padding:10px 14px;\">Reduces fat/calories; moister texture</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 cup all-purpose flour</td><td style=\"padding:10px 14px;\">1 cup + 2 tbsp cake flour</td><td style=\"padding:10px 14px;\">Lighter, more tender texture</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 cup all-purpose flour</td><td style=\"padding:10px 14px;\">3/4 cup whole wheat flour</td><td style=\"padding:10px 14px;\">Denser, nuttier flavor</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 cup buttermilk</td><td style=\"padding:10px 14px;\">1 cup milk + 1 tbsp lemon juice/vinegar</td><td style=\"padding:10px 14px;\">Let sit 5 min to curdle</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 tsp baking powder</td><td style=\"padding:10px 14px;\">1/4 tsp baking soda + 1/2 tsp cream of tartar</td><td style=\"padding:10px 14px;\">Exact leavening equivalent</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 cup white sugar</td><td style=\"padding:10px 14px;\">3/4 cup honey (reduce liquid by 1/4 cup)</td><td style=\"padding:10px 14px;\">Adds moisture and flavor</td></tr></tbody></table></div>\n<h3>When Substitutions Work Best</h3>\n<p>Substitutions work best in forgiving recipes: quick breads, muffins, cookies, and pancakes. More challenging in delicate recipes: soufflés, chiffon cakes, croissants, and anything requiring precise gluten development or egg foam structure. For critical recipes, use the exact ingredient. For everyday baking, most substitutions work well once you understand the tradeoffs.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What can I substitute for eggs in baking? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Common egg substitutes per egg: Flax egg (1 tbsp ground flax + 3 tbsp water, rest 5 min) — best for binding. Chia egg (1 tbsp chia seeds + 3 tbsp water) — similar to flax. Applesauce (1/4 cup) — adds moisture and sweetness. Aquafaba (3 tbsp) — closest to egg whites. Mashed banana (1/4 cup) — adds banana flavor. Commercial egg replacers — closest in performance.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I substitute oil for butter in baking? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes: use 3/4 cup oil for every 1 cup butter. Oil makes baked goods more moist (no water content that evaporates) but lacks butter flavor. Best for: chocolate cake, banana bread, muffins. Avoid for: cookies (lose their crisp edges), shortbreads, or pastries where butter structure is essential. Flavor difference is significant.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a substitute for buttermilk in baking? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Make buttermilk: add 1 tablespoon lemon juice or white vinegar to 1 cup milk, stir, let sit 5 minutes until slightly curdled. For dairy-free: use 1 cup plant milk + 1 tbsp lemon juice. These work because buttermilk role in baking is providing acid to react with baking soda for leavening. The curdling signals the acid is active.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I substitute baking soda for baking powder? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use 1/4 teaspoon baking soda for every 1 teaspoon baking powder. However, baking soda needs acid to activate — add 1/2 teaspoon cream of tartar or use acidic liquid (buttermilk, lemon juice, yogurt) in the recipe. The reverse: 1 tsp baking soda = 3 tsp baking powder (but reduces flavor complexity and may cause a chemical taste).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I substitute whole wheat flour for all-purpose flour? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use 3/4 cup whole wheat for every 1 cup all-purpose flour. Whole wheat has more fiber and protein, absorbing more liquid and producing a denser, heavier result. For best results: use white whole wheat flour (milder flavor), add 1-2 tablespoons extra liquid, and let batter rest 5-10 minutes for fiber to hydrate. Best for: muffins, quick breads, pancakes.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What can I use instead of sugar in baking? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Honey: use 3/4 cup + reduce liquid by 1/4 cup + add 1/4 tsp baking soda per cup sugar. Maple syrup: same as honey. Coconut sugar: 1:1 replacement, slight caramel flavor, similar to brown sugar. Applesauce: 1 cup per cup sugar + reduce other liquid. Erythritol/Monk fruit: 1:1 for most baking, does not brown like sugar.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Food &amp; Cooking Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/food/recipe-scaler\"><span class=\"rc-icon\">🍽️</span><span class=\"rc-name\">Recipe Scaler</span></a><a class=\"related-card\" href=\"/calculators/food/cooking-conversion-calculator\"><span class=\"rc-icon\">🔄</span><span class=\"rc-name\">Cooking Conversions</span></a><a class=\"related-card\" href=\"/calculators/food/food-cost-calculator\"><span class=\"rc-icon\">💰</span><span class=\"rc-name\">Food Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/food/coffee-caffeine-calculator\"><span class=\"rc-icon\">☕</span><span class=\"rc-name\">Caffeine Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Baking Substitution Calculator – Ingredient Substitutes and Ratios</h2><div class=\"form-group\"><label for=\"bs-ing\">Ingredient to Substitute</label><select id=\"bs-ing\"><option selected=\"\" value=\"egg\">Egg</option><option value=\"butter\">Butter</option><option value=\"milk\">Milk</option><option value=\"buttermilk\">Buttermilk</option><option value=\"baking_powder\">Baking Powder</option><option value=\"baking_soda\">Baking Soda</option><option value=\"flour_ap\">All-Purpose Flour</option><option value=\"sugar\">White Sugar</option><option value=\"oil\">Vegetable Oil</option><option value=\"cream\">Heavy Cream</option></select></div><div class=\"form-group\"><label for=\"bs-amount\">Amount Needed</label><input id=\"bs-amount\" min=\"0.1\" step=\"0.25\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"bs-unit\">Unit</label><select id=\"bs-unit\"><option selected=\"\" value=\"cup\">cups</option><option value=\"tsp\">teaspoons</option><option value=\"tbsp\">tablespoons</option><option value=\"count\">count (eggs)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('fd-result').style.display='none';document.getElementById('fd-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"fd-result\" style=\"display:none;\"><div id=\"fd-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"fd-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"fd-ai\" style=\"display:none;\"></div></div>\n<div id=\"fd-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-fd\" onclick=\"printResult('fd-result','Baking Substitution Calculator – Ingredient Substitutes and Ratios')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Baking Substitution Calculator – Ingredient Substitutes and Ratios')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-baking-substitution-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var SUBS={\n  egg:[['Flax Egg (vegan, best for binding)','1 tbsp ground flax + 3 tbsp water per egg. Let sit 5 min.'],['Applesauce (moist baked goods)','1/4 cup unsweetened applesauce per egg. Adds sweetness.'],['Aquafaba (meringues/whipped)','3 tbsp liquid from canned chickpeas per egg.'],['Chia Egg','1 tbsp chia seeds + 3 tbsp water. Works like flax egg.']],\n  butter:[['Coconut Oil (1:1)','Use same amount. Best for cookies and bars. Slight coconut flavor.'],['Applesauce (reduce calories)','Use 3/4 cup applesauce per cup butter. Results in moister, denser baked goods.'],['Greek Yogurt','Use 3/4 cup per cup butter. Adds tang and protein.'],['Olive Oil (savory baking)','Use 3/4 cup olive oil per cup butter.']],\n  milk:[['Plant Milk (almond, oat, soy)','Use 1:1. Oat milk closest in texture and fat content.'],['Water + extra fat','Use water but add 1 tbsp butter/oil per cup for missing fat.'],['Coconut milk (full fat)','Richer, slightly sweet. 1:1 replacement.']],\n  buttermilk:[['Milk + Acid (easiest)','1 cup milk + 1 tbsp lemon juice or vinegar. Wait 5 min.'],['Yogurt + Water','3/4 cup plain yogurt + 1/4 cup water per cup buttermilk.'],['Sour Cream + Water','3/4 cup sour cream + 1/4 cup water.']],\n  baking_powder:[['Baking Soda + Cream of Tartar','1/4 tsp baking soda + 1/2 tsp cream of tartar per 1 tsp baking powder.'],['Baking Soda + Yogurt','1/4 tsp baking soda per tsp; reduce liquid and add 1/2 cup yogurt.'],['Self-Rising Flour (replace flour)','1 cup self-rising flour replaces 1 cup AP flour + 1.5 tsp baking powder + 1/4 tsp salt.']],\n  baking_soda:[['Baking Powder (3x amount)','Use 3 tsp baking powder per 1 tsp baking soda. Less effective.'],['Potassium Bicarbonate (1:1)','Health-store alternative, same leavening without sodium.']],\n  flour_ap:[['Whole Wheat Flour (3/4 cup per cup)','Denser, nuttier. Add extra 2 tbsp liquid. Best for muffins.'],['Cake Flour (1 cup + 2 tbsp per cup)','Lighter, more tender crumb.'],['Gluten-Free Blend (1:1 GF flour)','Most 1:1 GF blends work well. Add 1/4 tsp xanthan gum if not included.'],['Oat Flour (1.3 cups per cup)','Slightly denser. Make by blending rolled oats.']],\n  sugar:[['Honey (3/4 cup per cup)','Reduce other liquids by 1/4 cup. Add 1/4 tsp baking soda.'],['Maple Syrup (3/4 cup per cup)','Slightly stronger flavor than honey.'],['Coconut Sugar (1:1)','Similar to brown sugar. Slight caramel flavor.'],['Monk Fruit / Erythritol (1:1)','Zero calorie. Does not brown like sugar.']],\n  oil:[['Butter (3/4 cup melted per cup)','Adds flavor, slightly less moist.'],['Applesauce (same amount)','Reduces calories significantly. Adds moisture and slight sweetness.'],['Greek Yogurt (3/4 cup per cup)','Adds protein, reduces fat.']],\n  cream:[['Full-Fat Coconut Milk','Best non-dairy substitute for heavy cream. 1:1.'],['Evaporated Milk (1:1)','Thicker than regular milk, works well in most recipes.'],['Half-and-Half (reduce fat in recipe)','Use 1:1, reduce butter slightly in recipe.']]\n};\nfunction doCalc(){\n  var ing=document.getElementById('bs-ing').value;\n  var amt=parseFloat(document.getElementById('bs-amount').value)||1;\n  var unit=document.getElementById('bs-unit').value;\n  var subs=SUBS[ing]||[];\n  var ingNames={egg:'Egg',butter:'Butter',milk:'Milk',buttermilk:'Buttermilk',baking_powder:'Baking Powder',baking_soda:'Baking Soda',flour_ap:'All-Purpose Flour',sugar:'White Sugar',oil:'Vegetable Oil',cream:'Heavy Cream'};\n  var rows=ri('Substituting',amt+' '+unit+' of '+ingNames[ing],true);\n  subs.forEach(function(s,i){rows+=ri('Option '+(i+1)+': '+s[0],s[1]);});\n  document.getElementById('fd-ri').innerHTML=rows;\n  document.getElementById('fd-result').style.display='block';document.getElementById('fd-actions').style.display='flex';\n  drawDonut('fd-chart',['Works Well','Some Adjustment','Minor Change'],[3,2,1],['#1a5c3a','#c8832a','#3a7abf']);\n  var aiPrompt='Baking substitution for '+amt+' '+unit+' of '+ingNames[ing];\n  var ai=document.getElementById('fd-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical cooking or nutrition tip about baking substitutions and ingredient alternatives.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/food", label: "Food & Cooking" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Culinary Chemistry Summary: Hydration & Lipid Equilibrium
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              Baking is precise food chemistry rather than intuitive seasoning. Substituting culinary staples like whole butter, buttermilk, chicken eggs, or granulated sucrose requires exact compensation for moisture percentage, solid lipid fractions, and pH acidity. To scale substituted formulas accurately, cross-verify with our{" "}
+              <Link href="/calculators/food/recipe-scaler" className="font-medium underline hover:text-amber-900">
+                recipe scaler
+              </Link>{" "}
+              and convert weight to volume with our{" "}
+              <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium underline hover:text-amber-900">
+                cooking conversion calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Physical Chemistry of Baking Substitutions & Moisture Balance</h2>
+          <BakingIngredientHydrationRatioChart />
+          <p>
+            Pastry formulations rely on an intricate equilibrium between structural firmers (gluten proteins and egg albumins) and tenderizers (lipids, sugars, and starch inhibitors). When an ingredient is substituted, pastry chefs must preserve total recipe moisture percentage, fat content, and acid-base stoichiometry.
+          </p>
+          <p>
+            For example, commercial salted or unsalted butter consists of approximately 80% to 82% milk fat, 16% to 18% water, and 1% to 2% milk solids. Substituting vegetable oil (100% lipid, 0% water) for butter on a 1:1 volumetric basis increases fat density while depriving gluten matrices of hydration. Chemical leavening reactions also depend critically on balancing sodium bicarbonate with organic dietary acids:
+          </p>
+
+          <Formula>
+            {"\text{NaHCO}_3 + \text{HA (Acid)} \longrightarrow \text{NaA} + \text{H}_2\text{O} + \text{CO}_2\,(\text{gas}) "}
+          </Formula>
+
+          <Formula>
+            {"\text{Hydration Ratio (\%)} = \frac{\text{Total Water Mass (g)}}{\text{Total Flour Weight (g)}} \times 100"}
+          </Formula>
+
+          <Formula>
+            {"\text{Butter to Oil Conversion: } \text{Oil Mass} = \text{Butter Mass} \times 0.80, \quad \text{Liquid Compensated} = \text{Butter Mass} \times 0.20"}
+          </Formula>
+
+          <Formula>
+            {"\text{Cake Flour Formulation} = 85\,\text{g All-Purpose Flour} + 15\,\text{g Cornstarch per } 100\,\text{g Target}"}
+          </Formula>
+
+          <h2>Authoritative Baking Substitution Matrix & Hydration Equivalencies</h2>
+          <p>
+            The following reference matrix outlines precise culinary substitutions across essential baking categories, detailing compensating liquids and structural adjustments required:
+          </p>
+
+          <DataTable
+            head={[
+              "Original Ingredient",
+              "Primary Substitution Option",
+              "Exact Formulation Ratio",
+              "Hydration Adjustment",
+              "Fat & Acidity Compensation",
+              "Best Culinary Application",
+            ]}
+            rows={[
+              ["1 Cup Buttermilk (242g)", "Whole Milk + Lemon Juice / Vinegar", "227g Milk + 15g Acid (1 tbsp)", "Neutral (+0g)", "Restores pH to 4.5 for leavening", "Pancakes, Scones, Biscuits"],
+              ["1 Cup Buttermilk (242g)", "Plain Greek Yogurt + Water", "180g Yogurt + 60g Water", "Neutral (+0g)", "Rich lactic acidity & protein", "Layer Cakes, Quick Breads"],
+              ["1 Cup Butter (227g)", "Neutral Vegetable / Canola Oil", "182g Oil (3/4 Cup)", "Add 45g Liquid / Milk", "Increases lipid tenderness", "Carrot Cake, Muffins"],
+              ["1 Cup Butter (227g)", "Unsweetened Applesauce", "114g Applesauce + 114g Fat", "Reduce other liquid by 20g", "Adds pectin, lowers calories", "Chewy Cookies, Brownies"],
+              ["1 Large Whole Egg (50g)", "Ground Flaxseed Meal + Warm Water", "7g Flax (1 tbsp) + 45g Water (3 tbsp)", "Allow 5 min gelation", "Mucilage mimics albumin binding", "Rustic Artisan Breads, Oats"],
+              ["1 Large Whole Egg (50g)", "Silken Tofu (Whipped Smooth)", "50g Pureed Silken Tofu", "Neutral (+0g)", "High protein structural matrix", "Pound Cakes, Dense Loaves"],
+              ["1 Cup Granulated Sugar (200g)", "Pure Maple Syrup or Raw Honey", "150g Liquid Sweetener (3/4 Cup)", "Reduce recipe liquid by 60ml", "Lowers oven temp by 25°F", "Banana Breads, Glazes"],
+              ["1 Cup Cake Flour (120g)", "All-Purpose Flour + Cornstarch", "102g AP Flour + 18g Cornstarch", "Sift 4 times for dispersal", "Dilutes protein from 11.5% to 8.5%", "Angel Food, Chiffon Cake"],
+            ]}
+          />
+
+          <h2>Worked Recipe Formulation: Vegan Lemon Sponge Substitution</h2>
+          <p>
+            Suppose a commercial baker wishes to convert a standard 8-portion butter-and-egg lemon cake into a plant-based dairy-free formulation while monitoring ingredient expenditures with our{" "}
+            <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              food cost calculator
+            </Link>{" "}
+            and nutritional profile with our{" "}
+            <Link href="/calculators/food/nutrition-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              nutrition calculator
+            </Link>.
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Original Egg Component:</strong> 3 large whole eggs = 150 grams raw mass (30g protein, 15g lipids, 105g water).
+            </li>
+            <li>
+              <strong>Egg Alternative Selection:</strong> Aquafaba (chickpea cooking brine) whipped to soft peaks. Using 45g aquafaba per egg requires 135g aquafaba. To compensate for missing yolk lecithin emulsifiers, the baker incorporates 0.5g sunflower lecithin.
+            </li>
+            <li>
+              <strong>Original Butter Component:</strong> 227 grams unsalted butter (182g milk fat, 41g water, 4g solids).
+            </li>
+            <li>
+              <strong>Butter Alternative Selection:</strong> Refined coconut oil (80%) blended with oat milk (20%). We combine 182g coconut oil with 45g barista-grade oat milk.
+            </li>
+            <li>
+              <strong>Leavening Adjustment:</strong> Adding 5 ml lemon juice activates the sodium bicarbonate leavener without requiring chemical buttermilk, ensuring total crumb volume matches traditional benchmarks.
+            </li>
+            <li>
+              <strong>Thermal Roasting Window:</strong> The baker calibrates oven roasting time and core temperature using our{" "}
+              <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                cooking time calculator
+              </Link>{" "}
+              to prevent premature surface caramelization caused by alternative sugars.
+            </li>
+          </ul>
+
+          <h2>Gluten Protein Dilution & Starch Gelatinization Dynamics</h2>
+          <p>
+            When synthesizing cake flour from all-purpose flour, the primary objective is attenuating the formation of glutenin and gliadin peptide complexes. All-purpose flour typically contains 10.5% to 12.0% protein by weight, yielding excessive elasticity in tender sponge cakes.
+          </p>
+          <p>
+            By replacing 15% of the flour mass with refined cornstarch (derived from pure zein-free maize endosperm), the overall protein concentration drops to approximately 8.5% to 9.0%. Cornstarch gelatinizes at approximately 62°C to 72°C, absorbing free ambient moisture and creating a tender crumb structure without tough gluten elongation.
+
+          <p>
+            Equally fundamental to pastry stability is water activity (denoted as aw), representing the ratio of vapor pressure of water in food matrices relative to pure distilled water at identical temperatures. Granulated sucrose acts not merely as a gustatory flavoring agent, but as a critical humectant and plasticizing solute. Sucrose molecules form hydrogen bonds with ambient free water dipoles, lowering chemical water activity and delaying wheat starch granule swelling during the initial baking phase.
+          </p>
+          <p>
+            When bakers substitute liquid sweeteners like agave nectar or honey, the increased proportion of monosaccharides (fructose and glucose) accelerates Maillard non-enzymatic browning via reactive carbonyl condensation. In addition, the enhanced hygroscopic affinity of fructose binds ambient moisture persistently after baking, preventing starch retrogradation and staling while yielding an exceptionally moist, dense crumb that requires careful structural oven timing.
+          </p>
+          </p>
+
+          <h2>Operational Pitfalls in Culinary Chemistry & Baking Practice</h2>
+          <p>
+            Avoid these critical errors when substituting essential baking components:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Over-Leavening with Baking Soda:</strong> Baking soda has an alkaline buffering capacity four times greater than standard double-acting baking powder. Without an acidic counter-ion, unreacted sodium carbonate persists in the crumb, raising the batter pH above 7.5. This elevates Maillard browning prematurely while breaking down delicate vanilla and chocolate aroma molecules, producing a bitter chemical palate. Baking soda is 4 times stronger than baking powder. Substituting baking soda without sufficient dietary acid leaves an unreacted soapy, alkaline aftertaste and yellow discoloration.
+            </li>
+            <li>
+              <strong>Liquid Sweetener Hygroscopic Shifts:</strong> Honey and maple syrup contain fructose and glucose, which are significantly more hygroscopic than sucrose. Batches brown much faster due to lower Maillard reaction temperatures; reduce oven temperature by 25°F (14°C).
+            </li>
+            <li>
+              <strong>Neglecting Volume-to-Weight Discrepancies:</strong> Measuring substituted powders by volume introduces up to 30% error due to compaction. Always weigh ingredients in grams using our{" "}
+              <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                cooking conversion calculator
+              </Link>.
+            </li>
+            <li>
+              <strong>Caloric & Burn Considerations:</strong> Substituting fruit purees for fats dramatically lowers lipid calories, which can be monitored in our{" "}
+              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                calorie burn calculator
+              </Link>{" "}
+              and beverage energy accounting in the{" "}
+              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                alcohol unit calculator
+              </Link>.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Can I replace butter with olive oil in cookie dough formulas?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                You can replace butter with olive oil, but the cookie texture will alter significantly. Butter is solid at room temperature (saturated fat), contributing to air entrapment during creaming and yielding a crisp edge. Olive oil (monounsaturated liquid lipid) creates a denser, softer, cake-like crumb. Use 3/4 the volume of butter.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does acidic buttermilk tenderize baked goods compared to regular sweet milk?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Buttermilk contains lactic acid (pH ~4.5), which hydrolyzes wheat proteins, weakening strong gluten strands and yielding an exceptionally delicate crumb. In addition, lactic acid reacts instantly with baking soda to release carbon dioxide micro-bubbles before oven entry.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the best egg substitute for structural binding in rich brownies?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                For dense, fudgy brownies, pureed silken tofu (50g per egg) or commercial powdered egg replacer provides the optimal emulsifying protein structure without introducing unwanted fruit flavors like banana or applesauce.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why must liquid sweetener recipes reduce overall water volume?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Honey contains approximately 17% water, and maple syrup contains roughly 33% water. If you replace granulated dry sugar without reducing milk, water, or egg volume by roughly 3 to 4 tablespoons per cup of syrup, your batter will become oversaturated and collapse during baking.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do commercial bakeries scale alternative ingredient formulas?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Commercial facilities express every ingredient as a baker&apos;s percentage relative to flour weight (100%). When scaling large production runs, bakers utilize our{" "}
+                <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  recipe scaler
+                </Link>{" "}
+                to ensure hydration ratios remain chemically identical across multi-kilogram batches.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does ingredient substitution impact commercial restaurant food margins?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Specialty ingredients such as almond flour, pure maple syrup, and egg alternatives can cost 3 to 5 times more than standard wheat flour and eggs. Chefs model these shifts using our{" "}
+                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  food cost calculator
+                </Link>{" "}
+                to ensure menu pricing maintains hospitality profitability standards.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Culinary Science Standards & Regulatory Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>American Association of Cereal Chemists (AACC International):</strong> Approved methods for measuring wheat flour protein content, sedimentation, and starch gelatinization.
+            </li>
+            <li>
+              <strong>United States Department of Agriculture (USDA ARS):</strong> Food composition databases for moisture, lipid, and protein ratios in commercial baking ingredients.
+            </li>
+            <li>
+              <strong>Food and Drug Administration (FDA 21 CFR Part 137):</strong> Standards of identity for cereal flours, whole wheat products, and cornstarch additives.
+            </li>
+            <li>
+              <strong>Culinary Institute of America (The Professional Chef Baking Metrology):</strong> Textural classifications and formula balance in classical pastry arts.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <BakingSubstitutionCalculatorComponent />
+    </CalcPage>
   );
 }
