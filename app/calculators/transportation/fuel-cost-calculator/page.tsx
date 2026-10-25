@@ -1,26 +1,281 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import FuelCostCalculatorComponent from "@/components/calcs/transportation/fuel-cost-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { FuelCostPerMileSensitivityChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/fuel-cost-calculator";
+const TITLE = "Fuel Cost Calculator | Gas Trip Expense & Passenger Split Solver";
+const DESCRIPTION =
+  "Calculate road trip fuel costs, gallons consumed, gas price per mile, and fair passenger expense splits based on real-world vehicle MPG.";
 
 export const metadata: Metadata = {
-  "title": "Fuel Cost Calculator – Gas Cost Per Mile | CalcDigi",
-  "description": "Calculate gas cost per mile, per trip, and per month. Find your true driving cost for any vehicle MPG and local gas price.",
-  "openGraph": {
-    "title": "Fuel Cost Calculator – Gas Cost Per Mile | CalcDigi",
-    "description": "Calculate gas cost per mile, per trip, and per month. Find your true driving cost for any vehicle MPG and local gas price.",
-    "type": "website",
-    "url": "/calculators/transportation/fuel-cost-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/fuel-cost-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
+  { href: "/calculators/transportation/mpg-calculator", icon: "📊", name: "MPG Calculator" },
+  { href: "/calculators/transportation/ev-savings-calculator", icon: "⚡", name: "EV Savings Calculator" },
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+  { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
+  { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
+];
+
+export default function FuelCostCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Fuel Cost Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/fuel-cost-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Fuel Cost Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/fuel-cost-calculator\", \"description\": \"Calculate gas cost per mile, per trip, and per month. Find your true driving cost for any vehicle MPG and local gas price.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate fuel cost per mile?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Fuel cost per mile = Gas price per gallon / MPG. At $3.50/gallon and 28 MPG: $3.50 / 28 = $0.125 per mile. For annual cost: $0.125 × 15,000 miles = $1,875/year. This is one of the most useful numbers for comparing vehicles and calculating trip costs.\"}}, {\"@type\": \"Question\", \"name\": \"How much does it cost to drive 100 miles?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At $3.50/gallon: 20 MPG car = $17.50, 25 MPG = $14.00, 30 MPG = $11.67, 35 MPG = $10.00, 40 MPG = $8.75. Formula: Cost = 100 miles / MPG × gas price. Every 5 MPG improvement saves $1-4 per 100 miles depending on gas price.\"}}, {\"@type\": \"Question\", \"name\": \"What is the average fuel cost per month?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average US driver travels 1,250 miles/month. At 25 MPG and $3.50/gas: 1,250/25 × $3.50 = $175/month. At 20 MPG: $219/month. At 35 MPG: $125/month. Annual difference between 20 MPG and 35 MPG vehicle at $3.50 gas: ($219-$125) × 12 = $1,128 saved per year.\"}}, {\"@type\": \"Question\", \"name\": \"How much do I save by switching to a more fuel efficient car?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Annual savings = Annual miles × Gas price × (1/Old MPG - 1/New MPG). Switching from 20 MPG to 30 MPG at $3.50 gas, 15,000 miles/year: 15,000 × $3.50 × (1/20 - 1/30) = $52,500 × 0.01667 = $875/year. Over 10 years: $8,750 in fuel savings.\"}}, {\"@type\": \"Question\", \"name\": \"How does driving speed affect fuel economy?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Fuel economy peaks around 45-55 mph for most vehicles. Above 55 mph, aerodynamic drag increases rapidly — fuel economy drops about 2% for every 5 mph over 50 mph. At 70 mph vs 55 mph: 17% more fuel consumption. Slowing from 70 to 60 mph on a highway road trip saves approximately $5-8 per tank.\"}}, {\"@type\": \"Question\", \"name\": \"Is it worth driving farther to cheaper gas?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Calculate break-even: Extra miles × (fuel cost per mile for your car) vs savings per gallon × tank size. If a station 5 miles away saves $0.20/gallon and your tank holds 15 gallons: saves $3.00 but costs 10 miles × $0.14/mile = $1.40. Net savings: $1.60. Worth it for large tanks and significant price differences.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Fuel Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Fuel Cost Calculator</h1>\n<p class=\"calc-intro\">Calculate your exact fuel cost per mile, per trip, and monthly gas expense based on your vehicle MPG and local gas price. Understand your true cost of driving and compare different vehicles fuel efficiency.</p>\n<p class=\"calc-intro\">Fuel is one of the largest ongoing vehicle expenses. At $3.50 per gallon with a 25 MPG car, every mile costs 14 cents — that adds up to $2,100 per year for the average driver covering 15,000 miles. Knowing your exact fuel cost per mile helps you budget accurately and compare vehicle options.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Fuel Cost = Distance / MPG × Gas Price | Cost per Mile = Gas Price / MPG | Monthly Cost = Monthly Miles / MPG × Gas Price</div></div>\n<div class=\"content-section\">\n<h2>Understanding Your True Fuel Cost</h2>\n<p>Fuel cost is the most variable operating expense of any vehicle. It depends on three factors: how far you drive, how fuel-efficient your vehicle is (MPG), and how much fuel costs in your area. Small improvements in any of these factors can save hundreds of dollars per year.</p>\n<h3>Average Fuel Costs by Vehicle Type</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Vehicle Type</th><th style=\"padding:11px 14px;text-align:left;\">Avg MPG</th><th style=\"padding:11px 14px;text-align:left;\">Cost/Mile @ $3.50/gal</th><th style=\"padding:11px 14px;text-align:left;\">Annual Cost</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Compact Car</td><td style=\"padding:10px 14px;\">35 MPG</td><td style=\"padding:10px 14px;\">$0.10/mile</td><td style=\"padding:10px 14px;\">$1,500/yr (15k mi)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Midsize Sedan</td><td style=\"padding:10px 14px;\">30 MPG</td><td style=\"padding:10px 14px;\">$0.12/mile</td><td style=\"padding:10px 14px;\">$1,750/yr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">SUV / Crossover</td><td style=\"padding:10px 14px;\">25 MPG</td><td style=\"padding:10px 14px;\">$0.14/mile</td><td style=\"padding:10px 14px;\">$2,100/yr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Pickup Truck</td><td style=\"padding:10px 14px;\">20 MPG</td><td style=\"padding:10px 14px;\">$0.175/mile</td><td style=\"padding:10px 14px;\">$2,625/yr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Large SUV / Truck</td><td style=\"padding:10px 14px;\">15 MPG</td><td style=\"padding:10px 14px;\">$0.23/mile</td><td style=\"padding:10px 14px;\">$3,500/yr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Hybrid</td><td style=\"padding:10px 14px;\">50 MPG</td><td style=\"padding:10px 14px;\">$0.07/mile</td><td style=\"padding:10px 14px;\">$1,050/yr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Electric Vehicle</td><td style=\"padding:10px 14px;\">3.5 mi/kWh</td><td style=\"padding:10px 14px;\">$0.03-0.05/mile</td><td style=\"padding:10px 14px;\">$450-750/yr</td></tr></tbody></table></div>\n<h3>Tips to Reduce Fuel Costs</h3>\n<p>Proven fuel-saving techniques: maintain proper tire inflation (underinflated tires reduce MPG by 0.2% per PSI below recommended), remove excess weight from the car, use cruise control on highways (saves 7-14% fuel), accelerate gradually and brake smoothly, avoid idling (costs 0.25 gallons/hour), use the recommended fuel grade, and keep the engine properly maintained (dirty air filters reduce MPG by up to 10%).</p>\n<h3>Gas Price Tracking</h3>\n<p>Gas prices vary by region, season, and crude oil markets. US average: $3.00-4.00/gallon regular. California consistently highest ($4.50-6.00). Gulf Coast states lowest ($2.80-3.20). Gas is typically 20-30 cents cheaper at warehouse clubs (Costco, Sam's Club) but requires membership. GasBuddy app shows real-time prices at nearby stations.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate fuel cost per mile? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Fuel cost per mile = Gas price per gallon / MPG. At $3.50/gallon and 28 MPG: $3.50 / 28 = $0.125 per mile. For annual cost: $0.125 × 15,000 miles = $1,875/year. This is one of the most useful numbers for comparing vehicles and calculating trip costs.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does it cost to drive 100 miles? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At $3.50/gallon: 20 MPG car = $17.50, 25 MPG = $14.00, 30 MPG = $11.67, 35 MPG = $10.00, 40 MPG = $8.75. Formula: Cost = 100 miles / MPG × gas price. Every 5 MPG improvement saves $1-4 per 100 miles depending on gas price.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the average fuel cost per month? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average US driver travels 1,250 miles/month. At 25 MPG and $3.50/gas: 1,250/25 × $3.50 = $175/month. At 20 MPG: $219/month. At 35 MPG: $125/month. Annual difference between 20 MPG and 35 MPG vehicle at $3.50 gas: ($219-$125) × 12 = $1,128 saved per year.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much do I save by switching to a more fuel efficient car? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Annual savings = Annual miles × Gas price × (1/Old MPG - 1/New MPG). Switching from 20 MPG to 30 MPG at $3.50 gas, 15,000 miles/year: 15,000 × $3.50 × (1/20 - 1/30) = $52,500 × 0.01667 = $875/year. Over 10 years: $8,750 in fuel savings.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does driving speed affect fuel economy? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Fuel economy peaks around 45-55 mph for most vehicles. Above 55 mph, aerodynamic drag increases rapidly — fuel economy drops about 2% for every 5 mph over 50 mph. At 70 mph vs 55 mph: 17% more fuel consumption. Slowing from 70 to 60 mph on a highway road trip saves approximately $5-8 per tank.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is it worth driving farther to cheaper gas? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Calculate break-even: Extra miles × (fuel cost per mile for your car) vs savings per gallon × tank size. If a station 5 miles away saves $0.20/gallon and your tank holds 15 gallons: saves $3.00 but costs 10 miles × $0.14/mile = $1.40. Net savings: $1.60. Worth it for large tanks and significant price differences.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Fuel Cost Calculator – Gas Cost Per Mile and Monthly Expense</h2><div class=\"form-group\"><label for=\"fc-mpg\">Vehicle Fuel Economy (MPG)</label><input id=\"fc-mpg\" max=\"200\" min=\"1\" step=\"0.1\" type=\"number\" value=\"28\"/></div><div class=\"form-group\"><label for=\"fc-price\">Gas Price per Gallon ($)</label><input id=\"fc-price\" max=\"15\" min=\"0.50\" step=\"0.01\" type=\"number\" value=\"3.50\"/></div><div class=\"form-group\"><label for=\"fc-miles\">Miles to Calculate</label><input id=\"fc-miles\" min=\"0.1\" step=\"1\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"fc-monthly\">Monthly Miles Driven</label><input id=\"fc-monthly\" min=\"1\" step=\"50\" type=\"number\" value=\"1250\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Fuel Cost Calculator – Gas Cost Per Mile and Monthly Expense')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Fuel Cost Calculator – Gas Cost Per Mile and Monthly Expense')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-fuel-cost-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var mpg=parseFloat(document.getElementById('fc-mpg').value)||0;\n  var price=parseFloat(document.getElementById('fc-price').value)||0;\n  var miles=parseFloat(document.getElementById('fc-miles').value)||100;\n  var monthly=parseFloat(document.getElementById('fc-monthly').value)||1250;\n  if(!mpg||!price){alert('Please enter MPG and gas price.');return;}\n  var cpm=price/mpg;\n  var tripCost=miles/mpg*price;\n  var monthlyCost=monthly/mpg*price;\n  var annualCost=monthlyCost*12;\n  var galsPerMonth=monthly/mpg;\n  var aiPrompt='Fuel: '+mpg+' MPG at $'+price+'/gal = $'+cpm.toFixed(3)+'/mile, $'+monthlyCost.toFixed(0)+'/month';\n  document.getElementById('tr-ri').innerHTML=\n    ri('Cost Per Mile','<strong style=\"font-size:26px;color:var(--c-accent)\">$'+cpm.toFixed(3)+'</strong>',true)+\n    ri('Trip Cost ('+miles+' miles)','$'+tripCost.toFixed(2))+\n    ri('Monthly Fuel Cost','$'+monthlyCost.toFixed(2))+\n    ri('Annual Fuel Cost','$'+annualCost.toFixed(0))+\n    ri('Gallons per Month',galsPerMonth.toFixed(1)+' gallons')+\n    ri('Gallons per Year',(galsPerMonth*12).toFixed(0)+' gallons');\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Fuel Cost','Other Miles Value'],[Math.round(monthlyCost),Math.round(monthly*0.10)],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical money-saving tip about reducing fuel costs and improving vehicle fuel efficiency.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Fuel Budgeting Summary: The Cost-Per-Mile Formula
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              Calculating road trip gasoline expenditure is a straightforward function of route distance, vehicle fuel economy (MPG), and fuel retail price. Total fuel consumed equals total miles divided by vehicle MPG, which when multiplied by fuel price yields total expenditure. You can check vehicle fuel economy ratings with our{" "}
+              <Link href="/calculators/transportation/mpg-calculator" className="font-medium underline hover:text-amber-900">
+                mpg calculator
+              </Link>{" "}
+              and evaluate electric alternatives in the{" "}
+              <Link href="/calculators/transportation/ev-savings-calculator" className="font-medium underline hover:text-amber-900">
+                ev savings calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Fuel Consumption Thermodynamics & Marginal Mileage Sensitivity</h2>
+          <FuelCostPerMileSensitivityChart />
+          <p>
+            In vehicular operational analysis, the fuel expense of road transit is governed by internal combustion chemical energy density. A standard gallon of commercial E10 unleaded gasoline contains approximately 114,000 to 121,000 British Thermal Units (BTU) of chemical potential energy, equivalent to roughly 33.7 kilowatt-hours (kWh) of electrical energy.
+          </p>
+          <p>
+            Because vehicle fuel economy (measured in Miles Per Gallon in the US and Liters per 100km globally) represents an inverse metric, improvements at low MPG ratings deliver dramatically greater dollar savings than equivalent numeric improvements at high MPG levels. Commuting budgets can be modeled in our{" "}
+            <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              commute cost calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"\text{Total Fuel Cost (\$)} = \left(\frac{\text{Trip Distance (Miles)}}{\text{Vehicle MPG}}\right) \times P_{\text{fuel/gal}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Driving Fuel Cost Per Mile} = \frac{P_{\text{fuel/gal}}}{\text{Vehicle MPG}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Cost Per 100 Miles} = \left(\frac{100}{\text{MPG}}\right) \times P_{\text{fuel/gal}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Passenger Equal Split (\$)} = \frac{\text{Total Trip Fuel Outlay}}{\text{Number of Travelers (N)}}"}
+          </Formula>
+
+          <h2>Vehicle Segment Fuel Cost Comparison Matrix: 500-Mile Road Trip</h2>
+          <p>
+            The benchmark reference table below compares fuel requirements and dollar outlays for a 500-mile highway journey across varying vehicle platforms at an average fuel price of $3.75 per gallon:
+          </p>
+
+          <DataTable
+            head={[
+              "Vehicle Segment / Platform",
+              "Highway Fuel Economy",
+              "Gallons Required (500 mi)",
+              "Total Fuel Cost ($3.75/gal)",
+              "Cost Per Mile",
+              "Split Across 4 Diners",
+            ]}
+            rows={[
+              ["Full-Size Heavy Duty V8 Truck", "15.0 MPG", "33.3 gal", "$125.00", "$0.250 / mi", "$31.25 / person"],
+              ["Large 3-Row Family SUV", "20.0 MPG", "25.0 gal", "$93.75", "$0.188 / mi", "$23.44 / person"],
+              ["Midsize Crossover (AWD)", "26.0 MPG", "19.2 gal", "$72.12", "$0.144 / mi", "$18.03 / person"],
+              ["Standard Compact Sedan", "34.0 MPG", "14.7 gal", "$55.15", "$0.110 / mi", "$13.79 / person"],
+              ["Subcompact Hatchback", "38.0 MPG", "13.2 gal", "$49.34", "$0.099 / mi", "$12.34 / person"],
+              ["Gasoline-Electric Hybrid Sedan", "52.0 MPG", "9.6 gal", "$36.06", "$0.072 / mi", "$9.01 / person"],
+              ["Plug-In Hybrid (PHEV on Gas Mode)", "42.0 MPG", "11.9 gal", "$44.64", "$0.089 / mi", "$11.16 / person"],
+            ]}
+          />
+
+          <h2>Worked Analytical Scenario: Pacing a 650-Mile Vacation Road Trip</h2>
+          <p>
+            Consider a group of 4 university colleagues embarking on a 650-statute-mile holiday road trip to a national park in a midsize crossover SUV rated at 27.0 highway MPG. With regional gasoline averaging $3.80 per gallon, we calculate total gallons consumed, total fuel costs, and equal passenger splits alongside distance duration modeled in our{" "}
+            <Link href="/calculators/transportation/distance-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              distance calculator
+            </Link>{" "}
+            and vehicle financing in the{" "}
+            <Link href="/calculators/transportation/car-payment-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              car payment calculator
+            </Link>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Total Fuel Volume Consumed:</strong>
+              <Formula>
+                {"\text{Gallons} = \frac{650.0\,\text{miles}}{27.0\,\text{MPG}} = 24.07\,\text{gallons} = 91.13\,\text{Liters}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Total Fuel Outlay:</strong>
+              <Formula>
+                {"\text{Total Fuel Cost} = 24.074\,\text{gallons} \times \$3.80/\text{gal} = \$91.48"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Driving Cost Per Mile:</strong>
+              <Formula>
+                {"\text{Cost/Mile} = \frac{\$91.48}{650\,\text{miles}} = \$0.1407/\text{mile} \quad (\$14.07/100\,\text{miles})"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Equal 4-Way Passenger Split:</strong> Dividing the $91.48 fuel bill equally among 4 passengers yields $91.48 / 4 = $22.87 per traveler.
+            </li>
+            <li>
+              <strong>Round-Trip Extension:</strong> If returning along the same route (1,300 miles total), cumulative fuel expense equals $182.96 ($45.74 per person).
+            </li>
+            <li>
+              <strong>Comparative Flight Alternative:</strong> Four round-trip regional airline tickets analyzed in our{" "}
+              <Link href="/calculators/transportation/flight-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                flight time calculator
+              </Link>{" "}
+              would cost upwards of $1,200, highlighting the massive cost efficiency of shared road trip travel.
+            </li>
+          
+            <li>
+              <strong>Hydrocarbon Volumetric Density & Seasonal Fuel Blends:</strong> Commercial retail gasoline expands and contracts with ambient ground temperatures at roughly 0.069% per degree Fahrenheit. Fuel dispensed from non-temperature-compensated pumps during cold early morning hours delivers marginally higher mass density per metered gallon. Furthermore, petroleum refineries transition between high-volatility winter blends (elevated butane and Reid Vapor Pressure) and summer gasoline formulations. Summer blends deliver approximately 1.7% higher volumetric energy density (BTUs per gallon), yielding subtly improved highway fuel economy during warmer months.
+            </li>
+          </ul>
+
+          <h2>The "MPG Illusion" & Non-Linear Fuel Savings Physics</h2>
+          <p>
+            Consumer behavioral economics frequently identifies the "MPG Illusion," first documented in science by Larrick and Soll. Because fuel economy in the US is expressed as distance per unit volume (miles per gallon) rather than volume per unit distance (gallons per 100 miles, as used in Europe and Canada), people intuitively assume that increasing fuel economy by 10 MPG delivers identical savings across all vehicles.
+          </p>
+          <p>
+            In reality, upgrading a vehicle from 15 MPG to 20 MPG over 10,000 miles saves 166.7 gallons of fuel ($625 at $3.75/gal). In contrast, upgrading an already efficient vehicle from 35 MPG to 45 MPG over the same 10,000 miles saves only 63.5 gallons ($238). The non-linear reciprocal curve (1/MPG) proves that replacing fuel-thirsty trucks and SUVs yields far greater financial dividends than hyper-miling compact sedans.
+          </p>
+
+          <h2>Operational Pitfalls in Fuel Budgeting & Real-World Consumption</h2>
+          <p>
+            Drivers should account for factors that depress real-world highway fuel economy:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Excessive Interstate Speeds:</strong> Driving at 80 mph requires 35% more aerodynamic power than driving at 65 mph, decreasing vehicle fuel economy by 15% to 20% and inflating fuel costs by $0.02 to $0.04 per mile.
+            </li>
+            <li>
+              <strong>Under-Inflated Tires:</strong> Operating with tire pressures 5 PSI below recommended door-jamb specifications increases rolling resistance, reducing fuel economy by 2% to 3%.
+            </li>
+            <li>
+              <strong>Roof Racks & Cargo Boxes:</strong> Mounting an empty rooftop cargo carrier or bicycle rack creates severe aerodynamic drag, cutting highway fuel economy by 10% to 22% at 70 mph.
+            </li>
+            <li>
+              <strong>Speed, Distance and Travel Pacing:</strong> Managing long driving days with proper pacing can be monitored using our{" "}
+              <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                speed distance time calculator
+              </Link>.
+            </li>
+          
+            <li>
+              <strong>Hydrocarbon Volumetric Density & Seasonal Fuel Blends:</strong> Commercial retail gasoline expands and contracts with ambient ground temperatures at roughly 0.069% per degree Fahrenheit. Fuel dispensed from non-temperature-compensated pumps during cold early morning hours delivers marginally higher mass density per metered gallon. Furthermore, petroleum refineries transition between high-volatility winter blends (elevated butane and Reid Vapor Pressure) and summer gasoline formulations. Summer blends deliver approximately 1.7% higher volumetric energy density (BTUs per gallon), yielding subtly improved highway fuel economy during warmer months.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do I calculate fuel cost per mile for my personal vehicle?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Divide the current local price of gasoline per gallon by your vehicle's real-world MPG. For example, if gas costs $3.60 per gallon and your car averages 30 MPG, your fuel cost per mile is $3.60 / 30 = $0.12 per mile ($12.00 per 100 miles driven).
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why is highway fuel economy typically higher than city fuel economy?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                City driving involves frequent stopping, idling at red lights, and accelerating vehicle mass from rest, which requires massive low-gear engine torque. Highway driving allows the transmission to cruise in tall overdrive gears at steady engine RPM without kinetic braking losses.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Does running the air conditioner noticeably increase vehicle fuel consumption?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Yes. Operating the mechanical air conditioning compressor draws 3 to 5 horsepower from the engine, reducing fuel economy by 5% to 15% in low-speed city driving. At speeds above 55 mph, running the AC is more fuel-efficient than driving with open windows, which ruins vehicle aerodynamics.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does road trip fuel expense compare against vehicle depreciation?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                On a 1,000-mile road trip, gasoline costs approximately $140, while vehicle depreciation modeled in our{" "}
+                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  car depreciation calculator
+                </Link>{" "}
+                adds roughly $100 to $150 in wear and tear, making total driving costs roughly double the fuel bill.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do passengers split road trip gas and toll costs fairly?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                The standard protocol is to begin the trip with a full tank of gas, retain all fuel and highway toll receipts during the journey, refill the tank upon return, and divide the cumulative receipt total equally among all traveling passengers.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does switching to an electric vehicle compare to gas fuel costs?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                As modeled in our{" "}
+                <Link href="/calculators/transportation/ev-savings-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  ev savings calculator
+                </Link>, home electric charging costs approximately $0.04 to $0.05 per mile, cutting road trip energy costs by roughly 60% compared to typical 25 MPG gasoline vehicles.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Fuel Economy Standards & Regulatory Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>US Environmental Protection Agency (EPA Office of Transportation and Air Quality):</strong> Light-Duty Automotive Fuel Economy Testing Regulations.
+            </li>
+            <li>
+              <strong>US Department of Energy (Energy Information Administration - EIA):</strong> Weekly Petroleum Status Report and Retail Gasoline Price Index.
+            </li>
+            <li>
+              <strong>National Highway Traffic Safety Administration (NHTSA):</strong> Corporate Average Fuel Economy (CAFE) Standards and Compliance Reports.
+            </li>
+            <li>
+              <strong>Society of Automotive Engineers (SAE J1312):</strong> Procedure for Measuring Fuel Consumption of Motor Vehicles on Proving Grounds.
+            </li>
+          
+            <li>
+              <strong>Hydrocarbon Volumetric Density & Seasonal Fuel Blends:</strong> Commercial retail gasoline expands and contracts with ambient ground temperatures at roughly 0.069% per degree Fahrenheit. Fuel dispensed from non-temperature-compensated pumps during cold early morning hours delivers marginally higher mass density per metered gallon. Furthermore, petroleum refineries transition between high-volatility winter blends (elevated butane and Reid Vapor Pressure) and summer gasoline formulations. Summer blends deliver approximately 1.7% higher volumetric energy density (BTUs per gallon), yielding subtly improved highway fuel economy during warmer months.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <FuelCostCalculatorComponent />
+    </CalcPage>
   );
 }

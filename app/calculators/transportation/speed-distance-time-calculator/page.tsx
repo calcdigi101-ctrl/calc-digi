@@ -1,26 +1,199 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import SpeedDistanceTimeCalculatorComponent from "@/components/calcs/transportation/speed-distance-time-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { KineticVelocityStoppingDistanceChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/speed-distance-time-calculator";
+const TITLE = "Speed Distance Time Calculator | Velocity, Transit & Stopping Physics";
+const DESCRIPTION =
+  "Solve speed, distance, and transit travel time with unit conversions across mph, km/h, knots, pace, and kinetic vehicle stopping distance physics.";
 
 export const metadata: Metadata = {
-  "title": "Speed Distance Time Calculator – Travel Time | CalcDigi",
-  "description": "Calculate travel time, distance, or speed from any two known values. Perfect for road trips, running, cycling, and physics.",
-  "openGraph": {
-    "title": "Speed Distance Time Calculator – Travel Time | CalcDigi",
-    "description": "Calculate travel time, distance, or speed from any two known values. Perfect for road trips, running, cycling, and physics.",
-    "type": "website",
-    "url": "/calculators/transportation/speed-distance-time-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/speed-distance-time-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+  { href: "/calculators/transportation/bike-pace-calculator", icon: "🚴", name: "Bike Pace Calculator" },
+  { href: "/calculators/transportation/flight-time-calculator", icon: "✈️", name: "Flight Time Calculator" },
+  { href: "/calculators/transportation/tire-size-calculator", icon: "🛞", name: "Tire Size Calculator" },
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/road-trip-cost-calculator", icon: "🗺️", name: "Road Trip Cost Calculator" },
+];
+
+export default function SpeedDistanceTimeCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Speed Distance Time Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/speed-distance-time-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Speed Distance Time Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/speed-distance-time-calculator\", \"description\": \"Calculate travel time, distance, or speed from any two known values. Perfect for road trips, running, cycling, and physics.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate travel time from distance and speed?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Time = Distance / Speed. For 250 miles at 65 mph: 250/65 = 3.846 hours = 3 hours 51 minutes. For km/h: 400 km at 100 km/h = 4 hours. Remember to account for stops — add 15-30 minutes per 2-3 hours of driving for rest stops.\"}}, {\"@type\": \"Question\", \"name\": \"How long does it take to drive 100 miles?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 60 mph: 100/60 = 1.667 hours = 1 hour 40 minutes. At 70 mph: 1 hour 26 minutes. At 55 mph: 1 hour 49 minutes. At 30 mph (city): 3 hours 20 minutes. These are driving-only times — add time for stops, traffic, and navigation errors in trip planning.\"}}, {\"@type\": \"Question\", \"name\": \"What is average driving speed for long road trips?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average door-to-door speed (including stops) on US interstate highway road trips: 50-55 mph. Even at 70 mph driving speed, stops for gas, food, and rest reduce the effective average. Plan on 500-600 miles per day as a comfortable maximum for long road trips with standard rest stops.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate the distance I can travel in X hours?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Distance = Speed × Time. At 65 mph for 3 hours: 65 × 3 = 195 miles. At 100 km/h for 4 hours: 400 km. For cycling: 15 mph × 2 hours = 30 miles. For walking: 3.5 mph × 4 hours = 14 miles.\"}}, {\"@type\": \"Question\", \"name\": \"How fast do I need to drive to arrive by a certain time?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Speed = Distance / Time. If you have 200 miles to cover in 3 hours: 200/3 = 66.7 mph required average speed. Remember average speed includes all stops — if you need 66.7 mph average with a 30-minute food stop, your actual driving speed needs to be higher to compensate.\"}}, {\"@type\": \"Question\", \"name\": \"What is the speed of light in miles per second?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The speed of light is approximately 186,282 miles per second (299,792 km/s). At this speed: it takes light about 1.3 seconds to travel from the Moon to Earth, 8 minutes from the Sun to Earth, and 4.24 years from the nearest star (Proxima Centauri) to Earth.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Speed Distance Time Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Speed Distance Time Calculator</h1>\n<p class=\"calc-intro\">Calculate any of the three variables — speed, distance, or time — when you know the other two. Essential for travel planning, physics problems, running pace calculation, and estimating arrival times for driving, cycling, or walking trips.</p>\n<p class=\"calc-intro\">The speed-distance-time relationship is one of the most fundamental calculations in everyday life — from estimating arrival times on road trips to calculating running pace to solving physics problems. Enter any two values to instantly find the third.</p>\n<div class=\"content-section\">\n<h2>Speed, Distance and Time in Travel</h2>\n<p>The SDT triangle is a fundamental tool for travel planning. Knowing any two variables allows you to calculate the third. This applies to all forms of transportation — from walking (3-4 mph) to cycling (10-20 mph) to driving (30-70 mph) to flying (500-600 mph) to high-speed rail (180-220 mph).</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Mode</th><th style=\"padding:11px 14px;text-align:left;\">Typical Speed</th><th style=\"padding:11px 14px;text-align:left;\">Per Mile</th><th style=\"padding:11px 14px;text-align:left;\">Reference</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Walking</td><td style=\"padding:10px 14px;\">3-4 mph (4.8-6.4 km/h)</td><td style=\"padding:10px 14px;\">1 mile = 15-20 min</td><td style=\"padding:10px 14px;\">5K = 45-60 min</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Cycling (casual)</td><td style=\"padding:10px 14px;\">10-15 mph (16-24 km/h)</td><td style=\"padding:10px 14px;\">1 mile = 4-6 min</td><td style=\"padding:10px 14px;\">5K = 8-12 min</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Cycling (sport)</td><td style=\"padding:10px 14px;\">18-25 mph (29-40 km/h)</td><td style=\"padding:10px 14px;\">1 mile = 2.5-3.5 min</td><td style=\"padding:10px 14px;\">5K = 6-8 min</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">City driving</td><td style=\"padding:10px 14px;\">20-30 mph avg</td><td style=\"padding:10px 14px;\">1 mile = 2-3 min</td><td style=\"padding:10px 14px;\">Traffic dependent</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Highway driving</td><td style=\"padding:10px 14px;\">60-70 mph</td><td style=\"padding:10px 14px;\">1 mile = 51-60 sec</td><td style=\"padding:10px 14px;\">100 miles = 1.5 hr</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Commercial flight</td><td style=\"padding:10px 14px;\">500-575 mph</td><td style=\"padding:10px 14px;\">1 mile = ~7 sec</td><td style=\"padding:10px 14px;\">NYC-LA = 5.5 hr</td></tr></tbody></table></div>\n<h3>Average Speed vs Constant Speed</h3>\n<p>This calculator uses average speed for the entire trip. In reality, speed varies — you stop at traffic lights, slow in construction zones, speed on open highway. Average speed = Total Distance / Total Time including all stops. If you drive 120 miles in 2.5 hours including a 20-minute food stop, your average speed = 120/2.5 = 48 mph, but your driving speed was higher.</p>\n<h3>Time Zone Considerations for Flight Time</h3>\n<p>Flight times are typically reported in local times at destination. A 5-hour flight from New York (EST) to Los Angeles (PST) departing at 8am arrives at 11am PST — a 3-hour clock time difference due to crossing 3 time zones, despite 5 hours of actual flight time. Always calculate arrival time in destination time zone.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate travel time from distance and speed? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Time = Distance / Speed. For 250 miles at 65 mph: 250/65 = 3.846 hours = 3 hours 51 minutes. For km/h: 400 km at 100 km/h = 4 hours. Remember to account for stops — add 15-30 minutes per 2-3 hours of driving for rest stops.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does it take to drive 100 miles? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 60 mph: 100/60 = 1.667 hours = 1 hour 40 minutes. At 70 mph: 1 hour 26 minutes. At 55 mph: 1 hour 49 minutes. At 30 mph (city): 3 hours 20 minutes. These are driving-only times — add time for stops, traffic, and navigation errors in trip planning.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is average driving speed for long road trips? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average door-to-door speed (including stops) on US interstate highway road trips: 50-55 mph. Even at 70 mph driving speed, stops for gas, food, and rest reduce the effective average. Plan on 500-600 miles per day as a comfortable maximum for long road trips with standard rest stops.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate the distance I can travel in X hours? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Distance = Speed × Time. At 65 mph for 3 hours: 65 × 3 = 195 miles. At 100 km/h for 4 hours: 400 km. For cycling: 15 mph × 2 hours = 30 miles. For walking: 3.5 mph × 4 hours = 14 miles.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How fast do I need to drive to arrive by a certain time? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Speed = Distance / Time. If you have 200 miles to cover in 3 hours: 200/3 = 66.7 mph required average speed. Remember average speed includes all stops — if you need 66.7 mph average with a 30-minute food stop, your actual driving speed needs to be higher to compensate.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the speed of light in miles per second? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The speed of light is approximately 186,282 miles per second (299,792 km/s). At this speed: it takes light about 1.3 seconds to travel from the Moon to Earth, 8 minutes from the Sun to Earth, and 4.24 years from the nearest star (Proxima Centauri) to Earth.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Speed Distance Time Calculator – Travel Planning Tool</h2><div class=\"form-group\"><label for=\"sdt-solve\">Solve For</label><select id=\"sdt-solve\"><option selected=\"\" value=\"time\">Travel Time</option><option value=\"dist\">Distance</option><option value=\"speed\">Speed</option></select></div><div id=\"sdt-time-inputs\"><div class=\"form-group\"><label for=\"sdt-d1\">Distance</label><input id=\"sdt-d1\" min=\"0.01\" step=\"any\" type=\"number\" value=\"250\"/></div><div class=\"form-group\"><label for=\"sdt-d1unit\">Distance Unit</label><select id=\"sdt-d1unit\"><option selected=\"\" value=\"mi\">Miles</option><option value=\"km\">Kilometers</option><option value=\"ft\">Feet</option><option value=\"m\">Meters</option></select></div><div class=\"form-group\"><label for=\"sdt-s1\">Speed</label><input id=\"sdt-s1\" min=\"0.01\" step=\"any\" type=\"number\" value=\"65\"/></div><div class=\"form-group\"><label for=\"sdt-s1unit\">Speed Unit</label><select id=\"sdt-s1unit\"><option selected=\"\" value=\"mph\">MPH</option><option value=\"kmh\">km/h</option><option value=\"ms\">m/s</option><option value=\"knots\">Knots</option></select></div></div><div id=\"sdt-dist-inputs\" style=\"display:none;\"><div class=\"form-group\"><label for=\"sdt-s2\">Speed</label><input id=\"sdt-s2\" min=\"0.01\" step=\"any\" type=\"number\" value=\"65\"/></div><div class=\"form-group\"><label for=\"sdt-s2unit\">Speed Unit</label><select id=\"sdt-s2unit\"><option selected=\"\" value=\"mph\">MPH</option><option value=\"kmh\">km/h</option><option value=\"ms\">m/s</option></select></div><div class=\"form-group\"><label for=\"sdt-t2\">Time (hours)</label><input id=\"sdt-t2\" min=\"0.01\" step=\"any\" type=\"number\" value=\"3\"/></div></div><div id=\"sdt-speed-inputs\" style=\"display:none;\"><div class=\"form-group\"><label for=\"sdt-d3\">Distance</label><input id=\"sdt-d3\" min=\"0.01\" step=\"any\" type=\"number\" value=\"195\"/></div><div class=\"form-group\"><label for=\"sdt-d3unit\">Distance Unit</label><select id=\"sdt-d3unit\"><option selected=\"\" value=\"mi\">Miles</option><option value=\"km\">Kilometers</option></select></div><div class=\"form-group\"><label for=\"sdt-t3\">Time (hours)</label><input id=\"sdt-t3\" min=\"0.01\" step=\"any\" type=\"number\" value=\"3\"/></div></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Speed Distance Time Calculator – Travel Planning Tool')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Speed Distance Time Calculator – Travel Planning Tool')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-speed-distance-time-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('sdt-solve').addEventListener('change',function(){\n  document.getElementById('sdt-time-inputs').style.display=this.value==='time'?'block':'none';\n  document.getElementById('sdt-dist-inputs').style.display=this.value==='dist'?'block':'none';\n  document.getElementById('sdt-speed-inputs').style.display=this.value==='speed'?'block':'none';\n});\nvar DIST_TO_MI={mi:1,km:0.621371,ft:0.000189394,m:0.000621371};\nvar SPEED_TO_MPH={mph:1,kmh:0.621371,ms:2.23694,knots:1.15078};\nfunction fmtTime(h){var hr=Math.floor(h);var min=Math.round((h-hr)*60);return hr+'h '+(min<10?'0':'')+min+'min';}\nfunction doCalc(){\n  var solve=document.getElementById('sdt-solve').value;\n  var result,dist_mi,speed_mph,time_h;\n  if(solve==='time'){\n    var d=parseFloat(document.getElementById('sdt-d1').value)||0;\n    var du=document.getElementById('sdt-d1unit').value;\n    var s=parseFloat(document.getElementById('sdt-s1').value)||0;\n    var su=document.getElementById('sdt-s1unit').value;\n    if(!d||!s){alert('Enter distance and speed.');return;}\n    dist_mi=d*DIST_TO_MI[du]; speed_mph=s*SPEED_TO_MPH[su];\n    time_h=dist_mi/speed_mph;\n    document.getElementById('tr-ri').innerHTML=\n      ri('Travel Time','<strong style=\"font-size:24px;color:var(--c-accent)\">'+fmtTime(time_h)+'</strong>',true)+\n      ri('Distance',d+' '+du+' ('+dist_mi.toFixed(1)+' mi)')+\n      ri('Speed',s+' '+su+' ('+speed_mph.toFixed(1)+' mph)')+\n      ri('Arrival (if leaving now)',new Date(Date.now()+time_h*3600000).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));\n  } else if(solve==='dist'){\n    var s2=parseFloat(document.getElementById('sdt-s2').value)||0;\n    var su2=document.getElementById('sdt-s2unit').value;\n    var t2=parseFloat(document.getElementById('sdt-t2').value)||0;\n    if(!s2||!t2){alert('Enter speed and time.');return;}\n    speed_mph=s2*SPEED_TO_MPH[su2]; dist_mi=speed_mph*t2;\n    document.getElementById('tr-ri').innerHTML=\n      ri('Distance','<strong style=\"font-size:24px;color:var(--c-accent)\">'+dist_mi.toFixed(1)+' miles</strong>',true)+\n      ri('In Kilometers',(dist_mi*1.60934).toFixed(1)+' km')+\n      ri('Speed',s2+' '+su2)+ri('Time',fmtTime(t2));\n  } else {\n    var d3=parseFloat(document.getElementById('sdt-d3').value)||0;\n    var du3=document.getElementById('sdt-d3unit').value;\n    var t3=parseFloat(document.getElementById('sdt-t3').value)||0;\n    if(!d3||!t3){alert('Enter distance and time.');return;}\n    dist_mi=d3*DIST_TO_MI[du3]; speed_mph=dist_mi/t3;\n    document.getElementById('tr-ri').innerHTML=\n      ri('Required Speed','<strong style=\"font-size:24px;color:var(--c-accent)\">'+speed_mph.toFixed(1)+' mph</strong>',true)+\n      ri('In km/h',(speed_mph*1.60934).toFixed(1)+' km/h')+\n      ri('Distance',d3+' '+du3)+ri('Time',fmtTime(t3));\n  }\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Distance (mi)','Speed (mph)'],[Math.round(dist_mi)||1,Math.round(speed_mph)||1],['#1a5c3a','#c8832a']);\n  var aiPrompt='Travel: '+dist_mi.toFixed(0)+' miles at '+speed_mph.toFixed(0)+' mph = '+fmtTime(dist_mi/speed_mph);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about travel planning and optimizing journey time.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Kinematics Quick Answer:</strong> The classical motion triangle relates speed, distance, and elapsed duration through the fundamental relationship <Formula>{"v = d / t"}</Formula>. However, in applied transportation engineering and vehicle dynamics, doubling your speed does not merely halve transit time; it quadruples your vehicle's kinetic stopping distance and non-linearly increases fuel consumption. Cross-checking your highway velocities with our <Link href="/calculators/transportation/distance-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">distance calculator</Link> reveals that increasing cruise speed from 60 mph to 75 mph over a 50-mile commute saves only 10 minutes while elevating collision impact energy by 56%.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Kinetic Energy Dissipation & Total Vehicle Stopping Distance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When operating any motorized transit vehicle, velocity dictates both arrival schedules and safety margins. Total stopping distance consists of two distinct physical phases: perception-reaction distance (the distance traversed at constant speed while the operator identifies a hazard and depresses the brake pedal) and mechanical braking distance (governed by friction work dissipating kinetic energy <Formula>{"E_k = \frac{1}{2}mv^2"}</Formula>). When planning cycling workouts alongside our <Link href="/calculators/transportation/bike-pace-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">bike pace calculator</Link>, identical quadratic braking rules apply to bicycle tires on pavement.
+          </p>
+
+          <KineticVelocityStoppingDistanceChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The stacked area chart above reveals why high speeds present severe roadway hazards. Perception-reaction distance grows linearly with velocity (assuming standard 1.0-second driver alertness). In contrast, mechanical braking distance scales quadratically with the square of velocity (<Formula>{"v^2"}</Formula>). At 30 mph, a vehicle comes to a complete halt in 89 feet; at 60 mph, total stopping distance quadruples to 268 feet. At 75 mph, a vehicle requires nearly 400 feet—more than an entire American football field—to arrest forward momentum on dry pavement.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations of Kinematics & Kinetic Energy Dissipation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The classical uniform velocity formulas solve for any single unknown given two measured parameters across imperial, metric, and nautical navigation systems:
+          </p>
+
+          <Formula>
+            {"d = v \times t, \qquad v = \frac{d}{t}, \qquad t = \frac{d}{v}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            In vehicle dynamics and accident reconstruction, total emergency stopping distance <Formula>{"d_{stop}"}</Formula> combines perception-reaction displacement and roadway frictional retardation:
+          </p>
+
+          <Formula>
+            {"d_{stop} = d_{reaction} + d_{braking} = \left( v \times t_{reaction} \right) + \left( \frac{v^2}{2 \cdot g \cdot f} \right)"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"v"}</Formula> is instantaneous vehicle speed in feet per second (<Formula>{"1\text{ mph} = 1.4667\text{ ft/s}"}</Formula>), <Formula>{"t_{reaction}"}</Formula> is driver perception-reaction latency (typically 1.0 to 1.5 seconds for unimpaired drivers), <Formula>{"g"}</Formula> is the acceleration of gravity (<Formula>{"32.174\text{ ft/s}^2"}</Formula>), and <Formula>{"f"}</Formula> is the tire-roadway coefficient of friction (typically 0.70 to 0.80 on dry asphalt, dropping to 0.35 on wet pavement and under 0.15 on packed ice).
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Drivers calibrating modified wheel setups can verify true rolling velocity using our <Link href="/calculators/transportation/tire-size-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">tire size calculator</Link>, while long-distance travelers can evaluate how speed impacts pump outlays via our <Link href="/calculators/transportation/fuel-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">fuel cost calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Engineering Benchmark Table: Speed, Time-Savings & Braking Energy
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below quantifies transit times across a standardized 100-mile highway corridor, demonstrating diminishing time returns alongside escalating kinetic energy and emergency stopping requirements:
+          </p>
+
+          <DataTable
+            head={["Vehicle Speed", "100-Mile Travel Time", "Time Saved vs 55 mph", "Total Stopping Distance", "Relative Kinetic Energy"]}
+            rows={[
+              ["45 mph (72 km/h)", "2 hr 13 min 20 sec", "-29.1 min (Slower)", "167 feet", "0.67x (Low impact risk)"],
+              ["55 mph (89 km/h)", "1 hr 49 min 05 sec", "Baseline reference", "228 feet", "1.00x (Baseline energy)"],
+              ["65 mph (105 km/h)", "1 hr 32 min 18 sec", "16.8 minutes saved", "302 feet", "1.40x (+40% crash force)"],
+              ["75 mph (121 km/h)", "1 hr 20 min 00 sec", "29.1 minutes saved", "391 feet", "1.86x (+86% crash force)"],
+              ["85 mph (137 km/h)", "1 hr 10 min 35 sec", "38.5 minutes saved", "493 feet", "2.39x (+139% crash force)"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The data demonstrates the principle of diminishing returns in transit velocity: increasing speed by 10 mph from 55 to 65 mph saves nearly 17 minutes over 100 miles, but advancing another 10 mph from 75 to 85 mph yields less than 9.5 additional minutes while requiring nearly 500 feet of stopping room. For long-distance vacation logistics, you can combine these arrival schedules with our <Link href="/calculators/transportation/road-trip-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">road trip cost calculator</Link> and commercial air travel calculations in our <Link href="/calculators/transportation/flight-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">flight time calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Operational Dynamics: Unit Conversions, Pace & Average Speed Realities
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate transit modeling requires understanding how real-world roadway bottlenecks disrupt theoretical cruise velocities:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Harmonic Mean of Round-Trip Travel:</strong> If you drive to work at 30 mph through morning congestion and return home on an open freeway at 60 mph along the identical distance, your average speed is <em>not</em> 45 mph. The true average speed is the harmonic mean: <Formula>{"v_{avg} = \frac{2 \times 30 \times 60}{30 + 60} = 40\text{ mph}"}</Formula>. Time spent at slower speeds disproportionately degrades overall trip velocity.
+            </li>
+            <li>
+              <strong>Pace vs Speed Inversion:</strong> Runners and cyclists measure velocity in inverse terms (minutes per mile or minutes per kilometer). While speed is distance divided by time, pace is time divided by distance: <Formula>{"\text{Pace (min/mi)} = \frac{60}{\text{Speed (mph)}}"}</Formula>.
+            </li>
+            <li>
+              <strong>Aviation & Nautical Knots:</strong> Maritime vessels and commercial aircraft measure velocity in nautical knots (one nautical mile per hour, or 1.15078 statute mph), which directly correlates to one minute of latitude on the Earth's geoid surface.
+            </li>
+            <li>
+              <strong>Traffic Signal Densities:</strong> In municipal arterial driving, traffic signals spaced every quarter-mile limit average vehicle transit velocity to between 14 and 22 mph regardless of whether the driver accelerates aggressively to 45 mph between intersections.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Environmental Drag Gradients & Velocity Impact on Fuel Economy
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The physics of ground transport dictate that total aerodynamic power demand scales cubically with velocity (<Formula>{"P_{aero} = \frac{1}{2} \rho C_d A v^3"}</Formula>). Consequently, cruising at 80 mph requires approximately 70% more engine power to overcome atmospheric drag than cruising at 60 mph. Motorists evaluating fuel expenditure via our <Link href="/calculators/transportation/fuel-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">fuel cost calculator</Link> and checking vehicle fuel economy using our <Link href="/calculators/transportation/mpg-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">MPG calculator</Link> will discover that excessive highway speeds dramatically increase the frequency and cost of fuel fill-ups.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            In adverse meteorological conditions—such as driving on rain-soaked asphalt or snow-covered mountain passes—the effective roadway friction coefficient drops precipitously from 0.80 to under 0.35. At this reduced traction threshold, kinetic braking distance more than doubles. Commuters monitoring daily travel times through our <Link href="/calculators/transportation/commute-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">commute cost calculator</Link> should moderate cruise velocities during precipitation to maintain equivalent emergency deceleration buffers.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Tire Grip Dynamics & Hydroplaning Critical Velocity Thresholds
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            On wet road surfaces covered by standing water, tires face the physical limitation of hydroplaning—where tread grooves can no longer evacuate water fast enough, creating a hydrodynamic water wedge that lifts the tire off the pavement. The critical hydroplaning speed follows NASA's classical formula <Formula>{"v_{hydro} \approx 10.35 \sqrt{P_{tire}}"}</Formula>, where speed is in knots and tire pressure is in PSI. For a typical passenger car with tires inflated to 32 PSI, total loss of directional steering and braking traction can occur at ground speeds as low as 55 to 58 mph during heavy downpours.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About Speed, Distance, and Travel Time
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How do I calculate average speed if my velocity changes throughout a trip?
+              </h3>
+              <p>
+                To find true average speed across varying conditions, divide total journey distance by total elapsed travel time (including all rest stops, refueling delays, and congestion). Never average intermediate speed readings directly, as slower segments consume more time and weigh more heavily on the trip's overall velocity.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why does braking distance quadruple when speed doubles?
+              </h3>
+              <p>
+                Braking distance is governed by kinetic energy, which scales with the square of velocity (<Formula>{"E_k = \frac{1}{2}mv^2"}</Formula>). When vehicle speed increases from 30 mph to 60 mph (a 2x multiplier), kinetic energy increases by <Formula>{"2^2 = 4\text{ times}"}</Formula>. Because vehicle brakes apply a relatively constant frictional deceleration force, the vehicle must travel four times as far to dissipate that energy.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How much time do you actually save by driving 10 mph over the speed limit?
+              </h3>
+              <p>
+                Over a typical 15-mile suburban commute, driving 75 mph instead of 65 mph saves exactly 1.8 minutes. Over a 50-mile trip, it saves approximately 6.1 minutes. Over a 300-mile highway journey, it saves 37 minutes. The time savings are modest, while fuel consumption increases by 12% to 15% and stopping distance expands by nearly 90 feet.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What is the difference between statute miles and nautical miles?
+              </h3>
+              <p>
+                A standard statute mile measures exactly 5,280 feet (1,609.34 meters). A nautical mile measures 6,076.12 feet (1,852 meters), representing one minute of arc along a meridian of the Earth. A speed of 1 knot equals 1 nautical mile per hour or approximately 1.151 statute mph, which is standard in both maritime navigation and aviation flight planning.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <SpeedDistanceTimeCalculatorComponent />
+    </CalcPage>
   );
 }

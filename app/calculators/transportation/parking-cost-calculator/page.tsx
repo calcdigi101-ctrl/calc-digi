@@ -1,26 +1,198 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ParkingCostCalculatorComponent from "@/components/calcs/transportation/parking-cost-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { MetropolitanParkingRateTiersChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/parking-cost-calculator";
+const TITLE = "Parking Cost Calculator | Daily, Monthly & Airport Tariff Estimator";
+const DESCRIPTION =
+  "Calculate total parking expenses across hourly meters, municipal garages, monthly commuter subscriptions, and long-term airport terminals with validation discounts.";
 
 export const metadata: Metadata = {
-  "title": "Parking Cost Calculator – Monthly & Annual Cost | CalcDigi",
-  "description": "Calculate daily, monthly, and annual parking costs. Compare monthly passes vs daily rates and find your full commuting expense.",
-  "openGraph": {
-    "title": "Parking Cost Calculator – Monthly & Annual Cost | CalcDigi",
-    "description": "Calculate daily, monthly, and annual parking costs. Compare monthly passes vs daily rates and find your full commuting expense.",
-    "type": "website",
-    "url": "/calculators/transportation/parking-cost-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/parking-cost-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/toll-cost-calculator", icon: "🛣️", name: "Toll Cost Calculator" },
+  { href: "/calculators/transportation/car-payment-calculator", icon: "💳", name: "Car Payment Calculator" },
+  { href: "/calculators/transportation/ev-savings-calculator", icon: "⚡", name: "EV Savings Calculator" },
+  { href: "/calculators/transportation/road-trip-cost-calculator", icon: "🗺️", name: "Road Trip Cost Calculator" },
+];
+
+export default function ParkingCostCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Parking Cost Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/parking-cost-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Parking Cost Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/parking-cost-calculator\", \"description\": \"Calculate daily, monthly, and annual parking costs. Compare monthly passes vs daily rates and find your full commuting expense.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much do people spend on parking per year?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average US urban commuter spending on parking: $1,500-3,000/year (suburban areas with subsidized or free parking). Major city commuters: $3,000-8,000/year. NYC: $6,000-9,600/year for downtown garage parking. This often exceeds annual fuel costs, making it the largest single commuting expense in dense urban areas.\"}}, {\"@type\": \"Question\", \"name\": \"Is monthly parking cheaper than daily?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Almost always, monthly passes offer 20-40% savings vs daily rates. At $30/day daily parking, 22 work days = $660. Monthly pass might cost $400 — saving $260/month ($3,120/year). The break-even is typically 13-15 working days per month. If you commute more than 13 days/month, the monthly pass usually wins.\"}}, {\"@type\": \"Question\", \"name\": \"What are the pre-tax parking benefits?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The IRS Qualified Transportation Fringe Benefit allows employers to offer up to $340/month (2026) in tax-free parking. Both employer-provided and employee-paid (via salary reduction) parking counts. At $340/month and 24% tax bracket: employee saves $81.60/month = $979/year in taxes. Check with your HR department about enrollment.\"}}, {\"@type\": \"Question\", \"name\": \"How much is parking in New York City?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Manhattan daily parking: $35-80 at garages near major attractions and business districts. Some midtown garages: $50-80/day. Metered street parking where available: $4-7/hour. Monthly parking: $500-900 in Midtown Manhattan. Less expensive options: outer boroughs ($150-300/month), park at a subway station and take the train in.\"}}, {\"@type\": \"Question\", \"name\": \"Should I drive or take public transit to work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Compare: (Daily parking + daily gas + daily vehicle wear) vs (Daily transit cost). In most US cities with decent transit: monthly transit pass ($80-130) is far cheaper than parking alone ($200-500+). Add driving costs: total driving often costs 2-4x more than transit. The tradeoff is convenience and door-to-door travel time.\"}}, {\"@type\": \"Question\", \"name\": \"How do I find cheaper parking?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Apps: SpotHero, ParkWhiz, and BestParking aggregate and discount garages and lots — often 20-30% cheaper than drive-up rates. ParkMobile and PayByPhone for meter parking. Parkmaven for free parking spot maps. Arrive early — many garages have early bird specials (arrive before 9am, leave before 7pm) at 40-60% off regular daily rates.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Parking Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Parking Cost Calculator</h1>\n<p class=\"calc-intro\">Calculate your total parking costs for work commuting, shopping trips, and events. Compare daily parking rates vs monthly passes, find your annual parking expense, and see how parking costs add to your total commute budget.</p>\n<p class=\"calc-intro\">Parking is one of the most underestimated commuting expenses. In major US cities, monthly parking averages $300-600, making it a larger expense than fuel for many commuters. Urban workers paying $25/day for parking spend $6,250/year just on parking — before accounting for fuel, maintenance, and depreciation.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Daily Cost = Hourly Rate × Hours | Monthly Cost = Daily Rate × Work Days | Annual = Monthly × 12</div></div>\n<div class=\"content-section\">\n<h2>Average Parking Costs by City (2024)</h2>\n<p>Parking costs vary enormously by city, neighborhood, and parking type. Manhattan is the most expensive, with some garages charging $40-80/day. Many major cities offer monthly parking passes at a discount of 30-50% vs daily rates for regular commuters.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">City</th><th style=\"padding:11px 14px;text-align:left;\">Daily Rate</th><th style=\"padding:11px 14px;text-align:left;\">Monthly Pass</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">New York City (Manhattan)</td><td style=\"padding:10px 14px;\">$40-80/day</td><td style=\"padding:10px 14px;\">$500-800/month</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">San Francisco</td><td style=\"padding:10px 14px;\">$30-60/day</td><td style=\"padding:10px 14px;\">$350-600/month</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Chicago (Loop)</td><td style=\"padding:10px 14px;\">$25-50/day</td><td style=\"padding:10px 14px;\">$250-450/month</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Boston</td><td style=\"padding:10px 14px;\">$30-55/day</td><td style=\"padding:10px 14px;\">$300-500/month</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Seattle</td><td style=\"padding:10px 14px;\">$20-40/day</td><td style=\"padding:10px 14px;\">$200-350/month</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Houston</td><td style=\"padding:10px 14px;\">$10-25/day</td><td style=\"padding:10px 14px;\">$100-200/month</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Dallas/Phoenix</td><td style=\"padding:10px 14px;\">$8-20/day</td><td style=\"padding:10px 14px;\">$80-180/month</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Suburban areas</td><td style=\"padding:10px 14px;\">$0-10/day</td><td style=\"padding:10px 14px;\">Free to $100/month</td></tr></tbody></table></div>\n<h3>Free and Cheaper Parking Strategies</h3>\n<p>Reduce parking costs: negotiate employer parking subsidy or pre-tax parking benefit (up to $340/month pre-tax in 2026), park farther from destination and walk (often 50-80% cheaper), use parking apps (SpotHero, ParkWhiz, BestParking) for discounts on garage parking, arrive early for time-limited free parking, use park-and-ride systems where available, carpool to split parking costs, and compare monthly pass vs daily rates.</p>\n<h3>Employer Parking Benefits</h3>\n<p>The IRS allows pre-tax parking benefits up to $340/month (2026), meaning employees can pay for parking with pre-tax dollars — effectively a 22-37% discount depending on tax bracket. Example: $300/month parking in a 24% tax bracket: after pre-tax benefit costs only $228/month effective ($72 tax savings). Always check if your employer offers a Qualified Transportation Fringe Benefit.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much do people spend on parking per year? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average US urban commuter spending on parking: $1,500-3,000/year (suburban areas with subsidized or free parking). Major city commuters: $3,000-8,000/year. NYC: $6,000-9,600/year for downtown garage parking. This often exceeds annual fuel costs, making it the largest single commuting expense in dense urban areas.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is monthly parking cheaper than daily? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Almost always, monthly passes offer 20-40% savings vs daily rates. At $30/day daily parking, 22 work days = $660. Monthly pass might cost $400 — saving $260/month ($3,120/year). The break-even is typically 13-15 working days per month. If you commute more than 13 days/month, the monthly pass usually wins.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are the pre-tax parking benefits? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The IRS Qualified Transportation Fringe Benefit allows employers to offer up to $340/month (2026) in tax-free parking. Both employer-provided and employee-paid (via salary reduction) parking counts. At $340/month and 24% tax bracket: employee saves $81.60/month = $979/year in taxes. Check with your HR department about enrollment.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much is parking in New York City? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Manhattan daily parking: $35-80 at garages near major attractions and business districts. Some midtown garages: $50-80/day. Metered street parking where available: $4-7/hour. Monthly parking: $500-900 in Midtown Manhattan. Less expensive options: outer boroughs ($150-300/month), park at a subway station and take the train in.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Should I drive or take public transit to work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Compare: (Daily parking + daily gas + daily vehicle wear) vs (Daily transit cost). In most US cities with decent transit: monthly transit pass ($80-130) is far cheaper than parking alone ($200-500+). Add driving costs: total driving often costs 2-4x more than transit. The tradeoff is convenience and door-to-door travel time.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I find cheaper parking? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Apps: SpotHero, ParkWhiz, and BestParking aggregate and discount garages and lots — often 20-30% cheaper than drive-up rates. ParkMobile and PayByPhone for meter parking. Parkmaven for free parking spot maps. Arrive early — many garages have early bird specials (arrive before 9am, leave before 7pm) at 40-60% off regular daily rates.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Parking Cost Calculator – Daily, Monthly and Annual Expense</h2><div class=\"form-group\"><label for=\"pk-daily\">Daily Parking Rate ($)</label><input id=\"pk-daily\" min=\"0\" step=\"0.5\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"pk-days\">Work Days per Month</label><input id=\"pk-days\" max=\"31\" min=\"1\" step=\"1\" type=\"number\" value=\"22\"/></div><div class=\"form-group\"><label for=\"pk-monthly\">Monthly Pass Cost (0 if N/A)</label><input id=\"pk-monthly\" min=\"0\" step=\"5\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"pk-hours\">Hours Parked per Day</label><input id=\"pk-hours\" max=\"24\" min=\"0.5\" step=\"0.5\" type=\"number\" value=\"8\"/></div><div class=\"form-group\"><label for=\"pk-hourly\">Hourly Rate (if metered, 0 if flat)</label><input id=\"pk-hourly\" min=\"0\" step=\"0.25\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Parking Cost Calculator – Daily, Monthly and Annual Expense')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Parking Cost Calculator – Daily, Monthly and Annual Expense')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-parking-cost-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var daily=parseFloat(document.getElementById('pk-daily').value)||0;\n  var days=parseInt(document.getElementById('pk-days').value)||22;\n  var monthly=parseFloat(document.getElementById('pk-monthly').value)||0;\n  var hours=parseFloat(document.getElementById('pk-hours').value)||8;\n  var hourly=parseFloat(document.getElementById('pk-hourly').value)||0;\n  var effectiveDaily=hourly>0?Math.min(hourly*hours,daily||999):daily;\n  var monthlyDriving=effectiveDaily*days;\n  var bestMonthly=monthly>0&&monthly<monthlyDriving?monthly:monthlyDriving;\n  var annual=bestMonthly*12;\n  var savings=monthly>0?Math.max(monthlyDriving-monthly,0):0;\n  var aiPrompt='Parking: $'+effectiveDaily.toFixed(2)+'/day × '+days+' days = $'+monthlyDriving.toFixed(0)+'/month, $'+annual.toFixed(0)+'/year';\n  document.getElementById('tr-ri').innerHTML=\n    ri('Optimal Monthly Cost','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+bestMonthly.toFixed(0)+'/month</strong>',true)+\n    ri('Annual Parking Cost','$'+annual.toFixed(0))+\n    ri('Daily Cost','$'+effectiveDaily.toFixed(2)+'/day')+\n    (monthly>0?ri('Monthly Pass Savings','$'+savings.toFixed(0)+'/month vs daily rate'):'')+\n    ri('Cost per Work Day','$'+effectiveDaily.toFixed(2))+\n    ri('Break-even for Monthly Pass',monthly>0?Math.ceil(monthly/effectiveDaily)+' days/month':'Enter monthly pass to compare');\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Monthly Driving Cost','Monthly Pass'],[Math.round(monthlyDriving),Math.round(monthly)||0.001],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about reducing parking costs and smart commuting decisions.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Terminal Summary:</strong> Urban parking represents an opaque, highly non-linear expense category that frequently rivals direct fuel consumption for central business district commuters. While a standard curbside meter demands between $2.50 and $7.00 per hour with strict 2-hour caps, municipal and private garages implement daily maximum thresholds ranging from $25 to $65 per business day. Combining these tariffs with our <Link href="/calculators/transportation/commute-cost-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">commute cost calculator</Link> reveals that monthly reserved garage subscriptions ($250 to $580/month) yield break-even savings once an employee parks on-site for 11 or more business days per calendar month.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Metropolitan Parking Rate Tiers & Duration Scaling
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Facility pricing architectures follow strict dynamic demand tiers designed to maximize vehicular turnover in dense commercial districts. Commercial operators deploy progressive interval pricing where the initial hour carries a premium flag drop, followed by escalating fractional increments until reaching a 24-hour ceiling. When evaluating multi-day journeys alongside our <Link href="/calculators/transportation/road-trip-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">road trip cost calculator</Link>, parking fees at overnight hotel valet stations ($45 to $95 per night) often exceed the entire day's highway gasoline burn.
+          </p>
+
+          <MetropolitanParkingRateTiersChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The chart above contrasts four primary metropolitan facility classes across representative dwell durations. Curbside meters provide cost-effective transient parking for short errands under 90 minutes; however, progressive violation penalties and strict time caps make them uneconomical for standard eight-hour workdays. Municipal off-street structures subsidize long-dwell parking with capped daily maximums, whereas private commercial core garages charge aggressive premiums during morning peak arrival windows (7:00 AM to 9:30 AM). Airport facilities bifurcate into premium terminal-adjacent walk-in garages and economy remote shuttle lots that scale affordably for multi-week vacations.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Formulation of Facility Tariffs & Commuter Sinking Funds
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Calculating aggregate monthly parking liabilities requires reconciling base daily dwell tariffs, early-bird validation rebates, municipal parking sales taxes (which exceed 18% in cities like Chicago and New York), and recurring monthly contract pricing. Integrating this alongside our <Link href="/calculators/transportation/fuel-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">fuel cost calculator</Link> provides a complete picture of total daily vehicular access overhead:
+          </p>
+
+          <Formula>
+            {"C_{monthly\_transient} = \sum_{d=1}^{N_{days}} \min\Big(R_{hourly} \times t_{dwell\_d}, \; R_{daily\_max}\Big) \times (1 - D_{validation}) \times (1 + T_{tax})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"R_{hourly}"}</Formula> denotes the unvalidated fractional hourly tariff, <Formula>{"t_{dwell}"}</Formula> represents total facility elapsed hours, <Formula>{"R_{daily\_max}"}</Formula> is the 24-hour tariff cap, <Formula>{"D_{validation}"}</Formula> is merchant or employer validation rebate percentage, and <Formula>{"T_{tax}"}</Formula> accounts for statutory municipal parking excise taxes. When evaluating whether to purchase an unreserved or reserved monthly pass <Formula>{"C_{pass}"}</Formula>, the break-even commuter threshold in days per month is governed by:
+          </p>
+
+          <Formula>
+            {"N_{breakeven} = \frac{C_{pass}}{R_{effective\_daily} \times (1 + T_{tax})}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Commuters can verify whether their gross vehicle travel budget remains sustainable by running their amortized monthly finance payments through our <Link href="/calculators/transportation/car-payment-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">car payment calculator</Link> and cross-checking total fixed storage overhead against gross vehicle depreciation via our <Link href="/calculators/transportation/car-depreciation-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">car depreciation calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Downtown Financial District Commute vs Airport Vacation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a financial district analyst commuting 18 days per month. The commercial garage adjacent to the office charges $18 for early-bird arrivals before 8:30 AM, or $38 daily maximum for regular transient parkers. A monthly unreserved pass is priced at $320 per month tax-inclusive. In parallel, the employee plans an 8-day flight vacation evaluating terminal garage parking ($34/day) versus off-site private shuttle parking ($14/day plus $8 booking fee).
+          </p>
+
+          <DataTable
+            head={["Scenario Configuration", "Daily Nominal Tariff", "Effective Days / Duration", "Monthly / Total Cost", "Optimization Strategy"]}
+            rows={[
+              ["Early-Bird Daily Transient", "$18.00 / day", "18 Commute Days", "$324.00 / mo", "Requires arrival before 8:30 AM; zero overnight flexibility"],
+              ["Regular Dwell Transient", "$38.00 / day", "18 Commute Days", "$684.00 / mo", "Severe financial penalty; exceeds monthly pass by 114%"],
+              ["Monthly Unreserved Pass", "$320.00 / mo flat", "Unlimited In/Out", "$320.00 / mo", "Saves $4/mo vs Early Bird, provides weekend and evening access"],
+              ["Airport Terminal Garage", "$34.00 / day", "8 Vacation Days", "$272.00 trip", "Direct covered skybridge walk; zero shuttle transit delay"],
+              ["Airport Off-Site Shuttle Lot", "$14.00 / day + fee", "8 Vacation Days", "$120.00 trip", "Saves $152.00 (56% reduction); requires 25-min bus transfer"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The data demonstrates that for hybrid employees working 3 days weekly in-office (approximately 12 to 13 days monthly), paying the early-bird transient rate of $18 yields $216 to $234 monthly, beating the monthly pass by $86 to $104 per month. Conversely, full-time 4-to-5 day commuters save significantly with the subscription. When combined with corridor turnpike fees tracked in our <Link href="/calculators/transportation/toll-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">toll cost calculator</Link>, parking fees often comprise over 55% of total suburban commuting outlays.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Operational Tradeoffs: Municipal Regulations, Valet Premiums & Pre-Booking Apps
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Navigating urban parking efficiently involves balancing time efficiency, vehicle security, and dynamic pricing algorithms. Understanding these operational realities prevents unexpected expenses:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Digital Aggregator App Arbitrage:</strong> Mobile reservation platforms negotiate unsold block capacity with commercial garages, routinely offering 30% to 50% discounts compared to drive-up window rates. Drivers evaluating overall trip expenses alongside our <Link href="/calculators/transportation/ev-savings-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">EV savings calculator</Link> can often locate reserved garage spaces featuring complimentary Level 2 EV charging stations, offsetting their electricity costs entirely.
+            </li>
+            <li>
+              <strong>Overstay Penalty Multipliers:</strong> Exceeding posted garage grace periods (typically 10 to 15 minutes after the ticketed hour) instantly triggers the subsequent hourly billing block or converts an early-bird coupon into the full maximum day rate.
+            </li>
+            <li>
+              <strong>Hotel & Resort Destination Fees:</strong> Many urban hospitality properties separate room rates from mandatory valet parking tariffs ranging from $50 to $95 nightly with 15% local lodging parking surcharges, adding hundreds of dollars to family vacations.
+            </li>
+            <li>
+              <strong>Curbside Residential Permit Zones:</strong> Parking on public streets without a valid municipal residential decal risks immediate immobilization boots or municipal towing fees ranging from $175 to $350 plus daily impound storage charges.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Metropolitan Infrastructure Tariffs & Municipal Revenue Enforcement Dynamics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Urban parking spaces are among the most valuable and contested real estate assets in modern metropolitan downtown cores. Municipal transportation planning agencies employ Donald Shoup's high-occupancy curb pricing principles—adjusting hourly meter rates dynamically block-by-block so that approximately 15% of curbside spaces remain vacant at any given moment. This deliberate pricing friction reduces cruising congestion, where drivers circle city blocks searching for cheap or free parking, which historically accounted for up to 30% of downtown traffic volume. Drivers comparing fuel burned while searching for open spots should run their vehicle numbers through our <Link href="/calculators/transportation/mpg-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">MPG calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For long-term airport and intercity rail travel, remote airport park-and-ride facilities deploy dynamic yield management pricing modeled after airline reservation systems. Peak holiday travel windows (Thanksgiving, Christmas, and Memorial Day weekends) observe tariff surges of 40% to 75% on terminal garages, prompting budget-conscious travelers to pre-book economy lots weeks in advance. When evaluating door-to-door transit schedules against high-speed rail or flights in our <Link href="/calculators/transportation/distance-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">distance calculator</Link>, the cost and transit time of terminal parking transfers represent a critical planning variable.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Furthermore, suburban commuters should investigate employer tax-advantaged pre-tax commuter parking accounts. Under federal IRS guidelines, enrolling in qualified pre-tax payroll deductions lowers net taxable gross income, shielding up to $315 per month from state and federal income taxes. When evaluated in conjunction with household budgets in our <Link href="/calculators/transportation/commute-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">commute cost calculator</Link>, leveraging pre-tax commuter benefits provides instantaneous 25% to 35% savings on monthly garage passes.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Automated License Plate Recognition (ALPR) & Frictionless Parking Garages
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Modern commercial parking facilities are rapidly dismantling physical barrier gates and paper ticket dispensers in favor of frictionless, camera-based Automated License Plate Recognition (ALPR) systems. As a vehicle enters the facility, high-resolution infrared optical character recognition cameras capture the rear license plate, initiating a digital parking dwell session in real time. Payment is processed seamlessly via mobile smartphone applications or automatically debited against pre-registered commuter credit cards. While this technology eliminates entrance queue bottlenecks and reduces administrative facility overhead, it strictly enforces payment windows. Exceeding paid parking dwell sessions by even five minutes triggers automated municipal parking citation invoices mailed directly to the registered vehicle owner, carrying administrative fines that frequently exceed $45 to $75 per infraction. Drivers who frequently utilize short-term metered spaces should also monitor local parking holiday schedules, as many cities suspend meter enforcement on recognized state and federal public holidays.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About Metropolitan & Long-Term Parking
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Is it cheaper to pay daily or buy a monthly commuter parking pass?
+              </h3>
+              <p>
+                The break-even threshold generally sits between 11 and 14 parked days per month. If you are a hybrid employee commuting 2 or 3 days weekly (8 to 12 days monthly), paying daily early-bird rates is almost always $60 to $120 cheaper per month than a contract pass. If you commute 4 or 5 days per week, the monthly pass provides substantial savings, guaranteed stall availability, and unrestricted evening and weekend in-and-out privileges.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How much can I save by using off-airport parking lots versus airport terminal garages?
+              </h3>
+              <p>
+                Off-airport private lots with continuous shuttle connections routinely charge $10 to $16 per day compared to $30 to $45 per day at terminal-connected garages. For an 8-day trip, off-site parking saves approximately $130 to $220. However, off-airport lots require factoring in an additional 20 to 35 minutes of transit and shuttle transfer time before your airline check-in deadline.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Can parking expenses be paid with pre-tax commuter benefits?
+              </h3>
+              <p>
+                Yes. Under IRS Section 132(f) Qualified Transportation Fringe benefits, United States employees can deduct qualified parking expenses up to the statutory monthly cap ($315/month for recent tax years) using pre-tax payroll deductions. This effectively lowers your out-of-pocket parking expenditure by 22% to 37% depending on your federal and state marginal income tax bracket, complementing household budget tracking via our <Link href="/calculators/finance/budget-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">budget calculator</Link>.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Do electric vehicles get free or discounted public parking?
+              </h3>
+              <p>
+                Certain metropolitan municipalities offer subsidized or discounted meter parking for certified clean-fuel zero-emission vehicles. Furthermore, many commercial parking garages provide complimentary Level 2 charging while parked, which can deliver 30 to 50 miles of range during an 8-hour workday, effectively providing $3.00 to $5.00 in free electrical energy per visit.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <ParkingCostCalculatorComponent />
+    </CalcPage>
   );
 }

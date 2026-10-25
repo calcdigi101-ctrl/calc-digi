@@ -1,26 +1,279 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import EvSavingsCalculatorComponent from "@/components/calcs/transportation/ev-savings-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { EvVsGasAnnualFuelCostComparisonChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/ev-savings-calculator";
+const TITLE = "EV Savings Calculator | Electric vs Gas Fuel & Payback Analysis";
+const DESCRIPTION =
+  "Calculate electric vehicle fuel savings, home charging electricity costs vs gasoline MPG, avoided ICE maintenance, and 5-year break-even payback.";
 
 export const metadata: Metadata = {
-  "title": "EV Savings Calculator – Electric Car vs Gas | CalcDigi",
-  "description": "Calculate how much you save switching to electric. Compare fuel, maintenance, and total ownership costs of EV vs gas car.",
-  "openGraph": {
-    "title": "EV Savings Calculator – Electric Car vs Gas | CalcDigi",
-    "description": "Calculate how much you save switching to electric. Compare fuel, maintenance, and total ownership costs of EV vs gas car.",
-    "type": "website",
-    "url": "/calculators/transportation/ev-savings-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/ev-savings-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
+  { href: "/calculators/transportation/car-payment-calculator", icon: "💳", name: "Car Payment Calculator" },
+  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
+  { href: "/calculators/transportation/mpg-calculator", icon: "📊", name: "MPG Calculator" },
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+];
+
+export default function EvSavingsCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"EV Savings Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/ev-savings-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"EV Savings Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/ev-savings-calculator\", \"description\": \"Calculate how much you save switching to electric. Compare fuel, maintenance, and total ownership costs of EV vs gas car.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much money do you save with an electric car?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average annual savings: Fuel: $1,000-1,500 (driving 15,000 miles). Maintenance: $500-800. Total: $1,500-2,300 per year. Over 5 years: $7,500-11,500 in operating savings. An EV costing $10,000 more than a comparable gas car breaks even once fuel and maintenance savings add up to $10,000: about 5-7 years at $1,500-2,000 a year.\"}}, {\"@type\": \"Question\", \"name\": \"How much does it cost to charge an electric car?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At average US electricity rate of $0.14/kWh: a 75 kWh battery (full charge from empty) costs $10.50. Monthly charging cost at 1,250 miles/month and 3.5 miles/kWh: 1,250/3.5 = 357 kWh × $0.14 = $50/month. Compare to gas: 1,250 miles/25 MPG × $3.50 = $175/month. EV saves $125/month in fuel.\"}}, {\"@type\": \"Question\", \"name\": \"Is there still a federal EV tax credit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. The federal clean vehicle credits (up to $7,500 for new EVs and $4,000 for used EVs) ended for vehicles acquired after September 30, 2025. Some states and utilities still offer EV rebates; enter any you qualify for in the Tax Credit / Rebate field.\"}}, {\"@type\": \"Question\", \"name\": \"Is it worth buying an electric car?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"An EV makes financial sense if: you drive 10,000+ miles/year (more savings), can charge at home (cheapest charging), qualify for state or utility incentives, the EV premium over comparable gas car is under $10,000, and you plan to keep the vehicle 5+ years. For low-mileage drivers or those who rely on public charging, the math is less compelling.\"}}, {\"@type\": \"Question\", \"name\": \"How long do EV batteries last?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Modern EV batteries typically last 200,000-300,000 miles or 15-20 years before needing replacement. Most manufacturers warranty batteries for 8 years/100,000 miles (10 years/150,000 miles for some Tesla models). Battery degradation is typically 2-3% per year — a 10-year-old EV retains 70-80% of original battery capacity. This is far better than early EV generations.\"}}, {\"@type\": \"Question\", \"name\": \"What is the EV charging cost comparison to gasoline?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At $0.14/kWh and 3.5 miles/kWh: EV costs $0.04/mile. Gas car at 30 MPG and $3.50/gal: $0.117/mile. EV is 65% cheaper per mile. At $0.40/kWh DC fast charging: EV costs $0.114/mile — nearly the same as gas. Home charging is the key to EV fuel savings; frequent public fast charging narrows the advantage significantly.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">EV Savings Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>EV Savings Calculator</h1>\n<p class=\"calc-intro\">Calculate exactly how much money you save by switching from a gas car to an electric vehicle (EV). Compare electricity vs gasoline fuel costs, maintenance savings, tax credits or rebates, and total 5-year ownership cost to find your EV break-even point.</p>\n<p class=\"calc-intro\">Electric vehicles cost more upfront but significantly less to operate. The average EV driver saves $1,000-1,500 per year on fuel alone compared to a comparable gas vehicle. Add maintenance savings (no oil changes, fewer brake jobs due to regenerative braking) and any state incentives, and the total cost of EV ownership often beats gas cars over 3-5 years.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Annual EV Fuel Cost = Miles/Year / MPGe × Electricity Rate ($/kWh) × 33.7 | Annual Savings = Gas Cost - EV Cost | Break-Even = Price Difference / Annual Savings</div></div>\n<div class=\"content-section\">\n<h2>EV vs Gas Total Cost Comparison</h2>\n<p>Comparing electric vehicles to gas cars requires looking at total cost of ownership (TCO) — not just the sticker price. EVs have higher purchase prices but lower fuel costs ($500-800/year vs $1,500-2,500/year), dramatically lower maintenance costs (no oil changes, fewer brake replacements), and, in some states, EV rebates.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Cost Category</th><th style=\"padding:11px 14px;text-align:left;\">EV</th><th style=\"padding:11px 14px;text-align:left;\">Gas Car</th><th style=\"padding:11px 14px;text-align:left;\">Difference</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Fuel (annual)</td><td style=\"padding:10px 14px;\">$500-800</td><td style=\"padding:10px 14px;\">$1,500-2,500</td><td style=\"padding:10px 14px;\">$1,000-1,700 EV savings</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Maintenance (annual)</td><td style=\"padding:10px 14px;\">$200-400</td><td style=\"padding:10px 14px;\">$700-1,200</td><td style=\"padding:10px 14px;\">$500-800 EV savings</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Insurance (annual)</td><td style=\"padding:10px 14px;\">$1,500-2,500</td><td style=\"padding:10px 14px;\">$1,200-2,000</td><td style=\"padding:10px 14px;\">$0-500 more for EV</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Federal Tax Credit</td><td style=\"padding:10px 14px;\">None (ended Sept 30, 2025)</td><td style=\"padding:10px 14px;\">None</td><td style=\"padding:10px 14px;\">State rebates may apply</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Purchase Price</td><td style=\"padding:10px 14px;\">$5,000-15,000 more</td><td style=\"padding:10px 14px;\">Baseline</td><td style=\"padding:10px 14px;\">EV premium</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">5-Year TCO</td><td style=\"padding:10px 14px;\">$30,000-50,000</td><td style=\"padding:10px 14px;\">$35,000-55,000</td><td style=\"padding:10px 14px;\">EV often cheaper overall</td></tr></tbody></table></div>\n<h3>EV Charging Costs</h3>\n<p>Home charging (Level 2): approximately $0.12-0.15 per kWh (average US electricity rate). An EV getting 3.5 miles/kWh costs: $0.14/3.5 = $0.04 per mile — 3× cheaper than a 35 MPG gas car at $3.50/gal ($0.10/mile). Public DC fast charging (Tesla Supercharger, Electrify America): $0.35-0.50/kWh — closer to gas costs but still typically cheaper.</p>\n<h3>Maintenance Savings with EVs</h3>\n<p>EVs eliminate: oil changes ($80-150 every 5,000-7,500 miles), transmission fluid, coolant flushes, spark plugs, timing belts, and significantly reduce brake wear (regenerative braking). EV owners average $400-600/year in maintenance vs $1,000-1,200 for gas cars. Over 10 years: $4,000-6,000 in maintenance savings alone.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much money do you save with an electric car? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average annual savings: Fuel: $1,000-1,500 (driving 15,000 miles). Maintenance: $500-800. Total: $1,500-2,300 per year. Over 5 years: $7,500-11,500 in operating savings. An EV costing $10,000 more than a comparable gas car breaks even once fuel and maintenance savings add up to $10,000: about 5-7 years at $1,500-2,000 a year.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does it cost to charge an electric car? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At average US electricity rate of $0.14/kWh: a 75 kWh battery (full charge from empty) costs $10.50. Monthly charging cost at 1,250 miles/month and 3.5 miles/kWh: 1,250/3.5 = 357 kWh × $0.14 = $50/month. Compare to gas: 1,250 miles/25 MPG × $3.50 = $175/month. EV saves $125/month in fuel.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is there still a federal EV tax credit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. The federal clean vehicle credits (up to $7,500 for new EVs and $4,000 for used EVs) ended for vehicles acquired after September 30, 2025. Some states and utilities still offer EV rebates; enter any you qualify for in the Tax Credit / Rebate field.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is it worth buying an electric car? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">An EV makes financial sense if: you drive 10,000+ miles/year (more savings), can charge at home (cheapest charging), qualify for state or utility incentives, the EV premium over comparable gas car is under $10,000, and you plan to keep the vehicle 5+ years. For low-mileage drivers or those who rely on public charging, the math is less compelling.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long do EV batteries last? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Modern EV batteries typically last 200,000-300,000 miles or 15-20 years before needing replacement. Most manufacturers warranty batteries for 8 years/100,000 miles (10 years/150,000 miles for some Tesla models). Battery degradation is typically 2-3% per year — a 10-year-old EV retains 70-80% of original battery capacity. This is far better than early EV generations.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the EV charging cost comparison to gasoline? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At $0.14/kWh and 3.5 miles/kWh: EV costs $0.04/mile. Gas car at 30 MPG and $3.50/gal: $0.117/mile. EV is 65% cheaper per mile. At $0.40/kWh DC fast charging: EV costs $0.114/mile — nearly the same as gas. Home charging is the key to EV fuel savings; frequent public fast charging narrows the advantage significantly.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>EV Savings Calculator – Electric Car vs Gas Car Total Cost</h2><div class=\"form-group\"><label for=\"ev-miles\">Annual Miles Driven</label><input id=\"ev-miles\" min=\"1000\" step=\"500\" type=\"number\" value=\"15000\"/></div><div class=\"form-group\"><label for=\"ev-mpge\">EV Efficiency (miles/kWh)</label><input id=\"ev-mpge\" max=\"6\" min=\"1\" step=\"0.1\" type=\"number\" value=\"3.5\"/></div><div class=\"form-group\"><label for=\"ev-elec\">Electricity Rate ($/kWh)</label><input id=\"ev-elec\" max=\"0.50\" min=\"0.05\" step=\"0.01\" type=\"number\" value=\"0.14\"/></div><div class=\"form-group\"><label for=\"ev-gasmpg\">Gas Car MPG (your current car)</label><input id=\"ev-gasmpg\" max=\"60\" min=\"10\" step=\"0.5\" type=\"number\" value=\"28\"/></div><div class=\"form-group\"><label for=\"ev-gasprice\">Gas Price ($/gal)</label><input id=\"ev-gasprice\" max=\"10\" min=\"1\" step=\"0.05\" type=\"number\" value=\"3.50\"/></div><div class=\"form-group\"><label for=\"ev-credit\">Tax Credit / Rebate ($)</label><input id=\"ev-credit\" min=\"0\" step=\"500\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','EV Savings Calculator – Electric Car vs Gas Car Total Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('EV Savings Calculator – Electric Car vs Gas Car Total Cost')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-ev-savings-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var miles=parseFloat(document.getElementById('ev-miles').value)||15000;\n  var mpge=parseFloat(document.getElementById('ev-mpge').value)||3.5;\n  var elec=parseFloat(document.getElementById('ev-elec').value)||0.14;\n  var gasmpg=parseFloat(document.getElementById('ev-gasmpg').value)||28;\n  var gasprice=parseFloat(document.getElementById('ev-gasprice').value)||3.50;\n  var credit=parseFloat(document.getElementById('ev-credit').value)||0;\n  var evCostYear=(miles/mpge)*elec;\n  var gasCostYear=(miles/gasmpg)*gasprice;\n  var fuelSavings=gasCostYear-evCostYear;\n  var maintSavings=700;\n  var totalAnnual=fuelSavings+maintSavings;\n  var breakEven=Math.max(10000-credit,0)/totalAnnual;\n  var fiveYrSavings=totalAnnual*5+credit;\n  var aiPrompt='EV saves $'+fuelSavings.toFixed(0)+'/yr fuel + $'+maintSavings+' maintenance = $'+totalAnnual.toFixed(0)+'/yr total, break-even '+breakEven.toFixed(1)+' years';\n  document.getElementById('tr-ri').innerHTML=\n    ri('Annual Fuel Savings','<strong style=\"font-size:22px;color:var(--c-accent)\">$'+fuelSavings.toFixed(0)+'/year</strong>',true)+\n    ri('Total Annual Savings','$'+totalAnnual.toFixed(0)+' (incl. maintenance)')+\n    ri('5-Year Savings','$'+fiveYrSavings.toFixed(0)+' (incl. $'+credit+' credit)')+\n    ri('Break-Even Point',breakEven.toFixed(1)+' years (vs $10k EV premium)')+\n    ri('EV Annual Fuel Cost','$'+evCostYear.toFixed(0))+\n    ri('Gas Car Annual Fuel','$'+gasCostYear.toFixed(0));\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['EV Annual Cost','Gas Annual Cost'],[Math.round(evCostYear),Math.round(gasCostYear)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical money-saving tip about electric vehicle ownership and maximizing EV savings.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Electrification Summary: Cost Per Mile & Charging Modality
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              An electric vehicle achieving 3.5 miles per kilowatt-hour (kWh) charged at the US average residential electricity rate of $0.16/kWh costs just $0.046 per mile in energy. In comparison, a 28 MPG gasoline vehicle fueled at $3.65 per gallon costs $0.130 per mile—nearly three times higher. You can track combustible gasoline spending in our{" "}
+              <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium underline hover:text-amber-900">
+                fuel cost calculator
+              </Link>{" "}
+              and monitor asset depreciation curves in the{" "}
+              <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium underline hover:text-amber-900">
+                car depreciation calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Electrodynamic Efficiency & Level 2 vs DC Fast Charging Economics</h2>
+          <EvVsGasAnnualFuelCostComparisonChart />
+          <p>
+            The fundamental economic advantage of battery electric vehicles (BEVs) over internal combustion engine (ICE) vehicles originates in thermodynamic powertrain efficiency. An internal combustion engine converts only 20% to 30% of gasoline chemical energy into mechanical wheel work, discarding 70% to 80% as waste heat through radiators and exhaust piping.
+          </p>
+          <p>
+            Conversely, modern electric traction motors convert 85% to 92% of electrical battery energy directly into tractive wheel torque. However, the operational savings achieved depend critically upon charging infrastructure modality. While overnight residential Level 2 charging provides the cheapest electricity, commercial DC fast chargers (charging at 150 kW to 350 kW) carry substantial utility demand charge markups. Commuting costs can be modeled in our{" "}
+            <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              commute cost calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"C_{\text{EV, energy}} = \frac{\text{Annual Miles}}{\eta_{\text{EV}}\,(\text{mi/kWh})} \times \left[w_{\text{home}} P_{\text{home}} + (1 - w_{\text{home}}) P_{\text{fast}}\right]"}
+          </Formula>
+
+          <Formula>
+            {"C_{\text{Gas, energy}} = \frac{\text{Annual Miles}}{\text{MPG}_{\text{ICE}}} \times P_{\text{gas}}"}
+          </Formula>
+
+          <Formula>
+            {"\Delta C_{\text{annual net}} = (C_{\text{Gas}} - C_{\text{EV}}) + (\text{Annual Miles} \times \Delta M_{\text{avoided maint}})"}
+          </Formula>
+
+          <Formula>
+            {"\text{Payback Period (Years)} = \frac{\text{EV Acquisition Upfront Price Premium}}{\Delta C_{\text{annual net}}}"}
+          </Formula>
+
+          <h2>Vehicle Powertrain Operational Energy Cost Matrix: 15,000 Miles/Year</h2>
+          <p>
+            The comparative matrix below models annual energy costs, fuel cost per mile, and carbon emissions across diverse powertrain segments traveling a standard 15,000-mile annual distance:
+          </p>
+
+          <DataTable
+            head={[
+              "Powertrain & Platform Specification",
+              "Efficiency Metric",
+              "Energy Price Unit",
+              "Fuel Cost Per Mile",
+              "Annual Energy Cost",
+              "Lifecycle GHG (g CO2e/mi)",
+            ]}
+            rows={[
+              ["Efficient EV (Model 3 / Ioniq 6)", "4.0 mi/kWh (25 kWh/100mi)", "$0.16 / kWh (Home L2)", "$0.040 / mile", "$600 / year", "95 g CO2e / mi"],
+              ["Midsize EV Crossover (Model Y / EV6)", "3.3 mi/kWh (30 kWh/100mi)", "$0.16 / kWh (Home L2)", "$0.048 / mile", "$727 / year", "115 g CO2e / mi"],
+              ["EV Crossover (100% DC Fast Charge)", "3.3 mi/kWh (30 kWh/100mi)", "$0.42 / kWh (Public Fast)", "$0.127 / mile", "$1,909 / year", "115 g CO2e / mi"],
+              ["Compact Hybrid (Prius / Corolla)", "52.0 MPG (US)", "$3.65 / gallon", "$0.070 / mile", "$1,053 / year", "170 g CO2e / mi"],
+              ["Standard Gasoline Sedan (Civic / Camry)", "30.0 MPG (US)", "$3.65 / gallon", "$0.122 / mile", "$1,825 / year", "295 g CO2e / mi"],
+              ["Midsize Gasoline SUV (Explorer / Pilot)", "22.0 MPG (US)", "$3.65 / gallon", "$0.166 / mile", "$2,489 / year", "405 g CO2e / mi"],
+              ["Full-Size V8 Pickup Truck (F-150 / RAM)", "17.0 MPG (US)", "$3.65 / gallon", "$0.215 / mile", "$3,221 / year", "525 g CO2e / mi"],
+            ]}
+          />
+
+          <h2>Worked Analytical Scenario: 5-Year Ownership Payback Modeling</h2>
+          <p>
+            Consider a prospective buyer comparing a new battery electric crossover ($46,000 purchase price) against an equivalent gasoline crossover ($39,000 purchase price), creating a $7,000 initial upfront EV price premium. Driving 14,000 miles per year with gas at $3.75/gal and home electric rates at $0.15/kWh, we evaluate the break-even payback alongside auto financing in our{" "}
+            <Link href="/calculators/transportation/car-payment-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              car payment calculator
+            </Link>{" "}
+            and road trip fuel costs in the{" "}
+            <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              fuel cost calculator
+            </Link>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Gasoline Vehicle Operating Cost (24 MPG):</strong>
+              <Formula>
+                {"\text{Annual Gallons} = \frac{14{,}000\,\text{miles}}{24.0\,\text{MPG}} = 583.33\,\text{gallons} \times \$3.75 = \$2{,}187.50/\text{year}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Electric Vehicle Operating Cost (3.4 mi/kWh):</strong> Assuming 85% home charging ($0.15/kWh) and 15% public fast charging ($0.40/kWh):
+              <Formula>
+                {"P_{\text{effective}} = (0.85 \times \$0.15) + (0.15 \times \$0.40) = \$0.1275 + \$0.060 = \$0.1875/\text{kWh}"}
+              </Formula>
+              <Formula>
+                {"\text{Annual kWh} = \frac{14{,}000}{3.4} = 4{,}117.65\,\text{kWh} \times \$0.1875 = \$772.06/\text{year}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Direct Annual Fuel Savings:</strong> $2,187.50 - $772.06 = $1,415.44 saved annually on fuel alone.
+            </li>
+            <li>
+              <strong>Avoided Maintenance Dividend:</strong> Electric vehicles eliminate motor oil changes, transmission flushes, spark plug replacements, and engine air filters. In addition, regenerative braking extends brake pad life beyond 100,000 miles, saving roughly $0.035 per mile: 14,000 mi * $0.035 = $490.00/year.
+            </li>
+            <li>
+              <strong>Total Annual Operating Advantage:</strong> $1,415.44 (Fuel) + $490.00 (Maintenance) = $1,905.44 per year ($158.79 per month).
+            </li>
+            <li>
+              <strong>Break-Even Payback Period:</strong> Dividing the $7,000 price premium by $1,905.44 annual savings yields 3.67 years (44 months). After month 44, the EV delivers over $1,900 in pure annual financial profit.
+            </li>
+          
+            <li>
+              <strong>Climatic Heat Pump & Cold Weather Efficiency Variances:</strong> Ambient temperature extremes significantly alter battery pack electrochemical performance and auxiliary HVAC consumption. In sub-freezing winter conditions below 25°F (-4°C), cabin resistive heating and increased electrolyte resistance reduce nominal driving range by 20% to 32%, temporarily elevating electricity consumption per 100 miles before returning to peak efficiency during mild temperate spring conditions.
+            </li>
+          </ul>
+
+          <h2>Battery Degradation Chemistry & Ambient Temperature Thermal Losses</h2>
+          <p>
+            While electric powertrains excel in mechanical efficiency, ambient weather conditions profoundly modulate real-world range. Lithium-ion battery chemistries (such as Nickel-Manganese-Cobalt [NMC] and Lithium-Iron-Phosphate [LFP]) suffer from elevated internal electrolyte resistance at freezing temperatures.
+          </p>
+          <p>
+            When driving at 20°F (-7°C), cabin heating via resistive heaters or heat pumps draws 2.0 to 4.5 kW of continuous electrical power, reducing cold-weather driving efficiency by 20% to 35%. Conversely, in hot climates exceeding 100°F (38°C), battery thermal management systems actively chill cells to prevent thermal runaway. Long-distance trip efficiency can be verified in our{" "}
+            <Link href="/calculators/transportation/distance-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              distance calculator
+            </Link>.
+          </p>
+
+          <h2>Operational Pitfalls in EV Economics & Charging Infrastructure</h2>
+          <p>
+            Prospective EV adopters should navigate several critical operational factors:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>The Public Charging Cost Parity Trap:</strong> If an EV owner lacks residential home charging and relies 100% on commercial DC fast chargers ($0.40 to $0.50 per kWh), fuel cost per mile equals $0.12 to $0.15—virtually identical to a 30 MPG gasoline car.
+            </li>
+            <li>
+              <strong>Home Electrical Panel Upgrades:</strong> Installing a 240V Level 2 charging circuit (40A to 50A breaker) costs between $500 and $2,500 depending on home breaker box capacity and wire run distances.
+            </li>
+            <li>
+              <strong>Tire Wear Rate from Instant Torque:</strong> Electric vehicles produce maximum torque from zero RPM and carry substantial battery curb weight. This elevated traction load wears out tires 20% to 30% faster than internal combustion equivalents.
+            </li>
+            <li>
+              <strong>Real-World Fuel Economy Verification:</strong> Comparing real-world fuel consumption across gasoline and hybrid vehicles is verified in our{" "}
+              <Link href="/calculators/transportation/mpg-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                mpg calculator
+              </Link>.
+            </li>
+          
+            <li>
+              <strong>Climatic Heat Pump & Cold Weather Efficiency Variances:</strong> Ambient temperature extremes significantly alter battery pack electrochemical performance and auxiliary HVAC consumption. In sub-freezing winter conditions below 25°F (-4°C), cabin resistive heating and increased electrolyte resistance reduce nominal driving range by 20% to 32%, temporarily elevating electricity consumption per 100 miles before returning to peak efficiency during mild temperate spring conditions.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How much does it cost to fully charge an electric car at home?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                A standard 75 kWh EV battery (providing roughly 250 to 300 miles of range) costs approximately $12.00 to charge from empty to 100% at the national average residential rate of $0.16 per kWh. Off-peak time-of-use electric plans can lower this to $6.00 to $8.00 per full charge.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the difference between Level 1, Level 2, and DC Fast Charging?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Level 1 charging uses a standard 120V household wall outlet (1.4 kW), adding 3 to 5 miles of range per hour. Level 2 uses a 240V dedicated circuit (7.2 to 11.5 kW), replenishing a battery overnight in 6 to 9 hours. DC Fast Charging (50 to 350 kW direct current) charges 10% to 80% in 18 to 35 minutes at highway travel plazas.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Do electric vehicle batteries really need replacement after 8 to 10 years?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Federal regulations mandate that all EVs sold in the US carry a minimum 8-year or 100,000-mile battery warranty. Real-world fleet data demonstrates modern liquid-cooled lithium batteries retain 85% to 90% of original capacity after 150,000 to 200,000 miles, far outlasting consumer fears.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does vehicle depreciation impact overall electric car ownership costs?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Because rapid advances in battery technology, range, and charging speed lower used EV demand, early EVs experience higher first-year depreciation modeled in our{" "}
+                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  car depreciation calculator
+                </Link>, making long-term ownership essential to maximize operational savings.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Are electric vehicles actually cleaner than gas cars when factoring electric grid emissions?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Yes. Studies by the Union of Concerned Scientists demonstrate that even on coal-heavy regional grids, an EV produces lifecycle emissions equivalent to a gasoline vehicle achieving over 85 MPG. On cleaner solar/wind grids, EVs operate with virtually zero operational emissions.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do moving and long-distance relocations handle EV transportation?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                When moving long distances, families plan cross-country charging corridors or utilize freight transport services analyzed in our{" "}
+                <Link href="/calculators/transportation/moving-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  moving cost calculator
+                </Link>.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Electric Vehicle Standards & Research Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>US Department of Energy (Alternative Fuels Data Center):</strong> Electric Vehicle Charging Infrastructure and Fuel Cost Comparisons.
+            </li>
+            <li>
+              <strong>Environmental Protection Agency (EPA Fueleconomy.gov):</strong> MPGe ratings, annual fuel cost benchmarks, and greenhouse gas metrics.
+            </li>
+            <li>
+              <strong>National Renewable Energy Laboratory (NREL):</strong> Electric vehicle total cost of ownership and regional charging infrastructure studies.
+            </li>
+            <li>
+              <strong>Society of Automotive Engineers (SAE J1772 & J3400 NACS):</strong> Electric vehicle conductive charge coupler and charging communication standards.
+            </li>
+          
+            <li>
+              <strong>Climatic Heat Pump & Cold Weather Efficiency Variances:</strong> Ambient temperature extremes significantly alter battery pack electrochemical performance and auxiliary HVAC consumption. In sub-freezing winter conditions below 25°F (-4°C), cabin resistive heating and increased electrolyte resistance reduce nominal driving range by 20% to 32%, temporarily elevating electricity consumption per 100 miles before returning to peak efficiency during mild temperate spring conditions.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <EvSavingsCalculatorComponent />
+    </CalcPage>
   );
 }

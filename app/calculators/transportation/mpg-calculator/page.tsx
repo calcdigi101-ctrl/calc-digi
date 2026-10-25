@@ -1,26 +1,281 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import MpgCalculatorComponent from "@/components/calcs/transportation/mpg-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { InternalCombustionThermodynamicLossChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/mpg-calculator";
+const TITLE = "MPG Calculator | Real-World Fuel Economy & L/100km Converter";
+const DESCRIPTION =
+  "Calculate vehicle fuel economy in US Miles Per Gallon, Imperial UK MPG, metric Liters per 100 km, driving cost per mile, and tank travel range.";
 
 export const metadata: Metadata = {
-  "title": "MPG Calculator – Miles Per Gallon | CalcDigi",
-  "description": "Calculate actual miles per gallon from odometer and gallons used. Track fuel efficiency and compare to EPA ratings for any vehicle.",
-  "openGraph": {
-    "title": "MPG Calculator – Miles Per Gallon | CalcDigi",
-    "description": "Calculate actual miles per gallon from odometer and gallons used. Track fuel efficiency and compare to EPA ratings for any vehicle.",
-    "type": "website",
-    "url": "/calculators/transportation/mpg-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/mpg-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
+  { href: "/calculators/transportation/ev-savings-calculator", icon: "⚡", name: "EV Savings Calculator" },
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+  { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
+  { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
+];
+
+export default function MpgCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"MPG Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/mpg-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"MPG Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/mpg-calculator\", \"description\": \"Calculate actual miles per gallon from odometer and gallons used. Track fuel efficiency and compare to EPA ratings for any vehicle.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate miles per gallon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"MPG = Miles Driven / Gallons of Fuel Used. Fill up completely, reset trip odometer (or note mileage). Drive normally. Fill up completely again — note miles driven and gallons pumped. MPG = miles / gallons. Example: drove 320 miles, pumped 11.5 gallons = 320/11.5 = 27.8 MPG.\"}}, {\"@type\": \"Question\", \"name\": \"Why is my MPG lower than the EPA rating?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"EPA ratings are measured under controlled laboratory conditions. Real-world factors that reduce MPG: city driving vs highway, cold weather (15-25% reduction), aggressive driving (up to 40% reduction), air conditioning (5-25%), high altitude, carrying heavy loads, and vehicle age/maintenance condition. The EPA revised ratings in 2008 to be more realistic, but gaps remain.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good MPG for a car?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Good MPG by vehicle type (2024): Compact car: 35-45 MPG (combined). Midsize sedan: 28-38 MPG. SUV: 22-32 MPG. Pickup truck: 18-25 MPG. Hybrid: 45-60 MPG. Plug-in hybrid: 40-55 MPG gas mode. Electric vehicle: 100-150 MPGe. Any vehicle achieving 35+ combined MPG is considered fuel efficient.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between city and highway MPG?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"City MPG: measured in stop-and-go traffic with frequent idling and acceleration — typically 20-30% lower than highway. Highway MPG: measured at steady 48-60 mph — engines are most efficient at steady speed. Combined MPG: 55% city + 45% highway weighting. Most drivers experience MPG closer to the combined rating for typical mixed driving.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert MPG to L/100km?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"L/100km = 235.215 / MPG. At 30 MPG: 235.215/30 = 7.84 L/100km. At 40 MPG: 5.88 L/100km. For UK MPG (Imperial gallon): L/100km = 282.481 / UK MPG. The relationship is inverse — higher MPG = lower L/100km (both mean more fuel efficient).\"}}, {\"@type\": \"Question\", \"name\": \"What MPG is considered bad?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Below 20 MPG combined is considered poor fuel economy for a passenger vehicle. Most full-size SUVs and pickup trucks fall in the 15-20 MPG range. Sports cars with large V8 engines can dip below 15 MPG. For comparison, the US fleet fuel economy standard (CAFE) requires an average of 49 MPG by 2026.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">MPG Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>MPG Calculator</h1>\n<p class=\"calc-intro\">Calculate your vehicle actual miles per gallon (MPG) from odometer readings and fuel fill-up data. Track whether your MPG matches the EPA rating, find how driving habits affect fuel efficiency, and compare gas vs electric vehicle efficiency.</p>\n<p class=\"calc-intro\">Your vehicle real-world MPG often differs from the EPA sticker rating by 10-20%. City driving, aggressive acceleration, highway speeds, cold weather, and carrying extra weight all reduce fuel economy. Calculating your actual MPG regularly helps identify when maintenance is needed and shows the true cost of your driving habits.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">MPG = Miles Driven / Gallons Used | Miles Driven = Ending Odometer - Starting Odometer | L/100km = 235.215 / MPG</div></div>\n<div class=\"content-section\">\n<h2>How to Calculate Your Real MPG</h2>\n<p>To accurately measure your MPG: fill your tank completely, record the odometer reading, drive normally, fill up completely again, record the new odometer reading and gallons pumped. MPG = (New Odometer - Old Odometer) / Gallons Pumped. Repeat 3-5 times for an accurate average, as one tank can vary significantly.</p>\n<h3>EPA MPG vs Real-World MPG</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Condition</th><th style=\"padding:11px 14px;text-align:left;\">MPG Impact</th><th style=\"padding:11px 14px;text-align:left;\">Reason</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">City driving</td><td style=\"padding:10px 14px;\">15-20% below EPA</td><td style=\"padding:10px 14px;\">Stop-and-go traffic, frequent idling</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Highway driving</td><td style=\"padding:10px 14px;\">0-10% below EPA</td><td style=\"padding:10px 14px;\">Most efficient but affected by speed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Combined</td><td style=\"padding:10px 14px;\">10-15% below EPA</td><td style=\"padding:10px 14px;\">Mix of city and highway</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Hot weather</td><td style=\"padding:10px 14px;\">2-3% below EPA</td><td style=\"padding:10px 14px;\">AC compressor load</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Cold weather</td><td style=\"padding:10px 14px;\">15-25% below EPA</td><td style=\"padding:10px 14px;\">Cold engine, thicker oil, battery drain</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">AC use</td><td style=\"padding:10px 14px;\">5-25% less</td><td style=\"padding:10px 14px;\">Significant at low speeds</td></tr></tbody></table></div>\n<h3>What Hurts Fuel Economy the Most</h3>\n<p>Ranked by impact: aggressive driving (speeding, rapid acceleration, hard braking) — up to 40% reduction. Excessive speed above 55 mph — 2% per mph over 50. Cold engine warm-up — short trips under 5 miles get terrible MPG. Underinflated tires — 0.2% per PSI. Excess cargo — 1% per 100 lbs. Roof racks and cargo boxes — 2-8% reduction.</p>\n<h3>Improving Your MPG</h3>\n<p>Most impactful actions: smooth acceleration and deceleration, maintain steady speed with cruise control, reduce highway speed by 5-10 mph, eliminate unnecessary cargo and roof racks, keep tires properly inflated, get regular tune-ups (especially air filter replacement), use the manufacturer recommended oil grade, and park in shade or garage to reduce AC cooling load.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate miles per gallon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">MPG = Miles Driven / Gallons of Fuel Used. Fill up completely, reset trip odometer (or note mileage). Drive normally. Fill up completely again — note miles driven and gallons pumped. MPG = miles / gallons. Example: drove 320 miles, pumped 11.5 gallons = 320/11.5 = 27.8 MPG.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is my MPG lower than the EPA rating? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">EPA ratings are measured under controlled laboratory conditions. Real-world factors that reduce MPG: city driving vs highway, cold weather (15-25% reduction), aggressive driving (up to 40% reduction), air conditioning (5-25%), high altitude, carrying heavy loads, and vehicle age/maintenance condition. The EPA revised ratings in 2008 to be more realistic, but gaps remain.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good MPG for a car? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Good MPG by vehicle type (2024): Compact car: 35-45 MPG (combined). Midsize sedan: 28-38 MPG. SUV: 22-32 MPG. Pickup truck: 18-25 MPG. Hybrid: 45-60 MPG. Plug-in hybrid: 40-55 MPG gas mode. Electric vehicle: 100-150 MPGe. Any vehicle achieving 35+ combined MPG is considered fuel efficient.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between city and highway MPG? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">City MPG: measured in stop-and-go traffic with frequent idling and acceleration — typically 20-30% lower than highway. Highway MPG: measured at steady 48-60 mph — engines are most efficient at steady speed. Combined MPG: 55% city + 45% highway weighting. Most drivers experience MPG closer to the combined rating for typical mixed driving.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert MPG to L/100km? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">L/100km = 235.215 / MPG. At 30 MPG: 235.215/30 = 7.84 L/100km. At 40 MPG: 5.88 L/100km. For UK MPG (Imperial gallon): L/100km = 282.481 / UK MPG. The relationship is inverse — higher MPG = lower L/100km (both mean more fuel efficient).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What MPG is considered bad? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Below 20 MPG combined is considered poor fuel economy for a passenger vehicle. Most full-size SUVs and pickup trucks fall in the 15-20 MPG range. Sports cars with large V8 engines can dip below 15 MPG. For comparison, the US fleet fuel economy standard (CAFE) requires an average of 49 MPG by 2026.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>MPG Calculator – Calculate Actual Miles Per Gallon</h2><div class=\"form-group\"><label for=\"mg-odo1\">Starting Odometer (miles)</label><input id=\"mg-odo1\" min=\"0\" step=\"0.1\" type=\"number\" value=\"45230\"/></div><div class=\"form-group\"><label for=\"mg-odo2\">Ending Odometer (miles)</label><input id=\"mg-odo2\" min=\"0\" step=\"0.1\" type=\"number\" value=\"45562\"/></div><div class=\"form-group\"><label for=\"mg-gals\">Gallons Filled</label><input id=\"mg-gals\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"11.8\"/></div><div class=\"form-group\"><label for=\"mg-price\">Gas Price per Gallon ($)</label><input id=\"mg-price\" min=\"0.5\" step=\"0.01\" type=\"number\" value=\"3.50\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','MPG Calculator – Calculate Actual Miles Per Gallon')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('MPG Calculator – Calculate Actual Miles Per Gallon')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-mpg-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var o1=parseFloat(document.getElementById('mg-odo1').value)||0;\n  var o2=parseFloat(document.getElementById('mg-odo2').value)||0;\n  var gals=parseFloat(document.getElementById('mg-gals').value)||0;\n  var price=parseFloat(document.getElementById('mg-price').value)||3.50;\n  if(o2<=o1){alert('Ending odometer must be greater than starting.');return;}\n  if(!gals){alert('Please enter gallons filled.');return;}\n  var miles=o2-o1;\n  var mpg=miles/gals;\n  var l100=235.215/mpg;\n  var cpm=price/mpg;\n  var annual=cpm*15000;\n  var epa_diff=mpg<25?'Below average fuel economy':mpg<35?'Average fuel economy':mpg<45?'Good fuel economy':'Excellent fuel economy';\n  var aiPrompt='Vehicle MPG: '+mpg.toFixed(1)+' ('+miles+' miles / '+gals+' gals), cost $'+cpm.toFixed(3)+'/mile';\n  document.getElementById('tr-ri').innerHTML=\n    ri('Fuel Economy','<strong style=\"font-size:28px;color:var(--c-accent)\">'+mpg.toFixed(1)+' MPG</strong>',true)+\n    ri('Assessment',epa_diff)+\n    ri('L/100km Equivalent',l100.toFixed(2)+' L/100km')+\n    ri('Cost Per Mile','$'+cpm.toFixed(3))+\n    ri('Miles Driven',miles.toFixed(1)+' miles')+\n    ri('Annual Cost Estimate','$'+annual.toFixed(0)+' (at 15k mi/yr)');\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Your MPG','EPA Average (28)'],[Math.round(mpg*10),280],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical money-saving tip about improving vehicle fuel economy and reducing gas costs.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Fuel Economy Metrology Summary: The Tank-to-Tank Method
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              The gold standard for measuring real-world automotive fuel economy is the tank-to-tank fill-up calculation. By filling the fuel tank completely, resetting the trip odometer, driving normally, refilling completely at the next stop, and dividing elapsed odometer miles by gallons pumped, drivers eliminate dashboard computer calibration biases. You can convert trip fuel expenses in our{" "}
+              <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium underline hover:text-amber-900">
+                fuel cost calculator
+              </Link>{" "}
+              and monitor electric charging efficiency in the{" "}
+              <Link href="/calculators/transportation/ev-savings-calculator" className="font-medium underline hover:text-amber-900">
+                ev savings calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Internal Combustion Thermodynamics & The Sankey Energy Flow Balance</h2>
+          <InternalCombustionThermodynamicLossChart />
+          <p>
+            In automotive powertrain engineering and thermodynamics, an internal combustion engine operates as an open chemical combustion heat engine governed by the Otto cycle (gasoline spark ignition) or Diesel cycle (compression ignition). Only a minor fraction of the chemical enthalpy stored in hydrocarbon fuel is converted into useful mechanical work at the vehicle&apos;s driven wheels.
+          </p>
+          <p>
+            According to thermodynamic analyses published by Oak Ridge National Laboratory and the US Department of Energy, approximately 65% to 75% of fuel energy is immediately rejected as waste heat: 35% dissipates through cylinder head water coolant into the radiator, and 35% expels as superheated exhaust gas. Commuter financial impacts can be evaluated in our{" "}
+            <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              commute cost calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"\text{US MPG} = \frac{\text{Miles Driven}}{\text{US Gallons Pumped}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Metric Fuel Consumption (L/100km)} = \frac{235.214583}{\text{US MPG}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Imperial (UK) MPG} = \text{US MPG} \times 1.20095 = \frac{\text{Miles Driven}}{\text{Imperial Gallons (4.546 L)}}"}
+          </Formula>
+
+          <Formula>
+            {"\text{Driving Fuel Cost Per Mile (\$)} = \frac{P_{\text{fuel/gal}}}{\text{US MPG}} = \frac{\text{Total Refill Cost}}{\text{Miles Driven}}"}
+          </Formula>
+
+          <h2>International Fuel Economy Conversion & Metric Equivalence Table</h2>
+          <p>
+            The comprehensive metrology table below maps standard vehicle fuel economy benchmarks across US customary, British Imperial, and global metric systems:
+          </p>
+
+          <DataTable
+            head={[
+              "Vehicle Economy Tier",
+              "US MPG",
+              "Imperial (UK) MPG",
+              "Metric (L/100km)",
+              "Kilometers per Liter (km/L)",
+              "Driving Cost Per Mile ($3.65/gal)",
+            ]}
+            rows={[
+              ["Heavy Duty / V8 Full-Size Truck", "14.0 MPG", "16.8 UK MPG", "16.80 L/100km", "5.95 km/L", "$0.261 / mile"],
+              ["Midsize V6 SUV / Crossover", "20.0 MPG", "24.0 UK MPG", "11.76 L/100km", "8.50 km/L", "$0.183 / mile"],
+              ["Standard Compact Crossover (AWD)", "26.0 MPG", "31.2 UK MPG", "9.05 L/100km", "11.05 km/L", "$0.140 / mile"],
+              ["Turbocharged Compact Sedan", "32.0 MPG", "38.4 UK MPG", "7.35 L/100km", "13.60 km/L", "$0.114 / mile"],
+              ["Subcompact Commuter Hatchback", "38.0 MPG", "45.6 UK MPG", "6.19 L/100km", "16.16 km/L", "$0.096 / mile"],
+              ["Advanced Hybrid Electric (HEV)", "50.0 MPG", "60.0 UK MPG", "4.70 L/100km", "21.26 km/L", "$0.073 / mile"],
+              ["High-Efficiency Plug-In Hybrid", "60.0 MPG", "72.1 UK MPG", "3.92 L/100km", "25.51 km/L", "$0.061 / mile"],
+            ]}
+          />
+
+          <h2>Worked Analytical Scenario: Calculating Real-World Commute MPG</h2>
+          <p>
+            Consider a driver tracking fuel economy across two consecutive fill-ups during a suburban workweek. At the first fill-up, the driver fills the tank until the fuel pump nozzle automatically clicks off and resets the vehicle&apos;s trip odometer. After driving for 6 days, the trip odometer reads 382.4 miles. The pump dispenses 12.65 gallons of unleaded gasoline costing $3.70 per gallon ($46.81 total). We calculate real-world MPG, metric consumption, and running costs alongside travel pacing in our{" "}
+            <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              speed distance time calculator
+            </Link>{" "}
+            and vehicle depreciation in the{" "}
+            <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              car depreciation calculator
+            </Link>:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>US Fuel Economy Calculation:</strong>
+              <Formula>
+                {"\text{US MPG} = \frac{382.4\,\text{miles}}{12.65\,\text{gallons}} = 30.23\,\text{Miles Per Gallon (MPG)}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Metric Equivalent Conversion (L/100km):</strong>
+              <Formula>
+                {"\text{Liters/100km} = \frac{235.215}{30.229\,\text{MPG}} = 7.78\,\text{L/100km}"}
+              </Formula>
+              Metric efficiency = 100 / 7.78 = 12.85 km per liter of fuel.
+            </li>
+            <li>
+              <strong>Imperial (UK) Rating:</strong>
+              <Formula>
+                {"\text{Imperial MPG} = 30.229 \times 1.20095 = 36.30\,\text{Imperial MPG}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Driving Cost Per Mile:</strong>
+              <Formula>
+                {"\text{Cost/Mile} = \frac{\$46.81\,\text{total refill cost}}{382.4\,\text{miles}} = \$0.1224/\text{mile} \quad (\$12.24/100\,\text{miles})"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Dashboard Discrepancy Check:</strong> If the vehicle&apos;s in-dash instrument cluster reported an average of 32.5 MPG, the real-world calculation (30.2 MPG) reveals a 7.1% over-optimistic dashboard calibration error, typical of factory fuel flow computer algorithms.
+            </li>
+            <li>
+              <strong>Long-Distance Distance Projection:</strong> Applying this verified 30.2 MPG rating across a 700-mile highway journey planned in our{" "}
+              <Link href="/calculators/transportation/distance-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                distance calculator
+              </Link>{" "}
+              yields a total required fuel volume of 23.2 gallons.
+            </li>
+          
+            <li>
+              <strong>Oxygenated Ethanol Blends & Stoichiometric Energy Penalties:</strong> Standard pump gasoline across North America contains up to 10% anhydrous ethanol (E10), which carries approximately 33% less chemical energy per gallon than pure petroleum hydrocarbons. Vehicles operating on flex-fuel E85 blends experience an immediate 25% to 30% reduction in volumetric MPG due to lower energy density, requiring motorists to calculate pump price spreads carefully to ensure lower fuel cost per gallon offsets the higher volumetric consumption rate.
+            </li>
+          </ul>
+
+          <h2>Why Dashboard Trip Computers Overestimate Real-World MPG</h2>
+          <p>
+            Modern vehicular instrument clusters feature electronic trip computers displaying instantaneous and average fuel economy. However, empirical testing by automotive engineering societies reveals that factory dashboard displays overestimate real-world MPG by 2% to 8%.
+          </p>
+          <p>
+            This discrepancy occurs because factory computers do not measure physical liquid volume pumped through fuel lines. Instead, the engine control unit (ECU) calculates fuel burn indirectly by multiplying fuel injector pulse-width duration (milliseconds open) by nominal fuel rail pressure. Manufacturing tolerances in fuel injector nozzles, ethanol fuel density variations (E10 vs pure gas), and evaporative canister purge flow introduce cumulative mathematical offsets that bias readings upward.
+          </p>
+
+          <h2>Operational Pitfalls, Mechanical Parasitic Losses & Hyper-Miling</h2>
+          <p>
+            Drivers seeking to optimize real-world MPG should eliminate critical mechanical drains:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Dragging Brake Calipers:</strong> Sticking brake caliper slide pins maintain constant pad contact with brake rotors, creating invisible rolling friction that degrades fuel economy by 1.5 to 3.0 MPG while overheating wheel bearings.
+            </li>
+            <li>
+              <strong>Faulty Engine Thermostats:</strong> An engine thermostat stuck open prevents coolant from reaching optimal operating temperature (195°F to 215°F / 90°C to 102°C). The ECU remains trapped in "open-loop" warmup enrichment, injecting 15% to 25% excess fuel into cylinders.
+            </li>
+            <li>
+              <strong>Fouled Spark Plugs & Oxygen Sensors:</strong> Aging upstream air-fuel ratio oxygen sensors drift lean over time, causing the ECU to over-fuel the mixture and robbing 10% to 15% of highway fuel economy.
+            </li>
+            <li>
+              <strong>Active Transportation Alternatives:</strong> Comparing motor vehicle fuel efficiency against athletic human energy burn is analyzed in our{" "}
+              <Link href="/calculators/transportation/bike-pace-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                bike pace calculator
+              </Link>.
+            </li>
+          
+            <li>
+              <strong>Oxygenated Ethanol Blends & Stoichiometric Energy Penalties:</strong> Standard pump gasoline across North America contains up to 10% anhydrous ethanol (E10), which carries approximately 33% less chemical energy per gallon than pure petroleum hydrocarbons. Vehicles operating on flex-fuel E85 blends experience an immediate 25% to 30% reduction in volumetric MPG due to lower energy density, requiring motorists to calculate pump price spreads carefully to ensure lower fuel cost per gallon offsets the higher volumetric consumption rate.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why does 1 UK Imperial gallon differ from 1 US customary gallon?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                A United States gallon is defined as exactly 231 cubic inches or 3.78541 liters. A British Imperial gallon is defined as the volume of 10 pounds of distilled water at 62°F, equaling approximately 4.54609 liters. Because an Imperial gallon is 20.1% larger than a US gallon, an identical vehicle achieves a 20.1% higher numerical MPG rating in the UK.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why is lower Liters per 100km (L/100km) better, unlike MPG?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Liters per 100 km is a consumption metric measuring fuel consumed per fixed distance; lower numbers indicate superior fuel efficiency. Miles per gallon is an economy metric measuring distance traveled per unit of fuel; higher numbers indicate superior efficiency.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does aggressive driving and rapid acceleration degrade MPG?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Rapid acceleration commands wide-open throttle (WOT) enrichment from the engine control unit, injecting rich fuel mixtures (air-fuel ratio drops from 14.7:1 to 11.5:1) to prevent cylinder detonation. Studies by Oak Ridge National Laboratory prove aggressive driving lowers real-world MPG by 15% to 33%.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Does premium high-octane gasoline increase MPG in regular vehicles?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                No. Octane rating measures fuel resistance to pre-ignition knock, not energy content. Unless your vehicle&apos;s owner manual specifically mandates premium fuel for high-compression turbocharging, burning 93-octane premium in an engine designed for 87-octane regular yields zero improvement in fuel economy or horsepower.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does winter-blend gasoline affect vehicle fuel economy?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Winter-blend gasoline contains higher concentrations of butane and light hydrocarbons to increase Reid Vapor Pressure (RVP) for easy cold engine starting. Because butane possesses lower volumetric energy density than heavier aromatics, winter-blend gas reduces vehicle fuel economy by 1.5% to 3.0%.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does vehicle fuel economy directly impact annual commute budgets?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Improving your commute vehicle from 20 MPG to 35 MPG over a 15,000-mile annual commute saves 321 gallons of fuel per year—putting over $1,150 in annual cash savings back into your household budget, as modeled in our{" "}
+                <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  commute cost calculator
+                </Link>.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Fuel Economy Testing Standards & Engineering Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Code of Federal Regulations (40 CFR Part 600):</strong> Fuel Economy and Greenhouse Gas Exhaust Emissions of Motor Vehicles.
+            </li>
+            <li>
+              <strong>Oak Ridge National Laboratory (Transportation Energy Data Book):</strong> Energy losses in passenger cars and light trucks.
+            </li>
+            <li>
+              <strong>International Organization for Standardization (ISO 10521):</strong> Road vehicles - Determination of road load and chassis dynamometer simulation.
+            </li>
+            <li>
+              <strong>Society of Automotive Engineers (SAE J1082):</strong> Fuel Economy Measurement Road Test Procedure for Light-Duty Vehicles.
+            </li>
+          
+            <li>
+              <strong>Oxygenated Ethanol Blends & Stoichiometric Energy Penalties:</strong> Standard pump gasoline across North America contains up to 10% anhydrous ethanol (E10), which carries approximately 33% less chemical energy per gallon than pure petroleum hydrocarbons. Vehicles operating on flex-fuel E85 blends experience an immediate 25% to 30% reduction in volumetric MPG due to lower energy density, requiring motorists to calculate pump price spreads carefully to ensure lower fuel cost per gallon offsets the higher volumetric consumption rate.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <MpgCalculatorComponent />
+    </CalcPage>
   );
 }

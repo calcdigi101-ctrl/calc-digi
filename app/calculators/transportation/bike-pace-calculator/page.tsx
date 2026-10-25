@@ -1,26 +1,276 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import BikePaceCalculatorComponent from "@/components/calcs/transportation/bike-pace-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CyclingPowerVelocityResistanceChart } from "@/components/flagship/transportation/editorial-charts";
+
+const PATH = "/calculators/transportation/bike-pace-calculator";
+const TITLE = "Bike Pace Calculator | Cycling Speed, Mechanical Watts & Drag";
+const DESCRIPTION =
+  "Calculate cycling pace, average velocity, mechanical power output in watts, aerodynamic drag resistance, and metabolic calories burned across road grades.";
 
 export const metadata: Metadata = {
-  "title": "Cycling Pace Calculator – Bike Speed and Time | CalcDigi",
-  "description": "Calculate bike speed, ride time, and distance. Find your pace per mile and plan cycling training for any fitness level.",
-  "openGraph": {
-    "title": "Cycling Pace Calculator – Bike Speed and Time | CalcDigi",
-    "description": "Calculate bike speed, ride time, and distance. Find your pace per mile and plan cycling training for any fitness level.",
-    "type": "website",
-    "url": "/calculators/transportation/bike-pace-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/transportation/bike-pace-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚲", name: "Commute Cost Calculator" },
+  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
+  { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
+  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
+];
+
+export default function BikePaceCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Transportation Calculators\", \"item\": \"https://calcdigi.com/pages/transportation\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Cycling Pace Calculator\", \"item\": \"https://calcdigi.com/calculators/transportation/bike-pace-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Cycling Pace Calculator\", \"url\": \"https://calcdigi.com/calculators/transportation/bike-pace-calculator\", \"description\": \"Calculate bike speed, ride time, and distance. Find your pace per mile and plan cycling training for any fitness level.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is a good cycling pace for a beginner?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Beginners typically average 8-12 mph on flat terrain. A 12 mph pace means riding 1 mile every 5 minutes. For comparison, walking speed is 3-4 mph and jogging is 5-7 mph. Most beginners find 30-60 minute rides at 10-12 mph comfortable. Speed improves significantly with consistent training over 2-3 months.\"}}, {\"@type\": \"Question\", \"name\": \"How long does it take to cycle 20 miles?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 12 mph: 20/12 = 1.67 hours = 1 hour 40 minutes. At 15 mph: 1 hour 20 minutes. At 18 mph: 1 hour 7 minutes. These are moving time only — add time for stops, traffic lights, and rest breaks. A 20-mile casual ride with stops typically takes 2-2.5 hours door to door.\"}}, {\"@type\": \"Question\", \"name\": \"What is a good cycling pace per mile?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"In minutes per mile: Beginner: 5-7.5 min/mile (8-12 mph). Intermediate: 3.75-5 min/mile (12-16 mph). Advanced: 3-3.75 min/mile (16-20 mph). Elite: 2.5-3 min/mile (20-24 mph). In minutes per km: Beginner: 3.1-4.7 min/km. Intermediate: 2.3-3.1 min/km.\"}}, {\"@type\": \"Question\", \"name\": \"How many calories do you burn cycling 30 minutes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Cycling 30 minutes at moderate pace (14 mph): approximately 225-350 calories for a 155 lb (70 kg) person. At vigorous pace (18 mph): 350-450 calories. Leisurely pace (10 mph): 150-225 calories. Cycling is one of the most calorie-efficient cardio exercises due to the mechanical advantage of the bike.\"}}, {\"@type\": \"Question\", \"name\": \"How fast do pro cyclists ride in the Tour de France?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Tour de France average stage speed: 24-27 mph (38-43 km/h). Time trial stages: 30-35 mph average. Mountain stages: 15-20 mph due to climbing. The fastest stage speeds exceed 35 mph. Stage total distances: 100-220 km. Over 21 stages and 3,500+ km, it remains the most grueling annual sporting event.\"}}, {\"@type\": \"Question\", \"name\": \"Is cycling 10 miles a day good exercise?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"10 miles at 12 mph = 50 minutes of moderate cardio — exceeding the WHO recommendation of 150 minutes of moderate activity per week (you achieve this in 3 days of cycling). A 150 lb person burns approximately 400-500 calories cycling 10 miles at moderate pace. Cycling commuting (10 miles each way) provides 100 minutes of daily exercise.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/transportation\">Transportation</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Cycling Pace Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Cycling Pace Calculator</h1>\n<p class=\"calc-intro\">Calculate your cycling speed, time to complete any distance, or distance covered at a given pace. Plan your bike rides, track your training progress, and compare your cycling performance to average speeds for different cyclist levels.</p>\n<p class=\"calc-intro\">Whether you are a casual cyclist, commuter, or competitive road racer, understanding your cycling pace helps you plan rides, track improvement, and set realistic goals. This calculator handles all three scenarios — finding speed from distance and time, finding time from speed and distance, or finding distance from speed and time.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Speed (mph) = Distance / Time | Pace (min/mile) = 60 / Speed (mph) | Distance = Speed × Time</div></div>\n<div class=\"content-section\">\n<h2>Cycling Speed Reference Guide</h2>\n<p>Cycling speed varies dramatically based on fitness level, bike type, terrain, and wind conditions. Understanding where you fall on the cycling speed spectrum helps set realistic goals and track progress over time.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Level</th><th style=\"padding:11px 14px;text-align:left;\">Speed</th><th style=\"padding:11px 14px;text-align:left;\">Metric</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Beginner cyclist</td><td style=\"padding:10px 14px;\">8-12 mph</td><td style=\"padding:10px 14px;\">12-19 km/h</td><td style=\"padding:10px 14px;\">Leisure/recreational riding</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Casual cyclist</td><td style=\"padding:10px 14px;\">12-16 mph</td><td style=\"padding:10px 14px;\">19-26 km/h</td><td style=\"padding:10px 14px;\">Regular fitness cycling</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Intermediate cyclist</td><td style=\"padding:10px 14px;\">16-20 mph</td><td style=\"padding:10px 14px;\">26-32 km/h</td><td style=\"padding:10px 14px;\">Training regularly, group rides</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Advanced cyclist</td><td style=\"padding:10px 14px;\">20-25 mph</td><td style=\"padding:10px 14px;\">32-40 km/h</td><td style=\"padding:10px 14px;\">Competitive amateur, centuries</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Elite/Pro cyclist</td><td style=\"padding:10px 14px;\">25-30+ mph</td><td style=\"padding:10px 14px;\">40-48+ km/h</td><td style=\"padding:10px 14px;\">Racing, time trials</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Mountain bike (trail)</td><td style=\"padding:10px 14px;\">8-12 mph</td><td style=\"padding:10px 14px;\">12-19 km/h</td><td style=\"padding:10px 14px;\">Off-road, technical terrain</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">E-bike (pedal assist)</td><td style=\"padding:10px 14px;\">15-28 mph</td><td style=\"padding:10px 14px;\">24-45 km/h</td><td style=\"padding:10px 14px;\">Class 1/2/3 depending on motor</td></tr></tbody></table></div>\n<h3>Factors Affecting Cycling Speed</h3>\n<p>Wind is the biggest external factor — a 15 mph headwind can reduce speed by 5-8 mph and increase effort dramatically. Gradient matters significantly: a 5% climb reduces speed by 30-40% for the same power output. Bike type: road bike (fastest, most aerodynamic), gravel bike (5-10% slower), hybrid (10-15% slower), mountain bike (20-30% slower on pavement), and cargo bike (20-40% slower).</p>\n<h3>Calories Burned Cycling</h3>\n<p>Cycling calorie burn: leisure (10 mph): ~300-400 cal/hour. Moderate (14 mph): ~450-600 cal/hour. Vigorous (18 mph): ~600-900 cal/hour. These are approximate for a 155 lb (70 kg) cyclist. Heavier cyclists burn more; tailwinds burn less. Climbing burns significantly more calories than flat riding at the same speed.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good cycling pace for a beginner? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Beginners typically average 8-12 mph on flat terrain. A 12 mph pace means riding 1 mile every 5 minutes. For comparison, walking speed is 3-4 mph and jogging is 5-7 mph. Most beginners find 30-60 minute rides at 10-12 mph comfortable. Speed improves significantly with consistent training over 2-3 months.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does it take to cycle 20 miles? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 12 mph: 20/12 = 1.67 hours = 1 hour 40 minutes. At 15 mph: 1 hour 20 minutes. At 18 mph: 1 hour 7 minutes. These are moving time only — add time for stops, traffic lights, and rest breaks. A 20-mile casual ride with stops typically takes 2-2.5 hours door to door.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good cycling pace per mile? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">In minutes per mile: Beginner: 5-7.5 min/mile (8-12 mph). Intermediate: 3.75-5 min/mile (12-16 mph). Advanced: 3-3.75 min/mile (16-20 mph). Elite: 2.5-3 min/mile (20-24 mph). In minutes per km: Beginner: 3.1-4.7 min/km. Intermediate: 2.3-3.1 min/km.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many calories do you burn cycling 30 minutes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Cycling 30 minutes at moderate pace (14 mph): approximately 225-350 calories for a 155 lb (70 kg) person. At vigorous pace (18 mph): 350-450 calories. Leisurely pace (10 mph): 150-225 calories. Cycling is one of the most calorie-efficient cardio exercises due to the mechanical advantage of the bike.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How fast do pro cyclists ride in the Tour de France? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Tour de France average stage speed: 24-27 mph (38-43 km/h). Time trial stages: 30-35 mph average. Mountain stages: 15-20 mph due to climbing. The fastest stage speeds exceed 35 mph. Stage total distances: 100-220 km. Over 21 stages and 3,500+ km, it remains the most grueling annual sporting event.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is cycling 10 miles a day good exercise? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">10 miles at 12 mph = 50 minutes of moderate cardio — exceeding the WHO recommendation of 150 minutes of moderate activity per week (you achieve this in 3 days of cycling). A 150 lb person burns approximately 400-500 calories cycling 10 miles at moderate pace. Cycling commuting (10 miles each way) provides 100 minutes of daily exercise.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Transportation Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/transportation/fuel-cost-calculator\"><span class=\"rc-icon\">⛽</span><span class=\"rc-name\">Fuel Cost Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/road-trip-cost-calculator\"><span class=\"rc-icon\">🛣️</span><span class=\"rc-name\">Road Trip Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/mpg-calculator\"><span class=\"rc-icon\">🚗</span><span class=\"rc-name\">MPG Calculator</span></a><a class=\"related-card\" href=\"/calculators/transportation/ev-savings-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">EV Savings Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Cycling Pace Calculator – Speed, Distance and Ride Time</h2><div class=\"form-group\"><label for=\"bp-solve\">Calculate</label><select id=\"bp-solve\"><option selected=\"\" value=\"time\">Ride Time from Speed and Distance</option><option value=\"speed\">Speed from Distance and Time</option><option value=\"dist\">Distance from Speed and Time</option></select></div><div id=\"bp-time-d\"><div class=\"form-group\"><label for=\"bp-d1\">Distance</label><input id=\"bp-d1\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"bp-d1u\">Unit</label><select id=\"bp-d1u\"><option selected=\"\" value=\"mi\">Miles</option><option value=\"km\">Kilometers</option></select></div><div class=\"form-group\"><label for=\"bp-s1\">Speed</label><input id=\"bp-s1\" max=\"100\" min=\"1\" step=\"0.1\" type=\"number\" value=\"14\"/></div><div class=\"form-group\"><label for=\"bp-s1u\">Unit</label><select id=\"bp-s1u\"><option selected=\"\" value=\"mph\">MPH</option><option value=\"kmh\">km/h</option></select></div></div><div id=\"bp-speed-d\" style=\"display:none;\"><div class=\"form-group\"><label for=\"bp-d2\">Distance</label><input id=\"bp-d2\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"bp-d2u\">Unit</label><select id=\"bp-d2u\"><option selected=\"\" value=\"mi\">Miles</option><option value=\"km\">Kilometers</option></select></div><div class=\"form-group\"><label for=\"bp-t2\">Time (minutes)</label><input id=\"bp-t2\" min=\"1\" step=\"1\" type=\"number\" value=\"90\"/></div></div><div id=\"bp-dist-d\" style=\"display:none;\"><div class=\"form-group\"><label for=\"bp-s3\">Speed</label><input id=\"bp-s3\" max=\"100\" min=\"1\" step=\"0.1\" type=\"number\" value=\"14\"/></div><div class=\"form-group\"><label for=\"bp-s3u\">Unit</label><select id=\"bp-s3u\"><option selected=\"\" value=\"mph\">MPH</option><option value=\"kmh\">km/h</option></select></div><div class=\"form-group\"><label for=\"bp-t3\">Time (minutes)</label><input id=\"bp-t3\" min=\"1\" step=\"1\" type=\"number\" value=\"90\"/></div></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('tr-result').style.display='none';document.getElementById('tr-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"tr-result\" style=\"display:none;\"><div id=\"tr-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"tr-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"tr-ai\" style=\"display:none;\"></div></div>\n<div id=\"tr-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-tr\" onclick=\"printResult('tr-result','Cycling Pace Calculator – Speed, Distance and Ride Time')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Cycling Pace Calculator – Speed, Distance and Ride Time')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-bike-pace-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('bp-solve').addEventListener('change',function(){\n  document.getElementById('bp-time-d').style.display=this.value==='time'?'block':'none';\n  document.getElementById('bp-speed-d').style.display=this.value==='speed'?'block':'none';\n  document.getElementById('bp-dist-d').style.display=this.value==='dist'?'block':'none';\n});\nfunction doCalc(){\n  var solve=document.getElementById('bp-solve').value;\n  var speed_mph,dist_mi,time_min,pace_mpm;\n  if(solve==='time'){\n    var d=parseFloat(document.getElementById('bp-d1').value)||0;\n    var du=document.getElementById('bp-d1u').value;\n    var s=parseFloat(document.getElementById('bp-s1').value)||0;\n    var su=document.getElementById('bp-s1u').value;\n    dist_mi=du==='km'?d*0.621371:d; speed_mph=su==='kmh'?s*0.621371:s;\n    time_min=dist_mi/speed_mph*60;\n  } else if(solve==='speed'){\n    var d2=parseFloat(document.getElementById('bp-d2').value)||0;\n    var du2=document.getElementById('bp-d2u').value;\n    var t2=parseFloat(document.getElementById('bp-t2').value)||0;\n    dist_mi=du2==='km'?d2*0.621371:d2; time_min=t2; speed_mph=dist_mi/(t2/60);\n  } else {\n    var s3=parseFloat(document.getElementById('bp-s3').value)||0;\n    var su3=document.getElementById('bp-s3u').value;\n    var t3=parseFloat(document.getElementById('bp-t3').value)||0;\n    speed_mph=su3==='kmh'?s3*0.621371:s3; time_min=t3; dist_mi=speed_mph*(t3/60);\n  }\n  if(!speed_mph||!dist_mi||!time_min){alert('Please enter valid values.');return;}\n  pace_mpm=60/speed_mph;\n  var paceStr=Math.floor(pace_mpm)+':'+(Math.round((pace_mpm%1)*60)<10?'0':'')+Math.round((pace_mpm%1)*60)+' min/mile';\n  var hrs=Math.floor(time_min/60);var mins=Math.round(time_min%60);\n  var timeStr=(hrs>0?hrs+'h ':'')+mins+'min';\n  var calories=Math.round(dist_mi*50*(speed_mph/12));\n  var level=speed_mph<10?'Beginner':speed_mph<14?'Casual':speed_mph<18?'Intermediate':speed_mph<22?'Advanced':'Elite';\n  var aiPrompt='Cycling: '+speed_mph.toFixed(1)+' mph, '+dist_mi.toFixed(1)+' miles, '+timeStr+', level: '+level;\n  document.getElementById('tr-ri').innerHTML=\n    ri('Result','<strong style=\"font-size:22px;color:var(--c-accent)\">'+(solve==='time'?timeStr:solve==='speed'?speed_mph.toFixed(1)+' mph':dist_mi.toFixed(1)+' miles')+'</strong>',true)+\n    ri('Speed',speed_mph.toFixed(1)+' mph ('+( speed_mph*1.60934).toFixed(1)+' km/h)')+\n    ri('Distance',dist_mi.toFixed(1)+' miles ('+( dist_mi*1.60934).toFixed(1)+' km)')+\n    ri('Ride Time',timeStr)+\n    ri('Pace',paceStr)+\n    ri('Cyclist Level',level)+\n    ri('Calories Burned','~'+calories+' cal (est.)');\n  document.getElementById('tr-result').style.display='block';document.getElementById('tr-actions').style.display='flex';\n  drawDonut('tr-chart',['Distance (mi)','Speed (mph)'],[Math.round(dist_mi*10),Math.round(speed_mph*10)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('tr-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about cycling training and improving your bike speed.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
+              Cycling Physics Summary: Cubic Air Drag & Metabolic Power
+            </p>
+            <p className="text-amber-800 dark:text-amber-200/90">
+              Unlike running where energy scales linearly with velocity, cycling power demand increases with the cube of airspeed (v3). At speeds exceeding 15 mph (24 km/h), overcoming aerodynamic wind drag consumes between 70% and 90% of a cyclist&apos;s mechanical wattage. You can cross-verify physical energy burn with our{" "}
+              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
+                calorie burn calculator
+              </Link>{" "}
+              and evaluate multi-modal urban transit expenses in the{" "}
+              <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium underline hover:text-amber-900">
+                commute cost calculator
+              </Link>.
+            </p>
+          </div>
+
+          <h2>Aerodynamic Drag Mechanics & The Governing Power Equation</h2>
+          <CyclingPowerVelocityResistanceChart />
+          <p>
+            In athletic locomotion and vehicular dynamics, a bicycle-rider system moving through atmospheric air must overcome three distinct resistive forces: aerodynamic profile drag (F_aero), mechanical tire rolling resistance (F_rolling), and gravitational gradient resistance (F_gravity).
+          </p>
+          <p>
+            The total instantaneous mechanical power (P_total) delivered to the rear drive wheel through pedals and drivetrain crank arms represents the product of these collective resistive vectors and forward ground velocity. When cycling on level pavement, aerodynamic drag dominates exponentially due to fluid boundary layer turbulence. Route journey intervals can be verified in our{" "}
+            <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              speed distance time calculator
+            </Link>:
+          </p>
+
+          <Formula>
+            {"P_{\text{total}} = P_{\text{aero}} + P_{\text{rolling}} + P_{\text{gravity}} + P_{\text{drivetrain}}"}
+          </Formula>
+
+          <Formula>
+            {"P_{\text{aero}} = \frac{1}{2} \rho C_d A \cdot (v + v_{\text{wind}})^2 \cdot v"}
+          </Formula>
+
+          <Formula>
+            {"P_{\text{rolling}} = C_{rr} \cdot m \cdot g \cdot v"}
+          </Formula>
+
+          <Formula>
+            {"P_{\text{gravity}} = m \cdot g \cdot \sin(\theta) \cdot v \approx m \cdot g \cdot s \cdot v"}
+          </Formula>
+
+          <h2>Cycling Velocity, Power Demand & Cadence Benchmark Matrix</h2>
+          <p>
+            The reference matrix below establishes standard physiological and mechanical benchmarks across cycling ability tiers, detailing required wattage, speed, and pacing over level tarmac:
+          </p>
+
+          <DataTable
+            head={[
+              "Cycling Category / Rider Profile",
+              "Average Speed (mph)",
+              "Speed (km/h)",
+              "Pace (min/mile)",
+              "Sustained Watts",
+              "Watts / kg (75 kg)",
+              "Metabolic Kcal/hr",
+            ]}
+            rows={[
+              ["Casual Urban Commuter", "10.0 - 12.0 mph", "16 - 19 km/h", "5:00 - 6:00 min/mi", "60 - 90 W", "0.8 - 1.2 W/kg", "250 - 350 kcal"],
+              ["Club Enthusiast (Zone 2 Endurance)", "14.0 - 16.0 mph", "22 - 26 km/h", "3:45 - 4:17 min/mi", "120 - 160 W", "1.6 - 2.1 W/kg", "450 - 600 kcal"],
+              ["Sportive / Fast Century Rider", "18.0 - 20.0 mph", "29 - 32 km/h", "3:00 - 3:20 min/mi", "200 - 240 W", "2.7 - 3.2 W/kg", "750 - 900 kcal"],
+              ["Competitive Road Racer (Cat 2/3)", "22.0 - 24.0 mph", "35 - 39 km/h", "2:30 - 2:43 min/mi", "280 - 340 W", "3.7 - 4.5 W/kg", "1,050 - 1,250 kcal"],
+              ["Professional WorldTour Peloton", "26.0 - 28.0 mph", "42 - 45 km/h", "2:08 - 2:18 min/mi", "380 - 450 W", "5.1 - 6.0 W/kg", "1,400 - 1,700 kcal"],
+              ["Track Sprint Specialist (20s Peak)", "38.0 - 44.0 mph", "61 - 71 km/h", "1:21 - 1:35 min/mi", "1,600 - 2,200 W", "18 - 25 W/kg", "Anaerobic Burst"],
+            ]}
+          />
+
+          <h2>Worked Analytical Scenario: Pacing a 40-Mile Rolling Course</h2>
+          <p>
+            Consider an amateur endurance cyclist weighing 72 kg with an 8 kg carbon road bike (total system mass = 80 kg) targeting a 40.0-statute-mile route across rolling countryside with an average 1.5% gradient. To manage energy expenditure alongside dietary glycogen refueling planned in our{" "}
+            <Link href="/calculators/food/nutrition-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              nutrition calculator
+            </Link>{" "}
+            and vehicle trip tracking via the{" "}
+            <Link href="/calculators/transportation/distance-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              distance calculator
+            </Link>, we compute target velocity, wattage, and caloric consumption:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Target Elapsed Duration:</strong> The cyclist aims to complete the 40-mile distance in exactly 2 hours and 15 minutes (2.25 hours).
+              <Formula>
+                {"\text{Target Velocity} = \frac{40.0\,\text{miles}}{2.25\,\text{hours}} = 17.78\,\text{mph} = 28.61\,\text{km/h} = 7.948\,\text{m/s}"}
+              </Formula>
+              Target pace = (2.25 * 60) / 40.0 = 3 minutes and 22 seconds per mile.
+            </li>
+            <li>
+              <strong>Aerodynamic Drag Component:</strong> Assuming a standard road hood posture with an effective frontal area (CdA) of 0.32 m2 and sea-level air density of 1.225 kg/m3:
+              <Formula>
+                {"P_{\text{aero}} = 0.5 \times 1.225 \times 0.32 \times (7.948)^3 = 0.196 \times 502.08 = 98.4\,\text{Watts}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Tire Rolling Resistance:</strong> On 28mm clincher road tires (coefficient Crr = 0.0050):
+              <Formula>
+                {"P_{\text{rolling}} = 0.0050 \times 80\,\text{kg} \times 9.80665\,\text{m/s}^2 \times 7.948\,\text{m/s} = 31.2\,\text{Watts}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Gravitational Climbing Component:</strong> Factoring net positive vertical gain over the rolling 1.5% gradient:
+              <Formula>
+                {"P_{\text{gravity}} = 80\,\text{kg} \times 9.80665 \times 0.015 \times 7.948 = 93.5\,\text{Watts}"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Total Drivetrain Wattage:</strong> Assuming a clean ceramic-lubricated chain with 97% transmission efficiency:
+              <Formula>
+                {"P_{\text{mechanical}} = \frac{98.4 + 31.2 + 93.5}{0.97} = \frac{223.1}{0.97} = 230.0\,\text{Watts} \quad (3.19\,\text{W/kg})"}
+              </Formula>
+            </li>
+            <li>
+              <strong>Metabolic Bioenergetics:</strong> At a human gross mechanical efficiency of 23.5%, the rider oxidizes approximately 780 kcal per hour, requiring a total of 1,755 kcal across the ride.
+            </li>
+          </ul>
+
+          <h2>Frontal Area (CdA), Yaw Angles & Ambient Environmental Variables</h2>
+          <p>
+            The critical coefficient governing cycling aerodynamic efficiency is the drag area, denoted as CdA (the product of the drag coefficient Cd and frontal cross-sectional area A). An upright commuter on a Dutch city bicycle presents a CdA of 0.55 to 0.70 m2, whereas a professional time trial specialist tucked into aero extensions compresses their frontal profile to as little as 0.20 to 0.22 m2.
+          </p>
+          <p>
+            Furthermore, crosswinds generate yaw angles that detach laminar airflow from bicycle wheel rims and down-tubes, creating turbulent vortex shedding. Modern aerodynamic deep-section carbon wheels (45mm to 65mm rim depth) utilize toroidal and truncated airfoil profiles to maintain boundary layer attachment at yaw angles up to 15 degrees, saving 12 to 18 watts of energy at race velocities.
+          </p>
+
+          <h2>Operational Pitfalls in Cycling Metrology & Power Meter Calibration</h2>
+          <p>
+            Athletes and cycling commuters must guard against common data discrepancies:
+          </p>
+          <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300">
+            <li>
+              <strong>Strain Gauge Zero-Offset Drift:</strong> Temperature fluctuations during outdoor rides cause thermal expansion in crank-arm aluminum, shifting zero-offset calibration. Failing to perform a manual zero-calibration before riding introduces power reading errors of 5% to 12%.
+            </li>
+            <li>
+              <strong>Tire Pressure & Casing Hysteresis:</strong> Over-inflating road tires beyond optimal pressure (e.g., pumping to 120 PSI on rough asphalt) increases surface impedance, bouncing the bike microscopically and paradoxically increasing rolling resistance compared to running supple 80 PSI tubeless setups.
+            </li>
+            <li>
+              <strong>Commuter Fuel vs Auto Savings:</strong> Bicycle commuting provides substantial financial savings compared to vehicle ownership costs modeled in our{" "}
+              <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                car depreciation calculator
+              </Link>{" "}
+              and fuel consumption tracked in the{" "}
+              <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                fuel cost calculator
+              </Link>.
+            </li>
+            <li>
+              <strong>Drivetrain Frictional Losses:</strong> A dirty, wax-depleted bicycle chain with road grit contamination generates up to 15 watts of unnecessary drivetrain frictional drag, reducing average speed by nearly 1.0 mph.
+            </li>
+          </ul>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                Why does doubling cycling speed require eight times more aerodynamic power?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Aerodynamic drag force is proportional to the square of velocity (v2). Because mechanical power is force multiplied by velocity (P = F * v), aerodynamic power scales with the cube of velocity (v3). Doubling speed from 10 mph to 20 mph multiplies aerodynamic power demand by 2^3 = 8 times.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the difference between speed in miles per hour and cycling pace in minutes per mile?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Speed expresses distance traveled per unit of time (miles per hour), whereas pace expresses the time required to travel one fixed unit of distance (minutes per mile). For example, cycling at 15.0 mph equals a pace of 4:00 min/mi, while 20.0 mph equals a pace of 3:00 min/mi.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How much energy does drafting in a cycling paceline actually conserve?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Wind tunnel and velodrome research demonstrates that drafting directly behind another rider at 25 mph (40 km/h) reduces aerodynamic drag by 25% to 40%. Riding in the middle of a dense peloton can reduce wind resistance by up to 60%, allowing riders to maintain high speeds at low cardiovascular exertion.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How does rider body weight influence climbing versus flat terrain speed?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                On flat terrain, absolute power output and frontal aerodynamic profile (CdA) dictate velocity, favoring larger, powerful riders. On steep mountain ascents exceeding 6% grade, gravitational resistance (m * g * s * v) dominates, making power-to-weight ratio (Watts per kilogram) the sole determinant of climbing speed.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                How do bicycle commuters calculate their net annual transportation savings?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                Urban commuters compare maintenance and tire replacement costs directly against motor vehicle depreciation analyzed in our{" "}
+                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  car depreciation calculator
+                </Link>{" "}
+                and recurring loan payments in the{" "}
+                <Link href="/calculators/transportation/car-payment-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                  car payment calculator
+                </Link>.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                What is the typical human gross mechanical efficiency during cycling?
+              </h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                In exercise physiology, human skeletal muscle efficiency ranges between 20% and 25%. This means that for every 100 kilocalories of dietary food energy consumed, only 20 to 25 kcal are converted into mechanical propulsion at the pedals; the remaining 75% to 80% is dissipated as metabolic heat.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative Cycling Biomechanics & Ergonomics Citations</h2>
+          <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">
+            <li>
+              <strong>Union Cycliste Internationale (UCI Regulations Part 1):</strong> Technical specifications for bicycle geometry, mass, and aerodynamic fairing limits.
+            </li>
+            <li>
+              <strong>Martin JC, Milliken DL, et al.:</strong> Validation of a mathematical model for road cycling power (Journal of Applied Biomechanics).
+            </li>
+            <li>
+              <strong>American College of Sports Medicine (ACSM):</strong> Guidelines for metabolic calculation of energy expenditure during stationary and outdoor cycling.
+            </li>
+            <li>
+              <strong>National Highway Traffic Safety Administration (NHTSA):</strong> Bicycle safety and commuter transport infrastructure research reports.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <BikePaceCalculatorComponent />
+    </CalcPage>
   );
 }
