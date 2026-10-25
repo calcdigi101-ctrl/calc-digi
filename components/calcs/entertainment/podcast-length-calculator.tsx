@@ -91,8 +91,17 @@ export const config: CalcConfig = {
         label: `At ${speed}× Speed (${pctSaved}% Time Saved | ${annualHoursSaved.toFixed(1)} Hours Saved Annually)`,
       },
       badge: {
-        text: speed > 1.0 ? `Saves ${pctSaved}% of Listening Time` : "Real-Time 1.0x Pacing",
-        tone: speed >= 1.25 ? "good" : "info",
+        text: `${Math.round(timeAtSpeedMin)} Mins (${pctSaved}% faster)`,
+        tone: "info",
+      },
+      chart: {
+        type: "donut",
+        title: "Per-Episode Time Distribution (Mins)",
+        data: [
+          { name: `Listening Time (${timeAtSpeedMin.toFixed(0)}m)`, value: Math.max(0.1, Number(timeAtSpeedMin.toFixed(1))), color: "#3b82f6" },
+          { name: `Time Saved (${timeSavedPerEpMin.toFixed(0)}m)`, value: Math.max(0.1, Number(timeSavedPerEpMin.toFixed(1))), color: "#10b981" },
+        ],
+        format: "plain",
       },
       rows: [
         { label: "Original Duration (1.0x)", value: `${epDuration} minutes per episode` },

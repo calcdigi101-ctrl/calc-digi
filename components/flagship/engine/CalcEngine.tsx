@@ -71,14 +71,14 @@ const defaultOf = (f: Field, todayStr: string) => (f.kind === "date" && f.defaul
 
 function ChartLegend({ chart }: { chart: Extract<Chart, { type: "donut" }> }) {
   return (
-    <ul className="grid w-full gap-2 text-sm">
+    <ul className="grid w-full gap-2 text-sm min-w-0">
       {chart.data.map((d, i) => (
         <li key={d.name} className={cn("flex items-center justify-between gap-2 min-w-0", d.value <= 0 && "opacity-50")}>
           <div className="flex items-center gap-2 min-w-0 flex-1">
             <span aria-hidden className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: d.color ?? PALETTE[i % PALETTE.length] }} />
             <span className="truncate text-slate-600 dark:text-slate-400" title={d.name}>{d.name}</span>
           </div>
-          <span className="shrink-0 font-semibold tabular-nums text-slate-900 dark:text-slate-100">{formatBy(chart.format, d.value)}</span>
+          <span className="shrink-0 font-semibold tabular-nums text-slate-900 dark:text-slate-100 pl-2">{formatBy(chart.format, d.value)}</span>
         </li>
       ))}
     </ul>
@@ -306,7 +306,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
                     setValue(k, String(v), { shouldValidate: true, shouldDirty: true });
                   }
                 }}
-                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-700 shadow-2xs cursor-pointer active:scale-95"
+                className="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 dark:bg-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 transition-all border border-slate-200 dark:border-slate-700 shadow-2xs cursor-pointer active:scale-95 text-left break-words max-w-full"
               >
                 {pr.label}
               </button>
@@ -330,11 +330,11 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         "scroll-mt-20 p-5 sm:p-6 border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 shadow-sm"
       )}
     >
-      <div className="flex items-center justify-between mb-2">
-        <h2 id={`${id}-result-h`} className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <h2 id={`${id}-result-h`} className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 truncate flex-1 min-w-0">
           {"error" in output ? "Result" : output.hero.label}
         </h2>
-        <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Live Result</span>
+        <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider shrink-0">Live Result</span>
       </div>
       <div aria-live="polite" aria-atomic="true">
         {"error" in output ? (
@@ -342,15 +342,15 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         ) : (
           <>
             <div className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <p className="break-normal text-3xl font-extrabold tabular-nums tracking-tight text-slate-900 sm:text-4xl md:text-5xl dark:text-white">
+              <p className="break-words max-w-full text-2xl sm:text-3xl md:text-4xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white">
                 {output.hero.value}
                 {output.hero.unit ? <span className="ml-1.5 text-base sm:text-lg font-semibold text-slate-500 dark:text-slate-400">{output.hero.unit}</span> : null}
               </p>
               {output.badge ? (
-                <span className={cn("inline-flex items-center rounded-full px-3 py-1 text-xs sm:text-sm font-semibold max-w-full break-words", TONES[output.badge.tone])}>{output.badge.text}</span>
+                <span className={cn("inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold max-w-full break-words leading-tight", TONES[output.badge.tone])}>{output.badge.text}</span>
               ) : null}
             </div>
-            {output.hero.sub ? <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">{output.hero.sub}</p> : null}
+            {output.hero.sub ? <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 break-words">{output.hero.sub}</p> : null}
 
             {output.spectrum ? (
               <div className="mt-5">
@@ -372,22 +372,22 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
             {output.rows?.length ? (
               <dl className="mt-5 divide-y divide-slate-200 border-t border-slate-200 text-sm dark:divide-slate-800 dark:border-slate-800">
                 {output.rows.map((r) => (
-                  <div key={r.label} className="flex items-start justify-between gap-3 py-2.5 sm:items-baseline">
-                    <dt className="text-slate-600 dark:text-slate-400 leading-snug">{r.label}</dt>
-                    <dd className={cn("shrink-0 text-right tabular-nums text-slate-900 dark:text-slate-100 leading-snug", r.strong ? "font-bold" : "font-semibold")}>{r.value}</dd>
+                  <div key={r.label} className="flex items-start justify-between gap-3 py-2.5">
+                    <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2">{r.label}</dt>
+                    <dd className={cn("text-right tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words max-w-[55%]", r.strong ? "font-bold" : "font-semibold")}>{r.value}</dd>
                   </div>
                 ))}
               </dl>
             ) : null}
 
             {output.steps && output.steps.length > 0 ? (
-              <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/30 text-xs sm:text-sm">
+              <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50/60 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/30 text-xs sm:text-sm overflow-hidden">
                 <div className="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-1.5">
                   <span>📝</span> Step-by-Step Calculation:
                 </div>
-                <ol className="list-decimal pl-4 space-y-1.5 text-slate-700 dark:text-slate-300 font-mono text-xs">
+                <ol className="list-decimal pl-4 space-y-1.5 text-slate-700 dark:text-slate-300 font-mono text-xs break-words [overflow-wrap:anywhere]">
                   {output.steps.map((st, i) => (
-                    <li key={i}>{st}</li>
+                    <li key={i} className="break-words [overflow-wrap:anywhere]">{st}</li>
                   ))}
                 </ol>
               </div>

@@ -89,8 +89,17 @@ export const config: CalcConfig = {
         label: `~${monthsToClear} Months to Clear ${backlogCount} Games ($${costPerHour.toFixed(2)} / Hour Entertainment Value)`,
       },
       badge: {
-        text: costPerHour < 1.0 ? "Insane Value (< $1.00/hr)" : costPerHour < 3.0 ? "Great Entertainment Value" : "Premium Hourly Spend",
-        tone: costPerHour < 1.5 ? "good" : "info",
+        text: `${totalBacklogHours.toFixed(0)} Backlog Hours`,
+        tone: "info",
+      },
+      chart: {
+        type: "donut",
+        title: "Backlog Playtime Allocation (Hours)",
+        data: [
+          { name: `Core Campaign (${Math.round(rawHours * backlogCount)}h)`, value: Math.max(1, Math.round(rawHours * backlogCount)), color: "#3b82f6" },
+          { name: `Extras & Side Content (${Math.round(Math.max(0, totalBacklogHours - rawHours * backlogCount))}h)`, value: Math.max(1, Math.round(Math.max(0, totalBacklogHours - rawHours * backlogCount))), color: "#10b981" },
+        ],
+        format: "plain",
       },
       rows: [
         { label: "Effective Playtime Per Title", value: `${effectiveHoursPerGame.toFixed(1)} hours (${mult}× style multiplier)` },

@@ -91,8 +91,19 @@ export const config: CalcConfig = {
         label: `Total Entertainment Spend ($${costPerPerson.toFixed(0)} / Person | $${dailyGroupBurnRate.toFixed(0)} / Day for Group)`,
       },
       badge: {
-        text: dailyPerPersonBurnRate > 150 ? "Luxury Activity Tier (> $150/day/pp)" : dailyPerPersonBurnRate > 60 ? "Moderate Sightseer" : "Budget Traveler Tier",
-        tone: dailyPerPersonBurnRate > 150 ? "warn" : "info",
+        text: `$${grandEntertainmentTotal.toLocaleString()} Total`,
+        tone: "good",
+      },
+      chart: {
+        type: "donut",
+        title: "Vacation Entertainment Allocation",
+        data: [
+          { name: `Theme Parks ($${totalParkPasses.toFixed(0)})`, value: Math.max(1, Math.round(totalParkPasses)), color: "#3b82f6" },
+          { name: `Shows & Tours ($${toursShows.toFixed(0)})`, value: Math.max(1, Math.round(toursShows)), color: "#8b5cf6" },
+          { name: `Nightlife & Bars ($${totalNightlife.toFixed(0)})`, value: Math.max(1, Math.round(totalNightlife)), color: "#f59e0b" },
+          { name: `Gear & Excursions ($${rentalsExcursions.toFixed(0)})`, value: Math.max(1, Math.round(rentalsExcursions)), color: "#10b981" },
+        ].filter(d => d.value > 0),
+        format: "usd0",
       },
       rows: [
         { label: "Theme Parks & Admissions Subtotal", value: `$${totalParkPasses.toLocaleString()} ($${parkPassesPerDay}/day × ${travelers} guests × ${days} days)` },

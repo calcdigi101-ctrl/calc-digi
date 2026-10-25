@@ -8,7 +8,7 @@ export const config: CalcConfig = {
   title: "Annual Carbon Footprint & Greenhouse Gas Emissions Calculator",
   presets: [
     {
-      label: "Average US Citizen (16.2 MT CO2e/year)",
+      label: "Average US Citizen (16.2 MT CO2e/yr)",
       values: {
         annualMiles: 13500,
         gasMpg: 26,
@@ -21,7 +21,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "Eco-Conscious Urbanite (6.4 MT CO2e/year)",
+      label: "Eco Urbanite (6.4 MT CO2e/yr)",
       values: {
         annualMiles: 4000,
         gasMpg: 45,
@@ -34,7 +34,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "Frequent Business Traveler (28.5 MT CO2e/year)",
+      label: "Frequent Flyer (28.5 MT CO2e/yr)",
       values: {
         annualMiles: 20000,
         gasMpg: 22,
@@ -47,7 +47,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "Solar-Powered Suburban Household (9.8 MT CO2e/year)",
+      label: "Solar Suburban (9.8 MT CO2e/yr)",
       values: {
         annualMiles: 11000,
         gasMpg: 32,
@@ -60,7 +60,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "Global Average Citizen (4.7 MT CO2e/year)",
+      label: "Global Average (4.7 MT CO2e/yr)",
       values: {
         annualMiles: 3000,
         gasMpg: 35,
@@ -99,16 +99,16 @@ export const config: CalcConfig = {
       default: 3,
       min: 0,
       max: 60,
-      hint: "Round trips or one-way flights under 3 hours (~0.25 MT CO2e per leg)",
+      hint: "Flights under 3 hours (~0.22 MT CO2e per leg)",
     },
     {
       kind: "number",
       key: "longFlights",
-      label: "Long-Haul / Transcontinental Flights per Year (> 3 hours)",
+      label: "Long-Haul Flights per Year (> 3 hours)",
       default: 1,
       min: 0,
       max: 30,
-      hint: "Cross-country or international flights (~1.65 MT CO2e per leg)",
+      hint: "Cross-country or international flights (~0.95 MT CO2e per leg)",
     },
     {
       kind: "number",
@@ -134,11 +134,11 @@ export const config: CalcConfig = {
       label: "Primary Dietary Profile",
       default: "average_omnivore",
       options: [
-        { value: "vegan", label: "Vegan (Plant-Based Only - ~1.5 MT CO2e/yr)" },
+        { value: "vegan", label: "Vegan (Plant-Based - ~1.5 MT CO2e/yr)" },
         { value: "vegetarian", label: "Vegetarian (Dairy & Eggs - ~1.7 MT CO2e/yr)" },
         { value: "pescatarian", label: "Pescatarian (Fish & Plants - ~1.9 MT CO2e/yr)" },
-        { value: "average_omnivore", label: "Average Omnivore (Moderate Red & White Meat - ~2.5 MT CO2e/yr)" },
-        { value: "heavy_meat", label: "Heavy Meat Consumer (Daily Beef/Lamb - ~3.3 MT CO2e/yr)" },
+        { value: "average_omnivore", label: "Average Omnivore (Mixed - ~2.5 MT CO2e/yr)" },
+        { value: "heavy_meat", label: "Heavy Meat (Daily Beef - ~3.3 MT CO2e/yr)" },
       ],
     },
     {
@@ -147,7 +147,7 @@ export const config: CalcConfig = {
       label: "Household Waste & Recycling Habit",
       default: "average",
       options: [
-        { value: "aggressive", label: "Zero-Waste & Aggressive Composting (~0.3 MT CO2e/yr)" },
+        { value: "aggressive", label: "Zero-Waste & Composting (~0.3 MT CO2e/yr)" },
         { value: "average", label: "Average Curbside Recycling (~0.6 MT CO2e/yr)" },
         { value: "low", label: "Minimal / No Recycling (~1.1 MT CO2e/yr)" },
       ],
@@ -161,21 +161,11 @@ export const config: CalcConfig = {
     const elecMonthlyKwh = Number(vals.elecMonthlyKwh) || 0;
     const gasMonthlyTherms = Number(vals.gasMonthlyTherms) || 0;
 
-    // Emission Factors (EPA / IPCC):
-    // 1 gallon gasoline = 8.887 kg CO2 = 0.008887 MT CO2
     const vehicleCO2 = (annualMiles / gasMpg) * 0.008887;
-
-    // Aviation (ICAO / DEFRA with radiative forcing multiplier ~1.9):
-    // Short haul leg avg 800 miles = ~0.22 MT CO2e; Long haul leg avg 4,500 miles = ~0.95 MT CO2e
     const flightsCO2 = shortFlights * 0.22 + longFlights * 0.95;
-
-    // Electricity: US grid average ~0.386 kg CO2e per kWh = 0.000386 MT/kWh
     const electricCO2 = elecMonthlyKwh * 12 * 0.000386;
-
-    // Natural Gas: 1 therm = 5.3 kg CO2 = 0.0053 MT CO2
     const gasCO2 = gasMonthlyTherms * 12 * 0.0053;
 
-    // Diet
     const dietMap: Record<string, number> = {
       vegan: 1.5,
       vegetarian: 1.7,
@@ -185,7 +175,6 @@ export const config: CalcConfig = {
     };
     const dietCO2 = dietMap[String(vals.dietType || "average_omnivore")] || 2.5;
 
-    // Waste
     const wasteMap: Record<string, number> = {
       aggressive: 0.3,
       average: 0.6,
@@ -194,57 +183,68 @@ export const config: CalcConfig = {
     const wasteCO2 = wasteMap[String(vals.wasteRecycling || "average")] || 0.6;
 
     const totalCO2 = vehicleCO2 + flightsCO2 + electricCO2 + gasCO2 + dietCO2 + wasteCO2;
-
-    // Trees required to offset: Average mature tree absorbs ~22 kg (0.022 MT) CO2 per year
     const treesRequired = Math.ceil(totalCO2 / 0.022);
 
-    // US average benchmark: ~16.0 MT CO2e
     const usAvg = 16.0;
     const percentVsUS = ((totalCO2 - usAvg) / usAvg) * 100;
 
     let tone: "good" | "warn" | "bad" | "info" = "info";
-    let badgeText = `${Math.abs(percentVsUS).toFixed(0)}% Below US Average`;
+    let badgeText = `${Math.abs(percentVsUS).toFixed(0)}% Below US Avg`;
     if (totalCO2 < 10) {
       tone = "good";
-      badgeText = `${Math.abs(percentVsUS).toFixed(0)}% Below US Average (Eco Tier)`;
+      badgeText = `${Math.abs(percentVsUS).toFixed(0)}% Below US Avg (Eco)`;
     } else if (totalCO2 <= 16) {
       tone = "info";
-      badgeText = `${Math.abs(percentVsUS).toFixed(0)}% Near US Average`;
+      badgeText = `${Math.abs(percentVsUS).toFixed(0)}% Near US Avg`;
     } else if (totalCO2 <= 22) {
       tone = "warn";
-      badgeText = `+${percentVsUS.toFixed(0)}% Above US Average`;
+      badgeText = `+${percentVsUS.toFixed(0)}% Above US Avg`;
     } else {
       tone = "bad";
-      badgeText = `+${percentVsUS.toFixed(0)}% High Carbon Footprint`;
+      badgeText = `+${percentVsUS.toFixed(0)}% High Footprint`;
     }
 
     return {
       hero: {
         value: `${totalCO2.toFixed(1)} MT CO2e`,
-        label: `Annual Greenhouse Gas Emissions (${treesRequired} mature trees to offset)`,
+        label: "Annual Carbon Footprint",
+        sub: `${treesRequired.toLocaleString()} mature trees required for annual offset`,
       },
       badge: {
         text: badgeText,
         tone,
       },
+      chart: {
+        type: "donut",
+        title: "Emissions Breakdown by Sector (MT CO2e)",
+        data: [
+          { name: `Vehicle (${vehicleCO2.toFixed(1)} MT)`, value: Math.max(0.01, Number(vehicleCO2.toFixed(2))), color: "#ef4444" },
+          { name: `Flights (${flightsCO2.toFixed(1)} MT)`, value: Math.max(0.01, Number(flightsCO2.toFixed(2))), color: "#f59e0b" },
+          { name: `Electricity (${electricCO2.toFixed(1)} MT)`, value: Math.max(0.01, Number(electricCO2.toFixed(2))), color: "#3b82f6" },
+          { name: `Gas Heat (${gasCO2.toFixed(1)} MT)`, value: Math.max(0.01, Number(gasCO2.toFixed(2))), color: "#8b5cf6" },
+          { name: `Diet (${dietCO2.toFixed(1)} MT)`, value: Math.max(0.01, Number(dietCO2.toFixed(2))), color: "#10b981" },
+          { name: `Waste (${wasteCO2.toFixed(1)} MT)`, value: Math.max(0.01, Number(wasteCO2.toFixed(2))), color: "#64748b" },
+        ],
+        format: "plain",
+      },
       rows: [
-        { label: "Total Annual Carbon Footprint", value: `${totalCO2.toFixed(2)} metric tons CO2e` },
-        { label: "Vehicle Transportation Emissions", value: `${vehicleCO2.toFixed(2)} MT (${((vehicleCO2 / totalCO2) * 100).toFixed(0)}%)` },
-        { label: "Commercial Aviation Flights", value: `${flightsCO2.toFixed(2)} MT (${((flightsCO2 / totalCO2) * 100).toFixed(0)}%)` },
-        { label: "Home Grid Electricity", value: `${electricCO2.toFixed(2)} MT (${((electricCO2 / totalCO2) * 100).toFixed(0)}%)` },
-        { label: "Home Natural Gas Heating", value: `${gasCO2.toFixed(2)} MT (${((gasCO2 / totalCO2) * 100).toFixed(0)}%)` },
+        { label: "Total Annual Emissions", value: `${totalCO2.toFixed(2)} metric tons CO2e`, strong: true },
+        { label: "Vehicle Transportation", value: `${vehicleCO2.toFixed(2)} MT (${((vehicleCO2 / totalCO2) * 100).toFixed(0)}%)` },
+        { label: "Commercial Flights", value: `${flightsCO2.toFixed(2)} MT (${((flightsCO2 / totalCO2) * 100).toFixed(0)}%)` },
+        { label: "Grid Electricity", value: `${electricCO2.toFixed(2)} MT (${((electricCO2 / totalCO2) * 100).toFixed(0)}%)` },
+        { label: "Gas Home Heating", value: `${gasCO2.toFixed(2)} MT (${((gasCO2 / totalCO2) * 100).toFixed(0)}%)` },
         { label: "Diet & Food Production", value: `${dietCO2.toFixed(2)} MT (${((dietCO2 / totalCO2) * 100).toFixed(0)}%)` },
-        { label: "Solid Waste & Landfill", value: `${wasteCO2.toFixed(2)} MT (${((wasteCO2 / totalCO2) * 100).toFixed(0)}%)` },
-        { label: "Mature Trees Required for 1-Year Offset", value: `${treesRequired.toLocaleString()} trees` },
+        { label: "Waste & Landfill", value: `${wasteCO2.toFixed(2)} MT (${((wasteCO2 / totalCO2) * 100).toFixed(0)}%)` },
+        { label: "Trees Required to Offset", value: `${treesRequired.toLocaleString()} mature trees` },
       ],
       steps: [
         `Vehicle combustion: (${annualMiles} miles / ${gasMpg} MPG) * 0.008887 MT/gal = ${vehicleCO2.toFixed(2)} MT CO2.`,
-        `Aviation emissions: (${shortFlights} short-haul * 0.22 MT) + (${longFlights} long-haul * 0.95 MT) = ${flightsCO2.toFixed(2)} MT CO2e.`,
+        `Aviation emissions: (${shortFlights} short * 0.22 MT) + (${longFlights} long * 0.95 MT) = ${flightsCO2.toFixed(2)} MT CO2e.`,
         `Home utilities: (${elecMonthlyKwh} kWh * 12 * 0.000386) + (${gasMonthlyTherms} therms * 12 * 0.0053) = ${(electricCO2 + gasCO2).toFixed(2)} MT CO2e.`,
-        `Total household footprint: ${vehicleCO2.toFixed(2)} (cars) + ${flightsCO2.toFixed(2)} (flights) + ${(electricCO2 + gasCO2).toFixed(2)} (home energy) + ${dietCO2.toFixed(2)} (diet) + ${wasteCO2.toFixed(2)} (waste) = ${totalCO2.toFixed(2)} MT CO2e.`,
+        `Total household footprint: ${vehicleCO2.toFixed(2)} (cars) + ${flightsCO2.toFixed(2)} (flights) + ${(electricCO2 + gasCO2).toFixed(2)} (home) + ${dietCO2.toFixed(2)} (diet) + ${wasteCO2.toFixed(2)} (waste) = ${totalCO2.toFixed(2)} MT CO2e.`,
       ],
       note: {
-        text: "Switching from standard fossil grid electricity to residential rooftop solar or a community green-power tariff can eliminate up to 80% of your home energy footprint overnight.",
+        text: "Switching from standard fossil grid electricity to residential rooftop solar or a community green-power tariff can eliminate up to 80% of your home energy footprint.",
       },
     };
   },

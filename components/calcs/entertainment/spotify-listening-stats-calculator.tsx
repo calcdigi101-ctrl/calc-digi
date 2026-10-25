@@ -82,8 +82,17 @@ export const config: CalcConfig = {
         label: `~${totalSongsAnnual.toLocaleString()} Tracks Streamed Annually (${songsPerDay} songs/day)`,
       },
       badge: {
-        text: Number(monthlyCellularGB) > 5 ? "High Cellular Data Usage (> 5 GB/mo)" : "Moderate Mobile Data",
-        tone: Number(monthlyCellularGB) > 5 ? "warn" : "info",
+        text: `${annualHours.toFixed(0)} Hrs / Year`,
+        tone: "good",
+      },
+      chart: {
+        type: "donut",
+        title: "Monthly Bandwidth Usage (MB)",
+        data: [
+          { name: `Cellular Data (${(monthlyCellularDataMB / 1024).toFixed(1)} GB)`, value: Math.max(1, Math.round(monthlyCellularDataMB)), color: "#ef4444" },
+          { name: `Wi-Fi Streaming (${(Math.max(0, monthlyTotalDataMB - monthlyCellularDataMB) / 1024).toFixed(1)} GB)`, value: Math.max(1, Math.round(Math.max(0, monthlyTotalDataMB - monthlyCellularDataMB))), color: "#10b981" },
+        ],
+        format: "plain",
       },
       rows: [
         { label: "Annual Listening Time", value: `${annualHours.toLocaleString()} hours (~${(annualHours / 24).toFixed(1)} full days of music)` },

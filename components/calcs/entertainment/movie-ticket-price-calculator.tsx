@@ -106,8 +106,18 @@ export const config: CalcConfig = {
         label: `Total Cinema Outing Cost ($${costPerPerson.toFixed(2)} / Person for ${totalGuests} Attendees)`,
       },
       badge: {
-        text: concessionsTotal > totalTicketsCost ? "Concessions Exceed Tickets" : "Balanced Outing Spend",
-        tone: concessionsTotal > totalTicketsCost ? "warn" : "good",
+        text: `$${costPerPerson.toFixed(2)} / Person`,
+        tone: "info",
+      },
+      chart: {
+        type: "donut",
+        title: "Theater Outing Cost Breakdown",
+        data: [
+          { name: `Tickets ($${totalTicketsCost.toFixed(0)})`, value: Math.max(0.1, Math.round(totalTicketsCost)), color: "#3b82f6" },
+          { name: `Concessions ($${concessionsTotal.toFixed(0)})`, value: Math.max(0.1, Math.round(concessionsTotal)), color: "#f59e0b" },
+          { name: `Booking Fees ($${bookingFee.toFixed(0)})`, value: Math.max(0.1, Math.round(bookingFee)), color: "#ef4444" },
+        ].filter(d => d.value > 0.1),
+        format: "usd0",
       },
       rows: [
         { label: "Ticket Admissions Subtotal", value: `$${totalTicketsCost.toFixed(2)} (${rates.name})` },

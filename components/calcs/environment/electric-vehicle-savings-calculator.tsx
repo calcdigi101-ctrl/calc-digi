@@ -8,12 +8,12 @@ export const config: CalcConfig = {
   title: "Electric Vehicle (EV) vs Gasoline Cost & Carbon Savings Calculator",
   presets: [
     {
-      label: "Average US Commuter (13,500 mi, $3.65 Gas, $0.16 Power)",
+      label: "Average Commuter (13.5k mi, $3.65 Gas)",
       values: {
         annualMiles: 13500,
         gasMpg: 28,
         gasPrice: 3.65,
-        evEfficiency: 30, // kWh per 100 miles
+        evEfficiency: 30,
         elecRate: 0.16,
         annualMaintSavings: 450,
         purchasePriceDelta: 4500,
@@ -21,7 +21,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "High Mileage Highway Commuter (22,000 mi, Heavy Savings)",
+      label: "Highway Commuter (22k mi, High Savings)",
       values: {
         annualMiles: 22000,
         gasMpg: 25,
@@ -34,7 +34,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "California High Fuel Market ($4.95 Gas, $0.28 kWh)",
+      label: "California Market ($4.95 Gas, $0.28 kWh)",
       values: {
         annualMiles: 14000,
         gasMpg: 27,
@@ -47,7 +47,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "Home Solar Rooftop EV Charging ($0.06/kWh Equivalent)",
+      label: "Solar Rooftop Charging ($0.06/kWh)",
       values: {
         annualMiles: 15000,
         gasMpg: 30,
@@ -60,7 +60,7 @@ export const config: CalcConfig = {
       },
     },
     {
-      label: "Used EV / Budget Sedan (Zero Purchase Premium)",
+      label: "Used EV / Budget Sedan ($0 Premium)",
       values: {
         annualMiles: 12000,
         gasMpg: 32,
@@ -90,7 +90,7 @@ export const config: CalcConfig = {
       default: 28,
       min: 10,
       max: 65,
-      hint: "Comparison vehicle miles per gallon (average sedan ~28-32 MPG, SUV ~22-26 MPG)",
+      hint: "Comparison vehicle miles per gallon (sedan ~28-32 MPG, SUV ~22-26 MPG)",
     },
     {
       kind: "number",
@@ -108,7 +108,7 @@ export const config: CalcConfig = {
       default: 30,
       min: 15,
       max: 55,
-      hint: "Tesla Model 3 / Hyundai Ioniq 6 is ~26-28 kWh/100mi; Ford F-150 Lightning is ~45 kWh/100mi",
+      hint: "Sedans average ~26-28 kWh/100mi; electric trucks average ~42-48 kWh/100mi",
     },
     {
       kind: "number",
@@ -126,7 +126,7 @@ export const config: CalcConfig = {
       default: 450,
       min: 0,
       max: 2000,
-      hint: "EVs eliminate engine oil changes, spark plugs, timing belts, transmission flushes, and brake wear via regenerative braking",
+      hint: "EVs eliminate engine oil changes, spark plugs, belts, and brake wear via regenerative braking",
     },
     {
       kind: "number",
@@ -135,7 +135,7 @@ export const config: CalcConfig = {
       default: 4500,
       min: -15000,
       max: 50000,
-      hint: "How much more the EV costs upfront compared to the equivalent gas car (enter negative if cheaper)",
+      hint: "How much more the EV costs upfront compared to the equivalent gas car",
     },
     {
       kind: "number",
@@ -144,20 +144,19 @@ export const config: CalcConfig = {
       default: 7500,
       min: 0,
       max: 15000,
-      hint: "Federal IRA Clean Vehicle Credit (up to $7,500 new, $4,000 used) plus local state incentives",
+      hint: "Federal IRA Clean Vehicle Credit (up to $7,500 new, $4,000 used) plus local state rebates",
     },
   ],
   compute: (vals) => {
     const annualMiles = Number(vals.annualMiles) || 0;
     const gasMpg = Math.max(1, Number(vals.gasMpg) || 28);
     const gasPrice = Number(vals.gasPrice) || 0;
-    const evEfficiency = Number(vals.evEfficiency) || 30; // kWh / 100 miles
+    const evEfficiency = Number(vals.evEfficiency) || 30;
     const elecRate = Number(vals.elecRate) || 0;
     const annualMaintSavings = Number(vals.annualMaintSavings) || 0;
     const purchasePriceDelta = Number(vals.purchasePriceDelta) || 0;
     const taxIncentive = Number(vals.taxIncentive) || 0;
 
-    // Fuel calculation
     const gallonsNeeded = annualMiles / gasMpg;
     const annualGasCost = gallonsNeeded * gasPrice;
 
@@ -167,24 +166,20 @@ export const config: CalcConfig = {
     const annualFuelSavings = annualGasCost - annualEvFuelCost;
     const totalAnnualOperatingSavings = annualFuelSavings + annualMaintSavings;
 
-    // Net upfront investment premium (vehicle price delta minus tax credits)
     const netUpfrontCost = purchasePriceDelta - taxIncentive;
 
-    // Payback period
     let paybackYears = 0;
     if (netUpfrontCost <= 0) {
-      paybackYears = 0; // Immediate savings from day 1
+      paybackYears = 0;
     } else if (totalAnnualOperatingSavings > 0) {
       paybackYears = netUpfrontCost / totalAnnualOperatingSavings;
     } else {
-      paybackYears = 99; // Never breaks even
+      paybackYears = 99;
     }
 
-    // 5-Year and 10-Year cumulative net savings
     const fiveYearSavings = totalAnnualOperatingSavings * 5 - netUpfrontCost;
     const tenYearSavings = totalAnnualOperatingSavings * 10 - netUpfrontCost;
 
-    // Carbon reduction: 1 gallon gas = 8.887 kg CO2; 1 kWh US grid = 0.386 kg CO2
     const gasCo2MT = (gallonsNeeded * 8.887) / 1000;
     const evCo2MT = (annualKwhUsed * 0.386) / 1000;
     const netCo2SavedMT = Math.max(0, gasCo2MT - evCo2MT);
@@ -194,31 +189,42 @@ export const config: CalcConfig = {
     return {
       hero: {
         value: `$${totalAnnualOperatingSavings.toFixed(0)} / yr`,
-        label: `Annual Operating Savings ($${annualFuelSavings.toFixed(0)} fuel + $${annualMaintSavings.toFixed(0)} maintenance)`,
+        label: "Annual Operating Savings",
+        sub: `$${annualFuelSavings.toFixed(0)} fuel savings + $${annualMaintSavings.toFixed(0)} maintenance savings`,
       },
       badge: {
-        text: netUpfrontCost <= 0 ? "Immediate Day-1 Savings" : `Breakeven in ${paybackYears.toFixed(1)} Years`,
+        text: netUpfrontCost <= 0 ? "Day-1 Savings" : `Breakeven in ${paybackYears.toFixed(1)} Yrs`,
         tone: isBeneficial ? "good" : "warn",
       },
+      chart: {
+        type: "donut",
+        title: "Annual Operating Spend vs Savings",
+        data: [
+          { name: `Fuel Savings ($${annualFuelSavings.toFixed(0)})`, value: Math.max(1, Math.round(annualFuelSavings)), color: "#10b981" },
+          { name: `Maint Savings ($${annualMaintSavings.toFixed(0)})`, value: Math.max(1, Math.round(annualMaintSavings)), color: "#06b6d4" },
+          { name: `EV Charging ($${annualEvFuelCost.toFixed(0)})`, value: Math.max(1, Math.round(annualEvFuelCost)), color: "#3b82f6" },
+        ],
+        format: "usd0",
+      },
       rows: [
-        { label: "Annual Gasoline Vehicle Fuel Cost", value: `$${annualGasCost.toFixed(2)} (${gallonsNeeded.toFixed(0)} gallons)` },
-        { label: "Annual EV Charging Electricity Cost", value: `$${annualEvFuelCost.toFixed(2)} (${annualKwhUsed.toFixed(0)} kWh)` },
-        { label: "Net Annual Fuel Savings", value: `$${annualFuelSavings.toFixed(2)} / year` },
-        { label: "Annual Maintenance & Repair Savings", value: `$${annualMaintSavings.toFixed(2)} / year` },
-        { label: "Net Upfront Premium (Price Delta - Credits)", value: netUpfrontCost <= 0 ? `$0.00 (Incentives cover premium)` : `$${netUpfrontCost.toFixed(2)}` },
+        { label: "Gas Vehicle Fuel Cost", value: `$${annualGasCost.toFixed(2)} (${gallonsNeeded.toFixed(0)} gal)` },
+        { label: "EV Electricity Cost", value: `$${annualEvFuelCost.toFixed(2)} (${annualKwhUsed.toFixed(0)} kWh)` },
+        { label: "Annual Fuel Savings", value: `$${annualFuelSavings.toFixed(2)} / year`, strong: true },
+        { label: "Maintenance Savings", value: `$${annualMaintSavings.toFixed(2)} / year` },
+        { label: "Net Upfront Premium", value: netUpfrontCost <= 0 ? "$0 (Credits exceed premium)" : `$${netUpfrontCost.toFixed(2)}` },
         { label: "Payback Period", value: netUpfrontCost <= 0 ? "Immediate (0.0 years)" : `${paybackYears.toFixed(1)} years` },
-        { label: "5-Year Cumulative Net Financial Savings", value: `$${fiveYearSavings.toFixed(2)}` },
-        { label: "10-Year Cumulative Net Financial Savings", value: `$${tenYearSavings.toFixed(2)}` },
-        { label: "Annual Tailpipe CO2 Abatement", value: `${netCo2SavedMT.toFixed(2)} metric tons CO2 / year` },
+        { label: "5-Year Net Wealth Gain", value: `$${fiveYearSavings.toFixed(2)}`, strong: true },
+        { label: "10-Year Net Wealth Gain", value: `$${tenYearSavings.toFixed(2)}` },
+        { label: "Annual CO2 Abatement", value: `${netCo2SavedMT.toFixed(2)} metric tons CO2 / yr` },
       ],
       steps: [
         `Gasoline consumption: (${annualMiles} miles / ${gasMpg} MPG) * $${gasPrice.toFixed(2)}/gal = $${annualGasCost.toFixed(2)} annual gas expense.`,
-        `EV electricity consumption: [(${annualMiles} miles * ${evEfficiency} kWh) / 100] * $${elecRate.toFixed(2)}/kWh = $${annualEvFuelCost.toFixed(2)} annual charging expense.`,
+        `EV electricity consumption: [(${annualMiles} miles * ${evEfficiency} kWh) / 100] * $${elecRate.toFixed(2)}/kWh = $${annualEvFuelCost.toFixed(2)} charging expense.`,
         `Operating savings: ($${annualGasCost.toFixed(2)} gas - $${annualEvFuelCost.toFixed(2)} EV) + $${annualMaintSavings.toFixed(2)} maintenance = $${totalAnnualOperatingSavings.toFixed(2)} saved per year.`,
         `5-Year net total: ($${totalAnnualOperatingSavings.toFixed(2)} * 5) - ($${purchasePriceDelta} premium - $${taxIncentive} credits) = $${fiveYearSavings.toFixed(2)} net profit.`,
       ],
       note: {
-        text: "Federal IRA Section 30D tax credits offer up to $7,500 at point of sale for qualifying assembly and battery critical mineral compliance, substantially lowering initial acquisition costs.",
+        text: "Federal IRA Section 30D tax credits offer up to $7,500 at point of sale, substantially lowering initial acquisition costs for qualifying EV models.",
       },
     };
   },

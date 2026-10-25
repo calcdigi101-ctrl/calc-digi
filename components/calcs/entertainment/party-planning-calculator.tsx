@@ -93,8 +93,18 @@ export const config: CalcConfig = {
         label: `Provisioning for ${guests} Guests over ${duration} Hours ($${totalBudget.toLocaleString()} Total Budget)`,
       },
       badge: {
-        text: `${drinksPerGuest} Drinks/Guest Standard Rule`,
-        tone: "info",
+        text: `$${budgetPerGuest.toFixed(0)} / Guest`,
+        tone: "good",
+      },
+      chart: {
+        type: "donut",
+        title: "Beverage Provisioning Breakdown",
+        data: [
+          { name: `Beer & Seltzers (${beerCount})`, value: Math.max(1, beerCount), color: "#f59e0b" },
+          { name: `Wine Servings (${wineBottles * 5})`, value: Math.max(1, wineBottles * 5), color: "#8b5cf6" },
+          { name: `Non-Alcoholic (${nonAlcoholicSodas})`, value: Math.max(1, nonAlcoholicSodas), color: "#06b6d4" },
+        ],
+        format: "plain",
       },
       rows: [
         { label: "Total Alcoholic & Soft Drinks", value: `${totalDrinks} total servings (${drinksPerGuest} / person)` },

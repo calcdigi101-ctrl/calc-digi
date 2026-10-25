@@ -111,8 +111,20 @@ export const config: CalcConfig = {
         label: `Total PC Build Estimate (${perfTier})`,
       },
       badge: {
-        text: gpuPct >= 35 && gpuPct <= 45 ? "Optimal GPU Allocation (35-45%)" : gpuPct > 45 ? "GPU Heavy / High-End" : "CPU / Platform Heavy",
-        tone: gpuPct >= 35 && gpuPct <= 45 ? "good" : "info",
+        text: `$${totalCost.toLocaleString()} Build`,
+        tone: "good",
+      },
+      chart: {
+        type: "donut",
+        title: "Component Budget Distribution ($)",
+        data: [
+          { name: `Graphics GPU ($${gpuCost})`, value: Math.max(1, Math.round(gpuCost)), color: "#10b981" },
+          { name: `Processor CPU ($${cpuCost})`, value: Math.max(1, Math.round(cpuCost)), color: "#3b82f6" },
+          { name: `RAM & Storage ($${ramStorage})`, value: Math.max(1, Math.round(ramStorage)), color: "#8b5cf6" },
+          { name: `Mobo & PSU ($${moboPsu})`, value: Math.max(1, Math.round(moboPsu)), color: "#f59e0b" },
+          { name: `Case & Cooler ($${caseCooler})`, value: Math.max(1, Math.round(caseCooler)), color: "#06b6d4" },
+        ],
+        format: "usd0",
       },
       rows: [
         { label: "Graphics Card (GPU)", value: `$${gpuCost.toLocaleString()} (${gpuPct.toFixed(1)}% of build)` },
