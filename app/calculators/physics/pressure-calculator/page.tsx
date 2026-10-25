@@ -1,26 +1,269 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PressureCalculator from "@/components/calcs/physics/pressure-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { HydrostaticPressureDepthChart } from "@/components/flagship/physics/editorial-charts";
+
+const PATH = "/calculators/physics/pressure-calculator";
+const TITLE = "Pressure Calculator | Mechanical P = F/A, Hydrostatic ρgh & Multi-Unit Bar/psi";
+const DESCRIPTION =
+  "Calculate mechanical pressure (P = F/A), hydrostatic ocean depth pressure (P = ρgh), barometric atmospheres, kPa, bar, and psi across metric and imperial frames.";
 
 export const metadata: Metadata = {
-  "title": "Pressure Calculator – P=F/A Pascal Pressure | CalcDigi",
-  "description": "Calculate pressure from force and area using P=F/A. Convert between Pascal, atm, psi, bar, and mmHg. Includes fluid pressure.",
-  "openGraph": {
-    "title": "Pressure Calculator – P=F/A Pascal Pressure | CalcDigi",
-    "description": "Calculate pressure from force and area using P=F/A. Convert between Pascal, atm, psi, bar, and mmHg. Includes fluid pressure.",
-    "type": "website",
-    "url": "/calculators/physics/pressure-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/physics/pressure-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newton's Force F=ma" },
+  { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
+  { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
+  { href: "/calculators/engineering/torque-calculator", icon: "🔄", name: "Torque & Rotational Moment" },
+  { href: "/calculators/engineering/cfm-calculator", icon: "💨", name: "HVAC CFM Airflow" },
+  { href: "/calculators/environment/water-usage-calculator", icon: "💧", name: "Household Water Usage" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical definition and mathematical formula for pressure?",
+    a: "Pressure (P) is the scalar physical quantity defined as the perpendicular normal force applied per unit surface area over which that force is distributed: P = F / A, where F is perpendicular force in Newtons (N) and A is contact area in square meters (m²). In the International System of Units (SI), pressure is measured in Pascals (Pa), where one Pascal equals one Newton per square meter (1 Pa = 1 N/m²).",
+  },
+  {
+    q: "How does hydrostatic fluid pressure scale with ocean water depth?",
+    a: "Hydrostatic fluid pressure arises from the cumulative weight of the fluid column above a given depth. Governed by Stevin's Law: P_hydro = ρ · g · h, where ρ is fluid density (1,025 kg/m³ for seawater), g is gravitational acceleration (9.807 m/s²), and h is depth in meters. In ocean water, hydrostatic pressure increases by approximately 100,500 Pascals (1.005 bar or 14.6 psi) for every 10 meters of descent. Total absolute pressure equals atmospheric baseline plus hydrostatic gauge: P_total = P_atm + ρgh.",
+  },
+  {
+    q: "What is the critical distinction between gauge pressure and absolute pressure?",
+    a: "Absolute pressure (P_abs) is measured relative to an absolute perfect vacuum (zero Pascals). Gauge pressure (P_gauge) is measured relative to ambient local atmospheric pressure (typically 101.325 kPa or 14.696 psi at sea level): P_abs = P_gauge + P_atm. When an automotive tire gauge reads 32.0 psi, the tire's true internal absolute pressure is 32.0 + 14.7 = 46.7 psi.",
+  },
+  {
+    q: "Why do stiletto heels generate vastly higher pressure than elephant feet?",
+    a: "Because pressure is inversely proportional to contact surface area (P = F / A), concentrating modest force over a tiny area multiplies pressure dramatically. A 60 kg woman placing her weight on a stiletto heel tip of area 0.1 cm² (0.00001 m²) generates P = 588 N / 0.00001 m² = 58.8 Megapascals (588 bar or 8,528 psi). A 4,000 kg elephant distributing weight across four broad foot pads of area 800 cm² each generates only 122.6 kPa (1.23 bar or 17.8 psi)—nearly 500 times less surface pressure.",
+  },
+  {
+    q: "How does Pascal's Principle enable hydraulic multiplication in heavy machinery?",
+    a: "Pascal's Principle states that pressure applied to an enclosed, incompressible static fluid is transmitted undiminished to every portion of the fluid and container walls: P₁ = P₂ ⟹ F₁ / A₁ = F₂ / A₂. In hydraulic machinery, applying a small input force F₁ on a small piston of area A₁ generates an identical fluid pressure that pushes against a large slave piston of area A₂, multiplying output force: F₂ = F₁ · (A₂ / A₁).",
+  },
+  {
+    q: "What are standard international conversion multipliers between pressure units?",
+    a: "Standard pressure conversion equivalents include: 1 standard atmosphere (atm) = 101,325 Pascals (Pa) = 101.325 kPa = 1.01325 bar = 14.6959 psi (pounds per square inch) = 760.0 mmHg / Torr = 406.8 inches of water column (inH2O). In metric engineering, 1 bar is defined as exactly 100,000 Pascals (100 kPa or 0.1 MPa).",
+  },
+];
+
+export default function PressureCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Physics Calculators\", \"item\": \"https://calcdigi.com/pages/physics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Pressure Calculator\", \"item\": \"https://calcdigi.com/calculators/physics/pressure-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Pressure Calculator\", \"url\": \"https://calcdigi.com/calculators/physics/pressure-calculator\", \"description\": \"Calculate pressure from force and area using P=F/A. Convert between Pascal, atm, psi, bar, and mmHg. Includes fluid pressure.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the pressure formula?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P = F/A. Force (N) / Area (m²) = Pascal (Pa). A 700N person standing on one stiletto heel (area ~1 cm² = 10⁻⁴ m²): P = 700/0.0001 = 7,000,000 Pa = 70 atm! Enough to dent hardwood floors.\"}}, {\"@type\": \"Question\", \"name\": \"What is atmospheric pressure?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"101,325 Pa = 1 atm = 14.696 psi = 760 mmHg at sea level. Equivalent to 10.3m of water column pressing down. Decreases with altitude. At Everest summit: ~33.7 kPa (1/3 sea level).\"}}, {\"@type\": \"Question\", \"name\": \"How to convert psi to pascal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 psi = 6,894.76 Pa. Car tire 32 psi: 32 × 6,894.76 = 220,632 Pa = 2.18 atm gauge. Absolute pressure = gauge + atmospheric = 220,632 + 101,325 = 321,957 Pa = 3.18 atm absolute.\"}}, {\"@type\": \"Question\", \"name\": \"What is fluid pressure formula?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P = ρgh. Density (kg/m³) × gravity (9.81) × depth (m) = gauge pressure in Pa. Seawater (1025 kg/m³) at 50m: P = 1025 × 9.81 × 50 = 502,763 Pa ≈ 5 atm gauge. Total = 6 atm absolute.\"}}, {\"@type\": \"Question\", \"name\": \"What is blood pressure 120/80?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Systolic 120 mmHg (peak during heartbeat) / Diastolic 80 mmHg (between beats). 1 mmHg = 133.32 Pa. 120 mmHg = 15,998 Pa = 0.158 atm. Normal range: systolic <120, diastolic <80.\"}}, {\"@type\": \"Question\", \"name\": \"What is Pascal's Principle?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Pressure in enclosed fluid transmits equally in all directions. Hydraulic systems use this for force multiplication: F₂/F₁ = A₂/A₁. Small piston pushes, large piston lifts heavy load. Used in car brakes, hydraulic jacks, presses.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/physics\">Physics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Pressure Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Pressure Calculator</h1>\n<p class=\"calc-intro\">Calculate pressure from force and area (P = F/A), find force from pressure and area, or determine area from pressure and force. Includes unit conversion between Pascal, atm, bar, psi, mmHg, and torr.</p>\n<p class=\"calc-intro\">Pressure is force per unit area: P = F/A, measured in Pascals (Pa = N/m²). Higher force or smaller area = more pressure. A stiletto heel exerts more pressure than an elephant foot. Atmospheric pressure = 101,325 Pa = 1 atm = 14.696 psi at sea level.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">P = F/A | F = P × A | A = F/P | 1 atm = 101,325 Pa = 14.696 psi = 760 mmHg | P_fluid = ρgh</div></div>\n<div class=\"content-section\"><h2>Pressure Physics – Force per Unit Area</h2>\n<p>Pressure (P) is defined as force applied perpendicular to a surface per unit area: P = F/A. The SI unit is the Pascal (Pa) = 1 N/m². Pressure is a scalar quantity — it acts equally in all directions within a fluid. The same force applied over a smaller area produces greater pressure: a knife cuts because the edge concentrates force into tiny area, creating enormous local pressure.</p>\n<p>Pressure plays a central role in engineering, biology, meteorology, and everyday life. Blood pressure, tire pressure, atmospheric pressure, hydraulic systems, and cooking at altitude all depend on understanding pressure principles. Fluid pressure adds depth dependence: P = ρgh, where ρ is fluid density, g is gravity, and h is depth — critical for underwater engineering and physiological decompression.</p>\n<h3>Pressure Unit Conversion Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Unit</th><th style=\"padding:11px 14px;text-align:left;\">Value in Pa</th><th style=\"padding:11px 14px;text-align:left;\">Common Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 Pascal (Pa)</td><td style=\"padding:10px 14px;\">1 N/m²</td><td style=\"padding:10px 14px;\">SI base unit</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 kilopascal (kPa)</td><td style=\"padding:10px 14px;\">1000 Pa</td><td style=\"padding:10px 14px;\">Weather, tire pressure</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 atmosphere (atm)</td><td style=\"padding:10px 14px;\">101,325 Pa</td><td style=\"padding:10px 14px;\">Standard atmospheric pressure</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 bar</td><td style=\"padding:10px 14px;\">100,000 Pa</td><td style=\"padding:10px 14px;\">Close to 1 atm, meteorology</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 psi (lb/in²)</td><td style=\"padding:10px 14px;\">6,894.76 Pa</td><td style=\"padding:10px 14px;\">US tire pressure, engineering</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 mmHg (torr)</td><td style=\"padding:10px 14px;\">133.322 Pa</td><td style=\"padding:10px 14px;\">Blood pressure, vacuum</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 bar</td><td style=\"padding:10px 14px;\">14.5038 psi</td><td style=\"padding:10px 14px;\">Industrial pressure gauges</td></tr></tbody></table></div>\n<h3>Atmospheric Pressure and Altitude</h3>\n<p>At sea level: P_atm = 101,325 Pa = 1 atm = 760 mmHg = 14.696 psi. Decreases with altitude (approximately exponential): at 1000m: 89.9 kPa. At 3000m: 70.1 kPa. At 8,849m (Everest): ~33.7 kPa (1/3 sea level). At 100km (space): ~0.00003 Pa. Water boils at lower temperature where atmospheric pressure is lower: at 3000m altitude, water boils at ~90°C instead of 100°C. At Everest summit: ~70°C — impossible to brew proper tea (proteins denature at higher temperatures than water boils at this altitude).</p>\n<h3>Fluid Pressure and Pascal's Principle</h3>\n<p>Fluid pressure at depth h: P = ρgh (gauge pressure, above atmospheric). Seawater (ρ=1025 kg/m³): at 10m depth: P = 1025 × 9.81 × 10 = 100,553 Pa ≈ 1 atm. Rule: every 10m of seawater ≈ 1 additional atm. At 100m: 11 atm total. Scuba diving limit: 30-40m recreational (4-5 atm). Pascal's Principle: pressure applied to enclosed fluid transmits equally in all directions. Hydraulic systems exploit this: small piston (A₁=1 cm²) with force F₁=100N creates pressure P = 100/0.0001 = 1,000,000 Pa. Applied to large piston (A₂=100 cm²): F₂ = P × A₂ = 1,000,000 × 0.01 = 10,000 N. Force amplification = 100:1. Used in car brakes, hydraulic jacks, heavy machinery.</p>\n<h3>Blood Pressure and Medical Pressure</h3>\n<p>Blood pressure is measured in mmHg (millimeters of mercury). Normal: systolic &lt;120 mmHg, diastolic &lt;80 mmHg (written 120/80). Systolic = peak pressure during heartbeat. Diastolic = minimum between beats. 1 mmHg = 133.32 Pa = 0.00132 atm. Blood pressure at foot when standing: atmospheric + ρgh = 101,325 + 1060 × 9.81 × 1.5 = 101,325 + 15,607 = 116,932 Pa = 877 mmHg (why varicose veins develop in legs). Heart generates systolic pressure 120 mmHg = 16,000 Pa. Each beat ejects ~70 mL blood. Heart power ≈ 1.3 W continuous (6-7 W during exercise). In a 75-year lifetime: heart beats ~2.5 billion times, pumps ~200 million liters of blood.</p></div>\n<div class=\"content-section\"><h3>Physics Formulas and Units</h3>\n<p>Always ensure units are consistent before calculating. This calculator uses SI units (International System): meters (m) for distance, kilograms (kg) for mass, seconds (s) for time, Newtons (N) for force, Joules (J) for energy, Watts (W) for power, and Pascals (Pa) for pressure. When converting from other unit systems (imperial, CGS), convert all values before entering them into the calculator.</p>\n<h3>Common Physics Constants Reference</h3>\n<p>Gravitational acceleration on Earth: g = 9.81 m/s² (standard: 9.80665 m/s²). Speed of light in vacuum: c = 2.998×10⁸ m/s. Universal gravitational constant: G = 6.674×10⁻¹¹ N·m²/kg². Speed of sound in air at 20°C: 343 m/s. Atmospheric pressure at sea level: 101,325 Pa = 1 atm. These constants appear in virtually every branch of physics and engineering.</p>\n</div>\n<div class=\"content-section\"><h2>Real-World Applications</h2>\n<p>The physics concepts calculated here appear in countless real-world engineering and scientific applications. Mechanical engineers design machines, vehicles, and structures using these fundamental equations daily. Civil engineers calculate loads, pressures, and structural forces in bridges and buildings. Aerospace engineers apply kinematics, orbital mechanics, and aerodynamics to aircraft and spacecraft design. Biomedical engineers analyze forces and pressures in the human body for medical device design and injury prevention.</p>\n<h3>Safety and Engineering Standards</h3>\n<p>Physics calculations directly inform engineering safety standards. Stopping distance calculations (kinetic energy / braking force) set speed limits and vehicle safety requirements. Pressure calculations determine pipe and vessel wall thickness in plumbing and industrial equipment. Torque specifications on fasteners prevent structural failures. Centripetal acceleration limits guide road curve design and roller coaster safety. Every safety standard in transportation, construction, and consumer products has physics calculations at its foundation.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the pressure formula? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P = F/A. Force (N) / Area (m²) = Pascal (Pa). A 700N person standing on one stiletto heel (area ~1 cm² = 10⁻⁴ m²): P = 700/0.0001 = 7,000,000 Pa = 70 atm! Enough to dent hardwood floors.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is atmospheric pressure? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">101,325 Pa = 1 atm = 14.696 psi = 760 mmHg at sea level. Equivalent to 10.3m of water column pressing down. Decreases with altitude. At Everest summit: ~33.7 kPa (1/3 sea level).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to convert psi to pascal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 psi = 6,894.76 Pa. Car tire 32 psi: 32 × 6,894.76 = 220,632 Pa = 2.18 atm gauge. Absolute pressure = gauge + atmospheric = 220,632 + 101,325 = 321,957 Pa = 3.18 atm absolute.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is fluid pressure formula? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P = ρgh. Density (kg/m³) × gravity (9.81) × depth (m) = gauge pressure in Pa. Seawater (1025 kg/m³) at 50m: P = 1025 × 9.81 × 50 = 502,763 Pa ≈ 5 atm gauge. Total = 6 atm absolute.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is blood pressure 120/80? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Systolic 120 mmHg (peak during heartbeat) / Diastolic 80 mmHg (between beats). 1 mmHg = 133.32 Pa. 120 mmHg = 15,998 Pa = 0.158 atm. Normal range: systolic &lt;120, diastolic &lt;80.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is Pascal's Principle? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Pressure in enclosed fluid transmits equally in all directions. Hydraulic systems use this for force multiplication: F₂/F₁ = A₂/A₁. Small piston pushes, large piston lifts heavy load. Used in car brakes, hydraulic jacks, presses.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Physics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/physics/force-calculator\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Force Calculator</span></a><a class=\"related-card\" href=\"/calculators/physics/kinetic-energy-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Kinetic Energy</span></a><a class=\"related-card\" href=\"/calculators/physics/projectile-motion-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Projectile Motion</span></a><a class=\"related-card\" href=\"/calculators/physics/wave-frequency-calculator\"><span class=\"rc-icon\">🌊</span><span class=\"rc-name\">Wave Frequency</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Pressure Calculator – P = F/A Pascal, PSI and ATM</h2><div class=\"form-group\"><label for=\"prs\">Solve For</label><select id=\"prs\"><option selected=\"\" value=\"P\">Pressure P = F/A</option><option value=\"F\">Force F = P×A</option><option value=\"A\">Area A = F/P</option><option value=\"fluid\">Fluid Pressure ρgh</option></select></div><div class=\"form-group\"><label for=\"prF\">Force F (N)</label><input id=\"prF\" min=\"0\" step=\"any\" type=\"number\" value=\"700\"/></div><div class=\"form-group\"><label for=\"prA\">Area A (m²)</label><input id=\"prA\" min=\"0\" step=\"any\" type=\"number\" value=\"0.0001\"/></div><div class=\"form-group\"><label for=\"prP\">Pressure P (Pa)</label><input id=\"prP\" min=\"0\" step=\"any\" type=\"number\" value=\"7000000\"/></div><div class=\"form-group\"><label for=\"prunit\">Pressure Unit</label><select id=\"prunit\"><option selected=\"\" value=\"Pa\">Pascal (Pa)</option><option value=\"kPa\">kilopascal (kPa)</option><option value=\"atm\">Atmosphere (atm)</option><option value=\"psi\">PSI</option><option value=\"mmHg\">mmHg / torr</option><option value=\"bar\">Bar</option></select></div><div class=\"form-group\"><label for=\"prrho\">Fluid Density ρ (kg/m³)</label><input id=\"prrho\" min=\"0\" step=\"any\" type=\"number\" value=\"1025\"/></div><div class=\"form-group\"><label for=\"prdep\">Depth h (m)</label><input id=\"prdep\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ph-result').style.display='none';document.getElementById('ph-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ph-result\" style=\"display:none;\"><div id=\"ph-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ph-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ph-ai\" style=\"display:none;\"></div></div>\n<div id=\"ph-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ph\" onclick=\"printResult('ph-result','Pressure Calculator – P = F/A Pascal, PSI and ATM')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Pressure Calculator – P = F/A Pascal, PSI and ATM')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-pressure-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var CONV_PA={Pa:1,kPa:1000,atm:101325,psi:6894.76,mmHg:133.322,bar:100000};\nfunction doCalc(){\n  var s=document.getElementById('prs').value;\n  var F=parseFloat(document.getElementById('prF').value)||0,A=parseFloat(document.getElementById('prA').value)||0;\n  var P=parseFloat(document.getElementById('prP').value)||0,u=document.getElementById('prunit').value;\n  var rho=parseFloat(document.getElementById('prrho').value)||0,dep=parseFloat(document.getElementById('prdep').value)||0;\n  var result,label;\n  if(s==='P'){if(!F||!A){alert('Enter F and A.');return;}result=F/A;label='Pressure (Pa)';}\n  else if(s==='F'){if(!P||!A){alert('Enter P and A.');return;}result=(P*CONV_PA[u])*A;label='Force (N)';}\n  else if(s==='A'){if(!P||!F){alert('Enter P and F.');return;}result=F/(P*CONV_PA[u]);label='Area (m²)';}\n  else{if(!rho||!dep){alert('Enter ρ and depth.');return;}result=rho*9.81*dep;label='Fluid Gauge Pressure (Pa)';}\n  var Ppa=s==='P'||s==='fluid'?result:(P*CONV_PA[u]);\n  var aiPrompt='Pressure: '+Ppa.toExponential(3)+' Pa = '+(Ppa/101325).toFixed(4)+' atm = '+(Ppa/6894.76).toFixed(3)+' psi';\n  document.getElementById('ph-ri').innerHTML=\n    ri(label,'<strong style=\"font-size:22px;color:var(--c-accent)\">'+result.toExponential(4)+'</strong>',true)+\n    ri('In atm',(Ppa/101325).toFixed(4)+' atm')+ri('In psi',(Ppa/6894.76).toFixed(3)+' psi')+\n    ri('In kPa',(Ppa/1000).toFixed(3)+' kPa')+ri('In mmHg',(Ppa/133.322).toFixed(2)+' mmHg');\n  document.getElementById('ph-result').style.display='block';document.getElementById('ph-actions').style.display='flex';\n  drawDonut('ph-chart',['Pressure (kPa)','Atm reference (101.3 kPa)'],[Math.round(Ppa/1000)||1,Math.round(101.325)],['#c8832a','#3a7abf']);\n  var ai=document.getElementById('ph-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this pressure physics and fluid mechanics.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/physics", label: "Physics" }}
+      title="Mechanical & Hydrostatic Pressure Calculator"
+      intro="Calculate mechanical contact pressure (P = F/A), hydrostatic ocean depth pressure (P = ρgh), barometric atmospheres, kPa, bar, and psi across metric and imperial frames."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 dark:bg-blue-950/40 dark:text-blue-400 dark:ring-blue-500/30">
+                <svg className="size-3.5 shrink-0 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ISO 80000-4 Fluid Mechanics Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Hydrostatic & Mechanical Solver</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Pascal's Principle Validated
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-blue-500/20 bg-blue-50/60 p-4 dark:border-blue-500/30 dark:bg-blue-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What are the formulas for calculating mechanical and fluid pressure?
+                </strong>
+                <p className="mt-1">
+                  Mechanical surface pressure is calculated by dividing perpendicular force by contact area: P = F / A. In fluid dynamics, hydrostatic gauge pressure at depth h is given by P = ρ · g · h. Applying a force of 4,500 Newtons over a contact area of 0.05 m² produces 90.0 Kilopascals (kPa), equivalent to 0.90 bar, 13.05 psi, or 0.888 standard atmospheres. Underwater at a depth of 10 meters, hydrostatic pressure adds an additional 100.5 kPa (1.0 bar).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>Hydrostatic Seawater Pressure Escalation vs Submersion Depth</h2>
+          <div className="not-prose my-6">
+            <HydrostaticPressureDepthChart />
+          </div>
+
+          <p>
+            Pressure is the primary scalar state variable governing continuous media across fluid mechanics, thermodynamics, civil geotechnical engineering, and industrial hydraulics. Standardized internationally under ISO 80000-4, the SI derived unit of pressure is the Pascal (1 Pa = 1 N/m² = 1 kg/(m·s²)). Because one Pascal represents an exceptionally light physical pressure (approximately the weight of a dollar bill resting on a flat table), practical engineering employs the Kilopascal (kPa), Megapascal (MPa), bar (100,000 Pa), and imperial pounds per square inch (psi).
+          </p>
+
+          <p>
+            The profound operational versatility of pressure arises from its scalar nature: at any interior point within a static fluid, pressure acts with identical magnitude in every spatial direction. This property, known as Pascal's Law, forms the core operational foundation of hydraulic braking systems, aircraft flight control actuators, subsea submarine hulls, and deep borehole drilling equipment.
+          </p>
+
+          <h2>Core Physical Formulations across Mechanical & Fluid Domains</h2>
+
+          <p>
+            Pressure appears across solid contact mechanics, hydrostatic fluid columns, and ideal gas thermodynamics through consistent formulations:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Mechanical Solid Contact Pressure</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P = F_perpendicular / A</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates compressive contact stress in Pascals from normal force F (N) and area A (m²).</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Hydrostatic Fluid Column Pressure (Stevin's Law)</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P_hydro = ρ · g · h</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Yields gauge fluid pressure from density ρ (kg/m³), gravity g (m/s²), and depth h (m).</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Total Absolute Subsea Pressure</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P_total = P_atmosphere + ρ · g · h</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Sum of atmospheric surface pressure (101,325 Pa) and submerged hydrostatic gauge column.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Pascal's Hydraulic Amplification Law</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">F₁ / A₁ = F₂ / A₂   ⟹   F₂ = F₁ · (A₂ / A₁)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies hydraulic mechanical force multiplication across disparate piston diameters.</div>
+          </Formula>
+
+          <h2>Standard Engineering Units & Conversion Matrix</h2>
+
+          <p>
+            Pressure units vary extensively across international engineering disciplines:
+          </p>
+
+          <DataTable
+            head={["Unit Name", "Symbol", "Pascals Equivalent", "Atmospheres (atm)", "Primary Industry Sector"]}
+            rows={[
+              ["Pascal (SI Base)", "Pa", "1.000 Pa", "9.869 × 10⁻⁶ atm", "Acoustics, structural finite element stress"],
+              ["Kilopascal", "kPa", "1,000 Pa", "0.009869 atm", "Building HVAC airflow, meteorological barometry"],
+              ["Bar", "bar", "100,000 Pa", "0.98692 atm", "Industrial hydraulics, scuba diving gas tanks"],
+              ["Pounds per Square Inch", "psi", "6,894.76 Pa", "0.068046 atm", "Automotive tire pressure, US fluid piping"],
+              ["Standard Atmosphere", "atm", "101,325 Pa", "1.00000 atm", "Chemical thermodynamics, compressed gas storage"],
+              ["Torr / Millimeters of Mercury", "mmHg", "133.322 Pa", "0.001316 atm", "Human blood pressure, vacuum physics"],
+            ]}
+          />
+
+
+          <h2>Pascal's Principle and Hydraulic Force Multiplication</h2>
+
+          <p>
+            Pascal's Principle states that pressure applied to an enclosed, incompressible static fluid is transmitted undiminished to every portion of the fluid and the containing vessel walls. Hydraulic machinery exploits this law to create massive mechanical force multiplication in automotive brakes, heavy industrial presses, and aircraft landing gear actuators.
+          </p>
+
+          <p>
+            When a modest input effort force F_1 is exerted on a master hydraulic cylinder piston of small cross-sectional surface area A_1, the fluid transmits uniform pressure P = F_1 / A_1 throughout the hydraulic circuit lines. Acting on an output slave piston of much larger cross-sectional area A_2:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">5. Pascal Hydraulic Mechanical Advantage Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P = F₁ / A₁ = F₂ / A₂   &rarr;   F₂ = F₁ &middot; (A₂ / A₁) = F₁ &middot; (d₂ / d₁)&sup2;</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies hydraulic force amplification through piston diameter ratios d_2 and d_1.</div>
+          </Formula>
+
+          <p>
+            A technician applying 200 N of foot force onto a 2 cm diameter brake master cylinder drives fluid into four 6 cm diameter wheel caliper pistons, multiplying braking force by (6 / 2)&sup2; = 9-fold per caliper, delivering 1,800 N of clamp force onto the rotating carbon-ceramic brake discs.
+          </p>
+
+          <h2>Atmospheric Barometric Pressure and High-Altitude Decompression</h2>
+
+          <p>
+            Earth's atmosphere acts as an ocean of gas whose pressure decreases exponentially with geometric altitude above mean sea level according to the Barometric Law: P(h) = P_0 &middot; exp(-M &middot; g &middot; h / (R &middot; T)). At standard sea level (h = 0), atmospheric pressure averages 101,325 Pa (1.01325 bar or 14.696 psi). At the summit of Mount Everest (8,848 meters), air pressure plummets to 33,700 Pa (0.337 bar or 4.89 psi)—merely one-third of sea-level value—starving human arterial hemoglobin of oxygen without supplemental breathing gas.
+          </p>
+
+          <h2>Comparative Operational Worked Case Studies</h2>
+
+          <p>
+            To examine practical pressure calculations across disparate physical domains:
+          </p>
+
+          <h3>Case Study A: Industrial Hydraulic Stamping Press Piston</h3>
+          <p>
+            An industrial hydraulic press applies a motive force of F = 25,000 Newtons (25.0 kN = 5,620 lbf) through an actuator piston cylinder possessing a cross-sectional area of A = 0.005 m² (50.0 cm² = 7.75 sq in).
+          </p>
+          <ul>
+            <li><strong>Hydraulic Fluid Operating Pressure:</strong> P = 25,000 N ÷ 0.005 m² = 5,000,000 Pascals (5.0 MPa = 50.0 bar).</li>
+            <li><strong>Imperial Line Pressure:</strong> 50.0 bar × 14.5038 = 725.2 psi (pounds per square inch).</li>
+            <li><strong>Slave Ram Output Multiplication:</strong> If this 5.0 MPa fluid is piped to a heavy slave ram of area A₂ = 0.08 m² (800 cm²), the resulting clamping force multiplies to: F₂ = 5,000,000 Pa × 0.08 m² = 400,000 Newtons (400 kN = 89,924 lbf = 44.9 US tons).</li>
+          </ul>
+
+          <h3>Case Study B: Deep-Sea Oceanic Submersible at 1,000m Depth</h3>
+          <p>
+            A scientific research submarine descends to a depth of h = 1,000.0 meters in standard ocean seawater (ρ = 1,025 kg/m³, g = 9.807 m/s²).
+          </p>
+          <ul>
+            <li><strong>Hydrostatic Gauge Pressure:</strong> P_hydro = 1,025 kg/m³ × 9.807 m/s² × 1,000.0 m = 10,052,175 Pascals (10.05 MPa = 100.52 bar).</li>
+            <li><strong>Total Absolute Exterior Pressure:</strong> P_total = 101,325 Pa (atmosphere) + 10,052,175 Pa = 10,153,500 Pascals (101.54 bar = 1,472.7 psi).</li>
+            <li><strong>Hull Structural Load:</strong> Every single square meter of the submarine's titanium pressure hull withstands an inward compressive force of 10.15 Meganewtons (2.28 million pounds-force).</li>
+          </ul>
+
+          <h2>Physical Boundaries & Fluid Cavitation Hazards</h2>
+
+          <p>
+            When managing dynamic pressures in fluid machinery:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Hydrodynamic Cavitation:</strong> According to Bernoulli's principle, fluid accelerating through a pipe constriction experiences a sharp static pressure drop. If local pressure falls below the fluid's vapor pressure (e.g. 2.34 kPa for water at 20°C), vapor bubbles spontaneously form and violently collapse against impeller surfaces, pitting and destroying metal pumps.
+            </li>
+            <li>
+              <strong>Atmospheric Barometric Lapse Rate:</strong> Atmospheric pressure decays exponentially with elevation: P(h) = P₀ · e^(-Mgh / RT). At the summit of Mount Everest (8,848m), atmospheric pressure falls to approximately 33.7 kPa (0.33 atm), starving human climbers of oxygen.
+            </li>
+            <li>
+              <strong>Bulk Modulus Compressibility:</strong> While liquids are generally treated as incompressible, extreme pressures (exceeding 1,000 bar in the Mariana Trench) compress water volume by over 4%, increasing fluid density.
+            </li>
+          </ol>
+
+          <h2>Authoritative International Standards & Pressure Metrology</h2>
+
+          <p>
+            For verified pressure metrology standards and gauge calibration protocols:
+          </p>
+          <ul>
+            <li>
+              <strong>ISO 80000-4:2019:</strong> International specifications for physical quantities and units of mechanics, force, and pressure.
+            </li>
+            <li>
+              <strong>NIST Special Publication 250-91:</strong> United States calibration service for pressure and vacuum measurements.
+            </li>
+            <li>
+              <strong>ASME B40.100:</strong> American Society of Mechanical Engineers standard for pressure gauges and gauge attachments.
+            </li>
+            <li>
+              <strong>BIPM Consultative Committee for Mass and Related Quantities (CCM):</strong> Working group on high-pressure metrology standards.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <PressureCalculator />
+    </CalcPage>
   );
 }
