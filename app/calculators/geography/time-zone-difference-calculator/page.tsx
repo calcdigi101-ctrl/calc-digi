@@ -61,7 +61,7 @@ export default function TimeZoneDifferencePage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/geography", label: "Geography" }}
+      category={{ href: "/pages/geography", label: "Geography" }}
       title="Time Zone Difference Calculator"
       intro="Calculate exact time differences, day adjustments, and business working hour overlaps between global UTC time zones and international cities for remote team collaboration."
       description={DESCRIPTION}

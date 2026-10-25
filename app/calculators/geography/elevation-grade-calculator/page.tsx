@@ -61,7 +61,7 @@ export default function ElevationGradePage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/geography", label: "Geography" }}
+      category={{ href: "/pages/geography", label: "Geography" }}
       title="Elevation Grade Calculator"
       intro="Calculate slope percent grade, angle in degrees, slope ratio, and actual surface travel distance from vertical elevation rise and horizontal run. Includes ADA accessibility compliance and highway engineering benchmarks."
       description={DESCRIPTION}
