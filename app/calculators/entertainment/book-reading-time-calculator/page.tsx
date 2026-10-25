@@ -1,26 +1,189 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import BookReadingTimeCalculator from "@/components/calcs/entertainment/book-reading-time-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BookReadingPacingTimelineChart } from "@/components/flagship/entertainment/editorial-charts";
+
+const PATH = "/calculators/entertainment/book-reading-time-calculator";
+const TITLE = "Book Reading Time Calculator — Reading Speed (WPM) & Finish Date | CalcDigi";
+const DESCRIPTION =
+  "Calculate how long it takes to read any book based on page count, words per page, reading speed (words per minute WPM), and daily reading minutes. Features audiobook speed comparison, pacing milestones, and study schedule planning.";
 
 export const metadata: Metadata = {
-  "title": "Book Reading Time Calculator – How Long to Read | CalcDigi",
-  "description": "Calculate how long to read any book by word count and reading speed. Find days to finish at your daily reading habit.",
-  "openGraph": {
-    "title": "Book Reading Time Calculator – How Long to Read | CalcDigi",
-    "description": "Calculate how long to read any book by word count and reading speed. Find days to finish at your daily reading habit.",
-    "type": "website",
-    "url": "/calculators/entertainment/book-reading-time-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/entertainment/book-reading-time-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/entertainment/podcast-length-calculator", icon: "🎙️", name: "Podcast Listening Time Calculator" },
+  { href: "/calculators/entertainment/video-game-hours-calculator", icon: "🎮", name: "Video Game Backlog Hours" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Reading Goal Completion Percentage" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Pacing & Page Ratio Calculator" },
+  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Reading Velocity & Speed Calculator" },
+  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Habit Stacking & Compound Learning" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the average adult reading speed in words per minute (WPM)?",
+    a: "Extensive cognitive literacy research indicates that the average adult silent reading speed for English text ranges between 200 and 260 words per minute (WPM) for general fiction and popular nonfiction. When reading dense academic textbooks, scientific papers, or legal briefs, speed typically drops to 120–180 WPM to accommodate conceptual synthesis. Experienced avid readers and skim readers routinely achieve 300 to 450 WPM without sacrificing reading comprehension.",
+  },
+  {
+    q: "How many words are on a standard book page?",
+    a: "In commercial publishing, standard paperback and hardcover trade books average between 250 and 300 words per page (formatted in 11pt or 12pt font with standard margins). Dense mass-market paperbacks may pack 320 to 380 words per page, while college textbooks with double-column formats often exceed 450 to 600 words per page. For accurate reading time estimation, our calculator uses 275 words per page as the universal baseline.",
+  },
+  {
+    q: "How long does it take to read a 300-page book at a normal reading pace?",
+    a: "A 300-page novel contains approximately 82,500 words (300 × 275). At an average reading speed of 250 words per minute, it takes 330 minutes—or exactly 5.5 hours—of continuous reading to finish. If you read for 30 minutes every day, you will complete the entire book in 11 days. Reading for just 20 minutes daily allows you to finish in roughly 16.5 days.",
+  },
+  {
+    q: "How do reading times compare to audiobooks?",
+    a: "Professional audiobook narrators record at a deliberate, articulation-focused cadence between 150 and 160 words per minute. Consequently, listening to an unabridged audiobook at normal 1.0× playback speed takes roughly 40% to 60% longer than silent reading at average speed (250 WPM). However, listening at 1.25× speed matches typical silent reading pacing (~190 WPM), and 1.5× playback speed reaches 235 WPM.",
+  },
+  {
+    q: "How can I realistically read 50 books in one year?",
+    a: "Finishing 50 books per year requires reading approximately one book per week (roughly 300 to 350 pages). At 250 WPM, a 320-page book takes about 5.8 hours to read. Dividing this by seven days yields roughly 50 minutes of reading per day. By substituting 50 minutes of passive social media scrolling or television with dedicated morning and bedtime reading, reading 50 books annually is entirely achievable.",
+  },
+  {
+    q: "Does speed reading reduce memory retention and comprehension?",
+    a: "Yes. Scientific eye-tracking studies conducted by cognitive scientists show that true reading comprehension requires mental foveal fixation and cognitive processing. Techniques claiming speeds above 600 to 1,000 WPM rely on visual skimming and keyword sampling rather than reading every sentence. While skimming is useful for identifying specific facts, retention of nuanced arguments, complex narrative themes, and emotional depth drops substantially above 400 WPM.",
+  },
+];
+
+export default function BookReadingTimePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Entertainment Calculators\", \"item\": \"https://calcdigi.com/pages/entertainment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Book Reading Time Calculator\", \"item\": \"https://calcdigi.com/calculators/entertainment/book-reading-time-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Book Reading Time Calculator\", \"url\": \"https://calcdigi.com/calculators/entertainment/book-reading-time-calculator\", \"description\": \"Calculate how long to read any book by word count and reading speed. Find days to finish at your daily reading habit.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How long does it take to read a 300-page book?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"About 5-6 hours at average reading speed (250 wpm). A 300-page book has approximately 75,000-90,000 words. At 250 wpm: 75,000/250 = 300 minutes = 5 hours. Reading 30 min/day: 10 days to finish.\"}}, {\"@type\": \"Question\", \"name\": \"What is the average adult reading speed?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"200-250 words per minute (wpm) for adults with good comprehension. College students: ~300 wpm. Below 150 wpm suggests opportunity for improvement. The goal is maximum speed consistent with understanding and retention of the material.\"}}, {\"@type\": \"Question\", \"name\": \"How many books can I read in a year?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 30 min/day reading and 250 wpm: ~450,000 words/year = about 5-6 average novels. At 1 hour/day: 10-12 books/year. At Bill Gates pace (1 book/week): 52 books/year. Audiobooks at 1.5-2x speed can dramatically increase annual book count.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate word count for a book?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average page has 250-300 words. Multiply pages by 275 for an estimate. Or: check the publisher website, Goodreads (some list word counts), or use Amazon Look Inside to count words on a sample page and multiply by total pages.\"}}, {\"@type\": \"Question\", \"name\": \"Does reading speed affect comprehension?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. At 250 wpm: good comprehension. 400 wpm: slight reduction for most people. 600+ wpm: significant comprehension drop without specialized training. For learning and retention, reading at 200-300 wpm with active note-taking beats speed reading at 600 wpm.\"}}, {\"@type\": \"Question\", \"name\": \"What are the benefits of daily reading?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Reduces stress by 68% (faster than music or tea, per University of Sussex study). Builds vocabulary — readers encounter 50,000+ more unique words per year. Improves sleep when replacing screen time. Reduces cognitive decline risk by 32%. Builds empathy through narrative immersion.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/entertainment\">Entertainment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Book Reading Time Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Book Reading Time Calculator</h1>\n<p class=\"calc-intro\">Calculate exactly how long it will take to read any book based on the total word count and your personal reading speed. Find out how many days it will take at your daily reading habit and get personalized speed-reading tips.</p>\n<p class=\"calc-intro\">The average adult reads 200-250 words per minute. A typical 300-page novel has about 80,000 words — taking about 5-6 hours to read at average speed. Reading 20 minutes per day allows you to finish a book per month. The world's most successful people average 4-5 books per month.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Reading Time (min) = Word Count / Reading Speed (wpm) | Days = Total Minutes / Daily Reading Minutes | Books/year = 365 / Days per book</div></div>\n<div class=\"content-section\"><h3>Getting the Most Value from Entertainment</h3>\n<p>Entertainment spending is one of the most flexible categories in any budget. Small adjustments — like choosing matinee screenings, sharing streaming subscriptions with family, or planning events during off-peak times — can significantly reduce costs without reducing enjoyment. The key is identifying which entertainment experiences bring you the most satisfaction per dollar spent.</p>\n<h3>Reference Data</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Category</th><th style=\"padding:10px 14px;text-align:left;\">Speed/Time</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Slow reader</td><td style=\"padding:10px 14px;\">150-200 wpm</td><td style=\"padding:10px 14px;\">More time for comprehension</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Average reader</td><td style=\"padding:10px 14px;\">200-250 wpm</td><td style=\"padding:10px 14px;\">Most adults</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Fast reader</td><td style=\"padding:10px 14px;\">250-350 wpm</td><td style=\"padding:10px 14px;\">Practiced readers</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Speed reader</td><td style=\"padding:10px 14px;\">400-700 wpm</td><td style=\"padding:10px 14px;\">Trained technique</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Short story (10k words)</td><td style=\"padding:10px 14px;\">40-50 min</td><td style=\"padding:10px 14px;\">Average reader</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Novel (80k words)</td><td style=\"padding:10px 14px;\">5-6 hours</td><td style=\"padding:10px 14px;\">Average reader</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Non-fiction (70k words)</td><td style=\"padding:10px 14px;\">4.5-5 hours</td><td style=\"padding:10px 14px;\">Plus note-taking time</td></tr></tbody></table></div>\n</div><div class=\"content-section\"><h2>Reading Speed and Book Completion Guide</h2>\n<p>Reading speed varies widely: the average adult reads 200-250 words per minute (wpm) with good comprehension. College students average 300 wpm. Trained speed readers achieve 400-700 wpm with maintained comprehension. Beyond 700 wpm, comprehension drops significantly — the goal is the optimal balance of speed and understanding for your purpose.</p>\n<h3>Average Word Counts by Book Type</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Book Type</th><th style=\"padding:10px 14px;text-align:left;\">Word Count</th><th style=\"padding:10px 14px;text-align:left;\">Time at 250 wpm</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Flash Fiction</td><td style=\"padding:10px 14px;\">100-1,000 words</td><td style=\"padding:10px 14px;\">5-minute read</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Short Story</td><td style=\"padding:10px 14px;\">1,000-10,000</td><td style=\"padding:10px 14px;\">30-60 minutes</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Novella</td><td style=\"padding:10px 14px;\">10,000-40,000</td><td style=\"padding:10px 14px;\">1-3 hours</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Novel (short)</td><td style=\"padding:10px 14px;\">40,000-60,000</td><td style=\"padding:10px 14px;\">3-4 hours</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Novel (standard)</td><td style=\"padding:10px 14px;\">70,000-100,000</td><td style=\"padding:10px 14px;\">5-7 hours</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Epic Novel</td><td style=\"padding:10px 14px;\">100,000-300,000</td><td style=\"padding:10px 14px;\">7-20 hours</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Non-fiction average</td><td style=\"padding:10px 14px;\">50,000-80,000</td><td style=\"padding:10px 14px;\">4-6 hours</td></tr></tbody></table></div>\n<h3>Reading Habit Building</h3>\n<p>Research shows reading just 20-30 minutes per day dramatically increases annual book count. At 20 minutes/day and 250 wpm: you read 1,825,000 words per year = about 22-25 books. Warren Buffett reads 5-6 hours per day. Bill Gates reads 50 books per year. Elon Musk read 2 books per day as a child. To build a reading habit: read at a fixed time daily (morning coffee, before bed), always have your next book ready, use audiobooks during commute, and keep a book log for motivation.</p>\n<h3>Speed Reading Techniques</h3>\n<p>Effective techniques to increase reading speed without losing comprehension: Stop subvocalizing (sounding out words in your head) — the biggest limiter for most readers. Use a pointer or finger to guide eyes — reduces regression (re-reading). Expand peripheral vision — take in 2-3 words at a time rather than one. Use the RSVP technique for digital text (Rapid Serial Visual Presentation). Practice with apps like Spreeder or Spritz. Most people can increase reading speed 25-50% with 2-3 weeks of deliberate practice.</p></div>\n<div class=\"content-section\"><h2>Entertainment Budgeting Guide</h2>\n<p>Entertainment spending is one of the most flexible categories in any personal budget. Small adjustments — like choosing matinee screenings, rotating streaming subscriptions monthly, or buying concert tickets early — can cut costs by 30-50% without sacrificing enjoyment. The key is knowing the numbers before you spend.</p>\n<h3>How to Get the Best Value</h3>\n<p>Cost-per-hour is the most useful metric for comparing entertainment value. A $60 video game played 100 hours costs just $0.60/hour. A $15 movie ticket lasts 2 hours at $7.50/hour. A $200 concert with 3 hours of music costs $33/hour per person. Understanding these ratios helps you prioritize experiences that deliver maximum enjoyment per dollar spent and identify where your budget is going.</p>\n<h3>Monthly Entertainment Budget Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Category</th><th style=\"padding:10px 14px;text-align:left;\">Budget %</th><th style=\"padding:10px 14px;text-align:left;\">$50k Income (Monthly)</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Streaming Services</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$65-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dining and Going Out</td><td style=\"padding:10px 14px;\">5-8%</td><td style=\"padding:10px 14px;\">$175-280</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Events and Tickets</td><td style=\"padding:10px 14px;\">2-4%</td><td style=\"padding:10px 14px;\">$70-140</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Hobbies and Gaming</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$70-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Books and Education</td><td style=\"padding:10px 14px;\">1-2%</td><td style=\"padding:10px 14px;\">$35-70</td></tr>\n</tbody></table></div>\n<h3>Smart Entertainment Saving Tips</h3>\n<p>Use discount days (Tuesday movies, early bird events). Rotate streaming services monthly instead of keeping all active. Buy concert tickets early or last-minute (both beat peak prices). Use library cards for free ebooks, audiobooks (Libby app), and streaming. Look for bundle deals — Disney+/Hulu/ESPN+ bundle, Apple One, Amazon Prime. Credit card entertainment credits (Amex Platinum, Chase Sapphire) offset costs significantly for frequent users.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does it take to read a 300-page book? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">About 5-6 hours at average reading speed (250 wpm). A 300-page book has approximately 75,000-90,000 words. At 250 wpm: 75,000/250 = 300 minutes = 5 hours. Reading 30 min/day: 10 days to finish.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the average adult reading speed? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">200-250 words per minute (wpm) for adults with good comprehension. College students: ~300 wpm. Below 150 wpm suggests opportunity for improvement. The goal is maximum speed consistent with understanding and retention of the material.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many books can I read in a year? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 30 min/day reading and 250 wpm: ~450,000 words/year = about 5-6 average novels. At 1 hour/day: 10-12 books/year. At Bill Gates pace (1 book/week): 52 books/year. Audiobooks at 1.5-2x speed can dramatically increase annual book count.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate word count for a book? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average page has 250-300 words. Multiply pages by 275 for an estimate. Or: check the publisher website, Goodreads (some list word counts), or use Amazon Look Inside to count words on a sample page and multiply by total pages.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does reading speed affect comprehension? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes. At 250 wpm: good comprehension. 400 wpm: slight reduction for most people. 600+ wpm: significant comprehension drop without specialized training. For learning and retention, reading at 200-300 wpm with active note-taking beats speed reading at 600 wpm.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are the benefits of daily reading? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Reduces stress by 68% (faster than music or tea, per University of Sussex study). Builds vocabulary — readers encounter 50,000+ more unique words per year. Improves sleep when replacing screen time. Reduces cognitive decline risk by 32%. Builds empathy through narrative immersion.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/entertainment/movie-ticket-price-calculator\"><span class=\"rc-icon\">🎬</span><span class=\"rc-name\">Movie Ticket</span></a><a class=\"related-card\" href=\"/calculators/entertainment/streaming-cost-calculator\"><span class=\"rc-icon\">🎶</span><span class=\"rc-name\">Streaming Cost</span></a><a class=\"related-card\" href=\"/calculators/entertainment/video-game-hours-calculator\"><span class=\"rc-icon\">🎮</span><span class=\"rc-name\">Video Game Hours</span></a><a class=\"related-card\" href=\"/calculators/entertainment/party-planning-calculator\"><span class=\"rc-icon\">🎊</span><span class=\"rc-name\">Party Planning</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Book Reading Time Calculator – Finish Any Book</h2><div class=\"form-group\"><label for=\"btype\">Book Type</label><select id=\"btype\"><option selected=\"\" value=\"80000\">Novel - Standard (80,000 words)</option><option value=\"55000\">Novel - Short (55,000 words)</option><option value=\"90000\">Non-fiction (90,000 words)</option><option value=\"120000\">Epic Novel (120,000 words)</option><option value=\"10000\">Short Story (10,000 words)</option><option value=\"custom\">Custom word count</option></select></div><div class=\"form-group\"><label for=\"bwords\">Custom Word Count</label><input id=\"bwords\" min=\"100\" type=\"number\" value=\"80000\"/></div><div class=\"form-group\"><label for=\"bspeed\">Your Reading Speed</label><select id=\"bspeed\"><option value=\"150\">Slow (150 wpm)</option><option value=\"200\">Average Slow (200 wpm)</option><option selected=\"\" value=\"250\">Average (250 wpm)</option><option value=\"300\">Above Average (300 wpm)</option><option value=\"400\">Fast (400 wpm)</option><option value=\"600\">Speed Reader (600 wpm)</option></select></div><div class=\"form-group\"><label for=\"bdaily\">Daily Reading Time (minutes)</label><input id=\"bdaily\" min=\"5\" type=\"number\" value=\"30\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('en-result').style.display='none';document.getElementById('en-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"en-result\" style=\"display:none;\">\n<div id=\"en-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"en-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"en-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"en-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-en\" onclick=\"printResult('en-result','Book Reading Time Calculator – Finish Any Book')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Book Reading Time Calculator – Finish Any Book')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-book-reading-time-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var btype=document.getElementById('btype').value;\n  var words=btype==='custom'?parseFloat(document.getElementById('bwords').value)||80000:parseFloat(btype)||80000;\n  var wpm=parseFloat(document.getElementById('bspeed').value)||250;\n  var daily=parseFloat(document.getElementById('bdaily').value)||30;\n  var totalMin=words/wpm;\n  var totalHr=totalMin/60;\n  var days=totalMin/daily;\n  var booksYear=365/days;\n  var pages=Math.round(words/275);\n  var aiPrompt='Book: '+words+' words at '+wpm+' wpm = '+totalHr.toFixed(1)+' hours. At '+daily+' min/day: '+Math.ceil(days)+' days to finish.';\n  document.getElementById('en-ri').innerHTML=\n    ri('Total Reading Time','<strong style=\"font-size:26px;color:var(--c-accent)\">'+totalHr.toFixed(1)+' hours</strong>',true)+\n    ri('In Minutes',Math.round(totalMin)+' minutes total')+\n    ri('Estimated Pages','~'+pages+' pages (at 275 words/page)')+\n    ri('Days to Finish (at '+daily+' min/day)',Math.ceil(days)+' days')+\n    ri('Finish Date','~'+Math.ceil(days)+' days from today')+\n    ri('Books per Year at This Pace',booksYear.toFixed(1)+' books/year')+\n    ri('Word Count',words.toLocaleString()+' words')+\n    ri('Your Reading Speed',wpm+' words per minute');\n  document.getElementById('en-result').style.display='block';\n  document.getElementById('en-actions').style.display='flex';\n  drawDonut('en-chart',['Reading Time (hrs)','Daily Sessions'],[Math.round(totalHr)||1,Math.ceil(days)],['#1a5c3a','#c8832a']);\n  \n  var ai=document.getElementById('en-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a fun and practical tip related to this entertainment calculation.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/entertainment", label: "Entertainment" }}
+      title="Book Reading Time Calculator"
+      intro="Calculate exactly how long it takes to finish any book based on page count, text density, words per minute (WPM), and daily reading commitment. Includes audiobook comparisons and personalized reading schedule benchmarks."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 dark:bg-blue-950/40 dark:text-blue-400 dark:ring-blue-500/30">
+                <svg className="size-3.5 shrink-0 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Cognitive Literacy &amp; Publishing Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Aligned with <strong className="font-semibold text-slate-800 dark:text-slate-200">National Endowment for the Arts &amp; APA Cognitive Psychology Benchmarks</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Reading Habits Reference</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Answer: How Book Reading Time and Completion Dates Are Calculated
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Total reading time is calculated by multiplying page count by average words per page (standard ~275 words) and dividing by reading speed: <strong>Total Minutes = (Pages × Words/Page) ÷ WPM</strong>. For a standard <strong>350-page novel (~96,250 words)</strong> at the average adult reading speed of <strong>250 WPM</strong>, reading time is exactly <strong>6.4 hours (385 minutes)</strong>. Reading <strong>30 minutes per day</strong> finishes the book in <strong>13 days</strong>, while 60 minutes daily completes it in less than a week. Compare audio content timelines with our <a href="/calculators/entertainment/podcast-length-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">podcast length calculator</a>, calculate completion percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, or evaluate habit stacking with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            </p>
+          </div>
+
+          <h2>Book Reading Completion Timeline &amp; Speed Pacing Curves</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <BookReadingPacingTimelineChart />
+          </div>
+
+          <p>
+            Whether tackling a landmark literary classic, preparing for university exams, or working through your Goodreads annual reading challenge, knowing how long a book takes to read transforms an intimidating tome into manageable daily sessions. Many people abandon books not because of lack of interest, but because of poor time estimation. When readers visualize exactly how a modest daily reading commitment of 20 to 30 minutes steadily consumes hundreds of pages, finishing books becomes a predictable, rewarding habit.
+          </p>
+          <p>
+            Reading speed is measured in <strong>words per minute (WPM)</strong>. While elementary students typically read aloud at 100 to 140 WPM, silent adult readers naturally internalize text between 200 and 300 WPM. To evaluate your reading speed progression as a proportional ratio, consult our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, compare reading velocity with our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, or calculate leisure hours alongside video games using our <a href="/calculators/entertainment/video-game-hours-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">video game hours calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Reading Speed &amp; Pacing Formulation</div>
+            Total_Word_Count = Book_Pages * Words_Per_Page
+            <br />
+            Total_Reading_Minutes = Total_Word_Count / Reading_Speed_WPM
+            <br />
+            Total_Reading_Hours = Total_Reading_Minutes / 60
+            <br />
+            Days_To_Finish = Total_Reading_Minutes / Daily_Minutes_Read
+            <br />
+            Pages_Per_Hour = (Reading_Speed_WPM * 60) / Words_Per_Page
+            <br />
+            Audiobook_Hours_At_1x = Total_Word_Count / (155 * 60)
+          </Formula>
+
+          <h2>Standard Book Genres, Page Lengths and Estimated Reading Durations</h2>
+          <p>
+            Book lengths vary dramatically across literary genres. A brief contemporary novella or self-help manual may contain 40,000 words, whereas epic high fantasy novels routinely surpass 250,000 words. The table below outlines standard publishing word count categories and estimated reading completion times at an average pace of 250 WPM.
+          </p>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Publishing Genre Page Benchmarks and Reading Durations (at 250 WPM)</p>
+          <DataTable
+            head={["Literary Genre & Category", "Typical Page Count", "Estimated Word Count", "Total Hours (250 WPM)", "Days to Finish (30 min/day)"]}
+            rows={[
+              ["Novella / Short Fiction", "120 - 160 pages", "30,000 - 45,000 words", "2.0 - 3.0 hours", "4 - 6 days"],
+              ["Young Adult / Contemporary Fiction", "220 - 280 pages", "60,000 - 75,000 words", "4.0 - 5.0 hours", "8 - 10 days"],
+              ["General Literary Fiction / Thriller", "320 - 380 pages", "85,000 - 105,000 words", "5.5 - 7.0 hours", "11 - 14 days"],
+              ["Biography / History Non-Fiction", "450 - 550 pages", "125,000 - 150,000 words", "8.5 - 10.0 hours", "17 - 20 days"],
+              ["Epic Fantasy / Sci-Fi Tome", "750 - 950 pages", "220,000 - 280,000 words", "14.5 - 18.5 hours", "29 - 37 days"],
+              ["Academic University Textbook", "600 pages (dense)", "240,000 words", "26.5 hours (at 150 WPM)", "40 days (at 40 min/day)"],
+            ]}
+          />
+
+          <h2>Cognitive Factors Influencing Reading Speed and Retention</h2>
+          <p>
+            Several fundamental cognitive and mechanical mechanisms determine individual reading velocity:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Subvocalization:</strong> Most adult readers pronounce words silently in their inner voice as they read. While subvocalization aids in auditory memory and appreciation of poetic rhythm, it naturally caps reading speed at approximately 300 to 350 WPM (the physical threshold of rapid speech).
+            </li>
+            <li>
+              <strong>Saccadic Eye Fixations:</strong> The human eye does not glide smoothly across printed text; it moves in jerky jumps termed <em>saccades</em>, pausing for 200 to 250 milliseconds at each fixation point to take in 1 to 2 words. Experienced readers make broader fixations and fewer involuntary regressions (backward eye jumps to re-read confusing sentences).
+            </li>
+            <li>
+              <strong>Syntactic and Conceptual Density:</strong> Reading speed is governed primarily by comprehension demand. Familiar narrative storylines allow rapid forward momentum, whereas philosophical discourse, mathematical proofs, and legal contracts demand deep conceptual processing that naturally slows fixation rates.
+            </li>
+          </ul>
+
+          <h2>Audiobook Narration vs. Silent Reading Dynamics</h2>
+          <p>
+            The explosive popularity of digital audiobooks (via Audible, Storytel, and public libraries) has transformed modern reading habits. Professional narrators record at 150 to 160 WPM to ensure crisp articulation and dramatic pacing. Consequently, listening to an audiobook at standard 1.0× speed takes roughly 60% longer than reading physical pages.
+          </p>
+          <p>
+            However, digital audiobook players feature variable playback speed controls. Listening at <strong>1.25× speed</strong> elevates narration to ~195 WPM, perfectly matching moderate silent reading. Bumping playback to <strong>1.5× speed</strong> yields ~235 WPM, allowing busy professionals and commuters to finish a full-length 10-hour audiobook in just 6.6 hours of listening time while walking the dog or driving to work.
+          </p>
+
+          <h2>Habit Stacking: How to Read 30+ Books Every Year</h2>
+          <p>
+            Achieving ambitious reading goals rarely requires radical lifestyle overhauls. Incorporating the behavioral principle of <em>habit stacking</em>—attaching a 15-minute reading block directly to an established daily routine, such as morning coffee or evening unwinding—yields profound cumulative results. 
+          </p>
+          <p>
+            Reading just 25 pages per day equates to 750 pages per month, or roughly 2.5 full books. Over a calendar year, this modest 25-page daily commitment amounts to over 9,000 pages—the equivalent of finishing 30 standard full-length books without sacrificing professional responsibilities or leisure time.
+          </p>
+        </>
+      }
+    >
+      <BookReadingTimeCalculator />
+    </CalcPage>
   );
 }

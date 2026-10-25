@@ -1,26 +1,207 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import PartyPlanningCalculator from "@/components/calcs/entertainment/party-planning-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PartyDrinksFoodSupplyMatrixChart } from "@/components/flagship/entertainment/editorial-charts";
+
+const PATH = "/calculators/entertainment/party-planning-calculator";
+const TITLE = "Party Planning Calculator — Food Portions, Drinks & Ice Supply | CalcDigi";
+const DESCRIPTION =
+  "Calculate food portions, alcoholic drinks, beer cases, wine bottles, non-alcoholic beverages, and bagged ice for any party size and duration. Features professional catering formulas for BBQs, cocktail parties, and seated dinners.";
 
 export const metadata: Metadata = {
-  "title": "Party Planning Calculator – Event Budget and Cost | CalcDigi",
-  "description": "Calculate total event cost including venue, catering, decorations, and entertainment. Get cost per guest for any event.",
-  "openGraph": {
-    "title": "Party Planning Calculator – Event Budget and Cost | CalcDigi",
-    "description": "Calculate total event cost including venue, catering, decorations, and entertainment. Get cost per guest for any event.",
-    "type": "website",
-    "url": "/calculators/entertainment/party-planning-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/entertainment/party-planning-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/entertainment/concert-ticket-calculator", icon: "🎟️", name: "Concert Ticket True Cost Calculator" },
+  { href: "/calculators/entertainment/movie-ticket-price-calculator", icon: "🎬", name: "Movie Cinema Outing Cost" },
+  { href: "/calculators/entertainment/travel-entertainment-calculator", icon: "✈️", name: "Vacation Entertainment Budget" },
+  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Drink & Food Serving Ratios" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Beverage Mix Percentage Split" },
+  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Event & Holiday Budget Savings" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the standard catering rule of thumb for party drinks?",
+    a: "Professional event planners and caterers adhere to the universal beverage consumption benchmark: plan for 2 drinks per guest during the first hour of the event, and 1 drink per guest for each subsequent hour (Total Drinks = Guests × [1 + Duration in Hours]). For a 4-hour gathering with 25 guests, plan for: 25 × (1 + 4) = 125 total drink servings.",
+  },
+  {
+    q: "How should I divide alcoholic drinks between beer, wine, and spirits/sodas?",
+    a: "Unless you know your guest list possesses specific taste preferences, standard catering distribution assumes: 45% Beer/Hard Seltzers, 30% Wine, and 25% Non-Alcoholic Soft Drinks/Water. If offering a full bar with hard spirits and cocktails, split the alcohol roughly into 40% beer, 30% wine, and 30% spirits. Always provide plenty of sparkling water and non-alcoholic alternatives.",
+  },
+  {
+    q: "How many glasses of wine are in a standard 750ml bottle?",
+    a: "A standard 750ml wine bottle pours approximately 5 glasses of wine at a standard 5-ounce (150ml) pour. A standard case of wine contains 12 bottles, providing approximately 60 glasses. To estimate wine needs, divide your target wine servings by 5 (e.g., 40 wine servings requires 40 ÷ 5 = 8 bottles of wine).",
+  },
+  {
+    q: "How much ice do I need for a party?",
+    a: "Plan for 1.5 pounds of bagged ice per person for moderate weather gatherings. This accounts for ice placed inside drinking glasses (roughly 0.5 lb per guest) plus bulk ice required to fill ice chest coolers to keep beer, wine, and soda cans chilled (roughly 1.0 lb per guest). If hosting an outdoor summer cookout with temperatures exceeding 80°F (27°C), increase your ice provisioning to 2.0 to 2.5 pounds per person.",
+  },
+  {
+    q: "How much meat should I buy per person for a backyard BBQ?",
+    a: "For main course meat (brisket, pulled pork, grilled chicken, ribs, burgers), plan for 1/2 pound (8 ounces / 225 grams) of cooked meat per adult guest if serving multiple hearty side dishes (potato salad, mac & cheese, baked beans). Because raw meat shrinks by roughly 25% to 30% during cooking due to fat rendering and moisture evaporation, purchase roughly 3/4 pound (12 ounces / 340 grams) of raw uncooked meat per guest.",
+  },
+  {
+    q: "How many appetizer hors d'oeuvres should be served per person?",
+    a: "If appetizers are served before a seated meal, prepare 4 to 6 pieces per guest. For a standalone evening cocktail reception where no dinner is served, prepare 10 to 14 pieces per guest spread across the evening, ensuring a balanced mix of protein-heavy bites, warm skewers, and lighter vegetarian dips.",
+  },
+];
+
+export default function PartyPlanningPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Entertainment Calculators\", \"item\": \"https://calcdigi.com/pages/entertainment\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Party Planning Cost Calculator\", \"item\": \"https://calcdigi.com/calculators/entertainment/party-planning-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Party Planning Cost Calculator\", \"url\": \"https://calcdigi.com/calculators/entertainment/party-planning-calculator\", \"description\": \"Calculate total event cost including venue, catering, decorations, and entertainment. Get cost per guest for any event.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How much does a birthday party cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At home: $200-500 for 25 guests (DIY food and decorations). At a rented venue: $500-2,000. Per-person cost: $8-20 for home parties, $20-80 for venue events. Children's parties average $300-800 with entertainment.\"}}, {\"@type\": \"Question\", \"name\": \"What is the average cost per person for a party?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Budget home party: $8-15/person. Nice home party: $15-25/person. Restaurant venue: $30-60/person. Catered event venue: $60-120/person. Wedding reception: $150-350/person (US average). Cost per person is the most useful benchmark for comparing event options.\"}}, {\"@type\": \"Question\", \"name\": \"How do I plan a party on a tight budget?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Host at home (saves $500-2,000 in venue fees). Make your own food instead of catering (saves $20-40/person). DIY decorations from Dollar Tree ($20-50 vs $200+). Send digital invitations (free vs $100+). Host at an off-peak time (brunch vs dinner). Focus budget on the elements guests notice most: food, music, and experiences.\"}}, {\"@type\": \"Question\", \"name\": \"How much food do I need per person?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Dinner: 1 lb total food per person. Appetizers-only party: 8-10 pieces per person per hour. Drinks: 1 drink per person per hour (plan for 2-3 hours). Cake: 1 slice per person. Buffet-style events need 25% more food than plated to account for multiple servings.\"}}, {\"@type\": \"Question\", \"name\": \"When should I start planning a party?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Large events (50+ guests): 3-6 months in advance for venue booking. Medium events (25-50): 1-3 months. Small home gatherings: 2-4 weeks. Wedding receptions: 9-18 months. Book popular venues, catering companies, and DJs/bands early — they fill up quickly for peak dates.\"}}, {\"@type\": \"Question\", \"name\": \"What percent of party budget should go to food?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"40-50% for most events. Food is consistently the element guests mention most in post-event feedback. At $1,000 total budget: spend $400-500 on catering and drinks. At $5,000: $2,000-2,500 on food and beverage.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/entertainment\">Entertainment</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Party Planning Cost Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Party Planning Cost Calculator</h1>\n<p class=\"calc-intro\">Calculate the total cost of planning any party or event based on guest count, venue, catering, decorations, and entertainment. Get per-person cost breakdown and budget allocation recommendations for birthdays, weddings, corporate events, and more.</p>\n<p class=\"calc-intro\">The average birthday party costs $200-500 at home and $500-2,000 at a venue. The single biggest cost driver is catering — typically 40-50% of total event budget. Understanding cost-per-guest before committing to a venue helps avoid budget overruns.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Total Cost = Venue + Catering + Decorations + Entertainment + Invitations + Misc | Cost per Guest = Total / Guests</div></div>\n<div class=\"content-section\"><h2>Tips and Practical Guide</h2>\n<p>Use this calculator to plan smarter and make better entertainment decisions. Whether you are budgeting for a night out, comparing streaming services, or planning a party, knowing the numbers in advance helps you get the most value from your entertainment spending.</p>\n<h3>Getting the Most Value from Entertainment</h3>\n<p>Entertainment spending is one of the most flexible categories in any budget. Small adjustments — like choosing matinee screenings, sharing streaming subscriptions with family, or planning events during off-peak times — can significantly reduce costs without reducing enjoyment. The key is identifying which entertainment experiences bring you the most satisfaction per dollar spent.</p>\n<h3>Reference Data</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Event Type</th><th style=\"padding:10px 14px;text-align:left;\">Average Cost</th><th style=\"padding:10px 14px;text-align:left;\">Details</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Birthday Party (home)</td><td style=\"padding:10px 14px;\">$200-500</td><td style=\"padding:10px 14px;\">25 guests, DIY</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Birthday Party (venue)</td><td style=\"padding:10px 14px;\">$500-2,000</td><td style=\"padding:10px 14px;\">25-50 guests, rented space</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Wedding Reception</td><td style=\"padding:10px 14px;\">$20,000-35,000</td><td style=\"padding:10px 14px;\">100 guests, US average</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Super Bowl Party</td><td style=\"padding:10px 14px;\">$300-600</td><td style=\"padding:10px 14px;\">20 guests, food focused</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Baby Shower</td><td style=\"padding:10px 14px;\">$300-800</td><td style=\"padding:10px 14px;\">25 guests, catered</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Corporate Event</td><td style=\"padding:10px 14px;\">$50-150/person</td><td style=\"padding:10px 14px;\">Professional catering</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Kids Party (5-8yr)</td><td style=\"padding:10px 14px;\">$300-800</td><td style=\"padding:10px 14px;\">Entertainment + cake</td></tr></tbody></table></div>\n<h3>Share Your Results</h3>\n<p>After calculating, use the Copy button to save your results and the Share button to share this calculator. All CalcDigi calculators are free with no registration required. Explore related calculators below for more entertainment planning tools.</p></div><div class=\"content-section\"><h2>Party Planning Budget Guide – Allocating Costs Wisely</h2>\n<p>Successful party planning starts with a realistic budget and prioritizes the elements that matter most to your guests. Across all event types, catering consistently delivers the most perceived value — guests remember food and drinks long after they have forgotten the centerpieces. Smart budget allocation puts 40-50% toward catering and beverage, 20-25% toward venue, and the remaining 25-35% toward entertainment, decorations, and extras.</p>\n<h3>Budget Allocation by Category</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Category</th><th style=\"padding:10px 14px;text-align:left;\">% of Budget</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Catering and Food</td><td style=\"padding:10px 14px;\">40-50%</td><td style=\"padding:10px 14px;\">Highest guest satisfaction impact</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Venue and Space</td><td style=\"padding:10px 14px;\">20-25%</td><td style=\"padding:10px 14px;\">Location, rental, utilities</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Entertainment</td><td style=\"padding:10px 14px;\">10-15%</td><td style=\"padding:10px 14px;\">DJ, band, activities, photo booth</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Decorations</td><td style=\"padding:10px 14px;\">8-10%</td><td style=\"padding:10px 14px;\">Flowers, balloons, lighting</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Invitations and Stationery</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">Digital saves significant cost</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Photography/Videography</td><td style=\"padding:10px 14px;\">8-12%</td><td style=\"padding:10px 14px;\">For milestone events</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Miscellaneous/Buffer</td><td style=\"padding:10px 14px;\">5-10%</td><td style=\"padding:10px 14px;\">Always plan for overruns</td></tr></tbody></table></div>\n<h3>Cost-Cutting Strategies That Still Impress</h3>\n<p>Host on a weekday or Sunday (venues charge 20-40% less than Saturday). Choose a brunch or lunch time slot (food and drink costs lower than dinner). DIY decorations — Pinterest-worthy balloon arches and backdrop walls can be made for $50-100 vs $300-500 from vendors. Order a display cake for photos and sheet cakes for guests to eat (same taste, 60% less cost). Use Costco or Sam's Club for catering staples. Send digital invitations (Evite, Paperless Post) — free to $3/guest vs $5-15/guest for printed.</p>\n<h3>Venue Types and Costs</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Venue Type</th><th style=\"padding:10px 14px;text-align:left;\">Cost</th><th style=\"padding:10px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Home/backyard</td><td style=\"padding:10px 14px;\">Free-$50</td><td style=\"padding:10px 14px;\">Tent rental if needed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Restaurant private room</td><td style=\"padding:10px 14px;\">$500-2,000</td><td style=\"padding:10px 14px;\">Food minimums apply</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Community center</td><td style=\"padding:10px 14px;\">$200-800</td><td style=\"padding:10px 14px;\">Often includes tables/chairs</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Event venue</td><td style=\"padding:10px 14px;\">$1,000-5,000</td><td style=\"padding:10px 14px;\">Usually catering-in mandatory</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Hotel ballroom</td><td style=\"padding:10px 14px;\">$2,000-10,000</td><td style=\"padding:10px 14px;\">Full service, premium price</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Park pavilion</td><td style=\"padding:10px 14px;\">$50-300</td><td style=\"padding:10px 14px;\">Permit required, BYOE</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Entertainment Budgeting Guide</h2>\n<p>Entertainment spending is one of the most flexible categories in any personal budget. Small adjustments — like choosing matinee screenings, rotating streaming subscriptions monthly, or buying concert tickets early — can cut costs by 30-50% without sacrificing enjoyment. The key is knowing the numbers before you spend.</p>\n<h3>How to Get the Best Value</h3>\n<p>Cost-per-hour is the most useful metric for comparing entertainment value. A $60 video game played 100 hours costs just $0.60/hour. A $15 movie ticket lasts 2 hours at $7.50/hour. A $200 concert with 3 hours of music costs $33/hour per person. Understanding these ratios helps you prioritize experiences that deliver maximum enjoyment per dollar spent and identify where your budget is going.</p>\n<h3>Monthly Entertainment Budget Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 14px;text-align:left;\">Category</th><th style=\"padding:10px 14px;text-align:left;\">Budget %</th><th style=\"padding:10px 14px;text-align:left;\">$50k Income (Monthly)</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Streaming Services</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$65-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dining and Going Out</td><td style=\"padding:10px 14px;\">5-8%</td><td style=\"padding:10px 14px;\">$175-280</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Events and Tickets</td><td style=\"padding:10px 14px;\">2-4%</td><td style=\"padding:10px 14px;\">$70-140</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Hobbies and Gaming</td><td style=\"padding:10px 14px;\">2-3%</td><td style=\"padding:10px 14px;\">$70-100</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Books and Education</td><td style=\"padding:10px 14px;\">1-2%</td><td style=\"padding:10px 14px;\">$35-70</td></tr>\n</tbody></table></div>\n<h3>Smart Entertainment Saving Tips</h3>\n<p>Use discount days (Tuesday movies, early bird events). Rotate streaming services monthly instead of keeping all active. Buy concert tickets early or last-minute (both beat peak prices). Use library cards for free ebooks, audiobooks (Libby app), and streaming. Look for bundle deals — Disney+/Hulu/ESPN+ bundle, Apple One, Amazon Prime. Credit card entertainment credits (Amex Platinum, Chase Sapphire) offset costs significantly for frequent users.</p>\n</div>\n<div class=\"content-section\"><h2>Industry Data and Statistics</h2>\n<p>Entertainment is one of the largest consumer spending categories in the United States. Americans spend an average of $3,458 per year on entertainment — about $288 per month. This includes streaming subscriptions, movies, concerts, sporting events, gaming, books, and recreational activities. Entertainment spending has shifted dramatically in recent years from physical media and venues toward digital subscriptions and on-demand experiences.</p>\n<h3>Entertainment Trends 2025</h3>\n<p>Streaming continues to dominate home entertainment with the average household subscribing to 4.5 services. Live events have seen a major surge post-pandemic with concert attendance at record highs and ticket prices up 80% since 2019. Gaming has become the largest entertainment sector by revenue globally, surpassing both music and film. Podcasting continues growing with over 4 million active podcasts and 500 million listeners worldwide. Books and reading have seen renewed interest with audiobooks the fastest-growing format at 25% annual growth.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does a birthday party cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At home: $200-500 for 25 guests (DIY food and decorations). At a rented venue: $500-2,000. Per-person cost: $8-20 for home parties, $20-80 for venue events. Children's parties average $300-800 with entertainment.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the average cost per person for a party? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Budget home party: $8-15/person. Nice home party: $15-25/person. Restaurant venue: $30-60/person. Catered event venue: $60-120/person. Wedding reception: $150-350/person (US average). Cost per person is the most useful benchmark for comparing event options.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I plan a party on a tight budget? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Host at home (saves $500-2,000 in venue fees). Make your own food instead of catering (saves $20-40/person). DIY decorations from Dollar Tree ($20-50 vs $200+). Send digital invitations (free vs $100+). Host at an off-peak time (brunch vs dinner). Focus budget on the elements guests notice most: food, music, and experiences.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much food do I need per person? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Dinner: 1 lb total food per person. Appetizers-only party: 8-10 pieces per person per hour. Drinks: 1 drink per person per hour (plan for 2-3 hours). Cake: 1 slice per person. Buffet-style events need 25% more food than plated to account for multiple servings.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">When should I start planning a party? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Large events (50+ guests): 3-6 months in advance for venue booking. Medium events (25-50): 1-3 months. Small home gatherings: 2-4 weeks. Wedding receptions: 9-18 months. Book popular venues, catering companies, and DJs/bands early — they fill up quickly for peak dates.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What percent of party budget should go to food? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">40-50% for most events. Food is consistently the element guests mention most in post-event feedback. At $1,000 total budget: spend $400-500 on catering and drinks. At $5,000: $2,000-2,500 on food and beverage.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/entertainment/movie-ticket-price-calculator\"><span class=\"rc-icon\">🎬</span><span class=\"rc-name\">Movie Ticket</span></a><a class=\"related-card\" href=\"/calculators/entertainment/streaming-cost-calculator\"><span class=\"rc-icon\">🎶</span><span class=\"rc-name\">Streaming Cost</span></a><a class=\"related-card\" href=\"/calculators/entertainment/video-game-hours-calculator\"><span class=\"rc-icon\">🎮</span><span class=\"rc-name\">Video Game Hours</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Party Planning Cost Calculator – Budget for Any Event</h2><div class=\"form-group\"><label for=\"pg\">Number of Guests</label><input id=\"pg\" min=\"1\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"pvenue\">Venue Cost ($)</label><input id=\"pvenue\" min=\"0\" type=\"number\" value=\"300\"/></div><div class=\"form-group\"><label for=\"pcater\">Catering ($ per person)</label><input id=\"pcater\" min=\"0\" type=\"number\" value=\"15\"/></div><div class=\"form-group\"><label for=\"pdec\">Decorations ($)</label><input id=\"pdec\" min=\"0\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"pent\">Entertainment ($)</label><input id=\"pent\" min=\"0\" type=\"number\" value=\"200\"/></div><div class=\"form-group\"><label for=\"pinv\">Invitations ($)</label><input id=\"pinv\" min=\"0\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"pphoto\">Photography ($)</label><input id=\"pphoto\" min=\"0\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"pmisc\">Miscellaneous ($)</label><input id=\"pmisc\" min=\"0\" type=\"number\" value=\"50\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('en-result').style.display='none';document.getElementById('en-actions').style.display='none';\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"en-result\" style=\"display:none;\">\n<div id=\"en-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"en-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"en-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"en-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-en\" onclick=\"printResult('en-result','Party Planning Cost Calculator – Budget for Any Event')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Party Planning Cost Calculator – Budget for Any Event')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\">🔗 Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-party-planning-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function ri(l,v,h){var s=h?'font-size:22px;color:var(--c-accent);font-weight:700;':'';return '<div class=\"result-item\"><span class=\"result-label\">'+l+'</span><span class=\"result-value\" style=\"'+s+'\">'+v+'</span></div>';}\nfunction doCalc(){\n  var g=parseFloat(document.getElementById('pg').value)||1;\n  var venue=parseFloat(document.getElementById('pvenue').value)||0;\n  var cater=parseFloat(document.getElementById('pcater').value)||0*g;\n  var dec=parseFloat(document.getElementById('pdec').value)||0;\n  var ent=parseFloat(document.getElementById('pent').value)||0;\n  var inv=parseFloat(document.getElementById('pinv').value)||0;\n  var photo=parseFloat(document.getElementById('pphoto').value)||0;\n  var misc=parseFloat(document.getElementById('pmisc').value)||0;\n  var caterTotal=cater*g;\n  var total=venue+caterTotal+dec+ent+inv+photo+misc;\n  var perPerson=total/g;\n  var aiPrompt='Party: '+g+' guests, $'+total.toFixed(0)+' total ($'+perPerson.toFixed(0)+'/person). Venue: $'+venue+', Catering: $'+caterTotal.toFixed(0);\n  document.getElementById('en-ri').innerHTML=\n    ri('Total Party Cost','<strong style=\"font-size:26px;color:var(--c-accent)\">$'+total.toFixed(2)+'</strong>',true)+\n    ri('Cost per Guest','$'+perPerson.toFixed(2)+' per person')+\n    ri('Venue','$'+venue.toFixed(0))+\n    ri('Catering ('+g+' x $'+cater+')','$'+caterTotal.toFixed(0))+\n    ri('Decorations','$'+dec.toFixed(0))+\n    ri('Entertainment','$'+ent.toFixed(0))+\n    ri('Invitations + Misc','$'+(inv+misc).toFixed(0))+\n    (photo>0?ri('Photography','$'+photo.toFixed(0)):'');\n  document.getElementById('en-result').style.display='block';\n  document.getElementById('en-actions').style.display='flex';\n  drawDonut('en-chart',['Venue','Catering','Decor','Entertainment','Other'],[venue||1,caterTotal||1,dec||1,ent||1,(inv+photo+misc)||1],['#1a5c3a','#c8832a','#3a7abf','#c84a4a','#8b5cf6']);\n  \n  var ai=document.getElementById('en-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a fun and practical tip related to this entertainment calculation.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/entertainment", label: "Entertainment" }}
+      title="Party Planning Calculator"
+      intro="Calculate food portions, alcoholic drinks, beer cases, wine bottles, non-alcoholic beverages, and bagged ice for any party size and duration. Features professional catering formulas for BBQs, cocktail parties, and seated dinners."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Professional Hospitality &amp; Catering Standards
+              </span>
+              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
+              <span className="text-slate-600 dark:text-slate-400">
+                Aligned with <strong className="font-semibold text-slate-800 dark:text-slate-200">National Association for Catering and Events (NACE) Guidelines</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
+              <span>Event Provisioning Guidelines</span>
+              <span>•</span>
+              <time dateTime="2026-10-25">Updated October 2026</time>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Block */}
+          <div className="not-prose mb-8 rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50/60 to-indigo-50/40 p-5 dark:border-blue-900/40 dark:from-blue-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">💡</span> Quick Answer: How Food and Drinks Are Provisioned for a Party
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Party beverage requirements follow the <strong>2-1 Rule</strong>: 2 drinks per guest in the first hour + 1 drink per guest for each additional hour: <strong>Total Drinks = Guests × (1 + Duration)</strong>. For a <strong>4-hour party with 25 guests</strong>, plan for <strong>125 total drink servings</strong>: roughly <strong>56 cans of beer/seltzer</strong> (45%), <strong>8 bottles of wine</strong> (30%, @ 5 glasses/bottle), <strong>31 soft drinks</strong> (25%), and <strong>38 lbs of bagged ice</strong> (1.5 lbs/person). For food, provide <strong>0.5 lb of cooked meat</strong> and <strong>4 appetizer pieces per guest</strong>. Compare event outing budgets with our <a href="/calculators/entertainment/concert-ticket-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concert ticket calculator</a>, calculate cinema outings with our <a href="/calculators/entertainment/movie-ticket-price-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">movie ticket price calculator</a>, or evaluate beverage portion splits with our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>.
+            </p>
+          </div>
+
+          <h2>Party Beverage &amp; Ice Provisioning Matrix Across Guest Counts</h2>
+
+          {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
+          <div className="not-prose my-6">
+            <PartyDrinksFoodSupplyMatrixChart />
+          </div>
+
+          <p>
+            Hosting a gathering—whether a casual backyard summer cookout, an elegant cocktail reception, a milestone birthday celebration, or a game day watch party—is an art that relies heavily on science. Running out of beverages or ice halfway through an evening is every host's worst nightmare; conversely, massively over-purchasing perishable catering food leads to unnecessary budget waste and packed refrigerator leftovers.
+          </p>
+          <p>
+            Professional catering directors manage this balance by applying strict mathematical portioning formulas based on guest headcount, event duration, and gathering format. To evaluate beverage percentage allocations, use our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, plan travel entertainment logistics with our <a href="/calculators/entertainment/travel-entertainment-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">travel entertainment calculator</a>, and calculate annual party budget projections using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Event Provisioning Formulation</div>
+            Drinks_Per_Guest = 2 + Max(0, Event_Hours - 1)
+            <br />
+            Total_Beverage_Servings = Guest_Count * Drinks_Per_Guest
+            <br />
+            Beer_Cans = Round(Total_Beverage_Servings * 0.45)
+            <br />
+            Wine_Bottles_750ml = Ceil((Total_Beverage_Servings * 0.30) / 5)
+            <br />
+            Non_Alcoholic_Servings = Round(Total_Beverage_Servings * 0.25)
+            <br />
+            Bagged_Ice_Lbs = Ceil(Guest_Count * 1.5)
+            <br />
+            Cooked_Meat_Lbs = Guest_Count * 0.50
+          </Formula>
+
+          <h2>Standard Catering Portions: Food Rules of Thumb</h2>
+          <p>
+            Food demand varies depending on whether an event replaces a full meal or serves purely as a social cocktail gathering:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Cocktail Reception (No Dinner):</strong> If the party spans 5:00 PM to 8:00 PM, guests expect substantial hors d'oeuvres that substitute for an evening meal. Plan for 10 to 14 bite-sized appetizer pieces per person. Balance 40% protein bites (sliders, skewers, meatballs), 40% starch/veg (bruschetta, spring rolls, dips), and 20% dessert sweets.
+            </li>
+            <li>
+              <strong>Dinner Buffet / BBQ Cookout:</strong> Plan for 0.5 lb (8 oz / 225g) of cooked protein per person. If serving chicken with bone-in or unpulled ribs, increase raw purchase weight to 0.75–1.0 lb per guest. Accompany with 4 to 6 ounces of starchy sides (potatoes, pasta, rice) and 3 ounces of greens or vegetables per guest.
+            </li>
+            <li>
+              <strong>Dessert Table:</strong> Plan for 1 to 2 dessert portions per guest (e.g., 1 slice of celebration cake plus 1 cookie or brownie bite).
+            </li>
+          </ul>
+
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Catering Food &amp; Beverage Portions per 25 Guests (4-Hour Event)</p>
+          <DataTable
+            head={["Provisioning Category", "Portion Rule per Person", "Total Quantity for 25 Guests", "Total Quantity for 50 Guests", "Storage & Serving Tips"]}
+            rows={[
+              ["Beer & Hard Seltzers", "2.25 cans / guest", "56 cans (2.3 cases of 24)", "113 cans (4.7 cases of 24)", "Chill in tubs on ice 3 hrs before party"],
+              ["Table Wine (750ml)", "0.3 bottles / guest", "8 bottles (5 red, 3 white)", "15 bottles (9 red, 6 white)", "White at 45°F–50°F, red at 62°F–65°F"],
+              ["Soft Drinks & Water", "1.25 cans / guest", "31 cans / bottles", "63 cans / bottles", "Offer sparkling seltzers & lemon water"],
+              ["Bagged Ice (Chilling & Cups)", "1.5 lbs / guest", "38 lbs (4 × 10 lb bags)", "75 lbs (8 × 10 lb bags)", "Keep drink ice separate from bottle ice"],
+              ["Cooked BBQ / Main Meat", "0.5 lbs / guest", "12.5 lbs cooked (~17 lbs raw)", "25.0 lbs cooked (~34 lbs raw)", "Keep hot food above 140°F (60°C)"],
+              ["Appetizer Finger Bites", "4 - 5 pieces / guest", "100 - 125 pieces", "200 - 250 pieces", "Serve in staggered waves every 45 mins"],
+            ]}
+          />
+
+          <h2>Ice Logistics: The Most Common Party Planning Oversight</h2>
+          <p>
+            More amateur parties run out of ice than running out of alcohol. Ice performs two critical, non-negotiable functions at any social gathering:
+          </p>
+          <ol className="list-decimal pl-5 space-y-2">
+            <li>
+              <strong>Glass Ice:</strong> Clean, food-grade ice placed directly inside guest glasses for highballs, cocktails, and iced tea (averaging 0.5 to 0.75 lb per guest).
+            </li>
+            <li>
+              <strong>Cooler Chilling Ice:</strong> Bulk ice packed into coolers to chill warm beer, wine, and soda cans down to 38°F (averaging 1.0 lb per guest).
+            </li>
+          </ol>
+          <p>
+            <strong>Critical Health Rule:</strong> Never scoop ice for drinking glasses out of the same cooler where dirty beer bottles and beverage cans are submerged in meltwater. Always keep a dedicated, covered ice bucket with an ice scoop reserved exclusively for drink glassware.
+          </p>
+
+          <h2>Glassware, Tableware and Waste Management Logistics</h2>
+          <p>
+            An often overlooked catering detail that derails otherwise flawless parties is tableware and glassware attrition:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Glassware Attrition (The Lost Cup Effect):</strong> Guests frequently put down their drink cup to talk, dance, or play lawn games and subsequently forget which cup is theirs. Always plan for <strong>2 to 2.5 drinking cups per person</strong> for casual events. Providing a permanent marker near drink dispensers so guests can write their names on cups reduces cup consumption by over 40%.
+            </li>
+            <li>
+              <strong>Plates and Flatware:</strong> Provide 1.5 appetizer plates, 1 dinner plate, and 1 dessert plate per guest, accompanied by 2 forks and 2 napkins per person. Heavy-duty compostable palm leaf or bamboo plates provide rigid structural stability for BBQ meats without the environmental guilt of single-use polystyrene foam.
+            </li>
+            <li>
+              <strong>Sanitation &amp; Trash Disposal:</strong> Position trash and recycling receptacles in pairs immediately adjacent to beverage bars and food buffets. Plan for at least one heavy-duty 30-gallon contractor trash bag per 15 guests.
+            </li>
+          </ul>
+
+          <h2>Smart Beverage Shopping: Return Policies and Bulk Cases</h2>
+          <p>
+            When purchasing alcohol for large events, take advantage of big-box beverage retailers (such as Total Wine &amp; More, BevMo, and Costco). Many wholesale liquor retailers permit returning unopened, undamaged cases of beer and wine with original receipts after your event concludes. Purchasing full 12-bottle wine cases often qualifies for automatic 10% to 15% case discounts, allowing hosts to purchase an extra safety margin case with zero financial downside.
+          </p>
+        </>
+      }
+    >
+      <PartyPlanningCalculator />
+    </CalcPage>
   );
 }
