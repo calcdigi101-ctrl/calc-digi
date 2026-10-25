@@ -152,6 +152,46 @@ export default function ConcreteMixPage() {
           <p>
             The single most critical variable dictating the mechanical performance and lifespan of concrete is the <strong>water-cement ratio (w/c)</strong>. While adequate water is chemically required for hydration (approximately 0.25 kg water per kg cement for stoichiometric hydration plus 0.15 kg for gel pores), excessive water causes bleeding and segregation during vibration. When excess water evaporates, it leaves interconnected microscopic capillaries that allow moisture and chlorides to penetrate, leading to accelerated rebar rust and spalling. For pumpable concrete mixes supplied through pipelines, verify fluid head loss and delivery pressures using our <a href="/calculators/engineering/pipe-flow-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pipe flow calculator</a>.
           </p>
+
+          <h2>Workability, Slump Testing &amp; Superplasticizers (ASTM C143)</h2>
+          <p>
+            On site, concrete consistency is verified prior to pouring using the standard <strong>Abrams Cone Slump Test (ASTM C143 / EN 12350-2)</strong>. A standardized 300 mm hollow cone is filled with fresh concrete in three tamped layers and lifted vertically, measuring the subsidence settlement of the slump:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Low Slump (25 - 50 mm):</strong> Stiff, zero-slump mix used for slip-form highway paving, extruded concrete curbs, and vibrated mass foundation footings.
+            </li>
+            <li>
+              <strong>Medium Slump (75 - 125 mm):</strong> Standard workable consistency for manually placed reinforced slabs, beams, and residential staircases.
+            </li>
+            <li>
+              <strong>High Slump (150 - 200 mm):</strong> Fluid, pumpable concrete required for high-rise line pumping, congested beam-column reinforcement cages, and tremie underwater pours.
+            </li>
+          </ul>
+          <p>
+            To achieve high workability without compromising strength, contractors add third-generation <strong>polycarboxylate ether (PCE) superplasticizers</strong>. These chemical admixtures impart electrostatic repulsion between cement grains, boosting slump from 50 mm to 200 mm while allowing water content to drop by 20% to 30%.
+          </p>
+
+          <h2>Supplementary Cementitious Materials (SCMs) &amp; Sustainability</h2>
+          <p>
+            Modern high-performance concrete mix designs incorporate <strong>Supplementary Cementitious Materials (SCMs)</strong> to replace 20% to 50% of carbon-intensive ordinary Portland cement:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Fly Ash (Class F / Class C):</strong> Industrial byproduct of coal power stations; spherical glassy particles enhance mix workability, reduce hydration heat in massive pours, and react with liberated calcium hydroxide to form secondary calcium-silicate-hydrate (C-S-H) gel.
+            </li>
+            <li>
+              <strong>Ground Granulated Blast-Furnace Slag (GGBS):</strong> Quenched iron ore byproduct; delivers exceptional long-term resistance to marine chloride attack and sulfate degradation, essential for coastal ports and submerged tunnel linings.
+            </li>
+            <li>
+              <strong>Silica Fume (Micro-Silica):</strong> Ultra-fine pozzolanic particles (100 times finer than cement) that fill microscopic paste voids, producing ultra-high-strength concrete (<em>fck &gt; 80 MPa</em>) with near-zero permeability.
+            </li>
+          </ul>
+
+          <h2>Moisture Curing Protocols and Compressive Strength Gain</h2>
+          <p>
+            Concrete does not 'dry' to harden; it requires continuous moisture to sustain cement hydration chemistry. If exposed surfaces dry prematurely in windy or hot conditions, water evaporates from the top 20 mm, arresting hydration and causing plastic shrinkage micro-cracking. ACI 308 mandates continuous wet curing (via water ponding, wet burlap, or ASTM C309 membrane-forming curing compounds) for a minimum of 7 days (or 14 days when SCMs like fly ash are present), ensuring the concrete achieves its full 28-day structural design strength.
+          </p>
         </>
       }
     >

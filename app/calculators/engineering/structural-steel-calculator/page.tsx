@@ -158,6 +158,41 @@ export default function StructuralSteelPage() {
           <p>
             In addition to global member buckling, cross-sections must be verified against local buckling under AISC Table B4.1a. Wide-flange beams with wide, thin flanges or tall, thin webs can experience localized plate wrinkling before the overall column buckles. Sections are classified as <em>compact</em>, <em>non-compact</em>, or <em>slender</em> based on width-to-thickness ratios (<em>b/t</em> and <em>h/t_w</em>). For standard structural hot-rolled W-shapes (such as W14×90 and W12×65), flanges and webs are proportioned to ensure compact performance without premature local buckling failure.
           </p>
+
+          <h2>Lateral-Torsional Buckling (LTB) in Flexural Steel Beams</h2>
+          <p>
+            When a wide-flange beam is subjected to major-axis bending, the upper flange is in compression while the lower flange is in tension. Like any slender compression member, the compression flange seeks to buckle sideways away from the applied load. However, because it is rigidly connected through the web to the tension-stabilized bottom flange, the cross-section cannot buckle in pure translation—it twists and displaces laterally in a coupled instability failure known as <strong>Lateral-Torsional Buckling (LTB)</strong>.
+          </p>
+          <p>
+            Under AISC 360-16 Chapter F, nominal flexural strength <em>M_n</em> is governed by the unbraced span length between lateral torsional points (<em>L_b</em>):
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Plastic Yielding (L_b ≤ L_p):</strong> If intermediate lateral bracing is closely spaced (<code>L_p = 1.76 · r_y · sqrt(E / F_y)</code>), the member achieves full plastic moment capacity: <code>M_n = M_p = F_y · Z_x</code>.
+            </li>
+            <li>
+              <strong>Inelastic LTB (L_p &lt; L_b ≤ L_r):</strong> At intermediate unbraced lengths, the compression flange yields partially before twisting, governed by the linear transition: <code>M_n = C_b · [M_p - (M_p - 0.7 · F_y · S_x) · ((L_b - L_p) / (L_r - L_p))] ≤ M_p</code>.
+            </li>
+            <li>
+              <strong>Elastic LTB (L_b &gt; L_r):</strong> For long unbraced spans, the beam undergoes elastic torsional divergence: <code>F_cr = [C_b · π² · E / (L_b / r_ts)²] · sqrt(1 + 0.078 · (J · c / (S_x · h_0)) · (L_b / r_ts)²)</code>.
+            </li>
+          </ul>
+          <p>
+            The moment gradient factor <strong>C_b</strong> accounts for non-uniform bending moments along the unbraced length: <code>C_b = (12.5 · M_max) / (2.5 · M_max + 3 · M_A + 4 · M_B + 3 · M_C)</code>. For uniform bending moment (the worst-case condition), <em>C_b = 1.0</em>; for reverse curvature bending, <em>C_b</em> can increase allowable moment by up to 2.27 times.
+          </p>
+
+          <h2>Second-Order P-Delta (P-δ and P-Δ) Effects in Building Frames</h2>
+          <p>
+            In multi-story steel building frames carrying heavy vertical gravity loads, column design cannot rely strictly on first-order linear elastic analysis. When horizontal wind or seismic shear induces lateral building drift (Δ), vertical gravity loads (<em>P</em>) act with an eccentric moment arm relative to column bases, generating secondary lateral shear moments termed <strong>P-Large-Delta (P-Δ)</strong> effects.
+          </p>
+          <p>
+            Concurrently, individual column axial compression acting upon internal member flexural curvature introduces secondary local moments termed <strong>P-small-delta (P-δ)</strong>. Under the <strong>AISC Direct Analysis Method (AISC 360-16 Chapter C)</strong>, structural engineers model explicit second-order geometric non-linearity while reducing nominal member stiffnesses by 20% (<code>0.80 · E · I</code>) and applying a flexural stiffness reduction factor <code>τ_b</code> to account for initial steel residual stresses.
+          </p>
+
+          <h2>Seismic Ductility and Special Moment Frame (SMF) Detailing</h2>
+          <p>
+            In high-seismic zones (AISC 341 Seismic Provisions), structural steel frames are engineered to absorb massive earthquake energy through ductile plastic hinge yielding rather than brittle connection fracture. Designers enforce the <strong>Strong-Column / Weak-Beam principle</strong>: <code>Σ M_pc* / Σ M_pb* &gt; 1.0</code>. This guarantees that plastic hinges develop in horizontal beams first, preserving vertical column integrity to prevent catastrophic global story collapse.
+          </p>
         </>
       }
     >

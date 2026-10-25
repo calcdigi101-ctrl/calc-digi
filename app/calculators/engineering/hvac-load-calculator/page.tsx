@@ -153,6 +153,30 @@ export default function HvacLoadPage() {
           <p>
             A common oversight in simplified HVAC estimates is neglecting moisture infiltration. In humid climates, outdoor air entering through envelope gaps carries significant latent heat. An air conditioning evaporator coil must operate below the indoor air dew point temperature (typically 52°F to 55°F) to condense atmospheric water vapor onto drain pans. Ensuring proper runtime cycles through accurate Manual J sizing ensures the system effectively maintains indoor relative humidity between 40% and 55%, preventing dust mites and structural mold growth.
           </p>
+
+          <h2>Sensible Heat Ratio (SHR) and Psychrometric State Points</h2>
+          <p>
+            In psychrometric analysis, total cooling capacity is partitioned between sensible and latent cooling through the <strong>Sensible Heat Ratio (SHR)</strong>: <code>SHR = Q_sensible / (Q_sensible + Q_latent)</code>. 
+          </p>
+          <p>
+            In arid desert climates (e.g., Phoenix, Las Vegas), the space SHR is high (0.85 to 0.95), meaning nearly all cooling power is dedicated to lowering dry-bulb air temperature. Conversely, in humid coastal environments (e.g., Miami, Houston, Singapore), heavy outdoor ventilation and occupant moisture push space SHR down to 0.65 to 0.75. Standard off-the-shelf air conditioners designed for an SHR of 0.75 will overcool humid indoor air without extracting adequate moisture unless engineered with variable-speed inverter compressors and dual-stage dehumidification reheat coils.
+          </p>
+
+          <h2>Dedicated Outdoor Air Systems (DOAS) and Enthalpy Recovery</h2>
+          <p>
+            Modern commercial green building codes (such as ASHRAE Standard 62.1 for acceptable indoor air quality and ASHRAE 90.1) increasingly mandate decoupling ventilation from space thermal conditioning using a <strong>Dedicated Outdoor Air System (DOAS)</strong>.
+          </p>
+          <p>
+            Under a DOAS architecture, 100% outside fresh air is filtered, dehumidified, and conditioned before being introduced into occupied rooms, while indoor terminal units (such as chilled beams, fan coil units, or VRF heat pumps) handle purely sensible interior heat gains. Integrating a <strong>total energy recovery ventilator (ERV)</strong> with an enthalpy wheel captures 70% to 80% of the cooling energy and moisture from exhaust air, slashing peak summer peak cooling power requirements by up to 35%.
+          </p>
+
+          <h2>Ductwork Static Pressure Loss and Fan Sizing</h2>
+          <p>
+            An air distribution system is only as effective as the ductwork conveying conditioned air from the air handler (AHU) to terminal diffusers. As supply air moves through sheet metal ducts, duct wall friction and turbulent directional changes across elbows, dampers, and transition boots create resistive <strong>External Static Pressure (ESP)</strong>, measured in inches of water gauge (in. w.g.) or Pascals.
+          </p>
+          <p>
+            Standard residential blowers are rated to deliver design airflow (400 CFM/ton) at a total external static pressure of 0.50 in. w.g. (125 Pa). If undersized, pinched flexible ductwork or high-MERV particulate filters escalate static pressure above 0.80 in. w.g., airflow drops, evaporator coils freeze into solid blocks of ice, and ECM blower motors draw maximum electric wattage, triggering premature motor bearing failure.
+          </p>
         </>
       }
     >

@@ -152,6 +152,30 @@ export default function PipeFlowPage() {
           <p>
             A common engineering pitfall is undersizing pipe diameter to minimize piping procurement cost. Because hydraulic power demand is proportional to <code>P_hyd = Q × ΔP</code>, an undersized pipe forces pumps to operate against high discharge heads, burning kilowatt-hours 24 hours a day, 365 days a year. Sizing lines using our calculator ensures velocities remain within the ASHRAE optimal band (1.2 to 2.1 m/s), guaranteeing reliable cavitation-free operation and low noise transmission throughout mechanical plantrooms.
           </p>
+
+          <h2>Minor Frictional Losses in Valves and Fittings (K-Factor Method)</h2>
+          <p>
+            In process piping and plumbing loops, straight pipe friction constitutes only part of total system head loss. Valves, elbows, tees, reducers, and strainers disrupt fluid streamlines, producing localized eddy separation and pressure drops known as <strong>minor losses</strong>: <code>h_minor = K · (v² / (2 · g))</code>.
+          </p>
+          <p>
+            The resistance coefficient <strong>K</strong> is experimentally determined under ASME standards: a fully open gate valve has a minimal <em>K ≈ 0.15</em>, whereas a standard globe valve has an intense tortuous flow path with <em>K ≈ 10.0</em>. Alternatively, engineers employ the <strong>Equivalent Length method (L_eq = K · D / f)</strong>, expressing each fitting as an equivalent length of straight pipe. In complex industrial mechanical rooms with dozens of valves, minor losses often exceed straight pipe friction by over 150%.
+          </p>
+
+          <h2>Hydraulic Transients and Water Hammer (Joukowsky Equation)</h2>
+          <p>
+            When a downstream quarter-turn motorized ball valve snaps shut rapidly or a booster pump trips offline during a power outage, the sudden deceleration of flowing liquid converts fluid kinetic energy into an acoustic pressure shockwave known as <strong>hydraulic water hammer</strong>.
+          </p>
+          <p>
+            The peak transient pressure surge is governed by the <strong>Joukowsky Equation</strong>: <code>ΔP_surge = ρ · a · Δv</code>, where <em>a</em> is the acoustic pressure wave propagation velocity through the liquid-filled pipe (typically 1,000 to 1,400 m/s in steel pipes). If valve closure time is shorter than the critical reflection time <code>t_c = 2 · L / a</code>, instantaneous pressure surges can exceed normal operating pressure by 500% to 1,000%, splitting pipe welds, fracturing valve bodies, and shearing pipe hanger brackets. Engineers protect systems by installing bladder surge vessels and slow-closing check valves.
+          </p>
+
+          <h2>Darcy-Weisbach vs. Hazen-Williams Empirical Formula</h2>
+          <p>
+            Civil fire sprinkler engineers frequently employ the empirical <strong>Hazen-Williams formula</strong>: <code>h_f = (10.67 · L · Q^1.852) / (C^1.852 · D^4.87)</code> due to its algebraic simplicity. However, the Hazen-Williams roughness coefficient <em>C</em> is valid exclusively for clean water at ambient temperatures (10°C to 25°C). It completely ignores fluid viscosity changes, density shifts, and Reynolds number transitions.
+          </p>
+          <p>
+            For rigorous chemical process engineering, chilled glycol loops, steam condensate lines, and high-temperature thermal fluids, the <strong>Darcy-Weisbach equation</strong> is the sole physically sound methodology recognized by ASME B31.3 and ISO standards worldwide.
+          </p>
         </>
       }
     >

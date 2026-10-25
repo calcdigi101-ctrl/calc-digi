@@ -151,6 +151,35 @@ export default function PumpPage() {
           <p>
             When process flow requirements fluctuate, throttling discharge valves introduces massive artificial friction head loss, wasting thousands of kilowatt-hours. Applying a Variable Frequency Drive (VFD) to adjust motor rotational speed (<em>N</em>) leverages the cubic affinity law: <code>P₂ / P₁ = (N₂ / N₁)³</code>. Reducing pump rotational speed by just 20% drops electric power consumption by nearly 50% (<code>0.8³ = 0.512</code>), delivering extraordinary return on capital investment in commercial HVAC and municipal pumping stations.
           </p>
+
+          <h2>Suction Specific Speed (Nss) &amp; Minimum Continuous Stable Flow</h2>
+          <p>
+            To prevent premature mechanical failure, hydraulic engineers calculate <strong>Suction Specific Speed (Nss)</strong>: <code>Nss = (RPM · sqrt(GPM)) / (NPSHr)^0.75</code>. 
+          </p>
+          <p>
+            Under <strong>ANSI/HI 9.6.1 standards</strong>, pumps with an <em>Nss</em> value exceeding 11,000 to 12,000 US units feature large impeller eye diameters that are acutely susceptible to <strong>suction and discharge recirculation</strong> when throttled below Best Efficiency Point (BEP). Operating at low partial flows generates violent acoustic cavitation vortices at impeller vane inlet tips, causing intense low-frequency hydraulic pulsation, rapid mechanical seal destruction, and shaft fatigue fracture. Maintaining flow above the Minimum Continuous Stable Flow (MCSF) boundary is mandatory for industrial uptime.
+          </p>
+
+          <h2>Series vs. Parallel Pumping Configurations</h2>
+          <p>
+            When a single pump cannot meet process hydraulic operating requirements, multiple pumps are configured in either series or parallel arrays:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Parallel Pumping (Flow Multiplication):</strong> Connecting two identical pumps with common suction and discharge manifolds produces a composite H-Q curve where flow rates add horizontally: <code>Q_total = Q₁ + Q₂</code> at an identical head. Parallel piping is optimal for systems with flat resistance curves (high static elevation head and low piping friction), such as municipal water booster stations.
+            </li>
+            <li>
+              <strong>Series Pumping (Head Stacking):</strong> In high-lift applications (such as deep open-pit mine dewatering and multi-stage boiler feedlines), the discharge of the first pump feeds directly into the suction nozzle of the second. Heads add vertically: <code>H_total = H₁ + H₂</code> at a constant volumetric flow rate. The second pump casing and stuffing box must be structurally rated to withstand combined discharge pressures.
+            </li>
+          </ul>
+
+          <h2>Pumping Viscous Liquids and ANSI/HI 9.6.7 Derating</h2>
+          <p>
+            Standard manufacturer pump performance curves are calibrated using pure water at 20°C (viscosity 1.0 cSt). When pumping heavy viscous fluids—such as heavy crude oil, gear lubricants, molten chocolate, or polymer slurries (viscosities &gt; 20 cSt)—fluid disk friction against rotating impeller shrouds escalates dramatically.
+          </p>
+          <p>
+            Hydraulic Institute standard <strong>ANSI/HI 9.6.7</strong> mandates applying empirical correction factors: <code>Q_viscous = C_Q · Q_water</code>, <code>H_viscous = C_H · H_water</code>, and <code>η_viscous = C_η · η_water</code>. Pumping a 500 cSt oil can cut peak hydraulic efficiency by more than 50% while doubling required motor brake horsepower (BHP), requiring specialized open-impeller designs or positive displacement progressive cavity pumps.
+          </p>
         </>
       }
     >

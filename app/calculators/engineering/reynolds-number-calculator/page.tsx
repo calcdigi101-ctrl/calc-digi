@@ -153,6 +153,33 @@ export default function ReynoldsNumberPage() {
           <p>
             The Reynolds number is the cornerstone of <em>dynamic similitude</em> in experimental fluid dynamics. When testing scaled physical scale models of aircraft, submarines, Formula 1 racing cars, or skyscrapers inside wind tunnels or water flumes, kinematic and dynamic similarity with the full-scale prototype is guaranteed if and only if the model's Reynolds number matches the real-world operating Reynolds number (<code>Re_model = Re_prototype</code>). This foundational principle allows aerospace engineers to validate aerodynamic lift and drag coefficients long before manufacturing multi-million dollar full-scale aircraft.
           </p>
+
+          <h2>The Moody Diagram &amp; Turbulent Friction Factor Regimes</h2>
+          <p>
+            The iconic <strong>Moody Diagram</strong> correlates Reynolds number, relative surface roughness (<code>ε / D</code>), and Darcy friction factor (<em>f</em>) across all possible fluid flow regimes. In laminar flow (<em>Re &lt; 2,300</em>), roughness has zero impact because microscopic wall peaks remain submerged within the slow-moving viscous sublayer.
+          </p>
+          <p>
+            As Reynolds number climbs into the fully rough turbulent regime (<em>Re &gt; 100,000</em>), viscous sublayers thin down until abrasive wall asperities protrude directly into turbulent eddies. Here, friction factor becomes completely independent of Reynolds number, dictated solely by relative roughness: <code>1 / sqrt(f) = - 2.0 · log10(ε / (3.7 · D))</code>. In this region, pumping pressure losses scale strictly with the square of flow velocity.
+          </p>
+
+          <h2>Boundary Layer Separation and the 'Drag Crisis'</h2>
+          <p>
+            In external aerodynamics around bluff bodies (such as spheres, bridge piers, and subsea pipelines), the Reynolds number dictates the location of <strong>boundary layer separation</strong>. As fluid decelerates around the aft contour of a sphere, an adverse pressure gradient (<code>dp/dx &gt; 0</code>) decelerates near-wall fluid.
+          </p>
+          <p>
+            In laminar boundary layers (<em>Re &lt; 10⁵</em>), fluid lacks sufficient momentum to overcome this adverse pressure, separating early at approximately 82° from the forward stagnation point and creating a massive low-pressure turbulent wake with high drag (<em>C_d ≈ 0.47</em>). When Reynolds number exceeds the critical threshold (<em>Re ≈ 3 × 10⁵</em>)—a phenomenon called the <strong>drag crisis</strong>—the boundary layer undergoes turbulent transition, injecting high-energy momentum into the near-wall layer. Separation is delayed until 120°, shrinking the turbulent wake and plummeting drag coefficient by over 75% (<em>C_d ≈ 0.10</em>). This exact fluid dynamic principle explains why golf balls are dimpled: dimples trip the boundary layer into turbulence prematurely, maximizing flight distance.
+          </p>
+
+          <h2>Non-Newtonian Fluid Flow and Generalized Reynolds Number</h2>
+          <p>
+            In food manufacturing, polymer extrusion, and petroleum drilling muds, fluids do not follow Newton's law of constant viscosity. For <strong>Power-Law (Ostwald-de Waele) fluids</strong> where shear stress is <code>τ = K · (dγ/dt)^n</code>, engineers compute a <strong>Metzner-Reed Generalized Reynolds Number (Re_gen)</strong>:
+          </p>
+          <p>
+            <code>Re_gen = (ρ · v^(2-n) · D^n) / (8^(n-1) · K · ((3n + 1) / (4n))^n)</code>
+          </p>
+          <p>
+            For shear-thinning (pseudoplastic, <em>n &lt; 1</em>) fluids such as paint, blood, and drilling bentonite, apparent viscosity plummets under high pipe shear rates, dramatically reducing pumping friction head loss compared to equivalent Newtonian fluids.
+          </p>
         </>
       }
     >
