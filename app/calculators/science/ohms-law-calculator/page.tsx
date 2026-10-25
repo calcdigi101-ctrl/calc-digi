@@ -1,26 +1,275 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import OhmsLawCalculatorComponent from "@/components/calcs/science/ohms-law-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ElectrochemicalCellOverpotentialChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/ohms-law-calculator";
+const TITLE = "Ohm's Law Calculator | Electrochemical Potential, Resistance & Power Solver";
+const DESCRIPTION =
+  "Calculate electrical voltage, current, resistance, and Joule heating power in physical chemistry, electrochemical cells, and laboratory circuits with Ohm's Law.";
 
 export const metadata: Metadata = {
-  "title": "Ohm's Law Calculator – Voltage Current Resistance | CalcDigi",
-  "description": "Solve V=IR for voltage, current, resistance, or power in any circuit. Calculate electrical values with mA, kΩ, and mW unit support.",
-  "openGraph": {
-    "title": "Ohm's Law Calculator – Voltage Current Resistance | CalcDigi",
-    "description": "Solve V=IR for voltage, current, resistance, or power in any circuit. Calculate electrical values with mA, kΩ, and mW unit support.",
-    "type": "website",
-    "url": "/calculators/science/ohms-law-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/ohms-law-calculator"
-  }
 };
+
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/power-calculator", icon: "⚡", name: "Mechanical & Electrical Power" },
+  { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Energy Vector" },
+  { href: "/calculators/science/specific-heat-calculator", icon: "🔥", name: "Specific Heat & Calorimetry" },
+  { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newtonian Force F=ma" },
+  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
+  { href: "/calculators/science/buffer-calculator", icon: "🧪", name: "Electrophoresis Buffer" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is Ohm's Law and how does it apply to physical chemistry and electrochemistry?",
+    a: "Ohm&apos;s Law establishes that the electric current (I) flowing through a conductor or electrolytic solution between two points is directly proportional to the voltage difference (V) across the points, and inversely proportional to electrical resistance (R): V = I &middot; R. In electrochemistry, Ohm&apos;s Law dictates the internal resistance (IR drop) across electrolyte solutions, separator membranes, and electrode interfaces during battery discharge and electrolysis.",
+  },
+  {
+    q: "What is Joule heating and how is electrical power dissipation calculated?",
+    a: "Joule heating represents the thermodynamic conversion of electrical energy into thermal heat energy as electric charge carriers collide with lattice atoms or solvated ions: P = V &middot; I = I² &middot; R = V² / R, expressed in Watts (Joules per second). In chemical laboratories, Joule heating governs thermal dissipation in electrophoresis tanks and heating elements in reaction calorimeters.",
+  },
+  {
+    q: "What is electrolytic solution conductance and how is it related to resistance?",
+    a: "Conductance (G) is the mathematical reciprocal of electrical resistance: G = 1 / R, measured in Siemens (S) or mhos (&Omega;⁻¹). For an electrolyte solution contained between two parallel electrodes of cross-sectional area A and separation distance L, resistance equals R = &rho; &middot; (L / A), where &rho; is electrical resistivity. Electrolytic conductivity (&kappa; = 1 / &rho;) is widely measured in analytical chemistry to quantify total dissolved ions.",
+  },
+  {
+    q: "Why is the Ohmic IR drop a critical performance bottleneck in lithium-ion batteries?",
+    a: "Every electrochemical cell possesses internal resistance (R_int) stemming from electrolyte ion mobility, separator tortuosity, and electrode contact resistance. When a battery discharges current I, terminal operating voltage drops below thermodynamic open-circuit potential (E₀) by the Ohmic drop: V_cell = E₀ - I &middot; R_int. Under rapid fast-charging or heavy vehicle acceleration, large currents produce substantial voltage drops and severe I²R waste heat.",
+  },
+  {
+    q: "How does temperature affect electrical resistance in metals versus electrolyte solutions?",
+    a: "Metals and electrolyte solutions exhibit opposite temperature behaviors. In metallic conductors (like copper wires), resistance increases with temperature because thermal vibrations disrupt electron drift. In contrast, in electrolytic solutions, electrical resistance decreases (conductance increases) by roughly 2% per &deg;C because thermal energy lowers liquid viscosity and accelerates solvated ion diffusion.",
+  },
+  {
+    q: "What is the difference between an Ohmic and a Non-Ohmic conductor in physical science?",
+    a: "An Ohmic material maintains a strictly constant resistance across varying applied voltages, displaying a linear current-voltage (I-V) relationship passing through the origin. Non-Ohmic conductors—such as semiconductor diodes, electrochemical double layers, and ionized plasma arcs—exhibit non-linear I-V curves where dynamic resistance changes with current magnitude or voltage polarity.",
+  },
+];
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Ohm's Law Calculator\", \"item\": \"https://calcdigi.com/calculators/science/ohms-law-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Ohm's Law Calculator\", \"url\": \"https://calcdigi.com/calculators/science/ohms-law-calculator\", \"description\": \"Solve V=IR for voltage, current, resistance, or power in any circuit. Calculate electrical values with mA, kΩ, and mW unit support.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is Ohm's Law?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"V=I×R. Published Georg Ohm 1827. Valid for linear resistive materials at constant temperature.\"}}, {\"@type\": \"Question\", \"name\": \"Calculate power?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P=V×I=I²R=V²/R. 12V, 4Ω: I=3A, P=36W.\"}}, {\"@type\": \"Question\", \"name\": \"Voltage vs current?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Voltage=electrical pressure. Current=flow rate. Voltage can exist without current (open circuit).\"}}, {\"@type\": \"Question\", \"name\": \"Series vs parallel?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Series: R_total=sum. Parallel: 1/R_total=sum of 1/R. Two 10Ω in parallel=5Ω.\"}}, {\"@type\": \"Question\", \"name\": \"Household circuit limits?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"15A circuit: max 1800W at 120V. 80% safe: 1440W. Never exceed rated capacity.\"}}, {\"@type\": \"Question\", \"name\": \"What is resistance?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Opposition to current from electron-lattice collisions. R=ρL/A. Higher temp→higher R in metals.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Ohm's Law Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Ohm's Law Calculator</h1>\n<p class=\"calc-intro\">Solve Ohm's Law (V=IR) and power formula (P=VI) for any unknown. Calculate voltage, current, resistance, and power for resistive circuits when two values are known.</p>\n<p class=\"calc-intro\">Ohm's Law V=IR is the most fundamental relationship in electrical engineering. With the power formula P=VI=I²R=V²/R, four interrelated equations describe any resistive circuit.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">V = I × R | I = V/R | R = V/I | P = VI = I²R = V²/R | Units: V, A, Ω, W</div></div>\n<div class=\"content-section\"><h2>Ohm's Law Reference</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Quantity</th><th style=\"padding:10px 12px;text-align:left;\">Unit</th><th style=\"padding:10px 12px;text-align:left;\">Description</th><th style=\"padding:10px 12px;text-align:left;\">Formula</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Voltage (V)</td><td style=\"padding:9px 12px;\">Volts (V)</td><td style=\"padding:9px 12px;\">Electrical potential — pressure</td><td style=\"padding:9px 12px;\">V = IR</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Current (I)</td><td style=\"padding:9px 12px;\">Amperes (A)</td><td style=\"padding:9px 12px;\">Charge flow rate</td><td style=\"padding:9px 12px;\">I = V/R</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Resistance (R)</td><td style=\"padding:9px 12px;\">Ohms (Ω)</td><td style=\"padding:9px 12px;\">Opposition to current</td><td style=\"padding:9px 12px;\">R = V/I</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Power (P)</td><td style=\"padding:9px 12px;\">Watts (W)</td><td style=\"padding:9px 12px;\">Energy per unit time</td><td style=\"padding:9px 12px;\">P = VI = I²R = V²/R</td></tr></tbody></table></div><h3>Series vs Parallel</h3><p>Series: R_total=R₁+R₂+R₃ (same current). Parallel: 1/R_total=1/R₁+1/R₂ (same voltage). Two 10Ω in series=20Ω. Two 10Ω in parallel=5Ω.</p><h3>Household Circuits</h3><p>US 120V/15A circuit: max 1800W. At 80% safe load: 1440W. 1500W heater draws 12.5A — near limit! 240V circuits for large appliances.</p></div>\n<div class=\"content-section\"><h2>Ohm's Law in Electrical Engineering</h2>\n<p>Ohm's Law (V = IR) is the foundation of electrical circuit analysis. While first published by Georg Simon Ohm in 1827, it remains as relevant today as ever — from analyzing simple resistor circuits to understanding complex electronic systems. Combined with Kirchhoff's laws, it enables analysis of any linear circuit, regardless of complexity.</p>\n<h3>Kirchhoff's Laws and Circuit Analysis</h3>\n<p>Kirchhoff's Voltage Law (KVL): the sum of all voltages around any closed loop equals zero. Kirchhoff's Current Law (KCL): the sum of all currents entering a node equals the sum leaving. Combined with Ohm's Law, these three laws allow solution of any linear DC circuit. For a series circuit with battery V and resistors R₁, R₂: V = I(R₁ + R₂), so I = V/(R₁ + R₂). Voltage across R₁: V₁ = IR₁ = V×R₁/(R₁+R₂) — the voltage divider formula. This is the basis of resistor-based sensors, potentiometers, and reference voltage circuits.</p>\n<h3>Power and Energy in Electrical Circuits</h3>\n<p>Electrical power P = VI = I²R = V²/R. Energy = Power × Time. A 60W light bulb running for 1 hour: Energy = 60W × 3600s = 216,000 J = 0.060 kWh. At $0.12/kWh: cost = $0.0072. Running 24 hours: 1.44 kWh, $0.173. An LED replacement (9W): 0.216 kWh/day, $0.026/day. Over a year: incandescent costs $63, LED costs $9.5 — $53.5 savings per bulb. Understanding power calculations makes energy consumption decisions quantitative.</p>\n<h3>Ohm's Law Beyond Simple Resistors</h3>\n<p>Ohm's Law applies to linear (ohmic) resistors — materials where V/I ratio is constant. Non-ohmic devices: diodes (current flows preferentially in one direction), transistors (current controlled by a gate voltage), and memristors (resistance depends on history of current flow). Temperature also affects resistance: RTD (resistance temperature detectors) use the predictable increase of metal resistance with temperature for precise thermometry. Thermistors use semiconductors whose resistance decreases sharply with temperature — used in thermometers, fan controls, and battery management systems.</p></div>\n<div class=\"content-section\"><h2>Ohm's Law and Electrical Circuits – Complete Engineering Guide</h2>\n<p>Ohm's Law (V = IR) is the most fundamental relationship in electrical circuit analysis, expressing the linear relationship between voltage (V, electrical potential difference in volts), current (I, charge flow rate in amperes), and resistance (R, opposition to current flow in ohms). Published by Georg Simon Ohm in 1827 from systematic experimental measurements, it remains the starting point for analysis of every resistive electrical circuit, from simple LED circuits to complex power distribution networks.</p>\n<p>Combined with Kirchhoff's Voltage Law (sum of voltages around any loop = 0) and Kirchhoff's Current Law (sum of currents at any node = 0), Ohm's Law allows complete analysis of any linear DC circuit. These three laws together are sufficient to solve for all unknown voltages and currents in circuits with any number of components and sources.</p>\n<h3>Power Formulas and Energy in Electrical Circuits</h3>\n<p>Electrical power is the rate of energy transfer: P = VI = I²R = V²/R (all three forms are equivalent by substituting Ohm's Law). A 12V battery connected to a 4Ω resistor: I = V/R = 12/4 = 3A. P = VI = 12 × 3 = 36W. P = I²R = 9 × 4 = 36W. P = V²/R = 144/4 = 36W. Energy consumed: E = P × t. A 60W light bulb running 8 hours/day: E = 60 × 8 = 480 Wh = 0.48 kWh per day. At $0.15/kWh: cost = $0.072/day. Annual: $26.28. An equivalent LED (9W): $3.94/year — $22.34 savings per year per bulb. Scaling to millions of bulbs represents enormous energy savings.</p>\n<h3>Series and Parallel Circuit Analysis</h3>\n<p>Series circuit (components connected end-to-end): same current flows through all components. Total resistance: R_total = R₁ + R₂ + R₃ + ... Voltage divides proportionally: V_n = I × Rₙ. Voltage divider: V_out = V_in × R₂/(R₁ + R₂). Used in: resistor ladders, reference voltage generators, sensors (thermistors, photoresistors change one resistance in a divider). Parallel circuit (components connected between same two nodes): same voltage across all components. Equivalent resistance: 1/R_total = 1/R₁ + 1/R₂ + 1/R₃. Total resistance is always less than the smallest individual resistance. Current divides inversely with resistance: I_n = V/Rₙ. Most practical circuits combine series and parallel elements.</p>\n<h3>Resistance and Resistivity – Material Properties</h3>\n<p>Resistance depends on material and geometry: R = ρL/A, where ρ = resistivity (Ω·m), L = length (m), A = cross-sectional area (m²). Resistivity values: Silver: 1.59×10⁻⁸ Ω·m (best conductor). Copper: 1.72×10⁻⁸ (standard electrical wiring). Aluminum: 2.82×10⁻⁸ (overhead power lines — lower cost and weight than copper). Iron: 1.00×10⁻⁷. Stainless steel: 6.9×10⁻⁷. Carbon (graphite): 3-60×10⁻⁶. Silicon (semiconductor): 6.4×10⁻⁴ - 2.3×10³ (varies with doping). Glass (insulator): 10¹⁰ - 10¹⁴. PTFE (Teflon): &gt;10¹⁸. Temperature affects resistance: metals increase with temperature (positive temperature coefficient, PTC), semiconductors decrease (negative temperature coefficient, NTC). RTDs (resistance temperature detectors) exploit this for precise thermometry.</p>\n<h3>Kirchhoff's Laws and Circuit Analysis</h3>\n<p>Kirchhoff's Voltage Law (KVL): the algebraic sum of all voltage rises and drops around any closed loop equals zero. In a series circuit with battery V_b and resistors R₁, R₂: V_b - IR₁ - IR₂ = 0, so I = V_b/(R₁+R₂). This conservation of energy principle extends to complex multi-loop circuits. Kirchhoff's Current Law (KCL): the algebraic sum of all currents entering and leaving any node equals zero. Conservation of charge: charge cannot accumulate at a node. Together KVL, KCL, and Ohm's Law allow systematic solution of n equations for n unknown voltages/currents in any linear circuit using mesh analysis or node analysis methods.</p>\n<h3>Ohm's Law in Electronic Components</h3>\n<p>Ohm's Law applies to linear (ohmic) resistors — where V/I ratio is constant at all voltages and temperatures. Non-ohmic (non-linear) devices: Diodes: conduct current easily in one direction (forward bias, ~0.7V drop for silicon), block in reverse. I-V relationship is exponential, not linear. Transistors: current controlled by a control signal (BJT: base current; MOSFET: gate voltage). Amplification factor β (BJT): I_collector = β × I_base. Memristors: resistance depends on history of current flow — being developed for neuromorphic computing. LED (Light Emitting Diode): non-ohmic, requires current-limiting series resistor to prevent destruction. Design: R_series = (V_supply - V_forward) / I_LED. For 5V supply, LED V_forward = 2V, I_LED = 20mA: R = (5-2)/0.020 = 150Ω.</p>\n<h3>Electrical Safety and Power Limits</h3>\n<p>Electrical safety depends on understanding current and its physiological effects: 1 mA: barely perceptible. 5 mA: safe maximum. 10-20 mA: strong shock, loss of muscle control. 30-50 mA: severe shock, respiratory paralysis. 100 mA: ventricular fibrillation — typically fatal. 1 A: cardiac standstill (may be survivable with defibrillation). Note: it is current, not voltage, that kills — but high voltage can drive lethal current through body resistance (skin: 10,000-100,000 Ω dry, 1,000 Ω wet; internal body: ~500 Ω). At 120V through wet skin: I = 120/1000 = 120 mA — potentially fatal. This is why ground fault circuit interrupters (GFCIs) trip at 5 mA in bathrooms and kitchens. UK/EU 230V systems are inherently more dangerous than US 120V for the same conditions.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is Ohm's Law? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">V=I×R. Published Georg Ohm 1827. Valid for linear resistive materials at constant temperature.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Calculate power? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P=V×I=I²R=V²/R. 12V, 4Ω: I=3A, P=36W.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Voltage vs current? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Voltage=electrical pressure. Current=flow rate. Voltage can exist without current (open circuit).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Series vs parallel? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Series: R_total=sum. Parallel: 1/R_total=sum of 1/R. Two 10Ω in parallel=5Ω.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Household circuit limits? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">15A circuit: max 1800W at 120V. 80% safe: 1440W. Never exceed rated capacity.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is resistance? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Opposition to current from electron-lattice collisions. R=ρL/A. Higher temp→higher R in metals.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Ohm's Law Calculator – V=IR Voltage, Current and Resistance</h2><div class=\"form-group\"><label for=\"ols\">Solve For</label><select id=\"ols\"><option selected=\"\" value=\"V\">Voltage (V)</option><option value=\"I\">Current (A)</option><option value=\"R\">Resistance (Ω)</option><option value=\"P\">Power (W)</option></select></div><div class=\"form-group\"><label for=\"olV\">Voltage (V)</label><input id=\"olV\" min=\"0\" step=\"any\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"olI\">Current (A)</label><input id=\"olI\" min=\"0\" step=\"any\" type=\"number\" value=\"3\"/></div><div class=\"form-group\"><label for=\"olR\">Resistance (Ω)</label><input id=\"olR\" min=\"0.001\" step=\"any\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"olP\">Power (W)</label><input id=\"olP\" min=\"0\" step=\"any\" type=\"number\" value=\"36\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Ohm\\'s Law Calculator – V=IR Voltage, Current and Resistance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Ohm\\'s Law Calculator – V=IR Voltage, Current and Resistance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-ohms-law-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var s=document.getElementById('ols').value;\n  var V=parseFloat(document.getElementById('olV').value)||0,I=parseFloat(document.getElementById('olI').value)||0;\n  var R=parseFloat(document.getElementById('olR').value)||0,P=parseFloat(document.getElementById('olP').value)||0;\n  var result;\n  if(s==='V'){if(!I||!R){alert('Enter I and R.');return;}result=I*R;V=result;}\n  else if(s==='I'){if(!V||!R){alert('Enter V and R.');return;}result=V/R;I=result;}\n  else if(s==='R'){if(!V||!I){alert('Enter V and I.');return;}result=V/I;R=result;}\n  else{if(V&&I)result=V*I;else if(I&&R)result=I*I*R;else if(V&&R)result=V*V/R;else{alert('Enter 2 of: V, I, R.');return;}P=result;}\n  if(!P&&V&&I)P=V*I;\n  var labels={V:'Voltage',I:'Current',R:'Resistance',P:'Power'},units={V:'V',I:'A',R:'Ω',P:'W'};\n  var aiPrompt='Circuit: V='+V+'V I='+I+'A R='+R+'Ω P='+P+'W';\n  document.getElementById('sc-ri').innerHTML=\n    ri(labels[s],'<strong style=\"font-size:26px;color:var(--c-accent)\">'+result.toFixed(4)+' '+units[s]+'</strong>',true)+\n    ri('Voltage',V.toFixed(4)+' V')+ri('Current',I.toFixed(4)+' A ('+(I*1000).toFixed(2)+' mA)')+\n    ri('Resistance',R.toFixed(4)+' Ω')+ri('Power',P.toFixed(4)+' W ('+(P*1000).toFixed(2)+' mW)');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',['Voltage×10','Current×100','Resistance'],[Math.round(V*10)||1,Math.round(I*100)||1,Math.round(R)||1],['#c8832a','#1a5c3a','#3a7abf']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this Ohms Law and electrical circuit analysis.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      title="Ohm's Law & Electrochemical Cell Power Calculator"
+      intro="Calculate electrical voltage, current, resistance, conductance, and Joule heating power dissipation in laboratory circuits, electrochemical cells, and electrophoresis apparatus using fundamental Ohm's Law."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IEC & IUPAC Electrochemical Standards
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Electrodynamic & Ohmic Dissipation Metrology</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What are the primary formulas of Ohm's Law and electrical power?
+                </strong>
+                <p className="mt-1">
+                  Ohm&apos;s Law is defined by the fundamental triad: V = I &middot; R, where V is electrical potential (Volts), I is current (Amperes), and R is resistance (Ohms &Omega;). Electrical power dissipation obeys Joule&apos;s First Law: P = V &middot; I = I² &middot; R = V² / R, expressed in Watts. In chemical systems, electrical work converts directly into thermodynamic heat. For broader physical power applications, evaluate mechanical power ratings with our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>, quantify vector work transfers via the <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>, or examine thermal calorie generation using our <Link href="/calculators/science/specific-heat-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">specific heat calculator</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Electrochemical Cell Polarization & Ohmic Voltage Drop Curves</h2>
+          <div className="not-prose my-6">
+            <ElectrochemicalCellOverpotentialChart />
+          </div>
+
+          <p>
+            Formulated by German physicist Georg Simon Ohm in 1827, Ohm&apos;s Law forms the cornerstone of electrical circuit theory, electrochemistry, and bio-instrumentation. In physical chemistry, Ohm&apos;s Law underpins electrochemical impedance spectroscopy (EIS), electrophoresis separation of nucleic acids and proteins, potentiostatic coulometry, and battery energy storage.
+          </p>
+
+          <p>
+            When electric potential is applied across an electrolytic solution, solvated ions migrate toward opposing electrodes (cations toward the cathode, anions toward the anode). The resistance encountered by migrating ions determines both the required driving voltage and the magnitude of Joule heat generated within the buffer matrix. When designing electrophoresis buffer systems, optimize ionic strength with our <Link href="/calculators/science/buffer-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">buffer calculator</Link> and correlate solute molarities via the <Link href="/calculators/science/molarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molarity calculator</Link>.
+          </p>
+
+          <h2>Electrodynamic Equations & Mathematical Principles</h2>
+
+          <p>
+            Classical electrodynamics unites Ohm&apos;s Law with Joule heating and ionic solution geometry:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Fundamental Ohm's Law Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">V = I &middot; R   |   I = V / R   |   R = V / I</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Interrelates electrical potential V (Volts), current I (Amperes), and resistance R (Ohms).</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Joule Heating Power Dissipation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P = V &middot; I = I&sup2; &middot; R = V&sup2; / R</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies thermodynamic thermal dissipation rate in Watts (Joules per second).</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Physical Conductor Resistance Geometry</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">R = &rho; &middot; (L / A) = L / (&kappa; &middot; A)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates resistance from length L, cross-sectional area A, resistivity &rho;, and conductivity &kappa;.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Electrical Conductance Definition</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">G = 1 / R = I / V</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Measures ease of electric charge transport in Siemens (S = &Omega;⁻¹).</div>
+          </Formula>
+
+          <h2>Standard Conductivities & Resistivities of Materials (20 °C)</h2>
+
+          <p>
+            Electrical properties across metallic conductors, semiconductors, aqueous electrolytes, and insulators:
+          </p>
+
+          <DataTable
+            head={["Material System", "Classification", "Resistivity ρ (Ω·m)", "Conductivity κ (S/m)", "Temperature Coeff. (/°C)"]}
+            rows={[
+              ["Silver (Pure)", "Metallic Superconductor", "1.59 × 10⁻⁸", "6.30 × 10⁷", "+0.0038"],
+              ["Copper (Annealed)", "Standard Conductor", "1.68 × 10⁻⁸", "5.96 × 10⁷", "+0.0039"],
+              ["Gold (24K)", "Noble Contact Metal", "2.44 × 10⁻⁸", "4.10 × 10⁷", "+0.0034"],
+              ["Aluminum (EC Grade)", "Lightweight Conductor", "2.82 × 10⁻⁸", "3.55 × 10⁷", "+0.0039"],
+              ["Platinum Wire", "Inert Electrode", "1.06 × 10⁻⁷", "9.43 × 10⁶", "+0.0039"],
+              ["Seawater (3.5% Salt)", "Aqueous Electrolyte", "0.20", "5.00", "+0.0210 (drops R)"],
+              ["0.1 M KCl Solution", "Standard Conductance", "0.78", "1.29", "+0.0190"],
+              ["Drinking Tap Water", "Dilute Electrolyte", "20.0 - 100.0", "0.01 - 0.05", "+0.0200"],
+              ["Deionized Water (Milli-Q)", "Purified Solvent", "1.82 × 10⁵", "5.50 × 10⁻⁶", "+0.0550"],
+              ["Fused Silica Glass", "Dielectric Insulator", "1.0 × 10¹⁴", "1.0 × 10⁻¹⁴", "Negative"],
+            ]}
+          />
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Agarose Gel Electrophoresis Tank Thermal Management</h3>
+          <p>
+            A molecular genetics laboratory runs a DNA agarose gel electrophoresis chamber at a constant driving voltage V = 120 Volts. The gel submerged in 1&times; TAE buffer exhibits a measured electrical resistance R = 2,400 Ohms.
+          </p>
+          <ul>
+            <li><strong>Current Flow:</strong> I = V &divide; R = 120 V &divide; 2,400 &Omega; = 0.050 Amperes = 50.0 milliamperes (mA).</li>
+            <li><strong>Thermal Power Dissipation:</strong> P = V &times; I = 120 V &times; 0.050 A = 6.00 Watts (6.00 Joules/second).</li>
+            <li><strong>Heat Generation over 90 Minutes:</strong> Energy = 6.00 W &times; (90 &times; 60 s) = 32,400 Joules (7.74 kcal).</li>
+            <li><strong>Gel Thermal Risk:</strong> For a 500 mL buffer volume without external chilling, this heat elevates buffer temperature by: &Delta;T = 32,400 J &divide; (500 g &times; 4.184 J/g&middot;&deg;C) = +15.5 &deg;C, which can cause DNA band smiling or melting of low-percentage agarose.</li>
+          </ul>
+
+          <p>
+            To evaluate temperature rise and calorie requirements in fluid volumes, calculate thermal capacities with our <Link href="/calculators/science/specific-heat-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">specific heat calculator</Link> and verify fluid density using the <Link href="/calculators/science/density-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">density calculator</Link>.
+          </p>
+
+          <h3>Case Study B: Lithium-Ion Battery Internal Resistance & Fast-Charge Polarization</h3>
+          <p>
+            An electric vehicle battery pack module consisting of lithium-ion NMC cells (nominal open-circuit voltage E₀ = 48.0 V) exhibits an internal module resistance R_int = 0.040 Ohms. A fast charger delivers current I = 100.0 Amperes into the module.
+          </p>
+          <ul>
+            <li><strong>Internal Ohmic Voltage Drop:</strong> V_drop = I &times; R_int = 100.0 A &times; 0.040 &Omega; = 4.00 Volts.</li>
+            <li><strong>Required Charger Terminal Voltage:</strong> V_terminal = 48.0 V + 4.00 V = 52.00 Volts.</li>
+            <li><strong>Internal Joule Waste Heat:</strong> P_heat = I² &middot; R_int = (100.0 A)² &times; 0.040 &Omega; = 400.0 Watts.</li>
+            <li><strong>Thermal Management Requirement:</strong> Active liquid cooling chiller plates must evacuate 400 W of waste heat per module to prevent thermal runaway.</li>
+          </ul>
+
+          <h2>Operational Constraints & Non-Ohmic Boundary Conditions</h2>
+
+          <p>
+            When utilizing Ohm&apos;s Law in physical chemistry and electro-analytical chemistry, four operational boundary constraints must be accounted for:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Electrochemical Double-Layer Capacitance & Overpotentials:</strong> At electrode-solution interfaces, charge separation forms an electrical double layer (Helmholtz-Stern layer). The total voltage across an operating electrolytic cell includes thermodynamic equilibrium potential (E_rev), kinetic activation overpotential (&eta;_act), mass-transport concentration overpotential (&eta;_conc), and Ohmic drop: V_cell = E_rev + &eta;_act + &eta;_conc + I&middot;R.
+            </li>
+            <li>
+              <strong>Wien Effect at Extreme Electric Fields:</strong> In very strong electric fields (&gt; 100 kV/cm), the ionic atmosphere surrounding migrating ions is stripped away faster than it can reform, causing solution conductivity to increase significantly above Ohm&apos;s Law predictions (the first and second Wien effects).
+            </li>
+            <li>
+              <strong>Electrode Polarization in DC Conductance Measurements:</strong> Measuring electrolytic resistance using direct current (DC) causes rapid electrolysis, gas bubble formation, and electrode polarization. Analytical conductivity meters universally employ high-frequency alternating current (AC, typically 1 to 10 kHz) to neutralize capacitive polarization.
+            </li>
+            <li>
+              <strong>Electrodynamic Thermal Runaway in Semiconductors:</strong> In semiconducting and ceramic materials with negative temperature coefficients of resistance (NTC thermistors), increasing current causes Joule heating, which lowers resistance, driving further current escalation and catastrophic thermal runaway.
+            </li>
+          </ol>
+
+
+          <h2>Electrochemical Impedance Spectroscopy & Non-Ohmic Overpotentials</h2>
+          <p>
+            In electrochemical battery cells, electrolytic chlor-alkali cells, and fuel cell stacks, total operational
+            cell voltage departs from ideal Ohmic proportionality due to kinetic activation overpotentials and mass
+            transport concentration gradients:
+          </p>
+          <Formula>
+            {"V_{terminal} = E^0_{cell} - I * R_{ohmic} - eta_{activation}(I) - eta_{concentration}(I)"}
+          </Formula>
+          <p>
+            Pure Ohmic losses stem from electrolyte ion conduction and electronic busbar resistance, while activation
+            overpotentials represent charge-transfer activation barriers described by Butler-Volmer kinetics.
+            Electrochemical engineers utilize impedance spectroscopy to isolate pure Ohmic internal resistance from double-layer
+            capacitance, combining Ohmic calculations with
+            {" "}<Link href="/calculators/science/specific-heat-calculator">thermal specific heat models</Link>{" "}
+            to design liquid cooling circuits that prevent battery thermal runaway. Furthermore, electrochemical sensors maintain constant background potential using
+            {" "}<Link href="/calculators/science/buffer-calculator">constant ionic strength buffer solutions</Link>{" "}
+            to guarantee reliable analytical potentiometry.
+          </p>
+          <p>
+            In printed circuit board (PCB) trace design and power electronic busbars, engineers factor trace copper thickness (measured in ounces per square foot) and dielectric thermal conductivity into trace width sizing equations. Operating high currents through undersized conductors triggers resistive I²R heating that degrades dielectric substrate integrity and accelerates electromigration failure along metallic grain boundaries over extended operating lifetimes.
+          </p>
+
+          <h2>Authoritative International Electrical & Chemical Standards</h2>
+
+          <p>
+            For certified electrical measurements and electrochemical cell characterization, consult international standards organizations:
+          </p>
+          <ul>
+            <li>
+              <strong>IEC 60051:</strong> Direct acting indicating analogue electrical measuring instruments and their accessories.
+            </li>
+            <li>
+              <strong>IUPAC Recommendations on Electrochemical Terminology:</strong> Definitive rules for electrode potentials, overpotentials, and solution conductivity.
+            </li>
+            <li>
+              <strong>ASTM D1125-14:</strong> Standard Test Methods for Electrical Conductivity and Resistivity of Water.
+            </li>
+            <li>
+              <strong>ISO/IEC Guide 98-3 (GUM):</strong> Uncertainty of measurement in electrical and physical calibration.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <OhmsLawCalculatorComponent />
+    </CalcPage>
   );
 }

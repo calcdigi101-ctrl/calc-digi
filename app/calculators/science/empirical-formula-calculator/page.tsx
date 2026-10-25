@@ -1,26 +1,285 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import EmpiricalFormulaCalculatorComponent from "@/components/calcs/science/empirical-formula-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { EmpiricalCompositionHydrocarbonChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/empirical-formula-calculator";
+const TITLE = "Empirical Formula Calculator | Molecular Formula & Percent Composition Solver";
+const DESCRIPTION =
+  "Determine empirical and molecular formulas from elemental percent mass compositions, combustion analysis data, and experimental molar mass with stoichiometric ratio reduction.";
 
 export const metadata: Metadata = {
-  "title": "Empirical Formula Calculator – Molecular Formula | CalcDigi",
-  "description": "Calculate empirical formula from percent composition. Find molecular formula from empirical formula and compound molar mass.",
-  "openGraph": {
-    "title": "Empirical Formula Calculator – Molecular Formula | CalcDigi",
-    "description": "Calculate empirical formula from percent composition. Find molecular formula from empirical formula and compound molar mass.",
-    "type": "website",
-    "url": "/calculators/science/empirical-formula-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/empirical-formula-calculator"
-  }
 };
+
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/stoichiometry-calculator", icon: "⚖️", name: "Stoichiometry & Reagents" },
+  { href: "/calculators/science/molecular-weight-calculator", icon: "⚛️", name: "Molecular Weight Solver" },
+  { href: "/calculators/science/percent-yield-calculator", icon: "📊", name: "Percent Reaction Yield" },
+  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
+  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity & Dilution" },
+  { href: "/calculators/science/density-calculator", icon: "🔬", name: "Material Density & SG" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the critical distinction between an empirical formula and a molecular formula?",
+    a: "An empirical formula represents the simplest, irreducible integer mole ratio of elements present in a chemical compound (such as CH₂O). In contrast, a molecular formula specifies the actual, exact number of atoms of each element contained within a single discrete molecule (such as C₆H₁₂O₆ for glucose or C₂H₄O₂ for acetic acid). The molecular formula is always an integer multiple (n = 1, 2, 3...) of the empirical formula.",
+  },
+  {
+    q: "How do you calculate an empirical formula from mass percent composition?",
+    a: "The standard algorithm proceeds through four stoichiometric steps: 1) Assume a 100.0-gram sample baseline so percentages convert directly to grams; 2) Divide each element's mass by its IUPAC standard atomic weight to determine chemical moles; 3) Divide all mole values by the smallest mole quantity among them to establish preliminary molar ratios; 4) If ratios are not whole integers, multiply all ratios by the smallest integer (2, 3, 4, or 5) to eliminate fractions.",
+  },
+  {
+    q: "How is the molecular formula derived from an empirical formula and experimental molar mass?",
+    a: "Calculate the formula mass of the empirical formula by summing the standard atomic weights of its constituent elements. Divide the experimentally determined molecular weight (obtained via mass spectrometry, ebullioscopy, or vapor density) by the empirical formula mass: n = Molar Mass / Empirical Mass. Multiplying every subscript in the empirical formula by integer n yields the true molecular formula.",
+  },
+  {
+    q: "Why do different chemical compounds share identical empirical formulas?",
+    a: "Compounds with identical elemental mass percentages share identical empirical formulas because empirical formulas reflect stoichiometric ratios rather than physical molecular architecture. For instance, formaldehyde (CH₂O, MW 30.03 g/mol), acetic acid (C₂H₄O₂, MW 60.05 g/mol), and glucose (C₆H₁₂O₆, MW 180.16 g/mol) all possess identical 40.0% Carbon, 6.72% Hydrogen, and 53.28% Oxygen compositions.",
+  },
+  {
+    q: "How does elemental combustion analysis determine carbon and hydrogen percentages?",
+    a: "In organic combustion analysis, a weighed sample is burned in excess oxygen gas (O₂). All carbon oxidizes to carbon dioxide (CO₂), and all hydrogen oxidizes to water vapor (H₂O). By trapping and weighing CO₂ in sodium hydroxide scrubbers and H₂O in magnesium perchlorate traps, gravimetric stoichiometries derive exact initial carbon and hydrogen masses. Any remaining unaccounted mass in a pure sample represents oxygen.",
+  },
+  {
+    q: "What rounding tolerance is mathematically acceptable when reducing empirical ratios?",
+    a: "Ratios within &plusmn;0.05 of a whole integer (such as 1.03 or 2.97) can be rounded safely to the nearest whole number (1 and 3). However, ratios ending near common vulgar fractions—such as 1.50 (multiply by 2), 1.33 or 1.67 (multiply by 3), 1.25 or 1.75 (multiply by 4), or 1.20 (multiply by 5)—must be multiplied across all elements to achieve true whole-number stoichiometry.",
+  },
+];
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Empirical Formula Calculator\", \"item\": \"https://calcdigi.com/calculators/science/empirical-formula-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Empirical Formula Calculator\", \"url\": \"https://calcdigi.com/calculators/science/empirical-formula-calculator\", \"description\": \"Calculate empirical formula from percent composition. Find molecular formula from empirical formula and compound molar mass.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is empirical formula?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Simplest whole-number atom ratio. H₂O₂ EF=HO. Glucose C₆H₁₂O₆ EF=CH₂O.\"}}, {\"@type\": \"Question\", \"name\": \"Molecular formula from EF?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"MF=EF×n. n=MM/EF_mass. EF=CH₂O (30.03), MM=180.16: n=6. MF=C₆H₁₂O₆.\"}}, {\"@type\": \"Question\", \"name\": \"What is percent composition?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"%=element mass/molar mass×100. H₂O: H=2.016/18.015×100=11.19%.\"}}, {\"@type\": \"Question\", \"name\": \"What is combustion analysis?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Burn organic sample in O₂. Measure CO₂ and H₂O. Calculate C, H, then O by difference.\"}}, {\"@type\": \"Question\", \"name\": \"Can EF=MF?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes when n=1. Water H₂O, NaCl, CO₂ are examples.\"}}, {\"@type\": \"Question\", \"name\": \"Non-integer ratios?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"×1.5→×2. ×1.33→×3. ×1.25→×4. Small deviations (2.98≈3) due to rounding.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Empirical Formula Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Empirical Formula Calculator</h1>\n<p class=\"calc-intro\">Calculate the empirical formula from percent composition by mass, then find the molecular formula using the compound molar mass. Essential for compound identification and combustion analysis.</p>\n<p class=\"calc-intro\">Empirical formula = simplest whole-number atom ratio. Glucose (C₆H₁₂O₆) and formaldehyde (CH₂O) share empirical formula CH₂O. Provide molar mass to find the molecular formula.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">EF: assume 100g → mol each element → divide by smallest → integers | MF = (EF)×n, n=MM/EF_mass</div></div>\n<div class=\"content-section\"><h2>Empirical Formula Procedure</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Step</th><th style=\"padding:10px 12px;text-align:left;\">Action</th><th style=\"padding:10px 12px;text-align:left;\">Example</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Step 1</td><td style=\"padding:9px 12px;\">Assume 100g</td><td style=\"padding:9px 12px;\">40% C → 40g C</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Step 2</td><td style=\"padding:9px 12px;\">÷ atomic mass</td><td style=\"padding:9px 12px;\">40÷12.011 = 3.331 mol C</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Step 3</td><td style=\"padding:9px 12px;\">÷ smallest</td><td style=\"padding:9px 12px;\">3.331/3.331 = 1.000</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Step 4</td><td style=\"padding:9px 12px;\">× to get integers</td><td style=\"padding:9px 12px;\">Ratio 1:2:1 → CH₂O</td></tr></tbody></table></div><h3>Combustion Analysis</h3><p>Burn compound in O₂. C mass=(12/44)×mass CO₂. H mass=(2/18)×mass H₂O. O=original-C-H. Find mole ratios → empirical formula.</p><h3>Molecular Formula</h3><p>MF=EF×n. n=MM/EF mass. Glucose: EF=CH₂O (30.03), MM=180.16. n=6. MF=C₆H₁₂O₆.</p></div>\n<div class=\"content-section\"><h2>Empirical Formula in Analytical Chemistry</h2>\n<p>Determining the empirical formula of an unknown compound is a fundamental analytical task. Combustion analysis, mass spectrometry, and elemental analysis all provide percent composition data that leads to the empirical formula. Combined with molecular weight (from mass spectrometry or osmometry), the molecular formula can be determined — the first step in identifying any new compound.</p>\n<h3>Combustion Analysis Procedure</h3>\n<p>Combustion analysis burns a weighed organic sample in excess O₂. All carbon → CO₂ (captured in pre-weighed absorbent). All hydrogen → H₂O (captured separately). Masses of CO₂ and H₂O measured. Carbon = (12.011/44.009) × mass CO₂. Hydrogen = (2.016/18.015) × mass H₂O. Oxygen = original mass - C - H (by difference). Example: 10.00 mg sample produces 22.00 mg CO₂ and 9.00 mg H₂O. C = 12.011/44.009 × 22.00 = 6.003 mg. H = 2.016/18.015 × 9.00 = 1.007 mg. O = 10.00 - 6.003 - 1.007 = 2.990 mg. Ratio: C/12.011=0.500, H/1.008=0.999, O/15.999=0.187. Divide by 0.187: C=2.67, H=5.34, O=1. Multiply by 3: C₈H₁₆O₃.</p>\n<h3>Mass Spectrometry for Molecular Formula</h3>\n<p>Modern mass spectrometry can determine molecular formulas directly from exact masses. High-resolution mass spectrometry measures m/z to 4-5 decimal places, allowing unambiguous formula assignment. CO₂ (exact mass 43.9898) and C₂H₄O (exact mass 44.0262) have the same nominal mass (44) but different exact masses. At mass resolution &gt;10,000, these are easily distinguished. Database searching against exact masses from databases like NIST or mzCloud enables rapid compound identification.</p>\n<h3>Empirical Formula in Materials Science</h3>\n<p>Empirical formulas are used for ionic compounds and non-stoichiometric materials where there is no distinct molecular unit. NaCl, CaCl₂, and Al₂O₃ are empirical formulas — ionic crystals contain vast arrays of ions in fixed ratios, not discrete molecules. Non-stoichiometric compounds (like iron oxides FeₓO where x ≈ 0.95) deviate from simple integer ratios due to crystal defects. Intermetallic compounds like Ti₃Al or Ni₃Al have empirical formulas reflecting fixed crystal structure compositions important in aerospace alloy design.</p></div>\n<div class=\"content-section\"><h2>Empirical and Molecular Formula – Analytical Chemistry and Compound Identification</h2>\n<p>The empirical formula of a compound represents the simplest whole-number ratio of atoms of each element. The molecular formula shows the actual number of atoms in one molecule of the compound. Glucose (C₆H₁₂O₆) and formaldehyde (CH₂O) have the same empirical formula (CH₂O) because 6:12:6 simplifies to 1:2:1, but their molecular formulas differ by a factor of 6. The relationship: Molecular Formula = (Empirical Formula)ₙ, where n = Molar Mass / Empirical Formula Mass.</p>\n<p>Determining empirical and molecular formulas from experimental data is a fundamental analytical chemistry skill. The systematic procedure of converting percent composition to moles, finding ratios, and scaling to whole numbers can identify any unknown organic compound when combined with molar mass measurement. This procedure was developed by Justus von Liebig in the 1830s using combustion analysis and remains central to structure determination.</p>\n<h3>Systematic Empirical Formula Determination</h3>\n<p>Step-by-step procedure: (1) Assume exactly 100 grams of compound — percent composition values directly become masses in grams. Glucose (40.00% C, 6.72% H, 53.28% O): 40.00 g C, 6.72 g H, 53.28 g O. (2) Convert each mass to moles by dividing by atomic mass. Moles C = 40.00/12.011 = 3.330. Moles H = 6.72/1.008 = 6.667. Moles O = 53.28/15.999 = 3.330. (3) Divide all mole values by the smallest. 3.330/3.330 = 1.000 C. 6.667/3.330 = 2.001 ≈ 2 H. 3.330/3.330 = 1.000 O. (4) Multiply to get whole numbers if needed. Ratios 1:2:1 → Empirical formula: CH₂O. (5) Determine n: n = MM/EF mass = 180.16/30.03 = 6.00. (6) Molecular formula: (CH₂O)₆ = C₆H₁₂O₆.</p>\n<h3>Combustion Analysis – Experimental Percent Composition</h3>\n<p>Combustion analysis determines the empirical formula of organic compounds. Method: weigh sample precisely (typically 5-20 mg), burn completely in oxygen in a furnace, absorb CO₂ in a pre-weighed CO₂ trap and H₂O in a pre-weighed desiccant tube, weigh each trap after combustion. Calculate: Mass C = (12.011/44.009) × mass CO₂. Mass H = (2.016/18.015) × mass H₂O. Mass O = original mass - mass C - mass H. Example: 10.000 mg sample produces 22.004 mg CO₂ and 9.003 mg H₂O. C = (12.011/44.009) × 22.004 = 6.002 mg = 60.02%. H = (2.016/18.015) × 9.003 = 1.008 mg = 10.08%. O = 10.000 - 6.002 - 1.008 = 2.990 mg = 29.90%. From this, empirical formula can be determined. Modern instruments perform combustion analysis automatically with mg accuracy.</p>\n<h3>Dealing With Non-Integer Ratios</h3>\n<p>After dividing mole values by the smallest, ratios are often not exactly integers due to rounding. Common non-integer ratios and their multipliers: 1.5 → multiply all by 2 (gives 3). 1.333 → multiply all by 3 (gives 4). 1.250 → multiply all by 4 (gives 5). 1.667 → multiply all by 3 (gives 5 — since 1.667 × 3 = 5). 0.5 → multiply all by 2. Example: C:H:O ratios of 1.00:1.33:0.667. Divide by 0.667: 1.50:2.00:1.00. Multiply by 2: 3:4:2. Empirical formula: C₃H₄O₂. Caution: if you get ratio like 1.83, this might indicate a calculation error — check your input data and arithmetic before trying to round to 2.</p>\n<h3>High-Resolution Mass Spectrometry for Molecular Formula</h3>\n<p>Modern analytical chemistry uses high-resolution mass spectrometry to determine exact molecular formulas from precise mass measurements. Each element has a unique exact mass: ¹H = 1.00782503, ¹²C = 12.000000 (by definition), ¹⁴N = 14.0030740, ¹⁶O = 15.9949146. A compound measured at exact mass 194.0793 can be matched to molecular formulas: C₈H₁₀N₄O₂ (calculated: 8×12.000 + 10×1.00782 + 4×14.00307 + 2×15.99491 = 194.0798) — caffeine. High-resolution mass spectrometers (Orbitrap, FT-ICR) measure masses to ±0.001 Da accuracy or better, allowing unambiguous molecular formula assignment for masses up to ~1000 Da. This eliminates the need for combustion analysis in most modern structure determination workflows.</p>\n<h3>Empirical Formula Applications in Materials Science</h3>\n<p>Materials science uses empirical formulas extensively for ionic compounds and non-stoichiometric materials. Ionic compounds always have empirical formulas (no discrete molecule): NaCl, CaCl₂, Al₂O₃, Fe₃O₄ (magnetite). Non-stoichiometric compounds deviate from ideal integer ratios due to crystal defects: Fe₀.₉₅O (wüstite iron oxide — iron vacancies in the crystal), TiO₁.₉₅ (titanium sub-oxide with oxygen vacancies). These deviations from ideal stoichiometry create electronic properties that make non-stoichiometric oxides useful as catalysts, semiconductors, and battery electrode materials. Experimental determination of exact composition is critical for understanding and controlling these material properties.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is empirical formula? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Simplest whole-number atom ratio. H₂O₂ EF=HO. Glucose C₆H₁₂O₆ EF=CH₂O.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Molecular formula from EF? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">MF=EF×n. n=MM/EF_mass. EF=CH₂O (30.03), MM=180.16: n=6. MF=C₆H₁₂O₆.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is percent composition? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">%=element mass/molar mass×100. H₂O: H=2.016/18.015×100=11.19%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is combustion analysis? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Burn organic sample in O₂. Measure CO₂ and H₂O. Calculate C, H, then O by difference.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can EF=MF? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes when n=1. Water H₂O, NaCl, CO₂ are examples.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Non-integer ratios? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">×1.5→×2. ×1.33→×3. ×1.25→×4. Small deviations (2.98≈3) due to rounding.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Empirical Formula Calculator – Percent Composition to Chemical Formula</h2><p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:8px;\">Enter percent composition (total=100%):</p><div style=\"display:grid;grid-template-columns:80px 1fr;gap:5px;margin-bottom:5px;\"><select id=\"efe0\" aria-label=\"Enter percent composition (total=100%):\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">—Element—</option><option selected=\"\" value=\"12.011,C\">C (12.011)</option><option value=\"1.008,H\">H (1.008)</option><option value=\"15.999,O\">O (15.999)</option><option value=\"14.007,N\">N (14.007)</option><option value=\"32.060,S\">S (32.060)</option><option value=\"30.974,P\">P (30.974)</option><option value=\"35.450,Cl\">Cl (35.450)</option></select><input id=\"efp0\" aria-label=\"Mass %\" max=\"100\" min=\"0\" placeholder=\"Mass %\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"40.0\"/></div><div style=\"display:grid;grid-template-columns:80px 1fr;gap:5px;margin-bottom:5px;\"><select id=\"efe1\" aria-label=\"Cl (35.450)\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">—Element—</option><option value=\"12.011,C\">C (12.011)</option><option selected=\"\" value=\"1.008,H\">H (1.008)</option><option value=\"15.999,O\">O (15.999)</option><option value=\"14.007,N\">N (14.007)</option><option value=\"32.060,S\">S (32.060)</option><option value=\"30.974,P\">P (30.974)</option><option value=\"35.450,Cl\">Cl (35.450)</option></select><input id=\"efp1\" aria-label=\"Mass %\" max=\"100\" min=\"0\" placeholder=\"Mass %\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"6.72\"/></div><div style=\"display:grid;grid-template-columns:80px 1fr;gap:5px;margin-bottom:5px;\"><select id=\"efe2\" aria-label=\"Cl (35.450)\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">—Element—</option><option value=\"12.011,C\">C (12.011)</option><option value=\"1.008,H\">H (1.008)</option><option selected=\"\" value=\"15.999,O\">O (15.999)</option><option value=\"14.007,N\">N (14.007)</option><option value=\"32.060,S\">S (32.060)</option><option value=\"30.974,P\">P (30.974)</option><option value=\"35.450,Cl\">Cl (35.450)</option></select><input id=\"efp2\" aria-label=\"Mass %\" max=\"100\" min=\"0\" placeholder=\"Mass %\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"53.28\"/></div><div style=\"display:grid;grid-template-columns:80px 1fr;gap:5px;margin-bottom:5px;\"><select id=\"efe3\" aria-label=\"Cl (35.450)\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">—Element—</option><option value=\"12.011,C\">C (12.011)</option><option value=\"1.008,H\">H (1.008)</option><option value=\"15.999,O\">O (15.999)</option><option value=\"14.007,N\">N (14.007)</option><option value=\"32.060,S\">S (32.060)</option><option value=\"30.974,P\">P (30.974)</option><option value=\"35.450,Cl\">Cl (35.450)</option></select><input id=\"efp3\" aria-label=\"Mass %\" max=\"100\" min=\"0\" placeholder=\"Mass %\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div style=\"display:grid;grid-template-columns:80px 1fr;gap:5px;margin-bottom:5px;\"><select id=\"efe4\" aria-label=\"Cl (35.450)\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">—Element—</option><option value=\"12.011,C\">C (12.011)</option><option value=\"1.008,H\">H (1.008)</option><option value=\"15.999,O\">O (15.999)</option><option value=\"14.007,N\">N (14.007)</option><option value=\"32.060,S\">S (32.060)</option><option value=\"30.974,P\">P (30.974)</option><option value=\"35.450,Cl\">Cl (35.450)</option></select><input id=\"efp4\" aria-label=\"Mass %\" max=\"100\" min=\"0\" placeholder=\"Mass %\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"efmm\">Molar Mass (g/mol, for MF)</label><input id=\"efmm\" min=\"0\" step=\"any\" type=\"number\" value=\"180.16\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Empirical Formula Calculator – Percent Composition to Chemical Formula')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Empirical Formula Calculator – Percent Composition to Chemical Formula')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-empirical-formula-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var els=[];\n  for(var i=0;i<5;i++){\n    var v=document.getElementById('efe'+i).value,p=parseFloat(document.getElementById('efp'+i).value)||0;\n    if(v!=='0'&&p>0){var sp=v.split(',');els.push({am:parseFloat(sp[0]),sym:sp[1]||'?',pct:p,mol:p/parseFloat(sp[0])});}\n  }\n  if(els.length<2){alert('Enter at least 2 elements.');return;}\n  var minMol=Math.min.apply(null,els.map(function(e){return e.mol;}));\n  els.forEach(function(e){e.ratio=e.mol/minMol;});\n  var mult=1;\n  for(var m=1;m<=8;m++){if(els.every(function(e){return Math.abs(Math.round(e.ratio*m)-e.ratio*m)<0.06;})){mult=m;break;}}\n  var ef=els.map(function(e){var n=Math.round(e.ratio*mult);return e.sym+(n>1?n:'');}).join('');\n  var efMass=els.reduce(function(s,e){return s+e.am*Math.round(e.ratio*mult);},0);\n  var mm=parseFloat(document.getElementById('efmm').value)||0,mf='',n=1;\n  if(mm>0){n=Math.round(mm/efMass);mf=els.map(function(e){var c=Math.round(e.ratio*mult)*n;return e.sym+(c>1?c:'');}).join('');}\n  var aiPrompt='Empirical: '+ef+' ('+efMass.toFixed(2)+'g/mol)'+(mf?' → Molecular: '+mf:'');\n  document.getElementById('sc-ri').innerHTML=\n    ri('Empirical Formula','<strong style=\"font-size:22px;color:var(--c-accent);font-family:monospace;\">'+ef+'</strong>',true)+\n    ri('EF Molar Mass',efMass.toFixed(3)+' g/mol')+\n    (mf?ri('Molecular Formula','<strong style=\"font-size:18px;font-family:monospace;\">'+mf+'</strong>'):'')+\n    (mm>0?ri('n (multiplier)',n+'× ('+mm+'/'+efMass.toFixed(2)+')'):'')+\n    els.map(function(e){return ri(e.sym+' '+e.pct+'%','÷'+e.am+'='+e.mol.toFixed(3)+' → ×'+mult+'='+Math.round(e.ratio*mult));}).join('');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',els.map(function(e){return e.sym;}),els.map(function(e){return Math.round(e.pct*10);}),['#1a5c3a','#c8832a','#3a7abf','#8a4abf','#bf4a4a']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this empirical formula and compound identification.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      title="Empirical Formula & Molecular Stoichiometry Calculator"
+      intro="Determine empirical and molecular formulas from elemental percent mass compositions, combustion analysis gravimetry, and experimental molar mass with automated stoichiometric ratio reduction."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IUPAC Inorganic & Organic Nomenclature Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Elemental Stoichiometric Metrology</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How are empirical and molecular formulas determined from percent composition?
+                </strong>
+                <p className="mt-1">
+                  To find an empirical formula, convert elemental mass percentages into moles by dividing each mass by its atomic weight (AW): n = mass / AW. Divide all mole values by the smallest mole result to establish stoichiometric mole ratios, multiplying by small integers (2, 3, 4) if necessary to eliminate fractions. To determine the molecular formula, divide experimental molecular weight by the empirical formula mass to find integer multiplier n: Molecular Formula = (Empirical Formula)&times;n. For subsequent chemical synthesis, balance reaction yields with our <Link href="/calculators/science/stoichiometry-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">stoichiometry calculator</Link>, audit theoretical yields via the <Link href="/calculators/science/percent-yield-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percent yield calculator</Link>, or evaluate solution concentrations using our <Link href="/calculators/science/molarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molarity calculator</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Stoichiometric Mass Percentage Partition Across Representative Molecules</h2>
+          <div className="not-prose my-6">
+            <EmpiricalCompositionHydrocarbonChart />
+          </div>
+
+          <p>
+            Determining empirical and molecular formulas represents the primary investigative cornerstone of analytical organic chemistry and natural product isolation. When a novel pharmaceutical compound, bioactive marine alkaloid, or synthetic polymer is isolated, elemental microanalysis and high-resolution mass spectrometry provide gravimetric compositions that define the fundamental atomic stoichiometry of the unknown substance.
+          </p>
+
+          <p>
+            While empirical formulas reveal the lowest irreducible whole-number ratio of constituent atoms, they do not distinguish between structural isomers or oligomeric multiples. Combining empirical formulas with experimental molecular weight determinations resolves this ambiguity. When preparing chemical reagents for synthetic characterization, determine solution gravimetric parameters using our <Link href="/calculators/science/concentration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concentration calculator</Link> and verify physical crystal density using the <Link href="/calculators/science/density-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">density calculator</Link>.
+          </p>
+
+          <h2>Mathematical Stoichiometric Principles & Formula Reduction</h2>
+
+          <p>
+            The mathematical pathway from elemental mass percentages to verified molecular formulas follows four rigorous stoichiometric equations:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Elemental Molar Conversion Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">n_i = m_i / AW_i = (%_i &middot; 100 g) / AW_i</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Converts elemental mass percentages into absolute chemical mole quantities.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Relative Molar Ratio Reduction</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">Ratio_i = n_i / n_min</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Normalizes elemental mole quantities against the least abundant constituent element.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Empirical Formula Mass Summation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">FW_emp = &Sigma; (Subscript_i &middot; AW_i)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates theoretical formula weight of the reduced empirical unit in g/mol.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Molecular Multiple Factor</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">n_molecular = MW_experimental / FW_emp</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Determines integer multiplier linking empirical formula to true molecular formula.</div>
+          </Formula>
+
+          <h2>Fractional Multiplier Reduction Reference Table</h2>
+
+          <p>
+            When normalized molar ratios produce non-integer decimal values, all elemental ratios must be multiplied by the corresponding integer factor:
+          </p>
+
+          <DataTable
+            head={["Decimal Ratio Ending", "Fractional Equivalent", "Required Multiplier", "Example Preliminary Ratio", "Final Integer Subscripts"]}
+            rows={[
+              [".50", "1/2", "× 2", "Fe 1.00 : O 1.50", "Fe₂O₃ (Iron(III) Oxide)"],
+              [".33 or .67", "1/3 or 2/3", "× 3", "C 1.33 : H 2.67 : O 1.00", "C₄H₈O₃"],
+              [".25 or .75", "1/4 or 3/4", "× 4", "P 1.00 : O 2.50", "P₂O₅ (P₄O₁₀ dimer)"],
+              [".20, .40, .60, .80", "1/5, 2/5, 3/5, 4/5", "× 5", "V 1.00 : O 2.50", "V₂O₅ (Vanadium Pentoxide)"],
+              [".125, .375, .625", "1/8, 3/8, 5/8", "× 8", "Theoretical Complex", "Integer Stoichiometric Grid"],
+            ]}
+          />
+
+
+          <h2>The Dulong-Petit Law & Historical Atomic Weight Verification</h2>
+
+          <p>
+            In the early 19th century, before modern mass spectrometry existed, determining empirical and molecular formulas was hindered by uncertainty in elemental atomic weights. In 1819, French physicists Pierre Louis Dulong and Alexis Th&eacute;r&egrave;se Petit discovered that the molar heat capacity of solid elemental metals is approximately constant across all metallic elements:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">5. Classical Dulong-Petit Heat Capacity Rule</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">c_specific &middot; Atomic Weight &asymp; 3 &middot; R &asymp; 24.94 J / (mol &middot; K)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Allows rapid experimental estimation of an unknown metallic element's atomic weight.</div>
+          </Formula>
+
+          <p>
+            By measuring an unknown metal's specific heat capacity in a calorimeter (c_specific in J/(g&middot;K)), dividing 25 by c_specific yielded an approximate atomic weight. This approximation allowed J&ouml;ns Jacob Berzelius and Stanislao Cannizzaro to resolve ambiguities between equivalent weights and true atomic weights, cementing the stoichiometric foundation of the periodic table. To model thermal calorimeter heat transfers, calculate specific heat values using our <Link href="/calculators/science/specific-heat-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">specific heat calculator</Link> and verify molecular formula masses with the <Link href="/calculators/science/molecular-weight-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molecular weight calculator</Link>.
+          </p>
+
+          <h2>High-Resolution Mass Spectrometry & Isotopic Mass Defect</h2>
+
+          <p>
+            In contemporary natural product chemistry, empirical formulas are validated using High-Resolution Electrospray Ionization Mass Spectrometry (HR-ESI-MS). While low-resolution mass spectrometers report nominal integer masses (e.g., m/z 180 for glucose), high-resolution instruments achieve mass accuracies better than 2 to 5 parts-per-million (ppm), measuring glucose at m/z 180.0634.
+          </p>
+
+          <p>
+            Because nuclear binding energy causes individual isotopes to possess unique nuclear mass defects (¹²C = 12.000000 Da exactly, while ¹H = 1.007825 Da, ¹⁴N = 14.003074 Da, and ¹⁶O = 15.994915 Da), every unique elemental empirical combination possesses a distinct fractional exact mass. Automated heuristic algorithms (such as the Seven Golden Rules of formula generation) filter isotopic peak ratios and mass defects to identify the single unambiguous molecular formula.
+          </p>
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Elemental Characterization of Vitamin C (Ascorbic Acid)</h3>
+          <p>
+            Elemental microanalysis of pure synthesized Vitamin C yields 40.92% Carbon, 4.58% Hydrogen, and 54.50% Oxygen by mass. High-resolution mass spectrometry establishes an experimental molecular weight of 176.12 g/mol.
+          </p>
+          <ul>
+            <li><strong>Elemental Moles per 100 g:</strong>
+              <br />&bull; Carbon: 40.92 g &divide; 12.011 g/mol = 3.407 mol C.
+              <br />&bull; Hydrogen: 4.58 g &divide; 1.008 g/mol = 4.544 mol H.
+              <br />&bull; Oxygen: 54.50 g &divide; 15.999 g/mol = 3.406 mol O.
+            </li>
+            <li><strong>Divide by Smallest (3.406 mol):</strong>
+              <br />&bull; C: 3.407 &divide; 3.406 = 1.000.
+              <br />&bull; H: 4.544 &divide; 3.406 = 1.334 (&asymp; 1 &frac13;).
+              <br />&bull; O: 3.406 &divide; 3.406 = 1.000.
+            </li>
+            <li><strong>Multiply by 3 to Eliminate Fraction:</strong> C₃H₄O₃.</li>
+            <li><strong>Empirical Formula Mass:</strong> (3 &times; 12.011) + (4 &times; 1.008) + (3 &times; 15.999) = 88.06 g/mol.</li>
+            <li><strong>Molecular Multiplier:</strong> n = 176.12 g/mol &divide; 88.06 g/mol = 2.000.</li>
+            <li><strong>True Molecular Formula:</strong> (C₃H₄O₃)&times;2 = C₆H₈O₆.</li>
+          </ul>
+
+          <p>
+            To formulate liquid therapeutic dosages of ascorbic acid at controlled ionic pH, evaluate weak acid ionization using our <Link href="/calculators/science/ph-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pH calculator</Link> and calculate buffer ratios with the <Link href="/calculators/science/buffer-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">buffer calculator</Link>.
+          </p>
+
+          <h3>Case Study B: Combustion Analysis of Hydrocarbon Fuel (Octane)</h3>
+          <p>
+            Combustion analysis of a 10.00-gram sample of a volatile liquid hydrocarbon produces 30.86 grams of carbon dioxide (CO₂) and 14.19 grams of water vapor (H₂O). Experimental gas vapor density indicates a molecular mass of ~114 g/mol.
+          </p>
+          <ul>
+            <li><strong>Carbon Mass:</strong> 30.86 g CO₂ &times; (12.011 / 44.01) = 8.423 g Carbon (84.23% C).</li>
+            <li><strong>Hydrogen Mass:</strong> 14.19 g H₂O &times; (2.016 / 18.015) = 1.588 g Hydrogen (15.88% H).</li>
+            <li><strong>Molar Quantities:</strong> C = 8.423 &divide; 12.011 = 0.7013 mol; H = 1.588 &divide; 1.008 = 1.575 mol.</li>
+            <li><strong>Molar Ratio:</strong> H / C = 1.575 &divide; 0.7013 = 2.246 (&asymp; 2 &frac14; &rarr; 9/4). Multiplying by 4 yields C₄H₉.</li>
+            <li><strong>Empirical Weight:</strong> (4 &times; 12.011) + (9 &times; 1.008) = 57.12 g/mol.</li>
+            <li><strong>Molecular Multiplier:</strong> n = 114.2 &divide; 57.12 = 2.00 &rarr; Molecular Formula: C₈H₁₈ (Octane).</li>
+          </ul>
+
+          <h2>Operational Constraints & Spectroscopic Limitations</h2>
+
+          <p>
+            When deploying empirical formula algorithms in research environments, analytical chemists must account for four operational boundary factors:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Combustion Trapping Incomplete Recovery:</strong> Incomplete combustion forming carbon monoxide (CO) rather than CO₂ causes systematic underestimation of carbon mass, leading to distorted molar ratios unless catalytic copper oxide converters are utilized.
+            </li>
+            <li>
+              <strong>Combustion Analysis Inability to Detect Oxygen Directly:</strong> Oxygen cannot be measured directly in conventional combustion trains because oxygen gas (O₂) is the burning carrier. Oxygen is determined by mass difference (%O = 100% - %C - %H - %N), making it inherit cumulative errors from all other elemental measurements.
+            </li>
+            <li>
+              <strong>Molecular Weight Resolution in Macromolecules:</strong> For large biomolecules and polymers exceeding 10,000 g/mol, dividing experimental molecular weight by small empirical masses produces non-integer fractions due to polydispersity and isotopic mass distribution.
+            </li>
+            <li>
+              <strong>Structural Isomerism Invisibility:</strong> Empirical and molecular formulas provide zero information regarding spatial isomerism. For example, C₂H₆O represents both liquid ethanol (boiling point 78.4 &deg;C) and gaseous dimethyl ether (boiling point -24 &deg;C), requiring NMR or infrared spectroscopy for structural confirmation.
+            </li>
+          </ol>
+
+          <h2>Authoritative International Chemical Standards</h2>
+
+          <p>
+            For certified elemental analysis protocols and atomic weight calibrations, consult international chemical metrology bodies:
+          </p>
+          <ul>
+            <li>
+              <strong>IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW):</strong> Standard Atomic Weights of the Elements reference tables.
+            </li>
+            <li>
+              <strong>NIST Standard Reference Materials (SRM 141d - Acetanilide):</strong> Primary standard micro-analytical reference materials for C, H, N elemental analyzer calibration.
+            </li>
+            <li>
+              <strong>AOAC Official Method 972.43:</strong> Microchemical determination of carbon, hydrogen, and nitrogen in organic compounds.
+            </li>
+            <li>
+              <strong>ASTM E1019-18:</strong> Standard Test Methods for Determination of Carbon, Sulfur, Nitrogen, and Oxygen in Steel, Iron, Nickel, and Cobalt Alloys.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <EmpiricalFormulaCalculatorComponent />
+    </CalcPage>
   );
 }

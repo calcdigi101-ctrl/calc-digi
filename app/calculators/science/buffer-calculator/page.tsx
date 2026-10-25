@@ -1,26 +1,275 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import BufferCalculatorComponent from "@/components/calcs/science/buffer-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BufferTitrationCurveChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/buffer-calculator";
+const TITLE = "Buffer Calculator | Henderson-Hasselbalch pH & Buffer Capacity Solver";
+const DESCRIPTION =
+  "Calculate buffer solution pH, acid-conjugate base molar ratios, and Van Slyke buffer capacity using the Henderson-Hasselbalch equation and weak acid-base dissociation constants.";
 
 export const metadata: Metadata = {
-  "title": "Buffer Calculator | CalcDigi",
-  "description": "Calculate buffer pH using Henderson-Hasselbalch equation. Find acid-base ratio for any target pH with biological buffer pKa values.",
-  "openGraph": {
-    "title": "Buffer Calculator | CalcDigi",
-    "description": "Calculate buffer pH using Henderson-Hasselbalch equation. Find acid-base ratio for any target pH with biological buffer pKa values.",
-    "type": "website",
-    "url": "/calculators/science/buffer-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/buffer-calculator"
-  }
 };
+
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/ph-calculator", icon: "🧪", name: "pH & pOH Calculator" },
+  { href: "/calculators/science/molarity-calculator", icon: "⚗️", name: "Molarity & Dilution" },
+  { href: "/calculators/science/concentration-calculator", icon: "🔬", name: "Solution Concentration" },
+  { href: "/calculators/science/osmolarity-calculator", icon: "💧", name: "Osmolarity & Tonicity" },
+  { href: "/calculators/science/boiling-point-calculator", icon: "🌡️", name: "Boiling Point Elevation" },
+  { href: "/calculators/science/stoichiometry-calculator", icon: "⚖️", name: "Stoichiometry & Reagents" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is a chemical buffer and how does it resist pH changes?",
+    a: "A chemical buffer is an aqueous solution consisting of a mixture of a weak acid and its conjugate base (or a weak base and its conjugate acid). When small amounts of strong acid (H⁺) are introduced, the conjugate base neutralizes them (A⁻ + H⁺ -> HA). Conversely, when strong base (OH⁻) is added, the weak acid donates protons to neutralize the hydroxide (HA + OH⁻ -> A⁻ + H₂O), minimizing shifts in hydronium concentration.",
+  },
+  {
+    q: "What is the Henderson-Hasselbalch equation and when does it apply?",
+    a: "The Henderson-Hasselbalch equation models the equilibrium relationship between solution pH, acid dissociation constant (pKa), and conjugate base-to-acid molar ratio: pH = pKa + log10([A⁻] / [HA]). It applies accurately when weak acid and base concentrations are significantly higher (typically > 0.01 M) than the autoionization of water, and where ionic strength does not cause severe departures from unity activity coefficients.",
+  },
+  {
+    q: "What is buffer capacity (beta) and where is it maximized?",
+    a: "Buffer capacity (&beta;), formalized by Donald Van Slyke, is the quantitative measure of a buffer's resistance to pH change upon the addition of strong acid or base. Mathematically, &beta; = 2.303 &middot; C &middot; (Ka &middot; [H⁺] / (Ka + [H⁺])&sup2;), where C is total buffer concentration. Buffer capacity reaches its absolute maximum when pH equals pKa, corresponding to an equimolar ratio ([A⁻] / [HA] = 1.0).",
+  },
+  {
+    q: "Why is the effective buffering range universally defined as pKa ± 1.0?",
+    a: "When solution pH departs from pKa by &plusmn;1.0 pH unit, the ratio of conjugate base to weak acid shifts from 10:1 (at pH = pKa + 1) to 1:10 (at pH = pKa - 1). Beyond this boundary envelope, more than 91% of the buffer exists in one speciation form, severely depleting the counter-species required to neutralize added acid or base and causing buffer capacity to collapse.",
+  },
+  {
+    q: "How does temperature alter buffer pH in biological research?",
+    a: "Weak acid ionization reactions are temperature-dependent enthalpy processes. For instance, amine-based biological buffers like Tris exhibit a substantial negative temperature coefficient (dpKa/dT &asymp; -0.028 / &deg;C). A Tris buffer calibrated to pH 8.00 at 25 &deg;C will drift to pH 8.28 at 4 &deg;C (cold room chromatography) and drop to pH 7.66 at 37 &deg;C (physiological incubation), necessitating temperature-matched calibration.",
+  },
+  {
+    q: "How does ionic strength influence the actual pH of a buffer solution?",
+    a: "As total dissolved salt concentration rises, ionic interactions shield charged buffer ions, lowering their thermodynamic activity coefficients (&gamma;). Under the Extended Debye-H&uuml;ckel Law, effective pKa drops for polyvalent species like phosphate buffers (H₂PO₄⁻ / HPO₄²⁻), causing measured potentiometric pH to read 0.1 to 0.3 units lower than ideal Henderson-Hasselbalch predictions.",
+  },
+];
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Buffer Calculator\", \"item\": \"https://calcdigi.com/calculators/science/buffer-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Buffer Calculator\", \"url\": \"https://calcdigi.com/calculators/science/buffer-calculator\", \"description\": \"Calculate buffer pH using Henderson-Hasselbalch equation. Find acid-base ratio for any target pH with biological buffer pKa values.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Henderson-Hasselbalch equation?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"pH=pKa+log([A⁻]/[HA]). When [A⁻]=[HA]: pH=pKa. Buffer best at pH=pKa.\"}}, {\"@type\": \"Question\", \"name\": \"Buffer effective range?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"pKa ± 1. For pH 7.4: HEPES (7.48), Tris (8.07), phosphate (7.20).\"}}, {\"@type\": \"Question\", \"name\": \"How does buffer work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"HA neutralizes added OH⁻. A⁻ neutralizes added H⁺. Large reservoir of both resists pH change.\"}}, {\"@type\": \"Question\", \"name\": \"What is PBS?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Phosphate Buffered Saline pH 7.4. Most common cell biology buffer. Mimics physiological ions.\"}}, {\"@type\": \"Question\", \"name\": \"What is pKa?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"pKa=-log(Ka). Smaller pKa=stronger acid. Choose buffer pKa within 1 unit of target pH.\"}}, {\"@type\": \"Question\", \"name\": \"Blood buffer?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Bicarbonate (HCO₃⁻/CO₂, pKa 6.35). Lungs control CO₂; kidneys control HCO₃⁻.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Buffer Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Buffer Calculator</h1>\n<p class=\"calc-intro\">Calculate buffer pH using pH = pKa + log([A⁻]/[HA]) or find the conjugate base to acid ratio for any target pH. Includes pKa values for common biological buffers.</p>\n<p class=\"calc-intro\">Buffers resist pH changes when acid or base is added. Henderson-Hasselbalch relates buffer pH to pKa and the ratio of conjugate base to acid. Blood, cells, and enzyme reactions all require precise buffering.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">pH = pKa + log([A⁻]/[HA]) | [A⁻]/[HA] = 10^(pH-pKa) | Effective range: pKa ± 1</div></div>\n<div class=\"content-section\"><h2>Common Buffer Systems</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Buffer</th><th style=\"padding:10px 12px;text-align:left;\">pKa</th><th style=\"padding:10px 12px;text-align:left;\">Effective Range</th><th style=\"padding:10px 12px;text-align:left;\">Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Acetic acid/Acetate</td><td style=\"padding:9px 12px;\">4.75</td><td style=\"padding:9px 12px;\">pH 3.8-5.8</td><td style=\"padding:9px 12px;\">Food, biochemistry</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Phosphate (pKa₂)</td><td style=\"padding:9px 12px;\">7.20</td><td style=\"padding:9px 12px;\">pH 6.2-8.2</td><td style=\"padding:9px 12px;\">PBS, biology</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">HEPES</td><td style=\"padding:9px 12px;\">7.48</td><td style=\"padding:9px 12px;\">pH 6.8-8.2</td><td style=\"padding:9px 12px;\">Most popular bio buffer</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Tris-HCl</td><td style=\"padding:9px 12px;\">8.07</td><td style=\"padding:9px 12px;\">pH 7.0-9.0</td><td style=\"padding:9px 12px;\">Most common lab buffer</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Bicarbonate</td><td style=\"padding:9px 12px;\">6.35</td><td style=\"padding:9px 12px;\">pH 5.5-8.0</td><td style=\"padding:9px 12px;\">Blood buffer</td></tr></tbody></table></div><h3>How Buffers Work</h3><p>Weak acid (HA) + conjugate base (A⁻). Add H⁺: neutralized by A⁻. Add OH⁻: neutralized by HA. Best at pH=pKa. Effective within pKa ± 1.</p><h3>Blood pH Regulation</h3><p>pH 7.35-7.45. Bicarbonate buffer: lungs adjust CO₂ (fast), kidneys adjust HCO₃⁻ (slow). pH 7.0 causes fatal arrhythmias.</p><h3>Preparing PBS</h3><p>137 mM NaCl, 2.7 mM KCl, 10 mM Na₂HPO₄, 1.8 mM KH₂PO₄, pH 7.4. Most common cell biology buffer.</p></div>\n<div class=\"content-section\"><h2>Buffers in Chemistry and Biology</h2>\n<p>Buffer solutions are indispensable in chemistry and biology. They maintain stable pH in reaction media, protect biological systems from pH swings during metabolism, preserve the integrity of analytical measurements, and enable precise control of chemical reactions. Understanding buffer chemistry — and especially the Henderson-Hasselbalch equation — is essential for any chemist or biologist working with aqueous systems.</p>\n<h3>Buffer Capacity</h3>\n<p>Buffer capacity (β) measures how much acid or base a buffer can absorb before significant pH change. β = dn/dpH where n is moles of acid/base added per liter. Maximum buffer capacity occurs at pH = pKa (equal amounts acid and base). Buffer capacity formula: β = 2.303 × C × Ka[H⁺]/(Ka + [H⁺])². Where C is total buffer concentration. A 1 M buffer has 10× the capacity of a 0.1 M buffer at the same pH. This is why high-capacity buffers are used when large amounts of acid or base will be added.</p>\n<h3>Biological Buffers: HEPES, Tris, PIPES</h3>\n<p>Biological research uses synthetic buffers (Good buffers, developed by Norman Good in 1966) because many classical buffers interfere with biology. MES (pKa 6.15): cell cultures at acidic pH. PIPES (pKa 6.76): intermediate pH applications. HEPES (pKa 7.48): most widely used biological buffer, does not penetrate cell membranes, minimal metal binding. Tris (pKa 8.07): very common in molecular biology (DNA electrophoresis buffers, protein gels). Bicarbonate (pKa 6.35): physiological buffer in CO₂ incubators — 5% CO₂ atmosphere maintains pH 7.4 in bicarbonate-buffered media.</p>\n<h3>Buffer in Pharmaceutical Formulations</h3>\n<p>Drug stability and efficacy often depend critically on pH. Aspirin (pKa 3.5) is fully ionized (negatively charged) at blood pH 7.4, preventing it from re-crossing cell membranes — important for its pharmacokinetics. Insulin is most stable at pH 4 (acid formulations) but is injected and distributed at blood pH 7.4. Many drugs are formulated as their conjugate acid or base (hydrochloride or sodium salt) to improve solubility. Injectable drugs must be formulated within narrow pH ranges (pH 3-9) to avoid pain and tissue damage at injection sites.</p></div>\n<div class=\"content-section\"><h3>Input Guidelines</h3>\n<p>All numeric inputs accept decimal values. Use standard scientific notation where needed (e.g., 1.8e-5 for 1.8×10⁻⁵). Select the correct unit from any dropdown menus before calculating — unit mismatches are the most common source of calculation errors. The Reset button clears results so you can start a new calculation without refreshing the page.</p>\n<h3>Copy and Share Results</h3>\n<p>Use the Copy button to copy your complete results to the clipboard for pasting into lab reports, homework, or notes. The Share button generates a link to this calculator that you can send to classmates or colleagues. All calculations run locally in your browser — no data is sent to any server, ensuring privacy for sensitive research calculations.</p>\n</div>\n<div class=\"content-section\"><h2>Buffer Chemistry – Henderson-Hasselbalch Equation and Biological Buffers</h2>\n<p>A buffer solution is a mixture of a weak acid and its conjugate base (or a weak base and its conjugate acid) that resists changes in pH when small amounts of strong acid or base are added. The Henderson-Hasselbalch equation pH = pKa + log([A⁻]/[HA]) quantitatively describes the relationship between buffer pH, the acid dissociation constant (pKa), and the relative concentrations of conjugate base [A⁻] and weak acid [HA]. This equation is among the most practically useful in all of chemistry and biochemistry.</p>\n<p>Buffers are essential wherever stable pH is required: biological systems (blood, cell culture media, enzyme reactions), analytical chemistry (standardizing instruments, preserving sample pH), pharmaceutical formulations (drug stability depends on pH), food preservation, and industrial processes from electroplating to fermentation.</p>\n<h3>How Buffers Work – Mechanism</h3>\n<p>A buffer containing weak acid HA and conjugate base A⁻ resists pH changes by two complementary reactions. When strong acid (H⁺) is added: H⁺ + A⁻ → HA. The conjugate base consumes the added acid, preventing H⁺ accumulation and pH drop. When strong base (OH⁻) is added: OH⁻ + HA → A⁻ + H₂O. The weak acid neutralizes the added base, preventing OH⁻ accumulation and pH rise. The reservoir of both HA and A⁻ provides buffering capacity. Buffer capacity (β) is highest at pH = pKa (equal concentrations of acid and base) and increases with total buffer concentration.</p>\n<h3>Deriving the Henderson-Hasselbalch Equation</h3>\n<p>Starting from the Ka expression for weak acid dissociation HA ⇌ H⁺ + A⁻: Ka = [H⁺][A⁻]/[HA]. Rearranging: [H⁺] = Ka × [HA]/[A⁻]. Taking -log of both sides: -log[H⁺] = -log(Ka) - log([HA]/[A⁻]). Therefore: pH = pKa + log([A⁻]/[HA]). When [A⁻] = [HA] (equal concentrations): log(1) = 0, so pH = pKa. This is why buffers work best at pH = pKa — they contain equal amounts of acid and base, maximizing buffering capacity in both directions. Effective range: pKa ± 1 (within this range, [A⁻]/[HA] ratio stays between 0.1 and 10).</p>\n<h3>Preparing Biological Buffers – Protocol</h3>\n<p>To prepare 1 L of 50 mM phosphate buffer pH 7.4 using Na₂HPO₄ (pKa₂ = 7.20) and NaH₂PO₄: Apply Henderson-Hasselbalch: 7.4 = 7.20 + log([HPO₄²⁻]/[H₂PO₄⁻]). log ratio = 0.20. Ratio = 10^0.20 = 1.585. Total = 1.585 + 1 = 2.585 parts. HPO₄²⁻ = 50 mM × 1.585/2.585 = 30.67 mM: dissolve 30.67 mmol × 141.96 g/mol = 4.352 g Na₂HPO₄ in 800 mL water. H₂PO₄⁻ = 50 - 30.67 = 19.33 mM: add 19.33 mmol × 119.98 g/mol = 2.319 g NaH₂PO₄. Dilute to 1 L. Verify pH with calibrated electrode. Adjust with 1M NaOH or HCl if needed. Always verify pH with electrode — the Henderson-Hasselbalch equation gives a starting point, but temperature and activity effects may require small adjustments.</p>\n<h3>Blood Buffering – The Bicarbonate System</h3>\n<p>Blood pH is maintained at 7.35-7.45 by three buffer systems: (1) Bicarbonate/CO₂ buffer (most important, fastest): CO₂ + H₂O ⇌ H₂CO₃ ⇌ H⁺ + HCO₃⁻. pKa = 6.10. Normal blood: [HCO₃⁻] = 24 mEq/L, [H₂CO₃] = 1.2 mEq/L (determined by dissolved CO₂). pH = 6.10 + log(24/1.2) = 6.10 + 1.30 = 7.40. Lungs control [CO₂] (fast, seconds-to-minutes response). Kidneys control [HCO₃⁻] (slow, hours-to-days). (2) Hemoglobin buffer: deoxyhemoglobin is a better base than oxyhemoglobin — tissue CO₂ is buffered as hemoglobin releases O₂. (3) Phosphate buffer: intracellular pH buffering (pKa₂ = 7.20, ideal for intracellular pH ~7.2).</p>\n<h3>Buffer Capacity Calculations</h3>\n<p>Buffer capacity β = d[base added]/dpH (differential moles of base per pH unit change). For the Henderson-Hasselbalch buffer: β = 2.303 × C × Ka[H⁺]/(Ka + [H⁺])², where C = total buffer concentration. Maximum capacity at pH = pKa: β_max = 2.303 × C/4 = 0.576 × C. A 0.1 M acetate buffer at pH 4.74 has β_max = 0.576 × 0.1 = 0.0576 mol/(L·pH unit). Adding 0.05 mol/L strong acid changes pH by 0.05/0.0576 ≈ 0.87 pH units. Doubling buffer concentration doubles capacity. This is why concentrated buffers (0.1-0.5 M) are used when large amounts of acid or base will be added (cell culture maintaining pH while cells produce acidic metabolites).</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Henderson-Hasselbalch equation? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">pH=pKa+log([A⁻]/[HA]). When [A⁻]=[HA]: pH=pKa. Buffer best at pH=pKa.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Buffer effective range? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">pKa ± 1. For pH 7.4: HEPES (7.48), Tris (8.07), phosphate (7.20).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does buffer work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">HA neutralizes added OH⁻. A⁻ neutralizes added H⁺. Large reservoir of both resists pH change.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is PBS? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Phosphate Buffered Saline pH 7.4. Most common cell biology buffer. Mimics physiological ions.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is pKa? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">pKa=-log(Ka). Smaller pKa=stronger acid. Choose buffer pKa within 1 unit of target pH.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Blood buffer? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Bicarbonate (HCO₃⁻/CO₂, pKa 6.35). Lungs control CO₂; kidneys control HCO₃⁻.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Buffer Calculator – Henderson-Hasselbalch pH Calculation</h2><div class=\"form-group\"><label for=\"bufs\">Calculate</label><select id=\"bufs\"><option selected=\"\" value=\"pH\">pH from concentrations</option><option value=\"ratio\">[A⁻]/[HA] for target pH</option></select></div><div class=\"form-group\"><label for=\"bufpKa\">pKa of weak acid</label><input id=\"bufpKa\" max=\"14\" min=\"0\" step=\"any\" type=\"number\" value=\"7.20\"/></div><div class=\"form-group\"><label for=\"bufA\">[A⁻] Conjugate Base (mol/L)</label><input id=\"bufA\" min=\"0\" step=\"any\" type=\"number\" value=\"0.1\"/></div><div class=\"form-group\"><label for=\"bufHA\">[HA] Weak Acid (mol/L)</label><input id=\"bufHA\" min=\"0\" step=\"any\" type=\"number\" value=\"0.05\"/></div><div class=\"form-group\"><label for=\"bufpH\">Target pH</label><input id=\"bufpH\" max=\"14\" min=\"0\" step=\"any\" type=\"number\" value=\"7.4\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Buffer Calculator – Henderson-Hasselbalch pH Calculation')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Buffer Calculator – Henderson-Hasselbalch pH Calculation')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-buffer-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('bufs').addEventListener('change',function(){\n  var p=this.value==='pH';\n  document.getElementById('bufA').parentElement.style.display=p?'block':'none';\n  document.getElementById('bufHA').parentElement.style.display=p?'block':'none';\n  document.getElementById('bufpH').parentElement.style.display=!p?'block':'none';\n});\nfunction doCalc(){\n  var s=document.getElementById('bufs').value,pKa=parseFloat(document.getElementById('bufpKa').value)||0;\n  if(!pKa){alert('Enter pKa.');return;}\n  var result,rows='';\n  if(s==='pH'){\n    var A=parseFloat(document.getElementById('bufA').value)||0,HA=parseFloat(document.getElementById('bufHA').value)||0;\n    if(!A||!HA){alert('Enter [A⁻] and [HA].');return;}\n    result=pKa+Math.log10(A/HA);\n    var inR=Math.abs(result-pKa)<=1;\n    rows=ri('[A⁻]/[HA]',(A/HA).toFixed(3))+ri('Effective Range','pH '+(pKa-1).toFixed(2)+' – '+(pKa+1).toFixed(2))+ri('Buffer OK?',inR?'✅ Within pKa±1':'⚠️ Outside range');\n  } else {\n    var tpH=parseFloat(document.getElementById('bufpH').value)||0;\n    if(!tpH){alert('Enter target pH.');return;}\n    result=Math.pow(10,tpH-pKa);\n    var inR=Math.abs(tpH-pKa)<=1;\n    rows=ri('% as Base',(result/(1+result)*100).toFixed(1)+'%')+ri('% as Acid',(1/(1+result)*100).toFixed(1)+'%')+ri('Effective?',inR?'✅ Yes':'⚠️ Choose different buffer');\n  }\n  var aiPrompt='Buffer pH='+(s==='pH'?result.toFixed(3):document.getElementById('bufpH').value)+', pKa='+pKa;\n  document.getElementById('sc-ri').innerHTML=ri(s==='pH'?'Buffer pH':'[A⁻]/[HA] Ratio','<strong style=\"font-size:26px;color:var(--c-accent)\">'+result.toFixed(4)+'</strong>',true)+rows;\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  var ratio=s==='pH'?(parseFloat(document.getElementById('bufA').value)||1)/(parseFloat(document.getElementById('bufHA').value)||1):result;\n  drawDonut('sc-chart',['Base [A⁻]','Acid [HA]'],[Math.round(ratio*1000)||1,1000],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this buffer chemistry and pH control.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      title="Buffer Solution & Henderson-Hasselbalch Calculator"
+      intro="Calculate weak acid and conjugate base buffer pH, molar speciation ratios, and Van Slyke buffer capacity across biochemical and analytical buffer systems using thermodynamic ionization constants."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IUPAC & CLSI Biochemical Buffer Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Thermodynamic Acid-Base Equilibrium</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What is the Henderson-Hasselbalch equation and how is buffer pH calculated?
+                </strong>
+                <p className="mt-1">
+                  Buffer solution equilibrium pH is calculated using the Henderson-Hasselbalch formulation: pH = pKa + log10([A⁻] / [HA]), where pKa is the negative logarithm of the weak acid dissociation constant, [A⁻] is conjugate base molarity, and [HA] is undissociated weak acid molarity. When base and acid concentrations are equimolar ([A⁻] = [HA]), the logarithmic term evaluates to zero and solution pH exactly equals pKa. To verify unbuffered acid-base solutions, audit hydronium ions with our <Link href="/calculators/science/ph-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pH calculator</Link>, prepare stock solutions using the <Link href="/calculators/science/molarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molarity calculator</Link>, or evaluate physiological fluid osmolarity with our <Link href="/calculators/science/osmolarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">osmolarity calculator</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Acid-Base Titration Curvature & Van Slyke Buffer Capacity</h2>
+          <div className="not-prose my-6">
+            <BufferTitrationCurveChart />
+          </div>
+
+          <p>
+            Chemical buffers are essential to cellular homeostasis, pharmaceutical formulation, and industrial enzymatic catalysis. In biological systems, enzymes and metabolic pathways function only within tightly regulated narrow pH corridors. For instance, human blood plasma is buffered strictly between pH 7.35 and 7.45 by the carbonic acid-bicarbonate buffer system; deviations outside 6.8 to 7.8 are lethal. Quantitative mastery of buffer equilibrium allows biochemists and analytical chemists to formulate solutions that withstand chemical perturbations.
+          </p>
+
+          <p>
+            The resistance of a buffer against strong acid or base additions is quantified by the Van Slyke buffer index (&beta;). Buffer capacity peaks when the acid and conjugate base are present in identical concentrations, creating a broad plateau on the titration curve. When performing complex stoichiometric additions during buffer preparation, verify reactant mass requirements using our <Link href="/calculators/science/stoichiometry-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">stoichiometry calculator</Link> and calculate mass concentrations via the <Link href="/calculators/science/concentration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concentration calculator</Link>.
+          </p>
+
+          <h2>Henderson-Hasselbalch Formulations & Mathematical Principles</h2>
+
+          <p>
+            The derivation of buffer equilibrium begins with the mass action expression for weak acid ionization: HA &hArr; H⁺ + A⁻. Taking the negative logarithm of both sides yields the classical Henderson-Hasselbalch relationship:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Henderson-Hasselbalch Buffer Formulation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">pH = pKa + log10([A⁻] / [HA])</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Connects equilibrium pH directly to thermodynamic pKa and conjugate base-to-acid molarity ratio.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Van Slyke Buffer Capacity Index (&beta;)</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">&beta; = 2.303 &middot; C &middot; [(Ka &middot; [H⁺]) / (Ka + [H⁺])&sup2;]</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies buffer resistance in moles of strong acid/base required per liter to shift pH by 1.0 unit.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Conjugate Acid-Base Mass Balance Relation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">C_total = [HA] + [A⁻]   |   [HA] = C_total / (1 + 10^(pH - pKa))</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates precise concentration fractions of weak acid and conjugate base required for target pH.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Hydronium & Hydroxide Speciation Products</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">[H⁺] = 10^(-pH)   |   pOH = 14.00 - pH   |   [OH⁻] = 10^(-pOH)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Converts logarithmic pH values into absolute aqueous molar ionic concentrations at 25 °C.</div>
+          </Formula>
+
+          <h2>Standard Biological & Chemical Buffer Reference Standards</h2>
+
+          <p>
+            Selecting an effective buffer system requires aligning the target experimental pH with a weak acid possessing an identical or proximal pKa value (&plusmn;1.0 pH unit):
+          </p>
+
+          <DataTable
+            head={["Buffer System", "Acid Component", "Base Component", "pKa (25°C)", "Useful pH Range", "dpKa/dT (/°C)"]}
+            rows={[
+              ["Formate Buffer", "Formic Acid (HCOOH)", "Sodium Formate (HCOONa)", "3.75", "2.8 - 4.8", "+0.000"],
+              ["Acetate Buffer", "Acetic Acid (CH₃COOH)", "Sodium Acetate (CH₃COONa)", "4.76", "3.8 - 5.8", "+0.000"],
+              ["Carbonic Acid", "Carbonic Acid (H₂CO₃)", "Bicarbonate (NaHCO₃)", "6.35", "5.4 - 7.4", "-0.009"],
+              ["Phosphate (PBS)", "Dihydrogen Phosphate (H₂PO₄⁻)", "Hydrogen Phosphate (HPO₄²⁻)", "7.20", "6.2 - 8.2", "-0.003"],
+              ["HEPES Biological", "HEPES Free Acid", "HEPES Sodium Salt", "7.50", "6.8 - 8.2", "-0.014"],
+              ["Tris Buffer", "Tris-HCl Acid", "Tris Free Base", "8.06", "7.0 - 9.0", "-0.028"],
+              ["Ammonium Buffer", "Ammonium Ion (NH₄⁺)", "Ammonia Solution (NH₃)", "9.25", "8.3 - 10.3", "-0.031"],
+            ]}
+          />
+
+
+          <h2>Zwitterionic Good's Buffers in Biological & Cellular Research</h2>
+
+          <p>
+            In 1966, biochemist Norman Good and colleagues synthesized a series of 12 zwitterionic N-substituted aminosulfonic acid buffers (including HEPES, PIPES, MES, and MOPS) specifically engineered for biological research. Traditional inorganic buffers (such as phosphate and borate) suffer from severe biochemical drawbacks: phosphate precipitates essential polyvalent cations (such as Ca²⁺ and Mg²⁺), inhibits metabolic kinases, and permeates biological membranes, causing artifactual cell shrinkage.
+          </p>
+
+          <p>
+            In contrast, Good's buffers exhibit minimal cellular membrane permeability, negligible toxic heavy metal complexation, exceptional chemical stability, and complete optical transparency in the ultraviolet spectrum (240 to 280 nm), preventing optical interference during spectrophotometric DNA and protein quantification. When preparing physiological culture media, determine buffer molar concentrations using our <Link href="/calculators/science/molarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molarity calculator</Link> and audit total dissolved osmoles with our <Link href="/calculators/science/osmolarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">osmolarity calculator</Link>.
+          </p>
+
+          <h2>Thermodynamic Temperature Drift (dpKa/dT) in Cryo-Biochemistry</h2>
+
+          <p>
+            Weak acid dissociation is an endothermic enthalpy process described by the van &apos;t Hoff isobar: d(ln Ka) / dT = &Delta;H&deg; / (R&middot;T&sup2;). Consequently, buffer pKa values and operating solution pH drift substantially with temperature changes:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">5. Temperature-Corrected Buffer pKa Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">pKa(T₂) = pKa(T₁) + (dpKa / dT) &middot; (T₂ - T₁)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Corrects buffer dissociation constants across biological incubation and cold-room temperatures.</div>
+          </Formula>
+
+          <p>
+             For unbuffered acid solutions, model baseline hydronium ion activity with our <Link href="/calculators/science/ph-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pH calculator</Link> and calculate thermal energy transfer during temperature adjustments using the <Link href="/calculators/science/specific-heat-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">specific heat calculator</Link>.
+          </p>
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Formulating 1.0 Liter of 0.10 M Phosphate Buffer at pH 7.40</h3>
+          <p>
+            A molecular biology laboratory requires 1.00 Liter of physiological phosphate-buffered saline (PBS) at pH 7.40 with total phosphate concentration C = 0.100 M at 25 &deg;C. The second dissociation constant of phosphoric acid is pKa = 7.20.
+          </p>
+          <ul>
+            <li><strong>Base-to-Acid Ratio:</strong> pH - pKa = 7.40 - 7.20 = +0.20 &rarr; [HPO₄²⁻] / [H₂PO₄⁻] = 10^(0.20) = 1.585.</li>
+            <li><strong>Fractional Speciation:</strong> Base fraction = 1.585 / (1 + 1.585) = 0.613 (61.3%); Acid fraction = 38.7%.</li>
+            <li><strong>Target Molarities:</strong> [HPO₄²⁻] = 0.0613 M; [H₂PO₄⁻] = 0.0387 M.</li>
+            <li><strong>Reagent Masses for 1.0 L:</strong> Na₂HPO₄ (molar mass 141.96 g/mol) = 0.0613 &times; 141.96 = 8.70 grams; NaH₂PO₄ (119.98 g/mol) = 0.0387 &times; 119.98 = 4.64 grams.</li>
+            <li><strong>Calculated Buffer Capacity:</strong> &beta; = 2.303 &times; 0.100 &times; [10^(-7.20) &times; 10^(-7.40) / (10^(-7.20) + 10^(-7.40))&sup2;] = 0.0546 mol/(L&middot;pH).</li>
+          </ul>
+
+          <p>
+            To verify solution density or thermal boiling characteristics of this saline buffer, consult our <Link href="/calculators/science/density-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">density calculator</Link> and calculate colligative shifts using the <Link href="/calculators/science/boiling-point-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">boiling point calculator</Link>.
+          </p>
+
+          <h3>Case Study B: Blood Carbonic Acid-Bicarbonate Respiratory Regulation</h3>
+          <p>
+            In human physiology, arterial blood maintains normal pH 7.40 using carbonic acid (H₂CO₃, pKa = 6.35) and bicarbonate (HCO₃⁻). Average dissolved arterial H₂CO₃ is 1.20 mM (0.00120 M).
+          </p>
+          <ul>
+            <li><strong>Required Ratio:</strong> log10([HCO₃⁻] / [H₂CO₃]) = 7.40 - 6.35 = 1.05 &rarr; Ratio = 10^(1.05) = 11.22 : 1.</li>
+            <li><strong>Bicarbonate Concentration:</strong> [HCO₃⁻] = 1.20 mM &times; 11.22 = 13.46 mM (or ~24 mEq/L when accounting for dissolved gaseous CO₂ equilibrium).</li>
+            <li><strong>Acidosis Clinical Shift:</strong> If hypoventilation elevates dissolved carbonic acid to 2.40 mM, pH shifts: pH = 6.35 + log10(13.46 / 2.40) = 7.10 (severe respiratory acidosis).</li>
+          </ul>
+
+          <h2>Operational Constraints & Environmental Boundary Conditions</h2>
+
+          <p>
+            When utilizing Henderson-Hasselbalch models in analytical and industrial chemistry, four critical limitations must be factored into experimental designs:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Activity Coefficient Deviations at High Ionic Strength:</strong> In concentrated solutions (&gt; 0.1 M), electrostatic screening lowers ion activity. Thermodynamic equilibrium depends on chemical activity a = &gamma;&middot;C. For polyvalent buffers like phosphate, ignoring activity coefficients produces deviations up to 0.25 pH units.
+            </li>
+            <li>
+              <strong>Dilution-Induced pH Drift:</strong> While ideal Henderson-Hasselbalch equations indicate pH is independent of volume, real-world dilution alters activity coefficients and water autoionization contributions, shifting pH slightly upon extensive water addition.
+            </li>
+            <li>
+              <strong>Atmospheric Carbon Dioxide Absorption:</strong> Basic buffers exposed to air absorb gaseous carbon dioxide: CO₂ + H₂O &hArr; H₂CO₃, gradually acidifying unsealed Tris and ammonium buffers over days.
+            </li>
+            <li>
+              <strong>Polyprotic Overlapping Ionizations:</strong> For polyprotic acids with closely spaced pKa values (such as citric acid: pKa₁ = 3.13, pKa₂ = 4.76, pKa₃ = 6.40), multiple overlapping ionization equilibria operate concurrently, requiring simultaneous polynomial equilibrium solving.
+            </li>
+          </ol>
+
+          <h2>Authoritative International Standards & Metrology</h2>
+
+          <p>
+            For certified laboratory buffer preparation and pH meter standardization, consult international chemical metrology standards:
+          </p>
+          <ul>
+            <li>
+              <strong>IUPAC Recommendations (Pure Appl. Chem., Vol. 74, 2002):</strong> Measurement of pH. Definition, standards, and procedures for primary buffer calibration.
+            </li>
+            <li>
+              <strong>NIST Standard Reference Materials (SRM 185i - 189c):</strong> Certified primary standard buffer salts (potassium hydrogen phthalate, phosphate, borax) for electrode calibration.
+            </li>
+            <li>
+              <strong>Clinical and Laboratory Standards Institute (CLSI C46-A2):</strong> Blood Gas and pH Analysis and Related Measurements in clinical laboratory diagnostics.
+            </li>
+            <li>
+              <strong>European Pharmacopoeia (Ph. Eur. 2.2.3):</strong> Potentiometric determination of pH in pharmaceutical drug formulations.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <BufferCalculatorComponent />
+    </CalcPage>
   );
 }

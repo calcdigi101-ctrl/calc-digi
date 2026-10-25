@@ -1,26 +1,253 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import StoichiometryCalculatorComponent from "@/components/calcs/science/stoichiometry-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { StoichiometricMoleRatioChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/stoichiometry-calculator";
+const TITLE = "Stoichiometry Calculator | Limiting Reagent & Mole Ratio Solver";
+const DESCRIPTION =
+  "Calculate balanced chemical equation stoichiometry, mole ratios, limiting reactants, theoretical product yields, and unreacted excess reagents.";
 
 export const metadata: Metadata = {
-  "title": "Stoichiometry Calculator – Moles & Grams | CalcDigi",
-  "description": "Calculate moles and grams of products from reactants using mole ratios. Find theoretical yield and limiting reagent.",
-  "openGraph": {
-    "title": "Stoichiometry Calculator – Moles & Grams | CalcDigi",
-    "description": "Calculate moles and grams of products from reactants using mole ratios. Find theoretical yield and limiting reagent.",
-    "type": "website",
-    "url": "/calculators/science/stoichiometry-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/stoichiometry-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/percent-yield-calculator", icon: "📈", name: "Percent Yield" },
+  { href: "/calculators/science/molecular-weight-calculator", icon: "⚛️", name: "Molecular Weight" },
+  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity Dilution" },
+  { href: "/calculators/science/ideal-gas-law-calculator", icon: "🎈", name: "Ideal Gas Law" },
+];
+
+export default function StoichiometryCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Stoichiometry Calculator\", \"item\": \"https://calcdigi.com/calculators/science/stoichiometry-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Stoichiometry Calculator\", \"url\": \"https://calcdigi.com/calculators/science/stoichiometry-calculator\", \"description\": \"Calculate moles and grams of products from reactants using mole ratios. Find theoretical yield and limiting reagent.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is stoichiometry?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Uses balanced equations for quantitative relationships. 2H₂+O₂→2H₂O: 2 mol H₂ + 1 mol O₂ → 2 mol H₂O.\"}}, {\"@type\": \"Question\", \"name\": \"How to find limiting reagent?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide moles by stoichiometric coefficient. Smallest = limiting. 3 mol H₂ and 2 mol O₂: H₂=3/2=1.5, O₂=2/1=2. H₂ is limiting.\"}}, {\"@type\": \"Question\", \"name\": \"Grams to moles?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"mol = mass/MM. 50g NaCl (58.44): 50/58.44=0.856 mol.\"}}, {\"@type\": \"Question\", \"name\": \"Theoretical yield?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"mol LR × mole ratio × MM product. Denominator of percent yield.\"}}, {\"@type\": \"Question\", \"name\": \"How do mole ratios work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"From balanced coefficients. N₂+3H₂→2NH₃: 6 mol H₂ → 6×(2/3)=4 mol NH₃.\"}}, {\"@type\": \"Question\", \"name\": \"What is the mole?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"6.022×10²³ particles. Mass = molar mass in grams. Bridges atomic to lab scale.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Stoichiometry Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Stoichiometry Calculator</h1>\n<p class=\"calc-intro\">Calculate product mass from reactant mass using balanced equation mole ratios. Convert grams to moles, apply stoichiometric coefficients, and determine theoretical yield for any chemical reaction.</p>\n<p class=\"calc-intro\">Stoichiometry uses balanced equations to calculate quantitative relationships. The mole ratio from balanced coefficients is the bridge between any reactant and any product in a chemical reaction.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">mol₁ = mass / MM₁ | mol₂ = mol₁ × (coeff₂/coeff₁) | mass₂ = mol₂ × MM₂</div></div>\n<div class=\"content-section\"><h2>Stoichiometry Steps</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Step</th><th style=\"padding:10px 12px;text-align:left;\">Action</th><th style=\"padding:10px 12px;text-align:left;\">Example</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Step 1</td><td style=\"padding:9px 12px;\">Write balanced equation</td><td style=\"padding:9px 12px;\">2H₂ + O₂ → 2H₂O</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Step 2</td><td style=\"padding:9px 12px;\">Grams → Moles</td><td style=\"padding:9px 12px;\">4g H₂ ÷ 2.016 = 1.984 mol</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Step 3</td><td style=\"padding:9px 12px;\">Apply mole ratio</td><td style=\"padding:9px 12px;\">1.984 × (2/2) = 1.984 mol H₂O</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Step 4</td><td style=\"padding:9px 12px;\">Moles → Grams</td><td style=\"padding:9px 12px;\">1.984 × 18.015 = 35.73g H₂O</td></tr></tbody></table></div><h3>Finding Limiting Reagent</h3><p>Divide moles of each reactant by its stoichiometric coefficient. Smallest quotient = limiting reagent. Base theoretical yield on limiting reagent only.</p><h3>Common Reaction Types</h3><p>Combustion: CₓHᵧ + O₂ → CO₂ + H₂O. Synthesis: A+B→AB. Decomposition: AB→A+B. Acid-base: HA+BOH→BA+H₂O. Always balance first!</p></div>\n<div class=\"content-section\"><h2>Stoichiometry in Chemistry</h2>\n<p>Stoichiometry is the heart of quantitative chemistry — the mathematical framework connecting reactant amounts to product amounts through balanced chemical equations. Every analytical measurement, every synthesis calculation, every industrial process design depends on stoichiometric reasoning. Mastering mole ratios and molar mass conversions unlocks the ability to predict and control chemical transformations quantitatively.</p>\n<h3>Balancing Chemical Equations</h3>\n<p>A balanced equation must have equal numbers of each element on both sides (conservation of mass) and equal charge (conservation of charge). Methods: inspection (trial and error), algebraic method (set up simultaneous equations), and for redox reactions: half-reaction method. Practice equation: combustion of ethane: C₂H₆ + O₂ → CO₂ + H₂O. Balanced: 2C₂H₆ + 7O₂ → 4CO₂ + 6H₂O. Coefficients 2:7:4:6 give the mole ratios for stoichiometric calculations.</p>\n<h3>Stoichiometry in Titrations</h3>\n<p>Acid-base titrations use stoichiometry to determine unknown concentrations. A standard NaOH solution is added to HCl until neutralization: HCl + NaOH → NaCl + H₂O (1:1 mole ratio). At equivalence point: moles NaOH added = moles HCl. 25.00 mL of HCl titrated by 22.50 mL of 0.1000 M NaOH: moles NaOH = 0.02250 × 0.1000 = 0.002250 mol = moles HCl. [HCl] = 0.002250/0.02500 = 0.09000 M. Stoichiometry makes precise concentration determination possible from simple volume measurements.</p>\n<h3>Stoichiometry in Industrial Chemistry</h3>\n<p>The Haber-Bosch process (N₂ + 3H₂ → 2NH₃) feeds the world — approximately 50% of nitrogen in human bodies comes from Haber process ammonia via fertilizers. Stoichiometry shows: 1 mole N₂ requires exactly 3 moles H₂. Industrial plants maintain a 1:3 N₂:H₂ feed ratio and recycle unreacted gas. World production: ~180 million tons NH₃/year, requiring ~540 million tons H₂ stoichiometrically. The Contact process (2SO₂ + O₂ → 2SO₃, then SO₃ + H₂O → H₂SO₄) produces ~250 million tons H₂SO₄/year — the most produced industrial chemical globally.</p></div>\n<div class=\"content-section\"><h2>Stoichiometry – Mole Ratios, Limiting Reagent and Theoretical Yield</h2>\n<p>Stoichiometry is the quantitative relationship between reactants and products in a chemical reaction, based on the balanced chemical equation. The coefficients in a balanced equation represent the exact mole ratios in which substances react and are produced. These mole ratios are the conversion factors that allow calculation of how much product forms from given reactant amounts, or how much reactant is needed to produce a desired product quantity.</p>\n<p>Stoichiometry is the mathematical backbone of all quantitative chemistry — used in every chemical analysis, synthesis calculation, industrial process design, and pharmaceutical manufacturing operation. Mastering the systematic mole-based approach to stoichiometry problems unlocks the ability to predict and control chemical reactions quantitatively.</p>\n<h3>Identifying the Limiting Reagent</h3>\n<p>The limiting reagent is the reactant that is completely consumed first and determines the maximum amount of product that can form. To identify it: (1) Calculate moles of each reactant. (2) For each reactant, divide moles by its stoichiometric coefficient. (3) The reactant with the smallest result is the limiting reagent. Example: 3 mol H₂ and 2 mol N₂ react: N₂ + 3H₂ → 2NH₃. H₂: 3/3 = 1.000. N₂: 2/1 = 2.000. H₂ is limiting (smallest quotient). Maximum product = (3/3) × 2 = 2.000 mol NH₃ = 34.06 g. Excess N₂ remaining = 2.000 - (3/3) × 1 = 2.000 - 1.000 = 1.000 mol N₂ unreacted.</p>\n<h3>Gas Stoichiometry at Standard Conditions</h3>\n<p>When gases are involved at STP (0°C, 1 atm), the molar volume (22.414 L/mol) provides additional conversion. CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(l). How many liters of CO₂ at STP from 16.04 g CH₄? Moles CH₄ = 16.04/16.04 = 1.000 mol. Moles CO₂ = 1.000 × (1/1) = 1.000 mol. Volume CO₂ = 1.000 × 22.414 = 22.41 L. For gases at non-STP conditions, use PV = nRT: n = PV/RT, then apply mole ratios, then convert back to volume if needed.</p>\n<h3>Solution Stoichiometry and Titrations</h3>\n<p>When reactions occur in solution, use moles = M × V (L) to find reactant moles. Acid-base titration: HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l). A 25.00 mL sample of HCl is neutralized by 22.50 mL of 0.1000 M NaOH. Moles NaOH = 0.02250 L × 0.1000 mol/L = 0.002250 mol = moles HCl (1:1 ratio). [HCl] = 0.002250/0.02500 = 0.09000 M. Precipitation reaction: Pb(NO₃)₂(aq) + 2KI(aq) → PbI₂(s) + 2KNO₃(aq). From 50.0 mL of 0.100 M Pb(NO₃)₂: moles Pb²⁺ = 0.0500 × 0.100 = 0.00500 mol. Moles PbI₂ = 0.00500 mol. Mass PbI₂ = 0.00500 × 461.01 = 2.305 g theoretical yield.</p>\n<h3>Industrial Stoichiometry – The Haber-Bosch Process</h3>\n<p>The Haber-Bosch synthesis of ammonia feeds the world: N₂(g) + 3H₂(g) ⇌ 2NH₃(g). World production: ~180 million tons NH₃/year (2022). Stoichiometry: 1 ton N₂ reacts with 3 × (2/28.02) = 0.214 tons H₂ to produce 2 × (17.03/28.02) = 1.215 tons NH₃ theoretical. Industrial conditions: 150-300 atm, 400-500°C, iron catalyst. Only 15-25% conversion per pass at these conditions (Le Chatelier — high temperature favors reverse reaction, necessary for adequate rate). Continuous recycling of unreacted N₂ and H₂ achieves near-complete overall utilization. About 50% of nitrogen in human bodies comes from Haber-Bosch ammonia, mediated through agricultural fertilizers.</p>\n<h3>Stoichiometry in Biochemistry</h3>\n<p>Cellular respiration: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ~30 ATP. Theoretical maximum ATP from 1 mol glucose: ~30 mol ATP (actual cellular efficiency ~40%). The stoichiometry determines oxygen consumption: 1 mol glucose requires 6 mol O₂ = 6 × 32 = 192 g O₂. Photosynthesis reversal: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂. These complementary stoichiometries drive the global carbon and oxygen cycles. DNA replication stoichiometry: to replicate a human genome (3 billion base pairs), each cell requires 3 billion of each of the 4 dNTP building blocks — production and supply of these nucleotides is tightly regulated by cellular enzymes.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is stoichiometry? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Uses balanced equations for quantitative relationships. 2H₂+O₂→2H₂O: 2 mol H₂ + 1 mol O₂ → 2 mol H₂O.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to find limiting reagent? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide moles by stoichiometric coefficient. Smallest = limiting. 3 mol H₂ and 2 mol O₂: H₂=3/2=1.5, O₂=2/1=2. H₂ is limiting.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Grams to moles? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">mol = mass/MM. 50g NaCl (58.44): 50/58.44=0.856 mol.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Theoretical yield? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">mol LR × mole ratio × MM product. Denominator of percent yield.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do mole ratios work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">From balanced coefficients. N₂+3H₂→2NH₃: 6 mol H₂ → 6×(2/3)=4 mol NH₃.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the mole? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">6.022×10²³ particles. Mass = molar mass in grams. Bridges atomic to lab scale.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Stoichiometry Calculator – Moles, Grams and Mole Ratios</h2><div class=\"form-group\"><label for=\"stm\">Mass of Reactant (g)</label><input id=\"stm\" min=\"0\" step=\"any\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"stmm1\">Molar Mass of Reactant (g/mol)</label><input id=\"stmm1\" min=\"0\" step=\"any\" type=\"number\" value=\"2.016\"/></div><div class=\"form-group\"><label for=\"stc1\">Coefficient of Reactant</label><input id=\"stc1\" min=\"1\" step=\"1\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"stc2\">Coefficient of Product</label><input id=\"stc2\" min=\"1\" step=\"1\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"stmm2\">Molar Mass of Product (g/mol)</label><input id=\"stmm2\" min=\"0\" step=\"any\" type=\"number\" value=\"18.015\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Stoichiometry Calculator – Moles, Grams and Mole Ratios')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Stoichiometry Calculator – Moles, Grams and Mole Ratios')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-stoichiometry-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var m=parseFloat(document.getElementById('stm').value)||0,mm1=parseFloat(document.getElementById('stmm1').value)||0;\n  var c1=parseFloat(document.getElementById('stc1').value)||1,c2=parseFloat(document.getElementById('stc2').value)||1;\n  var mm2=parseFloat(document.getElementById('stmm2').value)||0;\n  if(!m||!mm1||!mm2){alert('Enter all values.');return;}\n  var mol1=m/mm1,mol2=mol1*(c2/c1),mass2=mol2*mm2;\n  var aiPrompt='Stoichiometry: '+m+'g reactant → '+mass2.toFixed(3)+'g product via '+c1+':'+c2+' ratio';\n  document.getElementById('sc-ri').innerHTML=\n    ri('Product Mass','<strong style=\"font-size:24px;color:var(--c-accent)\">'+mass2.toFixed(3)+' g</strong>',true)+\n    ri('Moles of Reactant',mol1.toFixed(4)+' mol')+ri('Mole Ratio',c1+':'+c2)+ri('Moles of Product',mol2.toFixed(4)+' mol');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',['Reactant (g)','Product (g)'],[Math.round(m*10),Math.round(mass2*10)],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this stoichiometry and chemical reactions.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      title="Stoichiometry Calculator"
+      intro="Comprehensive analytical solver for laboratory, clinical, and industrial chemical calculations."
+      description="Compute stoichiometric mole ratios, theoretical product yields, limiting reactants, and excess reagent leftovers. Balance chemical equations across synthesis, combustion, precipitation, and decomposition reactions with full gravimetric mass conservation."
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Stoichiometry is Calculated</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Chemical stoichiometry relies on the conservation of mass and integer mole ratios defined by balanced chemical equations. To find the theoretical yield, convert initial reactant masses to moles using molar masses (n = m / MW), divide each molar quantity by its stoichiometric coefficient to identify the limiting reagent, and multiply the limiting moles by the product mole ratio and molar mass. Any remaining unreacted reactant represents excess reagent. Determine reactant molar masses with the <Link href="/calculators/science/molecular-weight-calculator">molecular weight calculator</Link> and compare experimental outputs using the <Link href="/calculators/science/percent-yield-calculator">chemical percent yield calculator</Link>.
+            </p>
+          </div>
+
+          <h2>Theoretical Product Yield vs Unreacted Excess Reagent Balance (g)</h2>
+          <p>
+            When chemical reactions depart from exact stoichiometric equivalence, the limiting reagent is completely consumed, capping the maximum achievable product yield. The non-limiting reagent remains partially unreacted in the final reaction mixture.
+          </p>
+
+          <StoichiometricMoleRatioChart />
+
+          <h2>First-Principles Stoichiometric Derivations & Limiting Reactant Law</h2>
+          <p>
+            Stoichiometry derives from Lavoisier &apos;s law of conservation of mass and Proust &apos;s law of definite proportions. For a generalized chemical transformation:
+          </p>
+          <Formula>
+            {"a \cdot \text{A} + b \cdot \text{B} \longrightarrow c \cdot \text{C} + d \cdot \text{D}"}
+          </Formula>
+          <p>
+            The stoichiometric mole ratio between any two substances is governed by their stoichiometric coefficients:
+          </p>
+          <Formula>
+            {"\frac{n_{\text{A}}}{a} = \frac{n_{\text{B}}}{b} = \frac{n_{\text{C}}}{c} = \frac{n_{\text{D}}}{d}"}
+          </Formula>
+          <p>
+            To identify the limiting reactant from initial masses (m_A and m_B), calculate the stoichiometric reaction quotients:
+          </p>
+          <Formula>
+            {"Q_{\text{stoich, A}} = \frac{m_{\text{A}} / MW_{\text{A}}}{a}, \quad Q_{\text{stoich, B}} = \frac{m_{\text{B}} / MW_{\text{B}}}{b}"}
+          </Formula>
+          <p>
+            The substance with the smaller quotient is the limiting reagent (R_lim). The theoretical product yield of C is then calculated directly from R_lim:
+          </p>
+          <Formula>
+            {"m_{\text{C, theoretical}} = \left( \frac{n_{\text{lim}}}{a_{\text{lim}}} \right) \cdot c \cdot MW_{\text{C}}"}
+          </Formula>
+          <p>
+            The excess reagent consumed during reaction is n_excess,consumed = (n_lim / a_lim) · b, leaving an unreacted mass of:
+          </p>
+          <Formula>
+            {"m_{\text{excess, remaining}} = \left( n_{\text{excess, initial}} - n_{\text{excess, consumed}} \right) \cdot MW_{\text{excess}}"}
+          </Formula>
+          <p>
+            When liquid solutions are utilized, chemists determine initial moles using the <Link href="/calculators/science/molarity-calculator">solution molarity tool</Link> and calculate gaseous reactant volumes via the <Link href="/calculators/science/ideal-gas-law-calculator">ideal gas law solver</Link>.
+          </p>
+
+          <h2>Standard Stoichiometric Benchmarks & Industrial Chemical Equations</h2>
+          <p>
+            The table below illustrates balanced reaction equations, mole ratios, and theoretical mass yields per 100 grams of primary limiting feed across foundational industrial and laboratory chemical processes.
+          </p>
+
+          <DataTable
+            head={["Industrial Process", "Balanced Chemical Equation", "Mole Ratio (A : B : Product)", "Primary Reagent (100 g)", "Theoretical Yield"]}
+            rows={[
+              ["Haber-Bosch Ammonia", "N₂ + 3 H₂ → 2 NH₃", "1 : 3 : 2", "100 g N₂ (limiting)", "121.6 g NH₃"],
+              ["Contact Process Sulfuric", "2 SO₂ + O₂ → 2 SO₃", "2 : 1 : 2", "100 g SO₂ (limiting)", "125.0 g SO₃"],
+              ["Water Synthesis Combustion", "2 H₂ + O₂ → 2 H₂O", "2 : 1 : 2", "100 g H₂ (limiting)", "893.6 g H₂O"],
+              ["Methane Complete Combustion", "CH₄ + 2 O₂ → CO₂ + 2 H₂O", "1 : 2 : 1", "100 g CH₄ (limiting)", "274.3 g CO₂"],
+              ["Lime Kiln Calcination", "CaCO₃ → CaO + CO₂", "1 : 0 : 1", "100 g CaCO₃", "56.0 g CaO"],
+              ["Aluminum Smelting Reduction", "2 Al₂O₃ + 3 C → 4 Al + 3 CO₂", "2 : 3 : 4", "100 g Al₂O₃", "52.9 g Al metal"],
+            ]}
+          />
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Haber-Bosch Ammonia Synthesis Limiting Reagent Balance</h3>
+          <p>
+            An industrial chemical reactor is charged with 50.0 kg of nitrogen gas (N₂, MW = 28.014 g/mol) and 12.0 kg of hydrogen gas (H₂, MW = 2.016 g/mol) to synthesize anhydrous ammonia (NH₃, MW = 17.031 g/mol) according to the balanced equation: N₂ + 3 H₂ → 2 NH₃.
+          </p>
+          <ol>
+            <li>
+              <strong>Convert initial feeds to molar quantities:</strong>
+              <br />
+              Moles of N₂ = 50,000 g / 28.014 g/mol = 1,784.8 mol.
+              <br />
+              Moles of H₂ = 12,000 g / 2.016 g/mol = 5,952.4 mol.
+            </li>
+            <li>
+              <strong>Evaluate stoichiometric limiting ratios:</strong>
+              <br />
+              N₂ quotient = 1,784.8 / 1 = 1,784.8.
+              <br />
+              H₂ quotient = 5,952.4 / 3 = 1,984.1.
+              <br />
+              Nitrogen (N₂) has the lower quotient (1,784.8 &lt; 1,984.1) and is the strictly limiting reagent.
+            </li>
+            <li>
+              <strong>Calculate theoretical maximum ammonia yield:</strong>
+              <br />
+              Theoretical NH₃ moles = 1,784.8 mol × 2 = 3,569.6 mol.
+              <br />
+              Theoretical NH₃ mass = 3,569.6 mol × 17.031 g/mol = 60,793.9 g (60.79 kg).
+            </li>
+            <li>
+              <strong>Determine unreacted excess hydrogen gas remaining:</strong>
+              <br />
+              H₂ consumed = 1,784.8 mol × 3 = 5,354.4 mol.
+              <br />
+              H₂ unreacted = 5,952.4 mol - 5,354.4 mol = 598.0 mol.
+              <br />
+              Unreacted H₂ mass = 598.0 mol × 2.016 g/mol = 1,205.6 g (1.21 kg remaining). Verify gas volumes with the <Link href="/calculators/science/ideal-gas-law-calculator">ideal gas law solver</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Aqueous Precipitation of Insoluble Barium Sulfate</h3>
+          <p>
+            An analytical environmental chemist mixes 500.0 mL of 0.200 M barium chloride (BaCl₂, MW = 208.23 g/mol) with 300.0 mL of 0.400 M sodium sulfate (Na₂SO₄, MW = 142.04 g/mol) to precipitate barium sulfate (BaSO₄, MW = 233.39 g/mol): BaCl₂(aq) + Na₂SO₄(aq) → BaSO₄(s) + 2 NaCl(aq).
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate moles of dissolved reactants:</strong>
+              <br />
+              Moles of Ba²⁺ = 0.500 L × 0.200 mol/L = 0.1000 mol.
+              <br />
+              Moles of SO₄²⁻ = 0.300 L × 0.400 mol/L = 0.1200 mol.
+            </li>
+            <li>
+              <strong>Identify limiting reactant and precipitate mass:</strong>
+              <br />
+              Stoichiometric ratio is 1:1. Barium chloride is limiting (0.1000 mol available).
+              <br />
+              Theoretical BaSO₄ precipitated = 0.1000 mol × 233.39 g/mol = 23.34 g.
+            </li>
+            <li>
+              <strong>Evaluate residual excess sulfate ion in supernatant:</strong>
+              <br />
+              Unprecipitated SO₄²⁻ = 0.1200 mol - 0.1000 mol = 0.0200 mol.
+              <br />
+              Total solution volume = 500 mL + 300 mL = 0.800 L.
+              <br />
+              Residual [SO₄²⁻] concentration = 0.0200 mol / 0.800 L = 0.0250 M. Convert residual concentrations via the <Link href="/calculators/science/concentration-calculator">solution concentration tool</Link>.
+            </li>
+          </ol>
+
+          <h2>Operational Constraints & Non-Stoichiometric Realities</h2>
+          <ol>
+            <li>
+              <strong>Chemical Reversibility and Dynamic Equilibrium:</strong> Stoichiometric calculations assume irreversible, 100% unidirectional forward reaction completion. In closed equilibrium systems (such as esterification or nitrogen fixation), the reaction reaches thermodynamic equilibrium governed by the equilibrium constant K_eq, leaving both reactants and products coexisting regardless of reagent ratios.
+            </li>
+            <li>
+              <strong>Side Reactions and Byproduct Formation:</strong> Real chemical reactions rarely proceed via a single isolated pathway. Competitive parallel reactions (such as over-alkylation in Friedel-Crafts chemistry or carbon monoxide formation during incomplete combustion) consume limiting reagent atoms into side products, reducing actual target yields evaluated via the <Link href="/calculators/science/percent-yield-calculator">percent yield tool</Link>.
+            </li>
+            <li>
+              <strong>Non-Stoichiometric Berthollide Compounds:</strong> While Dalton &apos;s law of definite proportions strictly governs molecular organic compounds and simple salts, many solid-state transition metal oxides and semiconductors (such as wüstite Fe₁₋ₓO or titanium dioxide TiO₂₋ₓ) exhibit non-integer stoichiometric crystal lattice defect vacancies.
+            </li>
+          </ol>
+
+          <h2>Industrial Reactor Feed Control & Stoichiometric Automation</h2>
+          <p>
+            In modern chemical process engineering and petrochemical refineries, distributed control systems (DCS) continuously adjust reactant mass flow meters to maintain exact stoichiometric feed ratios. Automated feed control prevents hazardous accumulation of unreacted pyrophoric or toxic reagents in downstream separation units.
+          </p>
+          <Formula>
+            {"\dot{m}_{\text{B, setpoint}} = \dot{m}_{\text{A, measured}} \cdot \left( \frac{b}{a} \right) \cdot \left( \frac{MW_{\text{B}}}{MW_{\text{A}}} \right) \cdot \left( \frac{1}{\text{Purity}_{\text{B}}} \right)"}
+          </Formula>
+          <p>
+            Coriolis mass flow meters measure instantaneous mass flow rates and fluid densities directly, eliminating temperature-induced volumetric expansion errors. Process engineers integrate continuous stoichiometric flow algorithms with <Link href="/calculators/science/density-calculator">fluid density meters</Link>, model reaction exotherm cooling demands through the <Link href="/calculators/science/specific-heat-calculator">specific heat calorimetry tool</Link>, and monitor effluent pH neutralization via the <Link href="/calculators/science/ph-calculator">pH and chemical equilibrium calculator</Link>.
+          </p>
+          <p>
+            In automated battery electrode slurry manufacturing, stoichiometric lithium-to-transition-metal precursor ratios (Li : Ni : Mn : Co) dictate electrochemical capacity and cycle lifetime. Inline X-ray fluorescence (XRF) analyzers measure atomic mole ratios in real time, auto-adjusting peristaltic dispensing pumps to eliminate excess lithium carbonate residues that cause severe gas evolution and battery swelling.
+          </p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why cannot you determine the limiting reactant simply by looking at initial masses?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Reactants react on a molecule-by-molecule (mole-by-mole) basis, not on a gram-by-gram basis. A reactant with a lower initial mass might actually contain vastly more moles if it possesses a very low molecular weight (such as hydrogen gas at 2 g/mol versus bromine liquid at 160 g/mol). Limiting reactants can only be identified by dividing molar quantities by balanced stoichiometric coefficients.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">What is a stoichiometric feed versus an excess reagent feed?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                A stoichiometric feed introduces reactants in exact integer molar proportions matching the balanced equation, theoretically leaving zero leftover reactants. In practice, industrial processes deliberately introduce one cheap, abundant reagent (such as atmospheric oxygen or steam) in large excess to drive an expensive limiting reagent toward 100% conversion via Le Chatelier &apos;s principle.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does stoichiometry apply to gas reactions?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                According to Avogadro &apos;s law, equal volumes of gases at the same temperature and pressure contain equal numbers of moles. Therefore, for purely gaseous reactions under identical conditions, the integer mole ratios directly equal volumetric ratios (Gay-Lussac &apos;s law of combining volumes). For example, 2 liters of H₂ react with exactly 1 liter of O₂ to produce 2 liters of steam. Verify gas parameters using the <Link href="/calculators/science/ideal-gas-law-calculator">ideal gas law calculator</Link>.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative International Standards & Stoichiometric Metrology</h2>
+          <p>
+            For standardized IUPAC chemical nomenclature, stoichiometric definitions, and primary reference materials, consult:
+          </p>
+          <ul>
+            <li>
+              <strong>IUPAC Gold Book (Compendium of Chemical Terminology):</strong> Quantities, Units and Symbols in Physical Chemistry (The Green Book).
+            </li>
+            <li>
+              <strong>National Institute of Standards and Technology (NIST SRM 351):</strong> Certified Chemical Titrimetric and Stoichiometric Standards.
+            </li>
+            <li>
+              <strong>BIPM SI Brochure (9th Edition):</strong> Definition of the Mole and Avogadro Constant (N_A = 6.02214076 × 10²³ mol⁻¹).
+            </li>
+            <li>
+              <strong>ISO 80000-9:</strong> Quantities and Units — Physical Chemistry and Molecular Physics.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <StoichiometryCalculatorComponent />
+    </CalcPage>
   );
 }
