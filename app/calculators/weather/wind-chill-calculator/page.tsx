@@ -1,26 +1,206 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import WindChillCalculatorComponent from "@/components/calcs/weather/wind-chill-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { WindChillEquivalentTemperatureFrostbiteChart } from "@/components/flagship/weather/editorial-charts";
+
+const PATH = "/calculators/weather/wind-chill-calculator";
+const TITLE = "Wind Chill Calculator | NOAA JAG/TI Cold Stress & Frostbite Risk";
+const DESCRIPTION =
+  "Calculate the official NOAA Wind Chill Index, equivalent feels-like temperature, convective skin cooling rate in W/m², and exposed skin frostbite times.";
 
 export const metadata: Metadata = {
-  "title": "Wind Chill Calculator – Feels Like Temperature | CalcDigi",
-  "description": "Calculate feels-like temperature in cold weather from temperature and wind speed. Find frostbite risk time and cold safety tips.",
-  "openGraph": {
-    "title": "Wind Chill Calculator – Feels Like Temperature | CalcDigi",
-    "description": "Calculate feels-like temperature in cold weather from temperature and wind speed. Find frostbite risk time and cold safety tips.",
-    "type": "website",
-    "url": "/calculators/weather/wind-chill-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/weather/wind-chill-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/weather/heat-index-calculator", icon: "☀️", name: "Heat Index Calculator" },
+  { href: "/calculators/weather/snowfall-calculator", icon: "❄️", name: "Snowfall Calculator" },
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌡️", name: "Dew Point Calculator" },
+  { href: "/calculators/weather/humidity-calculator", icon: "💧", name: "Humidity Calculator" },
+  { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
+  { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚛️", name: "Kinetic Energy" },
+];
+
+export default function WindChillCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Weather Calculators\", \"item\": \"https://calcdigi.com/pages/weather\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Wind Chill Calculator\", \"item\": \"https://calcdigi.com/calculators/weather/wind-chill-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Wind Chill Calculator\", \"url\": \"https://calcdigi.com/calculators/weather/wind-chill-calculator\", \"description\": \"Calculate feels-like temperature in cold weather from temperature and wind speed. Find frostbite risk time and cold safety tips.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is wind chill?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Wind chill is the perceived air temperature felt by humans due to the combined effect of actual air temperature and wind speed. Wind removes the thin insulating layer of warm air near the skin, causing the body to lose heat faster. A 10°F day with 20 mph winds feels like -9°F — a 19-degree difference.\"}}, {\"@type\": \"Question\", \"name\": \"How is wind chill calculated?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The NWS wind chill formula (2001): Wind Chill (°F) = 35.74 + 0.6215T - 35.75V^0.16 + 0.4275T × V^0.16, where T = air temperature (°F) and V = wind speed (mph). For Celsius: Wind Chill (°C) = 13.12 + 0.6215T - 11.37V^0.16 + 0.3965T × V^0.16 where V is in km/h.\"}}, {\"@type\": \"Question\", \"name\": \"At what wind chill does frostbite occur?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Frostbite can occur at wind chills below -19°F (-28°C) within 30 minutes on exposed skin. At -38°F (-39°C) wind chill: frostbite in 10 minutes. At -54°F (-48°C) wind chill: frostbite in 5 minutes. At -65°F (-54°C) wind chill: frostbite in under 2 minutes. Cover all exposed skin at these temperatures.\"}}, {\"@type\": \"Question\", \"name\": \"Does wind chill affect car engines or pipes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. Wind chill is a measure of heat loss from living bodies, not inanimate objects. A car engine, water pipe, or outdoor equipment will cool only to the actual air temperature — not the wind chill temperature. However, wind increases cooling speed, so your car will reach -10°F faster on a windy night than a calm night.\"}}, {\"@type\": \"Question\", \"name\": \"What is hypothermia and when does it occur?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Hypothermia occurs when core body temperature drops below 95°F (35°C). It can occur at temperatures well above freezing when wind and moisture are factors. Symptoms: shivering, confusion, slurred speech, loss of coordination. At wind chills below -20°F, hypothermia risk is significant even with proper clothing if exposed for extended periods.\"}}, {\"@type\": \"Question\", \"name\": \"What wind speed makes cold weather dangerous?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Even moderate winds significantly increase cold danger. At 15 mph, the cooling effect is already substantial. At 30 mph, wind chill is near its maximum for a given temperature (wind chill increases less dramatically above 40-50 mph than people expect). The difference between 20 mph and 50 mph wind is less significant than between 0 and 20 mph.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/weather\">Weather</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Wind Chill Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Wind Chill Calculator</h1>\n<p class=\"calc-intro\">Calculate the wind chill temperature — how cold it actually feels with wind — from air temperature and wind speed. Find your frostbite risk time and get cold weather safety recommendations.</p>\n<p class=\"calc-intro\">Wind removes the thin layer of warm air surrounding your skin, dramatically increasing heat loss from your body. A temperature of 20°F (-7°C) with 30 mph winds feels like -5°F (-21°C) — cold enough to cause frostbite in under 30 minutes. Wind chill is critical for outdoor safety in winter conditions.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Wind Chill (°F) = 35.74 + 0.6215T - 35.75V^0.16 + 0.4275T × V^0.16 | T = Temperature °F, V = Wind Speed mph</div></div>\n<div class=\"content-section\">\n<h2>Wind Chill Danger Levels</h2>\n<p>Wind chill represents the rate of heat loss from exposed human skin caused by wind and cold. It does not affect inanimate objects — a car will not get colder than the actual air temperature due to wind. However, your body loses heat much faster in windy conditions, increasing frostbite and hypothermia risk dramatically.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Wind Chill</th><th style=\"padding:11px 14px;text-align:left;\">Risk Level</th><th style=\"padding:11px 14px;text-align:left;\">Frostbite Time</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Above -19°F (-28°C)</td><td style=\"padding:10px 14px;\">Low Risk</td><td style=\"padding:10px 14px;\">Frostbite in 30+ minutes of exposure</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">−19 to −37°F (−28 to −38°C)</td><td style=\"padding:10px 14px;\">High Risk</td><td style=\"padding:10px 14px;\">Frostbite in 10-30 minutes</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">−38 to −54°F (−39 to −48°C)</td><td style=\"padding:10px 14px;\">Very High Risk</td><td style=\"padding:10px 14px;\">Frostbite in 5-10 minutes</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Below −54°F (−48°C)</td><td style=\"padding:10px 14px;\">Extreme Risk</td><td style=\"padding:10px 14px;\">Frostbite in 2-5 minutes</td></tr></tbody></table></div>\n<h3>Frostbite Warning Signs</h3>\n<p>Frostbite occurs when skin and underlying tissue freeze. Warning signs progress: Frostnip (redness, numbness, tingling) → Superficial frostbite (skin appears white or grayish-yellow, feels hard and waxy) → Deep frostbite (skin is hard, cold, blistering). Areas most vulnerable: fingers, toes, nose, ears, cheeks. Cover all exposed skin in dangerous wind chill conditions.</p>\n<h3>Layering for Cold Weather Protection</h3>\n<p>Three-layer system: Base layer (moisture-wicking synthetic or merino wool — never cotton, which retains moisture), middle layer (fleece or down insulation for warmth), outer shell (windproof and waterproof). Cover extremities: wool or synthetic socks, insulated waterproof boots, gloves or mittens (mittens are warmer), and a hat covering ears. 40-60% of body heat is lost through the head and neck.</p>\n<h3>Wind Chill vs Actual Temperature</h3>\n<p>The 2001 NWS wind chill formula replaced the original 1945 Siple-Passel formula for better accuracy. It is based on a model of the rate of heat loss from a human face in wind. The formula only applies when temperature is at or below 50°F (10°C) and wind speed is above 3 mph (5 km/h). Calm conditions (under 3 mph) show no wind chill effect.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is wind chill? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Wind chill is the perceived air temperature felt by humans due to the combined effect of actual air temperature and wind speed. Wind removes the thin insulating layer of warm air near the skin, causing the body to lose heat faster. A 10°F day with 20 mph winds feels like -9°F — a 19-degree difference.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is wind chill calculated? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The NWS wind chill formula (2001): Wind Chill (°F) = 35.74 + 0.6215T - 35.75V^0.16 + 0.4275T × V^0.16, where T = air temperature (°F) and V = wind speed (mph). For Celsius: Wind Chill (°C) = 13.12 + 0.6215T - 11.37V^0.16 + 0.3965T × V^0.16 where V is in km/h.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">At what wind chill does frostbite occur? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Frostbite can occur at wind chills below -19°F (-28°C) within 30 minutes on exposed skin. At -38°F (-39°C) wind chill: frostbite in 10 minutes. At -54°F (-48°C) wind chill: frostbite in 5 minutes. At -65°F (-54°C) wind chill: frostbite in under 2 minutes. Cover all exposed skin at these temperatures.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does wind chill affect car engines or pipes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. Wind chill is a measure of heat loss from living bodies, not inanimate objects. A car engine, water pipe, or outdoor equipment will cool only to the actual air temperature — not the wind chill temperature. However, wind increases cooling speed, so your car will reach -10°F faster on a windy night than a calm night.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is hypothermia and when does it occur? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Hypothermia occurs when core body temperature drops below 95°F (35°C). It can occur at temperatures well above freezing when wind and moisture are factors. Symptoms: shivering, confusion, slurred speech, loss of coordination. At wind chills below -20°F, hypothermia risk is significant even with proper clothing if exposed for extended periods.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What wind speed makes cold weather dangerous? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Even moderate winds significantly increase cold danger. At 15 mph, the cooling effect is already substantial. At 30 mph, wind chill is near its maximum for a given temperature (wind chill increases less dramatically above 40-50 mph than people expect). The difference between 20 mph and 50 mph wind is less significant than between 0 and 20 mph.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Weather Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/weather/heat-index-calculator\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Heat Index Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/humidity-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Humidity Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/rainfall-calculator\"><span class=\"rc-icon\">🌧️</span><span class=\"rc-name\">Rainfall Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Wind Chill Calculator – Feels Like Cold Temperature and Frostbite Risk</h2><div class=\"form-group\"><label for=\"wc-unit\">Unit System</label><select id=\"wc-unit\"><option selected=\"\" value=\"f\">Fahrenheit / MPH</option><option value=\"c\">Celsius / km/h</option></select></div><div class=\"form-group\"><label for=\"wc-temp\">Air Temperature</label><input id=\"wc-temp\" max=\"50\" min=\"-100\" step=\"0.1\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"wc-wind\">Wind Speed</label><input id=\"wc-wind\" max=\"200\" min=\"3\" step=\"1\" type=\"number\" value=\"15\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('wx-result').style.display='none';document.getElementById('wx-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"wx-result\" style=\"display:none;\"><div id=\"wx-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"wx-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"wx-ai\" style=\"display:none;\"></div></div>\n<div id=\"wx-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-wx\" onclick=\"printResult('wx-result','Wind Chill Calculator – Feels Like Cold Temperature and Frostbite Risk')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Wind Chill Calculator – Feels Like Cold Temperature and Frostbite Risk')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-wind-chill-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var unit=document.getElementById('wc-unit').value;\n  var T=parseFloat(document.getElementById('wc-temp').value);\n  var V=parseFloat(document.getElementById('wc-wind').value);\n  if(isNaN(T)||isNaN(V)||V<3){alert('Please enter valid values. Wind speed must be at least 3 mph/km/h.');return;}\n  var WC,WCother;\n  if(unit==='f'){\n    if(T>50){alert('Wind chill only applies below 50°F (10°C).');return;}\n    WC=35.74+0.6215*T-35.75*Math.pow(V,0.16)+0.4275*T*Math.pow(V,0.16);\n    WCother=(WC-32)*5/9;\n  } else {\n    if(T>10){alert('Wind chill only applies below 10°C (50°F).');return;}\n    WC=13.12+0.6215*T-11.37*Math.pow(V,0.16)+0.3965*T*Math.pow(V,0.16);\n    WCother=WC*9/5+32;\n  }\n  var WCF=unit==='f'?WC:WCother;\n  var risk=WCF>-19?'Low Risk':WCF>-37?'High Risk — Frostbite in 10-30 min':WCF>-54?'Very High — Frostbite in 5-10 min':'Extreme — Frostbite in 2-5 min';\n  var color=WCF>-19?'#3a7abf':WCF>-37?'#c8832a':WCF>-54?'#c0392b':'#7b241c';\n  var display=WC.toFixed(1)+(unit==='f'?'°F':'°C');\n  var aiPrompt='Wind chill: '+display+' (actual: '+T+(unit==='f'?'°F':'°C')+', wind: '+V+(unit==='f'?' mph':' km/h')+'), risk: '+risk;\n  document.getElementById('wx-ri').innerHTML=\n    ri('Wind Chill (Feels Like)','<strong style=\"font-size:24px;color:'+color+'\">'+display+'</strong>',true)+\n    ri('Risk Level','<span style=\"color:'+color+'\">'+risk+'</span>')+\n    ri('Actual Temperature',T+(unit==='f'?'°F':'°C'))+\n    ri('Wind Speed',V+(unit==='f'?' mph':' km/h'))+\n    ri('Wind Chill (°F)',WCF.toFixed(1)+'°F')+\n    ri('Wind Chill (°C)',(unit==='f'?WCother:WC).toFixed(1)+'°C');\n  document.getElementById('wx-result').style.display='block';document.getElementById('wx-actions').style.display='flex';\n  drawDonut('wx-chart',['Wind Chill','Actual'],[Math.abs(Math.round(WCF))||1,Math.abs(Math.round(unit==='f'?T:WCother))||1],['#3a7abf','#1a5c3a']);\n  var ai=document.getElementById('wx-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical safety or comfort tip about cold weather safety and frostbite prevention.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/weather", label: "Weather & Nature" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Cold Stress Quick Summary:</strong> The National Oceanic and Atmospheric Administration (NOAA) Wind Chill Temperature Index measures the rate of heat loss from exposed human skin caused by combined cold temperatures and aerodynamic wind velocity. In still, calm air, the human body warms a microscopic boundary layer of insulating air adjacent to the skin surface. Sustained winds continually strip this warm boundary layer away, dramatically accelerating convective heat loss and lowering skin temperature toward the ambient air temperature. While wind chill cannot cool an inanimate object below the actual thermometer reading, it dictates how rapidly human living tissue cools toward freezing. Cross-checking cold stress with our <Link href="/calculators/weather/snowfall-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">snowfall calculator</Link> reveals that at a wind chill of -25°F, exposed facial skin can develop severe frostbite in under 15 minutes.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            NOAA Wind Chill Apparent Temperatures & Convective Heat Scouring
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Wind chill is calibrated exclusively for temperatures at or below 50°F (10°C) and wind speeds exceeding 3.0 mph (4.8 km/h). In contrast to summer heat waves analyzed in our <Link href="/calculators/weather/heat-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">heat index calculator</Link> where moisture traps metabolic heat, winter wind velocity strips heat away with aggressive force. When commuting or traveling during severe winter storms alongside our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link>, wind chill warnings dictate emergency survival gear requirements.
+          </p>
+
+          <WindChillEquivalentTemperatureFrostbiteChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The progression curves above illustrate how wind speed accelerates convective cooling across five ambient cold baselines (30°F, 15°F, 0°F, -15°F, and -30°F). Notice that the steepest cooling rate occurs between 5 mph and 25 mph; as wind speeds advance beyond 35 mph, the convective heat loss curve levels off because the insulating boundary layer is already completely dismantled. At an ambient temperature of -15°F, a 25 mph wind drives the apparent wind chill down to -44°F, a critical threshold where exposed fingers, ears, and noses succumb to deep tissue frostbite in less than 10 minutes. In dry winter air evaluated in our <Link href="/calculators/weather/humidity-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">humidity calculator</Link>, this rapid heat loss is accompanied by rapid evaporative skin cracking.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivation of the NOAA JAG/TI Wind Chill Formula
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 2001, the Joint Action Group for Temperature Indices (JAG/TI)—a consortium of United States and Canadian atmospheric scientists and biometeorologists—established the modern Wind Chill Temperature Index formula based on human clinical wind tunnel trials:
+          </p>
+
+          <Formula>
+            {"\text{WCI} = 35.74 + 0.6215 \cdot T - 35.75 \cdot (V^{0.16}) + 0.4275 \cdot T \cdot (V^{0.16}) \quad (^\circ\text{F})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"T"}</Formula> is ambient air temperature in degrees Fahrenheit (<Formula>{"T \le 50^\circ\text{F}"}</Formula>) and <Formula>{"V"}</Formula> is wind velocity in miles per hour measured at standard 10-meter (33-foot) anemometer height (<Formula>{"V \ge 3.0\text{ mph}"}</Formula>). In the International System of Units (metric Celsius and km/h), the standardized formula is:
+          </p>
+
+          <Formula>
+            {"\text{WCI}_{\text{metric}} = 13.12 + 0.6215 \cdot T_C - 11.37 \cdot (V_{kmh}^{0.16}) + 0.3965 \cdot T_C \cdot (V_{kmh}^{0.16}) \quad (^\circ\text{C})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The power exponent of 0.16 reflects empirical turbulent boundary layer heat transfer around a human facial geometry. Convective facial heat flux <Formula>{"Q_{conv}"}</Formula> in Watts per square meter is modeled by:
+          </p>
+
+          <Formula>
+            {"Q_{conv} = h_c \cdot (T_{skin} - T_{ambient}) = \left( 10.45 + 10\sqrt{V_{m/s}} - V_{m/s} \right) \times (33.0 - T_C) \quad (\text{W/m}^2)"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"T_{skin}"}</Formula> is assumed to be 33.0°C (91.4°F) for comfortable baseline facial tissue. Outdoor winter sports enthusiasts monitoring solar radiation can verify UV reflections off snowpack with our <Link href="/calculators/weather/uv-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">UV index calculator</Link> and monitor atmospheric saturation with our <Link href="/calculators/weather/dew-point-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">dew point calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frostbite Exposure Thresholds & NOAA Warning Benchmark Table
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below itemizes the NOAA Wind Chill Warning criteria alongside clinical exposed skin frostbite times under varying wind speeds:
+          </p>
+
+          <DataTable
+            head={["Wind Chill Range (°F / °C)", "NOAA Alert Level", "Time to Facial Frostbite", "Physiological Clinical Impact", "Mandatory Cold Weather Protective Gear"]}
+            rows={[
+              ["32°F to 16°F (0°C to -9°C)", "Cold Caution", "Frostbite unlikely in under 2 hours", "Shivering initiates; peripheral vasoconstriction", "Standard winter coat, gloves, and insulated knit hat"],
+              ["15°F to -15°F (-10°C to -26°C)", "Wind Chill Advisory", "Frostbite possible in 30 minutes", "Numbness in fingers and toes; reduced dexterity", "Thermal base layer + fleece + windproof shell + insulated mittens"],
+              ["-16°F to -35°F (-27°C to -37°C)", "Wind Chill Warning", "Frostbite likely in 10 to 15 minutes", "Superficial frostbite (frostnip); white waxy skin patches", "Full windproof parka + balaclava face mask + goggles"],
+              ["-36°F to -60°F (-38°C to -51°C)", "Extreme Cold Warning", "Frostbite occurs in 5 minutes", "Deep tissue freezing; severe hypothermia risk within 30 min", "Expedition down suit + chemical hand warmers + face coverage"],
+              ["Below -60°F (< -51°C)", "Critical Life Threat", "Frostbite occurs in under 2 minutes", "Rapid systemic hypothermia; loss of consciousness", "Zero exposed skin; cancel all outdoor transit activities"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            As revealed in the benchmark data, once wind chill drops below -15°F, biological tissue freezing occurs with startling speed. Superficial frostnip can stiffen the outer epidermis of ears and cheeks in under 15 minutes. If cooling continues, ice crystals nucleate within interstitial fluid spaces, permanently rupturing cellular walls and requiring surgical debridement or amputation. During severe convective winter storms analyzed in our <Link href="/calculators/weather/severe-weather-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">severe weather calculator</Link>, high winds combine with heavy snowfall to produce blinding whiteouts.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Biometeorology & Engineering: Inanimate Objects, Car Engines & Layering Physics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding the physics of wind chill prevents costly mistakes in winter vehicle maintenance and outdoor survival:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>The Inanimate Object Myth (Car Radiators):</strong> Wind chill does <em>not</em> cool inanimate objects below the actual ambient thermometer temperature. If the air is 20°F and the wind chill is -10°F, water in a car radiator will never freeze (because 20°F is above the 0°F freeze point of 50/50 ethylene glycol antifreeze). However, the wind causes the hot engine to cool down to 20°F much faster than in calm air.
+            </li>
+            <li>
+              <strong>Layering Science (The Three-Layer System):</strong> Effective winter protection utilizes three distinct thermal layers: a wicking synthetic base layer (polyester/merino wool) that transports perspiration away from skin; an insulating mid-layer (fleece/down) that traps dead air pockets; and a windproof, waterproof outer shell (Gore-Tex) that blocks convective wind scouring.
+            </li>
+            <li>
+              <strong>Moisture & Evaporative Hypothermia:</strong> Wet clothing conducts heat away from the body 25 times faster than dry clothing. Perspiring heavily into non-breathable winter gear before standing still in sub-zero wind creates an emergency hypothermia hazard within minutes.
+            </li>
+            <li>
+              <strong>Winter Vehicle Battery Cranking Reserve:</strong> Cold temperatures slow chemical reactions inside lead-acid automotive batteries, cutting cold cranking amperage (CCA) by 50% at 0°F while engine oil thickens, as evaluated in vehicle operating budgets in our <Link href="/calculators/transportation/commute-cost-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">commute cost calculator</Link>.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Physiological Hunting Reaction, Paradoxical Undressing & Veterinary Cold Stress
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under severe cold exposure, the human body exhibits an involuntary neurovascular cycling mechanism known as the Lewis Hunting Reaction or Cold-Induced Vasodilation (CIVD). Following initial intense vasoconstriction (which shunts warm blood away from hands and feet to protect internal vital organs), peripheral blood vessels periodically dilate for 5 to 10 minutes to flush warm arterial blood into freezing fingers, preventing immediate cellular necrosis before re-constricting. However, under extreme wind chill conditions, CIVD fails as core body temperature begins declining into clinical hypothermia.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In terminal stages of severe hypothermia (core temperature &lt; 86°F / 30°C), neurological disorientation frequently induces a bizarre phenomenon known as "paradoxical undressing." As the brain's vasomotor center becomes paralyzed, peripheral blood vessels suddenly dilate fully in a final vasomotor spasm, sending a massive surge of warm blood to the skin that creates a false sensation of burning heat, causing victims to remove their protective winter clothing immediately prior to collapse.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Veterinarians and livestock managers also utilize wind chill metrics to protect domestic animals. While animals possess fur coats, aerodynamic wind velocity parts hair strands, eliminating thermal boundary layer insulation. Wet coats from winter rain or sleet analyzed in our <Link href="/calculators/weather/rainfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">rainfall calculator</Link> accelerate cold stress exponentially, requiring windbreak structures, deep straw bedding, and elevated caloric feed intake to prevent hypothermia in winter pastures.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Aerodynamic Boundary Layer Stripping & Facial Tissue Heat Dissipation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            At a microscopic fluid dynamics level, heat transfer from human skin into passing air is governed by the Nusselt number (<Formula>{'\text{Nu}'}</Formula>) and Reynolds number (<Formula>{'\text{Re}'}</Formula>) of turbulent boundary layer flow across a cylindrical bluff body. In calm air, stagnant air molecules form a laminar thermal boundary layer approximately 3 to 5 millimeters thick that acts as an invisible insulating jacket. Aerodynamic wind creates turbulent vortices that erode this boundary layer down to less than 0.2 millimeters, increasing the convective heat transfer coefficient (<Formula>{'h_c'}</Formula>) by over 400%. Living dermal cells rapidly lose caloric energy to the passing airstream, causing capillary vasoconstriction, tissue cooling, and ice crystal nucleation inside cellular cytoplasm within minutes. Covering all exposed facial skin with a windproof neoprene or fleece balaclava eliminates direct convective boundary layer stripping, restoring skin safety buffers.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About NOAA Wind Chill & Cold Weather
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Can wind chill freeze my car's engine or burst home plumbing pipes?
+              </h3>
+              <p>
+                No inanimate object can ever cool below the actual ambient air temperature. If the air temperature is 35°F and the wind chill is 20°F, your home pipes or car radiator will never freeze, because they will never drop below 35°F. However, wind chill will cool warm pipes or a running engine down to 35°F much faster than calm air.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why was the old pre-2001 wind chill formula replaced?
+              </h3>
+              <p>
+                The original 1945 Siple-Passel wind chill formula was based on measuring how fast water froze inside a small plastic cylinder suspended on a pole in Antarctica. It assumed wind speed at the top of the pole rather than human facial height (5 feet), resulting in unrealistically exaggerated wind chill values (such as -80°F for mild winter storms). The modern 2001 JAG/TI formula utilizes human facial wind tunnel trials to provide biologically accurate feels-like metrics.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What are the early warning signs of frostbite?
+              </h3>
+              <p>
+                Early frostbite (frostnip) begins with cold, red skin followed by a prickling or tingling sensation. As tissue freezes, the skin becomes numb, pale white, or yellowish-gray and feels unusually firm or waxy to the touch. If frostnip occurs, immediately rewarm the affected area with skin-to-skin contact (such as placing cold fingers inside your armpits). Never rub frostbitten skin with snow, as ice crystals will lacerate frozen cell membranes.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How does wind chill differ from hypothermia?
+              </h3>
+              <p>
+                Wind chill is an atmospheric weather metric describing the rate of surface cooling on exposed skin. Frostbite is localized freezing of skin tissue. Hypothermia is a systemic medical emergency where the body's internal core temperature drops below 95°F (35°C), leading to violent shivering, slurred speech, confusion, and cardiovascular failure.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <WindChillCalculatorComponent />
+    </CalcPage>
   );
 }

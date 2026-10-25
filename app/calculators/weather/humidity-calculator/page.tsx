@@ -1,26 +1,212 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import HumidityCalculatorComponent from "@/components/calcs/weather/humidity-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PsychrometricSaturationVaporPressureChart } from "@/components/flagship/weather/editorial-charts";
+
+const PATH = "/calculators/weather/humidity-calculator";
+const TITLE = "Humidity Calculator | Relative, Absolute & Specific Humidity Analysis";
+const DESCRIPTION =
+  "Convert between relative humidity, absolute humidity (g/m³), specific humidity (g/kg), mixing ratio, and vapor pressure using psychrometric equations.";
 
 export const metadata: Metadata = {
-  "title": "Humidity Calculator – Relative Humidity & More | CalcDigi",
-  "description": "Calculate relative and absolute humidity from temperature and dew point. Ideal for HVAC, weather, and indoor air quality.",
-  "openGraph": {
-    "title": "Humidity Calculator – Relative Humidity & More | CalcDigi",
-    "description": "Calculate relative and absolute humidity from temperature and dew point. Ideal for HVAC, weather, and indoor air quality.",
-    "type": "website",
-    "url": "/calculators/weather/humidity-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/weather/humidity-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌡️", name: "Dew Point Calculator" },
+  { href: "/calculators/weather/heat-index-calculator", icon: "☀️", name: "Heat Index Calculator" },
+  { href: "/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
+  { href: "/calculators/weather/rainfall-calculator", icon: "🌧️", name: "Rainfall Calculator" },
+  { href: "/calculators/weather/snowfall-calculator", icon: "❄️", name: "Snowfall Calculator" },
+  { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
+];
+
+export default function HumidityCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Weather Calculators\", \"item\": \"https://calcdigi.com/pages/weather\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Humidity Calculator\", \"item\": \"https://calcdigi.com/calculators/weather/humidity-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Humidity Calculator\", \"url\": \"https://calcdigi.com/calculators/weather/humidity-calculator\", \"description\": \"Calculate relative and absolute humidity from temperature and dew point. Ideal for HVAC, weather, and indoor air quality.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the difference between relative and absolute humidity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Relative humidity (RH) expresses current moisture as a percentage of the maximum moisture air can hold at that temperature. Absolute humidity expresses the actual mass of water vapor per cubic meter. RH changes as temperature changes; absolute humidity stays constant if no moisture is added or removed. 70% RH at 70°F means something very different from 70% RH at 90°F.\"}}, {\"@type\": \"Question\", \"name\": \"What is a comfortable relative humidity level?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most people find 40-60% RH most comfortable. Below 30%: dry and uncomfortable, static electricity, irritated sinuses. 30-50%: comfortable, typical healthy indoor range. 50-60%: slightly humid but comfortable for most. Above 60%: noticeably humid, mold risk increases. Above 70%: oppressively humid, serious mold and health risk.\"}}, {\"@type\": \"Question\", \"name\": \"Why does relative humidity drop in winter indoors?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Cold outdoor air holds very little moisture. When this air is brought inside and heated, its capacity to hold moisture increases dramatically but the actual moisture content stays low — resulting in very low relative humidity. 35°F outside air at 80% RH heated to 70°F indoors has only 15% RH. Running humidifiers in winter is essential in cold climates.\"}}, {\"@type\": \"Question\", \"name\": \"How does humidity affect apparent temperature?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"High humidity prevents sweat from evaporating, reducing the body primary cooling mechanism. At 95°F with 50% humidity: feels like 107°F (heat index). At 95°F with 80% humidity: feels like 129°F. Conversely, very low humidity makes temperatures feel cooler than they are — desert heat feels less oppressive than humid heat at the same temperature.\"}}, {\"@type\": \"Question\", \"name\": \"What causes condensation on windows?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Condensation forms when indoor air contacts the cold window glass and cools below its dew point. Solution: reduce indoor humidity (use exhaust fans in kitchen and bath, run dehumidifier), improve window insulation (double or triple pane windows stay warmer), or increase ventilation. Persistent condensation causes mold growth on window frames and walls.\"}}, {\"@type\": \"Question\", \"name\": \"What is the dew point and how does it relate to humidity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Dew point is the temperature at which the air becomes saturated and condensation begins. When relative humidity = 100%, the air temperature equals the dew point. High dew point = high actual moisture content = humid feeling. Formula: Dew Point ≈ Air Temperature - ((100 - RH) / 5). Dew point is a better comfort indicator than RH because it does not change with temperature.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/weather\">Weather</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Humidity Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Humidity Calculator</h1>\n<p class=\"calc-intro\">Calculate relative humidity, absolute humidity (grams per cubic meter), and specific humidity from temperature and dew point or vapor pressure. Essential for HVAC design, weather analysis, indoor air quality monitoring, and agricultural applications.</p>\n<p class=\"calc-intro\">Humidity describes the amount of water vapor in the air. There are three main ways to express it: relative humidity (percent of saturation), absolute humidity (actual water vapor mass per unit volume), and specific humidity (water vapor mass per unit mass of moist air). Each has specific uses in science, engineering, and everyday weather understanding.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Relative Humidity (%) = (Actual Vapor Pressure / Saturation Vapor Pressure) × 100 | Absolute Humidity (g/m³) = (6.112 × e^(17.67T/(T+243.5)) × RH × 2.1674) / (273.15 + T)</div></div>\n<div class=\"content-section\">\n<h2>Types of Humidity Explained</h2>\n<p>Understanding different humidity measures helps you interpret weather reports, design HVAC systems, and monitor indoor air quality. Each measure expresses atmospheric moisture differently and is appropriate for different applications.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Measure</th><th style=\"padding:11px 14px;text-align:left;\">Unit</th><th style=\"padding:11px 14px;text-align:left;\">Common Use</th><th style=\"padding:11px 14px;text-align:left;\">Key Feature</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Relative Humidity (RH)</td><td style=\"padding:10px 14px;\">% of saturation</td><td style=\"padding:10px 14px;\">Weather reports, comfort assessment</td><td style=\"padding:10px 14px;\">Changes with temperature</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Absolute Humidity</td><td style=\"padding:10px 14px;\">g/m³ of air</td><td style=\"padding:10px 14px;\">Air quality, HVAC engineering</td><td style=\"padding:10px 14px;\">Independent of temperature</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Specific Humidity</td><td style=\"padding:10px 14px;\">g/kg of moist air</td><td style=\"padding:10px 14px;\">Meteorology, climate science</td><td style=\"padding:10px 14px;\">Conservative during ascent</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Dew Point</td><td style=\"padding:10px 14px;\">°F or °C</td><td style=\"padding:10px 14px;\">Aviation, agriculture</td><td style=\"padding:10px 14px;\">Best comfort indicator</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Vapor Pressure</td><td style=\"padding:10px 14px;\">hPa or mb</td><td style=\"padding:10px 14px;\">Advanced meteorology</td><td style=\"padding:10px 14px;\">Physical humidity measure</td></tr></tbody></table></div>\n<h3>Ideal Indoor Humidity Levels</h3>\n<p>ASHRAE Standard 55 recommends indoor relative humidity between 30-60% for human comfort and health. Below 30% RH: dry air causes static electricity, irritated respiratory passages, dry skin, and cracked wood furniture. Above 60% RH: condensation on windows, mold growth risk (mold thrives at 70%+), dust mite proliferation, and structural damage. Ideal: 40-50% RH year-round.</p>\n<h3>How HVAC Systems Control Humidity</h3>\n<p>Air conditioners dehumidify by cooling air below its dew point, condensing moisture out. A properly sized AC unit removes 20-30 pints of water per day from indoor air in humid climates. Dehumidifiers use the same process more efficiently. Humidifiers add moisture in dry winter months. Heat pumps and ERVs (Energy Recovery Ventilators) help maintain balanced humidity year-round.</p>\n<h3>Humidity and Health</h3>\n<p>High humidity (above 60%): promotes mold, mildew, dust mites, and bacteria. Increases perceived temperature (heat index). Reduces effectiveness of evaporative cooling in the human body. Low humidity (below 30%): dries mucous membranes making you more susceptible to viruses, irritates skin and eyes, increases static electricity, and can damage wooden instruments and furniture.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between relative and absolute humidity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Relative humidity (RH) expresses current moisture as a percentage of the maximum moisture air can hold at that temperature. Absolute humidity expresses the actual mass of water vapor per cubic meter. RH changes as temperature changes; absolute humidity stays constant if no moisture is added or removed. 70% RH at 70°F means something very different from 70% RH at 90°F.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a comfortable relative humidity level? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most people find 40-60% RH most comfortable. Below 30%: dry and uncomfortable, static electricity, irritated sinuses. 30-50%: comfortable, typical healthy indoor range. 50-60%: slightly humid but comfortable for most. Above 60%: noticeably humid, mold risk increases. Above 70%: oppressively humid, serious mold and health risk.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does relative humidity drop in winter indoors? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Cold outdoor air holds very little moisture. When this air is brought inside and heated, its capacity to hold moisture increases dramatically but the actual moisture content stays low — resulting in very low relative humidity. 35°F outside air at 80% RH heated to 70°F indoors has only 15% RH. Running humidifiers in winter is essential in cold climates.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does humidity affect apparent temperature? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">High humidity prevents sweat from evaporating, reducing the body primary cooling mechanism. At 95°F with 50% humidity: feels like 107°F (heat index). At 95°F with 80% humidity: feels like 129°F. Conversely, very low humidity makes temperatures feel cooler than they are — desert heat feels less oppressive than humid heat at the same temperature.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What causes condensation on windows? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Condensation forms when indoor air contacts the cold window glass and cools below its dew point. Solution: reduce indoor humidity (use exhaust fans in kitchen and bath, run dehumidifier), improve window insulation (double or triple pane windows stay warmer), or increase ventilation. Persistent condensation causes mold growth on window frames and walls.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the dew point and how does it relate to humidity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Dew point is the temperature at which the air becomes saturated and condensation begins. When relative humidity = 100%, the air temperature equals the dew point. High dew point = high actual moisture content = humid feeling. Formula: Dew Point ≈ Air Temperature - ((100 - RH) / 5). Dew point is a better comfort indicator than RH because it does not change with temperature.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Weather Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/weather/heat-index-calculator\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Heat Index Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/wind-chill-calculator\"><span class=\"rc-icon\">🌬️</span><span class=\"rc-name\">Wind Chill Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/rainfall-calculator\"><span class=\"rc-icon\">🌧️</span><span class=\"rc-name\">Rainfall Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Humidity Calculator – Relative, Absolute and Specific Humidity</h2><div class=\"form-group\"><label for=\"hm-unit\">Temperature Unit</label><select id=\"hm-unit\"><option selected=\"\" value=\"c\">Celsius (°C)</option><option value=\"f\">Fahrenheit (°F)</option></select></div><div class=\"form-group\"><label for=\"hm-temp\">Air Temperature</label><input id=\"hm-temp\" max=\"60\" min=\"-40\" step=\"0.1\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"hm-rh\">Relative Humidity (%)</label><input id=\"hm-rh\" max=\"100\" min=\"1\" step=\"1\" type=\"number\" value=\"60\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('wx-result').style.display='none';document.getElementById('wx-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"wx-result\" style=\"display:none;\"><div id=\"wx-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"wx-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"wx-ai\" style=\"display:none;\"></div></div>\n<div id=\"wx-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-wx\" onclick=\"printResult('wx-result','Humidity Calculator – Relative, Absolute and Specific Humidity')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Humidity Calculator – Relative, Absolute and Specific Humidity')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-humidity-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var unit=document.getElementById('hm-unit').value;\n  var T=parseFloat(document.getElementById('hm-temp').value);\n  var RH=parseFloat(document.getElementById('hm-rh').value);\n  if(isNaN(T)||isNaN(RH)||RH<1||RH>100){alert('Please enter valid temperature and humidity (1-100%).');return;}\n  var TC=unit==='f'?(T-32)*5/9:T;\n  // Saturation vapor pressure (Magnus formula)\n  var es=6.112*Math.exp(17.67*TC/(TC+243.5));\n  var ea=es*RH/100;\n  // Absolute humidity\n  var absHum=ea*2167.4/(TC+273.15);\n  // Dew point\n  var gamma=Math.log(RH/100)+17.625*TC/(243.04+TC);\n  var dp=243.04*gamma/(17.625-gamma);\n  var dpF=dp*9/5+32;\n  // Specific humidity\n  var specHum=(0.622*ea/(101.325-0.378*ea))*1000;\n  var comfort=RH<30?'Too Dry':RH<40?'Dry':RH<60?'Comfortable':RH<70?'Humid':'Very Humid / Unhealthy';\n  var dpDisplay=unit==='f'?dpF.toFixed(1)+'°F':dp.toFixed(1)+'°C';\n  var aiPrompt='Humidity: RH='+RH+'%, temp='+T+(unit==='f'?'°F':'°C')+', abs humidity='+absHum.toFixed(2)+'g/m³, comfort: '+comfort;\n  document.getElementById('wx-ri').innerHTML=\n    ri('Relative Humidity','<strong style=\"font-size:24px;color:var(--c-accent)\">'+RH+'%</strong>',true)+\n    ri('Comfort Level',comfort)+\n    ri('Absolute Humidity',absHum.toFixed(2)+' g/m³')+\n    ri('Specific Humidity',specHum.toFixed(2)+' g/kg')+\n    ri('Dew Point',dpDisplay)+\n    ri('Saturation Vapor Pressure',es.toFixed(2)+' hPa')+\n    ri('Actual Vapor Pressure',ea.toFixed(2)+' hPa');\n  document.getElementById('wx-result').style.display='block';document.getElementById('wx-actions').style.display='flex';\n  drawDonut('wx-chart',['Actual RH','Dry Air Remaining'],[Math.round(RH),Math.round(100-RH)],['#3a7abf','#c8832a']);\n  var ai=document.getElementById('wx-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical safety or comfort tip about indoor humidity control and comfort.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/weather", label: "Weather & Nature" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Psychrometric Quick Summary:</strong> Atmospheric humidity describes the concentration of gaseous water vapor entrained within the terrestrial atmosphere. While consumer weather forecasts report <em>relative humidity</em> (the ratio of current vapor pressure to saturation vapor pressure at a given temperature), HVAC engineers and atmospheric scientists rely on <em>absolute humidity</em> (volumetric moisture density in grams per cubic meter) and <em>specific humidity</em> (mass ratio of water vapor to total moist air mass). Cross-checking relative humidity with our <Link href="/calculators/weather/dew-point-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">dew point calculator</Link> reveals why cold winter air at 90% relative humidity contains less actual water vapor than arid desert air at 20% relative humidity.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Clausius-Clapeyron Exponential Saturation Vapor Pressure Curve
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The fundamental governing law of atmospheric moisture capacity is the Clausius-Clapeyron relation. As air temperature increases, the kinetic energy of water molecules rises, requiring a substantially higher equilibrium partial pressure to prevent liquid evaporation. For every 10°C (18°F) increase in air temperature, the atmosphere's water vapor carrying capacity roughly doubles. When high temperatures combine with elevated moisture loads, running apparent temperature equations in our <Link href="/calculators/weather/heat-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">heat index calculator</Link> helps quantify human physiological heat stress.
+          </p>
+
+          <PsychrometricSaturationVaporPressureChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The thermodynamic area chart above illustrates the exponential expansion of saturation vapor pressure (<Formula>{"e_s"}</Formula> in hPa) and maximum absolute humidity (<Formula>{"\rho_{v\_max}"}</Formula> in g/m³) across temperatures ranging from sub-freezing -10°C (14°F) up to tropical 40°C (104°F). At -10°C, air is fully saturated with a meager 2.36 grams of water per cubic meter. At 20°C (68°F), saturation capacity surges to 17.31 g/m³. At 40°C, the capacity explodes to 51.19 g/m³—more than twenty-one times the moisture capacity of sub-freezing air. In freezing winter regimes evaluated in our <Link href="/calculators/weather/snowfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">snowfall calculator</Link>, this low saturation ceiling explains why severe blizzards rarely produce enormous snowpack depths in extreme Arctic cold.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations of Atmospheric Moisture & Psychrometrics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Atmospheric moisture modeling interconnects vapor pressure, gas constants, barometric pressure, and temperature. Saturation vapor pressure <Formula>{"e_s"}</Formula> over liquid water is calculated using the Sonntag (1990) formulation:
+          </p>
+
+          <Formula>
+            {"e_s(T) = 6.112 \cdot \exp\left( \frac{17.62 \cdot T}{243.12 + T} \right) \quad (\text{hPa})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"T"}</Formula> is dry-bulb air temperature in degrees Celsius. Actual partial vapor pressure <Formula>{"e"}</Formula> is then derived from relative humidity (<Formula>{"RH"}</Formula>):
+          </p>
+
+          <Formula>
+            {"e = e_s(T) \times \left( \frac{RH}{100} \right) \quad (\text{hPa})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Absolute humidity (<Formula>{"\rho_v"}</Formula>, in <Formula>{"\text{g/m}^3"}</Formula>) represents the physical mass density of water vapor per unit volume of moist air, derived via the ideal gas law:
+          </p>
+
+          <Formula>
+            {"\rho_v = \frac{10^5 \cdot e}{R_v \cdot (T + 273.15)} = \frac{216.7 \cdot e}{T + 273.15} \quad (\text{g/m}^3)"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"R_v = 461.5\text{ J/(kg}\cdot\text{K)}"}</Formula> is the specific gas constant for water vapor. Specific humidity (<Formula>{"q"}</Formula>, mass of water vapor per mass of moist air in g/kg) and mixing ratio (<Formula>{"w"}</Formula>, mass of water vapor per mass of dry air in g/kg) under atmospheric station pressure <Formula>{"P"}</Formula> follow:
+          </p>
+
+          <Formula>
+            {"w = 622.0 \times \frac{e}{P - e} \quad (\text{g/kg}), \qquad q = 622.0 \times \frac{e}{P - 0.378 \cdot e} \quad (\text{g/kg})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Hydrologists evaluating stormwater precipitation runoff utilize these moisture metrics in our <Link href="/calculators/weather/rainfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">rainfall calculator</Link>, while severe storm meteorologists track boundary layer mixing ratios to compute convective available potential energy in our <Link href="/calculators/weather/severe-weather-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">severe weather calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Psychrometric Table: Relative vs Absolute Moisture Across Seasons
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below demonstrates how identical relative humidity percentages conceal vastly divergent absolute moisture quantities across meteorological seasons:
+          </p>
+
+          <DataTable
+            head={["Meteorological Environment", "Dry-Bulb Temp (°F / °C)", "Relative Humidity (%)", "Vapor Pressure (hPa)", "Absolute Humidity (g/m³)", "Specific Humidity (g/kg)"]}
+            rows={[
+              ["Frigid Arctic Winter", "14°F (-10°C)", "90% RH", "2.58 hPa", "2.12 g/m³", "1.58 g/kg"],
+              ["Cool Temperate Spring", "50°F (10°C)", "65% RH", "7.98 hPa", "6.12 g/m³", "4.93 g/kg"],
+              ["Comfortable Room Air", "68°F (20°C)", "50% RH", "11.70 hPa", "8.65 g/m³", "7.27 g/kg"],
+              ["Arid Desert Heat", "104°F (40°C)", "15% RH", "11.08 hPa", "7.68 g/m³", "6.88 g/kg"],
+              ["Muggy Subtropical Summer", "86°F (30°C)", "75% RH", "31.85 hPa", "22.79 g/m³", "20.15 g/kg"],
+              ["Extreme Tropical Monsoon", "95°F (35°C)", "80% RH", "45.02 hPa", "31.63 g/m³", "28.94 g/kg"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Notice that the "Frigid Arctic Winter" scenario exhibits 90% relative humidity but contains only 2.12 grams of water vapor per cubic meter. When this outdoor air is drawn indoors and heated to 68°F (20°C) without artificial humidification, its relative humidity collapses to an arid 12%, irritating respiratory passages and dehydrating skin. In contrast, outdoor air during cold windy conditions evaluated in our <Link href="/calculators/weather/wind-chill-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">wind chill calculator</Link> accelerates skin moisture evaporation, causing chapped lips and winter xerosis.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Architectural & Industrial Applications: HVAC Dehumidification & Mold Ecology
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Controlling indoor psychrometric parameters is essential for structural preservation, industrial manufacturing, and human wellness:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>ASHRAE 55 Human Thermal Comfort Zone:</strong> The American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE) defines optimal indoor relative humidity between 30% and 60%. Levels below 30% accelerate viral pathogen aerosol transmission; levels above 60% facilitate dust mite proliferation and fungal mold growth on drywall surfaces.
+            </li>
+            <li>
+              <strong>Latent vs Sensible HVAC Cooling Loads:</strong> In humid climates, commercial air conditioning equipment expends up to 45% of its electrical power solely on condensing entrained water vapor (latent cooling) before achieving sensible air temperature reduction. Facility managers optimizing energy budgets can balance HVAC loads alongside building solar exposure modeled in our <Link href="/calculators/weather/uv-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">UV index calculator</Link>.
+            </li>
+            <li>
+              <strong>Virtual Temperature Correction in Barometry:</strong> Because water vapor is lighter than dry air (molecular weight of H₂O is 18.015 g/mol versus 28.964 g/mol for dry air), moist air is less dense than dry air at identical temperature and pressure. Meteorologists compute the 'virtual temperature' (<Formula>{"T_v"}</Formula>)—the temperature dry air would have to match the density of moist air—to calibrate barometric altimetry used in our <Link href="/calculators/transportation/flight-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">flight time calculator</Link>.
+            </li>
+            <li>
+              <strong>Industrial Cleanrooms & Pharmaceutical Lyophilization:</strong> Precision semiconductor fabrication cleanrooms enforce exact 45% ± 3% RH controls to prevent electrostatic discharge (ESD) failures on microprocessors while inhibiting photoresist solvent condensation.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Vapor Pressure Deficit (VPD) & Controlled Environment Agriculture (CEA)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern commercial horticulture and controlled-environment greenhouses, agronomists rely on Vapor Pressure Deficit (VPD)—the difference between the saturation vapor pressure inside a plant's leaf stomata and the partial vapor pressure of the surrounding ambient air (<Formula>{"\text{VPD} = e_s(T_{\text{leaf}}) - e_{\text{air}}"}</Formula>). VPD dictates the transpiration rate of crops, driving nutrient uptake from root systems to foliage. A VPD that is too low (&lt; 0.4 kPa) suppresses transpiration, causing calcium deficiencies, mold growth, and tip burn; a VPD that is too high (&gt; 1.6 kPa) causes stomatal closure, leaf wilt, and halted photosynthesis.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Furthermore, building science practitioners analyze psychrometric charts to plot evaporative cooling paths. In arid desert climates where ambient humidity is extremely low, indirect-direct evaporative cooling (swamp coolers) can drop dry-bulb temperatures by 20°F to 30°F using minimal electrical power compared to traditional compressor-based air conditioning, offsetting residential energy consumption tracked alongside solar energy in our <Link href="/calculators/environment/solar-panel-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">solar panel calculator</Link>.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Dalton's Law of Partial Pressures & Psychrometric Enthalpy Balances
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            According to Dalton's Law of Partial Pressures, total barometric atmospheric pressure is the exact sum of individual partial gas pressures exerted by nitrogen, oxygen, argon, carbon dioxide, and water vapor (<Formula>{'P_{total} = P_{N_2} + P_{O_2} + P_{Ar} + P_{CO_2} + e'}</Formula>). Because water vapor pressure is strictly bounded by saturation thermodynamics, moist air enthalpy—the total thermal energy per unit mass—combines the sensible heat of dry air and the latent heat of vaporization: <Formula>{'h = c_{pa} T + w(h_{we} + c_{pw} T)'}</Formula>. Tracking psychrometric enthalpy allows HVAC engineers to optimize heat recovery ventilators (HRVs) and energy recovery ventilators (ERVs), capturing both sensible warmth and latent humidity from exhausted building airflow.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About Atmospheric Humidity Metrics
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What is the difference between relative humidity and specific humidity?
+              </h3>
+              <p>
+                Relative humidity expresses current vapor pressure as a percentage of maximum saturation vapor pressure at that specific temperature. Because saturation capacity changes with temperature, relative humidity changes whenever the thermometer moves. Specific humidity measures the actual mass ratio of water vapor (in grams) per kilogram of total moist air. Specific humidity remains constant regardless of temperature changes or air parcel expansion as long as moisture is not physically added or condensed out.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why does indoor air feel so dry during winter heating seasons?
+              </h3>
+              <p>
+                Cold outdoor winter air can only hold small quantities of water vapor before reaching saturation. When cold air (e.g., 30°F with 80% RH) infiltrates a home and is warmed by a furnace to 70°F, its moisture capacity expands exponentially. Because no moisture was added to the air, the existing water vapor represents a tiny fraction of the warm air's expanded capacity, causing indoor relative humidity to plummet to 15% to 20%.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Is humid air heavier or lighter than dry air?
+              </h3>
+              <p>
+                Contrary to intuition, humid air is lighter (less dense) than dry air at identical temperature and pressure. According to Avogadro's law, a fixed volume of gas contains the same number of molecules regardless of composition. Water molecules (<Formula>{"\text{H}_2\text{O}"}</Formula>, molecular mass 18) displace diatomic nitrogen (<Formula>{"\text{N}_2"}</Formula>, mass 28) and oxygen (<Formula>{"\text{O}_2"}</Formula>, mass 32), reducing the average molecular weight and density of the air parcel.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How does relative humidity affect the growth of indoor mold?
+              </h3>
+              <p>
+                Mold spores require an equilibrium relative humidity above 65% to 70% at the surface material boundary to germinate and reproduce. Keeping indoor ambient relative humidity below 50% guarantees that exterior wall surfaces and cold corners stay below the threshold water activity (<Formula>{"a_w < 0.70"}</Formula>), halting microbial fungal development.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <HumidityCalculatorComponent />
+    </CalcPage>
   );
 }

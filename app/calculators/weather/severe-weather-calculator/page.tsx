@@ -1,26 +1,208 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import SevereWeatherCalculatorComponent from "@/components/calcs/weather/severe-weather-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { AtmosphericInstabilityCapeWindShearChart } from "@/components/flagship/weather/editorial-charts";
+
+const PATH = "/calculators/weather/severe-weather-calculator";
+const TITLE = "Severe Weather Calculator | CAPE, Bulk Wind Shear & Tornado Helicity";
+const DESCRIPTION =
+  "Assess severe convective storm hazards, thermodynamic CAPE, 0-6 km bulk wind shear, Energy Helicity Index (EHI), and supercell tornado potential.";
 
 export const metadata: Metadata = {
-  "title": "Lightning Distance Calculator – Storm Safety | CalcDigi",
-  "description": "Calculate lightning distance using flash-to-bang seconds. Know when to seek shelter with the 30-30 lightning safety rule.",
-  "openGraph": {
-    "title": "Lightning Distance Calculator – Storm Safety | CalcDigi",
-    "description": "Calculate lightning distance using flash-to-bang seconds. Know when to seek shelter with the 30-30 lightning safety rule.",
-    "type": "website",
-    "url": "/calculators/weather/severe-weather-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/weather/severe-weather-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌡️", name: "Dew Point Calculator" },
+  { href: "/calculators/weather/humidity-calculator", icon: "💧", name: "Humidity Calculator" },
+  { href: "/calculators/weather/rainfall-calculator", icon: "🌧️", name: "Rainfall Calculator" },
+  { href: "/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
+  { href: "/calculators/weather/heat-index-calculator", icon: "☀️", name: "Heat Index Calculator" },
+  { href: "/calculators/weather/snowfall-calculator", icon: "❄️", name: "Snowfall Calculator" },
+];
+
+export default function SevereWeatherCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Weather Calculators\", \"item\": \"https://calcdigi.com/pages/weather\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Lightning Distance Calculator\", \"item\": \"https://calcdigi.com/calculators/weather/severe-weather-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Lightning Distance Calculator\", \"url\": \"https://calcdigi.com/calculators/weather/severe-weather-calculator\", \"description\": \"Calculate lightning distance using flash-to-bang seconds. Know when to seek shelter with the 30-30 lightning safety rule.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate the distance to lightning?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Count the seconds between the lightning flash and the sound of thunder, then divide by 5 to get miles (or divide by 3 for kilometers). Sound travels about 1,125 feet (343 meters) per second. Example: 10 seconds = 10/5 = 2 miles away. 20 seconds = 4 miles. At 6 miles (30 seconds), seek shelter immediately.\"}}, {\"@type\": \"Question\", \"name\": \"What is the 30-30 rule for lightning safety?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Rule 1: Seek shelter when the flash-to-bang time is 30 seconds or less (storm within 6 miles). Rule 2: Wait 30 minutes after the LAST thunder before returning outdoors. Both rules are critical — the first gets you inside before the storm arrives overhead, the second prevents re-exposure as storms can intensify after appearing to pass.\"}}, {\"@type\": \"Question\", \"name\": \"Is a car safe from lightning?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes, a hard-topped metal vehicle provides good lightning protection (not because of rubber tires — lightning bridges much larger air gaps). The metal body acts as a Faraday cage, directing lightning current around the passengers to the ground through the tires and wet road. Roll up windows, pull over safely, avoid contact with metal surfaces inside.\"}}, {\"@type\": \"Question\", \"name\": \"Can lightning strike you inside a building?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Direct strikes to safe buildings are rare, but indoor lightning injuries occur. Avoid: using corded phones, touching plumbing or electrical fixtures, windows and doors during storms. Lightning can travel through electrical wiring and plumbing. Surge protectors protect electronics. Whole-home surge protection is recommended in high-lightning areas.\"}}, {\"@type\": \"Question\", \"name\": \"Where should you go if caught in the open?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"If no shelter is available: avoid tall isolated trees, hilltops, open water, and metal objects. Move to a low area away from trees. Do not lie flat — crouch on the balls of your feet with feet together, head low, covering ears. Avoid contact with the ground beyond your feet. Stay at least 50 feet away from other people — ground current can travel between people.\"}}, {\"@type\": \"Question\", \"name\": \"How far can lightning travel from a storm?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Lightning can and does strike 10-15 miles from the parent thunderstorm — well beyond the rain area. These bolt-from-the-blue strikes account for many lightning fatalities because victims did not see any nearby lightning and considered themselves safe. Always seek shelter when you first hear thunder, not when you see nearby lightning.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/weather\">Weather</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Lightning Distance Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Lightning Distance Calculator</h1>\n<p class=\"calc-intro\">Calculate the distance to a lightning strike using the flash-to-bang method (counting seconds between lightning and thunder). Determine when you need to seek shelter, understand lightning safety rules, and learn about severe weather safety planning.</p>\n<p class=\"calc-intro\">Lightning kills an average of 20 people per year in the US and injures hundreds more. Most lightning fatalities occur outdoors when people fail to seek shelter in time. The 30-30 rule: if the time between lightning flash and thunder is 30 seconds or less, seek shelter — and wait 30 minutes after the last lightning before going back outside.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Distance to Lightning (miles) = Time (seconds) / 5 | Distance (km) = Time (seconds) / 3 | Sound travels ~1 mile per 5 seconds (343 m/s)</div></div>\n<div class=\"content-section\">\n<h2>Lightning Safety Guide</h2>\n<p>Thunder is the sound produced by the rapid expansion of air heated by lightning to approximately 30,000 Kelvin (5× hotter than the sun surface). Sound travels about 1 mile per 5 seconds (343 m/s) — much slower than light which arrives essentially instantly. Counting the seconds between the lightning flash and the thunder rumble tells you the storm distance.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Flash-to-Bang Gap</th><th style=\"padding:11px 14px;text-align:left;\">Safety Action</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">30 sec / 6 miles (10 km)</td><td style=\"padding:10px 14px;\">Seek shelter immediately — 30-30 rule triggered</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">15 sec / 3 miles (5 km)</td><td style=\"padding:10px 14px;\">Severe danger — take cover now</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">10 sec / 2 miles (3 km)</td><td style=\"padding:10px 14px;\">Extreme danger — lightning imminent area</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">5 sec / 1 mile (1.6 km)</td><td style=\"padding:10px 14px;\">Life-threatening — you are in the strike zone</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">0-3 sec / &lt;0.6 mi</td><td style=\"padding:10px 14px;\">Extreme emergency — lightning is on top of you</td></tr></tbody></table></div>\n<h3>The 30-30 Lightning Safety Rule</h3>\n<p>The National Lightning Safety Council recommends the 30-30 rule: 1) If the flash-to-bang time is 30 seconds or less (storm within 6 miles), immediately seek substantial shelter. 2) Wait 30 minutes after the last thunder before resuming outdoor activities. Lightning can strike up to 10 miles from the visible storm — blue sky lightning is real. The 30-minute rule is critical because storms can redevelop and lightning can return.</p>\n<h3>Safe Shelter vs Unsafe</h3>\n<p>SAFE shelters: substantial buildings with plumbing and electrical wiring (acts as Faraday cage directing lightning to ground), hard-top metal vehicles (not convertibles). UNSAFE: open structures (picnic shelters, dugouts), tall isolated trees, hilltops and ridgelines, open fields, bodies of water, near metal fences or poles, and caves. Crouch low if caught in the open — reduce your height and contact points with the ground.</p>\n<h3>Lightning Myths</h3>\n<p>Myth: Lightning never strikes twice in the same place — WRONG. The Empire State Building is struck 20-25 times per year. Myth: Rubber shoes and tires protect you — WRONG (lightning carries millions of volts). Myth: You are safe under a tree — WRONG (trees are a primary lightning target due to height and sap conductivity). Myth: If it is not raining, there is no lightning risk — WRONG (dry lightning strikes from distant storms are common).</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate the distance to lightning? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Count the seconds between the lightning flash and the sound of thunder, then divide by 5 to get miles (or divide by 3 for kilometers). Sound travels about 1,125 feet (343 meters) per second. Example: 10 seconds = 10/5 = 2 miles away. 20 seconds = 4 miles. At 6 miles (30 seconds), seek shelter immediately.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the 30-30 rule for lightning safety? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Rule 1: Seek shelter when the flash-to-bang time is 30 seconds or less (storm within 6 miles). Rule 2: Wait 30 minutes after the LAST thunder before returning outdoors. Both rules are critical — the first gets you inside before the storm arrives overhead, the second prevents re-exposure as storms can intensify after appearing to pass.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is a car safe from lightning? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes, a hard-topped metal vehicle provides good lightning protection (not because of rubber tires — lightning bridges much larger air gaps). The metal body acts as a Faraday cage, directing lightning current around the passengers to the ground through the tires and wet road. Roll up windows, pull over safely, avoid contact with metal surfaces inside.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can lightning strike you inside a building? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Direct strikes to safe buildings are rare, but indoor lightning injuries occur. Avoid: using corded phones, touching plumbing or electrical fixtures, windows and doors during storms. Lightning can travel through electrical wiring and plumbing. Surge protectors protect electronics. Whole-home surge protection is recommended in high-lightning areas.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Where should you go if caught in the open? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">If no shelter is available: avoid tall isolated trees, hilltops, open water, and metal objects. Move to a low area away from trees. Do not lie flat — crouch on the balls of your feet with feet together, head low, covering ears. Avoid contact with the ground beyond your feet. Stay at least 50 feet away from other people — ground current can travel between people.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How far can lightning travel from a storm? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Lightning can and does strike 10-15 miles from the parent thunderstorm — well beyond the rain area. These bolt-from-the-blue strikes account for many lightning fatalities because victims did not see any nearby lightning and considered themselves safe. Always seek shelter when you first hear thunder, not when you see nearby lightning.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Weather Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/weather/heat-index-calculator\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Heat Index Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/wind-chill-calculator\"><span class=\"rc-icon\">🌬️</span><span class=\"rc-name\">Wind Chill Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/humidity-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Humidity Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/rainfall-calculator\"><span class=\"rc-icon\">🌧️</span><span class=\"rc-name\">Rainfall Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Lightning Distance Calculator – Flash to Bang and Storm Safety</h2><div class=\"form-group\"><label for=\"sw-seconds\">Seconds Between Flash and Thunder</label><input id=\"sw-seconds\" min=\"0\" step=\"1\" type=\"number\" value=\"20\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('wx-result').style.display='none';document.getElementById('wx-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"wx-result\" style=\"display:none;\"><div id=\"wx-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"wx-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"wx-ai\" style=\"display:none;\"></div></div>\n<div id=\"wx-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-wx\" onclick=\"printResult('wx-result','Lightning Distance Calculator – Flash to Bang and Storm Safety')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Lightning Distance Calculator – Flash to Bang and Storm Safety')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-severe-weather-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var secs=parseFloat(document.getElementById('sw-seconds').value);\n  if(isNaN(secs)||secs<0){alert('Please enter valid seconds (0 or more).');return;}\n  var miles=(secs/5).toFixed(1);\n  var km=(secs/3).toFixed(1);\n  var feet=Math.round(secs*1125);\n  var shelter=secs<=30;\n  var danger=secs<=30?'SEEK SHELTER NOW':secs<=60?'Monitor Closely':'Storm is Distant';\n  var color=secs<=15?'#c0392b':secs<=30?'#c8832a':'#1a5c3a';\n  var rule=secs<=30?'30-30 Rule: GET INSIDE NOW — storm within 6 miles':'Storm is '+miles+' miles away — stay alert';\n  var waitMins=30;\n  var aiPrompt='Lightning: '+secs+' seconds flash-to-bang = '+miles+' miles, shelter needed: '+shelter;\n  document.getElementById('wx-ri').innerHTML=\n    ri('Distance to Lightning','<strong style=\"font-size:24px;color:'+color+'\">'+miles+' miles ('+km+' km)</strong>',true)+\n    ri('Safety Status','<strong style=\"color:'+color+'\">'+danger+'</strong>')+\n    ri('30-30 Rule',rule)+\n    ri('Distance in Feet',feet.toLocaleString()+' feet')+\n    ri('After Storm Clears','Wait '+waitMins+' minutes after last thunder')+\n    ri('Lightning Can Strike','Up to 10 miles from storm');\n  document.getElementById('wx-result').style.display='block';document.getElementById('wx-actions').style.display='flex';\n  drawDonut('wx-chart',['Distance (mi)','Safe Zone Threshold (6mi)'],[Math.round(parseFloat(miles)*10)||1,60],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('wx-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical safety or comfort tip about lightning safety and severe weather preparedness.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/weather", label: "Weather & Nature" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Convective Dynamics Quick Summary:</strong> Forecasting severe thunderstorm modes, damaging straight-line winds, giant hail, and tornadoes requires synthesizing thermodynamic buoyancy with kinematic vertical wind shear. The primary metric of atmospheric instability is <strong>Convective Available Potential Energy (CAPE)</strong>, measured in Joules per kilogram (J/kg), which defines the theoretical kinetic energy imparted to an ascending air parcel. However, high CAPE alone produces disorganized pulse storms unless organized by 0-6 kilometer deep-layer bulk wind shear exceeding 35 to 40 knots. Cross-checking atmospheric moisture with our <Link href="/calculators/weather/dew-point-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">dew point calculator</Link> and checking boundary layer vapor pressure in our <Link href="/calculators/weather/humidity-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">humidity calculator</Link> establishes the thermodynamic foundation for tornadic supercell formation.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Energy Helicity Index (EHI) & Severe Convective Storm Mode Regimes
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Severe convective weather manifests in distinct structural morphologies: single-cell pulse storms, multicell clusters, linear Mesoscale Convective Systems (squall lines/derechos), and isolated rotating supercells. Vertical wind shear tilts the thunderstorm updraft, preventing falling precipitation downdrafts from suffocating the inflow of warm, moist boundary layer air. When evaluating extreme convective downpours alongside our <Link href="/calculators/weather/rainfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">rainfall calculator</Link>, high-precipitation (HP) supercells produce catastrophic flash flooding alongside tornadic vortices.
+          </p>
+
+          <AtmosphericInstabilityCapeWindShearChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The multi-tier chart above illustrates the non-linear interaction between deep-layer shear and CAPE across four thermodynamic energy tiers (1,000 to 4,000 J/kg) as quantified by the Energy Helicity Index (EHI). An EHI value exceeding 1.0 represents the critical threshold where rotating mesocyclones become probable. Values exceeding 2.0 to 3.0 correlate strongly with significant (EF2 to EF5) violent tornadoes. Conversely, in cold-season severe outbreaks, modest CAPE (under 800 J/kg) can still spawn violent tornadoes if low-level shear and storm-relative helicity are exceptionally intense, as also seen during winter frontal passages modeled in our <Link href="/calculators/weather/wind-chill-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">wind chill calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations of Convective Available Potential Energy & Storm Kinematics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Thermodynamic CAPE is calculated as the vertical integral of positive parcel buoyancy between the Level of Free Convection (LFC) and the Equilibrium Level (EL):
+          </p>
+
+          <Formula>
+            {"\text{CAPE} = \int_{z_{\text{LFC}}}^{z_{\text{EL}}} g \left( \frac{T_{v,\text{parcel}} - T_{v,\text{env}}}{T_{v,\text{env}}} \right) dz \quad (\text{J/kg})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Where <Formula>{"g = 9.80665\text{ m/s}^2"}</Formula> is gravitational acceleration, and <Formula>{"T_v"}</Formula> is the virtual temperature accounting for water vapor buoyancy. The theoretical maximum vertical updraft velocity <Formula>{"W_{\max}"}</Formula> inside the core of the thunderstorm is derived directly from conservation of energy:
+          </p>
+
+          <Formula>
+            {"W_{\max} = \sqrt{2 \cdot \text{CAPE}} \quad (\text{m/s})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            In tornadic environments, Storm-Relative Helicity (<Formula>{"\text{SRH}"}</Formula>, in <Formula>{"\text{m}^2/\text{s}^2"}</Formula>) measures the potential for cyclonic updraft rotation in the lowest 1 or 3 kilometers. Combining CAPE and 0-1 km SRH yields the dimensionless Energy Helicity Index (<Formula>{"\text{EHI}"}</Formula>):
+          </p>
+
+          <Formula>
+            {"\text{EHI} = \frac{\text{CAPE} \times \text{SRH}_{0-1\text{km}}}{160{,}000}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The kinetic impact energy of storm hail and wind gusts can be converted to structural loading forces using equations from our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">kinetic energy calculator</Link> and vehicular collision dynamics in our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Severe Convective Storm Classification & Atmospheric Indices Table
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below synthesizes the Storm Prediction Center (SPC) convective threat categories alongside critical thermodynamic and kinematic thresholds:
+          </p>
+
+          <DataTable
+            head={["CAPE Range (J/kg)", "0-6 km Shear (Knots)", "Lifted Index (°C)", "EHI Range", "Dominant Convective Storm Mode", "Severe Hazard Profile"]}
+            rows={[
+              ["0 to 1,000 J/kg", "< 25 knots", "0°C to -2°C", "< 0.5", "Weak Single-Cell Pulse Storms", "Brief heavy rain; lightning; sub-severe hail (< 0.75 in)"],
+              ["1,000 to 2,000 J/kg", "25 to 35 knots", "-2°C to -4°C", "0.5 to 1.0", "Multicell Clusters & Linear Segments", "Damaging wind gusts (50-60 mph); quarter-sized hail; isolated spin-up"],
+              ["2,000 to 3,000 J/kg", "35 to 50 knots", "-4°C to -7°C", "1.0 to 2.5", "Organized Supercell Storms", "Large hail (golf ball to baseball size); severe wind (70+ mph); tornadoes"],
+              ["3,000 to 4,500+ J/kg", "50 to 75+ knots", "< -7°C", "> 2.5", "Violent Cyclic Supercells / Derrechos", "Giant hail (softball size > 4.0 in); destructive straight-line winds; EF2-EF5 tornadoes"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            When atmospheric soundings exhibit CAPE exceeding 3,000 J/kg alongside deep-layer shear above 50 knots, the atmosphere enters an explosive convective regime. Updraft velocities exceed 100 mph (45 m/s), suspending heavy water droplets within the sub-freezing hail growth zone (-10°C to -30°C) for extended periods to forge destructive hail stones. Furthermore, extreme summer heat preceding these convective events can be monitored with our <Link href="/calculators/weather/heat-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">heat index calculator</Link> and solar ultraviolet intensity in our <Link href="/calculators/weather/uv-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">UV index calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Forecasting Dynamics: Convective Inhibition (CIN), Caps & Hodograph Curvature
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Evaluating whether an unstable atmospheric environment will actually detonate into severe storms requires assessing three subtle mesoscale mechanisms:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Convective Inhibition (CIN) & The Elevated Mixed Layer (EML):</strong> CIN represents the negative buoyant energy an air parcel must overcome to reach the LFC. An elevated capping inversion (typically a dry, hot layer advected from the desert southwest) acts as a lid, preventing premature weak storm development and allowing boundary layer heat and moisture to pool into extreme CAPE before being breached by a cold front or dryline.
+            </li>
+            <li>
+              <strong>Hodograph Loop Curvature & Helicity:</strong> A hodograph plots vertical wind vectors with height. A clockwise curving hodograph in the lowest 1 to 3 kilometers indicates intense directional shear (winds backing from southeasterly at the surface to southwesterly aloft), creating horizontal streamwise vorticity that is tilted vertically by updrafts to form rotating mesocyclones.
+            </li>
+            <li>
+              <strong>Downdraft CAPE (DCAPE) & Microburst Hazard:</strong> DCAPE measures the potential negative buoyancy of an evaporatively cooled downdraft. Environments with high DCAPE (&gt; 1,000 J/kg) generate violent dry or wet microbursts with surface divergence wind speeds exceeding 80 to 100 mph, posing extreme hazards to aviation landings tracked in our <Link href="/calculators/transportation/flight-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">flight time calculator</Link>.
+            </li>
+            <li>
+              <strong>Winter Convective Transitions:</strong> Rapid cold air advection behind severe squall lines can transition thunderstorm rain into intense convective snow bursts and thunder-snow modeled in our <Link href="/calculators/weather/snowfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">snowfall calculator</Link>.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Dual-Polarization Doppler Radar Signatures & The Significant Tornado Parameter (STP)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern operational storm forecasting relies heavily on the Significant Tornado Parameter (STP), an empirical composite index designed by Thompson et al. to discriminate between significant tornadic supercells (EF2+) and non-tornadic supercells. The fixed-layer STP integrates surface-based CAPE, effective storm-relative helicity (SRH), effective bulk wind difference (EBWD), and the lifting condensation level (LCL) height:
+          </p>
+          <Formula>
+            {"\text{STP} = \left( \frac{\text{SBCAPE}}{1500} \right) \times \left( \frac{2000 - \text{SBLCL}}{1000} \right) \times \left( \frac{\text{SRH}_{0-1\text{km}}}{150} \right) \times \left( \frac{\text{BWD}_{0-6\text{km}}}{20} \right)"}
+          </Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An STP value greater than 1.0 indicates a favorable thermodynamic and kinematic environment for significant tornadoes; values exceeding 4.0 to 8.0 are observed during historic violent tornado outbreaks.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Simultaneously, National Weather Service dual-polarization WSR-88D Doppler radar algorithms detect the physical characteristics of storm hydrometeors. The Correlation Coefficient (CC) measures the uniformity of radar targets; when a tight gate-to-gate velocity circulation coincides with a localized drop in CC below 0.80, radar operators confirm a Tornadic Debris Signature (TDS)—proving that building fragments, shingles, and uprooted trees are lofted thousands of feet into the troposphere, validating emergency Tornado Warnings even in the dead of night.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mesoscale Convective Vortices (MCV) & Derecho Downburst Clusters
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            When large Mesoscale Convective Systems (MCS) persist across hundreds of miles overnight, latent heat release from condensing water vapor drives the development of a warm-core, mid-tropospheric cyclonic circulation known as a Mesoscale Convective Vortex (MCV). MCVs can survive for days after their parent thunderstorms dissipate, drifting downwind and acting as miniature tropical disturbances that trigger severe supercell and tornado outbreaks when exposed to daytime solar heating. Furthermore, when rear-inflow jets (RIJ) descend from the mid-troposphere to ground level, they generate violent progressive derechos—long-lived windstorms with continuous swaths of 75 to 100+ mph straight-line winds that flatten mature timber and cause widespread electrical grid blackouts across multi-state regions. Post-event storm damage surveys conducted by National Weather Service meteorologists utilize the Enhanced Fujita (EF) scale, analyzing 28 specific structural damage indicators to differentiate between straight-line microburst winds and multi-vortex rotational tornado damage tracks. This forensic meteorological evidence helps improve structural building codes for residential tornado safe rooms.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About Severe Weather & Storm Instability
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What CAPE value is required for severe thunderstorms to develop?
+              </h3>
+              <p>
+                Severe thunderstorms typically require a minimum surface-based CAPE of 1,000 to 1,500 J/kg. Moderate instability ranges from 1,500 to 2,500 J/kg, while values above 2,500 J/kg represent extreme instability. However, during high-shear low-CAPE (HSLC) cool-season setups, severe tornadoes can occasionally form with CAPE values as low as 400 to 800 J/kg if low-level wind shear and helicity are extraordinarily strong.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What is the difference between a tornado watch and a tornado warning?
+              </h3>
+              <p>
+                A <strong>Tornado Watch</strong> is issued by the NOAA Storm Prediction Center hours in advance when meteorological conditions are favorable for supercells capable of producing tornadoes across a broad region (be prepared). A <strong>Tornado Warning</strong> is issued by local National Weather Service forecast offices when an actual tornado has been visually spotted by trained storm spotters or indicated by Doppler radar rotation (take immediate shelter in an interior room or basement).
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why does vertical wind shear matter so much for severe storms?
+              </h3>
+              <p>
+                Without vertical wind shear, a thunderstorm's updraft rises vertically, condenses moisture, and produces rain that falls straight back down through the updraft, choking off the storm's warm fuel supply and causing it to collapse in 30 to 45 minutes. Vertical wind shear tilts the updraft, allowing rain to fall away from the updraft, sustaining the storm for hours as an organized multicell or rotating supercell.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How is hail size related to thunderstorm updraft strength?
+              </h3>
+              <p>
+                Hail forms when supercooled water droplets freeze onto ice nuclei in the updraft. To grow to golf ball size (1.75 inches), a hailstone requires a vertical updraft of at least 55 mph (25 m/s). To grow to softball size (4.0 inches), the updraft must exceed 100 mph (45 m/s), which directly corresponds to theoretical updraft velocities generated in environments with CAPE exceeding 3,000 J/kg (<Formula>{"W_{\max} = \sqrt{2 \cdot \text{CAPE}}"}</Formula>).
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <SevereWeatherCalculatorComponent />
+    </CalcPage>
   );
 }

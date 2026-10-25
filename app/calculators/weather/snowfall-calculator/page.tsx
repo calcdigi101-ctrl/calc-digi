@@ -1,26 +1,207 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import SnowfallCalculatorComponent from "@/components/calcs/weather/snowfall-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SnowToLiquidRatioTemperatureGradientChart } from "@/components/flagship/weather/editorial-charts";
+
+const PATH = "/calculators/weather/snowfall-calculator";
+const TITLE = "Snowfall Calculator | Snow Accumulation, Snow-to-Liquid Ratio & Weight";
+const DESCRIPTION =
+  "Calculate snowfall accumulation depth from liquid water equivalent precipitation, snow-to-liquid ratio (SLR), roof snowpack structural load weight, and compaction.";
 
 export const metadata: Metadata = {
-  "title": "Snowfall Calculator – Snow to Water Equivalent | CalcDigi",
-  "description": "Convert snowfall depth to water equivalent, snow weight, and calculate snow load on roof. Essential for winter storm preparation.",
-  "openGraph": {
-    "title": "Snowfall Calculator – Snow to Water Equivalent | CalcDigi",
-    "description": "Convert snowfall depth to water equivalent, snow weight, and calculate snow load on roof. Essential for winter storm preparation.",
-    "type": "website",
-    "url": "/calculators/weather/snowfall-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/weather/snowfall-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/weather/rainfall-calculator", icon: "🌧️", name: "Rainfall Calculator" },
+  { href: "/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌡️", name: "Dew Point Calculator" },
+  { href: "/calculators/weather/humidity-calculator", icon: "💧", name: "Humidity Calculator" },
+  { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
+  { href: "/calculators/weather/heat-index-calculator", icon: "☀️", name: "Heat Index Calculator" },
+];
+
+export default function SnowfallCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Weather Calculators\", \"item\": \"https://calcdigi.com/pages/weather\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Snowfall Calculator\", \"item\": \"https://calcdigi.com/calculators/weather/snowfall-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Snowfall Calculator\", \"url\": \"https://calcdigi.com/calculators/weather/snowfall-calculator\", \"description\": \"Convert snowfall depth to water equivalent, snow weight, and calculate snow load on roof. Essential for winter storm preparation.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is snow water equivalent (SWE)?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Snow water equivalent (SWE) is the depth of liquid water that would result if the snow melted. It is the most important measurement in snowpack monitoring. A 12-inch snowpack at 10:1 ratio has 1.2 inches SWE. A 12-inch wet snowpack at 8:1 has 1.5 inches SWE — 25% more water despite the same depth.\"}}, {\"@type\": \"Question\", \"name\": \"How much does snow weigh per square foot?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Fresh light snow: 3-5 lbs per square foot per foot of depth. Average snow: 6-8 lbs/ft²/ft. Wet snow: 12-15 lbs/ft²/ft. Old settled snow: 15-20 lbs/ft²/ft. Ice: 57 lbs/ft²/ft. A 12-inch layer of average snow weighs 6-8 lbs/sq ft — a 1,000 sq ft roof carries 6,000-8,000 lbs of snow.\"}}, {\"@type\": \"Question\", \"name\": \"How much snow is dangerous for a roof?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most US residential roofs are designed for 20-40 psf snow load. A 2-foot layer of average snow (~12 psf/foot) = 24 psf — near typical design loads. Add ice: 1 inch of ice = 5 psf. Total 25-30 psf is approaching safe limits for some roofs. Signs of dangerous load: cracking, creaking, stuck doors, visible deflection.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert inches of snow to inches of rain equivalent?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide snow depth by the snow ratio. For average snow (10:1 ratio): 10 inches of snow = 1 inch of rain equivalent. For wet snow (8:1): 8 inches = 1 inch rain. For dry powder (20:1): 20 inches = 1 inch rain. The NRCS uses 10:1 as the standard ratio when specific data is not available.\"}}, {\"@type\": \"Question\", \"name\": \"How much water does 1 foot of snow equal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At average 10:1 ratio: 12 inches of snow = 1.2 inches of water. For a 1,000 sq ft area: 1.2 inches water × 1,000 sq ft × 0.623 = 748 gallons of water. Western mountain snowpack representing 12 feet (144 inches) at 10:1 = 14.4 inches SWE — thousands of gallons per acre of watershed.\"}}, {\"@type\": \"Question\", \"name\": \"Why does heavy wet snow break tree branches?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Wet snow (near 32°F) is much denser than dry powder. Wet snow can weigh 12-20 lbs per cubic foot vs 3-5 lbs for dry powder. A tree branch 2 inches wide and 6 feet long collecting 2 inches of wet snow might carry 15-20 lbs of snow weight — sufficient to break typical tree branches. Wet snow is also more adhesive, accumulating rather than sliding off.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/weather\">Weather</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Snowfall Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Snowfall Calculator</h1>\n<p class=\"calc-intro\">Convert snowfall depth to water equivalent (SWE), calculate the weight of snow on your roof, and estimate snow water content. Essential for winter storm preparation, snow removal planning, and understanding snowfall water value for drought monitoring.</p>\n<p class=\"calc-intro\">Not all snow is equal — fresh fluffy snow can be mostly air while wet heavy snow contains much more water. The snow-water equivalent (SWE) tells you how much liquid water is contained in a snowpack. This matters for water resource management, flood forecasting, and critically for assessing roof snow loads.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Snow Water Equivalent (inches) = Snow Depth (inches) / Snow Ratio | Roof Load (psf) = Snow Density (lb/ft³) × Depth (ft)</div></div>\n<div class=\"content-section\">\n<h2>Snow Types and Water Content</h2>\n<p>The snow ratio (snow depth to water equivalent) varies dramatically based on temperature and humidity when snow forms. Light fluffy powder at very cold temperatures has a ratio of 30:1 (30 inches of snow = 1 inch of water). Wet heavy snow near freezing has a ratio of 8:1 or lower — nearly as dense as water.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Snow Type</th><th style=\"padding:11px 14px;text-align:left;\">Temperature</th><th style=\"padding:11px 14px;text-align:left;\">Snow Ratio</th><th style=\"padding:11px 14px;text-align:left;\">Weight per Inch Depth</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Dry Powder</td><td style=\"padding:10px 14px;\">&lt;15°F (-9°C)</td><td style=\"padding:10px 14px;\">25:1 – 30:1</td><td style=\"padding:10px 14px;\">~3-4 lbs/ft²/inch</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Normal Snow</td><td style=\"padding:10px 14px;\">15-25°F (-9 to -4°C)</td><td style=\"padding:10px 14px;\">12:1 – 15:1</td><td style=\"padding:10px 14px;\">~5-6 lbs/ft²/inch</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Average Snow</td><td style=\"padding:10px 14px;\">25-32°F (-4 to 0°C)</td><td style=\"padding:10px 14px;\">8:1 – 12:1</td><td style=\"padding:10px 14px;\">~7-9 lbs/ft²/inch</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Wet Snow</td><td style=\"padding:10px 14px;\">Near freezing</td><td style=\"padding:10px 14px;\">5:1 – 8:1</td><td style=\"padding:10px 14px;\">~10-13 lbs/ft²/inch</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Sleet/Ice</td><td style=\"padding:10px 14px;\">Near 32°F (0°C)</td><td style=\"padding:10px 14px;\">1:1 – 3:1</td><td style=\"padding:10px 14px;\">~15-20 lbs/ft²/inch</td></tr></tbody></table></div>\n<h3>Roof Snow Load Safety</h3>\n<p>Most residential roofs are designed to support 20-40 lbs per square foot (psf) of snow load depending on geographic location (higher in heavy snow regions). Fresh snow weighs approximately 5-20 lbs per cubic foot. After settling and metamorphism: 15-20 lbs/ft³. Wet snow: 20-30 lbs/ft³. Ice: 57 lbs/ft³. Warning signs of dangerous roof load: creaking sounds, jammed doors, visible sagging, or cracked walls near the roofline.</p>\n<h3>Snow Water Equivalent for Agriculture</h3>\n<p>Snowpack is critically important for western US water supply — snowmelt provides 70% of freshwater in many western states. The USDA Natural Resources Conservation Service (NRCS) monitors SWE at hundreds of SNOTEL stations. A 120% of average SWE by April 1 predicts good irrigation water availability; below 80% suggests drought conditions for the following summer.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is snow water equivalent (SWE)? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Snow water equivalent (SWE) is the depth of liquid water that would result if the snow melted. It is the most important measurement in snowpack monitoring. A 12-inch snowpack at 10:1 ratio has 1.2 inches SWE. A 12-inch wet snowpack at 8:1 has 1.5 inches SWE — 25% more water despite the same depth.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does snow weigh per square foot? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Fresh light snow: 3-5 lbs per square foot per foot of depth. Average snow: 6-8 lbs/ft²/ft. Wet snow: 12-15 lbs/ft²/ft. Old settled snow: 15-20 lbs/ft²/ft. Ice: 57 lbs/ft²/ft. A 12-inch layer of average snow weighs 6-8 lbs/sq ft — a 1,000 sq ft roof carries 6,000-8,000 lbs of snow.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much snow is dangerous for a roof? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most US residential roofs are designed for 20-40 psf snow load. A 2-foot layer of average snow (~12 psf/foot) = 24 psf — near typical design loads. Add ice: 1 inch of ice = 5 psf. Total 25-30 psf is approaching safe limits for some roofs. Signs of dangerous load: cracking, creaking, stuck doors, visible deflection.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert inches of snow to inches of rain equivalent? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide snow depth by the snow ratio. For average snow (10:1 ratio): 10 inches of snow = 1 inch of rain equivalent. For wet snow (8:1): 8 inches = 1 inch rain. For dry powder (20:1): 20 inches = 1 inch rain. The NRCS uses 10:1 as the standard ratio when specific data is not available.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much water does 1 foot of snow equal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At average 10:1 ratio: 12 inches of snow = 1.2 inches of water. For a 1,000 sq ft area: 1.2 inches water × 1,000 sq ft × 0.623 = 748 gallons of water. Western mountain snowpack representing 12 feet (144 inches) at 10:1 = 14.4 inches SWE — thousands of gallons per acre of watershed.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does heavy wet snow break tree branches? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Wet snow (near 32°F) is much denser than dry powder. Wet snow can weigh 12-20 lbs per cubic foot vs 3-5 lbs for dry powder. A tree branch 2 inches wide and 6 feet long collecting 2 inches of wet snow might carry 15-20 lbs of snow weight — sufficient to break typical tree branches. Wet snow is also more adhesive, accumulating rather than sliding off.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Weather Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/weather/heat-index-calculator\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Heat Index Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/wind-chill-calculator\"><span class=\"rc-icon\">🌬️</span><span class=\"rc-name\">Wind Chill Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/humidity-calculator\"><span class=\"rc-icon\">💧</span><span class=\"rc-name\">Humidity Calculator</span></a><a class=\"related-card\" href=\"/calculators/weather/rainfall-calculator\"><span class=\"rc-icon\">🌧️</span><span class=\"rc-name\">Rainfall Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Snowfall Calculator – Snow to Water Equivalent and Roof Load</h2><div class=\"form-group\"><label for=\"sn-unit\">Unit System</label><select id=\"sn-unit\"><option selected=\"\" value=\"us\">Inches / Pounds / Square Feet</option><option value=\"metric\">Centimeters / kg / Square Meters</option></select></div><div class=\"form-group\"><label for=\"sn-depth\">Snow Depth</label><input id=\"sn-depth\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"sn-type\">Snow Type</label><select id=\"sn-type\"><option value=\"30\">Dry Powder (30:1 ratio)</option><option value=\"20\">Light Fresh Snow (20:1)</option><option selected=\"\" value=\"12\">Normal Snow (12:1)</option><option value=\"10\">Average Snow (10:1)</option><option value=\"8\">Wet Snow (8:1)</option><option value=\"5\">Very Wet / Slush (5:1)</option></select></div><div class=\"form-group\"><label for=\"sn-area\">Area (sq ft or m²)</label><input id=\"sn-area\" min=\"1\" step=\"1\" type=\"number\" value=\"1000\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('wx-result').style.display='none';document.getElementById('wx-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"wx-result\" style=\"display:none;\"><div id=\"wx-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"wx-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"wx-ai\" style=\"display:none;\"></div></div>\n<div id=\"wx-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-wx\" onclick=\"printResult('wx-result','Snowfall Calculator – Snow to Water Equivalent and Roof Load')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Snowfall Calculator – Snow to Water Equivalent and Roof Load')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-snowfall-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var unit=document.getElementById('sn-unit').value;\n  var depth=parseFloat(document.getElementById('sn-depth').value)||0;\n  var ratio=parseFloat(document.getElementById('sn-type').value)||10;\n  var area=parseFloat(document.getElementById('sn-area').value)||1000;\n  if(!depth||!area){alert('Please enter snow depth and area.');return;}\n  var swe,weightPerSqFt,totalWeight,gallons;\n  if(unit==='us'){\n    swe=depth/ratio;\n    var density=62.4/ratio*12;\n    weightPerSqFt=density*depth/12;\n    totalWeight=weightPerSqFt*area;\n    gallons=swe*area*0.623;\n  } else {\n    swe=depth/ratio;\n    var densityKg=1000/ratio;\n    weightPerSqFt=densityKg*depth/100;\n    totalWeight=weightPerSqFt*area;\n    gallons=swe*area;\n  }\n  var roofWarning=unit==='us'&&weightPerSqFt>20?'⚠️ HIGH — Consider snow removal':weightPerSqFt>30?'❌ DANGEROUS — Remove snow now':'✅ Safe range';\n  var aiPrompt='Snow: '+depth+(unit==='us'?'\" depth, ':' cm depth, ')+swe.toFixed(2)+(unit==='us'?'\" SWE, ':' cm SWE, ')+weightPerSqFt.toFixed(1)+' lb/ft² roof load';\n  document.getElementById('wx-ri').innerHTML=\n    ri('Snow Water Equivalent','<strong style=\"font-size:22px;color:var(--c-accent)\">'+swe.toFixed(2)+(unit==='us'?'\" SWE':' cm SWE')+'</strong>',true)+\n    ri('Water Volume',gallons.toFixed(0)+(unit==='us'?' gallons':' liters'))+\n    ri('Roof Load',weightPerSqFt.toFixed(1)+(unit==='us'?' lbs/sq ft':' kg/m²'))+\n    ri('Roof Safety',roofWarning)+\n    ri('Total Weight on Area',totalWeight.toFixed(0)+(unit==='us'?' lbs':' kg'))+\n    ri('Snow Ratio','1 inch water = '+ratio+' inches snow');\n  document.getElementById('wx-result').style.display='block';document.getElementById('wx-actions').style.display='flex';\n  drawDonut('wx-chart',['Water','Air in Snow'],[Math.round(1/ratio*100),Math.round((1-1/ratio)*100)],['#3a7abf','#c8832a']);\n  var ai=document.getElementById('wx-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical safety or comfort tip about snow safety, roof load, and winter storm preparation.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/weather", label: "Weather & Nature" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Cryospheric Quick Summary:</strong> Predicting winter snow accumulation depth requires converting liquid water equivalent (QPF) into fresh snowpack through the <strong>Snow-to-Liquid Ratio (SLR)</strong>. While a traditional climatological rule of thumb assumes a 10:1 ratio (1.0 inch of water yields 10 inches of snow), actual atmospheric ratios fluctuate wildly from 5:1 for dense maritime slush near 34°F to over 25:1 for dry crystalline powder at 10°F. Comparing snowpack accumulation with our <Link href="/calculators/weather/rainfall-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">rainfall calculator</Link> reveals that a heavy 1.0-inch liquid equivalent snowstorm deposits over 5.2 pounds of structural weight per square foot of roof surface, creating structural collapse hazards for residential homes.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Snow-to-Liquid Ratio (SLR) Across Surface & Cloud Temperatures
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The structural density and volume of fresh snow are governed by the thermal profile of the cloud layer where ice crystals nucleate and grow. The ideal thermodynamic sweet spot for delicate, multi-branched stellar dendrites—the dendritic crystal growth zone (DGZ)—lies between -12°C and -18°C (10°F to 0°F). When strong atmospheric lift coincides with this temperature window, snow crystals trap enormous volumes of air, creating light powder that blows easily in high winds modeled in our <Link href="/calculators/weather/wind-chill-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">wind chill calculator</Link>.
+          </p>
+
+          <SnowToLiquidRatioTemperatureGradientChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            The temperature gradient chart above illustrates the non-linear relationship between atmospheric temperature and the resulting snow-to-liquid ratio. Near the freezing point (32°F to 34°F), snow crystals partially melt, coating their surfaces in liquid water film that aggregates into dense, compacting flakes with low ratios (5:1 to 8:1). As temperatures plunge into the teens, ratios escalate sharply to 20:1 and 25:1. However, at extreme Arctic cold (below -5°F / -21°C), ice crystals become brittle columns and plates that fracture upon impact, packing tightly and causing the snow ratio to fall back toward 15:1. Drivers navigating winter roadways must also monitor tire friction dynamics using our <Link href="/calculators/physics/friction-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">friction calculator</Link> and verify tire outer dimensions with our <Link href="/calculators/transportation/tire-size-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">tire size calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Formulation: Snow Depth, Pack Density & Structural Roof Loads
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Total accumulated fresh snow depth <Formula>{"S_{depth}"}</Formula> in inches is the product of liquid water equivalent precipitation <Formula>{"P_{liq}"}</Formula> and the Snow-to-Liquid Ratio (<Formula>{"\text{SLR}"}</Formula>):
+          </p>
+
+          <Formula>
+            {"S_{depth} = P_{liq} \times \text{SLR} \quad (\text{inches})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            The physical density of fresh snow <Formula>{"\rho_{snow}"}</Formula> in kilograms per cubic meter is inversely proportional to the SLR:
+          </p>
+
+          <Formula>
+            {"\rho_{snow} = \frac{\rho_{water}}{\text{SLR}} = \frac{1000\text{ kg/m}^3}{\text{SLR}}"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Structural engineers compute fresh snow roof load <Formula>{"L_{snow}"}</Formula> in pounds per square foot (psf) directly from the liquid water equivalent. Because 1 inch of liquid water across 1 square foot weighs exactly 5.20 pounds:
+          </p>
+
+          <Formula>
+            {"L_{snow} = P_{liq} \times 5.20 \quad (\text{lbs/sq ft})"}
+          </Formula>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            Notice that the structural weight on a roof depends solely on the liquid water mass, not on how fluffy the snow appears. A 20-inch blizzard of 20:1 champagne powder (<Formula>{"P_{liq} = 1.0\text{ inch}"}</Formula>) places exactly the same 5.20 psf dead load on rafters as a 5-inch storm of dense 5:1 slush. However, if winter warm spells followed by rain saturate an existing snowpack, property owners should cross-reference moisture condensation in our <Link href="/calculators/weather/dew-point-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">dew point calculator</Link> and atmospheric vapor density in our <Link href="/calculators/weather/humidity-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">humidity calculator</Link> to predict deadly rain-on-snow structural roof collapses.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Cryospheric Engineering Table: Snow Classifications, Density & Removal Effort
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below classifies fresh snow types across temperature regimes, detailing their physical densities, compaction rates, and human shoveling hazards:
+          </p>
+
+          <DataTable
+            head={["Snow Type Classification", "Surface Air Temp (°F / °C)", "Typical SLR Range", "Snowpack Density (kg/m³)", "Weight per 10-inch Depth (psf)", "Shoveling & Clearing Hazard"]}
+            rows={[
+              ["Heavy Wet Slush / Sleet", "33°F to 36°F (0.5°C to 2°C)", "4:1 to 6:1", "170 to 250 kg/m³", "8.7 to 13.0 lbs/sq ft", "Severe ('Heart-attack snow'); clogs snowblowers quickly"],
+              ["Standard Wet Pack Snow", "30°F to 32°F (-1°C to 0°C)", "7:1 to 9:1", "110 to 140 kg/m³", "5.8 to 7.4 lbs/sq ft", "High; ideal for snowballs, heavy physical exertion required"],
+              ["Climatological Average", "24°F to 29°F (-4°C to -1.5°C)", "10:1 to 12:1", "80 to 100 kg/m³", "4.3 to 5.2 lbs/sq ft", "Moderate; standard residential shoveling and plowing"],
+              ["Light Powdery Snow", "16°F to 23°F (-9°C to -5°C)", "13:1 to 18:1", "55 to 75 kg/m³", "2.9 to 4.0 lbs/sq ft", "Low; clears easily with electric blowers, drifts in wind"],
+              ["Champagne Dry Powder", "5°F to 15°F (-15°C to -9°C)", "20:1 to 30:1", "33 to 50 kg/m³", "1.7 to 2.6 lbs/sq ft", "Effortless; legendary ski resort snow, zero cohesion"],
+              ["Extreme Arctic Grain Snow", "< -5°F (< -21°C)", "12:1 to 16:1", "60 to 85 kg/m³", "3.2 to 4.3 lbs/sq ft", "Granular sugar-like crystals; pack tightly under traffic"]
+            ]}
+          />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
+            As shown in the table, wet slush at 34°F weighs more than four times as much per inch of depth as dry champagne powder. Clearing a 600-square-foot residential driveway covered in 10 inches of wet slush requires lifting over 5,200 pounds (2.6 tons) of frozen water—a physical exertion spike that causes dangerous cardiac strain, especially during extreme cold snaps examined in our <Link href="/calculators/weather/wind-chill-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">wind chill calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Structural & Meteorological Tradeoffs: Snowpack Settling, Ice Dams & Melting
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Once snow settles upon the ground or architectural structures, post-depositional metamorphism begins immediately:
+          </p>
+
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-6">
+            <li>
+              <strong>Gravitational Compaction & Settling:</strong> Fresh snowpack settles under its own weight within 24 to 48 hours, shrinking depth by 25% to 50% while maintaining the identical liquid water mass. A 16-inch snowfall of 16:1 powder quickly compresses into an 8-inch layer of dense pack snow.
+            </li>
+            <li>
+              <strong>Ice Dam Formation Dynamics:</strong> In uninsulated building attics, escaping interior heat warms the roof deck above 32°F, melting bottom snowpack layers. Meltwater runs down the slope until hitting cold exterior unheated eaves (overhangs), where it refreezes into an ice ridge that backs water up under shingles, causing interior ceiling leaks.
+            </li>
+            <li>
+              <strong>Spring Snowmelt Runoff & Hydrological Flooding:</strong> When spring warmth and high dew points melt snowpack rapidly, 10 inches of dense settled snow (<Formula>{"P_{liq} \approx 2.5\text{ inches}"}</Formula>) releases thousands of gallons of water into municipal stormwater systems, which civil engineers model using equations in our <Link href="/calculators/weather/rainfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">rainfall calculator</Link>.
+            </li>
+            <li>
+              <strong>High Albedo Solar Reflection:</strong> Fresh snow possesses a high solar albedo of 80% to 90%, reflecting ultraviolet radiation back upward into eyes and faces. This intense ground reflection nearly doubles sunburn risk, requiring winter sunglasses and high-SPF sunblock calibrated via our <Link href="/calculators/weather/uv-index-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">UV index calculator</Link>.
+            </li>
+          </ul>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mesoscale Lake-Effect Snow Bands & Avalanche Snowpack Metamorphism
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In glaciated and lake-adjacent regions, mesoscale Lake-Effect Snow (LES) produces some of the most intense snowfall accumulation rates on planet Earth, exceeding 4 to 6 inches per hour. LES occurs when an Arctic air mass traverses a comparatively warm, unfrozen body of water. The critical thermodynamic trigger requires a temperature difference of at least 13°C (23°F) between the lake water surface and the 850 hPa pressure altitude (approximately 5,000 feet). As heat and moisture vapor flux erupt off the lake surface into the frigid boundary layer, narrow, intense convective snow squalls form downwind, dumping multi-foot snow accumulations within highly localized corridors.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In alpine mountainous terrain, avalanche safety professionals study snowpack stratigraphy to identify buried persistent weak layers (PWLs). When cold, clear nights foster extreme temperature gradients across the snowpack, kinetic metamorphism transforms rounded snow grains into faceted, cup-shaped crystals known as depth hoar. Depth hoar possesses virtually zero structural cohesion; when subsequently buried under a heavy, dense slab of wind-packed snow, it acts like a layer of ball bearings, triggering catastrophic slab avalanches on slope angles between 30° and 45°.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            Furthermore, municipal winter highway departments utilize these cryospheric density metrics to calculate chemical road de-icer application rates (calcium chloride vs rock salt), ensuring transport routes remain navigable for motorists following velocity guidance in our <Link href="/calculators/transportation/speed-distance-time-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">speed distance time calculator</Link>.
+          </p>
+
+          
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Snow Water Equivalent (SWE) Core Sampling & SNOTEL Hydrological Networks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
+            In mountainous western watersheds, water resource authorities monitor the Western United States Snow Telemetry (SNOTEL) automated sensor network to forecast agricultural water supplies. SNOTEL stations deploy acoustic ultrasonic depth sensors paired with stainless steel fluid-filled snow pillows that weigh the snowpack directly to record real-time Snow Water Equivalent (SWE). Manual backcountry core sampling utilizes standardized Federal Snow Sampling tubes—hollow aluminum tubes driven through the full depth of the snowpack down to soil level, extracting a core sample that is weighed on a calibrated spring scale to measure liquid water content directly. In maritime snowpacks of the Pacific Northwest (the Cascade Mountains), high moisture content produces dense SWE values where 30 inches of snowpack holds over 10 inches of pure liquid water. This extreme snowpack weight variation emphasizes why backcountry skiers and civil engineers must measure water mass rather than mere snowpack depth when evaluating snow loads.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Frequently Asked Questions About Snowfall Accumulation & Snowpack Physics
+          </h2>
+
+          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why does 1 inch of rain not always equal 10 inches of snow?
+              </h3>
+              <p>
+                The classic 10:1 ratio is merely a climatological average near 28°F to 30°F. The actual ratio depends on the air temperature in the dendritic growth zone aloft and near the surface. In cold dry air (10°F to 15°F), delicate branching dendrites trap vast amounts of air, easily yielding 20 to 25 inches of snow from 1 inch of liquid water. Near freezing (32°F to 34°F), snowflakes partially melt and stick together, yielding only 5 to 8 inches of dense slush.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                How much snow weight can a typical residential roof safely hold?
+              </h3>
+              <p>
+                Most modern residential building codes in snow zones require roofs to support a minimum ground snow load of 20 to 40 pounds per square foot (psf). Because 1 inch of liquid water equals 5.2 psf, a roof rated for 30 psf can support approximately 5.7 inches of pure water equivalent—which equals about 50 to 60 inches of light dry snow, or only 18 to 22 inches of heavy, water-logged wet snow.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                Why is shoveling wet snow considered a serious cardiovascular risk?
+              </h3>
+              <p>
+                Dense wet snow weighs 15 to 25 pounds per shovel scoop. Lifting this weight in freezing weather constricts peripheral blood vessels (raising blood pressure) while heavy upper-body arm exertion elevates heart rate. This dangerous combination can cause myocardial ischemia or heart attacks in sedentary individuals, giving wet slush the medical nickname "heart-attack snow."
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
+                What causes "thundersnow" during intense winter blizzards?
+              </h3>
+              <p>
+                Thundersnow occurs when strong synoptic lift and cold air aloft create convective instability within a winter cyclone, similar to a summer thunderstorm. Intense convective updrafts generate lightning and thunder; however, the surrounding heavy snow muffles the thunder acoustic wave, limiting its audible radius to just 2 to 3 miles around the strike.
+              </p>
+            </div>
+          </div>
+        </>
+      }
+    >
+      <SnowfallCalculatorComponent />
+    </CalcPage>
   );
 }
