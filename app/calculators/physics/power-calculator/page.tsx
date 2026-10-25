@@ -1,26 +1,272 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PowerCalculator from "@/components/calcs/physics/power-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PowerHorsepowerCurrentChart } from "@/components/flagship/physics/editorial-charts";
+
+const PATH = "/calculators/physics/power-calculator";
+const TITLE = "Power Calculator | Mechanical Watts, Brake Horsepower & Electrical Amps";
+const DESCRIPTION =
+  "Calculate mechanical power output (P = E/t), brake horsepower, electrical input power, thermal dissipation losses, and AC/DC line current across voltages.";
 
 export const metadata: Metadata = {
-  "title": "Power Calculator Physics – P=W/t Watts | CalcDigi",
-  "description": "Calculate power from work and time using P=W/t. Convert between watts, kilowatts, horsepower, and BTU per hour.",
-  "openGraph": {
-    "title": "Power Calculator Physics – P=W/t Watts | CalcDigi",
-    "description": "Calculate power from work and time using P=W/t. Convert between watts, kilowatts, horsepower, and BTU per hour.",
-    "type": "website",
-    "url": "/calculators/physics/power-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/physics/power-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
+  { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚡", name: "Kinetic Energy" },
+  { href: "/calculators/physics/potential-energy-calculator", icon: "🏔️", name: "Potential Energy" },
+  { href: "/calculators/engineering/horsepower-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/engineering/ohms-law-calculator", icon: "🔌", name: "Ohm's Law (V=IR)" },
+  { href: "/calculators/environment/energy-consumption-calculator", icon: "🌱", name: "Energy Consumption" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical definition and mathematical formula for power?",
+    a: "Power (P) is the scalar physical quantity measuring the temporal rate at which work is performed or energy is converted: P = dW / dt = E / t. In the International System of Units (SI), power is measured in Watts (W), where one Watt equals one Joule of energy converted per second (1 W = 1 J/s). In mechanical systems moving at velocity v under force F, instantaneous power is given by P = F · v.",
+  },
+  {
+    q: "What is the exact mathematical conversion between Watts and mechanical Horsepower?",
+    a: "One mechanical horsepower (imperial brake horsepower, HP) is formally defined as 33,000 foot-pounds of work per minute, which converts exactly to 745.69987 Watts (standard engineering rounded value: 1 HP = 745.7 W). In the metric horsepower system (PS, cv, or ch used in European automotive benchmarks), 1 metric horsepower is defined as 75 kgf·m/s, converting to 735.49875 Watts. Consequently, 1 mechanical HP equals approximately 1.0139 metric PS.",
+  },
+  {
+    q: "How does mechanical efficiency affect total electrical power consumption?",
+    a: "No physical electric motor or thermal engine operates at 100% efficiency due to winding electrical resistance, magnetic core hysteresis, and mechanical bearing friction. The overall efficiency factor η connects useful output power to total required input power: P_input = P_output / (η / 100). A 15 kW industrial motor operating at 90% efficiency draws 16.67 kW of electrical power from the grid, with the remaining 1.67 kW dissipated into the atmosphere as thermal heat.",
+  },
+  {
+    q: "How do you calculate electrical current draw from known power and voltage?",
+    a: "Under direct current (DC) or single-phase alternating current (AC) with unity power factor (PF = 1.0), electrical power relates to voltage and current via Joule's Law: P = V · I. Solving for electric current yields: I = P / V. For example, a 7,200-watt (7.2 kW) Level 2 electric vehicle charger operating at a standard residential potential of 240 Volts draws exactly I = 7,200 W / 240 V = 30.0 Amperes of continuous electrical current.",
+  },
+  {
+    q: "What is the critical distinction between power and energy?",
+    a: "Energy is a capacity or quantity of physical work (measured in Joules or kilowatt-hours), while power is the instantaneous rate at which that energy flows (measured in Watts or horsepower). Energy equals power multiplied by time: E = P · t. A 100-watt light bulb running for 10 hours consumes 1,000 watt-hours (1 kWh = 3.6 MJ) of energy. A massive 1,000-watt microwave consumes the identical 1 kWh of energy in just 1 hour because it operates at ten times the power rate.",
+  },
+  {
+    q: "How does torque relate to power in rotating mechanical shafts and vehicle engines?",
+    a: "In rotational mechanical systems, power is the product of torsional moment (torque τ in N·m) and rotational angular velocity (ω in radians per second): P = τ · ω = τ · (2π · RPM / 60). In traditional imperial automotive engineering, this fundamental relationship yields the classic dyno formula: Horsepower = (Torque in lb-ft × RPM) / 5252. At exactly 5,252 RPM, horsepower and torque curves on an engine dynamometer graph always cross.",
+  },
+];
+
+export default function PowerCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Physics Calculators\", \"item\": \"https://calcdigi.com/pages/physics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Power Calculator\", \"item\": \"https://calcdigi.com/calculators/physics/power-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Power Calculator\", \"url\": \"https://calcdigi.com/calculators/physics/power-calculator\", \"description\": \"Calculate power from work and time using P=W/t. Convert between watts, kilowatts, horsepower, and BTU per hour.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the formula for power?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P = W/t = Joules/seconds = Watts. Also P = F × v (force times velocity). Lifting 100 kg box 3m in 5s: W = mgh = 100×9.81×3 = 2943 J. P = 2943/5 = 588.6 W.\"}}, {\"@type\": \"Question\", \"name\": \"How to convert horsepower to watts?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 hp = 745.7 W. 200 hp engine = 200 × 745.7 = 149,140 W = 149.1 kW. Reverse: 1 kW = 1000/745.7 = 1.341 hp. 75 kW = 75 × 1.341 = 100.6 hp.\"}}, {\"@type\": \"Question\", \"name\": \"What is the power of a human?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Resting metabolic rate ~80W. Walking ~250W. Moderate cycling ~200W. Elite cyclist sustained ~400W. Sprint peak ~2000W. Average human food energy: ~2000 Cal/day = 97W average power.\"}}, {\"@type\": \"Question\", \"name\": \"How does P=Fv work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At constant velocity, power = force × velocity. Car at 100 km/h (27.78 m/s) with 1000 N total resistance: P = 1000 × 27.78 = 27,780 W = 27.8 kW just to maintain speed.\"}}, {\"@type\": \"Question\", \"name\": \"What is the power of common appliances?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"LED bulb: 9W. Incandescent: 60W. Laptop: 45-65W. Desktop PC: 150-400W. Microwave: 700-1200W. Hair dryer: 1500-2000W. Electric kettle: 2000-3000W. Air conditioner: 1000-5000W.\"}}, {\"@type\": \"Question\", \"name\": \"What is power factor?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"In AC circuits: PF = real power (W) / apparent power (VA). PF=1 for resistive loads. Inductive loads (motors): PF 0.7-0.9. Lower PF = more current for same real power = higher losses. Industrial facilities pay penalties for poor power factor.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/physics\">Physics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Power Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Power Calculator</h1>\n<p class=\"calc-intro\">Calculate mechanical power (P = W/t = Fv), convert between watts, kilowatts, horsepower, and BTU/hr. Find the time to complete work at given power, or work done from power and time.</p>\n<p class=\"calc-intro\">Power is the rate of doing work or transferring energy: P = W/t = F × v. The SI unit is the Watt (W = J/s). Higher power means the same work is done in less time. A 100 kW engine and a 10 kW engine doing the same job take different times — power determines speed of energy delivery.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">P = W/t | P = F × v | 1 hp = 745.7 W | 1 kW = 1000 W | P_electrical = V × I | Efficiency = P_out/P_in</div></div>\n<div class=\"content-section\"><h2>Power in Physics and Engineering – Complete Guide</h2>\n<p>Power (P) is the rate of energy transfer or rate of doing work: P = W/t = ΔE/Δt. It is measured in Watts (W), where 1 Watt = 1 Joule per second. Power tells you how quickly energy is being used or generated. A light bulb rated at 60W converts 60 joules of electrical energy to light and heat every second. A car engine rated at 150 kW can deliver 150,000 joules of mechanical work per second.</p>\n<p>Power can also be expressed as force times velocity: P = F × v. This form is useful for calculating power in continuous motion — pushing with 500 N force at 10 m/s requires P = 500 × 10 = 5000 W = 5 kW. This explains why maintaining high vehicle speed requires enormous power: aerodynamic drag increases with v², so drag power (F_drag × v ∝ v³) grows with the cube of velocity.</p>\n<h3>Power Units Conversion Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Unit</th><th style=\"padding:11px 14px;text-align:left;\">Value</th><th style=\"padding:11px 14px;text-align:left;\">Common Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 Watt (W)</td><td style=\"padding:10px 14px;\">1 J/s</td><td style=\"padding:10px 14px;\">SI base unit</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 Kilowatt (kW)</td><td style=\"padding:10px 14px;\">1000 W</td><td style=\"padding:10px 14px;\">Common for motors, appliances</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 Megawatt (MW)</td><td style=\"padding:10px 14px;\">1,000,000 W</td><td style=\"padding:10px 14px;\">Power plants</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 Horsepower (hp)</td><td style=\"padding:10px 14px;\">745.7 W</td><td style=\"padding:10px 14px;\">Engine ratings, US/UK</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 Metric horsepower (PS)</td><td style=\"padding:10px 14px;\">735.5 W</td><td style=\"padding:10px 14px;\">European auto spec</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">1 BTU/hour</td><td style=\"padding:10px 14px;\">0.2931 W</td><td style=\"padding:10px 14px;\">HVAC and heating</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1 kcal/hour</td><td style=\"padding:10px 14px;\">1.163 W</td><td style=\"padding:10px 14px;\">Nutritional/metabolic rate</td></tr></tbody></table></div>\n<h3>Power in Nature and Technology</h3>\n<p>Human body at rest (basal metabolic rate): ~80W. Moderate cycling: ~150-300W. Elite cyclist (Tour de France): ~400-450W sustained, ~1000W peak sprint. Usain Bolt peak sprint: ~2,600W (2.6 kW). Car engine: 75-500 kW typical. Boeing 747 engines: 4 × 58 MW = 232 MW total thrust power. Large nuclear power plant: ~1,000 MW (1 GW) = 1,000,000,000 W. Sun total power output: 3.8 × 10²⁶ W — Earth intercepts about 1.74 × 10¹⁷ W = 174 petawatts. Solar irradiance at Earth surface: ~1,000 W/m² on a clear day (solar constant 1,361 W/m², reduced by atmosphere).</p>\n<h3>Electrical Power and the Power Triangle</h3>\n<p>Electrical power: P = V × I (DC circuits and AC resistive). For AC circuits: Active power P (W) = V_rms × I_rms × cos φ. Reactive power Q (VAR) = V × I × sin φ. Apparent power S (VA) = V × I. Power factor (PF) = cos φ = P/S. S² = P² + Q². Poor power factor (inductive loads like motors): apparent power exceeds real power — utility bills for apparent power. Power factor correction capacitors improve PF. Industrial facilities maintain PF &gt; 0.95 to avoid utility penalties. Three-phase power: P = √3 × V_line × I_line × PF — standard for high-power industrial equipment.</p>\n<h3>Power in Transportation</h3>\n<p>Understanding power requirements for vehicles: P = F_total × v. At 100 km/h (27.78 m/s): Rolling resistance ~200 N, aerodynamic drag ~800 N (typical sedan). Total resistance ~1000 N. Required power = 1000 × 27.78 = 27,780 W ≈ 28 kW ≈ 37 hp just to maintain speed. This is why small engines can sustain highway speeds but struggle with hills (additional F = mg sin θ). Electric vehicles: 90%+ efficient vs ICE 30-35%, so EV requires 25-30% of the fuel energy for same work. Regenerative braking recovers 60-70% of kinetic energy during deceleration.</p></div>\n<div class=\"content-section\"><h3>Physics Formulas and Units</h3>\n<p>Always ensure units are consistent before calculating. This calculator uses SI units (International System): meters (m) for distance, kilograms (kg) for mass, seconds (s) for time, Newtons (N) for force, Joules (J) for energy, Watts (W) for power, and Pascals (Pa) for pressure. When converting from other unit systems (imperial, CGS), convert all values before entering them into the calculator.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the formula for power? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P = W/t = Joules/seconds = Watts. Also P = F × v (force times velocity). Lifting 100 kg box 3m in 5s: W = mgh = 100×9.81×3 = 2943 J. P = 2943/5 = 588.6 W.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to convert horsepower to watts? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 hp = 745.7 W. 200 hp engine = 200 × 745.7 = 149,140 W = 149.1 kW. Reverse: 1 kW = 1000/745.7 = 1.341 hp. 75 kW = 75 × 1.341 = 100.6 hp.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the power of a human? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Resting metabolic rate ~80W. Walking ~250W. Moderate cycling ~200W. Elite cyclist sustained ~400W. Sprint peak ~2000W. Average human food energy: ~2000 Cal/day = 97W average power.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does P=Fv work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At constant velocity, power = force × velocity. Car at 100 km/h (27.78 m/s) with 1000 N total resistance: P = 1000 × 27.78 = 27,780 W = 27.8 kW just to maintain speed.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the power of common appliances? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">LED bulb: 9W. Incandescent: 60W. Laptop: 45-65W. Desktop PC: 150-400W. Microwave: 700-1200W. Hair dryer: 1500-2000W. Electric kettle: 2000-3000W. Air conditioner: 1000-5000W.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is power factor? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">In AC circuits: PF = real power (W) / apparent power (VA). PF=1 for resistive loads. Inductive loads (motors): PF 0.7-0.9. Lower PF = more current for same real power = higher losses. Industrial facilities pay penalties for poor power factor.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Physics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/physics/force-calculator\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Force Calculator</span></a><a class=\"related-card\" href=\"/calculators/physics/kinetic-energy-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Kinetic Energy</span></a><a class=\"related-card\" href=\"/calculators/physics/projectile-motion-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Projectile Motion</span></a><a class=\"related-card\" href=\"/calculators/physics/wave-frequency-calculator\"><span class=\"rc-icon\">🌊</span><span class=\"rc-name\">Wave Frequency</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Power Calculator – P = W/t Watts, Kilowatts and Horsepower</h2><div class=\"form-group\"><label for=\"ps\">Calculate</label><select id=\"ps\"><option selected=\"\" value=\"P\">Power P = W/t</option><option value=\"W\">Work W = P×t</option><option value=\"t\">Time t = W/P</option><option value=\"Fv\">Power P = F×v</option></select></div><div class=\"form-group\"><label for=\"pW\">Work W (J)</label><input id=\"pW\" min=\"0\" step=\"any\" type=\"number\" value=\"5000\"/></div><div class=\"form-group\"><label for=\"pt\">Time t (s)</label><input id=\"pt\" min=\"0.001\" step=\"any\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"pP\">Power P (W)</label><input id=\"pP\" min=\"0\" step=\"any\" type=\"number\" value=\"500\"/></div><div class=\"form-group\"><label for=\"pF\">Force F (N)</label><input id=\"pF\" min=\"0\" step=\"any\" type=\"number\" value=\"500\"/></div><div class=\"form-group\"><label for=\"pv\">Velocity v (m/s)</label><input id=\"pv\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ph-result').style.display='none';document.getElementById('ph-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ph-result\" style=\"display:none;\"><div id=\"ph-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ph-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ph-ai\" style=\"display:none;\"></div></div>\n<div id=\"ph-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ph\" onclick=\"printResult('ph-result','Power Calculator – P = W/t Watts, Kilowatts and Horsepower')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Power Calculator – P = W/t Watts, Kilowatts and Horsepower')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-power-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var s=document.getElementById('ps').value;\n  var W=parseFloat(document.getElementById('pW').value)||0,t=parseFloat(document.getElementById('pt').value)||0;\n  var P=parseFloat(document.getElementById('pP').value)||0,F=parseFloat(document.getElementById('pF').value)||0,v=parseFloat(document.getElementById('pv').value)||0;\n  var result,label;\n  if(s==='P'){if(!W||!t){alert('Enter W and t.');return;}result=W/t;label='Power (W)';}\n  else if(s==='W'){if(!P||!t){alert('Enter P and t.');return;}result=P*t;label='Work (J)';}\n  else if(s==='t'){if(!W||!P){alert('Enter W and P.');return;}result=W/P;label='Time (s)';}\n  else{if(!F||!v){alert('Enter F and v.');return;}result=F*v;label='Power (W)';}\n  var Pv=s==='P'||s==='Fv'?result:P;\n  var aiPrompt='Power: '+Pv.toFixed(2)+' W = '+(Pv/1000).toFixed(3)+' kW = '+(Pv/745.7).toFixed(3)+' hp';\n  document.getElementById('ph-ri').innerHTML=ri(label,'<strong style=\"font-size:26px;color:var(--c-accent)\">'+result.toFixed(4)+'</strong>',true)+ri('In kW',(Pv/1000).toFixed(4)+' kW')+ri('In hp',(Pv/745.7).toFixed(4)+' hp')+ri('In BTU/hr',(Pv*3.412).toFixed(2)+' BTU/hr')+ri('Work',(s==='W'?result:W||Pv*(t||1)).toFixed(0)+' J');\n  document.getElementById('ph-result').style.display='block';document.getElementById('ph-actions').style.display='flex';\n  drawDonut('ph-chart',['Power (kW)','Time (s)'],[Math.round(Pv/1000*100)||1,Math.round(t||1)],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('ph-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this power and energy in physics and engineering.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/physics", label: "Physics" }}
+      title="Mechanical & Electrical Power Calculator"
+      intro="Calculate mechanical power output (P = E/t), brake horsepower, electrical input demand, thermal dissipation losses, and line current across supply voltages."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 dark:bg-blue-950/40 dark:text-blue-400 dark:ring-blue-500/30">
+                <svg className="size-3.5 shrink-0 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ISO 80000-4 & IEC 60034-30-1 Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Electro-Mechanical Power Solver</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Thermal Loss & Amperage Engine
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-blue-500/20 bg-blue-50/60 p-4 dark:border-blue-500/30 dark:bg-blue-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What is the formula for calculating mechanical and electrical power?
+                </strong>
+                <p className="mt-1">
+                  Power measures the rate of energy expenditure: P = E / t = W / t. Transforming 750,000 Joules of energy over 60 seconds delivers exactly 12,500 Watts (12.50 kW), equivalent to 16.76 mechanical brake horsepower (1 HP = 745.7 W). In electrical motor applications operating at 90% efficiency on a 240V supply, total electrical input demand is 13.89 kW, drawing 57.9 Amperes of current while dissipating 1.39 kW as thermal waste heat.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>Motor Power Classes: Kilowatts, Brake Horsepower & Current Draw at 240V</h2>
+          <div className="not-prose my-6">
+            <PowerHorsepowerCurrentChart />
+          </div>
+
+          <p>
+            Power is the decisive physical metric governing the dynamic performance, velocity capability, and operational speed of every mechanical and electrical system in existence. Standardized globally within ISO 80000-4 and the International Electrotechnical Commission (IEC), the SI derived unit of power is the Watt (1 W = 1 J/s = 1 N·m/s). From sub-watt microprocessors and domestic appliances to megawatt locomotive drivetrains and gigawatt electrical utility stations, calculating power rates determines engineering sizing and thermal limits.
+          </p>
+
+          <p>
+            The profound operational distinction between energy and power is frequently conflated in everyday dialogue. Energy represents the total finite capacity to perform work (a reservoir of Joules or kilowatt-hours), whereas power dictates how swiftly that work can be extracted. A small 1-horsepower motor can lift the identical weight as a 100-horsepower industrial crane, but requires one hundred times as long to complete the ascent.
+          </p>
+
+          <h2>Foundational Power Equations across Physical Domains</h2>
+
+          <p>
+            Power appears across mechanics, electromagnetism, and rotational kinematics through consistent mathematical formulations:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Classical Mechanical Power Rate</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P = dW / dt = E / t = F · v</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Yields power in Watts from energy E (Joules) over elapsed time t (seconds), or force × velocity.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Imperial Horsepower Conversion</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">HP = P_watts / 745.69987   |   P_watts = HP · 745.7</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Converts standard SI metric Watts into James Watt mechanical brake horsepower.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Rotational Shaft Power from Torque</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P = τ · ω = τ · (2π · RPM / 60)   ⟹   HP = (τ_ft-lb · RPM) / 5252</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates shaft power output from torque τ and rotational revolutions per minute.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Electrical Joule Power & Current Draw</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P = V · I = I² · R = V² / R   ⟹   I = P / V</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Connects electrical potential (Volts), current (Amps), and resistance (Ohms).</div>
+          </Formula>
+
+          <h2>Standard Electric Motor Efficiency Tiers (IEC 60034-30-1)</h2>
+
+          <p>
+            Under international standards established by the International Electrotechnical Commission (IEC 60034-30-1), low-voltage three-phase asynchronous industrial induction motors are categorized into four standardized efficiency classes:
+          </p>
+
+          <DataTable
+            head={["Efficiency Tier", "IEC Code", "Nominal Efficiency (15 kW)", "Thermal Losses (kW)", "Operating Application"]}
+            rows={[
+              ["Standard Efficiency", "IE1", "88.7%", "1.91 kW Heat Loss", "Legacy phased-out industrial pumps"],
+              ["High Efficiency", "IE2", "90.6%", "1.56 kW Heat Loss", "Variable-frequency inverter drives"],
+              ["Premium Efficiency", "IE3", "92.1%", "1.29 kW Heat Loss", "Mandatory standard for modern factory motors"],
+              ["Super Premium", "IE4", "93.9%", "0.97 kW Heat Loss", "Permanent-magnet synchronous motors"],
+            ]}
+          />
+
+
+          <h2>Three-Phase Alternating Current Electrical Power Formulations</h2>
+
+          <p>
+            In industrial manufacturing facilities and commercial power distribution networks, electric power is transmitted via balanced three-phase alternating current (AC). Calculating three-phase electrical power requires incorporating the square root of three factor (√3 ≈ 1.732) and the power factor (cos φ):
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">5. Three-Phase AC Active Power Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P_active = √3 · V_LL · I_line · cos(φ)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates real useful electrical power in Watts from line-to-line voltage and line current.</div>
+          </Formula>
+
+          <p>
+            Here, V_LL represents line-to-line RMS voltage (typically 400V in Europe or 480V in North America), I_line is the line current in Amperes, and cos(φ) is the displacement power factor (typically 0.85 to 0.95 for industrial inductive motor loads). Apparent power is measured in Volt-Amperes (VA), while reactive power is measured in Volt-Amperes Reactive (VAR).
+          </p>
+
+          <h2>Thermal Dissipation & Industrial Heat Sink Sizing</h2>
+
+          <p>
+            Because electrical inefficiencies convert directly into thermal energy (P_loss = P_in - P_out), power electronics enclosures—such as solar inverters, electric vehicle motor drives, and variable frequency drives (VFDs)—require dedicated thermal management. Thermal dissipation is quantified in Watts of heat, demanding aluminum extruded heat sinks with thermal resistance R_th (measured in °C/W) to prevent junction temperatures from exceeding 125°C.
+          </p>
+
+          <h2>Comparative Operational Worked Case Studies</h2>
+
+          <p>
+            To examine practical power delivery calculations across industrial and automotive applications:
+          </p>
+
+          <h3>Case Study A: Residential Level 2 Electric Vehicle Charger</h3>
+          <p>
+            An electric vehicle charging station delivers E = 432,000 Joules (432 kJ) into a vehicle battery pack every minute (t = 60.0 seconds) from a residential single-phase V = 240 Volt AC supply with an internal power electronics efficiency of η = 95.0%.
+          </p>
+          <ul>
+            <li><strong>Output Charging Power Rate:</strong> P_out = 432,000 J ÷ 60.0 s = 7,200 Watts (7.20 kW).</li>
+            <li><strong>Mechanical Horsepower Equivalent:</strong> 7,200 W ÷ 745.7 W/HP = 9.66 Horsepower.</li>
+            <li><strong>Total Grid Input Power Demand:</strong> P_in = 7.20 kW ÷ 0.95 = 7.579 kW (7,579 Watts).</li>
+            <li><strong>Continuous Electrical Amperage:</strong> I = 7,579 W ÷ 240 V = 31.58 Amperes (requires a 40A dedicated breaker).</li>
+            <li><strong>Thermal Waste Heat Dissipation:</strong> P_loss = 7,579 - 7,200 = 379 Watts of cabinet heat rejection.</li>
+          </ul>
+
+          <h3>Case Study B: Industrial Machine Tool Spindle (15 kW Output)</h3>
+          <p>
+            A CNC vertical machining center spindle delivers P_out = 15.0 kW (20.1 HP) of cutting power at a constant shaft speed of 6,000 RPM over an operating run of t = 3,600 seconds (1.0 hour) at η = 92.0% efficiency on a 400V 3-phase line.
+          </p>
+          <ul>
+            <li><strong>Total Mechanical Energy Delivered:</strong> E = 15,000 W × 3,600 s = 54,000,000 Joules (54.0 MJ = 15.0 kWh).</li>
+            <li><strong>Shaft Cutting Torque:</strong> τ = P / ω = 15,000 ÷ (2π × 6,000 / 60) = 15,000 ÷ 628.32 = 23.87 N·m.</li>
+            <li><strong>Electrical Input Demand:</strong> P_in = 15.0 kW ÷ 0.92 = 16.304 kW.</li>
+            <li><strong>Continuous Energy Consumed:</strong> Exactly 16.30 kWh per hour of machining operation.</li>
+            <li><strong>Thermal Heat Dissipated:</strong> P_loss = 1.304 kW continuous heat requiring chiller coolant flow.</li>
+          </ul>
+
+          <h2>Physical Boundaries & Thermal Operating Envelopes</h2>
+
+          <p>
+            When operating high-power machinery under extreme continuous duty cycles:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Joule Heating Limitations (I²R):</strong> High electrical current generates internal copper winding heat in direct proportion to current squared. Doubling current quadruples thermal heating, necessitating forced ventilation or liquid cooling jackets.
+            </li>
+            <li>
+              <strong>Power Factor Degradation (cos φ):</strong> Inductive loads (such as electric motors and transformers) create a phase lag between voltage and current. A low power factor (e.g. PF = 0.80) increases apparent current draw, demanding heavier cabling without delivering additional useful work.
+            </li>
+            <li>
+              <strong>Altitude Derating for Air Cooling:</strong> Electric motors operating in thin high-altitude air (above 1,000 meters elevation) suffer from reduced air heat-capacity, requiring a 1% power derating per 100 meters to prevent thermal winding failure.
+            </li>
+          </ol>
+
+
+          <p>
+            Variable Frequency Drives (VFDs) optimize energy consumption in centrifugal pumps and industrial ventilation fans by modulating motor rotational speed to match real-time fluid demand. According to the Affinity Laws for turbomachinery, fluid flow rate scales linearly with shaft speed (Q ∝ N), but required shaft power scales with the cube of speed (P ∝ N³). Reducing a fan's speed by just 20% slashes required power by nearly 50%, generating dramatic electricity cost savings in commercial building HVAC operations.
+          </p>
+
+          <h2>Authoritative International Standards & Power Metrology</h2>
+
+          <p>
+            For verified power standards and electrical machinery ratings:
+          </p>
+          <ul>
+            <li>
+              <strong>ISO 80000-4:2019:</strong> International specifications for physical quantities and units of mechanics, energy, and power.
+            </li>
+            <li>
+              <strong>IEC 60034-1:</strong> International Electrotechnical Commission standard for rating and performance of rotating electrical machines.
+            </li>
+            <li>
+              <strong>IEEE Standard 112:</strong> Standard test procedure for polyphase induction motors and generators efficiency verification.
+            </li>
+            <li>
+              <strong>NEMA MG 1:</strong> National Electrical Manufacturers Association standards for motors and generators in North American industrial applications.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <PowerCalculator />
+    </CalcPage>
   );
 }

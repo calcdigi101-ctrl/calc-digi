@@ -1,26 +1,250 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import AccelerationCalculator from "@/components/calcs/physics/acceleration-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { AccelerationProfilesChart } from "@/components/flagship/physics/editorial-charts";
+
+const PATH = "/calculators/physics/acceleration-calculator";
+const TITLE = "Acceleration Calculator | Linear Kinematics & F=ma Motive Dynamics";
+const DESCRIPTION =
+  "Calculate linear acceleration, g-force ratios, velocity differentials, stopping distances, and motive thrust forces via Newton's Second Law and uniform kinematic equations.";
 
 export const metadata: Metadata = {
-  "title": "Acceleration Calculator – Kinematics & F=ma | CalcDigi",
-  "description": "Calculate acceleration from F=ma, velocity change over time, or kinematics. Covers g-force and automotive performance.",
-  "openGraph": {
-    "title": "Acceleration Calculator – Kinematics & F=ma | CalcDigi",
-    "description": "Calculate acceleration from F=ma, velocity change over time, or kinematics. Covers g-force and automotive performance.",
-    "type": "website",
-    "url": "/calculators/physics/acceleration-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/physics/acceleration-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/velocity-calculator", icon: "⚡", name: "Velocity & Displacement" },
+  { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newton's Second Law Force" },
+  { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Gravitational Free Fall" },
+  { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy Dynamics" },
+  { href: "/calculators/physics/projectile-motion-calculator", icon: "📐", name: "Projectile Ballistics" },
+  { href: "/calculators/engineering/horsepower-calculator", icon: "🏎️", name: "Engine Horsepower" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical definition and mathematical formula for acceleration?",
+    a: "In classical Newtonian kinematics, acceleration is formally defined as the first time derivative of velocity, or the second time derivative of spatial position: a = dv/dt = d²x/dt². Under uniform, non-varying conditions, average linear acceleration equals the change in velocity divided by the elapsed time: a = Δv / Δt = (v - v₀) / t, expressed in meters per second squared (m/s²). Furthermore, Newton's Second Law of Motion establishes that net force is directly proportional to mass and acceleration: F = m · a.",
+  },
+  {
+    q: "How is g-force calculated and what are physiological human tolerance limits?",
+    a: "A g-force is an inertial acceleration ratio normalized against standard terrestrial gravity (g₀ = 9.80665 m/s²): g-ratio = a / 9.80665. One g represents resting terrestrial gravity. Unconditioned humans generally tolerate sustained positive accelerations (+Gz, blood forced downward from head to feet) up to +4g to +5g before experiencing vision tunneling, greyout, and gravity-induced loss of consciousness (G-LOC). Specialized military combat pilots in anti-G pressurized flight suits can sustain up to +9g for brief tactical intervals.",
+  },
+  {
+    q: "What is the critical distinction between acceleration and velocity?",
+    a: "Velocity is a fundamental vector quantifying the rate of displacement over time (meters per second), incorporating both absolute magnitude (speed) and directional orientation. In contrast, acceleration quantifies the rate at which velocity changes over time (meters per second squared). An automobile cruising steadily at 120 km/h on a straight highway possesses high velocity but zero acceleration. Conversely, a vehicle launching from a dead stop has momentary zero velocity but peak positive acceleration.",
+  },
+  {
+    q: "How does deceleration differ from negative acceleration in vector coordinate systems?",
+    a: "Deceleration is a colloquial term indicating that an object's instantaneous speed is decreasing over time. In formal vector kinematics, acceleration carries a positive or negative sign depending strictly upon the established coordinate axis. If positive motion is oriented toward the right (+x), an object moving to the right while braking experiences negative acceleration (a < 0). However, an object moving leftward (-x) that slows down experiences positive acceleration, illustrating why physicists favor directional vector notation over colloquial deceleration.",
+  },
+  {
+    q: "How do you calculate stopping distance from known initial speed and braking deceleration?",
+    a: "Stopping distance is derived by combining human perception-reaction distance with Torricelli's kinematic equation (v² = v₀² + 2ad). Setting final velocity to zero yields braking distance: d_braking = v₀² / (2 · |a|). When adding the distance traversed during driver reaction latency (typically t_reaction ≈ 1.0 to 1.5 seconds: d_reaction = v₀ · t_reaction), total emergency stopping distance becomes: d_total = (v₀ · t_reaction) + [v₀² / (2 · |a|)].",
+  },
+  {
+    q: "Why does aerodynamic drag cause real-world automotive acceleration to decay at higher speeds?",
+    a: "Internal combustion engines and electric drivetrains deliver finite mechanical power (P = F · v). As velocity v escalates, maximum available tractive wheel force (F = P / v) inevitably contracts. Simultaneously, aerodynamic parasitic drag force increases quadratically with velocity according to Rayleigh's drag formula: F_drag = ½ · ρ · v² · Cd · A. Consequently, net accelerating force (F_net = F_tractive - F_drag) diminishes rapidly as speed rises.",
+  },
+];
+
+export default function AccelerationCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Physics Calculators\", \"item\": \"https://calcdigi.com/pages/physics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Acceleration Calculator\", \"item\": \"https://calcdigi.com/calculators/physics/acceleration-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Acceleration Calculator\", \"url\": \"https://calcdigi.com/calculators/physics/acceleration-calculator\", \"description\": \"Calculate acceleration from F=ma, velocity change over time, or kinematics. Covers g-force and automotive performance.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the formula for acceleration?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"a = Δv/Δt = (v - v₀)/t. Also from Newton's 2nd Law: a = F/m. Car accelerating from 0 to 27.78 m/s (100 km/h) in 8 seconds: a = 27.78/8 = 3.47 m/s².\"}}, {\"@type\": \"Question\", \"name\": \"What is g-force?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"G-force = acceleration/9.81 m/s². 1g = normal gravity. 3g = 3× gravity. F1 braking: ~5g. Fighter pilots tolerate 9g with special suits. Above 9g causes G-LOC (gravity-induced loss of consciousness) in seconds.\"}}, {\"@type\": \"Question\", \"name\": \"Difference between acceleration and velocity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Velocity = rate of change of position (m/s). Acceleration = rate of change of velocity (m/s²). A car at constant 60 km/h has velocity 60 km/h but acceleration zero. A car speeding up has both velocity and acceleration.\"}}, {\"@type\": \"Question\", \"name\": \"What is deceleration?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Deceleration is negative acceleration — velocity decreasing. Formula same: a = Δv/Δt, result negative. Emergency braking from 100 km/h to 0 in 3s: a = (0-27.78)/3 = -9.26 m/s² = -0.94g deceleration.\"}}, {\"@type\": \"Question\", \"name\": \"What is the acceleration due to gravity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"g = 9.81 m/s² at Earth's surface. Objects fall with this acceleration regardless of mass (in vacuum). Galileo proved this by dropping different masses from the Leaning Tower of Pisa. Varies slightly: 9.78 at equator, 9.83 at poles.\"}}, {\"@type\": \"Question\", \"name\": \"How to calculate distance from acceleration?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Using kinematics: x = v₀t + ½at². Starting from rest (v₀=0): x = ½at². Dropped from height: time to fall h = √(2h/g). Example: fall from 10m: t = √(2×10/9.81) = 1.43s. Impact velocity: v = gt = 9.81×1.43 = 14.0 m/s.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/physics\">Physics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Acceleration Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Acceleration Calculator</h1>\n<p class=\"calc-intro\">Calculate acceleration using F = ma (Newton's Second Law), from velocity change over time (a = Δv/Δt), or solve kinematic equations for constant acceleration. Essential for physics, engineering, and automotive performance analysis.</p>\n<p class=\"calc-intro\">Acceleration is the rate of change of velocity — how quickly an object speeds up, slows down, or changes direction. Any change in velocity (magnitude or direction) constitutes acceleration. Earth's surface gravity produces 9.81 m/s² downward acceleration on all objects regardless of mass.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">a = F/m | a = Δv/Δt = (v-v₀)/t | F = ma | g = 9.81 m/s² | v = v₀ + at | x = v₀t + ½at²</div></div>\n<div class=\"content-section\"><h2>Acceleration and Newton's Second Law – Complete Physics Guide</h2>\n<p>Acceleration (a) is the rate of change of velocity with respect to time: a = Δv/Δt. It is a vector quantity — it has both magnitude and direction. An object accelerates whenever its velocity changes in magnitude (speeding up or slowing down) or direction (turning). Newton's Second Law of Motion links acceleration to force: F = ma, where F is net force in Newtons, m is mass in kilograms, and a is acceleration in m/s².</p>\n<p>Understanding acceleration is fundamental to engineering, physics, and everyday life. Car performance is measured in acceleration (0-100 km/h time). Aircraft must reach sufficient speed on the runway. Space launch vehicles must provide 1.5g or more to escape Earth's gravity well. Even subtle accelerations — like centripetal acceleration in a curve — are crucial for safety calculations.</p>\n<h3>Types of Acceleration</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Type</th><th style=\"padding:11px 14px;text-align:left;\">Description</th><th style=\"padding:11px 14px;text-align:left;\">Example</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Linear (uniform)</td><td style=\"padding:10px 14px;\">Constant acceleration in straight line</td><td style=\"padding:10px 14px;\">Free fall, constant force</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Angular</td><td style=\"padding:10px 14px;\">Rate of change of angular velocity</td><td style=\"padding:10px 14px;\">Rotating machinery</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Centripetal</td><td style=\"padding:10px 14px;\">Directed toward center of circular path</td><td style=\"padding:10px 14px;\">v²/r — orbiting, cornering</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Tangential</td><td style=\"padding:10px 14px;\">Along the path in circular motion</td><td style=\"padding:10px 14px;\">Speeding up in a curve</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Gravitational (g)</td><td style=\"padding:10px 14px;\">9.81 m/s² at Earth's surface</td><td style=\"padding:10px 14px;\">Free fall, pendulum</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Deceleration</td><td style=\"padding:10px 14px;\">Negative acceleration (slowing down)</td><td style=\"padding:10px 14px;\">Braking</td></tr></tbody></table></div>\n<h3>g-Force and Human Physiology</h3>\n<p>g-force measures acceleration relative to Earth's gravitational acceleration (g = 9.81 m/s²). 1g = normal Earth gravity at rest. Humans can tolerate: 3-4g briefly without special training (typical roller coaster). 5-9g for trained fighter pilots in pressurized suits. Above 9g: loss of consciousness (G-LOC) within seconds. Formula 1 cars brake at ~5g. Space Shuttle launch: ~3g. High-performance jet fighters: up to 9g in turns. The human body is more tolerant of chest-to-back g-forces than head-to-foot (which causes blood pooling in legs).</p>\n<h3>Acceleration in Automotive Performance</h3>\n<p>The 0-100 km/h (0-60 mph) acceleration time is the standard performance benchmark. Required acceleration: Δv = 100 km/h = 27.78 m/s, t = time. a = 27.78/t. A car doing 0-100 in 10s: a = 2.78 m/s² = 0.28g. In 5s: a = 5.56 m/s² = 0.57g. In 3s (sports car): a = 9.26 m/s² = 0.94g. Bugatti Chiron (2.4s): a = 11.6 m/s² = 1.18g. Braking: ABS-assisted emergency braking typically achieves 0.8-1.0g deceleration. A car stopping from 100 km/h (27.78 m/s) in 1.0g: t = 27.78/9.81 = 2.83s, distance = v²/2a = 27.78²/19.62 = 39.3m.</p>\n<h3>Gravitational Acceleration Variation</h3>\n<p>g varies slightly across Earth's surface due to: latitude (equatorial bulge means you are farther from Earth's center at equator — g = 9.78 m/s²), altitude (g decreases with altitude — decreases by ~0.003 m/s² per 1000m), and local geology (dense rock beneath increases g slightly). Standard g = 9.80665 m/s² (defined, used for unit conversions). Practical value: 9.81 m/s² (used in most calculations). Moon: g = 1.62 m/s² (1/6 Earth). Mars: g = 3.72 m/s². Jupiter surface: g = 24.79 m/s² (2.5× Earth).</p></div>\n<div class=\"content-section\"><h3>Physics Formulas and Units</h3>\n<p>Always ensure units are consistent before calculating. This calculator uses SI units (International System): meters (m) for distance, kilograms (kg) for mass, seconds (s) for time, Newtons (N) for force, Joules (J) for energy, Watts (W) for power, and Pascals (Pa) for pressure. When converting from other unit systems (imperial, CGS), convert all values before entering them into the calculator.</p>\n<h3>Common Physics Constants Reference</h3>\n<p>Gravitational acceleration on Earth: g = 9.81 m/s² (standard: 9.80665 m/s²). Speed of light in vacuum: c = 2.998×10⁸ m/s. Universal gravitational constant: G = 6.674×10⁻¹¹ N·m²/kg². Speed of sound in air at 20°C: 343 m/s. Atmospheric pressure at sea level: 101,325 Pa = 1 atm. These constants appear in virtually every branch of physics and engineering.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the formula for acceleration? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">a = Δv/Δt = (v - v₀)/t. Also from Newton's 2nd Law: a = F/m. Car accelerating from 0 to 27.78 m/s (100 km/h) in 8 seconds: a = 27.78/8 = 3.47 m/s².</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is g-force? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">G-force = acceleration/9.81 m/s². 1g = normal gravity. 3g = 3× gravity. F1 braking: ~5g. Fighter pilots tolerate 9g with special suits. Above 9g causes G-LOC (gravity-induced loss of consciousness) in seconds.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Difference between acceleration and velocity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Velocity = rate of change of position (m/s). Acceleration = rate of change of velocity (m/s²). A car at constant 60 km/h has velocity 60 km/h but acceleration zero. A car speeding up has both velocity and acceleration.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is deceleration? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Deceleration is negative acceleration — velocity decreasing. Formula same: a = Δv/Δt, result negative. Emergency braking from 100 km/h to 0 in 3s: a = (0-27.78)/3 = -9.26 m/s² = -0.94g deceleration.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the acceleration due to gravity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">g = 9.81 m/s² at Earth's surface. Objects fall with this acceleration regardless of mass (in vacuum). Galileo proved this by dropping different masses from the Leaning Tower of Pisa. Varies slightly: 9.78 at equator, 9.83 at poles.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to calculate distance from acceleration? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Using kinematics: x = v₀t + ½at². Starting from rest (v₀=0): x = ½at². Dropped from height: time to fall h = √(2h/g). Example: fall from 10m: t = √(2×10/9.81) = 1.43s. Impact velocity: v = gt = 9.81×1.43 = 14.0 m/s.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Physics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/physics/force-calculator\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Force Calculator</span></a><a class=\"related-card\" href=\"/calculators/physics/kinetic-energy-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Kinetic Energy</span></a><a class=\"related-card\" href=\"/calculators/physics/projectile-motion-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Projectile Motion</span></a><a class=\"related-card\" href=\"/calculators/physics/wave-frequency-calculator\"><span class=\"rc-icon\">🌊</span><span class=\"rc-name\">Wave Frequency</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Acceleration Calculator – Newton's Second Law and Kinematics</h2><div class=\"form-group\"><label for=\"as\">Solve For</label><select id=\"as\"><option selected=\"\" value=\"a\">Acceleration from Δv/Δt</option><option value=\"F\">Force F = ma</option><option value=\"m\">Mass from F/a</option><option value=\"v\">Final Velocity v = v₀+at</option></select></div><div class=\"form-group\"><label for=\"av0\">Initial Velocity v₀ (m/s)</label><input id=\"av0\" min=\"0\" step=\"any\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"av\">Final Velocity v (m/s)</label><input id=\"av\" min=\"0\" step=\"any\" type=\"number\" value=\"27.78\"/></div><div class=\"form-group\"><label for=\"at\">Time (s)</label><input id=\"at\" min=\"0.001\" step=\"any\" type=\"number\" value=\"8\"/></div><div class=\"form-group\"><label for=\"aF\">Net Force F (N)</label><input id=\"aF\" min=\"0\" step=\"any\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"am\">Mass m (kg)</label><input id=\"am\" min=\"0.001\" step=\"any\" type=\"number\" value=\"1000\"/></div><div class=\"form-group\"><label for=\"aa\">Acceleration a (m/s²)</label><input id=\"aa\" step=\"any\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ph-result').style.display='none';document.getElementById('ph-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ph-result\" style=\"display:none;\"><div id=\"ph-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ph-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ph-ai\" style=\"display:none;\"></div></div>\n<div id=\"ph-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ph\" onclick=\"printResult('ph-result','Acceleration Calculator – Newton\\'s Second Law and Kinematics')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Acceleration Calculator – Newton\\'s Second Law and Kinematics')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-acceleration-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var s=document.getElementById('as').value;\n  var v0=parseFloat(document.getElementById('av0').value)||0,v=parseFloat(document.getElementById('av').value)||0;\n  var t=parseFloat(document.getElementById('at').value)||0,F=parseFloat(document.getElementById('aF').value)||0;\n  var m=parseFloat(document.getElementById('am').value)||1,a=parseFloat(document.getElementById('aa').value)||0;\n  var result;\n  if(s==='a'){if(!t){alert('Enter time.');return;}result=(v-v0)/t;}\n  else if(s==='F'){if(!a||!m){alert('Enter a and m.');return;}result=m*a;}\n  else if(s==='m'){if(!F||!a){alert('Enter F and a.');return;}result=F/a;}\n  else{if(!v0&&v0!==0||!a||!t){alert('Enter v₀, a, t.');return;}result=v0+a*t;}\n  var av=s==='a'?result:a, aiPrompt='Acceleration: '+av.toFixed(3)+' m/s² = '+(av/9.81).toFixed(3)+'g';\n  document.getElementById('ph-ri').innerHTML=\n    ri(s==='a'?'Acceleration':s==='F'?'Force (N)':s==='m'?'Mass (kg)':'Final Velocity (m/s)','<strong style=\"font-size:26px;color:var(--c-accent)\">'+result.toFixed(4)+'</strong>',true)+\n    ri('Acceleration',av.toFixed(4)+' m/s²')+ri('g-force',(av/9.81).toFixed(4)+'g')+\n    ri('Force',( (s==='F'?result:F)||m*av).toFixed(2)+' N')+ri('Mass',m.toFixed(2)+' kg');\n  document.getElementById('ph-result').style.display='block';document.getElementById('ph-actions').style.display='flex';\n  drawDonut('ph-chart',['Force (N)','Mass (kg)×10'],[Math.round(m*av)||1,Math.round(m*10)],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('ph-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain real-world significance of this acceleration calculation.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/physics", label: "Physics" }}
+      title="Acceleration & Kinematics Calculator"
+      intro="Calculate linear acceleration, relative g-force magnitude, traveled displacement, required motive force, and mechanical work using classical Newtonian equations of motion."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-0.5 font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/20 dark:bg-indigo-950/40 dark:text-indigo-400 dark:ring-indigo-500/30">
+                <svg className="size-3.5 shrink-0 text-indigo-600 dark:text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                SI & ISO 80000-3 Kinematics Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>BIPM & NIST Metric Guidelines</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-indigo-500/20 bg-indigo-50/60 p-4 dark:border-indigo-500/30 dark:bg-indigo-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What are the primary formulas for calculating acceleration?
+                </strong>
+                <p className="mt-1">
+                  Average linear acceleration is calculated by dividing velocity differential by elapsed time: a = (v - v₀) / t. Through Newton's Second Law, acceleration is also defined by applied motive force divided by inertial mass: a = F / m. Under uniform kinematic acceleration, displacement equals d = v₀t + ½at², while velocity without time is solved via Torricelli's theorem: v² = v₀² + 2ad. To convert acceleration into standard Earth g-force, divide result by 9.80665 m/s².
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Acceleration Profiles Across Mechanical & Aerospace Systems</h2>
+          <div className="not-prose my-6">
+            <AccelerationProfilesChart />
+          </div>
+
+          <p>
+            Acceleration forms the fundamental cornerstone of classical mechanics, governing the kinetic trajectory and operational force demands of every physical system in motion. Formally standardized within the International System of Quantities (ISO 80000-3), acceleration characterizes the temporal derivative of velocity. Whether analyzing an electric vehicle launching from standstill, designing high-speed railway braking envelopes, or calculating orbital launch booster staging, precise quantitative mastery of linear kinematics is vital across mechanical, civil, automotive, and aerospace engineering disciplines.
+          </p>
+
+          <p>
+            In practical mechanical engineering, acceleration cannot be assessed in isolation from inertial mass. According to Sir Isaac Newton's second axiom, the vector summation of forces acting upon a rigid body is identical to the temporal rate of change of its linear momentum. For a body possessing invariable invariant rest mass, this dynamic relationship reduces to the renowned equation F = m · a.
+          </p>
+
+          <h2>Newtonian Kinematic Formulas & Mathematical Derivations</h2>
+
+          <p>
+            Classical kinematics relies upon five interconnected variables: initial velocity (v₀), final velocity (v), uniform acceleration (a), elapsed time (t), and net spatial displacement (d). These quantities yield four foundational kinematic equations:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Velocity-Time Kinematic Relation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">v = v₀ + a · t</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Yields final velocity from baseline velocity, uniform acceleration, and elapsed duration.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Spatial Displacement Integral</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">d = v₀ · t + ½ · a · t²</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies traveled distance by integrating initial speed and uniform accelerative progress.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Torricelli Timeless Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">v² = v₀² + 2 · a · d</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Directly correlates velocities and displacement without requiring explicit time duration metrics.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Newton's Second Law & Mechanical Work</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">F = m · a   |   W = F · d = ½ · m · (v² - v₀²)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Bridges pure kinematic trajectory analysis with applied kinetic forces and energy transfer.</div>
+          </Formula>
+
+          <h2>Deceleration Envelopes & Braking Dynamics</h2>
+
+          <p>
+            Deceleration is technically acceleration directed opposite to the instantaneous vector of velocity. In highway safety design and automotive crashworthiness analysis, stopping performance is divided into distinct physiological and mechanical phases. The total stopping distance required to bring a moving vehicle to a complete standstill encompasses two sequential components:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Perception and Reaction Phase:</strong> The latency interval during which a human driver perceives an impending hazard, formulates a neural decision, and physically transitions their foot onto the brake pedal. For unimpaired drivers, this interval averages 1.0 to 1.5 seconds under daytime conditions. Because the vehicle continues at unabated initial velocity throughout this interval, reaction distance scales in direct linear proportion to velocity: d_reaction = v₀ · t_reaction.
+            </li>
+            <li>
+              <strong>Mechanical Friction Braking Phase:</strong> The physical interval during which hydraulic brake calipers compress friction pads against rotors, generating braking torque that decelerates the wheels against the road surface. Governed by Torricelli's theorem, braking distance expands quadratically: d_braking = v₀² / (2 · |a|). Consequently, doubling your traveling velocity quadruples your required physical stopping distance.
+            </li>
+          </ol>
+
+          <p>
+            Modern anti-lock braking systems (ABS) modulate brake line pressure up to 20 times per second to keep tire slip ratios within the optimal 10% to 20% window, generating approximately 0.8g to 1.0g (7.8 to 9.8 m/s²) of emergency deceleration on dry asphalt. On wet pavement or packed snow, peak surface friction coefficients collapse from 0.85 down to 0.25 or 0.10, tripling or quadrupling the minimum safe following distance.
+          </p>
+
+          <h2>Comparative Engineering Worked Case Studies</h2>
+
+          <p>
+            To examine the behavioral mechanics of linear acceleration across disparate physical scales, consider two real-world operational scenarios:
+          </p>
+
+          <h3>Case Study A: High-Performance Electric Vehicle Launch</h3>
+          <p>
+            A performance dual-motor electric vehicle with an all-up mass of 2,150 kg launches from a standstill (v₀ = 0 m/s) to 100 km/h (27.78 m/s) in exactly 2.80 seconds on dry asphalt.
+          </p>
+          <ul>
+            <li><strong>Velocity Shift:</strong> Δv = 27.78 - 0 = 27.78 m/s.</li>
+            <li><strong>Mean Acceleration:</strong> a = 27.78 m/s ÷ 2.80 s = 9.921 m/s² (32.55 ft/s²).</li>
+            <li><strong>Sustained G-Force:</strong> g-ratio = 9.921 ÷ 9.80665 = 1.012 g (exceeding standard 1g earth gravity).</li>
+            <li><strong>Required Net Motive Force:</strong> F = m · a = 2,150 kg × 9.921 m/s² = 21,330 Newtons (4,795 lbf).</li>
+            <li><strong>Launch Displacement:</strong> d = (0 × 2.8) + (0.5 × 9.921 × 2.80²) = 38.89 meters (127.6 ft).</li>
+            <li><strong>Kinetic Work Done:</strong> ΔKE = ½ × 2,150 × (27.78)² = 829.6 kilojoules (296.3 kW average mechanical power).</li>
+          </ul>
+
+          <h3>Case Study B: Commercial Airliner Takeoff Roll</h3>
+          <p>
+            A twin-engine passenger airliner loaded to a gross takeoff weight of 75,000 kg accelerates uniformly from taxiway rest (v₀ = 0) to rotation liftoff speed (Vr = 150 knots = 77.17 m/s = 277.8 km/h) along a 34.0-second takeoff run.
+          </p>
+          <ul>
+            <li><strong>Linear Acceleration:</strong> a = 77.17 m/s ÷ 34.0 s = 2.270 m/s² (0.231 g).</li>
+            <li><strong>Required Net Engine Thrust:</strong> F = 75,000 kg × 2.270 m/s² = 170,250 Newtons (38,274 lbf).</li>
+            <li><strong>Runway Traveled Distance:</strong> d = 0.5 × 2.270 × 34.0² = 1,312 meters (4,304 feet).</li>
+            <li><strong>Kinetic Energy Imparted:</strong> ΔKE = ½ × 75,000 × (77.17)² = 223.3 megajoules (6,568 kW average power).</li>
+          </ul>
+
+          <h2>Operational Constraints & Environmental Boundary Conditions</h2>
+
+          <p>
+            While elementary textbook physics treats acceleration as perfectly constant, practical engineering domains encounter non-linear boundary factors:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Aerodynamic Parasitic Drag:</strong> Air resistance scales with velocity squared (Fd = ½·ρ·Cd·A·v²). As speed rises, aerodynamic opposition rapidly consumes available engine thrust, causing tangible acceleration curves to taper asymptotically toward terminal velocity.
+            </li>
+            <li>
+              <strong>Tire Friction & Traction Limits:</strong> In automotive engineering, peak surface traction is constrained by Coulomb friction: F_max = μ · m · g. On typical dry roadway pavement (μ ≈ 0.85 to 1.0), mechanical wheelspin restricts initial launch acceleration to approximately 1.0g regardless of available motor power, unless specialized aerodynamic downforce or chemical drag-strip compounds are applied.
+            </li>
+            <li>
+              <strong>Rotational Inertial Overhead:</strong> Internal vehicle components—such as transmission gearing, drive shafts, brake rotors, and wheels—require additional rotational kinetic energy (E_rot = ½·I·ω²), effectively increasing the apparent inertial mass of the vehicle by 5% to 12% in lower gear ratios.
+            </li>
+            <li>
+              <strong>Human Physiological G-Limits:</strong> In aerospace design, sustained positive linear accelerations exceeding 5g induce cerebral ischemia. Structural airframe design frequently exceeds biological passenger thresholds, necessitating computerized envelope limits.
+            </li>
+          </ol>
+
+          <h2>Authoritative Kinematics & Standardization References</h2>
+
+          <p>
+            For rigorous technical implementations and metric calibrations, refer to international physical standards:
+          </p>
+          <ul>
+            <li>
+              <strong>Bureau International des Poids et Mesures (BIPM):</strong> Defines fundamental SI base units of length (meter, defined via the speed of light c = 299,792,458 m/s) and temporal duration (second, defined by 9,192,631,770 periods of cesium-133 radiation).
+            </li>
+            <li>
+              <strong>NIST Special Publication 330:</strong> US National Institute of Standards and Technology guide to the International System of Units and standard acceleration of gravity definitions (g₀ = 9.80665 m/s² exactly).
+            </li>
+            <li>
+              <strong>ISO 80000-3:2019:</strong> International Organization for Standardization specifications for quantities and units of space, time, velocity, and acceleration.
+            </li>
+            <li>
+              <strong>Society of Automotive Engineers (SAE J2452):</strong> Recommended practice for testing step-function automotive acceleration, rolling resistance, and braking deceleration envelopes.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <AccelerationCalculator />
+    </CalcPage>
   );
 }

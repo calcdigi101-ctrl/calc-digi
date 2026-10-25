@@ -1,26 +1,245 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import VelocityCalculator from "@/components/calcs/physics/velocity-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { VelocityDecelerationStoppingChart } from "@/components/flagship/physics/editorial-charts";
+
+const PATH = "/calculators/physics/velocity-calculator";
+const TITLE = "Velocity Calculator | Vector Kinematics, Displacement & Average Speed";
+const DESCRIPTION =
+  "Calculate instantaneous velocity, average velocity, constant acceleration progress, spatial displacement, and multi-unit speed conversions across metric, imperial, and nautical frames.";
 
 export const metadata: Metadata = {
-  "title": "Velocity Calculator – Speed Distance Time | CalcDigi",
-  "description": "Calculate velocity from distance and time, distance from speed and time, or travel time. Covers kinematic equations and speed.",
-  "openGraph": {
-    "title": "Velocity Calculator – Speed Distance Time | CalcDigi",
-    "description": "Calculate velocity from distance and time, distance from speed and time, or travel time. Covers kinematic equations and speed.",
-    "type": "website",
-    "url": "/calculators/physics/velocity-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/physics/velocity-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/acceleration-calculator", icon: "🚀", name: "Acceleration & Kinematics" },
+  { href: "/calculators/physics/projectile-motion-calculator", icon: "📐", name: "Projectile Ballistics" },
+  { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Free Fall Kinematics" },
+  { href: "/calculators/physics/momentum-calculator", icon: "🎯", name: "Linear Momentum p=mv" },
+  { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚡", name: "Kinetic Energy" },
+  { href: "/calculators/everyday/pace-calculator", icon: "🏃", name: "Running Pace & Speed" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical definition and mathematical formula for velocity?",
+    a: "Velocity is the temporal rate of change of spatial displacement, formally defined as a vector possessing both magnitude and spatial orientation: v = dr/dt. Under uniform linear motion with zero acceleration, velocity equals net displacement divided by elapsed duration: v = Δx / Δt. When subject to constant acceleration, final velocity is determined by the first kinematic equation: v = v₀ + a · t, where v₀ is the initial baseline velocity, a is linear acceleration, and t is elapsed travel time.",
+  },
+  {
+    q: "What is the fundamental scientific difference between speed and velocity?",
+    a: "Speed is a scalar quantity quantifying purely the rate at which an object covers physical distance regardless of direction (speed = distance / time). Velocity is a vector quantity expressing the rate of spatial displacement along a defined coordinate direction (velocity = displacement / time). For example, a race car completing a full circular 5-kilometer closed circuit in 100 seconds maintains a scalar speed of 50 m/s (180 km/h), yet possesses an average vector velocity of exactly zero because its final net displacement from start to finish is zero.",
+  },
+  {
+    q: "How do you calculate average velocity when speed varies across multiple trip segments?",
+    a: "Average velocity is rigorously defined as total spatial displacement divided by total elapsed trip time: v_avg = Δx_total / Δt_total. It is critical to note that average velocity is NOT a simple arithmetic mean of segment speeds unless the travel time spent in each segment is identical. When travelling fixed distances at different velocities, the harmonic mean must be employed: v_avg = 2 · v₁ · v₂ / (v₁ + v₂).",
+  },
+  {
+    q: "How does stopping distance scale when initial driving velocity increases?",
+    a: "Stopping distance scales non-linearly because mechanical braking distance expands with the square of velocity (v² / 2a). While driver perception distance scales linearly (v · t_reaction), braking distance quadruples whenever speed doubles. For example, stopping from 50 km/h requires approximately 26 meters, whereas stopping from 100 km/h requires over 65 meters on dry asphalt under standard braking friction.",
+  },
+  {
+    q: "What are the standard international conversion factors between speed units?",
+    a: "The standard SI unit of velocity is meters per second (m/s). Standard conversion multipliers include: 1 m/s = 3.600 km/h (kilometers per hour); 1 m/s = 2.23694 mph (statute miles per hour); 1 m/s = 1.94384 knots (nautical miles per hour); and 1 m/s = 3.28084 ft/s (feet per second). Conversely, 100 km/h equates to 27.778 m/s, and 60 mph equates to 26.822 m/s.",
+  },
+  {
+    q: "How does instantaneous velocity relate to the derivative of position in calculus?",
+    a: "In differential calculus, instantaneous velocity represents the instantaneous slope of the spatial position-time curve: v(t) = lim_{Δt→0} [x(t + Δt) - x(t)] / Δt = dx/dt. When the position function is a polynomial—such as x(t) = 5t² + 3t + 2—taking the first derivative yields instantaneous velocity directly: v(t) = 10t + 3. The second derivative yields linear acceleration: a(t) = d²x/dt² = 10 m/s².",
+  },
+];
+
+export default function VelocityCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Physics Calculators\", \"item\": \"https://calcdigi.com/pages/physics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Velocity Calculator\", \"item\": \"https://calcdigi.com/calculators/physics/velocity-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Velocity Calculator\", \"url\": \"https://calcdigi.com/calculators/physics/velocity-calculator\", \"description\": \"Calculate velocity from distance and time, distance from speed and time, or travel time. Covers kinematic equations and speed.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the formula for velocity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"v = d/t. Velocity = distance/time. 100m in 9.58s (Usain Bolt 100m record): v = 100/9.58 = 10.44 m/s = 37.58 km/h. Average velocity considers displacement; average speed considers total distance traveled.\"}}, {\"@type\": \"Question\", \"name\": \"Difference between speed and velocity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Speed is scalar (magnitude only). Velocity is vector (magnitude + direction). A car going 60 km/h north has speed 60 km/h and velocity 60 km/h north. Completing a circular trip: average speed > 0 but average velocity = 0 (returned to start).\"}}, {\"@type\": \"Question\", \"name\": \"What are the kinematic equations?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For constant acceleration: v=v₀+at, x=v₀t+½at², v²=v₀²+2ax, x=½(v₀+v)t. Any three known quantities solve for the remaining two.\"}}, {\"@type\": \"Question\", \"name\": \"What is terminal velocity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"When drag force = gravitational force, net force = 0, acceleration = 0. Object falls at constant (terminal) velocity. Skydiver: ~54 m/s spread, ~90 m/s dive. Formula: v_t = √(2mg/ρCdA).\"}}, {\"@type\": \"Question\", \"name\": \"How to convert km/h to m/s?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide by 3.6. 100 km/h ÷ 3.6 = 27.78 m/s. Multiply m/s by 3.6 to get km/h. 10 m/s × 3.6 = 36 km/h.\"}}, {\"@type\": \"Question\", \"name\": \"What is average vs instantaneous velocity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average: total displacement/total time (for entire journey). Instantaneous: velocity at one specific moment = dx/dt (derivative of position). Speedometer shows instantaneous speed. Average speed = odometer reading / travel time.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/physics\">Physics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Velocity Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Velocity Calculator</h1>\n<p class=\"calc-intro\">Calculate velocity (v = d/t), find distance from speed and time, or determine travel time from speed and distance. Covers average velocity, instantaneous velocity, and kinematic equations used in physics problem-solving.</p>\n<p class=\"calc-intro\">Velocity is a vector quantity describing the rate of change of position — it has both magnitude (speed) and direction. Average velocity = total displacement / total time. Speed and velocity differ: speed is scalar (magnitude only), while velocity includes direction. A car driving a complete circle returns to start with zero displacement but nonzero distance traveled.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">v = d / t | d = v × t | t = d / v | Average velocity = Δx/Δt | Kinematic: v = v₀ + at | v² = v₀² + 2aΔx</div></div>\n<div class=\"content-section\"><h2>Velocity, Speed and Kinematics – Complete Physics Guide</h2>\n<p>Velocity is one of the most fundamental concepts in classical mechanics, describing how quickly an object changes its position. Unlike speed, which is a scalar quantity (magnitude only), velocity is a vector that includes both magnitude and direction. A car traveling at 60 km/h northward and another at 60 km/h southward have the same speed but opposite velocities.</p>\n<p>Average velocity = total displacement / total time elapsed. Displacement is the straight-line distance from start to finish, regardless of the path taken. A runner completing a 400m circular track has traveled 400m distance but zero displacement — and zero average velocity for the complete lap, though their average speed is nonzero.</p>\n<h3>Kinematic Equations for Constant Acceleration</h3>\n<p>When acceleration is constant, four kinematic equations relate velocity, acceleration, displacement, and time: (1) v = v₀ + at. (2) x = v₀t + ½at². (3) v² = v₀² + 2ax. (4) x = ½(v₀ + v)t. These four equations, derived from calculus, completely describe motion under constant acceleration. Any three known variables allow calculation of the remaining two.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Object</th><th style=\"padding:11px 14px;text-align:left;\">m/s</th><th style=\"padding:11px 14px;text-align:left;\">km/h</th><th style=\"padding:11px 14px;text-align:left;\">Note</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Walking</td><td style=\"padding:10px 14px;\">1.4 m/s</td><td style=\"padding:10px 14px;\">5 km/h</td><td style=\"padding:10px 14px;\">Average adult walking speed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Running</td><td style=\"padding:10px 14px;\">3-6 m/s</td><td style=\"padding:10px 14px;\">10-22 km/h</td><td style=\"padding:10px 14px;\">Recreational to competitive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Highway car</td><td style=\"padding:10px 14px;\">27.8 m/s</td><td style=\"padding:10px 14px;\">100 km/h</td><td style=\"padding:10px 14px;\">Freeway speed limit</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Sound (air, 20°C)</td><td style=\"padding:10px 14px;\">343 m/s</td><td style=\"padding:10px 14px;\">1235 km/h</td><td style=\"padding:10px 14px;\">Mach 1</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Commercial jet</td><td style=\"padding:10px 14px;\">250 m/s</td><td style=\"padding:10px 14px;\">900 km/h</td><td style=\"padding:10px 14px;\">Cruising altitude</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Space Shuttle (orbit)</td><td style=\"padding:10px 14px;\">7,800 m/s</td><td style=\"padding:10px 14px;\">28,000 km/h</td><td style=\"padding:10px 14px;\">Low Earth orbit</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Light (vacuum)</td><td style=\"padding:10px 14px;\">3×10⁸ m/s</td><td style=\"padding:10px 14px;\">1.08×10⁹ km/h</td><td style=\"padding:10px 14px;\">Universal speed limit</td></tr></tbody></table></div>\n<h3>Relative Velocity</h3>\n<p>Velocity is always measured relative to a reference frame. A passenger walking at 5 km/h toward the front of a train moving at 200 km/h is moving at 205 km/h relative to the ground. Galilean velocity addition (non-relativistic): v_AB = v_AC + v_CB, where v_AB is velocity of A relative to B. At speeds approaching the speed of light, Einstein special relativity modifies this: v_rel = (v₁ + v₂)/(1 + v₁v₂/c²), preventing any object from exceeding c.</p>\n<h3>Terminal Velocity</h3>\n<p>When a falling object reaches terminal velocity, drag force equals gravitational force and acceleration becomes zero — constant velocity is maintained. Terminal velocity depends on: mass, cross-sectional area, drag coefficient, and fluid density. Skydiver in spread position: ~54 m/s (195 km/h). Skydiver in dive: ~90 m/s (320 km/h). Raindrop: 9 m/s. Hailstone: 10-48 m/s depending on size. Terminal velocity = √(2mg/ρCdA) where m=mass, g=gravity, ρ=air density, Cd=drag coefficient, A=cross-sectional area.</p>\n<h3>Velocity Units Conversion Reference</h3>\n<p>1 m/s = 3.6 km/h = 2.237 mph = 1.944 knots. 1 km/h = 0.2778 m/s = 0.6214 mph. 1 mph = 1.609 km/h = 0.4470 m/s. 1 knot = 1.852 km/h = 0.5144 m/s (used in aviation and maritime). Mach number = v/v_sound (343 m/s at sea level, 20°C). Mach 1 = 343 m/s = 1235 km/h. Mach varies with altitude and temperature — aircraft at Mach 1 at 10,000m altitude travel at ~1050 km/h (air is colder, speed of sound lower).</p></div>\n<div class=\"content-section\"><h3>Physics Formulas and Units</h3>\n<p>Always ensure units are consistent before calculating. This calculator uses SI units (International System): meters (m) for distance, kilograms (kg) for mass, seconds (s) for time, Newtons (N) for force, Joules (J) for energy, Watts (W) for power, and Pascals (Pa) for pressure. When converting from other unit systems (imperial, CGS), convert all values before entering them into the calculator.</p>\n<h3>Common Physics Constants Reference</h3>\n<p>Gravitational acceleration on Earth: g = 9.81 m/s² (standard: 9.80665 m/s²). Speed of light in vacuum: c = 2.998×10⁸ m/s. Universal gravitational constant: G = 6.674×10⁻¹¹ N·m²/kg². Speed of sound in air at 20°C: 343 m/s. Atmospheric pressure at sea level: 101,325 Pa = 1 atm. These constants appear in virtually every branch of physics and engineering.</p>\n</div>\n<div class=\"content-section\"><h3>Safety and Engineering Standards</h3>\n<p>Physics calculations directly inform engineering safety standards. Stopping distance calculations (kinetic energy / braking force) set speed limits and vehicle safety requirements. Pressure calculations determine pipe and vessel wall thickness in plumbing and industrial equipment. Torque specifications on fasteners prevent structural failures. Centripetal acceleration limits guide road curve design and roller coaster safety. Every safety standard in transportation, construction, and consumer products has physics calculations at its foundation.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the formula for velocity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">v = d/t. Velocity = distance/time. 100m in 9.58s (Usain Bolt 100m record): v = 100/9.58 = 10.44 m/s = 37.58 km/h. Average velocity considers displacement; average speed considers total distance traveled.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Difference between speed and velocity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Speed is scalar (magnitude only). Velocity is vector (magnitude + direction). A car going 60 km/h north has speed 60 km/h and velocity 60 km/h north. Completing a circular trip: average speed &gt; 0 but average velocity = 0 (returned to start).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are the kinematic equations? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For constant acceleration: v=v₀+at, x=v₀t+½at², v²=v₀²+2ax, x=½(v₀+v)t. Any three known quantities solve for the remaining two.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is terminal velocity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">When drag force = gravitational force, net force = 0, acceleration = 0. Object falls at constant (terminal) velocity. Skydiver: ~54 m/s spread, ~90 m/s dive. Formula: v_t = √(2mg/ρCdA).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to convert km/h to m/s? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide by 3.6. 100 km/h ÷ 3.6 = 27.78 m/s. Multiply m/s by 3.6 to get km/h. 10 m/s × 3.6 = 36 km/h.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is average vs instantaneous velocity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average: total displacement/total time (for entire journey). Instantaneous: velocity at one specific moment = dx/dt (derivative of position). Speedometer shows instantaneous speed. Average speed = odometer reading / travel time.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Physics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/physics/force-calculator\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Force Calculator</span></a><a class=\"related-card\" href=\"/calculators/physics/kinetic-energy-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Kinetic Energy</span></a><a class=\"related-card\" href=\"/calculators/physics/projectile-motion-calculator\"><span class=\"rc-icon\">📐</span><span class=\"rc-name\">Projectile Motion</span></a><a class=\"related-card\" href=\"/calculators/physics/wave-frequency-calculator\"><span class=\"rc-icon\">🌊</span><span class=\"rc-name\">Wave Frequency</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Velocity Calculator – Speed, Distance and Time Formula</h2><div class=\"form-group\"><label for=\"vs\">Solve For</label><select id=\"vs\"><option selected=\"\" value=\"v\">Velocity v = d/t</option><option value=\"d\">Distance d = v × t</option><option value=\"t\">Time t = d/v</option></select></div><div class=\"form-group\"><label for=\"vd\">Distance (m)</label><input id=\"vd\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"vt\">Time (s)</label><input id=\"vt\" min=\"0.001\" step=\"any\" type=\"number\" value=\"9.58\"/></div><div class=\"form-group\"><label for=\"vv\">Velocity (m/s)</label><input id=\"vv\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div><div class=\"form-group\"><label for=\"vunit\">Velocity Unit</label><select id=\"vunit\"><option selected=\"\" value=\"ms\">m/s</option><option value=\"kmh\">km/h</option><option value=\"mph\">mph</option><option value=\"knots\">knots</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ph-result').style.display='none';document.getElementById('ph-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ph-result\" style=\"display:none;\"><div id=\"ph-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ph-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ph-ai\" style=\"display:none;\"></div></div>\n<div id=\"ph-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ph\" onclick=\"printResult('ph-result','Velocity Calculator – Speed, Distance and Time Formula')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Velocity Calculator – Speed, Distance and Time Formula')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-velocity-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var CONV={ms:1,kmh:3.6,mph:2.237,knots:1.944};\nfunction doCalc(){\n  var s=document.getElementById('vs').value;\n  var d=parseFloat(document.getElementById('vd').value)||0;\n  var t=parseFloat(document.getElementById('vt').value)||0;\n  var v=parseFloat(document.getElementById('vv').value)||0;\n  var u=document.getElementById('vunit').value;\n  var result,label;\n  if(s==='v'){if(!d||!t){alert('Enter distance and time.');return;}result=d/t;label='Velocity';}\n  else if(s==='d'){if(!v||!t){alert('Enter velocity and time.');return;}result=(v/CONV[u])*t;label='Distance (m)';}\n  else{if(!v||!d){alert('Enter velocity and distance.');return;}result=d/(v/CONV[u]);label='Time (s)';}\n  var vms=s==='v'?result:(v/CONV[u]);\n  var aiPrompt='Velocity: '+( vms*CONV[u]).toFixed(3)+' '+u+' ('+vms.toFixed(3)+' m/s)';\n  document.getElementById('ph-ri').innerHTML=\n    ri(label,'<strong style=\"font-size:26px;color:var(--c-accent)\">'+result.toFixed(4)+(s==='v'?' m/s':s==='d'?' m':' s')+'</strong>',true)+\n    (s==='v'?ri('In km/h',(result*3.6).toFixed(3)+' km/h'):'')+\n    (s==='v'?ri('In mph',(result*2.237).toFixed(3)+' mph'):'')+\n    ri('Distance',(s==='d'?result:d).toFixed(3)+' m')+\n    ri('Time',(s==='t'?result:t).toFixed(3)+' s')+\n    ri('Velocity',(vms*CONV[u]).toFixed(3)+' '+u+' = '+vms.toFixed(3)+' m/s');\n  document.getElementById('ph-result').style.display='block';document.getElementById('ph-actions').style.display='flex';\n  drawDonut('ph-chart',['Distance (m)','Time (s)'],[Math.round(s==='d'?result:d),Math.round(s==='t'?result:t)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ph-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this velocity and motion physics.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/physics", label: "Physics" }}
+      title="Velocity & Kinematic Motion Calculator"
+      intro="Calculate instantaneous velocity, average velocity, net spatial displacement, and emergency stopping envelopes using classical Newtonian kinematics."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-0.5 font-medium text-blue-700 ring-1 ring-inset ring-blue-600/20 dark:bg-blue-950/40 dark:text-blue-400 dark:ring-blue-500/30">
+                <svg className="size-3.5 shrink-0 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ISO 80000-3 & BIPM Standardized
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>SI Coordinate Kinematics</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-blue-500" />
+                Dual Vector & Scalar Engine
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-blue-500/20 bg-blue-50/60 p-4 dark:border-blue-500/30 dark:bg-blue-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How do you calculate velocity and displacement?
+                </strong>
+                <p className="mt-1">
+                  When acceleration is uniform, final velocity is determined by adding initial velocity to the product of acceleration and elapsed time: v = v₀ + a · t. Total displacement traversed during this period is given by d = v₀t + ½at². When dealing with variable speeds across equal distance intervals, average velocity is computed via the harmonic mean rather than a simple average. In metric conversions, 1 m/s exactly equals 3.6 km/h or approximately 2.237 mph.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>Vehicle Velocity vs Quadratic Stopping Distance Envelope</h2>
+          <div className="not-prose my-6">
+            <VelocityDecelerationStoppingChart />
+          </div>
+
+          <p>
+            Velocity is among the most essential vector metrics in classical and modern physics, articulating the directional rate at which spatial coordinates transform across time. Standardized globally under ISO 80000-3 and the International System of Units (SI), velocity is measured in meters per second (m/s). From subatomic particle drift velocity in semiconductors to ballistic orbital speeds of artificial satellites, calculating instantaneous and average velocity is indispensable for engineering modeling, automotive dynamics, aeronautical navigation, and mechanical robotics.
+          </p>
+
+          <p>
+            Unlike elementary scalar speed—which reflects mere distance traveled without spatial orientation—velocity is inherently directional. A particle reversing its trajectory registers a negative velocity relative to the reference origin, even while maintaining positive scalar speed. Understanding this distinction is vital for multi-dimensional vector resolution, orbital mechanics, and momentum conservation laws.
+          </p>
+
+          <h2>Mathematical Formulations & Kinematic Equations</h2>
+
+          <p>
+            The behavior of moving bodies undergoing uniform linear motion or constant acceleration is governed by the classical kinematic triad:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Linear Velocity Function</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">v = v₀ + a · t</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates instantaneous final velocity under constant linear acceleration over elapsed time.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Average Velocity for Uniform Acceleration</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">v_avg = (v₀ + v) / 2</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Mean velocity across a constant acceleration interval, representing equivalent uniform motion.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Net Spatial Displacement Integral</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">d = v₀ · t + ½ · a · t²   |   d = v_avg · t</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates total position change by compounding inertial speed and accelerative progress.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Torricelli Energy-Velocity Relation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">v² = v₀² + 2 · a · d   ⟹   d_stop = v₀² / (2 · |a|)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Determines stopping distance or terminal speed directly from displacement without time metrics.</div>
+          </Formula>
+
+          <h2>Speed vs Velocity: The Scalar-Vector Dilemma</h2>
+
+          <p>
+            The conceptual confusion between scalar speed (scalar magnitude s) and vector velocity (vector v) frequently leads to engineering miscalculations. In physics, displacement (Δx) represents the straight-line shortest vector connecting an initial coordinate to a final coordinate, whereas path distance (L) measures the total odometer length traversed along the curve.
+          </p>
+
+          <p>
+            When a vehicle travels around a circular roundabout of radius R = 50 meters at a constant speed of 10 m/s (36 km/h), its scalar speed remains completely unchanged. However, its velocity vector continuously rotates in space, requiring a constant centripetal acceleration directed toward the center of the turn: a_c = v² / R = 100 / 50 = 2.0 m/s². Upon completing one full orbit, the average velocity vector is exactly zero, despite the vehicle having consumed fuel and logged 314 meters of scalar road travel.
+          </p>
+
+          <h2>Harmonic Mean in Multi-Stage Trip Analysis</h2>
+
+          <p>
+            When traveling between two destinations at varying speeds across equal distance intervals, standard arithmetic averaging produces an erroneous overestimation of true velocity. Because more time is spent traversing the slower segment, the harmonic mean must be applied:
+          </p>
+
+          <p>
+            Consider a commuter driving 60 kilometers outward at 60 km/h (1.0 hour) and returning the same 60 kilometers through heavy congestion at 30 km/h (2.0 hours). The simple average of 60 and 30 is 45 km/h. However, the total displacement is 120 kilometers and total elapsed time is 3.0 hours. The true average velocity is: v_avg = 120 km ÷ 3.0 hr = 40.0 km/h, perfectly matching the harmonic formulation: (2 × 60 × 30) / (60 + 30) = 3600 / 90 = 40.0 km/h.
+          </p>
+
+          <h2>Comparative Operational Worked Case Studies</h2>
+
+          <p>
+            To examine practical velocity calculations, consider two diverse transport scenarios:
+          </p>
+
+          <h3>Case Study A: Highway On-Ramp Acceleration Phase</h3>
+          <p>
+            A passenger car merges onto a highway, entering the acceleration lane at an initial speed of v₀ = 50 km/h (13.889 m/s). The driver applies steady throttle producing a constant acceleration of a = 2.20 m/s² over an interval of t = 6.50 seconds.
+          </p>
+          <ul>
+            <li><strong>Velocity Differential:</strong> Δv = a · t = 2.20 m/s² × 6.50 s = 14.300 m/s (51.48 km/h).</li>
+            <li><strong>Final Merging Velocity:</strong> v = 13.889 + 14.300 = 28.189 m/s (101.48 km/h = 63.06 mph).</li>
+            <li><strong>Average Merge Velocity:</strong> v_avg = (13.889 + 28.189) / 2 = 21.039 m/s (75.74 km/h).</li>
+            <li><strong>On-Ramp Displacement Traveled:</strong> d = (13.889 × 6.50) + (0.5 × 2.20 × 6.50²) = 90.28 + 46.48 = 136.76 meters (448.7 feet).</li>
+          </ul>
+
+          <h3>Case Study B: High-Speed Electric Locomotive Acceleration</h3>
+          <p>
+            A modern high-speed electric train departs a passenger terminal from rest (v₀ = 0 m/s), maintaining a smooth passenger-comfort acceleration rate of a = 0.65 m/s² for t = 120.0 seconds.
+          </p>
+          <ul>
+            <li><strong>Final Running Velocity:</strong> v = 0 + (0.65 × 120.0) = 78.00 m/s (280.80 km/h = 174.48 mph).</li>
+            <li><strong>Total Mainline Displacement:</strong> d = 0.5 × 0.65 × 120.0² = 4,680 meters (4.68 km = 2.91 miles).</li>
+            <li><strong>Average Velocity:</strong> v_avg = 78.00 / 2 = 39.00 m/s (140.40 km/h).</li>
+          </ul>
+
+          <h2>Real-World Operational Constraints & Aerodynamic Friction</h2>
+
+          <p>
+            In practical terrestrial environments, velocity curves do not accelerate indefinitely due to physical resistive forces:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Aerodynamic Drag Wall:</strong> Air resistance escalates with the square of velocity: F_drag = ½ · ρ · Cd · A · v². At 130 km/h, aerodynamic drag consumes over 75% of total automotive propulsion energy. To double vehicle velocity, motive powertrain wattage must expand by an eight-fold factor (P = F · v ∝ v³).
+            </li>
+            <li>
+              <strong>Tire Rolling Resistance:</strong> Mechanical hysteresis inside elastomeric tires resists motion in direct proportion to weight: F_roll = Crr · m · g. Rolling resistance dominates at low city speeds, but is overtaken by aerodynamic drag above 60 to 80 km/h.
+            </li>
+            <li>
+              <strong>Braking Thermal Saturation:</strong> Emergency deceleration from high speeds converts immense kinetic energy (E_k = ½·m·v²) directly into friction heat on brake discs. Repetitive high-velocity stops induce brake fade as pad friction coefficients degrade at elevated temperatures above 600°C.
+            </li>
+          </ol>
+
+          <h2>Authoritative International Standards & Metrology References</h2>
+
+          <p>
+            For verified velocity and kinematic metrology guidelines:
+          </p>
+          <ul>
+            <li>
+              <strong>BIPM SI Brochure (9th Edition):</strong> Authoritative international definitions of the meter (base unit of length derived from light velocity c = 299,792,458 m/s) and second (derived from cesium frequency).
+            </li>
+            <li>
+              <strong>ISO 80000-3:2019:</strong> International standard specifying physical quantities and units for space, time, velocity, angular velocity, and acceleration.
+            </li>
+            <li>
+              <strong>NIST Guide for the Use of the International System of Units (SP 811):</strong> Complete conversion tables and dimensional analysis rules for velocity across engineering fields.
+            </li>
+            <li>
+              <strong>Federal Highway Administration (FHWA) Manual on Uniform Traffic Control Devices:</strong> Standardized road design speed criteria and perception-reaction braking formulas.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <VelocityCalculator />
+    </CalcPage>
   );
 }

@@ -1,26 +1,265 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ProjectileMotionCalculator from "@/components/calcs/physics/projectile-motion-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ProjectileTrajectoriesAngleChart } from "@/components/flagship/physics/editorial-charts";
+
+const PATH = "/calculators/physics/projectile-motion-calculator";
+const TITLE = "Projectile Motion Calculator | 2D Ballistic Trajectory, Range & Apex";
+const DESCRIPTION =
+  "Calculate horizontal range, maximum apex height, flight time, and velocity vectors for 2D parabolic ballistic trajectories launched at arbitrary angles and elevations.";
 
 export const metadata: Metadata = {
-  "title": "Projectile Motion Calculator – Range Height Time | CalcDigi",
-  "description": "Calculate projectile range, maximum height, and time of flight from any launch angle and initial speed. Physics and sports.",
-  "openGraph": {
-    "title": "Projectile Motion Calculator – Range Height Time | CalcDigi",
-    "description": "Calculate projectile range, maximum height, and time of flight from any launch angle and initial speed. Physics and sports.",
-    "type": "website",
-    "url": "/calculators/physics/projectile-motion-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/physics/projectile-motion-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/velocity-calculator", icon: "⚡", name: "Velocity Kinematics" },
+  { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Free Fall Gravity" },
+  { href: "/calculators/physics/acceleration-calculator", icon: "🚀", name: "Acceleration & Kinematics" },
+  { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy" },
+  { href: "/calculators/physics/force-calculator", icon: "⚖️", name: "Newton's Force F=ma" },
+  { href: "/calculators/math/trigonometry-calculator", icon: "📐", name: "Trigonometric Sine/Cosine" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is projectile motion and how is 2D trajectory decomposed?",
+    a: "Projectile motion is the 2D parabolic trajectory followed by an object projected into a uniform gravitational field. Because perpendicular coordinate dimensions are physically independent in Newtonian mechanics, the motion decomposes into two separate one-dimensional equations: 1) A constant-velocity horizontal motion along the x-axis (a_x = 0; v_x = v₀ · cosθ), and 2) A uniformly accelerated vertical motion along the y-axis (a_y = -g; v_y(t) = v₀ · sinθ - g · t).",
+  },
+  {
+    q: "Why does a 45-degree launch angle maximize horizontal range over level ground?",
+    a: "Over level ground (where launch and impact elevations are equal: y₀ = 0), horizontal range is governed by: R = (v₀² · sin(2θ)) / g. The trigonometric term sin(2θ) reaches its theoretical maximum of 1.0 when its argument equals 90°, which occurs when 2θ = 90° ⟹ θ = 45°. Angles above 45° maximize flight duration and apex altitude at the expense of horizontal speed; angles below 45° maximize forward velocity at the expense of early ground collision.",
+  },
+  {
+    q: "What is the optimal launch angle when firing from an elevated clifftop or platform?",
+    a: "When launching from an elevated cliff or tower (y₀ > 0), the optimal launch angle for maximum range drops below 45°. Because the projectile spends extra time descending past the baseline elevation, horizontal velocity becomes more valuable than vertical flight time. The exact optimal angle is given by: θ_opt = arcsin [ 1 / √(2 + (2 · g · y₀ / v₀²)) ]. As launch elevation y₀ increases relative to launch speed, the optimal angle decreases toward 30° to 35°.",
+  },
+  {
+    q: "What are complementary launch angles and why do they yield identical range?",
+    a: "In a vacuum over level ground, any pair of launch angles that sum to 90° (such as 30° and 60°, or 15° and 75°) produce the exact same horizontal range. This occurs because sin(2θ) = sin(2(90° - θ)) = sin(180° - 2θ) = sin(2θ). The lower angle produces a flat, low-flying trajectory with short flight time, whereas the higher complementary angle produces a towering lofted arc with extended flight duration.",
+  },
+  {
+    q: "How does aerodynamic drag distort true real-world ballistic trajectories?",
+    a: "Air resistance creates an opposing drag force proportional to velocity squared: F_drag = ½ · ρ · v² · Cd · A. This drag continuously bleeds kinetic energy, asymmetricizing the trajectory. Instead of a symmetric parabola, real artillery shells and golf balls experience a steepening terminal descent, falling 20% to 50% short of pure vacuum range while landing at a significantly steeper angle than launch.",
+  },
+  {
+    q: "What is the Magnus effect and how does backspin increase projectile range?",
+    a: "When a spinning projectile travels through air, friction between the fluid and the spinning surface generates an asymmetric pressure differential: low pressure on top and high pressure underneath. In sports such as golf, baseball, and tennis, backspin creates an upward aerodynamic lift force (the Magnus effect) that counteracts gravity, keeping the ball airborne far longer and extending horizontal flight distance.",
+  },
+];
+
+export default function ProjectileMotionCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Physics Calculators\", \"item\": \"https://calcdigi.com/pages/physics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Projectile Motion Calculator\", \"item\": \"https://calcdigi.com/calculators/physics/projectile-motion-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Projectile Motion Calculator\", \"url\": \"https://calcdigi.com/calculators/physics/projectile-motion-calculator\", \"description\": \"Calculate projectile range, maximum height, and time of flight from any launch angle and initial speed. Physics and sports.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the range formula for projectile motion?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"R = v₀² × sin(2θ) / g. v₀=20 m/s, θ=45°: R = 400 × sin(90°)/9.81 = 400/9.81 = 40.8m. Maximum range at exactly 45° (sin 90° = 1).\"}}, {\"@type\": \"Question\", \"name\": \"What angle gives maximum range?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"45° on flat ground with no air resistance. Complementary angles give equal range: 30°=60°, 20°=70°. With air resistance, optimal angle is lower: ~35-40° for golf, ~30° for artillery.\"}}, {\"@type\": \"Question\", \"name\": \"How to calculate maximum height?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"H = v₀² × sin²(θ) / (2g). v₀=20 m/s, θ=60°: H = 400 × sin²(60°)/(2×9.81) = 400×0.75/19.62 = 15.3m. Occurs when vertical velocity = 0.\"}}, {\"@type\": \"Question\", \"name\": \"What is time of flight?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"T = 2v₀sin(θ)/g. v₀=20 m/s, θ=45°: T = 2×20×sin(45°)/9.81 = 2×20×0.707/9.81 = 2.88s. Time up = time down (symmetric on flat ground).\"}}, {\"@type\": \"Question\", \"name\": \"Why is projectile motion parabolic?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Horizontal: x = v₀cosθ × t (linear). Vertical: y = v₀sinθ × t - ½gt² (quadratic in t). Eliminating t: y is quadratic function of x → parabola. This is the mathematical signature of constant acceleration in one dimension.\"}}, {\"@type\": \"Question\", \"name\": \"How does air resistance affect projectile motion?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Reduces range (sometimes by 50%+ for fast small objects). Shifts optimal angle below 45°. Makes descent steeper than ascent (asymmetric trajectory). Baseball example: theoretical range ~280m vs actual ~135m at 45° due to drag.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/physics\">Physics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Projectile Motion Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Projectile Motion Calculator</h1>\n<p class=\"calc-intro\">Calculate projectile range, maximum height, time of flight, and final velocity for any launch angle and initial speed. Covers horizontal projectile motion, angled launches, and real-world trajectory applications in sports and ballistics.</p>\n<p class=\"calc-intro\">Projectile motion combines constant horizontal velocity with constant vertical acceleration due to gravity. The horizontal and vertical components are independent. Launch at 45° gives maximum range on flat ground. Maximum height occurs at the apex where vertical velocity = 0.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">R = v₀²sin(2θ)/g | H = v₀²sin²(θ)/(2g) | T = 2v₀sin(θ)/g | vₓ = v₀cosθ | vᵧ = v₀sinθ - gt</div></div>\n<div class=\"content-section\"><h2>Projectile Motion – Range, Height and Trajectory Analysis</h2>\n<p>Projectile motion describes the two-dimensional motion of an object launched with an initial velocity and subject only to gravitational acceleration. The key insight of Galileo (1638): horizontal and vertical motions are completely independent. Horizontal: constant velocity vₓ = v₀ cos θ (no horizontal force, no acceleration). Vertical: constant downward acceleration g = 9.81 m/s², initial velocity vᵧ₀ = v₀ sin θ.</p>\n<p>This independence allows the equations of motion to be solved separately in each direction, then combined to find the trajectory, range, maximum height, and time of flight. The parabolic trajectory is a fundamental result — every projectile follows a parabola (neglecting air resistance) regardless of mass, size, or composition.</p>\n<h3>Projectile Motion Equations Reference</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Quantity</th><th style=\"padding:11px 14px;text-align:left;\">Formula</th><th style=\"padding:11px 14px;text-align:left;\">Note</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Range (flat ground)</td><td style=\"padding:10px 14px;\">R = v₀²sin(2θ)/g</td><td style=\"padding:10px 14px;\">Maximum at θ=45°</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Maximum height</td><td style=\"padding:10px 14px;\">H = v₀²sin²θ/(2g)</td><td style=\"padding:10px 14px;\">Occurs at t = v₀sinθ/g</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Time of flight</td><td style=\"padding:10px 14px;\">T = 2v₀sinθ/g</td><td style=\"padding:10px 14px;\">Total time in air</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Horizontal velocity</td><td style=\"padding:10px 14px;\">vₓ = v₀cosθ</td><td style=\"padding:10px 14px;\">Constant throughout</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Vertical velocity</td><td style=\"padding:10px 14px;\">vᵧ = v₀sinθ - gt</td><td style=\"padding:10px 14px;\">Zero at peak</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Position x(t)</td><td style=\"padding:10px 14px;\">x = v₀cosθ × t</td><td style=\"padding:10px 14px;\">Linear with time</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Position y(t)</td><td style=\"padding:10px 14px;\">y = v₀sinθ×t - ½gt²</td><td style=\"padding:10px 14px;\">Parabolic</td></tr></tbody></table></div>\n<h3>Optimal Launch Angle Analysis</h3>\n<p>For maximum range on flat ground: 45° is optimal. Complementary angles give equal range: 30° and 60° give the same range, as do 15° and 75°. At 45°: range = v₀²/g. At 30° or 60°: range = v₀² × sin(60°)/g = 0.866 × v₀²/g (86.6% of maximum). Real-world optimal angles differ from 45° due to air resistance (lower angle better for fast objects like golf balls ~35°), height differences (uphill launch: higher than 45°, downhill: lower), and spin effects (cricket, baseball).</p>\n<h3>Projectile Motion in Sports</h3>\n<p>Football (soccer) free kick: professional players launch at ~15-25° with v₀ ~25-30 m/s. Range at 20° with 28 m/s: R = 28² × sin(40°)/9.81 = 784 × 0.643/9.81 = 51.4m. Basketball three-pointer: launch at ~50-55° (higher angle for clearance), initial speed ~7-8 m/s. Shot put: optimal angle with air resistance correction ≈ 40-42°. Long jump: athletes launch at only 18-22° (constrained by running approach, not optimal for pure projectile). Golf driver: typically 10-14° loft but ball launches at ~15-17° (loft, shaft flex, spin combine). Optimal golf angle with backspin is lower than 45° because spin creates lift.</p>\n<h3>Projectile Motion with Air Resistance</h3>\n<p>Real projectiles experience aerodynamic drag: F_drag = ½ρCdAv². This makes equations non-linear and requires numerical solution. Effects: range is less than the vacuum prediction (sometimes by 50%+ for fast, small projectiles). Optimal angle shifts below 45° (typically 30-40°). Trajectory is no longer symmetric (steeper descent than ascent). Terminal velocity is reached if the object falls far enough. Baseball at 45 m/s (100 mph): drag reduces home run distance from theoretical ~280m to actual ~130-140m. Artillery shells travel along very non-parabolic trajectories at high speed; Coriolis effect also matters at long range.</p></div>\n<div class=\"content-section\"><h3>Physics Formulas and Units</h3>\n<p>Always ensure units are consistent before calculating. This calculator uses SI units (International System): meters (m) for distance, kilograms (kg) for mass, seconds (s) for time, Newtons (N) for force, Joules (J) for energy, Watts (W) for power, and Pascals (Pa) for pressure. When converting from other unit systems (imperial, CGS), convert all values before entering them into the calculator.</p>\n</div>\n<div class=\"content-section\"><h3>Physics in Sports Science</h3>\n<p>Sports science relies heavily on classical mechanics to analyze and improve athletic performance. Projectile motion governs the trajectory of every thrown, kicked, or hit ball in sport. Torque analysis explains joint loading and muscle force requirements in weight training. Momentum and impulse calculations underpin collision analysis in contact sports and help design protective equipment that extends impact duration to reduce peak force. Power output measurement guides training intensity for cyclists, rowers, and sprinters. Understanding these physics principles gives athletes and coaches a quantitative framework for performance optimization.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the range formula for projectile motion? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">R = v₀² × sin(2θ) / g. v₀=20 m/s, θ=45°: R = 400 × sin(90°)/9.81 = 400/9.81 = 40.8m. Maximum range at exactly 45° (sin 90° = 1).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What angle gives maximum range? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">45° on flat ground with no air resistance. Complementary angles give equal range: 30°=60°, 20°=70°. With air resistance, optimal angle is lower: ~35-40° for golf, ~30° for artillery.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to calculate maximum height? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">H = v₀² × sin²(θ) / (2g). v₀=20 m/s, θ=60°: H = 400 × sin²(60°)/(2×9.81) = 400×0.75/19.62 = 15.3m. Occurs when vertical velocity = 0.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is time of flight? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">T = 2v₀sin(θ)/g. v₀=20 m/s, θ=45°: T = 2×20×sin(45°)/9.81 = 2×20×0.707/9.81 = 2.88s. Time up = time down (symmetric on flat ground).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is projectile motion parabolic? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Horizontal: x = v₀cosθ × t (linear). Vertical: y = v₀sinθ × t - ½gt² (quadratic in t). Eliminating t: y is quadratic function of x → parabola. This is the mathematical signature of constant acceleration in one dimension.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does air resistance affect projectile motion? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Reduces range (sometimes by 50%+ for fast small objects). Shifts optimal angle below 45°. Makes descent steeper than ascent (asymmetric trajectory). Baseball example: theoretical range ~280m vs actual ~135m at 45° due to drag.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Physics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/physics/force-calculator\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Force Calculator</span></a><a class=\"related-card\" href=\"/calculators/physics/kinetic-energy-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Kinetic Energy</span></a><a class=\"related-card\" href=\"/calculators/physics/wave-frequency-calculator\"><span class=\"rc-icon\">🌊</span><span class=\"rc-name\">Wave Frequency</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Projectile Motion Calculator – Range, Height and Time of Flight</h2><div class=\"form-group\"><label for=\"prv0\">Initial Speed v₀ (m/s)</label><input id=\"prv0\" min=\"0\" step=\"any\" type=\"number\" value=\"20\"/></div><div class=\"form-group\"><label for=\"prth\">Launch Angle θ (degrees)</label><input id=\"prth\" max=\"90\" min=\"0\" step=\"any\" type=\"number\" value=\"45\"/></div><div class=\"form-group\"><label for=\"prh0\">Launch Height (m, optional)</label><input id=\"prh0\" min=\"0\" step=\"any\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ph-result').style.display='none';document.getElementById('ph-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ph-result\" style=\"display:none;\"><div id=\"ph-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ph-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ph-ai\" style=\"display:none;\"></div></div>\n<div id=\"ph-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ph\" onclick=\"printResult('ph-result','Projectile Motion Calculator – Range, Height and Time of Flight')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Projectile Motion Calculator – Range, Height and Time of Flight')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-projectile-motion-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var v0=parseFloat(document.getElementById('prv0').value)||0;\n  var th=parseFloat(document.getElementById('prth').value)||45;\n  var h0=parseFloat(document.getElementById('prh0').value)||0;\n  if(!v0){alert('Enter initial speed.');return;}\n  var g=9.81,rad=th*Math.PI/180;\n  var vx=v0*Math.cos(rad),vy0=v0*Math.sin(rad);\n  var H=vy0*vy0/(2*g)+h0;\n  var T=h0>0?(vy0+Math.sqrt(vy0*vy0+2*g*h0))/g:2*vy0/g;\n  var R=vx*T;\n  var vfx=vx,vfy=vy0-g*T,vf=Math.sqrt(vfx*vfx+vfy*vfy);\n  var aiPrompt='Projectile: v₀='+v0+'m/s, θ='+th+'°, Range='+R.toFixed(2)+'m, H_max='+H.toFixed(2)+'m, T='+T.toFixed(3)+'s';\n  document.getElementById('ph-ri').innerHTML=\n    ri('Range','<strong style=\"font-size:24px;color:var(--c-accent)\">'+R.toFixed(2)+' m</strong>',true)+\n    ri('Maximum Height',H.toFixed(2)+' m')+ri('Time of Flight',T.toFixed(3)+' s')+\n    ri('Horizontal Speed vₓ',vx.toFixed(2)+' m/s (constant)')+\n    ri('Initial Vertical vᵧ₀',vy0.toFixed(2)+' m/s')+\n    ri('Final Speed',vf.toFixed(2)+' m/s at '+( Math.atan2(Math.abs(vfy),vfx)*180/Math.PI).toFixed(1)+'° below horizontal');\n  document.getElementById('ph-result').style.display='block';document.getElementById('ph-actions').style.display='flex';\n  drawDonut('ph-chart',['Horizontal Range (m)','Max Height (m)'],[Math.round(R)||1,Math.round(H)||1],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ph-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this projectile motion and trajectory physics.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/physics", label: "Physics" }}
+      title="Projectile Motion & Ballistic Trajectory Calculator"
+      intro="Calculate 2D ballistic trajectories, maximum horizontal range, flight apex altitude, flight duration, and velocity vectors across level and elevated launch surfaces."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                Classical Ballistics & Vector Kinematics
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>2D Parabolic Solver</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Independent Orthogonal Axes
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What are the primary formulas for 2D projectile motion?
+                </strong>
+                <p className="mt-1">
+                  Launch velocity v₀ is decomposed into horizontal (v₀x = v₀·cosθ) and vertical (v₀y = v₀·sinθ) components. Over level terrain without air resistance, maximum horizontal range is R = (v₀²·sin(2θ)) / g, reaching its peak at θ = 45°. The maximum apex altitude is H_max = y₀ + (v₀y²) / (2g), and total flight duration is solved via quadratic kinematic integration: t = [v₀y + √(v₀y² + 2gy₀)] / g.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - CHART IMMEDIATELY BELOW */}
+          <h2>Ballistic Range & Apex Trajectory Comparisons by Launch Angle</h2>
+          <div className="not-prose my-6">
+            <ProjectileTrajectoriesAngleChart />
+          </div>
+
+          <p>
+            Projectile motion is the quintessential paradigm of two-dimensional classical mechanics, providing the mathematical framework for ballistics, athletic sports engineering, aerospace rocketry, and planetary surface landings. When an object is propelled into a uniform gravitational field and subjected to no continuous thrust, its path is governed purely by the interplay between inertial velocity and downward gravitational acceleration.
+          </p>
+
+          <p>
+            The profound mathematical elegance of projectile motion arises from Galileo's principle of independent motion along perpendicular Cartesian axes. The horizontal motion experiences zero net force (in vacuum conditions), continuing at permanent uniform velocity: v_x(t) = v₀x. Concurrently, the vertical motion experiences constant gravitational acceleration: a_y = -g. Combining these two independent equations yields a quadratic spatial curve—a classic symmetrical parabola.
+          </p>
+
+          <h2>Foundational 2D Trajectory Formulas & Derivations</h2>
+
+          <p>
+            Resolving a parabolic ballistic trajectory requires decomposing the initial launch velocity vector v₀ at launch angle θ above the horizontal into orthogonal components:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Cartesian Velocity Decomposition</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">v₀x = v₀ · cos(θ)   |   v₀y = v₀ · sin(θ)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Separates forward inertial progress from vertical gravitational climb.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Peak Flight Apex Altitude</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">H_max = y₀ + (v₀y²) / (2 · g) = y₀ + (v₀² · sin²θ) / (2 · g)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Occurs at time t_apex = v₀y / g when vertical velocity momentarily passes through zero.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Total Flight Duration Integral</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">t_flight = [ v₀y + √(v₀y² + 2 · g · y₀) ] / g</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quadratic solution satisfying vertical impact position y(t) = 0 from initial elevation y₀.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Maximum Horizontal Range</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">R = v₀x · t_flight   ⟹   R = (v₀² · sin(2θ)) / g  (when y₀ = 0)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates total distance traversed over level terrain, peaking at launch angle θ = 45°.</div>
+          </Formula>
+
+          <h2>Complementary Angles & Trajectory Symmetry</h2>
+
+          <p>
+            One of the most remarkable properties of vacuum projectile mechanics is the existence of complementary trajectory pairs. Any two launch angles whose sum equals 90° (such as 30° and 60°, or 20° and 70°) yield the identical horizontal range over level ground. This mathematical symmetry stems from the double-angle identity: sin(2θ) = sin(2(90° - θ)) = sin(180° - 2θ) = sin(2θ).
+          </p>
+
+          <p>
+            However, while horizontal range matches, the trajectories possess vastly different kinematic characteristics:
+          </p>
+
+          <DataTable
+            head={["Launch Angle", "Range (v₀=40 m/s)", "Apex Altitude", "Flight Duration", "Tactical Application"]}
+            rows={[
+              ["15° (Low Arc)", "81.5 meters", "5.4 meters", "2.11 seconds", "Direct-fire anti-tank, baseball grounder"],
+              ["30° (Flat Arc)", "141.2 meters", "20.4 meters", "4.08 seconds", "Golf long iron, soccer line-drive pass"],
+              ["45° (Max Range)", "163.1 meters", "40.8 meters", "5.77 seconds", "Maximum distance field artillery, javelin"],
+              ["60° (High Loft)", "141.2 meters", "61.2 meters", "7.06 seconds", "Mortar indirect fire over urban walls"],
+              ["75° (Plunging)", "81.5 meters", "76.1 meters", "7.88 seconds", "Siege howitzer, fireworks skybursts"],
+            ]}
+          />
+
+          <h2>Comparative Operational Worked Case Studies</h2>
+
+          <p>
+            To examine practical projectile mechanics across disparate physical domains:
+          </p>
+
+          <h3>Case Study A: Optimal 45-Degree Field Artillery Launch</h3>
+          <p>
+            A projectile is launched from ground level (y₀ = 0) with a muzzle velocity of v₀ = 35.0 m/s at an optimal range angle of θ = 45.0° on standard Earth gravity (g = 9.807 m/s²).
+          </p>
+          <ul>
+            <li><strong>Velocity Components:</strong> v₀x = 35.0 × cos(45°) = 24.749 m/s; v₀y = 35.0 × sin(45°) = 24.749 m/s.</li>
+            <li><strong>Apex Elevation:</strong> H_max = (24.749)² / (2 × 9.807) = 612.5 / 19.614 = 31.23 meters (102.5 ft).</li>
+            <li><strong>Total Flight Duration:</strong> t_flight = 2 × 24.749 / 9.807 = 5.047 seconds (Apex at t = 2.524 s).</li>
+            <li><strong>Total Ground Range:</strong> R = 24.749 m/s × 5.047 s = 124.91 meters (409.8 ft = 136.6 yards).</li>
+            <li><strong>Touchdown Impact Speed:</strong> v_impact = √[(24.749)² + (-24.749)²] = 35.0 m/s at 45.0° downward angle.</li>
+          </ul>
+
+          <h3>Case Study B: Clifftop Defense Battery Launch (y₀ = 50.0m)</h3>
+          <p>
+            A defensive cannon perched atop a coastal cliff at elevation y₀ = 50.0 meters fires a shell at v₀ = 50.0 m/s at an angle of θ = 30.0°.
+          </p>
+          <ul>
+            <li><strong>Velocity Components:</strong> v₀x = 50.0 × cos(30°) = 43.301 m/s; v₀y = 50.0 × sin(30°) = 25.000 m/s.</li>
+            <li><strong>Maximum Apex Altitude:</strong> H_max = 50.0 + [(25.0)² / (2 × 9.807)] = 50.0 + 31.86 = 81.86 meters above sea level.</li>
+            <li><strong>Flight Time to Sea Level:</strong> t = [25.0 + √(25.0² + 2 × 9.807 × 50.0)] / 9.807 = [25.0 + √1,605.7] / 9.807 = 6.635 seconds.</li>
+            <li><strong>Total Sea Range:</strong> R = 43.301 m/s × 6.635 s = 287.30 meters (942.6 feet).</li>
+            <li><strong>Water Impact Velocity:</strong> v_y_final = 25.0 - (9.807 × 6.635) = -40.07 m/s; v_total = √[43.301² + 40.07²] = 59.00 m/s (212.4 km/h).</li>
+          </ul>
+
+          <h2>Atmospheric Boundary Constraints & Non-Parabolic Ballistics</h2>
+
+          <p>
+            Real-world ballistics deviate markedly from pure vacuum parabolas due to atmospheric aeromechanics:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Velocity-Squared Drag Asymmetry:</strong> As air resistance (Fd = ½·ρ·v²·Cd·A) saps forward momentum, the horizontal velocity decay distorts the parabola into an asymmetric teardrop curve. The descending leg is always steeper and slower than the ascending leg.
+            </li>
+            <li>
+              <strong>Coriolis Force in Long-Range Artillery:</strong> For long-range naval and artillery ballistics exceeding 10 kilometers, Earth's rotation beneath the flying projectile induces a lateral Coriolis acceleration: a_coriolis = 2 · (v × ω_earth), deflecting shells to the right in the Northern Hemisphere.
+            </li>
+            <li>
+              <strong>Aerodynamic Magnus Spin:</strong> Rifled artillery and sports balls spinning along their axis generate Magnus lift or drift. Proper backspin can double the flight distance of a golf ball compared to a non-spinning projectile of identical launch velocity.
+            </li>
+          </ol>
+
+          <h2>Aerodynamic Drag Effects & Ballistic Coefficient</h2>
+
+          <p>
+            In exterior military ballistics, trajectory modeling incorporates the Ballistic Coefficient (BC), measuring a projectile's ability to overcome air resistance: BC = m / (Cd · A). Projectiles with high ballistic coefficients (such as boat-tailed rifle bullets with BC &gt; 0.50) preserve a flatter trajectory closer to vacuum predictions. Conversely, low-BC projectiles (such as round musket balls) shed energy rapidly, causing their trajectory to collapse into a steep terminal plunge.
+          </p>
+
+          <h2>Magnus Effect & Spin Aerodynamics in Sports Mechanics</h2>
+
+          <p>
+            When a spherical projectile rotates while translating through air, viscous skin friction drags boundary layer air around the circumference. On the side spinning in the direction of the relative oncoming airflow, air velocity increases, creating a localized pressure drop according to Bernoulli's principle. On the opposite side spinning counter to airflow, air velocity decelerates, generating high pressure.
+          </p>
+
+          <p>
+            This cross-stream pressure differential produces a perpendicular aerodynamic force known as the Magnus lift force: F_Magnus = ½ · ρ · Cl · A · v². In golf, driver clubs impart 2,500 to 3,500 RPM of pure backspin to the ball; the resulting upward Magnus lift counteracts gravity for several seconds, extending horizontal drive distance by 30% to 50% compared to a non-rotating launch. In soccer, baseball (curveballs), and tennis (topspin groundstrokes), lateral or forward spin curves the flight path horizontally or plunges it downward over the net.
+          </p>
+
+          <h2>Authoritative Ballistics & Physics Standards</h2>
+
+          <p>
+            For verified ballistic calculation standards and trajectory tables:
+          </p>
+          <ul>
+            <li>
+              <strong>US Army Ballistic Research Laboratory (BRL):</strong> Standard external ballistics aerodynamic drag functions (G1, G7 projectile models).
+            </li>
+            <li>
+              <strong>ISO 80000-3:2019:</strong> Quantities and units for space, mechanics, kinematic trajectory vectors, and angles.
+            </li>
+            <li>
+              <strong>NIST Reference on Constants, Units, and Uncertainty:</strong> Standard gravitational parameters for ballistic trajectory modeling.
+            </li>
+            <li>
+              <strong>NATO Standardization Agreement (STANAG 4114):</strong> Military standard trajectory calculation procedures for artillery and mortar systems.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <ProjectileMotionCalculator />
+    </CalcPage>
   );
 }
