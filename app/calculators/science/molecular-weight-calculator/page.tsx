@@ -1,26 +1,288 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import MolecularWeightCalculatorComponent from "@/components/calcs/science/molecular-weight-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { MolarMassPeriodicFamilyChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/molecular-weight-calculator";
+const TITLE = "Molecular Weight Calculator | Molar Mass & Elemental Composition Solver";
+const DESCRIPTION =
+  "Calculate molecular weight, molar mass, and mass percentage composition from chemical formulas across organic molecules, inorganic salts, and pharmaceutical compounds.";
 
 export const metadata: Metadata = {
-  "title": "Molecular Weight Calculator – Molar Mass | CalcDigi",
-  "description": "Calculate molar mass of any compound from element symbols and atom counts. Convert grams to moles using periodic table data.",
-  "openGraph": {
-    "title": "Molecular Weight Calculator – Molar Mass | CalcDigi",
-    "description": "Calculate molar mass of any compound from element symbols and atom counts. Convert grams to moles using periodic table data.",
-    "type": "website",
-    "url": "/calculators/science/molecular-weight-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/molecular-weight-calculator"
-  }
 };
+
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/empirical-formula-calculator", icon: "🔬", name: "Empirical Formula Solver" },
+  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity & Dilution" },
+  { href: "/calculators/science/stoichiometry-calculator", icon: "⚖️", name: "Stoichiometry & Reagents" },
+  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
+  { href: "/calculators/science/percent-yield-calculator", icon: "📊", name: "Percent Reaction Yield" },
+  { href: "/calculators/science/density-calculator", icon: "📐", name: "Material Density & SG" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the difference between molecular weight, molar mass, and formula weight?",
+    a: "Molecular weight (relative molecular mass, Mr) is a dimensionless ratio comparing the mass of a single molecule to 1/12th of the mass of a carbon-12 atom. Molar mass (M) is the mass of one mole of substance, expressed with physical units of grams per mole (g/mol) or kg/mol. Formula weight is utilized for non-molecular ionic networks (like NaCl) where discrete molecules do not exist, representing the sum of atomic weights in the empirical formula unit.",
+  },
+  {
+    q: "How are standard atomic weights determined by IUPAC?",
+    a: "Standard atomic weights published by the IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW) represent the abundance-weighted average of all stable terrestrial isotopes of an element. For carbon, consisting of 98.93% ¹²C (12.0000 Da) and 1.07% ¹³C (13.0034 Da), the weighted atomic weight evaluates to 12.011 g/mol.",
+  },
+  {
+    q: "What is the unified atomic mass unit (Dalton, Da)?",
+    a: "The unified atomic mass unit (u), also standardized as the Dalton (Da), is defined as exactly 1/12th of the rest mass of an unbound neutral Carbon-12 atom at ground state: 1 Da = 1 u &asymp; 1.66053906660 &times; 10⁻²⁷ kg. A single water molecule (H₂O) possesses a molecular mass of 18.015 Da, and one mole of water molecules has a molar mass of 18.015 g/mol.",
+  },
+  {
+    q: "How do isotopic variations alter experimental molecular weight in mass spectrometry?",
+    a: "In mass spectrometry, high-resolution instruments detect monoisotopic mass (calculated using the exact mass of the most abundant isotope of each element, e.g., ¹²C, ¹H, ¹⁶O) rather than average molar mass. For large biomolecules and halogenated compounds (containing ³⁵Cl and ³⁷Cl or ⁷⁹Br and ⁸¹Br), characteristic isotopic peak clusters appear, providing structural fingerprints.",
+  },
+  {
+    q: "Why is molecular weight critical in pharmaceutical drug design (Lipinski's Rule of 5)?",
+    a: "In medicinal chemistry, Lipinski&apos;s Rule of Five establishes that an orally active drug candidate should possess a molecular weight below 500 g/mol (Da). Molecules exceeding 500 Da exhibit poor passive membrane permeability across intestinal epithelial barriers, reducing oral bioavailability and therapeutic efficacy.",
+  },
+  {
+    q: "How does polymer molecular weight differ from small molecule molecular weight?",
+    a: "Small organic compounds possess a single, discrete molecular weight. In contrast, synthetic polymers (like polyethylene or polystyrene) are polydisperse mixtures of polymer chains of varying lengths, characterized by statistical averages: Number-Average Molecular Weight (Mn) and Weight-Average Molecular Weight (Mw).",
+  },
+];
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Molecular Weight Calculator\", \"item\": \"https://calcdigi.com/calculators/science/molecular-weight-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Molecular Weight Calculator\", \"url\": \"https://calcdigi.com/calculators/science/molecular-weight-calculator\", \"description\": \"Calculate molar mass of any compound from element symbols and atom counts. Convert grams to moles using periodic table data.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is molar mass?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Mass of 1 mole (6.022×10²³ particles) in g/mol. Calculate by summing atomic masses × atom counts. H₂O = 2×1.008 + 15.999 = 18.015 g/mol.\"}}, {\"@type\": \"Question\", \"name\": \"How to convert grams to moles?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Moles = Mass / Molar Mass. 50g NaCl (58.44 g/mol): 50/58.44 = 0.856 mol.\"}}, {\"@type\": \"Question\", \"name\": \"Molecular weight vs molar mass?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Numerically identical. MW in atomic mass units (u); molar mass in g/mol. H₂O MW = 18.015 u = 18.015 g/mol.\"}}, {\"@type\": \"Question\", \"name\": \"What is Avogadro number?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"6.022×10²³ particles per mole. Connects atomic scale to lab scale measurements.\"}}, {\"@type\": \"Question\", \"name\": \"Molar mass of common compounds?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"H₂O=18.015, NaCl=58.44, CO₂=44.009, H₂SO₄=98.079, NaOH=39.997, Glucose=180.156 g/mol.\"}}, {\"@type\": \"Question\", \"name\": \"Empirical vs molecular formula?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Empirical: simplest ratio (CH₂O). Molecular: actual count (C₆H₁₂O₆). MF = EF × n where n = MM/EF mass.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Molecular Weight Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Molecular Weight Calculator</h1>\n<p class=\"calc-intro\">Calculate the molecular weight (molar mass) of any chemical compound by entering its elements and atom counts. Essential for stoichiometry, solution preparation, and quantitative chemistry.</p>\n<p class=\"calc-intro\">Molar mass is the mass of one mole (6.022×10²³ particles) in grams. It equals the sum of atomic masses of all atoms in the formula. This bridges atomic-scale chemistry to lab-scale gram measurements.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Molar Mass = Σ(Atomic Mass × Atoms) | Moles = Mass(g) / MM | 1 mol = 6.022×10²³ particles</div></div>\n<div class=\"content-section\"><h2>Atomic Masses Reference</h2><p>Use IUPAC atomic masses to calculate molar mass of any compound. Sum each element atomic mass multiplied by its count in the formula.</p><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Element</th><th style=\"padding:10px 12px;text-align:left;\">Atomic Mass (g/mol)</th><th style=\"padding:10px 12px;text-align:left;\">Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">H</td><td style=\"padding:9px 12px;\">1.008</td><td style=\"padding:9px 12px;\">Lightest element</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">C</td><td style=\"padding:9px 12px;\">12.011</td><td style=\"padding:9px 12px;\">Organic backbone</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">N</td><td style=\"padding:9px 12px;\">14.007</td><td style=\"padding:9px 12px;\">Proteins, fertilizers</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">O</td><td style=\"padding:9px 12px;\">15.999</td><td style=\"padding:9px 12px;\">Most abundant in crust</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Na</td><td style=\"padding:9px 12px;\">22.990</td><td style=\"padding:9px 12px;\">Table salt</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">S</td><td style=\"padding:9px 12px;\">32.060</td><td style=\"padding:9px 12px;\">Amino acids</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Cl</td><td style=\"padding:9px 12px;\">35.450</td><td style=\"padding:9px 12px;\">Salt, bleach</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Ca</td><td style=\"padding:9px 12px;\">40.078</td><td style=\"padding:9px 12px;\">Bones, teeth</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Fe</td><td style=\"padding:9px 12px;\">55.845</td><td style=\"padding:9px 12px;\">Hemoglobin</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Cu</td><td style=\"padding:9px 12px;\">63.546</td><td style=\"padding:9px 12px;\">Electrical wiring</td></tr></tbody></table></div><h3>Example Calculations</h3><p>Water H₂O: 2×1.008 + 15.999 = 18.015 g/mol. NaCl: 22.990 + 35.450 = 58.44 g/mol. Glucose C₆H₁₂O₆: 6×12.011 + 12×1.008 + 6×15.999 = 180.156 g/mol.</p><h3>Grams to Moles Conversion</h3><p>Moles = Mass / Molar Mass. 50g NaCl: 50/58.44 = 0.856 mol. Reverse: Mass = Moles × MM. 2 mol NaCl: 2 × 58.44 = 116.88g.</p><h3>Avogadro Number</h3><p>6.022×10²³ particles per mole. One mole of any substance has mass equal to its molar mass in grams. This constant bridges atomic and lab scales.</p></div>\n<div class=\"content-section\"><h2>Molecular Weight in Laboratory Practice</h2>\n<p>Molar mass is the most fundamental conversion factor in quantitative chemistry. Every time you prepare a solution, calculate a reaction yield, or interpret a mass spectrum, you are using molar mass. Without it, the bridge between counting atoms and weighing grams would not exist.</p>\n<h3>Periodic Table and Atomic Masses</h3>\n<p>The atomic masses on the periodic table are weighted averages of all naturally occurring isotopes. Carbon has two stable isotopes — ¹²C (98.89%) and ¹³C (1.11%) — giving an average atomic mass of 12.011 g/mol rather than exactly 12. This is why molar masses are rarely whole numbers. Chlorine has two abundant isotopes (³⁵Cl and ³⁷Cl), giving it an atomic mass of 35.45 g/mol.</p>\n<h3>Molar Mass in Pharmaceutical Chemistry</h3>\n<p>Drug dosing is based entirely on molar mass relationships. Aspirin (acetylsalicylic acid, C₉H₈O₄) has a molar mass of 180.16 g/mol. A 325 mg aspirin tablet contains 325/180.16 = 1.804 mmol of aspirin. Active pharmaceutical ingredients are quantified in moles to ensure consistent receptor occupancy regardless of the molecular size of the drug.</p>\n<h3>Mass Spectrometry and Molecular Weight</h3>\n<p>Mass spectrometry directly measures molecular mass by ionizing molecules and separating them by mass-to-charge ratio. The molecular ion peak (M⁺) gives the exact molecular mass. This allows identification of unknown compounds and verification of synthetic products. High-resolution mass spectrometry can determine molecular formulas to four decimal places, distinguishing compounds with the same nominal mass but different elemental compositions.</p></div>\n<div class=\"content-section\"><h2>Molar Mass and Molecular Weight – Complete Chemistry Guide</h2>\n<p>Molar mass (also called molecular weight) is the mass of exactly one mole (6.022 × 10²³ particles) of a substance, expressed in grams per mole (g/mol). It is calculated by summing the atomic masses of every atom in the chemical formula, weighted by the number of times each element appears. This fundamental quantity connects the microscopic world of atoms to the macroscopic world of grams and liters that chemists measure in the laboratory.</p>\n<p>Every quantitative chemistry calculation — preparing solutions, calculating reaction yields, interpreting mass spectra, dosing pharmaceuticals — requires molar mass as the conversion factor between grams and moles. Without it, the bridge between counting atoms and weighing substances would not exist.</p>\n<h3>How Atomic Masses Are Determined</h3>\n<p>Atomic masses on the periodic table are weighted averages across all naturally occurring isotopes of each element. Carbon has two stable isotopes: ¹²C (98.89% abundance, mass 12.000 u) and ¹³C (1.11%, mass 13.003 u). Weighted average: 12.000 × 0.9889 + 13.003 × 0.0111 = 12.011 g/mol. Chlorine's two abundant isotopes (³⁵Cl and ³⁷Cl) give it an atomic mass of 35.45 — explaining why chlorine is not a whole number on the periodic table.</p>\n<h3>Step-by-Step Molar Mass Calculation Examples</h3>\n<p>Water (H₂O): 2 × H(1.008) + 1 × O(15.999) = 2.016 + 15.999 = 18.015 g/mol. Glucose (C₆H₁₂O₆): 6×12.011 + 12×1.008 + 6×15.999 = 72.066 + 12.096 + 95.994 = 180.156 g/mol. Sodium chloride (NaCl): 22.990 + 35.450 = 58.440 g/mol. Sulfuric acid (H₂SO₄): 2×1.008 + 32.060 + 4×15.999 = 2.016 + 32.060 + 63.996 = 98.072 g/mol. Caffeine (C₈H₁₀N₄O₂): 8×12.011 + 10×1.008 + 4×14.007 + 2×15.999 = 194.19 g/mol.</p>\n<h3>Grams to Moles: The Key Conversion</h3>\n<p>Moles = Mass (g) ÷ Molar Mass (g/mol). To prepare 2 moles of NaCl: 2 mol × 58.44 g/mol = 116.88 g. To find moles in 50g of glucose: 50 ÷ 180.16 = 0.278 mol. This conversion is used constantly — from preparing standard solutions in a teaching lab to calculating drug doses in pharmaceutical manufacturing. One mole of any substance contains exactly 6.022 × 10²³ particles (Avogadro number) and has a mass equal to the molar mass in grams.</p>\n<h3>Molar Mass in Pharmaceutical Chemistry</h3>\n<p>Drug dosing is calculated using molar mass. Aspirin (acetylsalicylic acid, C₉H₈O₄, MM = 180.16 g/mol): a 325 mg tablet contains 325 ÷ 180.16 = 1.804 mmol of active ingredient. Metformin (C₄H₁₁N₅, MM = 129.16 g/mol): standard 500 mg dose = 3.87 mmol. Pharmaceutical chemists use molar mass to ensure consistent pharmacological activity — the number of molecules delivered to receptors determines drug effect, not just the mass.</p>\n<h3>Mass Spectrometry and Molecular Weight Identification</h3>\n<p>Mass spectrometry (MS) measures molecular weight directly by ionizing molecules and separating them by mass-to-charge ratio. The molecular ion peak (M⁺) gives the exact molecular mass. High-resolution MS can determine molecular formulas to 4-5 decimal places — distinguishing compounds with the same nominal mass but different elemental compositions. CO₂ (exact mass 43.9898) and C₂H₄O (exact mass 44.0262) are easily separated at high resolution despite both having nominal mass 44.</p>\n<h3>Molar Mass Reference Table for Common Compounds</h3>\n<p>H₂O = 18.015, NaCl = 58.440, CO₂ = 44.009, H₂SO₄ = 98.072, HCl = 36.458, NaOH = 39.997, CaCO₃ = 100.086, NH₃ = 17.031, CH₄ = 16.043, C₂H₅OH (ethanol) = 46.068, Glucose C₆H₁₂O₆ = 180.156, Sucrose C₁₂H₂₂O₁₁ = 342.297, Aspirin C₉H₈O₄ = 180.159, Caffeine C₈H₁₀N₄O₂ = 194.194 g/mol. Memorizing the most common ones speeds up chemistry calculations dramatically.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is molar mass? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Mass of 1 mole (6.022×10²³ particles) in g/mol. Calculate by summing atomic masses × atom counts. H₂O = 2×1.008 + 15.999 = 18.015 g/mol.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to convert grams to moles? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Moles = Mass / Molar Mass. 50g NaCl (58.44 g/mol): 50/58.44 = 0.856 mol.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Molecular weight vs molar mass? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Numerically identical. MW in atomic mass units (u); molar mass in g/mol. H₂O MW = 18.015 u = 18.015 g/mol.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is Avogadro number? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">6.022×10²³ particles per mole. Connects atomic scale to lab scale measurements.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Molar mass of common compounds? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">H₂O=18.015, NaCl=58.44, CO₂=44.009, H₂SO₄=98.079, NaOH=39.997, Glucose=180.156 g/mol.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Empirical vs molecular formula? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Empirical: simplest ratio (CH₂O). Molecular: actual count (C₆H₁₂O₆). MF = EF × n where n = MM/EF mass.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Molecular Weight Calculator – Molar Mass of Any Compound</h2><p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:8px;\">Select elements and atom counts:</p><div style=\"display:grid;grid-template-columns:1fr 70px;gap:5px;margin-bottom:5px;\"><select id=\"mw-e0\" aria-label=\"Select elements and atom counts:\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">— Element 1 —</option><option selected=\"\" value=\"1.008,H\">H 1.008</option><option value=\"12.011,C\">C 12.011</option><option value=\"14.007,N\">N 14.007</option><option value=\"15.999,O\">O 15.999</option><option value=\"22.990,Na\">Na 22.990</option><option value=\"24.305,Mg\">Mg 24.305</option><option value=\"30.974,P\">P 30.974</option><option value=\"32.060,S\">S 32.060</option><option value=\"35.450,Cl\">Cl 35.450</option><option value=\"39.098,K\">K 39.098</option><option value=\"40.078,Ca\">Ca 40.078</option><option value=\"55.845,Fe\">Fe 55.845</option><option value=\"63.546,Cu\">Cu 63.546</option><option value=\"65.380,Zn\">Zn 65.380</option><option value=\"79.904,Br\">Br 79.904</option><option value=\"107.868,Ag\">Ag 107.868</option><option value=\"126.904,I\">I 126.904</option><option value=\"196.967,Au\">Au 196.967</option></select><input id=\"mw-n0\" aria-label=\"Count\" max=\"50\" min=\"0\" placeholder=\"Count\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div><div style=\"display:grid;grid-template-columns:1fr 70px;gap:5px;margin-bottom:5px;\"><select id=\"mw-e1\" aria-label=\"Au 196.967\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">— Element 2 —</option><option value=\"1.008,H\">H 1.008</option><option selected=\"\" value=\"12.011,C\">C 12.011</option><option value=\"14.007,N\">N 14.007</option><option value=\"15.999,O\">O 15.999</option><option value=\"22.990,Na\">Na 22.990</option><option value=\"24.305,Mg\">Mg 24.305</option><option value=\"30.974,P\">P 30.974</option><option value=\"32.060,S\">S 32.060</option><option value=\"35.450,Cl\">Cl 35.450</option><option value=\"39.098,K\">K 39.098</option><option value=\"40.078,Ca\">Ca 40.078</option><option value=\"55.845,Fe\">Fe 55.845</option><option value=\"63.546,Cu\">Cu 63.546</option><option value=\"65.380,Zn\">Zn 65.380</option><option value=\"79.904,Br\">Br 79.904</option><option value=\"107.868,Ag\">Ag 107.868</option><option value=\"126.904,I\">I 126.904</option><option value=\"196.967,Au\">Au 196.967</option></select><input id=\"mw-n1\" aria-label=\"Count\" max=\"50\" min=\"0\" placeholder=\"Count\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div style=\"display:grid;grid-template-columns:1fr 70px;gap:5px;margin-bottom:5px;\"><select id=\"mw-e2\" aria-label=\"Au 196.967\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">— Element 3 —</option><option value=\"1.008,H\">H 1.008</option><option value=\"12.011,C\">C 12.011</option><option selected=\"\" value=\"14.007,N\">N 14.007</option><option value=\"15.999,O\">O 15.999</option><option value=\"22.990,Na\">Na 22.990</option><option value=\"24.305,Mg\">Mg 24.305</option><option value=\"30.974,P\">P 30.974</option><option value=\"32.060,S\">S 32.060</option><option value=\"35.450,Cl\">Cl 35.450</option><option value=\"39.098,K\">K 39.098</option><option value=\"40.078,Ca\">Ca 40.078</option><option value=\"55.845,Fe\">Fe 55.845</option><option value=\"63.546,Cu\">Cu 63.546</option><option value=\"65.380,Zn\">Zn 65.380</option><option value=\"79.904,Br\">Br 79.904</option><option value=\"107.868,Ag\">Ag 107.868</option><option value=\"126.904,I\">I 126.904</option><option value=\"196.967,Au\">Au 196.967</option></select><input id=\"mw-n2\" aria-label=\"Count\" max=\"50\" min=\"0\" placeholder=\"Count\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div style=\"display:grid;grid-template-columns:1fr 70px;gap:5px;margin-bottom:5px;\"><select id=\"mw-e3\" aria-label=\"Au 196.967\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">— Element 4 —</option><option value=\"1.008,H\">H 1.008</option><option value=\"12.011,C\">C 12.011</option><option value=\"14.007,N\">N 14.007</option><option selected=\"\" value=\"15.999,O\">O 15.999</option><option value=\"22.990,Na\">Na 22.990</option><option value=\"24.305,Mg\">Mg 24.305</option><option value=\"30.974,P\">P 30.974</option><option value=\"32.060,S\">S 32.060</option><option value=\"35.450,Cl\">Cl 35.450</option><option value=\"39.098,K\">K 39.098</option><option value=\"40.078,Ca\">Ca 40.078</option><option value=\"55.845,Fe\">Fe 55.845</option><option value=\"63.546,Cu\">Cu 63.546</option><option value=\"65.380,Zn\">Zn 65.380</option><option value=\"79.904,Br\">Br 79.904</option><option value=\"107.868,Ag\">Ag 107.868</option><option value=\"126.904,I\">I 126.904</option><option value=\"196.967,Au\">Au 196.967</option></select><input id=\"mw-n3\" aria-label=\"Count\" max=\"50\" min=\"0\" placeholder=\"Count\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div style=\"display:grid;grid-template-columns:1fr 70px;gap:5px;margin-bottom:5px;\"><select id=\"mw-e4\" aria-label=\"Au 196.967\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">— Element 5 —</option><option value=\"1.008,H\">H 1.008</option><option value=\"12.011,C\">C 12.011</option><option value=\"14.007,N\">N 14.007</option><option value=\"15.999,O\">O 15.999</option><option value=\"22.990,Na\">Na 22.990</option><option value=\"24.305,Mg\">Mg 24.305</option><option value=\"30.974,P\">P 30.974</option><option value=\"32.060,S\">S 32.060</option><option value=\"35.450,Cl\">Cl 35.450</option><option value=\"39.098,K\">K 39.098</option><option value=\"40.078,Ca\">Ca 40.078</option><option value=\"55.845,Fe\">Fe 55.845</option><option value=\"63.546,Cu\">Cu 63.546</option><option value=\"65.380,Zn\">Zn 65.380</option><option value=\"79.904,Br\">Br 79.904</option><option value=\"107.868,Ag\">Ag 107.868</option><option value=\"126.904,I\">I 126.904</option><option value=\"196.967,Au\">Au 196.967</option></select><input id=\"mw-n4\" aria-label=\"Count\" max=\"50\" min=\"0\" placeholder=\"Count\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div style=\"display:grid;grid-template-columns:1fr 70px;gap:5px;margin-bottom:5px;\"><select id=\"mw-e5\" aria-label=\"Au 196.967\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0\">— Element 6 —</option><option value=\"1.008,H\">H 1.008</option><option value=\"12.011,C\">C 12.011</option><option value=\"14.007,N\">N 14.007</option><option value=\"15.999,O\">O 15.999</option><option value=\"22.990,Na\">Na 22.990</option><option value=\"24.305,Mg\">Mg 24.305</option><option value=\"30.974,P\">P 30.974</option><option value=\"32.060,S\">S 32.060</option><option value=\"35.450,Cl\">Cl 35.450</option><option value=\"39.098,K\">K 39.098</option><option value=\"40.078,Ca\">Ca 40.078</option><option value=\"55.845,Fe\">Fe 55.845</option><option value=\"63.546,Cu\">Cu 63.546</option><option value=\"65.380,Zn\">Zn 65.380</option><option value=\"79.904,Br\">Br 79.904</option><option value=\"107.868,Ag\">Ag 107.868</option><option value=\"126.904,I\">I 126.904</option><option value=\"196.967,Au\">Au 196.967</option></select><input id=\"mw-n5\" aria-label=\"Count\" max=\"50\" min=\"0\" placeholder=\"Count\" style=\"padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"mw-g\">Sample Mass (g, optional)</label><input id=\"mw-g\" min=\"0\" step=\"any\" type=\"number\" value=\"18\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Molecular Weight Calculator – Molar Mass of Any Compound')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Molecular Weight Calculator – Molar Mass of Any Compound')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-molecular-weight-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var total=0,parts=[];\n  for(var i=0;i<6;i++){\n    var v=document.getElementById('mw-e'+i).value;\n    var n=parseInt(document.getElementById('mw-n'+i).value)||0;\n    if(v==='0'||!n)continue;\n    var sp=v.split(','),am=parseFloat(sp[0]),sym=sp[1]||'?';\n    total+=am*n;parts.push({sym:sym,am:am,n:n,sub:am*n});\n  }\n  if(!total){alert('Select at least one element.');return;}\n  var g=parseFloat(document.getElementById('mw-g').value)||0;\n  var mol=g>0?g/total:0;\n  var aiPrompt='Molar mass '+total.toFixed(3)+' g/mol'+(g?' | '+g+'g = '+mol.toFixed(4)+' mol':'');\n  document.getElementById('sc-ri').innerHTML=\n    ri('Molar Mass','<strong style=\"font-size:26px;color:var(--c-accent)\">'+total.toFixed(3)+' g/mol</strong>',true)+\n    parts.map(function(p){return ri(p.sym+' ×'+p.n,p.n+'×'+p.am+' = '+p.sub.toFixed(3)+' g/mol');}).join('')+\n    (g>0?ri(g+'g equals',mol.toFixed(4)+' mol | '+(mol*6.022e23).toExponential(3)+' molecules'):'');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',parts.map(function(p){return p.sym;}),parts.map(function(p){return Math.round(p.sub*10);}),['#1a5c3a','#c8832a','#3a7abf','#8a4abf','#bf4a4a','#4abf8a']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this molar mass and molecular chemistry.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      title="Molecular Weight & Molar Mass Calculator"
+      intro="Calculate molecular weight, molar mass, and mass percentage composition from chemical formulas across organic molecules, inorganic salts, and pharmaceutical compounds using IUPAC standard atomic weights."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IUPAC CIAAW Atomic Weights Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Stoichiometric Molecular Metrology</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How are molecular weight and molar mass calculated?
+                </strong>
+                <p className="mt-1">
+                  Molecular weight is calculated by summing the IUPAC standard atomic weights (AW) of all constituent atoms in the chemical formula: MW = &Sigma; (Atom_Count_i &times; AW_i), expressed in grams per mole (g/mol) or Daltons (Da). Elemental mass percentage is calculated by dividing an element&apos;s total atomic mass contribution by the molecular weight: %_mass = (Atom_Count &times; AW / MW) &times; 100. For complete synthetic preparation, determine required solution mass with our <Link href="/calculators/science/molarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molarity calculator</Link>, audit empirical formula ratios using the <Link href="/calculators/science/empirical-formula-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">empirical formula calculator</Link>, or examine reaction balances via our <Link href="/calculators/science/stoichiometry-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">stoichiometry calculator</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Molar Mass Distribution Across Representative Chemical Families</h2>
+          <div className="not-prose my-6">
+            <MolarMassPeriodicFamilyChart />
+          </div>
+
+          <p>
+            Molecular weight represents the fundamental bridge connecting the microscopic world of individual atoms and molecules with the macroscopic realm of laboratory balances and industrial reactors. Avogadro&apos;s number (NA = 6.02214076 &times; 10²³ particles/mol) establishes that one mole of any pure chemical compound possesses a mass in grams exactly equal to its molecular weight in atomic mass units.
+          </p>
+
+          <p>
+            In organic synthesis, biochemistry, and polymer science, accurate knowledge of molar mass is mandatory for calculating reaction stoichiometries, determining limiting reagents, and assessing pharmacokinetic properties. When evaluating concentration parameters in chemical solutions, correlate molar mass with gravimetric percentages using our <Link href="/calculators/science/concentration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concentration calculator</Link> and calculate thermodynamic boiling shifts with the <Link href="/calculators/science/boiling-point-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">boiling point calculator</Link>.
+          </p>
+
+          <h2>Mathematical Molar Mass Formulations & Composition Principles</h2>
+
+          <p>
+            Molar mass calculations couple IUPAC isotopic atomic weights with stoichiometric percentage formulations:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Molecular Weight Summation Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">MW = &Sigma; (n_i &middot; AW_i)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Sums constituent atomic weights AW_i scaled by their stoichiometric subscripts n_i.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Elemental Mass Percentage Composition</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">%_mass(i) = [(n_i &middot; AW_i) / MW] &middot; 100%</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates gravimetric mass contribution percentage of element i within the compound.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Mole-to-Mass Conversion Relation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">mass(g) = n(mol) &middot; MW(g/mol)   |   n(mol) = mass(g) / MW(g/mol)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Converts macroscopic gravimetric mass into chemical mole quantities.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Absolute Single-Molecule Mass</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">m_molecule = MW / N_A = MW / (6.02214076 &times; 10²³)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates mass of one discrete molecule in grams (g/molecule).</div>
+          </Formula>
+
+          <h2>Standard IUPAC Atomic Weights of Key Biological Elements</h2>
+
+          <p>
+            Standard atomic weights established by the IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW):
+          </p>
+
+          <DataTable
+            head={["Element Name", "Symbol", "Atomic Number (Z)", "Standard Atomic Weight (g/mol)", "Major Stable Isotopes", "Abundance %"]}
+            rows={[
+              ["Hydrogen", "H", "1", "1.0080", "¹H, ²H (Deuterium)", "99.98% ¹H, 0.02% ²H"],
+              ["Carbon", "C", "6", "12.011", "¹²C, ¹³C", "98.93% ¹²C, 1.07% ¹³C"],
+              ["Nitrogen", "N", "7", "14.007", "¹⁴N, ¹⁵N", "99.63% ¹⁴N, 0.37% ¹⁵N"],
+              ["Oxygen", "O", "8", "15.999", "¹⁶O, ¹⁷O, ¹⁸O", "99.76% ¹⁶O, 0.20% ¹⁸O"],
+              ["Sodium", "Na", "11", "22.990", "²³Na (Monomultiplet)", "100.0% ²³Na"],
+              ["Phosphorus", "P", "15", "30.974", "³¹P (Monomultiplet)", "100.0% ³¹P"],
+              ["Sulfur", "S", "16", "32.060", "³²S, ³³S, ³⁴S, ³⁶S", "95.0% ³²S, 4.2% ³⁴S"],
+              ["Chlorine", "Cl", "17", "35.450", "³⁵Cl, ³⁷Cl", "75.76% ³⁵Cl, 24.24% ³⁷Cl"],
+              ["Potassium", "K", "19", "39.098", "³⁹K, ⁴¹K", "93.26% ³⁹K, 6.73% ⁴¹K"],
+              ["Iron", "Fe", "26", "55.845", "⁵⁴Fe, ⁵⁶Fe, ⁵⁷Fe, ⁵⁸Fe", "91.75% ⁵⁶Fe"],
+            ]}
+          />
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Formulating Chemotherapeutic Paclitaxel (Taxol)</h3>
+          <p>
+            A pharmaceutical development team formulates the natural anticancer alkaloid paclitaxel (C₄₇H₅₁NO₁₄), isolated from the Pacific yew tree, to evaluate intravenous dosing.
+          </p>
+          <ul>
+            <li><strong>Elemental Atomic Contributions:</strong>
+              <br />&bull; Carbon: 47 &times; 12.011 = 564.517 g/mol (66.11% C).
+              <br />&bull; Hydrogen: 51 &times; 1.008 = 51.408 g/mol (6.02% H).
+              <br />&bull; Nitrogen: 1 &times; 14.007 = 14.007 g/mol (1.64% N).
+              <br />&bull; Oxygen: 14 &times; 15.999 = 223.986 g/mol (26.23% O).
+            </li>
+            <li><strong>Total Molecular Weight:</strong> MW = 564.517 + 51.408 + 14.007 + 223.986 = 853.918 g/mol (Da).</li>
+            <li><strong>Absolute Single Molecule Mass:</strong> 853.92 &divide; 6.022 &times; 10²³ = 1.418 &times; 10⁻²¹ grams per molecule.</li>
+            <li><strong>Clinical Dose Moles:</strong> A 175 mg standard clinical dose contains: 0.175 g &divide; 853.92 g/mol = 2.049 &times; 10⁻⁴ mol (204.9 &mu;mol).</li>
+          </ul>
+
+          <p>
+            To evaluate expected synthesis recovery yields for natural alkaloids, calculate conversion ratios with our <Link href="/calculators/science/percent-yield-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percent yield calculator</Link> and verify crystal density using the <Link href="/calculators/science/density-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">density calculator</Link>.
+          </p>
+
+          <h3>Case Study B: Hydrated Inorganic Reagent (Ferrous Sulfate Heptahydrate)</h3>
+          <p>
+            An environmental water treatment facility prepares an iron coagulant using commercial green vitriol (ferrous sulfate heptahydrate: FeSO₄&middot;7H₂O).
+          </p>
+          <ul>
+            <li><strong>Constituent Weights:</strong> Fe = 55.845, S = 32.06, O = (4 + 7)&times;15.999 = 175.989, H = 14&times;1.008 = 14.112.</li>
+            <li><strong>Total Molar Mass:</strong> MW = 55.845 + 32.060 + 175.989 + 14.112 = 278.006 g/mol.</li>
+            <li><strong>Water of Hydration Percentage:</strong> Mass of 7 H₂O = 7 &times; 18.015 = 126.105 g/mol &rarr; (126.105 &divide; 278.01) &times; 100 = 45.36% crystal water.</li>
+            <li><strong>Engineering Impact:</strong> Over 45% of shipping weight consists of structural water, demonstrating why industrial procurement accounts for hydration state.</li>
+          </ul>
+
+          <h2>Operational Constraints & Spectrometric Isotopic Factors</h2>
+
+          <p>
+            When deploying molecular weight calculations in mass spectrometry and biochemical analysis, four analytical boundary factors must be controlled:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Monoisotopic Mass vs. Average Molar Mass:</strong> High-resolution mass spectrometry resolves exact monoisotopic peaks (¹²C = 12.0000 Da) rather than average atomic weights. For peptides exceeding 3,000 Da, the average molecular weight shifts significantly higher than the monoisotopic peak due to natural ¹³C accumulation.
+            </li>
+            <li>
+              <strong>Terrestrial Isotopic Abundance Variation:</strong> Certain elements (such as carbon, oxygen, and lead) exhibit natural isotopic fractionation depending on geographical origin (e.g., C3 vs C4 photosynthetic plants, or lead ores from different geological epochs), causing slight variations in the fifth decimal place of standard atomic weights.
+            </li>
+            <li>
+              <strong>Hygroscopic Mass Drift in Analytical Weighing:</strong> Many dry compounds absorb atmospheric moisture upon exposure (e.g., anhydrous CaCl₂ or NaOH pellets), rapidly increasing sample mass and causing calculated moles to be systematically overestimated unless dried in a desiccator.
+            </li>
+            <li>
+              <strong>Polydisperse Macromolecular Averages:</strong> For biopolymers like DNA and synthetic polymers like PEG, molecular weight is reported as statistical distributions (number-average Mn vs weight-average Mw), parameterized by the polydispersity index (PDI = Mw / Mn).
+            </li>
+          </ol>
+
+
+          <h2>High-Resolution Mass Spectrometry & Macromolecular Polydispersity Dynamics</h2>
+          <p>
+            While routine laboratory stoichiometry utilizes abundance-averaged atomic weights, modern high-resolution
+            mass spectrometry (HRMS) resolves monoisotopic masses composed exclusively of the predominant stable
+            nuclides (carbon-12 at 12.000000 Da, hydrogen-1 at 1.007825 Da, nitrogen-14 at 14.003074 Da). This minute mass
+            defect differentiation allows bioanalytical chemists to distinguish isobaric compounds with identical nominal masses.
+          </p>
+          <Formula>
+            {"M_n = sum(N_i * M_i) / sum(N_i),   M_w = sum(N_i * M_i^2) / sum(N_i * M_i),   PDI = M_w / M_n"}
+          </Formula>
+          <p>
+            In polymer chemistry, synthetic polymers display distribution curves of chain lengths. The polydispersity
+            index (PDI) directly dictates melt flow index, mechanical tensile strength, and polymer solubility.
+            Chemists routinely integrate calculated molar masses with
+            {" "}<Link href="/calculators/science/percent-yield-calculator">reaction percent yield evaluations</Link>{" "}
+            and
+            {" "}<Link href="/calculators/science/stoichiometry-calculator">stoichiometric feed calculations</Link>{" "}
+            to optimize step-growth and radical chain polymerization kinetics.
+          </p>
+          <p>
+            In biochemical crystallography and biopharmaceutical development, accurate molecular weights are essential for characterizing post-translational modifications, glycosylation heterogeneity, and antibody-drug conjugates (ADCs). Mass spectrometry instruments such as Orbitrap achieve sub-part-per-million mass accuracy, detecting single dalton shifts caused by deamidation or phosphorylation across complex glycoprotein therapeutic formulations.
+          </p>
+
+
+          <p>
+            In synthetic oligonucleotide synthesis and mRNA vaccine engineering, exact sequence molar masses guide enzymatic in vitro transcription feed stoichiometry and lipid nanoparticle formulation packaging ratios. Small mass discrepancies in nucleotide raw materials or capping analogs propagate into substantial molecular weight errors across multi-kilobase nucleic acid constructs.
+          </p>
+          <p>
+            Analytical ultracentrifugation (AUC) sedimentation velocity experiments combine absolute molecular weights with buoyant molar mass principles to verify non-covalent quaternary macromolecular assembly states without requiring calibration standards.
+          </p>
+
+          <h2>Authoritative International Chemical Standards</h2>
+
+          <p>
+            For certified atomic weights, molecular formula nomenclature, and isotopic standards, refer to international chemical metrology organizations:
+          </p>
+          <ul>
+            <li>
+              <strong>IUPAC Commission on Isotopic Abundances and Atomic Weights (CIAAW):</strong> Biennial Atomic Weights of the Elements reports.
+            </li>
+            <li>
+              <strong>NIST Chemistry WebBook:</strong> Standard Reference Database 69 providing validated molecular weights, thermochemistry, and mass spectra.
+            </li>
+            <li>
+              <strong>IUPAC Compendium of Chemical Terminology (Gold Book):</strong> Nomenclature and symbols for mass-related quantities.
+            </li>
+            <li>
+              <strong>Protein Data Bank (PDB) & Chemical Entities of Biological Interest (ChEBI):</strong> Curated chemical databases for macromolecular mass validation.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <MolecularWeightCalculatorComponent />
+    </CalcPage>
   );
 }

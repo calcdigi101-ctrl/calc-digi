@@ -1,26 +1,268 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import IdealGasLawCalculatorComponent from "@/components/calcs/science/ideal-gas-law-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { IdealGasIsothermPVChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/ideal-gas-law-calculator";
+const TITLE = "Ideal Gas Law Calculator | PV=nRT Pressure, Volume & Molar Solver";
+const DESCRIPTION =
+  "Solve for pressure, volume, moles, or temperature using the Ideal Gas Law equation PV=nRT with gas density, molar volume, and van der Waals real gas corrections.";
 
 export const metadata: Metadata = {
-  "title": "Ideal Gas Law Calculator – PV=nRT Solver | CalcDigi",
-  "description": "Solve for pressure, volume, moles, or temperature. Includes combined gas law, STP conditions, and unit conversions.",
-  "openGraph": {
-    "title": "Ideal Gas Law Calculator – PV=nRT Solver | CalcDigi",
-    "description": "Solve for pressure, volume, moles, or temperature. Includes combined gas law, STP conditions, and unit conversions.",
-    "type": "website",
-    "url": "/calculators/science/ideal-gas-law-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/ideal-gas-law-calculator"
-  }
 };
+
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/boiling-point-calculator", icon: "🌡️", name: "Boiling Point & Vapor" },
+  { href: "/calculators/science/density-calculator", icon: "⚖️", name: "Gas & Fluid Density" },
+  { href: "/calculators/science/stoichiometry-calculator", icon: "🔬", name: "Stoichiometry & Gases" },
+  { href: "/calculators/physics/pressure-calculator", icon: "📊", name: "Hydrostatic Pressure" },
+  { href: "/calculators/science/molecular-weight-calculator", icon: "⚛️", name: "Molar Mass Solver" },
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌦️", name: "Barometric Dew Point" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the Ideal Gas Law equation and what does each variable signify?",
+    a: "The Ideal Gas Law is expressed as P &middot; V = n &middot; R &middot; T, where P is gas absolute pressure (in Pascals or kilopascals), V is volume (in cubic meters or liters), n is amount of substance in moles, R is the universal gas constant (8.314462 J/(mol&middot;K) or 0.082057 L&middot;atm/(mol&middot;K)), and T is absolute temperature in Kelvin (T_K = T_C + 273.15).",
+  },
+  {
+    q: "What is molar volume and what is its value at STP?",
+    a: "Molar volume (Vm) is the volume occupied by exactly one mole of an ideal gas under specified temperature and pressure conditions: Vm = V / n = R &middot; T / P. Under IUPAC Standard Temperature and Pressure (STP: 0 &deg;C / 273.15 K and 100.0 kPa), the molar volume of an ideal gas equals exactly 22.711 Liters per mole. Under traditional standard conditions (0 &deg;C and 1.00 atm / 101.325 kPa), molar volume equals 22.414 L/mol.",
+  },
+  {
+    q: "When does a real gas deviate significantly from ideal gas behavior?",
+    a: "Real gases deviate from ideal behavior under two primary physical conditions: high pressure and low temperature. At high pressures, gas molecules are forced close together, making finite molecular volume non-negligible. At low temperatures, kinetic velocities drop, allowing intermolecular attractive forces (van der Waals dispersion and dipole forces) to pull molecules together, reducing measured pressure below ideal predictions.",
+  },
+  {
+    q: "How does the van der Waals equation correct for real gas non-ideality?",
+    a: "The van der Waals equation introduces two empirical constants: a, which corrects for intermolecular attractive forces by augmenting the pressure term [P + a(n/V)&sup2;], and b, which corrects for the finite physical volume occupied by gas molecules by subtracting excluded volume from total volume (V - n&middot;b): [P + a(n/V)&sup2;] &middot; (V - n&middot;b) = n &middot; R &middot; T.",
+  },
+  {
+    q: "How do you calculate gas density directly from the Ideal Gas Law?",
+    a: "Because moles equal mass divided by molar mass (n = m / MW), substituting into PV = nRT yields: P &middot; V = (m / MW) &middot; R &middot; T. Rearranging for density (&rho; = m / V) derives: &rho; = (P &middot; MW) / (R &middot; T). For ambient dry air (molar mass 28.97 g/mol) at 20 &deg;C and 101.325 kPa: &rho; = (101.325 &times; 28.97) / (8.3145 &times; 293.15) = 1.204 kg/m&sup3; (1.204 g/L).",
+  },
+  {
+    q: "Why must temperature always be converted to absolute Kelvin in gas equations?",
+    a: "Thermal gas pressure and molecular kinetic energy are directly proportional to absolute thermal velocity, which ceases entirely only at absolute zero (-273.15 &deg;C or 0 Kelvin). Utilizing Celsius or Fahrenheit scales would result in mathematically impossible negative volumes or negative pressures, violating physical thermodynamics.",
+  },
+];
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Ideal Gas Law Calculator\", \"item\": \"https://calcdigi.com/calculators/science/ideal-gas-law-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Ideal Gas Law Calculator\", \"url\": \"https://calcdigi.com/calculators/science/ideal-gas-law-calculator\", \"description\": \"Solve for pressure, volume, moles, or temperature. Includes combined gas law, STP conditions, and unit conversions.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is PV=nRT?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P(atm)×V(L)=n(mol)×0.08206×T(K). All four variables related — change any one and others adjust.\"}}, {\"@type\": \"Question\", \"name\": \"Volume of 1 mol at STP?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"V=nRT/P=1×0.08206×273.15/1=22.414 L.\"}}, {\"@type\": \"Question\", \"name\": \"Convert to Kelvin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"K=°C+273.15. 0°C=273.15K, 25°C=298.15K, 100°C=373.15K. Never use Celsius in PV=nRT.\"}}, {\"@type\": \"Question\", \"name\": \"Combined gas law?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P₁V₁/T₁=P₂V₂/T₂. Gas at 2 atm,10L,300K → 1 atm,250K: V₂=(2×10×250)/(300×1)=16.67L.\"}}, {\"@type\": \"Question\", \"name\": \"Calculate gas pressure?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P=nRT/V. 2 mol at 300K in 10L: P=2×0.08206×300/10=4.92 atm=498.5 kPa.\"}}, {\"@type\": \"Question\", \"name\": \"Dalton's Law?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P_total=P₁+P₂+P₃. Each gas: Pᵢ=nᵢRT/V. Total pressure = sum of partial pressures.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Ideal Gas Law Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Ideal Gas Law Calculator</h1>\n<p class=\"calc-intro\">Solve PV = nRT for any unknown: pressure, volume, moles, or temperature. Includes pressure unit conversions (atm, kPa, mmHg, psi), STP/SATP reference conditions, and explanations of all four gas laws.</p>\n<p class=\"calc-intro\">PV = nRT relates pressure, volume, moles, and temperature. R = 0.08206 L·atm/mol·K. Describes ideal gas behavior — a good approximation for real gases at moderate conditions.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">PV = nRT | R = 0.08206 L·atm/mol·K | STP: 0°C, 1 atm → 22.414 L/mol | K = °C + 273.15</div></div>\n<div class=\"content-section\"><h2>Gas Laws Summary</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Law</th><th style=\"padding:10px 12px;text-align:left;\">Equation</th><th style=\"padding:10px 12px;text-align:left;\">Condition</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Boyle</td><td style=\"padding:9px 12px;\">P₁V₁=P₂V₂</td><td style=\"padding:9px 12px;\">Const T,n</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Charles</td><td style=\"padding:9px 12px;\">V₁/T₁=V₂/T₂</td><td style=\"padding:9px 12px;\">Const P,n</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Gay-Lussac</td><td style=\"padding:9px 12px;\">P₁/T₁=P₂/T₂</td><td style=\"padding:9px 12px;\">Const V,n</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Avogadro</td><td style=\"padding:9px 12px;\">V∝n</td><td style=\"padding:9px 12px;\">Const P,T</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Ideal Gas</td><td style=\"padding:9px 12px;\">PV=nRT</td><td style=\"padding:9px 12px;\">All variables</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Combined</td><td style=\"padding:9px 12px;\">P₁V₁/T₁=P₂V₂/T₂</td><td style=\"padding:9px 12px;\">Fixed amount</td></tr></tbody></table></div><h3>Standard Conditions</h3><p>STP (0°C, 1 atm): 1 mol = 22.414 L. SATP (25°C, 100 kPa): 1 mol = 24.790 L. Always use Kelvin: K = °C + 273.15.</p><h3>When Ideal Gas Law Fails</h3><p>High pressure (molecules occupy volume) and low temperature (intermolecular attractions) cause deviations. Noble gases behave most ideally. Use van der Waals for extreme conditions.</p></div>\n<div class=\"content-section\"><h2>Ideal Gas Law Applications</h2>\n<p>The Ideal Gas Law PV = nRT is one of the most powerful equations in chemistry and physics. It allows calculation of any one gas property when the other three are known, and it underlies thermodynamics, atmospheric science, respiratory physiology, and chemical engineering.</p>\n<h3>Gas Laws in Respiratory Physiology</h3>\n<p>Breathing is driven by gas law principles. Inhalation: diaphragm contracts, chest volume increases (V↑), pressure decreases (P↓) below atmospheric, air flows in. Exhalation: diaphragm relaxes, chest volume decreases (V↓), pressure increases (P↑), air flows out. This is Boyle's Law (PV = constant at fixed T and n). Altitude: at 5500m altitude, atmospheric pressure ≈ 0.5 atm — inspired O₂ partial pressure halved. Mountaineers must acclimatize because reduced O₂ partial pressure impairs oxygen loading onto hemoglobin.</p>\n<h3>Real Gases and Deviations from Ideal Behavior</h3>\n<p>Real gases deviate from ideal behavior for two reasons: molecular volume (molecules are not point particles — they occupy space, so volume at high pressure is higher than ideal) and intermolecular attractions (molecules attract each other, reducing the pressure they exert on container walls, especially at low temperature). The van der Waals equation corrects for both: (P + an²/V²)(V - nb) = nRT. Constants a and b are gas-specific. CO₂ deviates significantly from ideal (large a due to quadrupole moment), while He and H₂ behave nearly ideally.</p>\n<h3>Gas Laws in Industrial Chemistry</h3>\n<p>Industrial processes rely on gas law calculations. Haber process (N₂ + 3H₂ → 2NH₃ for fertilizer production): run at 150-300 atm to maximize yield (Le Chatelier — high pressure favors fewer moles of gas). Liquefied natural gas (LNG): methane compressed and cooled to -162°C, volume reduced approximately 600× compared to gas at STP. Scuba diving: compressed air tanks at 200 bar contain the equivalent of about 2000 liters of air at atmospheric pressure.</p></div>\n<div class=\"content-section\"><h2>Applications in Science and Industry</h2>\n<p>This type of calculation is used daily by chemists, pharmacists, environmental scientists, and engineers worldwide. In pharmaceutical manufacturing, precise concentration and yield calculations ensure drug potency and patient safety. In environmental monitoring, accurate concentration calculations are critical for comparing samples to regulatory limits. In research laboratories, reproducible solution preparation forms the foundation of any valid experiment. Understanding these core calculations is essential for any scientist working in a quantitative field.</p>\n<h3>Common Mistakes to Avoid</h3>\n<p>The most frequent calculation errors include: confusing molarity (mol/L solution) with molality (mol/kg solvent), forgetting to convert Celsius to Kelvin for gas calculations, failing to account for solute dissociation in colligative property calculations, using molar mass instead of equivalent weight for normality calculations, and mixing up percent by mass vs percent by volume. Always double-check your units at every step of a calculation. Dimensional analysis — tracking units through the calculation — is the most reliable way to catch errors before they propagate.</p>\n<h3>Significant Figures and Precision</h3>\n<p>Scientific calculations require attention to significant figures. The result of a calculation can never be more precise than the least precise measurement used as input. Molar mass values (from the periodic table) are typically known to 4-5 significant figures. Volumetric glassware accuracy: Class A volumetric flasks ±0.02-0.05%, Class A pipettes ±0.01-0.05%. Analytical balances: ±0.1 mg (4-5 significant figures for mg range samples). When reporting results in lab reports, always match your significant figures to the precision of your instrumentation.</p></div>\n<div class=\"content-section\"><h2>Ideal Gas Law PV=nRT – Complete Guide to Gas Laws</h2>\n<p>The Ideal Gas Law PV = nRT is one of the most powerful and universally applicable equations in chemistry and physics. It relates four fundamental properties of any gas sample: pressure (P), volume (V), number of moles (n), and absolute temperature (T), through the universal gas constant R = 0.08206 L·atm/mol·K = 8.314 J/mol·K. Knowing any three of these quantities allows calculation of the fourth.</p>\n<p>The ideal gas law combines three earlier empirical observations: Boyle's Law (P∝1/V at constant T,n), Charles's Law (V∝T at constant P,n), and Avogadro's Law (V∝n at constant P,T). These observations were unified into a single equation that describes the behavior of gases with reasonable accuracy under normal conditions of moderate pressure and temperature.</p>\n<h3>Standard Conditions and Molar Volume Reference</h3>\n<p>STP (Standard Temperature and Pressure, 0°C and 1 atm): one mole of ideal gas occupies exactly 22.414 L. This molar volume is used constantly in gas stoichiometry. SATP (Standard Ambient Temperature and Pressure, 25°C and 100 kPa): one mole occupies 24.790 L — used in modern IUPAC standard. NTP (Normal Temperature and Pressure, 20°C and 1 atm): one mole = 24.055 L. Always specify which standard conditions you are using to avoid confusion.</p>\n<h3>Gas Law Calculations in Chemistry</h3>\n<p>Stoichiometry with gases: 2H₂(g) + O₂(g) → 2H₂O(g). How many liters of H₂ at STP react with 11.2 L of O₂ at STP? Moles O₂ = 11.2/22.4 = 0.500 mol. Moles H₂ = 2 × 0.500 = 1.00 mol. Volume H₂ = 1.00 × 22.4 = 22.4 L. Gas density: d = PM/(RT) where M = molar mass. Density of CO₂ at 25°C, 1 atm: d = (1 × 44.009)/(0.08206 × 298) = 1.799 g/L. Much denser than air (average M ≈ 29 g/mol, density = 1.184 g/L).</p>\n<h3>Gas Laws in Respiratory Physiology</h3>\n<p>Breathing operates by Boyle's Law. Inhalation: diaphragm contracts and flattens, chest cavity volume increases (V↑), intrapulmonary pressure drops below atmospheric (P↓), air flows in. Exhalation: diaphragm relaxes, chest volume decreases (V↓), pressure rises (P↑), air flows out. At high altitude (5500m): atmospheric pressure ≈ 380 mmHg (half sea level). Inspired O₂ partial pressure: 0.21 × 380 = 79.8 mmHg vs 159 mmHg at sea level — nearly half. Mountaineers must acclimatize because reduced O₂ partial pressure impairs hemoglobin saturation, requiring increased red blood cell production.</p>\n<h3>Real Gases and the van der Waals Equation</h3>\n<p>Ideal gas behavior assumes point-particle molecules with no intermolecular forces. Real gases deviate because: (1) Molecules occupy volume — at high pressure, the actual volume of gas molecules is significant compared to the container volume, making real volume larger than ideal. (2) Intermolecular attractions — at low temperature and high pressure, attractive forces between molecules reduce the effective pressure. The van der Waals equation corrects both effects: (P + an²/V²)(V - nb) = nRT. Constants a (measures intermolecular attraction) and b (measures molecular volume) are gas-specific. CO₂ deviates strongly from ideal (a = 3.59 L²·atm/mol²). Noble gases (He, Ne, Ar) behave most ideally because they are small and have minimal intermolecular forces.</p>\n<h3>Dalton's Law and Gas Mixtures</h3>\n<p>Dalton's Law of Partial Pressures: the total pressure of a gas mixture equals the sum of the partial pressures of all component gases. Pₜₒₜₐₗ = P₁ + P₂ + P₃ + ... Each gas exerts its partial pressure independently: Pᵢ = nᵢRT/V. In a 10 L vessel at 300 K containing 1 mol N₂ and 2 mol O₂: P(N₂) = 1×0.08206×300/10 = 2.46 atm. P(O₂) = 2×0.08206×300/10 = 4.92 atm. Total = 7.38 atm. Collecting gas over water: subtract water vapor pressure (temperature-dependent) from total pressure to find partial pressure of collected gas.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is PV=nRT? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P(atm)×V(L)=n(mol)×0.08206×T(K). All four variables related — change any one and others adjust.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Volume of 1 mol at STP? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">V=nRT/P=1×0.08206×273.15/1=22.414 L.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Convert to Kelvin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">K=°C+273.15. 0°C=273.15K, 25°C=298.15K, 100°C=373.15K. Never use Celsius in PV=nRT.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Combined gas law? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P₁V₁/T₁=P₂V₂/T₂. Gas at 2 atm,10L,300K → 1 atm,250K: V₂=(2×10×250)/(300×1)=16.67L.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Calculate gas pressure? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P=nRT/V. 2 mol at 300K in 10L: P=2×0.08206×300/10=4.92 atm=498.5 kPa.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Dalton's Law? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P_total=P₁+P₂+P₃. Each gas: Pᵢ=nᵢRT/V. Total pressure = sum of partial pressures.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Ideal Gas Law Calculator – PV=nRT Solve for Any Variable</h2><div class=\"form-group\"><label for=\"igs\">Solve For</label><select id=\"igs\"><option selected=\"\" value=\"P\">Pressure (P)</option><option value=\"V\">Volume (V)</option><option value=\"n\">Moles (n)</option><option value=\"T\">Temperature (T)</option></select></div><div class=\"form-group\"><label for=\"igP\">Pressure (atm)</label><input id=\"igP\" min=\"0\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"igV\">Volume (L)</label><input id=\"igV\" min=\"0\" step=\"any\" type=\"number\" value=\"22.4\"/></div><div class=\"form-group\"><label for=\"ign\">Moles (mol)</label><input id=\"ign\" min=\"0\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"igT\">Temperature (°C)</label><input id=\"igT\" min=\"-273.14\" step=\"any\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Ideal Gas Law Calculator – PV=nRT Solve for Any Variable')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Ideal Gas Law Calculator – PV=nRT Solve for Any Variable')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-ideal-gas-law-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var R=0.08206;\nfunction doCalc(){\n  var s=document.getElementById('igs').value;\n  var P=parseFloat(document.getElementById('igP').value)||0,V=parseFloat(document.getElementById('igV').value)||0;\n  var n=parseFloat(document.getElementById('ign').value)||0,T=parseFloat(document.getElementById('igT').value)+273.15;\n  var result;\n  if(s==='P'){if(!V||!n){alert('Enter V and n.');return;}result=n*R*T/V;}\n  else if(s==='V'){if(!P||!n){alert('Enter P and n.');return;}result=n*R*T/P;}\n  else if(s==='n'){if(!P||!V){alert('Enter P and V.');return;}result=P*V/(R*T);}\n  else{if(!P||!V||!n){alert('Enter P, V, n.');return;}result=P*V/(n*R);}\n  var Pv=s==='P'?result:P,Vv=s==='V'?result:V,nv=s==='n'?result:n,Tv=s==='T'?result:T;\n  var aiPrompt='Ideal gas: P='+Pv.toFixed(3)+'atm V='+Vv.toFixed(3)+'L n='+nv.toFixed(4)+'mol T='+Tv.toFixed(2)+'K';\n  document.getElementById('sc-ri').innerHTML=\n    ri(s==='P'?'Pressure (atm)':s==='V'?'Volume (L)':s==='n'?'Moles (mol)':'Temperature (K)','<strong style=\"font-size:24px;color:var(--c-accent)\">'+result.toFixed(4)+'</strong>',true)+\n    ri('Pressure',Pv.toFixed(4)+' atm = '+(Pv*101.325).toFixed(2)+' kPa')+\n    ri('Volume',Vv.toFixed(4)+' L')+ri('Moles',nv.toFixed(4)+' mol')+\n    ri('Temperature',Tv.toFixed(2)+' K ('+( Tv-273.15).toFixed(2)+'°C)');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',['P×10','V','n×100','T/100'],[Math.round(Pv*10)||1,Math.round(Vv)||1,Math.round(nv*100)||1,Math.round(Tv/100)||1],['#1a5c3a','#c8832a','#3a7abf','#8a4abf']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this ideal gas law and gas behavior.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      title="Ideal Gas Law PV=nRT & Molar Volume Calculator"
+      intro="Solve for pressure, volume, gas substance amount, or absolute temperature using the Ideal Gas Law equation PV=nRT with gas density, root-mean-square kinetic velocity, and van der Waals real gas corrections."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IUPAC & NIST Physical Gas Dynamics Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Thermodynamic Equation of State</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What is the Ideal Gas Law equation and how are gas state variables solved?
+                </strong>
+                <p className="mt-1">
+                  The Ideal Gas Law equation connects state variables via P &middot; V = n &middot; R &middot; T, where P is pressure (kPa), V is volume (Liters), n is substance amount (moles), R is the universal gas constant (8.314462 kPa&middot;L/(mol&middot;K)), and T is absolute temperature (Kelvin). Any single variable can be solved when the remaining three are known. For atmospheric phase transitions, calculate liquid boiling points with our <Link href="/calculators/science/boiling-point-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">boiling point calculator</Link>, audit volumetric fluid densities using the <Link href="/calculators/science/density-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">density calculator</Link>, or examine hydrostatic pressure distributions via our <Link href="/calculators/physics/pressure-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pressure calculator</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Boyle's Law Hyperbolic Isotherms Across Thermodynamic Temperatures</h2>
+          <div className="not-prose my-6">
+            <IdealGasIsothermPVChart />
+          </div>
+
+          <p>
+            The Ideal Gas Law represents the unifying equation of state linking four classical empirical gas principles discovered over three centuries: Boyle&apos;s Law (P &prop; 1/V at constant temperature), Charles&apos;s Law (V &prop; T at constant pressure), Gay-Lussac&apos;s Law (P &prop; T at constant volume), and Avogadro&apos;s Hypothesis (V &prop; n at identical temperature and pressure).
+          </p>
+
+          <p>
+            In chemical engineering, respiratory medicine, combustion dynamics, and high-altitude aeronautics, the Ideal Gas Law provides the foundation for sizing compressed gas cylinders, predicting atmospheric buoyancy, and modeling gaseous chemical synthesis. When determining stoichiometric gas reactant consumption in industrial reactors, cross-reference gas volumes with our <Link href="/calculators/science/stoichiometry-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">stoichiometry calculator</Link> and calculate molar masses via the <Link href="/calculators/science/molecular-weight-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molecular weight calculator</Link>.
+          </p>
+
+          <h2>Thermodynamic State Equations & Mathematical Derivations</h2>
+
+          <p>
+            The mathematical formulation of ideal gas thermodynamics couples the macroscopic equation of state with microscopic kinetic molecular theory:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Ideal Gas Law Equation of State</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">P &middot; V = n &middot; R &middot; T</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Universal thermodynamic relationship between pressure, volume, moles, and temperature.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Gas Volumetric Mass Density Formulation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">&rho; = (P &middot; MW) / (R &middot; T)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates gaseous mass density in g/L (kg/m³) directly from pressure, molar mass, and temperature.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Root-Mean-Square Molecular Velocity</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">v_rms = &radic;[(3 &middot; R &middot; T) / M_kg]</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies average thermal kinetic velocity of gas molecules in meters per second.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. van der Waals Real Gas Correction Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">[P + a &middot; (n / V)&sup2;] &middot; (V - n &middot; b) = n &middot; R &middot; T</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Empirical equation accounting for molecular attraction (a) and excluded molecular volume (b).</div>
+          </Formula>
+
+          <h2>Universal Gas Constant (R) Reference Values Across Units</h2>
+
+          <p>
+            The numerical value of the universal gas constant R depends strictly upon the physical measurement units selected for pressure, volume, and energy:
+          </p>
+
+          <DataTable
+            head={["Numerical Value", "Units of R", "Pressure Unit", "Volume Unit", "Primary Application"]}
+            rows={[
+              ["8.314462", "J / (mol · K)", "Pascals (N/m²)", "Cubic Meters (m³)", "Standard SI Thermodynamics"],
+              ["8.314462", "kPa · L / (mol · K)", "Kilopascals (kPa)", "Liters (L)", "Chemical Laboratory Systems"],
+              ["0.082057", "L · atm / (mol · K)", "Atmospheres (atm)", "Liters (L)", "Traditional Analytical Chemistry"],
+              ["62.36367", "L · mmHg / (mol · K)", "Millimeters Mercury (Torr)", "Liters (L)", "Manometer & Barometric Vacuum"],
+              ["1.987204", "cal / (mol · K)", "N/A (Energy)", "N/A (Energy)", "Thermochemical Enthalpy Cycles"],
+              ["10.73159", "psi · ft³ / (lbmol · °R)", "Pounds/Sq Inch (psi)", "Cubic Feet (ft³)", "Imperial Petroleum Engineering"],
+            ]}
+          />
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Industrial Medical Oxygen Cylinder Storage Sizing</h3>
+          <p>
+            A hospital respiratory therapy department purchases a high-pressure steel cylinder containing medical oxygen gas (O₂, molar mass 32.00 g/mol). The cylinder has internal geometric volume V = 40.0 Liters and is filled to a gauge pressure of 15,000 kPa (150 bar) at ambient warehouse temperature T = 20.0 &deg;C.
+          </p>
+          <ul>
+            <li><strong>Absolute Temperature:</strong> T = 20.0 &deg;C + 273.15 = 293.15 Kelvin.</li>
+            <li><strong>Gas Amount in Moles:</strong> n = (P &middot; V) &divide; (R &middot; T) = (15,000 kPa &times; 40.0 L) &divide; (8.3145 &times; 293.15 K) = 246.15 moles O₂.</li>
+            <li><strong>Stored Oxygen Mass:</strong> mass = 246.15 mol &times; 32.00 g/mol = 7,876.8 grams (7.877 kg O₂).</li>
+            <li><strong>Expanded Atmospheric Volume at 101.3 kPa:</strong> V_delivered = (246.15 &times; 8.3145 &times; 293.15) &divide; 101.325 = 5,921.5 Liters (5.92 m³) of therapeutic oxygen gas.</li>
+          </ul>
+
+          <p>
+            To evaluate mechanical wall stress and fluid pressure within compressed vessels, model structural load distributions using our <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link> and calculate thermodynamic thermal capacities with the <Link href="/calculators/science/specific-heat-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">specific heat calculator</Link>.
+          </p>
+
+          <h3>Case Study B: High-Altitude Meteorological Sounding Balloon Ascent</h3>
+          <p>
+            A latex weather research balloon is launched containing 100.0 moles of helium gas (He, molar mass 4.003 g/mol). At ground release (101.3 kPa, 25 &deg;C), ground volume is V = (100 &times; 8.3145 &times; 298.15) &divide; 101.325 = 2,446.5 Liters (2.45 m³). The balloon ascends to the stratosphere at 32 km altitude where ambient pressure plummets to 1.10 kPa and temperature drops to -50.0 &deg;C (223.15 K).
+          </p>
+          <ul>
+            <li><strong>Stratospheric Volume:</strong> V_high = (100 &times; 8.3145 &times; 223.15 K) &divide; 1.10 kPa = 168,667 Liters (168.7 m³).</li>
+            <li><strong>Volumetric Expansion Factor:</strong> 168.7 m³ &divide; 2.45 m³ = 68.9-fold expansion.</li>
+            <li><strong>Stratospheric Gas Density:</strong> &rho; = (1.10 &times; 4.003) &divide; (8.3145 &times; 223.15) = 0.00237 g/L (0.00237 kg/m³).</li>
+          </ul>
+
+          <h2>Operational Constraints & Real Gas Boundary Conditions</h2>
+
+          <p>
+            While the Ideal Gas Law provides excellent accuracy for air and noble gases at ambient conditions, chemical process engineering must account for four non-ideal physical phenomena:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Compressibility Factor (Z) Departure:</strong> Real gas behavior is quantified by the compressibility factor Z = (P&middot;V) / (n&middot;R&middot;T). For an ideal gas, Z = 1.00 at all pressures. At extreme industrial pressures (such as ammonia synthesis at 300 bar), Z can exceed 1.50, meaning real gases occupy up to 50% more volume than predicted by PV=nRT.
+            </li>
+            <li>
+              <strong>Joule-Thomson Throttling & Liquefaction:</strong> Real gases expanding through an insulated throttling valve experience a temperature change (Joule-Thomson coefficient &mu;_JT = (&part;T/&part;P)_H). Above the inversion temperature, gases warm upon expansion; below it, they cool, a thermodynamic phenomenon utilized in industrial air liquefaction.
+            </li>
+            <li>
+              <strong>Vapor Condensation & Dew Point Caps:</strong> The Ideal Gas Law breaks down completely as a vapor approaches its dew point curve. Near condensation thresholds, intermolecular attractions dominate, causing rapid collapse into the liquid state.
+            </li>
+            <li>
+              <strong>High-Temperature Thermal Dissociation:</strong> At extreme hypersonic temperatures (&gt; 2,500 K), diatomic gas molecules (such as N₂ and O₂) dissociate into reactive atomic radicals, altering the effective mole count n in the gas matrix.
+            </li>
+          </ol>
+
+
+          <h2>High-Pressure Compressibility Factor & Industrial Chemical Reactor Thermodynamics</h2>
+          <p>
+            In industrial chemical synthesis—exemplified by Haber-Bosch ammonia synthesis operating at 200 atm and
+            450 °C—macroscopic gas deviations from ideality are mathematically characterized by the dimensionless
+            compressibility factor Z:
+          </p>
+          <Formula>
+            {"Z = (P * V_m) / (R * T) = 1 + B'(T) * P + C'(T) * P^2 + ..."}
+          </Formula>
+          <p>
+            When Z drops below 1.0, attractive intermolecular forces dominate, reducing actual pressure compared to ideal gas
+            predictions. At extreme pressures exceeding 300 atm, finite molecular core volumes dominate, causing Z to exceed 1.0.
+            Chemical process engineers combine ideal gas state equations with
+            {" "}<Link href="/calculators/science/density-calculator">gas density modeling</Link>{" "}
+            to design high-pressure containment vessels, compute
+            {" "}<Link href="/calculators/science/specific-heat-calculator">specific heat capacity ratios</Link>{" "}
+            across multistage gas compressors, and calibrate
+            {" "}<Link href="/calculators/science/stoichiometry-calculator">stoichiometric volumetric feed rates</Link>{" "}
+            to ensure optimal reactor throughput without risking dangerous thermal pressure excursion events.
+          </p>
+
+          <h2>Authoritative Thermodynamic & Metrological Standards</h2>
+
+          <p>
+            For certified thermophysical gas properties and equation of state calculations, refer to national and international metrology bodies:
+          </p>
+          <ul>
+            <li>
+              <strong>CODATA Recommended Values of the Fundamental Physical Constants (2022):</strong> Established the exact numerical value of the universal molar gas constant R = 8.314 462 618... J/(mol&middot;K).
+            </li>
+            <li>
+              <strong>NIST Reference Fluid Thermodynamic and Transport Properties (REFPROP):</strong> Standard industry database for real gas compressibility, viscosity, and enthalpy equations.
+            </li>
+            <li>
+              <strong>ISO 13443:1996:</strong> Natural gas &mdash; Standard reference conditions for volumetric measurement.
+            </li>
+            <li>
+              <strong>IUPAC Compendium of Analytical Nomenclature:</strong> Definitive standards for expressing molar quantities and pressure units.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <IdealGasLawCalculatorComponent />
+    </CalcPage>
   );
 }

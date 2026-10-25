@@ -1,26 +1,280 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import DensityCalculatorComponent from "@/components/calcs/science/density-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { DensityMaterialComparisonChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/density-calculator";
+const TITLE = "Density Calculator | Specific Gravity, Mass & Buoyancy Archimedes Solver";
+const DESCRIPTION =
+  "Calculate material density, specific gravity, volume displacement, and Archimedes buoyant lift forces across solids, liquids, and atmospheric gases with precision unit conversions.";
 
 export const metadata: Metadata = {
-  "title": "Density Calculator – Mass Volume Density Formula | CalcDigi",
-  "description": "Calculate density from mass and volume, mass from density, or volume from density. Includes material density table for identification.",
-  "openGraph": {
-    "title": "Density Calculator – Mass Volume Density Formula | CalcDigi",
-    "description": "Calculate density from mass and volume, mass from density, or volume from density. Includes material density table for identification.",
-    "type": "website",
-    "url": "/calculators/science/density-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/density-calculator"
-  }
 };
+
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
+  { href: "/calculators/science/boiling-point-calculator", icon: "🌡️", name: "Boiling Point & Vapor" },
+  { href: "/calculators/science/ideal-gas-law-calculator", icon: "🎈", name: "Ideal Gas Law" },
+  { href: "/calculators/physics/pressure-calculator", icon: "📊", name: "Hydrostatic Pressure" },
+  { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newtonian Force F=ma" },
+  { href: "/calculators/measurements/volume-converter", icon: "📐", name: "Volume Unit Converter" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical definition and mathematical formula for density?",
+    a: "Density (&rho;) is an intensive physical property defined as mass per unit volume: &rho; = m / V. In the International System of Units (SI), density is expressed in kilograms per cubic meter (kg/m&sup3;), though laboratory chemistry commonly utilizes grams per cubic centimeter (g/cm&sup3;) or grams per milliliter (g/mL). Because density is intensive, it remains invariant regardless of sample size.",
+  },
+  {
+    q: "What is specific gravity (SG) and why is it dimensionless?",
+    a: "Specific gravity (SG), or relative density, is the ratio of a material's density to the density of a reference fluid—conventionally pure water at its maximum density temperature of 3.98 &deg;C (1.0000 g/cm&sup3; or 1000 kg/m&sup3;): SG = &rho;_substance / &rho;_water. Because it is a ratio of identical physical dimensions, specific gravity is dimensionless. An SG greater than 1.0 indicates the material sinks in water, while an SG below 1.0 floats.",
+  },
+  {
+    q: "How does Archimedes' Principle govern buoyant flotation?",
+    a: "Archimedes' Principle establishes that any object wholly or partially immersed in a fluid experiences an upward buoyant force (Fb) equal to the gravitational weight of the fluid displaced by the object: Fb = &rho;_fluid &middot; V_displaced &middot; g. If an object's average density is less than the fluid's density, it floats in static equilibrium with a submerged volume fraction exactly equal to &rho;_object / &rho;_fluid.",
+  },
+  {
+    q: "Why does liquid water reach its maximum density at 3.98 °C instead of 0 °C?",
+    a: "As liquid water cools toward 4 &deg;C, thermal molecular kinetic contraction increases its density. However, below 3.98 &deg;C, intermolecular hydrogen bonding begins organizing water molecules into an open, tetrahedral hexagonal crystalline lattice precursor to ice. This open spatial structure expands volume, causing ice (density 0.917 g/cm&sup3;) and cold water below 4 &deg;C to float atop denser 4 &deg;C water, preserving aquatic life beneath frozen lakes.",
+  },
+  {
+    q: "How do temperature and pressure alter material density?",
+    a: "Thermal expansion generally increases volume while keeping mass constant, causing density to decrease as temperature rises (quantified by the volumetric expansion coefficient &beta;). Pressure compresses matter, increasing density. While liquids and solids are relatively incompressible over moderate pressures, gases obey gas laws where density is strictly proportional to pressure and inversely proportional to absolute temperature (&rho; = P&middot;MW / RT).",
+  },
+  {
+    q: "What is the difference between true density, bulk density, and apparent porosity?",
+    a: "True (skeletal) density measures mass divided by the volume of solid material excluding all pores and voids. Bulk density measures mass divided by total envelope volume including interior pores and inter-particle voids, crucial in soil mechanics, pharmaceutical tableting, and civil powders. Apparent density accounts only for closed internal pores inaccessible to immersion fluids.",
+  },
+];
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Density Calculator\", \"item\": \"https://calcdigi.com/calculators/science/density-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Density Calculator\", \"url\": \"https://calcdigi.com/calculators/science/density-calculator\", \"description\": \"Calculate density from mass and volume, mass from density, or volume from density. Includes material density table for identification.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is density?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"ρ=m/V. 50g in 25cm³: 2.0 g/cm³. Units: g/cm³=g/mL; kg/m³ (SI). 1 g/cm³=1000 kg/m³.\"}}, {\"@type\": \"Question\", \"name\": \"Why water as reference?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Water at 4°C = 1.000 g/cm³ exactly. Specific gravity = material density/water density. SG>1 sinks, SG<1 floats.\"}}, {\"@type\": \"Question\", \"name\": \"Why does ice float?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Ice (0.917) is 8.3% less dense than water (1.000). Open hexagonal crystal lattice. Critical — lakes freeze top-down protecting aquatic life.\"}}, {\"@type\": \"Question\", \"name\": \"Mass from density?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"m = ρ×V. 500 cm³ aluminum (2.70): 500×2.70=1350g=1.35kg.\"}}, {\"@type\": \"Question\", \"name\": \"Densest natural element?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Osmium: 22.59 g/cm³. Closely followed by iridium (22.56).\"}}, {\"@type\": \"Question\", \"name\": \"How to identify material by density?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Measure mass and volume → calculate ρ. Compare to known values. 10.7 g/cm³ ≈ silver (10.49) or lead (11.34).\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Density Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Density Calculator</h1>\n<p class=\"calc-intro\">Calculate density (ρ=m/V), find mass from density and volume, or find volume from mass and density. Includes reference table of densities for common materials for identification.</p>\n<p class=\"calc-intro\">Density = mass per unit volume. It determines buoyancy, identifies materials, and converts between mass and volume. Water at 4°C (1.000 g/cm³) is the universal reference.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">ρ = m / V | m = ρ × V | V = m / ρ | g/cm³ = g/mL | 1 g/cm³ = 1000 kg/m³</div></div>\n<div class=\"content-section\"><h2>Densities of Common Materials</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Material</th><th style=\"padding:10px 12px;text-align:left;\">Density (g/cm³)</th><th style=\"padding:10px 12px;text-align:left;\">Note</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Hydrogen gas</td><td style=\"padding:9px 12px;\">0.0000899</td><td style=\"padding:9px 12px;\">Lightest element</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Air (sea level)</td><td style=\"padding:9px 12px;\">0.001225</td><td style=\"padding:9px 12px;\">Buoyancy reference</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Gasoline</td><td style=\"padding:9px 12px;\">0.72</td><td style=\"padding:9px 12px;\">Floats on water</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Ice</td><td style=\"padding:9px 12px;\">0.917</td><td style=\"padding:9px 12px;\">Less dense than liquid water</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Water (4°C)</td><td style=\"padding:9px 12px;\">1.000</td><td style=\"padding:9px 12px;\">Reference density</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Seawater</td><td style=\"padding:9px 12px;\">1.025</td><td style=\"padding:9px 12px;\">Denser than fresh</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Aluminum</td><td style=\"padding:9px 12px;\">2.70</td><td style=\"padding:9px 12px;\">Lightweight structural metal</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Iron</td><td style=\"padding:9px 12px;\">7.87</td><td style=\"padding:9px 12px;\">Structural metal</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Copper</td><td style=\"padding:9px 12px;\">8.96</td><td style=\"padding:9px 12px;\">Electrical wiring</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Lead</td><td style=\"padding:9px 12px;\">11.34</td><td style=\"padding:9px 12px;\">Radiation shielding</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Gold</td><td style=\"padding:9px 12px;\">19.32</td><td style=\"padding:9px 12px;\">Dense precious metal</td></tr></tbody></table></div><h3>Buoyancy — Archimedes Principle</h3><p>Object floats if average density less than fluid. Ice (0.917) floats on water (1.000). Steel ships float because hull + air gives average density below water. Buoyant force = weight of displaced fluid.</p><h3>Material Identification</h3><p>Density is a characteristic property — gold is always 19.32 g/cm³. Measure mass (balance) and volume (water displacement) to identify unknown materials.</p></div>\n<div class=\"content-section\"><h2>Density in Science and Engineering</h2>\n<p>Density is one of the most practically useful physical properties. It connects mass (easily measured on a balance) to volume (easily measured or calculated geometrically), identifies materials, predicts buoyancy, and is essential for fluid mechanics, materials selection, and chemical analysis.</p>\n<h3>Measuring Density in the Laboratory</h3>\n<p>Solid density by water displacement: weigh solid in air (mass m), submerge in graduated cylinder and read volume change (volume V). Density = m/V. Liquid density: weigh a specific volume using a volumetric pipette or density bottle (pycnometer). Most accurate method: use an analytical balance and a 25 mL or 50 mL pycnometer. Gas density: measure mass of a known volume of gas at known temperature and pressure, or calculate from molar mass using PV = nRT.</p>\n<h3>Density in Geology and Materials Science</h3>\n<p>Rock and mineral identification uses density alongside hardness and crystal form. Quartz: 2.65 g/cm³. Feldspar: 2.56-2.76. Magnetite: 5.2. Galena (lead sulfide): 7.6. Gold: 19.32 — this high density allowed early miners to pan for gold (gold sinks to the bottom while lighter rock washes away). Earth's average density is 5.51 g/cm³, suggesting a dense iron-nickel core (12-13 g/cm³) surrounding a silicate mantle (3.3-5.6 g/cm³).</p>\n<h3>Density in Food Science</h3>\n<p>Brix measurement (sugar content in beverages) uses the relationship between dissolved sugar concentration and solution density. Brix refractometer or hydrometer measures density to infer sugar content. Wine must: 1.08-1.10 g/mL (20-25 Brix) before fermentation. After complete fermentation: ~0.995 g/mL (dry wine). Beer: 1.040-1.080 original gravity, ferments to 1.005-1.015 final gravity. Brewers use density measurements (specific gravity) to track fermentation progress and calculate alcohol content.</p></div>\n<div class=\"content-section\"><h2>Density in Science and Engineering – Applications and Reference</h2>\n<p>Density (ρ) is defined as mass per unit volume: ρ = m/V. It is one of the most practically important physical properties of matter, used to identify materials, predict buoyancy, design structures, and convert between mass and volume measurements. The SI unit is kg/m³, but g/cm³ (equivalent to g/mL for liquids) is more commonly used in laboratory chemistry.</p>\n<p>Density is an intensive property — it does not change with the amount of substance. A tiny sliver of gold and a gold bar both have density 19.32 g/cm³. This makes density a powerful tool for material identification. If you measure a sample's mass and volume, you can often identify the material by matching its density to reference values.</p>\n<h3>Measuring Density in the Laboratory</h3>\n<p>Solid density by water displacement: weigh solid in air (mass m). Place in graduated cylinder containing known water volume. Record new volume (V₂). Object volume = V₂ - V₁. Density = m/(V₂-V₁). Liquid density: weigh empty pycnometer (glass vessel of precise volume, 10-50 mL), fill with liquid, weigh again. Density = (mass filled - mass empty)/pycnometer volume. Gas density: fill a pre-weighed flask of known volume with gas at measured T and P. Density = (mass filled - mass empty)/volume. Alternatively calculate: d = PM/(RT) using ideal gas law.</p>\n<h3>Density and Buoyancy – Archimedes Principle</h3>\n<p>An object floats if its average density is less than the fluid it is placed in. Average density is total mass divided by total volume — including any hollow spaces. Ice (0.917 g/cm³) floats on water (1.000 g/cm³) because ice has lower density, despite water expanding when it freezes being seemingly paradoxical. Steel ships float because the ship (steel hull + enclosed air) has average density less than 1.000 g/cm³ — the hollow hull displaces a large volume of water while having relatively little mass. Archimedes discovered that the buoyant force equals the weight of fluid displaced (Archimedes Principle).</p>\n<h3>Density in Geology and Earth Science</h3>\n<p>Earth average density: 5.51 g/cm³. Continental crust: 2.7 g/cm³ (granite). Oceanic crust: 3.0 g/cm³ (basalt — denser, so it subducts under lighter continental crust at tectonic boundaries). Upper mantle: 3.3-3.5 g/cm³. Lower mantle: 4.0-5.5 g/cm³. Outer core (liquid iron-nickel): 9.9-12.2 g/cm³. Inner core (solid): 12-13 g/cm³. The density gradient from crust to core explains why Earth is layered — denser materials sank to the center during Earth's molten phase early in planetary formation.</p>\n<h3>Density in Food Science and Brewing</h3>\n<p>Specific gravity (SG = density/water density) measures sugar concentration in brewing and winemaking. Unfermented grape juice (must): SG 1.080-1.110 (8-11% sugar). After complete fermentation: SG ~0.990-0.998 (below water because ethanol density 0.789 g/cm³ is less than water). Brewers use hydrometer readings to calculate: Alcohol By Volume (ABV) = (Original Gravity - Final Gravity) × 131.25. Original Gravity 1.055, Final Gravity 1.010: ABV = (1.055-1.010) × 131.25 = 5.9% ABV. Density measurement is essential quality control in food manufacturing.</p>\n<h3>Temperature Dependence of Density</h3>\n<p>Liquid density generally decreases with increasing temperature (thermal expansion). Water unique behavior: density increases from 0°C to 4°C (maximum density at 4°C = 1.000 g/cm³), then decreases above 4°C. This is why ice floats — water expands when freezing, reducing density from 1.000 to 0.917 g/cm³. This anomalous behavior of water is critical to aquatic ecosystems: lakes freeze from the top down, insulating the water below at 4°C, allowing fish and other aquatic organisms to survive winter. Metal densities decrease slightly with temperature due to thermal expansion of the crystal lattice.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is density? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">ρ=m/V. 50g in 25cm³: 2.0 g/cm³. Units: g/cm³=g/mL; kg/m³ (SI). 1 g/cm³=1000 kg/m³.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why water as reference? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Water at 4°C = 1.000 g/cm³ exactly. Specific gravity = material density/water density. SG&gt;1 sinks, SG&lt;1 floats.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does ice float? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Ice (0.917) is 8.3% less dense than water (1.000). Open hexagonal crystal lattice. Critical — lakes freeze top-down protecting aquatic life.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Mass from density? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">m = ρ×V. 500 cm³ aluminum (2.70): 500×2.70=1350g=1.35kg.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Densest natural element? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Osmium: 22.59 g/cm³. Closely followed by iridium (22.56).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How to identify material by density? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Measure mass and volume → calculate ρ. Compare to known values. 10.7 g/cm³ ≈ silver (10.49) or lead (11.34).</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Density Calculator – Mass, Volume and Material Density</h2><div class=\"form-group\"><label for=\"dns\">Solve For</label><select id=\"dns\"><option selected=\"\" value=\"r\">Density from m+V</option><option value=\"m\">Mass from ρ+V</option><option value=\"V\">Volume from ρ+m</option></select></div><div class=\"form-group\"><label for=\"dnm\">Mass (g)</label><input id=\"dnm\" min=\"0\" step=\"any\" type=\"number\" value=\"50\"/></div><div class=\"form-group\"><label for=\"dnV\">Volume (cm³/mL)</label><input id=\"dnV\" min=\"0\" step=\"any\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"dnr\">Density (g/cm³)</label><input id=\"dnr\" min=\"0\" step=\"any\" type=\"number\" value=\"2.0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Density Calculator – Mass, Volume and Material Density')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Density Calculator – Mass, Volume and Material Density')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-density-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var s=document.getElementById('dns').value;\n  var m=parseFloat(document.getElementById('dnm').value)||0,V=parseFloat(document.getElementById('dnV').value)||0,r=parseFloat(document.getElementById('dnr').value)||0;\n  var result;\n  if(s==='r'){if(!m||!V){alert('Enter m and V.');return;}result=m/V;}\n  else if(s==='m'){if(!r||!V){alert('Enter ρ and V.');return;}result=r*V;}\n  else{if(!r||!m){alert('Enter ρ and m.');return;}result=m/r;}\n  var rv=s==='r'?result:r,mv=s==='m'?result:m,Vv=s==='V'?result:V;\n  var mat=rv<0.01?'Gas':rv<0.8?'Light material':rv<1?'Floats on water':rv<3?'Sinks in water':rv<5?'Light metal':rv<9?'Common metal':'Dense/Heavy metal';\n  var aiPrompt='Density='+rv.toFixed(3)+' g/cm³ ('+mat+')';\n  document.getElementById('sc-ri').innerHTML=\n    ri(s==='r'?'Density':s==='m'?'Mass':'Volume','<strong style=\"font-size:26px;color:var(--c-accent)\">'+result.toFixed(4)+(s==='r'?' g/cm³':s==='m'?' g':' cm³')+'</strong>',true)+\n    ri('Category',mat)+ri('vs Water (1.0)',rv<1?'Floats ✅':'Sinks')+ri('In kg/m³',(rv*1000).toFixed(2)+' kg/m³');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',['Material','Water ref'],[Math.round(rv*100)||1,100],['#1a5c3a','#3a7abf']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this density and material properties.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      title="Material Density & Archimedes Specific Gravity Calculator"
+      intro="Calculate material density, specific gravity relative to water, volume displacement, and Archimedes buoyant lift forces across solid materials, aqueous solutions, and industrial fluids."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                ISO 1183 & ASTM D792 Density Standards
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Hydrostatic & Archimedes Metrology</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: What are the primary formulas for calculating density and buoyant force?
+                </strong>
+                <p className="mt-1">
+                  Material density is calculated by dividing sample mass by displaced volume: &rho; = m / V. Specific gravity (SG) is the dimensionless ratio of substance density to pure water at 4 &deg;C: SG = &rho; / 1.000 g/cm&sup3;. Under Archimedes&apos; Principle, upward buoyant force equals the weight of displaced fluid: Fb = &rho;_fluid &middot; V &middot; g. For fluid pressure dynamics, audit hydrostatic head with our <Link href="/calculators/physics/pressure-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pressure calculator</Link>, calculate applied gravitational loads via the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, or examine gas densities using our <Link href="/calculators/science/ideal-gas-law-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ideal gas law calculator</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Material Density Spectrum Across Solid and Liquid Elements</h2>
+          <div className="not-prose my-6">
+            <DensityMaterialComparisonChart />
+          </div>
+
+          <p>
+            Density serves as a fundamental physical fingerprint across materials science, metallurgy, geology, and fluid mechanics. Whether verifying the purity of precious metals via hydrostatic immersion, engineering lightweight carbon-composite aerospace structures, or calculating cargo ballast for naval architecture, quantitative density modeling is central to mechanical integrity and material identification.
+          </p>
+
+          <p>
+            In chemical processing and petroleum refining, density and specific gravity dictate phase separation, settling velocities in sedimentation tanks, and hydrometer fuel grading. When formulating liquid chemical mixtures, correlate density with gravimetric concentration using our <Link href="/calculators/science/concentration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concentration calculator</Link> and calculate thermal colligative properties with the <Link href="/calculators/science/boiling-point-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">boiling point calculator</Link>.
+          </p>
+
+          <h2>Mathematical Density Formulations & Archimedes Derivations</h2>
+
+          <p>
+            Classical continuum mechanics defines density through mass-volume integration alongside Archimedes&apos; hydrostatic displacement theorems:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Fundamental Density Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">&rho; = m / V</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies mass concentration per unit volume in g/cm³ or kg/m³.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Specific Gravity (Relative Density)</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">SG = &rho;_sample / &rho;_H₂O(4°C) = &rho;_sample / (1.0000 g/cm³)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Normalizes density against pure water at standard maximum density temperature.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Archimedes Buoyant Upward Force</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">Fb = &rho;_fluid &middot; V_displaced &middot; g</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Computes upward hydrostatic lift force exerted on an immersed object.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. Submerged Volume Flotation Fraction</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">Fraction_submerged = (&rho;_object / &rho;_fluid) &middot; 100%</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Determines exact percentage of floating object volume submerged beneath fluid surface.</div>
+          </Formula>
+
+          <h2>Standard Material Densities & Specific Gravity Benchmarks</h2>
+
+          <p>
+            Reference densities across elemental metals, geological minerals, common liquids, and polymers at 20 &deg;C:
+          </p>
+
+          <DataTable
+            head={["Material System", "Density (g/cm³)", "Density (kg/m³)", "Specific Gravity (SG)", "Buoyancy in Water", "Primary Use"]}
+            rows={[
+              ["Silica Aerogel", "0.002", "2.0", "0.002", "Floats (0.2% submerged)", "Thermal Insulation"],
+              ["Balsa Wood", "0.160", "160.0", "0.160", "Floats (16% submerged)", "Model Airframes"],
+              ["Ethanol (Pure)", "0.789", "789.0", "0.789", "Liquid Solvent", "Chemical Feedstock"],
+              ["Pure Water (4°C)", "1.000", "1000.0", "1.000", "Neutral Standard", "Calibration Base"],
+              ["Seawater (3.5% Salinity)", "1.025", "1025.0", "1.025", "Oceanic Medium", "Marine Ballast"],
+              ["Aluminum (6061-T6)", "2.700", "2700.0", "2.700", "Sinks to bottom", "Aerospace Structures"],
+              ["Titanium (Grade 5)", "4.430", "4430.0", "4.430", "Sinks to bottom", "Medical Implants"],
+              ["Carbon Steel (AISI 1020)", "7.850", "7850.0", "7.850", "Sinks to bottom", "Civil Construction"],
+              ["Lead Metal (Pure)", "11.340", "11340.0", "11.340", "Sinks to bottom", "Radiation Shielding"],
+              ["Liquid Mercury (Hg)", "13.546", "13546.0", "13.546", "Steel floats on top", "Barometers & Switches"],
+              ["Gold (24K Pure)", "19.320", "19320.0", "19.320", "Sinks rapidly", "Bullion & Electronics"],
+              ["Osmium (Densest Element)", "22.590", "22590.0", "22.590", "Sinks rapidly", "Wear Contacts"],
+            ]}
+          />
+
+
+          <h2>Oscillating U-Tube Pycnometry & Digital Density Metrology</h2>
+
+          <p>
+            Modern automated laboratory density meters employ the oscillating U-tube principle (standardized under ASTM D4052 and ISO 12185) rather than manual gravimetric pycnometers. A hollow, high-precision borosilicate glass or Hastelloy U-tube filled with sample fluid is electronically excited into harmonic resonant oscillation. The fundamental period of vibration T depends strictly on the total vibrating mass, which includes the fixed tube mass m_0 and the variable fluid mass &rho;&middot;V:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">5. Harmonic Resonant Density Frequency Relation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">&rho; = A &middot; T&sup2; - B   |   T = 2&pi; &middot; &radic;[(m₀ + &rho; &middot; V) / c]</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Links fluid density &rho; directly to electronic resonant period T with instrumental constants A and B.</div>
+          </Formula>
+
+          <p>
+            Equipped with solid-state Peltier thermal controllers that stabilize sample temperatures within &plusmn;0.01 &deg;C, digital density meters achieve measurement resolutions down to 0.00001 g/cm&sup3; (10 ppm precision) within 30 seconds. To evaluate the resonant acoustic harmonics of oscillating sensor tubes, analyze frequency principles with our <Link href="/calculators/physics/wave-frequency-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">wave frequency calculator</Link> and convert displaced volumetric measurements with the <Link href="/calculators/measurements/volume-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">volume converter</Link>.
+          </p>
+
+          <h2>Geotechnical Dry Density, Void Ratio & Soil Compaction</h2>
+
+          <p>
+            In geotechnical civil engineering and earthwork foundation design, soil density cannot be treated as a monolithic constant because soils consist of solid mineral grains, pore water, and void air pockets. Civil engineers evaluate dry density (&rho;_d), which measures solid skeleton mass per total unit volume, eliminating moisture fluctuations: &rho;_d = &rho;_bulk / (1 + w), where w is gravimetric moisture content.
+          </p>
+
+          <p>
+            Standard and Modified Proctor compaction tests establish the Optimum Moisture Content (OMC) at which soil grains achieve maximum packing density, minimizing future structural settlement under foundation loads. When designing concrete mixes and soil-aggregate foundations, verify bulk batching weights with our <Link href="/calculators/engineering/concrete-mix-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concrete mix calculator</Link> and compute structural gravity loads using the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>.
+          </p>
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Archimedes Hydrostatic Assay of Gold Bullion (Purity Verification)</h3>
+          <p>
+            A precious metals assayer tests an antique commemorative coin purported to be pure 24-karat gold (theoretical density 19.32 g/cm&sup3;). Using an analytical balance, the coin weighs 64.20 grams in air and 60.10 grams when fully immersed in pure water (density 1.000 g/cm&sup3;).
+          </p>
+          <ul>
+            <li><strong>Apparent Mass Loss (Displaced Water Mass):</strong> &Delta;m = 64.20 g - 60.10 g = 4.10 grams.</li>
+            <li><strong>Displaced Volume:</strong> V = 4.10 g &divide; 1.000 g/cm&sup3; = 4.10 cm&sup3;.</li>
+            <li><strong>Experimental Coin Density:</strong> &rho; = 64.20 g &divide; 4.10 cm&sup3; = 15.66 g/cm&sup3;.</li>
+            <li><strong>Specific Gravity:</strong> SG = 15.66.</li>
+            <li><strong>Metallurgical Conclusion:</strong> Pure gold possesses density 19.32 g/cm&sup3;. A measured density of 15.66 g/cm&sup3; indicates a fraudulent counterfeit alloyed with copper or tungsten.</li>
+          </ul>
+
+          <p>
+            To evaluate the stoichiometric chemical elemental ratio of alloys, determine component percentages using our <Link href="/calculators/science/empirical-formula-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">empirical formula calculator</Link> and calculate mass concentrations with the <Link href="/calculators/science/concentration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concentration calculator</Link>.
+          </p>
+
+          <h3>Case Study B: Iceberg Flotation Equilibrium in Arctic Seawater</h3>
+          <p>
+            An Arctic glacial iceberg composed of pure freshwater ice (density &rho;_ice = 0.917 g/cm&sup3;) floats in cold ocean seawater (salinity 3.5%, measured density &rho;_sw = 1.028 g/cm&sup3;).
+          </p>
+          <ul>
+            <li><strong>Submerged Volume Fraction:</strong> Fraction = (&rho;_ice &divide; &rho;_sw) &times; 100 = (0.917 &divide; 1.028) &times; 100 = 89.20%.</li>
+            <li><strong>Exposed Tip Above Water:</strong> 100% - 89.20% = 10.80% visible above the sea surface.</li>
+            <li><strong>Buoyant Equilibrium:</strong> For an iceberg with gross mass of 10,000 metric tons (10⁷ kg), buoyant upward force exactly equals gravitational weight: Fb = 10⁷ kg &times; 9.80665 m/s&sup2; = 9.807 &times; 10⁷ Newtons.</li>
+          </ul>
+
+          <h2>Operational Constraints & Environmental Boundary Conditions</h2>
+
+          <p>
+            High-precision laboratory and industrial density pycnometry requires controlling four physical boundary sources of error:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Surface Meniscus & Capillary Air Bubbles:</strong> In hydrostatic weighing, microscopic air bubbles clinging to sample surfaces displace additional fluid, artificially elevating apparent volume and lowering computed density by 1% to 5%. Adding non-ionic wetting surfactants eliminates bubble adhesion.
+            </li>
+            <li>
+              <strong>Thermal Expansion & Pycnometer Volume Drift:</strong> Liquid density changes noticeably with temperature (water density drops from 0.9982 g/cm&sup3; at 20 &deg;C to 0.9584 g/cm&sup3; at 100 &deg;C). Pycnometer measurements require thermostatic water baths stabilized to &plusmn;0.05 &deg;C.
+            </li>
+            <li>
+              <strong>Air Buoyancy Correction (Vacuum Calibration):</strong> Precision analytical weighing of low-density samples requires correcting balance readings for ambient air buoyancy (&rho;_air &asymp; 0.0012 g/cm&sup3;) acting on both sample and stainless-steel calibration weights.
+            </li>
+            <li>
+              <strong>Compressibility in Deep-Sea & Geotechnical Strata:</strong> While liquids are treated as incompressible at surface pressures, extreme hydrostatic pressures at oceanic abyssal depths (1,000 bar) compress water by nearly 4%, increasing fluid density from 1.025 to 1.065 g/cm&sup3;.
+            </li>
+          </ol>
+
+          <h2>Authoritative International Standards & Metrology</h2>
+
+          <p>
+            For certified material density testing and pycnometric validation, consult authoritative standards organizations:
+          </p>
+          <ul>
+            <li>
+              <strong>ISO 1183-1:2019:</strong> Plastics &mdash; Methods for determining the density of non-cellular plastics (Immersion method, liquid pycnometer, and titration method).
+            </li>
+            <li>
+              <strong>ASTM D792-20:</strong> Standard Test Methods for Density and Specific Gravity (Relative Density) of Plastics by Displacement.
+            </li>
+            <li>
+              <strong>ASTM B311-17:</strong> Standard Test Method for Density of Powder Metallurgy Materials Containing Less than Two Percent Porosity.
+            </li>
+            <li>
+              <strong>NIST Special Publication 260-153:</strong> Standard Reference Materials for Calibration of Liquid Density Meters.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <DensityCalculatorComponent />
+    </CalcPage>
   );
 }

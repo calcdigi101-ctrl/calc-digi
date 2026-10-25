@@ -1,26 +1,222 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import OsmolarityCalculatorComponent from "@/components/calcs/science/osmolarity-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SerumOsmolarityElectrolyteChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/osmolarity-calculator";
+const TITLE = "Osmolarity Calculator | Serum Osmolality & Van 't Hoff Pressure Solver";
+const DESCRIPTION =
+  "Calculate total solution osmolarity, clinical serum osmolality, Van 't Hoff osmotic pressure, and tonicity balance across biological and pharmaceutical solutions.";
 
 export const metadata: Metadata = {
-  "title": "Osmolarity Calculator – Osmotic Pressure | CalcDigi",
-  "description": "Calculate osmolarity from solute concentrations and dissociation factors. Compare tonicity to blood plasma 285-295 mOsm/L.",
-  "openGraph": {
-    "title": "Osmolarity Calculator – Osmotic Pressure | CalcDigi",
-    "description": "Calculate osmolarity from solute concentrations and dissociation factors. Compare tonicity to blood plasma 285-295 mOsm/L.",
-    "type": "website",
-    "url": "/calculators/science/osmolarity-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/osmolarity-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity Calculator" },
+  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
+  { href: "/calculators/science/buffer-calculator", icon: "🛡️", name: "Buffer Capacity" },
+  { href: "/calculators/science/density-calculator", icon: "⚖️", name: "Aqueous Density" },
+];
+
+export default function OsmolarityCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Osmolarity Calculator\", \"item\": \"https://calcdigi.com/calculators/science/osmolarity-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Osmolarity Calculator\", \"url\": \"https://calcdigi.com/calculators/science/osmolarity-calculator\", \"description\": \"Calculate osmolarity from solute concentrations and dissociation factors. Compare tonicity to blood plasma 285-295 mOsm/L.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is osmolarity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Total solute particle concentration (mOsm/L). NaCl (i=2): 1 mM=2 mOsm. Glucose (i=1): 1 mM=1 mOsm.\"}}, {\"@type\": \"Question\", \"name\": \"Normal blood osmolarity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"285-295 mOsm/L. Below 275=hypo-osmolality (brain edema). Above 320=altered mental status.\"}}, {\"@type\": \"Question\", \"name\": \"Osmolarity vs osmolality?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Osmolarity: mOsm/L (volume-based). Osmolality: mOsm/kg water (mass-based). Clinically measured = osmolality.\"}}, {\"@type\": \"Question\", \"name\": \"Normal saline osmolarity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"0.9% NaCl=154 mM. NaCl→2 ions: 154×2=308 mOsm/L.\"}}, {\"@type\": \"Question\", \"name\": \"Osmolal gap?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Measured - calculated osmolality. Normal <10. Elevated suggests ethanol, methanol, or glycols.\"}}, {\"@type\": \"Question\", \"name\": \"Osmotic pressure?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"π=iCRT. Blood ~7.7 atm. Maintains fluid within vessels. Low albumin→reduced oncotic pressure→edema.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Osmolarity Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Osmolarity Calculator</h1>\n<p class=\"calc-intro\">Calculate solution osmolarity (mOsm/L) from solute concentrations and dissociation factors. Find osmotic pressure and compare to normal blood plasma (285-295 mOsm/L) for clinical applications.</p>\n<p class=\"calc-intro\">Osmolarity measures total dissolved particle concentration — critical in medicine and biology. Blood plasma 285-295 mOsm/L. Hypo-osmolar solutions cause cells to swell; hyper-osmolar cause shrinkage.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Osmolarity = Σ(C × i) mOsm/L | Normal plasma: 285-295 mOsm/L | π = iCRT | NaCl: i=2, Glucose: i=1</div></div>\n<div class=\"content-section\"><h2>Clinical Osmolarity Reference</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Solution</th><th style=\"padding:10px 12px;text-align:left;\">Osmolarity</th><th style=\"padding:10px 12px;text-align:left;\">Note</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Blood plasma</td><td style=\"padding:9px 12px;\">285-295 mOsm/L</td><td style=\"padding:9px 12px;\">Isotonic reference</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">0.9% NaCl</td><td style=\"padding:9px 12px;\">308 mOsm/L</td><td style=\"padding:9px 12px;\">Slightly hypertonic IV</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">5% Dextrose (D5W)</td><td style=\"padding:9px 12px;\">252 mOsm/L</td><td style=\"padding:9px 12px;\">Hypotonic IV</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Lactated Ringers</td><td style=\"padding:9px 12px;\">273 mOsm/L</td><td style=\"padding:9px 12px;\">Near-isotonic IV</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Urine (normal)</td><td style=\"padding:9px 12px;\">50-1200 mOsm/L</td><td style=\"padding:9px 12px;\">Varies with hydration</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Seawater</td><td style=\"padding:9px 12px;\">~1000 mOsm/L</td><td style=\"padding:9px 12px;\">3× blood — toxic if drunk</td></tr></tbody></table></div><h3>Tonicity and Cells</h3><p>Isotonic: no net water movement. Hypotonic (lower): water enters cells → swell, may lyse. Hypertonic (higher): water leaves → cells shrink. IV fluids must match desired effect.</p><h3>Dissociation Factors</h3><p>NaCl→Na⁺+Cl⁻: i=2. CaCl₂→Ca²⁺+2Cl⁻: i=3. Glucose (non-electrolyte): i=1. Each ion contributes independently.</p></div>\n<div class=\"content-section\"><h2>Osmolarity in Physiology and Clinical Medicine</h2>\n<p>Osmolarity is one of the most clinically important laboratory parameters. It determines fluid shifts between compartments, affects cell volume, drives thirst and antidiuretic hormone (ADH) release, and is central to the understanding and treatment of dehydration, fluid overload, and poisoning with osmotically active substances like ethanol and ethylene glycol.</p>\n<h3>Osmolarity Regulation in the Body</h3>\n<p>Blood osmolarity is tightly regulated at 285-295 mOsm/L by the hypothalamus-kidney-ADH axis. Increased osmolarity: hypothalamus osmoreceptors sense high osmolarity → ADH released from posterior pituitary → kidneys concentrate urine (up to 1200 mOsm/L) → water retained → osmolarity restored. Decreased osmolarity: ADH suppressed → kidneys dilute urine (down to 50 mOsm/L) → water excreted → osmolarity restored. This feedback loop operates continuously to maintain fluid balance within ±2-3% of set point.</p>\n<h3>Calculated vs Measured Osmolality</h3>\n<p>Serum osmolality can be calculated from major solutes: Calculated Osm = 2×Na⁺ + Glucose(mg/dL)/18 + BUN(mg/dL)/2.8. The factor 2 for sodium accounts for associated anions (mainly Cl⁻ and HCO₃⁻). Normal: 285-295 mOsm/kg. Osmolal gap = Measured - Calculated. Normal gap ≤10 mOsm/kg. Elevated gap indicates unmeasured osmoles: ethanol (divide ethanol mg/dL by 4.6), methanol, ethylene glycol (antifreeze), isopropanol, mannitol. Osmolal gap calculation is a key tool in toxicology to detect and quantify ingested alcohols.</p>\n<h3>Parenteral Nutrition and IV Fluids</h3>\n<p>Intravenous fluid selection requires matching osmolarity to clinical goals. Isotonic fluids (0.9% NaCl, 308 mOsm/L; Lactated Ringers, 273 mOsm/L): expand extracellular volume without causing cell swelling or shrinkage — used for volume resuscitation. Hypotonic fluids (0.45% NaCl, 154 mOsm/L; D5W, 252 mOsm/L): free water distributes to all compartments — used for free water replacement. Hypertonic fluids (3% NaCl, 1028 mOsm/L; 20% mannitol): draw water from cells — used for cerebral edema. Total parenteral nutrition: 1800-2400 mOsm/L — must be administered through a central venous catheter to avoid peripheral vein damage.</p></div>\n<div class=\"content-section\"><h2>Osmolarity, Tonicity and Osmotic Pressure – Complete Clinical Guide</h2>\n<p>Osmolarity measures the total concentration of solute particles in a solution, expressed in milliosmoles per liter (mOsm/L). Unlike molarity which counts only one type of molecule, osmolarity counts every dissolved particle — including all ions from electrolyte dissociation. NaCl dissociates into Na⁺ + Cl⁻ (2 particles), so 1 mM NaCl = 2 mOsm/L. Glucose does not dissociate, so 1 mM glucose = 1 mOsm/L. The total osmolarity is the sum of contributions from all dissolved species.</p>\n<p>Osmolarity is critical in clinical medicine because it determines the movement of water across semipermeable membranes (osmosis) and therefore controls cell volume, blood pressure, kidney function, and fluid balance throughout the body. Mismatched osmolarity between an IV fluid and blood plasma causes red blood cells to swell or shrink — with potentially fatal consequences.</p>\n<h3>Calculating Serum Osmolarity – Clinical Formula</h3>\n<p>Serum osmolality is estimated clinically: Calculated Osm = 2 × [Na⁺] + [Glucose (mg/dL)]/18 + [BUN (mg/dL)]/2.8. The factor of 2 for sodium accounts for the associated anions (mainly Cl⁻ and HCO₃⁻). Normal: 285-295 mOsm/kg. Example: Na⁺ = 140 mEq/L, Glucose = 90 mg/dL, BUN = 14 mg/dL. Calculated Osm = 2×140 + 90/18 + 14/2.8 = 280 + 5 + 5 = 290 mOsm/kg. Osmolal gap = Measured (by freezing-point osmometry) - Calculated. Normal gap ≤ 10 mOsm/kg. Elevated gap suggests unmeasured osmoles: ethanol (add ethanol mg/dL ÷ 4.6 to close the gap), methanol, ethylene glycol (antifreeze poisoning), isopropanol, mannitol.</p>\n<h3>IV Fluid Tonicity and Clinical Decision Making</h3>\n<p>IV fluid selection depends on the clinical goal: Isotonic fluids (osmolarity close to plasma 285-295 mOsm/L): expand extracellular volume without causing net water movement into or out of cells. 0.9% NaCl (308 mOsm/L), Lactated Ringer's (273 mOsm/L), PlasmaLyte (294 mOsm/L). Used for volume resuscitation in hemorrhage, dehydration, and septic shock. Hypotonic fluids (osmolarity &lt; 285 mOsm/L): free water distributes into cells. 0.45% NaCl (154 mOsm/L), D5W (252 mOsm/L — glucose metabolized rapidly, leaving essentially free water). Used for free water replacement in hypernatremia. Hypertonic fluids (osmolarity &gt; 295 mOsm/L): draw water from cells. 3% NaCl (1028 mOsm/L): symptomatic hyponatremia, cerebral edema from head trauma. 20% mannitol: acute cerebral edema, glaucoma.</p>\n<h3>Osmosis and Tonicity – Cell Biology</h3>\n<p>Cell membranes are selectively permeable — permeable to water but not to most solutes. Water moves across membranes by osmosis from lower to higher osmolarity (thermodynamically from high water concentration to low). Isotonic solution (same osmolarity as cell): no net osmotic water movement, cells maintain normal volume. Hypotonic solution (lower osmolarity than cell): water enters cells by osmosis → cells swell. Red blood cells in pure water: swell and lyse (hemolysis). Hypertonic solution (higher osmolarity): water leaves cells by osmosis → cells shrink (crenation, plasmolysis in plants). Clinical significance: giving hypotonic fluid too rapidly can cause cerebral edema as brain cells swell — correcting hyponatremia should proceed at maximum 10-12 mEq/L per 24 hours to avoid osmotic demyelination syndrome.</p>\n<h3>Osmolarity in Parenteral Nutrition</h3>\n<p>Total Parenteral Nutrition (TPN) is a hypertonic solution (typically 1800-2400 mOsm/L) containing amino acids, glucose, lipids, electrolytes, vitamins, and trace elements for patients unable to eat. Osmolarity above 900 mOsm/L must be administered through a central venous catheter (subclavian or jugular vein) because hypertonic solutions damage peripheral veins (thrombophlebitis, chemical burn to vein endothelium). Peripheral Parenteral Nutrition (PPN) is limited to ≤900 mOsm/L to protect peripheral veins — provides less caloric density. Osmolarity calculation guides catheter selection and prevents serious complications in critically ill patients receiving nutritional support.</p>\n<h3>Osmolarity in Sports Science and Hydration</h3>\n<p>Sweat osmolarity: 10-70 mOsm/L (hypotonic compared to plasma) — predominantly water loss with some electrolytes. Sports drinks are formulated isotonic to slightly hypotonic (200-330 mOsm/L): fast gastric emptying for rapid absorption, replaces electrolytes. Pure water during prolonged exercise causes exercise-associated hyponatremia (EAH) — diluting serum sodium below 135 mEq/L, causing nausea, confusion, and seizures in severe cases. Classic example: marathon runners who drink only water develop dilutional hyponatremia. Guideline: drink to thirst during exercise, replace electrolytes in events &gt;1 hour, avoid drinking more than you sweat.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is osmolarity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Total solute particle concentration (mOsm/L). NaCl (i=2): 1 mM=2 mOsm. Glucose (i=1): 1 mM=1 mOsm.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Normal blood osmolarity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">285-295 mOsm/L. Below 275=hypo-osmolality (brain edema). Above 320=altered mental status.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Osmolarity vs osmolality? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Osmolarity: mOsm/L (volume-based). Osmolality: mOsm/kg water (mass-based). Clinically measured = osmolality.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Normal saline osmolarity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">0.9% NaCl=154 mM. NaCl→2 ions: 154×2=308 mOsm/L.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Osmolal gap? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Measured - calculated osmolality. Normal &lt;10. Elevated suggests ethanol, methanol, or glycols.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Osmotic pressure? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">π=iCRT. Blood ~7.7 atm. Maintains fluid within vessels. Low albumin→reduced oncotic pressure→edema.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Osmolarity Calculator – Osmotic Pressure and Solution Tonicity</h2><p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:8px;\">Solutes (mmol/L):</p><div style=\"display:grid;grid-template-columns:1fr 65px 42px;gap:4px;margin-bottom:5px;\"><select id=\"oss0\" aria-label=\"Solute 1\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0,1\">—</option><option selected=\"\" value=\"154,2\">NaCl (i=2)</option><option value=\"5.5,1\">Glucose (i=1)</option><option value=\"4,2\">KCl (i=2)</option><option value=\"1.25,3\">CaCl₂ (i=3)</option><option value=\"24,2\">NaHCO₃ (i=2)</option><option value=\"5,1\">Urea (i=1)</option></select><input id=\"osc0\" aria-label=\"Solute 1 concentration (mM)\" min=\"0\" placeholder=\"mM\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"154\"/><input id=\"osi0\" aria-label=\"Solute 1 dissociation factor (i)\" max=\"5\" min=\"1\" placeholder=\"i\" step=\"1\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div><div style=\"display:grid;grid-template-columns:1fr 65px 42px;gap:4px;margin-bottom:5px;\"><select id=\"oss1\" aria-label=\"Solute 2\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0,1\">—</option><option value=\"154,2\">NaCl (i=2)</option><option value=\"5.5,1\">Glucose (i=1)</option><option value=\"4,2\">KCl (i=2)</option><option value=\"1.25,3\">CaCl₂ (i=3)</option><option value=\"24,2\">NaHCO₃ (i=2)</option><option value=\"5,1\">Urea (i=1)</option></select><input id=\"osc1\" aria-label=\"Solute 2 concentration (mM)\" min=\"0\" placeholder=\"mM\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"5.5\"/><input id=\"osi1\" aria-label=\"Solute 2 dissociation factor (i)\" max=\"5\" min=\"1\" placeholder=\"i\" step=\"1\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div style=\"display:grid;grid-template-columns:1fr 65px 42px;gap:4px;margin-bottom:5px;\"><select id=\"oss2\" aria-label=\"Solute 3\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0,1\">—</option><option value=\"154,2\">NaCl (i=2)</option><option value=\"5.5,1\">Glucose (i=1)</option><option value=\"4,2\">KCl (i=2)</option><option value=\"1.25,3\">CaCl₂ (i=3)</option><option value=\"24,2\">NaHCO₃ (i=2)</option><option value=\"5,1\">Urea (i=1)</option></select><input id=\"osc2\" aria-label=\"Solute 3 concentration (mM)\" min=\"0\" placeholder=\"mM\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"4\"/><input id=\"osi2\" aria-label=\"Solute 3 dissociation factor (i)\" max=\"5\" min=\"1\" placeholder=\"i\" step=\"1\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div><div style=\"display:grid;grid-template-columns:1fr 65px 42px;gap:4px;margin-bottom:5px;\"><select id=\"oss3\" aria-label=\"Solute 4\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0,1\">—</option><option value=\"154,2\">NaCl (i=2)</option><option value=\"5.5,1\">Glucose (i=1)</option><option value=\"4,2\">KCl (i=2)</option><option value=\"1.25,3\">CaCl₂ (i=3)</option><option value=\"24,2\">NaHCO₃ (i=2)</option><option value=\"5,1\">Urea (i=1)</option></select><input id=\"osc3\" aria-label=\"Solute 4 concentration (mM)\" min=\"0\" placeholder=\"mM\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/><input id=\"osi3\" aria-label=\"Solute 4 dissociation factor (i)\" max=\"5\" min=\"1\" placeholder=\"i\" step=\"1\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div><div style=\"display:grid;grid-template-columns:1fr 65px 42px;gap:4px;margin-bottom:5px;\"><select id=\"oss4\" aria-label=\"Solute 5\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:11px;background:var(--c-bg);color:var(--c-ink);\"><option value=\"0,1\">—</option><option value=\"154,2\">NaCl (i=2)</option><option value=\"5.5,1\">Glucose (i=1)</option><option value=\"4,2\">KCl (i=2)</option><option value=\"1.25,3\">CaCl₂ (i=3)</option><option value=\"24,2\">NaHCO₃ (i=2)</option><option value=\"5,1\">Urea (i=1)</option></select><input id=\"osc4\" aria-label=\"Solute 5 concentration (mM)\" min=\"0\" placeholder=\"mM\" step=\"any\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/><input id=\"osi4\" aria-label=\"Solute 5 dissociation factor (i)\" max=\"5\" min=\"1\" placeholder=\"i\" step=\"1\" style=\"width:100%;padding:7px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:12px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Osmolarity Calculator – Osmotic Pressure and Solution Tonicity')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Osmolarity Calculator – Osmotic Pressure and Solution Tonicity')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-osmolarity-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.querySelectorAll('[id^=\"oss\"]').forEach(function(s){s.addEventListener('change',function(){var idx=s.id.replace('oss',''),p=s.value.split(',');document.getElementById('osc'+idx).value=p[0]||0;document.getElementById('osi'+idx).value=p[1]||1;});});\nfunction doCalc(){\n  var total=0,items=[];\n  for(var i=0;i<5;i++){\n    var c=parseFloat(document.getElementById('osc'+i).value)||0,f=parseFloat(document.getElementById('osi'+i).value)||1;\n    var sel=document.getElementById('oss'+i),name=sel.options[sel.selectedIndex].text.split(' ')[0]||'Solute';\n    if(c>0){var o=c*f;total+=o;items.push({name:name,osm:o});}\n  }\n  if(!total){alert('Enter at least one solute.');return;}\n  var ton=total<270?'Hypotonic':total<=310?'Isotonic':'Hypertonic';\n  var color=total<270?'#3a7abf':total<=310?'#1a5c3a':'#c8832a';\n  var pi=total*0.001*0.08206*310*101.325;\n  var aiPrompt='Osmolarity: '+total.toFixed(1)+' mOsm/L ('+ton+')';\n  document.getElementById('sc-ri').innerHTML=\n    ri('Total Osmolarity','<strong style=\"font-size:22px;color:'+color+'\">'+total.toFixed(1)+' mOsm/L</strong>',true)+\n    ri('Tonicity','<span style=\"color:'+color+'\">'+ton+'</span> (plasma: 285-295)')+\n    ri('Osmotic Pressure',pi.toFixed(1)+' kPa')+\n    items.map(function(x){return ri(x.name,x.osm.toFixed(1)+' mOsm/L');}).join('');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',items.map(function(x){return x.name;}),items.map(function(x){return Math.round(x.osm);}),['#1a5c3a','#c8832a','#3a7abf','#8a4abf','#bf4a4a']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this osmolarity and clinical fluid management.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      title="Osmolarity Calculator"
+      intro="Comprehensive analytical solver for laboratory, clinical, and industrial chemical calculations."
+      description="Compute solution osmolarity (mOsm/L), clinical serum osmolality (mOsm/kg), and equilibrium osmotic pressure (Van 't Hoff). Evaluate solute dissociation factors, effective tonicity, and electrolyte contributions across physiological, intravenous, and parenteral solutions."
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Osmolarity is Determined</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Solution osmolarity represents the cumulative molar concentration of all osmotically active solute particles per liter of solution. For chemical solutions, multiply analytical molarity by the Van &apos;t Hoff dissociation factor (Osmolarity = C × i). In clinical medicine, human serum osmolality is evaluated from serum sodium, glucose, and blood urea nitrogen: Osmolarity = 2 × [Na⁺] + [Glucose]/18 + [BUN]/2.8. Normal human plasma ranges strictly between 275 and 295 mOsm/kg H₂O. Compare these values with analytical <Link href="/calculators/science/molarity-calculator">molar solution concentrations</Link> and verify solvent properties via the <Link href="/calculators/science/density-calculator">aqueous density calculator</Link>.
+            </p>
+          </div>
+
+          <h2>Serum Osmolarity Speciation across Clinical Pathologies</h2>
+          <p>
+            Osmotic regulation is paramount in mammalian physiology and biopharmaceutical formulation. Intravenous fluids must precisely match the colligative osmotic potential of human blood plasma to prevent catastrophic red blood cell hemolysis or cellular crenation.
+          </p>
+
+          <SerumOsmolarityElectrolyteChart />
+
+          <h2>First-Principles Osmotic Derivations & Equilibrium Formulations</h2>
+          <p>
+            Colligative properties depend exclusively on the numerical concentration of discrete solute particles rather than their chemical identity. The Van &apos;t Hoff equation describes the ideal osmotic pressure (Π) developed across a semipermeable membrane:
+          </p>
+          <Formula>
+            {"\Pi = i \cdot C \cdot R \cdot T = \text{Osmolarity} \cdot R \cdot T"}
+          </Formula>
+          <p>
+            Where i is the dimensionless Van &apos;t Hoff dissociation factor (reflecting complete ionic dissociation in dilute regimes), C is analytical solute molarity (mol/L), R is the universal gas constant (0.082057 L·atm/(mol·K)), and T is absolute temperature (K). In clinical laboratory diagnostics, serum osmolality is calculated using standard American conventional units:
+          </p>
+          <Formula>
+            {"\text{Calculated Osmolality (mOsm/kg)} = 2 \cdot [\text{Na}^+] + \frac{[\text{Glucose (mg/dL)}]}{18} + \frac{[\text{BUN (mg/dL)}]}{2.8}"}
+          </Formula>
+          <p>
+            The factor of 2 accounts for the stoichiometric counter-anions (primarily chloride and bicarbonate) accompanying positively charged sodium cations. The divisor 18 converts glucose mass concentration (mg/dL) into millimoles per liter (molecular weight = 180.16 g/mol, multiplied by 10 dL/L). Similarly, 2.8 converts blood urea nitrogen mass concentration into millimoles of urea (molecular weight of two nitrogen atoms = 28.01 g/mol). When formulating complex physiological fluids, chemists cross-reference solute fractions using the <Link href="/calculators/science/concentration-calculator">parts-per-million concentration tool</Link> and stabilize active electrolytes through the <Link href="/calculators/science/buffer-calculator">conjugate acid-base buffer calculator</Link>.
+          </p>
+
+          <h2>Physiological Fluid Benchmarks & Intravenous Osmolar Reference</h2>
+          <p>
+            The table below compiles documented osmolar concentrations, dissociation coefficients, and clinical tonicity classifications across standard therapeutic intravenous solutions and human body compartments.
+          </p>
+
+          <DataTable
+            head={["Solution / Fluid Matrix", "Analytical Solute", "Van 't Hoff Factor (i)", "Osmolarity (mOsm/L)", "Clinical Tonicity"]}
+            rows={[
+              ["Normal Blood Plasma", "Electrolytes + Metabolites", "Variable (~1.85)", "285 – 295", "Isotonic Baseline"],
+              ["0.9% Normal Saline (NaCl)", "154 mM NaCl", "2.00 (Ideal) / 1.85 (Real)", "308 (Nominal) / 286 (Real)", "Isotonic Crystalloid"],
+              ["5% Dextrose in Water (D5W)", "278 mM Glucose", "1.00 (Non-electrolyte)", "278 (In Vitro)", "Physiologically Hypotonic"],
+              ["Lactated Ringer's Solution", "Na, K, Ca, Cl, Lactate", "Speciated", "273", "Slightly Hypotonic"],
+              ["0.45% Half-Normal Saline", "77 mM NaCl", "2.00 (Ideal)", "154", "Distinctly Hypotonic"],
+              ["3.0% Hypertonic Saline", "513 mM NaCl", "2.00 (Ideal)", "1,026", "Severely Hypertonic"],
+              ["Mannitol 20% Infusion", "1,098 mM Mannitol", "1.00 (Non-electrolyte)", "1,098", "Hyper-osmolar Diuretic"],
+            ]}
+          />
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Emergency Room Evaluation of Suspected Osmolal Gap</h3>
+          <p>
+            An emergency department patient presents with acute metabolic acidosis and altered mental status. Laboratory serum biochemistry reports: Sodium [Na⁺] = 138 mEq/L, Glucose = 108 mg/dL, and Blood Urea Nitrogen [BUN] = 14 mg/dL. Directly measured freezing-point depression osmometry indicates a measured serum osmolality of 324 mOsm/kg H₂O.
+          </p>
+          <ol>
+            <li>
+              <strong>Calculate baseline serum osmolality:</strong>
+              <br />
+              Sodium component: 2 × 138 = 276.0 mOsm/kg.
+              <br />
+              Glucose component: 108 / 18 = 6.0 mOsm/kg.
+              <br />
+              BUN component: 14 / 2.8 = 5.0 mOsm/kg.
+              <br />
+              Calculated Osmolality = 276.0 + 6.0 + 5.0 = 287.0 mOsm/kg.
+            </li>
+            <li>
+              <strong>Evaluate the clinical Osmolal Gap:</strong>
+              <br />
+              Osmolal Gap = Measured Osmolality - Calculated Osmolality = 324 - 287 = 37 mOsm/kg.
+            </li>
+            <li>
+              <strong>Diagnostic Interpretation:</strong> A normal osmolal gap is strictly beneath 10 mOsm/kg. An elevated gap of 37 mOsm/kg conclusively indicates the presence of unmeasured exogenous low-molecular-weight osmoles—such as toxic ingestion of ethylene glycol, methanol, or isopropanol—prompting immediate antidotal fomepizole administration. Radiochemists confirm toxicant molar mass parameters with the <Link href="/calculators/science/molecular-weight-calculator">molecular weight calculator</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Van &apos;t Hoff Pressure in Hemodialysis Dialysate Preparation</h3>
+          <p>
+            A biomedical production facility prepares an artificial dialysate buffer containing 140 mM NaCl (i = 1.85), 4 mM KCl (i = 1.85), 1.5 mM CaCl₂ (i = 2.60), and 35 mM NaHCO₃ (i = 1.85) at body temperature 37 °C (310.15 K).
+          </p>
+          <ol>
+            <li>
+              <strong>Compute individual solute osmolar contributions:</strong>
+              <br />
+              NaCl: 140 × 1.85 = 259.0 mOsm/L.
+              <br />
+              KCl: 4 × 1.85 = 7.4 mOsm/L.
+              <br />
+              CaCl₂: 1.5 × 2.60 = 3.9 mOsm/L.
+              <br />
+              NaHCO₃: 35 × 1.85 = 64.75 mOsm/L.
+            </li>
+            <li>
+              <strong>Sum total dialysate osmolarity:</strong> 259.0 + 7.4 + 3.9 + 64.75 = 335.05 mOsm/L (0.33505 mol/L active osmoles).
+            </li>
+            <li>
+              <strong>Calculate equilibrium osmotic pressure:</strong>
+              <br />
+              Π = 0.33505 mol/L × 0.082057 L·atm/(mol·K) × 310.15 K = 8.53 atm (864.3 kPa).
+            </li>
+            <li>
+              <strong>Engineering Conclusion:</strong> Dialyzer semipermeable hollow fibers must withstand an osmotic pressure gradient of 8.53 atm without membrane delamination, verified alongside <Link href="/calculators/science/boiling-point-calculator">colligative boiling point elevations</Link>.
+            </li>
+          </ol>
+
+          <h2>Operational Constraints & Biological Membrane Boundary Conditions</h2>
+          <ol>
+            <li>
+              <strong>Effective vs. Ineffective Osmoles (Tonicity vs. Osmolarity):</strong> Osmolarity measures total dissolved particles regardless of whether they cross biological membranes. Tonicity measures only non-penetrating osmoles (such as sodium and mannitol) that exert trans-membrane osmotic gradients. Urea penetrates cell membranes freely via urea transporters; therefore, elevated BUN raises total measured serum osmolarity but does not induce intracellular dehydration.
+            </li>
+            <li>
+              <strong>Osmolarity vs. Osmolality Divergence at High Concentrations:</strong> Osmolarity expresses osmoles per liter of total solution (temperature and solute volume dependent), whereas osmolality expresses osmoles per kilogram of pure water solvent (temperature independent). In hyperlipidemic or paraproteinemic sera, excessive plasma solids displace serum water, artificially deflating measured osmolarity unless direct ion-selective potentiometry is utilized.
+            </li>
+            <li>
+              <strong>Non-Ideal Debye-Hückel Interionic Electrostatic Attractions:</strong> Concentrated saline solutions deviate downward from theoretical integer Van &apos;t Hoff factors (i = 2 for NaCl) because strong electrostatic ion-pairing restricts independent thermodynamic activity, yielding an effective experimental factor of approximately 1.85 at physiological ionic strengths.
+            </li>
+          </ol>
+
+          <h2>Colligative Osmometry Instrumentation & Cryoscopic Metrology</h2>
+          <p>
+            In clinical pathology and biopharmaceutical quality control, osmometers quantify solution osmolality through cryoscopic freezing point depression rather than direct membrane osmometry. According to Raoult &apos;s thermodynamic law:
+          </p>
+          <Formula>
+            {"\Delta T_f = K_f \cdot m \cdot i"}
+          </Formula>
+          <p>
+            Where the cryoscopic constant for pure water is exactly 1.86 °C·kg/mol. A clinical serum specimen with an osmolality of 290 mOsm/kg H₂O depresses the freezing point of water by exactly: ΔT = 1.86 × 0.290 = 0.5394 °C, causing the specimen to freeze at -0.539 °C. Modern precision instruments supercool the serum aliquot below -7 °C, induce rapid crystallization via mechanical vibrational seed pulses, and monitor latent heat release plateau temperatures with platinum resistance thermistors calibrated against NIST-traceable sodium chloride reference standards. Chemical engineers analyze thermal energy transfers using the <Link href="/calculators/science/specific-heat-calculator">specific heat calorimetry calculator</Link> and balance reaction masses through the <Link href="/calculators/science/percent-yield-calculator">synthetic percent yield calculator</Link>.
+          </p>
+          <p>
+            In automated micro-osmometry systems, nanoliter droplets are suspended on thermal micro-cantilevers within chilled mineral oil immersion baths. By tracking transient crystal nucleation kinetics and melting endotherms, robotic analyzers prevent sample evaporative volume shrinkage and detect subtle hyperosmolar toxicities in preclinical drug screening libraries with high repeatability.
+          </p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why does 5% Dextrose (D5W) act as a hypotonic fluid inside the human body?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                In the intravenous infusion bag, D5W has an osmolarity of approximately 278 mOsm/L, making it nearly iso-osmolar with human plasma in vitro. However, upon entering the bloodstream, circulating glucose molecules are rapidly taken up into hepatocytes, skeletal muscle, and erythrocytes via insulin-mediated GLUT transporters and metabolized into carbon dioxide and water. The remaining solution is free water without effective osmoles, functionally behaving as a pure hypotonic water infusion in vivo.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">How does osmotic pressure differ from hydrostatic blood pressure?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Hydrostatic pressure is the mechanical outward force generated by myocardial ventricular pumping pushing fluid against vascular capillary walls. Osmotic pressure (and specifically colloid oncotic pressure generated by circulating serum albumin) is the chemical colligative inward force drawing water back into the vascular lumen. Trans-capillary fluid exchange operates via Starling equilibrium, governed by the delicate balance between hydrostatic filtration and oncotic absorption.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">What is the difference between osmolarity and osmolality?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Osmolarity is defined per liter of total solution volume (mOsm/L), which varies slightly with temperature due to liquid volumetric thermal expansion. Osmolality is defined per kilogram of solvent mass (mOsm/kg), remaining perfectly invariant to thermal fluctuations. Clinical osmometers operate on mass-based freezing point depression and therefore measure osmolality directly. Compare both metrics using the <Link href="/calculators/science/concentration-calculator">solution concentration tool</Link>.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative International Standards & Clinical Metrology</h2>
+          <p>
+            For standardized clinical osmolality protocols, electrolyte reference materials, and cryoscopic metrology validation, consult established international standards:
+          </p>
+          <ul>
+            <li>
+              <strong>Clinical and Laboratory Standards Institute (CLSI C29-A):</strong> Standardization of Clinical Osmolality Freezing Point Depression Protocols.
+            </li>
+            <li>
+              <strong>United States Pharmacopeia (USP &lt;785&gt; Osmolality and Osmolarity):</strong> Mandatory pharmaceutical testing methods for parenteral injectables and ophthalmic solutions.
+            </li>
+            <li>
+              <strong>International Union of Pure and Applied Chemistry (IUPAC Compendium of Chemical Terminology):</strong> Physical chemistry definitions of colligative properties and thermodynamic activities.
+            </li>
+            <li>
+              <strong>National Institute of Standards and Technology (NIST SRM 919b):</strong> Certified Reference Materials for Sodium Chloride Aqueous Osmometry Calibration.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <OsmolarityCalculatorComponent />
+    </CalcPage>
   );
 }

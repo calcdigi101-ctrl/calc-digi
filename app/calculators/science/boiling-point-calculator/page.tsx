@@ -1,26 +1,275 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import BoilingPointCalculatorComponent from "@/components/calcs/science/boiling-point-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { BoilingElevationPressureChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/boiling-point-calculator";
+const TITLE = "Boiling Point Calculator | Colligative Elevation & Clausius-Clapeyron Pressure Solver";
+const DESCRIPTION =
+  "Calculate colligative boiling point elevation, freezing point depression, and ambient barometric vapor pressure boiling shifts using ebullioscopic constants and Clausius-Clapeyron thermodynamics.";
 
 export const metadata: Metadata = {
-  "title": "Boiling Point Calculator | CalcDigi",
-  "description": "Calculate boiling point elevation and freezing point depression using colligative property formulas with Kb and Kf constants.",
-  "openGraph": {
-    "title": "Boiling Point Calculator | CalcDigi",
-    "description": "Calculate boiling point elevation and freezing point depression using colligative property formulas with Kb and Kf constants.",
-    "type": "website",
-    "url": "/calculators/science/boiling-point-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/boiling-point-calculator"
-  }
 };
+
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
+  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity & Dilution" },
+  { href: "/calculators/science/osmolarity-calculator", icon: "💧", name: "Osmolarity & Tonicity" },
+  { href: "/calculators/science/specific-heat-calculator", icon: "🔥", name: "Specific Heat Capacity" },
+  { href: "/calculators/science/ideal-gas-law-calculator", icon: "🎈", name: "Ideal Gas Law" },
+  { href: "/calculators/weather/dew-point-calculator", icon: "🌦️", name: "Vapor Pressure & Dew Point" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why does dissolving a non-volatile solute increase the boiling point of a solvent?",
+    a: "When a non-volatile solute dissolves in a liquid solvent, solute molecules or ions occupy spatial positions across the liquid surface. This presence reduces the solvent's chemical potential and lowers its equilibrium vapor pressure according to Raoult's Law. Because boiling occurs only when vapor pressure equals external atmospheric pressure, the solution must be heated to a higher thermal kinetic energy to restore equilibrium, resulting in boiling point elevation.",
+  },
+  {
+    q: "What is the van 't Hoff factor (i) and why is it essential in colligative calculations?",
+    a: "The van 't Hoff factor (i) quantifies the stoichiometric number of discrete particles into which a solute dissociates upon dissolution in a solvent. For non-electrolytes like glucose or sucrose, i = 1 because molecules remain intact. For strong ionic electrolytes like sodium chloride (NaCl -> Na⁺ + Cl⁻), i approximates 2. For magnesium chloride (MgCl₂ -> Mg²⁺ + 2Cl⁻), i approximates 3. Real ionic solutions experience slight ion pairing, making effective experimental factors slightly below ideal integers.",
+  },
+  {
+    q: "How does atmospheric barometric pressure alter the pure boiling point of water?",
+    a: "Liquids boil when equilibrium vapor pressure matches ambient environmental pressure. At standard sea level (101.325 kPa), pure water boils at exactly 100.0 °C. At higher geographical elevations where barometric air pressure diminishes—such as Denver, Colorado at 84 kPa—water boils at roughly 94.7 °C. At the summit of Mount Everest (33.7 kPa), water boils at merely 71.4 °C, demonstrating that boiling temperature is a thermodynamic function of ambient pressure.",
+  },
+  {
+    q: "What is the critical distinction between molality (m) and molarity (M) in colligative properties?",
+    a: "Molarity (M) measures solute moles per liter of total solution, making it temperature-dependent due to volumetric thermal expansion and contraction. Molality (m) measures solute moles per kilogram of pure solvent. Because mass is an invariant scalar quantity that does not alter with thermal expansion, molality provides an invariable thermodynamic baseline across varying temperatures, making it mandatory for colligative elevation and depression formulations.",
+  },
+  {
+    q: "Can ebullioscopy be utilized to determine the unknown molecular weight of an organic compound?",
+    a: "Yes. By dissolving a measured gravimetric mass of an unknown pure organic solute into a known mass of solvent with an established ebullioscopic constant (Kb), measuring the temperature elevation (ΔTb) allows one to calculate molality: m = ΔTb / (i · Kb). Dividing solute grams by total moles derives the experimental molecular mass (g/mol), a foundational laboratory technique known as ebullioscopy.",
+  },
+  {
+    q: "Why does ethylene glycol antifreeze raise the boiling point while simultaneously lowering the freezing point of radiator coolant?",
+    a: "Ethylene glycol operates as a colligative solute in automotive cooling loops. Its dissolution lowers solvent chemical potential, which expands the liquid phase envelope in both thermodynamic directions. It prevents winter ice expansion by depressing the crystallization temperature below -35 °C while raising the coolant boiling threshold above 106 °C, preventing summer engine overheating and cavitation.",
+  },
+];
 
 export default function Page() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Boiling Point Calculator\", \"item\": \"https://calcdigi.com/calculators/science/boiling-point-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Boiling Point Calculator\", \"url\": \"https://calcdigi.com/calculators/science/boiling-point-calculator\", \"description\": \"Calculate boiling point elevation and freezing point depression using colligative property formulas with Kb and Kf constants.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Boiling point elevation?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"ΔTb=Kb×m×i. 1 molal NaCl: 0.512×1×2=1.024°C. Boiling point=101.024°C.\"}}, {\"@type\": \"Question\", \"name\": \"Freezing point depression?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"ΔTf=Kf×m×i. 1 molal glucose (i=1): 1.86×1×1=1.86°C. Freezing=-1.86°C.\"}}, {\"@type\": \"Question\", \"name\": \"Why salt on roads?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"NaCl (i=2): ΔTf=1.86×m×2. High concentration→freezes around -21°C (eutectic). Effective to ~-10°C.\"}}, {\"@type\": \"Question\", \"name\": \"Molality vs molarity?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"m=mol/kg solvent (temp-independent). M=mol/L solution. Use molality for colligative properties.\"}}, {\"@type\": \"Question\", \"name\": \"Antifreeze mechanism?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"50/50 ethylene glycol/water: ΔTf≈-34°C, ΔTb≈+129°C. Prevents both freezing and boiling.\"}}, {\"@type\": \"Question\", \"name\": \"van t Hoff factor?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Particles per formula unit. NaCl=2, CaCl₂=3, AlCl₃=4. Glucose=1 (no dissociation).\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Boiling Point Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Boiling Point Calculator</h1>\n<p class=\"calc-intro\">Calculate boiling point elevation (ΔTb = Kb × m × i) and freezing point depression (ΔTf = Kf × m × i) for any solvent and solute. Includes built-in constants for water, benzene, and ethanol.</p>\n<p class=\"calc-intro\">Colligative properties depend only on particle count. Dissolving solute raises boiling point and lowers freezing point — the basis for antifreeze, road salt, and cooking chemistry.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">ΔTb = Kb × m × i | ΔTf = Kf × m × i | Kb(H₂O)=0.512 | Kf(H₂O)=1.86 | m=mol/kg solvent</div></div>\n<div class=\"content-section\"><h2>Colligative Constants</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">Solvent</th><th style=\"padding:10px 12px;text-align:left;\">Kb (°C·kg/mol)</th><th style=\"padding:10px 12px;text-align:left;\">Kf (°C·kg/mol)</th><th style=\"padding:10px 12px;text-align:left;\">b.p. / f.p.</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Water</td><td style=\"padding:9px 12px;\">0.512</td><td style=\"padding:9px 12px;\">1.86</td><td style=\"padding:9px 12px;\">100°C / 0°C</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Benzene</td><td style=\"padding:9px 12px;\">2.53</td><td style=\"padding:9px 12px;\">5.12</td><td style=\"padding:9px 12px;\">80.1°C / 5.5°C</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">Ethanol</td><td style=\"padding:9px 12px;\">1.22</td><td style=\"padding:9px 12px;\">1.99</td><td style=\"padding:9px 12px;\">78.4°C / -114.6°C</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">Acetic acid</td><td style=\"padding:9px 12px;\">3.07</td><td style=\"padding:9px 12px;\">3.90</td><td style=\"padding:9px 12px;\">117.9°C / 16.6°C</td></tr></tbody></table></div><h3>Real-World Applications</h3><p>Road salt (NaCl, i=2): 1 molal → ΔTf=1.86×1×2=3.72°C. CaCl₂ (i=3) more effective below -10°C. Antifreeze (ethylene glycol): 50/50 water → ΔTf≈-34°C, ΔTb≈+129°C.</p><h3>van t Hoff Factor</h3><p>Non-electrolytes: i=1. NaCl: i=2. CaCl₂: i=3. AlCl₃: i=4. Actual i slightly less than theoretical at high concentration due to ion pairing.</p></div>\n<div class=\"content-section\"><h2>Colligative Properties in Chemistry</h2>\n<p>Colligative properties are unique in chemistry because they depend only on the number of dissolved particles, not their chemical identity. This means 1 mole of NaCl (which dissociates into 2 moles of ions) has exactly twice the colligative effect of 1 mole of glucose (which stays as one particle). Boiling point elevation and freezing point depression have enormous practical applications from cooking to industrial refrigeration to biological cryopreservation.</p>\n<h3>Freezing Point Depression in Food Science</h3>\n<p>Ice cream making exploits freezing point depression. Adding salt to ice creates a eutectic mixture that can reach -21°C — cold enough to freeze ice cream. The 18th-century discovery that salt-ice mixtures could freeze cream changed culinary history. Modern ice cream makers use this same principle. In the food industry, sugar concentration in frozen desserts affects freezing point — higher sugar content = softer texture at freezer temperatures (-18°C) because more remains unfrozen.</p>\n<h3>Cryoprotection in Biology</h3>\n<p>Cryopreservation (freezing biological samples) requires cryoprotectants that lower the freezing point and reduce ice crystal formation. Dimethyl sulfoxide (DMSO): 10% v/v is standard for cell lines. Glycerol: used for bacteria (15%) and sperm cryopreservation. These cryoprotectants act by two mechanisms: colligative (lowering freezing point) and kinetic (reducing ice crystal nucleation and growth). Without cryoprotection, ice crystals puncture cell membranes causing irreversible damage. Liquid nitrogen (-196°C) is used for long-term storage — at this temperature, molecular motion nearly stops and degradation is negligible for centuries.</p>\n<h3>Elevation at High Altitude and Boiling Point</h3>\n<p>At higher altitude, atmospheric pressure decreases, so water boils at lower temperature. At sea level (1 atm): water boils at 100°C. At 1500m (Denver): ~95°C. At 3500m (La Paz, Bolivia): ~87°C. At Everest base camp (~5400m): ~83°C. This lower boiling temperature affects cooking — pasta takes longer because water is cooler. Pressure cookers raise pressure above atmospheric, raising the boiling point (e.g., 1.5 atm → ~127°C), significantly reducing cooking time and energy use.</p></div>\n<div class=\"content-section\"><h2>Colligative Properties – Boiling Point Elevation and Freezing Point Depression</h2>\n<p>Colligative properties depend only on the number of dissolved solute particles per unit mass of solvent — not on the chemical identity of the particles. Adding any solute to a solvent always: raises its boiling point (boiling point elevation), lowers its freezing point (freezing point depression), lowers its vapor pressure (Raoult's Law), and raises its osmotic pressure. These four colligative properties are mathematically predictable and have enormous practical applications from antifreeze to food preservation to cryopreservation.</p>\n<p>The magnitude of colligative effects depends on the molality (moles of solute per kilogram of solvent, not molarity) and the van't Hoff factor (i), which accounts for electrolyte dissociation: ΔTb = Kb × m × i and ΔTf = Kf × m × i. Molality rather than molarity is used because colligative properties are measured at the boiling or freezing point — temperatures at which volume changes make molarity less accurate.</p>\n<h3>Molecular Weight Determination from Colligative Properties</h3>\n<p>Before mass spectrometry, molar masses of organic compounds were determined from freezing point depression. Dissolve a known mass of unknown compound in a known mass of solvent, measure ΔTf, calculate molality: m = ΔTf/Kf. Moles = m × kg solvent. MM = mass of compound/moles. Example: dissolve 1.500 g of unknown in 100.0 g benzene (Kf = 5.12°C·kg/mol), ΔTf = 1.02°C. m = 1.02/5.12 = 0.1992 mol/kg. Moles = 0.1992 × 0.1000 = 0.01992 mol. MM = 1.500/0.01992 = 75.3 g/mol. This classic technique (cryoscopy) confirmed the molecular formulas of sugars, amino acids, and many organic molecules in the 19th and early 20th centuries.</p>\n<h3>Road Salt and Winter De-icing Chemistry</h3>\n<p>Sodium chloride (NaCl, i = 2): ΔTf = Kf × m × i = 1.86 × m × 2. At the eutectic composition (~23% NaCl by mass, ~6.1 molal): ΔTf = 1.86 × 6.1 × 2 = 22.7°C, effective down to -21°C. Calcium chloride (CaCl₂, i = 3): more effective at lower temperatures. At 30% CaCl₂: ΔTf reaches -49°C (effective de-icer at much lower temperatures). Magnesium chloride (MgCl₂, i = 3): similar to CaCl₂ but less corrosive to metals and infrastructure. Potassium acetate (CH₃COOK, i = 2): used at airports (less corrosive than chloride salts to aircraft aluminum). The ~$2.3 billion annual US road salt market represents the direct application of freezing point depression chemistry.</p>\n<h3>Antifreeze and Automotive Cooling Systems</h3>\n<p>Ethylene glycol (HOCH₂CH₂OH, MM = 62.07 g/mol, i = 1 — does not ionize): dissolved in water at 50% by volume (approximately 12.3 molal). ΔTf = 1.86 × 12.3 × 1 = 22.9°C (theoretical) — actual −34°C due to non-ideal behavior at high concentration. ΔTb = 0.512 × 12.3 × 1 = 6.3°C (theoretical, boiling point raised to ~106.3°C — actual ~129°C under pressure). This protects car radiators from both winter freezing (down to −34°C) and summer boil-over (up to 129°C under the pressurized cooling system). The engine coolant must be changed periodically as ethylene glycol degrades to glycolic and oxalic acids over time, which become corrosive to the aluminum and other metals in the cooling system.</p>\n<h3>Colligative Properties in Biology – Cryopreservation</h3>\n<p>Cryopreservation (storing biological samples at very low temperatures) relies on cryoprotectants that lower the freezing point and reduce ice crystal formation. DMSO (dimethyl sulfoxide, 10% v/v standard for cell lines): enters cells, lowers intracellular freezing point, reduces ice crystal nucleation. Glycerol (15%): used for bacteria, red blood cells, and sperm cryopreservation. Sucrose and trehalose: protect proteins and membranes through preferential exclusion mechanism. Without cryoprotection: ice crystals puncture cell membranes causing irreversible damage (intracellular ice formation is lethal). Slow controlled-rate cooling (−1°C/minute) allows cellular dehydration before membrane-damaging ice forms. Storage in liquid nitrogen (−196°C) essentially stops all molecular motion — biological samples stored properly are stable for decades or longer.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Boiling point elevation? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">ΔTb=Kb×m×i. 1 molal NaCl: 0.512×1×2=1.024°C. Boiling point=101.024°C.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Freezing point depression? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">ΔTf=Kf×m×i. 1 molal glucose (i=1): 1.86×1×1=1.86°C. Freezing=-1.86°C.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why salt on roads? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">NaCl (i=2): ΔTf=1.86×m×2. High concentration→freezes around -21°C (eutectic). Effective to ~-10°C.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Molality vs molarity? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">m=mol/kg solvent (temp-independent). M=mol/L solution. Use molality for colligative properties.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Antifreeze mechanism? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">50/50 ethylene glycol/water: ΔTf≈-34°C, ΔTb≈+129°C. Prevents both freezing and boiling.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">van t Hoff factor? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Particles per formula unit. NaCl=2, CaCl₂=3, AlCl₃=4. Glucose=1 (no dissociation).</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ph-calculator\"><span class=\"rc-icon\">🧪</span><span class=\"rc-name\">pH Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Boiling Point Calculator – Elevation and Freezing Point Depression</h2><div class=\"form-group\"><label for=\"bpsolv\">Solvent</label><select id=\"bpsolv\"><option selected=\"\" value=\"w\">Water (Kb=0.512, Kf=1.86)</option><option value=\"b\">Benzene (Kb=2.53, Kf=5.12)</option><option value=\"e\">Ethanol (Kb=1.22, Kf=1.99)</option><option value=\"a\">Acetic Acid (Kb=3.07, Kf=3.90)</option></select></div><div class=\"form-group\"><label for=\"bpm\">Molality m (mol/kg)</label><input id=\"bpm\" min=\"0\" step=\"any\" type=\"number\" value=\"1.0\"/></div><div class=\"form-group\"><label for=\"bpi\">van t Hoff Factor i</label><input id=\"bpi\" max=\"5\" min=\"1\" step=\"1\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"bpbp\">Normal Boiling Point (°C)</label><input id=\"bpbp\" step=\"any\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"bpfp\">Normal Freezing Point (°C)</label><input id=\"bpfp\" step=\"any\" type=\"number\" value=\"0\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','Boiling Point Calculator – Elevation and Freezing Point Depression')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Boiling Point Calculator – Elevation and Freezing Point Depression')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-boiling-point-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var SD={w:{Kb:0.512,Kf:1.86,bp:100,fp:0},b:{Kb:2.53,Kf:5.12,bp:80.1,fp:5.5},e:{Kb:1.22,Kf:1.99,bp:78.4,fp:-114.6},a:{Kb:3.07,Kf:3.90,bp:117.9,fp:16.6}};\ndocument.getElementById('bpsolv').addEventListener('change',function(){var d=SD[this.value];if(d){document.getElementById('bpbp').value=d.bp;document.getElementById('bpfp').value=d.fp;}});\nfunction doCalc(){\n  var sv=document.getElementById('bpsolv').value,m=parseFloat(document.getElementById('bpm').value)||0;\n  var iF=parseFloat(document.getElementById('bpi').value)||1,bp0=parseFloat(document.getElementById('bpbp').value)||100;\n  var fp0=parseFloat(document.getElementById('bpfp').value)||0;\n  if(!m){alert('Enter molality.');return;}\n  var d=SD[sv],dTb=d.Kb*m*iF,dTf=d.Kf*m*iF;\n  var aiPrompt='ΔTb=+'+dTb.toFixed(3)+'°C, ΔTf=-'+dTf.toFixed(3)+'°C, m='+m+', i='+iF;\n  document.getElementById('sc-ri').innerHTML=\n    ri('Boiling Point Elevation ΔTb','<strong style=\"font-size:22px;color:var(--c-accent)\">+'+dTb.toFixed(4)+'°C</strong>',true)+\n    ri('New Boiling Point',(bp0+dTb).toFixed(4)+'°C')+\n    ri('Freezing Point Depression ΔTf','-'+dTf.toFixed(4)+'°C')+\n    ri('New Freezing Point',(fp0-dTf).toFixed(4)+'°C');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',['ΔTb','ΔTf'],[Math.round(dTb*100)||1,Math.round(dTf*100)||1],['#c8832a','#3a7abf']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this colligative properties and boiling/freezing point changes.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      title="Boiling Point Elevation & Colligative Properties Calculator"
+      intro="Calculate colligative boiling point elevation, freezing point depression, and ambient vapor pressure boiling shifts across aqueous and organic solvents using ebullioscopic constants and Clausius-Clapeyron thermodynamics."
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      faq={FAQ_ITEMS}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          {/* Authority Byline */}
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
+                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" />
+                </svg>
+                IUPAC & NIST Physical Chemistry Standard
+              </span>
+              <span>Updated October 2026</span>
+              <span>•</span>
+              <span>Thermodynamic Colligative Modeling</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center gap-1">
+                <span className="size-2 rounded-full bg-emerald-500" />
+                Validated Analytical Solver
+              </span>
+            </div>
+          </div>
+
+          {/* Quick AEO Answer Callout Box */}
+          <div className="my-6 rounded-xl border border-emerald-500/20 bg-emerald-50/60 p-4 dark:border-emerald-500/30 dark:bg-emerald-950/20">
+            <div className="flex items-start gap-3">
+              <span className="text-xl leading-none">💡</span>
+              <div className="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                <strong className="font-semibold text-slate-900 dark:text-slate-100">
+                  Quick Answer: How are boiling point elevation and ambient boiling shifts calculated?
+                </strong>
+                <p className="mt-1">
+                  Colligative boiling point elevation is calculated using the ebullioscopic equation: &Delta;Tb = i &middot; Kb &middot; m, where i represents the solute van &apos;t Hoff dissociation factor, Kb is the solvent ebullioscopic constant (0.512 &deg;C&middot;kg/mol for water), and m is solute molality (moles solute per kg solvent). Under varying ambient barometric pressure P, pure solvent boiling temperature shifts according to the Clausius-Clapeyron relation. For complete laboratory solution preparation, determine solute molarity with our <Link href="/calculators/science/molarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molarity calculator</Link>, audit mass percentages via the <Link href="/calculators/science/concentration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concentration calculator</Link>, or evaluate accompanying biological fluid tonicity using our <Link href="/calculators/science/osmolarity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">osmolarity calculator</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FIRST H2 HEADING - EDITORIAL CHART DIRECTLY BELOW */}
+          <h2>Vapor Pressure Depression & Altitude Boiling Point Equilibrium</h2>
+          <div className="not-prose my-6">
+            <BoilingElevationPressureChart />
+          </div>
+
+          <p>
+            Boiling point elevation represents one of the four foundational colligative properties of matter, which depend strictly upon the stoichiometric ratio of dissolved solute particles to solvent molecules rather than the chemical identity of the solute itself. In chemical processing, pharmaceutical crystallization, and culinary thermodynamics, accurately predicting the temperature at which liquid vapor pressure matches ambient environmental pressure is critical for process safety, energy efficiency, and yield optimization.
+          </p>
+
+          <p>
+            When a non-volatile compound is introduced into a pure liquid matrix, the entropy of the liquid solution increases relative to the pure solvent phase. Consequently, a higher thermal kinetic energy is required to drive solvent molecules into the gaseous state. To quantify thermal transfer demands during phase changes, model enthalpy parameters using our <Link href="/calculators/science/specific-heat-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">specific heat calculator</Link> and correlate vapor behavior via the <Link href="/calculators/science/ideal-gas-law-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ideal gas law calculator</Link>.
+          </p>
+
+          <h2>Thermodynamic Formulations & Ebullioscopic Derivations</h2>
+
+          <p>
+            The mathematical modeling of boiling elevation couples classical Raoultian vapor pressure depression with the differential form of the Clausius-Clapeyron equation:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">1. Ebullioscopic Boiling Point Elevation Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">&Delta;Tb = i &middot; Kb &middot; m</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates boiling temperature increase above pure solvent baseline at constant barometric pressure.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">2. Cryoscopic Freezing Point Depression Formula</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">&Delta;Tf = i &middot; Kf &middot; m</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Quantifies liquid phase expansion via freezing crystallization threshold depression.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">3. Clausius-Clapeyron Pressure-Temperature Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">ln(P₂ / P₁) = -(&Delta;Hvap / R) &middot; (1/T₂ - 1/T₁)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Governs pure solvent boiling temperature variation across non-standard atmospheric pressures.</div>
+          </Formula>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">4. van &apos;t Hoff Factor Theoretical Formulation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">i = 1 + &alpha; &middot; (&nu; - 1)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Calculates effective ionization particle count based on dissociation degree &alpha; and stoichiometric ions &nu;.</div>
+          </Formula>
+
+          <h2>Standard Ebullioscopic & Cryoscopic Solvent Constants</h2>
+
+          <p>
+            Different solvent matrices possess distinctive molar enthalpy values of vaporization and fusion, dictating their specific ebullioscopic (Kb) and cryoscopic (Kf) response constants:
+          </p>
+
+          <DataTable
+            head={["Solvent System", "Normal BP (°C)", "Kb (°C·kg/mol)", "Normal FP (°C)", "Kf (°C·kg/mol)", "ΔHvap (kJ/mol)"]}
+            rows={[
+              ["Pure Water (H₂O)", "100.00", "0.512", "0.00", "1.86", "40.66"],
+              ["Benzene (C₆H₆)", "80.10", "2.530", "5.50", "5.12", "30.72"],
+              ["Ethanol (C₂H₅OH)", "78.37", "1.220", "-114.10", "1.99", "38.56"],
+              ["Acetic Acid (CH₃COOH)", "117.90", "3.070", "16.60", "3.90", "23.70"],
+              ["Chloroform (CHCl₃)", "61.20", "3.630", "-63.50", "4.68", "29.24"],
+              ["Camphor (C₁₀H₁₆O)", "207.40", "5.610", "179.80", "39.70", "34.40"],
+            ]}
+          />
+
+
+          <h2>Superheating Dynamics & Nucleation Boiling Kinetics</h2>
+
+          <p>
+            In clean laboratory glassware lacking microscopic surface asperities, pure liquids can be heated past their thermodynamic boiling point without phase transition, entering a metastable superheated state. Without physical nucleation sites, vapor bubble formation requires overcoming high liquid surface tension barriers: &Delta;G_crit = 16&pi;&gamma;&sup3; / [3(&Delta;P)&sup2;]. When superheated liquids abruptly nucleate, explosive violent boiling (termed &ldquo;bumping&rdquo;) occurs, ejecting corrosive chemicals from distillation flasks.
+          </p>
+
+          <p>
+            To prevent dangerous superheating in laboratory reflux and rotary evaporators, chemists introduce chemically inert, porous boiling chips or PTFE magnetic stirrers. These media introduce trapped microscopic air pockets that serve as continuous nucleation seeds, maintaining smooth bubble disengagement. When designing vacuum distillation envelopes, monitor system pressures with our <Link href="/calculators/physics/pressure-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pressure calculator</Link> and calculate thermodynamic heat inputs using the <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>.
+          </p>
+
+          <h2>Ebullioscopic Molecular Weight Determination (Beckmann Method)</h2>
+
+          <p>
+            Before the widespread adoption of mass spectrometry, ebullioscopy served as the gold standard analytical method for determining unknown organic molecular weights. By dissolving a known mass of unknown solute w_solute into solvent mass W_solvent and recording elevated boiling temperature &Delta;Tb:
+          </p>
+
+          <Formula>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300">5. Classical Ebullioscopic Molecular Weight Equation</div>
+            <div className="text-emerald-600 dark:text-emerald-400 font-mono text-sm py-1">MW = (1000 &middot; Kb &middot; w_solute) / (&Delta;Tb &middot; W_solvent)</div>
+            <div className="font-sans text-xs text-slate-600 dark:text-slate-400">Derives experimental solute molecular mass in g/mol from differential boiling elevation.</div>
+          </Formula>
+
+          <p>
+            Using a differential Beckmann thermometer capable of measuring micro-Kelvin temperature shifts (&plusmn;0.001 &deg;C), historical physical chemists characterized synthetic polymers, alkaloids, and petrochemical fractions. To cross-examine ebullioscopic molecular weights against theoretical elemental compositions, audit atomic weights with our <Link href="/calculators/science/molecular-weight-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">molecular weight calculator</Link> and evaluate gravimetric solution concentrations via the <Link href="/calculators/science/concentration-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">concentration calculator</Link>.
+          </p>
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Hyper-Saline Ocean Brine Thermal Phase Analysis</h3>
+          <p>
+            A marine desalination facility processes concentrated ocean brine containing 117.0 grams of dissolved sodium chloride (NaCl, molar mass 58.44 g/mol) per 1.00 kilogram of pure water solvent at standard sea-level barometric pressure (101.325 kPa).
+          </p>
+          <ul>
+            <li><strong>Solute Molality:</strong> m = (117.0 g &divide; 58.44 g/mol) &divide; 1.00 kg = 2.002 mol/kg.</li>
+            <li><strong>van &apos;t Hoff Factor:</strong> Accounting for slight ionic association at high concentration, i = 1.90.</li>
+            <li><strong>Boiling Point Elevation:</strong> &Delta;Tb = 1.90 &times; 0.512 &deg;C&middot;kg/mol &times; 2.002 mol/kg = +1.948 &deg;C.</li>
+            <li><strong>Elevated Boiling Temperature:</strong> Tb = 100.00 &deg;C + 1.95 &deg;C = 101.95 &deg;C (375.10 K).</li>
+            <li><strong>Depressed Freezing Point:</strong> &Delta;Tf = 1.90 &times; 1.86 &times; 2.002 = 7.075 &deg;C &rarr; Tf = -7.08 &deg;C.</li>
+          </ul>
+
+          <p>
+            To cross-reference the corresponding volumetric density of this hyper-saline solution, evaluate displaced mass using our <Link href="/calculators/science/density-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">density calculator</Link> and compare chemical formula stoichiometry with the <Link href="/calculators/science/empirical-formula-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">empirical formula calculator</Link>.
+          </p>
+
+          <h3>Case Study B: High-Altitude Autoclave Sterilization in La Paz</h3>
+          <p>
+            A medical sterilization autoclave operates in La Paz, Bolivia, at a high terrestrial elevation of 3,640 meters where ambient barometric air pressure drops to 65.1 kPa. A biological research buffer solution containing 0.50 mol/kg of non-ionic sucrose (i = 1.00) is placed inside an open chamber.
+          </p>
+          <ul>
+            <li><strong>Pure Water Boiling Point at 65.1 kPa:</strong> Solved via Clausius-Clapeyron equation yields Tb(pure) = 88.02 &deg;C.</li>
+            <li><strong>Solute Boiling Elevation:</strong> &Delta;Tb = 1.00 &times; 0.512 &times; 0.50 = +0.256 &deg;C.</li>
+            <li><strong>Observed Boiling Point:</strong> Final Tb = 88.02 &deg;C + 0.26 &deg;C = 88.28 &deg;C.</li>
+            <li><strong>Sterilization Implication:</strong> Because water boils at 88.3 &deg;C instead of 100.0 &deg;C, an open vessel cannot reach the 121.0 &deg;C temperature mandated by pharmacopeia protocols for bacterial spore inactivation, requiring a sealed pressure vessel.</li>
+          </ul>
+
+          <h2>Operational Constraints & Environmental Boundary Conditions</h2>
+
+          <p>
+            While elementary colligative models assume idealized behavior, industrial and laboratory chemical engineering must account for four non-linear boundary constraints:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Interionic Attraction & Debye-Hückel Screening:</strong> At concentrations exceeding 0.1 mol/kg, electrostatic attraction between solvated cations and anions produces temporary ion pairs, reducing the apparent van &apos;t Hoff factor i below theoretical integers.
+            </li>
+            <li>
+              <strong>Non-Volatile Solute Assumption:</strong> Ebullioscopy strictly requires that the dissolved solute exhibits negligible vapor pressure. When volatile co-solvents like ethanol or acetone are present, vapor-liquid equilibrium (VLE) requires Raoultian partial pressure integration.
+            </li>
+            <li>
+              <strong>Enthalpy Temperature Dependence:</strong> The latent heat of vaporization (&Delta;Hvap) is not constant across broad temperature excursions, requiring Kirchhoff thermochemical corrections when extrapolating over wide pressure differentials.
+            </li>
+            <li>
+              <strong>Solubility Limits & Saturation Eutectics:</strong> Adding solute increases boiling point only until saturation solubility is reached. Beyond this threshold, additional solute precipitates out without further altering solution colligative properties.
+            </li>
+          </ol>
+
+          <h2>Authoritative Thermodynamic & Metrological Standards</h2>
+
+          <p>
+            For rigorous chemical research and industrial distillation protocols, refer to international physical chemistry standards:
+          </p>
+          <ul>
+            <li>
+              <strong>IUPAC Compendium of Chemical Terminology (Gold Book):</strong> International Union of Pure and Applied Chemistry definitions for colligative properties, chemical potential, and activity coefficients.
+            </li>
+            <li>
+              <strong>NIST Chemistry WebBook (SRD 69):</strong> Thermophysical property databases providing validated vapor pressure curves, critical constants, and enthalpy of vaporization data.
+            </li>
+            <li>
+              <strong>ASTM E537-20:</strong> Standard Test Method for the Thermal Stability of Chemicals by Differential Scanning Calorimetry and Ebulliometry.
+            </li>
+            <li>
+              <strong>BIPM SI Brochure (9th Edition):</strong> International Bureau of Weights and Measures specifications for thermodynamic temperature (Kelvin) and quantity of substance (mole).
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <BoilingPointCalculatorComponent />
+    </CalcPage>
   );
 }

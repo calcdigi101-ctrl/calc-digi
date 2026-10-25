@@ -1,26 +1,242 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PhCalculatorComponent from "@/components/calcs/science/ph-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PhScaleHydroniumConcentrationChart } from "@/components/flagship/science/editorial-charts";
+
+const PATH = "/calculators/science/ph-calculator";
+const TITLE = "pH Calculator | Hydronium [H⁺], pOH & Weak Acid Equilibrium Solver";
+const DESCRIPTION =
+  "Calculate solution pH, pOH, hydronium [H⁺] and hydroxide [OH⁻] concentrations, and weak acid Ka dissociation quadratic equilibria.";
 
 export const metadata: Metadata = {
-  "title": "pH Calculator – pH from H+ Concentration, pOH | CalcDigi",
-  "description": "Calculate pH from H+ concentration, pOH, or Ka value. Convert between pH, pOH, H+ and OH- for any acid-base chemistry calculation.",
-  "openGraph": {
-    "title": "pH Calculator – pH from H+ Concentration, pOH | CalcDigi",
-    "description": "Calculate pH from H+ concentration, pOH, or Ka value. Convert between pH, pOH, H+ and OH- for any acid-base chemistry calculation.",
-    "type": "website",
-    "url": "/calculators/science/ph-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/science/ph-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/science/buffer-calculator", icon: "🛡️", name: "Buffer Capacity" },
+  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity Titration" },
+  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
+  { href: "/calculators/science/osmolarity-calculator", icon: "🩸", name: "Osmolarity Solver" },
+];
+
+export default function PhCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Science Calculators\", \"item\": \"https://calcdigi.com/pages/science\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"pH Calculator\", \"item\": \"https://calcdigi.com/calculators/science/ph-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"pH Calculator\", \"url\": \"https://calcdigi.com/calculators/science/ph-calculator\", \"description\": \"Calculate pH from H+ concentration, pOH, or Ka value. Convert between pH, pOH, H+ and OH- for any acid-base chemistry calculation.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is pH?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"pH = -log[H⁺]. Below 7 = acidic, 7 = neutral, above 7 = basic. Each unit = 10× [H⁺] difference.\"}}, {\"@type\": \"Question\", \"name\": \"pH from H+ concentration?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"pH = -log[H⁺]. [H⁺]=0.001 M: pH=3. Reverse: [H⁺]=10^(-pH). At pH 4.3: [H⁺]=5.01×10⁻⁵.\"}}, {\"@type\": \"Question\", \"name\": \"pOH relation to pH?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"pH + pOH = 14 at 25°C. pH 3 → pOH=11. [OH⁻]=10^(-pOH).\"}}, {\"@type\": \"Question\", \"name\": \"What is Ka?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Ka=[H⁺][A⁻]/[HA]. Higher Ka = stronger acid. Weak acid pH ≈ ½(pKa - log C).\"}}, {\"@type\": \"Question\", \"name\": \"Dangerous blood pH?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Normal: 7.35-7.45. Below 7.0 = fatal cardiac arrhythmias. Above 7.8 = fatal alkalosis.\"}}, {\"@type\": \"Question\", \"name\": \"pH of pure water?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"7.0 at 25°C only. At 37°C (body temp): neutral pH ≈ 6.8.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/science\">Science</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">pH Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>pH Calculator</h1>\n<p class=\"calc-intro\">Calculate pH from [H⁺], pOH, or Ka. Convert between pH, pOH, [H⁺], and [OH⁻]. Essential for chemistry, biology, medicine, and environmental science acid-base calculations.</p>\n<p class=\"calc-intro\">pH measures hydrogen ion concentration on a log scale from 0-14. pH 7 = neutral, below 7 = acidic, above 7 = basic. Each unit = 10-fold change in [H⁺]. Blood must stay pH 7.35-7.45 for survival.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">pH = -log[H⁺] | [H⁺] = 10^(-pH) | pH + pOH = 14 | Weak acid: pH = ½(pKa - log C)</div></div>\n<div class=\"content-section\"><h2>The pH Scale</h2><div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 12px;text-align:left;\">pH</th><th style=\"padding:10px 12px;text-align:left;\">Category</th><th style=\"padding:10px 12px;text-align:left;\">Examples</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">0-2</td><td style=\"padding:9px 12px;\">Strong acids</td><td style=\"padding:9px 12px;\">Battery acid, HCl</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">2-4</td><td style=\"padding:9px 12px;\">Weak acids</td><td style=\"padding:9px 12px;\">Lemon juice (2.2), vinegar (2.9)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">4-6</td><td style=\"padding:9px 12px;\">Mild acids</td><td style=\"padding:9px 12px;\">Coffee (5.0), tomatoes (4.5)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">7</td><td style=\"padding:9px 12px;\">Neutral</td><td style=\"padding:9px 12px;\">Pure water at 25°C</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">7-8</td><td style=\"padding:9px 12px;\">Slightly basic</td><td style=\"padding:9px 12px;\">Blood (7.4), seawater (8.1)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:9px 12px;\">10-12</td><td style=\"padding:9px 12px;\">Bases</td><td style=\"padding:9px 12px;\">Ammonia (11)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:9px 12px;\">12-14</td><td style=\"padding:9px 12px;\">Strong bases</td><td style=\"padding:9px 12px;\">Bleach (12.5), NaOH</td></tr></tbody></table></div><h3>Why pH Matters</h3><p>Blood pH 7.35-7.45 is critical — pH 7.0 causes fatal arrhythmias. Pool water needs pH 7.2-7.8 for effective chlorination. Most enzymes function at pH 7.4. Soil pH 6.0-7.0 ideal for plants.</p><h3>Logarithmic Scale</h3><p>Each pH unit = 10× change in [H⁺]. pH 3 is 100× more acidic than pH 5. At pH 7: [H⁺] = 10⁻⁷ mol/L.</p><h3>Ka and Weak Acids</h3><p>Ka = acid dissociation constant. pKa = -log(Ka). For weak acid concentration C: pH ≈ ½(pKa - log C). Acetic acid: Ka = 1.8×10⁻⁵, pKa = 4.75.</p></div>\n<div class=\"content-section\"><h2>pH in Chemistry and Biology</h2>\n<p>pH is one of the most important parameters in chemistry and biology. It affects reaction rates, protein structure, enzyme activity, drug ionization, and almost every biological process. Understanding pH calculation and its implications is fundamental to chemistry education and laboratory practice.</p>\n<h3>Strong vs Weak Acids</h3>\n<p>Strong acids (HCl, H₂SO₄, HNO₃) dissociate completely: [H⁺] = initial concentration. 0.01 M HCl: [H⁺] = 0.01, pH = 2.0. Weak acids only partially dissociate — use Ka and the Henderson-Hasselbalch or quadratic approach. Acetic acid (Ka = 1.8×10⁻⁵): 0.1 M acetic acid has pH = ½(pKa - log 0.1) = ½(4.74 + 1) = 2.87, not 1.0 as for a strong acid.</p>\n<h3>pH Measurement Methods</h3>\n<p>pH paper: quick, semi-quantitative (±0.5 pH units). Universal indicator: visual, colorimetric. pH electrode: most accurate (±0.01 pH units). Always calibrate pH electrodes with two standard buffers (pH 4.00 and pH 7.00, or pH 7.00 and pH 10.00 depending on range) before use. Rinse electrode with distilled water between measurements. Store electrode in storage solution, never in distilled water.</p>\n<h3>Acid-Base Disorders in Medicine</h3>\n<p>The body maintains blood pH 7.35-7.45 through three systems: chemical buffers (bicarbonate, hemoglobin, phosphate), respiratory compensation (CO₂ adjustment), and renal compensation (HCO₃⁻ excretion or retention). Metabolic acidosis: low pH, low HCO₃⁻ (causes: diabetic ketoacidosis, renal failure, lactic acidosis). Respiratory acidosis: low pH, high CO₂ (causes: hypoventilation, COPD). Understanding blood gas interpretation requires mastery of pH and acid-base chemistry.</p></div>\n<div class=\"content-section\"><h2>Acid-Base Chemistry and pH – Complete Reference Guide</h2>\n<p>pH is the negative base-10 logarithm of the hydrogen ion concentration: pH = -log₁₀[H⁺]. It measures acidity and basicity on a scale from 0 (most acidic) to 14 (most basic), with 7.0 representing neutral pure water at 25°C. The logarithmic scale means each unit represents a 10-fold difference in hydrogen ion concentration — pH 3 has 10 times more H⁺ than pH 4, and 100 times more than pH 5.</p>\n<p>pH is one of the most important chemical parameters in science, medicine, and industry. It affects reaction rates, protein structure, enzyme activity, drug ionization, nutrient availability in soil, aquatic life, and virtually every biological process. Understanding pH calculation is fundamental to chemistry education and laboratory work.</p>\n<h3>Strong Acids and Bases – Direct pH Calculation</h3>\n<p>Strong acids dissociate completely: [H⁺] = initial acid concentration. HCl (0.01 M): [H⁺] = 0.01 M, pH = -log(0.01) = 2.00. H₂SO₄ (0.005 M, 2 H⁺ per molecule): [H⁺] = 0.01 M, pH = 2.00. Strong base NaOH (0.001 M): [OH⁻] = 0.001 M, pOH = 3.00, pH = 14 - 3 = 11.00. Strong acids and bases are fully ionized at any concentration — use concentration directly to find [H⁺] or [OH⁻].</p>\n<h3>Weak Acids – Henderson-Hasselbalch and Ka</h3>\n<p>Weak acids partially dissociate according to Ka. For acetic acid (CH₃COOH, Ka = 1.8 × 10⁻⁵) at 0.1 M: [H⁺] = √(Ka × C) = √(1.8 × 10⁻⁵ × 0.1) = √(1.8 × 10⁻⁶) = 1.34 × 10⁻³ M, pH = 2.87. This approximation works when Ka &lt;&lt; C (less than 5% dissociation). For more accurate results, solve the quadratic equation: Ka = x²/(C-x). Common weak acid pKa values: acetic acid 4.74, carbonic acid 6.35, phosphoric acid 7.20, ammonium 9.25.</p>\n<h3>pH in Biological Systems</h3>\n<p>Biological systems maintain precise pH for enzyme function and protein stability. Blood: pH 7.35-7.45 (critical range — death occurs outside pH 6.8-8.0). Stomach acid: pH 1.5-3.5 (HCl secretion for protein digestion and pathogen killing). Small intestine: pH 6-7.4 (pancreatic bicarbonate neutralizes stomach acid). Urine: pH 4.5-8.0 (varies with diet and kidney function). Cytoplasm: pH 7.0-7.4. Lysosomes (cellular waste processors): pH 4.5-5.0 (acidic to activate degradative enzymes).</p>\n<h3>Measuring pH – Methods and Accuracy</h3>\n<p>pH indicator paper: quick, semi-quantitative (±0.5 pH units), inexpensive. Universal indicator solution: colorimetric, useful for teaching and rough estimates. Digital pH electrode: most accurate (±0.01 pH units), requires two-point calibration with pH 4.00 and pH 7.00 standard buffers, must be rinsed between samples, stored in 3M KCl or storage solution (never distilled water). Spectrophotometric pH indicators: precise and remotely readable, used in ocean chemistry monitoring (bromothymol blue, phenolphthalein).</p>\n<h3>Acid-Base Disorders in Clinical Medicine</h3>\n<p>Blood gas analysis interprets pH in context of CO₂ and HCO₃⁻. Normal: pH 7.40, pCO₂ 40 mmHg, HCO₃⁻ 24 mEq/L. Respiratory acidosis (high CO₂): pH &lt;7.35, elevated pCO₂ — causes: hypoventilation, COPD, pneumonia. Metabolic acidosis (low HCO₃⁻): pH &lt;7.35, low bicarbonate — causes: diabetic ketoacidosis, renal failure, lactic acidosis, diarrhea. Respiratory alkalosis (low CO₂): pH &gt;7.45, low pCO₂ — cause: hyperventilation, anxiety, PE. Metabolic alkalosis (high HCO₃⁻): pH &gt;7.45 — causes: vomiting (HCl loss), loop diuretics, excessive antacid use.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is pH? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">pH = -log[H⁺]. Below 7 = acidic, 7 = neutral, above 7 = basic. Each unit = 10× [H⁺] difference.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">pH from H+ concentration? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">pH = -log[H⁺]. [H⁺]=0.001 M: pH=3. Reverse: [H⁺]=10^(-pH). At pH 4.3: [H⁺]=5.01×10⁻⁵.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">pOH relation to pH? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">pH + pOH = 14 at 25°C. pH 3 → pOH=11. [OH⁻]=10^(-pOH).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is Ka? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Ka=[H⁺][A⁻]/[HA]. Higher Ka = stronger acid. Weak acid pH ≈ ½(pKa - log C).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Dangerous blood pH? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Normal: 7.35-7.45. Below 7.0 = fatal cardiac arrhythmias. Above 7.8 = fatal alkalosis.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">pH of pure water? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">7.0 at 25°C only. At 37°C (body temp): neutral pH ≈ 6.8.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Science Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/science/molecular-weight-calculator\"><span class=\"rc-icon\">🧬</span><span class=\"rc-name\">Molecular Weight</span></a><a class=\"related-card\" href=\"/calculators/science/molarity-calculator\"><span class=\"rc-icon\">⚗️</span><span class=\"rc-name\">Molarity Calc</span></a><a class=\"related-card\" href=\"/calculators/science/ideal-gas-law-calculator\"><span class=\"rc-icon\">💨</span><span class=\"rc-name\">Ideal Gas Law</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>pH Calculator – Hydrogen Ion Concentration and Acid-Base pH</h2><div class=\"form-group\"><label for=\"phs\">Calculate From</label><select id=\"phs\"><option selected=\"\" value=\"H\">[H⁺] mol/L</option><option value=\"pOH\">pOH value</option><option value=\"Ka\">Ka + concentration</option><option value=\"pH\">pH → find [H⁺],[OH⁻]</option></select></div><div class=\"form-group\"><label for=\"pH-H\">[H⁺] mol/L</label><input id=\"pH-H\" min=\"0\" step=\"any\" type=\"number\" value=\"0.001\"/></div><div class=\"form-group\"><label for=\"pH-pOH\">pOH value</label><input id=\"pH-pOH\" max=\"14\" min=\"0\" step=\"any\" type=\"number\" value=\"4\"/></div><div class=\"form-group\"><label for=\"pH-Ka\">Ka value</label><input id=\"pH-Ka\" min=\"0\" step=\"any\" type=\"number\" value=\"1.8e-5\"/></div><div class=\"form-group\"><label for=\"pH-C\">Concentration C (mol/L)</label><input id=\"pH-C\" min=\"0\" step=\"any\" type=\"number\" value=\"0.1\"/></div><div class=\"form-group\"><label for=\"pH-pH\">pH value</label><input id=\"pH-pH\" max=\"14\" min=\"0\" step=\"any\" type=\"number\" value=\"3\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('sc-result').style.display='none';document.getElementById('sc-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"sc-result\" style=\"display:none;\"><div id=\"sc-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"sc-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"sc-ai\" style=\"display:none;\"></div></div>\n<div id=\"sc-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-sc\" onclick=\"printResult('sc-result','pH Calculator – Hydrogen Ion Concentration and Acid-Base pH')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('pH Calculator – Hydrogen Ion Concentration and Acid-Base pH')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-ph-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('phs').addEventListener('change',function(){\n  var v=this.value;\n  ['pH-H','pH-pOH','pH-Ka','pH-C','pH-pH'].forEach(function(id){document.getElementById(id).parentElement.style.display='none';});\n  if(v==='H')document.getElementById('pH-H').parentElement.style.display='block';\n  else if(v==='pOH')document.getElementById('pH-pOH').parentElement.style.display='block';\n  else if(v==='Ka'){document.getElementById('pH-Ka').parentElement.style.display='block';document.getElementById('pH-C').parentElement.style.display='block';}\n  else document.getElementById('pH-pH').parentElement.style.display='block';\n});\nfunction doCalc(){\n  var s=document.getElementById('phs').value,pH;\n  if(s==='H'){var H=parseFloat(document.getElementById('pH-H').value)||0;if(!H){alert('Enter [H+].');return;}pH=-Math.log10(H);}\n  else if(s==='pOH'){pH=14-(parseFloat(document.getElementById('pH-pOH').value)||0);}\n  else if(s==='Ka'){var Ka=parseFloat(document.getElementById('pH-Ka').value)||0,C=parseFloat(document.getElementById('pH-C').value)||0;if(!Ka||!C){alert('Enter Ka and C.');return;}pH=-Math.log10(Math.sqrt(Ka*C));}\n  else{pH=parseFloat(document.getElementById('pH-pH').value)||7;}\n  var H=Math.pow(10,-pH),pOH=14-pH,OH=Math.pow(10,-pOH);\n  var type=pH<7?'Acidic':pH===7?'Neutral':'Basic/Alkaline';\n  var color=pH<7?'#c8832a':pH===7?'#3a7abf':'#1a5c3a';\n  var aiPrompt='pH='+pH.toFixed(3)+' ('+type+'), [H+]='+H.toExponential(3)+' mol/L';\n  document.getElementById('sc-ri').innerHTML=\n    ri('pH','<strong style=\"font-size:28px;color:'+color+'\">'+pH.toFixed(3)+' — '+type+'</strong>',true)+\n    ri('[H⁺]',H.toExponential(3)+' mol/L')+ri('pOH',pOH.toFixed(3))+ri('[OH⁻]',OH.toExponential(3)+' mol/L')+ri('pH+pOH',(pH+pOH).toFixed(1)+' = 14 ✅');\n  document.getElementById('sc-result').style.display='block';document.getElementById('sc-actions').style.display='flex';\n  drawDonut('sc-chart',['pH (acid)','pOH (base)'],[Math.round(pH*10)||0.001,Math.round(pOH*10)||0.001],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('sc-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain the real-world significance of this pH and acid-base chemistry.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      title="pH Calculator"
+      intro="Comprehensive analytical solver for laboratory, clinical, and industrial chemical calculations."
+      description="Compute solution pH, pOH, hydronium ion concentration [H⁺/H₃O⁺], and hydroxide ion concentration [OH⁻]. Solve strong acid/base complete dissociations and weak electrolyte quadratic chemical equilibria with dissociation constants (Ka and pKa)."
+      path={PATH}
+      category={{ href: "/pages/science", label: "Science & Chemistry" }}
+      related={RELATED_CALCULATORS}
+      article={
+        <>
+          <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How pH is Determined</h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              The pH scale measures the logarithmic activity of hydronium ions in aqueous solution: pH = -log₁₀[H⁺]. In neutral pure water at 25 °C, [H⁺] = [OH⁻] = 1.0 × 10⁻⁷ M, yielding a neutral pH of 7.00. Solutions with pH &lt; 7 are acidic, while solutions with pH &gt; 7 are alkaline. Because water autoionization satisfies [H⁺][OH⁻] = 1.0 × 10⁻¹⁴, pH and pOH always sum to exactly 14.00 at standard temperature. Cross-reference hydronium concentrations against analytical <Link href="/calculators/science/molarity-calculator">molar solution concentrations</Link> and stabilize pH swings using the <Link href="/calculators/science/buffer-calculator">buffer capacity calculator</Link>.
+            </p>
+          </div>
+
+          <h2>Logarithmic [H⁺] vs [OH⁻] Reciprocal Equilibrium across pH Scale</h2>
+          <p>
+            Because pH is a logarithmic function, a change of one single pH unit corresponds to a tenfold (10×) shift in active hydronium ion concentration. A strong acid solution at pH 2 contains 100,000 times more free hydronium ions per liter than pure neutral water at pH 7.
+          </p>
+
+          <PhScaleHydroniumConcentrationChart />
+
+          <h2>First-Principles Acid-Base Derivations & Quadratic Equilibria</h2>
+          <p>
+            Søren Sørensen originally formulated the pH scale in 1909 to characterize enzymatic fermentation equilibria. Rigorously, pH is defined in terms of thermodynamic hydronium ion activity (aH⁺ = γ · [H⁺]):
+          </p>
+          <Formula>
+            {"\text{pH} = -\log_{10}(a_{\text{H}^+}) \approx -\log_{10}[\text{H}_3\text{O}^+]"}
+          </Formula>
+          <p>
+            Water undergoes self-ionization (autoprotolysis) according to the equilibrium: 2 H₂O ⇌ H₃O⁺ + OH⁻. The ion product of water (Kw) is temperature-dependent, equalling exactly 1.008 × 10⁻¹⁴ at 25 °C:
+          </p>
+          <Formula>
+            {"K_w = [\text{H}^+][\text{OH}^-] = 1.0 \times 10^{-14} \implies \text{pH} + \text{pOH} = 14.00"}
+          </Formula>
+          <p>
+            For monoprotic strong acids (such as HCl, HNO₃, HClO₄), complete ionization occurs, so [H⁺] = C_acid. For weak acids (HA ⇌ H⁺ + A⁻) with acid dissociation constant Ka = 10^(-pKa), incomplete dissociation requires solving the exact quadratic equilibrium expression without approximations:
+          </p>
+          <Formula>
+            {"K_a = \frac{[\text{H}^+][\text{A}^-]}{[\text{HA}]} = \frac{x^2}{C - x} \implies x^2 + K_a \cdot x - K_a \cdot C = 0"}
+          </Formula>
+          <p>
+            Solving via the quadratic formula yields the exact hydronium concentration:
+          </p>
+          <Formula>
+            {"[\text{H}^+] = \frac{-K_a + \sqrt{K_a^2 + 4 \cdot K_a \cdot C}}{2}"}
+          </Formula>
+          <p>
+            This quadratic solution remains valid across all concentration regimes, eliminating the classic 5% approximation errors when acid concentration is dilute or Ka is moderately large (&gt; 10⁻³). Chemists pair these acid calculations with <Link href="/calculators/science/concentration-calculator">parts-per-million concentration conversions</Link> and verify fluid density shifts through the <Link href="/calculators/science/density-calculator">aqueous density calculator</Link>.
+          </p>
+
+          <h2>Standard pH Benchmarks & Common Chemical Matrix Reference</h2>
+          <p>
+            The table below compiles characteristic pH values, hydronium ion concentrations, and dominant chemical species across common biological, consumer, and industrial aqueous matrices.
+          </p>
+
+          <DataTable
+            head={["Solution / Chemical Matrix", "Typical pH", "[H⁺] Molarity (mol/L)", "Dominant Active Species", "Classification"]}
+            rows={[
+              ["Battery Acid (33% H₂SO₄)", "0.3 – 0.8", "0.5 – 0.16 M", "H₃O⁺, HSO₄⁻, SO₄²⁻", "Extreme Strong Acid"],
+              ["Gastric Stomach Acid", "1.5 – 2.0", "0.03 – 0.01 M", "HCl, Pepsin", "Strong Physiological Acid"],
+              ["Lemon Juice (Citric Acid)", "2.2 – 2.4", "6.3 × 10⁻³ M", "Citric Acid, Citrate", "Moderate Weak Acid"],
+              ["Pure Black Coffee", "4.8 – 5.2", "1.0 × 10⁻⁵ M", "Chlorogenic Acids", "Mildly Acidic"],
+              ["Human Arterial Blood", "7.35 – 7.45", "4.0 × 10⁻⁸ M", "HCO₃⁻ / H₂CO₃ Buffer", "Slightly Alkaline"],
+              ["Baking Soda (0.1 M NaHCO₃)", "8.3 – 8.5", "5.0 × 10⁻⁹ M", "HCO₃⁻, CO₃²⁻, Na⁺", "Mild Alkaline Buffer"],
+              ["Household Ammonia (1 M)", "11.6", "2.5 × 10⁻¹² M", "NH₃, NH₄⁺, OH⁻", "Moderate Weak Base"],
+              ["1.0 M Sodium Hydroxide (Lye)", "14.0", "1.0 × 10⁻¹⁴ M", "Na⁺, OH⁻", "Extreme Strong Base"],
+            ]}
+          />
+
+          <h2>Comparative Operational Laboratory Worked Case Studies</h2>
+
+          <h3>Case Study A: Precision pH Calculation of Dilute Acetic Acid (Vinegar)</h3>
+          <p>
+            An analytical food chemist formulates a standard pickling brine containing 0.020 M acetic acid (CH₃COOH, pKa = 4.756, Ka = 1.754 × 10⁻⁵) at 25 °C. The chemist calculates the exact equilibrium pH and degree of ionization (α).
+          </p>
+          <ol>
+            <li>
+              <strong>Set up the quadratic equilibrium equation:</strong>
+              <br />
+              x² + (1.754 × 10⁻⁵)x - (1.754 × 10⁻⁵)(0.020) = 0.
+              <br />
+              x² + (1.754 × 10⁻⁵)x - 3.508 × 10⁻⁷ = 0.
+            </li>
+            <li>
+              <strong>Solve for [H⁺] via quadratic formula:</strong>
+              <br />
+              x = [-1.754 × 10⁻⁵ + √((1.754 × 10⁻⁵)² + 4(3.508 × 10⁻⁷))] / 2.
+              <br />
+              x = [-1.754 × 10⁻⁵ + √(3.076 × 10⁻¹⁰ + 1.4032 × 10⁻⁶)] / 2 = [-1.754 × 10⁻⁵ + 1.185 × 10⁻³] / 2 = 5.837 × 10⁻⁴ M.
+            </li>
+            <li>
+              <strong>Compute pH and ionization percentage:</strong>
+              <br />
+              pH = -log₁₀(5.837 × 10⁻⁴) = 3.23.
+              <br />
+              Degree of ionization α = (5.837 × 10⁻⁴ / 0.020) × 100% = 2.92%.
+            </li>
+            <li>
+              <strong>Analytical Verification:</strong> Only 2.92% of acetic acid molecules dissociate into free hydronium ions; 97.08% remain un-ionized neutral acetic acid molecules, confirmed with <Link href="/calculators/science/molecular-weight-calculator">acetic acid molecular weights</Link>.
+            </li>
+          </ol>
+
+          <h3>Case Study B: Ultra-Dilute Strong Acid and Water Autoprotolysis Correction</h3>
+          <p>
+            A geochemical environmental researcher measures water runoff containing 1.0 × 10⁻⁸ M hydrochloric acid (HCl). A naive calculation gives pH = -log(1.0 × 10⁻⁸) = 8.00, which is physically absurd because adding acid to pure water cannot make it alkaline!
+          </p>
+          <ol>
+            <li>
+              <strong>Account for water autoprotolysis:</strong>
+              <br />
+              Total [H⁺] = [H⁺]_acid + [H⁺]_water = 1.0 × 10⁻⁸ + x, and [OH⁻] = x.
+              <br />
+              Kw = [H⁺][OH⁻] = (1.0 × 10⁻⁸ + x)(x) = 1.0 × 10⁻¹⁴.
+            </li>
+            <li>
+              <strong>Solve quadratic for water dissociation x:</strong>
+              <br />
+              x² + 1.0 × 10⁻⁸ x - 1.0 × 10⁻¹⁴ = 0.
+              <br />
+              x = [-1.0 × 10⁻⁸ + √((1.0 × 10⁻⁸)² + 4(1.0 × 10⁻¹⁴))] / 2 = 9.512 × 10⁻⁸ M.
+            </li>
+            <li>
+              <strong>Determine true total hydronium concentration and pH:</strong>
+              <br />
+              Total [H⁺] = 1.0 × 10⁻⁸ + 9.512 × 10⁻⁸ = 1.0512 × 10⁻⁷ M.
+              <br />
+              True pH = -log₁₀(1.0512 × 10⁻⁷) = 6.98.
+            </li>
+            <li>
+              <strong>Scientific Conclusion:</strong> The solution is indeed slightly acidic (pH 6.98 &lt; 7.00), demonstrating that water autoprotolysis dominates whenever acid concentrations fall below 10⁻⁶ M. Evaluate ionic conductances through the <Link href="/calculators/science/ohms-law-calculator">Ohmic electrochemical cell calculator</Link>.
+            </li>
+          </ol>
+
+          <h2>Operational Constraints & Glass Electrode Metrology Factors</h2>
+          <ol>
+            <li>
+              <strong>Temperature Dependence of pH and Neutral Point:</strong> The water autoionization constant Kw varies dramatically with temperature: at 0 °C, Kw = 0.11 × 10⁻¹⁴ (neutral pH = 7.47); at 25 °C, Kw = 1.00 × 10⁻¹⁴ (neutral pH = 7.00); and at 100 °C, Kw = 51.3 × 10⁻¹⁴ (neutral pH = 6.14). Modern glass combination electrodes incorporate automatic temperature compensation (ATC) thermistors to adjust the Nernstian slope (-59.16 mV/pH at 25 °C versus -74.04 mV/pH at 100 °C).
+            </li>
+            <li>
+              <strong>Alkaline Sodium Error (pH &gt; 10):</strong> At high pH regimes with elevated sodium ion concentrations, sodium cations compete with hydronium ions for ion-exchange sites on the lithium silicate glass sensing membrane, causing the electrode to register a pH lower than the true value unless specialized wide-range glass membranes are utilized.
+            </li>
+            <li>
+              <strong>Acid Error in Concentrated Acids (pH &lt; 1):</strong> In concentrated strong acids (&gt; 1 M), water activity drops significantly below unity, causing the hydrated gel layer on the glass bulb to dehydrate and altering liquid junction potentials across the porous ceramic frit reference electrode.
+            </li>
+          </ol>
+
+          <h2>Potentiometric Glass Electrode Instrumentation & Nernstian Calibration</h2>
+          <p>
+            Standard laboratory pH measurements utilize combination glass electrodes that generate an electrical potential proportional to hydronium ion activity. The theoretical cell potential is governed by the Nernst equation:
+          </p>
+          <Formula>
+            {"E_{\text{cell}} = E^0 - \left( \frac{2.3026 \cdot R \cdot T}{F} \right) \cdot \text{pH} = E^0 - S(T) \cdot \text{pH}"}
+          </Formula>
+          <p>
+            Where F is the Faraday constant (96,485 C/mol) and S(T) is the Nernstian electrode slope, equal to 59.16 mV per pH unit at 298.15 K (25 °C). A two-point calibration using certified IUPAC primary buffer standards (typically pH 4.01 phthalate and pH 7.00 phosphate) determines both the electrode zero-point offset (asymmetry potential) and the actual percentage slope (which must remain between 95% and 102% for analytical validity). In biological assays, chemists correlate pH shifts with <Link href="/calculators/science/osmolarity-calculator">solution osmolar tonicity</Link> and calculate thermodynamic sensible heat through the <Link href="/calculators/science/specific-heat-calculator">specific heat calorimetry tool</Link>.
+          </p>
+          <p>
+            In semiconductor manufacturing, process stations deploy flowing-junction sleeve reference electrodes to prevent sample water ingress and maintain sub-0.02 pH accuracy across low-conductivity loops.
+          </p>
+
+          <h2>Frequently Asked Questions</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Can a chemical solution have a negative pH or a pH greater than 14?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Yes. The conventional 0 to 14 pH scale is merely a convenient guideline for dilute aqueous solutions. A 12 M concentrated hydrochloric acid solution has an effective hydronium activity exceeding 12, resulting in a negative pH of approximately -1.1. Conversely, a 10 M saturated sodium hydroxide solution yields a calculated pH of approximately 15.0. However, in such concentrated regimes, ion-pairing and reduced water activity make standard glass electrodes unreliable.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">Why does pure water at 60 °C have a pH of approximately 6.5? Is it acidic?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                No, water at 60 °C remains perfectly neutral. The endothermic autoionization of water shifts forward at higher temperatures, increasing Kw from 1.0 × 10⁻¹⁴ at 25 °C to 9.6 × 10⁻¹⁴ at 60 °C. At 60 °C, [H⁺] = [OH⁻] = 3.1 × 10⁻⁷ M, yielding pH = 6.51. Because hydronium and hydroxide concentrations remain exactly equal, the water is strictly neutral despite having a numerical pH beneath 7.00.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900 dark:text-white">What is the Henderson-Hasselbalch equation and when does it apply?</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                The Henderson-Hasselbalch equation (pH = pKa + log([A⁻]/[HA])) is an approximation used for buffer solutions containing comparable concentrations of a weak acid and its conjugate base. It is valid when both conjugate species concentrations significantly exceed 10⁻³ M and the solution pH lies within ± 1 pH unit of the acid &apos;s pKa. For dedicated buffer formulation, use our <Link href="/calculators/science/buffer-calculator">buffer capacity calculator</Link>.
+              </p>
+            </div>
+          </div>
+
+          <h2>Authoritative International Standards & pH Metrology</h2>
+          <p>
+            For certified pH standard buffer preparations, electrochemical calibration procedures, and primary metrology standards, consult:
+          </p>
+          <ul>
+            <li>
+              <strong>IUPAC Recommendations (Compendium of Analytical Nomenclature):</strong> Measurement of pH: Definition, Standards, and Procedures (Harned Cell Primary Method).
+            </li>
+            <li>
+              <strong>NIST Standard Reference Materials (SRM 185i, 186g):</strong> Potassium Hydrogen Phthalate and Potassium Dihydrogen Phosphate Primary pH Standards.
+            </li>
+            <li>
+              <strong>ASTM International (ASTM D1293):</strong> Standard Test Methods for pH of Water and Industrial Aqueous Waste Streams.
+            </li>
+            <li>
+              <strong>ISO 10523:</strong> Water Quality — Determination of pH in Environmental and Potable Waters.
+            </li>
+          </ul>
+        </>
+      }
+    >
+      <PhCalculatorComponent />
+    </CalcPage>
   );
 }
