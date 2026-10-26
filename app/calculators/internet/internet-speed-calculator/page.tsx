@@ -1,26 +1,238 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import InternetSpeedCalculatorComponent from "@/components/calcs/internet/internet-speed-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { InternetSpeedBandwidthLossDistributionChart } from "@/components/flagship/internet/editorial-charts";
+
+const PATH = "/calculators/internet/internet-speed-calculator";
+const TITLE = "Internet Speed Calculator | Bandwidth Throughput & Efficiency";
+const DESCRIPTION =
+  "Calculate delivered broadband throughput efficiency, TCP/IP protocol overhead, Wi-Fi attenuation losses, and latency jitter across network connections.";
 
 export const metadata: Metadata = {
-  "title": "Internet Speed Calculator – Mbps to MB/s | CalcDigi",
-  "description": "Convert Mbps to MB/s and calculate download time for any file. Find out if your connection is fast enough for streaming.",
-  "openGraph": {
-    "title": "Internet Speed Calculator – Mbps to MB/s | CalcDigi",
-    "description": "Convert Mbps to MB/s and calculate download time for any file. Find out if your connection is fast enough for streaming.",
-    "type": "website",
-    "url": "/calculators/internet/internet-speed-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/internet/internet-speed-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/internet/download-time-calculator", icon: "⏱️", name: "Download Time" },
+  { href: "/calculators/internet/bandwidth-calculator", icon: "📊", name: "Bandwidth Calc" },
+  { href: "/calculators/internet/ping-latency-calculator", icon: "⚡", name: "Ping & Latency" },
+  { href: "/calculators/internet/vpn-speed-calculator", icon: "🛡️", name: "VPN Speed" },
+  { href: "/calculators/internet/streaming-quality-calculator", icon: "🎬", name: "Streaming Quality" },
+  { href: "/calculators/internet/data-usage-calculator", icon: "📡", name: "Data Usage" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why is my measured download speed lower than my advertised ISP plan?",
+    a: "Advertised broadband speeds reflect theoretical maximum data link rates at the physical layer (L1). Real-world application throughput is diminished by TCP/IP framing overhead (typically 4% to 8%), Wi-Fi radio frequency interference and multi-path attenuation (10% to 25%), router CPU processing queues, and regional ISP transit node congestion during peak evening hours.",
+  },
+  {
+    q: "What is the difference between MegaBits per second (Mbps) and MegaBytes per second (MB/s)?",
+    a: "Telecommunications providers quote bandwidth in MegaBits per second (Mbps), where 1 Byte equals 8 bits. File download transfers displayed by operating systems and web browsers are measured in MegaBytes per second (MB/s). Therefore, a 100 Mbps internet connection yields a theoretical maximum file transfer rate of 12.5 MB/s (100 / 8 = 12.5), before subtracting network overhead.",
+  },
+  {
+    q: "What is network jitter and why does it degrade real-time applications?",
+    a: "Jitter quantifies the statistical variance in packet arrival latency over time, measured in milliseconds (ms). While high uniform latency causes a predictable delay, high jitter causes packet clumping and out-of-order packet delivery, triggering catastrophic audio clipping in Zoom calls, buffer stutters in live streams, and hit-registration failures in competitive online multiplayer games.",
+  },
+  {
+    q: "How does bufferbloat affect internet connection responsiveness under load?",
+    a: "Bufferbloat occurs when home routers possess excessively large, unmanaged packet queues. When someone initiates a massive file download, the router buffers excess packets rather than dropping them, causing latency on concurrent gaming or voice connections to spike from 15 ms to over 500 ms. Modern Smart Queue Management (SQM) algorithms like CAKE and FQ-CoDel eliminate bufferbloat.",
+  },
+];
+
+export default function InternetSpeedCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Internet & Tech Calculators\", \"item\": \"https://calcdigi.com/pages/internet\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Internet Speed Calculator\", \"item\": \"https://calcdigi.com/calculators/internet/internet-speed-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Internet Speed Calculator\", \"url\": \"https://calcdigi.com/calculators/internet/internet-speed-calculator\", \"description\": \"Convert Mbps to MB/s and calculate download time for any file. Find out if your connection is fast enough for streaming.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is a good internet speed for a household?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For a family of 4 with multiple simultaneous users streaming, gaming, and working: 200-500 Mbps is comfortable. For a single user or couple: 100 Mbps is plenty. For basic browsing and email only: 25 Mbps is sufficient. Gigabit (1000 Mbps) is future-proof.\"}}, {\"@type\": \"Question\", \"name\": \"Why is my download speed lower than my plan speed?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"ISPs advertise maximum speeds. Real speeds are lower due to: WiFi vs wired connection (WiFi can be 20-50% slower), network congestion during peak hours, router limitations (old routers cap at 100 Mbps), multiple devices sharing bandwidth, and distance from the ISP infrastructure.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between Mbps and MB/s?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Mbps = megabits per second (network speed). MB/s = megabytes per second (file download speed). Since 1 byte = 8 bits, MB/s = Mbps / 8. A 100 Mbps connection downloads files at 12.5 MB/s. This is why your download manager shows lower numbers than your plan speed.\"}}, {\"@type\": \"Question\", \"name\": \"How long does it take to download a 50 GB game?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 100 Mbps: 50 GB × 1024 × 8 / 100 = 4,096 seconds = 68 minutes. At 500 Mbps: about 14 minutes. At 1 Gbps: about 7 minutes. Actual times may be longer due to server speed limits and network congestion.\"}}, {\"@type\": \"Question\", \"name\": \"What internet speed do I need for 4K streaming?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Netflix recommends 25 Mbps for 4K Ultra HD streaming per stream. YouTube 4K: 20 Mbps. Disney+ 4K: 25 Mbps. For a household streaming two 4K streams simultaneously plus gaming and browsing, 100-200 Mbps is recommended.\"}}, {\"@type\": \"Question\", \"name\": \"How do I test my actual internet speed?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use Speedtest.net (Ookla), Fast.com (Netflix), or Google speed test (search \\\"speed test\\\"). Run tests at different times — morning, afternoon, evening. Evening (7-11pm) is typically 20-40% slower due to peak usage. Connect via ethernet for most accurate results.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/internet\">Internet &amp; Tech</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Internet Speed Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Internet Speed Calculator</h1>\n<p class=\"calc-intro\">Calculate what your internet speed actually means in practice. Convert between Mbps (megabits per second) and MB/s (megabytes per second), estimate download times for files and games, and find out if your connection is fast enough for streaming, gaming, video calls, and remote work.</p>\n<p class=\"calc-intro\">Understanding internet speed helps you choose the right plan, diagnose slow connections, and set realistic expectations for large file downloads. Most internet providers advertise speeds in Mbps, while file sizes are shown in MB or GB — requiring a conversion to understand real-world performance.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Download Time = File Size (MB) × 8 / Speed (Mbps) | MB/s = Mbps / 8 | GB download time = GB × 1024 × 8 / Mbps / 60 minutes</div></div>\n<div class=\"content-section\">\n<h2>Understanding Internet Speed Units</h2>\n<p>Internet speed is measured in megabits per second (Mbps), but file sizes are measured in megabytes (MB). Since 1 byte = 8 bits, your download speed in MB/s is always Mbps divided by 8. A 100 Mbps connection downloads at 12.5 MB/s — a common source of confusion when actual download speeds appear much lower than advertised.</p>\n<h3>Mbps vs MB/s — The Key Difference</h3>\n<p>Your internet provider advertises 100 Mbps. Your download manager shows 12 MB/s. Both are correct — 100 Mbps ÷ 8 = 12.5 MB/s. File managers and download software display speeds in MB/s because file sizes are in MB. Always divide your Mbps by 8 to get the MB/s download speed you will actually see.</p>\n<h3>Recommended Speeds by Use Case</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Use Case</th><th style=\"padding:11px 14px;text-align:left;\">Speed Needed</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Basic browsing/email</td><td style=\"padding:10px 14px;\">1-5 Mbps</td><td style=\"padding:10px 14px;\">1 user</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">HD video streaming (1080p)</td><td style=\"padding:10px 14px;\">5-10 Mbps</td><td style=\"padding:10px 14px;\">per stream</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">4K video streaming</td><td style=\"padding:10px 14px;\">25 Mbps</td><td style=\"padding:10px 14px;\">per stream</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Video calls (HD)</td><td style=\"padding:10px 14px;\">5-10 Mbps</td><td style=\"padding:10px 14px;\">per person</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Online gaming</td><td style=\"padding:10px 14px;\">15-25 Mbps</td><td style=\"padding:10px 14px;\">per player</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Working from home</td><td style=\"padding:10px 14px;\">25-50 Mbps</td><td style=\"padding:10px 14px;\">recommended</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">4K streaming + gaming + WFH</td><td style=\"padding:10px 14px;\">100+ Mbps</td><td style=\"padding:10px 14px;\">household</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Game downloads (fast)</td><td style=\"padding:10px 14px;\">500+ Mbps</td><td style=\"padding:10px 14px;\">preferred</td></tr></tbody></table></div>\n<h3>Actual vs Advertised Speed</h3>\n<p>ISPs advertise \"up to\" speeds which are theoretical maximums. Real-world speeds depend on network congestion (peak hours 7-11pm are slowest), WiFi signal strength (WiFi is always slower than wired), router age and capability, number of connected devices, and distance from the ISP node. A 100 Mbps plan typically delivers 70-90 Mbps during off-peak hours.</p>\n<h3>Upload Speed Matters Too</h3>\n<p>Most home internet plans are asymmetric — download speed is much faster than upload. Upload speed matters for video calls, live streaming, cloud backups, and remote desktop. Zoom video calls need 3 Mbps upload. Twitch streaming at 1080p60 needs 6 Mbps upload. Cloud backup of 1TB at 10 Mbps upload takes 222 hours — 9 days!</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good internet speed for a household? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For a family of 4 with multiple simultaneous users streaming, gaming, and working: 200-500 Mbps is comfortable. For a single user or couple: 100 Mbps is plenty. For basic browsing and email only: 25 Mbps is sufficient. Gigabit (1000 Mbps) is future-proof.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is my download speed lower than my plan speed? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">ISPs advertise maximum speeds. Real speeds are lower due to: WiFi vs wired connection (WiFi can be 20-50% slower), network congestion during peak hours, router limitations (old routers cap at 100 Mbps), multiple devices sharing bandwidth, and distance from the ISP infrastructure.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between Mbps and MB/s? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Mbps = megabits per second (network speed). MB/s = megabytes per second (file download speed). Since 1 byte = 8 bits, MB/s = Mbps / 8. A 100 Mbps connection downloads files at 12.5 MB/s. This is why your download manager shows lower numbers than your plan speed.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does it take to download a 50 GB game? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 100 Mbps: 50 GB × 1024 × 8 / 100 = 4,096 seconds = 68 minutes. At 500 Mbps: about 14 minutes. At 1 Gbps: about 7 minutes. Actual times may be longer due to server speed limits and network congestion.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What internet speed do I need for 4K streaming? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Netflix recommends 25 Mbps for 4K Ultra HD streaming per stream. YouTube 4K: 20 Mbps. Disney+ 4K: 25 Mbps. For a household streaming two 4K streams simultaneously plus gaming and browsing, 100-200 Mbps is recommended.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I test my actual internet speed? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use Speedtest.net (Ookla), Fast.com (Netflix), or Google speed test (search \"speed test\"). Run tests at different times — morning, afternoon, evening. Evening (7-11pm) is typically 20-40% slower due to peak usage. Connect via ethernet for most accurate results.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Internet &amp; Tech Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/internet/download-time-calculator\"><span class=\"rc-icon\">⬇️</span><span class=\"rc-name\">Download Time Calculator</span></a><a class=\"related-card\" href=\"/calculators/internet/bandwidth-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Bandwidth Calculator</span></a><a class=\"related-card\" href=\"/calculators/internet/data-usage-calculator\"><span class=\"rc-icon\">📡</span><span class=\"rc-name\">Data Usage Calculator</span></a><a class=\"related-card\" href=\"/calculators/internet/streaming-quality-calculator\"><span class=\"rc-icon\">📺</span><span class=\"rc-name\">Streaming Quality Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Internet Speed Calculator – Mbps, MB/s and Download Time</h2><div class=\"form-group\"><label for=\"is-speed\">Your Internet Speed (Mbps)</label><input id=\"is-speed\" min=\"0.1\" step=\"any\" type=\"number\" value=\"100\"/></div>\n<div class=\"form-group\"><label for=\"is-filesize\">File Size</label><input id=\"is-filesize\" min=\"0.01\" step=\"any\" type=\"number\" value=\"50\"/></div>\n<div class=\"form-group\"><label for=\"is-unit\">File Size Unit</label><select id=\"is-unit\"><option value=\"mb\">Megabytes (MB)</option><option selected=\"\" value=\"gb\">Gigabytes (GB)</option><option value=\"tb\">Terabytes (TB)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('it-result').style.display='none';document.getElementById('it-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"it-result\" style=\"display:none;\"><div id=\"it-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"it-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"it-ai\" style=\"display:none;\"></div></div>\n<div id=\"it-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-it\" onclick=\"printResult('it-result','Internet Speed Calculator – Mbps, MB/s and Download Time')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Internet Speed Calculator – Mbps, MB/s and Download Time')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-internet-speed-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var speed=parseFloat(document.getElementById('is-speed').value)||0;\n  var size=parseFloat(document.getElementById('is-filesize').value)||0;\n  var unit=document.getElementById('is-unit').value;\n  if(!speed||!size){alert('Please enter speed and file size.');return;}\n  var sizeMB=unit==='gb'?size*1024:unit==='tb'?size*1024*1024:size;\n  var mbps_to_mbs=speed/8;\n  var seconds=sizeMB/mbps_to_mbs;\n  var minutes=seconds/60;\n  var hours=minutes/60;\n  var timeStr=hours>=1?(hours.toFixed(1)+' hours'):minutes>=1?(minutes.toFixed(1)+' minutes'):(seconds.toFixed(0)+' seconds');\n  document.getElementById('it-ri').innerHTML=\n    ri('Download Time','<strong style=\"font-size:22px;color:var(--c-accent)\">'+timeStr+'</strong>',true)+\n    ri('Download Speed',mbps_to_mbs.toFixed(2)+' MB/s')+\n    ri('Speed in Mbps',speed+' Mbps')+\n    ri('File Size',size+' '+unit.toUpperCase())+\n    ri('At 50% speed (congestion)',( seconds/0.5/60).toFixed(1)+' min (worst case)');\n  document.getElementById('it-result').style.display='block';document.getElementById('it-actions').style.display='flex';\n  drawDonut('it-chart',['Download Speed','Overhead'],[Math.round(speed*0.85),Math.round(speed*0.15)],['#1a5c3a','#c8832a']);\n  var aiPrompt='Internet speed '+speed+' Mbps ('+mbps_to_mbs.toFixed(1)+' MB/s), download time for '+size+unit+': '+timeStr;\n  var ai=document.getElementById('it-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about optimizing internet speed based on this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/internet", label: "Internet & Technology" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Network Guidance:</strong> Internet connection performance is determined by delivered throughput efficiency—the ratio between your measured application data rate and contracted ISP bandwidth. By evaluating transport layer framing overhead alongside Wi-Fi multi-path loss, this calculator audits your broadband efficiency and isolates local network bottlenecks. Plan large file transfers with our <Link href="/calculators/internet/download-time-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">download time calculator</Link> and assess household capacity via our <Link href="/calculators/internet/bandwidth-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">bandwidth calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: ISP Advertised Plan Speed vs Real Delivered Throughput (Mbps)
+          </h2>
+          <InternetSpeedBandwidthLossDistributionChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Broadband consumer advertising prominently highlights headline figures such as &lsquo;300 Mbps&rsquo; or &lsquo;1 Gigabit Fiber&rsquo;. However, subscribing to a high-tier broadband plan does not guarantee seamless real-world execution. Telecommunications architecture operates through layered encapsulation protocols, where every discrete packet carries transport headers, checksums, and acknowledgment frames that consume raw transmission capacity. Modeling network throughput mirrors temporal physics calculations found in our <Link href="/calculators/internet/ping-latency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ping latency calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Throughput Efficiency & Transfer Rates
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"R_{\\text{advertised}}"}</Formula> denote the nominal ISP contracted bandwidth in Megabits per second (Mbps), and let <Formula>{"R_{\\text{measured}}"}</Formula> represent the measured application-layer goodput. The Delivered Throughput Efficiency (<Formula>{"\\eta_{\\text{net}}"}</Formula>) is formulated as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\\eta_{\\text{net}} = \\left( \\frac{R_{\\text{measured}}}{R_{\\text{advertised}}} \\right) \\times 100"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To translate telecommunication bitrates into tangible file system transfer speeds in MegaBytes per second (<Formula>{"\\text{MB/s}"}</Formula>), we divide the effective bitrate by 8 bits per byte:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\\text{Throughput (MB/s)} = \\frac{R_{\\text{measured}}}{8}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The uncaptured bandwidth capacity or overhead deficit (<Formula>{"\\Delta_{\\text{loss}}"}</Formula>) represents the cumulative loss caused by Ethernet framing (1.5%), TCP/IP headers (2.7%), TLS 1.3 cryptographic expansion (1.2%), and Wi-Fi radio medium contention:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\\Delta_{\\text{loss}} = R_{\\text{advertised}} - R_{\\text{measured}}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When encrypted tunneling protocols are introduced, additional cryptographic headers further compress available bandwidth, which can be evaluated through our <Link href="/calculators/internet/vpn-speed-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">VPN speed calculator</Link>. Users streaming high-bitrate media should verify compression codecs using our <Link href="/calculators/internet/streaming-quality-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">streaming quality calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Broadband Architecture Benchmarks: Delivered Speeds Across Connection Tiers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays typical contracted broadband tiers, average delivered throughput over wired Cat6 vs Wi-Fi 6, protocol overhead loss, and optimal application use cases:
+          </p>
+
+          <DataTable
+            head={["Broadband Plan Tier", "Advertised Speed", "Delivered Wired (Cat6)", "Delivered Wi-Fi 6 (5 GHz)", "Protocol Overhead Deficit", "Optimal Network Workload"]}
+            rows={[
+              ["Legacy DSL / Satellite", "25 Mbps", "21 – 23 Mbps", "16 – 19 Mbps", "12% – 36%", "Single User Web & SD Video"],
+              ["Entry Cable Broadband", "100 Mbps", "88 – 94 Mbps", "72 – 85 Mbps", "8% – 28%", "2-Person HD Streaming & Calls"],
+              ["Mid-Tier Fiber / Cable", "300 Mbps", "275 – 290 Mbps", "210 – 255 Mbps", "6% – 30%", "Family 4K Media & Gaming"],
+              ["Gigabit Fiber (GPON)", "1,000 Mbps", "940 – 950 Mbps", "450 – 750 Mbps", "5% – 55%", "Multi-User Creative Studio"],
+              ["Multi-Gigabit (XGS-PON)", "2,500 Mbps", "2,350 – 2,420 Mbps", "800 – 1,400 Mbps", "4% – 68%", "Enterprise Cloud Backups"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Engineering Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: Residential Gigabit Fiber Wired vs Wireless Loss
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A software developer subscribes to a 1,000 Mbps (1 Gbps) symmetrical FTTH fiber connection. Running an automated speed test over a direct Cat6 Gigabit Ethernet patch cable reports 940 Mbps download and 938 Mbps upload. The developer wonders why 60 Mbps is &lsquo;missing&rsquo;.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Evaluating the Layer 2 Ethernet framing reveals the answer: standard Ethernet frame size is 1,518 bytes with a 1,500-byte Maximum Transmission Unit (MTU). The 18 bytes of Ethernet header plus 20 bytes of IPv4 header and 20 bytes of TCP header impose an immutable mathematical tax of approximately 4.0% to 5.8%. Thus, 940 Mbps represents 100% theoretical saturation of a 1 Gbps physical port. Conversely, testing over 5 GHz Wi-Fi two rooms away reports 420 Mbps—reflecting radio attenuation that can be budgeted through our <Link href="/calculators/internet/data-usage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">data usage calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Remote Work Bufferbloat Under Concurrent Zoom Loads
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A remote consultant on a 200 Mbps download / 10 Mbps upload cable plan experiences severe voice robotic distortion during high-priority client video calls whenever a family member backs up photos to cloud storage. An idle ping test shows 15 ms latency.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conducting a loaded bufferbloat test reveals that saturating the modest 10 Mbps upload pipe inflates ping latency from 15 ms to 480 ms with 38 ms jitter. The cable modem&apos;s unmanaged upstream buffer causes packet queuing delays that exceed VoIP timeout thresholds. Enabling Smart Queue Management (SQM) on a custom router caps upload saturation at 9.0 Mbps, stabilizing loaded latency at 19 ms and preventing dropouts on web applications evaluated in our <Link href="/calculators/internet/website-load-time-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">website load time calculator</Link>. Network administrators can manage departmental IP boundaries using our <Link href="/calculators/internet/ip-subnet-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">IP subnet calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Wi-Fi Generation Evolution: 802.11ac (Wi-Fi 5) vs 802.11ax (Wi-Fi 6/6E) & Wi-Fi 7
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Wireless networking standards directly dictate real-world broadband throughput delivery. Legacy Wi-Fi 5 (802.11ac) operates primarily on 80 MHz channel widths using 256-QAM modulation, maxing out at real-world speeds of 350 to 500 Mbps under optimal line-of-sight conditions. Wi-Fi 6 (802.11ax) introduces 1024-QAM modulation and Orthogonal Frequency-Division Multiple Access (OFDMA), allowing routers to transmit sub-carrier signals to multiple connected devices simultaneously.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The newest Wi-Fi 6E and Wi-Fi 7 (802.11be) standards unlock the pristine 6 GHz wireless spectrum band with expansive 320 MHz channel widths and 4096-QAM modulation, pushing real wireless throughput beyond 1.8 Gbps. Upgrading client device network adapters ensures home networks fully extract multi-gigabit fiber subscriptions.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Telecommunications Standards & Regulatory Oversight
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Broadband measurement methodologies, consumer speed labeling, and physical transport standards are defined by national regulatory commissions and international engineering bodies:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Federal Communications Commission (FCC Broadband Consumer Labels):</strong> Mandates standardized &lsquo;Broadband Nutrition Labels&rsquo; disclosing typical download speeds, latency, and data caps.
+            </li>
+            <li>
+              <strong>Internet Engineering Task Force (IETF RFC 6349):</strong> Framework for Metric Performance and Testing of TCP throughput across IP networks.
+            </li>
+            <li>
+              <strong>Institute of Electrical and Electronics Engineers (IEEE 802.3 & 802.11):</strong> Global standards committees governing physical Ethernet cabling and wireless LAN radio interfaces.
+            </li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            DNS Resolution Latency & Content Delivery Network (CDN) Routing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Perceived internet browsing speed is heavily influenced by Domain Name System (DNS) resolution speed. When visiting an online portal, your browser must resolve domain names into numerical IP addresses before a single byte of content can download. Default ISP DNS resolvers often suffer from high query latency (35 to 80 ms) and poor routing cache hygiene.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Switching router configurations to high-performance Anycast public resolvers—such as Cloudflare (1.1.1.1) or Google Public DNS (8.8.8.8)—reduces recursive lookup latency to under 8 ms. Fast DNS resolution ensures web requests connect immediately to the nearest CDN edge node, accelerating web page execution and cloud backups.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Optimizing Home Router Placement & Radio Frequency Channel Sanitation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Physical router placement remains the primary determinant of domestic wireless efficiency. Positioning a wireless gateway inside a closed media cabinet, behind metal appliances, or near masonry walls causes immediate 10 to 18 dB signal degradation, slashing throughput by more than 50%. Elevating routers to central, unobstructed locations optimizes isotropic antenna propagation patterns.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, urban apartment residents frequently encounter severe 2.4 GHz and 5 GHz channel overlapping from neighboring routers. Utilizing Wi-Fi analyzer software to identify clear Dynamic Frequency Selection (DFS) channels eliminates co-channel radio contention, restoring low-latency connectivity for gaming and video calls.
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Auditing your broadband throughput with rigorous network engineering metrics empowers you to verify ISP contractual compliance, diagnose local Wi-Fi interference, and optimize hardware configurations.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            By balancing raw bandwidth capacity with low jitter and minimal bufferbloat, users ensure flawless digital connectivity across enterprise remote work, immersive streaming, and competitive online gaming.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Bufferbloat Diagnostic Methodology & TCP BBR Algorithm Behavior
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Diagnosing true connection quality requires testing beyond simple unloaded speed bursts. Traditional speed test utilities measure throughput during brief 10-second download windows when router memory buffers are largely unoccupied. However, during real-world household multi-tasking—when large operating system patches download alongside continuous cloud syncs—unmanaged router buffers fill to capacity.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conducting loaded latency diagnostics measures ping degradation under simultaneous bidirectional traffic saturation. Utilizing Google&apos;s BBR congestion algorithm on modern hosting servers ensures high throughput without inducing unnecessary buffer bloat. System administrators can monitor server availability metrics using our <Link href="/calculators/internet/server-uptime-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">server uptime calculator</Link> and calculate enterprise object storage requirements via our <Link href="/calculators/internet/cloud-storage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">cloud storage calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Routine broadband auditing empowers digital households to identify ISP service throttling and resolve domestic hardware bottlenecks, ensuring peak productivity across all online endeavors.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Bufferbloat Mitigation: Practical Implementation of Smart Queue Management
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To remediate persistent bufferbloat, network administrators deploy Active Queue Management (AQM) algorithms on gateway hardware. Algorithms such as FQ-CoDel (Fair Queueing Controlled Delay) and CAKE (Common Applications Kept Enhanced) monitor packet residency times within router buffers. Rather than permitting queues to inflate indefinitely during saturating downloads, SQM intelligently drops or marks packets using Explicit Congestion Notification (ECN). This signals TCP endpoints to throttle transmission rates preemptively, maintaining interactive ping under twenty milliseconds even during multi-gigabit bulk file transfers.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Auditing bufferbloat regularly guarantees that high-priority voice and video conference packets are never delayed behind non-urgent background transfers.
+          </p>
+
+</>
+      }
+    >
+      <InternetSpeedCalculatorComponent />
+    </CalcPage>
   );
 }
