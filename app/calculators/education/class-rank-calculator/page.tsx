@@ -1,26 +1,243 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ClassRankCalculatorComponent from "@/components/calcs/education/class-rank-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ClassRankPercentileDecileDistributionChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/class-rank-calculator";
+const TITLE = "Class Rank Calculator | Percentile Standing, Decile & Cohort Placement";
+const DESCRIPTION =
+  "Calculate high school and college class rank percentile standing, decile placement, cohort quartiles, and college admissions competitiveness from class size.";
 
 export const metadata: Metadata = {
-  "title": "Class Rank Calculator – Percentile and Standing | CalcDigi",
-  "description": "Calculate your class rank percentile from your position in class. Understand what your rank means for college admissions.",
-  "openGraph": {
-    "title": "Class Rank Calculator – Percentile and Standing | CalcDigi",
-    "description": "Calculate your class rank percentile from your position in class. Understand what your rank means for college admissions.",
-    "type": "website",
-    "url": "/calculators/education/class-rank-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/class-rank-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/cgpa-calculator", icon: "🎓", name: "CGPA Calculator" },
+  { href: "/calculators/education/act-score-calculator", icon: "📊", name: "ACT Score" },
+  { href: "/calculators/education/sat-score-calculator", icon: "📐", name: "SAT Score" },
+  { href: "/calculators/education/scholarship-calculator", icon: "💵", name: "Scholarship" },
+  { href: "/calculators/education/percentage-grade-calculator", icon: "📈", name: "Percentage Grade" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How is class rank percentile calculated?",
+    a: "Class rank percentile measures the percentage of your graduating class that ranks below you. Under the standard College Board and registrar formula, Percentile = ((Total Students - Class Rank + 0.5) / Total Students) * 100. For example, ranking 15th out of 450 students yields ((450 - 15 + 0.5) / 450) * 100 = 96.78th percentile (Top 3.33%).",
+  },
+  {
+    q: "Why have many high schools stopped reporting official class rank?",
+    a: "Over 60% of US private and competitive suburban public high schools have transitioned to non-ranking models. In hyper-competitive schools, a student with a 3.92 unweighted GPA might rank in the second quartile (top 40%), unfairly disadvantaging them at selective state universities that use mechanical class rank cutoffs. In place of rank, non-ranking schools provide grade distribution decile histograms.",
+  },
+  {
+    q: "What is an automatic college admission threshold based on class rank?",
+    a: "Several major state university systems enforce statutory automatic admissions based on class rank. For example, the Texas Top 6% Rule guarantees automatic undergraduate admission to the University of Texas at Austin for students graduating in the top 6% of their Texas high school class, regardless of SAT or ACT test scores.",
+  },
+  {
+    q: "How do weighted GPAs affect class rank standing?",
+    a: "In schools utilizing weighted class rank, quality points from Honors (+0.5) and AP/IB (+1.0) courses elevate students' numerical grade averages. A student taking eight AP courses with A- marks can outrank a student taking exclusively standard college prep courses with straight A marks, incentivizing curriculum rigor.",
+  },
+];
+
+export default function ClassRankCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Class Rank Calculator\", \"item\": \"https://calcdigi.com/calculators/education/class-rank-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Class Rank Calculator\", \"url\": \"https://calcdigi.com/calculators/education/class-rank-calculator\", \"description\": \"Calculate your class rank percentile from your position in class. Understand what your rank means for college admissions.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate my class rank percentile?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Percentile = ((Class Size - Your Rank) / Class Size) × 100. Example: Ranked 45th in a class of 350 students: (350-45)/350 × 100 = 305/350 × 100 = 87.1st percentile. You scored better than 87.1% of your classmates.\"}}, {\"@type\": \"Question\", \"name\": \"Is class rank important for college admissions?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Class rank matters most at highly selective colleges (it provides context for your GPA) and for some scholarship programs. About 50% of high schools no longer report rank. For colleges that do receive class rank, being in the top 10-25% significantly strengthens your application for competitive schools.\"}}, {\"@type\": \"Question\", \"name\": \"What does top 10% of class mean?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Top 10% means your GPA ranks higher than 90% of your graduating class. In a class of 400, the top 10% includes ranks 1-40. Many large state universities give automatic admission to top 10% (or similar threshold) graduates from in-state high schools — for example, University of Texas Austin guarantees admission to top 6% of Texas graduates.\"}}, {\"@type\": \"Question\", \"name\": \"Does class rank or GPA matter more?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At most colleges, GPA (especially in rigorous courses) matters more than class rank. Class rank provides context but is secondary. A 4.0 GPA ranked 1st and a 3.8 GPA ranked 15th are very similar in the admissions process. Course rigor (number of AP/IB courses) often matters more than exact GPA or rank.\"}}, {\"@type\": \"Question\", \"name\": \"How do I improve my class rank?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Class rank changes when your GPA changes relative to classmates. Strategies: take more rigorous courses (weighted GPA benefits), maintain high grades in all courses, focus on senior year performance (colleges see mid-year grades), and avoid grade drops that allow classmates to pass you. Significant rank improvement is difficult late in high school.\"}}, {\"@type\": \"Question\", \"name\": \"What if I am not in the top 25% of my class?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Many excellent colleges do not require top quartile ranking. Community colleges, most state universities, and many private colleges admit students across the full class rank range. Strong test scores, compelling essays, unique achievements, and upward grade trends can overcome middle-of-class ranking for many schools. Focus on where you are a strong applicant.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Class Rank Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Class Rank Calculator</h1>\n<p class=\"calc-intro\">Calculate your class rank percentile and understand what it means for college admissions. Find out if you are in the top 10%, top 25%, or top 50% of your class, and learn how class rank factors into selective college applications.</p>\n<p class=\"calc-intro\">Class rank measures where you stand academically among all students in your graduating class. Being in the top 10% means you scored higher than 90% of your peers. While many high schools have moved away from reporting class rank, it remains a factor at colleges that receive it and helps contextualize your GPA.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Percentile Rank = ((Class Size - Your Rank) / Class Size) × 100 | Top 10% = Rank ≤ Class Size × 0.10</div></div>\n<div class=\"content-section\">\n<h2>Class Rank and College Admissions</h2>\n<p>Class rank provides colleges important context for evaluating your GPA. A 3.5 GPA at a very rigorous high school where 50% of students have 3.5+ GPAs is very different from a 3.5 GPA where you are ranked #3 in your class. Class rank helps admissions officers understand your performance relative to your specific school environment.</p>\n<h3>Class Rank Thresholds by College Type</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">College Type</th><th style=\"padding:11px 14px;text-align:left;\">Typical Rank Requirement</th><th style=\"padding:11px 14px;text-align:left;\">Selectivity Level</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Top 10 universities</td><td style=\"padding:10px 14px;\">Top 5-10%</td><td style=\"padding:10px 14px;\">Highly selective</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Top 25 universities</td><td style=\"padding:10px 14px;\">Top 15-25%</td><td style=\"padding:10px 14px;\">Very selective</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Top 50 universities</td><td style=\"padding:10px 14px;\">Top 25-40%</td><td style=\"padding:10px 14px;\">Selective</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Competitive colleges</td><td style=\"padding:10px 14px;\">Top 50%</td><td style=\"padding:10px 14px;\">Moderately selective</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Open admissions</td><td style=\"padding:10px 14px;\">Not required</td><td style=\"padding:10px 14px;\">All applicants accepted</td></tr></tbody></table></div>\n<h3>Weighted vs Unweighted Class Rank</h3>\n<p>Weighted class rank accounts for course difficulty — students in more AP and honors courses rank higher per GPA point. Unweighted class rank treats all courses equally. Highly selective colleges prefer weighted GPA and rank because it reflects course rigor. A student with 3.8 unweighted GPA in all AP courses is more competitive than 3.8 in all regular courses.</p>\n<h3>What if My School Does Not Report Class Rank?</h3>\n<p>Approximately 50% of US high schools no longer report class rank (up from 20% in 2005). Reasons: discourages students ranked 51st who might give up, penalizes students at very competitive schools. Colleges receiving rank-free transcripts rely more heavily on GPA, course rigor, and standardized test scores. Some colleges ask for an approximate rank (top 10%, top 25%) even without exact rank.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my class rank percentile? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Percentile = ((Class Size - Your Rank) / Class Size) × 100. Example: Ranked 45th in a class of 350 students: (350-45)/350 × 100 = 305/350 × 100 = 87.1st percentile. You scored better than 87.1% of your classmates.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is class rank important for college admissions? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Class rank matters most at highly selective colleges (it provides context for your GPA) and for some scholarship programs. About 50% of high schools no longer report rank. For colleges that do receive class rank, being in the top 10-25% significantly strengthens your application for competitive schools.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What does top 10% of class mean? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Top 10% means your GPA ranks higher than 90% of your graduating class. In a class of 400, the top 10% includes ranks 1-40. Many large state universities give automatic admission to top 10% (or similar threshold) graduates from in-state high schools — for example, University of Texas Austin guarantees admission to top 6% of Texas graduates.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does class rank or GPA matter more? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At most colleges, GPA (especially in rigorous courses) matters more than class rank. Class rank provides context but is secondary. A 4.0 GPA ranked 1st and a 3.8 GPA ranked 15th are very similar in the admissions process. Course rigor (number of AP/IB courses) often matters more than exact GPA or rank.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I improve my class rank? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Class rank changes when your GPA changes relative to classmates. Strategies: take more rigorous courses (weighted GPA benefits), maintain high grades in all courses, focus on senior year performance (colleges see mid-year grades), and avoid grade drops that allow classmates to pass you. Significant rank improvement is difficult late in high school.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What if I am not in the top 25% of my class? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Many excellent colleges do not require top quartile ranking. Community colleges, most state universities, and many private colleges admit students across the full class rank range. Strong test scores, compelling essays, unique achievements, and upward grade trends can overcome middle-of-class ranking for many schools. Focus on where you are a strong applicant.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/final-grade-calculator\"><span class=\"rc-icon\">🏁</span><span class=\"rc-name\">Final Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/test-score-calculator\"><span class=\"rc-icon\">📝</span><span class=\"rc-name\">Test Score Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Class Rank Calculator – Percentile, Standing and Admissions</h2><div class=\"form-group\"><label for=\"cr-rank\">Your Class Rank</label><input id=\"cr-rank\" min=\"1\" step=\"1\" type=\"number\" value=\"45\"/></div><div class=\"form-group\"><label for=\"cr-size\">Total Students in Class</label><input id=\"cr-size\" min=\"2\" step=\"1\" type=\"number\" value=\"350\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','Class Rank Calculator – Percentile, Standing and Admissions')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Class Rank Calculator – Percentile, Standing and Admissions')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-class-rank-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var rank=parseInt(document.getElementById('cr-rank').value)||0;\n  var size=parseInt(document.getElementById('cr-size').value)||0;\n  if(rank<=0||size<=0||rank>size){alert('Rank must be between 1 and class size.');return;}\n  var pct=((size-rank)/size)*100;\n  var topPct=(rank/size)*100;\n  var standing=topPct<=5?'Top 5% — Highly Competitive':topPct<=10?'Top 10% — Very Competitive':topPct<=25?'Top 25% — Competitive':topPct<=50?'Top Half':'Below Top Half';\n  var tier=topPct<=10?'Ivy League / Top 20 Competitive':topPct<=25?'Top 50 Universities':topPct<=40?'Competitive Colleges':'Most 4-Year Colleges';\n  var top10Cutoff=Math.ceil(size*0.10);\n  var top25Cutoff=Math.ceil(size*0.25);\n  var aiPrompt='Class rank: '+rank+' of '+size+' (top '+topPct.toFixed(1)+'%, '+pct.toFixed(1)+'th percentile)';\n  document.getElementById('ed-ri').innerHTML=\n    ri('Class Rank Percentile','<strong style=\"font-size:24px;color:var(--c-accent)\">'+pct.toFixed(1)+'th Percentile</strong>',true)+\n    ri('Your Standing',standing)+\n    ri('Rank',rank+' out of '+size+' students')+\n    ri('Top % of Class','Top '+topPct.toFixed(1)+'%')+\n    ri('Competitive For',tier)+\n    ri('Top 10% cutoff','Rank '+top10Cutoff+' or better needed')+\n    ri('Top 25% cutoff','Rank '+top25Cutoff+' or better needed');\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['Above You','Below You'],[rank-1,size-rank],['#c8832a','#1a5c3a']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about college admissions strategy and academic standing.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> Class rank defines your relative scholastic standing among peers in your graduating class cohort. Computed by sorting cumulative Grade Point Averages from highest to lowest, class rank establishes percentile deciles (Top 1%, Top 5%, Top 10%, Top Quartile) used by collegiate admissions committees and scholarship foundations. Calculate your cumulative record in our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link> and convert international credentials using our <Link href="/calculators/education/cgpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">CGPA calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Class Standing Brackets & Collegiate Admission Competitiveness
+          </h2>
+          <ClassRankPercentileDecileDistributionChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In secondary and post-secondary educational administration, class rank contextualizes student achievement within institutional environments. Because grading standards vary dramatically between high schools—where an A at one school requires mastery of multivariable calculus while at another it represents basic algebra—collegiate admissions officers rely on class rank to assess how vigorously a student outperformed their immediate cohort peers, applying principles of relative frequency analyzed in a <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Percentile Standing & Decile Brackets
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"R"}</Formula> represent the student&apos;s numerical rank position (<Formula>{"1 \le R \le N"}</Formula>), where Rank 1 represents the valedictorian holding the highest cumulative GPA. Let <Formula>{"N"}</Formula> denote the total number of students in the graduating class cohort. The top-percentage bracket <Formula>{"P_{\text{top}}"}</Formula> (measuring the fraction of the class at or above the student) is formulated as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"P_{\text{top}} = \left( \frac{R}{N} \right) \times 100\%"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To express standing as a standardized national percentile <Formula>{"P_{\text{standing}}"}</Formula> (representing the percentage of the class outranked by the student), educational statisticians apply continuity corrections:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"P_{\text{standing}} = \left( \frac{N - R + 0.5}{N} \right) \times 100\%"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Decile placement divides the graduating cohort into ten equal 10% tiers, calculated by:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\text{Decile} = \min\left(10, \left\lceil \frac{P_{\text{top}}}{10} \right\rceil\right)"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where Decile 1 corresponds to the top 10% (the 90th to 100th percentiles), Decile 2 represents the 80th to 89.9th percentiles, and Decile 10 represents the lowest 10% of the graduating class. When evaluating standardized test score concordance alongside class rank, candidates should correlate their profiles using our <Link href="/calculators/education/act-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ACT score calculator</Link> and <Link href="/calculators/education/sat-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">SAT score calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Class Standing Deciles & University Admissions Competitiveness Matrix
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays standardized decile classifications, quartile benchmarks, and admissions selectivity tiers across North American higher education:
+          </p>
+
+          <DataTable
+            head={["Cohort Standing", "Percentile Range", "Decile / Quartile", "Institutional Admissions Tier", "Typical Weighted GPA Alignment"]}
+            rows={[
+              ["Top 1% (Valedictorian / Salutatorian)", "99.0% – 100%", "Decile 1 (Top Tier)", "Ivy League / Stanford / MIT / Caltech", "4.40+ Weighted / 4.00 Unweighted"],
+              ["Top 5% (Highest Distinction)", "95.0% – 98.9%", "Decile 1", "Highly Selective (Duke / Vanderbilt / Rice)", "4.20 – 4.39 Weighted"],
+              ["Top 10% (State Automatic Admission)", "90.0% – 94.9%", "Decile 1", "Top Public Flagships (UT Austin / UVA / UNC)", "4.00 – 4.19 Weighted"],
+              ["Top 25% (First Quartile)", "75.0% – 89.9%", "Deciles 2 & 3", "Selective State Universities", "3.70 – 3.99 Weighted"],
+              ["Top 50% (Second Quartile)", "50.0% – 74.9%", "Deciles 4 & 5", "Regional Comprehensive Universities", "3.30 – 3.69 Weighted"],
+              ["Bottom 50% (Third / Fourth Quartiles)", "< 50.0%", "Deciles 6 to 10", "Open Enrollment / Test-Optional Pathways", "< 3.30 Weighted"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: Competitive Suburban High School Cohort
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A high school senior ranks 24th out of 480 students in a competitive suburban public school district, holding a weighted GPA of 4.28. The student targets the state flagship university, which enforces automatic undergraduate admission for applicants within the top 5% of their graduating class.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            First, calculate the top percentage: <Formula>{"(24 / 480) \times 100 = 5.00\%"}</Formula>. The student lands exactly on the 5.00% boundary. Calculating the percentile standing gives: <Formula>{"((480 - 24 + 0.5) / 480) \times 100 = (456.5 / 480) \times 100 = 95.10\%"}</Formula> (Decile 1). Because the student satisfies the 5.0% threshold, automatic admission is guaranteed, unlocking substantial institutional merit scholarships modeled in our <Link href="/calculators/education/scholarship-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">scholarship calculator</Link> and reducing net costs projected in our <Link href="/calculators/education/college-cost-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">college cost calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Small Private College Prep Academy Cohort
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A student attends a rigorous independent day school with a small graduating class of only 65 students. The student ranks 8th with an unweighted GPA of 3.88.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In a small cohort, each individual rank step carries substantial percentage weight: <Formula>{"1 / 65 = 1.54\%"}</Formula>. Ranking 8th places the student in the top <Formula>{"(8 / 65) \times 100 = 12.31\%"}</Formula> (the 88.46th percentile, Decile 2). Because small class sizes amplify rank volatility, selective private universities evaluate school profile context sheets that report median GPA bands rather than strict numerical rank. Students can verify their course grade percentages using our <Link href="/calculators/education/percentage-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage grade calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Weighted Rank vs Unweighted Rank Policies & The Academic 'AP Arms Race'
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The decision of whether high schools should weight class rank has generated significant pedagogical debate. In schools that rank students strictly by weighted GPA, students are strongly incentivized to maximize the sheer volume of Advanced Placement and International Baccalaureate courses on their schedules, sometimes avoiding valuable unweighted electives like student journalism, music, or visual arts to prevent diluting their weighted GPA denominator.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To mitigate this 'AP arms race,' forward-thinking school districts implement capped weighting models (limiting weighted bonuses to a maximum of six or eight AP courses) or report Latin honors deciles on official transcripts rather than individual numerical positions. Students can model their weekly academic workload and avoid extracurricular burnout through our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Educational References & Class Rank Standards
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Class rank calculation methodology, school profile reporting, and secondary-to-postsecondary transcript standards are governed by leading national educational bodies:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>National Association for College Admission Counseling (NACAC State of College Admission):</strong> Longitudinal surveys tracking the diminishing use of class rank in selective admissions.
+            </li>
+            <li>
+              <strong>College Board Secondary School Profile Guidelines:</strong> Standard frameworks for reporting GPA distribution graphs, grading scales, and class deciles to university admissions offices.
+            </li>
+            <li>
+              <strong>Texas Education Code (&sect; 51.803 Uniform Admission Policy):</strong> Statutory codified model for automatic collegiate admission based on class rank percentiles.
+            </li>
+          </ul>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            State Automatic Admissions Statutes & Legislative Class Rank Mandates
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In several prominent state higher education systems, class rank carries decisive legal force. Under legislative statutes such as the Texas Uniform Admission Policy (Texas Education Code &sect; 51.803), state public universities are legally required to admit all high school seniors who graduate in the top 10% (or top 6% for the University of Texas at Austin flagship campus) of their accredited secondary class. Similar automatic admission or guaranteed eligibility frameworks operate across California (Eligibility in the Local Context - ELC top 9%) and Florida (Talented Twenty Program).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            These legislative mandates were designed to ensure equitable geographic and socioeconomic representation across elite public universities, providing rural and urban high school scholars direct pathways to flagship higher education. Because an individual student&apos;s rank dictates automatic admission irrespective of standardized test score fluctuations, high school counseling offices monitor grade cutoffs with meticulous mathematical scrutiny.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Non-Ranking High Schools & Holistic Collegiate Evaluation Paradigms
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In response to hyper-competitive high school cultures where students obsess over microscopic GPA differentials, over half of American private independent academies and elite public suburban schools have completely eliminated the reporting of individual numerical rank. In non-ranking secondary schools, transcripts report raw weighted and unweighted GPAs accompanied by a detailed Secondary School Profile sheet displaying grade distribution scatter plots, median GPA bands, and decile histograms.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When evaluating candidates from non-ranking institutions, collegiate admissions committees apply holistic review frameworks, evaluating curriculum rigor, strength of senior-year coursework, leadership, and essay authentic voice. This balanced evaluation prevents students from being penalized for attending exceptionally competitive academic environments where median GPAs frequently exceed 3.75.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Decile Clustering & Transmit Protocol for National Scholarship Competitions
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            National merit scholarship foundations and corporate endowment committees rely on decile standing to standardize applicant scoring across diverse secondary school formats. In large graduating cohorts exceeding 600 students, numerical rank clustering often occurs: dozens of students may share identical unweighted 4.0 GPAs, creating multi-student ties at Rank 1. High school registrars resolve these ties through weighted quality point algorithms, third-decimal GPA computations, or by awarding co-valedictorian honors.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When reporting credentials to selective summer enrichment programs or military service academies, maintaining high class standing in conjunction with rigorous extracurricular leadership demonstrates well-rounded collegiate readiness. Understanding how your school computes class rank provides strategic clarity as students curate their multi-year high school course rosters.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Strategic High School Course Mapping & Academic Trajectory Planning
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Academic counselors recommend that secondary students map out their four-year high school curriculum strategically, balancing honors and advanced placement courses with sustainable personal well-being. Focusing on genuine intellectual curiosity and conceptual mastery naturally yields high academic marks, positioning scholars favorably within graduating class decile distributions without inducing counterproductive scholastic anxiety.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Ultimately, while class rank provides a valuable relative benchmark for state automatic admissions and national merit competitions, holistic admissions officers weigh comprehensive personal character, resilience, and unique intellectual passions alongside numerical standing.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Cultivating well-rounded scholarly pursuits and meaningful extracurricular impact ensures students present distinctive, compelling profiles to selective university selection committees.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Navigating class rank metrics with balanced perspective empowers students to pursue academic excellence with clarity, self-assurance, and strategic long-term foresight.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Embracing continuous personal growth ensures that secondary scholars thrive across competitive collegiate degree pathways.
+          </p>
+
+        </>
+      }
+    >
+      <ClassRankCalculatorComponent />
+    </CalcPage>
   );
 }

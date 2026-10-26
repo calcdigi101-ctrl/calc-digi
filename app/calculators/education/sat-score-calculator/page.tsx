@@ -1,26 +1,232 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import SatScoreCalculatorComponent from "@/components/calcs/education/sat-score-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SatScoreDistributionPercentilesChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/sat-score-calculator";
+const TITLE = "SAT Score Calculator | Total Composite, Percentile Rank & ACT Concordance";
+const DESCRIPTION =
+  "Calculate total SAT scores across Reading and Writing (EBRW) and Math sections (400-1600), national percentile rankings, and official ACT concordance equivalents.";
 
 export const metadata: Metadata = {
-  "title": "SAT Score Calculator – Raw Score to Scaled Score | CalcDigi",
-  "description": "Convert SAT raw scores to scaled scores. Understand SAT percentiles, score ranges, and what score you need for your target colleges.",
-  "openGraph": {
-    "title": "SAT Score Calculator – Raw Score to Scaled Score | CalcDigi",
-    "description": "Convert SAT raw scores to scaled scores. Understand SAT percentiles, score ranges, and what score you need for your target colleges.",
-    "type": "website",
-    "url": "/calculators/education/sat-score-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/sat-score-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/act-score-calculator", icon: "📊", name: "ACT Score" },
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/test-score-calculator", icon: "📝", name: "Test Score" },
+  { href: "/calculators/education/class-rank-calculator", icon: "🏆", name: "Class Rank" },
+  { href: "/calculators/education/scholarship-calculator", icon: "💵", name: "Scholarship" },
+  { href: "/calculators/education/college-cost-calculator", icon: "🏛️", name: "College Cost" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How is the total SAT composite score calculated?",
+    a: "The total SAT score ranges from 400 to 1600, calculated as the direct sum of two equal section scores: Evidence-Based Reading and Writing (EBRW, 200-800) and Mathematics (200-800). Each section score is derived from raw correct questions converted via proprietary College Board psychometric equating tables.",
+  },
+  {
+    q: "How does the Digital SAT multi-stage adaptive testing system work?",
+    a: "The Digital SAT operates on a multi-stage adaptive testing model. Each subject consists of two timed modules: Module 1 contains a balanced mix of easy, medium, and hard questions. Depending on your accuracy in Module 1, the test engine routes you to either an easier or harder Module 2. Performing well on Module 1 unlocks the harder second module, which is mandatory to achieve scores above 650.",
+  },
+  {
+    q: "Is there a penalty for guessing wrong answers on the SAT?",
+    a: "No. The SAT eliminated the quarter-point guessing penalty in 2016. Your score is based solely on the total number of correct questions. Students should never leave any question unanswered; even a blind guess carries a 25% mathematical probability of securing additional raw credit.",
+  },
+  {
+    q: "What SAT score is needed for top-tier competitive universities?",
+    a: "For top-20 national universities and Ivy League institutions, competitive applicant profiles typically exhibit composite SAT scores between 1500 and 1560 (placing students in the 98th to 99th+ percentiles). Combining high standardized scores with strong academic decile placement from our class rank calculator optimizes admission prospects.",
+  },
+];
+
+export default function SatScoreCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"SAT Score Calculator\", \"item\": \"https://calcdigi.com/calculators/education/sat-score-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"SAT Score Calculator\", \"url\": \"https://calcdigi.com/calculators/education/sat-score-calculator\", \"description\": \"Convert SAT raw scores to scaled scores. Understand SAT percentiles, score ranges, and what score you need for your target colleges.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is a good SAT score?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A good SAT score depends on your target colleges. Average: 1060. Good for most colleges: 1200+. Competitive colleges: 1300+. Top 20 universities: 1400+. Ivy League: 1500+. Aim for the 75th percentile of admitted students at your target schools. The College Board website shows score ranges for each college.\"}}, {\"@type\": \"Question\", \"name\": \"How is the SAT scored?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The SAT scores 400-1600 total. Each section (EBRW and Math) is scored 200-800. Correct answers earn points, wrong answers and blank answers earn no points — no penalty for guessing. Raw scores are converted to scaled scores through equating, which accounts for test difficulty variations across different administrations.\"}}, {\"@type\": \"Question\", \"name\": \"How many times can I take the SAT?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"You can take the SAT as many times as you want. Most students take it 2-3 times. The average student improves by 40-50 points on the second attempt. Many colleges now use Score Choice — you submit only the scores you want. Some schools use Superscoring (combining best section scores across multiple attempts).\"}}, {\"@type\": \"Question\", \"name\": \"Is the ACT or SAT better?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Both tests are equally accepted by all colleges. Key differences: SAT is more reading-heavy with longer passages. ACT has a Science section (data interpretation) and is slightly faster-paced. Most students score similarly on both, but try a practice test of each to see which feels more natural. Some students score significantly higher on one than the other.\"}}, {\"@type\": \"Question\", \"name\": \"What SAT score do I need for merit scholarships?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"National Merit Scholarship (based on PSAT): typically top 1% in your state. Many state universities offer full or partial merit scholarships at 1200-1400 SAT. University-specific merit scholarships vary — check each school website. Large merit scholarships are often available at 1200+ at schools where that score is above the average admitted student.\"}}, {\"@type\": \"Question\", \"name\": \"How do I improve my SAT score by 200 points?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"200-point improvement is achievable with 3-6 months of consistent preparation: take a full practice test to identify weak areas, focus 70% of study time on your weakest section, use Khan Academy official SAT prep daily, take 6-8 full practice tests under timed conditions, review every missed question thoroughly, and work on test-taking strategies and time management.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">SAT Score Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>SAT Score Calculator</h1>\n<p class=\"calc-intro\">Calculate your estimated SAT scaled score from raw scores, understand your percentile ranking, and see what scores are required for your target colleges. Learn how the SAT scoring system works and what score to aim for.</p>\n<p class=\"calc-intro\">The SAT is scored on a 400-1600 scale combining two sections: Evidence-Based Reading and Writing (200-800) and Math (200-800). Understanding how raw scores convert to scaled scores helps you set realistic prep goals and understand where you stand relative to admitted students at your target colleges.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Scaled Score = Raw Score converted via equating table | Total SAT = EBRW + Math (400-1600) | Percentile shows rank among all test takers</div></div>\n<div class=\"content-section\">\n<h2>SAT Score Scale and Structure</h2>\n<p>The Digital SAT (launched March 2024) consists of two modules: Reading and Writing (54 questions, 64 minutes) and Math (44 questions, 70 minutes). Each section is scored 200-800, for a total score of 400-1600. The digital SAT is adaptive — the second module difficulty adjusts based on your first module performance.</p>\n<h3>SAT Score Ranges for Colleges</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">College Tier</th><th style=\"padding:11px 14px;text-align:left;\">SAT Range</th><th style=\"padding:11px 14px;text-align:left;\">Approx. Percentile</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Ivy League (Harvard, MIT)</td><td style=\"padding:10px 14px;\">1500-1580</td><td style=\"padding:10px 14px;\">99th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Top 20 Universities</td><td style=\"padding:10px 14px;\">1400-1550</td><td style=\"padding:10px 14px;\">96-99th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Top 50 Universities</td><td style=\"padding:10px 14px;\">1300-1450</td><td style=\"padding:10px 14px;\">90-96th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Competitive Schools</td><td style=\"padding:10px 14px;\">1200-1350</td><td style=\"padding:10px 14px;\">81-90th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Average 4-Year College</td><td style=\"padding:10px 14px;\">1000-1200</td><td style=\"padding:10px 14px;\">60-81st percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Open Admissions</td><td style=\"padding:10px 14px;\">Below 1000</td><td style=\"padding:10px 14px;\">Accepted without SAT</td></tr></tbody></table></div>\n<h3>SAT Percentile Rankings</h3>\n<p>SAT percentiles show what percentage of test takers you scored equal to or better than. A 1200 score is approximately the 74th percentile — you scored higher than 74% of test takers. The average SAT score is approximately 1060 (52nd percentile). For college admissions, your score is compared to admitted students middle 50% range (25th-75th percentile of admitted class).</p>\n<h3>SAT Preparation Strategy</h3>\n<p>Official preparation: Khan Academy SAT prep (free, official, personalized), College Board practice tests (8 full-length free tests), and Official SAT Study Guide. Target areas: Math (algebra, problem-solving, data analysis) accounts for 50% of total score. Reading and Writing requires vocabulary in context, grammar rules, and reading comprehension. Most students improve 100-200 points with 3 months of consistent practice.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good SAT score? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A good SAT score depends on your target colleges. Average: 1060. Good for most colleges: 1200+. Competitive colleges: 1300+. Top 20 universities: 1400+. Ivy League: 1500+. Aim for the 75th percentile of admitted students at your target schools. The College Board website shows score ranges for each college.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is the SAT scored? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The SAT scores 400-1600 total. Each section (EBRW and Math) is scored 200-800. Correct answers earn points, wrong answers and blank answers earn no points — no penalty for guessing. Raw scores are converted to scaled scores through equating, which accounts for test difficulty variations across different administrations.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many times can I take the SAT? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">You can take the SAT as many times as you want. Most students take it 2-3 times. The average student improves by 40-50 points on the second attempt. Many colleges now use Score Choice — you submit only the scores you want. Some schools use Superscoring (combining best section scores across multiple attempts).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is the ACT or SAT better? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Both tests are equally accepted by all colleges. Key differences: SAT is more reading-heavy with longer passages. ACT has a Science section (data interpretation) and is slightly faster-paced. Most students score similarly on both, but try a practice test of each to see which feels more natural. Some students score significantly higher on one than the other.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What SAT score do I need for merit scholarships? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">National Merit Scholarship (based on PSAT): typically top 1% in your state. Many state universities offer full or partial merit scholarships at 1200-1400 SAT. University-specific merit scholarships vary — check each school website. Large merit scholarships are often available at 1200+ at schools where that score is above the average admitted student.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I improve my SAT score by 200 points? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">200-point improvement is achievable with 3-6 months of consistent preparation: take a full practice test to identify weak areas, focus 70% of study time on your weakest section, use Khan Academy official SAT prep daily, take 6-8 full practice tests under timed conditions, review every missed question thoroughly, and work on test-taking strategies and time management.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/final-grade-calculator\"><span class=\"rc-icon\">🏁</span><span class=\"rc-name\">Final Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/test-score-calculator\"><span class=\"rc-icon\">📝</span><span class=\"rc-name\">Test Score Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>SAT Score Calculator – Scaled Score and College Requirements</h2><div class=\"form-group\"><label for=\"sat-ebrw\">Reading &amp; Writing Raw Score (0-54)</label><input id=\"sat-ebrw\" max=\"54\" min=\"0\" step=\"1\" type=\"number\" value=\"40\"/></div><div class=\"form-group\"><label for=\"sat-math\">Math Raw Score (0-44)</label><input id=\"sat-math\" max=\"44\" min=\"0\" step=\"1\" type=\"number\" value=\"36\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','SAT Score Calculator – Scaled Score and College Requirements')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('SAT Score Calculator – Scaled Score and College Requirements')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-sat-score-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var EBRW_SCALE=[200,200,210,220,230,240,250,260,270,280,290,300,310,320,330,340,350,360,370,380,390,400,410,420,430,440,450,460,470,480,490,500,510,520,530,540,550,560,570,580,590,600,620,640,650,660,680,700,720,730,750,760,780,800,800];\nvar MATH_SCALE=[200,200,210,220,230,240,250,260,270,280,290,300,310,320,340,360,380,400,420,440,460,470,480,490,500,510,520,530,540,550,560,570,580,590,600,610,630,650,670,690,710,730,750,770,800];\nfunction doCalc(){\n  var ebrw=parseInt(document.getElementById('sat-ebrw').value)||0;\n  var math=parseInt(document.getElementById('sat-math').value)||0;\n  if(ebrw<0||ebrw>54||math<0||math>44){alert('Please enter valid raw scores.');return;}\n  var ebrwScaled=EBRW_SCALE[Math.min(ebrw,54)]||200;\n  var mathScaled=MATH_SCALE[Math.min(math,44)]||200;\n  var total=ebrwScaled+mathScaled;\n  var pct=total>=1550?99:total>=1500?99:total>=1450?97:total>=1400?95:total>=1350?91:total>=1300?87:total>=1250?82:total>=1200?74:total>=1150?66:total>=1100?57:total>=1050?48:total>=1000?40:total>=950?32:total>=900?24:total>=850?18:total>=800?12:8;\n  var tier=total>=1500?'Ivy League Competitive':total>=1400?'Top 20 Universities':total>=1300?'Top 50 Universities':total>=1200?'Competitive Colleges':total>=1000?'Average 4-Year College':'Below Average';\n  var aiPrompt='SAT score: '+total+'/1600 ('+pct+'th percentile), '+tier;\n  document.getElementById('ed-ri').innerHTML=\n    ri('SAT Total Score','<strong style=\"font-size:28px;color:var(--c-accent)\">'+total+' / 1600</strong>',true)+\n    ri('Percentile','~'+pct+'th percentile')+\n    ri('College Tier',tier)+\n    ri('Reading & Writing',ebrwScaled+' / 800')+\n    ri('Math',mathScaled+' / 800')+\n    ri('Points to 1400',Math.max(1400-total,0)+' points needed');\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['EBRW','Math'],[ebrwScaled,mathScaled],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about SAT preparation and improving your score.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> The SAT composite score represents standardized evaluation of collegiate academic readiness, administered globally by the College Board. Consisting of two section components—Evidence-Based Reading and Writing (EBRW) and Mathematics, each scaled 200 to 800—your total score out of 1600 determines college admission selectivity and automatic merit scholarship brackets. Compare section metrics with our <Link href="/calculators/education/act-score-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">ACT score calculator</Link> and track course academic records in our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: College Board SAT Total Composite Score Percentile Curve
+          </h2>
+          <SatScoreDistributionPercentilesChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The Scholastic Assessment Test (SAT) has served as the cornerstone of American collegiate admissions for nearly a century. With the transition to the Digital SAT format, the examination employs modern psychometric algorithms and multi-stage adaptive testing. The test assesses verbal comprehension, grammatical rhetoric, algebra, advanced mathematics, problem-solving, and data analysis. Because scores are reported on a discrete 400 to 1600 scale, understanding percentile distributions is essential for targeting competitive university admissions, mirroring analysis in a <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Digital SAT Composite Scoring & Scaling
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The total SAT score <Formula>{"S_{\text{total}}"}</Formula> represents the simple additive combination of the scaled Evidence-Based Reading and Writing score (<Formula>{"S_{\text{EBRW}}"}</Formula>) and the scaled Mathematics score (<Formula>{"S_{\text{Math}}"}</Formula>):
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"S_{\text{total}} = S_{\text{EBRW}} + S_{\text{Math}}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where each section score satisfies <Formula>{"200 \le S \le 800"}</Formula> in standard increments of 10 points. Under the Digital SAT architecture, raw scores are not mapped via simple linear proportions. Instead, the College Board utilizes Item Response Theory (IRT), where each question possesses three mathematical parameters: item difficulty (<Formula>{"b"}</Formula>), discrimination (<Formula>{"a"}</Formula>), and pseudo-guessing (<Formula>{"c"}</Formula>).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The probability <Formula>{"P(\theta)"}</Formula> of a student with latent ability <Formula>{"\theta"}</Formula> answering question <Formula>{"i"}</Formula> correctly is modeled by the three-parameter logistic (3PL) function:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"P_i(\theta) = c_i + \frac{1 - c_i}{1 + e^{-a_i(\theta - b_i)}}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because harder questions award higher discriminative value toward <Formula>{"\theta"}</Formula>, answering complex multi-step math problems correctly yields greater scaled score elevation than answering introductory arithmetic items. Students seeking to evaluate question penalty impacts and raw accuracy rates can model performance through our <Link href="/calculators/education/test-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">test score calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            College Board SAT Score to National Percentile & Selectivity Conversion Schedule
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays official College Board nationally representative percentiles, ACT concordance equivalents, and institutional competitiveness benchmarks:
+          </p>
+
+          <DataTable
+            head={["SAT Total Score", "National Percentile", "ACT Equivalent", "University Selectivity Classification", "Admissions Standing & Honors Profile"]}
+            rows={[
+              ["1550 – 1600", "99th+ Percentile", "35 – 36", "Ivy League & Elite (Harvard / Stanford / MIT)", "National Merit Finalist / Full Presidential Ride"],
+              ["1450 – 1540", "96th – 99th Percentile", "33 – 34", "Highly Selective (Georgetown / Michigan / UVA)", "Dean's Honors Fellowship / Merit Scholarship"],
+              ["1350 – 1440", "89th – 95th Percentile", "30 – 32", "Selective State Flagships (Wisconsin / Purdue)", "Automatic Out-of-State Tuition Waiver"],
+              ["1250 – 1340", "79th – 88th Percentile", "26 – 29", "Competitive Regional Universities", "Standard University Merit Grant"],
+              ["1150 – 1240", "66th – 78th Percentile", "23 – 25", "Above National Average", "Standard Collegiate Admission Track"],
+              ["1050 – 1140", "50th – 65th Percentile", "20 – 22", "National Median Score", "State Residency Admissible"],
+              ["950 – 1040", "33rd – 49th Percentile", "18 – 19", "Below National Median", "Academic Advisory Track"],
+              ["< 950", "< 33rd Percentile", "< 18", "Academic Remediation Required", "Test-Optional Admission Route Advised"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: High-Scoring STEM Candidate Target Analysis
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An engineering candidate achieves a perfect 800 on the Mathematics section but scores 680 on Evidence-Based Reading and Writing, producing an aggregate total score of 1480 (97th national percentile). While the 800 Math score demonstrates flawless quantitative readiness, the student targets an elite university where the middle-50% composite range is 1510 to 1560.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To reach the 1520 benchmark without diminishing the perfect Math score, the candidate focuses exclusively on EBRW grammar and rhetorical structure questions. Because reading speed and retention directly dictate EBRW performance, the student utilizes our <Link href="/calculators/education/reading-speed-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">reading speed calculator</Link> to optimize pacing. Raising the EBRW score from 680 to 730 elevates the composite to 1530 (99th percentile), significantly strengthening institutional scholarship awards modeled in our <Link href="/calculators/education/scholarship-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">scholarship calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Digital SAT Superscoring Across Multiple Administrations
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A high school senior takes the Digital SAT twice. In the October administration, the student scores 720 on EBRW and 640 on Math (Total = 1360). In the November administration, after intensive calculus review, the student scores 670 on EBRW and 730 on Math (Total = 1400).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under College Board Score Choice and institutional superscoring policies, admissions officers combine the highest section results: 720 EBRW (from October) + 730 Math (from November) = 1450 Official Superscore. This 1450 composite elevates the student from the 93rd percentile into the 96th percentile, qualifying the applicant for automatic state honors tuition waivers that reduce out-of-pocket tuition tracked in our <Link href="/calculators/education/college-cost-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">college cost calculator</Link> and long-term repayment modeled in our <Link href="/calculators/education/student-loan-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">student loan calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Digital SAT Adaptive Testing Mechanics & Section Routing Architecture
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The Digital SAT architecture introduces multi-stage adaptive testing (MST) to shorten testing duration to 2 hours and 14 minutes. For both Reading/Writing and Math, students complete Module 1 (27 questions for Reading/Writing, 22 questions for Math). The testing software evaluates response accuracy in real time. If the student answers approximately two-thirds of Module 1 items correctly, the algorithm routes the test-taker to the higher-difficulty Module 2.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Unlocking the harder second module is essential: a student routed to the easier second module has their maximum section score capped at approximately 600 to 620, regardless of how many items they answer correctly in Module 2. Conversely, navigating the harder second module permits scores up to the maximum 800 ceiling. Students can optimize daily study hours and timed practice sessions through our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Testing Standards & International Educational Accords
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Standardized testing integrity, validity metrics, and score concordance frameworks are maintained by leading educational associations:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>The College Board:</strong> Official developer and administrator of the SAT, PSAT/NMSQT, and Advanced Placement programs.
+            </li>
+            <li>
+              <strong>National Center for Fair & Open Testing (FairTest):</strong> Research organization monitoring test-optional admissions trends and equitable evaluation practices.
+            </li>
+            <li>
+              <strong>National Association for College Admission Counseling (NACAC Code of Ethics):</strong> Statement of principles governing equitable standardized test score evaluation in collegiate admissions.
+            </li>
+          </ul>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Digital SAT Module Difficulty Routing & Item Response Theory (IRT)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under the College Board&apos;s digital adaptive testing architecture, test-takers encounter dynamic branching between Module 1 and Module 2. In Module 1, questions represent an evenly stratified distribution of low, medium, and high difficulty parameters. The test software continuously estimates the student&apos;s latent ability score (<Formula>{"\theta"}</Formula>) using maximum likelihood psychometric functions. If performance surpasses the upper threshold, the student is routed to the advanced Module 2, which presents questions with higher discrimination indices.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Securing access to the advanced module is essential for achieving competitive scores above 650 points per section. If a candidate is routed to the lower-tier module, the highest mathematically achievable section score is capped at approximately 600, regardless of whether the student achieves 100% accuracy on the second module. Consequently, test-taking coaches emphasize intense concentration during the first 25 minutes of each section, treating Module 1 as a mandatory gateway to upper-percentile admissions tiers.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            College Board Sub-Scores, Cross-Test Analysis & Superscore Verification
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In addition to reporting overall section scores, official Digital SAT score reports deliver granular analytical diagnostics across sub-score categories: Heart of Algebra, Problem Solving and Data Analysis, Passport to Advanced Math, Expression of Ideas, and Standard English Conventions. Admissions committees at technological institutes and competitive business schools review these sub-scores to verify specific mathematical fluencies before granting admission into rigorous degree tracks.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, collegiate institutions utilizing official College Board electronic score delivery systems automate superscore generation across all verified test administrations, granting applicants the benefit of their composite best. Combining strong standardized testing scores with rigorous secondary coursework ensures that candidates build compelling admissions portfolios that withstand holistic admissions scrutiny.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Test Day Bluebook Application Architecture & Digital Proctoring Controls
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The Digital SAT is administered via the College Board&apos;s custom Bluebook testing platform, downloadable on personal laptops, school-managed Chromebooks, or iPads. The Bluebook application integrates an embedded graphing calculator (Desmos), digital annotator, reference formula sheets, and a countdown timer that students can show or hide to manage test-induced anxiety. Because the testing platform functions asynchronously without continuous internet connectivity once exams are loaded, students are shielded against local Wi-Fi drops during examination sessions.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, familiarizing oneself with built-in Desmos graphing shortcuts provides substantial tactical advantages in the Math section, allowing students to verify complex polynomial intercepts and systems of equations graphically in seconds. Adopting structured digital preparation protocols ensures candidates perform with maximum speed, confidence, and accuracy.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            International educational testing centers emphasize that comprehensive test preparation should balance conceptual algebra and grammar review with timed endurance practice. Simulating complete digital test administrations eliminates pacing surprises, helping students achieve peak scaled score results on official examination day.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, understanding how individual section scores interact with collegiate scholarship formulas empowers students to make data-driven decisions regarding test retakes, maximizing their overall higher education financing opportunities.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering test pacing through focused problem-solving strategies ensures that students convert their preparation into top-tier standardized percentile standing on official exam day.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consulting official College Board diagnostic scoring grids allows candidates to target specific analytical weaknesses, unlocking higher percentile admission tiers.
+          </p>
+
+        </>
+      }
+    >
+      <SatScoreCalculatorComponent />
+    </CalcPage>
   );
 }
