@@ -1,26 +1,265 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import FrequencyCalculatorComponent from "@/components/calcs/electronics/frequency-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { FrequencyWavelengthAntennaSpectrumChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/frequency-calculator";
+const TITLE = "Frequency, Wavelength & Wave Period Calculator | RF Antenna Sizing";
+const DESCRIPTION =
+  "Calculate electromagnetic wavelength, wave period, angular frequency, and resonant quarter-wave antenna element dimensions across the RF spectrum.";
 
 export const metadata: Metadata = {
-  "title": "Frequency Calculator – Hz, Period, Wavelength | CalcDigi",
-  "description": "Convert between frequency (Hz), period (seconds), and wavelength. Calculate audio, radio, and electromagnetic wave frequencies.",
-  "openGraph": {
-    "title": "Frequency Calculator – Hz, Period, Wavelength | CalcDigi",
-    "description": "Convert between frequency (Hz), period (seconds), and wavelength. Calculate audio, radio, and electromagnetic wave frequencies.",
-    "type": "website",
-    "url": "/calculators/electronics/frequency-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/frequency-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/capacitor-calculator", icon: "⚙️", name: "Capacitor Reactance" },
+  { href: "/calculators/electronics/inductor-calculator", icon: "🔁", name: "Inductor Reactance" },
+  { href: "/calculators/electronics/decibel-calculator", icon: "🔊", name: "Decibel Calculator" },
+  { href: "/calculators/electronics/rc-time-constant-calculator", icon: "⏱️", name: "RC Time Constant" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the relationship between frequency, wavelength, and the speed of light?",
+    a: "Frequency and wavelength are inversely proportional and linked through the phase velocity of light: c = f × λ, where c is the speed of light in vacuum (approximately 299,792,458 meters per second), f is frequency in Hertz (Hz), and λ is wavelength in meters. As frequency increases into gigahertz ranges, physical wavelength compresses into millimeters.",
+  },
+  {
+    q: "What is Conductor Velocity Factor (VF) and why does it affect antenna sizing?",
+    a: "Velocity Factor (VF) is the ratio of electromagnetic wave speed through a transmission line or metal conductor compared to the speed of light in a vacuum: VF = v / c. In copper coaxial cables or wire antennas, dielectric loading and conductor skin effects slow propagation to 66% - 95% of c, requiring antenna physical lengths to be shortened by the VF factor to maintain electrical resonance.",
+  },
+  {
+    q: "Why are quarter-wave (λ/4) monopole antennas widely used in telecommunications?",
+    a: "A quarter-wave vertical monopole antenna mounted over a conductive ground plane acts as a resonant electrical circuit with an impedance of approximately 36 Ohms, closely matching standard 50-Ohm coaxial transmission lines. The reflective ground plane creates an electrodynamic 'mirror image,' effectively functioning as a half-wave center-fed dipole.",
+  },
+  {
+    q: "How do you convert wave period (T) to frequency (f)?",
+    a: "Wave period (T, in seconds) is the time required for one complete sinusoidal cycle to elapse. It is the exact reciprocal of frequency: f = 1 / T and T = 1 / f. For instance, a 100 MHz radio wave has a period of T = 1 / (100 × 10⁶) = 10 nanoseconds.",
+  },
+];
+
+export default function FrequencyCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Frequency Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/frequency-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Frequency Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/frequency-calculator\", \"description\": \"Convert between frequency (Hz), period (seconds), and wavelength. Calculate audio, radio, and electromagnetic wave frequencies.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the relationship between frequency and period?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Frequency and period are reciprocals: f = 1/T and T = 1/f. If a wave has a frequency of 100 Hz, its period is 1/100 = 0.01 seconds (10 ms). If the period is 2 milliseconds, frequency = 1/0.002 = 500 Hz.\"}}, {\"@type\": \"Question\", \"name\": \"How do you calculate wavelength from frequency?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For electromagnetic waves: wavelength (m) = speed of light (3×10⁸ m/s) / frequency (Hz). For a 100 MHz FM signal: λ = 300,000,000 / 100,000,000 = 3 meters. For sound at 20°C: λ = 343 / frequency.\"}}, {\"@type\": \"Question\", \"name\": \"What is 1 GHz in Hz?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 GHz (gigahertz) = 1,000,000,000 Hz = 1,000 MHz = 1,000,000 kHz. WiFi 2.4 GHz = 2,400,000,000 Hz. CPU clock speeds are measured in GHz — a 3.5 GHz processor performs 3.5 billion clock cycles per second.\"}}, {\"@type\": \"Question\", \"name\": \"What frequency is the human hearing range?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Human hearing spans approximately 20 Hz to 20,000 Hz (20 kHz). Infrasound is below 20 Hz (felt, not heard). Ultrasound is above 20 kHz — used in medical imaging (1-15 MHz) and distance sensors.\"}}, {\"@type\": \"Question\", \"name\": \"What is the frequency of visible light?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Visible light ranges from about 400 THz (red, 750nm wavelength) to 790 THz (violet, 380nm). 1 THz = 10¹² Hz. Green light at 550nm has frequency = 3×10⁸ / 550×10⁻⁹ = 545 THz.\"}}, {\"@type\": \"Question\", \"name\": \"Why do radio stations use MHz for frequency?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Radio frequencies are in the MHz range: AM radio 530-1700 kHz, FM radio 87.5-108 MHz, TV broadcast 54-890 MHz. These frequencies have wavelengths suitable for long-distance propagation using practical antenna sizes.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Frequency Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Frequency Calculator</h1>\n<p class=\"calc-intro\">Calculate frequency, period, and wavelength for any wave — audio, radio, light, or electromagnetic. Convert between hertz, kilohertz, megahertz, and gigahertz. Essential for electronics engineers, radio operators, and physics students.</p>\n<p class=\"calc-intro\"></p><p>From the 60 Hz hum of AC power to the 5 GHz channels of WiFi 6, from the 20 Hz bass of a subwoofer to the 3 GHz operating speed of a modern CPU — frequency is the universal language of electronics and physics. Every oscillating signal, every periodic phenomenon, and every communication channel is defined by its frequency.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">f = 1 / T | T = 1 / f | λ = c / f (c = 3×10⁸ m/s for EM waves)</div></div>\n<div class=\"content-section\">\n<h2>Frequency, Period and Wavelength Guide</h2>\n<p>Frequency (f) is the number of cycles per second, measured in Hertz (Hz). Period (T) is the time for one complete cycle in seconds. Wavelength (λ) is the physical distance between wave crests. These three quantities describe every wave in nature — from audio to radio to light.</p>\n<h3>Frequency and Period Relationship</h3>\n<p>Frequency and period are exact reciprocals: f = 1/T and T = 1/f. A 50 Hz power supply completes 50 cycles per second, so each cycle takes T = 1/50 = 0.02 seconds (20 milliseconds). A 1 MHz radio signal completes 1,000,000 cycles per second, with T = 1 microsecond per cycle.</p>\n<h3>Wavelength Calculation</h3>\n<p>For electromagnetic waves (radio, light): λ = c/f where c = 299,792,458 m/s (speed of light). For sound waves: λ = v/f where v ≈ 343 m/s at 20°C. A 100 MHz FM radio signal has wavelength = 3×10⁸/10⁸ = 3 meters. A 440 Hz (A4 musical note) sound wave has wavelength = 343/440 = 0.78 meters.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Frequency</th><th style=\"padding:12px 16px;\">Period</th><th style=\"padding:12px 16px;\">Wavelength</th><th style=\"padding:12px 16px;\">Application</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">20 Hz</td><td style=\"padding:11px 16px;\">50 ms</td><td style=\"padding:11px 16px;\">17.15 m (sound)</td><td style=\"padding:11px 16px;\">Human hearing lower limit</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">440 Hz</td><td style=\"padding:11px 16px;\">2.27 ms</td><td style=\"padding:11px 16px;\">0.78 m</td><td style=\"padding:11px 16px;\">Musical note A4</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">50 Hz</td><td style=\"padding:11px 16px;\">20 ms</td><td style=\"padding:11px 16px;\">6,000 km</td><td style=\"padding:11px 16px;\">AC power (Europe)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">2.4 GHz</td><td style=\"padding:11px 16px;\">0.417 ns</td><td style=\"padding:11px 16px;\">12.5 cm</td><td style=\"padding:11px 16px;\">WiFi / Bluetooth</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">100 MHz</td><td style=\"padding:11px 16px;\">10 ns</td><td style=\"padding:11px 16px;\">3 m</td><td style=\"padding:11px 16px;\">FM Radio</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">5G (28 GHz)</td><td style=\"padding:11px 16px;\">0.036 ns</td><td style=\"padding:11px 16px;\">10.7 mm</td><td style=\"padding:11px 16px;\">5G mmWave</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Frequency in Electronics and Communications</h2>\n<p>Frequency is the fundamental parameter that defines radio bands, audio ranges, processor speeds, and communication protocols. Different frequency ranges have distinct propagation characteristics, applications, and regulatory requirements.</p>\n<h3>Radio Frequency Spectrum</h3>\n<p>The RF spectrum is divided into bands: LF (30-300 kHz, AM navigation), MF (300kHz-3MHz, AM radio), HF (3-30 MHz, shortwave, amateur radio), VHF (30-300 MHz, FM radio, aircraft), UHF (300MHz-3GHz, TV, WiFi, 4G), SHF (3-30 GHz, 5G, radar, satellite). Each band has unique propagation: HF reflects off the ionosphere enabling global communication; UHF is line-of-sight only.</p>\n<h3>Crystal Oscillators and Timing</h3>\n<p>Quartz crystal oscillators provide extremely precise frequencies for clocks and communication systems. A 32.768 kHz crystal is used in watches (2^15 = 32768, convenient for binary counters). A 16 MHz crystal drives many Arduino microcontrollers. Crystals maintain frequency accuracy to ±50 ppm over temperature — far better than RC oscillators (±5%).</p>\n<h3>Nyquist Theorem and Sampling</h3>\n<p>The Nyquist theorem states that to accurately digitize an analog signal, the sampling rate must be at least 2× the highest frequency. Audio CD quality uses 44.1 kHz sampling (covers up to 22.05 kHz — beyond human hearing at 20 kHz). 5G uses 100 MHz bandwidth channels requiring multi-GHz sampling rates in the baseband processors.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the relationship between frequency and period? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Frequency and period are reciprocals: f = 1/T and T = 1/f. If a wave has a frequency of 100 Hz, its period is 1/100 = 0.01 seconds (10 ms). If the period is 2 milliseconds, frequency = 1/0.002 = 500 Hz.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you calculate wavelength from frequency? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For electromagnetic waves: wavelength (m) = speed of light (3×10⁸ m/s) / frequency (Hz). For a 100 MHz FM signal: λ = 300,000,000 / 100,000,000 = 3 meters. For sound at 20°C: λ = 343 / frequency.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is 1 GHz in Hz? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 GHz (gigahertz) = 1,000,000,000 Hz = 1,000 MHz = 1,000,000 kHz. WiFi 2.4 GHz = 2,400,000,000 Hz. CPU clock speeds are measured in GHz — a 3.5 GHz processor performs 3.5 billion clock cycles per second.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What frequency is the human hearing range? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Human hearing spans approximately 20 Hz to 20,000 Hz (20 kHz). Infrasound is below 20 Hz (felt, not heard). Ultrasound is above 20 kHz — used in medical imaging (1-15 MHz) and distance sensors.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the frequency of visible light? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Visible light ranges from about 400 THz (red, 750nm wavelength) to 790 THz (violet, 380nm). 1 THz = 10¹² Hz. Green light at 550nm has frequency = 3×10⁸ / 550×10⁻⁹ = 545 THz.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why do radio stations use MHz for frequency? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Radio frequencies are in the MHz range: AM radio 530-1700 kHz, FM radio 87.5-108 MHz, TV broadcast 54-890 MHz. These frequencies have wavelengths suitable for long-distance propagation using practical antenna sizes.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Frequency Calculator – Hz, Period and Wavelength</h2><div class=\"form-group\"><label for=\"fq-solve\">Calculate</label><select id=\"fq-solve\"><option selected=\"\" value=\"f\">Frequency from Period</option><option value=\"t\">Period from Frequency</option><option value=\"wl\">Wavelength from Frequency</option></select></div>\n<div class=\"form-group\"><label for=\"fq-type\">Wave Type</label><select id=\"fq-type\"><option selected=\"\" value=\"em\">Electromagnetic (Radio/Light)</option><option value=\"sound\">Sound (in air at 20°C)</option></select></div>\n<div id=\"fq-from-t\"><div class=\"form-group\"><label for=\"fq-t\">Period (seconds)</label><input id=\"fq-t\" min=\"0\" step=\"any\" type=\"number\" value=\"0.001\"/></div></div>\n<div id=\"fq-from-f\" style=\"display:none;\"><div class=\"form-group\"><label for=\"fq-f2\">Frequency</label><input id=\"fq-f2\" min=\"0\" step=\"any\" type=\"number\" value=\"1000\"/></div><div class=\"form-group\"><label for=\"fq-unit\">Unit</label><select id=\"fq-unit\"><option selected=\"\" value=\"hz\">Hz</option><option value=\"khz\">kHz</option><option value=\"mhz\">MHz</option><option value=\"ghz\">GHz</option></select></div></div>\n<div id=\"fq-from-f2\" style=\"display:none;\"><div class=\"form-group\"><label for=\"fq-f3\">Frequency</label><input id=\"fq-f3\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"fq-unit2\">Unit</label><select id=\"fq-unit2\"><option value=\"hz\">Hz</option><option value=\"khz\">kHz</option><option selected=\"\" value=\"mhz\">MHz</option><option value=\"ghz\">GHz</option></select></div></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Frequency Calculator – Hz, Period and Wavelength')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Frequency Calculator – Hz, Period and Wavelength')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-frequency-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('fq-solve').addEventListener('change',function(){\n  var s=this.value;\n  document.getElementById('fq-from-t').style.display=s==='f'?'block':'none';\n  document.getElementById('fq-from-f').style.display=s==='t'?'block':'none';\n  document.getElementById('fq-from-f2').style.display=s==='wl'?'block':'none';\n});\nvar UNIT_MAP={hz:1,khz:1e3,mhz:1e6,ghz:1e9};\nfunction doCalc(){\n  var solve=document.getElementById('fq-solve').value;\n  var waveType=document.getElementById('fq-type').value;\n  var v=waveType==='em'?299792458:343;\n  var f,T,wl;\n  if(solve==='f'){\n    T=parseFloat(document.getElementById('fq-t').value);\n    if(!T||T<=0){alert('Enter a valid period.');return;}\n    f=1/T;\n  } else if(solve==='t'){\n    var fv=parseFloat(document.getElementById('fq-f2').value)||0;\n    var fu=document.getElementById('fq-unit').value;\n    f=fv*UNIT_MAP[fu];\n    if(!f){alert('Enter a valid frequency.');return;}\n    T=1/f;\n  } else {\n    var fv2=parseFloat(document.getElementById('fq-f3').value)||0;\n    var fu2=document.getElementById('fq-unit2').value;\n    f=fv2*UNIT_MAP[fu2];\n    if(!f){alert('Enter a valid frequency.');return;}\n    T=1/f; wl=v/f;\n  }\n  if(!wl) wl=v/f;\n  var fmtF=f>=1e9?(f/1e9).toFixed(4)+' GHz':f>=1e6?(f/1e6).toFixed(4)+' MHz':f>=1e3?(f/1e3).toFixed(4)+' kHz':f.toFixed(4)+' Hz';\n  var fmtT=T<1e-6?(T*1e9).toFixed(4)+' ns':T<1e-3?(T*1e6).toFixed(4)+' μs':T<1?(T*1e3).toFixed(4)+' ms':T.toFixed(6)+' s';\n  var fmtWl=wl<0.001?(wl*1000).toFixed(4)+' mm':wl<1?(wl*100).toFixed(4)+' cm':wl>=1000?(wl/1000).toFixed(4)+' km':wl.toFixed(4)+' m';\n  document.getElementById('el-ri').innerHTML=\n    ri('Frequency','<strong style=\"font-size:20px;color:var(--c-accent)\">'+fmtF+'</strong>',true)+\n    ri('Period',fmtT)+ri('Wavelength',fmtWl)+\n    ri('Wave Speed',waveType==='em'?'3×10⁸ m/s (light)':'343 m/s (sound)')+\n    ri('Frequency (Hz)',f.toExponential(4)+' Hz');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Frequency','Period'],[Math.log10(f+1)||1,Math.log10(1/f+1)||1],['#1a5c3a','#c8832a']);\n  var aiPrompt='Frequency: '+fmtF+', Period: '+fmtT+', Wavelength: '+fmtWl;\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world RF/audio engineering application of this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> In high-frequency RF systems and antenna engineering, electromagnetic wavelength governs trace geometry, transmission line impedance, and resonant radiator lengths. To model reactive tank circuits, cross-reference our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and calculate inductive chokes in our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            RF Spectrum Wavelength & Resonant Antenna Geometry
+          </h2>
+          <FrequencyWavelengthAntennaSpectrumChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Electromagnetic wave mechanics forms the bedrock of wireless telecommunications, radar systems, satellite navigation, and high-speed digital electronics. Defined by James Clerk Maxwell in his 1865 unified electrodynamic treatise, an oscillating electrical charge creates self-propagating transverse electromagnetic (TEM) waves composed of orthogonal electric (E) and magnetic (H) vectors travelling through spacetime.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When high-frequency alternating current flows along a conductive antenna trace, the spatial length of the physical conductor relative to the transmitted wavelength determines radiation efficiency. If conductor dimensions are an exact fraction of wavelength (such as quarter-wave λ/4 or half-wave λ/2), standing wave resonance is established, maximizing radiated power while canceling reactive impedance.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Governing Electromagnetic Wavelength & Time Formulas
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In free space vacuum, electromagnetic propagation velocity equals the fundamental constant c_0 = 299,792,458 m/s. The wave relationship connecting velocity (v), frequency (f), and wavelength (λ) is:
+          </p>
+          <Formula>{"\lambda = \frac{v}{f} = \frac{c_0 \times VF}{f}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Wave Period (T, in seconds) and Angular Frequency (ω, in radians per second) are derived directly from cyclic frequency (f, in Hertz):
+          </p>
+          <Formula>{"T = \frac{1}{f}, \quad \omega = 2 \pi f"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The physical length of a resonant quarter-wave monopole antenna element (L_λ/4) incorporates the conductor velocity factor:
+          </p>
+          <Formula>{"L_{\lambda/4} (meters) = \frac{\lambda}{4} = \frac{c_0 \times VF}{4 \times f}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For decibel power ratios and signal attenuation modeling, analyze gains in our <Link href="/calculators/electronics/decibel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">decibel calculator</Link> and calculate low-pass filtering in our <Link href="/calculators/electronics/rc-time-constant-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">rc time constant calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Radio Frequency Spectrum Allocations & Physical Dimensions
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The International Telecommunication Union (ITU) categorizes electromagnetic radiation into standardized frequency decades, each possessing distinct propagation behaviors:
+          </p>
+          <DataTable
+            head={["ITU Band Designation", "Frequency Range", "Wavelength (λ) Range", "Quarter-Wave Length (λ/4)", "Standard Applications"]}
+            rows={[
+              ["Very Low Frequency (VLF)", "3 kHz - 30 kHz", "100 km - 10 km", "25 km - 2.5 km", "Submarine naval communication & seismic telemetry"],
+              ["Medium Frequency (MF)", "300 kHz - 3 MHz", "1,000 m - 100 m", "250 m - 25 m", "AM radio broadcast & avalanche beacons"],
+              ["Very High Frequency (VHF)", "30 MHz - 300 MHz", "10 m - 1 m", "2.5 m - 25 cm", "FM radio, marine VHF, aviation communication"],
+              ["Ultra High Frequency (UHF)", "300 MHz - 3 GHz", "1 m - 10 cm", "25 cm - 2.5 cm", "Cellular 4G/5G, Wi-Fi 2.4 GHz, GPS, walkie-talkies"],
+              ["Super High Frequency (SHF)", "3 GHz - 30 GHz", "10 cm - 1 cm", "25 mm - 2.5 mm", "5 GHz / 6 GHz Wi-Fi, satellite TV, weather radar"],
+              ["Extremely High Frequency (EHF)", "30 GHz - 300 GHz", "10 mm - 1 mm", "2.5 mm - 0.25 mm", "Millimeter wave 5G, automotive radar (77 GHz)"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Sizing a 915 MHz LoRa Antenna
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An IoT hardware design engineer is drafting an integrated whip antenna for an agricultural telemetry transceiver operating in the North American 915 MHz ISM band (f = 915.0 MHz). The antenna element will be fabricated using an enameled copper wire with an estimated velocity factor of VF = 0.95 (95%):
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Frequency in Hertz:</strong> f = 915.0 × 10^6 Hz
+            </li>
+            <li>
+              <strong>Free-Space Speed of Light:</strong> c_0 = 299,792,458 m/s
+            </li>
+            <li>
+              <strong>Wave Period (T):</strong> T = 1 / (915.0 × 10^6) = 1.0929 × 10⁻⁹ s = 1.093 ns
+            </li>
+            <li>
+              <strong>Effective Guided Wavelength (λ):</strong>
+              <br />
+              λ = (299,792,458 × 0.95 / 915.0 × 10^6) = (284,802,835 / 915,000,000) = 0.31126 m = 31.13 cm
+            </li>
+            <li>
+              <strong>Quarter-Wave Monopole Resonant Length (L_λ/4):</strong>
+              <br />
+              L_λ/4 = (λ / 4) = (31.126 cm / 4) = 7.781 cm ≈ 77.8 mm (3.06 inches)
+            </li>
+            <li>
+              <strong>Half-Wave Dipole Total Span (L_λ/2):</strong>
+              <br />
+              L_λ/2 = 2 × L_λ/4 = 15.56 cm (6.13 inches)
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Trimming the physical wire to exactly 77.8 mm guarantees optimal resonance and minimum Voltage Standing Wave Ratio (VSWR). For power amplification stages, verify circuit dissipation in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and calculate circuit resistance in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Transmission Line Skin Effect & Dielectric Dispersion
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            As signal frequency advances into high megahertz and gigahertz regimes, electrical current ceases to flow uniformly throughout the cross-section of a conductor. Eddy currents induced by alternating internal magnetic flux force mobile electrons toward the outer perimeter of the conductor—a phenomenon known as the skin effect.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The electrical skin depth (δ) defines the depth below the conductor surface where current density drops to 1/e (approximately 37%) of its surface value:
+          </p>
+          <Formula>{"δ = \sqrt{\frac{\rho}{\pi \times f \times \mu_0 \times \mu_r}}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At 1 GHz in copper, the skin depth is only 2.09 µm. Consequently, high-frequency PCB traces and RF coaxial cables experience significantly increased AC resistance. Gold or silver plating on the outer perimeter minimizes signal loss along transmission lines.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Regulatory Spectrum Governance & EMC Compliance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because radio frequency emissions propagate across geographical borders, international commissions allocate spectrum to prevent mutual interference:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Federal Communications Commission (FCC Part 15):</strong> Enforces strict emissions limits on intentional and unintentional radiators, requiring laboratory anechoic chamber certification before commercial release.
+            </li>
+            <li>
+              <strong>European Telecommunications Standards Institute (ETSI):</strong> Defines harmonized technical standards for radio equipment directive (RED) certification across the European Single Market.
+            </li>
+            <li>
+              <strong>International Telecommunication Union (ITU Radio Regulations):</strong> Manages international frequency assignments, orbital satellite slots, and planetary deep-space tracking bands.
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When designing matching networks for wireless transceivers, size reactive components with our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and calculate inductive chokes in our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate frequency and wavelength calculations enable RF engineers to dimension high-efficiency antennas, match transmission lines, and ensure dependable wireless communications across modern consumer and industrial hardware.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Phase Velocity, Group Velocity & Dispersion in Dielectric Waveguides
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When electromagnetic waves propagate through dispersive media—such as high-frequency dielectric substrates (FR-4, Rogers hydrocarbon laminates, or optical fibers)—the propagation speed ceases to be a single static constant. Wave mechanics distinguishes between <strong>Phase Velocity</strong> (v_p = ω / k) and <strong>Group Velocity</strong> (v_g = dω / dk).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Phase velocity represents the speed at which individual monochromatic wave crests travel, which can occasionally exceed the speed of light in specialized waveguide structures without violating relativity. Group velocity represents the actual physical velocity at which information, modulated pulse envelopes, and electromagnetic energy traverse the medium. In high-speed multi-gigabit serial communication channels (PCIe Gen 5, 100G Ethernet), material dispersion causes different spectral components of digital pulses to travel at unequal velocities, causing pulse spreading and inter-symbol interference (ISI) that must be mitigated through active equalization.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate frequency and wavelength calculations enable engineers to design high-efficiency antennas, match transmission lines, and ensure dependable wireless communications across modern consumer and industrial hardware.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Electromagnetic Wave Polarization: Linear, Circular & Elliptical
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Electromagnetic wave propagation is characterized by polarization—the spatial orientation of the oscillating electric field vector (E) over time. In <strong>Linear Polarization</strong> (horizontal or vertical), the electric field vibrates in a single fixed geometric plane. Terrestrial television and FM radio broadcasts utilize horizontal or vertical polarization.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In satellite communications and GPS navigation, electromagnetic waves traverse the ionosphere, where the geomagnetic Faraday effect rotates linear polarization unpredictably. Spaceborne links overcome this attenuation by utilizing <strong>Circular Polarization</strong> (Right-Hand Circular Polarization RHCP or Left-Hand LHCP), where the electric field vector rotates continuously like a corkscrew. A circularly polarized receiving antenna captures incoming RF signals regardless of physical satellite orientation, eliminating alignment-induced fading.
+          </p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Transmission Line Return Loss & Voltage Standing Wave Ratio (VSWR)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In radio frequency engineering, impedance mismatches between transmission lines and antennas cause signal reflections that set up stationary interference patterns termed standing waves. The <strong>Voltage Standing Wave Ratio (VSWR)</strong> quantifies the ratio of maximum standing wave voltage to minimum voltage along the transmission line:
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An ideal matched antenna achieves a VSWR of 1.0:1 (zero reflection). A VSWR below 1.5:1 is considered high-grade commercial performance (less than 4% reflected power), while a VSWR exceeding 3.0:1 reflects over 25% of the RF energy back into the transmitter output stage, risking thermal transistor damage.
+          </p>
+
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            RF Tuning Circuits & Resonant Filter Network Design
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In wireless transceivers and telecommunication front-ends, frequency selectivity is governed by tuned LC resonant tanks. Engineers evaluate electrostatic capacitance in our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and calculate inductive choke reactance in our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At the natural resonant frequency, inductive reactance and capacitive reactance cancel identically, establishing a minimum impedance series resonance or maximum impedance parallel anti-resonance. High Quality Factor (Q) tank circuits filter adjacent-channel wireless interference and ensure pristine spectral purity in local oscillator frequency synthesizers.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering frequency, wavelength, and electromagnetic wave dynamics empowers engineers to optimize antenna efficiency and ensure robust wireless connectivity.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Terahertz Spectrum Frontiers & Molecular Absorption Band Windows
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            As wireless telecommunications progress beyond millimeter-wave 5G networks toward sub-terahertz and 6G spectrum bands (100 GHz to 1 THz), radio wave propagation enters regimes dominated by atmospheric molecular absorption resonances. Atmospheric water vapor and diatomic oxygen molecules absorb electromagnetic energy at discrete quantum vibrational frequencies, creating high path-loss attenuation notches alongside distinct low-loss spectral transmission windows.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Hardware engineers design ultra-massive MIMO beamforming antenna arrays with sub-millimeter patch elements to synthesize high-gain directional pencil beams, overcoming terahertz atmospheric attenuation and unlocking multi-terabit wireless backhaul links.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Calculating propagation velocities and harmonic relationships enables RF designers to build compact matching networks and maintain dependable telecommunications across diverse transmission media.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Evaluating antenna quarter-wave dimensions ensures maximum radiative efficiency and minimizes standing wave reflections in wireless transceivers.
+          </p>
+
+        </>
+      }
+    >
+      <FrequencyCalculatorComponent />
+    </CalcPage>
   );
 }

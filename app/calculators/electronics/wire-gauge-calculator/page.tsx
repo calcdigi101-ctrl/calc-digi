@@ -1,26 +1,252 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import WireGaugeCalculatorComponent from "@/components/calcs/electronics/wire-gauge-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { WireGaugeDistanceVoltageDropChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/wire-gauge-calculator";
+const TITLE = "Wire Gauge Calculator | AWG Size, Voltage Drop & Ampacity Limits";
+const DESCRIPTION =
+  "Calculate American Wire Gauge (AWG) conductor resistance, two-way loop voltage drop, conductor thermal loss, and NEC ampacity compliance.";
 
 export const metadata: Metadata = {
-  "title": "Wire Gauge Calculator – AWG to mm² | CalcDigi",
-  "description": "Find current carrying capacity for AWG wire sizes. Convert AWG to mm² and calculate voltage drop for any wire run.",
-  "openGraph": {
-    "title": "Wire Gauge Calculator – AWG to mm² | CalcDigi",
-    "description": "Find current carrying capacity for AWG wire sizes. Convert AWG to mm² and calculate voltage drop for any wire run.",
-    "type": "website",
-    "url": "/calculators/electronics/wire-gauge-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/wire-gauge-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Solar Panel" },
+  { href: "/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life" },
+  { href: "/calculators/electronics/three-phase-power-calculator", icon: "⚡", name: "Three-Phase Power" },
+  { href: "/calculators/electronics/transformer-calculator", icon: "🔄", name: "Transformer" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is American Wire Gauge (AWG) and how does conductor sizing scale?",
+    a: "American Wire Gauge (AWG) is a standardized logarithmic wire gauge system used since 1857 in North America for solid, non-ferrous electrical conductors. In AWG sizing, higher gauge numbers designate smaller wire diameters and cross-sectional areas. Every step of 3 AWG numbers halves or doubles the conductor's cross-sectional area; for example, AWG 10 has roughly twice the copper area of AWG 13.",
+  },
+  {
+    q: "What is the National Electrical Code (NEC) recommended maximum voltage drop?",
+    a: "The National Electrical Code (NEC NFPA 70 Informational Note 210.19(A)) recommends that the maximum voltage drop on branch circuits should not exceed 3.0%, and the cumulative voltage drop across both feeders and branch circuits combined should not exceed 5.0%. Excess voltage drop causes motor overheating, dimming lights, and electronic logic brownouts.",
+  },
+  {
+    q: "How do you calculate two-way circuit voltage drop in electrical wiring?",
+    a: "Voltage drop (ΔV) is computed using Ohm's Law: ΔV = I × R_loop = I × (2 × Distance × R_per_length). In single-phase AC or DC circuits, current must traverse both the outbound 'hot' conductor and return 'neutral' conductor, requiring the one-way circuit length to be doubled when computing loop resistance.",
+  },
+  {
+    q: "What is the difference between solid core and stranded copper wire ampacity?",
+    a: "Solid and stranded copper wires of identical gauge have essentially identical continuous DC ampacities because total copper cross-sectional area is calibrated to match. However, stranded wire offers superior mechanical flexibility for conduit pulling and automotive harnesses, while solid wire is preferred for screw-terminal junction box connections in residential construction.",
+  },
+];
+
+export default function WireGaugeCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Wire Gauge Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/wire-gauge-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Wire Gauge Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/wire-gauge-calculator\", \"description\": \"Find current carrying capacity for AWG wire sizes. Convert AWG to mm² and calculate voltage drop for any wire run.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What wire gauge do I need for 20 amps?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For 20A circuits, use 12 AWG wire minimum (US NEC code requires 12 AWG for 20A branch circuits). For longer runs over 50 feet, consider upgrading to 10 AWG to keep voltage drop below 3%.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between AWG and mm²?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"AWG is the American Wire Gauge system (larger number = thinner wire). mm² is the European/metric system measuring cross-sectional area (larger number = thicker wire). Common conversions: 14 AWG ≈ 2.08mm², 12 AWG ≈ 3.31mm², 10 AWG ≈ 5.26mm².\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate voltage drop in a wire?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Voltage drop = 2 × Length (m) × Current (A) × Resistance per meter (Ω/m). Factor of 2 accounts for both conductors (live and neutral). Use online tables for resistance per meter — 12 AWG copper has about 5.21 mΩ/m.\"}}, {\"@type\": \"Question\", \"name\": \"What happens if wire gauge is too small?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Undersized wire causes: overheating (possible fire), excessive voltage drop (motors overheat, lights dim), nuisance tripping of circuit breakers, and insulation damage over time. Always use the minimum recommended gauge or larger.\"}}, {\"@type\": \"Question\", \"name\": \"What AWG wire is used for solar panels?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Solar panel strings typically use 10 AWG (5.26mm²) for runs under 50 feet. For longer home runs, 8 AWG or 6 AWG may be needed to keep voltage drop below 2-3%. Solar wire (USE-2 or PV wire) is rated for outdoor/UV exposure.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert AWG to mm²?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"mm² = (diameter in mm)² × π/4. AWG diameter (mm) = 0.127 × 92^((36-AWG)/39). Or use the approximation: mm² ≈ 35/(2^(AWG/6)) for common sizes. 12 AWG ≈ 3.3mm², 10 AWG ≈ 5.3mm², 8 AWG ≈ 8.4mm².\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Wire Gauge Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Wire Gauge Calculator</h1>\n<p class=\"calc-intro\">Find the correct wire gauge (AWG) for any current load and calculate voltage drop over cable runs. Convert between AWG and metric mm² cross-sectional area. Essential for electrical wiring, automotive, solar panel, and speaker cable selection.</p>\n<p class=\"calc-intro\"></p><p>Correct wire gauge selection is one of the most safety-critical decisions in any electrical installation. Undersized wiring is a leading cause of residential electrical fires — the wire overheats under excess current, melts insulation, and ignites surrounding materials. The National Electrical Code (NEC) provides minimum wire gauge requirements, but understanding the underlying calculations helps make informed, safe choices.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Voltage Drop = 2 × Length × Current × Resistance per meter | AWG resistance increases by 26% per gauge step</div></div>\n<div class=\"content-section\">\n<h2>Wire Gauge Selection Guide</h2>\n<p>Selecting the correct wire gauge is critical for electrical safety and performance. Undersized wire causes dangerous overheating, voltage drop, and fire hazard. The American Wire Gauge (AWG) system uses an inverse numbering system — larger AWG numbers mean thinner wire. In metric systems, wire is specified by cross-sectional area in mm².</p>\n<h3>AWG System Explained</h3>\n<p>The AWG scale goes from 0000 (4/0, the thickest practical wire) down to 40 (hair-thin wire used in electronics). Each 3-step decrease in AWG doubles the wire area and roughly doubles current capacity. Each single AWG step changes resistance by about 26%. Common household wiring uses 14 AWG (15A circuits) and 12 AWG (20A circuits).</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">AWG</th><th style=\"padding:12px 16px;\">mm²</th><th style=\"padding:12px 16px;\">Max Current</th><th style=\"padding:12px 16px;\">Typical Use</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">18 AWG</td><td style=\"padding:11px 16px;\">0.82mm²</td><td style=\"padding:11px 16px;\">7A</td><td style=\"padding:11px 16px;\">Low-voltage lighting, small motors</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">16 AWG</td><td style=\"padding:11px 16px;\">1.31mm²</td><td style=\"padding:11px 16px;\">13A</td><td style=\"padding:11px 16px;\">Extension cords, light fixtures</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">14 AWG</td><td style=\"padding:11px 16px;\">2.08mm²</td><td style=\"padding:11px 16px;\">15A</td><td style=\"padding:11px 16px;\">Household 15A circuits</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">12 AWG</td><td style=\"padding:11px 16px;\">3.31mm²</td><td style=\"padding:11px 16px;\">20A</td><td style=\"padding:11px 16px;\">Household 20A circuits, kitchen</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">10 AWG</td><td style=\"padding:11px 16px;\">5.26mm²</td><td style=\"padding:11px 16px;\">30A</td><td style=\"padding:11px 16px;\">Dryers, AC units, EV chargers</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">8 AWG</td><td style=\"padding:11px 16px;\">8.37mm²</td><td style=\"padding:11px 16px;\">40A</td><td style=\"padding:11px 16px;\">EV level 2 chargers, ranges</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">6 AWG</td><td style=\"padding:11px 16px;\">13.3mm²</td><td style=\"padding:11px 16px;\">55A</td><td style=\"padding:11px 16px;\">Solar panels, sub-panels</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">4 AWG</td><td style=\"padding:11px 16px;\">21.2mm²</td><td style=\"padding:11px 16px;\">70A</td><td style=\"padding:11px 16px;\">Large inverters, main feeds</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Wire Selection for Different Applications</h2>\n<p>Choosing the right wire gauge involves more than just current capacity. Wire material, insulation type, installation method, ambient temperature, and bundling all affect the safe current-carrying capacity. The NEC (National Electrical Code) provides detailed tables for different installation scenarios.</p>\n<h3>Copper vs Aluminum Wiring</h3>\n<p>Copper is the standard for most wiring: lower resistance, easier to terminate, and more flexible. Aluminum is used for large service entrances and branch circuits (cheaper, lighter). Aluminum has 61% the conductivity of copper — aluminum must be 2 AWG sizes larger for the same current. Never mix copper and aluminum without proper connectors — galvanic corrosion causes dangerous loose connections.</p>\n<h3>NEC Ampacity Derating</h3>\n<p>NEC Table 310.15 specifies wire ampacity based on temperature rating and installation. Key derating rules: in conduit with 4+ current-carrying conductors, derate to 80%. In ambient temperatures above 30°C, derate further. For continuous loads (over 3 hours), use only 80% of breaker rating. A 20A breaker with continuous load: max 16A, requiring 12 AWG rated at 20A.</p>\n<h3>Voltage Drop in DC Systems</h3>\n<p>Voltage drop is critical in 12V DC systems (automotive, solar, RV). A 3% drop on 12V = only 0.36V — motors run hotter, LEDs are dimmer, microcontrollers may reset. For 12V systems, target under 2% drop. Calculate: Vdrop = 2 × Length × Current × (Resistance/meter). A 10m run of 10 AWG at 20A: 2 × 10 × 20 × 0.00328 = 1.31V drop (10.9% — too much, upgrade to 8 AWG).</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What wire gauge do I need for 20 amps? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For 20A circuits, use 12 AWG wire minimum (US NEC code requires 12 AWG for 20A branch circuits). For longer runs over 50 feet, consider upgrading to 10 AWG to keep voltage drop below 3%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between AWG and mm²? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">AWG is the American Wire Gauge system (larger number = thinner wire). mm² is the European/metric system measuring cross-sectional area (larger number = thicker wire). Common conversions: 14 AWG ≈ 2.08mm², 12 AWG ≈ 3.31mm², 10 AWG ≈ 5.26mm².</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate voltage drop in a wire? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Voltage drop = 2 × Length (m) × Current (A) × Resistance per meter (Ω/m). Factor of 2 accounts for both conductors (live and neutral). Use online tables for resistance per meter — 12 AWG copper has about 5.21 mΩ/m.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What happens if wire gauge is too small? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Undersized wire causes: overheating (possible fire), excessive voltage drop (motors overheat, lights dim), nuisance tripping of circuit breakers, and insulation damage over time. Always use the minimum recommended gauge or larger.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What AWG wire is used for solar panels? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Solar panel strings typically use 10 AWG (5.26mm²) for runs under 50 feet. For longer home runs, 8 AWG or 6 AWG may be needed to keep voltage drop below 2-3%. Solar wire (USE-2 or PV wire) is rated for outdoor/UV exposure.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert AWG to mm²? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">mm² = (diameter in mm)² × π/4. AWG diameter (mm) = 0.127 × 92^((36-AWG)/39). Or use the approximation: mm² ≈ 35/(2^(AWG/6)) for common sizes. 12 AWG ≈ 3.3mm², 10 AWG ≈ 5.3mm², 8 AWG ≈ 8.4mm².</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Wire Gauge Calculator – AWG, Current Capacity and Voltage Drop</h2><div class=\"form-group\"><label for=\"wg-awg\">Wire Gauge (AWG)</label><select id=\"wg-awg\"><option value=\"18\">18 AWG – 0.82mm² – 7A</option><option value=\"16\">16 AWG – 1.31mm² – 13A</option><option value=\"14\">14 AWG – 2.08mm² – 15A</option><option selected=\"\" value=\"12\">12 AWG – 3.31mm² – 20A</option><option value=\"10\">10 AWG – 5.26mm² – 30A</option><option value=\"8\">8 AWG – 8.37mm² – 40A</option><option value=\"6\">6 AWG – 13.3mm² – 55A</option><option value=\"4\">4 AWG – 21.2mm² – 70A</option><option value=\"2\">2 AWG – 33.6mm² – 95A</option></select></div>\n<div class=\"form-group\"><label for=\"wg-current\">Load Current (A)</label><input id=\"wg-current\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"15\"/></div>\n<div class=\"form-group\"><label for=\"wg-length\">One-way Cable Length (m)</label><input id=\"wg-length\" min=\"0.1\" step=\"0.5\" type=\"number\" value=\"10\"/></div>\n<div class=\"form-group\"><label for=\"wg-voltage\">System Voltage (V)</label><input id=\"wg-voltage\" min=\"1\" step=\"1\" type=\"number\" value=\"120\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Wire Gauge Calculator – AWG, Current Capacity and Voltage Drop')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Wire Gauge Calculator – AWG, Current Capacity and Voltage Drop')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-wire-gauge-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var AWG_DATA={18:{mm2:0.82,maxA:7,ohm_m:0.0209},16:{mm2:1.31,maxA:13,ohm_m:0.01313},14:{mm2:2.08,maxA:15,ohm_m:0.00826},12:{mm2:3.31,maxA:20,ohm_m:0.00521},10:{mm2:5.26,maxA:30,ohm_m:0.00328},8:{mm2:8.37,maxA:40,ohm_m:0.00206},6:{mm2:13.3,maxA:55,ohm_m:0.00130},4:{mm2:21.2,maxA:70,ohm_m:0.000815},2:{mm2:33.6,maxA:95,ohm_m:0.000513}};\nfunction doCalc(){\n  var awg=document.getElementById('wg-awg').value;\n  var I=parseFloat(document.getElementById('wg-current').value)||0;\n  var len=parseFloat(document.getElementById('wg-length').value)||0;\n  var V=parseFloat(document.getElementById('wg-voltage').value)||120;\n  if(!I||!len){alert('Enter current and cable length.');return;}\n  var d=AWG_DATA[awg];\n  var Vdrop=2*len*I*d.ohm_m;\n  var VdropPct=Vdrop/V*100;\n  var safe=I<=d.maxA;\n  document.getElementById('el-ri').innerHTML=\n    ri('Wire Gauge',awg+' AWG – '+d.mm2+' mm²')+\n    ri('Max Current Capacity',d.maxA+' A – '+(safe?'✅ Safe for '+I+'A':'⚠️ UNDERSIZED for '+I+'A'))+\n    ri('Voltage Drop','<strong style=\"font-size:20px;color:var(--c-accent)\">'+Vdrop.toFixed(3)+' V</strong>',true)+\n    ri('Voltage Drop %',VdropPct.toFixed(2)+'% '+(VdropPct>3?'⚠️ Exceeds 3% limit':'✅ Acceptable'))+\n    ri('Resistance per run',(d.ohm_m*len*1000).toFixed(2)+' mΩ')+\n    ri('Power Loss in Wire',(I*I*2*len*d.ohm_m).toFixed(2)+' W');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Voltage Delivered','Voltage Drop'],[Math.round((V-Vdrop)*10),Math.round(Vdrop*10)||1],['#1a5c3a','#c8832a']);\n  var aiPrompt=awg+' AWG wire carrying '+I+'A over '+len+'m, voltage drop '+Vdrop.toFixed(2)+'V ('+VdropPct.toFixed(1)+'%)';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world electrical installation application of this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Sizing electrical conductors prevents conductor overheating while guaranteeing terminal voltage complies with NEC 3% drop limits. To calculate continuous load wattage, cross-reference our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and calculate circuit resistance in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Percentage Voltage Drop vs Conductor Distance at 15A
+          </h2>
+          <WireGaugeDistanceVoltageDropChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Selecting the correct electrical conductor size is one of the most critical responsibilities in electrical engineering, building construction, and industrial automation. Conductor sizing is governed by two distinct engineering constraints: <strong>thermal ampacity</strong> (the maximum current a wire can carry continuously without exceeding insulation thermal ratings) and <strong>voltage drop</strong> (the loss of electrical potential along the length of the conductor due to copper electrical resistance).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While a standard AWG 14 copper conductor may be thermally rated by code to carry 15 Amperes over a short 10-foot run, routing that same 15-Amp load over 100 feet produces severe voltage drop exceeding 5%. This causes inductive motors to stall, electronic power supplies to drop out of regulation, and wasted electrical energy to dissipate as heat along building conduits.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations for Conductor Sizing & Voltage Drop
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The diameter (d_n, in millimeters) of an American Wire Gauge conductor of gauge index n is defined by the mathematical logarithmic progression:
+          </p>
+          <Formula>{"d_n = 0.127 mm \times 92^{\frac{36 - n}{39}}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In single-phase two-wire branch circuits (outbound hot plus return neutral), total circuit loop resistance (R_loop) and voltage drop (Δ V) across length (L, in feet) are:
+          </p>
+          <Formula>{"R_{loop} = \frac{2 \times L \times R_{1000}}{1,000}, \quad \Delta V = I \times R_{loop}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The percentage voltage drop (\%VD) and Joule power dissipation (P_loss, in Watts) within the conductors are:
+          </p>
+          <Formula>{"\%VD = \left( \frac{\Delta V}{V_{source}} \right) \times 100, \quad P_{loss} = I^2 \times R_{loop}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For three-phase feeder voltage drop calculations, reference our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and calculate solar PV array wiring in our <Link href="/calculators/electronics/solar-panel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">solar panel calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            NEC Copper Conductor Ampacity & Resistance Reference Table
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below summarizes standard AWG copper conductor physical diameters, cross-sectional areas, resistance per 1,000 feet, and NEC Table 310.16 ampacities at 75°C (THHN / THWN insulation):
+          </p>
+          <DataTable
+            head={["Conductor Size (AWG)", "Diameter (Inches)", "Area (Circular Mils)", "Resistance (Ω / 1,000 ft at 20°C)", "NEC 75°C Ampacity Rating", "Standard Circuit Application"]}
+            rows={[
+              ["AWG 14", "0.0641 in", "4,110 cmil", "2.525 Ω", "15 A (Overcurrent Limit)", "General 120V residential lighting & convenience outlets"],
+              ["AWG 12", "0.0808 in", "6,530 cmil", "1.588 Ω", "20 A (Overcurrent Limit)", "Kitchen small appliance circuits, bathroom receptacles"],
+              ["AWG 10", "0.1019 in", "10,380 cmil", "0.9989 Ω", "30 A (Overcurrent Limit)", "Electric clothes dryers, residential water heaters, 240V AC"],
+              ["AWG 8", "0.1285 in", "16,510 cmil", "0.6282 Ω", "50 A", "Electric ranges, central air conditioning compressors"],
+              ["AWG 6", "0.1620 in", "26,240 cmil", "0.3951 Ω", "65 A", "Residential subpanel feeders, EV level 2 fast chargers (48A)"],
+              ["AWG 4", "0.2043 in", "41,740 cmil", "0.2485 Ω", "85 A", "Heavy subpanel feeders, large commercial HVAC compressors"],
+              ["AWG 2", "0.2576 in", "66,360 cmil", "0.1563 Ω", "115 A", "100A residential main service entrance cables"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Case Study: Long-Distance 120V Detached Garage Circuit
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An electrical contractor installs underground feeder (UF-B) cable from a residential main service panel to a detached workshop garage located L = 120 feet away. The circuit supplies a 120 V 16.0 A continuous air compressor load (protected by a 20A breaker):
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Total Loop Conductor Distance:</strong> 2 × 120 ft = 240 feet
+            </li>
+            <li>
+              <strong>Option A: Minimum Code Size AWG 12:</strong>
+              <br />
+              R_loop = (240 / 1,000) × 1.588 Ω = 0.3811 Ω
+              <br />
+              Δ V = 16.0 A × 0.3811 Ω = 6.10 V → \%VD = (6.10 / 120) × 100 = 5.08\% (Exceeds NEC 3% rule)
+            </li>
+            <li>
+              <strong>Option B: Upsized to AWG 10:</strong>
+              <br />
+              R_loop = (240 / 1,000) × 0.9989 Ω = 0.2397 Ω
+              <br />
+              Δ V = 16.0 A × 0.2397 Ω = 3.84 V → \%VD = (3.84 / 120) × 100 = 3.20\% (Marginal)
+            </li>
+            <li>
+              <strong>Option C: Upsized to AWG 8:</strong>
+              <br />
+              R_loop = (240 / 1,000) × 0.6282 Ω = 0.1508 Ω
+              <br />
+              Δ V = 16.0 A × 0.1508 Ω = 2.41 V → \%VD = (2.41 / 120) × 100 = 2.01\% (Optimal, compliant)
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Upsizing to AWG 8 guarantees delivered terminal voltage of 117.6 V, protecting the compressor motor from thermal burnout. For battery storage systems, calculate runtime in our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link> and calculate step-down transformers in our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Thermal Derating: Ambient Temperature & Conduit Bundling
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Published wire ampacities assume an ambient temperature of 30°C (86°F) and not more than three current-carrying conductors in a single raceway or cable. Operating cables in high ambient environments (such as unventilated attic spaces or rooftop solar conduit reaching 60°C) severely impairs heat dissipation.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under NEC Table 310.15(B)(1), conductors installed in 50°C ambient temperatures must apply an ampacity correction factor of 0.82 (for 75°C rated insulation). Furthermore, when bundling 4 to 6 conductors in one conduit, an additional 0.80 derating factor applies (0.82 × 0.80 = 0.656). Failing to apply thermal derating results in accelerated insulation embrittlement and catastrophic electrical fire hazards.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For low-voltage signal cabling and indicator networks, calculate ballast resistors in our <Link href="/calculators/electronics/led-resistor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">led resistor calculator</Link> and calculate signal attenuation with our <Link href="/calculators/electronics/decibel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">decibel calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate wire gauge calculations incorporating conductor loop resistance, distance voltage drop, and environmental thermal derating ensure safe, code-compliant, and energy-efficient electrical installations across residential, commercial, and industrial facilities.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Step-Up Autotransformer Voltage Drop Remediation Strategies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When electrical branch circuits must span extreme distances—such as outdoor agricultural irrigation pumps, runway lighting, or remote mining camps located 1,000 to 3,000 feet from the main distribution transformer—upsizing copper conductors to satisfy NEC 3% voltage drop limits becomes economically prohibitive. Sizing conductors for extreme distances could mandate multi-thousand-dollar AWG 4/0 or 250 kcmil cables for modest 20-Amp loads.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In such engineering scenarios, contractors implement high-voltage buck-boost step-up topologies. By stepping up 120V or 240V to 480V or 600V at the source panel using a compact autotransformer, line current is cut in half or quarter, slashing resistive loop losses by up to 94% (P = I² R). At the remote equipment termination, a matched step-down transformer restores nominal utilization voltage, delivering code-compliant terminal voltage at a fraction of heavy copper cabling costs.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Properly calculating conductor loop resistance, distance voltage drop, and thermal derating ensures safe, code-compliant, and energy-efficient electrical installations across residential, commercial, and industrial facilities.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Conduit Fill Capacity & Thermal Dissipation Factors (NEC Chapter 9)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Pulling multiple electrical conductors through rigid metal conduit (RMC) or electrical metallic tubing (EMT) is governed by strict National Electrical Code conduit fill limits codified in NEC Chapter 9, Table 1. When installing more than two conductors, total cross-sectional area of all wires cannot exceed 40% of the interior conduit cross-sectional area.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The 60% remaining air space serves two vital functions: it provides mechanical clearance to prevent conductor insulation jacket shredding during wire pulling, and it ensures convective thermal dissipation. Jamming conduits beyond the 40% threshold traps I² R Joule heat inside the raceway, degrading insulation lifespan and precipitating conductor short-circuit faults.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Applying appropriate conductor gauge sizing accounting for terminal temperature ratings (60°C, 75°C, 90°C) prevents terminal screw overheating and guarantees long-term connection integrity under sustained continuous electrical loads.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Adhering strictly to NEC voltage drop recommendations maintains motor operating torque, reduces unnecessary energy waste in building conduits, and ensures compliant electrical installations.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Conductor Ampacity Derating & Industrial Power Distribution
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When sizing electrical wiring for heavy machinery, contractors must evaluate continuous line current using our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and audit total apparent wattage in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            National Electrical Code (NEC Table 310.16) enforces strict ampacity adjustment factors when more than three current-carrying conductors share a single conduit, or when ambient temperatures exceed 30°C. Sizing conductors adequately prevents thermal degradation of PVC insulation, eliminates fire hazards, and safeguards high-power electrical systems.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Proper conductor loop resistance and distance voltage drop budgeting ensures safe, code-compliant, and energy-efficient electrical installations.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Superconducting Cables & Cryogenic High-Density Conduction
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In metropolitan underground power corridors where digging additional conduit trenches is physically impossible, utilities are deploying High-Temperature Superconducting (HTS) power cables. Fabricated using rare-earth barium copper oxide (YBCO) ceramic tapes cooled by circulating liquid nitrogen at -196°C (77 Kelvin), HTS conductors lose all electrical DC resistance identically.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A compact 6-inch diameter HTS cable can transport over 3,000 Amperes of electrical current at medium distribution voltages—delivering the same energy capacity as multiple massive overhead 345 kV high-voltage transmission lines without generating external magnetic fields or thermal dissipation into surrounding soil.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Additionally, commercial marine and aerospace electrification programs utilize lightweight stranded aluminum alloy conductors (AAAC) with cross-linked polyethylene (XLPE) insulation, achieving 50% weight reductions over legacy copper wiring harnesses while guaranteeing full compliance with aerospace fire safety and mechanical vibration endurance standards.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Selecting code-compliant conductor diameters minimizes electrical loop resistance, lowers utility operating costs, and eliminates thermal fire hazards in industrial facilities.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate voltage drop planning across long-distance distribution feeders guarantees proper equipment terminal voltages and uninterrupted factory machinery operations.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Properly rated terminal lugs and conduit fill calculations maintain electrical safety compliance under National Electrical Code regulations.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Auditing wire ampacity across extreme ambient temperatures prevents insulation melting and guarantees safe, code-compliant commercial power transmission networks. Selecting proper stranded wire gauges ensures physical flexibility and vibration resistance in automotive and industrial installations.
+          </p>
+
+        </>
+      }
+    >
+      <WireGaugeCalculatorComponent />
+    </CalcPage>
   );
 }

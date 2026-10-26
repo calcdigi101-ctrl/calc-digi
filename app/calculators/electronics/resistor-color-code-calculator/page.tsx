@@ -1,26 +1,273 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ResistorColorCodeCalculatorComponent from "@/components/calcs/electronics/resistor-color-code-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ResistorToleranceBandSpreadChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/resistor-color-code-calculator";
+const TITLE = "Resistor Color Code Calculator | 4, 5 & 6 Band Resistance & Tolerance";
+const DESCRIPTION =
+  "Decode 4-band, 5-band, and 6-band resistor color codes to calculate nominal resistance, manufacturing tolerance, and temperature coefficient.";
 
 export const metadata: Metadata = {
-  "title": "Resistor Color Code Calculator – 4 & 5 Band | CalcDigi",
-  "description": "Decode 4-band and 5-band resistor color codes instantly. Find resistance value, tolerance, and E-series from color bands.",
-  "openGraph": {
-    "title": "Resistor Color Code Calculator – 4 & 5 Band | CalcDigi",
-    "description": "Decode 4-band and 5-band resistor color codes instantly. Find resistance value, tolerance, and E-series from color bands.",
-    "type": "website",
-    "url": "/calculators/electronics/resistor-color-code-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/resistor-color-code-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/led-resistor-calculator", icon: "💡", name: "LED Resistor" },
+  { href: "/calculators/electronics/voltage-divider-calculator", icon: "🔽", name: "Voltage Divider" },
+  { href: "/calculators/electronics/rc-time-constant-calculator", icon: "⏱️", name: "RC Time Constant" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How do you read a standard 4-band resistor color code?",
+    a: "Hold the resistor so the tolerance band (typically gold or silver, separated by a wider gap) is on the right. The first two colored bands represent significant numerical digits (0-9). The third band represents the decimal multiplier (powers of 10). The fourth band indicates manufacturing tolerance percentage (e.g., Gold is ±5%).",
+  },
+  {
+    q: "What is the difference between 4-band, 5-band, and 6-band resistors?",
+    a: "A 4-band resistor has two significant digits, one multiplier, and one tolerance band (standard ±5% or ±10%). A 5-band precision resistor provides three significant digits for tight-tolerance values (±1% or ±0.5%). A 6-band resistor adds a sixth band specifying the temperature coefficient in parts per million per Kelvin (ppm/K).",
+  },
+  {
+    q: "Why are gold and silver used as multipliers in resistor coding?",
+    a: "Gold and silver bands indicate fractional multipliers. When placed in the multiplier position, Gold represents a multiplier of 0.1 (or 10⁻¹), while Silver represents 0.01 (or 10⁻²). This enables standardized color coding for low-resistance current-sense shunts below 10 Ohms (such as 4.7 Ω or 0.22 Ω).",
+  },
+  {
+    q: "What are the standard IEC 60063 preferred resistor value series?",
+    a: "Resistors are manufactured in standardized logarithmic series called E-series. The E12 series has 12 values per decade (10% tolerance), E24 has 24 values per decade (5% tolerance), and E96 has 96 values per decade (1% precision). This ensures that every resistance value falls within overlapping manufacturing tolerance windows without gaps.",
+  },
+];
+
+export default function ResistorColorCodeCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Resistor Color Code Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/resistor-color-code-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Resistor Color Code Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/resistor-color-code-calculator\", \"description\": \"Decode 4-band and 5-band resistor color codes instantly. Find resistance value, tolerance, and E-series from color bands.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do you read a 4-band resistor?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Read from left to right. Band 1 and 2 are the first two digits. Band 3 is the multiplier (power of 10). Band 4 is tolerance (gold=5%, silver=10%). Example: Red-Red-Brown-Gold = 2,2,×10,±5% = 220Ω ±5%.\"}}, {\"@type\": \"Question\", \"name\": \"What does the gold band on a resistor mean?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gold as the 4th (last) band indicates ±5% tolerance. As a multiplier (3rd band), gold means ×0.1, used for values below 10Ω. Silver as the last band = ±10% tolerance; as multiplier = ×0.01.\"}}, {\"@type\": \"Question\", \"name\": \"How do I remember resistor color codes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Common mnemonic: \\\"Bad Boys Race Our Young Girls But Violet Generally Wins\\\" = Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Gray, White (0-9). Create your own memorable phrase for the sequence.\"}}, {\"@type\": \"Question\", \"name\": \"What is the E-series for resistors?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The E-series (E12, E24, E48, E96) defines standardized preferred resistance values. E12 has 12 values per decade (e.g., 10, 12, 15, 18, 22...). E96 has 96 values with 1% tolerance. This system minimizes the number of standard values needed.\"}}, {\"@type\": \"Question\", \"name\": \"What does 1kΩ resistor look like in color code?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1kΩ (1,000Ω) in 4-band: Brown-Black-Red-[tolerance]. 1=Brown, 0=Black, ×100=Red. In 5-band: Brown-Black-Black-Brown-[tolerance]. Choose based on required precision.\"}}, {\"@type\": \"Question\", \"name\": \"How accurate are resistor color codes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Reading accuracy depends on eyesight and color perception. A common mistake is confusing red/orange or brown/red. Always measure with a multimeter if the exact value is critical. Color codes represent the nominal value; actual value varies by tolerance rating.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Resistor Color Code Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Resistor Color Code Calculator</h1>\n<p class=\"calc-intro\">Decode any 4-band or 5-band resistor color code instantly. Find the resistance value in ohms, tolerance percentage, and E-series classification. Essential for electronics hobbyists, students, and engineers.</p>\n<p class=\"calc-intro\"></p><p>Before digital multimeters became affordable, engineers and technicians had to reliably read resistor color codes by eye — sometimes in poor lighting on densely packed circuit boards. Today, while auto-ranging multimeters can measure resistance instantly, color code reading remains an essential skill for quickly identifying components, checking BOMs, and working without test equipment.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Resistance = (Band1×10 + Band2) × 10^Multiplier for 4-band | 3 digits + multiplier for 5-band</div></div>\n<div class=\"content-section\">\n<h2>Resistor Color Code Guide</h2>\n<p>Resistor color codes are standardized bands printed on resistors to indicate their resistance value and tolerance. The system uses colors to represent digits and multipliers, allowing small components to be marked without printing tiny numbers. The standard was developed by the Radio Manufacturers Association (RMA) in 1924 and is still used worldwide.</p>\n<h3>4-Band Resistor Color Code</h3>\n<p>The most common type: Band 1 = first significant digit, Band 2 = second significant digit, Band 3 = multiplier (power of 10), Band 4 = tolerance. Reading left to right, start from the end closest to a band (or the gold/silver tolerance band is always last).</p>\n<h3>5-Band Resistor Color Code</h3>\n<p>Higher precision resistors use 5 bands: Bands 1-3 = three significant digits, Band 4 = multiplier, Band 5 = tolerance. This allows values like 1% and 0.1% tolerance precision resistors to be encoded more accurately.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Color</th><th style=\"padding:12px 16px;\">Digit</th><th style=\"padding:12px 16px;\">Multiplier</th><th style=\"padding:12px 16px;\">Tolerance</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Black</td><td style=\"padding:11px 16px;\">0</td><td style=\"padding:11px 16px;\">×1</td><td style=\"padding:11px 16px;\">—</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Brown</td><td style=\"padding:11px 16px;\">1</td><td style=\"padding:11px 16px;\">×10</td><td style=\"padding:11px 16px;\">±1%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Red</td><td style=\"padding:11px 16px;\">2</td><td style=\"padding:11px 16px;\">×100</td><td style=\"padding:11px 16px;\">±2%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Orange</td><td style=\"padding:11px 16px;\">3</td><td style=\"padding:11px 16px;\">×1K</td><td style=\"padding:11px 16px;\">—</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Yellow</td><td style=\"padding:11px 16px;\">4</td><td style=\"padding:11px 16px;\">×10K</td><td style=\"padding:11px 16px;\">—</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Green</td><td style=\"padding:11px 16px;\">5</td><td style=\"padding:11px 16px;\">×100K</td><td style=\"padding:11px 16px;\">±0.5%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Blue</td><td style=\"padding:11px 16px;\">6</td><td style=\"padding:11px 16px;\">×1M</td><td style=\"padding:11px 16px;\">±0.25%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Violet</td><td style=\"padding:11px 16px;\">7</td><td style=\"padding:11px 16px;\">×10M</td><td style=\"padding:11px 16px;\">±0.1%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Gray</td><td style=\"padding:11px 16px;\">8</td><td style=\"padding:11px 16px;\">×100M</td><td style=\"padding:11px 16px;\">±0.05%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">White</td><td style=\"padding:11px 16px;\">9</td><td style=\"padding:11px 16px;\">×1G</td><td style=\"padding:11px 16px;\">—</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Gold</td><td style=\"padding:11px 16px;\">—</td><td style=\"padding:11px 16px;\">×0.1</td><td style=\"padding:11px 16px;\">±5%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Silver</td><td style=\"padding:11px 16px;\">—</td><td style=\"padding:11px 16px;\">×0.01</td><td style=\"padding:11px 16px;\">±10%</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Resistor Selection and Practical Considerations</h2>\n<p>Reading resistor color codes is just the first step. Selecting the right resistor for your circuit requires understanding tolerance, power rating, temperature coefficient, and E-series values. A wrong choice can cause circuit malfunction or component failure.</p>\n<h3>Standard E-Series Resistor Values</h3>\n<p>Resistors are manufactured in standardized E-series values. E12 (12 values per decade, 10% tolerance): 10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82. E24 (24 values, 5% tolerance) adds intermediate values. E96 (96 values, 1% tolerance) for precision circuits. Choose the E-series matching your required tolerance.</p>\n<h3>Power Rating Selection</h3>\n<p>Calculate power: P = I²R or P = V²/R. Always choose a resistor rated for at least 2× calculated power. Standard through-hole resistors come in 1/8W, 1/4W, 1/2W, 1W, 2W. Surface mount (SMD) resistors: 0402 (1/16W), 0603 (1/10W), 0805 (1/8W), 1206 (1/4W). Exceeding power rating causes resistance drift and burnout.</p>\n<h3>Temperature Coefficient (TC)</h3>\n<p>Resistor value changes with temperature. TC is expressed in ppm/°C (parts per million per degree Celsius). Carbon film: ±200-500 ppm/°C. Metal film: ±50-100 ppm/°C. Precision metal foil: ±1-10 ppm/°C. For precision circuits (weighing scales, ADC references), use low TC metal film resistors.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you read a 4-band resistor? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Read from left to right. Band 1 and 2 are the first two digits. Band 3 is the multiplier (power of 10). Band 4 is tolerance (gold=5%, silver=10%). Example: Red-Red-Brown-Gold = 2,2,×10,±5% = 220Ω ±5%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What does the gold band on a resistor mean? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gold as the 4th (last) band indicates ±5% tolerance. As a multiplier (3rd band), gold means ×0.1, used for values below 10Ω. Silver as the last band = ±10% tolerance; as multiplier = ×0.01.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I remember resistor color codes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Common mnemonic: \"Bad Boys Race Our Young Girls But Violet Generally Wins\" = Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Gray, White (0-9). Create your own memorable phrase for the sequence.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the E-series for resistors? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The E-series (E12, E24, E48, E96) defines standardized preferred resistance values. E12 has 12 values per decade (e.g., 10, 12, 15, 18, 22...). E96 has 96 values with 1% tolerance. This system minimizes the number of standard values needed.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What does 1kΩ resistor look like in color code? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1kΩ (1,000Ω) in 4-band: Brown-Black-Red-[tolerance]. 1=Brown, 0=Black, ×100=Red. In 5-band: Brown-Black-Black-Brown-[tolerance]. Choose based on required precision.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How accurate are resistor color codes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Reading accuracy depends on eyesight and color perception. A common mistake is confusing red/orange or brown/red. Always measure with a multimeter if the exact value is critical. Color codes represent the nominal value; actual value varies by tolerance rating.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Resistor Color Code Calculator – 4 and 5 Band Decoder</h2><div class=\"form-group\"><label for=\"rc-bands\">Number of Bands</label><select id=\"rc-bands\"><option selected=\"\" value=\"4\">4-Band Resistor</option><option value=\"5\">5-Band Resistor</option></select></div>\n<p style=\"font-size:12px;font-weight:600;color:var(--c-ink2);margin:10px 0 6px;\">Color Bands</p>\n<div id=\"rc-4band\">\n<div class=\"form-group\"><label for=\"rc-b1\">Band 1 (1st digit)</label><select id=\"rc-b1\"><option value=\"0\">Black</option><option value=\"1\">Brown</option><option selected=\"\" value=\"2\">Red</option><option value=\"3\">Orange</option><option value=\"4\">Yellow</option><option value=\"5\">Green</option><option value=\"6\">Blue</option><option value=\"7\">Violet</option><option value=\"8\">Gray</option><option value=\"9\">White</option></select></div>\n<div class=\"form-group\"><label for=\"rc-b2\">Band 2 (2nd digit)</label><select id=\"rc-b2\"><option value=\"0\">Black</option><option value=\"1\">Brown</option><option selected=\"\" value=\"2\">Red</option><option value=\"3\">Orange</option><option value=\"4\">Yellow</option><option value=\"5\">Green</option><option value=\"6\">Blue</option><option value=\"7\">Violet</option><option value=\"8\">Gray</option><option value=\"9\">White</option></select></div>\n<div class=\"form-group\"><label for=\"rc-b3\">Band 3 (Multiplier)</label><select id=\"rc-b3\"><option value=\"1\">Black ×1</option><option selected=\"\" value=\"10\">Brown ×10</option><option value=\"100\">Red ×100</option><option value=\"1000\">Orange ×1K</option><option value=\"10000\">Yellow ×10K</option><option value=\"100000\">Green ×100K</option><option value=\"1000000\">Blue ×1M</option><option value=\"0.1\">Gold ×0.1</option><option value=\"0.01\">Silver ×0.01</option></select></div>\n<div class=\"form-group\"><label for=\"rc-b4\">Band 4 (Tolerance)</label><select id=\"rc-b4\"><option selected=\"\" value=\"5\">Gold ±5%</option><option value=\"10\">Silver ±10%</option><option value=\"1\">Brown ±1%</option><option value=\"2\">Red ±2%</option><option value=\"0.5\">Green ±0.5%</option><option value=\"0.25\">Blue ±0.25%</option><option value=\"0.1\">Violet ±0.1%</option></select></div>\n</div>\n<div id=\"rc-5band\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"rc-c1\">Band 1</label><select id=\"rc-c1\"><option value=\"0\">Black</option><option value=\"1\">Brown</option><option selected=\"\" value=\"2\">Red</option><option value=\"3\">Orange</option><option value=\"4\">Yellow</option><option value=\"5\">Green</option><option value=\"6\">Blue</option><option value=\"7\">Violet</option><option value=\"8\">Gray</option><option value=\"9\">White</option></select></div>\n<div class=\"form-group\"><label for=\"rc-c2\">Band 2</label><select id=\"rc-c2\"><option value=\"0\">Black</option><option value=\"1\">Brown</option><option value=\"2\">Red</option><option value=\"3\">Orange</option><option selected=\"\" value=\"4\">Yellow</option><option value=\"5\">Green</option><option value=\"6\">Blue</option><option value=\"7\">Violet</option><option value=\"8\">Gray</option><option value=\"9\">White</option></select></div>\n<div class=\"form-group\"><label for=\"rc-c3\">Band 3</label><select id=\"rc-c3\"><option value=\"0\">Black</option><option value=\"1\">Brown</option><option value=\"2\">Red</option><option selected=\"\" value=\"3\">Orange</option><option value=\"4\">Yellow</option><option value=\"5\">Green</option><option value=\"6\">Blue</option><option value=\"7\">Violet</option><option value=\"8\">Gray</option><option value=\"9\">White</option></select></div>\n<div class=\"form-group\"><label for=\"rc-c4\">Band 4 (Multiplier)</label><select id=\"rc-c4\"><option value=\"1\">Black ×1</option><option selected=\"\" value=\"10\">Brown ×10</option><option value=\"100\">Red ×100</option><option value=\"1000\">Orange ×1K</option><option value=\"10000\">Yellow ×10K</option><option value=\"0.1\">Gold ×0.1</option><option value=\"0.01\">Silver ×0.01</option></select></div>\n<div class=\"form-group\"><label for=\"rc-c5\">Band 5 (Tolerance)</label><select id=\"rc-c5\"><option selected=\"\" value=\"1\">Brown ±1%</option><option value=\"2\">Red ±2%</option><option value=\"0.5\">Green ±0.5%</option><option value=\"0.25\">Blue ±0.25%</option><option value=\"0.1\">Violet ±0.1%</option></select></div>\n</div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Resistor Color Code Calculator – 4 and 5 Band Decoder')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Resistor Color Code Calculator – 4 and 5 Band Decoder')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-resistor-color-code-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('rc-bands').addEventListener('change',function(){\n  var n=this.value;\n  document.getElementById('rc-4band').style.display=n==='4'?'block':'none';\n  document.getElementById('rc-5band').style.display=n==='5'?'block':'none';\n});\nfunction g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var bands=document.getElementById('rc-bands').value;\n  var val,tol;\n  if(bands==='4'){\n    var b1=g('rc-b1'),b2=g('rc-b2'),b3=g('rc-b3'),b4=g('rc-b4');\n    val=(b1*10+b2)*b3; tol=b4;\n  } else {\n    var c1=g('rc-c1'),c2=g('rc-c2'),c3=g('rc-c3'),c4=g('rc-c4'),c5=g('rc-c5');\n    val=(c1*100+c2*10+c3)*c4; tol=c5;\n  }\n  var fmt=function(v){if(v>=1000000)return (v/1000000).toFixed(2)+' MΩ';if(v>=1000)return (v/1000).toFixed(2)+' kΩ';return v.toFixed(2)+' Ω';};\n  var minV=val*(1-tol/100); var maxV=val*(1+tol/100);\n  document.getElementById('el-ri').innerHTML=\n    ri('Resistance','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmt(val)+'</strong>',true)+\n    ri('Exact Value',val.toLocaleString()+' Ω')+\n    ri('Tolerance','±'+tol+'%')+\n    ri('Min Value',fmt(minV))+ri('Max Value',fmt(maxV))+\n    ri('Range',fmt(minV)+' to '+fmt(maxV));\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Nominal','Tolerance Band'],[Math.round(val),Math.round(val*tol/100)||1],['#1a5c3a','#c8832a']);\n  var aiPrompt='Resistor value: '+fmt(val)+' ±'+tol+'%';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a typical circuit application where a resistor of this value would be used.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Decoding through-hole resistor color bands correctly ensures precision circuit biasing and prevents component damage. When designing active filter circuits, calculate voltage attenuation using our <Link href="/calculators/electronics/voltage-divider-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">voltage divider calculator</Link> and confirm circuit current with our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Resistor Tolerance Distribution & Production Spread
+          </h2>
+          <ResistorToleranceBandSpreadChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Standardized in 1952 by the International Electrotechnical Commission under IEC 60062, the resistor color code system was created to clearly label miniature through-hole axial lead components. Because cylindrical carbon composition and metal film resistors are printed before lead forming, printed numbers could rotate away from view during automated PCB insertion. Colored concentric rings remain visible from any viewing angle.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern automated manufacturing produces carbon film resistors with ±5% tolerance (gold band) and metal film resistors with ±1% tolerance (brown band). High-reliability medical, aerospace, and precision analog instrumentation applications employ thin-film resistors with ±0.1% tolerance (violet band) and ultra-low thermal drift below 15 ppm/°C.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Color Code Decoding Equations
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For standard four-band axial resistors, the nominal electrical resistance (R_nom) and tolerance range are computed using the first two significant digits (d_1, d_2) and multiplier index (m):
+          </p>
+          <Formula>{"R_{nom} = (d_1 \times 10 + d_2) \times 10^m"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For five-band and six-band high-precision resistors, three significant digits (d_1, d_2, d_3) precede the multiplier band:
+          </p>
+          <Formula>{"R_{nom} = (d_1 \times 100 + d_2 \times 10 + d_3) \times 10^m \quad \pm Tol\%"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The allowable manufacturing bounds (R_min and R_max) define the guard-band limit:
+          </p>
+          <Formula>{"R_{min} = R_{nom} \times \left(1 - \frac{Tol}{100}\right), \quad R_{max} = R_{nom} \times \left(1 + \frac{Tol}{100}\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For timing pulse generation and filter cutoffs, pair decoded resistance with our <Link href="/calculators/electronics/rc-time-constant-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">rc time constant calculator</Link> and calculate LED dropping resistance using our <Link href="/calculators/electronics/led-resistor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">led resistor calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive IEC 60062 Resistor Color Code Reference Table
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The standardized color assignment maps digits, multipliers, tolerance boundaries, and thermal coefficients as follows:
+          </p>
+          <DataTable
+            head={["Color Band", "Significant Digit", "Decimal Multiplier", "Tolerance (±%)", "Temp Coeff (ppm/K)"]}
+            rows={[
+              ["Black", "0", "10⁰ (1 Ω)", "—", "250 ppm/K"],
+              ["Brown", "1", "10¹ (10 Ω)", "±1% (F)", "100 ppm/K"],
+              ["Red", "2", "10² (100 Ω)", "±2% (G)", "50 ppm/K"],
+              ["Orange", "3", "10³ (1 kΩ)", "±0.05%", "15 ppm/K"],
+              ["Yellow", "4", "10⁴ (10 kΩ)", "—", "25 ppm/K"],
+              ["Green", "5", "10⁵ (100 kΩ)", "±0.5% (D)", "20 ppm/K"],
+              ["Blue", "6", "10⁶ (1 MΩ)", "±0.25% (C)", "10 ppm/K"],
+              ["Violet", "7", "10⁷ (10 MΩ)", "±0.1% (B)", "5 ppm/K"],
+              ["Gray", "8", "10⁸ (100 MΩ)", "±0.01% (A)", "1 ppm/K"],
+              ["White", "9", "10⁹ (1 GΩ)", "—", "—"],
+              ["Gold", "—", "10⁻¹ (0.1 Ω)", "±5% (J)", "—"],
+              ["Silver", "—", "10⁻² (0.01 Ω)", "±10% (K)", "—"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Case Study: Decoding a 5-Band Metal Film Precision Resistor
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An analog design engineer inspects a precision feedback resistor on a high-gain instrumentation amplifier PCB. The five color bands read from left to right: <strong>Yellow - Violet - Black - Red - Brown</strong>. Determine the nominal resistance and acceptable in-circuit test limits:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Band 1 (Yellow):</strong> 1st Significant Digit = 4
+            </li>
+            <li>
+              <strong>Band 2 (Violet):</strong> 2nd Significant Digit = 7
+            </li>
+            <li>
+              <strong>Band 3 (Black):</strong> 3rd Significant Digit = 0
+            </li>
+            <li>
+              <strong>Band 4 (Red):</strong> Multiplier = 10² = × 100 Ω
+            </li>
+            <li>
+              <strong>Band 5 (Brown):</strong> Tolerance = ± 1\%
+            </li>
+            <li>
+              <strong>Nominal Calculation:</strong> R_nom = 470 × 100 Ω = 47,000 Ω = 47.0 kΩ
+            </li>
+            <li>
+              <strong>Permissible Variance:</strong> Δ R = 47,000 × 0.01 = ± 470 Ω
+            </li>
+            <li>
+              <strong>Acceptable In-Circuit Multimeter Range:</strong> 46,530 Ω (46.53 kΩ) to 47,470 Ω (47.47 kΩ)
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            If a digital multimeter reads 46.8 kΩ, the resistor is within manufacturer specifications. Dissipated wattage should be cross-referenced with our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and wiring runs evaluated in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Surface Mount Device (SMD) Resistor Code Markings
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern compact surface-mount technology (SMT) packages (such as 0805, 0603, and 0402 package footprints) cannot accommodate colored concentric bands. Instead, manufacturers utilize standardized alphanumeric marking schemes:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>3-Digit Code (±5% Standard):</strong> The first two numbers represent digits and the third is the power of 10. For example, &lsquo;103&rsquo; represents 10 × 10³ = 10 kΩ, and &lsquo;472&rsquo; represents 47 × 10² = 4.7 kΩ.
+            </li>
+            <li>
+              <strong>4-Digit Code (±1% Precision):</strong> The first three numbers represent digits and the fourth is the multiplier. For example, &lsquo;1002&rsquo; indicates 100 × 10² = 10.0 kΩ, and &lsquo;4991&rsquo; indicates 499 × 10^1 = 4.99 kΩ.
+            </li>
+            <li>
+              <strong>The &lsquo;R&rsquo; Decimal Notation:</strong> When resistance is below 10 Ohms, the letter &lsquo;R&rsquo; acts as the decimal separator. For instance, &lsquo;4R7&rsquo; denotes 4.7 Ω, and &lsquo;0R22&rsquo; denotes 0.22 Ω.
+            </li>
+            <li>
+              <strong>EIA-96 System (Miniature 0603 1% Packages):</strong> Employs a two-digit lookup code from the E96 table followed by an alphabetical multiplier letter (e.g., &lsquo;01C&rsquo; = 100 × 100 = 10 kΩ).
+            </li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Standards & Practical In-Circuit Verification
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Resistor manufacturing uniformity and testing protocols are codified by global industry authorities:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>IEC 60063 / ANSI C83.1:</strong> Defines the preferred logarithmic values for resistors and capacitors across the E6, E12, E24, E48, E96, and E192 component series.
+            </li>
+            <li>
+              <strong>EIA RS-279:</strong> Standardizes axial color marking geometry, band spacing tolerances, and environmental pigment fading resistance under industrial operating conditions.
+            </li>
+            <li>
+              <strong>MIL-PRF-55342:</strong> United States Department of Defense military qualification specification for fixed film chip resistors in high-reliability tactical electronics.
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When verifying through-hole or surface-mount resistors in an assembled circuit board, parallel components (such as bypass capacitors, semiconductor junctions, or auxiliary pull-downs) introduce alternate current paths. Parallel shunting causes an ohmmeter to read lower than the true nominal value. Accurate verification requires de-soldering at least one lead or using a four-wire Kelvin sensing bridge.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For inductive and capacitive circuit reactances, analyze resonant behavior using our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and calculate RF resonance via our <Link href="/calculators/electronics/frequency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">frequency calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurately decoding resistor color bands and understanding component tolerance spreads empowers engineers and technicians to assemble prototypes with high yield, verify signal integrity, and maintain exacting circuit performance across commercial hardware platforms.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Component Packaging Reliability & Automated Optical Inspection (AOI)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern surface-mount assembly environments, automated pick-and-place machinery operates in tandem with high-speed Automated Optical Inspection (AOI) systems. AOI stations utilize multi-angle color lighting and high-resolution cameras to verify component orientation, solder fillet meniscus geometry, and printed laser marking codes in real time.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Resistors deployed in harsh industrial environments are subject to sulfur contamination from polluted atmospheric conditions. Standard silver-palladium terminations can react with atmospheric sulfur to form non-conductive silver sulfide crystals, causing open-circuit component failures over time. Specifying anti-sulfur resistors with protective gold or nickel-barrier inner electrodes guarantees continuous circuit operation across automotive, marine, and industrial process control environments.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Adhering to rigorous component selection standards ensures optimal manufacturing yield and long-term signal fidelity across mission-critical electronic hardware.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Zero-Ohm Jumpers & Manufacturing Assembly Efficiency
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In single-sided through-hole circuit boards and surface-mount PCB layouts, designers frequently deploy components marked with a single black concentric band (or labeled &lsquo;0&rsquo; on SMD packages). These components are standardized &lsquo;Zero-Ohm Jumpers&rsquo; with typical resistance ratings below 10 to 50 milliohms.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Zero-ohm resistors allow automated PCB assembly equipment to insert conductive wire jumpers across routing traces using standard component placement nozzles, avoiding costly manual wire-soldering processes. Furthermore, zero-ohm jumpers allow hardware engineers to configure hardware revision options, isolate power domains for current measurement, and bypass optional circuit blocks without modifying printed circuit board layout artwork.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering standard through-hole color coding alongside modern surface-mount alphanumeric schemes enables rapid component identification, accurate circuit breadboarding, and flawless quality inspection across electronics manufacturing facilities.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Automated Inspection & Traceability Standards in Surface-Mount Assemblies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern pick-and-place manufacturing lines employ automated optical inspection (AOI) to verify component placement, orientation, and solder fillet geometries. To ensure that selected resistance values satisfy supply rail requirements, cross-reference operating values using our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and calculate ballast current limits in our <Link href="/calculators/electronics/led-resistor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">led resistor calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Precision surface-mount resistors conform to EIA-96 markings using alphanumeric 3-character codes that represent 1% tolerance values from the E96 decade series. Ensuring full traceability from design schematics to final board assembly guarantees compliance with ISO 9001 and automotive IATF 16949 quality management requirements.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Rigorous adherence to international resistance color marking and surface-mount packaging conventions eliminates fabrication defects and safeguards high-density hardware installations.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Substrate Thermal Conductivity & High-Voltage Surge Resistors
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            High-voltage automotive inverters and industrial power supplies require specialized surge-proof resistors capable of absorbing transient electrostatic discharge (ESD) and lightning surges without dielectric arc-over. While standard thick-film resistors utilize ruthenium oxide resistive ink deposited on 96% alumina ceramic substrates, surge-rated components employ serpentine or double-sided conductive patterns that distribute electrical field stress uniformly across the ceramic core.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, precision laboratory instruments utilize bulk metal foil resistors featuring etched planar nickel-chromium foil bonded to high thermal conductivity ceramic carriers, achieving temperature coefficients below 0.2 ppm/°C and exceptional long-term load-life stability.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding standard color code identification systems guarantees accurate manual assembly and streamlined electronics servicing across all prototype and production circuit boards. Specifying tight tolerance components minimizes signal variance in analog instrumentation channels.
+          </p>
+
+        </>
+      }
+    >
+      <ResistorColorCodeCalculatorComponent />
+    </CalcPage>
   );
 }

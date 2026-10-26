@@ -1,26 +1,253 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PowerCalculatorComponent from "@/components/calcs/electronics/power-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PowerFactorActiveReactiveTriangleChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/power-calculator";
+const TITLE = "Electric Power Calculator | Real Watts, Apparent VA & Power Factor";
+const DESCRIPTION =
+  "Calculate active electrical power (Watts), apparent power (VA), reactive power (VAR), and power factor across single-phase AC and DC circuits.";
 
 export const metadata: Metadata = {
-  "title": "Electrical Power Calculator – Watts, Volts, Amps | CalcDigi",
-  "description": "Calculate power in watts from volts and amps, or find voltage and current from power. Full P=VI formula with AC and DC modes.",
-  "openGraph": {
-    "title": "Electrical Power Calculator – Watts, Volts, Amps | CalcDigi",
-    "description": "Calculate power in watts from volts and amps, or find voltage and current from power. Full P=VI formula with AC and DC modes.",
-    "type": "website",
-    "url": "/calculators/electronics/power-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/power-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/three-phase-power-calculator", icon: "⚡", name: "Three-Phase Power" },
+  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+  { href: "/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life" },
+  { href: "/calculators/electronics/transformer-calculator", icon: "🔄", name: "Transformer" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Solar Panel" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the difference between Real Power (Watts) and Apparent Power (VA)?",
+    a: "Real Power (measured in Watts, W) represents the actual rate at which electrical energy is converted into physical mechanical work, heat, or light. Apparent Power (measured in Volt-Amperes, VA) is the simple product of RMS voltage and RMS current (S = V × I). In AC circuits with inductive or capacitive reactive loads, Apparent Power exceeds Real Power by the power factor ratio.",
+  },
+  {
+    q: "What is Power Factor (PF) and why is a low power factor penalized by utilities?",
+    a: "Power Factor is the dimensionless ratio of real working power to apparent power: PF = P / S = cos(θ). Inductive loads (such as AC motors, air conditioner compressors, and transformers) draw reactive current that magnetizes stator cores without doing real work. This reactive current circulates back and forth, heating transmission lines and causing voltage drop, prompting utilities to levy heavy financial penalties for PF below 0.90.",
+  },
+  {
+    q: "How does Reactive Power (VAR) relate to the AC Power Triangle?",
+    a: "The AC Power Triangle is governed by the Pythagorean theorem: S² = P² + Q², where S is Apparent Power (VA), P is Real Active Power (Watts), and Q is Reactive Power (Volt-Amperes Reactive, VAR). Inductive loads generate lagging reactive power, while capacitive banks generate leading reactive power, allowing industrial plants to cancel out motor VARs.",
+  },
+  {
+    q: "How do you calculate daily and monthly electrical kilowatt-hour (kWh) consumption?",
+    a: "Electrical energy consumption is computed by multiplying active power in kilowatts by operating hours: kWh = (Watts × Hours) / 1,000. For example, a 1,500 Watt space heater operating for 8 hours daily consumes (1,500 × 8) / 1,000 = 12.0 kWh per day, or 360 kWh per 30-day billing cycle.",
+  },
+];
+
+export default function PowerCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Electrical Power Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/power-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Electrical Power Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/power-calculator\", \"description\": \"Calculate power in watts from volts and amps, or find voltage and current from power. Full P=VI formula with AC and DC modes.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do you calculate power in watts?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Power (W) = Voltage (V) × Current (A). For example: a 12V device drawing 5A consumes 12 × 5 = 60 watts. In AC circuits, multiply by power factor: P = V × I × cos(φ).\"}}, {\"@type\": \"Question\", \"name\": \"How many amps does a 1000W device draw?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 120V: I = P/V = 1000/120 = 8.33 amps. At 240V: I = 1000/240 = 4.17 amps. Higher voltage means lower current for the same power, which is why high-power appliances like ovens use 240V circuits.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between watts and volt-amperes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Watts (W) measure real power — actual energy consumed. Volt-amperes (VA) measure apparent power — V × I without power factor correction. For resistive loads (heaters, incandescent lights), W = VA. For inductive loads (motors, UPS systems), W < VA.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate my electricity bill from watts?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Energy (kWh) = Power (kW) × Time (hours). Cost = kWh × electricity rate ($/kWh). A 2,000W AC running 8 hours/day = 16 kWh/day. At $0.15/kWh = $2.40/day = $72/month.\"}}, {\"@type\": \"Question\", \"name\": \"What wire gauge do I need for a given power?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"More current requires thicker wire. Common guidelines: 15A → 14 AWG, 20A → 12 AWG, 30A → 10 AWG, 40A → 8 AWG. Always use the next thicker gauge for safety. Undersized wiring causes overheating and fire risk.\"}}, {\"@type\": \"Question\", \"name\": \"What is power factor and why does it matter?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Power factor (0 to 1) represents how efficiently a device uses electrical power. Resistive loads (heaters): PF = 1. Motors: PF = 0.7-0.9. Low power factor wastes energy and requires utilities to generate more apparent power, which is why industrial customers pay power factor penalties.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Electrical Power Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Electrical Power Calculator</h1>\n<p class=\"calc-intro\">Calculate electrical power (watts) from voltage and current, or find any missing value. Works for both DC and AC circuits. Includes power factor calculation for AC loads, energy cost estimation, and common appliance reference.</p>\n<p class=\"calc-intro\"></p><p>Electrical power calculations underpin every aspect of electrical engineering — from sizing residential circuit breakers and selecting motor starters to designing data center power distribution and renewable energy systems. A solid understanding of power relationships prevents dangerous undersizing and costly oversizing of electrical equipment.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">P = V × I | P = I² × R | P = V² / R | For AC: P = V × I × cos(φ)</div></div>\n<div class=\"content-section\">\n<h2>Electrical Power Calculation Guide</h2>\n<p>Electrical power is the rate at which electrical energy is consumed or generated. Measured in watts (W), it is the product of voltage and current. Understanding power is essential for selecting the right fuses, circuit breakers, wire gauges, and power supplies for any electrical installation.</p>\n<h3>DC Power vs AC Power</h3>\n<p>In DC circuits, power is simply P = V × I. In AC circuits, a power factor (cos φ) must be applied: P = V × I × cos(φ). For resistive loads (heaters, incandescent bulbs), power factor = 1. For inductive loads (motors, transformers), power factor is typically 0.7-0.95.</p>\n<h3>Real Power vs Apparent Power</h3>\n<p>Real power (W) = actual energy consumed. Apparent power (VA) = V × I without power factor. Reactive power (VAR) = power stored and released by inductors/capacitors. Power factor = Real/Apparent. Utilities charge for real power but must supply apparent power.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Appliance</th><th style=\"padding:12px 16px;\">Power</th><th style=\"padding:12px 16px;\">Voltage</th><th style=\"padding:12px 16px;\">Current</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">LED Bulb</td><td style=\"padding:11px 16px;\">10W</td><td style=\"padding:11px 16px;\">120V</td><td style=\"padding:11px 16px;\">0.083A</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Laptop</td><td style=\"padding:11px 16px;\">65W</td><td style=\"padding:11px 16px;\">19V</td><td style=\"padding:11px 16px;\">3.4A</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Microwave</td><td style=\"padding:11px 16px;\">1,200W</td><td style=\"padding:11px 16px;\">120V</td><td style=\"padding:11px 16px;\">10A</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Air Conditioner</td><td style=\"padding:11px 16px;\">2,000W</td><td style=\"padding:11px 16px;\">240V</td><td style=\"padding:11px 16px;\">8.3A</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Electric Oven</td><td style=\"padding:11px 16px;\">5,000W</td><td style=\"padding:11px 16px;\">240V</td><td style=\"padding:11px 16px;\">20.8A</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">EV Charger (Level 2)</td><td style=\"padding:11px 16px;\">7,200W</td><td style=\"padding:11px 16px;\">240V</td><td style=\"padding:11px 16px;\">30A</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Electrical Power in Practical Applications</h2>\n<p>Understanding electrical power calculations is essential for safe system design. Every component — wire, switch, fuse, connector — must be rated to handle the power flowing through it. Undersized components cause failures ranging from nuisance trips to dangerous fires.</p>\n<h3>Circuit Breaker and Fuse Sizing</h3>\n<p>Circuit breakers are sized based on current, not power. I = P/V. A 2,400W 120V circuit draws 20A — use a 20A breaker with 12 AWG wire. A 4,800W 240V circuit draws 20A — same breaker but can use thinner wire due to lower current per conductor. Always derate to 80% for continuous loads: 20A breaker → max 16A continuous.</p>\n<h3>Power Factor Correction</h3>\n<p>Industrial facilities with large motor loads often have poor power factor (0.7-0.85). Utilities charge for apparent power (kVA) but customers only use real power (kW). Installing capacitor banks raises PF toward 1.0, reducing reactive current, lowering electricity bills, and reducing equipment heating. A PF improvement from 0.8 to 0.95 reduces current by 16%.</p>\n<h3>Three-Phase vs Single-Phase Power</h3>\n<p>Three-phase power delivers √3 ≈ 1.732× more power than single-phase at the same voltage and current. A 240V single-phase 30A circuit delivers 7,200W. A 240V three-phase 30A circuit delivers 12,470W. This is why large industrial equipment (motors over 5 HP, commercial HVAC) always uses three-phase.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you calculate power in watts? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Power (W) = Voltage (V) × Current (A). For example: a 12V device drawing 5A consumes 12 × 5 = 60 watts. In AC circuits, multiply by power factor: P = V × I × cos(φ).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many amps does a 1000W device draw? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 120V: I = P/V = 1000/120 = 8.33 amps. At 240V: I = 1000/240 = 4.17 amps. Higher voltage means lower current for the same power, which is why high-power appliances like ovens use 240V circuits.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between watts and volt-amperes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Watts (W) measure real power — actual energy consumed. Volt-amperes (VA) measure apparent power — V × I without power factor correction. For resistive loads (heaters, incandescent lights), W = VA. For inductive loads (motors, UPS systems), W &lt; VA.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my electricity bill from watts? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Energy (kWh) = Power (kW) × Time (hours). Cost = kWh × electricity rate ($/kWh). A 2,000W AC running 8 hours/day = 16 kWh/day. At $0.15/kWh = $2.40/day = $72/month.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What wire gauge do I need for a given power? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">More current requires thicker wire. Common guidelines: 15A → 14 AWG, 20A → 12 AWG, 30A → 10 AWG, 40A → 8 AWG. Always use the next thicker gauge for safety. Undersized wiring causes overheating and fire risk.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is power factor and why does it matter? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Power factor (0 to 1) represents how efficiently a device uses electrical power. Resistive loads (heaters): PF = 1. Motors: PF = 0.7-0.9. Low power factor wastes energy and requires utilities to generate more apparent power, which is why industrial customers pay power factor penalties.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/frequency-calculator\"><span class=\"rc-icon\">📡</span><span class=\"rc-name\">Frequency Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Electrical Power Calculator – Watts, Volts and Amps</h2><div class=\"form-group\"><label for=\"pw-solve\">Solve For</label><select id=\"pw-solve\"><option selected=\"\" value=\"p\">Power (W)</option><option value=\"v\">Voltage (V)</option><option value=\"i\">Current (A)</option></select></div>\n<div class=\"form-group\"><label for=\"pw-type\">Circuit Type</label><select id=\"pw-type\"><option selected=\"\" value=\"dc\">DC Circuit</option><option value=\"ac\">AC Circuit</option></select></div>\n<div id=\"pw-for-p\"><div class=\"form-group\"><label for=\"pw-v1\">Voltage (V)</label><input id=\"pw-v1\" step=\"any\" type=\"number\" value=\"120\"/></div><div class=\"form-group\"><label for=\"pw-i1\">Current (A)</label><input id=\"pw-i1\" step=\"any\" type=\"number\" value=\"5\"/></div></div>\n<div id=\"pw-for-v\" style=\"display:none;\"><div class=\"form-group\"><label for=\"pw-p2\">Power (W)</label><input id=\"pw-p2\" step=\"any\" type=\"number\" value=\"600\"/></div><div class=\"form-group\"><label for=\"pw-i2\">Current (A)</label><input id=\"pw-i2\" step=\"any\" type=\"number\" value=\"5\"/></div></div>\n<div id=\"pw-for-i\" style=\"display:none;\"><div class=\"form-group\"><label for=\"pw-p3\">Power (W)</label><input id=\"pw-p3\" step=\"any\" type=\"number\" value=\"600\"/></div><div class=\"form-group\"><label for=\"pw-v3\">Voltage (V)</label><input id=\"pw-v3\" step=\"any\" type=\"number\" value=\"120\"/></div></div>\n<div id=\"pw-pf\" style=\"display:none;\"><div class=\"form-group\"><label for=\"pw-pf\">Power Factor (0-1)</label><input id=\"pw-pf\" max=\"1\" min=\"0.1\" step=\"0.01\" type=\"number\" value=\"0.85\"/></div></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Electrical Power Calculator – Watts, Volts and Amps')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Electrical Power Calculator – Watts, Volts and Amps')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-power-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('pw-solve').addEventListener('change',function(){\n  var s=this.value;\n  document.getElementById('pw-for-p').style.display=s==='p'?'block':'none';\n  document.getElementById('pw-for-v').style.display=s==='v'?'block':'none';\n  document.getElementById('pw-for-i').style.display=s==='i'?'block':'none';\n});\ndocument.getElementById('pw-type').addEventListener('change',function(){\n  document.getElementById('pw-pf').style.display=this.value==='ac'?'block':'none';\n});\nfunction g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var solve=document.getElementById('pw-solve').value;\n  var isAC=document.getElementById('pw-type').value==='ac';\n  var pf=isAC?g('pw-pf'):1;\n  var V,I,P,apparent;\n  if(solve==='p'){V=g('pw-v1');I=g('pw-i1');if(!V||!I){alert('Enter voltage and current.');return;}P=V*I*pf;apparent=V*I;}\n  else if(solve==='v'){P=g('pw-p2');I=g('pw-i2');if(!P||!I){alert('Enter power and current.');return;}V=P/(I*pf);apparent=V*I;}\n  else{P=g('pw-p3');V=g('pw-v3');if(!P||!V){alert('Enter power and voltage.');return;}I=P/(V*pf);apparent=V*I;}\n  var cost24=P*24/1000*0.15;\n  document.getElementById('el-ri').innerHTML=\n    ri('Power (P)','<strong style=\"font-size:22px;color:var(--c-accent)\">'+P.toFixed(2)+' W</strong>',true)+\n    ri('Voltage (V)',V.toFixed(2)+' V')+ri('Current (I)',I.toFixed(4)+' A')+\n    (isAC?ri('Apparent Power',apparent.toFixed(2)+' VA')+ri('Power Factor',pf):'')+\n    ri('Daily Cost (est.)','$'+cost24.toFixed(4)+' @ $0.15/kWh')+\n    ri('Monthly Cost','$'+(cost24*30).toFixed(2));\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Real Power','Reactive'],[Math.round(P)||1,Math.round(apparent-P)||0.001],['#1a5c3a','#c8832a']);\n  var aiPrompt='Electrical load: '+P.toFixed(1)+'W at '+V.toFixed(1)+'V drawing '+I.toFixed(3)+'A';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about electrical safety or energy efficiency for this load.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> In alternating current (AC) systems, calculating true electrical power requires accounting for the phase displacement between voltage and current waveforms. To evaluate industrial 3-phase machinery, consult our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and calculate circuit breaker cable drop in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Power Factor Degradation & The AC Power Triangle
+          </h2>
+          <PowerFactorActiveReactiveTriangleChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Electrical power engineering bridges fundamental physics and practical utility grid management. In pure direct current (DC) circuits, power calculation is straightforward: potential difference multiplied by current gives instantaneous and average power (P = V × I). However, in alternating current (AC) circuits, inductive and capacitive reactive elements introduce a phase angle shift (θ) between the oscillating sinusoidal voltage and current waveforms.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When current lags voltage (inductive load) or leads voltage (capacitive load), a portion of the circulating electrical energy is temporarily stored in magnetic or electrostatic fields and reflected back to the source twice per AC cycle. This non-working energy constitutes Reactive Power (measured in VAR), which must be accommodated by transformers and conductors even though it performs no useful mechanical work.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations of Electrical Power
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In AC single-phase analysis, the relationship between Apparent Power (S), Real Active Power (P), and Reactive Power (Q) is defined by the complex power vector S = P + jQ:
+          </p>
+          <Formula>{"S (VA) = V_{rms} \times I_{rms}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Active Real Power (P, in Watts) represents productive work and is governed by the power factor cosine term:
+          </p>
+          <Formula>{"P (W) = S \times \cos(\theta) = V_{rms} \times I_{rms} \times PF"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Reactive Power (Q, in VAR) satisfies the right-triangle relationship:
+          </p>
+          <Formula>{"Q (VAR) = \sqrt{S^2 - P^2} = V_{rms} \times I_{rms} \times \sin(\theta)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For DC circuits and pure resistive heating loads, compute parameters in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and calculate transformer winding transfer in our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Typical Electrical Appliances: Power Ratings & Power Factors
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Residential and commercial electrical equipment exhibit widely varying power factors depending on whether loads are purely resistive, switch-mode power supplies (SMPS), or induction motors:
+          </p>
+          <DataTable
+            head={["Equipment Load Type", "Nominal Real Watts", "Typical Power Factor", "Apparent Load (VA)", "Primary Load Characteristic"]}
+            rows={[
+              ["Incandescent / Halogen Bulb", "60 W - 500 W", "1.00 (Unity)", "60 - 500 VA", "Purely resistive tungsten filament"],
+              ["Electric Water Heater / Stove", "3,500 W - 5,000 W", "1.00 (Unity)", "3,500 - 5,000 VA", "Purely resistive heating element"],
+              ["Workshop Induction Motor (1 HP)", "746 W", "0.75 - 0.85", "880 - 1,000 VA", "Heavy inductive stator coil winding"],
+              ["Central Air Conditioner (3 Ton)", "3,500 W", "0.82 - 0.88", "4,000 - 4,250 VA", "Compressor motor + condenser fan"],
+              ["Desktop PC / Gaming Workstation", "450 W - 850 W", "0.95 - 0.99", "475 - 895 VA", "Active PFC switch-mode power supply"],
+              ["Fluorescent Tube (Magnetic Ballast)", "40 W", "0.50 - 0.60", "67 - 80 VA", "Uncorrected inductive ballast choke"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Industrial Example: Power Factor Correction Sizing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A manufacturing facility operates a 240 V single-phase induction motor drawing I = 40.0 A with a measured lagging power factor of PF_1 = 0.72. The facility engineer wishes to correct the power factor to PF_2 = 0.95 to avoid utility surcharges:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Initial Apparent Power (S_1):</strong> S_1 = V × I = 240 V × 40.0 A = 9,600 VA = 9.60 kVA
+            </li>
+            <li>
+              <strong>Real Active Power (P):</strong> P = S_1 × PF_1 = 9.60 kVA × 0.72 = 6.912 kW
+            </li>
+            <li>
+              <strong>Initial Reactive Power (Q_1):</strong>
+              <br />
+              θ_1 = arccos(0.72) = 43.95^° → Q_1 = P × tan(43.95^°) = 6.912 × 0.964 = 6.663 kVAR
+            </li>
+            <li>
+              <strong>Target Reactive Power at PF 0.95 (Q_2):</strong>
+              <br />
+              θ_2 = arccos(0.95) = 18.19^° → Q_2 = P × tan(18.19^°) = 6.912 × 0.329 = 2.274 kVAR
+            </li>
+            <li>
+              <strong>Required Shunt Capacitor Bank Rating (Q_C):</strong>
+              <br />
+              Q_C = Q_1 - Q_2 = 6.663 kVAR - 2.274 kVAR = 4.389 kVAR
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Installing a 4.39 kVAR capacitor bank reduces line current from 40.0 A down to 30.3 A, slashing cable heating and utility penalties. For large industrial motors, calculate reactive parameters in our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and calculate capacitor values in our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Harmonic Distortion & Non-Linear Electronic Loads
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern commercial buildings feature dense deployments of non-linear loads, including variable frequency drives (VFDs), server computing clusters, and LED lighting drivers. These devices draw current in brief high-amplitude pulses rather than smooth continuous sinusoids.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This non-sinusoidal conduction generates harmonic distortion, introducing high-frequency current multiples (3rd, 5th, 7th, 9th harmonics). In such systems, Total Power Factor (PF_total) is the product of Displacement Power Factor (PF_disp) and Distortion Power Factor (PF_dist = 1 / √(1 + THD²)). Triplen harmonics accumulate on neutral conductors, necessitating oversized neutral feeder sizing under NEC Article 310.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Regulatory Standards & Utility Tariff Structures
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            National regulatory commissions and engineering standards bodies mandate strict efficiency guidelines to prevent grid destabilization:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>IEEE Standard 519:</strong> Recommended practice and requirements for harmonic control in electric power systems, limiting total harmonic current distortion at the point of common coupling (PCC).
+            </li>
+            <li>
+              <strong>EN 61000-3-2:</strong> European electromagnetic compatibility (EMC) directive requiring active Power Factor Correction (PFC) circuitry in all mains-powered electronic equipment dissipating over 75 Watts.
+            </li>
+            <li>
+              <strong>Commercial Utility kVA Demand Billing:</strong> Electric utility tariffs levy penalties when commercial customer power factor drops below 0.90 or 0.95, billing customers based on peak kVA apparent demand rather than real kWh usage.
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When sizing off-grid renewable energy installations, model inverter outputs via our <Link href="/calculators/electronics/solar-panel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">solar panel calculator</Link> and calculate battery bank storage in our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding the distinction between real, apparent, and reactive electrical power empowers engineers to design thermally efficient distribution panels, eliminate utility penalty charges, and protect high-value industrial equipment from power degradation.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Reactive Power Flow in Transmission Grids & Voltage Stability Collapse
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Across high-voltage electrical utility transmission networks, managing reactive power (VAR) is the governing determinant of grid voltage stability. High-voltage transmission lines possess significant series inductive reactance (X_L) and shunt line-charging capacitive admittance (B_C). When transmission corridors transport heavy real power alongside uncorrected lagging inductive current, voltage drop along the line escalates non-linearly.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            If inductive loads draw excess reactive power faster than utility generators or substation shunt capacitor banks can supply it, a catastrophic phenomenon termed &lsquo;voltage collapse&rsquo; can occur. The receiving-end bus voltage degrades, forcing induction motors to draw even greater current to maintain shaft power, precipitating widespread regional blackouts. Modern utilities deploy Static VAR Compensators (SVCs) and Static Synchronous Compensators (STATCOMs) to dynamically inject leading or lagging reactive power within milliseconds, stabilizing grid voltage profiles under fluctuating industrial demands.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Careful balancing of active and reactive power components guarantees pristine electrical efficiency, eliminates utility tariff penalties, and prevents unexpected electrical outages across commercial facilities.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Harmonic Filter Topologies: Active vs Passive Shunt Traps
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In industrial facilities populated by variable speed drives, arc furnaces, and heavy rectifiers, excessive harmonic distortion cannot be corrected with simple capacitor banks alone. Connecting pure capacitors into a harmonically contaminated network risks triggering parallel resonance, magnifying 5th and 7th harmonic voltages destructively.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Industrial power engineers deploy <strong>De-Tuned Iron-Core Reactors</strong> in series with power factor correction capacitors, shifting the resonance frequency below the lowest dominant harmonic (typically to 189 Hz). For severe harmonic pollution, <strong>Active Harmonic Filters (AHFs)</strong> inject anti-phase compensation currents in real time, neutralizing harmonics up to the 50th order and restoring pure sinusoidal waveforms across commercial power grids.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Implementing continuous power quality monitoring safeguards expensive industrial machinery against phase distortion, optimizes electrical facility capacity, and reduces utility electricity tariffs across modern commercial enterprises.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Harmonic Distortion & Polyphase Grid Power Distribution
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In commercial electrical infrastructure, non-linear rectifiers and variable-frequency motor drives generate harmonic currents that elevate neutral line temperatures. Sizing multi-phase feeder lines requires polyphase analysis available in our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and measuring attenuation ratios in our <Link href="/calculators/electronics/decibel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">decibel calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Total Harmonic Distortion (THD) reduces effective power factor even in circuits with zero phase displacement between voltage and fundamental current. Installing active harmonic filters cancels harmonic frequencies up to the 50th order, preventing transformer overheating and ensuring compliance with IEEE 519 grid interconnect standards.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Comprehensive power profiling enables electrical engineers to eliminate utility power factor penalties, optimize wiring efficiency, and maintain resilient electrical distribution.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Dynamic Reactive Compensation & Flexible AC Transmission Systems (FACTS)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern electrical utility transmission operators deploy Flexible AC Transmission Systems (FACTS) to dynamically manage active and reactive power flows along high-voltage grid corridors without constructing new physical transmission lines. Utilizing high-speed insulated-gate bipolar transistor (IGBT) power converters, Static Synchronous Compensators (STATCOMs) inject or absorb continuously variable reactive power within sub-cycle response times.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            By regulating voltage profiles at key regional interconnection substations, FACTS devices prevent catastrophic voltage collapse during sudden generator trips or severe lightning strikes on utility towers. Integrating real-time synchrophasor measurement units (PMUs) provides grid dispatchers with wide-area angular stability monitoring, maximizing power transfer capability while maintaining strict N-1 reliability margins across nationwide interconnected electrical networks.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Implementing automated power monitoring at facility main switchboards eliminates nuisance circuit breaker tripping and optimizes total apparent and active energy utilization.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Routine electrical auditing guarantees balanced polyphase load distribution, preventing localized feeder overheating and extending the operational longevity of critical switchgear assets.
+          </p>
+
+        </>
+      }
+    >
+      <PowerCalculatorComponent />
+    </CalcPage>
   );
 }

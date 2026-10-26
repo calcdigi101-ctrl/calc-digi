@@ -1,26 +1,259 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import RcTimeConstantCalculatorComponent from "@/components/calcs/electronics/rc-time-constant-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { RcChargingExponentialDischargeCurveChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/rc-time-constant-calculator";
+const TITLE = "RC Time Constant Calculator | Tau (τ), Rise Time & Cutoff Frequency";
+const DESCRIPTION =
+  "Calculate resistor-capacitor (RC) circuit time constant (τ), exponential charging voltages, 5τ settling time, and low-pass filter cutoff frequency.";
 
 export const metadata: Metadata = {
-  "title": "RC Time Constant Calculator – τ, Charge/Discharge | CalcDigi",
-  "description": "Calculate RC circuit time constant (τ=RC), voltage at any time, charge and discharge curves, and filter cutoff frequency.",
-  "openGraph": {
-    "title": "RC Time Constant Calculator – τ, Charge/Discharge | CalcDigi",
-    "description": "Calculate RC circuit time constant (τ=RC), voltage at any time, charge and discharge curves, and filter cutoff frequency.",
-    "type": "website",
-    "url": "/calculators/electronics/rc-time-constant-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/rc-time-constant-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/capacitor-calculator", icon: "⚙️", name: "Capacitor Reactance" },
+  { href: "/calculators/electronics/voltage-divider-calculator", icon: "🔽", name: "Voltage Divider" },
+  { href: "/calculators/electronics/frequency-calculator", icon: "📡", name: "Frequency Calculator" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/resistor-color-code-calculator", icon: "🎨", name: "Resistor Color Code" },
+  { href: "/calculators/electronics/decibel-calculator", icon: "🔊", name: "Decibel Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is an RC circuit time constant (Tau, τ) and how is it calculated?",
+    a: "The RC time constant (symbolized by the Greek letter Tau, τ) is the mathematical product of series resistance in Ohms and capacitance in Farads: τ = R × C. Tau represents the time in seconds required for a capacitor to charge to approximately 63.2% of an applied step voltage, or discharge to 36.8% of its initial stored potential.",
+  },
+  {
+    q: "Why is an RC circuit considered fully charged or discharged after 5 time constants (5τ)?",
+    a: "Because capacitor charging follows an asymptotic exponential decay curve: V(t) = Vs × [1 - e^(-t / τ)]. At t = 1τ, the capacitor reaches 63.2% charge; at t = 2τ, 86.5%; at t = 3τ, 95.0%; at t = 4τ, 98.2%; and at t = 5τ, it reaches 99.33% of the supply voltage. For practical engineering purposes, 5τ represents the full steady-state settling horizon.",
+  },
+  {
+    q: "How does an RC network function as a first-order low-pass filter?",
+    a: "In an RC low-pass filter, the output voltage is tapped across the capacitor. At low frequencies, capacitive reactance is high, allowing input signals to pass with zero attenuation. At high frequencies, capacitive reactance drops toward zero, shunting high-frequency noise to ground. The -3 dB cutoff frequency is defined as fc = 1 / (2 × π × R × C).",
+  },
+  {
+    q: "How are RC circuits used for switch debouncing and power-on reset delays?",
+    a: "Mechanical tactile switches produce electrical contact bounce (rapid microsecond oscillating open/close cycles) when pressed. An RC low-pass filter smooths these abrupt transitions into a clean monotonic voltage ramp. Similarly, microcontrollers utilize an RC delay on their RESET pin to hold the processor in reset until the main power supply stabilizes.",
+  },
+];
+
+export default function RcTimeConstantCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"RC Time Constant Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/rc-time-constant-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"RC Time Constant Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/rc-time-constant-calculator\", \"description\": \"Calculate RC circuit time constant (τ=RC), voltage at any time, charge and discharge curves, and filter cutoff frequency.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the RC time constant?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"τ (tau) = R × C in seconds, where R is in ohms and C is in farads. A 10kΩ resistor and 100µF capacitor give τ = 10,000 × 0.0001 = 1 second. The capacitor reaches 63.2% of supply voltage after 1 time constant.\"}}, {\"@type\": \"Question\", \"name\": \"How long does a capacitor take to fully charge?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A capacitor is considered fully charged after 5τ (5 time constants), reaching 99.3% of supply voltage. For τ = 1ms: full charge in 5ms. For τ = 100µs: full charge in 500µs. In practice, many circuits use 3τ (95%) as sufficient.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate RC filter cutoff frequency?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Cutoff frequency fc = 1/(2π × R × C) Hz. This is the -3 dB point where output power is halved. For R=10kΩ and C=1µF: fc = 1/(2π × 10,000 × 0.000001) = 15.9 Hz. Below fc signals pass; above fc signals are attenuated.\"}}, {\"@type\": \"Question\", \"name\": \"What is the voltage across a capacitor at time t?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For charging from 0V: Vc(t) = Vs × (1 - e^(-t/τ)). For discharging from V0: Vc(t) = V0 × e^(-t/τ). After 1τ during charging from a 12V supply: Vc = 12 × (1 - e^(-1)) = 12 × 0.632 = 7.58V.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between RC and RL time constants?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"RC time constant: τ = R×C (seconds). RL time constant: τ = L/R (seconds). RC circuits use capacitors to store energy in electric fields; RL circuits use inductors to store energy in magnetic fields. Both follow the same exponential charge/discharge curves.\"}}, {\"@type\": \"Question\", \"name\": \"What are practical applications of RC time constants?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"555 timer circuits use RC to set pulse width and frequency. RC debouncing circuits eliminate switch bounce in digital inputs. RC coupling capacitors in audio block DC while passing AC signals. RC snubber circuits protect relay contacts from voltage spikes.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">RC Time Constant Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>RC Time Constant Calculator</h1>\n<p class=\"calc-intro\">Calculate the RC time constant (τ = R × C), capacitor voltage at any time during charging or discharging, 5τ full charge time, and low-pass/high-pass filter cutoff frequency. Essential for timing circuits, filters, and signal processing.</p>\n<p class=\"calc-intro\"></p><p>The RC time constant is one of the most widely used concepts in analog electronics design. From the 555 timer chips in alarm systems to the anti-aliasing filters in audio converters, from debounce circuits in keyboards to motor drive smoothing capacitors — RC circuits appear in virtually every electronic product. Understanding τ = RC enables design and analysis of these fundamental building blocks.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">τ = R × C | Vc(t) = Vs × (1 - e^(-t/τ)) charging | Vc(t) = V0 × e^(-t/τ) discharging | fc = 1/(2πRC)</div></div>\n<div class=\"content-section\">\n<h2>RC Time Constant Guide</h2>\n<p>The RC time constant (τ, pronounced tau) is the fundamental parameter of any resistor-capacitor circuit. It determines how quickly a capacitor charges or discharges through a resistor. RC circuits are used in timing applications, signal filtering, waveshaping, debouncing, and analog-to-digital conversion.</p>\n<h3>Charging and Discharging Behavior</h3>\n<p>During charging: Vc = Vs × (1 - e^(-t/τ)). After 1τ: 63.2% charged. After 3τ: 95% charged. After 5τ: 99.3% charged (considered \"fully charged\"). During discharging: Vc = V0 × e^(-t/τ). After 1τ: 36.8% remaining. After 5τ: 0.7% remaining.</p>\n<h3>RC as a Low-Pass Filter</h3>\n<p>An RC circuit with output across the capacitor forms a low-pass filter. Signals below the cutoff frequency (fc = 1/2πRC) pass through with little attenuation. Above fc, signals are attenuated at -20 dB/decade (-6 dB/octave). With output across the resistor, it becomes a high-pass filter.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Time</th><th style=\"padding:12px 16px;\">Charge Level</th><th style=\"padding:12px 16px;\">Remaining Discharge</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1τ</td><td style=\"padding:11px 16px;\">63.2%</td><td style=\"padding:11px 16px;\">36.8%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">2τ</td><td style=\"padding:11px 16px;\">86.5%</td><td style=\"padding:11px 16px;\">13.5%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">3τ</td><td style=\"padding:11px 16px;\">95.0%</td><td style=\"padding:11px 16px;\">5.0%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">4τ</td><td style=\"padding:11px 16px;\">98.2%</td><td style=\"padding:11px 16px;\">1.8%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">5τ</td><td style=\"padding:11px 16px;\">99.3%</td><td style=\"padding:11px 16px;\">0.7%</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>RC Circuits in Practical Electronics</h2>\n<p>RC circuits are among the most versatile building blocks in electronics. A single resistor and capacitor can function as a filter, timer, integrator, differentiator, or debouncer. Understanding RC behavior enables design of these fundamental circuits from first principles.</p>\n<h3>RC Filters in Audio and Signal Processing</h3>\n<p>A first-order RC low-pass filter has a -3 dB cutoff at fc = 1/(2πRC) and rolls off at -20 dB/decade above fc. For a bass-boost circuit cutting off at 200 Hz: C = 1/(2π × 10,000 × 200) = 79.6nF — use 82nF. Cascading RC stages increases roll-off slope: two RC stages give -40 dB/decade. Active filters (op-amp + RC) eliminate loading issues and can provide sharper cutoffs.</p>\n<h3>555 Timer — The Classic RC Application</h3>\n<p>The 555 timer IC uses RC time constants to generate precise timing. In astable mode: frequency = 1.44/(( R1 + 2×R2) × C). In monostable mode: pulse width = 1.1 × R × C. A 555 with R=10kΩ and C=10µF gives monostable pulse width = 1.1 × 10,000 × 0.00001 = 0.11 seconds. This workhorse IC has been manufactured for over 50 years and remains widely used.</p>\n<h3>RC Snubber Circuits</h3>\n<p>RC snubbers protect relay contacts and power semiconductors from voltage spikes caused by inductive loads switching off. When a relay opens with an inductive load (motor, solenoid), the collapsing magnetic field creates spikes of hundreds of volts. A snubber (typically 100Ω + 100nF in series, placed across the contacts) absorbs this energy, preventing arc damage and EMI.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the RC time constant? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">τ (tau) = R × C in seconds, where R is in ohms and C is in farads. A 10kΩ resistor and 100µF capacitor give τ = 10,000 × 0.0001 = 1 second. The capacitor reaches 63.2% of supply voltage after 1 time constant.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does a capacitor take to fully charge? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A capacitor is considered fully charged after 5τ (5 time constants), reaching 99.3% of supply voltage. For τ = 1ms: full charge in 5ms. For τ = 100µs: full charge in 500µs. In practice, many circuits use 3τ (95%) as sufficient.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate RC filter cutoff frequency? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Cutoff frequency fc = 1/(2π × R × C) Hz. This is the -3 dB point where output power is halved. For R=10kΩ and C=1µF: fc = 1/(2π × 10,000 × 0.000001) = 15.9 Hz. Below fc signals pass; above fc signals are attenuated.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the voltage across a capacitor at time t? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For charging from 0V: Vc(t) = Vs × (1 - e^(-t/τ)). For discharging from V0: Vc(t) = V0 × e^(-t/τ). After 1τ during charging from a 12V supply: Vc = 12 × (1 - e^(-1)) = 12 × 0.632 = 7.58V.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between RC and RL time constants? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">RC time constant: τ = R×C (seconds). RL time constant: τ = L/R (seconds). RC circuits use capacitors to store energy in electric fields; RL circuits use inductors to store energy in magnetic fields. Both follow the same exponential charge/discharge curves.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are practical applications of RC time constants? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">555 timer circuits use RC to set pulse width and frequency. RC debouncing circuits eliminate switch bounce in digital inputs. RC coupling capacitors in audio block DC while passing AC signals. RC snubber circuits protect relay contacts from voltage spikes.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>RC Time Constant Calculator – Charge, Discharge and Filter</h2><div class=\"form-group\"><label for=\"rc-r\">Resistance R (Ω)</label><input id=\"rc-r\" min=\"1\" step=\"1\" type=\"number\" value=\"10000\"/></div>\n<div class=\"form-group\"><label for=\"rc-c\">Capacitance C (µF)</label><input id=\"rc-c\" min=\"0.001\" step=\"any\" type=\"number\" value=\"10\"/></div>\n<div class=\"form-group\"><label for=\"rc-vs\">Supply Voltage Vs (V)</label><input id=\"rc-vs\" min=\"0\" step=\"any\" type=\"number\" value=\"12\"/></div>\n<div class=\"form-group\"><label for=\"rc-t\">Time (ms) – optional</label><input id=\"rc-t\" min=\"0\" step=\"any\" type=\"number\" value=\"0\"/></div>\n<div class=\"form-group\"><label for=\"rc-mode\">Mode</label><select id=\"rc-mode\"><option selected=\"\" value=\"charge\">Charging</option><option value=\"discharge\">Discharging</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','RC Time Constant Calculator – Charge, Discharge and Filter')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('RC Time Constant Calculator – Charge, Discharge and Filter')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-rc-time-constant-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var R=parseFloat(document.getElementById('rc-r').value)||0;\n  var C=parseFloat(document.getElementById('rc-c').value)||0;\n  var Vs=parseFloat(document.getElementById('rc-vs').value)||0;\n  var tMs=parseFloat(document.getElementById('rc-t').value)||0;\n  var mode=document.getElementById('rc-mode').value;\n  if(!R||!C){alert('Enter resistance and capacitance.');return;}\n  var Cf=C*1e-6;\n  var tau=R*Cf;\n  var fc=1/(2*Math.PI*tau);\n  var t=tMs/1000;\n  var Vt=0;\n  if(Vs>0 && t>0){\n    Vt=mode==='charge'?Vs*(1-Math.exp(-t/tau)):Vs*Math.exp(-t/tau);\n  }\n  var fmtTau=tau<0.001?(tau*1e6).toFixed(2)+' µs':tau<1?(tau*1e3).toFixed(2)+' ms':tau.toFixed(4)+' s';\n  document.getElementById('el-ri').innerHTML=\n    ri('Time Constant τ','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmtTau+'</strong>',true)+\n    ri('Full Charge Time (5τ)',(tau<0.001?(tau*5*1e6).toFixed(2)+' µs':tau<0.2?(tau*5*1000).toFixed(2)+' ms':(tau*5).toFixed(4)+' s'))+\n    ri('Filter Cutoff Frequency',fc.toFixed(2)+' Hz')+\n    ri('At 63.2% (1τ)',(Vs*0.632).toFixed(3)+' V')+\n    (t>0?ri('Voltage at '+tMs+'ms',Vt.toFixed(4)+' V ('+((mode==='charge'?Vt/Vs:(Vs-Vt)/Vs)*100).toFixed(1)+'%)'):'');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['R (kΩ)','C (µF)'],[R/1000||0.001,C||0.001],['#1a5c3a','#c8832a']);\n  var aiPrompt='RC circuit: R='+R+'Ω, C='+C+'µF, τ='+fmtTau+', cutoff='+fc.toFixed(1)+'Hz';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences describe a real-world timing or filter application that uses an RC circuit with these values.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Resistor-Capacitor (RC) networks control timing delays, signal integration, and analog low-pass filtering. To evaluate individual capacitor reactances, cross-reference our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and calculate sensor dividers in our <Link href="/calculators/electronics/voltage-divider-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">voltage divider calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Exponential RC Transient Charging & Discharging Response
+          </h2>
+          <RcChargingExponentialDischargeCurveChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The resistor-capacitor (RC) network is one of the most foundational transient and frequency-selective circuits in electrical engineering. Consisting of a passive linear resistor (R) connected in series with an electrostatic capacitor (C), this circuit models the dynamic charging and discharging behavior of electrical energy storage systems.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Unlike pure resistive networks where current responds instantaneously to applied voltage, a capacitor opposes rapid changes in potential difference. When a step voltage is applied, current initially rushes into the uncharged capacitor limited only by the series resistor. As electrostatic charge accumulates on the conductive plates, the opposing counter-voltage increases, exponentially slowing the charging current until steady-state equilibrium is achieved.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Governing Equations for RC Transients
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The fundamental time constant (τ, in seconds) is defined as the product of resistance (R, in Ohms) and capacitance (C, in Farads):
+          </p>
+          <Formula>{"τ = R \times C"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When excited by a step DC input voltage (V_s), the instantaneous capacitor charging voltage (v_c(t)) and discharging voltage from initial potential (V_0) are governed by first-order differential solutions:
+          </p>
+          <Formula>{"v_c(t) [Charging] = V_s \left(1 - e^{-\frac{t}{τ}}\right), \quad v_c(t) [Discharging] = V_0 \left(e^{-\frac{t}{τ}}\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When utilized as a passive analog low-pass filter, the -3 dB cutoff frequency (f_c, in Hertz) where output power drops by 50% is:
+          </p>
+          <Formula>{"f_c = \frac{1}{2 \pi \times R \times C} = \frac{1}{2 \pi τ}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For decibel roll-off analysis and Bode plot modeling, calculate frequency attenuation in our <Link href="/calculators/electronics/decibel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">decibel calculator</Link> and calculate RF resonance via our <Link href="/calculators/electronics/frequency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">frequency calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            RC Charging & Discharging Time Constant Milestones
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below illustrates the precise mathematical progression across integer multiples of the time constant (τ):
+          </p>
+          <DataTable
+            head={["Time Interval (t)", "Charging Voltage % (1 - e⁻ᵗ/ᵀ)", "Discharging Voltage % (e⁻ᵗ/ᵀ)", "Charging Current % (e⁻ᵗ/ᵀ)", "Practical Engineering State"]}
+            rows={[
+              ["0 τ (Initial Moment)", "0.00%", "100.00%", "100.00% (Peak Inrush Current)", "Switch closes, capacitor behaves as short circuit"],
+              ["1.0 τ", "63.21%", "36.79%", "36.79%", "Standard definition of Time Constant (τ)"],
+              ["2.0 τ", "86.47%", "13.53%", "13.53%", "Secondary charging plateau"],
+              ["2.2 τ", "90.00%", "10.00%", "10.00%", "10% to 90% Rise Time definition boundary (Tr = 2.2τ)"],
+              ["3.0 τ", "95.02%", "4.98%", "4.98%", "95% settlement threshold (Digital logic HIGH)"],
+              ["4.0 τ", "98.17%", "1.83%", "1.83%", "Near complete stabilization"],
+              ["5.0 τ", "99.33%", "0.67%", "0.67%", "Standard full settling milestone (Steady-state)"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Microcontroller Power-On Reset Delay
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An embedded systems hardware engineer designs a passive power-on reset (POR) circuit for a 3.3 V microcontroller. The processor requires its active-low RESET# (active-low) pin to remain below the logic-LOW threshold of V_IL = 0.80 V for at least 10.0 milliseconds after 3.3V mains power is applied to allow the internal crystal oscillator to stabilize:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Supply Voltage:</strong> V_s = 3.30 V
+            </li>
+            <li>
+              <strong>Reset Threshold Voltage:</strong> V(t) = 0.80 V
+            </li>
+            <li>
+              <strong>Voltage Ratio:</strong> V(t) / V_s = 0.80 / 3.30 = 0.2424 (24.24% of supply)
+            </li>
+            <li>
+              <strong>Time to Reach Threshold:</strong>
+              <br />
+              0.2424 = 1 - e^(-t / τ) → e^(-t / τ) = 1 - 0.2424 = 0.7576
+              <br />
+              -t / τ = ln(0.7576) = -0.2776 → t = 0.2776 × τ
+            </li>
+            <li>
+              <strong>Target Delay (t = 10 ms):</strong>
+              <br />
+              τ = 10.0 ms / 0.2776 = 36.02 ms = 0.03602 seconds
+            </li>
+            <li>
+              <strong>Selecting Component Values:</strong> Choose a standard pull-up resistor R = 100 kΩ (100,000 Ω).
+            </li>
+            <li>
+              <strong>Required Capacitance:</strong>
+              <br />
+              C = τ / R = 0.03602 s / 100,000 Ω = 3.602 × 10^(-7) F = 0.360 µF
+            </li>
+            <li>
+              <strong>Standard Capacitor Selection:</strong> Select a standard 0.47 µF ceramic capacitor, providing a guaranteed reset hold time of 13.0 ms.
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This RC circuit guarantees stable MCU boot sequences. Resistor color bands can be decoded in our <Link href="/calculators/electronics/resistor-color-code-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">resistor color code calculator</Link> and circuit resistance verified in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Switch Debouncing & Hardware Anti-Chatter Filters
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mechanical pushbuttons and toggle switches do not make instantaneous clean electrical contact. When pressed, metallic spring contacts physically bounce against one another for 2 to 20 milliseconds, generating multiple rapid transitions between logic 0 and logic 1. If fed directly into a microcontroller interrupt pin, a single button press can register as dozens of false clicks.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Placing a simple RC low-pass filter (10 kΩ resistor and 0.1 µF capacitor, τ = 1.0 ms) in front of a Schmitt-trigger inverter smooths contact chatter into a continuous analog ramp. The hysteresis built into the Schmitt trigger guarantees clean, single-edge digital pulses regardless of mechanical contact bounce duration.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For power consumption analysis, calculate circuit wattage in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and calculate battery drain in our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding RC time constants and transient exponential responses allows engineers to design robust hardware timing circuits, filter electromagnetic noise, and protect digital computing platforms from asynchronous signaling faults.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Lead-Lag Compensation Networks in Feedback Control Systems
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In analog servomechanisms, motor motion control systems, and switch-mode power converter control loops, RC networks are deployed to synthesize dynamic phase-lead and phase-lag compensation filters. An uncompensated feedback control loop often suffers from excessive phase shift near unity-gain crossover frequencies, precipitating self-sustaining oscillations and physical instability.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An <strong>RC Phase-Lead Compensator</strong> introduces positive phase margin near the crossover frequency, accelerating transient settling times and dampening overshoot. Conversely, an <strong>RC Phase-Lag Compensator</strong> injects high DC gain at low frequencies, reducing steady-state tracking error without destabilizing the system. Control systems engineers tailor the pole-zero placement of RC compensation networks to guarantee robust 45-to-60 degree phase margins across all dynamic operating regimes.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding RC time constants and transient exponential responses allows engineers to design robust hardware timing circuits, filter electromagnetic noise, and protect digital computing platforms from asynchronous signaling faults.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Bilinear Transform & Digital IIR RC Filter Synthesis
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern embedded DSP firmware, physical analog RC low-pass filters are frequently implemented purely in digital software executing on microcontrollers. To convert continuous analog Laplace transfer functions (H(s) = 1 / (1 + sτ)) into discrete z-domain difference equations suitable for firmware execution, digital signal processing engineers utilize Tustin&apos;s <strong>Bilinear Transform</strong>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The resulting discrete first-order Infinite Impulse Response (IIR) digital low-pass filter simplifies to a single-line recurrence relationship executing in fixed-point microcontroller arithmetic:
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            <Formula>{"y[n] = α \, x[n] + (1 - α) \, y[n-1]"}</Formula>
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            where the smoothing factor α = Δ t / (τ + Δ t) is computed directly from sample time (Δ t) and analog time constant (τ). This digital RC filter implementation eliminates hardware component cost, avoids capacitor tolerance drift, and smooths analog sensor readings with exceptional computational efficiency.
+          </p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Miller Effect Multiplication of RC Delays in Inverting Amplifiers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-speed operational amplifier and transistor voltage amplification stages, feedback capacitance connected between input and output pins experiences a dramatic phenomenon known as the <strong>Miller Effect</strong>. Discovered by John Milton Miller in 1920, the effective input capacitance is magnified by the amplifier&apos;s inverting voltage gain (A_v):
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            <Formula>{"C_{in,Miller} = C_{feedback} \times (1 + |A_v|)"}</Formula>
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A tiny 5 picofarad parasitic capacitance inside an inverting op-amp stage with a gain of 100 transforms into an effective 505 picofarad input capacitance. This magnified capacitance interacts with upstream circuit resistance (R_source), introducing an unexpected low-frequency RC cutoff pole that severely throttles amplifier bandwidth. Circuit designers implement cascode transistor topologies to bypass Miller capacitance and preserve wideband frequency response.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designing passive RC networks with precision dielectric capacitors ensures stable timing intervals, eliminates false logic transitions from mechanical switch chatter, and provides clean analog anti-aliasing filtering.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering RC exponential transient dynamics empowers circuit designers to synthesize dependable hardware timing delays and optimize frequency-selective signal processing across modern electronic hardware.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Analog Filter Rolloff & High-Frequency Cutoff Analysis
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            RC networks function as fundamental first-order passive analog low-pass and high-pass filters. Circuit designers model electrostatic storage in our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and calculate corner frequencies via our <Link href="/calculators/electronics/frequency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">frequency calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At the cutoff frequency fc = 1 / (2πRC), filter output power is attenuated by 3 dB (70.7% voltage amplitude), and output signal phase is shifted by exactly 45 degrees. Beyond the cutoff corner, attenuation rolls off at a steady 20 dB per decade, suppressing high-frequency electromagnetic interference before analog signals enter analog-to-digital converter inputs.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding RC time constants and transient exponential responses allows engineers to design robust hardware timing circuits and protect digital computing platforms.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Transmission Line Terminations & RC Snubber Damping
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-power switch-mode power converters, fast MOSFET switching transients trigger severe parasitic LC ringing and inductive voltage spikes that can puncture semiconductor gate oxides. Hardware engineers connect series RC snubber networks directly across drain-source switch terminals to dissipate high-frequency ringing energy.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Tuning the RC snubber time constant to match the characteristic ringing period dampens voltage overshoot by over 60%, suppressing electromagnetic radiated emissions and preventing switch failure.
+          </p>
+
+        </>
+      }
+    >
+      <RcTimeConstantCalculatorComponent />
+    </CalcPage>
   );
 }

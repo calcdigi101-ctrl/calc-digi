@@ -1,26 +1,257 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import OhmsLawCalculatorComponent from "@/components/calcs/electronics/ohms-law-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { OhmsLawVoltageCurrentLinearityChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/ohms-law-calculator";
+const TITLE = "Ohm's Law Calculator | Voltage, Current, Resistance & Power";
+const DESCRIPTION =
+  "Calculate electrical voltage, current, resistance, and power dissipation using Georg Ohm's fundamental circuit relationship with interactive chart modeling.";
 
 export const metadata: Metadata = {
-  "title": "Ohm's Law Calculator – V, I, R & Power | CalcDigi",
-  "description": "Calculate voltage, current, resistance, and power using V=IR.",
-  "openGraph": {
-    "title": "Ohm's Law Calculator – V, I, R & Power | CalcDigi",
-    "description": "Calculate voltage, current, resistance, and power using V=IR.",
-    "type": "website",
-    "url": "/calculators/electronics/ohms-law-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/ohms-law-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/voltage-divider-calculator", icon: "🔽", name: "Voltage Divider" },
+  { href: "/calculators/electronics/resistor-color-code-calculator", icon: "🎨", name: "Resistor Color Code" },
+  { href: "/calculators/electronics/led-resistor-calculator", icon: "💡", name: "LED Resistor" },
+  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+  { href: "/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is Ohm's Law and what is its foundational formula?",
+    a: "Ohm's Law states that the current flowing through a conductor between two points is directly proportional to the voltage across the two points and inversely proportional to the resistance between them. Mathematically, it is expressed as V = I × R, where V is electrical potential in Volts, I is current in Amperes, and R is resistance in Ohms.",
+  },
+  {
+    q: "How do I calculate electrical power dissipation in an Ohm's Law circuit?",
+    a: "Electrical power (measured in Watts) is derived using Joule's Law: P = V × I. By substituting Ohm's Law into this expression, power can also be calculated as P = I² × R or P = V² / R. These alternative formulations allow engineers to calculate heat dissipation when only current or voltage is known alongside resistance.",
+  },
+  {
+    q: "Does Ohm's Law apply to all electronic components and circuits?",
+    a: "Ohm's Law strictly governs 'ohmic' conductors where resistance remains constant regardless of applied voltage and temperature (such as standard carbon or metal film resistors). Non-linear, non-ohmic components—such as semiconductor diodes, transistors, gas discharge tubes, and varistors—do not follow a constant V/I ratio and require dynamic load-line analysis.",
+  },
+  {
+    q: "How does temperature change the resistance of metallic conductors?",
+    a: "Most conductive metals exhibit a positive temperature coefficient of resistance (PTC). As conductor temperature rises, increased lattice vibrations cause mobile electrons to collide more frequently, increasing electrical resistance according to R(T) = R0[1 + α(T - T0)]. Precision resistors utilize nickel-chromium alloys with near-zero temperature coefficients.",
+  },
+];
+
+export default function OhmsLawCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Ohm's Law Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/ohms-law-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Ohm's Law Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/ohms-law-calculator\", \"description\": \"Calculate voltage, current, resistance, and power using V=IR.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is Ohm's Law?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Ohm's Law states that voltage = current × resistance (V = I × R). It means that doubling the voltage doubles the current, and doubling the resistance halves the current. It is the most fundamental relationship in electrical engineering.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate resistance using Ohm's Law?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"R = V / I. Divide voltage by current to find resistance. For example: 12V / 2A = 6Ω. This is used to select the correct resistor value for a circuit, calculate wire resistance, or find an unknown component value.\"}}, {\"@type\": \"Question\", \"name\": \"What is the unit of electrical resistance?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Resistance is measured in ohms (Ω), named after Georg Simon Ohm. Common multiples: kilohm (kΩ = 1,000Ω), megaohm (MΩ = 1,000,000Ω). A standard resistor might be 470Ω, 10kΩ, or 1MΩ.\"}}, {\"@type\": \"Question\", \"name\": \"Does Ohm's Law apply to AC circuits?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Ohm's Law applies to AC circuits with modifications. Resistance (R) becomes impedance (Z), which includes both resistance and reactance from capacitors and inductors. V = I × Z, where Z is complex impedance measured in ohms.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between voltage and current?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Voltage (V) is electrical potential difference — the pressure driving electrons through a circuit, measured in volts. Current (I) is the flow rate of electrons, measured in amperes (amps). Voltage is the cause; current is the effect.\"}}, {\"@type\": \"Question\", \"name\": \"Why does resistance increase with temperature?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"In conductors (metals), atoms vibrate more at higher temperatures, causing more collisions with electrons and increasing resistance. In semiconductors, higher temperature creates more charge carriers, decreasing resistance — the opposite behavior.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Ohm's Law Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Ohm's Law Calculator</h1>\n<p class=\"calc-intro\">Calculate any electrical quantity using Ohm's Law. Enter any two of voltage (V), current (I), or resistance (R) to instantly find the third, plus power. Essential for electronics engineers, students, and hobbyists.</p>\n<p class=\"calc-intro\"></p><p>Engineers rely on Ohm's Law for everything from choosing the correct resistor value for an LED circuit to designing complex power distribution systems. Students use it to understand why higher voltage can push more current through the same resistance, and why thicker wires (lower resistance) are needed for high-current applications.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">V = I × R | I = V / R | R = V / I | P = V × I = I² × R = V² / R</div></div>\n<div class=\"content-section\">\n<h2>Understanding Ohm's Law</h2>\n<p>Ohm's Law is the fundamental law of electrical circuits, discovered by German physicist Georg Simon Ohm in 1827. It states that the current through a conductor is directly proportional to the voltage across it and inversely proportional to its resistance. This simple relationship governs the behavior of virtually every electronic circuit ever built.</p>\n<p>The law is expressed as <strong>V = I × R</strong>, where V is voltage in volts (V), I is current in amperes (A), and R is resistance in ohms (Ω). From this single equation, we can derive all other relationships between these three fundamental electrical quantities.</p>\n<h3>The Ohm's Law Triangle</h3>\n<p>The Ohm's Law triangle is a memory aid: place V at the top, I and R at the bottom. Cover the quantity you want to find — the remaining two show the formula. Cover V → I × R. Cover I → V / R. Cover R → V / I.</p>\n<h3>Power in Electrical Circuits</h3>\n<p>Electrical power (P) measured in watts combines with Ohm's Law to give four power formulas: P = V × I, P = I² × R, P = V² / R. A 60W light bulb on 120V draws 0.5A of current and has a resistance of 240Ω when hot.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Voltage (V)</th><th style=\"padding:12px 16px;\">Current (A)</th><th style=\"padding:12px 16px;\">Resistance (Ω)</th><th style=\"padding:12px 16px;\">Power (W)</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">12V</td><td style=\"padding:11px 16px;\">2A</td><td style=\"padding:11px 16px;\">6Ω</td><td style=\"padding:11px 16px;\">24W</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">120V</td><td style=\"padding:11px 16px;\">1A</td><td style=\"padding:11px 16px;\">120Ω</td><td style=\"padding:11px 16px;\">120W</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">5V</td><td style=\"padding:11px 16px;\">0.02A</td><td style=\"padding:11px 16px;\">250Ω</td><td style=\"padding:11px 16px;\">0.1W</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">230V</td><td style=\"padding:11px 16px;\">10A</td><td style=\"padding:11px 16px;\">23Ω</td><td style=\"padding:11px 16px;\">2300W</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">9V</td><td style=\"padding:11px 16px;\">0.5A</td><td style=\"padding:11px 16px;\">18Ω</td><td style=\"padding:11px 16px;\">4.5W</td></tr></tbody></table></div>\n<p>Ohm's Law applies to resistive (linear) components at constant temperature. Non-linear components like diodes, transistors, and LEDs do not strictly follow Ohm's Law — they have variable resistance depending on operating conditions.</p>\n</div>\n<div class=\"content-section\">\n<h2>Ohm's Law in Real-World Applications</h2>\n<p>Ohm's Law governs every electrical circuit from the simplest LED flashlight to complex server farms. Understanding how voltage, current, and resistance interact allows engineers to design safe, efficient circuits. Every resistor value chosen, every fuse selected, and every wire gauge specified relies on Ohm's Law at its foundation.</p>\n<h3>Calculating Safe Resistor Values</h3>\n<p>When designing any circuit with LEDs, transistors, or sensors, Ohm's Law determines the correct series resistor. For a 5V microcontroller output connected to a 3.3V device: the voltage difference is 1.7V, and if we want 10mA current, R = 1.7V / 0.01A = 170Ω — use a standard 180Ω resistor.</p>\n<h3>Ohm's Law for Troubleshooting</h3>\n<p>Technicians use Ohm's Law daily to diagnose faults. Measuring voltage across a component and current through it allows calculation of resistance, revealing short circuits (near 0Ω), open circuits (infinite Ω), or degraded components. A motor drawing twice its rated current likely has a winding short — R has halved, so I doubled at the same V.</p>\n<h3>Power Dissipation and Heat Management</h3>\n<p>Every resistor and wire dissipates power as heat: P = I²R. A 100Ω resistor carrying 100mA dissipates P = 0.01² × 100 = 0.1W. Choose a resistor rated for at least 2× this (0.25W minimum). Insufficient power rating causes resistors to overheat, change value, and potentially catch fire.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is Ohm's Law? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Ohm's Law states that voltage = current × resistance (V = I × R). It means that doubling the voltage doubles the current, and doubling the resistance halves the current. It is the most fundamental relationship in electrical engineering.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate resistance using Ohm's Law? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">R = V / I. Divide voltage by current to find resistance. For example: 12V / 2A = 6Ω. This is used to select the correct resistor value for a circuit, calculate wire resistance, or find an unknown component value.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the unit of electrical resistance? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Resistance is measured in ohms (Ω), named after Georg Simon Ohm. Common multiples: kilohm (kΩ = 1,000Ω), megaohm (MΩ = 1,000,000Ω). A standard resistor might be 470Ω, 10kΩ, or 1MΩ.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does Ohm's Law apply to AC circuits? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Ohm's Law applies to AC circuits with modifications. Resistance (R) becomes impedance (Z), which includes both resistance and reactance from capacitors and inductors. V = I × Z, where Z is complex impedance measured in ohms.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between voltage and current? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Voltage (V) is electrical potential difference — the pressure driving electrons through a circuit, measured in volts. Current (I) is the flow rate of electrons, measured in amperes (amps). Voltage is the cause; current is the effect.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does resistance increase with temperature? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">In conductors (metals), atoms vibrate more at higher temperatures, causing more collisions with electrons and increasing resistance. In semiconductors, higher temperature creates more charge carriers, decreasing resistance — the opposite behavior.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/frequency-calculator\"><span class=\"rc-icon\">📡</span><span class=\"rc-name\">Frequency Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Ohm's Law Calculator – V=IR, Current, Voltage &amp; Resistance</h2><div class=\"form-group\"><label for=\"ol-solve\">Solve For</label><select id=\"ol-solve\"><option selected=\"\" value=\"v\">Voltage (V)</option><option value=\"i\">Current (I)</option><option value=\"r\">Resistance (R)</option></select></div>\n<div id=\"ol-vi\" style=\"display:none;\"><div class=\"form-group\"><label for=\"ol-v2\">Voltage (V)</label><input id=\"ol-v2\" step=\"any\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"ol-i2\">Current (A)</label><input id=\"ol-i2\" step=\"any\" type=\"number\" value=\"2\"/></div></div>\n<div id=\"ol-vr\" style=\"display:none;\"><div class=\"form-group\"><label for=\"ol-v3\">Voltage (V)</label><input id=\"ol-v3\" step=\"any\" type=\"number\" value=\"12\"/></div><div class=\"form-group\"><label for=\"ol-r3\">Resistance (Ω)</label><input id=\"ol-r3\" step=\"any\" type=\"number\" value=\"6\"/></div></div>\n<div id=\"ol-ir\"><div class=\"form-group\"><label for=\"ol-i4\">Current (A)</label><input id=\"ol-i4\" step=\"any\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"ol-r4\">Resistance (Ω)</label><input id=\"ol-r4\" step=\"any\" type=\"number\" value=\"6\"/></div></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Ohm\\'s Law Calculator – V=IR, Current, Voltage &amp; Resistance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Ohm\\'s Law Calculator – V=IR, Current, Voltage &amp; Resistance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-ohms-law-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('ol-solve').addEventListener('change',function(){\n  var s=this.value;\n  document.getElementById('ol-vi').style.display=s==='r'?'block':'none';\n  document.getElementById('ol-vr').style.display=s==='i'?'block':'none';\n  document.getElementById('ol-ir').style.display=s==='v'?'block':'none';\n});\nfunction g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var solve=document.getElementById('ol-solve').value;\n  var V,I,R,P;\n  if(solve==='v'){I=g('ol-i4');R=g('ol-r4');if(!I||!R){alert('Enter current and resistance.');return;}V=I*R;}\n  else if(solve==='i'){V=g('ol-v3');R=g('ol-r3');if(!V||!R){alert('Enter voltage and resistance.');return;}I=V/R;}\n  else{V=g('ol-v2');I=g('ol-i2');if(!V||!I){alert('Enter voltage and current.');return;}R=V/I;}\n  P=V*I;\n  var fmt=function(n){return parseFloat(n.toFixed(6)).toString();};\n  document.getElementById('el-ri').innerHTML=\n    ri('Voltage (V)','<strong style=\"font-size:20px;color:var(--c-accent)\">'+fmt(V)+' V</strong>',true)+\n    ri('Current (I)',fmt(I)+' A')+ri('Resistance (R)',fmt(R)+' Ω')+\n    ri('Power (P)',fmt(P)+' W')+ri('Power (alt)',fmt(I*I*R)+' W (I²R)');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Voltage','Current','Resistance'],[V||0.001,I||0.001,R||0.001],['#1a5c3a','#c8832a','#3a7abf']);\n  var aiPrompt='V='+fmt(V)+'V, I='+fmt(I)+'A, R='+fmt(R)+'Ω, P='+fmt(P)+'W';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world electronics application of this calculation result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> In direct current (DC) circuits, Ohm&apos;s Law establishes an exact linear dependency between voltage, current, and resistance. To evaluate AC impedance or circuit wattage, cross-reference our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and calculate signal step-down in our <Link href="/calculators/electronics/voltage-divider-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">voltage divider calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Current Conduction Linearity Across Conductor Resistance
+          </h2>
+          <OhmsLawVoltageCurrentLinearityChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Published in 1827 by German physicist Georg Simon Ohm, Ohm&apos;s Law forms the cornerstone of modern electrical and electronic engineering. The fundamental premise dictates that when a constant temperature is maintained, the electromotive force (voltage) applied across a conductive material produces an electrical current directly proportional to that voltage, with the constant of proportionality being electrical conductance (the inverse of resistance).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In practical printed circuit board (PCB) design and electrical distribution, determining whether a component behaves ohmically is crucial for thermal management. When current passes through any resistive element, mobile charge carriers scatter against crystal lattice ions, transforming potential electrical energy into thermal energy. Calculating this Joule heating prevents component burnout, trace delamination, and fire hazards.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivations & The Ohm&apos;s Law Power Wheel
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The fundamental formulation relates electrical potential difference, measured in Volts (V), electric current, measured in Amperes (I), and resistance, measured in Ohms (Ω):
+          </p>
+          <Formula>{"V = I \times R \quad \iff \quad I = \frac{V}{R} \quad \iff \quad R = \frac{V}{I}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            By integrating Joule&apos;s Law of electrical power (P = V × I, measured in Watts), engineers derive twelve interconnected algebraic permutations often referred to as the Ohm&apos;s Law Wheel:
+          </p>
+          <Formula>{"P = V \times I = I^2 \times R = \frac{V^2}{R}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When sizing current-limiting components for optoelectronic devices, calculate ballast resistors using our <Link href="/calculators/electronics/led-resistor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">led resistor calculator</Link> and decode manufacturing color bands with our <Link href="/calculators/electronics/resistor-color-code-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">resistor color code calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Standard Conductor Resistivity & Thermal Characteristics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conductor resistance is fundamentally governed by material resistivity (ρ), physical length (L), and cross-sectional area (A) via the relation R = ρ × (L / A). The table below summarizes electrical resistivity and thermal coefficients for standard electronic engineering materials:
+          </p>
+          <DataTable
+            head={["Material Conductor", "Resistivity ρ (Ω·m at 20°C)", "Temp Coeff α (/°C)", "Standard Application"]}
+            rows={[
+              ["Silver (Ag)", "1.59 × 10⁻⁸", "+0.0038", "High-frequency RF plating & aerospace switches"],
+              ["Copper (Annealed)", "1.68 × 10⁻⁸", "+0.00393", "General PCB copper traces, building wiring, motor coils"],
+              ["Gold (Au)", "2.44 × 10⁻⁸", "+0.0034", "Corrosion-proof contact pads & wire bonding"],
+              ["Aluminum (Al)", "2.82 × 10⁻⁸", "+0.0039", "Overhead high-voltage utility transmission lines"],
+              ["Nichrome (NiCr)", "1.10 × 10⁻⁶", "+0.0004", "Heating elements & wire-wound power resistors"],
+              ["Constantan (CuNi)", "4.90 × 10⁻⁷", "±0.000008", "Precision laboratory instrumentation shunts"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Example: High-Power Automotive Circuit
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a 12.0 V automotive auxiliary lighting branch circuit powered by a lead-acid battery system. The circuit load consists of two parallel halogen lamps with a combined nominal warm resistance of R = 2.40 Ω. Determine the continuous line current, power dissipation, and evaluate supply cable requirements:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Operating Voltage:</strong> V = 12.0 V DC
+            </li>
+            <li>
+              <strong>Total Load Resistance:</strong> R = 2.40 Ω
+            </li>
+            <li>
+              <strong>Continuous Operating Current:</strong> I = V / R = 12.0 V / 2.40 Ω = 5.00 A
+            </li>
+            <li>
+              <strong>Active Power Dissipation:</strong> P = V × I = 12.0 V × 5.00 A = 60.0 W
+            </li>
+            <li>
+              <strong>Alternative Joule Verification:</strong> P = I² × R = (5.0)² × 2.40 = 25 × 2.40 = 60.0 W
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because a 5.0 Amp current generates 60 Watts of heat, the circuit wiring harness must be sized to prevent excessive voltage drop. Cable sizing and loop resistance should be verified in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link> and battery discharge endurance budgeted via our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Non-Ohmic Devices & Dynamic Small-Signal Resistance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While basic metallic conductors and discrete resistors follow linear Ohm&apos;s Law with high fidelity, semiconductor junctions exhibit non-linear exponential current-voltage curves defined by the Shockley diode equation:
+          </p>
+          <Formula>{"I_D = I_S \left( e^{\frac{q V_D}{n k T}} - 1 \right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In silicon p-n diodes, applying 0.3 V produces negligible conduction current (microamperes). Once voltage reaches the forward knee threshold of approximately 0.65 V to 0.70 V, conduction increases exponentially, causing the dynamic small-signal resistance (r_d = dV / dI) to plummet to fractions of an Ohm. Consequently, semiconductor circuits must always incorporate series current-limiting impedances to prevent catastrophic thermal runaway.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Electrical Standards & Regulatory Compliance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designers and electrical contractors must adhere to rigorous national and international safety codes governing conductor current capacity and thermal dissipation:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>National Electrical Code (NEC NFPA 70):</strong> Mandates conductor ampacity ratings, continuous load derating factors (80% rule), and overcurrent protective device sizing to prevent electrical fires.
+            </li>
+            <li>
+              <strong>International Electrotechnical Commission (IEC 60062 / IEC 60063):</strong> Establishes global preferred resistor value series (E12, E24, E96) and standardized color band markings for electronic components.
+            </li>
+            <li>
+              <strong>Underwriters Laboratories (UL 94):</strong> Tests and certifies flame retardancy ratings (V-0, V-1, V-2) for PCB laminates and resistor encapsulation compounds under extreme thermal overloads.
+            </li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Practical Electronic Diagnostic & Troubleshooting Methodologies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When troubleshooting faulty circuit assemblies with a digital multimeter (DMM), systematic application of Ohm&apos;s Law enables rapid isolation of failure modes without de-soldering components:
+          </p>
+          <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>In-Circuit Voltage Drop Measurement:</strong> Measure the potential difference directly across suspected resistors. If the measured voltage drop across a current-sense resistor is zero, the circuit is either open upstream or unpowered.
+            </li>
+            <li>
+              <strong>Shorted Component Identification:</strong> A measured resistance reading of zero Ohms across a semiconductor or electrolytic capacitor indicates dielectric breakdown or an internal short circuit.
+            </li>
+            <li>
+              <strong>Cold vs Hot Filament Inrush Current:</strong> Incandescent tungsten filaments exhibit cold resistance that is roughly one-tenth of their steady-state operating resistance. When energized, initial inrush current spikes to 10× nominal, triggering nuisance breaker trips if slow-blow fuses are neglected.
+            </li>
+          </ol>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For three-phase commercial distribution boards, calculate phase power using our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and evaluate inductive winding impedance in our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Thermal Dissipation Derating & Environmental Safety Margins
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A critical engineering mistake in electronics prototyping is operating resistors at their nominal power rating. A standard 0.25 W carbon film resistor dissipating exactly 0.25 W will experience surface temperatures exceeding 120°C, causing localized PCB discoloration and thermal stress on adjacent solder joints.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Aerospace and high-reliability industrial standards (MIL-STD-975) mandate an electrical power derating factor of 50%. A resistor calculated to dissipate 0.20 W of Joule heat should be implemented using at least a 0.50 W or 1.0 W rated component. This practice extends component MTBF (Mean Time Between Failures) by orders of magnitude and guarantees stable circuit operation across wide ambient temperature swings.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering Ohm&apos;s Law establishes the foundation for analyzing complex electrical networks, optimizing energy efficiency, and preventing hazardous over-current conditions across modern embedded hardware and industrial power systems.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            High-Frequency Skin Depth Impedance Transitions & Transmission Losses
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While DC circuit resistance depends solely on bulk conductor geometry and material resistivity, alternating currents introduce high-frequency eddy current crowding. In high-speed printed circuit board traces and power distribution networks, AC resistance increases proportionally to the square root of frequency due to the electromagnetic skin effect.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At frequencies above 10 MHz, electric current is constrained to a shallow perimeter sheath beneath the copper surface. High-frequency digital signal lines must be designed with controlled characteristic impedance rather than simple DC resistance. Incorporating skin depth calculations into high-frequency circuit layouts prevents unexpected signal attenuation and thermal dissipation hotspots in modern high-density hardware assemblies.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Regular verification of circuit parameters across varying operating conditions guarantees hardware reliability, extends operational longevity, and safeguards high-performance electronic installations.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Practical Printed Circuit Board Trace Width Sizing (IPC-2152)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When translating theoretical Ohm&apos;s Law calculations into physical PCB layouts, trace resistance is dictated by IPC-2152 design standards. A standard 1-ounce copper foil has a nominal thickness of 35 micrometers (1.37 mils). Running 5 Amperes of DC current through an excessively narrow trace generates rapid Joule heating that elevates board temperature, accelerating dielectric laminate delamination and conductor oxidation.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Applying IPC-2152 design charts allows layout engineers to calculate the precise trace width in millimeters required to constrain temperature rise within an acceptable 10°C to 20°C window. Paralleling outer layers or utilizing heavy 2-ounce copper ensures safe current conduction across high-power motor drivers and automotive electrical controllers.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Routine electrical auditing with calibrated digital multimeters guarantees circuit compliance, mitigates overcurrent heating risks, and delivers peak efficiency across industrial control systems and consumer electronics hardware.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Electrostatic Energy Storage & Dynamic Charge Redistribution
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In dynamic circuit operations, sudden voltage steps induce displacement currents across capacitive elements, which can be evaluated through our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link>. Analyzing transient pulse settling requires integrating resistive dissipation with reactive decay constant modeling available in our <Link href="/calculators/electronics/rc-time-constant-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">rc time constant calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Maintaining strict engineering tolerances across both active and reactive parameters ensures optimal hardware longevity and safeguards industrial electronics from power surges.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Ground Loop Elimination & Precision Instrumentation Shielding
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In sensitive data acquisition and audio instrumentation systems, stray ground return currents flowing through non-zero ground trace resistances create parasitic potential offsets known as ground loops. By applying star grounding topologies and isolating analog signal returns from noisy digital switching domains, hardware engineers eliminate common-impedance coupling and preserve low-noise voltage reference integrity across complex multi-board electronic assemblies.
+          </p>
+
+        </>
+      }
+    >
+      <OhmsLawCalculatorComponent />
+    </CalcPage>
   );
 }

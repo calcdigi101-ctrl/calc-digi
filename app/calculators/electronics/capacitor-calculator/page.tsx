@@ -1,26 +1,253 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import CapacitorCalculatorComponent from "@/components/calcs/electronics/capacitor-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CapacitiveReactanceFrequencySweepChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/capacitor-calculator";
+const TITLE = "Capacitor Reactance Calculator | Impedance (Xc) & Stored Energy";
+const DESCRIPTION =
+  "Calculate capacitive reactance (Xc), electrostatic stored energy (Joules), AC peak current draw, and reactive power generation across AC circuits.";
 
 export const metadata: Metadata = {
-  "title": "Capacitor Calculator – Charge & Energy | CalcDigi",
-  "description": "Calculate capacitor charge (Q=CV), energy stored, capacitive reactance (Xc), and RC time constant. Essential for electronics design.",
-  "openGraph": {
-    "title": "Capacitor Calculator – Charge & Energy | CalcDigi",
-    "description": "Calculate capacitor charge (Q=CV), energy stored, capacitive reactance (Xc), and RC time constant. Essential for electronics design.",
-    "type": "website",
-    "url": "/calculators/electronics/capacitor-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/capacitor-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/inductor-calculator", icon: "🔁", name: "Inductor Reactance" },
+  { href: "/calculators/electronics/rc-time-constant-calculator", icon: "⏱️", name: "RC Time Constant" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/frequency-calculator", icon: "📡", name: "Frequency Calculator" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/voltage-divider-calculator", icon: "🔽", name: "Voltage Divider" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is capacitive reactance (Xc) and how does frequency affect it?",
+    a: "Capacitive reactance (Xc, measured in Ohms) represents the opposition a capacitor offers to the flow of alternating electric current (AC). It is inversely proportional to both frequency (f) and capacitance (C): Xc = 1 / (2 × π × f × C). At zero frequency (DC), reactance is infinite, meaning capacitors block DC current. As frequency increases into kilohertz and megahertz ranges, reactance drops toward zero, allowing high-frequency AC signals to pass easily.",
+  },
+  {
+    q: "How do you calculate the electrostatic energy stored in a capacitor?",
+    a: "The potential energy (E, in Joules) stored within the electric field established between capacitor plates is computed as: E = ½ × C × V², where C is capacitance in Farads and V is the applied potential difference in Volts. Because energy scales with the square of voltage, doubling applied voltage quadruples the stored electrostatic energy.",
+  },
+  {
+    q: "What is Equivalent Series Resistance (ESR) in real-world capacitors?",
+    a: "ESR represents the parasitic internal resistance arising from metal lead connections, foil conductors, and dielectric polarization losses. Under high ripple current conditions (such as switch-mode power supplies), high ESR causes severe internal Joule heating (P = I_rms² × ESR), drying out liquid electrolytes and precipitating capacitor failure.",
+  },
+  {
+    q: "What is the difference between ceramic, electrolytic, and film capacitors?",
+    a: "Multilayer ceramic capacitors (MLCC) offer low ESR, high frequency response, and non-polarized operation, ideal for high-frequency RF bypass. Aluminium and tantalum electrolytic capacitors achieve massive capacitance density per volume but are polarized and feature higher ESR. Film capacitors (polypropylene) provide exceptional dielectric stability and ultra-low dielectric absorption, making them ideal for high-power audio crossovers and snubber networks.",
+  },
+];
+
+export default function CapacitorCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Capacitor Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/capacitor-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Capacitor Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/capacitor-calculator\", \"description\": \"Calculate capacitor charge (Q=CV), energy stored, capacitive reactance (Xc), and RC time constant. Essential for electronics design.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do you calculate the charge stored in a capacitor?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Q = C × V, where Q is charge in coulombs, C is capacitance in farads, V is voltage. Example: 470µF capacitor at 16V stores Q = 470×10⁻⁶ × 16 = 0.00752 coulombs (7.52 millicoulombs).\"}}, {\"@type\": \"Question\", \"name\": \"What is capacitive reactance?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Capacitive reactance Xc = 1/(2πfC) in ohms. It decreases with increasing frequency. A 100µF capacitor at 50Hz: Xc = 1/(2π×50×100×10⁻⁶) = 31.8Ω. At 1kHz: Xc = 1.59Ω. Capacitors pass high frequencies, block low frequencies and DC.\"}}, {\"@type\": \"Question\", \"name\": \"What is RC time constant?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"τ (tau) = R × C in seconds. It is the time for a capacitor to charge to 63.2% of supply voltage through a resistor. After 5τ, the capacitor is considered fully charged (99.3%). Used in timing circuits, filters, and debouncing.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between capacitor types?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Electrolytic capacitors: large values (µF-mF), polarized, used for power supply filtering. Ceramic capacitors: small values (pF-µF), non-polarized, used for decoupling and high-frequency circuits. Film capacitors: precision, audio-grade. Tantalum: compact, low ESR for surface-mount applications.\"}}, {\"@type\": \"Question\", \"name\": \"Why do capacitors block DC?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"DC (zero frequency) makes Xc = 1/(2π×0×C) = infinity, so no current flows through an ideal capacitor at DC. Capacitors allow AC to pass while blocking DC, making them useful for AC coupling — passing audio signals while blocking DC bias voltages.\"}}, {\"@type\": \"Question\", \"name\": \"How do capacitors store energy?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Capacitors store energy in the electric field between their plates: E = ½CV². Unlike batteries (chemical energy), capacitors store and release energy almost instantly. Supercapacitors can store much more energy and are used for regenerative braking in electric vehicles.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Capacitor Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Capacitor Calculator</h1>\n<p class=\"calc-intro\">Calculate capacitor charge, energy stored, capacitive reactance, and RC time constant. Essential for filter design, power supply smoothing, timing circuits, and AC signal analysis in electronics engineering.</p>\n<p class=\"calc-intro\"></p><p>Capacitors are found in virtually every electronic circuit. A smartphone contains hundreds of capacitors. A switching power supply uses multiple capacitors for filtering and energy storage. Audio amplifiers use carefully selected capacitors for coupling and filtering. Understanding capacitor calculations helps choose the right value and type for reliable, high-performance circuits.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Q = C × V | E = ½CV² | Xc = 1/(2πfC) | τ = RC</div></div>\n<div class=\"content-section\">\n<h2>Capacitor Calculations Guide</h2>\n<p>A capacitor stores electrical energy in an electric field between two conductive plates separated by an insulating dielectric. Capacitance (C) measured in Farads determines how much charge is stored per volt. Capacitors are fundamental components used in filters, power supplies, timing circuits, and energy storage applications.</p>\n<h3>Charge and Energy Storage</h3>\n<p>Charge stored: Q = C × V (coulombs). Energy stored: E = ½ × C × V² (joules). A 100µF capacitor charged to 50V stores Q = 100×10⁻⁶ × 50 = 0.005 coulombs and E = ½ × 100×10⁻⁶ × 50² = 0.125 joules.</p>\n<h3>Capacitive Reactance</h3>\n<p>Capacitors oppose AC current with capacitive reactance Xc = 1/(2πfC) in ohms. At higher frequencies, Xc decreases (capacitors pass high-frequency signals more easily). At DC (f=0), Xc = infinity (capacitors block DC). This is why capacitors are used as AC coupling and high-pass filters.</p>\n<h3>Capacitor Types Reference</h3>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Type</th><th style=\"padding:12px 16px;\">Range</th><th style=\"padding:12px 16px;\">Voltage</th><th style=\"padding:12px 16px;\">Application</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Ceramic</td><td style=\"padding:11px 16px;\">1pF–100µF</td><td style=\"padding:11px 16px;\">16-50V</td><td style=\"padding:11px 16px;\">General purpose, decoupling</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Electrolytic</td><td style=\"padding:11px 16px;\">1µF–10,000µF</td><td style=\"padding:11px 16px;\">6.3-450V</td><td style=\"padding:11px 16px;\">Power supply filtering (polarized)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Film</td><td style=\"padding:11px 16px;\">1nF–100µF</td><td style=\"padding:11px 16px;\">63-2000V</td><td style=\"padding:11px 16px;\">Audio, precision circuits</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Tantalum</td><td style=\"padding:11px 16px;\">0.1µF–2,200µF</td><td style=\"padding:11px 16px;\">2.5-50V</td><td style=\"padding:11px 16px;\">Compact, low ESR (polarized)</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Supercapacitor</td><td style=\"padding:11px 16px;\">0.1F–3,000F</td><td style=\"padding:11px 16px;\">2.5-5V</td><td style=\"padding:11px 16px;\">Energy storage, backup power</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Capacitors in Circuit Design</h2>\n<p>Capacitors serve multiple roles in electronic circuits: filtering power supply noise, coupling AC signals while blocking DC, setting timing intervals, storing energy for pulse applications, and correcting power factor in AC systems. Choosing the right capacitor type and value is critical for reliable circuit performance.</p>\n<h3>Decoupling Capacitors</h3>\n<p>Every IC (integrated circuit) needs decoupling capacitors to suppress power supply noise. The standard practice: place a 100nF ceramic capacitor within 1mm of each IC power pin, plus a 10µF electrolytic on each power rail. The ceramic handles high-frequency noise (MHz range); the electrolytic handles lower frequency variations (kHz range). Missing decouplers cause random resets, data errors, and RF emissions.</p>\n<h3>Capacitor ESR and Its Importance</h3>\n<p>ESR (Equivalent Series Resistance) is the real resistance inside a capacitor. High ESR causes power loss (P=I²×ESR), heating, and poor filtering. Standard electrolytic: 0.1-10Ω ESR. Low-ESR electrolytic: 0.01-0.1Ω. Ceramic: 0.001-0.1Ω. In switching power supplies, use low-ESR capacitors on output — high ESR causes output voltage ripple and overheating.</p>\n<h3>Capacitor Voltage Derating</h3>\n<p>Never operate capacitors near their voltage rating. Standard practice: derate to 50-80% of rated voltage. A 16V capacitor on a 12V rail is borderline — use 25V minimum. Electrolytics operated near maximum voltage fail prematurely. Ceramic capacitors (X5R/X7R types) lose capacitance significantly at high voltage — a 10µF X5R at rated voltage may only deliver 3-4µF.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you calculate the charge stored in a capacitor? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Q = C × V, where Q is charge in coulombs, C is capacitance in farads, V is voltage. Example: 470µF capacitor at 16V stores Q = 470×10⁻⁶ × 16 = 0.00752 coulombs (7.52 millicoulombs).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is capacitive reactance? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Capacitive reactance Xc = 1/(2πfC) in ohms. It decreases with increasing frequency. A 100µF capacitor at 50Hz: Xc = 1/(2π×50×100×10⁻⁶) = 31.8Ω. At 1kHz: Xc = 1.59Ω. Capacitors pass high frequencies, block low frequencies and DC.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is RC time constant? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">τ (tau) = R × C in seconds. It is the time for a capacitor to charge to 63.2% of supply voltage through a resistor. After 5τ, the capacitor is considered fully charged (99.3%). Used in timing circuits, filters, and debouncing.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between capacitor types? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Electrolytic capacitors: large values (µF-mF), polarized, used for power supply filtering. Ceramic capacitors: small values (pF-µF), non-polarized, used for decoupling and high-frequency circuits. Film capacitors: precision, audio-grade. Tantalum: compact, low ESR for surface-mount applications.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why do capacitors block DC? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">DC (zero frequency) makes Xc = 1/(2π×0×C) = infinity, so no current flows through an ideal capacitor at DC. Capacitors allow AC to pass while blocking DC, making them useful for AC coupling — passing audio signals while blocking DC bias voltages.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do capacitors store energy? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Capacitors store energy in the electric field between their plates: E = ½CV². Unlike batteries (chemical energy), capacitors store and release energy almost instantly. Supercapacitors can store much more energy and are used for regenerative braking in electric vehicles.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Capacitor Calculator – Charge, Energy and Reactance</h2><div class=\"form-group\"><label for=\"cap-mode\">Calculate</label><select id=\"cap-mode\"><option selected=\"\" value=\"charge\">Charge &amp; Energy (Q, E)</option><option value=\"reactance\">Capacitive Reactance (Xc)</option><option value=\"rc\">RC Time Constant (τ)</option></select></div>\n<div id=\"cap-qe\">\n<div class=\"form-group\"><label for=\"cap-c1\">Capacitance (µF)</label><input id=\"cap-c1\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div>\n<div class=\"form-group\"><label for=\"cap-v1\">Voltage (V)</label><input id=\"cap-v1\" min=\"0\" step=\"any\" type=\"number\" value=\"12\"/></div>\n</div>\n<div id=\"cap-xc\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"cap-c2\">Capacitance (µF)</label><input id=\"cap-c2\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div>\n<div class=\"form-group\"><label for=\"cap-f2\">Frequency (Hz)</label><input id=\"cap-f2\" min=\"0\" step=\"any\" type=\"number\" value=\"1000\"/></div>\n</div>\n<div id=\"cap-rc\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"cap-r3\">Resistance (Ω)</label><input id=\"cap-r3\" min=\"0\" step=\"any\" type=\"number\" value=\"1000\"/></div>\n<div class=\"form-group\"><label for=\"cap-c3\">Capacitance (µF)</label><input id=\"cap-c3\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div>\n</div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Capacitor Calculator – Charge, Energy and Reactance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Capacitor Calculator – Charge, Energy and Reactance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-capacitor-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('cap-mode').addEventListener('change',function(){\n  var m=this.value;\n  document.getElementById('cap-qe').style.display=m==='charge'?'block':'none';\n  document.getElementById('cap-xc').style.display=m==='reactance'?'block':'none';\n  document.getElementById('cap-rc').style.display=m==='rc'?'block':'none';\n});\nfunction g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var mode=document.getElementById('cap-mode').value;\n  var aiPrompt='';\n  if(mode==='charge'){\n    var C=g('cap-c1')*1e-6; var V=g('cap-v1');\n    if(!C||!V){alert('Enter capacitance and voltage.');return;}\n    var Q=C*V; var E=0.5*C*V*V;\n    document.getElementById('el-ri').innerHTML=\n      ri('Charge (Q)','<strong style=\"font-size:20px;color:var(--c-accent)\">'+(Q*1000).toFixed(4)+' mC</strong>',true)+\n      ri('Energy (E)',E.toFixed(6)+' J')+ri('Energy (mJ)',(E*1000).toFixed(4)+' mJ')+\n      ri('Capacitance',(C*1e6).toFixed(1)+' µF')+ri('Voltage',V+' V');\n    drawDonut('el-chart',['Charge','Energy (scaled)'],[Q*1e6||0.001,E*1000||0.001],['#1a5c3a','#c8832a']);\n    aiPrompt='Capacitor: '+(C*1e6)+'µF at '+V+'V, Q='+(Q*1000).toFixed(2)+'mC, E='+E.toFixed(4)+'J';\n  } else if(mode==='reactance'){\n    var C2=g('cap-c2')*1e-6; var f=g('cap-f2');\n    if(!C2||!f){alert('Enter capacitance and frequency.');return;}\n    var Xc=1/(2*Math.PI*f*C2);\n    document.getElementById('el-ri').innerHTML=\n      ri('Capacitive Reactance','<strong style=\"font-size:20px;color:var(--c-accent)\">'+Xc.toFixed(2)+' Ω</strong>',true)+\n      ri('Frequency',f+' Hz')+ri('Capacitance',(C2*1e6).toFixed(1)+' µF')+\n      ri('At 10× freq',(Xc/10).toFixed(2)+' Ω')+ri('At 0.1× freq',(Xc*10).toFixed(2)+' Ω');\n    drawDonut('el-chart',['Xc','Frequency'],[Math.round(Xc)||1,f||1],['#1a5c3a','#c8832a']);\n    aiPrompt='Capacitive reactance: '+Xc.toFixed(1)+'Ω at '+f+'Hz for '+(C2*1e6)+'µF';\n  } else {\n    var R=g('cap-r3'); var C3=g('cap-rc')*1e-6;\n    if(!R||!C3){alert('Enter resistance and capacitance.');return;}\n    var tau=R*C3;\n    document.getElementById('el-ri').innerHTML=\n      ri('Time Constant (τ)','<strong style=\"font-size:20px;color:var(--c-accent)\">'+(tau<0.001?(tau*1000).toFixed(4)+' ms':tau.toFixed(6)+' s')+'</strong>',true)+\n      ri('63.2% charge at',tau.toFixed(6)+' s')+ri('Full charge (5τ)',(tau*5).toFixed(4)+' s')+\n      ri('Cutoff Frequency',(1/(2*Math.PI*tau)).toFixed(2)+' Hz')+\n      ri('R × C',R+'Ω × '+(C3*1e6)+'µF');\n    drawDonut('el-chart',['τ (ms)','5τ (ms)'],[Math.round(tau*1000)||1,Math.round(tau*4000)||1],['#1a5c3a','#c8832a']);\n    aiPrompt='RC circuit: R='+R+'Ω, C='+(C3*1e6)+'µF, τ='+tau.toFixed(4)+'s';\n  }\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world electronics circuit design application of this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Capacitive reactance diminishes logarithmically as frequency rises, functioning as an essential high-pass filter and DC-blocking element. To evaluate complementary inductive choke behavior, cross-reference our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link> and calculate circuit charging delays in our <Link href="/calculators/electronics/rc-time-constant-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">rc time constant calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Capacitive Reactance (Xc) Attenuation Across Frequency
+          </h2>
+          <CapacitiveReactanceFrequencySweepChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Capacitors represent one of the most vital passive components in electrical and electronic circuit design. Physically constructed from two conductive parallel plates separated by an insulating dielectric layer, capacitors store potential electrical energy within an electrostatic field. Unlike chemical batteries which generate free electrons through Faradaic redox reactions, capacitors store static charge carriers electrostatically without chemical phase transitions.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In alternating current (AC) circuit theory, capacitors exhibit a 90-degree phase shift where current leads voltage by one quarter-cycle (I leads V). This phase relationship allows capacitors to cancel out inductive motor lagging currents, forming the core technology behind industrial power factor correction and resonant tuned filter topologies.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations of Capacitance & Reactance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Fundamental electrostatic capacitance (C, in Farads) relates stored charge (Q, in Coulombs) to applied potential difference (V, in Volts):
+          </p>
+          <Formula>{"Q = C \times V \quad \iff \quad C = \frac{Q}{V}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In an AC circuit operating at cyclic frequency (f, in Hertz), the capacitive reactance (X_c, in Ohms) is defined as:
+          </p>
+          <Formula>{"X_c = \frac{1}{2 \pi f C} = \frac{1}{\omega C}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The total potential electrostatic energy (E, in Joules) and peak AC current draw (I_peak, in Amperes) are computed as:
+          </p>
+          <Formula>{"E = \frac{1}{2} C V^2, \quad I_{peak} = \frac{V_{peak}}{X_c}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For reactive power factor compensation, calculate facility loads in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and calculate circuit resistance in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Dielectric Materials & Capacitor Characteristics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Capacitance is governed by plate geometry and the relative permittivity (κ or ε_r) of the intervening dielectric material: C = ε_r ε_0 (A / d). The table below summarizes standard commercial capacitor technologies:
+          </p>
+          <DataTable
+            head={["Capacitor Dielectric Type", "Permittivity (εr)", "Capacitance Range", "ESR & Dissipation", "Primary Engineering Application"]}
+            rows={[
+              ["C0G / NP0 Ceramic (Class 1)", "30 - 100", "1 pF - 100 nF", "Ultra-low ESR / 0.1% loss", "RF oscillators, high-precision timing filters"],
+              ["X7R / X5R Ceramic (Class 2)", "2,000 - 4,000", "100 nF - 100 µF", "Moderate ESR / Piezo noise", "DC power rail decoupling & microcontroller bypass"],
+              ["Aluminium Electrolytic", "8 - 10 (Al₂O₃)", "1 µF - 100,000 µF", "High ESR / High ripple loss", "Bulk AC-DC mains smoothing & audio power reservoirs"],
+              ["Tantalum Electrolytic", "27 (Ta₂O₅)", "0.1 µF - 1,000 µF", "Low ESR / Polarity sensitive", "High-density aerospace & telecommunications boards"],
+              ["Polypropylene Film (PP)", "2.2", "1 nF - 50 µF", "Extremely low dielectric loss", "High-voltage snubbers, induction heating, audio crossovers"],
+              ["Electric Double-Layer (Supercap)", "Electrochemical", "1 F - 5,000 F", "Higher internal resistance", "Backup power, regenerative braking, memory retention"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Example: High-Pass Audio Filter Design
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An audio hardware engineer designs a first-order passive high-pass crossover network to protect an 8.0 Ω tweeter speaker from low-frequency bass distortion. The desired -3 dB cutoff frequency is f_c = 2,500 Hz. Determine the required series coupling capacitor and its reactance across the audio band:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Cutoff Frequency:</strong> f_c = 2,500 Hz
+            </li>
+            <li>
+              <strong>Speaker Load Impedance:</strong> R = 8.0 Ω
+            </li>
+            <li>
+              <strong>Required Capacitance:</strong>
+              <br />
+              C = (1 / 2 π × f_c × R) = (1 / 2 × 3.14159 × 2,500 × 8.0) = (1 / 125,663.7) ≈ 7.96 × 10⁻⁶ F = 7.96 µF
+            </li>
+            <li>
+              <strong>Standard Non-Polarized Film Capacitor:</strong> Select a standard 8.2 µF polypropylene film capacitor.
+            </li>
+            <li>
+              <strong>Reactance at 100 Hz (Bass Rumble):</strong>
+              <br />
+              Xc(100 Hz) = 1 / (2π × 100 × 8.2 × 10⁻⁶) = 194.1 Ω (Strongly attenuates bass signal)
+            </li>
+            <li>
+              <strong>Reactance at 10,000 Hz (Treble Harmonics):</strong>
+              <br />
+              Xc(10 kHz) = 1 / (2π × 10,000 × 8.2 × 10⁻⁶) = 1.94 Ω (Negligible impedance to high notes)
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because X_c drops from 194 Ω at bass frequencies to under 2 Ω at treble frequencies, the capacitor functions as an ideal high-pass crossover. Speaker power levels should be verified in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and decibel cutoffs in our <Link href="/calculators/electronics/decibel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">decibel calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Capacitor Dielectric Breakdown & Voltage Derating
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Every dielectric medium possesses a characteristic dielectric breakdown field strength (E_break, measured in Megavolts per meter). If the applied electric potential difference across capacitor plates exceeds the rated maximum breakdown limit, avalanche ionization occurs, puncturing the dielectric and causing a permanent short-circuit failure.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            High-reliability aerospace standards (such as NASA EEE-INST-002) mandate an operating voltage derating factor of 50%. A circuit operating on a 24 V DC bus must employ capacitors rated for at least 50 V. Furthermore, Class 2 ceramic dielectric capacitors (X7R, X5R) exhibit severe DC bias voltage coefficient losses, where applying rated voltage can reduce effective capacitance by over 60%.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Standards & Environmental Testing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Capacitor reliability, lifespan ratings, and safety certifications are defined by international standards bodies:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>IEC 60384:</strong> Comprehensive multi-part standard covering fixed capacitors for use in electronic equipment, specifying ESR endurance testing and ripple current lifetimes.
+            </li>
+            <li>
+              <strong>UL 60384-14 / EN 60384-14:</strong> Safety certification for Class X (line-to-line) and Class Y (line-to-ground) mains interference suppression capacitors, engineered to fail open without electrical shock hazards.
+            </li>
+            <li>
+              <strong>AEC-Q200:</strong> Automotive Electronics Council stress test qualification standard for passive components subjected to severe automotive temperature extremes (-55°C to +150°C).
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For complementary inductive impedance and LC resonance calculations, consult our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link> and calculate RF tank frequencies in our <Link href="/calculators/electronics/frequency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">frequency calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering capacitive reactance and electrostatic energy storage enables engineers to design pristine low-noise power distribution networks, synthesize frequency filters, and optimize power conversion systems across modern electronic hardware.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Piezoelectric Acoustic Noise & Mechanical Stress in High-K MLCCs
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern high-capacitance multilayer ceramic capacitors (MLCCs) utilize barium titanate (BaTiO_3) ferroelectric ceramic formulations to achieve high relative permittivity ratings. However, barium titanate possesses strong piezoelectric and electrostrictive properties. When subjected to alternating AC ripple voltages—such as pulse-width modulated currents in smartphone audio circuits or switch-mode laptop power supplies—the ceramic dielectric physically expands and contracts at the ripple frequency.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This microscopic mechanical vibration transfers into the underlying FR-4 printed circuit board laminate through solder fillets, turning the entire circuit board into an acoustic speaker that emits an audible hum or &lsquo;singing capacitor&rsquo; whine between 1 kHz and 15 kHz. Circuit designers resolve acoustic MLCC noise by deploying soft-termination capacitors with flexible polymer conductive terminations, placing opposing capacitors back-to-back to cancel mechanical forces, or substituting tantalum or film capacitors in sensitive audio signal paths.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Comprehensive impedance modeling ensures noise-immune power decoupling, optimal signal filtering, and long-term dielectric durability across demanding electronic systems.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            DC Bias Voltage Degradation in High-Density Class 2 MLCCs
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            One of the most insidious pitfalls in high-density surface-mount electronics design is the DC bias voltage characteristic of Class 2 ceramic capacitors (X5R, X7R, and Y5V dielectric formulations). Barium titanate ceramic dielectrics achieve ultra-high capacitance by packing millions of polar electric dipoles into microscopic grain structures.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            However, when a steady direct current bias voltage is applied across the capacitor plates, an increasing percentage of these electric dipoles become locked into alignment with the DC field, leaving fewer free dipoles available to respond to alternating AC ripple signals. In miniature 0402 or 0603 package footprints, applying 80% of rated voltage can collapse effective capacitance by 60% to 80%. A 10 µF decoupling capacitor may deliver an effective capacitance of only 2.2 µF in circuit, causing power supply instability unless properly upsized.
+          </p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Self-Healing Metallized Film Capacitors in High-Voltage Snubbers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-voltage power conversion (such as electric vehicle traction inverters and solar grid-tied inverters), metallized polypropylene film capacitors provide exceptional self-healing properties. Thin vacuum-deposited zinc-aluminum layers (tens of nanometers thick) serve as the conductive electrodes.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When an extreme over-voltage transient punctures the polymer dielectric, the localized short-circuit spark vaporizes the microscopic metal film surrounding the fault zone within microseconds. The localized metal evaporates, clearing the short circuit and restoring insulation integrity with only a fractional, imperceptible loss of total capacitance, preventing catastrophic component explosion.
+          </p>
+
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Transient Switching Performance & High-Frequency Power Decoupling
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-speed digital computing systems, microprocessors switch millions of logic gates concurrently, demanding rapid transient currents. Designers analyze exponential charging decay via our <Link href="/calculators/electronics/rc-time-constant-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">rc time constant calculator</Link> and evaluate total circuit wattage using our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Placing multi-tier decoupling capacitor arrays (combining 100 nF, 1 µF, and 10 µF MLCCs in parallel) provides ultra-low power distribution impedance across broad frequency bands from 100 kHz to 500 MHz. This technique suppresses power rail voltage bounce, prevents digital clock jitter, and guarantees flawless data integrity across modern computing platforms.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Careful selection of dielectric formulations and equivalent series resistance ensures robust noise immunity and long-term durability in critical electronics.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Supercapacitor Electrochemical Double-Layer Energy Storage
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Electrochemical Double-Layer Capacitors (EDLCs), commonly termed supercapacitors or ultracapacitors, bridge the technological gap between conventional electrostatic capacitors and chemical batteries. Utilizing high-surface-area activated carbon electrodes immersed in organic electrolytes, EDLCs achieve capacitance values spanning hundreds to thousands of Farads within compact cylindrical packages.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because energy storage relies on electrostatic ion adsorption rather than slow chemical redox phase transitions, supercapacitors can charge and discharge at currents exceeding 500 Amperes with cycle lifespans surpassing one million charge-discharge cycles, making them ideal for kinetic energy regeneration in electric trains and hybrid utility grid pitch control.
+          </p>
+
+        </>
+      }
+    >
+      <CapacitorCalculatorComponent />
+    </CalcPage>
   );
 }

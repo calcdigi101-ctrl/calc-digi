@@ -1,26 +1,269 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ThreePhasePowerCalculatorComponent from "@/components/calcs/electronics/three-phase-power-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ThreePhaseBalancedLoadPowerChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/three-phase-power-calculator";
+const TITLE = "Three-Phase Power Calculator | Real (kW), Apparent (kVA) & Reactive (kVAR)";
+const DESCRIPTION =
+  "Calculate balanced three-phase AC active power (kW), apparent power (kVA), reactive power (kVAR), and phase currents across Wye (Star) and Delta circuits.";
 
 export const metadata: Metadata = {
-  "title": "Three Phase Power Calculator – kW, kVA & Amps | CalcDigi",
-  "description": "Calculate three-phase real power (kW), apparent power (kVA), reactive power (kVAR), and line current for any three-phase system.",
-  "openGraph": {
-    "title": "Three Phase Power Calculator – kW, kVA & Amps | CalcDigi",
-    "description": "Calculate three-phase real power (kW), apparent power (kVA), reactive power (kVAR), and line current for any three-phase system.",
-    "type": "website",
-    "url": "/calculators/electronics/three-phase-power-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/three-phase-power-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+  { href: "/calculators/electronics/transformer-calculator", icon: "🔄", name: "Transformer" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/capacitor-calculator", icon: "⚙️", name: "Capacitor Reactance" },
+  { href: "/calculators/electronics/inductor-calculator", icon: "🔁", name: "Inductor Reactance" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why is the square root of 3 (√3 ≈ 1.732) used in three-phase power formulas?",
+    a: "In balanced three-phase systems, three sinusoidal voltages are displaced by 120 electrical degrees. In a Wye (Star) configuration, line-to-line voltage is the vector difference between two phase voltages: VL-L = 2 × Vph × sin(60°) = √3 × Vph (approx 1.732 × Vph). Calculating total three-phase power across all three phases yields P = 3 × Vph × Iph = 3 × (VL-L / √3) × IL = √3 × VL-L × IL × PF.",
+  },
+  {
+    q: "What is the difference between Star (Wye) and Delta three-phase wiring?",
+    a: "In a Star (Wye) configuration, all three phase windings meet at a central common neutral point. Line voltage equals √3 times phase voltage (VL-L = √3 × Vph), while line current equals phase current (IL = Iph). In a Delta configuration, windings connect in a closed loop with no neutral point; line voltage equals phase voltage (VL-L = Vph), while line current equals √3 times phase current (IL = √3 × Iph).",
+  },
+  {
+    q: "Why is three-phase power superior to single-phase for industrial electric motors?",
+    a: "Three-phase power delivers constant, non-pulsating instantaneous power to electric motors, whereas single-phase power pulses at twice the AC frequency. Furthermore, the 120-degree spatial and electrical phase displacement naturally produces a rotating magnetic field inside the stator, allowing industrial induction motors to be self-starting without requiring auxiliary starting capacitors or centrifugal switches.",
+  },
+  {
+    q: "How do you calculate Apparent Power (kVA) and Reactive Power (kVAR) in 3-phase circuits?",
+    a: "Three-phase Apparent Power is computed as S (kVA) = (√3 × VL-L × IL) / 1,000. Real Active Power is P (kW) = S × PF. Reactive Power is derived via the Pythagorean power triangle: Q (kVAR) = √(S² - P²). Managing reactive power ensures compliance with electric utility power factor thresholds.",
+  },
+];
+
+export default function ThreePhasePowerCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Three Phase Power Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/three-phase-power-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Three Phase Power Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/three-phase-power-calculator\", \"description\": \"Calculate three-phase real power (kW), apparent power (kVA), reactive power (kVAR), and line current for any three-phase system.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the formula for three phase power?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"P (kW) = √3 × VL × IL × PF / 1000. Where VL is line-to-line voltage (V), IL is line current (A), PF is power factor (0-1). For a 400V system with 100A at PF 0.9: P = 1.732 × 400 × 100 × 0.9 / 1000 = 62.4 kW.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between kW and kVA?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"kW (kilowatts) is real power — actual energy consumed. kVA (kilovolt-amperes) is apparent power — the total power supplied including reactive power. kW = kVA × Power Factor. A motor drawing 100 kVA at 0.85 PF consumes 85 kW of real power.\"}}, {\"@type\": \"Question\", \"name\": \"Why is three phase more efficient than single phase?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Three-phase delivers 1.732× more power than single-phase with the same voltage and current. It also provides constant power delivery (three-phase does not pulse like single-phase), making motors smoother and more efficient. Transmission losses are lower per kW delivered.\"}}, {\"@type\": \"Question\", \"name\": \"What is power factor in three phase systems?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Power factor (PF) = Real Power (kW) / Apparent Power (kVA) = cos(φ). Low PF (below 0.9) means the system draws more current than needed for the useful work done. Utilities often penalize industrial customers for low power factor. Capacitor banks correct low PF.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate line current from three phase power?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"IL = P / (√3 × VL × PF). For 50 kW at 400V with PF 0.85: IL = 50,000 / (1.732 × 400 × 0.85) = 50,000 / 588.9 = 84.9 A. This is used to select fuses, cables, and contactors.\"}}, {\"@type\": \"Question\", \"name\": \"What is reactive power (kVAR)?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Reactive power (kVAR) is power oscillating between source and inductive/capacitive loads without doing useful work. Q = √3 × VL × IL × sin(φ). Large inductive loads (motors, transformers) generate significant kVAR. Capacitor banks add negative kVAR to cancel it.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Three Phase Power Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Three Phase Power Calculator</h1>\n<p class=\"calc-intro\">Calculate three-phase electrical power including real power (kW), apparent power (kVA), reactive power (kVAR), line current, and power factor. Essential for industrial electrical engineering, motor sizing, and generator selection.</p>\n<p class=\"calc-intro\"></p><p>Three-phase electrical power is the universal standard for industrial power distribution worldwide. Every factory, data center, hospital, and large commercial building is powered by three-phase. Understanding three-phase power calculations is essential for industrial electricians, electrical engineers, facilities managers, and anyone specifying or maintaining industrial electrical equipment.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">P = √3 × VL × IL × PF | Q = √3 × VL × IL × sin(φ) | S = √3 × VL × IL</div></div>\n<div class=\"content-section\">\n<h2>Three Phase Power Explained</h2>\n<p>Three-phase electrical power is the standard for industrial and commercial power distribution worldwide. It uses three conductors carrying alternating current 120° apart in phase. Three-phase systems are more efficient than single-phase for power transmission and motor operation — they deliver 1.732× more power using the same wire size.</p>\n<h3>Three Phase vs Single Phase</h3>\n<p>Single phase: P = V × I × PF. Three phase: P = √3 × VL × IL × PF (where √3 ≈ 1.732). The √3 factor comes from the phase relationship between the three conductors. A 400V three-phase system can deliver the same power as a 690V single-phase system with the same current.</p>\n<h3>Line Voltage vs Phase Voltage</h3>\n<p>In three-phase systems: Line voltage (VL) is measured between any two phases. Phase voltage (Vph) is measured from one phase to neutral. VL = √3 × Vph. In a 400V (line) system: Vph = 400/√3 = 231V (which is why 230V single-phase outlets come from 400V three-phase supplies).</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">System</th><th style=\"padding:12px 16px;\">Real Power</th><th style=\"padding:12px 16px;\">Apparent Power</th><th style=\"padding:12px 16px;\">Reactive Power</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">400V, 100A, PF 0.9</td><td style=\"padding:11px 16px;\">62.4 kW</td><td style=\"padding:11px 16px;\">69.3 kVA</td><td style=\"padding:11px 16px;\">30.1 kVAR</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">480V, 50A, PF 0.85</td><td style=\"padding:11px 16px;\">35.3 kW</td><td style=\"padding:11px 16px;\">41.6 kVA</td><td style=\"padding:11px 16px;\">21.9 kVAR</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">208V, 200A, PF 0.95</td><td style=\"padding:11px 16px;\">68.5 kW</td><td style=\"padding:11px 16px;\">72.1 kVA</td><td style=\"padding:11px 16px;\">22.5 kVAR</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">11kV, 500A, PF 0.92</td><td style=\"padding:11px 16px;\">8,764 kW</td><td style=\"padding:11px 16px;\">9,526 kVA</td><td style=\"padding:11px 16px;\">3,454 kVAR</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Three Phase Systems in Industrial Applications</h2>\n<p>Three-phase power is the backbone of industrial electrical systems worldwide. Motors, compressors, welders, CNC machines, and commercial HVAC all run on three-phase. Understanding three-phase calculations is essential for anyone working in industrial electrical engineering or facilities management.</p>\n<h3>Three-Phase Motor Calculations</h3>\n<p>For a three-phase induction motor: I = P / (√3 × VL × η × PF), where η is motor efficiency. A 22 kW (30 HP) motor at 400V, 92% efficiency, 0.85 PF: I = 22,000 / (1.732 × 400 × 0.92 × 0.85) = 40.6A. Size the contactor, cables, and overload relay based on this full-load current (FLC). Starter sizing: Direct-on-line starts draw 6-8× FLC momentarily.</p>\n<h3>Unbalanced Three-Phase Systems</h3>\n<p>Ideal three-phase systems have equal loads on all three phases. In reality, single-phase loads connected to three-phase (like office lighting and computers) create imbalance. Voltage imbalance of just 3.5% causes 25% increase in motor heat — significantly reducing motor life. Keep voltage imbalance under 2% for critical motor loads.</p>\n<h3>Power Factor Correction for Three-Phase</h3>\n<p>Three-phase capacitor banks correct lagging power factor from inductive loads. A facility running at 0.75 PF consuming 500 kVA of apparent power uses only 375 kW real power. Improving PF to 0.95 reduces apparent power to 395 kVA — the same real power with 21% less current. This reduces transformer loading, cable losses, and utility bills.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the formula for three phase power? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">P (kW) = √3 × VL × IL × PF / 1000. Where VL is line-to-line voltage (V), IL is line current (A), PF is power factor (0-1). For a 400V system with 100A at PF 0.9: P = 1.732 × 400 × 100 × 0.9 / 1000 = 62.4 kW.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between kW and kVA? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">kW (kilowatts) is real power — actual energy consumed. kVA (kilovolt-amperes) is apparent power — the total power supplied including reactive power. kW = kVA × Power Factor. A motor drawing 100 kVA at 0.85 PF consumes 85 kW of real power.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why is three phase more efficient than single phase? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Three-phase delivers 1.732× more power than single-phase with the same voltage and current. It also provides constant power delivery (three-phase does not pulse like single-phase), making motors smoother and more efficient. Transmission losses are lower per kW delivered.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is power factor in three phase systems? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Power factor (PF) = Real Power (kW) / Apparent Power (kVA) = cos(φ). Low PF (below 0.9) means the system draws more current than needed for the useful work done. Utilities often penalize industrial customers for low power factor. Capacitor banks correct low PF.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate line current from three phase power? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">IL = P / (√3 × VL × PF). For 50 kW at 400V with PF 0.85: IL = 50,000 / (1.732 × 400 × 0.85) = 50,000 / 588.9 = 84.9 A. This is used to select fuses, cables, and contactors.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is reactive power (kVAR)? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Reactive power (kVAR) is power oscillating between source and inductive/capacitive loads without doing useful work. Q = √3 × VL × IL × sin(φ). Large inductive loads (motors, transformers) generate significant kVAR. Capacitor banks add negative kVAR to cancel it.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Three Phase Power Calculator – kW, kVA and Current</h2><div class=\"form-group\"><label for=\"tp-v\">Line Voltage VL (V)</label><input id=\"tp-v\" min=\"1\" step=\"1\" type=\"number\" value=\"400\"/></div>\n<div class=\"form-group\"><label for=\"tp-i\">Line Current IL (A)</label><input id=\"tp-i\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"100\"/></div>\n<div class=\"form-group\"><label for=\"tp-pf\">Power Factor (0-1)</label><input id=\"tp-pf\" max=\"1\" min=\"0.1\" step=\"0.01\" type=\"number\" value=\"0.90\"/></div>\n<div class=\"form-group\"><label for=\"tp-solve\">Calculate</label><select id=\"tp-solve\"><option selected=\"\" value=\"power\">Power from V, I, PF</option><option value=\"current\">Current from Power, V, PF</option></select></div>\n<div id=\"tp-from-power\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"tp-kw\">Real Power (kW)</label><input id=\"tp-kw\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"62\"/></div>\n<div class=\"form-group\"><label for=\"tp-v2\">Line Voltage VL (V)</label><input id=\"tp-v2\" min=\"1\" step=\"1\" type=\"number\" value=\"400\"/></div>\n<div class=\"form-group\"><label for=\"tp-pf2\">Power Factor</label><input id=\"tp-pf2\" max=\"1\" min=\"0.1\" step=\"0.01\" type=\"number\" value=\"0.90\"/></div>\n</div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Three Phase Power Calculator – kW, kVA and Current')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Three Phase Power Calculator – kW, kVA and Current')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-three-phase-power-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('tp-solve').addEventListener('change',function(){\n  var inputs=['tp-v','tp-i','tp-pf'];\n  inputs.forEach(function(id){document.getElementById(id).closest('.form-group').style.display=this.value==='power'?'block':'none';},this);\n  document.getElementById('tp-from-power').style.display=this.value==='current'?'block':'none';\n});\nfunction g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var mode=document.getElementById('tp-solve').value;\n  var VL,IL,PF,P,Q,S;\n  var sqrt3=Math.sqrt(3);\n  if(mode==='power'){\n    VL=g('tp-v');IL=g('tp-i');PF=g('tp-pf');\n    if(!VL||!IL||!PF){alert('Enter all values.');return;}\n    S=sqrt3*VL*IL/1000;P=S*PF;Q=Math.sqrt(S*S-P*P);\n  } else {\n    P=g('tp-kw');VL=g('tp-v2');PF=g('tp-pf2');\n    if(!P||!VL||!PF){alert('Enter all values.');return;}\n    IL=P*1000/(sqrt3*VL*PF);S=sqrt3*VL*IL/1000;Q=Math.sqrt(S*S-P*P);\n  }\n  var angle=Math.acos(PF)*180/Math.PI;\n  document.getElementById('el-ri').innerHTML=\n    ri('Real Power (kW)','<strong style=\"font-size:20px;color:var(--c-accent)\">'+P.toFixed(2)+' kW</strong>',true)+\n    ri('Apparent Power',S.toFixed(2)+' kVA')+\n    ri('Reactive Power',Q.toFixed(2)+' kVAR')+\n    ri('Line Current',IL.toFixed(2)+' A')+\n    ri('Power Factor',PF+' (φ='+angle.toFixed(1)+'°)')+\n    ri('Line Voltage',VL+' V');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Real (kW)','Reactive (kVAR)'],[Math.round(P*10)||1,Math.round(Q*10)||1],['#1a5c3a','#c8832a']);\n  var aiPrompt='3-phase system: '+P.toFixed(1)+'kW real, '+S.toFixed(1)+'kVA apparent, '+IL.toFixed(1)+'A at '+VL+'V, PF='+PF;\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world industrial electrical engineering application of this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Three-phase power delivers constant instantaneous torque to industrial motors and maximizes conductor transmission efficiency by √3 (173%). To evaluate single-phase circuits, cross-reference our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and calculate substation stepping in our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Three-Phase vs Single-Phase Power Conduction Capacity (kW)
+          </h2>
+          <ThreePhaseBalancedLoadPowerChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conceived by Nikola Tesla and Mikhail Dolivo-Dobrovolsky in the late 1880s, polyphase alternating current systems revolutionized industrial manufacturing. A balanced three-phase system comprises three distinct alternating voltage waveforms of identical frequency and peak amplitude, but separated in time by a mutual phase displacement of 120 electrical degrees (2π / 3 radians).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This geometric symmetry provides profound engineering advantages over single-phase distribution. First, the mathematical sum of instantaneous currents in a balanced three-phase system is identically zero (I_A + I_B + I_C = 0), allowing power transmission over three wires without requiring a return neutral conductor. Second, three-phase motors deliver constant, smooth instantaneous mechanical torque without the severe 120 Hz vibrational pulsating torque characteristic of single-phase machines.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations for Three-Phase Power
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In any balanced three-phase electrical circuit, total Apparent Power (S, in kVA) is derived using line-to-line RMS voltage (V_L-L, in Volts) and line current (I_L, in Amperes):
+          </p>
+          <Formula>{"S (kVA) = \frac{\sqrt{3} \times V_{L-L} \times I_L}{1,000} \approx \frac{1.73205 \times V_{L-L} \times I_L}{1,000}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Active Real Power (P, in kW) and Reactive Power (Q, in kVAR) are governed by the operating power factor (PF = cos θ):
+          </p>
+          <Formula>{"P (kW) = S \times PF = \frac{\sqrt{3} \times V_{L-L} \times I_L \times PF}{1,000}"}</Formula>
+          <Formula>{"Q (kVAR) = \sqrt{S^2 - P^2} = S \times \sin(\theta)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To size industrial branch circuit feeders and check conductor voltage drop, cross-reference our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link> and calculate circuit resistance in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Global Three-Phase Industrial Voltage Configurations
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Industrial power distribution configurations differ significantly across continents and facility types:
+          </p>
+          <DataTable
+            head={["Distribution Standard", "Line-to-Line Voltage (VL-L)", "Line-to-Neutral Voltage (Vph)", "Wiring Topology", "Typical Facility Application"]}
+            rows={[
+              ["US Light Commercial / Multi-Tenant", "208 V AC", "120 V AC", "4-Wire Wye (Star)", "Commercial offices, retail stores, small machine shops"],
+              ["US Heavy Industrial / Manufacturing", "480 V AC", "277 V AC", "4-Wire Wye (Star)", "Heavy industrial manufacturing, water treatment plants"],
+              ["European Standard (CENELEC)", "400 V AC", "230 V AC", "4-Wire Wye (Star)", "Standard continental European commercial & residential"],
+              ["US Legacy Ungrounded Delta", "240 V AC", "No Neutral (or Wild-Leg 208V)", "3-Wire or 4-Wire Delta", "Older sawmill machinery, agricultural irrigation pumps"],
+              ["Medium-Voltage Industrial Feeder", "4,160 V AC", "2,400 V AC", "3-Wire Wye", "Centrifugal chillers, heavy mine hoists, refinery pumps"],
+              ["Heavy Industrial Substation", "13,800 V (13.8 kV)", "7,967 V AC", "3-Wire Wye", "Primary plant distribution, steel rolling mills"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: 480V 75 HP Industrial Induction Motor
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A mechanical facilities engineer connects a 75 Horsepower (HP) three-phase induction motor driving an industrial ventilation blower to a 480 V balanced electrical bus. The motor nameplate specifies continuous full-load line current I_L = 88.0 A and a lagging power factor of PF = 0.86:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Line-to-Line Voltage:</strong> V_L-L = 480 V AC
+            </li>
+            <li>
+              <strong>Total Apparent Power (S):</strong>
+              <br />
+              S = (√3 × 480 V × 88.0 A) / 1,000 = (1.73205 × 480 × 88.0 / 1,000) = (73,161.8 / 1,000) = 73.16 kVA
+            </li>
+            <li>
+              <strong>Active Real Power Input (P):</strong>
+              <br />
+              P = S × PF = 73.16 kVA × 0.86 = 62.92 kW
+            </li>
+            <li>
+              <strong>Reactive Power (Q):</strong>
+              <br />
+              Q = √(73.16² - 62.92²) = √(5,352.38 - 3,958.93) = √(1,393.45) = 37.33 kVAR
+            </li>
+            <li>
+              <strong>Mechanical Output Verification:</strong>
+              <br />
+              75 HP × 0.7457 kW/HP = 55.93 kW of shaft mechanical power.
+              <br />
+              Motor Operating Efficiency η = 55.93 kW / 62.92 kW = 88.9%.
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The motor draws 62.92 kW of active work and 37.33 kVAR of magnetizing reactive current. Reactive power can be cancelled using capacitor banks sized in our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and inductive chokes in our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Phase Unbalance & Negative Sequence Heating in Motors
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In real-world commercial buildings, single-phase lighting and computer loads are rarely distributed with perfect symmetry across the three phases. Voltage unbalance occurs when phase voltages differ, computed according to NEMA MG-1 standards:
+          </p>
+          <Formula>{"Voltage Unbalance (\%) = \frac{Maximum Deviation from Average Voltage}{Average Line Voltage} \times 100"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Even a seemingly minor 3% voltage unbalance induces massive negative-sequence magnetic fields that rotate in reverse against motor direction. This negative-sequence flux induces large eddy currents in the rotor, resulting in a 20% to 30% temperature spike that can destroy motor winding insulation. Modern electronic motor protection relays continuously monitor current phase balance to trip breakers before thermal damage occurs.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Standards & Utility Metering Compliance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Three-phase power delivery and metering are governed by international regulatory standards:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>NFPA 70 (NEC Article 430 & 450):</strong> Standardizes motor branch circuit conductor sizing, thermal overload protection, and three-phase transformer disconnect switches.
+            </li>
+            <li>
+              <strong>NEMA MG 1:</strong> Motors and Generators performance standard defining voltage unbalance derating factors and full-load motor service factors.
+            </li>
+            <li>
+              <strong>IEC 60034-1:</strong> International rating and performance specifications for rotating electrical machines operated across 50 Hz and 60 Hz grids.
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For utility step-down substation analysis, model turns ratios in our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link> and calculate single-phase loads in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering three-phase power calculations enables electrical engineers to balance industrial panel loads, size distribution conductors accurately, and maximize the operational efficiency of heavy manufacturing machinery.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            High-Leg (Wild-Leg) Delta Systems: Safety Hazard Analysis
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In older North American light industrial and commercial machine shops, utilities frequently provide a 240V Three-Phase 4-Wire &lsquo;High-Leg Delta&rsquo; service (also known as a &lsquo;Wild-Leg&rsquo; or &lsquo;Red-Leg&rsquo; system). One winding of the 240V delta transformer bank is center-tapped to establish a neutral conductor for 120V convenience lighting circuits.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While Phase A and Phase C each measure 120 V to neutral (240 V / 2 = 120 V), the geometry of the delta triangle forces Phase B (the high-leg) to measure an anomalous √(3) × 120 V = 208 V to neutral. If an electrician mistakenly lands a standard 120V single-phase computer or lighting circuit on the Phase B high-leg bus, the 208V over-voltage destroys connected equipment immediately. NEC Article 110.15 mandates that the high-leg conductor must be permanently tagged with high-visibility orange insulation to prevent catastrophic wiring accidents.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering three-phase power calculations enables electrical engineers to balance industrial panel loads, size distribution conductors accurately, and maximize the operational efficiency of heavy manufacturing machinery.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Phase Sequence (Rotation) & Industrial Motor Directionality
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In three-phase power distribution, the time order in which the three phase voltages reach their respective positive peaks is termed the <strong>Phase Sequence</strong> or Phase Rotation (typically designated A-B-C or clockwise rotation). Phase sequence directly determines the physical rotational direction of the rotating magnetic field established inside three-phase induction and synchronous electric motors.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            If utility technicians reverse any two supply phase conductors (e.g., swapping Phase A and Phase B during substation maintenance), connected three-phase motors immediately rotate in reverse. In industrial manufacturing plants, reverse rotation can cause catastrophic mechanical damage to centrifugal pumps, industrial chillers, and machine tool spindles. Facilities install electronic phase-sequence monitoring relays that prevent motor contactors from pulling in if reversed phase rotation or single-phasing is detected.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Maintaining balanced phase loadings across electrical switchgear prevents neutral bus overheating, minimizes transformer eddy current losses, and eliminates negative-sequence mechanical vibrations inside heavy manufacturing equipment.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Continuous three-phase power telemetry empowers plant electrical engineers to optimize facility power factors and maintain high-efficiency operational reliability.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Industrial Substation Transformers & Polyphase Power Factor Correction
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In industrial facilities operating large three-phase induction motors, high reactive power lowers facility power factor. Engineers model step-down transformer impedance using our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link> and calculate reactive power compensation in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Installing automatic capacitor banks at main distribution switchboards corrects lagging power factors to near unity (&gt;0.95), eliminating utility reactive penalty surcharges and freeing up transformer thermal capacity for future plant expansions.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering three-phase power calculations enables electrical engineers to balance industrial panel loads, size distribution conductors accurately, and maximize efficiency.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Variable-Frequency Drive (VFD) Multi-Pulse Rectification & Active Front-Ends
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Heavy industrial pump stations, marine propulsion thrusters, and mining haulers utilize high-power Variable-Frequency Drives (VFDs) to control multi-megawatt three-phase AC induction and synchronous motors. Standard 6-pulse diode bridge rectifiers generate substantial 5th and 7th harmonic currents that distort facility supply bus voltage waveforms.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To mitigate harmonic distortion, industrial electrical designers implement 12-pulse, 18-pulse, or 24-pulse drive architectures utilizing phase-shifting auto-transformers that cancel characteristic harmonic currents internally. Alternatively, modern Active Front-End (AFE) regenerative converters deploy bidirectional insulated-gate bipolar transistor (IGBT) bridges that synthesize sinusoidal input currents with near-zero harmonic distortion and unity power factor across all motor operating speeds.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Proper harmonic mitigation safeguards upstream distribution transformers from excessive eddy current heating and eliminates communication interference on plant automation networks.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conducting comprehensive three-phase load flow audits ensures symmetrical phase voltages, lowers neutral conductor currents, and prevents motor overheating in manufacturing plants.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Proper feeder sizing and power factor correction protect commercial switchgear, improve distribution efficiency, and eliminate utility billing penalties across industrial facilities.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Balanced three-phase power delivery remains the bedrock of modern utility transmission networks worldwide.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate power factor correction and balanced phase current distribution optimize plant substation capacity and safeguard heavy industrial electrical machinery from harmonic disturbances.
+          </p>
+
+        </>
+      }
+    >
+      <ThreePhasePowerCalculatorComponent />
+    </CalcPage>
   );
 }

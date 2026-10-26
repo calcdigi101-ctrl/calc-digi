@@ -1,26 +1,253 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import InductorCalculatorComponent from "@/components/calcs/electronics/inductor-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { InductiveReactanceFrequencySweepChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/inductor-calculator";
+const TITLE = "Inductor Reactance Calculator | Impedance (XL) & Magnetic Energy";
+const DESCRIPTION =
+  "Calculate inductive reactance (XL), magnetic stored energy (Joules), back-EMF potential, and quality factor (Q) across AC and RF electromagnetic circuits.";
 
 export const metadata: Metadata = {
-  "title": "Inductor Calculator – Inductance & Reactance | CalcDigi",
-  "description": "Calculate inductive reactance (XL), energy stored, RL time constant, and resonant frequency with capacitor.",
-  "openGraph": {
-    "title": "Inductor Calculator – Inductance & Reactance | CalcDigi",
-    "description": "Calculate inductive reactance (XL), energy stored, RL time constant, and resonant frequency with capacitor.",
-    "type": "website",
-    "url": "/calculators/electronics/inductor-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/inductor-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/capacitor-calculator", icon: "⚙️", name: "Capacitor Reactance" },
+  { href: "/calculators/electronics/transformer-calculator", icon: "🔄", name: "Transformer" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/frequency-calculator", icon: "📡", name: "Frequency Calculator" },
+  { href: "/calculators/electronics/three-phase-power-calculator", icon: "⚡", name: "Three-Phase Power" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is inductive reactance (XL) and how does it change with frequency?",
+    a: "Inductive reactance (XL, measured in Ohms) represents the opposition an inductor offers to changing alternating electric current. Governed by Lenz's Law and Faraday's Law of Induction, reactance increases linearly with both frequency (f) and inductance (L): XL = 2 × π × f × L. At zero frequency (DC), an ideal inductor exhibits zero reactance (acting as a pure short circuit). As frequency climbs, reactance increases, functioning as a low-pass choke.",
+  },
+  {
+    q: "How do you calculate the magnetic energy stored in an energized inductor?",
+    a: "The potential magnetic energy (E, in Joules) stored within the concentrated magnetic field of an energized inductor core is computed as: E = ½ × L × I², where L is inductance in Henries and I is continuous current in Amperes. This stored energy is the foundational principle underlying switch-mode buck and boost power converters.",
+  },
+  {
+    q: "What is an inductive voltage spike (inductive kickback) and how is it suppressed?",
+    a: "When current through an energized inductor is abruptly interrupted by a switch or transistor, the collapsing magnetic field induces a massive opposing counter-electromotive force: V = -L × (di / dt). Because di/dt is nearly instantaneous, voltage can spike to thousands of Volts, destroying driving transistors. A flyback snubber diode or bidirectional TVS diode placed across the coil clamps this voltage spike safely.",
+  },
+  {
+    q: "What causes magnetic core saturation in practical inductors?",
+    a: "Magnetic core materials (such as ferrite, powdered iron, and silicon steel) possess a finite magnetic flux density limit (B_sat, measured in Tesla). If operating current exceeds the core saturation threshold, magnetic domains fully align, causing differential permeability to collapse. The inductor suddenly behaves like an air-core coil, causing inductance to drop sharply and current to spike destructively.",
+  },
+];
+
+export default function InductorCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Inductor Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/inductor-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Inductor Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/inductor-calculator\", \"description\": \"Calculate inductive reactance (XL), energy stored, RL time constant, and resonant frequency with capacitor.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is inductive reactance?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Inductive reactance XL = 2πfL in ohms. It increases with frequency — inductors pass low frequencies and block high frequencies. A 10µH inductor at 1MHz has XL = 2π × 1,000,000 × 0.00001 = 62.8Ω.\"}}, {\"@type\": \"Question\", \"name\": \"How do inductors store energy?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Inductors store energy in their magnetic field: E = ½LI² joules. A 10mH inductor carrying 5A stores E = 0.5 × 0.01 × 25 = 0.125 joules. This energy is released when current stops flowing, causing voltage spikes — dangerous in switching circuits.\"}}, {\"@type\": \"Question\", \"name\": \"What is the RL time constant?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"τ = L/R seconds. Current in an RL circuit rises to 63.2% of final value after 1τ and reaches full value after 5τ. For L=100mH and R=10Ω: τ = 0.1/10 = 10ms. After 50ms (5τ), current reaches steady state.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate LC resonant frequency?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"f₀ = 1/(2π√LC) Hz. For L=10µH and C=100pF: f₀ = 1/(2π√(10×10⁻⁶ × 100×10⁻¹²)) = 1/(2π × 10⁻⁸) = 15.9 MHz. This is used in AM radio receivers to tune to specific stations.\"}}, {\"@type\": \"Question\", \"name\": \"What are inductor quality factor (Q)?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Q = XL/R = 2πfL/R. Higher Q means lower losses. Air-core inductors: Q = 50-200. Ferrite core: Q = 20-100. Iron core (power): Q = 10-50. High Q inductors are critical in narrowband RF filters and oscillators.\"}}, {\"@type\": \"Question\", \"name\": \"What types of inductors are available?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Air core: low inductance (nH-µH), high Q, used in RF. Ferrite core: medium inductance (µH-mH), used in switching power supplies. Iron core: high inductance (mH-H), used in power line filtering and audio. Toroidal cores minimize electromagnetic interference.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Inductor Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Inductor Calculator</h1>\n<p class=\"calc-intro\">Calculate inductive reactance (XL), energy stored in an inductor, RL time constant, and LC resonant frequency. Essential for filter design, power electronics, RF circuit design, and motor control applications.</p>\n<p class=\"calc-intro\"></p><p>Inductors are the least intuitive passive component for most beginners — unlike resistors (which simply oppose current) or capacitors (which store charge), inductors oppose changes in current and store energy in a magnetic field. This unique property makes them irreplaceable in power electronics, radio frequency circuits, and filtering applications where energy must be stored and released with precise timing.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">XL = 2πfL | E = ½LI² | τ = L/R | f₀ = 1/(2π√LC)</div></div>\n<div class=\"content-section\">\n<h2>Inductor Calculations Guide</h2>\n<p>An inductor is a coil of wire that stores energy in a magnetic field when current flows through it. Measured in henries (H), inductance determines how strongly the inductor opposes changes in current. Inductors are essential in power supplies, RF circuits, filters, transformers, and motors.</p>\n<h3>Inductive Reactance (XL)</h3>\n<p>XL = 2πfL in ohms. Unlike resistance, inductive reactance increases with frequency. At DC (f=0), XL = 0 (inductor is a short circuit). At high frequencies, XL is large (inductor blocks high-frequency signals). This is the opposite of capacitors, making inductors low-pass filter components.</p>\n<h3>RL Time Constant</h3>\n<p>In an RL circuit, τ = L/R seconds. Current rises to 63.2% of final value after 1τ, and reaches full value after 5τ. Unlike RC circuits where voltage builds up, RL circuits build up current. τ = L/R = 1H/1Ω = 1 second.</p>\n<h3>LC Resonant Frequency</h3>\n<p>When an inductor and capacitor are combined, they resonate at f₀ = 1/(2π√LC). At resonance, XL = XC and they cancel each other — maximum current flows in series resonance, minimum current in parallel resonance. Radio tuning circuits use variable capacitors to select resonant frequency.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Inductor, Frequency</th><th style=\"padding:12px 16px;\">XL (Ω)</th><th style=\"padding:12px 16px;\">Application</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1 µH, 100 MHz</td><td style=\"padding:11px 16px;\">628 Ω</td><td style=\"padding:11px 16px;\">RF circuits, VHF</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">10 µH, 1 MHz</td><td style=\"padding:11px 16px;\">62.8 Ω</td><td style=\"padding:11px 16px;\">AM radio, switching PSU</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">100 µH, 100 kHz</td><td style=\"padding:11px 16px;\">62.8 Ω</td><td style=\"padding:11px 16px;\">DC-DC converters</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">1 mH, 10 kHz</td><td style=\"padding:11px 16px;\">62.8 Ω</td><td style=\"padding:11px 16px;\">Audio crossovers</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">100 mH, 60 Hz</td><td style=\"padding:11px 16px;\">37.7 Ω</td><td style=\"padding:11px 16px;\">Power line filters</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Inductors in Power Electronics and RF</h2>\n<p>Inductors are critical in switching power supplies, RF circuits, and motor drives. Unlike capacitors and resistors, inductor design requires careful attention to core saturation, winding resistance, self-resonant frequency, and shielding. A poorly chosen inductor can cause a switching supply to become unstable or reduce efficiency by 10-20%.</p>\n<h3>Inductors in Buck/Boost Converters</h3>\n<p>DC-DC switching converters (buck, boost, buck-boost) use inductors to store and transfer energy. The inductor value determines ripple current: ΔI = (Vin - Vout) × D / (f × L), where D is duty cycle and f is switching frequency. Typical: 10-30% ripple current. Too small L → high ripple → more output capacitance needed. Too large L → slower transient response.</p>\n<h3>Core Saturation — Critical Design Parameter</h3>\n<p>Inductors have a maximum current (Isat) beyond which the ferrite core saturates and inductance collapses — effectively becoming a short circuit. In switching supplies, inductor current includes both DC load current and AC ripple. Choose an inductor with Isat rating of at least 1.25× peak current. Core saturation causes sudden efficiency drops, excessive heating, and potential component damage.</p>\n<h3>EMI and Shielded Inductors</h3>\n<p>Unshielded inductors radiate electromagnetic interference (EMI) from their open magnetic field. In noise-sensitive circuits (audio, precision ADC), use shielded inductors (toroidal core or closed core design). The shielded construction contains the magnetic field, reducing EMI by 20-30 dB. Power over Ethernet (PoE) and medical devices mandate shielded magnetics for EMI compliance.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is inductive reactance? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Inductive reactance XL = 2πfL in ohms. It increases with frequency — inductors pass low frequencies and block high frequencies. A 10µH inductor at 1MHz has XL = 2π × 1,000,000 × 0.00001 = 62.8Ω.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do inductors store energy? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Inductors store energy in their magnetic field: E = ½LI² joules. A 10mH inductor carrying 5A stores E = 0.5 × 0.01 × 25 = 0.125 joules. This energy is released when current stops flowing, causing voltage spikes — dangerous in switching circuits.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the RL time constant? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">τ = L/R seconds. Current in an RL circuit rises to 63.2% of final value after 1τ and reaches full value after 5τ. For L=100mH and R=10Ω: τ = 0.1/10 = 10ms. After 50ms (5τ), current reaches steady state.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate LC resonant frequency? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">f₀ = 1/(2π√LC) Hz. For L=10µH and C=100pF: f₀ = 1/(2π√(10×10⁻⁶ × 100×10⁻¹²)) = 1/(2π × 10⁻⁸) = 15.9 MHz. This is used in AM radio receivers to tune to specific stations.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are inductor quality factor (Q)? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Q = XL/R = 2πfL/R. Higher Q means lower losses. Air-core inductors: Q = 50-200. Ferrite core: Q = 20-100. Iron core (power): Q = 10-50. High Q inductors are critical in narrowband RF filters and oscillators.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What types of inductors are available? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Air core: low inductance (nH-µH), high Q, used in RF. Ferrite core: medium inductance (µH-mH), used in switching power supplies. Iron core: high inductance (mH-H), used in power line filtering and audio. Toroidal cores minimize electromagnetic interference.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/frequency-calculator\"><span class=\"rc-icon\">📡</span><span class=\"rc-name\">Frequency Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/rc-time-constant-calculator\"><span class=\"rc-icon\">⏱️</span><span class=\"rc-name\">RC Time Constant</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Inductor Calculator – XL, Energy and Resonance</h2><div class=\"form-group\"><label for=\"ind-mode\">Calculate</label><select id=\"ind-mode\"><option selected=\"\" value=\"xl\">Inductive Reactance (XL)</option><option value=\"energy\">Energy Stored</option><option value=\"rl\">RL Time Constant</option><option value=\"lc\">LC Resonant Frequency</option></select></div>\n<div id=\"ind-xl\">\n<div class=\"form-group\"><label for=\"ind-l1\">Inductance (µH)</label><input id=\"ind-l1\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div>\n<div class=\"form-group\"><label for=\"ind-f1\">Frequency (kHz)</label><input id=\"ind-f1\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div>\n</div>\n<div id=\"ind-energy\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"ind-l2\">Inductance (mH)</label><input id=\"ind-l2\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div>\n<div class=\"form-group\"><label for=\"ind-i2\">Current (A)</label><input id=\"ind-i2\" min=\"0\" step=\"any\" type=\"number\" value=\"5\"/></div>\n</div>\n<div id=\"ind-rl\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"ind-l3\">Inductance (mH)</label><input id=\"ind-l3\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div>\n<div class=\"form-group\"><label for=\"ind-r3\">Resistance (Ω)</label><input id=\"ind-r3\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div>\n</div>\n<div id=\"ind-lc\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"ind-l4\">Inductance (µH)</label><input id=\"ind-l4\" min=\"0\" step=\"any\" type=\"number\" value=\"10\"/></div>\n<div class=\"form-group\"><label for=\"ind-c4\">Capacitance (pF)</label><input id=\"ind-c4\" min=\"0\" step=\"any\" type=\"number\" value=\"100\"/></div>\n</div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Inductor Calculator – XL, Energy and Resonance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Inductor Calculator – XL, Energy and Resonance')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-inductor-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('ind-mode').addEventListener('change',function(){\n  var m=this.value;\n  ['ind-xl','ind-energy','ind-rl','ind-lc'].forEach(function(id){\n    document.getElementById(id).style.display='none';\n  });\n  document.getElementById('ind-'+m).style.display='block';\n});\nfunction g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var mode=document.getElementById('ind-mode').value;\n  var aiPrompt='';\n  if(mode==='xl'){\n    var L=g('ind-l1')*1e-6; var f=g('ind-f1')*1e3;\n    if(!L||!f){alert('Enter inductance and frequency.');return;}\n    var XL=2*Math.PI*f*L;\n    document.getElementById('el-ri').innerHTML=\n      ri('Inductive Reactance','<strong style=\"font-size:20px;color:var(--c-accent)\">'+XL.toFixed(2)+' Ω</strong>',true)+\n      ri('Frequency',(f/1000).toFixed(1)+' kHz')+\n      ri('Inductance',(L*1e6).toFixed(1)+' µH')+\n      ri('At 10× freq',(XL*10).toFixed(2)+' Ω')+\n      ri('At 0.1× freq',(XL/10).toFixed(4)+' Ω');\n    drawDonut('el-chart',['XL','Freq (kHz)'],[Math.round(XL)||1,Math.round(f/1000)||1],['#1a5c3a','#c8832a']);\n    aiPrompt='Inductor XL='+XL.toFixed(1)+'Ω at '+f/1000+'kHz, L='+(L*1e6)+'µH';\n  } else if(mode==='energy'){\n    var L2=g('ind-l2')*1e-3; var I=g('ind-i2');\n    if(!L2||!I){alert('Enter inductance and current.');return;}\n    var E=0.5*L2*I*I;\n    document.getElementById('el-ri').innerHTML=\n      ri('Energy Stored','<strong style=\"font-size:20px;color:var(--c-accent)\">'+E.toFixed(4)+' J</strong>',true)+\n      ri('Energy (mJ)',(E*1000).toFixed(2)+' mJ')+\n      ri('Inductance',(L2*1000).toFixed(1)+' mH')+ri('Current',I+' A');\n    drawDonut('el-chart',['Energy (mJ)','L (mH)'],[Math.round(E*1000)||1,Math.round(L2*1000)||1],['#1a5c3a','#c8832a']);\n    aiPrompt='Inductor energy='+E.toFixed(4)+'J, L='+(L2*1000)+'mH, I='+I+'A';\n  } else if(mode==='rl'){\n    var L3=g('ind-l3')*1e-3; var R=g('ind-r3');\n    if(!L3||!R){alert('Enter inductance and resistance.');return;}\n    var tau=L3/R;\n    var fmtT=tau<0.001?(tau*1e6).toFixed(2)+' µs':tau<1?(tau*1000).toFixed(2)+' ms':tau.toFixed(4)+' s';\n    document.getElementById('el-ri').innerHTML=\n      ri('RL Time Constant','<strong style=\"font-size:20px;color:var(--c-accent)\">'+fmtT+'</strong>',true)+\n      ri('Full current (5τ)',(tau<0.001?(tau*5*1e6).toFixed(2)+' µs':tau<0.2?(tau*5*1000).toFixed(2)+' ms':(tau*5).toFixed(4)+' s'))+\n      ri('L/R ratio',tau.toFixed(6)+' s');\n    drawDonut('el-chart',['L (mH)','R (Ω)'],[Math.round(L3*1000)||1,Math.round(R)||1],['#1a5c3a','#c8832a']);\n    aiPrompt='RL circuit: L='+(L3*1000)+'mH, R='+R+'Ω, τ='+fmtT;\n  } else {\n    var L4=g('ind-l4')*1e-6; var Cp=g('ind-c4')*1e-12;\n    if(!L4||!Cp){alert('Enter inductance and capacitance.');return;}\n    var f0=1/(2*Math.PI*Math.sqrt(L4*Cp));\n    var fmtF=f0>=1e6?(f0/1e6).toFixed(3)+' MHz':f0>=1e3?(f0/1e3).toFixed(3)+' kHz':f0.toFixed(1)+' Hz';\n    document.getElementById('el-ri').innerHTML=\n      ri('Resonant Frequency','<strong style=\"font-size:20px;color:var(--c-accent)\">'+fmtF+'</strong>',true)+\n      ri('Frequency (Hz)',f0.toExponential(4)+' Hz')+\n      ri('Inductance',(L4*1e6).toFixed(1)+' µH')+\n      ri('Capacitance',(Cp*1e12).toFixed(1)+' pF');\n    drawDonut('el-chart',['L (µH)','C (pF)'],[Math.round(L4*1e6)||1,Math.round(Cp*1e12)||1],['#1a5c3a','#c8832a']);\n    aiPrompt='LC resonant circuit: f0='+fmtF+', L='+(L4*1e6)+'µH, C='+(Cp*1e12)+'pF';\n  }\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world electronics application that uses this inductor calculation.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Inductive reactance increases linearly with frequency, providing exceptional high-frequency RF choke suppression and DC energy storage. To model capacitive resonance, cross-reference our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link> and analyze turns ratios in our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Inductive Reactance (XL) Growth Across AC Frequencies
+          </h2>
+          <InductiveReactanceFrequencySweepChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Inductors represent the magnetic counterpart to electrostatic capacitors in classical circuit theory. Typically fabricated by winding conductive copper wire into a helical coil around a ferromagnetic core or air former, inductors exploit Faraday&apos;s Law of Electromagnetic Induction. Any change in electric current creates a changing magnetic flux, which induces an opposing counter-electromotive force (back-EMF) governed by Heinrich Lenz&apos;s Law.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In alternating current (AC) circuit analysis, inductors introduce a 90-degree phase shift where voltage leads current by one quarter-cycle (V leads I). Because an inductor naturally opposes rapid fluctuations in current, it acts as a low-impedance path for steady DC power while presenting formidable impedance to high-frequency electromagnetic interference (EMI) and harmonic noise.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Governing Inductive Reactance & Magnetic Energy Equations
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The fundamental relationship for induced back-electromotive force (v_L(t)) as a function of the time rate of change of current (di/dt) is:
+          </p>
+          <Formula>{"v_L(t) = L \frac{di(t)}{dt}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When excited by a steady-state sinusoidal AC signal of frequency (f, in Hertz), inductive reactance (X_L, in Ohms) is defined as:
+          </p>
+          <Formula>{"X_L = 2 \pi f L = \omega L"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The total magnetic potential energy (E, in Joules) stored within the surrounding magnetic field and Quality Factor (Q) are computed as:
+          </p>
+          <Formula>{"E = \frac{1}{2} L I^2, \quad Q = \frac{\omega L}{R_{DCR}}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For three-phase motor windings and reactive energy billing, calculate parameters in our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and calculate circuit power in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Ferromagnetic Core Materials & Magnetic Properties
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Inductance is proportional to the square of turns (N²) and the relative magnetic permeability (µ_r) of the core: L = (µ_r µ_0 N² A) / l. Selecting the proper core material balances permeability against eddy current losses:
+          </p>
+          <DataTable
+            head={["Magnetic Core Material", "Relative Permeability (μr)", "Saturation Flux Bsat (Tesla)", "Core Loss Frequency Limit", "Primary Application"]}
+            rows={[
+              ["Air Core / Non-Magnetic", "1.0", "No Saturation Limit", "> 1 GHz (Ultra-High RF)", "RF tuning coils, FM transmitter filters"],
+              ["Iron Powder (Carbonyl Iron)", "10 - 75", "1.2 - 1.6 T", "1 MHz - 100 MHz", "High-Q radio inductors, EMI line chokes"],
+              ["Manganese-Zinc Ferrite (MnZn)", "1,500 - 15,000", "0.35 - 0.50 T", "10 kHz - 2 MHz", "Switch-mode power supplies, broadband pulse transformers"],
+              ["Nickel-Zinc Ferrite (NiZn)", "100 - 1,500", "0.25 - 0.40 T", "1 MHz - 500 MHz", "Common-mode cable choke beads, RF baluns"],
+              ["Silicon Electrical Steel (Laminated)", "2,000 - 10,000", "1.5 - 1.8 T", "50 Hz - 1 kHz (Mains)", "Heavy utility power transformers, motor laminations"],
+              ["Amorphous / Nanocrystalline", "20,000 - 100,000", "1.2 - 1.3 T", "10 kHz - 100 kHz", "High-efficiency EV chargers, precision CT sensors"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Switch-Mode DC-DC Buck Inductor
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A power electronics designer is engineering a non-isolated DC-DC buck converter stepping down V_in = 12.0 V to V_out = 3.30 V at a continuous load current of I_out = 4.0 A. The converter operates at a switching frequency of f_sw = 500 kHz with a targeted inductor ripple current ratio of Δ I_L = 30% (1.20 A):
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Operating Duty Cycle (D):</strong> D = V_out / V_in = 3.30 V / 12.0 V = 0.275 (27.5%)
+            </li>
+            <li>
+              <strong>Inductor Voltage Drop During On-Time (V_L):</strong> V_L = V_in - V_out = 12.0 V - 3.30 V = 8.70 V
+            </li>
+            <li>
+              <strong>Required Inductance:</strong>
+              <br />
+              L = (V_out × (V_in - V_out)) / (ΔI_L × f_sw × V_in) = (3.30 × 8.70 / 1.20 × (500 × 10³) × 12.0) = (28.71 / 7,200,000) ≈ 3.987 × 10⁻⁶ H = 3.99 µH
+            </li>
+            <li>
+              <strong>Standard Commercial Inductor:</strong> Select a standard 4.7 µH shielded power inductor.
+            </li>
+            <li>
+              <strong>Peak Inductor Current (I_peak):</strong> I_peak = I_out + (Δ I_L / 2) = 4.0 A + 0.60 A = 4.60 A
+            </li>
+            <li>
+              <strong>Required Saturation Current Rating (I_sat):</strong> With a 25% safety margin, the selected inductor must specify I_sat ≥ 4.60 × 1.25 = 5.75 A to prevent core saturation.
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Maintaining magnetic core saturation headroom ensures stable voltage regulation without excessive ripple. Verify DC winding losses in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and cable gauge ampacities in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Parasitic Capacitance & Self-Resonant Frequency (SRF)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Real-world physical inductors are not pure lumped inductances. Adjacent turns of copper winding wire act as tiny parallel conductive plates separated by insulating enamel varnish, creating an intrinsic distributed parasitic capacitance (C_p).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At the Self-Resonant Frequency (SRF), inductive reactance equals parasitic capacitive reactance:
+          </p>
+          <Formula>{"f_{SRF} = \frac{1}{2 \pi \sqrt{L \times C_p}}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Above the SRF, capacitive reactance dominates, and the component effectively ceases to function as an inductor, instead behaving as a shunt capacitor. High-frequency RF circuit designs must always verify that operating frequencies remain well below the manufacturer&apos;s published SRF rating.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Industry Standards & Electromagnetic Compatibility (EMC)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Inductor manufacturing standards and electromagnetic radiation limits are regulated by international organizations:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>CISPR 25 / CISPR 32:</strong> Automotive and commercial electromagnetic disturbance standards governing conducted and radiated emissions caused by switch-mode inductors.
+            </li>
+            <li>
+              <strong>IEC 62024:</strong> High-frequency inductive component standards establishing standardized thermal rise measurement methodologies under continuous DC bias.
+            </li>
+            <li>
+              <strong>IEEE Standard 389:</strong> Recommended practice for testing transformers and inductors used in electronic power conversion equipment.
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For step-up and step-down AC distribution modeling, evaluate magnetic transfer in our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link> and calculate RF resonance in our <Link href="/calculators/electronics/frequency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">frequency calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding inductive reactance, magnetic energy density, and saturation thresholds ensures power electronics engineers can architect durable, high-efficiency converters, switch-mode power supplies, and noise-immune RF circuitry.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Distributed Air Gaps in Ferrite Cores for High Energy Storage
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In power electronics inductors utilized for switch-mode energy storage (such as buck, boost, and flyback converters), high magnetic permeability can actually be a severe detriment if it leads to rapid core saturation. Ferromagnetic materials like manganese-zinc ferrite have high permeability (μr &gt; 2,000), meaning a small current can drive the core to saturation flux density (B_sat), collapsing inductance.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To store substantial physical magnetic energy (E = (1 / 2) L I²), engineers deliberately introduce an air gap into the magnetic core structure. Because the magnetic permeability of air (µ_0) is thousands of times lower than the surrounding ferrite, nearly all of the magnetic reluctance and stored energy concentrates directly within the physical volume of the air gap:
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            <Formula>{"E_{gap} \approx \frac{B^2}{2 \mu_0} \times A \times l_{gap}"}</Formula>
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Alternatively, composite powdered-iron cores feature millions of microscopic non-magnetic binder gaps distributed uniformly throughout the core matrix (&lsquo;distributed air gap&rsquo;), providing smooth soft-saturation characteristics ideal for high-current automotive power inductors.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding magnetic energy storage, core saturation limits, and high-frequency winding losses empowers engineers to design high-efficiency power supplies, noise chokes, and resonant converters.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Common-Mode vs Differential-Mode Inductive Choke Filtration
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In electromagnetic compatibility (EMC) filter design, conducted electromagnetic noise propagating along power and data cabling is divided into two distinct transmission modes: <strong>Differential-Mode (DM)</strong> noise and <strong>Common-Mode (CM)</strong> noise. Differential noise flows in opposite directions along the supply and return lines, whereas common-mode noise flows in the same direction on both conductors simultaneously, returning through earth ground.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A <strong>Common-Mode Choke</strong> features two identical copper coils wound on a single shared high-permeability toroidal ferrite core. Differential load currents flow through the windings in opposing directions, creating canceling magnetic fluxes inside the core (B_net = 0), presenting zero impedance to desired power currents. Conversely, common-mode noise currents flow in the same direction, generating additive magnetic flux that presents massive inductive impedance, blocking EMI noise from escaping into mains wiring.
+          </p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Toroidal vs E-Core Geometries & Magnetic Containment
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The geometric shape of an inductor core directly dictates its magnetic shielding and EMI radiation characteristics. In open bobbin or unshielded drum cores, magnetic flux lines extend outward into the surrounding air space, easily coupling electrical noise into adjacent sensitive analog traces on a circuit board.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Toroidal (doughnut-shaped) cores feature continuous closed-loop magnetic paths where magnetic flux remains entirely trapped within the circular core cross-section. Toroids exhibit near-zero stray electromagnetic radiation, rendering them the gold standard for high-fidelity audio equipment and precision telecommunications receivers.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designing inductors with sufficient saturation flux margin and low high-frequency core losses prevents voltage regulation collapse and ensures robust electromagnetic compatibility across switch-mode power systems.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Careful selection of core metallurgy and winding geometry guarantees stable circuit operation across wide temperature and frequency boundaries.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Magnetic Coupling Dynamics & Resonant Frequency Tuning
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When inductors are placed in close physical proximity, mutual magnetic coupling occurs. Engineers model transformer turn ratios using our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link> and analyze self-resonant frequencies via our <Link href="/calculators/electronics/frequency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">frequency calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Proper magnetic shielding and toroidal geometry contain stray flux lines, eliminating electromagnetic cross-talk between high-current switchers and sensitive analog signal paths.
+          </p>
+
+
+        </>
+      }
+    >
+      <InductorCalculatorComponent />
+    </CalcPage>
   );
 }

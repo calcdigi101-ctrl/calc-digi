@@ -1,26 +1,245 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import VoltageDividerCalculatorComponent from "@/components/calcs/electronics/voltage-divider-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { VoltageDividerLoadingErrorCurveChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/voltage-divider-calculator";
+const TITLE = "Voltage Divider Calculator | Loaded Vout, Thevenin & Power Dissipation";
+const DESCRIPTION =
+  "Calculate resistive voltage divider output voltage under open-circuit and loaded conditions, Thevenin equivalent resistance, and resistor power dissipation.";
 
 export const metadata: Metadata = {
-  "title": "Voltage Divider Calculator – Output Voltage | CalcDigi",
-  "description": "Calculate output voltage of a resistor voltage divider. Find R1, R2 values for any desired output voltage from any input.",
-  "openGraph": {
-    "title": "Voltage Divider Calculator – Output Voltage | CalcDigi",
-    "description": "Calculate output voltage of a resistor voltage divider. Find R1, R2 values for any desired output voltage from any input.",
-    "type": "website",
-    "url": "/calculators/electronics/voltage-divider-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/voltage-divider-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/resistor-color-code-calculator", icon: "🎨", name: "Resistor Color Code" },
+  { href: "/calculators/electronics/led-resistor-calculator", icon: "💡", name: "LED Resistor" },
+  { href: "/calculators/electronics/rc-time-constant-calculator", icon: "⏱️", name: "RC Time Constant" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is a resistive voltage divider and what is its ideal formula?",
+    a: "A resistive voltage divider consists of two resistors (R1 and R2) connected in series across an input DC voltage source (Vin). The output voltage (Vout) tapped across R2 is proportional to the resistance ratio: Vout = Vin × [R2 / (R1 + R2)]. This provides a simple way to step down analog signals for microcontrollers and sensors.",
+  },
+  {
+    q: "Why does connecting a load resistor (RL) cause output voltage sag?",
+    a: "When a load resistor (RL) is connected across the output terminals, it sits in parallel with R2, forming an effective lower resistance: R2_eff = (R2 × RL) / (R2 + RL). Because R2_eff is smaller than R2, the voltage drop across the bottom branch drops significantly. To prevent loading error from exceeding 1%, RL should be at least 100 times larger than R2.",
+  },
+  {
+    q: "What is the Thevenin equivalent circuit of a voltage divider?",
+    a: "From the perspective of the output load terminals, Thevenin's Theorem reduces the two-resistor divider to a single equivalent voltage source (Vth = Vout_unloaded) in series with an internal source impedance (Rth = R1 || R2 = [R1 × R2] / [R1 + R2]). This Thevenin resistance limits transient current delivery and interacts with ADC input sampling capacitance.",
+  },
+  {
+    q: "Why shouldn't resistive voltage dividers be used as high-current power supplies?",
+    a: "Resistive voltage dividers provide poor voltage regulation under fluctuating load currents and waste substantial energy as heat. Dropping high voltage to supply a low-voltage load forces heavy quiescent current through R1 and R2, resulting in low electrical efficiency and thermal stress. Switch-mode DC-DC buck regulators or linear regulators should always be used for active power delivery.",
+  },
+];
+
+export default function VoltageDividerCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Voltage Divider Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/voltage-divider-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Voltage Divider Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/voltage-divider-calculator\", \"description\": \"Calculate output voltage of a resistor voltage divider. Find R1, R2 values for any desired output voltage from any input.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How does a voltage divider work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Two resistors in series split the input voltage. Vout = Vin × R2 / (R1 + R2). Current flows through both resistors equally (series circuit). The output is taken from the junction between R1 and R2. Larger R2 relative to R1 gives higher Vout.\"}}, {\"@type\": \"Question\", \"name\": \"How do I level shift 5V to 3.3V with a voltage divider?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use R1 = 10kΩ and R2 = 20kΩ: Vout = 5 × 20/(10+20) = 5 × 0.667 = 3.33V. Suitable for connecting 5V microcontroller outputs to 3.3V device inputs. Add a buffer if the load is low-impedance.\"}}, {\"@type\": \"Question\", \"name\": \"What is the loading effect on a voltage divider?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"When a load is connected across R2, it reduces the effective resistance, lowering Vout. To minimize loading, keep R1 and R2 small compared to the load impedance, or use an op-amp voltage follower buffer after the divider.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate R1 and R2 for a desired output voltage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"R1 = R2 × (Vin/Vout - 1). Choose R2 first based on power consumption and loading requirements (typically 1kΩ-100kΩ), then calculate R1. For 5V input, 3.3V output, R2=10kΩ: R1 = 10k × (5/3.3 - 1) = 10k × 0.515 = 5.15kΩ → use 5.1kΩ.\"}}, {\"@type\": \"Question\", \"name\": \"Can a voltage divider supply current to a load?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Voltage dividers are inefficient for supplying current. They are designed for signal-level connections, not power delivery. A linear voltage regulator or DC-DC converter is far more efficient when you need to supply current to a load.\"}}, {\"@type\": \"Question\", \"name\": \"What resistor values should I use for a voltage divider?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Choose resistor values based on: power consumption (P = Vin²/(R1+R2)), loading effects (load should be >10× R2), and available standard values. For 3.3V logic: 10kΩ and 20kΩ are common. Lower values waste more power but handle loading better.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Voltage Divider Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Voltage Divider Calculator</h1>\n<p class=\"calc-intro\">Calculate the output voltage of a two-resistor voltage divider circuit. Find the correct R1 and R2 values to produce any desired output voltage from any input supply. Used in sensor interfaces, ADC references, and level shifting.</p>\n<p class=\"calc-intro\"></p><p>The voltage divider is perhaps the simplest analog circuit — just two resistors — yet it solves a remarkable variety of problems in electronics design. Signal level shifting, sensor biasing, reference voltage generation, and impedance matching all rely on the voltage divider principle. Mastering its design and limitations is fundamental to analog electronics.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Vout = Vin × R2 / (R1 + R2) | R1 = R2 × (Vin/Vout - 1)</div></div>\n<div class=\"content-section\">\n<h2>Voltage Divider Circuit Guide</h2>\n<p>A voltage divider (also called a potential divider) uses two resistors in series to produce a fraction of the input voltage. It is one of the most fundamental and widely used circuits in electronics. Applications include sensor biasing, ADC input scaling, microcontroller level shifting (5V to 3.3V), and setting reference voltages.</p>\n<h3>How a Voltage Divider Works</h3>\n<p>With R1 connected from Vin to the output node, and R2 from the output node to ground, the output voltage follows: Vout = Vin × R2 / (R1 + R2). The voltage is divided in proportion to the resistor values. If R1 = R2, Vout = Vin/2.</p>\n<h3>Loading Effect — Critical Consideration</h3>\n<p>The voltage divider formula assumes no current is drawn from the output. When a load (like a microcontroller input) is connected, it creates a parallel resistance with R2, reducing Vout. For accurate division, the load resistance should be at least 10× R2. A low-impedance buffer (op-amp follower) eliminates loading effects.</p>\n<h3>Common Voltage Divider Applications</h3>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Application</th><th style=\"padding:12px 16px;\">R1</th><th style=\"padding:12px 16px;\">R2</th><th style=\"padding:12px 16px;\">Vout</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">5V → 3.3V level shift</td><td style=\"padding:11px 16px;\">10kΩ</td><td style=\"padding:11px 16px;\">20kΩ</td><td style=\"padding:11px 16px;\">3.33V</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">12V → 5V reference</td><td style=\"padding:11px 16px;\">14kΩ</td><td style=\"padding:11px 16px;\">10kΩ</td><td style=\"padding:11px 16px;\">5V</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Battery monitor (12V→3.3V)</td><td style=\"padding:11px 16px;\">27kΩ</td><td style=\"padding:11px 16px;\">10kΩ</td><td style=\"padding:11px 16px;\">3.2V</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">NTC thermistor bias</td><td style=\"padding:11px 16px;\">10kΩ</td><td style=\"padding:11px 16px;\">NTC</td><td style=\"padding:11px 16px;\">Variable</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Voltage Divider Applications in Electronics</h2>\n<p>Voltage dividers appear in virtually every electronic system. From sensor interfaces to ADC input scaling, from battery monitoring to audio volume controls — understanding when and how to use a voltage divider correctly prevents common design mistakes.</p>\n<h3>Battery Voltage Monitoring</h3>\n<p>Microcontrollers typically have 3.3V or 5V ADC inputs. To monitor a 12V lead-acid battery, a voltage divider scales it down: R1=27kΩ, R2=10kΩ gives Vout = 12×10/37 = 3.24V — within 3.3V ADC range. At full charge (14.4V): Vout = 3.89V — exceeds ADC range, so use R1=33kΩ for a safer scale. Always add protection diodes on ADC inputs.</p>\n<h3>NTC Thermistor Temperature Sensing</h3>\n<p>NTC (Negative Temperature Coefficient) thermistors are used in a voltage divider configuration. With a fixed resistor (equal to thermistor value at 25°C) and 3.3V supply: Vout varies from ~0.3V (hot) to ~3V (cold). The ADC reads Vout, the microcontroller calculates thermistor resistance, then uses Steinhart-Hart equation to find temperature. Used in printers, 3D printers, and HVAC systems.</p>\n<h3>Audio Volume Control</h3>\n<p>A potentiometer is a variable voltage divider. Rotating the wiper changes the ratio R2/(R1+R2), scaling the audio signal voltage. Log-taper potentiometers (audio taper) are used for volume controls because human hearing perceives loudness logarithmically — a linear taper pot sounds like most volume change happens at the top of the dial.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does a voltage divider work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Two resistors in series split the input voltage. Vout = Vin × R2 / (R1 + R2). Current flows through both resistors equally (series circuit). The output is taken from the junction between R1 and R2. Larger R2 relative to R1 gives higher Vout.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I level shift 5V to 3.3V with a voltage divider? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use R1 = 10kΩ and R2 = 20kΩ: Vout = 5 × 20/(10+20) = 5 × 0.667 = 3.33V. Suitable for connecting 5V microcontroller outputs to 3.3V device inputs. Add a buffer if the load is low-impedance.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the loading effect on a voltage divider? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">When a load is connected across R2, it reduces the effective resistance, lowering Vout. To minimize loading, keep R1 and R2 small compared to the load impedance, or use an op-amp voltage follower buffer after the divider.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate R1 and R2 for a desired output voltage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">R1 = R2 × (Vin/Vout - 1). Choose R2 first based on power consumption and loading requirements (typically 1kΩ-100kΩ), then calculate R1. For 5V input, 3.3V output, R2=10kΩ: R1 = 10k × (5/3.3 - 1) = 10k × 0.515 = 5.15kΩ → use 5.1kΩ.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can a voltage divider supply current to a load? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Voltage dividers are inefficient for supplying current. They are designed for signal-level connections, not power delivery. A linear voltage regulator or DC-DC converter is far more efficient when you need to supply current to a load.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What resistor values should I use for a voltage divider? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Choose resistor values based on: power consumption (P = Vin²/(R1+R2)), loading effects (load should be &gt;10× R2), and available standard values. For 3.3V logic: 10kΩ and 20kΩ are common. Lower values waste more power but handle loading better.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Voltage Divider Calculator – Resistor Output Voltage</h2><div class=\"form-group\"><label for=\"vd-mode\">Calculate</label><select id=\"vd-mode\"><option selected=\"\" value=\"vout\">Output Voltage (Vout)</option><option value=\"r1\">Find R1</option><option value=\"r2\">Find R2</option></select></div>\n<div id=\"vd-vout\">\n<div class=\"form-group\"><label for=\"vd-vin1\">Input Voltage Vin (V)</label><input id=\"vd-vin1\" min=\"0\" step=\"any\" type=\"number\" value=\"5\"/></div>\n<div class=\"form-group\"><label for=\"vd-r1a\">R1 (Ω)</label><input id=\"vd-r1a\" min=\"1\" step=\"1\" type=\"number\" value=\"10000\"/></div>\n<div class=\"form-group\"><label for=\"vd-r2a\">R2 (Ω)</label><input id=\"vd-r2a\" min=\"1\" step=\"1\" type=\"number\" value=\"20000\"/></div>\n</div>\n<div id=\"vd-r1\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"vd-vin2\">Input Voltage Vin (V)</label><input id=\"vd-vin2\" min=\"0\" step=\"any\" type=\"number\" value=\"5\"/></div>\n<div class=\"form-group\"><label for=\"vd-vout2\">Desired Vout (V)</label><input id=\"vd-vout2\" min=\"0\" step=\"any\" type=\"number\" value=\"3.3\"/></div>\n<div class=\"form-group\"><label for=\"vd-r2b\">R2 (Ω)</label><input id=\"vd-r2b\" min=\"1\" step=\"1\" type=\"number\" value=\"20000\"/></div>\n</div>\n<div id=\"vd-r2\" style=\"display:none;\">\n<div class=\"form-group\"><label for=\"vd-vin3\">Input Voltage Vin (V)</label><input id=\"vd-vin3\" min=\"0\" step=\"any\" type=\"number\" value=\"12\"/></div>\n<div class=\"form-group\"><label for=\"vd-vout3\">Desired Vout (V)</label><input id=\"vd-vout3\" min=\"0\" step=\"any\" type=\"number\" value=\"5\"/></div>\n<div class=\"form-group\"><label for=\"vd-r1c\">R1 (Ω)</label><input id=\"vd-r1c\" min=\"1\" step=\"1\" type=\"number\" value=\"10000\"/></div>\n</div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Voltage Divider Calculator – Resistor Output Voltage')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Voltage Divider Calculator – Resistor Output Voltage')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-voltage-divider-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('vd-mode').addEventListener('change',function(){\n  var m=this.value;\n  document.getElementById('vd-vout').style.display=m==='vout'?'block':'none';\n  document.getElementById('vd-r1').style.display=m==='r1'?'block':'none';\n  document.getElementById('vd-r2').style.display=m==='r2'?'block':'none';\n});\nfunction g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var mode=document.getElementById('vd-mode').value;\n  var Vin,Vout,R1,R2,aiPrompt;\n  if(mode==='vout'){\n    Vin=g('vd-vin1');R1=g('vd-r1a');R2=g('vd-r2a');\n    if(!Vin||!R1||!R2){alert('Enter all values.');return;}\n    Vout=Vin*R2/(R1+R2);\n  } else if(mode==='r1'){\n    Vin=g('vd-vin2');Vout=g('vd-vout2');R2=g('vd-r2b');\n    if(!Vin||!Vout||!R2){alert('Enter all values.');return;}\n    if(Vout>=Vin){alert('Vout must be less than Vin.');return;}\n    R1=R2*(Vin/Vout-1);\n  } else {\n    Vin=g('vd-vin3');Vout=g('vd-vout3');R1=g('vd-r1c');\n    if(!Vin||!Vout||!R1){alert('Enter all values.');return;}\n    if(Vout>=Vin){alert('Vout must be less than Vin.');return;}\n    R2=R1*Vout/(Vin-Vout);\n  }\n  var ratio=Vout/Vin;\n  var current=Vin/(R1+R2)*1000;\n  var power=Vin*Vin/(R1+R2)*1000;\n  var fmt=function(r){return r>=1000?(r/1000).toFixed(2)+'kΩ':r.toFixed(1)+'Ω';};\n  document.getElementById('el-ri').innerHTML=\n    ri('Output Voltage','<strong style=\"font-size:22px;color:var(--c-accent)\">'+Vout.toFixed(4)+' V</strong>',true)+\n    ri('Voltage Ratio',(ratio*100).toFixed(2)+'% of Vin')+\n    ri('R1',fmt(R1))+ri('R2',fmt(R2))+\n    ri('Current through divider',current.toFixed(3)+' mA')+\n    ri('Power dissipated',power.toFixed(3)+' mW');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Vout','Voltage drop R1'],[Math.round(Vout*100),Math.round((Vin-Vout)*100)],['#1a5c3a','#c8832a']);\n  aiPrompt='Voltage divider: Vin='+Vin+'V, R1='+fmt(R1)+', R2='+fmt(R2)+', Vout='+Vout.toFixed(3)+'V';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world electronics application of this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Resistive dividers step down signal potentials for microcontrollers and ADC inputs. When designing transducer interfaces, verify circuit current in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and decode precision resistor markings in our <Link href="/calculators/electronics/resistor-color-code-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">resistor color code calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Resistive Divider Output Voltage vs Load Impedance Loading
+          </h2>
+          <VoltageDividerLoadingErrorCurveChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The resistive voltage divider is one of the most widely deployed building blocks in analog electronics. By connecting two passive resistors in a series ladder across a direct current voltage rail, engineers generate a fractional potential difference (V_out) proportional to the lower resistor&apos;s impedance. Voltage dividers are ubiquitously utilized to bias bipolar junction transistors (BJTs), scale high-voltage sensor outputs to 3.3 V microcontroller ADC levels, and set operational amplifier feedback thresholds.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            However, novice designers frequently overlook the &lsquo;loading effect.&rsquo; While an unloaded divider produces an ideal mathematical voltage ratio into a high-impedance multimeter, connecting an external load impedance (R_L) places that load in parallel with the lower resistor. This reduces the effective resistance of the bottom arm, dragging down output voltage and distorting analog measurement linearity unless appropriately buffered with an op-amp voltage follower.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations & Thevenin Analysis
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For an ideal, unloaded series divider driven by input voltage (V_in) with upper resistor (R_1) and lower resistor (R_2), the open-circuit output voltage (V_out,open) is:
+          </p>
+          <Formula>{"V_{out,open} = V_{in} \times \left( \frac{R_2}{R_1 + R_2} \right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When an external load resistance (R_L) is connected across V_out, the effective bottom-leg resistance (R_2,eff) and loaded output voltage (V_out,loaded) become:
+          </p>
+          <Formula>{"R_{2,eff} = \frac{R_2 \times R_L}{R_2 + R_L}, \quad V_{out,loaded} = V_{in} \times \left( \frac{R_{2,eff}}{R_1 + R_{2,eff}} \right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under Thevenin&apos;s Theorem, the entire two-resistor network reduces to an equivalent Thevenin voltage (V_th = V_out,open) and Thevenin source resistance (R_th):
+          </p>
+          <Formula>{"R_{th} = R_1 \parallel R_2 = \frac{R_1 \times R_2}{R_1 + R_2}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For low-pass noise filtering on ADC input lines, calculate RC cutoff filters in our <Link href="/calculators/electronics/rc-time-constant-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">rc time constant calculator</Link> and calculate power loss in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Quiescent Current Consumption vs Input Impedance Trade-Offs
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designing a voltage divider requires balancing quiescent current drain against noise immunity and ADC sampling errors:
+          </p>
+          <DataTable
+            head={["Resistor Value Magnitude", "Quiescent Current (12V Supply)", "Thevenin Impedance (Rth)", "ADC Loading Impact", "Typical Circuit Application"]}
+            rows={[
+              ["Low Resistance (100 Ω - 1 kΩ)", "12 mA - 120 mA", "50 Ω - 500 Ω", "Negligible loading error (< 0.1%)", "High-frequency RF attenuators, fast pulse transmission"],
+              ["Medium Resistance (10 kΩ - 47 kΩ)", "0.25 mA - 1.2 mA", "5 kΩ - 23 kΩ", "Minor error (&lt; 1% into 1 MΩ)", "General analog microcontroller ADC sensing, op-amp bias"],
+              ["High Resistance (100 kΩ - 1 MΩ)", "12 µA - 120 µA", "50 kΩ - 500 kΩ", "Significant error (> 5% without buffer)", "Ultra-low-power battery voltage monitoring, sleep nodes"],
+              ["Ultra-High (10 MΩ - 100 MΩ)", "< 1.2 µA", "5 MΩ - 50 MΩ", "Severe loading, susceptible to EMI noise", "Geiger-Müller tube bias, ionization smoke detectors"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: 24V Industrial Sensor Stepped to 3.3V ADC
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An embedded systems engineer must interface a 24.0 V industrial automated conveyor sensor with a modern ARM Cortex-M4 microcontroller whose ADC input has a maximum voltage limit of 3.30 V. The design specifies standard 1% metal film resistors and limits divider quiescent current to approximately 1.0 mA:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Total Series Resistance Target:</strong> R_total ≈ 24.0 V / 1.0 mA = 24.0 kΩ
+            </li>
+            <li>
+              <strong>Voltage Ratio:</strong> V_out / V_in = 3.30 V / 24.0 V = 0.1375
+            </li>
+            <li>
+              <strong>Ideal Lower Resistor (R_2):</strong> R_2 = 24.0 kΩ × 0.1375 = 3.30 kΩ
+            </li>
+            <li>
+              <strong>Ideal Upper Resistor (R_1):</strong> R_1 = 24.0 kΩ - 3.30 kΩ = 20.70 kΩ
+            </li>
+            <li>
+              <strong>Standard E96 1% Resistor Selection:</strong> Select R_1 = 20.5 kΩ and R_2 = 3.24 kΩ.
+            </li>
+            <li>
+              <strong>Actual Open-Circuit Voltage:</strong>
+              <br />
+              V_out = 24.0 V × ≤ft((3.24 / 20.5 + 3.24)) = 24.0 × ≤ft((3.24 / 23.74)) = 3.275 V (Safely below 3.30V limit)
+            </li>
+            <li>
+              <strong>Thermal Power in Upper Resistor (P_R1):</strong>
+              <br />
+              I = 24.0 V / 23.74 kΩ = 1.011 mA → P_R1 = (1.011 mA)² × 20.5 kΩ = 20.95 mW (Well within 1/4W rating)
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This divider safely steps down the 24V signal while dissipating negligible power. If powering portable battery sensors, estimate operating life in our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link> and calculate LED status indicators in our <Link href="/calculators/electronics/led-resistor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">led resistor calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            ADC Sampling Capacitance & Maximum Source Impedance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When connecting a resistive voltage divider to a microcontroller ADC, the internal sampling architecture introduces dynamic loading. Successive Approximation Register (SAR) ADCs utilize a sample-and-hold circuit containing an internal sampling capacitor (C_sample, typically 5 pF to 15 pF) and an analog sampling switch (R_switch).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            During the brief sampling acquisition window (often under 1 microsecond), the external Thevenin resistance (R_th) must charge C_sample to within 1/2 LSB of the true voltage. Microcontroller datasheets (such as Microchip PIC or STMicroelectronics STM32) specify a maximum external impedance (R_AIN, typically ≤ 10 kΩ). If R_th exceeds this threshold, a 0.1 µF ceramic bypass capacitor or operational amplifier buffer must be added to prevent conversion distortion.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For power delivery and conductor drop across long sensor cable runs, size wiring in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link> and verify RF signal levels in our <Link href="/calculators/electronics/decibel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">decibel calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Properly calculating resistive divider values, accounting for load impedance attenuation, and respecting ADC input source limits ensures high measurement accuracy and thermal stability across industrial embedded systems.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Operational Amplifier Input Bias Currents & Active Buffer Topologies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When high-resistance voltage dividers (e.g., R_1 = 1 MΩ, R_2 = 1 MΩ) are deployed in ultra-low-power battery monitors to limit quiescent current to microamperes, the input bias current (I_bias) of connected operational amplifiers or analog-to-digital converters introduces significant measurement error.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Even a tiny 100 nanoampere input bias current flowing through a 500 kΩ Thevenin source resistance produces an unexpected 50 millivolt offset error (V_error = I_bias × R_th). To eliminate loading errors while preserving low power consumption, circuit designers place a unity-gain operational amplifier buffer featuring JFET or CMOS inputs (with femtoampere input bias currents) between the high-impedance divider and downstream analog electronics.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Carefully balancing source impedance, thermal drift, and operational amplifier loading guarantees pristine measurement accuracy and long-term circuit stability across industrial sensing platforms.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Printed Circuit Board Parasitic Capacitance & Dynamic Settling
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When laying out high-impedance resistive voltage dividers on multilayer circuit boards, layout designers must account for parasitic capacitance (C_p) introduced by copper traces, component solder pads, and adjacent ground planes (typically 2 to 5 picofarads). In high-resistance dividers (R_th &gt; 100 kΩ), this stray capacitance creates an unintentional low-pass filter with a significant time constant (τ = R_th × C_p).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When sampling transient pulse waveforms or high-speed PWM telemetry, stray capacitance causes output voltage to lag behind input transitions. In high-frequency oscilloscope probes and wideband attenuators, engineers counteract this distortion by adding frequency-compensation capacitors in parallel with both R1 and R2 (R_1 C_1 = R_2 C_2). This matched capacitive voltage divider maintains uniform attenuation across DC and high megahertz frequencies.
+          </p>
+
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Precision Component Selection & Long-Distance Signal Integrity
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When selecting discrete resistors for voltage divider networks, engineers verify nominal component resistance values with our <Link href="/calculators/electronics/resistor-color-code-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">resistor color code calculator</Link> and budget long-distance loop resistance through our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In precision analog instrumentation, temperature coefficient tracking (ratio metric matching) between R1 and R2 is far more important than absolute resistance accuracy. Specifying matched resistor network pairs housed on a single ceramic substrate guarantees identical thermal tracking within 1 to 5 ppm/°C, eliminating output voltage drift across industrial temperature extremes.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Balancing source impedance, parasitic capacitance, and operational amplifier loading guarantees pristine measurement accuracy across data acquisition systems.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            High-Voltage Resistive Voltage Dividers & Corona Shielding
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In electrical utility substations and particle accelerator instrumentation, high-voltage potential dividers measure electrical potentials from 10 kV to over 500 kV. At extreme voltage gradients, atmospheric air ionization near sharp conductor edges generates continuous corona discharge, causing localized ozone formation and leakage currents that degrade measurement accuracy.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Engineers enclose high-voltage divider stacks within smooth, toroidal aluminum corona rings and encapsulate precision metal-glaze resistors within pressurized sulfur hexafluoride (SF6) gas or mineral insulating oil to guarantee pristine linearity and safe voltage measurement.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Verifying load resistance ratios prevents unexpected attenuation errors and ensures pristine analog signal conditioning across sensitive industrial sensor channels.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Kelvin-Varley Dividers & Precision Metrology Decades
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In national calibration laboratories and precision voltage standards, conventional potentiometers lack sufficient resolution and stability for sub-part-per-million voltage division. Metrologists deploy the <strong>Kelvin-Varley Divider</strong> (KVD), an iterative multi-decade cascade of matched resistor pairs.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Each subsequent decade stage bridges across two resistors of the preceding stage, maintaining constant input impedance while subdividing electrical potential into discrete steps with linear accuracies better than 0.1 ppm. Enclosing the resistance network in temperature-stabilized oil baths eliminates thermal EMF artifacts across nano-volt measurement standards.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Properly designed voltage division networks guarantee stable reference signals, eliminate transient loading offsets, and protect sensitive downstream analog processing electronics.
+          </p>
+
+        </>
+      }
+    >
+      <VoltageDividerCalculatorComponent />
+    </CalcPage>
   );
 }
