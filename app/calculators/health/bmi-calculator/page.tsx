@@ -1,336 +1,243 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { BmiCalculator } from "@/components/flagship/bmi/BmiCalculator";
-import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
 import { BmiQueteletPrimeChart } from "@/components/flagship/health/editorial-charts/BmiQueteletPrimeChart";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 import { WHO_CLASSES } from "@/lib/bmi";
-import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/bmi-calculator";
-const TITLE = "BMI Calculator – Body Mass Index for Adults | CalcDigi";
+const TITLE = "BMI Calculator | Adult Body Mass Index, WHO Categories & Healthy Weight";
 const DESCRIPTION =
-  "Free BMI calculator for adults. Enter height and weight in ft/lbs or cm/kg to get your Body Mass Index, WHO category, healthy weight range, BMI Prime and Ponderal Index.";
+  "Calculate your Body Mass Index (BMI) in US or metric units. Features WHO weight categories, Oxford University scaling, BMI Prime, and healthy weight targets.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: PATH },
-  openGraph: { title: TITLE, description: DESCRIPTION, type: "website", url: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
+  },
 };
 
-const FAQ = [
+const FAQ_ITEMS = [
   {
-    q: "What is a healthy BMI range for adults?",
-    a: "For adults 20 and older, the WHO and CDC define a healthy (normal) BMI as 18.5 to 24.9. Below 18.5 is underweight, 25 to 29.9 is overweight, and 30 or above is obese.",
+    q: "What is a healthy Body Mass Index (BMI) range for adult men and women?",
+    a: "According to clinical guidelines established by the World Health Organization (WHO) and the Centers for Disease Control and Prevention (CDC), a healthy adult BMI spans from 18.5 to 24.9 kg/m². A BMI below 18.5 is categorized as underweight, 25.0 to 29.9 is categorized as overweight, and 30.0 or higher is classified as clinical obesity across Classes I, II, and III.",
   },
   {
-    q: "How accurate is BMI?",
-    a: "BMI is a quick, inexpensive screening tool, not a diagnosis. It does not measure body fat directly or account for muscle mass, bone density, or where fat is stored, so muscular people can score high and older adults with low muscle mass can score deceptively low.",
+    q: "Why is the BMI formula identical for men and women despite biological body fat differences?",
+    a: "The standard Quetelet BMI formula is mathematically sex-neutral because it evaluates total body mass relative to stature rather than body tissue composition. However, at identical BMI values, adult biological women typically carry approximately 8% to 12% higher essential adipose tissue than biological men. For comprehensive body composition analysis, physicians evaluate BMI in conjunction with body fat percentage and waist circumference.",
   },
   {
-    q: "Is BMI calculated differently for men and women?",
-    a: "No. The adult formula is identical for both sexes. At the same BMI, women typically carry more body fat than men, which is why some clinicians interpret results alongside waist circumference or body-fat measurements.",
+    q: "How does the New Oxford University BMI formula differ from the classical Quetelet formula?",
+    a: "Developed by Oxford mathematician Professor Nick Trefethen, the New BMI formula introduces a 1.3 scaling multiplier and a 2.5 height exponent: BMI = 1.3 × Weight(kg) / Height(m)^2.5. This non-linear power scaling corrects for the geometric distortion of the classical formula, which tends to assign deceptively high BMIs to taller individuals and artificially low BMIs to shorter people.",
   },
   {
-    q: "What BMI is considered obese?",
-    a: "A BMI of 30 or higher. The WHO subdivides it into Class I (30–34.9), Class II (35–39.9), and Class III (40 and above), with health risk rising at each class.",
+    q: "Why does standard BMI sometimes misclassify muscular athletes and bodybuilders?",
+    a: "Because standard bathroom scales and BMI formulas cannot differentiate between dense lean skeletal muscle and adipose tissue, muscular athletes frequently record BMIs above 30.0, placing them in the 'obese' statistical tier despite possessing low body fat percentages. In such cases, circumference-based assessments and skinfold calipers provide more accurate health indicators.",
   },
   {
-    q: "Can children use this BMI calculator?",
-    a: "The calculation works for ages 2 and up, but for children and teens (2–19) the result must be compared with age- and sex-specific CDC growth percentiles rather than the adult categories.",
+    q: "What are the ethnic-specific BMI cutoff thresholds for Asian and South Asian populations?",
+    a: "Extensive cardiometabolic epidemiology published by the WHO demonstrates that individuals of Asian and South Asian ancestry experience elevated risks of Type 2 diabetes and cardiovascular disease at lower BMIs. Consequently, the WHO Asian cutoff defines increased risk at 23.0 to 27.4 kg/m² and high risk (obesity) at 27.5 kg/m² and above.",
   },
   {
-    q: "What are BMI Prime and Ponderal Index?",
-    a: "BMI Prime is your BMI divided by 25, the upper limit of the healthy range, so values from 0.74 to 1.0 are healthy. The Ponderal Index divides weight by height cubed, which scales better for very tall or very short people.",
+    q: "What is BMI Prime and how is it interpreted clinically?",
+    a: "BMI Prime is a dimensionless ratio that normalizes your individual BMI against the upper threshold of the healthy weight category (25.0 kg/m²): BMI Prime = BMI / 25.0. A BMI Prime between 0.74 and 1.00 indicates a healthy weight, values below 0.74 denote underweight, and values exceeding 1.00 reflect excess weight.",
+  },
+  {
+    q: "Can pediatric children and teenagers use this adult BMI calculator?",
+    a: "While the arithmetic height-weight calculation is identical, pediatric BMI for children and adolescents aged 2 to 19 must be interpreted using CDC age-and-sex-specific growth percentile charts rather than static adult categories, as children experience dynamic physiological body composition shifts during pubertal maturation.",
+  },
+  {
+    q: "How does losing 5% to 10% of body weight impact cardiometabolic health markers?",
+    a: "Clinical research published in the New England Journal of Medicine confirms that achieving a modest 5% to 10% reduction in total body weight significantly lowers systolic blood pressure, improves glycated hemoglobin (HbA1c), reduces systemic inflammatory cytokines (CRP), and improves lipid profiles regardless of whether an individual reaches the theoretical 'normal' BMI bracket.",
   },
 ];
 
-export default function Page() {
+const WHO_ROWS = [
+  ["Severe Underweight (Thinness Class III)", "< 16.0", "< 0.64", "Extremely High (Malnutrition & Immune Deficiency)"],
+  ["Moderate Underweight (Thinness Class II)", "16.0 – 16.9", "0.64 – 0.68", "Elevated (Hormonal & Electrolyte Imbalance)"],
+  ["Mild Underweight (Thinness Class I)", "17.0 – 18.4", "0.68 – 0.74", "Mild (Nutritional Monitoring Recommended)"],
+  ["Normal Healthy Weight Range", "18.5 – 24.9", "0.74 – 1.00", "Lowest All-Cause Mortality Benchmark"],
+  ["Pre-Obesity (Overweight)", "25.0 – 29.9", "1.00 – 1.20", "Moderate (Hypertension & Insulin Resistance Risk)"],
+  ["Obesity Class I (Moderate)", "30.0 – 34.9", "1.20 – 1.40", "High (Elevated Atherosclerosis & Diabetes)"],
+  ["Obesity Class II (Severe)", "35.0 – 39.9", "1.40 – 1.60", "Very High (Sleep Apnea & Fatty Liver)"],
+  ["Obesity Class III (Extreme / Morbid)", "≥ 40.0", "≥ 1.60", "Extremely High (Urgent Medical Intervention)"],
+];
+
+const ETHNIC_ROWS = [
+  ["Underweight Category", "< 18.5 kg/m²", "< 18.5 kg/m²", "Higher risk of respiratory infection"],
+  ["Normal Optimal Range", "18.5 – 24.9 kg/m²", "18.5 – 22.9 kg/m²", "Asian optimal baseline is 2 units lower"],
+  ["Increased Risk (Overweight)", "25.0 – 29.9 kg/m²", "23.0 – 27.4 kg/m²", "Visceral adiposity accumulates at lower weights"],
+  ["High Risk (Clinical Obesity)", "≥ 30.0 kg/m²", "≥ 27.5 kg/m²", "Higher incidence of metabolic syndrome & CVD"],
+];
+
+const RELATED = [
+  { href: "/calculators/health/calorie-calculator", icon: "🔥", name: "Calorie Needs" },
+  { href: "/calculators/health/body-fat-calculator", icon: "📐", name: "Body Fat %" },
+  { href: "/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Weight" },
+  { href: "/calculators/health/bmr-calculator", icon: "⚡", name: "BMR Basal Rate" },
+  { href: "/calculators/health/tdee-calculator", icon: "🏃", name: "TDEE Expenditure" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage Calculator" },
+];
+
+export default function BmiCalculatorPage() {
   return (
-    <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-                { "@type": "ListItem", position: 2, name: "Health Calculators", item: `${SITE_URL}/pages/health` },
-                { "@type": "ListItem", position: 3, name: "BMI Calculator", item: `${SITE_URL}${PATH}` },
-              ],
-            },
-            {
-              "@type": "WebApplication",
-              name: "BMI Calculator",
-              url: `${SITE_URL}${PATH}`,
-              description: DESCRIPTION,
-              applicationCategory: "HealthApplication",
-              operatingSystem: "Any",
-              browserRequirements: "Requires JavaScript",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            },
-            {
-              "@type": "MedicalWebPage",
-              name: "BMI Calculator – Body Mass Index for Adults",
-              url: `${SITE_URL}${PATH}`,
-              description: DESCRIPTION,
-              aspect: "Diagnosis",
-              medicalAudience: {
-                "@type": "MedicalAudience",
-                "audienceType": "Patient",
-              },
-              citation: [
-                "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
-                "https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html",
-              ],
-            },
-            {
-              "@type": "MathSolver",
-              name: "BMI Calculator",
-              url: `${SITE_URL}${PATH}`,
-              description: DESCRIPTION,
-              potentialAction: [
-                {
-                  "@type": "SolveAction",
-                  target: `${SITE_URL}${PATH}`,
-                  mathExpression: "BMI = weight (kg) / [height (m)]^2",
-                  eduQuestionType: "Body Mass Index",
-                },
-              ],
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-            },
-          ],
-        }}
-      />
-      <CalculatorPage
-        crumbs={[{ href: "/", label: "Home" }, { href: "/pages/health", label: "Health" }, { label: "BMI Calculator" }]}
-        title="BMI Calculator"
-        intro="Calculate your Body Mass Index in US or metric units and see where you fall on the WHO scale, plus the healthy weight range for your height."
-      >
-        <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
-          <BmiCalculator />
-        </Suspense>
-
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>⚡</span> Related Calculators
-            </h2>
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
-          </div>
-          <RelatedLinks
-            links={[
-              { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-              { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-              { href: "/calculators/health/ideal-weight-calculator", icon: "🏋️", name: "Ideal Weight" },
-              { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-              { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-              { href: "/calculators/health/weight-loss-calculator", icon: "📉", name: "Weight Loss Calculator" },
-            ]}
-          />
-        </section>
-
-        <Editorial>
-          {/* Clinical Verification & Medical Review Byline */}
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-950/40 dark:text-emerald-400 dark:ring-emerald-500/30">
-                <svg className="size-3.5 shrink-0 text-emerald-600 dark:text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                  <path d="m9 12 2 2 4-4" />
-                </svg>
-                Clinically Verified
-              </span>
-              <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
-              <span className="text-slate-600 dark:text-slate-400">
-                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">WHO &amp; CDC Guidelines</strong>
-              </span>
-            </div>
-            <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
-              <span>Medical Team Review</span>
-              <span className="text-slate-300 dark:text-slate-700">•</span>
-              <span className="font-medium text-slate-700 dark:text-slate-300">Updated Oct 2026</span>
-            </div>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/health", label: "Health" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\text{BMI} = \frac{\text{mass (kg)}}{[\text{height (m)}]^2}"
+      related={RELATED}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              World Health Organization (WHO) &amp; CDC Clinical Guidelines
+            </span>
+            <span>•</span>
+            <span>Updated Q4 2026</span>
+            <span>•</span>
+            <span>Medical Anthropometry Precision</span>
           </div>
 
-          <h2>What is BMI?</h2>
+          <h2>What is Body Mass Index (BMI)? Definition &amp; Epidemiological Purpose</h2>
           <p>
-            Body Mass Index (BMI) estimates whether your weight is in a healthy proportion to your height. It was developed
-            by Belgian statistician Adolphe Quetelet in the 1830s and is used today by the World Health Organization (WHO),
-            the CDC and the NIH as a first-line screen for underweight, overweight and obesity in adults.
+            <strong>Body Mass Index (BMI)</strong>, historically designated as the Quetelet Index, is an internationally recognized anthropometric screening metric that quantifies an individual&apos;s tissue mass (muscle, fat, and bone) relative to their stature. Formulated in 1832 by Belgian astronomer and statistician Adolphe Quetelet during his foundational studies on &apos;social physics&apos;, BMI establishes a standardized clinical baseline to classify individuals into distinct weight categories correlated with morbidity and mortality risk.
           </p>
           <p>
-            Because it needs only height and weight, BMI is fast and free to measure, which makes it useful for tracking
-            trends over time. It is a screening number, not a diagnosis: a doctor will look at it alongside waist size,
-            blood pressure, blood work and family history.
+            In modern preventative medicine, public health epidemiology, and clinical cardiology, BMI serves as a rapid, non-invasive risk stratification tool. Large-scale global meta-analyses published in <em>The Lancet</em> demonstrate a J-shaped mortality curve, where all-cause mortality rates remain statistically lowest within the normal healthy BMI range (18.5 to 24.9 kg/m²), accelerating significantly among populations residing in both the severe underweight and extreme obesity tiers.
           </p>
 
           <div className="not-prose my-8">
             <BmiQueteletPrimeChart />
           </div>
 
-          <h2>WHO BMI classification for adults</h2>
-          <p>These categories apply to adults aged 20 and over, regardless of sex.</p>
+          <h2>The Mathematical Derivation of Body Mass Index: Metric &amp; Imperial Formulas</h2>
+          <p>
+            The mathematical formulation of Body Mass Index evaluates total body weight normalized to the square of stature, reflecting the biophysical scaling principle that mass scales proportionally with planar volume. Depending on the measurement unit system deployed, the canonical equations evaluate as:
+          </p>
+
+          <h3>1. International Metric System (SI Units)</h3>
+          <p>
+            In scientific research and international medical practice, BMI is calculated directly by dividing weight in kilograms by height in meters squared:
+          </p>
+          <Formula>{"\text{BMI} = \frac{\text{Weight (kg)}}{[\text{Height (m)}]^2}"}</Formula>
+          <p>
+            <em>Metric Example:</em> An individual weighing 72.0 kilograms with a standing height of 175 centimeters (1.75 meters):
+          </p>
+          <Formula>{"\text{BMI} = \frac{72.0}{(1.75)^2} = \frac{72.0}{3.0625} = 23.51 \text{ kg/m}^2 \quad (\text{Normal Weight})"}</Formula>
+
+          <h3>2. United States Customary System (Imperial Units)</h3>
+          <p>
+            When height is recorded in inches and weight in pounds, an empirical conversion scalar of <strong>703.0695796</strong> is incorporated to reconcile pound-to-kilogram (0.45359237) and inch-to-meter (0.0254) dimensional units:
+          </p>
+          <Formula>{"\text{BMI} = \left( \frac{\text{Weight (lbs)}}{[\text{Height (inches)}]^2} \right) \times 703.07"}</Formula>
+          <p>
+            <em>Imperial Example:</em> An adult weighing 160 pounds standing 5 feet 10 inches tall (70.0 inches):
+          </p>
+          <Formula>{"\text{BMI} = \left( \frac{160}{(70)^2} \right) \times 703.07 = \left( \frac{160}{4{,}900} \right) \times 703.07 = 0.032653 \times 703.07 = 22.96 \text{ kg/m}^2"}</Formula>
+
+          <h2>The New Oxford University BMI Formula (Trefethen Correction)</h2>
+          <p>
+            In 2013, Professor Nick Trefethen of Oxford University identified a mathematical limitation in Quetelet&apos;s classical equation: humans are three-dimensional volumetric biological entities, meaning scaling body mass purely against height squared over-penalizes taller adults while flattering shorter individuals. Trefethen proposed the <strong>New BMI Formula</strong>:
+          </p>
+          <Formula>{"\text{BMI}_{\text{Oxford}} = \frac{1.3 \times \text{Weight (kg)}}{[\text{Height (m)}]^{2.5}}"}</Formula>
+          <p>
+            The 1.3 scalar aligns the new formula with the classical value for an average human height of 1.69 meters (5 ft 6.5 in). For a 6 ft 4 in (1.93 m) tall individual, the Oxford formula reduces calculated BMI by approximately 1.0 full point, preventing tall individuals from being falsely flagged as overweight when their body frame is naturally elongated.
+          </p>
+
+          <h2>World Health Organization (WHO) Adult Classification Matrix</h2>
+          <p>
+            The World Health Organization categorizes adult nutritional status across eight distinct epidemiological tiers, tracking disease risk correlations:
+          </p>
+
           <DataTable
-            head={["Classification", "BMI range (kg/m²)"]}
-            rows={WHO_CLASSES.map((c) => [c.label, c.range])}
+            head={["WHO Classification Tier", "BMI Range (kg/m²)", "BMI Prime (Ratio)", "Cardiovascular & All-Cause Mortality Risk"]}
+            rows={WHO_ROWS}
             highlight={3}
           />
 
-          <h3>Asian population cut-offs (WHO Expert Consultation)</h3>
+          <h2>Ethnic-Specific BMI Thresholds: Asian &amp; South Asian Risk Profiles</h2>
           <p>
-            The World Health Organization recognizes that populations of Asian heritage (South Asian, East Asian, and Southeast Asian) face elevated risks of cardiovascular disease and type 2 diabetes at lower BMIs due to higher relative body fat percentages. The recommended public health action triggers are:
+            Extensive biomedical research indicates that biological populations of Asian, South Asian, and East Asian heritage possess higher percentages of visceral and ectopic abdominal fat at identical BMI levels compared to European cohorts. To avert under-diagnosing metabolic syndrome, the WHO recommends localized diagnostic cutoffs:
           </p>
+
           <DataTable
-            head={["Health Risk Category", "Asian BMI Range (kg/m²)", "Standard WHO Range"]}
-            rows={[
-              ["Underweight (Low weight)", "< 18.5", "< 18.5"],
-              ["Normal (Healthy weight)", "18.5 – 22.9", "18.5 – 24.9"],
-              ["Overweight (Increased risk)", "23.0 – 27.4", "25.0 – 29.9"],
-              ["Obese (High health risk)", "≥ 27.5", "≥ 30.0"],
-            ]}
+            head={["Clinical Risk Category", "International Standard (WHO)", "Asian Specific Threshold", "Clinical Significance"]}
+            rows={ETHNIC_ROWS}
             highlight={1}
           />
 
-          
-
-          <h2>BMI formula</h2>
-          <h3>Metric units</h3>
-          <Formula>BMI = weight (kg) ÷ [height (m)]²</Formula>
+          <h2>BMI vs. Body Fat Percentage: Understanding Lean Mass Composition</h2>
           <p>
-            Example: 70 kg and 1.75 m → 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = <strong>22.9</strong>
+            While BMI provides an exceptional high-level population screening tool, it does not distinguish between skeletal muscle hypertrophy, visceral adiposity, and subcutaneous fat. Two individuals possessing identical BMIs of 27.5 kg/m² may present entirely distinct cardiometabolic health profiles:
           </p>
-          <h3>US customary units</h3>
-          <Formula>BMI = 703 × weight (lbs) ÷ [height (in)]²</Formula>
-          <p>
-            Example: 160 lbs and 5′10″ (70 in) → 703 × 160 ÷ 4,900 = <strong>23.0</strong>. The factor 703 converts
-            lb/in² to kg/m².
-          </p>
-          <h3>BMI Prime</h3>
-          <Formula>BMI Prime = BMI ÷ 25</Formula>
-          <p>
-            BMI Prime expresses your BMI as a ratio of the upper healthy limit. A value of 0.74–1.00 is in the healthy
-            range; 1.20 means you are 20% above it.
-          </p>
-          <h3>Ponderal Index</h3>
-          <Formula>Ponderal Index = weight (kg) ÷ [height (m)]³</Formula>
-          <p>
-            Because it divides by height cubed, the Ponderal Index stays more stable for very tall and very short people,
-            where standard BMI tends to over- or under-estimate. A typical adult range is roughly 11–15 kg/m³.
-          </p>
-
-          <h2>Health risks of being overweight</h2>
-          <p>A BMI of 25 or higher is associated with increased risk of:</p>
-          <ul>
-            <li>High blood pressure and coronary heart disease</li>
-            <li>Type 2 diabetes and insulin resistance</li>
-            <li>Stroke and abnormal blood lipids (high LDL, low HDL, high triglycerides)</li>
-            <li>Osteoarthritis, sleep apnea and other breathing problems</li>
-            <li>Several cancers, including endometrial, breast, colon, kidney and liver cancer</li>
-            <li>Gallbladder disease, fatty liver disease, and mental-health conditions such as depression</li>
-          </ul>
-
-          <h2>Health risks of being underweight</h2>
-          <p>A BMI below 18.5 carries its own risks:</p>
-          <ul>
-            <li>Malnutrition, vitamin deficiencies and anemia</li>
-            <li>Osteoporosis and a higher chance of bone fractures</li>
-            <li>A weakened immune system and slower wound healing</li>
-            <li>Fertility problems and irregular menstrual cycles</li>
-            <li>Growth and development problems in children and teens</li>
-          </ul>
-
-          <h2>Limitations of BMI</h2>
-          <p>BMI treats every kilogram the same, whether it is muscle, fat or bone. Keep these limits in mind:</p>
-          <ul>
-            <li>
-              <strong>Muscular people</strong> such as athletes can be classed as overweight while having low body fat.
-            </li>
-            <li>
-              <strong>Older adults</strong> often lose muscle with age, so a &ldquo;normal&rdquo; BMI can hide excess body
-              fat.
-            </li>
-            <li>
-              <strong>Fat distribution</strong> matters: abdominal fat carries more risk than fat on the hips. Waist
-              circumference or waist-to-height ratio helps here.
-            </li>
-            <li>
-              <strong>Ethnicity</strong> changes risk at a given BMI; for example, many people of Asian descent face higher
-              metabolic risk at lower BMIs.
-            </li>
-            <li>
-              <strong>Children and teens</strong> must be assessed with growth percentiles, and BMI is not valid during
-              pregnancy.
-            </li>
+          <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>The Resistance-Trained Athlete:</strong> A powerlifter or sprinter with dense bone mineralization and 12% body fat, verifiable with our <Link href="/calculators/health/body-fat-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">body fat calculator</Link>, presents pristine blood lipid profiles and optimal insulin sensitivity.</li>
+            <li><strong>The Sarcopenic Sedentary Adult (&apos;Skinny Fat&apos;):</strong> An individual with minimal muscular development and 32% body fat possesses elevated visceral adipose stores despite falling into an apparently modest BMI category.</li>
           </ul>
           <p>
-            For a fuller picture, pair BMI with a <a href="/calculators/health/body-fat-calculator">body fat estimate</a>{" "}
-            or your <a href="/calculators/health/waist-to-height-ratio-calculator">waist-to-height ratio</a>.
+            Consequently, sports scientists and clinical dietitians combine BMI measurements with waist-to-hip ratio assessments using our <Link href="/calculators/health/waist-to-hip-ratio-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">waist-to-hip ratio calculator</Link>, basal metabolic evaluations via our <Link href="/calculators/health/bmr-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">BMR calculator</Link>, and tailored energy expenditure planning with our <Link href="/calculators/health/calorie-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">calorie calculator</Link> and <Link href="/calculators/health/tdee-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">TDEE calculator</Link>.
           </p>
 
-          
-        {/* Adiposity Phenotyping: Normal Weight Obesity & Ethnic Cutoffs */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Adiposity Phenotyping: Normal Weight Obesity &amp; Ethnic Cutoffs
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            While Body Mass Index remains the global epidemiology benchmark due to its zero calculation cost, clinical practice increasingly recognizes its limitations as a surrogate for individual metabolic health. Because BMI equation cannot differentiate between dense lean contractile skeletal muscle, bone mineral mass, and adipose tissue, relying solely on BMI generates substantial diagnostic misclassification:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
-            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Normal Weight Obesity (NWO)</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Up to 30% of adults categorized as Normal weight by standard BMI (18.5–24.9) possess excessively high body fat percentages (&gt;30% in females, &gt;25% in males) coupled with low skeletal muscle mass. These individuals exhibit elevated systemic insulin resistance, dyslipidemia, subclinical coronary atherosclerosis, and all-cause mortality rates matching clinical obesity.
-              </p>
-            </div>
-            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">WHO Asian Population Specific Thresholds</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Extensive World Health Organization epidemiological data confirm that Asian populations develop type 2 diabetes and cardiovascular disease at significantly lower BMI thresholds. Consequently, WHO established revised Asian criteria: Overweight begins at BMI &ge; 23.0 kg/m² and Obesity at &ge; 27.5 kg/m².
-              </p>
-            </div>
-          </div>
-          <h2>Dual Assessment: Combining BMI with Waist Circumference</h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            The NIH and WHO advise pairing BMI calculations with waist circumference. Keeping waist circumference below 35 inches for women and 40 inches for men ensures visceral fat remains low even if overall body weight is elevated due to muscular development.
-          </p>
-        </section>
-
-          
-          <h2>Comprehensive Health Assessment: Moving Beyond BMI Alone</h2>
+          <h2>Waist-to-Height Ratio (WHtR): The Universal 0.5 Boundary Benchmark</h2>
           <p>
-            Utilize Body Mass Index as an initial demographic baseline while incorporating these essential clinical metrics:
+            In clinical practice guidelines updated in 2022, the UK National Institute for Health and Care Excellence (NICE) and the American Association of Clinical Endocrinology formally recommended pairing adult BMI with the <strong>Waist-to-Height Ratio (WHtR)</strong>. The overarching clinical heuristic states: <em>keep your waist circumference to less than half your measured standing height</em> (a boundary ratio of 0.50).
           </p>
-          <ul>
-            <li><strong>Waist Circumference &amp; WHtR:</strong> Keeping waist circumference below 35 inches for women and 40 inches for men (and Waist-to-Height Ratio under 0.50) ensures visceral fat remains low regardless of BMI.</li>
-            <li><strong>Body Fat Percentage &amp; Lean Mass:</strong> Body fat measurements (via DEXA, skinfold calipers, or circumference methods) distinguish between dense muscular athletes and individuals with normal-weight obesity.</li>
-            <li><strong>Blood Pressure &amp; Resting Heart Rate:</strong> Normal resting blood pressure (&lt;120/80 mmHg) and heart rate (60–80 bpm) reflect strong cardiovascular conditioning and arterial compliance.</li>
-            <li><strong>Metabolic Biomarkers:</strong> Fasting blood glucose, HbA1c, and lipid panels (specifically the triglyceride-to-HDL ratio) provide direct diagnostic visibility into internal metabolic health.</li>
+          <p>
+            Because height is factored directly into the denominator, WHtR functions effectively across both biological sexes, all pediatric age brackets above five years old, and diverse global ethnic ancestries without requiring ethnic-specific cutoff calibrations. A WHtR exceeding 0.50 signifies elevated intra-abdominal visceral adipose volume, while values surpassing 0.60 represent severe cardiometabolic risk for premature myocardial infarction, Type 2 diabetes mellitus, and hepatic steatosis.
+          </p>
+
+          <h2>The Ponderal Index: Cubic Allometric Stature Scaling in Neonatal &amp; Extreme Heights</h2>
+          <p>
+            For pediatric neonatology and adults possessing extreme stature (under 5 feet or over 6 feet 6 inches), physical anthropologists frequently deploy the <strong>Ponderal Index (Corpulence Index)</strong>. Because biological volume scales as height cubed rather than squared, dividing mass by height to the third power eliminates dimensional distortion:
+          </p>
+          <Formula>{"\text{Ponderal Index} = \frac{\text{Weight (kg)}}{[\text{Height (m)}]^3}"}</Formula>
+          <p>
+            Normal adult Ponderal Index values typically span between 11.0 and 15.0 kg/m³. In pediatric obstetrics, pediatricians calculate the neonatal ponderal index to differentiate symmetrical fetal growth restriction from asymmetrical intrauterine growth restriction (IUGR), where brain development is preserved relative to fetal liver and abdominal soft tissue.
+          </p>
+
+          <h2>Pediatric BMI-for-Age Percentiles: CDC Growth Curves in Children &amp; Adolescents</h2>
+          <p>
+            In pediatric care for youths aged 2 to 19, static adult BMI cutoff boundaries cannot be utilized because body composition fluctuates dramatically across developmental pubertal stages. Instead, pediatricians utilize CDC Growth Charts derived via the LMS (Box-Cox power lambda, median mu, and coefficient of variation sigma) statistical transformation:
+          </p>
+          <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Underweight Tier:</strong> BMI-for-age below the 5th percentile on standardized growth curves.</li>
+            <li><strong>Healthy Weight Range:</strong> BMI-for-age between the 5th and 84.9th percentiles.</li>
+            <li><strong>Overweight Threshold:</strong> BMI-for-age between the 85th and 94.9th percentiles.</li>
+            <li><strong>Childhood Obesity:</strong> BMI-for-age at or above the 95th percentile, demanding clinical lifestyle and metabolic screening.</li>
           </ul>
-          <p>
-            Combine multiple health metrics for an accurate, individualized view of your wellness and long-term vitality.
-          </p>
 
-
-          
-          <h2>Dual Assessment: Combining BMI with Waist Circumference</h2>
+          <h2>Clinical Sarcopenia &amp; The Obesity Paradox in Geriatric Epidemiology</h2>
           <p>
-            The National Institutes of Health (NIH) and World Health Organization strongly advise pairing BMI calculations with waist circumference measurements. An individual with an &quot;Overweight&quot; BMI (25–29.9) who maintains a waist circumference below 35 inches (for women) or 40 inches (for men) exhibits significantly lower cardiometabolic disease risk than an individual with identical BMI and high central adiposity.
+            In geriatric medicine and longevity research, interpreting BMI among adults aged 65 and older introduces a widely studied clinical phenomenon known as the <strong>Obesity Paradox</strong>. Multiple epidemiological meta-analyses observe that slightly higher BMIs (ranging between 25.0 and 27.5 kg/m²) in elderly populations correlate with reduced all-cause mortality compared to strictly &apos;normal&apos; BMIs below 22.0 kg/m². Modest subcutaneous fat reserves provide vital nutritional and metabolic buffering during acute critical illnesses, severe systemic infections, and post-surgical recuperation periods.
           </p>
           <p>
-            Use BMI as an initial demographic baseline, followed by body composition and waist measurements for personalized health guidance.
+            Furthermore, elderly individuals frequently experience age-related muscle wasting (sarcopenia) and vertebral compression fractures that decrease height over time. Consequently, a declining BMI in older adults often signals progressive loss of functional skeletal muscle mass rather than beneficial fat reduction. Geriatricians prioritize functional biomarkers—such as isometric handgrip dynamometer strength, gait speed, and bone mineral density scans—over rigid adherence to youthful BMI cutoffs.
           </p>
 
-
-          <h2>Frequently asked questions</h2>
-          <Faq items={FAQ} />
-        </Editorial>
-      </CalculatorPage>
-    </>
+          <h2>Healthy Weight Management Strategies &amp; Macronutrient Architecture</h2>
+          <p>
+            Achieving and maintaining an optimal Body Mass Index requires balancing daily caloric intake against metabolic expenditure while optimizing lean tissue preservation. Calculating protein requirements through our <Link href="/calculators/health/protein-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">protein calculator</Link> and structuring macronutrients with our <Link href="/calculators/health/macro-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">macro calculator</Link> guarantees that weight loss represents fat tissue reduction rather than muscle atrophy.
+          </p>
+          <p>
+            Furthermore, evaluating healthy body proportions using our <Link href="/calculators/health/ideal-weight-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">ideal weight calculator</Link>, projecting fat loss rate with our <Link href="/calculators/health/weight-loss-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">weight loss calculator</Link>, and tracking body mass variance with our <Link href="/calculators/math/percentage-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">percentage calculator</Link> empowers individuals to construct sustainable, evidence-backed lifestyle protocols. Pairing BMI metrics with daily step volume and progressive resistance training ensures long-term cardiometabolic vitality and functional physical independence across every decade of adult life.
+          </p>
+        </>
+      }
+    >
+      <BmiCalculator />
+    </CalcPage>
   );
 }

@@ -59,7 +59,7 @@ export function NumberField({ id, label, hint, prefix, suffix, error, className,
           step="any"
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="w-full min-w-0 flex-1 border-0 bg-transparent px-3 text-base tabular-nums text-slate-900 outline-none placeholder:text-slate-400 dark:text-slate-100"
+          className="w-full min-w-0 flex-1 border-0 border-none bg-transparent px-3 text-base tabular-nums text-slate-900 outline-none focus:outline-none focus:ring-0 placeholder:text-slate-400 dark:text-slate-100 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           {...props}
         />
         {suffix ? <span className={cn(affix, "border-l border-slate-200 dark:border-slate-800")}>{suffix}</span> : null}

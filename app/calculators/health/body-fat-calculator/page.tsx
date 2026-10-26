@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { BodyFatCalculator } from "@/components/flagship/health/BodyFatCalculator";
-import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
 import { NavyBodyFatCircumferenceChart } from "@/components/flagship/health/editorial-charts/NavyBodyFatCircumferenceChart";
-import { SITE_URL } from "@/lib/site";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/health/body-fat-calculator";
-const TITLE = "Body Fat Calculator – US Navy Method & Body Composition | CalcDigi";
+const TITLE = "Body Fat Calculator | US Navy Circumference Method & Body Composition";
 const DESCRIPTION =
-  "Free body fat percentage calculator using the clinically validated US Navy circumference method. Calculate body fat mass, lean body mass, and health categories with interactive charts.";
+  "Calculate your body fat percentage, lean body mass, and fat mass using the clinically validated US Navy circumference method. Review ACE healthy fitness categories.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -24,45 +25,53 @@ export const metadata: Metadata = {
 
 const FAQ_ITEMS = [
   {
-    q: "How accurate is the US Navy body fat method?",
-    a: "The US Navy circumference formula is accurate within 3% to 4% of a clinical DEXA scan or hydrostatic weighing for the majority of adults. Its accuracy depends heavily on using a non-stretch measuring tape pulled taut against bare skin without compressing soft tissues.",
+    q: "How accurate is the US Navy body fat circumference method?",
+    a: "The US Navy circumference method, developed by Drs. JA Hodgdon and MB Beckett at the Naval Health Research Center, demonstrates an accuracy within 3% to 4% of dual-energy X-ray absorptiometry (DEXA) and underwater hydrostatic weighing across diverse demographic cohorts. Its accuracy depends on using an inelastic anthropometric tape measure pulled flat against skin at exact anatomical landmarks without tissue depression.",
   },
   {
-    q: "What is an ideal body fat percentage for men?",
-    a: "For men, the American Council on Exercise (ACE) defines 14% to 17% as fitness level, 6% to 13% for competitive athletes, and 18% to 24% as the healthy average. Body fat percentages above 25% for men are classified as clinically obese.",
+    q: "What is an optimal, healthy body fat percentage for adult men?",
+    a: "The American Council on Exercise (ACE) defines the optimal fitness body fat category for adult men as 14% to 17%, with 6% to 13% typical for competitive athletes and 18% to 24% representing acceptable population averages. Body fat levels below 2% to 5% threaten essential organ cushion and testosterone synthesis, while percentages exceeding 25% indicate clinical obesity with elevated cardiovascular risk.",
   },
   {
-    q: "What is an ideal body fat percentage for women?",
-    a: "For women, ACE defines 21% to 24% as fitness level, 14% to 20% for athletes, and 25% to 31% as healthy average. Women require higher baseline essential fat (10% to 13%) for endocrine function and reproductive health. Body fat above 32% is classified as obese.",
+    q: "What is an optimal, healthy body fat percentage for adult women?",
+    a: "For adult biological women, ACE classifies 21% to 24% as the healthy fitness range, 14% to 20% for athletes, and 25% to 31% as acceptable. Women require a minimum essential fat threshold of 10% to 13% to sustain steroid hormone production (estrogen, progesterone), maintain ovulatory menstrual cycles, and preserve bone mineral density. Body fat exceeding 32% denotes clinical obesity.",
   },
   {
-    q: "Why do women need to measure hip circumference while men do not?",
-    a: "Biological sex influences body fat distribution patterns. Estrogen causes women to store subcutaneous adipose tissue primarily around the hips, buttocks, and thighs (gynoid pattern), while testosterone in men results in visceral and subcutaneous fat accumulation around the waist and abdomen (android pattern). The US Navy equation accounts for this dimorphism.",
+    q: "Why does the female formula require hip circumference while the male formula does not?",
+    a: "Sexual dimorphism in adipose storage patterns dictates distinct measurement sites. Under the influence of estrogen, biological females deposit subcutaneous adipose tissue preferentially around the pelvic girdle, gluteals, and upper thighs (gynoid distribution). In contrast, testosterone-dominated males preferentially accumulate visceral and subcutaneous fat in the abdominal depot (android distribution), requiring only waist and neck measurements.",
   },
   {
-    q: "Where exactly should I measure my waist for body fat calculation?",
-    a: "For men, measure horizontally around the abdomen at the level of the navel (belly button), with arms relaxed at the sides. For women, measure at the narrowest point of the torso (natural waistline), usually located between the lowest rib and the iliac crest (hip bone).",
+    q: "Where exactly should the tape measure be placed on the waist and neck?",
+    a: "For men, measure horizontal waist circumference at the level of the umbilicus (navel), keeping arms relaxed at the sides after a normal passive expiration. For women, measure at the narrowest horizontal circumference of the torso between the lower costal rib margin and the superior iliac crest. For both sexes, measure the neck horizontally just inferior to the laryngeal prominence (Adam\'s apple).",
   },
   {
-    q: "How does body fat percentage differ from BMI?",
-    a: "Body Mass Index (BMI) only evaluates total weight relative to height (kg/m²), failing to differentiate between dense muscle mass, skeletal bone, and adipose tissue. A heavily muscled athlete may register as 'overweight' or 'obese' on BMI despite having low body fat, whereas a body fat calculator measures actual tissue composition.",
+    q: "How does body fat percentage differ fundamentally from Body Mass Index (BMI)?",
+    a: "Body Mass Index evaluates total body weight relative to squared height (kg/m²) as an epidemiological surrogate, failing to discriminate between metabolically dense skeletal muscle, skeletal bone mineral, and adipose tissue. Consequently, muscular strength athletes are frequently misdiagnosed as 'overweight' or 'obese' on BMI charts despite harboring minimal fat. Body fat assessment partitions total mass into functional tissue compartments.",
+  },
+  {
+    q: "What is the physiological difference between visceral fat and subcutaneous fat?",
+    a: "Subcutaneous adipose tissue resides directly beneath the dermis and serves as thermal insulation and energetic storage. Visceral adipose tissue is deposited deep within the peritoneal cavity surrounding internal organs like the liver, pancreas, and intestines. Visceral fat is metabolically active and secretes pro-inflammatory cytokines (TNF-alpha, IL-6), significantly increasing risks of hepatic steatosis, insulin resistance, and atherosclerosis.",
+  },
+  {
+    q: "What is the safest weekly rate of body fat loss to prevent muscle wasting?",
+    a: "Clinical sports nutrition recommends a fat loss velocity of 0.5% to 1.0% of total body weight per week (equivalent to 1 to 2 pounds of adipose tissue). More rapid weight loss accelerates skeletal muscle proteolysis, drops circulating leptin and active thyroid T3, reduces resting metabolic rate, and triggers severe neuroendocrine hunger signals.",
   },
 ];
 
 const ACE_ROWS = [
-  ["Essential Fat", "2% – 5%", "10% – 13%", "Critical for neurological, cellular, and endocrine survival."],
-  ["Athletes", "6% – 13%", "14% – 20%", "High muscular definition, vascularity, and competitive athletic conditioning."],
-  ["Fitness", "14% – 17%", "21% – 24%", "Fit, toned appearance with visible muscle contours and optimal metabolic health."],
-  ["Average / Healthy", "18% – 24%", "25% – 31%", "Normal, healthy population baseline with low cardiovascular risk."],
-  ["Obese", "25%+", "32%+", "Elevated cardiometabolic, diabetic, and hypertension risk factors."],
+  ["Essential Fat", "2% – 5%", "10% – 13%", "Minimal physiological threshold for nerve myelination and hormone production."],
+  ["Athletes", "6% – 13%", "14% – 20%", "Striated muscular definition, vascularity, and high physical conditioning."],
+  ["Fitness (Optimal Health)", "14% – 17%", "21% – 24%", "Athletic appearance, visible abdominal contours, low cardiometabolic risk."],
+  ["Average (Acceptable)", "18% – 24%", "25% – 31%", "Normal population baseline without elevated chronic disease indicators."],
+  ["Obese (Elevated Risk)", "≥ 25%", "≥ 32%", "Substantially higher risks of Type 2 diabetes, hypertension, and fatty liver disease."],
 ];
 
-const METHOD_COMPARISON = [
-  ["DEXA Scan (Dual-Energy X-ray)", "Gold Standard (±1.5%)", "Clinical X-ray laboratory", "$100 – $250 per scan"],
-  ["Hydrostatic Underwater Weighing", "Near Gold Standard (±1.5%)", "Submersion tank water displacement", "$50 – $150 per test"],
-  ["US Navy Circumference (This Tool)", "High Practicality (±3% to 4%)", "Flexible tape measure (Neck, Waist, Hip)", "100% Free instant online"],
-  ["Bioelectrical Impedance (BIA)", "Moderate (±4% to 6%)", "Smart scale handheld electrodes", "Varies wildly with hydration status"],
-  ["Skinfold Calipers (3-site/7-site)", "Moderate to High (±3.5%)", "Pinch calipers at specific skin sites", "Requires trained clinical technician"],
+const METHOD_ROWS = [
+  ["DEXA (Dual-Energy X-ray Absorptiometry)", "±1.5% Error", "Three-compartment bone, fat, and lean regional scan.", "High ($150–$300)"],
+  ["Hydrostatic Underwater Weighing", "±1.5% Error", "Measures total body density via water displacement.", "Moderate ($75–$150)"],
+  ["US Navy Circumference (This Tool)", "±3.0% – 4.0%", "Inelastic tape measurement at neck, waist, and hip.", "100% Free / Immediate"],
+  ["Bioelectrical Impedance Analysis (BIA)", "±4.0% – 6.0%", "Measures electrical alternating current resistance; hydration-sensitive.", "Low to Moderate"],
+  ["Skinfold Calipers (Jackson-Pollock)", "±3.5% – 4.5%", "Subcutaneous fat fold thickness pinch across 3 or 7 anatomical sites.", "Low (Requires technician)"],
 ];
 
 const RELATED = [
@@ -74,209 +83,201 @@ const RELATED = [
   { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
 ];
 
-export default function Page() {
+export default function BodyFatCalculatorPage() {
   return (
-    <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-                { "@type": "ListItem", position: 2, name: "Health Calculators", item: `${SITE_URL}/pages/health` },
-                { "@type": "ListItem", position: 3, name: "Body Fat Calculator", item: `${SITE_URL}${PATH}` },
-              ],
-            },
-            {
-              "@type": "WebApplication",
-              name: "Body Fat Calculator",
-              url: `${SITE_URL}${PATH}`,
-              description: DESCRIPTION,
-              applicationCategory: "HealthApplication",
-              operatingSystem: "Any",
-              browserRequirements: "Requires JavaScript",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            },
-            {
-              "@type": "HowTo",
-              name: "How to Measure Body Fat Percentage Using a Tape Measure",
-              description: "Step-by-step instructions for taking accurate neck, waist, and hip measurements for the US Navy body fat formula.",
-              step: [
-                {
-                  "@type": "HowToStep",
-                  name: "Measure Neck Circumference",
-                  text: "Place the measuring tape horizontally around your neck, starting just below the larynx (Adam's apple), with your head upright looking forward.",
-                },
-                {
-                  "@type": "HowToStep",
-                  name: "Measure Waist Circumference",
-                  text: "For men, measure around the abdomen at navel level. For women, measure at the narrowest point of the natural waistline between ribs and hips.",
-                },
-                {
-                  "@type": "HowToStep",
-                  name: "Measure Hip Circumference (Women Only)",
-                  text: "Stand with feet together and measure horizontally around the widest part of the buttocks and hips.",
-                },
-              ],
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: FAQ_ITEMS.map((f) => ({
-                "@type": "Question",
-                name: f.q,
-                acceptedAnswer: { "@type": "Answer", text: f.a },
-              })),
-            },
-          ],
-        }}
-      />
-
-      <CalculatorPage
-        crumbs={[
-          { href: "/", label: "Home" },
-          { href: "/pages/health", label: "Health" },
-          { label: "Body Fat Calculator" },
-        ]}
-        title="Body Fat Calculator"
-        intro="Calculate your body fat percentage, lean body mass, and fat mass with the clinically verified US Navy circumference formula. Includes interactive visual composition charts and ACE health targets."
-      >
-        <Suspense fallback={<div className="h-96 rounded-2xl bg-slate-100 dark:bg-slate-800 animate-pulse" />}>
-          <BodyFatCalculator />
-        </Suspense>
-
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>⚡</span> Related Calculators
-            </h2>
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/health", label: "Health" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      appCategory="HealthApplication"
+      mathExpression="\\%\\text{BF} = 495 / D_b - 450"
+      related={RELATED}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              US Navy BCA &amp; ACE Clinical Standards
+            </span>
+            <span>•</span>
+            <span>Updated Q4 2026</span>
+            <span>•</span>
+            <span>Anthropometric Precision</span>
           </div>
-          <RelatedLinks links={RELATED} />
-        </section>
-
-        <Editorial>
-          {/* AI Overview Direct Answer Box (GEO Optimized) */}
-          <div className="not-prose my-6 rounded-2xl border border-emerald-200 dark:border-emerald-800/80 bg-gradient-to-br from-emerald-50/70 via-white to-emerald-50/30 dark:from-emerald-950/30 dark:via-slate-900 dark:to-emerald-950/20 p-5 sm:p-6 text-slate-800 dark:text-slate-200">
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mb-2">
-              <span>⚡ Quick Answer · Body Fat Percentage (BFP)</span>
-            </div>
-            <p className="text-sm leading-relaxed mb-3">
-              <strong>Body Fat Percentage</strong> represents the total mass of adipose fat tissue divided by total body weight. Unlike the standard <a href="/calculators/health/bmi-calculator">BMI Calculator</a>, which only factors height and weight, body fat percentage distinguishes between metabolically active <a href="/calculators/health/lean-body-mass-calculator">lean muscle mass</a>, bones, water, and fat stores. Pair this with our <a href="/calculators/health/waist-to-hip-ratio-calculator">Waist to Hip Ratio</a> or <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a> for comprehensive body composition assessment.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-3 text-xs pt-2 border-t border-emerald-100 dark:border-emerald-900/50">
-              <div>
-                <span className="font-semibold text-slate-900 dark:text-white">Healthy Range (Men):</span>{" "}
-                <span className="text-emerald-700 dark:text-emerald-400 font-bold">14% – 17%</span> (Fitness) · 18% – 24% (Average)
-              </div>
-              <div>
-                <span className="font-semibold text-slate-900 dark:text-white">Healthy Range (Women):</span>{" "}
-                <span className="text-emerald-700 dark:text-emerald-400 font-bold">21% – 24%</span> (Fitness) · 25% – 31% (Average)
-              </div>
-            </div>
-          </div>
-
-          <h2>American Council on Exercise (ACE) Body Fat Categories</h2>
+          <h2>What Is Body Fat Percentage? (Quick Answer)</h2>
           <p>
-            The American Council on Exercise categorizes body fat into five distinct tiers based on cardiometabolic health and physiological requirement. Women naturally possess higher baseline essential body fat than men to protect vital organs and sustain hormonal equilibrium:
+            <strong>Body fat percentage (% BF)</strong> represents the total mass of adipose tissue divided by total body weight, expressed as a percentage. Unlike simple scale weight or <Link href="/calculators/health/bmi-calculator">BMI</Link>, body fat percentage partitions your physical mass into two functional compartments: <strong>Fat Mass</strong> (subcutaneous and visceral adipose tissue) and <strong>Lean Body Mass (LBM)</strong> (skeletal muscle, internal organs, bone mineral, and body fluids).
           </p>
-          <DataTable
-            head={["Classification", "Men (% Fat)", "Women (% Fat)", "Clinical Significance"]}
-            rows={ACE_ROWS}
-          />
+          <p>
+            The clinically recommended fitness range is <strong>14% to 17% for men</strong> and <strong>21% to 24% for women</strong>. To optimize body composition, individuals typically implement a modest caloric deficit calculated via our <Link href="/calculators/health/calorie-calculator">Calorie Calculator</Link> and track energy expenditure with our <Link href="/calculators/health/tdee-calculator">TDEE Calculator</Link> while engaging in progressive resistance training.
+          </p>
 
           <div className="not-prose my-8">
             <NavyBodyFatCircumferenceChart />
           </div>
 
-          <h2>The US Navy Circumference Method Explained</h2>
+          <h2>The Official US Navy Circumference Equations</h2>
           <p>
-            Developed by <em>Hodgdon and Beckett</em> at the Naval Health Research Center in 1984, the US Navy formula is used by military branches worldwide to evaluate body composition without cumbersome clinical machinery. It utilizes logarithmic ratios of circumferences against overall height:
+            The US Navy Body Composition Assessment (BCA) method was formulated in 1984 by researchers JA Hodgdon and MB Beckett at the Naval Health Research Center. It utilizes common logarithmic ratios of anatomical circumferences to calculate body density and estimate body fat percentage without costly clinical equipment:
           </p>
 
-          <h3>US Navy Formula for Men</h3>
+          <h3>US Navy Formula for Men (Centimeters):</h3>
           <Formula>
-            % Fat = 495 ÷ [1.0324 − 0.19077 × log₁₀(Waist − Neck) + 0.15456 × log₁₀(Height)] − 450
+            {"\\%\\text{ Body Fat} = 495 / (1.0324 - 0.19077 \\log_{10}(\\text{waist} - \\text{neck}) + 0.15456 \\log_{10}(\\text{height})) - 450"}
           </Formula>
-          <p className="text-xs text-slate-500">
-            *Where measurements are taken in centimeters (cm). Waist is measured horizontally at the navel level, and neck is measured below the larynx.
-          </p>
 
-          <h3>US Navy Formula for Women</h3>
+          <h3>US Navy Formula for Women (Centimeters):</h3>
           <Formula>
-            % Fat = 495 ÷ [1.29579 − 0.35004 × log₁₀(Waist + Hip − Neck) + 0.22100 × log₁₀(Height)] − 450
+            {"\\%\\text{ Body Fat} = 495 / (1.29579 - 0.35004 \\log_{10}(\\text{waist} + \\text{hip} - \\text{neck}) + 0.22100 \\log_{10}(\\text{height})) - 450"}
           </Formula>
-          <p className="text-xs text-slate-500">
-            *Where measurements are taken in centimeters (cm). Hip circumference accounts for female gynoid fat distribution patterns.
-          </p>
 
-          <h2>Body Composition Measurement Methods Compared</h2>
           <p>
-            Different body composition assessments offer varied tradeoffs between laboratory precision, convenience, and financial cost:
+            <strong>Imperial Units Form:</strong> When measurements are taken in inches, the logarithmic constant offsets adjust as follows:
+          </p>
+          <Formula>
+            {"\\%\\text{BF}_{\\text{male}} = 86.010 \\log_{10}(\\text{waist} - \\text{neck}) - 70.041 \\log_{10}(\\text{height}) + 36.76"}
+          </Formula>
+          <Formula>
+            {"\\%\\text{BF}_{\\text{female}} = 163.205 \\log_{10}(\\text{waist} + \\text{hip} - \\text{neck}) - 97.684 \\log_{10}(\\text{height}) - 78.387"}
+          </Formula>
+
+          <h2>The Siri and Brozek Densitometric Conversion Models</h2>
+          <p>
+            The US Navy equation first estimates whole-body density ($D_b$) in grams per cubic centimeter before converting density to relative adiposity. In physiological research, two classic two-compartment conversion equations predominate:
+          </p>
+
+          <h3>The Siri Formula (1956):</h3>
+          <Formula>
+            {"\\%\\text{ Body Fat} = \\left(\\frac{4.95}{D_b} - 4.50\\right) \\times 100"}
+          </Formula>
+
+          <h3>The Brozek Formula (1963):</h3>
+          <Formula>
+            {"\\%\\text{ Body Fat} = \\left(\\frac{4.57}{D_b} - 4.142\\right) \\times 100"}
+          </Formula>
+
+          <p>
+            William E. Siri assumed constant densities for the fat-free mass (1.100 g/cm³) and fat mass (0.9007 g/cm³) across all human subjects. Josef Brozek introduced adjustments to account for biological variations in bone mineralization and intracellular water retention among individuals with higher adiposity. For adult populations between 10% and 30% body fat, both formulas yield estimates that agree within 0.5% to 1.0%.
+          </p>
+
+          <h2>Computing Fat Mass & Lean Body Mass</h2>
+          <p>
+            Once your body fat percentage is determined, your total physical body weight can be partitioned into its constituent physiological components:
+          </p>
+          <Formula>
+            {"\\text{Fat Mass (kg or lbs)} = \\text{Total Weight} \\times \\left(\\frac{\\%\\text{ Body Fat}}{100}\\right)"}
+          </Formula>
+          <Formula>
+            {"\\text{Lean Body Mass (kg or lbs)} = \\text{Total Weight} - \\text{Fat Mass}"}
+          </Formula>
+          <p>
+            For example, an individual weighing 180 lbs with 20% body fat carries 36 lbs of fat mass and 144 lbs of lean body mass. Knowing your lean body mass allows you to calculate exact resting caloric expenditure using the Katch-McArdle formula on our <Link href="/calculators/health/bmr-calculator">BMR Calculator</Link>, and determine daily protein targets using our <Link href="/calculators/health/protein-calculator">Protein Calculator</Link>.
+          </p>
+
+          <h2>American Council on Exercise (ACE) Classification Standards</h2>
+          <p>
+            The American Council on Exercise provides the global standard for interpreting adult body composition categories across biological sex:
           </p>
           <DataTable
-            head={["Measurement Method", "Typical Accuracy", "How It Works", "Cost & Accessibility"]}
-            rows={METHOD_COMPARISON}
+            head={["Classification", "Men (% Fat)", "Women (% Fat)", "Physiological Implications"]}
+            rows={ACE_ROWS}
+            highlight={2}
           />
 
-          <h2>Step-by-Step Measurement Guide for Maximum Accuracy</h2>
+          <h2>Comparison of Body Composition Assessment Methods</h2>
+          <p>
+            Various technologies exist to assess human body composition, each balancing clinical diagnostic accuracy against cost, accessibility, and convenience:
+          </p>
+          <DataTable
+            head={["Method", "Clinical Error Margin", "Assessment Mechanism", "Cost & Practicality"]}
+            rows={METHOD_ROWS}
+            highlight={2}
+          />
+
+          <h2>Visceral Adiposity vs Subcutaneous Adiposity</h2>
+          <p>
+            Not all body fat poses identical physiological consequences. Adipose tissue is classified into two anatomically and biologically distinct depots:
+          </p>
+          <ul>
+            <li>
+              <strong>Subcutaneous Adipose Tissue (SAT):</strong> Located directly beneath the skin layer, subcutaneous fat accounts for approximately 80% to 90% of total human body fat. It serves as essential thermal insulation, mechanical impact cushioning, and long-term biochemical energy storage.
+            </li>
+            <li>
+              <strong>Visceral Adipose Tissue (VAT):</strong> Located deep within the abdominal cavity wrapping around hepatic, pancreatic, and intestinal tissues. Visceral adipocytes possess high lipolytic activity, releasing free fatty acids directly into the portal circulation. They secrete pro-inflammatory adipokines (interleukin-6, tumor necrosis factor-alpha, and resistin) that drive chronic systemic inflammation, insulin resistance, atherogenic dyslipidemia, and metabolic syndrome.
+            </li>
+          </ul>
+
+          <h2>Standardized Anthropometric Measurement Protocol</h2>
+          <p>
+            To achieve clinical precision within 3% of a DEXA scan using the US Navy method, follow these strict anthropometric guidelines:
+          </p>
           <ol>
             <li>
-              <strong>Use a non-elastic tape measure:</strong> A flexible cloth or fiberglass tape ensures accurate readings without stretching over time.
+              <strong>Use an Inelastic Measuring Tape:</strong> Always use a non-stretch fiberglass or vinyl anthropometric tape. Avoid elastic cloth or steel tapes that stretch or pinch tissue.
             </li>
             <li>
-              <strong>Measure against bare skin:</strong> Take all measurements directly on skin rather than over clothing or compression garments.
+              <strong>Measure Directly Against Bare Skin:</strong> Do not measure over clothing, belts, or compressive athletic compression gear, as even thin fabrics distort circumference readings by 0.5 to 1.5 inches.
             </li>
             <li>
-              <strong>Keep the tape snug but uncompressed:</strong> The tape should lie flat and parallel to the floor without pinching or indenting the subcutaneous fat.
+              <strong>Standardize Respiratory Exhalation:</strong> Measure abdominal waist circumference at the end of a normal, unforced expiration. Do not forcefully suck in the stomach or puff out the abdomen.
             </li>
             <li>
-              <strong>Take three consecutive readings:</strong> Average the three measurements to eliminate minor breathing or postural deviations.
+              <strong>Ensure Constant Tape Tension:</strong> The tape should lie completely flat and horizontal to the floor, conforming to the contours of the skin without indenting or compressing the underlying subcutaneous adipose tissue.
+            </li>
+            <li>
+              <strong>Take Multiple Consecutive Readings:</strong> Measure each anatomical site three consecutive times and compute the arithmetic average to eliminate measurement variance.
             </li>
           </ol>
 
-          
-        {/* Diagnostic Modalities: DEXA, Hydrostatic & 4C Models */}
-        <section className="space-y-4">
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            Gold-Standard Diagnostic Modalities: DEXA, Hydrostatic &amp; 4C Models
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Accurately quantifying human body composition requires understanding the limitations and physics of various diagnostic methodologies. In clinical research, body composition is evaluated across multi-compartment models separating total body mass into water, mineral, protein, and fat:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4">
-            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Dual-Energy X-ray Absorptiometry (DEXA)</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                DEXA uses low-dose dual-energy X-ray beams to evaluate bone mineral density, lean soft tissue, and fat mass across anatomical regions. DEXA carries a clinical error margin of ±1.5% to 2.5%, though acute hydration fluctuations can shift measured lean tissue mass by 1 to 2 kg.
-              </p>
-            </div>
-            <div className="p-5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">The Four-Compartment (4C) Benchmark</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                The undisputed research gold standard combines underwater hydrostatic weighing (body volume), deuterium dilution (total body water), and DEXA (bone mineral content). This 4C model eliminates individual biological variation in tissue hydration and mineral density.
-              </p>
-            </div>
-          </div>
-          <h2>Essential Fat Requirements &amp; Female Hormonal Health</h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Essential body fat (~3% in men, 10%–13% in women) is required for cellular membrane phospholipid structure, myelination of nerve fibers, and reproductive endocrine signaling. When female body fat drops below 14% to 16%, aromatization of androgens into estrogens declines, precipitating oligomenorrhea, follicular atresia, and early bone demineralization.
-          </p>
-        </section>
-
-          
-          <h2>Comparative Body Composition Modalities: DEXA vs Hydrostatic Weighing</h2>
+          <h2>Normal Weight Obesity ("Skinny Fat") and Sarcopenia</h2>
           <p>
-            While the US Navy circumference method offers an accessible ±3% accuracy benchmark for field estimates, clinical research utilizes four-compartment (4C) models and Dual-Energy X-ray Absorptiometry (DEXA) as gold standards. DEXA passes low-dose X-ray beams through bodily tissues to distinguish bone mineral content, lean soft tissue mass, and visceral versus subcutaneous adipose volume across discrete anatomical regions.
+            A major epidemiological blind spot of simple height-weight metrics is <strong>Normal Weight Obesity (NWO)</strong>, commonly referred to as the "skinny fat" phenotype. Individuals with NWO have a normal Body Mass Index (between 18.5 and 24.9 kg/m²) but harbor an excessively high body fat percentage (exceeding 25% in men or 33% in women) paired with deficient skeletal muscle mass.
           </p>
           <p>
-            Hydrostatic (underwater) weighing utilizes Archimedes&apos; principle of buoyancy to calculate whole-body density, though air trapped in pulmonary residual volume introduces minor variance. Skinfold calipers measure subcutaneous fat folds across standard Jackson-Pollock sites; however, caliper reliability relies heavily on technician experience and cannot measure deep visceral fat surrounding internal organs.
+            This condition is frequently exacerbated by age-related sarcopenia, chronic sedentary desk occupations, and recurrent crash dieting without resistance training. Despite appearing slender, individuals with NWO exhibit identical cardiometabolic risk profiles to clinically obese patients, including elevated triglycerides, insulin resistance, endothelial dysfunction, and subclinical systemic inflammation. Identifying this phenotype through circumference body fat tracking allows for early, life-saving nutritional and exercise interventions.
           </p>
 
-          <Faq items={FAQ_ITEMS} />
-        </Editorial>
-      </CalculatorPage>
-    </>
+          <h2>Waist-to-Hip Ratio (WHR) & Body Morphology Patterns</h2>
+          <p>
+            In addition to total adipose percentage, regional anatomical fat deposition profoundly dictates chronic cardiovascular outcomes. An <strong>android (apple-shaped)</strong> adipose morphology—characterized by a high waist-to-hip ratio exceeding 0.90 in men or 0.85 in women—concentrates active visceral fat around abdominal viscera, quadrupling risks of myocardial infarction and ischemic stroke.
+          </p>
+          <p>
+            Conversely, a <strong>gynoid (pear-shaped)</strong> morphology deposits protective subcutaneous fat in femoral-gluteal depots, which produces lower circulating free fatty acids and elevated beneficial adiponectin. Measuring waist and hip circumferences routinely serves as both an accurate input for the US Navy formula and an indispensable clinical diagnostic tool for cardiovascular risk stratification.
+          </p>
+
+          <h2>Body Recomposition: Gaining Muscle While Losing Fat</h2>
+          <p>
+            Achieving simultaneous fat loss and muscle hypertrophy—termed <strong>body recomposition</strong>—is the ultimate fitness objective. While conventional wisdom held that energy deficits preclude protein accretion, modern exercise physiology proves recomposition is achievable by managing energy balance and training stimulus.
+          </p>
+          <p>
+            To drive body recomposition:
+          </p>
+          <ul>
+            <li>
+              <strong>Implement a Mild Caloric Deficit (200 to 350 kcal/day):</strong> An overly aggressive deficit triggers skeletal muscle catabolism and hormonal fatigue. A modest deficit supplies adequate energy for muscle protein synthesis while mobilizing adipose lipids, as guided by our <Link href="/calculators/health/weight-loss-calculator">Weight Loss Calculator</Link>.
+            </li>
+            <li>
+              <strong>Consume High Quality Protein (2.0 to 2.4 g/kg LBM):</strong> Elevated amino acid availability maintains positive intramuscular nitrogen balance and stimulates mTORC1 signaling. Target nutritional macros precisely via our <Link href="/calculators/health/macro-calculator">Macro Calculator</Link>.
+            </li>
+            <li>
+              <strong>Execute Progressive Resistance Training:</strong> Apply progressive overload across compound multi-joint movements 3 to 5 times per week to create mechanical tension and micro-trauma necessary for myofibrillar hypertrophy.
+            </li>
+            <li>
+              <strong>Benchmark Lean Mass Evolution:</strong> Re-evaluate your circumferences every 3 to 4 weeks. Measure your target progress toward optimal body proportions with our <Link href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</Link> and calculate fractional changes with our <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
+            </li>
+          </ul>
+
+          <h2>Clinical Conclusions for Sustainable Body Composition</h2>
+          <p>
+            Tracking body fat percentage rather than raw bathroom scale weight provides true clarity on your metabolic fitness and body composition trajectory. By understanding the distinction between lean tissue retention and adipose loss, establishing evidence-based nutritional protocols, and measuring consistently under standardized conditions, you empower yourself to achieve lasting metabolic vitality and optimal physical conditioning.
+          </p>
+        </>
+      }
+    >
+      <BodyFatCalculator />
+    </CalcPage>
   );
 }
