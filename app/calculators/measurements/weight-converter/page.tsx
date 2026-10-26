@@ -174,11 +174,7 @@ export default function WeightConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In global maritime logistics, container vessels load standard twenty-foot equivalent units (TEU) governed by the International Maritime Organization (IMO) Safety of Life at Sea (SOLAS) Verified Gross Mass (VGM) rules, mandating certified weight certificates for all shipping containers prior to vessel stowage. For comprehensive unit conversions across all engineering and physical fields, explore our centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <WeightConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Geotechnical Soil Mechanics & Terzaghi Bearing Capacity Principles
           </h2>
@@ -203,7 +199,10 @@ export default function WeightConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In geotechnical bore logging, soil bulk density is reported in grams per cubic centimeter (g/cm³) or pounds per cubic foot (pcf). Converting soil compaction parameters between ASTM D698 Proctor test results and Eurocode 7 standards requires consistent mass and volume transformations to prevent building foundation settlement.
           </p>
-
+        </>
+      }
+    >
+      <WeightConverterComponent />
     </CalcPage>
   );
 }

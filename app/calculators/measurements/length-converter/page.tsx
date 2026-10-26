@@ -192,18 +192,17 @@ export default function LengthConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             By standardizing environmental conditions at 20°C (68°F) per ISO 1 reference temperature specifications, metrology laboratories prevent thermal drift from contaminating precision gauge block inspections. Adhering to these rigorous physical conversion standards ensures that aerospace components manufactured in different continents mate seamlessly with microscopic clearance tolerances during final airframe assembly.
           </p>
-        </>
-      }
-    >
-      <LengthConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Abbe Error Principle & Precision Optical Encoder Alignment
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In mechanical precision engineering, Ernst Abbe formulated the fundamental metrology principle stating that maximum measurement accuracy is achieved only when the measuring instrument reference axis is collinear with the dimensional displacement axis being measured. Angular offsets (Abbe error ε = L × tan θ) magnify microscopic tilt into substantial linear positioning errors in coordinate measuring machines (CMM) and multi-axis CNC gantries, mandating continuous laser interferometer feedback.
           </p>
-
+        </>
+      }
+    >
+      <LengthConverterComponent />
     </CalcPage>
   );
 }

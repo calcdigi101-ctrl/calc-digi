@@ -170,11 +170,7 @@ export default function AreaConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Bridging these units ensures farmers, commodity brokers, and agricultural food processors maintain parity in global trade agreements. For related tools across physical sciences and education, explore our centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link> or evaluate student coursework in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>.
           </p>
-        </>
-      }
-    >
-      <AreaConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Cadastral Traverse Surveying & The Gauss Shoelace Area Algorithm
           </h2>
@@ -205,7 +201,10 @@ export default function AreaConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Calculating fin efficiency and total wetted surface area in square centimeters and square inches allows electronic hardware designers to maintain microprocessor junction temperatures below 85°C during maximum computational workloads, preventing semiconductor thermal throttling.
           </p>
-
+        </>
+      }
+    >
+      <AreaConverterComponent />
     </CalcPage>
   );
 }

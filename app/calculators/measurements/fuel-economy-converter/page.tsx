@@ -168,11 +168,7 @@ export default function FuelEconomyConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Converting fuel economy metrics into direct liters consumed enables corporate sustainability officers to audit ESG carbon footprints. For student and personal tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and track financial percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <FuelEconomyConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Hybrid Powertrain Dynamics: Regenerative Braking Energy Inversion
           </h2>
@@ -203,7 +199,10 @@ export default function FuelEconomyConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Fuel cell vehicles achieve outstanding real-world efficiencies between 60 and 70 miles per kilogram (~1.0 to 1.1 kg H2/100km), demonstrating double the thermodynamic tank-to-wheel efficiency of comparable gasoline internal combustion automobiles while emitting pure water vapor exhaust.
           </p>
-
+        </>
+      }
+    >
+      <FuelEconomyConverterComponent />
     </CalcPage>
   );
 }

@@ -151,11 +151,7 @@ export default function RomanNumeralConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In sports, the National Football League (NFL) designates championship Super Bowls using Roman numerals (e.g., Super Bowl LVIII). In medicine and publishing, book prefaces and preface pagination utilize lowercase Roman numerals (i, ii, iii, iv). For academic and general tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and calculate statistical percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <RomanNumeralConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             The Roman Hand Abacus & The Physical &apos;Calculi&apos; Origins of Calculus
           </h2>
@@ -207,7 +203,10 @@ export default function RomanNumeralConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Understanding the distinction between additive classical epigraphy and standardized medieval subtractive notation ensures historians, educators, and archivists transcribe historical manuscripts with complete archaeological accuracy.
           </p>
-
+        </>
+      }
+    >
+      <RomanNumeralConverterComponent />
     </CalcPage>
   );
 }

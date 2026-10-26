@@ -174,11 +174,7 @@ export default function PowerConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In clean energy transitions, utility-scale wind turbines generate peak power ratings between 3 MW and 15 MW each. For academic calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and track coursework in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <PowerConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Aerodynamic Power Extraction: The Betz Limit in Wind Turbines
           </h2>
@@ -206,7 +202,10 @@ export default function PowerConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In electrical power grid transmission, high-voltage substations employ step-up and step-down transformers operating with efficiencies exceeding 98.5%. Electrical engineers divide power losses into two primary categories: no-load core losses (iron hysteresis and eddy currents in magnetic silicon steel laminations) and full-load copper losses (I²R resistive Joule dissipation in primary and secondary copper windings). Minimizing these thermal megawatt losses across national electrical distribution networks saves millions of kilowatt-hours annually.
           </p>
-
+        </>
+      }
+    >
+      <PowerConverterComponent />
     </CalcPage>
   );
 }

@@ -162,11 +162,7 @@ export default function EnergyConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In athletic sports physiology, endurance runners and cyclists monitor metabolic energy expenditure in kilojoules (kJ) using crank-arm strain gauge power meters. Understanding that human mechanical efficiency averages approximately 20% to 25% (with the remaining 75% to 80% converted to body heat) allows athletes to replenish carbohydrates accurately during marathon events. For academic calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, track grades in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <EnergyConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Chemical Enthalpy of Combustion & Higher vs Lower Heating Values (HHV / LHV)
           </h2>
@@ -197,7 +193,10 @@ export default function EnergyConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In coal, natural gas combined-cycle, and nuclear power plants, thermal energy released during fuel combustion cannot be fully converted into mechanical shaft work. The Second Law of Thermodynamics dictates that a substantial portion of thermal enthalpy must be rejected into cooling towers or ocean heat sinks as unavailable energy (anergy / entropy generation). Power plant thermal efficiency optimizations focus on maximizing boiler turbine inlet temperatures while minimizing condenser back-pressures.
           </p>
-
+        </>
+      }
+    >
+      <EnergyConverterComponent />
     </CalcPage>
   );
 }

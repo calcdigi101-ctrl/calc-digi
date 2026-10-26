@@ -162,11 +162,7 @@ export default function ClothingSizeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             For academic tracking and statistical analysis, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and calculate dimensional variances in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <ClothingSizeConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Textile Pattern Drafting: Armhole Geometry & Sleeve Cap Pitch Angles
           </h2>
@@ -212,7 +208,10 @@ export default function ClothingSizeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In customized bespoke footwear and orthotic shoe selection, coordinating clothing hemlines with boot shaft heights ensures complete ergonomic drape. You can cross-reference anatomical footwear parameters in our <Link href="/calculators/measurements/shoe-size-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">shoe size converter</Link> and calculate textile area yardage in our <Link href="/calculators/measurements/area-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">area converter</Link>.
           </p>
-
+        </>
+      }
+    >
+      <ClothingSizeConverterComponent />
     </CalcPage>
   );
 }

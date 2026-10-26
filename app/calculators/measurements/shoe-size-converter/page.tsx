@@ -166,11 +166,7 @@ export default function ShoeSizeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             For academic tracking and statistical analysis, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and calculate conversion variances in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <ShoeSizeConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Pedobarography: Dynamic Plantar Pressure & Footwear Cushioning Biomechanics
           </h2>
@@ -212,7 +208,10 @@ export default function ShoeSizeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Orthopedic shoe lasts also accommodate bespoke medical foot orthoses (AFOs) for patients recovering from neurological trauma, ensuring even plantar pressure redistribution and preventing skin ulceration.
           </p>
-
+        </>
+      }
+    >
+      <ShoeSizeConverterComponent />
     </CalcPage>
   );
 }

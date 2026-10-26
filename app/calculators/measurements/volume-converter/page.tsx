@@ -173,11 +173,7 @@ export default function VolumeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In consumer electronics, automotive engine displacement is universally quoted in cubic centimeters (cc) or liters (e.g., a 2.0-liter turbocharged engine equals 2,000 cm³ or approximately 122 cubic inches). For academic and general calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and the central <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <VolumeConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Naval Architecture: Hydrostatic Displacement & Metacentric Stability
           </h2>
@@ -210,7 +206,10 @@ export default function VolumeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In HVAC duct sizing and cleanroom filtration systems, air change rates depend on total room volume in cubic meters. Environmental engineers calculate cubic feet per minute (CFM) flow requirements against HEPA filter face velocities, preventing airborne particulates from settling in surgical suites.
           </p>
-
+        </>
+      }
+    >
+      <VolumeConverterComponent />
     </CalcPage>
   );
 }

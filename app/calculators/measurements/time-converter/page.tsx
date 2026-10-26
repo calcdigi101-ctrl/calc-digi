@@ -175,11 +175,7 @@ export default function TimeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In energy consumption, continuous hourly power yields determine total electric bills; cross-reference energy kilowatt-hours in our <Link href="/calculators/measurements/energy-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">energy converter</Link>. For academic and semester planning tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>, track variances in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the central <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <TimeConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Next-Generation Metrology: Optical Lattice Clocks & The 2030 SI Redefinition
           </h2>
@@ -215,7 +211,10 @@ export default function TimeConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In aerospace telemetry and deep-space communications with interplanetary probes (such as NASA&apos;s Voyager 1 and Mars rovers), light-time delays range from several minutes to over twenty-two hours. Deep Space Network (DSN) tracking stations compensate for two-way radio wave propagation latency, synchronizing ephemeris timestamps with microsecond precision.
           </p>
-
+        </>
+      }
+    >
+      <TimeConverterComponent />
     </CalcPage>
   );
 }
