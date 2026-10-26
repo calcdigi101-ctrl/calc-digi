@@ -1,26 +1,255 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import LedResistorCalculatorComponent from "@/components/calcs/electronics/led-resistor-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { LedResistorEfficiencyTradeoffChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/led-resistor-calculator";
+const TITLE = "LED Resistor Calculator | Series Resistance & Wattage Rating";
+const DESCRIPTION =
+  "Calculate current-limiting series resistor values, power dissipation wattage, and standard E24 resistor sizing for single LEDs and series LED arrays.";
 
 export const metadata: Metadata = {
-  "title": "LED Resistor Calculator – Resistor Value | CalcDigi",
-  "description": "Calculate the correct current limiting resistor for any LED. Supports single and multiple LEDs in series with any supply voltage.",
-  "openGraph": {
-    "title": "LED Resistor Calculator – Resistor Value | CalcDigi",
-    "description": "Calculate the correct current limiting resistor for any LED. Supports single and multiple LEDs in series with any supply voltage.",
-    "type": "website",
-    "url": "/calculators/electronics/led-resistor-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/led-resistor-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/resistor-color-code-calculator", icon: "🎨", name: "Resistor Color Code" },
+  { href: "/calculators/electronics/voltage-divider-calculator", icon: "🔽", name: "Voltage Divider" },
+  { href: "/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why do Light Emitting Diodes (LEDs) require a current-limiting series resistor?",
+    a: "Light Emitting Diodes are semiconductor p-n junctions with an exponential current-voltage characteristic and negative temperature coefficient. Once the forward conduction voltage threshold (typically 1.8V to 3.4V depending on color) is crossed, dynamic internal resistance plummets to near zero. Without a series ballast resistor or active current driver, excessive current floods the junction, causing immediate thermal runaway and catastrophic semiconductor burnout.",
+  },
+  {
+    q: "How do you calculate the required series resistor value for an LED?",
+    a: "The series resistance is calculated using Ohm's Law: R = (Vs - Vf) / If, where Vs is the DC power supply voltage, Vf is the LED forward voltage drop at nominal brightness, and If is the desired forward operating current in Amperes (e.g., 20 mA = 0.02 A).",
+  },
+  {
+    q: "What power rating (wattage) should the LED series resistor have?",
+    a: "Resistor power dissipation is computed by P = (Vs - Vf) × If. To maintain reliable low-temperature operation and prevent board discoloration, engineers apply a 2× safety derating factor: P_rating >= 2 × P_dissipated. For typical 20 mA indicator circuits dropping under 5 Volts, a standard 1/4 Watt (0.25 W) resistor provides ample safety margin.",
+  },
+  {
+    q: "Can I connect multiple LEDs in parallel using a single shared resistor?",
+    a: "Connecting LEDs in parallel with a single shared resistor is strongly discouraged in professional engineering. Minor semiconductor manufacturing variations cause individual LEDs to exhibit slightly different forward voltages. The diode with the lowest forward knee voltage will 'hog' the majority of the current, overheat, fail prematurely, and cascade the excess current into remaining LEDs.",
+  },
+];
+
+export default function LedResistorCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"LED Resistor Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/led-resistor-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"LED Resistor Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/led-resistor-calculator\", \"description\": \"Calculate the correct current limiting resistor for any LED. Supports single and multiple LEDs in series with any supply voltage.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What resistor do I need for an LED?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Use R = (Supply Voltage - LED Forward Voltage) / LED Current. Example: 9V supply, red LED (Vf=2V), 20mA current → R = (9-2)/0.02 = 350Ω. Use the nearest standard value: 330Ω or 390Ω.\"}}, {\"@type\": \"Question\", \"name\": \"What happens if I do not use a resistor with an LED?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Without a current-limiting resistor, the LED draws unlimited current (governed only by supply impedance), overheats, and burns out within seconds. LEDs are current-controlled devices, not voltage-controlled.\"}}, {\"@type\": \"Question\", \"name\": \"Can I use multiple LEDs in series?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. For series LEDs, add up all forward voltages: R = (Vs - n×Vf) / If, where n is the number of LEDs. Example: 12V, three LEDs (Vf=3V each), 20mA → R = (12 - 9) / 0.02 = 150Ω.\"}}, {\"@type\": \"Question\", \"name\": \"What wattage resistor should I use?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Calculate resistor power: P = (Vs - Vf) × If. For safety, use a resistor rated at 2× the calculated power. Example: P = (9V-2V) × 0.02A = 0.14W. Use a 1/4W (0.25W) resistor minimum.\"}}, {\"@type\": \"Question\", \"name\": \"What is the typical forward voltage for a red LED?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Red LEDs typically have Vf = 1.8-2.2V (use 2.0V as a safe estimate). Blue and white LEDs: 3.0-3.5V. Green: 2.0-3.5V (varies widely). UV LEDs: 3.2-4.0V. Always check the specific LED datasheet.\"}}, {\"@type\": \"Question\", \"name\": \"How do I connect multiple LEDs to a 5V power supply?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"For 5V and 20mA standard LEDs: Red/Yellow (Vf=2V): R=(5-2)/0.02=150Ω. Blue/White (Vf=3.3V): R=(5-3.3)/0.02=85Ω, use 82Ω or 100Ω. You can run two red LEDs in series on 5V with a 47Ω resistor.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">LED Resistor Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>LED Resistor Calculator</h1>\n<p class=\"calc-intro\">Calculate the correct current-limiting resistor value for any LED circuit. Enter your supply voltage, LED forward voltage, and desired current to get the exact resistor value, wattage rating, and nearest standard E12 value.</p>\n<p class=\"calc-intro\"></p><p>LEDs have revolutionized lighting — replacing incandescent bulbs (5% efficient) with devices achieving 40-60% electrical-to-light efficiency. A single high-power LED can produce 1,000+ lumens from under 10 watts. However, this efficiency only comes from proper current control. Incorrect current limiting causes premature failure, color shift, and safety hazards.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">R = (Vs - Vf) / If | Power = (Vs - Vf) × If | For series LEDs: R = (Vs - n×Vf) / If</div></div>\n<div class=\"content-section\">\n<h2>Why LEDs Need Current Limiting Resistors</h2>\n<p>LEDs (Light Emitting Diodes) are current-controlled devices. Unlike resistors, they do not limit their own current — without a series resistor, an LED will draw unlimited current and burn out instantly. A current-limiting resistor is required to protect the LED and ensure it operates at its rated current for maximum brightness and longevity.</p>\n<h3>LED Forward Voltage (Vf)</h3>\n<p>Each LED has a characteristic forward voltage drop that depends on its color and semiconductor material. Red and yellow LEDs have lower forward voltages (~1.8-2.2V). Green, blue, and white LEDs have higher forward voltages (~2.8-3.5V). This voltage is \"consumed\" by the LED, and the remaining voltage across the resistor determines the current.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">LED Color</th><th style=\"padding:12px 16px;\">Wavelength</th><th style=\"padding:12px 16px;\">Forward Voltage</th><th style=\"padding:12px 16px;\">Typical Current</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Red</td><td style=\"padding:11px 16px;\">620-750nm</td><td style=\"padding:11px 16px;\">1.8-2.2V</td><td style=\"padding:11px 16px;\">20mA</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Yellow</td><td style=\"padding:11px 16px;\">570-590nm</td><td style=\"padding:11px 16px;\">1.8-2.2V</td><td style=\"padding:11px 16px;\">20mA</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Green</td><td style=\"padding:11px 16px;\">495-570nm</td><td style=\"padding:11px 16px;\">2.0-3.5V</td><td style=\"padding:11px 16px;\">20mA</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Blue</td><td style=\"padding:11px 16px;\">450-495nm</td><td style=\"padding:11px 16px;\">2.8-3.7V</td><td style=\"padding:11px 16px;\">20mA</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">White</td><td style=\"padding:11px 16px;\">Broadband</td><td style=\"padding:11px 16px;\">3.0-3.5V</td><td style=\"padding:11px 16px;\">20mA</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Infrared</td><td style=\"padding:11px 16px;\">&gt;750nm</td><td style=\"padding:11px 16px;\">1.2-1.8V</td><td style=\"padding:11px 16px;\">50-100mA</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">UV</td><td style=\"padding:11px 16px;\">&lt;400nm</td><td style=\"padding:11px 16px;\">3.2-4.0V</td><td style=\"padding:11px 16px;\">20mA</td></tr></tbody></table></div>\n<h3>Series vs Parallel LED Wiring</h3>\n<p>LEDs in series share the same current — forward voltages add up. LEDs in parallel share the same voltage — currents add up. Series is preferred as it ensures equal brightness. Parallel requires individual resistors per LED to prevent one LED from hogging all current.</p>\n</div>\n<div class=\"content-section\">\n<h2>Advanced LED Circuit Design</h2>\n<p>Modern LED circuits go beyond simple series resistors. High-power LEDs, RGB LEDs, LED strips, and addressable LEDs each have specific requirements. Understanding these variations helps design reliable, efficient LED lighting systems.</p>\n<h3>High-Power LEDs and Constant Current Drivers</h3>\n<p>LEDs above 100mA (high-power LEDs used in flashlights, grow lights, automotive) require constant current drivers rather than simple resistors. Resistors waste energy as heat and allow current to vary with temperature and forward voltage. A dedicated CC driver (like the LM317 or dedicated LED driver ICs) maintains precise current regardless of temperature.</p>\n<h3>PWM Dimming vs Analog Dimming</h3>\n<p>LEDs can be dimmed two ways: PWM (rapidly switching on/off — the eye sees average brightness) or analog (reducing current). PWM dimming is preferred because LED color temperature stays constant at any brightness. Analog dimming changes color slightly at low currents. PWM frequency should be above 1kHz to avoid visible flicker.</p>\n<h3>LED Strip Voltage Drop</h3>\n<p>Long LED strips (5V or 12V) suffer significant voltage drop due to thin copper traces. A 5-meter 12V LED strip may show 11V at the end, causing dimmer LEDs. Solution: power from both ends, use thicker power buses, or upgrade to 24V strips (half the current for same power). Always calculate total current: 60 LEDs/m × 20mA × 5m = 6A — use appropriate power supply.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What resistor do I need for an LED? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Use R = (Supply Voltage - LED Forward Voltage) / LED Current. Example: 9V supply, red LED (Vf=2V), 20mA current → R = (9-2)/0.02 = 350Ω. Use the nearest standard value: 330Ω or 390Ω.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What happens if I do not use a resistor with an LED? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Without a current-limiting resistor, the LED draws unlimited current (governed only by supply impedance), overheats, and burns out within seconds. LEDs are current-controlled devices, not voltage-controlled.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I use multiple LEDs in series? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes. For series LEDs, add up all forward voltages: R = (Vs - n×Vf) / If, where n is the number of LEDs. Example: 12V, three LEDs (Vf=3V each), 20mA → R = (12 - 9) / 0.02 = 150Ω.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What wattage resistor should I use? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Calculate resistor power: P = (Vs - Vf) × If. For safety, use a resistor rated at 2× the calculated power. Example: P = (9V-2V) × 0.02A = 0.14W. Use a 1/4W (0.25W) resistor minimum.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the typical forward voltage for a red LED? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Red LEDs typically have Vf = 1.8-2.2V (use 2.0V as a safe estimate). Blue and white LEDs: 3.0-3.5V. Green: 2.0-3.5V (varies widely). UV LEDs: 3.2-4.0V. Always check the specific LED datasheet.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I connect multiple LEDs to a 5V power supply? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">For 5V and 20mA standard LEDs: Red/Yellow (Vf=2V): R=(5-2)/0.02=150Ω. Blue/White (Vf=3.3V): R=(5-3.3)/0.02=85Ω, use 82Ω or 100Ω. You can run two red LEDs in series on 5V with a 47Ω resistor.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a><a class=\"related-card\" href=\"/calculators/electronics/frequency-calculator\"><span class=\"rc-icon\">📡</span><span class=\"rc-name\">Frequency Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>LED Resistor Calculator – Current Limiting Resistor Value</h2><div class=\"form-group\"><label for=\"lr-vs\">Supply Voltage (V)</label><input id=\"lr-vs\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"9\"/></div>\n<div class=\"form-group\"><label for=\"lr-color\">LED Color</label><select id=\"lr-color\"><option selected=\"\" value=\"red\">Red LED (Vf=2.0V)</option><option value=\"yellow\">Yellow LED (Vf=2.0V)</option><option value=\"green\">Green LED (Vf=3.2V)</option><option value=\"blue\">Blue LED (Vf=3.3V)</option><option value=\"white\">White LED (Vf=3.3V)</option><option value=\"ir\">Infrared LED (Vf=1.5V)</option><option value=\"uv\">UV LED (Vf=3.5V)</option><option value=\"custom\">Custom Vf</option></select></div>\n<div id=\"lr-custom\" style=\"display:none;\"><div class=\"form-group\"><label for=\"lr-vf\">LED Forward Voltage Vf (V)</label><input id=\"lr-vf\" max=\"5\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"2.0\"/></div></div>\n<div class=\"form-group\"><label for=\"lr-if\">LED Current (mA)</label><input id=\"lr-if\" max=\"1000\" min=\"1\" step=\"1\" type=\"number\" value=\"20\"/></div>\n<div class=\"form-group\"><label for=\"lr-n\">Number of LEDs in Series</label><input id=\"lr-n\" max=\"20\" min=\"1\" step=\"1\" type=\"number\" value=\"1\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','LED Resistor Calculator – Current Limiting Resistor Value')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('LED Resistor Calculator – Current Limiting Resistor Value')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-led-resistor-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var VF_MAP={red:2.0,yellow:2.0,green:3.2,blue:3.3,white:3.3,ir:1.5,uv:3.5,custom:null};\ndocument.getElementById('lr-color').addEventListener('change',function(){\n  document.getElementById('lr-custom').style.display=this.value==='custom'?'block':'none';\n});\nfunction doCalc(){\n  var vs=parseFloat(document.getElementById('lr-vs').value)||0;\n  var color=document.getElementById('lr-color').value;\n  var vf=color==='custom'?parseFloat(document.getElementById('lr-vf').value)||2.0:VF_MAP[color];\n  var iF=parseFloat(document.getElementById('lr-if').value)||20;\n  var n=parseInt(document.getElementById('lr-n').value)||1;\n  var iA=iF/1000;\n  var totalVf=vf*n;\n  if(vs<=totalVf){alert('Supply voltage must be greater than total LED forward voltage ('+totalVf.toFixed(1)+'V). Increase supply or reduce LEDs in series.');return;}\n  var R=(vs-totalVf)/iA;\n  var P=(vs-totalVf)*iA;\n  var standardR=[10,12,15,18,22,27,33,39,47,56,68,82,100,120,150,180,220,270,330,390,470,560,680,820,1000,1200,1500,1800,2200,2700,3300,3900,4700,5600,6800,8200,10000];\n  var nearest=standardR.reduce(function(prev,curr){return Math.abs(curr-R)<Math.abs(prev-R)?curr:prev;});\n  document.getElementById('el-ri').innerHTML=\n    ri('Required Resistor','<strong style=\"font-size:22px;color:var(--c-accent)\">'+R.toFixed(1)+' Ω</strong>',true)+\n    ri('Nearest Standard (E24)',nearest+' Ω')+\n    ri('Resistor Wattage',P.toFixed(3)+' W → use '+(P<0.125?'1/8W':P<0.25?'1/4W':P<0.5?'1/2W':'1W+')+' resistor')+\n    ri('Voltage Drop (R)',(vs-totalVf).toFixed(2)+' V')+\n    ri('LED Forward Voltage',totalVf.toFixed(1)+' V ('+n+'× '+vf+'V)')+\n    ri('LED Current',iF+' mA');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['LED Voltage','Resistor Voltage'],[totalVf,vs-totalVf],['#1a5c3a','#c8832a']);\n  var aiPrompt=n+' LED(s) at '+vf+'V forward voltage, '+iF+'mA, resistor '+R.toFixed(0)+'Ω';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a practical LED circuit application using these specifications.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Sizing series ballast resistors protects sensitive optoelectronic junctions from thermal runaway while establishing precise photonic flux. To verify overall circuit consumption, consult our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link> and decode resistor color bands with our <Link href="/calculators/electronics/resistor-color-code-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">resistor color code calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            LED Luminous Power vs Series Resistor Heat Dissipation
+          </h2>
+          <LedResistorEfficiencyTradeoffChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Solid-state lighting and indicator instrumentation rely on Light Emitting Diodes (LEDs) for energy-efficient illumination. Unlike incandescent tungsten lamps whose positive temperature coefficient naturally limits runaway current, semiconductors feature an exponential Shockley I-V characteristic. Once forward bias exceeds the bandgap threshold, a minute 100 mV voltage increase can trigger a ten-fold current spike, causing instantaneous bond-wire fusion.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A linear series resistor acts as a ballast stabilizer by absorbing the differential voltage between the DC power supply rail and the LED&apos;s forward junction voltage. By setting the operating current along the linear portion of the luminous intensity curve, engineers achieve consistent optical output across temperature variations.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Equations for Series LED Resistors
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For an array of N identical LEDs connected in a single series string, the total forward voltage drop (V_f,total) is the sum of individual diode voltages:
+          </p>
+          <Formula>{"V_{f,total} = N \times V_f"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Applying Kirchhoff&apos;s Voltage Law (KVL), the voltage dropped across the current-limiting resistor (V_R) and required series resistance (R) are:
+          </p>
+          <Formula>{"V_R = V_s - V_{f,total}, \quad R = \frac{V_R}{I_f} = \frac{V_s - (N \times V_f)}{I_f}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Thermal power dissipation in the series ballast resistor (P_R, in Watts) is calculated as:
+          </p>
+          <Formula>{"P_R = V_R \times I_f = I_f^2 \times R"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To evaluate broader circuit current constraints, cross-reference our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and calculate sensor biasing networks in our <Link href="/calculators/electronics/voltage-divider-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">voltage divider calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            LED Color, Semiconductor Bandgap & Forward Voltage Reference
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The forward voltage drop (V_f) of an LED is determined by the semiconductor material bandgap energy (E_g = h × c / λ). Higher-frequency blue and ultraviolet photons require substantially higher bandgap voltages than low-frequency red photons:
+          </p>
+          <DataTable
+            head={["LED Color", "Dominant Wavelength (λ)", "Typical Forward Drop (Vf)", "Semiconductor Material Composition", "Nominal Current"]}
+            rows={[
+              ["Infrared (IR)", "850 - 940 nm", "1.2 V - 1.5 V", "Gallium Arsenide (GaAs)", "20 - 50 mA"],
+              ["Red", "620 - 645 nm", "1.8 V - 2.2 V", "Aluminium Gallium Arsenide (AlGaAs)", "15 - 20 mA"],
+              ["Orange / Amber", "590 - 610 nm", "2.0 V - 2.2 V", "Gallium Arsenide Phosphide (GaAsP)", "15 - 20 mA"],
+              ["Yellow", "585 - 595 nm", "2.1 V - 2.3 V", "Aluminium Gallium Indium Phosphide", "15 - 20 mA"],
+              ["Pure Green (Traffic)", "520 - 530 nm", "3.0 V - 3.4 V", "Indium Gallium Nitride (InGaN)", "20 mA"],
+              ["Blue", "460 - 475 nm", "3.1 V - 3.4 V", "Indium Gallium Nitride (InGaN)", "20 mA"],
+              ["White (Phosphor)", "Full Spectrum", "3.1 V - 3.5 V", "InGaN Blue + YAG Yellow Phosphor", "20 - 30 mA"],
+              ["Ultraviolet (UV-A)", "365 - 400 nm", "3.4 V - 3.8 V", "Aluminium Gallium Nitride (AlGaN)", "20 mA"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: 12V Automotive LED Indicator Array
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An automotive electronics engineer designs a dashboard backlighting cluster powered from a regulated 12.0 V DC vehicle supply rail. The design incorporates three high-efficiency blue indicator LEDs (V_f = 3.20 V each) connected in series with a target forward operating current of I_f = 20 mA (0.020 A):
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Total Forward LED Voltage Drop:</strong> V_f,total = 3 × 3.20 V = 9.60 V
+            </li>
+            <li>
+              <strong>Resistor Voltage Drop (V_R):</strong> V_R = 12.0 V - 9.60 V = 2.40 V
+            </li>
+            <li>
+              <strong>Exact Required Resistance:</strong> R = 2.40 V / 0.020 A = 120.0 Ω
+            </li>
+            <li>
+              <strong>Nearest Standard E24 Resistor:</strong> Exactly 120 Ω (Brown-Red-Brown-Gold)
+            </li>
+            <li>
+              <strong>Resistor Power Dissipation (P_R):</strong> P_R = 2.40 V × 0.020 A = 0.048 W (48.0 mW)
+            </li>
+            <li>
+              <strong>Recommended Resistor Rating:</strong> Standard 1/4 Watt (0.25 W = 250 mW) provides a robust 5.2× safety margin.
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This three-LED series topology extracts 80% electrical efficiency (9.60 V / 12.0 V), ensuring battery runtime is maximized. Battery runtime can be projected in our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link> and wire gauges checked in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Pulse Width Modulation (PWM) vs Linear Current Ballasting
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While series resistors represent the most cost-effective solution for low-power status indicators, high-power illumination systems (such as automotive headlights and architectural fixtures) utilize Pulse Width Modulation (PWM) constant-current buck regulators.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Linear resistors dissipate unwanted voltage directly as thermal waste. In contrast, switch-mode constant-current drivers chop input voltage at frequencies between 200 kHz and 2 MHz through an inductor-capacitor tank, achieving conversion efficiencies above 92%. Furthermore, PWM dimming modulates LED brightness by altering duty cycle without shifting the forward current, preserving the LED&apos;s calibrated chromaticity and color temperature across all dimming levels.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Thermal Design Considerations & PCB Solder Pad Sinks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When driving multiple LEDs or surface-mount resistors on dense printed circuit boards, thermal coupling between adjacent components must be evaluated. The thermal resistance junction-to-ambient (θ_JA, measured in °C/W) dictates operating temperature rise:
+          </p>
+          <Formula>{"\Delta T = P_R \times \theta_{JA}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A surface-mount 1206 chip resistor dissipating 200 mW on a standard FR-4 PCB with θ_JA = 150^°C/W will experience a localized temperature rise of Δ T = 0.20 × 150 = 30^°C above ambient. Providing dedicated thermal copper flood planes and stitched ground vias prevents localized PCB overheating.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For pulse timing and RC smoothing networks, calculate circuit time constants in our <Link href="/calculators/electronics/rc-time-constant-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">rc time constant calculator</Link> and evaluate RF noise rejection with our <Link href="/calculators/electronics/decibel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">decibel calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Carefully calculating LED series resistance ensures durable optoelectronic performance, eliminates thermal runaway risks, and achieves optimal optical intensity across consumer, industrial, and automotive products.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Active Constant-Current Mirrors & Transistor Biasing Alternatives
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While passive series resistors provide simple current limiting for fixed-voltage supplies, battery-operated electronics experience decaying input voltages as the cell discharges. A series resistor that delivers 20 mA at 4.2V will deliver only 8 mA when the battery decays to 3.2V, causing noticeable LED dimming.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To achieve constant optical brightness across fluctuating supply voltages, analog circuit designers replace linear ballast resistors with active bipolar or MOSFET constant-current mirrors. A matched pair of transistors with an emitter reference resistor establishes a fixed current sink that maintains invariant current through the LED string regardless of supply voltage swings. This approach eliminates flicker in battery instrumentation and ensures uniform luminous output throughout the battery discharge cycle.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Rigorous thermal and electrical ballasting ensures robust optoelectronic reliability, prevents junction burnout, and guarantees high visual performance across consumer, industrial, and automotive displays.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Switch-Mode Buck Constant-Current Drivers vs Linear Ballasts
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-lumen architectural, horticultural, and automotive illumination fixtures where total LED power exceeds 10 Watts, linear series ballast resistors are rendered completely impractical by excessive thermal dissipation. For instance, powering a 36-Watt LED array from a 48V DC bus through a linear dropper would waste over 12 Watts as pure heat, requiring bulky extruded aluminum heatsinks and compromising reliability.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Solid-state lighting fixtures deploy high-efficiency switch-mode hysteretic buck regulators. By chopping input voltage at switching frequencies between 200 kHz and 1.5 MHz through an inductor-capacitor smoothing filter, switch-mode drivers achieve electrical power conversion efficiencies between 92% and 97%. Closed-loop current sensing across a low-value milliohm resistor guarantees stable drive current regardless of supply voltage fluctuations or LED thermal junction temperature shifts.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Balancing thermal dissipation headroom with precise forward current control guarantees long-term optoelectronic luminous consistency and prevents premature diode degradation across commercial and consumer lighting applications.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Pulse-Width Modulation Dimming & Junction Temperature Stabilization
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To achieve flicker-free optical dimming without altering emission spectra, modern display backlights employ high-frequency pulse-width modulation (PWM). Circuit designers can cross-reference forward voltage relationships using our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and partition reference voltages via our <Link href="/calculators/electronics/voltage-divider-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">voltage divider calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Operating LEDs with PWM frequencies above 20 kHz prevents human-perceptible optical strobing and eliminates audible acoustic squeal from surface-mount ceramic bypass capacitors. Designing metal-core PCB substrates with thermal vias transfers heat away from the semiconductor die, stabilizing luminous efficacy over tens of thousands of operating hours.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Rigorous thermal ballasting and electrical current control ensure brilliant visual performance and maximum operational longevity across all solid-state lighting applications.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Phosphor Degradation & Long-Term Color Chromaticity Stability
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-power commercial white LED lighting, optical radiation is synthesized by coating high-efficiency blue indium-gallium-nitride (InGaN) semiconductor emitter chips with cerium-doped yttrium-aluminum-garnet (YAG:Ce) yellow phosphor coatings. When operating junction temperatures exceed 85°C due to inadequate heat-sinking or excessive drive currents, thermal quenching causes the phosphor luminescence conversion efficiency to degrade much faster than the underlying blue semiconductor die.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This differential thermal aging phenomenon manifests as noticeable chromaticity shift, causing warm-white illumination to drift toward harsh bluish-white color temperatures over several thousand operating hours. Furthermore, silicone encapsulant yellowing and optical reflector oxidation accelerate overall lumen depreciation.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Adhering to IES LM-80 test protocols and TM-21 lumen maintenance extrapolation models enables lighting fixture designers to verify continuous 50,000-hour operational lifespans with pristine color consistency.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designing current-limiting networks with conservative power derating factors ensures stable light output, prevents thermal runaway, and maximizes component MTBF across varying temperatures.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Selecting standard E24 resistor series values simplifies supply chain procurement and guarantees repeatable optical performance across mass manufacturing production runs.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Proper thermal relief around surface-mount pads safeguards optoelectronic devices against reflow solder stress during automated board fabrication.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Adhering to conservative electrical ballasting guidelines guarantees consistent optical luminance and robust solid-state lighting reliability across diverse environments.
+          </p>
+
+        </>
+      }
+    >
+      <LedResistorCalculatorComponent />
+    </CalcPage>
   );
 }

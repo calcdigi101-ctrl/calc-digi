@@ -1,26 +1,261 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import TransformerCalculatorComponent from "@/components/calcs/electronics/transformer-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TransformerEfficiencyLoadCurveChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/transformer-calculator";
+const TITLE = "Transformer Calculator | Turns Ratio, Voltage Step-Up/Down & Power";
+const DESCRIPTION =
+  "Calculate electrical transformer turns ratio (Np:Ns), secondary output voltage, primary reflected current, and apparent power transfer capacity.";
 
 export const metadata: Metadata = {
-  "title": "Transformer Calculator – Turns Ratio & Voltage | CalcDigi",
-  "description": "Calculate transformer turns ratio, secondary voltage, secondary current, and power.",
-  "openGraph": {
-    "title": "Transformer Calculator – Turns Ratio & Voltage | CalcDigi",
-    "description": "Calculate transformer turns ratio, secondary voltage, secondary current, and power.",
-    "type": "website",
-    "url": "/calculators/electronics/transformer-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/transformer-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/inductor-calculator", icon: "🔁", name: "Inductor Reactance" },
+  { href: "/calculators/electronics/three-phase-power-calculator", icon: "⚡", name: "Three-Phase Power" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Solar Panel" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is a transformer turns ratio and how does it determine secondary voltage?",
+    a: "The turns ratio (a = Np / Ns) is the ratio of primary winding turns (Np) to secondary winding turns (Ns). Based on Faraday's Law of Mutual Induction, voltage scales proportionally with turns: Vs / Vp = Ns / Np. In a step-down transformer (Np &gt; Ns), secondary voltage decreases while current increases proportionally.",
+  },
+  {
+    q: "Why does current scale inversely with voltage in an ideal transformer?",
+    a: "In an ideal transformer with 100% efficiency, electrical apparent power is conserved between primary and secondary circuits: Pin = Pout, or Vp × Ip = Vs × Is. Consequently, stepping down voltage by a factor of 10 increases output current by a factor of 10 (Is / Ip = Vp / Vs = Np / Ns), obeying the Law of Conservation of Energy.",
+  },
+  {
+    q: "What are the primary sources of energy loss in practical electrical transformers?",
+    a: "Transformer losses are divided into two main categories: No-Load (Core / Iron) losses, consisting of magnetic hysteresis in the core material and circulating eddy currents; and Load (Copper) losses, caused by I²R Joule heating in the primary and secondary copper wire windings as operating current increases.",
+  },
+  {
+    q: "What is transformer impedance reflection and why is it vital in audio circuits?",
+    a: "When a load impedance (ZL) is connected across secondary terminals, it reflects back to primary terminals scaled by the square of turns ratio: Z_primary = (Np / Ns)² × ZL. In vacuum-tube and high-fidelity audio engineering, output transformers match high-impedance plate outputs to low-impedance 4-Ohm or 8-Ohm loudspeaker voice coils.",
+  },
+];
+
+export default function TransformerCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Transformer Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/transformer-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Transformer Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/transformer-calculator\", \"description\": \"Calculate transformer turns ratio, secondary voltage, secondary current, and power.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How does a transformer step down voltage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A step-down transformer has more turns on the primary than secondary (Np > Ns). Vs = Vp × (Ns/Np). For a 10:1 ratio: 230V primary → 23V secondary. Current steps up by the same ratio: Is = Ip × (Np/Ns).\"}}, {\"@type\": \"Question\", \"name\": \"What is transformer turns ratio?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Turns ratio = Np/Ns (primary turns divided by secondary turns). A ratio of 10:1 is a step-down transformer. 1:10 is step-up. The turns ratio directly equals the voltage transformation ratio and the inverse of the current transformation ratio.\"}}, {\"@type\": \"Question\", \"name\": \"Is power conserved in a transformer?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"In an ideal transformer: Pp = Ps (primary power = secondary power). V_p × I_p = V_s × I_s. In real transformers, efficiency is 95-99% for large power transformers, with losses from copper resistance (I²R) and core magnetic hysteresis.\"}}, {\"@type\": \"Question\", \"name\": \"What is transformer efficiency?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Real transformer efficiency = (Power out / Power in) × 100%. Large power transformers: 98-99%. Small signal transformers: 85-95%. Losses include copper losses (I²R in windings) and iron/core losses (hysteresis and eddy currents in the magnetic core).\"}}, {\"@type\": \"Question\", \"name\": \"What is impedance matching with transformers?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Transformers transform impedance by the square of the turns ratio: Zp = Zs × (Np/Ns)². Audio output transformers match a low-impedance speaker (4-16Ω) to a high-impedance amplifier output (thousands of ohms) for maximum power transfer.\"}}, {\"@type\": \"Question\", \"name\": \"Why are power lines high voltage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"High voltage means low current for the same power (P=VI). Lower current reduces I²R losses in transmission cables. A 1,000V line carrying 1A loses the same power as a 10V line carrying 100A, but the 10V system requires 100× thicker cables.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Transformer Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Transformer Calculator</h1>\n<p class=\"calc-intro\">Calculate transformer secondary voltage, current, turns ratio, and power transfer. Essential for power supply design, electrical engineering, audio transformers, and understanding how transformers step up or step down voltage.</p>\n<p class=\"calc-intro\"></p><p>Transformers have been the backbone of electrical power distribution for over 130 years. From the massive 500kV power transformers at transmission substations to the tiny 5V phone charger transformer on your desk, the fundamental physics is identical — electromagnetic induction transfers energy between windings with remarkable efficiency.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Vs/Vp = Ns/Np | Is/Ip = Np/Ns | Turns Ratio = Np/Ns | P_primary = P_secondary (ideal)</div></div>\n<div class=\"content-section\">\n<h2>Transformer Design Guide</h2>\n<p>A transformer transfers electrical energy between two circuits through electromagnetic induction. It consists of two coils (primary and secondary) wound on a shared magnetic core. Transformers can step up or step down voltage while conserving power (in ideal transformers). They are fundamental to power distribution, electronics power supplies, and audio equipment.</p>\n<h3>Turns Ratio and Voltage Transformation</h3>\n<p>The turns ratio (Np:Ns) determines voltage transformation: Vs/Vp = Ns/Np. A step-down transformer with 10:1 turns ratio converts 230V to 23V. A step-up transformer with 1:10 ratio converts 120V to 1,200V. The turns ratio is the most fundamental transformer specification.</p>\n<h3>Current Transformation</h3>\n<p>Current transforms inversely to voltage: Is/Ip = Np/Ns. A step-down transformer that halves voltage doubles current. This is why power lines use high voltage (low current) for long-distance transmission — lower current means less I²R resistive losses in cables.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Application</th><th style=\"padding:12px 16px;\">Primary V</th><th style=\"padding:12px 16px;\">Secondary V</th><th style=\"padding:12px 16px;\">Turns Ratio</th><th style=\"padding:12px 16px;\">Current Ratio</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Wall adapter (5V/2A)</td><td style=\"padding:11px 16px;\">230V</td><td style=\"padding:11px 16px;\">5V</td><td style=\"padding:11px 16px;\">46:1</td><td style=\"padding:11px 16px;\">0.043A</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Audio output transformer</td><td style=\"padding:11px 16px;\">120V</td><td style=\"padding:11px 16px;\">8Ω load equiv.</td><td style=\"padding:11px 16px;\">—</td><td style=\"padding:11px 16px;\">Impedance matching</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Distribution transformer</td><td style=\"padding:11px 16px;\">11,000V</td><td style=\"padding:11px 16px;\">230V</td><td style=\"padding:11px 16px;\">47.8:1</td><td style=\"padding:11px 16px;\">×47.8</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Microwave oven</td><td style=\"padding:11px 16px;\">120V</td><td style=\"padding:11px 16px;\">2,000V</td><td style=\"padding:11px 16px;\">1:16.7</td><td style=\"padding:11px 16px;\">×16.7</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Welding transformer</td><td style=\"padding:11px 16px;\">240V</td><td style=\"padding:11px 16px;\">40V</td><td style=\"padding:11px 16px;\">6:1</td><td style=\"padding:11px 16px;\">×6</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Transformer Design and Selection Guide</h2>\n<p>Transformers are critical components in power supplies, audio equipment, and electrical distribution. Selecting the right transformer requires understanding VA rating, regulation, core material, and frequency. A mismatch can cause overheating, excessive voltage drop under load, or audio hum.</p>\n<h3>Transformer VA Rating</h3>\n<p>Transformer capacity is rated in VA (volt-amperes), not watts. A 100VA transformer delivers 100VA regardless of load power factor. For resistive loads (VA = W), 100VA = 100W capacity. For a 12V secondary, 100VA = 12V × 8.33A maximum current. Always size the transformer at 1.2-1.5× your expected load to account for regulation and inrush current.</p>\n<h3>Transformer Regulation</h3>\n<p>Voltage regulation = (Vno-load - Vfull-load) / Vfull-load × 100%. A poorly regulated transformer may show 14V with no load but drop to 11V under full load. Regulation depends on winding resistance and leakage inductance. High-quality toroidal transformers: 3-5% regulation. Standard EI-core: 8-12%. For precision power supplies, use a voltage regulator after the transformer.</p>\n<h3>Toroidal vs EI Core Transformers</h3>\n<p>Toroidal transformers (donut-shaped core) have 50% less stray magnetic field, lower audible hum, higher efficiency (98% vs 95%), and better regulation than EI-core (stacked lamination) transformers. EI-core is cheaper to manufacture. Toroidal is preferred for audio amplifiers, medical equipment, and noise-sensitive applications. Both work at 50/60 Hz mains frequency.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does a transformer step down voltage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A step-down transformer has more turns on the primary than secondary (Np &gt; Ns). Vs = Vp × (Ns/Np). For a 10:1 ratio: 230V primary → 23V secondary. Current steps up by the same ratio: Is = Ip × (Np/Ns).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is transformer turns ratio? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Turns ratio = Np/Ns (primary turns divided by secondary turns). A ratio of 10:1 is a step-down transformer. 1:10 is step-up. The turns ratio directly equals the voltage transformation ratio and the inverse of the current transformation ratio.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is power conserved in a transformer? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">In an ideal transformer: Pp = Ps (primary power = secondary power). V_p × I_p = V_s × I_s. In real transformers, efficiency is 95-99% for large power transformers, with losses from copper resistance (I²R) and core magnetic hysteresis.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is transformer efficiency? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Real transformer efficiency = (Power out / Power in) × 100%. Large power transformers: 98-99%. Small signal transformers: 85-95%. Losses include copper losses (I²R in windings) and iron/core losses (hysteresis and eddy currents in the magnetic core).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is impedance matching with transformers? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Transformers transform impedance by the square of the turns ratio: Zp = Zs × (Np/Ns)². Audio output transformers match a low-impedance speaker (4-16Ω) to a high-impedance amplifier output (thousands of ohms) for maximum power transfer.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why are power lines high voltage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">High voltage means low current for the same power (P=VI). Lower current reduces I²R losses in transmission cables. A 1,000V line carrying 1A loses the same power as a 10V line carrying 100A, but the 10V system requires 100× thicker cables.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/led-resistor-calculator\"><span class=\"rc-icon\">💡</span><span class=\"rc-name\">LED Resistor</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Transformer Calculator – Turns Ratio, Voltage and Current</h2><div class=\"form-group\"><label for=\"tr-vp\">Primary Voltage Vp (V)</label><input id=\"tr-vp\" min=\"0\" step=\"any\" type=\"number\" value=\"230\"/></div>\n<div class=\"form-group\"><label for=\"tr-np\">Primary Turns Np</label><input id=\"tr-np\" min=\"1\" step=\"1\" type=\"number\" value=\"460\"/></div>\n<div class=\"form-group\"><label for=\"tr-ns\">Secondary Turns Ns</label><input id=\"tr-ns\" min=\"1\" step=\"1\" type=\"number\" value=\"23\"/></div>\n<div class=\"form-group\"><label for=\"tr-ip\">Primary Current Ip (A)</label><input id=\"tr-ip\" min=\"0\" step=\"any\" type=\"number\" value=\"0.5\"/></div>\n<div class=\"form-group\"><label for=\"tr-eff\">Transformer Efficiency (%)</label><input id=\"tr-eff\" max=\"100\" min=\"50\" step=\"1\" type=\"number\" value=\"95\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Transformer Calculator – Turns Ratio, Voltage and Current')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Transformer Calculator – Turns Ratio, Voltage and Current')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-transformer-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function g(id){return parseFloat(document.getElementById(id).value)||0;}\nfunction doCalc(){\n  var Vp=g('tr-vp'),Np=g('tr-np'),Ns=g('tr-ns'),Ip=g('tr-ip'),eff=g('tr-eff')/100;\n  if(!Vp||!Np||!Ns){alert('Enter primary voltage and both turns counts.');return;}\n  var ratio=Np/Ns;\n  var Vs=Vp*(Ns/Np);\n  var Pp=Vp*Ip;\n  var Ps=Pp*eff;\n  var Is=Ps/Vs;\n  document.getElementById('el-ri').innerHTML=\n    ri('Secondary Voltage','<strong style=\"font-size:22px;color:var(--c-accent)\">'+Vs.toFixed(2)+' V</strong>',true)+\n    ri('Turns Ratio',ratio.toFixed(2)+':1 ('+(ratio>1?'Step-down':'Step-up')+')')+\n    ri('Secondary Current',Is.toFixed(4)+' A')+\n    ri('Primary Power',Pp.toFixed(2)+' W')+\n    ri('Secondary Power',Ps.toFixed(2)+' W')+\n    ri('Efficiency',(eff*100)+'%');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Primary V','Secondary V'],[Math.round(Vp),Math.round(Vs)||1],['#1a5c3a','#c8832a']);\n  var aiPrompt='Transformer: '+Vp+'V → '+Vs.toFixed(1)+'V, ratio '+ratio.toFixed(1)+':1, power '+Pp.toFixed(0)+'W';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world power engineering application of this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Transformers transfer electrical energy between circuits through mutual magnetic flux linkage, allowing high-voltage long-distance grid transmission with minimal resistive losses. To evaluate industrial 3-phase machinery, consult our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and calculate circuit power in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Transformer Efficiency Curve & Iron vs Copper Loss Balance
+          </h2>
+          <TransformerEfficiencyLoadCurveChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Invented in the late 19th century by pioneering electrical engineers including Michael Faraday, William Stanley, and Nikola Tesla, the electrical transformer enabled the global adoption of alternating current (AC) power grids. By stepping up generator output voltages to hundreds of kilovolts, utility operators drastically reduce transmission line currents, slashing I² R Joule heat dissipation over long distances before stepping voltage back down for domestic consumer distribution.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Transformers are static electrodynamic machines containing no moving mechanical parts. Electrical energy transfer occurs entirely through mutual electromagnetic induction between primary and secondary copper coils wound around a shared ferromagnetic core. Real-world transformers achieve exceptional operating efficiencies between 94% and 99.5%, representing some of the most efficient energy conversion devices ever engineered.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Fundamental Transformer Ratios & Magnetic Transfer Formulas
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The fundamental transformer turns ratio (a) connects primary turns (N_p), secondary turns (N_s), primary voltage (V_p), and secondary voltage (V_s):
+          </p>
+          <Formula>{"a = \frac{N_p}{N_s} = \frac{V_p}{V_s} = \frac{I_s}{I_p}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under non-ideal conditions with transformer efficiency factor (η, expressed as a decimal), primary reflected current (I_p) required to support secondary load (I_s) is:
+          </p>
+          <Formula>{"I_p = \frac{V_s \times I_s}{V_p \times \eta} = \frac{S_{out}}{V_p \times \eta}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Impedance transformation (Z_primary) reflected from a secondary load impedance (Z_load) scales with the square of the turns ratio:
+          </p>
+          <Formula>{"Z_{primary} = a^2 \times Z_{load} = \left(\frac{N_p}{N_s}\right)^2 \times Z_{load}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For magnetic core reactance analysis, consult our <Link href="/calculators/electronics/inductor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">inductor calculator</Link> and calculate circuit loop resistance in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Transformer Core Topologies & Loss Profiles
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Transformer performance is heavily dictated by magnetic core metallurgy and geometric construction:
+          </p>
+          <DataTable
+            head={["Transformer Core Construction", "Magnetic Material", "Typical Efficiency", "Stray Magnetic Leakage", "Standard Engineering Application"]}
+            rows={[
+              ["Laminated E-I Core", "Silicon Grain-Oriented Steel", "88% - 94%", "Moderate to High (EMI radiation)", "Low-cost linear power supplies, battery chargers, guitar amps"],
+              ["Toroidal Donut Core", "Continuously Wound Silicon Steel", "95% - 98%", "Extremely Low (Near zero hum)", "High-end medical electronics, audiophile preamplifiers"],
+              ["Ferrite E-E / E-T-D Core", "Manganese-Zinc (MnZn) Ferrite", "92% - 97%", "Low (High-frequency design)", "Switch-mode power supplies (SMPS), computer ATX supplies"],
+              ["Planar PCB Transformer", "Embedded Multilayer FR-4 PCB", "97% - 99%", "Very Low (Controlled geometry)", "Ultra-dense aerospace DC-DC converters, EV onboard chargers"],
+              ["Oil-Immersed Utility Core", "Amorphous Metal Alloy", "98.5% - 99.5%", "Contained within steel tank", "Pole-mounted distribution transformers, utility substations"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Industrial Step-Down Transformer Sizing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A manufacturing facility requires a control power transformer stepping down V_p = 480 V AC single-phase machinery bus voltage to V_s = 120 V AC to energize auxiliary PLC relays and human-machine interface (HMI) screens. The continuous secondary load current is I_s = 8.0 A with a manufacturer transformer efficiency rating of η = 96.0% (0.96):
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Turns Ratio (a):</strong> a = V_p / V_s = 480 V / 120 V = 4.0 : 1
+            </li>
+            <li>
+              <strong>Secondary Apparent Power (S_out):</strong> S_out = V_s × I_s = 120 V × 8.0 A = 960 VA (0.96 kVA)
+            </li>
+            <li>
+              <strong>Primary Input Apparent Power (S_in):</strong>
+              <br />
+              S_in = S_out / η = 960 VA / 0.96 = 1,000 VA = 1.00 kVA
+            </li>
+            <li>
+              <strong>Primary Line Current (I_p):</strong>
+              <br />
+              I_p = S_in / V_p = 1,000 VA / 480 V = 2.083 A
+            </li>
+            <li>
+              <strong>Continuous Total Thermal Loss:</strong> P_loss = S_in - S_out = 1,000 - 960 = 40.0 Watts
+            </li>
+            <li>
+              <strong>Standard Transformer Sizing:</strong> Standard industrial control transformers are cataloged at 1.0 kVA and 1.5 kVA. Selecting a 1.5 kVA rating provides a 56% headroom margin to accommodate relay coil inrush transients.
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Sizing the transformer at 1.5 kVA guarantees reliable operation without voltage sag during solenoid actuation. Feeder conductor sizing should be verified in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link> and solar battery backups in our <Link href="/calculators/electronics/solar-panel-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">solar panel calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Magnetic Core Saturation & Excitation Inrush Current
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When a power transformer is initially energized at the zero-crossing of the AC voltage waveform, magnetic flux must build to twice its steady-state peak value to satisfy Faraday&apos;s Law. If the iron core retains remnant magnetization from previous operation, the peak magnetic flux density drives the core deep into saturation (B &gt; B_sat).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under deep core saturation, relative permeability collapses, leaving only the primary winding&apos;s tiny DC resistance to limit current. This triggers an excitation inrush current that can surge to 10× to 25× nominal rated current for several AC cycles. Branch circuit breakers protecting transformers must utilize magnetic delay trip curves (such as Type D circuit breakers) to prevent false tripping.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Regulatory Standards & Electrical Safety Isolation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Transformers providing galvanic isolation and power distribution must comply with rigorous international safety codes:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>IEEE C57 Series:</strong> Comprehensive American standard governing distribution, power, and regulating transformers, including short-circuit impedance and temperature rise tests.
+            </li>
+            <li>
+              <strong>IEC 61558:</strong> Safety of power transformers, power supplies, reactors and similar products, establishing dielectric insulation barriers (often 4,000 V AC Hi-Pot test).
+            </li>
+            <li>
+              <strong>UL 5085 / UL 1561:</strong> Underwriters Laboratories safety standard for low-voltage general purpose dry-type and specialty industrial transformers.
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For complex industrial three-phase distribution calculations, consult our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and calculate power factor correction banks in our <Link href="/calculators/electronics/capacitor-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">capacitor calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate transformer turns ratio modeling and loss analysis ensures industrial electrical networks operate with peak thermal efficiency, uncompromised galvanic isolation, and stable voltage delivery under fluctuating dynamic loads.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Harmonic K-Factor Ratings & Non-Linear Industrial Heating
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern commercial office buildings and data centers, power transformers feed vast arrays of non-linear electronic power supplies that generate intense harmonic currents. High-frequency harmonics dramatically increase transformer winding eddy current losses (which scale with the square of harmonic frequency: P_eddy ∝ Ih² × f_h²).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Standard commercial distribution transformers subjected to non-linear loads overheat rapidly and suffer insulation breakdown. Under ANSI/IEEE C57.110, transformers feeding harmonic loads are assigned standardized <strong>K-Factor</strong> ratings (K-4, K-13, K-20). A K-13 rated transformer incorporates oversized neutral conductors, electrostatic shielding between primary and secondary windings, and parallel-stranded transposed copper conductors to withstand severe harmonic currents safely without overheating.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering transformer mutual induction principles, core loss mechanics, and thermal ratings ensures robust electrical power distribution and uninterrupted operation across commercial and industrial facilities.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Transformer Polarity Testing: Dot Convention & Phasing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In alternating current engineering and multi-phase transformer connections, knowing the relative instantaneous direction of induced voltages across primary and secondary terminals is critical. Circuit schematic diagrams utilize the standardized &lsquo;Dot Convention&rsquo; to indicate instantaneous winding polarity.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When alternating current enters the dotted terminal of the primary winding, the induced secondary voltage is instantaneously positive at the dotted secondary terminal. In three-phase Wye-Delta transformer banks, incorrect winding polarity can produce a 180-degree phase inversion that results in massive circulating currents, blown fuses, and catastrophic equipment failure. Electrical technicians verify transformer phasing using standard AC polarity test circuits prior to placing transformers in parallel operation.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Routine thermal insulation testing and dissolved gas analysis (DGA) on oil-filled distribution transformers detects internal dielectric degradation before catastrophic insulation breakdown occurs.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Sizing control transformers with ample VA headroom protects industrial relay logic from voltage brownouts during contactor inrush transients, delivering uncompromised operational reliability across automated manufacturing plants.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Multi-Phase Grid Distribution & Heavy Conductor Sizing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In industrial power distribution, large transformers step down transmission voltages for polyphase factory loads. Contractors calculate line current balance using our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and size secondary feeder cables through our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Implementing delta-wye transformer configurations traps zero-sequence triplen harmonics (3rd, 9th, 15th) within the primary delta winding, preventing harmonic overheating from circulating back into utility transmission lines. Sizing proper k-factor rated transformers safeguards facilities against non-linear electronic loads.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering transformer mutual induction principles ensures reliable power distribution and operational longevity across utility and commercial installations.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Solid-State Transformers (SST) & Smart Grid Power Electronic Conversion
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While conventional magnetic transformers have dominated electrical distribution for over a century, modern power electronic engineering is rapidly adopting Solid-State Transformers (SSTs). An SST integrates high-voltage silicon carbide (SiC) power semiconductor switches operating at switching frequencies between 20 kHz and 100 kHz with a medium-frequency nanocrystalline magnetic core.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because transformer core volume and weight scale inversely with operating frequency, an SST achieves a 70% to 80% reduction in physical footprint compared to a 60 Hz oil-immersed distribution transformer of equivalent megavolt-ampere rating. Furthermore, integrated bi-directional active converters allow SSTs to perform real-time voltage regulation, harmonic isolation, reactive power compensation, and direct DC bus interconnection for electric vehicle fast-charging plazas and battery energy storage stations.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Balancing primary and secondary impedance ratios ensures maximum power transfer and prevents magnetic core saturation in commercial distribution equipment.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Regular dielectric oil analysis and thermal monitoring protect utility transformers against premature insulation breakdown and costly electrical outages across municipal power grids.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering transformer mutual induction calculations enables electrical engineers to optimize coil geometries, minimize stray core losses, and ensure resilient grid infrastructure.
+          </p>
+
+        </>
+      }
+    >
+      <TransformerCalculatorComponent />
+    </CalcPage>
   );
 }

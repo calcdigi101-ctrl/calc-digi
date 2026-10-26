@@ -1,26 +1,265 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import SolarPanelCalculatorComponent from "@/components/calcs/electronics/solar-panel-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SolarIrradianceMonthlyYieldCurveChart } from "@/components/flagship/electronics/editorial-charts";
+
+const PATH = "/calculators/electronics/solar-panel-calculator";
+const TITLE = "Solar Panel Calculator | Photovoltaic System Sizing & Energy Yield";
+const DESCRIPTION =
+  "Calculate solar PV array kilowatt capacity, number of solar panels required, daily kilowatt-hour yield, and inverter sizing based on peak sun hours.";
 
 export const metadata: Metadata = {
-  "title": "Solar Panel Calculator – kWh, Panels Needed | CalcDigi",
-  "description": "Calculate how many solar panels you need, daily kWh output, and savings. Estimate solar system size for any home or business.",
-  "openGraph": {
-    "title": "Solar Panel Calculator – kWh, Panels Needed | CalcDigi",
-    "description": "Calculate how many solar panels you need, daily kWh output, and savings. Estimate solar system size for any home or business.",
-    "type": "website",
-    "url": "/calculators/electronics/solar-panel-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/electronics/solar-panel-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life" },
+  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "/calculators/electronics/three-phase-power-calculator", icon: "⚡", name: "Three-Phase Power" },
+  { href: "/calculators/electronics/transformer-calculator", icon: "🔄", name: "Transformer" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How do you calculate the number of solar panels needed for a home?",
+    a: "To calculate required solar panels, divide daily household electricity demand (kWh) by the local average daily Peak Sun Hours (PSH), adjust for system derating losses (typically 15% to 20%), and divide by individual panel wattage: Array Watts = [Daily kWh / PSH / (1 - Loss)] × 1,000. Dividing Array Watts by panel rating (e.g., 400W) gives the total number of solar panels.",
+  },
+  {
+    q: "What is a 'Peak Sun Hour' (PSH) and how does it differ from daylight hours?",
+    a: "A Peak Sun Hour represents the equivalent duration during which solar solar irradiance averages 1,000 Watts per square meter (1 kW/m²). While daylight may last 12 hours from dawn to dusk, early morning and late afternoon solar intensity is low. A typical location in North America receives between 3.5 and 5.5 Peak Sun Hours of full-intensity equivalent radiation daily.",
+  },
+  {
+    q: "What causes environmental and electrical derate losses in solar PV systems?",
+    a: "Solar PV derate losses aggregate several real-world factors: DC-to-AC inverter conversion losses (3% to 5%), solar panel thermal degradation in hot summer weather (-0.35%/°C above 25°C), surface dust and soiling (2% to 4%), DC/AC wiring resistive voltage drop (1% to 2%), and module mismatch or partial shading (2% to 5%).",
+  },
+  {
+    q: "What is the difference between monocrystalline and polycrystalline solar panels?",
+    a: "Monocrystalline panels are fabricated from single continuous silicon crystal ingots (Czochralski process), yielding higher commercial conversion efficiencies (20% to 23%), superior black aesthetics, and lower temperature coefficients. Polycrystalline panels are cast from melted fragments, yielding lower efficiency (15% to 17%) and a speckled blue appearance.",
+  },
+];
+
+export default function SolarPanelCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Electronics Calculators\", \"item\": \"https://calcdigi.com/pages/electronics\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Solar Panel Calculator\", \"item\": \"https://calcdigi.com/calculators/electronics/solar-panel-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Solar Panel Calculator\", \"url\": \"https://calcdigi.com/calculators/electronics/solar-panel-calculator\", \"description\": \"Calculate how many solar panels you need, daily kWh output, and savings. Estimate solar system size for any home or business.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many solar panels do I need for a 2000 kWh/month home?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"2,000 kWh/month = 66.7 kWh/day. With 400W panels at 5 peak sun hours and 80% efficiency: each panel produces 400×5×0.8 = 1.6 kWh/day. Panels needed = 66.7/1.6 = 42 panels. This is a large residential system (~16.8 kW).\"}}, {\"@type\": \"Question\", \"name\": \"What is a peak sun hour?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A peak sun hour (PSH) is equivalent to 1 hour of sunlight at 1,000 W/m² intensity. A location with 5 PSH receives the equivalent of 5 hours of full-intensity sun per day. A 400W panel in a 5 PSH location generates 400W × 5h = 2,000 Wh = 2 kWh/day (before losses).\"}}, {\"@type\": \"Question\", \"name\": \"How much does a residential solar system cost?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A typical 6-10 kW residential solar system costs $15,000-$30,000 before incentives in the US. The 30% federal tax credit ended for systems installed after 2025, so state or utility incentives are the main way to bring that down. Payback period is typically 6-10 years. Systems last 25-30 years with minimal maintenance.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate solar panel output?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Daily output (kWh) = Panel wattage (kW) × Peak sun hours × System efficiency. For a 400W panel with 5 PSH and 80% efficiency: 0.4kW × 5h × 0.80 = 1.6 kWh/day. Monthly output = 1.6 × 30 = 48 kWh/panel/month.\"}}, {\"@type\": \"Question\", \"name\": \"What affects solar panel efficiency?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Temperature (panels lose ~0.5%/°C above 25°C), soiling and dust, shading (even partial shade can reduce output 50%+), panel orientation and tilt angle, inverter quality, and age (panels degrade ~0.5-0.7%/year). Modern monocrystalline panels: 20-23% efficiency.\"}}, {\"@type\": \"Question\", \"name\": \"What is the payback period for solar panels?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Payback period = Total system cost / Annual electricity savings. A $15,000 system (after incentives) saving $1,800/year in electricity = 8.3 year payback. After payback, electricity is essentially free for the remaining 15-20 years of panel life.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/electronics\">Electronics</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Solar Panel Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Solar Panel Calculator</h1>\n<p class=\"calc-intro\">Calculate how many solar panels you need based on your electricity consumption, roof space, and local sun hours. Estimate daily and annual energy production, potential savings, and payback period for your solar installation.</p>\n<p class=\"calc-intro\"></p><p>Solar photovoltaic (PV) technology has undergone a dramatic cost reduction — panel prices fell over 90% between 2010 and 2023. Today, solar is often the cheapest source of new electricity generation globally. Accurately calculating the required system size ensures you generate enough energy to meet needs without significantly over-investing in excess capacity.</p><p></p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Daily Energy (kWh) = Panel Wattage × Peak Sun Hours × Efficiency | Panels Needed = Daily Use / Daily Output per Panel</div></div>\n<div class=\"content-section\">\n<h2>Solar Panel System Sizing Guide</h2>\n<p>Calculating the right solar panel system size requires knowing your electricity consumption, local peak sun hours (solar irradiance), panel efficiency, and system losses. A properly sized system covers your needs without significant over or under-production.</p>\n<h3>Peak Sun Hours</h3>\n<p>Peak sun hours (PSH) is the number of hours per day when solar irradiance averages 1,000 W/m² (the standard test condition for solar panels). PSH varies by location: Arizona (7-8 PSH), California (5-6 PSH), UK (2.5-3.5 PSH), Germany (3-4 PSH), Pakistan (5-6 PSH), India (4.5-6 PSH). Higher PSH = more energy per panel per day.</p>\n<h3>System Efficiency Factors</h3>\n<p>Real-world solar systems produce less than rated output due to: inverter efficiency (~96%), cable losses (~2%), temperature derating (~10-15%, panels lose ~0.5%/°C above 25°C), soiling/shading (~5%), and panel degradation (~0.5%/year). Total system efficiency: typically 75-85% of nameplate rating.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Configuration</th><th style=\"padding:12px 16px;\">Daily Output</th><th style=\"padding:12px 16px;\">Annual Output</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">100W panel, 5 PSH, 80% eff.</td><td style=\"padding:11px 16px;\">0.4 kWh/day</td><td style=\"padding:11px 16px;\">146 kWh/year</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">300W panel, 5 PSH, 80% eff.</td><td style=\"padding:11px 16px;\">1.2 kWh/day</td><td style=\"padding:11px 16px;\">438 kWh/year</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">400W panel, 5 PSH, 80% eff.</td><td style=\"padding:11px 16px;\">1.6 kWh/day</td><td style=\"padding:11px 16px;\">584 kWh/year</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">400W panel, 7 PSH, 80% eff.</td><td style=\"padding:11px 16px;\">2.24 kWh/day</td><td style=\"padding:11px 16px;\">818 kWh/year</td></tr></tbody></table></div>\n</div>\n<div class=\"content-section\">\n<h2>Solar Panel System Design Considerations</h2>\n<p>A complete solar installation requires more than just panels. The inverter, battery storage, charge controller, wiring, and mounting all affect system performance and cost. Understanding these components helps make informed decisions and avoid costly mistakes.</p>\n<h3>String Design and MPPT</h3>\n<p>Solar panels are connected in series (strings) to reach inverter input voltage requirements. A 48V battery system uses 2-4 panels in series (Voc ~180-370V). MPPT (Maximum Power Point Tracking) charge controllers continuously find the optimal operating point on the I-V curve, extracting 10-30% more energy than older PWM controllers — especially valuable on partly cloudy days.</p>\n<h3>Battery Storage Sizing</h3>\n<p>Battery storage = Daily consumption × Days of autonomy / DoD. For 10 kWh/day, 2 days autonomy, 80% DoD (lithium): 10 × 2 / 0.8 = 25 kWh of battery storage. Lead-acid DoD is only 50%, requiring 40 kWh for the same result. Lithium (LiFePO4) batteries cost more upfront but last 3-5× longer with deeper cycling.</p>\n<h3>Grid-Tied vs Off-Grid Systems</h3>\n<p>Grid-tied systems export excess power to the utility and draw from the grid when needed — no batteries required, lower cost. Off-grid systems are fully independent — require battery storage, larger panel arrays, and diesel generator backup. Hybrid systems (grid-tied with battery backup) provide energy independence while maintaining grid connection for reliability.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many solar panels do I need for a 2000 kWh/month home? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">2,000 kWh/month = 66.7 kWh/day. With 400W panels at 5 peak sun hours and 80% efficiency: each panel produces 400×5×0.8 = 1.6 kWh/day. Panels needed = 66.7/1.6 = 42 panels. This is a large residential system (~16.8 kW).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a peak sun hour? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A peak sun hour (PSH) is equivalent to 1 hour of sunlight at 1,000 W/m² intensity. A location with 5 PSH receives the equivalent of 5 hours of full-intensity sun per day. A 400W panel in a 5 PSH location generates 400W × 5h = 2,000 Wh = 2 kWh/day (before losses).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does a residential solar system cost? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A typical 6-10 kW residential solar system costs $15,000-$30,000 before incentives in the US. The 30% federal tax credit ended for systems installed after 2025, so state or utility incentives are the main way to bring that down. Payback period is typically 6-10 years. Systems last 25-30 years with minimal maintenance.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate solar panel output? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Daily output (kWh) = Panel wattage (kW) × Peak sun hours × System efficiency. For a 400W panel with 5 PSH and 80% efficiency: 0.4kW × 5h × 0.80 = 1.6 kWh/day. Monthly output = 1.6 × 30 = 48 kWh/panel/month.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What affects solar panel efficiency? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Temperature (panels lose ~0.5%/°C above 25°C), soiling and dust, shading (even partial shade can reduce output 50%+), panel orientation and tilt angle, inverter quality, and age (panels degrade ~0.5-0.7%/year). Modern monocrystalline panels: 20-23% efficiency.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the payback period for solar panels? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Payback period = Total system cost / Annual electricity savings. A $15,000 system (after incentives) saving $1,800/year in electricity = 8.3 year payback. After payback, electricity is essentially free for the remaining 15-20 years of panel life.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Electronics Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/electronics/ohms-law-calculator\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Ohm's Law</span></a><a class=\"related-card\" href=\"/calculators/electronics/power-calculator\"><span class=\"rc-icon\">🔌</span><span class=\"rc-name\">Power Calculator</span></a><a class=\"related-card\" href=\"/calculators/electronics/battery-life-calculator\"><span class=\"rc-icon\">🔋</span><span class=\"rc-name\">Battery Life</span></a><a class=\"related-card\" href=\"/calculators/electronics/wire-gauge-calculator\"><span class=\"rc-icon\">🔧</span><span class=\"rc-name\">Wire Gauge</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Solar Panel Calculator – Energy Output and Panels Needed</h2><div class=\"form-group\"><label for=\"sp-usage\">Monthly Electricity Usage (kWh)</label><input id=\"sp-usage\" min=\"1\" step=\"10\" type=\"number\" value=\"900\"/></div>\n<div class=\"form-group\"><label for=\"sp-psh\">Peak Sun Hours per Day</label><input id=\"sp-psh\" max=\"10\" min=\"1\" step=\"0.5\" type=\"number\" value=\"5\"/></div>\n<div class=\"form-group\"><label for=\"sp-watts\">Solar Panel Wattage (W)</label><input id=\"sp-watts\" max=\"700\" min=\"50\" step=\"10\" type=\"number\" value=\"400\"/></div>\n<div class=\"form-group\"><label for=\"sp-eff\">System Efficiency (%)</label><input id=\"sp-eff\" max=\"100\" min=\"50\" step=\"1\" type=\"number\" value=\"80\"/></div>\n<div class=\"form-group\"><label for=\"sp-rate\">Electricity Rate ($/kWh)</label><input id=\"sp-rate\" min=\"0.01\" step=\"0.01\" type=\"number\" value=\"0.15\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('el-result').style.display='none';document.getElementById('el-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"el-result\" style=\"display:none;\"><div id=\"el-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"el-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"el-ai\" style=\"display:none;\"></div></div>\n<div id=\"el-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-el\" onclick=\"printResult('el-result','Solar Panel Calculator – Energy Output and Panels Needed')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Solar Panel Calculator – Energy Output and Panels Needed')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-solar-panel-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var usage=parseFloat(document.getElementById('sp-usage').value)||0;\n  var psh=parseFloat(document.getElementById('sp-psh').value)||0;\n  var watts=parseFloat(document.getElementById('sp-watts').value)||0;\n  var eff=parseFloat(document.getElementById('sp-eff').value)/100||0.8;\n  var rate=parseFloat(document.getElementById('sp-rate').value)||0.15;\n  if(!usage||!psh||!watts){alert('Please enter all values.');return;}\n  var dailyUse=usage/30;\n  var outputPerPanel=watts/1000*psh*eff;\n  var panelsNeeded=Math.ceil(dailyUse/outputPerPanel);\n  var systemKw=panelsNeeded*watts/1000;\n  var annualOutput=outputPerPanel*panelsNeeded*365;\n  var annualSavings=annualOutput*rate;\n  var estCost=systemKw*1500;\n  var payback=estCost/annualSavings;\n  document.getElementById('el-ri').innerHTML=\n    ri('Panels Needed','<strong style=\"font-size:24px;color:var(--c-accent)\">'+panelsNeeded+' panels</strong>',true)+\n    ri('System Size',systemKw.toFixed(1)+' kW')+\n    ri('Daily Output per Panel',outputPerPanel.toFixed(2)+' kWh')+\n    ri('Annual Output',annualOutput.toFixed(0)+' kWh')+\n    ri('Annual Savings','$'+annualSavings.toFixed(0))+\n    ri('Est. Payback Period',payback.toFixed(1)+' years');\n  document.getElementById('el-result').style.display='block';document.getElementById('el-actions').style.display='flex';\n  drawDonut('el-chart',['Solar Output','Usage'],[Math.round(annualOutput),Math.round(usage*12)],['#1a5c3a','#c8832a']);\n  var aiPrompt=panelsNeeded+' × '+watts+'W panels needed, '+systemKw.toFixed(1)+'kW system, $'+annualSavings.toFixed(0)+'/year savings';\n  var ai=document.getElementById('el-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences explain a real-world residential solar application of this result.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/electronics", label: "Electronics & Engineering" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Engineering Guidance:</strong> Sizing photovoltaic installations requires balancing regional solar irradiance against annual household consumption and seasonal variations. To size backup battery banks, cross-reference our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link> and calculate circuit power demands in our <Link href="/calculators/electronics/power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Monthly Solar Irradiance Harvest vs Household Demand
+          </h2>
+          <SolarIrradianceMonthlyYieldCurveChart />
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Solar photovoltaic (PV) engineering transforms electromagnetic solar radiation directly into electrical direct current through the photovoltaic effect discovered by Edmond Becquerel in 1839. When solar photons possessing energy greater than the bandgap threshold strike a doped silicon p-n junction, electron-hole pairs are liberated. The internal built-in electric field sweeps these carriers across the junction, generating usable electrical current.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designing a reliable residential or commercial solar array requires modeling local solar insolation metrics, panel tilt angles, seasonal sun trajectories, and comprehensive system derating factors. Because solar generation peaks during midday summer months while electrical consumption often peaks during winter heating or summer air conditioning cycles, accurate sizing ensures annual net energy neutrality.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Photovoltaic Array Sizing & Energy Production Equations
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The required daily direct current generation (E_DC, in kWh) accounting for system derate factor (η_sys = 1 - Loss% / 100) is:
+          </p>
+          <Formula>{"E_{DC} = \frac{E_{target} (kWh/day)}{\eta_{sys}}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The required DC array nameplate capacity (P_array, in kW) and total panel quantity (N_panels) based on regional Peak Sun Hours (PSH) are:
+          </p>
+          <Formula>{"P_{array} (kW) = \frac{E_{DC}}{PSH}, \quad N_{panels} = \left\lceil \frac{P_{array} \times 1,000}{P_{panel} (Watts)} \right\rceil"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Expected annual AC energy yield (E_annual, in kWh/year) is computed as:
+          </p>
+          <Formula>{"E_{annual} = P_{installed} (kW) \times PSH \times \eta_{sys} \times 365 days"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To size string conductor runs from the roof combiner box to the inverter, calculate voltage drop in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link> and calculate circuit resistance in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Regional Peak Sun Hours & Annual Insolation Averages
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Solar irradiance varies dramatically across geographic latitudes and climate zones:
+          </p>
+          <DataTable
+            head={["Geographic Region", "Average Peak Sun Hours (PSH)", "Annual Solar Insolation", "Optimal Year-Round Tilt", "System Viability Rating"]}
+            rows={[
+              ["US Desert Southwest (Arizona, Nevada)", "5.5 - 6.5 hrs/day", "2,000 - 2,400 kWh/m²", "30° - 34° South", "World-Class Photovoltaic Potential"],
+              ["US Sunbelt / Southern California", "4.8 - 5.5 hrs/day", "1,750 - 2,000 kWh/m²", "32° - 36° South", "Excellent Solar Return on Investment"],
+              ["US Midwest / Central Plains", "4.0 - 4.6 hrs/day", "1,450 - 1,700 kWh/m²", "38° - 42° South", "Strong Commercial & Residential Yield"],
+              ["US Pacific Northwest / New England", "3.2 - 3.8 hrs/day", "1,150 - 1,400 kWh/m²", "42° - 46° South", "Moderate Yield (Offset by high utility rates)"],
+              ["Northern Europe (Germany, UK)", "2.8 - 3.4 hrs/day", "1,000 - 1,250 kWh/m²", "35° - 45° South", "Viable with High Net-Metering Incentives"],
+              ["Equatorial Tropics", "4.5 - 5.2 hrs/day", "1,650 - 1,900 kWh/m²", "10° - 15° South/North", "High Uniform Year-Round Generation"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: 10 kW Residential Rooftop System
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A suburban household consumes an average of 900 kWh of electricity per month (30.0 kWh/day). The home is located in an area receiving 4.50 Peak Sun Hours daily. The engineering design specifies high-efficiency 400 Watt monocrystalline modules and models an industry-standard 20% system loss (η_sys = 0.80):
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Required Daily DC Generation:</strong>
+              <br />
+              E_DC = 30.0 kWh / 0.80 = 37.5 kWh/day
+            </li>
+            <li>
+              <strong>Required Array DC Capacity:</strong>
+              <br />
+              P_array = 37.5 kWh / 4.50 PSH = 8.333 kW DC = 8,333 Watts
+            </li>
+            <li>
+              <strong>Total Number of 400W Panels:</strong>
+              <br />
+              N_panels = ceil(8,333 W / 400 W) = ceil(20.83) = 21 Panels (Rounded to 22 for symmetrical string balance)
+            </li>
+            <li>
+              <strong>Installed Array Capacity:</strong>
+              <br />
+              P_installed = 22 × 400 W = 8,800 W = 8.80 kW DC
+            </li>
+            <li>
+              <strong>Expected Annual AC Generation:</strong>
+              <br />
+              E_annual = 8.80 kW × 4.50 hrs × 0.80 × 365 days = 11,563 kWh/year
+            </li>
+            <li>
+              <strong>Recommended Inverter Sizing (DC-to-AC Ratio 1.20):</strong>
+              <br />
+              P_inverter = 8.80 kW / 1.20 = 7.33 kW AC (Select standard 7.6 kW string inverter)
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An 8.8 kW array generating 11,563 kWh annually fully offsets the household&apos;s 10,800 kWh annual consumption. For commercial three-phase grid-tied installations, consult our <Link href="/calculators/electronics/three-phase-power-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">three phase power calculator</Link> and calculate utility isolation transformers in our <Link href="/calculators/electronics/transformer-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">transformer calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            String Inverter vs Microinverter & DC Optimizer Architectures
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern solar installations utilize distinct power conversion architectures:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Centralized String Inverters:</strong> Multiple modules are wired in series strings producing 300V to 600V DC. Highly cost-effective for unobstructed roofs, but partial shading on a single panel pulls down the throughput of the entire series string.
+            </li>
+            <li>
+              <strong>Module-Level Power Electronics (MLPE - Microinverters):</strong> Small grid-tied inverters mounted beneath each individual panel convert DC directly to 240V AC at the module. Offers independent Maximum Power Point Tracking (MPPT), superior shade tolerance, and module-level monitoring.
+            </li>
+            <li>
+              <strong>DC Optimizers:</strong> Paired with a centralized inverter, DC optimizers condition voltage per panel to prevent string mismatch while consolidating AC conversion in a single wall unit.
+            </li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For off-grid autonomous energy setups, model storage reserves in our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link> and calculate wire drops in our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Rigorous solar panel array sizing empowers building owners and renewable engineers to optimize solar yields, achieve energy independence, and maximize financial return over the 25-year operational lifespan of photovoltaic systems.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Temperature Coefficient of Power (Pmax) & Summer Thermal Derating
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A common consumer misconception is that solar panels generate peak electrical power during scorching summer heatwaves. In semiconductor physics, however, solar photovoltaic cells exhibit a negative Temperature Coefficient of Maximum Power (γ_Pmp, typically -0.35% to -0.40% per degree Celsius above 25°C Standard Test Conditions).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When ambient summer air temperature reaches 38°C (100°F), direct sunlight absorption inside dark silicon cells elevates internal module temperatures to 65°C or higher (40°C above STC rating). At 65°C, thermal generation of intrinsic charge carriers narrows the effective silicon bandgap, causing panel operating voltage (V_mp) to collapse. An 8 kW array with a -0.38%/^°C coefficient experiences a thermal loss of 40 × 0.38\% = 15.2\%, reducing peak output by over 1,200 Watts. Maintaining adequate clearance beneath rooftop panels ensures convective airflow cooling, preserving harvestable solar yields.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate solar PV array sizing empowers building owners and renewable engineers to optimize solar yields, achieve energy independence, and maximize financial return over the operational lifespan of photovoltaic systems.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Light-Induced Degradation (LID) & 25-Year Production Warranties
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When newly manufactured p-type monocrystalline solar modules are exposed to outdoor sunlight for the very first few hours, they experience an initial performance loss termed Light-Induced Degradation (LID). In standard p-type silicon doped with boron, trace oxygen impurities present during Czochralski crystal growth form boron-oxygen defect complexes under solar illumination, reducing initial module conversion efficiency by 1.5% to 2.5% within the first month.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Following initial LID stabilization, modern Tier-1 photovoltaic panels exhibit a predictable annual linear degradation rate of approximately 0.40% to 0.50% per year due to ultraviolet weathering and thermal cycling. Premium n-type TOPCon and heterojunction (HJT) cell architectures replace boron with phosphorus, virtually eliminating LID and enabling 25-to-30-year manufacturer production warranties guaranteeing over 85% of original nameplate capacity.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Integrating automated panel cleaning systems and optimizing azimuth orientations against regional solar trajectories maximizes kilowatt-hour capture across changing seasons.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Continuous remote string monitoring identifies soiled panels and module mismatch early, protecting system investment and guaranteeing peak clean energy output over decades of clean renewable power generation.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Off-Grid Energy Storage & Photovoltaic Cable Sizing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designing resilient solar photovoltaic installations requires matching harvestable solar yield to storage capacity modeled in our <Link href="/calculators/electronics/battery-life-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">battery life calculator</Link> and minimizing string voltage drop via our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because low-voltage DC solar strings carry substantial current from rooftop arrays down to central inverters, keeping voltage drop below 1.5% maximizes kWh energy delivery. High-efficiency MPPT charge controllers dynamically adjust array operating voltage to extract maximum available wattage throughout changing weather conditions.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Accurate solar PV array sizing empowers property owners to optimize renewable yields, achieve energy independence, and maximize investment return.
+          </p>
+
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Tandem Perovskite-Silicon Photovoltaic Cells & Efficiency Breakthroughs
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Standard single-junction monocrystalline silicon solar cells face an immutable theoretical efficiency ceiling of 29.4%, dictated by the Shockley-Queisser limit. To surpass this boundary, advanced photovoltaic research centers have engineered monolithic Tandem Perovskite-Silicon solar cells, combining a wide-bandgap metal-halide perovskite top cell with a standard silicon bottom cell.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The perovskite top layer efficiently harvests high-energy blue and green photons, while the underlying silicon base captures transmitted red and near-infrared wavelengths. Commercial tandem solar modules are demonstrating certified operational conversion efficiencies exceeding 33%, allowing residential rooftop solar arrays to generate over 30% more clean electricity from the identical roof surface area.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Coupling tandem photovoltaic modules with smart string inverters guarantees optimal harvestable energy capture across decades of continuous clean power generation.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Designing solar photovoltaic arrays with appropriate temperature compensation coefficients maximizes annual megawatt-hour energy yields and guarantees long-term return on clean energy investments.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Monitoring string performance against simulated baseline irradiance identifies module soiling or shading issues early, ensuring peak solar generation throughout every season.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Proper combiner box fusing and rapid-shutdown compliance protect first responders and maintain safe commercial rooftop photovoltaic installations.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Routine thermal inspections and maximum power point tracking audits guarantee maximum energy harvest and long-term economic return across commercial solar arrays.
+          </p>
+
+        </>
+      }
+    >
+      <SolarPanelCalculatorComponent />
+    </CalcPage>
   );
 }
