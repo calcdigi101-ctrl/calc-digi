@@ -1,26 +1,206 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import LeapYearCalculatorComponent from "@/components/calcs/datetime/leap-year-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TropicalYearVarianceDriftChart } from "@/components/flagship/datetime/editorial-charts";
+
+const PATH = "/calculators/datetime/leap-year-calculator";
+const TITLE = "Leap Year Calculator | 400-Year Gregorian Divisibility Rules & Solar Drift";
+const DESCRIPTION =
+  "Determine whether any past or future year is a leap year using the complete Gregorian 400-year divisibility algorithm, astronomical tropical year drift calculations, and leap second standards.";
 
 export const metadata: Metadata = {
-  "title": "Leap Year Calculator – Is It a Leap Year? | CalcDigi",
-  "description": "Check if any year is a leap year instantly. Find all leap years in a range and understand the leap year rules.",
-  "openGraph": {
-    "title": "Leap Year Calculator – Is It a Leap Year? | CalcDigi",
-    "description": "Check if any year is a leap year instantly. Find all leap years in a range and understand the leap year rules.",
-    "type": "website",
-    "url": "/calculators/datetime/leap-year-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/datetime/leap-year-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/datetime/age-calculator", icon: "🎂", name: "Age Calculator" },
+  { href: "/calculators/datetime/birthday-calculator", icon: "🎁", name: "Birthday Calculator" },
+  { href: "/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference" },
+  { href: "/calculators/datetime/year-calculator", icon: "🗓️", name: "Year Calculator" },
+  { href: "/calculators/measurements/time-converter", icon: "⏱️", name: "Time Converter" },
+  { href: "/pages/datetime", icon: "⏰", name: "Date & Time Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why is year 2000 a leap year, but year 1900 and 2100 are not?",
+    a: "Under the Gregorian calendar reform of 1582, a year is a leap year if it is divisible by 4, UNLESS it is a century year (divisible by 100), in which case it must also be divisible by 400. Year 2000 is divisible by 400 (2000 / 400 = 5), making it a rare quad-century leap year. Years 1900 and 2100 are divisible by 100 but NOT by 400, so they are common 365-day years.",
+  },
+  {
+    q: "What is the exact astronomical length of a tropical year compared to the calendar?",
+    a: "An astronomical tropical solar year (vernal equinox to vernal equinox) is approximately 365.24219 mean solar days (365 days, 5 hours, 48 minutes, and 45 seconds). The Julian calendar assumed 365.25000 days (11m 14s too long). The Gregorian calendar averages exactly 365.24250 days across 400 years (365 + 97/400), creating an error of only 26 seconds per year.",
+  },
+  {
+    q: "How many leap years occur in a complete 400-year Gregorian cycle?",
+    a: "A 400-year Gregorian cycle contains exactly 97 leap years (100 divisible by 4, minus 3 century years not divisible by 400). This yields 97 x 366 + 303 x 365 = exactly 146,097 days, which divides evenly into 20,871 weeks.",
+  },
+  {
+    q: "What is the difference between a calendar leap day and an atomic leap second?",
+    a: "A leap day (February 29) corrects for the orbital period of Earth around the Sun (roughly 365.242 days). A leap second corrects for the variable rotational deceleration of Earth on its own axis (tidal friction caused by the Moon). Leap seconds are inserted into Coordinated Universal Time (UTC) by the International Earth Rotation and Reference Systems Service (IERS).",
+  },
+];
+
+export default function LeapYearCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Date & Time Calculators\", \"item\": \"https://calcdigi.com/pages/datetime\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Leap Year Calculator\", \"item\": \"https://calcdigi.com/calculators/datetime/leap-year-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Leap Year Calculator\", \"url\": \"https://calcdigi.com/calculators/datetime/leap-year-calculator\", \"description\": \"Check if any year is a leap year instantly. Find all leap years in a range and understand the leap year rules.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"Is 2025 a leap year?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. 2025 is not divisible by 4, so it is a regular year with 365 days. The previous leap year was 2024 and the next is 2028.\"}}, {\"@type\": \"Question\", \"name\": \"Why was 1900 not a leap year?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1900 is divisible by 100 (a century year), so it must also be divisible by 400 to be a leap year. 1900 ÷ 400 = 4.75 — not a whole number — so 1900 was NOT a leap year.\"}}, {\"@type\": \"Question\", \"name\": \"Why do we need leap years?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Earth's orbit takes 365.2425 days. Without leap years, the calendar would drift ~6 hours per year. After just 100 years, seasons would shift by 24 days — July would start feeling like September.\"}}, {\"@type\": \"Question\", \"name\": \"What happens to people born on February 29?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"People born on Feb 29 (leap day babies) typically celebrate on Feb 28 or March 1 in non-leap years. Legally, different countries handle this differently — most recognize Feb 28 as the official birthday.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\">\n<div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/datetime\">Date &amp; Time</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Leap Year Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Leap Year Calculator</h1>\n<p class=\"calc-intro\">Check instantly whether any year is a leap year, find all leap years between two years, and understand the rules that determine leap years — with examples and a full explanation.</p>\n<div class=\"content-section\">\n<h2>Leap Year Rules</h2>\n<div class=\"formula-box\">Leap Year = divisible by 4, EXCEPT century years must be divisible by 400</div>\n<ul>\n<li><strong>2024</strong> — divisible by 4 ✓ → <strong>Leap Year (366 days)</strong></li>\n<li><strong>2025</strong> — not divisible by 4 ✗ → <strong>Not a Leap Year (365 days)</strong></li>\n<li><strong>1900</strong> — divisible by 100 but NOT by 400 ✗ → <strong>Not a Leap Year</strong></li>\n<li><strong>2000</strong> — divisible by 400 ✓ → <strong>Leap Year (366 days)</strong></li>\n</ul>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is 2025 a leap year? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. 2025 is not divisible by 4, so it is a regular year with 365 days. The previous leap year was 2024 and the next is 2028.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why was 1900 not a leap year? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1900 is divisible by 100 (a century year), so it must also be divisible by 400 to be a leap year. 1900 ÷ 400 = 4.75 — not a whole number — so 1900 was NOT a leap year.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why do we need leap years? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Earth's orbit takes 365.2425 days. Without leap years, the calendar would drift ~6 hours per year. After just 100 years, seasons would shift by 24 days — July would start feeling like September.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What happens to people born on February 29? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">People born on Feb 29 (leap day babies) typically celebrate on Feb 28 or March 1 in non-leap years. Legally, different countries handle this differently — most recognize Feb 28 as the official birthday.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Date &amp; Time Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/datetime/age-calculator\"><span class=\"rc-icon\">🎂</span><span class=\"rc-name\">Age Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/year-calculator\"><span class=\"rc-icon\">📅</span><span class=\"rc-name\">Year Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/date-difference-calculator\"><span class=\"rc-icon\">📆</span><span class=\"rc-name\">Date Difference</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/days-until-calculator\"><span class=\"rc-icon\">⏳</span><span class=\"rc-name\">Days Until</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Leap Year Calculator</h2>\n<div class=\"form-group\">\n<label for=\"ly-year\">Enter Year</label>\n<input id=\"ly-year\" max=\"9999\" min=\"1\" type=\"number\" value=\"2025\"/>\n</div>\n<button class=\"calc-btn\" onclick=\"calcLeapYear()\">Check Year</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ly-result').style.display='none';document.getElementById('ly-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ly-result\" style=\"display:none;\">\n<div id=\"ly-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"ly-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"ly-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"ly-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ly\" onclick=\"printResult('ly-result','Leap Year Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Leap Year Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"faq-item\"><div class=\"faq-q\">Does it work on mobile? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes — works on all smartphones, tablets, and desktops. No app download needed.</div></div></div></div>\n</main>" }} />
-      <Script id="calc-script-leap-year-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\nfunction isLeap(y) { return (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0; }\nfunction calcLeapYear() {\n  const year = parseInt(document.getElementById('ly-year').value);\n  if (isNaN(year) || year < 1 || year > 9999) { alert('Please enter a valid year between 1 and 9999.'); return; }\n  const leap = isLeap(year);\n  const days = leap ? 366 : 365;\n  // Find previous and next leap years\n  let prev = year - 1; while (prev > 0 && !isLeap(prev)) prev--;\n  let next = year + 1; while (next < 10000 && !isLeap(next)) next++;\n  // Count leap years in century\n  const centuryStart = Math.floor(year / 100) * 100;\n  const leapsInCentury = Array.from({length:100},(_,i)=>centuryStart+i).filter(isLeap).length;\n  document.getElementById('ly-ri').innerHTML =\n    ri(year + ' is...', '<strong style=\"font-size:22px;color:' + (leap ? 'var(--c-accent)' : '#8a1a1a') + '\">' + (leap ? '✓ A Leap Year!' : '✗ Not a Leap Year') + '</strong>', true) +\n    ri('Days in ' + year, days) +\n    ri('February Days', leap ? '29 days' : '28 days') +\n    ri('Previous Leap Year', prev > 0 ? prev : 'N/A') +\n    ri('Next Leap Year', next < 10000 ? next : 'N/A') +\n    ri('Leap Years in ' + centuryStart + 's', leapsInCentury);\n  document.getElementById('ly-result').style.display = 'block';\n  document.getElementById('ly-actions').style.display = 'flex';\n  drawDonut('ly-chart', ['Regular Days', 'Extra Leap Day'], [365, leap ? 1 : 0.001], ['#1a5c3a', '#c8832a']);\n  const ai = document.getElementById('ly-ai');\n  ai.style.display = 'block';\n  ai.innerHTML = '<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(year + ' is ' + (leap ? 'a leap year with 366 days' : 'not a leap year, it has 365 days') + '. In 2 sentences share an interesting fact about leap years or the history of calendar systems.').then(function(t) {\n    if (t) ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n    else ai.style.display = 'none';\n  });\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/datetime", label: "Date & Time" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Astronomical Calendar Precision:</strong> Leap years synchronize civil calendars with Earth&apos;s annual solar orbital period. When evaluating multi-year contracts, actuarial life expectancy, or historical dates, check your age in our <Link href="/calculators/datetime/age-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">age calculator</Link>, verify February 29 birthdays in our <Link href="/calculators/datetime/birthday-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">birthday calculator</Link>, or examine century spans in our <Link href="/calculators/datetime/year-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">year calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Astronomical Tropical Year Kinetics &amp; The 400-Year Calendar Balance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The fundamental challenge of solar calendar design is that Earth&apos;s tropical orbital period around the Sun is incommensurate with the diurnal rotation period of Earth on its axis. A tropical solar year (the interval between successive vernal equinoxes) measures approximately 365.24219 mean solar days (365 days, 5 hours, 48 minutes, and 45.2 seconds).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            If civil society maintained a simple 365-day year without intercalary adjustments, the calendar would lose approximately one full day every four years. Over the span of a single century, the seasons would drift backward by roughly 24.2 days, causing summer to arrive in December within 750 years. The chart below illustrates the accumulated drift across Egyptian, Julian, Gregorian, and modern Revised Julian calendar systems over a 10,000-year epoch.
+          </p>
+
+          <TropicalYearVarianceDriftChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Derivation of the Gregorian Leap Algorithm
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To eliminate the Julian calendar&apos;s 11-minute annual drift, Pope Gregory XIII and Jesuit astronomer Christopher Clavius established the three-tier Gregorian divisibility rule in 1582. A year Y is a leap year if and only if the following Boolean condition evaluates to true:
+          </p>
+          <Formula>{"\text{IsLeapYear}(Y) = \left( (Y \pmod 4 = 0) \land (Y \pmod{100} \neq 0) \right) \lor (Y \pmod{400} = 0)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In any 400-year Gregorian cycle, the number of leap years N_leap is calculated as:
+          </p>
+          <Formula>{"N_{\text{leap}} = \left\lfloor \frac{400}{4} \right\rfloor - \left\lfloor \frac{400}{100} \right\rfloor + \left\lfloor \frac{400}{400} \right\rfloor = 100 - 4 + 1 = 97 \text{ leap years}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The average Gregorian year length L_greg is therefore:
+          </p>
+          <Formula>{"L_{\text{greg}} = 365 + \frac{97}{400} = 365 + 0.2425 = 365.24250 \text{ days}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Comparing L_greg (365.24250 days) with the true tropical year L_trop (365.24219 days) yields an error Delta L:
+          </p>
+          <Formula>{"\Delta L = 365.24250 - 365.24219 = +0.00031 \text{ days/year} \approx 26.8 \text{ seconds/year}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At 0.00031 days per year, the Gregorian calendar will accumulate only 1 full day of error every 3,226 years (around the year 4808 CE). To compare interval durations across historical periods, explore our <Link href="/calculators/datetime/date-difference-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">date difference calculator</Link> and calculate precise epoch timestamps in our <Link href="/calculators/datetime/unix-timestamp-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">UNIX timestamp converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Calendar Systems &amp; Intercalary Precision Benchmarks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles astronomical parameters, mathematical intercalary rules, and error accumulation rates across major civil and astronomical calendar systems throughout human history:
+          </p>
+          <DataTable
+            head={["Calendar System", "Intercalary Leap Rule", "Mean Year Duration", "Annual Drift vs. Tropical Year", "Time to Accumulate 1 Day of Drift"]}
+            rows={[
+              ["Ancient Egyptian Civil", "None (365 fixed days; 12x30 + 5 epagomenal)", "365.00000 Days", "−5 hours 48 minutes", "Approximately 4.13 Years"],
+              ["Julian Calendar (46 BCE)", "Every year divisible by 4 (Y % 4 == 0)", "365.25000 Days", "+11 minutes 14 seconds", "Approximately 128 Years"],
+              ["Gregorian Calendar (1582)", "Divisible by 4, not 100, unless 400", "365.24250 Days", "+26.8 Seconds", "Approximately 3,226 Years"],
+              ["Revised Julian (Milanković)", "Divisible by 4; century years mod 900 in {200, 600}", "365.24222 Days", "+2.2 Seconds", "Approximately 43,500 Years"],
+              ["Jalali Persian Solar Calendar", "Complex 33-year and 2820-year astronomical cycles", "365.24242 Days", "+19.8 Seconds", "Approximately 5,000 Years"],
+              ["Hebrew Lunisolar Calendar", "Metonic 19-year cycle with 7 leap months (Adar II)", "365.24682 Days", "+6 minutes 39 seconds", "Approximately 216 Years"],
+              ["Islamic Lunar Hijri", "Pure lunar calendar (11 leap days per 30 years)", "354.36706 Days", "−10.875 Days (Lunar)", "Advances 1 solar year every 33 yrs"],
+              ["Chinese Lunisolar Calendar", "Astronomical solstices & 24 solar terms (Jiéqì)", "365.24220 Days", "Synchronized via ephemeris", "Continuous astronomical realignment"],
+              ["Mayan Haab' / Tzolk'in", "365-day Haab' + 260-day Tzolk'in Calendar Round", "365.00000 Days", "−5 hours 48 minutes", "Calendar Round repeats every 52 yrs"],
+              ["International Atomic Time (TAI)", "Continuous SI second count (unadjusted)", "Variable vs. UT1", "Monotonically increasing", "Regulated via IERS leap seconds"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Step-by-Step Case Study: Testing Years 1900, 2000, 2024, and 2100
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To understand how software systems (and Microsoft Excel&apos;s famous historical 1900 leap year bug) evaluate leap years, consider testing four landmark years through the complete Gregorian algorithm:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Case A (Year 2024):</strong> 2024 mod 4 = 0 (Divisible). 2024 mod 100 = 24 (Not a century year). The first condition (Y % 4 == 0 &amp;&amp; Y % 100 != 0) is satisfied. 2024 is confirmed as a <strong>Leap Year (366 days, 29 days in February)</strong>.</li>
+            <li><strong>Case B (Year 1900):</strong> 1900 mod 4 = 0 (Divisible). 1900 mod 100 = 0 (Century year). Testing the 400-year exception: 1900 mod 400 = 300 != 0. Because it fails the 400-year test, 1900 was a <strong>Common Year (365 days, 28 days in February)</strong>. Note: Lotus 1-2-3 and early Excel erroneously treated 1900 as a leap year, a bug preserved to this day for backward compatibility!</li>
+            <li><strong>Case C (Year 2000):</strong> 2000 mod 4 = 0. 2000 mod 100 = 0 (Century year). Testing the 400-year exception: 2000 mod 400 = 0 (Exactly divisible: 2000 / 400 = 5). Year 2000 was a <strong>Leap Year (366 days, 29 days in February)</strong>.</li>
+            <li><strong>Case D (Year 2100):</strong> 2100 mod 4 = 0. 2100 mod 100 = 0 (Century year). 2100 mod 400 = 100 != 0. Year 2100 will be a <strong>Common Year (365 days, 28 days in February)</strong>. Cross-reference century calculations in our <Link href="/calculators/datetime/year-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">year calculator</Link> and calculate milestone intervals in our <Link href="/calculators/datetime/days-until-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">days until calculator</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Software Engineering Bugs &amp; The Microsoft Excel 1900 Leap Glitch
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In computing history, date calculation algorithms have produced infamous software bugs. When Lotus 1-2-3 was developed in the early 1980s, programmers intentionally omitted the century divisibility check to save precious memory bytes on early 8086 microcomputers, falsely categorizing 1900 as a leap year with an artificial date of February 29, 1900.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When Microsoft created Excel, it deliberately replicated this bug to ensure complete backward compatibility with Lotus worksheets. As a result, in modern spreadsheet software, serial date 60 corresponds to the non-existent date of February 29, 1900. In distributed computing, leap seconds have similarly crashed server kernels across major cloud providers. To inspect server timestamps, explore our <Link href="/calculators/datetime/unix-timestamp-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">UNIX timestamp converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Commercial Interest, Lease Contracts &amp; Payroll
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Leap years introduce economic anomalies across corporate accounting. In commercial annual salary contracts, salaried employees work one extra calendar day in a leap year without receiving additional base compensation, effectively reducing their daily compensation rate. Conversely, utility electricity bills and industrial equipment leases billed on daily rates experience a 0.27% revenue increase.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In international athletics and politics, leap years host the Summer Olympic Games and United States Presidential elections. Explore our centralized <Link href="/pages/datetime" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Date &amp; Time directory</Link>, evaluate working schedules with our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link>, and convert temporal spans in our <Link href="/calculators/measurements/time-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time converter</Link>.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Milutin Milankovic &amp; The Revised Julian 900-Year Calendar Reform
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In May 1923, an Eastern Orthodox astronomical congress held in Constantinople approved a calendar reform proposed by Serbian scientist Milutin Milankovic: the Revised Julian calendar (also known as the Meletian calendar). While retaining the standard 4-year leap rule for non-century years, Milankovic introduced a significantly more precise century rule than Pope Gregory&apos;s 400-year cycle.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under the Revised Julian calendar, a century year is a leap year only if the year divided by 900 leaves a remainder of either 200 or 600. In a 900-year period, there are exactly 218 leap years (yielding an average year length of 365.24222 days). This matches the astronomical tropical year to within 2.2 seconds annually, meaning the Revised Julian calendar will not accumulate a single day of error for over 43,500 years. The Gregorian and Revised Julian calendars agree completely on leap years until the year 2800 (which is a leap year in the Gregorian calendar but a common year in the Revised Julian calendar).
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Tidal Friction &amp; The Historic Discontinuation of Leap Seconds in 2035
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While calendar leap days synchronize civil years with Earth&apos;s orbital period around the Sun, atomic timekeeping has historically relied on leap seconds to track Earth&apos;s slowing rotational velocity. Gravitational tidal friction exerted by the Moon transfers angular momentum from Earth&apos;s rotation to lunar orbital velocity, lengthening the mean solar day by roughly 1.7 milliseconds per century.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Between 1972 and 2026, 27 positive leap seconds were inserted into UTC by the International Earth Rotation and Reference Systems Service (IERS). However, because irregular leap seconds cannot be scheduled in advance and frequently crash financial trading platforms, telecommunications routing tables, and distributed database clocks, the General Conference on Weights and Measures (CGPM) voted in 2022 to discontinue leap seconds by 2035, allowing UTC and UT1 to drift until larger multi-minute adjustments are enacted.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Ephemeris Time Standards: Barycentric Dynamical Time &amp; Pulsar Clocks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern deep-space navigation (such as NASA&apos;s Deep Space Network communicating with Voyager 1 and the James Webb Space Telescope), calendar leap day tracking is synchronized with Barycentric Coordinate Time (TCB) and Barycentric Dynamical Time (TDB). These relativistic coordinate time scales evaluate motion relative to the solar system&apos;s barycenter (the common center of mass of the Sun and all planets).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, astrophysicists utilize millisecond pulsar timing arrays (such as PSR J0437-4715)—rapidly rotating magnetized neutron stars whose periodic radio lighthouse pulses exhibit rotational stability rivaling terrestrial cesium atomic fountain clocks. By tracking microsecond arrival time deviations across decades, pulsar astronomers observe gravitational wave backgrounds and verify Earth&apos;s orbital position against theoretical leap year calendar models.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Standardizing international astronomical time scales and civil intercalary rules ensures multi-century satellite ephemerides, interstellar communications, and financial transaction timestamps remain perfectly synchronized across global computer networks.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In astronomical software development, implementing robust modulo divisibility guards prevents date rollover crashes and safeguards multi-tier relational database integrity across century transitions.
+          </p>
+
+        </>
+      }
+    >
+      <LeapYearCalculatorComponent />
+    </CalcPage>
   );
 }

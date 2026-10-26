@@ -1,26 +1,201 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import DateToDayCalculatorComponent from "@/components/calcs/datetime/date-to-day-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { WeekdayFrequencyPerCenturyChart } from "@/components/flagship/datetime/editorial-charts";
+
+const PATH = "/calculators/datetime/date-to-day-calculator";
+const TITLE = "Date to Day Calculator | Day of Week by Date & Zeller's Congruence";
+const DESCRIPTION =
+  "Find the exact day of the week for any past, present, or future calendar date using Zeller's congruence algorithm, John Conway's Doomsday rule, and Gregorian perpetual calendar mechanics.";
 
 export const metadata: Metadata = {
-  "title": "Day of Week Calculator – What Day Is Any Date? | CalcDigi",
-  "description": "Find what day of the week any date falls on — past or future. Works for any date in history or the future.",
-  "openGraph": {
-    "title": "Day of Week Calculator – What Day Is Any Date? | CalcDigi",
-    "description": "Find what day of the week any date falls on — past or future. Works for any date in history or the future.",
-    "type": "website",
-    "url": "/calculators/datetime/date-to-day-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/datetime/date-to-day-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/datetime/birthday-calculator", icon: "🎂", name: "Birthday Calculator" },
+  { href: "/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference" },
+  { href: "/calculators/datetime/days-until-calculator", icon: "⏳", name: "Days Until Event" },
+  { href: "/calculators/datetime/week-number-calculator", icon: "🗓️", name: "Week Number" },
+  { href: "/calculators/datetime/workdays-calculator", icon: "💼", name: "Workdays Calculator" },
+  { href: "/pages/datetime", icon: "⏰", name: "Date & Time Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How does Zeller's Congruence calculate the day of the week for any date?",
+    a: "Zeller's congruence is an algorithm developed by German mathematician Christian Zeller in 1882. It computes the day of the week by mapping calendar day, shifted month (March = 3 through February = 14), century code, and year in century into a single algebraic formula evaluated modulo 7. The result maps integers 0 through 6 directly to Saturday through Friday.",
+  },
+  {
+    q: "What is John Conway's Doomsday Rule and how does mental day calculation work?",
+    a: "The Doomsday rule is an algorithm devised by mathematician John Horton Conway. It relies on the fact that each year has a specific day of the week (its 'Doomsday') on which several easy-to-remember calendar dates always fall: 4/4, 6/6, 8/8, 10/10, 12/12, the last day of February, and July 11. By memorizing century anchor days, a mental calculator can find the weekday of any date within seconds.",
+  },
+  {
+    q: "Why does the 13th of the month fall on a Friday more frequently than any other weekday?",
+    a: "Because the Gregorian calendar repeats in an exact 400-year cycle of 146,097 days (which is exactly divisible by 7: 146,097 / 7 = 20,871 weeks), the distribution of days of the week across the 4,800 months in a cycle is not completely uniform. The 13th of the month falls on Friday exactly 688 times, compared to 687 for Sunday/Wednesday, 685 for Monday/Tuesday, and only 684 for Thursday/Saturday.",
+  },
+  {
+    q: "Can this calculator determine weekdays for historical dates before the Gregorian reform?",
+    a: "Civil dates prior to October 15, 1582 in Catholic nations (or September 14, 1752 in the British Empire) followed the Julian calendar. This calculator evaluates standard proleptic Gregorian coordinates. For dates prior to national Gregorian adoption, one must apply the Julian variant of Zeller's formula or add historical Julian-Gregorian discrepancy offsets.",
+  },
+];
+
+export default function DateToDayCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Date & Time Calculators\", \"item\": \"https://calcdigi.com/pages/datetime\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Day of Week Calculator\", \"item\": \"https://calcdigi.com/calculators/datetime/date-to-day-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Day of Week Calculator\", \"url\": \"https://calcdigi.com/calculators/datetime/date-to-day-calculator\", \"description\": \"Find what day of the week any date falls on — past or future. Works for any date in history or the future.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What day of the week was I born on?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Enter your date of birth in the calculator above. It will instantly tell you the day of the week you were born — Monday, Tuesday, etc. This is also shown in our Birthday Calculator.\"}}, {\"@type\": \"Question\", \"name\": \"Can I check any year?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes, the calculator works for any date from year 100 onward. For very ancient dates before 1582 (when the Gregorian calendar was adopted), results use the proleptic Gregorian calendar.\"}}, {\"@type\": \"Question\", \"name\": \"What day is Christmas 2025?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Christmas 2025 (December 25, 2025) falls on a Thursday. Enter December 25, 2025 in the calculator to see full details including the week number and day of the year.\"}}, {\"@type\": \"Question\", \"name\": \"What day of the week is New Year's Day 2026?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"January 1, 2026 falls on a Thursday. Enter the date in the calculator to confirm and see additional details like the ISO week number.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\">\n<div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/datetime\">Date &amp; Time</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Day of Week Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Day of Week Calculator</h1>\n<p class=\"calc-intro\">Find what day of the week any date falls on — instantly. Works for any past or future date. Useful for planning events, checking historical dates, and finding out what day your birthday falls on this year.</p>\n<div class=\"content-section\">\n<h2>How Day of Week is Calculated</h2>\n<p>The day of the week for any date is calculated using Zeller's congruence or the Tomohiko Sakamoto algorithm. JavaScript's built-in <code>Date</code> object handles this automatically and accurately for all dates from year 1 onward.</p>\n<div class=\"formula-box\">dayOfWeek = new Date(year, month-1, day).getDay() → 0=Sun, 1=Mon ... 6=Sat</div>\n<p>This works for any date — ancient history, today, or far into the future — because it uses the proleptic Gregorian calendar.</p>\n</div>\n<div class=\"content-section\">\n<h2>Famous Dates &amp; Their Days</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 16px;text-align:left;\">Date</th><th style=\"padding:10px 16px;\">Event</th><th style=\"padding:10px 16px;\">Day</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">July 20, 1969</td><td style=\"padding:10px 16px;\">Moon landing</td><td style=\"padding:10px 16px;\">Sunday</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">January 1, 2000</td><td style=\"padding:10px 16px;\">Y2K / Millennium</td><td style=\"padding:10px 16px;\">Saturday</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">September 11, 2001</td><td style=\"padding:10px 16px;\">9/11 attacks</td><td style=\"padding:10px 16px;\">Tuesday</td></tr>\n<tr><td style=\"padding:10px 16px;\">December 25, 2025</td><td style=\"padding:10px 16px;\">Christmas 2025</td><td style=\"padding:10px 16px;\">Thursday</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What day of the week was I born on? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Enter your date of birth in the calculator above. It will instantly tell you the day of the week you were born — Monday, Tuesday, etc. This is also shown in our Birthday Calculator.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I check any year? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes, the calculator works for any date from year 100 onward. For very ancient dates before 1582 (when the Gregorian calendar was adopted), results use the proleptic Gregorian calendar.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What day is Christmas 2025? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Christmas 2025 (December 25, 2025) falls on a Thursday. Enter December 25, 2025 in the calculator to see full details including the week number and day of the year.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What day of the week is New Year's Day 2026? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">January 1, 2026 falls on a Thursday. Enter the date in the calculator to confirm and see additional details like the ISO week number.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Date &amp; Time Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/datetime/birthday-calculator\"><span class=\"rc-icon\">🎂</span><span class=\"rc-name\">Birthday Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/days-until-calculator\"><span class=\"rc-icon\">⏳</span><span class=\"rc-name\">Days Until</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/date-difference-calculator\"><span class=\"rc-icon\">📅</span><span class=\"rc-name\">Date Difference</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/week-number-calculator\"><span class=\"rc-icon\">📆</span><span class=\"rc-name\">Week Number</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Day of Week Calculator</h2>\n<div class=\"form-group\">\n<label for=\"dw-date\">Enter Any Date</label>\n<input id=\"dw-date\" type=\"date\"/>\n</div>\n<button class=\"calc-btn\" onclick=\"calcDayOfWeek()\">Find Day</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('dw-result').style.display='none';document.getElementById('dw-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"dw-result\" style=\"display:none;\">\n<div id=\"dw-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"dw-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"dw-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"dw-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-dw\" onclick=\"printResult('dw-result','Day of Week Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Day of Week Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><div class=\"faq-q\">Is this calculator free? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes, completely free with no registration or subscription. All CalcDigi calculators are free for unlimited use.</div></div><div class=\"faq-item\"><div class=\"faq-q\">Does it work on mobile? <span class=\"faq-icon\">+</span></div><div class=\"faq-a\">Yes — works on all smartphones, tablets, and desktops. No app download needed.</div></div></div></div>\n</main>" }} />
-      <Script id="calc-script-date-to-day-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\ndocument.getElementById('dw-date').value = new Date().toISOString().split('T')[0];\nfunction calcDayOfWeek() {\n  const dateVal = document.getElementById('dw-date').value;\n  if (!dateVal) { alert('Please enter a date.'); return; }\n  const d = new Date(dateVal);\n  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];\n  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];\n  const dayName = dayNames[d.getDay()];\n  const isWeekend = d.getDay() === 0 || d.getDay() === 6;\n  const dayOfYear = Math.ceil((d - new Date(d.getFullYear(), 0, 1)) / 86400000) + 1;\n  const daysInYear = ((d.getFullYear() % 4 === 0 && d.getFullYear() % 100 !== 0) || d.getFullYear() % 400 === 0) ? 366 : 365;\n  const daysLeft = daysInYear - dayOfYear;\n  const today = new Date(); today.setHours(0,0,0,0); d.setHours(0,0,0,0);\n  const diffDays = Math.round((d - today) / 86400000);\n  const relText = diffDays === 0 ? 'Today' : diffDays > 0 ? diffDays + ' days from now' : Math.abs(diffDays) + ' days ago';\n  const fullDateStr = monthNames[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();\n  document.getElementById('dw-ri').innerHTML =\n    ri('Day of Week', '<strong style=\"font-size:26px;color:var(--c-accent)\">' + dayName + '</strong>', true) +\n    ri('Full Date', fullDateStr) +\n    ri('Weekday or Weekend', isWeekend ? '🏖️ Weekend' : '💼 Weekday') +\n    ri('Day of Year', dayOfYear + ' of ' + daysInYear) +\n    ri('Days Left in Year', daysLeft) +\n    ri('Relative to Today', relText);\n  document.getElementById('dw-result').style.display = 'block';\n  document.getElementById('dw-actions').style.display = 'flex';\n  drawDonut('dw-chart', ['Day of Year', 'Days Remaining'], [dayOfYear, daysLeft], ['#1a5c3a', '#c8832a']);\n  const ai = document.getElementById('dw-ai');\n  ai.style.display = 'block';\n  ai.innerHTML = '<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(fullDateStr + ' falls on a ' + dayName + '. In 2 sentences share an interesting fact about this day of the week, or what is culturally or historically significant about ' + dayName + 's.').then(function(t) {\n    if (t) ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n    else ai.style.display = 'none';\n  });\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/datetime", label: "Date & Time" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Calendar Day Algorithm Guidance:</strong> Calculating the day of the week for historical or future dates utilizes Gregorian modulo 7 arithmetic. When coordinating event dates, verify your birth day of the week with our <Link href="/calculators/datetime/birthday-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">birthday calculator</Link>, track elapsed calendar days in our <Link href="/calculators/datetime/date-difference-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">date difference calculator</Link>, or look up ISO business weeks in our <Link href="/calculators/datetime/week-number-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">week number calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The 400-Year Gregorian Weekday Distribution & Friday the 13th Phenomenon
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The continuous seven-day weekly cycle is one of humanity&apos;s oldest unbroken cultural traditions, persisting uninterrupted through astronomical calendar reforms, political revolutions, and religious shifts. A profound mathematical feature of the Gregorian calendar is that its intercalary leap-year cycle repeats exactly every 400 years, encompassing exactly 146,097 days (97 leap years x 366 days + 303 common years x 365 days).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because 146,097 is evenly divisible by 7 (146,097 / 7 = exactly 20,871.0 weeks), the Gregorian calendar is perfectly periodic with respect to the days of the week. However, across the 4,800 months in each 400-year cycle, the days of the week are not distributed with equal probability. As illustrated in the frequency chart below, Friday is the single most common day of the week for the 13th of any month.
+          </p>
+
+          <WeekdayFrequencyPerCenturyChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Derivation of Zeller&apos;s Congruence
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 1882, German mathematician Christian Zeller published his eponymous congruence algorithm to calculate the day of the week for any Gregorian calendar date. In Zeller&apos;s formulation, January and February are treated as months 13 and 14 of the preceding year (so January 2026 is evaluated as month 13 of 2025). This shift ensures that the intercalary leap day of February 29 falls at the very end of the computational year:
+          </p>
+          <Formula>{"h = \left( q + \left\lfloor \frac{13(m + 1)}{5} \right\rfloor + K + \left\lfloor \frac{K}{4} \right\rfloor + \left\lfloor \frac{J}{4} \right\rfloor - 2J \right) \pmod{7}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where q is the day of the month (1 to 31), m is the shifted month (March = 3, April = 4, ..., December = 12, January = 13, February = 14), K is the year of the century (Y mod 100), and J is the zero-based century (floor(Y / 100)).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The resulting integer h maps directly to the day of the week: 0 = Saturday, 1 = Sunday, 2 = Monday, 3 = Tuesday, 4 = Wednesday, 5 = Thursday, and 6 = Friday. Note that in computer implementations, modulo operations with negative operands require adding 7 x J to ensure strictly non-negative residues:
+          </p>
+          <Formula>{"h = \left( q + \left\lfloor \frac{13(m + 1)}{5} \right\rfloor + K + \left\lfloor \frac{K}{4} \right\rfloor + \left\lfloor \frac{J}{4} \right\rfloor + 5J \right) \pmod{7}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This elegant arithmetic relation enables instantaneous date-to-day conversion across all contemporary computer operating systems and digital watches. For tracking business shifts on specific weekdays, explore our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link> and calculate milestone countdowns in our <Link href="/calculators/datetime/days-until-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">days until calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Doomsday Rule Anchor Benchmarks for Mental Weekday Calculation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles John Conway&apos;s memorable Doomsday anchor dates across the calendar year, alongside century anchors for rapid mental day-of-week arithmetic:
+          </p>
+          <DataTable
+            head={["Calendar Month", "Doomsday Anchor Date", "Mnemonic / Mental Association Rule", "Common Year Offset", "Leap Year Offset"]}
+            rows={[
+              ["January", "January 3 (Common) / Jan 4 (Leap)", "'3 in common, 4 in leap' base anchor", "Same as Doomsday", "Same as Doomsday"],
+              ["February", "Last Day of Feb (Feb 28 / Feb 29)", "'Doomsday is always the last day of February'", "Same as Doomsday", "Same as Doomsday"],
+              ["March", "March 14 (Pi Day, 3/14) / Mar 21", "Pi Day (3.14) or Spring equinox marker", "Same as Doomsday", "Same as Doomsday"],
+              ["April", "April 4 (4/4)", "Even month double digits (4/4, 6/6, 8/8, 10/10, 12/12)", "Same as Doomsday", "Same as Doomsday"],
+              ["May", "May 9 (9 to 5 mnemonic)", "'Working 9 to 5 at 7-Eleven' (5/9 and 9/5)", "Same as Doomsday", "Same as Doomsday"],
+              ["June", "June 6 (6/6)", "Even month double digits (6/6)", "Same as Doomsday", "Same as Doomsday"],
+              ["July", "July 11 (7-Eleven mnemonic)", "'7-Eleven store' (7/11 and 11/7)", "Same as Doomsday", "Same as Doomsday"],
+              ["August", "August 8 (8/8)", "Even month double digits (8/8)", "Same as Doomsday", "Same as Doomsday"],
+              ["September", "September 5 (9 to 5 mnemonic)", "'Working 9 to 5' (9/5 corresponds to 5/9)", "Same as Doomsday", "Same as Doomsday"],
+              ["October", "October 10 (10/10)", "Even month double digits (10/10)", "Same as Doomsday", "Same as Doomsday"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Step-by-Step Case Study: Finding the Weekday of July 20, 1969
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a historian verifying the exact day of the week on which Apollo 11 astronaut Neil Armstrong first set foot on the lunar surface (July 20, 1969). We evaluate Zeller&apos;s Congruence step by step:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Extract &amp; Shift Calendar Parameters):</strong> Date = July 20, 1969. Day q = 20. Month is July, so m = 7 (no shift needed for March-December). Year Y = 1969. Century J = floor(1969 / 100) = 19. Year in century K = 1969 mod 100 = 69.</li>
+            <li><strong>Step 2 (Compute Month Term):</strong> floor(13(m + 1) / 5) = floor(13(8) / 5) = floor(104 / 5) = 20.</li>
+            <li><strong>Step 3 (Compute Year &amp; Century Leap Terms):</strong> floor(K / 4) = floor(69 / 4) = 17. floor(J / 4) = floor(19 / 4) = 4. 5J = 5 x 19 = 95.</li>
+            <li><strong>Step 4 (Sum Terms &amp; Evaluate Modulo 7):</strong> Total sum = q + 20 + K + 17 + 4 + 95 = 20 + 20 + 69 + 17 + 4 + 95 = 225. Evaluating modulo 7: 225 / 7 = 32 with remainder 1 (225 = 32 x 7 + 1). h = 1, which corresponds to <strong>Sunday</strong>. Historical records confirm Apollo 11 landed on the Moon on Sunday evening, July 20, 1969.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Perpetual Calendars &amp; The 28-Year Solar Dominical Cycle
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Before digital computers, horologists, astronomers, and ecclesiastical authorities relied on mechanical perpetual calendars incorporating Dominical Letters (letters A through G assigned to days of the year starting on January 1). The weekday of January 1 indicates the Dominical Letter for the entire year, allowing users to look up the weekday of any date using circular brass slide rules.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Within the 28-year solar cycle, calendars repeat identically every 28 years (except across century years not divisible by 400). For example, the 2026 calendar is completely identical in weekday assignments to the calendars of 1998, 1970, and 1942. To explore how leap years punctuate this cycle, consult our <Link href="/calculators/datetime/leap-year-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">leap year calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Cultural Weekday Naming: Planetary Gods &amp; Linguistic Etymology
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The seven days of the week derive their names from classical Hellenistic astrology and ancient Germanic mythology, reflecting the seven visible moving celestial bodies known to ancient astronomers: the Sun, the Moon, Mars, Mercury, Jupiter, Venus, and Saturn.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In English, Sunday (Sun) and Monday (Moon) preserve direct planetary names, while Tuesday (Tiw/Mars), Wednesday (Woden/Mercury), Thursday (Thor/Jupiter), and Friday (Frigg/Venus) honor Norse deities, and Saturday preserves Roman Saturn. In Romance languages (Spanish, French, Italian), the planetary roots remain transparent: Lunes / Lundi (Luna/Moon), Martes / Mardi (Mars), Miercoles / Mercredi (Mercury).
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Legal Discovery, Retail Footwear &amp; Event Planning
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In civil and criminal litigation, verifying the day of the week for historical alibis, forensic surveillance logs, and statutory court filing deadlines is fundamental. If a 30-day statutory appeal deadline expires on a Saturday, Sunday, or legal public holiday, civil procedure rules universally roll the deadline forward to the next business Monday.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In commercial wedding and corporate conference planning, venues command peak pricing on Saturdays, making weekday verification essential for budget forecasting. Explore our centralized <Link href="/pages/datetime" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Date &amp; Time directory</Link>, evaluate business days in our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link>, and convert timestamps in our <Link href="/calculators/datetime/unix-timestamp-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">UNIX timestamp converter</Link>.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The 7-Day Planetary Week in Ancient Babylon and Alexandria
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The seven-day weekly cycle is distinct among human chronological conventions because it possesses no direct integer relationship with the solar year (365.2425 days) or the lunar month (29.53 days). Historians trace the continuous seven-day sequence to the neo-Babylonian empire and Hellenistic Alexandria during the 1st century BCE.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Astrologers assigned each of the 24 hours of the day sequentially to the seven traditional moving celestial spheres ordered by apparent orbital velocity: Saturn, Jupiter, Mars, Sun, Venus, Mercury, and Moon. The ruling planet of the first hour of each day became the guardian deity of that entire day, generating the familiar planetary sequence: Sun&apos;s day (Sunday), Moon&apos;s day (Monday), Mars&apos; day (Tuesday), Mercury&apos;s day (Wednesday), Jupiter&apos;s day (Thursday), Venus&apos; day (Friday), and Saturn&apos;s day (Saturday).
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Modulo 7 Group Theory &amp; Field Invariants in Calendar Design
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern abstract algebra, the seven days of the week form a cyclic group Z/7Z under addition modulo 7. Because 7 is a prime integer, every non-zero integer modulo 7 generates the entire weekly group, creating rich combinatorial invariants.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because a standard 365-day year contains 52 weeks and 1 day (365 = 52 x 7 + 1), each consecutive common year advances the weekday of any calendar date by exactly 1 mod 7. Leap years contain 366 days (52 x 7 + 2), advancing the weekday by 2 mod 7. This linear recurrence relation creates the famous 28-year solar cycle, ensuring that identical calendar layouts recur in a predictable 6-11-11-28 year cadence.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            International Banking Value Dating &amp; Target2 Payment Clearing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In cross-border interbank foreign exchange clearing (via SWIFT, Fedwire, and Eurosystem TARGET2 networks), verifying the exact day of the week for transaction settlement dates is fundamental. The financial convention known as &apos;Spot Next&apos; (S/N) and &apos;Tomorrow Next&apos; (T/N) establishes that standard spot transactions settle on T+2 business days.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            If a trade executed on a Thursday specifies standard T+2 settlement, the two intervening business days skip Saturday and Sunday, shifting settlement to Monday. When either counterparty jurisdiction observes a banking holiday on Monday, value dating automatically advances to Tuesday under the Modified Following Business Day convention.
+          </p>
+
+        </>
+      }
+    >
+      <DateToDayCalculatorComponent />
+    </CalcPage>
   );
 }

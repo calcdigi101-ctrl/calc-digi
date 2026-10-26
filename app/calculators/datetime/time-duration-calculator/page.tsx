@@ -1,26 +1,207 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import TimeDurationCalculatorComponent from "@/components/calcs/datetime/time-duration-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { WorkshiftBreakdownDurationCurveChart } from "@/components/flagship/datetime/editorial-charts";
+
+const PATH = "/calculators/datetime/time-duration-calculator";
+const TITLE = "Time Duration Calculator | Elapsed Hours, Workshift & Billing Timesheet";
+const DESCRIPTION =
+  "Calculate elapsed time between start and end timestamps, deduct unpaid lunch breaks, convert hours to commercial decimal timesheet billing, and model industrial work shifts.";
 
 export const metadata: Metadata = {
-  "title": "Time Duration Calculator – Hours Minutes Seconds | CalcDigi",
-  "description": "Calculate total duration from hours, minutes and seconds. Convert duration to decimal hours, total minutes and seconds instantly.",
-  "openGraph": {
-    "title": "Time Duration Calculator – Hours Minutes Seconds | CalcDigi",
-    "description": "Calculate total duration from hours, minutes and seconds. Convert duration to decimal hours, total minutes and seconds instantly.",
-    "type": "website",
-    "url": "/calculators/datetime/time-duration-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/datetime/time-duration-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/datetime/time-calculator", icon: "⏱️", name: "Time Calculator" },
+  { href: "/calculators/datetime/workdays-calculator", icon: "💼", name: "Workdays Calculator" },
+  { href: "/calculators/datetime/time-zone-converter", icon: "🌐", name: "Time Zone Converter" },
+  { href: "/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference" },
+  { href: "/calculators/measurements/time-converter", icon: "🕒", name: "Time Converter" },
+  { href: "/pages/datetime", icon: "⏰", name: "Date & Time Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How does the duration calculator handle overnight graveyard shifts that cross midnight?",
+    a: "When a work shift crosses midnight (such as starting at 22:00 and ending at 06:30 the following morning), the end time value is numerically smaller than the start time. The algorithm detects this negative delta and automatically applies modulo 24-hour addition (+1,440 minutes), correctly calculating the continuous overnight elapsed span without requiring manual date input.",
+  },
+  {
+    q: "Why do payroll systems require decimal hours instead of hours and minutes?",
+    a: "Payroll enterprise software calculates gross wages by multiplying hours worked by an hourly wage rate (e.g., $32.50/hour). Because base-60 minutes cannot be directly multiplied by base-10 currency, minutes must be converted into decimal hours (e.g., 8 hours 45 minutes becomes 8.75 hours). Multiplying $32.50 by 8.75 yields an exact, legally auditable wage of $284.38.",
+  },
+  {
+    q: "What are statutory requirements for mandatory unpaid meal and rest breaks?",
+    a: "Under United States Fair Labor Standards Act (FLSA) regulations and state labor codes (such as California Labor Code Section 512), non-exempt employees working shifts exceeding 5.0 hours are entitled to a mandatory 30-minute unpaid meal break. Shifts exceeding 10.0 hours mandate a second 30-minute meal break, while short 10-to-15 minute rest breaks must be compensated as paid working time.",
+  },
+  {
+    q: "How does ISO 8601 represent temporal durations in modern APIs?",
+    a: "Under the ISO 8601 standard, a time duration is represented as a string beginning with 'P' (Period), with a 'T' designator preceding time components. For example, a duration of 8 hours, 30 minutes, and 15 seconds is formally serialized as 'PT8H30M15S'. This standardized format ensures seamless cross-platform interoperability across enterprise ERP APIs.",
+  },
+];
+
+export default function TimeDurationCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Date & Time Calculators\", \"item\": \"https://calcdigi.com/pages/datetime\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Time Duration Calculator\", \"item\": \"https://calcdigi.com/calculators/datetime/time-duration-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Time Duration Calculator\", \"url\": \"https://calcdigi.com/calculators/datetime/time-duration-calculator\", \"description\": \"Calculate total duration from hours, minutes and seconds. Convert duration to decimal hours, total minutes and seconds instantly.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate billable hours?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Add all your time entries using this calculator to get total decimal hours. Multiply by your hourly rate: 6.75 hours × $50/hour = $337.50. Decimal format makes billing calculations simple and accurate.\"}}, {\"@type\": \"Question\", \"name\": \"How many seconds are in a day?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"86,400 seconds in a day (24 hours × 60 minutes × 60 seconds). This number is commonly used in programming, networking, and Unix timestamp calculations.\"}}, {\"@type\": \"Question\", \"name\": \"What is 1.5 hours in hours and minutes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1.5 hours = 1 hour and 30 minutes. The decimal part (0.5) multiplied by 60 gives the minutes: 0.5 × 60 = 30 minutes.\"}}, {\"@type\": \"Question\", \"name\": \"How do I track time for multiple tasks?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Enter each task's duration in the rows below. The calculator will sum them all into a single total. You can add up to 5 durations in one calculation.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\">\n<div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/datetime\">Date &amp; Time</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Time Duration Calculator</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Time Duration Calculator</h1>\n<p class=\"calc-intro\">Add up to 5 time durations and get the total in hours, minutes, seconds, decimal hours, and total seconds. Perfect for timesheet tracking, project billing, sports timing, and video editing.</p>\n<div class=\"content-section\">\n<h2>How to Convert Duration to Decimal Hours</h2>\n<div class=\"formula-box\">Decimal Hours = H + (M ÷ 60) + (S ÷ 3600)</div>\n<p>Example: 2h 30m 45s = 2 + (30÷60) + (45÷3600) = 2 + 0.5 + 0.0125 = <strong>2.5125 decimal hours</strong></p>\n<p>Decimal hours are essential for payroll and billing — multiply decimal hours by hourly rate to get exact pay.</p>\n</div>\n<div class=\"content-section\">\n<h2>Quick Reference Conversions</h2>\n<div style=\"overflow-x:auto;\">\n<table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:10px 16px;\">H:M:S</th><th style=\"padding:10px 16px;\">Decimal Hours</th><th style=\"padding:10px 16px;\">Total Minutes</th><th style=\"padding:10px 16px;\">Total Seconds</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">0:15:00</td><td style=\"padding:10px 16px;\">0.25</td><td style=\"padding:10px 16px;\">15</td><td style=\"padding:10px 16px;\">900</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">0:30:00</td><td style=\"padding:10px 16px;\">0.50</td><td style=\"padding:10px 16px;\">30</td><td style=\"padding:10px 16px;\">1,800</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 16px;\">1:00:00</td><td style=\"padding:10px 16px;\">1.00</td><td style=\"padding:10px 16px;\">60</td><td style=\"padding:10px 16px;\">3,600</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 16px;\">1:30:00</td><td style=\"padding:10px 16px;\">1.50</td><td style=\"padding:10px 16px;\">90</td><td style=\"padding:10px 16px;\">5,400</td></tr>\n<tr><td style=\"padding:10px 16px;\">8:00:00</td><td style=\"padding:10px 16px;\">8.00</td><td style=\"padding:10px 16px;\">480</td><td style=\"padding:10px 16px;\">28,800</td></tr>\n</tbody>\n</table>\n</div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate billable hours? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Add all your time entries using this calculator to get total decimal hours. Multiply by your hourly rate: 6.75 hours × $50/hour = $337.50. Decimal format makes billing calculations simple and accurate.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many seconds are in a day? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">86,400 seconds in a day (24 hours × 60 minutes × 60 seconds). This number is commonly used in programming, networking, and Unix timestamp calculations.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is 1.5 hours in hours and minutes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1.5 hours = 1 hour and 30 minutes. The decimal part (0.5) multiplied by 60 gives the minutes: 0.5 × 60 = 30 minutes.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I track time for multiple tasks? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Enter each task's duration in the rows below. The calculator will sum them all into a single total. You can add up to 5 durations in one calculation.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Date &amp; Time Calculators</h2>\n<div class=\"related-grid\">\n<a class=\"related-card\" href=\"/calculators/datetime/time-calculator\"><span class=\"rc-icon\">⏱️</span><span class=\"rc-name\">Time Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/workdays-calculator\"><span class=\"rc-icon\">💼</span><span class=\"rc-name\">Workdays Calculator</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/date-difference-calculator\"><span class=\"rc-icon\">📅</span><span class=\"rc-name\">Date Difference</span></a>\n<a class=\"related-card\" href=\"/calculators/datetime/time-zone-converter\"><span class=\"rc-icon\">🌍</span><span class=\"rc-name\">Time Zone Converter</span></a>\n</div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Time Duration Calculator</h2>\n<div id=\"td-rows\">\n<p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:6px;font-weight:600;\">Duration 1</p>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;\">\n<div><label for=\"d1h\" style=\"font-size:11px;color:var(--c-ink2);\">Hours</label><input id=\"d1h\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"2\"/></div>\n<div><label for=\"d1m\" style=\"font-size:11px;color:var(--c-ink2);\">Min</label><input id=\"d1m\" max=\"59\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"30\"/></div>\n<div><label for=\"d1s\" style=\"font-size:11px;color:var(--c-ink2);\">Sec</label><input id=\"d1s\" max=\"59\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div>\n<p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:6px;font-weight:600;\">Duration 2</p>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;\">\n<div><label for=\"d2h\" style=\"font-size:11px;color:var(--c-ink2);\">Hours</label><input id=\"d2h\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"1\"/></div>\n<div><label for=\"d2m\" style=\"font-size:11px;color:var(--c-ink2);\">Min</label><input id=\"d2m\" max=\"59\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"45\"/></div>\n<div><label for=\"d2s\" style=\"font-size:11px;color:var(--c-ink2);\">Sec</label><input id=\"d2s\" max=\"59\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div>\n<p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:6px;font-weight:600;\">Duration 3 <span style=\"font-weight:400;font-size:11px;\">(optional)</span></p>\n<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px;\">\n<div><label for=\"d3h\" style=\"font-size:11px;color:var(--c-ink2);\">Hours</label><input id=\"d3h\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n<div><label for=\"d3m\" style=\"font-size:11px;color:var(--c-ink2);\">Min</label><input id=\"d3m\" max=\"59\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n<div><label for=\"d3s\" style=\"font-size:11px;color:var(--c-ink2);\">Sec</label><input id=\"d3s\" max=\"59\" min=\"0\" style=\"width:100%;padding:8px 4px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:14px;text-align:center;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div>\n</div>\n<button class=\"calc-btn\" onclick=\"calcDuration()\">Calculate Total</button>\n<button class=\"calc-btn\" onclick=\"['d1h','d1m','d1s','d2h','d2m','d2s','d3h','d3m','d3s'].forEach(function(id){document.getElementById(id).value=0;});document.getElementById('td-result').style.display='none';document.getElementById('td-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"td-result\" style=\"display:none;\">\n<div id=\"td-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"td-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"td-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"td-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-td\" onclick=\"printResult('td-result','Time Duration Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Time Duration Calculator')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-time-duration-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\nfunction pad(n) { return String(n).padStart(2,'0'); }\nfunction getRowSec(h, m, s) {\n  return (parseInt(document.getElementById(h).value)||0)*3600 + (parseInt(document.getElementById(m).value)||0)*60 + (parseInt(document.getElementById(s).value)||0);\n}\nfunction calcDuration() {\n  const total = getRowSec('d1h','d1m','d1s') + getRowSec('d2h','d2m','d2s') + getRowSec('d3h','d3m','d3s');\n  if (total <= 0) { alert('Please enter at least one time duration greater than zero.'); return; }\n  const h = Math.floor(total / 3600);\n  const m = Math.floor((total % 3600) / 60);\n  const s = total % 60;\n  const dec = (total / 3600).toFixed(4);\n  const totalMin = Math.floor(total / 60);\n  document.getElementById('td-ri').innerHTML =\n    ri('Total Duration', '<strong style=\"font-size:24px;color:var(--c-accent)\">' + pad(h) + ':' + pad(m) + ':' + pad(s) + '</strong>', true) +\n    ri('Decimal Hours', dec + ' hours') +\n    ri('Total Minutes', totalMin.toLocaleString()) +\n    ri('Total Seconds', total.toLocaleString()) +\n    ri('Billable (at $50/hr)', '$' + (parseFloat(dec) * 50).toFixed(2));\n  document.getElementById('td-result').style.display = 'block';\n  document.getElementById('td-actions').style.display = 'flex';\n  drawDonut('td-chart', ['Hours', 'Minutes', 'Seconds'], [h||0.001, m||0.001, s||0.001], ['#1a5c3a','#c8832a','#3a7abf']);\n  const ai = document.getElementById('td-ai');\n  ai.style.display = 'block';\n  ai.innerHTML = '<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('A total work duration of ' + h + ' hours, ' + m + ' minutes, and ' + s + ' seconds (' + dec + ' decimal hours). In 2 sentences give a productivity insight about how to effectively use or manage a block of this duration for deep work or projects.').then(function(t) {\n    if (t) ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n    else ai.style.display = 'none';\n  });\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/datetime", label: "Date & Time" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Timesheet &amp; Payroll Duration Guidance:</strong> Accurately measuring elapsed duration requires deducting unpaid meal breaks and converting sexagesimal minutes to decimal payroll hours. In workforce management and freelance billing, evaluate total business working days in our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link>, add compounding shift hours with our <Link href="/calculators/datetime/time-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time calculator</Link>, or track calendar day intervals in our <Link href="/calculators/datetime/date-difference-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">date difference calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Workforce Shift Dynamics: Productive Time vs. Mandatory Statutory Breaks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern labor economics and corporate human resource management, calculating elapsed shift duration is the foundational metric of commercial payroll, project job costing, and labor law compliance. In both industrial manufacturing facilities and professional service corporations, gross elapsed shift span divides between productive billable labor and statutory unpaid meal breaks.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The stacked bar chart below illustrates the structural allocation between net productive hours and mandatory break periods across standard commercial shifts ranging from short 4-hour half-day assignments up to demanding 12-hour industrial emergency rotations.
+          </p>
+
+          <WorkshiftBreakdownDurationCurveChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulation of Elapsed Time Duration
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Given a starting timestamp T_start = (H_start, M_start) and an ending timestamp T_end = (H_end, M_end), the timestamps are first converted into scalar minutes of the diurnal cycle:
+          </p>
+          <Formula>{"m_{\text{start}} = (H_{\text{start}} \times 60) + M_{\text{start}}, \quad m_{\text{end}} = (H_{\text{end}} \times 60) + M_{\text{end}}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The gross elapsed duration Delta m_gross accounts for overnight midnight rollovers via modulo 1,440 arithmetic:
+          </p>
+          <Formula>{"\Delta m_{\text{gross}} = (m_{\text{end}} - m_{\text{start}} + 1440) \pmod{1440}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Deducting the unpaid break period B_mins yields the net productive duration Delta m_net:
+          </p>
+          <Formula>{"\Delta m_{\text{net}} = \max\left( 0, \; \Delta m_{\text{gross}} - B_{\text{mins}} \right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Finally, the commercial payroll decimal hours H_decimal is derived by dividing net minutes by 60:
+          </p>
+          <Formula>{"H_{\text{decimal}} = \frac{\Delta m_{\text{net}}}{60} = H_{\text{net}} + \frac{M_{\text{net}}}{60}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This continuous decimal hour formulation forms the mathematical basis for automated enterprise timesheet software (Kronos, ADP, Workday). To evaluate financial wage ratios and billing margins, explore our <Link href="/calculators/math/ratio-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ratio calculator</Link> and calculate overtime compensation percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Standard Shift Models &amp; Statutory Meal Break Benchmarks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below synthesizes standard commercial workshift models, typical gross spans, mandatory break allocations, and resulting net billable payroll hours:
+          </p>
+          <DataTable
+            head={["Workshift Classification", "Gross Clock Span", "Mandatory Unpaid Break", "Net Billable Decimal Hours", "Typical Commercial Industry"]}
+            rows={[
+              ["Part-Time Half Shift", "4 Hours 00 Mins (08:00 - 12:00)", "0 Minutes (None required)", "4.00 Decimal Hours", "Retail hospitality, campus work-study"],
+              ["Standard Corporate Day", "8 Hours 30 Mins (09:00 - 17:30)", "30 Minutes (Lunch break)", "8.00 Decimal Hours", "Commercial corporate offices, banking"],
+              ["Compressed 4x10 Shift", "10 Hours 45 Mins (07:00 - 17:45)", "45 Minutes (Lunch break)", "10.00 Decimal Hours", "Government administration, manufacturing"],
+              ["Hospital Nursing Rotation", "12 Hours 30 Mins (07:00 - 19:30)", "30 Minutes (Meal) + 2x15m paid", "12.00 Decimal Hours", "Intensive care units, emergency healthcare"],
+              ["Overnight Graveyard Shift", "8 Hours 30 Mins (23:00 - 07:30)", "30 Minutes (Overnight meal)", "8.00 Decimal Hours", "Logistics sorting hubs, 24/7 security"],
+              ["Split Shift (Hospitality)", "2x 4h Spans (11-15:00 & 18-22:00)", "3 Hours Unpaid Intermission", "8.00 Decimal Hours", "Restaurant culinary, municipal transit bus"],
+              ["Freelance Consulting Block", "3 Hours 45 Mins (Focused Sprint)", "0 Minutes (Continuous)", "3.75 Decimal Hours", "Software engineering, legal document review"],
+              ["Emergency Fire / EMS 24h", "24 Hours 00 Mins (On-Call Shift)", "Variable Structured Sleep Time", "16.00 to 24.00 Hours", "Municipal fire protection, paramedic squads"],
+              ["Production Line Maintenance", "6 Hours 00 Mins (Saturday Overtime)", "15 Minutes (Paid break only)", "6.00 Decimal Hours", "Automotive manufacturing tooling audits"],
+              ["Executive Strategy Offsite", "9 Hours 15 Mins (08:30 - 17:45)", "75 Minutes (Catered luncheon)", "8.00 Decimal Hours", "Corporate annual board strategic planning"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Step-by-Step Case Study: Overnight Logistics Shift with Break Deduction
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a logistics fulfillment warehouse supervisor auditing a night shift employee timesheet. The employee clocked in on Monday evening at 21:45 (9:45 PM) and clocked out on Tuesday morning at 06:15 (6:15 AM). The electronic badge reader recorded a 45-minute unpaid meal break at 02:00 AM. The payroll manager must compute gross duration, net billable hours, and gross wage compensation at $24.50/hour:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Convert Timestamps to Diurnal Minutes):</strong> Start time: 21:45 = (21 x 60) + 45 = 1,305 minutes. End time: 06:15 = (6 x 60) + 15 = 375 minutes.</li>
+            <li><strong>Step 2 (Apply Modulo 1,440 Midnight Normalization):</strong> Since end time (375) is less than start time (1,305), the shift crossed midnight: Gross minutes = (375 − 1305 + 1440) mod 1440 = <strong>510 gross minutes</strong>. In sexagesimal hours: 510 / 60 = 8 hours and 30 minutes.</li>
+            <li><strong>Step 3 (Deduct 45-Minute Unpaid Meal Break):</strong> Net productive minutes = 510 − 45 = <strong>465 net minutes</strong>. In hours and minutes: 465 / 60 = 7 hours and 45 minutes.</li>
+            <li><strong>Step 4 (Convert to Decimal Hours and Compute Gross Pay):</strong> Decimal hours = 7 + (45 / 60) = <strong>7.75 decimal hours</strong>. Gross earnings = 7.75 hours x $24.50/hour = <strong>$189.88</strong>. Cross-reference multi-day payrolls in our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link> and convert time units in our <Link href="/calculators/measurements/time-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Industrial Time-and-Motion Studies: Taylorism &amp; Gilbreth Therbligs
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The systematic scientific analysis of work duration originated during the late 19th-century Industrial Revolution under Frederick Winslow Taylor&apos;s &apos;scientific management&apos; principles and Frank and Lillian Gilbreth&apos;s time-and-motion studies. The Gilbreths decomposed complex manual factory assembly workflows into 17 fundamental elemental motions known as &apos;therbligs&apos; (an anagram of Gilbreth), including Search, Select, Grasp, Transport Loaded, Hold, and Inspect.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            By measuring the precise microsecond duration of each elemental motion using chronocyclegraph photography, industrial engineers eliminated redundant physical motions, reducing worker fatigue while elevating assembly line throughput. In modern Lean Manufacturing and Six Sigma disciplines, cycle time analysis remains the cornerstone of reducing non-value-added waste (Muda). To analyze project sprints, explore our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Digital Chronometry &amp; High-Resolution Precision Timers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern computer operating systems and web browsers, duration tracking is measured via monotonic hardware clocks (such as the High Precision Event Timer, HPET, and CPU Time Stamp Counter, TSC). Unlike civil wall-clock time (which can be stepped backward or forward by Network Time Protocol, NTP, adjustments), monotonic timers guarantee strictly positive, linear time progression.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In JavaScript and Node.js environments, developers utilize performance.now() to measure sub-millisecond execution durations with microsecond precision, preventing timing attacks while auditing distributed microservice latencies. To convert epoch timestamps, explore our <Link href="/calculators/datetime/unix-timestamp-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">UNIX timestamp converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Freelance Billing, Legal Consulting &amp; Athletic Pacing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In freelance contract work, software development, and graphic design, professionals use automated timesheet trackers (Toggl, Harvest, Clockify) to measure task duration across multiple concurrent client accounts. Accurate duration tracking ensures clients receive transparent, auditable invoices backed by minute-level timesheet records.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In endurance athletics (triathlons, marathons, cycling time trials), duration measurement defines pace kinetics, aerobic threshold maintenance, and split interval execution. Visit our centralized <Link href="/pages/datetime" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Date &amp; Time directory</Link>, evaluate working business days in our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link>, and convert time units in our <Link href="/calculators/measurements/time-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time converter</Link>.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Workplace Fatigue Risk Management &amp; Circadian Sleep Architecture
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-reliability industrial operations—such as commercial aviation, nuclear power plant control rooms, and petrochemical refining—managing work shift duration is a vital safety prerequisite. Chronobiological research demonstrates that continuous cognitive alertness declines precipitously after 8 to 10 hours of sustained wakefulness, with human error rates multiplying three-fold during extended 12-hour shifts.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under Fatigue Risk Management Systems (FRMS) regulated by the International Civil Aviation Organization (ICAO) and OSHA, continuous work periods must incorporate biomathematical fatigue modeling. Circadian troughs occurring between 02:00 AM and 06:00 AM (the Window of Circadian Low, WOCL) induce acute microsleep episodes unless balanced by mandatory restorative rest periods.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Aviation Pilot Flight Duty Period (FDP) &amp; FAA Part 117 Rest Mandates
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In commercial passenger aviation, the United States Federal Aviation Administration enforces Federal Aviation Regulations (FAR) Part 117, strictly governing Flight Duty Periods (FDP) for commercial airline pilots. Unlike ordinary corporate office hours, FDP begins when a pilot reports for duty and ends when the aircraft is parked at the gate following its final flight leg.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Maximum allowable flight duty duration scales dynamically based on the pilot&apos;s report time and the number of flight sectors flown: a pilot reporting at 07:00 AM for a single flight leg is permitted up to 14 hours of duty, whereas a crew reporting at 23:00 for multiple legs is capped at 9.0 hours. Airlines that violate cumulative weekly duty limits face heavy regulatory enforcement and grounded flights.
+          </p>
+
+        <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Spaceflight Orbital Chronometry &amp; Relativistic Time Dilation In High-G Trajectories
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In orbital spaceflight and deep-space interplanetary navigation, calculating time duration departs significantly from simple terrestrial clock subtraction due to relativistic spacetime effects predicted by Albert Einstein&apos;s theories of Special and General Relativity. For spacecraft in low Earth orbit (such as the International Space Station traveling at approximately 7.66 kilometers per second at an altitude of 420 kilometers), two opposing relativistic time dilation phenomena operate simultaneously.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            First, Special Relativity dictates that an object moving at velocity relative to an inertial observer experiences kinematic time dilation: clocks on the space station tick slower relative to ground clocks by approximately 28 microseconds per day. Conversely, General Relativity dictates gravitational time dilation: because the space station resides higher in Earth&apos;s gravitational potential well (where spacetime curvature is weaker), its clocks tick faster by roughly 3 microseconds per day compared to clocks at sea level.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The net result is that ISS astronauts age approximately 25 microseconds less per day than ground control staff on Earth. When mission controllers compute precise delta-v burn durations for orbital rendezvous, trajectory correction maneuvers must account for these nanosecond time discrepancies to prevent orbital insertion misalignments.
+          </p>
+        </>
+      }
+    >
+      <TimeDurationCalculatorComponent />
+    </CalcPage>
   );
 }
