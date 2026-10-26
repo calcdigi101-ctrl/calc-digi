@@ -69,13 +69,14 @@ export default function FrequencyCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             RF Spectrum Wavelength & Resonant Antenna Geometry
           </h2>
-          <FrequencyWavelengthAntennaSpectrumChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Electromagnetic wave mechanics forms the bedrock of wireless telecommunications, radar systems, satellite navigation, and high-speed digital electronics. Defined by James Clerk Maxwell in his 1865 unified electrodynamic treatise, an oscillating electrical charge creates self-propagating transverse electromagnetic (TEM) waves composed of orthogonal electric (E) and magnetic (H) vectors travelling through spacetime.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             When high-frequency alternating current flows along a conductive antenna trace, the spatial length of the physical conductor relative to the transmitted wavelength determines radiation efficiency. If conductor dimensions are an exact fraction of wavelength (such as quarter-wave λ/4 or half-wave λ/2), standing wave resonance is established, maximizing radiated power while canceling reactive impedance.
           </p>
+
+          <FrequencyWavelengthAntennaSpectrumChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Governing Electromagnetic Wavelength & Time Formulas

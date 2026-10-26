@@ -69,13 +69,14 @@ export default function RcTimeConstantCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Exponential RC Transient Charging & Discharging Response
           </h2>
-          <RcChargingExponentialDischargeCurveChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             The resistor-capacitor (RC) network is one of the most foundational transient and frequency-selective circuits in electrical engineering. Consisting of a passive linear resistor (R) connected in series with an electrostatic capacitor (C), this circuit models the dynamic charging and discharging behavior of electrical energy storage systems.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Unlike pure resistive networks where current responds instantaneously to applied voltage, a capacitor opposes rapid changes in potential difference. When a step voltage is applied, current initially rushes into the uncharged capacitor limited only by the series resistor. As electrostatic charge accumulates on the conductive plates, the opposing counter-voltage increases, exponentially slowing the charging current until steady-state equilibrium is achieved.
           </p>
+
+          <RcChargingExponentialDischargeCurveChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Governing Equations for RC Transients

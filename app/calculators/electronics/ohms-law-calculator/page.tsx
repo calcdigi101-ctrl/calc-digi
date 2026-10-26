@@ -69,13 +69,14 @@ export default function OhmsLawCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Current Conduction Linearity Across Conductor Resistance
           </h2>
-          <OhmsLawVoltageCurrentLinearityChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Published in 1827 by German physicist Georg Simon Ohm, Ohm&apos;s Law forms the cornerstone of modern electrical and electronic engineering. The fundamental premise dictates that when a constant temperature is maintained, the electromotive force (voltage) applied across a conductive material produces an electrical current directly proportional to that voltage, with the constant of proportionality being electrical conductance (the inverse of resistance).
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In practical printed circuit board (PCB) design and electrical distribution, determining whether a component behaves ohmically is crucial for thermal management. When current passes through any resistive element, mobile charge carriers scatter against crystal lattice ions, transforming potential electrical energy into thermal energy. Calculating this Joule heating prevents component burnout, trace delamination, and fire hazards.
           </p>
+
+          <OhmsLawVoltageCurrentLinearityChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Derivations & The Ohm&apos;s Law Power Wheel

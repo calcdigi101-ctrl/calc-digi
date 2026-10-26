@@ -69,13 +69,14 @@ export default function LedResistorCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             LED Luminous Power vs Series Resistor Heat Dissipation
           </h2>
-          <LedResistorEfficiencyTradeoffChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Solid-state lighting and indicator instrumentation rely on Light Emitting Diodes (LEDs) for energy-efficient illumination. Unlike incandescent tungsten lamps whose positive temperature coefficient naturally limits runaway current, semiconductors feature an exponential Shockley I-V characteristic. Once forward bias exceeds the bandgap threshold, a minute 100 mV voltage increase can trigger a ten-fold current spike, causing instantaneous bond-wire fusion.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             A linear series resistor acts as a ballast stabilizer by absorbing the differential voltage between the DC power supply rail and the LED&apos;s forward junction voltage. By setting the operating current along the linear portion of the luminous intensity curve, engineers achieve consistent optical output across temperature variations.
           </p>
+
+          <LedResistorEfficiencyTradeoffChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Equations for Series LED Resistors
