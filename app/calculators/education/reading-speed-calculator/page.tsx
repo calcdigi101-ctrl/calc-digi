@@ -1,26 +1,236 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ReadingSpeedCalculatorComponent from "@/components/calcs/education/reading-speed-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ReadingSpeedComprehensionCurveChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/reading-speed-calculator";
+const TITLE = "Reading Speed Calculator | Words Per Minute (WPM) & Retention Rate";
+const DESCRIPTION =
+  "Calculate reading speed in Words Per Minute (WPM), effective comprehension rates, textbook chapter reading times, and psycholinguistic reading fluency.";
 
 export const metadata: Metadata = {
-  "title": "Reading Speed Calculator – WPM and Reading Time | CalcDigi",
-  "description": "Calculate your reading speed in words per minute (WPM) and estimate reading time for any book, article, or assignment.",
-  "openGraph": {
-    "title": "Reading Speed Calculator – WPM and Reading Time | CalcDigi",
-    "description": "Calculate your reading speed in words per minute (WPM) and estimate reading time for any book, article, or assignment.",
-    "type": "website",
-    "url": "/calculators/education/reading-speed-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/reading-speed-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/study-hours-calculator", icon: "⏱️", name: "Study Hours" },
+  { href: "/calculators/education/test-score-calculator", icon: "📝", name: "Test Score" },
+  { href: "/calculators/education/act-score-calculator", icon: "📊", name: "ACT Score" },
+  { href: "/calculators/education/sat-score-calculator", icon: "📐", name: "SAT Score" },
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/grade-calculator", icon: "📈", name: "Grade Calculator" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is an average college reading speed in Words Per Minute (WPM)?",
+    a: "Empirical psycholinguistic studies show that the average adult and undergraduate student reads non-technical prose at a rate between 200 and 250 Words Per Minute (WPM) with approximately 70% to 80% comprehension retention. For dense scientific, mathematical, and legal texts, reading pace naturally decelerates to 125 to 175 WPM due to deep cognitive syntax processing and equation parsing.",
+  },
+  {
+    q: "What is Effective Reading Rate (eWPM)?",
+    a: "Effective Reading Rate (eWPM) is calculated by multiplying your raw Words Per Minute by your comprehension percentage (eWPM = WPM * Comprehension / 100). For example, reading at 400 WPM with only 50% comprehension yields an effective rate of 200 eWPM—meaning a deliberate reader at 250 WPM with 90% comprehension (225 eWPM) acquires information faster and more reliably.",
+  },
+  {
+    q: "How does subvocalization affect reading speed limits?",
+    a: "Subvocalization is the internal auditory narration of words in your mind as you read. Because normal human speech tops out at approximately 250 to 300 words per minute, strong subvocalization creates an unbreakable physiological speed ceiling. Advanced speed readers learn to process words visually as semantic units, bypassing vocalization to reach 450+ WPM.",
+  },
+  {
+    q: "Do digital screens reduce reading speed compared to print paper?",
+    a: "Yes. Cognitive neuroscience research confirms that reading on illuminated digital displays (laptops, tablets, smartphones) is approximately 10% to 15% slower than reading physical printed paper. Digital readers experience higher ocular saccadic fatigue, increased visual regressions (re-reading lines), and more frequent cognitive distraction.",
+  },
+];
+
+export default function ReadingSpeedCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Reading Speed Calculator\", \"item\": \"https://calcdigi.com/calculators/education/reading-speed-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Reading Speed Calculator\", \"url\": \"https://calcdigi.com/calculators/education/reading-speed-calculator\", \"description\": \"Calculate your reading speed in words per minute (WPM) and estimate reading time for any book, article, or assignment.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the average reading speed for adults?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The average adult reads 200-300 words per minute (WPM) with good comprehension. College students average 250-350 WPM. Professionals who read extensively average 300-400 WPM. Elementary school children: 100-150 WPM. Speed readers can achieve 400-700 WPM with some comprehension tradeoff.\"}}, {\"@type\": \"Question\", \"name\": \"How long does it take to read a 300-page book?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A 300-page book has approximately 75,000-90,000 words (250-300 words per page). At average 250 WPM: 75,000 / 250 = 300 minutes = 5 hours. At 350 WPM: about 3.6 hours. Harry Potter (77,000 words) at 250 WPM = 5.1 hours. The Bible (780,000 words) at 250 WPM = 52 hours.\"}}, {\"@type\": \"Question\", \"name\": \"How can I increase my reading speed?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Practice daily reading, eliminate subvocalization (mouthing words), use a pointer to guide your eyes, expand your peripheral vision to read more words per fixation, take a speed reading course (Spreeder, Iris Reading), and time yourself regularly. Consistent practice for 15-20 minutes daily can double reading speed within 3 months.\"}}, {\"@type\": \"Question\", \"name\": \"How many pages can you read in one hour?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At 250 WPM with 250 words per page: 250 WPM × 60 min = 15,000 words / 250 = 60 pages per hour. At 350 WPM: 84 pages per hour. Academic textbooks with figures and equations: 15-30 pages per hour. Dense philosophical or legal text: 10-20 pages per hour. Fiction at leisure: 50-80+ pages per hour.\"}}, {\"@type\": \"Question\", \"name\": \"What is WPM and why does it matter for students?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"WPM (Words Per Minute) measures reading speed. For students, WPM determines how long assignments take. A professor assigning 80 pages per week (≈20,000 words): at 200 WPM = 100 minutes (1hr 40min). At 350 WPM = 57 minutes. Knowing your WPM allows accurate time planning for reading assignments.\"}}, {\"@type\": \"Question\", \"name\": \"Does reading speed affect comprehension?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Moderate speed increases (from 200 to 300 WPM) generally do not hurt comprehension when practiced gradually. Comprehension typically begins dropping above 400-500 WPM. For academic material requiring full understanding: read at 200-300 WPM with active engagement (highlighting, note-taking) rather than faster passive reading.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Reading Speed Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Reading Speed Calculator</h1>\n<p class=\"calc-intro\">Calculate your reading speed in words per minute (WPM) and find out how long it will take you to read any book, article, or study assignment. Improve your reading speed and comprehension with proven techniques.</p>\n<p class=\"calc-intro\">The average adult reads 200-300 words per minute with good comprehension. Speed readers can achieve 400-700 WPM. Understanding your reading speed helps you realistically schedule reading assignments, plan study time for textbooks, and identify opportunities to improve your reading efficiency.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Reading Speed (WPM) = Words Read / Time (minutes) | Reading Time = Total Words / WPM | 1 page ≈ 250-300 words</div></div>\n<div class=\"content-section\">\n<h2>Reading Speed by Level</h2>\n<p>Reading speed varies significantly by purpose and material. Skimming for key points is much faster than careful analytical reading of complex material. Matching your reading speed to the purpose and material type maximizes both efficiency and comprehension.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Reading Speed</th><th style=\"padding:11px 14px;text-align:left;\">Level</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">100-150 WPM</td><td style=\"padding:10px 14px;\">Below average</td><td style=\"padding:10px 14px;\">Poor reader or difficult material</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">150-250 WPM</td><td style=\"padding:10px 14px;\">Average adult</td><td style=\"padding:10px 14px;\">Normal reading speed</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">250-350 WPM</td><td style=\"padding:10px 14px;\">Good reader</td><td style=\"padding:10px 14px;\">Efficient academic reading</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">350-500 WPM</td><td style=\"padding:10px 14px;\">Fast reader</td><td style=\"padding:10px 14px;\">Speed reading techniques</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">500-700 WPM</td><td style=\"padding:10px 14px;\">Speed reader</td><td style=\"padding:10px 14px;\">Trained, with some comprehension loss</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">700-1000 WPM</td><td style=\"padding:10px 14px;\">Expert speed reader</td><td style=\"padding:10px 14px;\">Specialized training, lower comprehension</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">1000+ WPM</td><td style=\"padding:10px 14px;\">Claimed by some</td><td style=\"padding:10px 14px;\">Controversial — likely skimming</td></tr></tbody></table></div>\n<h3>How to Measure Your Reading Speed</h3>\n<p>Method: Select a passage of known word count (or count words in a full page — typically 250-300 words for standard books). Read at your normal comfortable pace for exactly 1 minute. Count the words you read. This is your WPM. Alternatively, read a full passage, note the time, count total words, and calculate WPM = words / minutes.</p>\n<h3>Speed Reading Techniques</h3>\n<p>Proven techniques to increase reading speed: eliminate subvocalization (silently saying each word — the #1 limiter of reading speed), use a pointer or finger to guide your eyes and maintain pace, expand your eye fixation span to read 2-3 words per fixation instead of 1, minimize regressions (re-reading), and practice chunking — reading groups of words as a unit.</p>\n<h3>Speed vs Comprehension Tradeoff</h3>\n<p>Above 400 WPM, comprehension typically begins to decline. For academic reading requiring deep understanding and retention, 200-300 WPM with active engagement (note-taking, questioning, summarizing) is more effective than speed reading at 600 WPM with poor retention. Reserve speed reading for pleasure reading, news, and familiar material.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the average reading speed for adults? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The average adult reads 200-300 words per minute (WPM) with good comprehension. College students average 250-350 WPM. Professionals who read extensively average 300-400 WPM. Elementary school children: 100-150 WPM. Speed readers can achieve 400-700 WPM with some comprehension tradeoff.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How long does it take to read a 300-page book? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A 300-page book has approximately 75,000-90,000 words (250-300 words per page). At average 250 WPM: 75,000 / 250 = 300 minutes = 5 hours. At 350 WPM: about 3.6 hours. Harry Potter (77,000 words) at 250 WPM = 5.1 hours. The Bible (780,000 words) at 250 WPM = 52 hours.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How can I increase my reading speed? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Practice daily reading, eliminate subvocalization (mouthing words), use a pointer to guide your eyes, expand your peripheral vision to read more words per fixation, take a speed reading course (Spreeder, Iris Reading), and time yourself regularly. Consistent practice for 15-20 minutes daily can double reading speed within 3 months.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many pages can you read in one hour? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At 250 WPM with 250 words per page: 250 WPM × 60 min = 15,000 words / 250 = 60 pages per hour. At 350 WPM: 84 pages per hour. Academic textbooks with figures and equations: 15-30 pages per hour. Dense philosophical or legal text: 10-20 pages per hour. Fiction at leisure: 50-80+ pages per hour.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is WPM and why does it matter for students? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">WPM (Words Per Minute) measures reading speed. For students, WPM determines how long assignments take. A professor assigning 80 pages per week (≈20,000 words): at 200 WPM = 100 minutes (1hr 40min). At 350 WPM = 57 minutes. Knowing your WPM allows accurate time planning for reading assignments.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does reading speed affect comprehension? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Moderate speed increases (from 200 to 300 WPM) generally do not hurt comprehension when practiced gradually. Comprehension typically begins dropping above 400-500 WPM. For academic material requiring full understanding: read at 200-300 WPM with active engagement (highlighting, note-taking) rather than faster passive reading.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/final-grade-calculator\"><span class=\"rc-icon\">🏁</span><span class=\"rc-name\">Final Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/test-score-calculator\"><span class=\"rc-icon\">📝</span><span class=\"rc-name\">Test Score Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Reading Speed Calculator – Words Per Minute and Book Time</h2><div class=\"form-group\"><label for=\"rs-words\">Number of Words Read</label><input id=\"rs-words\" min=\"1\" step=\"10\" type=\"number\" value=\"500\"/></div><div class=\"form-group\"><label for=\"rs-minutes\">Time Taken (minutes)</label><input id=\"rs-minutes\" min=\"0.1\" step=\"0.1\" type=\"number\" value=\"2\"/></div><div class=\"form-group\"><label for=\"rs-total\">Total Words to Read</label><input id=\"rs-total\" min=\"1\" step=\"100\" type=\"number\" value=\"75000\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','Reading Speed Calculator – Words Per Minute and Book Time')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Reading Speed Calculator – Words Per Minute and Book Time')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-reading-speed-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var words=parseFloat(document.getElementById('rs-words').value)||0;\n  var mins=parseFloat(document.getElementById('rs-minutes').value)||0;\n  var total=parseFloat(document.getElementById('rs-total').value)||0;\n  if(!words||!mins){alert('Enter words read and time taken.');return;}\n  var wpm=words/mins;\n  var level=wpm<150?'Below Average':wpm<250?'Average':wpm<350?'Good':wpm<500?'Fast Reader':'Speed Reader';\n  var timeToFinish=total>0?total/wpm:0;\n  var hrs=Math.floor(timeToFinish/60);\n  var remMins=Math.round(timeToFinish%60);\n  var timeStr=total>0?(hrs>0?hrs+'h '+remMins+'min':remMins+' min'):'—';\n  var pages=(total/275).toFixed(0);\n  var aiPrompt='Reading speed: '+wpm.toFixed(0)+' WPM ('+level+'), time for '+total+' words: '+timeStr;\n  document.getElementById('ed-ri').innerHTML=\n    ri('Reading Speed','<strong style=\"font-size:26px;color:var(--c-accent)\">'+wpm.toFixed(0)+' WPM</strong>',true)+\n    ri('Reader Level',level)+\n    ri('Time to Finish',timeStr+(total>0?' ('+pages+' pages)':''))+\n    ri('Pages per Hour',Math.round(wpm*60/275)+' pages/hr')+\n    ri('Books per Year (365hr)',Math.round(wpm*60*365/75000)+' avg books');\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['Your WPM','Average (250 WPM)'],[Math.round(wpm),250],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about improving reading speed and comprehension.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> Reading speed quantifies the rate at which human cognitive systems process textual information, measured in Words Per Minute (WPM) and Effective Reading Rate (eWPM). By evaluating words read over elapsed seconds alongside quiz retention accuracy, this calculator measures your psycholinguistic reading tier and projects the exact hours required to complete course textbooks and research papers. Budget your study week using our <Link href="/calculators/education/study-hours-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">study hours calculator</Link> and track test performance in our <Link href="/calculators/education/test-score-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">test score calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Reading Pace (WPM) vs Comprehension Retention & Effective Rate
+          </h2>
+          <ReadingSpeedComprehensionCurveChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Undergraduate collegiate curricula demand substantial textual consumption: across humanities, social sciences, and engineering prerequisites, full-time students are assigned between 150 and 350 pages of dense scholarly reading weekly. Measuring reading velocity and comprehension retention provides the empirical baseline for academic time management. Reading speed is fundamentally a temporal rate calculation, mirroring principles analyzed in a <Link href="/calculators/datetime/time-duration-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time duration calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Words Per Minute & Effective Reading Rate
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"W"}</Formula> represent the total word count of an assessed reading passage, and let <Formula>{"T_{\\text{sec}}"}</Formula> denote the elapsed time in seconds required to complete reading (<Formula>{"T_{\\text{sec}} > 0"}</Formula>). The baseline reading speed in Words Per Minute (<Formula>{"\\text{WPM}"}</Formula>) is formulated as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\\text{WPM} = \\left( \\frac{W}{T_{\\text{sec}}} \\right) \\times 60"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            However, raw reading speed is cognitively meaningless if textual information is not retained. Psycholinguists calculate the Effective Reading Rate (<Formula>{"\\text{eWPM}"}</Formula>) by modulating raw velocity with the student&apos;s comprehension accuracy score <Formula>{"C"}</Formula> (<Formula>{"0 \\le C \\le 100"}</Formula>):
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\\text{eWPM} = \\text{WPM} \\times \\left( \\frac{C}{100} \\right)"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To estimate the total time in hours <Formula>{"H_{\\text{read}}"}</Formula> required to complete a target academic textbook containing <Formula>{"N_{\\text{total}}"}</Formula> words (with an industry standard 250 words per page):
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"H_{\\text{read}} = \\frac{N_{\\text{total}}}{\\text{WPM} \\times 60}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For standardized test preparation—such as navigating long passages on the ACT Reading battery or Digital SAT Evidence-Based Reading section—students can cross-reference their reading pacing against our <Link href="/calculators/education/act-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ACT score calculator</Link> and <Link href="/calculators/education/sat-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">SAT score calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Psycholinguistic Reading Speed Tiers & Academic Comprehension Benchmarks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays standardized reading classifications, typical words-per-minute ranges, comprehension retention norms, and estimated chapter reading times:
+          </p>
+
+          <DataTable
+            head={["Reading Classification", "WPM Range", "Comprehension Retention", "Effective Rate (eWPM)", "Time for 30-Page Chapter (7,500 words)"]}
+            rows={[
+              ["Slow / Highly Analytical", "100 – 175 WPM", "85% – 95%", "90 – 160 eWPM", "42.8 – 75.0 minutes (Intensive STEM)"],
+              ["Average College Reader", "200 – 275 WPM", "75% – 85%", "160 – 230 eWPM", "27.3 – 37.5 minutes (Standard Textbooks)"],
+              ["Fast / Fluent Academic", "300 – 400 WPM", "70% – 80%", "220 – 310 eWPM", "18.8 – 25.0 minutes (Social Sciences)"],
+              ["Trained Speed Reader", "450 – 600 WPM", "60% – 75%", "280 – 420 eWPM", "12.5 – 16.7 minutes (General Review)"],
+              ["Skimmer / Keyword Scanner", "> 700 WPM", "< 50%", "< 350 eWPM", "< 10.7 minutes (High Information Loss)"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: Undergraduate History Major Weekly Reading Load
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A history major is assigned 240 pages of primary historical monographs and analytical essays per week across three upper-division seminars. Assuming a standard academic density of 275 words per page, the weekly reading load totals <Formula>{"240 \\times 275 = 66,000 \\text{ words}"}</Formula>. The student reads at an assessed speed of 220 WPM with an 85% comprehension retention score.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            First, calculate total reading time: <Formula>{"66,000 / 220 = 300 \\text{ minutes}"}</Formula>, which equals exactly 5.0 hours of continuous reading. However, accounting for cognitive eye fatigue, margin note-taking, and vocabulary clarification (which introduces a standard 1.4x academic expansion factor), the actual weekly study allocation required is <Formula>{"5.0 \\times 1.4 = 7.0 \\text{ hours}"}</Formula>. The student&apos;s Effective Reading Rate is <Formula>{"220 \\times 0.85 = 187 \\text{ eWPM}"}</Formula>. Scheduling these reading sessions within an overall academic schedule is managed in our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Speed Reading Training vs Retention Tradeoff
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A pre-law student completes a commercial speed reading course, accelerating their raw reading rate from 240 WPM to 520 WPM. However, subsequent standardized diagnostic testing reveals that while reading speed more than doubled, comprehension retention dropped from 88% down to 50%.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Comparing Effective Reading Rates reveals the underlying cognitive reality: initial effective pace was <Formula>{"240 \\times 0.88 = 211.2 \\text{ eWPM}"}</Formula>. Post-training effective pace is <Formula>{"520 \\times 0.50 = 260.0 \\text{ eWPM}"}</Formula>. While the student gained an apparent 23% net increase in retained words per minute, the severe 50% comprehension score introduces catastrophic failure risks on high-stakes examinations evaluated in our <Link href="/calculators/education/grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">grade calculator</Link> and cumulative standing tracked in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Ocular Mechanics: Fixation Spans, Saccadic Regressions & Visual Span Expansion
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Eye-tracking psycholinguistic research reveals that human eyes do not glide smoothly across printed text. Instead, reading occurs through rapid jumps termed &lsquo;saccades&rsquo; (lasting 20 to 30 milliseconds) punctuated by static &lsquo;fixations&rsquo; (lasting 200 to 250 milliseconds) during which textual information is captured by the fovea centralis. Untrained readers exhibit narrow fixation spans—capturing only 1 to 2 words per jump—and engage in frequent backward saccadic regressions (re-reading words they already processed), consuming up to 30% of total reading time.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Cognitive training to expand visual span involves grouping words into three-word semantic clusters and utilizing visual pacers (a pen tip or index finger) to guide saccadic rhythm, eliminating backward regressions. Sustaining disciplined ocular habits allows scholars to complete literature reviews efficiently, preserving academic standing in our <Link href="/calculators/education/class-rank-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">class rank calculator</Link> and ensuring consistent lecture preparation tracked in our <Link href="/calculators/education/attendance-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">attendance calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Reading Research & Cognitive Literacy Standards
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Reading fluency standards, cognitive comprehension assessments, and psycholinguistic research frameworks are established by leading national literacy institutions:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>International Literacy Association (ILA):</strong> Guidelines for adult reading assessment, diagnostic comprehension testing, and reading fluency rubrics.
+            </li>
+            <li>
+              <strong>National Reading Panel (NRP Findings):</strong> Landmark federal meta-analysis establishing the foundational pillars of reading proficiency: phonemic awareness, phonics, fluency, vocabulary, and text comprehension.
+            </li>
+            <li>
+              <strong>Society for the Scientific Study of Reading (SSSR):</strong> Peer-reviewed empirical research on saccadic eye-movement tracking and cognitive textual processing.
+            </li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Subvocalization Elimination & Perceptual Chunking Techniques
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Subvocalization represents the covert pronunciation of syllables within the vocal cords and larynx during silent reading. While essential for early childhood phonics acquisition, persistent auditory vocalization anchors reading speeds to auditory speech mechanics, which rarely exceed 280 to 300 words per minute. Overcoming this physiological barrier requires cognitive retraining through visual chunking.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Visual chunking teaches the visual cortex to interpret multi-word phrases and idioms directly as unified semantic concepts without converting symbols into auditory speech representations. By practicing peripheral vision widening exercises across vertical columns, students expand their effective foveal window from 1.2 degrees of visual angle to over 3.5 degrees, allowing entire propositional phrases to be absorbed in a single ocular fixation.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Digital Screen Reading Fatigue vs Tactile Print Paper Retention
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Extensive neuroscience experiments utilizing electroencephalography (EEG) demonstrate that reading from backlit liquid crystal displays produces significantly higher cognitive load and ocular micro-fatigue than reading physical print on non-reflective paper. The high-frequency flicker of digital backlighting, coupled with digital distraction triggers and lower spatial orientation cues, induces frequent attention lapses and involuntary regressions.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To mitigate digital reading deficits, students working through extensive electronic textbooks should utilize high-contrast e-ink displays or matte screen protectors, implement the 20-20-20 visual rest protocol (shifting focus to an object 20 feet away every 20 minutes for 20 seconds), and actively annotate digital PDF margins to stimulate deep physical encoding pathways.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Strategic Reading Protocols: SQ3R & Analytical Text Decoupling
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Collegiate reading demands deliberate methodology rather than passive end-to-end scanning. The classic SQ3R framework—Survey, Question, Read, Recite, Review—serves as the gold standard for dense academic texts. By surveying chapter subheadings, visual figures, and summary conclusions before engaging with body paragraphs, the reader constructs a cognitive schema that primes the working memory for high-yield factual integration.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Coupling SQ3R with deliberate margin synthesis transforms reading from a receptive chore into an active intellectual dialogue. Undergraduate scholars who master these structured reading protocols routinely synthesize multi-volume literature reviews in half the time of unguided peers, laying a solid foundation for top-tier academic honors.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Metacognitive Monitoring & Adaptive Pacing Modulation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Elite academic readers employ deliberate metacognitive monitoring, constantly assessing their comprehension fidelity in real time. Rather than maintaining a rigid, monolithic reading pace across diverse texts, fluent scholars dynamically shift gears: accelerating to 400 WPM through narrative case backgrounds and contextual history, while decelerating to 140 WPM when encountering dense mathematical derivations, chemical reaction formulas, or nuanced constitutional jurisprudence.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Recognizing the onset of cognitive saturation enables scholars to pause, perform brief thirty-second mental recapitulations, and maintain consistent factual absorption without succumbing to optical skimming. Developing fluent academic reading capabilities empowers university scholars to navigate challenging research literature with speed, confidence, and cognitive retention.
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            By balancing raw reading velocity with verified comprehension benchmarks, students optimize their academic workflows, enhance examination readiness, and ensure long-term scholastic mastery across every stage of their university education.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Long-Term Cognitive Literacy & Reading Pace Calibration
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Sustained academic reading proficiency requires ongoing diagnostic evaluation throughout undergraduate study. By measuring reading velocity and comprehension retention across diverse textual genres—including dense technical literature and peer-reviewed journals—students develop adaptable reading pacing that prevents academic fatigue and accelerates degree progress.
+          </p>
+
+        </>
+      }
+    >
+      <ReadingSpeedCalculatorComponent />
+    </CalcPage>
   );
 }

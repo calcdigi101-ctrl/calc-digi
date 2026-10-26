@@ -1,26 +1,228 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ActScoreCalculatorComponent from "@/components/calcs/education/act-score-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ActScorePercentileDistributionChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/act-score-calculator";
+const TITLE = "ACT Score Calculator | Composite Score, STEM Benchmark & Percentile Rank";
+const DESCRIPTION =
+  "Calculate official ACT composite scores, STEM and ELA benchmarks, section point averages, and national percentile ranks across English, Math, Reading, and Science.";
 
 export const metadata: Metadata = {
-  "title": "ACT Score Calculator – Composite Score | CalcDigi",
-  "description": "Calculate your ACT composite score from section scores. See your percentile ranking and required scores for target colleges.",
-  "openGraph": {
-    "title": "ACT Score Calculator – Composite Score | CalcDigi",
-    "description": "Calculate your ACT composite score from section scores. See your percentile ranking and required scores for target colleges.",
-    "type": "website",
-    "url": "/calculators/education/act-score-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/act-score-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/sat-score-calculator", icon: "📐", name: "SAT Score" },
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/test-score-calculator", icon: "📝", name: "Test Score" },
+  { href: "/calculators/education/class-rank-calculator", icon: "🏆", name: "Class Rank" },
+  { href: "/calculators/education/scholarship-calculator", icon: "💵", name: "Scholarship" },
+  { href: "/calculators/education/college-cost-calculator", icon: "🏛️", name: "College Cost" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How is the official ACT composite score calculated?",
+    a: "The ACT composite score is the unweighted arithmetic mean of four section scores: English, Mathematics, Reading, and Science, each scored on a scale from 1 to 36. The average of these four sections is rounded to the nearest whole integer: decimals of 0.50 or higher round up to the next integer, while decimals below 0.50 round down.",
+  },
+  {
+    q: "What is the difference between an ACT composite score and an ACT superscore?",
+    a: "An individual composite score reflects performance on a single test administration. An ACT superscore recalculates your composite by taking your highest individual section scores across all test dates you have completed and computing a new arithmetic mean. Over 80% of competitive US colleges accept official ACT superscoring.",
+  },
+  {
+    q: "Is there a penalty for incorrect guesses on the ACT?",
+    a: "No. The ACT enforces rights-only scoring: your raw score equals the total number of correctly answered questions with zero deductions for incorrect answers or blank responses. Consequently, students should never leave any bubble blank on test day, as random guessing preserves a 20% to 25% statistical probability of gaining extra raw points.",
+  },
+  {
+    q: "What ACT score is considered competitive for Ivy League and top-20 universities?",
+    a: "For top-20 national universities and Ivy League institutions, competitive applicant profiles typically fall within the middle 50% composite band of 33 to 35, placing candidates in the 98th to 99th national percentiles. Combining strong test scores with high weighted standing from our GPA calculator maximizes admission competitiveness.",
+  },
+];
+
+export default function ActScoreCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"ACT Score Calculator\", \"item\": \"https://calcdigi.com/calculators/education/act-score-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"ACT Score Calculator\", \"url\": \"https://calcdigi.com/calculators/education/act-score-calculator\", \"description\": \"Calculate your ACT composite score from section scores. See your percentile ranking and required scores for target colleges.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is a good ACT score?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average national ACT score: 19.5. Good for most colleges: 22+. Competitive schools: 27+. Top 25 universities: 30+. Ivy League: 34+. A good score is relative to your target schools — aim for the 75th percentile of admitted students. Check each college Common Data Set for middle 50% ACT ranges.\"}}, {\"@type\": \"Question\", \"name\": \"How is the ACT composite score calculated?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"ACT composite = Average of four section scores (English + Math + Reading + Science) divided by 4, rounded to the nearest whole number. If sections are 27, 25, 28, 24: composite = (27+25+28+24)/4 = 26. The optional Writing test is scored separately on a 2-12 scale and does not affect the composite.\"}}, {\"@type\": \"Question\", \"name\": \"How many times can I take the ACT?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"You can take the ACT up to 12 times. Most students take it 2-3 times. Average score improvement on the second attempt: 1-2 composite points. Significant improvement (3+ points) typically requires structured preparation between attempts. Most colleges accept highest composite or allow superscoring across attempts.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between ACT and SAT?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"ACT tests: English, Math, Reading, Science (plus optional Writing). SAT tests: Reading & Writing, Math. Key differences: ACT Science section tests data interpretation (not science knowledge). ACT Math includes trigonometry. SAT has no time penalty for wrong answers (same as ACT now). ACT tends to be more straightforward; SAT requires more analytical reading.\"}}, {\"@type\": \"Question\", \"name\": \"What ACT score is needed for merit scholarships?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"State university merit scholarships: typically 25-30 ACT for significant aid. National Merit: based on PSAT, not ACT. University-specific awards vary significantly — a 28 ACT might earn $10,000/year at one school and nothing at another. Research merit aid thresholds at each school you are considering.\"}}, {\"@type\": \"Question\", \"name\": \"How do I improve my ACT score?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Take an official practice test to find your weakest section. English: learn grammar rules (comma use, apostrophes, parallel structure). Math: review pre-calculus concepts and practice speed. Reading: practice time management and skimming techniques. Science: practice reading graphs and tables quickly. Take 4-6 timed full practice tests. Khan Academy and ACT official prep resources are excellent free options.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">ACT Score Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>ACT Score Calculator</h1>\n<p class=\"calc-intro\">Calculate your ACT composite score by averaging your English, Math, Reading, and Science section scores. Find your national percentile ranking and see what composite score is required for your target colleges and scholarship programs.</p>\n<p class=\"calc-intro\">The ACT is scored 1-36 with a composite score that is the average of four sections: English (1-36), Math (1-36), Reading (1-36), and Science (1-36). The national average ACT composite score is approximately 19.5. Understanding ACT scores helps you set realistic prep goals and compare yourself to admitted students at your target schools.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">ACT Composite = (English + Math + Reading + Science) / 4 (rounded to nearest whole number) | Optional Writing: 2-12 scale</div></div>\n<div class=\"content-section\">\n<h2>ACT Score Structure and Ranges</h2>\n<p>The ACT tests four subject areas: English (grammar, punctuation, sentence structure — 75 questions, 45 min), Mathematics (pre-algebra through trigonometry — 60 questions, 60 min), Reading (reading comprehension — 40 questions, 35 min), and Science (data interpretation and reasoning — 40 questions, 35 min). Each section is scored 1-36.</p>\n<h3>ACT Score Ranges for Colleges</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">College Tier</th><th style=\"padding:11px 14px;text-align:left;\">ACT Range</th><th style=\"padding:11px 14px;text-align:left;\">Percentile</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Ivy League / Top 10</td><td style=\"padding:10px 14px;\">33-36</td><td style=\"padding:10px 14px;\">99th+ percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Top 25 Universities</td><td style=\"padding:10px 14px;\">30-34</td><td style=\"padding:10px 14px;\">95-99th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Top 50 Universities</td><td style=\"padding:10px 14px;\">27-32</td><td style=\"padding:10px 14px;\">88-97th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Competitive Schools</td><td style=\"padding:10px 14px;\">24-28</td><td style=\"padding:10px 14px;\">74-89th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Average 4-Year College</td><td style=\"padding:10px 14px;\">20-24</td><td style=\"padding:10px 14px;\">50-74th percentile</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Open Admissions</td><td style=\"padding:10px 14px;\">Below 20</td><td style=\"padding:10px 14px;\">Test optional/not required</td></tr></tbody></table></div>\n<h3>ACT vs SAT Concordance</h3>\n<p>Colleges accept both equally. ACT to SAT equivalents: ACT 36 = SAT 1590, ACT 34 = SAT 1520, ACT 32 = SAT 1450, ACT 30 = SAT 1370, ACT 28 = SAT 1310, ACT 26 = SAT 1240, ACT 24 = SAT 1160, ACT 22 = SAT 1090, ACT 20 = SAT 1010. Use the College Board SAT-ACT concordance table for precise conversions when applying to schools with different test policies.</p>\n<h3>ACT Superscoring</h3>\n<p>Many colleges now superscore the ACT — taking your highest section score from each test attempt and combining them into a new composite. If you scored English 32, Math 28, Reading 30, Science 29 on your first attempt and English 30, Math 31, Reading 32, Science 30 on your second: Superscored composite = (32+31+32+30)/4 = 31.25 = 31. Superscoring rewards multiple test attempts.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a good ACT score? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average national ACT score: 19.5. Good for most colleges: 22+. Competitive schools: 27+. Top 25 universities: 30+. Ivy League: 34+. A good score is relative to your target schools — aim for the 75th percentile of admitted students. Check each college Common Data Set for middle 50% ACT ranges.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is the ACT composite score calculated? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">ACT composite = Average of four section scores (English + Math + Reading + Science) divided by 4, rounded to the nearest whole number. If sections are 27, 25, 28, 24: composite = (27+25+28+24)/4 = 26. The optional Writing test is scored separately on a 2-12 scale and does not affect the composite.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many times can I take the ACT? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">You can take the ACT up to 12 times. Most students take it 2-3 times. Average score improvement on the second attempt: 1-2 composite points. Significant improvement (3+ points) typically requires structured preparation between attempts. Most colleges accept highest composite or allow superscoring across attempts.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between ACT and SAT? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">ACT tests: English, Math, Reading, Science (plus optional Writing). SAT tests: Reading &amp; Writing, Math. Key differences: ACT Science section tests data interpretation (not science knowledge). ACT Math includes trigonometry. SAT has no time penalty for wrong answers (same as ACT now). ACT tends to be more straightforward; SAT requires more analytical reading.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What ACT score is needed for merit scholarships? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">State university merit scholarships: typically 25-30 ACT for significant aid. National Merit: based on PSAT, not ACT. University-specific awards vary significantly — a 28 ACT might earn $10,000/year at one school and nothing at another. Research merit aid thresholds at each school you are considering.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I improve my ACT score? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Take an official practice test to find your weakest section. English: learn grammar rules (comma use, apostrophes, parallel structure). Math: review pre-calculus concepts and practice speed. Reading: practice time management and skimming techniques. Science: practice reading graphs and tables quickly. Take 4-6 timed full practice tests. Khan Academy and ACT official prep resources are excellent free options.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/final-grade-calculator\"><span class=\"rc-icon\">🏁</span><span class=\"rc-name\">Final Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/test-score-calculator\"><span class=\"rc-icon\">📝</span><span class=\"rc-name\">Test Score Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>ACT Score Calculator – Composite Score and College Requirements</h2><div class=\"form-group\"><label for=\"act-eng\">English Score (1-36)</label><input id=\"act-eng\" max=\"36\" min=\"1\" step=\"1\" type=\"number\" value=\"24\"/></div><div class=\"form-group\"><label for=\"act-math\">Math Score (1-36)</label><input id=\"act-math\" max=\"36\" min=\"1\" step=\"1\" type=\"number\" value=\"22\"/></div><div class=\"form-group\"><label for=\"act-read\">Reading Score (1-36)</label><input id=\"act-read\" max=\"36\" min=\"1\" step=\"1\" type=\"number\" value=\"25\"/></div><div class=\"form-group\"><label for=\"act-sci\">Science Score (1-36)</label><input id=\"act-sci\" max=\"36\" min=\"1\" step=\"1\" type=\"number\" value=\"23\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','ACT Score Calculator – Composite Score and College Requirements')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('ACT Score Calculator – Composite Score and College Requirements')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-act-score-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var eng=parseInt(document.getElementById('act-eng').value)||0;\n  var math=parseInt(document.getElementById('act-math').value)||0;\n  var read=parseInt(document.getElementById('act-read').value)||0;\n  var sci=parseInt(document.getElementById('act-sci').value)||0;\n  if([eng,math,read,sci].some(function(s){return s<1||s>36;})){alert('All scores must be between 1 and 36.');return;}\n  var composite=Math.round((eng+math+read+sci)/4);\n  var pct=composite>=35?99:composite>=34?99:composite>=33?98:composite>=32?97:composite>=31?95:composite>=30?93:composite>=29?90:composite>=28?88:composite>=27?85:composite>=26?82:composite>=25?78:composite>=24?74:composite>=23?68:composite>=22?63:composite>=21?57:composite>=20?51:composite>=19?44:composite>=18?38:composite>=17?32:composite>=16?26:20;\n  var tier=composite>=33?'Ivy League Competitive':composite>=30?'Top 25 Universities':composite>=27?'Top 50 Universities':composite>=24?'Competitive Colleges':composite>=20?'Average 4-Year College':'Below Average';\n  var satEquiv=composite>=36?1590:composite>=34?1520:composite>=32?1450:composite>=30?1370:composite>=28?1310:composite>=26?1240:composite>=24?1160:composite>=22?1090:composite>=20?1010:composite>=18?920:composite>=16?830:750;\n  var aiPrompt='ACT composite: '+composite+'/36 ('+pct+'th percentile), '+tier+', SAT equivalent: '+satEquiv;\n  document.getElementById('ed-ri').innerHTML=\n    ri('ACT Composite','<strong style=\"font-size:28px;color:var(--c-accent)\">'+composite+' / 36</strong>',true)+\n    ri('Percentile','~'+pct+'th percentile')+\n    ri('College Tier',tier)+\n    ri('SAT Equivalent','~'+satEquiv+' / 1600')+\n    ri('English',eng+' | Math: '+math+' | Reading: '+read+' | Science: '+sci)+\n    ri('Points to 30',Math.max(30-composite,0)+' points needed for top university range');\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['English','Math','Reading','Science'],[eng,math,read,sci],['#1a5c3a','#c8832a','#3a7abf','#8a4abf']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about ACT preparation and improving your composite score.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> The ACT composite score provides standardized evaluation of college readiness across secondary school graduates. Calculated as the arithmetic average of English, Mathematics, Reading, and Science sections (each scaled 1 to 36), your composite score determines national percentile ranking and automatic merit aid qualifications. Compare your standardized performance against our <Link href="/calculators/education/sat-score-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">SAT score calculator</Link> and track course academic standing in our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Official ACT Composite Score to US National Percentile Distribution
+          </h2>
+          <ActScorePercentileDistributionChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Across secondary education in the United States and international international schools, the ACT examination serves as a premier standardized college entrance assessment. Administered by ACT, Inc., the test evaluates core academic proficiencies across four foundational subject batteries: English (75 questions, 45 minutes), Mathematics (60 questions, 60 minutes), Reading (40 questions, 35 minutes), and Science Reasoning (40 questions, 35 minutes). Because section scores are averaged into an integer composite, small individual section improvements can produce significant shifts in national percentile standing, utilizing principles found in a <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Composite Rounding & Specialized Benchmarks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"E"}</Formula>, <Formula>{"M"}</Formula>, <Formula>{"R"}</Formula>, and <Formula>{"S"}</Formula> represent the scaled section scores earned on the English, Mathematics, Reading, and Science sections respectively, where each score satisfies <Formula>{"1 \le \text{Score} \le 36"}</Formula>. The raw unrounded composite mean <Formula>{"\mu_{\text{ACT}}"}</Formula> is given by:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\mu_{\text{ACT}} = \frac{E + M + R + S}{4}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The official composite score <Formula>{"C_{\text{ACT}}"}</Formula> is determined by standard half-up arithmetic rounding to the nearest whole integer:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"C_{\text{ACT}} = \left\lfloor \mu_{\text{ACT}} + 0.5 \right\rfloor"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This discrete rounding threshold produces crucial tactical implications: an unrounded mean of 31.50 rounds upward to a 32 composite score, whereas a mean of 31.25 rounds downward to a 31. Gaining a single additional point on any one section raises the four-section sum by 1, elevating the unrounded mean by <Formula>{"1/4 = 0.25"}</Formula>, which can instantly trigger the upward rounding threshold.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Beyond the composite score, ACT reports specialized sub-indices utilized by university admissions committees. The official ACT STEM Score evaluates readiness for collegiate calculus and physics:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\text{STEM Score} = \frac{M + S}{2}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Similarly, the official ACT ELA Score (English Language Arts) averages English and Reading scores with optional Writing sub-scores. Tracking question accuracy across timed sections can be modeled using our <Link href="/calculators/education/test-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">test score calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Official ACT Composite Score to US National Percentile Conversion Schedule
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays official College Board and ACT concordance percentiles, showing applicant competitiveness across selective higher education institutions:
+          </p>
+
+          <DataTable
+            head={["ACT Composite", "National Percentile", "SAT Concordance Equivalent", "Collegiate Competitiveness Tier", "Automatic Merit Scholarship Alignment"]}
+            rows={[
+              ["36", "100th (Top 0.1%)", "1570 – 1600", "Top 1% Elite (Ivy League / Caltech / MIT)", "Full Presidential Ride (Tier 1)"],
+              ["35", "99th Percentile", "1530 – 1560", "Highly Competitive (Stanford / Duke / Chicago)", "Full Tuition Fellowship"],
+              ["34", "99th Percentile", "1490 – 1520", "Very Competitive (Northwestern / Johns Hopkins)", "Major Institutional Honors"],
+              ["32", "97th Percentile", "1420 – 1440", "Competitive (Top Public Flagships / UC Berkeley)", "Dean's Merit Scholarship"],
+              ["30", "93rd Percentile", "1360 – 1380", "Selective State Universities", "High State Grant Eligibility"],
+              ["28", "88th Percentile", "1300 – 1320", "Above Average College Ready", "Standard Merit Subsidy"],
+              ["24", "74th Percentile", "1160 – 1190", "National Average Benchmark", "General Admission Qualified"],
+              ["20", "53rd Percentile", "1030 – 1050", "National Median Score", "State Residency Admissible"],
+              ["< 18", "< 41st Percentile", "< 980", "Academic Remediation Recommended", "Test-Optional Pathway Advised"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: STEM Applicant Targeting Engineering Admissions
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A high school junior targeting top-tier mechanical engineering programs takes the ACT in April, scoring: English 27, Mathematics 35, Reading 29, and Science 34. The student wishes to determine their composite score and STEM benchmark standing.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The sum of the four section scores is <Formula>{"27 + 35 + 29 + 34 = 125"}</Formula>. The unrounded arithmetic mean equals <Formula>{"125 / 4 = 31.25"}</Formula>. Because the decimal portion (0.25) is strictly less than 0.50, standard half-up rounding yields an official composite score of 31 (95th national percentile). However, the student&apos;s STEM score equals <Formula>{"(35 + 34) / 2 = 34.5"}</Formula>, which places the student in the top 1% nationally for quantitative reasoning. Retaking the test and raising English from 27 to 28 would push the four-test sum to 126 (<Formula>{"126 / 4 = 31.50"}</Formula>), triggering an upward round to a 32 composite. Managing preparation hours for this targeted retest can be planned through our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Humanities Pre-Law Scholar Composite Superscoring
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A senior targeting competitive liberal arts honors colleges sits for two separate ACT administrations. In the first sitting (October), the student scores: English 35, Math 24, Reading 36, and Science 25 (Composite = <Formula>{"120 / 4 = 30"}</Formula>). In the second sitting (December), the student scores: English 33, Math 28, Reading 34, and Science 29 (Composite = <Formula>{"124 / 4 = 31"}</Formula>).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under official ACT superscoring policies, university admissions committees extract the student&apos;s highest performance across each individual section: English 35 (from October), Math 28 (from December), Reading 36 (from October), and Science 29 (from December). The superscored section sum equals <Formula>{"35 + 28 + 36 + 29 = 128"}</Formula>. The resulting superscore composite is <Formula>{"128 / 4 = 32.00"}</Formula>, vaulting the applicant into the 97th national percentile. This elevates the candidate&apos;s class competitiveness in our <Link href="/calculators/education/class-rank-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">class rank calculator</Link> and qualifies the student for higher institutional awards modeled in our <Link href="/calculators/education/scholarship-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">scholarship calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            College Board & ACT Official Concordance & Holistic Admissions Policies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 2018, the College Board and ACT, Inc. released official mutual concordance tables based on a sample of hundreds of thousands of students who completed both assessments. Admissions committees use these concordance formulas to evaluate ACT scores alongside SAT equivalents on a standardized curve. For example, an ACT composite of 34 correlates directly with an SAT score of 1500, while an ACT of 30 correlates with an SAT of 1370.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While test-optional admissions policies have expanded across post-pandemic higher education, submitting a strong standardized test score (above a college&apos;s 50th percentile) provides decisive leverage for non-need-based merit scholarships and honors program placement. Students can evaluate comprehensive degree budgets and repayment forecasts through our <Link href="/calculators/education/college-cost-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">college cost calculator</Link> and <Link href="/calculators/education/student-loan-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">student loan calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Testing Standards & National Regulatory Bodies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            ACT administration, score validity, and accommodation standards are regulated by statutory testing guidelines and collegiate organizations:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>National Association for College Admission Counseling (NACAC):</strong> Best practices for standardized testing use in holistic undergraduate admissions.
+            </li>
+            <li>
+              <strong>American Psychological Association (APA Standards for Educational Testing):</strong> Technical criteria for test reliability, validity, and freedom from cultural bias.
+            </li>
+            <li>
+              <strong>ACT College and Career Readiness Benchmarks:</strong> Empirical empirical indicators establishing score cutoffs that predict a 75% probability of earning a grade of C or higher in first-year collegiate courses.
+            </li>
+          </ul>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Psychometric Equating, Raw-to-Scale Concordance & Test Security Standards
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because individual ACT test administrations vary subtly in difficulty, ACT psychometricians employ advanced Item Response Theory (IRT) and equating methodologies to ensure that a scaled score of 30 represents identical academic mastery regardless of whether a student tested in September, December, or April. Equating adjusts raw score conversion tables across testing dates: on an unusually challenging Mathematics battery, answering 54 out of 60 questions correctly might yield a scaled 33, whereas on a standard administration, 54 correct items might convert to a scaled 31.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This rigorous statistical equating neutralizes testing date variance, ensuring admissions committees treat scores across distinct cohorts equitably. Furthermore, ACT implements stringent security and biometric proctoring verification to prevent testing fraud, maintaining the absolute integrity of official score reporting sent to collegiate clearinghouses.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Test Day Tactical Time Management & Section-by-Section Pacing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The defining cognitive challenge of the ACT is pacing: with 215 questions packed into 175 minutes of total testing time, candidates have an average of less than 50 seconds per question. In the English section (75 items in 45 minutes), students must sustain a rapid rhythm of 36 seconds per item. In the Science Reasoning section (40 items in 35 minutes), candidates must interpret complex data graphs and conflicting research hypotheses within 52 seconds per question.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Expert test strategists emphasize the 'triage pass' technique: completing straightforward data interpretation and grammar items on the first pass while deferring complex multi-step physics calculations to the final minutes. Adhering to structured pacing ensures that candidates never run out of time before reviewing answer bubbles, maximizing raw score conversion.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Longitudinal College Readiness Benchmarks & Post-Secondary Predictive Validity
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            ACT research establishes empirical College Readiness Benchmarks corresponding to specific section scores: 18 in English (predicting success in introductory composition), 22 in Mathematics (college algebra), 22 in Reading (social sciences), and 23 in Science (college biology). According to longitudinal validity studies tracking hundreds of thousands of undergraduate freshmen, students who achieve these benchmark thresholds possess a 50% probability of earning a grade of B or higher, and an approximate 75% probability of earning a grade of C or higher in corresponding first-year courses.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conversely, students scoring below empirical readiness benchmarks frequently encounter prerequisite credit remediation requirements, requiring non-credit development coursework during their freshman year. Understanding these benchmark cutoffs empowers high school seniors to strategically target specific section improvements rather than pursuing unfocused retests, optimizing their college entrance trajectory.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Counseling professionals advise students to consult with secondary school test coordinators regarding fee waiver programs and official accommodation requests, ensuring that every applicant accesses necessary resources for fair, standardized testing representation.
+          </p>
+
+        </>
+      }
+    >
+      <ActScoreCalculatorComponent />
+    </CalcPage>
   );
 }

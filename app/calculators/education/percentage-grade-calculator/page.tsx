@@ -1,26 +1,242 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PercentageGradeCalculatorComponent from "@/components/calcs/education/percentage-grade-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PercentageToGpaCurveMatrixChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/percentage-grade-calculator";
+const TITLE = "Percentage Grade Calculator | Percentage to Letter Grade & 4.0 GPA Converter";
+const DESCRIPTION =
+  "Convert raw test percentages into standardized letter grades, 4.0 scale GPA quality points, and curved scores across standard plus/minus and straight scales.";
 
 export const metadata: Metadata = {
-  "title": "Percentage Grade Calculator – Letter Grade | CalcDigi",
-  "description": "Convert test scores to percentage and letter grade. Calculate grades from points earned for any test or assignment instantly.",
-  "openGraph": {
-    "title": "Percentage Grade Calculator – Letter Grade | CalcDigi",
-    "description": "Convert test scores to percentage and letter grade. Calculate grades from points earned for any test or assignment instantly.",
-    "type": "website",
-    "url": "/calculators/education/percentage-grade-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/percentage-grade-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
+  { href: "/calculators/education/final-grade-calculator", icon: "🎯", name: "Final Grade" },
+  { href: "/calculators/education/cgpa-calculator", icon: "🎓", name: "CGPA Calculator" },
+  { href: "/calculators/education/test-score-calculator", icon: "📝", name: "Test Score" },
+  { href: "/calculators/education/class-rank-calculator", icon: "🏆", name: "Class Rank" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why do different universities use different percentage-to-letter grade conversion scales?",
+    a: "Under institutional autonomy in higher education, universities and individual academic departments establish their own grading policies. For instance, in many STEM curriculums, an 88% represents an A due to examination difficulty, whereas in standard liberal arts departments, an A strictly requires 93% or higher. Understanding your specific course syllabus grading rubric is essential for accurate academic tracking.",
+  },
+  {
+    q: "What is the difference between a plus/minus scale and a straight letter scale?",
+    a: "A straight scale assigns whole letter grades without pluses or minuses: any score from 90% to 100% receives an A (4.0 GPA), 80% to 89% receives a B (3.0 GPA), and so forth. A plus/minus scale subdivides each decile into granular tiers: an 88% earns a B+ (3.3 GPA), while an 81% earns a B- (2.7 GPA), providing more precise differentiation of student achievement.",
+  },
+  {
+    q: "How does rounding affect percentage grades near letter boundaries?",
+    a: "Standard mathematical rounding rounds up to the next integer if the decimal portion is 0.50 or higher (e.g., an 89.50% rounds to 90.0%, achieving an A-). However, institutional policies vary: some professors enforce strict unrounded truncations where an 89.99% remains a B+, while others round up only if attendance and participation benchmarks are satisfied.",
+  },
+  {
+    q: "How do curved grading adjustments alter percentage scores?",
+    a: "Curving modifies raw percentage scores to align with target grade distributions. Flat curves add a uniform percentage bonus (e.g., +5% to all students), while square-root curves (10 * sqrt(Raw)) compress the upper boundary while providing substantial recovery to lower scores (e.g., a 64% transforms into 80%).",
+  },
+];
+
+export default function PercentageGradeCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Percentage Grade Calculator\", \"item\": \"https://calcdigi.com/calculators/education/percentage-grade-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Percentage Grade Calculator\", \"url\": \"https://calcdigi.com/calculators/education/percentage-grade-calculator\", \"description\": \"Convert test scores to percentage and letter grade. Calculate grades from points earned for any test or assignment instantly.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I convert a score to a percentage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Percentage = (Points Earned / Total Points) × 100. Example: 42/50 = 84%. 176/200 = 88%. 33/40 = 82.5%. Always divide earned by total, never the reverse. Multiply by 100 to express as a percentage.\"}}, {\"@type\": \"Question\", \"name\": \"What percentage is an A, B, C grade?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Standard US scale: A = 90-100%, B = 80-89%, C = 70-79%, D = 60-69%, F = 0-59%. Plus/minus grading: A+ = 97-100%, A = 93-96%, A- = 90-92%, B+ = 87-89%, B = 83-86%, B- = 80-82%. Some schools and instructors use different cutoffs — always check the syllabus.\"}}, {\"@type\": \"Question\", \"name\": \"What score out of 50 is a 70%?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"70% of 50 = 0.70 × 50 = 35 points. General formula: Points Needed = (Target %) × Total Points / 100. For 80% of 50 = 40 points. For 90% of 50 = 45 points. For any grade: points = target percentage × total points ÷ 100.\"}}, {\"@type\": \"Question\", \"name\": \"Is 75% a passing grade in college?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"In most US colleges, 60-70% is considered passing (D grade). However, many major courses require a C (70-73%) or better. Graduate programs typically require B (80%) or better. Always check your specific program requirements — some fields like nursing, education, and engineering have higher minimum grade requirements.\"}}, {\"@type\": \"Question\", \"name\": \"How does grading work differently in other countries?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Germany: 1.0 (excellent) to 5.0 (fail) — opposite of US. UK: First Class (70%+), Upper Second (60-69%), Lower Second (50-59%), Third (40-49%). Canada: similar to US but thresholds vary by province. Australia: HD (High Distinction 85%+), D (75-84%), C (65-74%), P (50-64%), F (<50%). Converting international grades is important for graduate school applications.\"}}, {\"@type\": \"Question\", \"name\": \"What is a 3.0 GPA in percentage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"3.0 GPA corresponds to a B average, which is approximately 83-86% under the standard US grading scale. GPA to percentage conversions: 4.0 GPA ≈ 93-100% (A), 3.5 GPA ≈ 90-92% (A-), 3.0 GPA ≈ 83-86% (B), 2.5 GPA ≈ 77-79% (C+), 2.0 GPA ≈ 73-76% (C).\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Percentage Grade Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Percentage Grade Calculator</h1>\n<p class=\"calc-intro\">Convert any test score, quiz result, or assignment score into a percentage and letter grade instantly. Enter points earned and total points to get your exact percentage, letter grade, and GPA equivalent. Supports custom grading scales.</p>\n<p class=\"calc-intro\">Whether you received 47 out of 60 on a quiz or 143 out of 175 on a midterm, this calculator converts raw scores to percentages and letter grades using standard US grading scales. Essential for students tracking their academic progress throughout the semester.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Percentage = (Points Earned / Total Points) × 100 | Letter Grade based on standard US grading scale</div></div>\n<div class=\"content-section\">\n<h2>Grade Percentage Conversion Guide</h2>\n<p>Converting raw scores to percentages is fundamental to understanding academic performance. A score of 75/100 is 75%, but 75/90 is 83.3% — a significant difference. Always convert to percentage for accurate comparison across different assignments and courses.</p>\n<h3>Standard US Grading Scale</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Grade</th><th style=\"padding:11px 14px;text-align:left;\">Range</th><th style=\"padding:11px 14px;text-align:left;\">GPA</th><th style=\"padding:11px 14px;text-align:left;\">Description</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">A+</td><td style=\"padding:10px 14px;\">97-100%</td><td style=\"padding:10px 14px;\">4.0 GPA</td><td style=\"padding:10px 14px;\">Exceptional</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">A</td><td style=\"padding:10px 14px;\">93-96%</td><td style=\"padding:10px 14px;\">4.0 GPA</td><td style=\"padding:10px 14px;\">Excellent</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">A-</td><td style=\"padding:10px 14px;\">90-92%</td><td style=\"padding:10px 14px;\">3.7 GPA</td><td style=\"padding:10px 14px;\">Very Strong</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">B+</td><td style=\"padding:10px 14px;\">87-89%</td><td style=\"padding:10px 14px;\">3.3 GPA</td><td style=\"padding:10px 14px;\">Above Average</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">B</td><td style=\"padding:10px 14px;\">83-86%</td><td style=\"padding:10px 14px;\">3.0 GPA</td><td style=\"padding:10px 14px;\">Good</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">B-</td><td style=\"padding:10px 14px;\">80-82%</td><td style=\"padding:10px 14px;\">2.7 GPA</td><td style=\"padding:10px 14px;\">Above Average</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">C+</td><td style=\"padding:10px 14px;\">77-79%</td><td style=\"padding:10px 14px;\">2.3 GPA</td><td style=\"padding:10px 14px;\">Average</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">C</td><td style=\"padding:10px 14px;\">73-76%</td><td style=\"padding:10px 14px;\">2.0 GPA</td><td style=\"padding:10px 14px;\">Satisfactory</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">C-</td><td style=\"padding:10px 14px;\">70-72%</td><td style=\"padding:10px 14px;\">1.7 GPA</td><td style=\"padding:10px 14px;\">Passing</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">D</td><td style=\"padding:10px 14px;\">60-69%</td><td style=\"padding:10px 14px;\">1.0 GPA</td><td style=\"padding:10px 14px;\">Barely Passing</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">F</td><td style=\"padding:10px 14px;\">0-59%</td><td style=\"padding:10px 14px;\">0.0 GPA</td><td style=\"padding:10px 14px;\">Failing</td></tr></tbody></table></div>\n<h3>Grade Curves and Adjustments</h3>\n<p>Professors may curve grades when the class average is lower than expected. Common curves: adding a flat point value to all scores (e.g., +5 points), scaling proportionally (highest score becomes 100% and others scaled accordingly), or using a square root curve (multiply square root of your raw percentage by 10). Always ask your professor how curves work in their class.</p>\n<h3>Extra Credit and Bonus Points</h3>\n<p>Extra credit points add to your numerator without changing the denominator. If you earned 85/100 (85%) and receive 5 extra credit points: 90/100 = 90%. If extra credit is applied to a test worth 100 points and you already have 100: you get 105/100 = 105% — boosting your course average. Check your syllabus for extra credit policies.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert a score to a percentage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Percentage = (Points Earned / Total Points) × 100. Example: 42/50 = 84%. 176/200 = 88%. 33/40 = 82.5%. Always divide earned by total, never the reverse. Multiply by 100 to express as a percentage.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What percentage is an A, B, C grade? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Standard US scale: A = 90-100%, B = 80-89%, C = 70-79%, D = 60-69%, F = 0-59%. Plus/minus grading: A+ = 97-100%, A = 93-96%, A- = 90-92%, B+ = 87-89%, B = 83-86%, B- = 80-82%. Some schools and instructors use different cutoffs — always check the syllabus.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What score out of 50 is a 70%? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">70% of 50 = 0.70 × 50 = 35 points. General formula: Points Needed = (Target %) × Total Points / 100. For 80% of 50 = 40 points. For 90% of 50 = 45 points. For any grade: points = target percentage × total points ÷ 100.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is 75% a passing grade in college? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">In most US colleges, 60-70% is considered passing (D grade). However, many major courses require a C (70-73%) or better. Graduate programs typically require B (80%) or better. Always check your specific program requirements — some fields like nursing, education, and engineering have higher minimum grade requirements.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does grading work differently in other countries? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Germany: 1.0 (excellent) to 5.0 (fail) — opposite of US. UK: First Class (70%+), Upper Second (60-69%), Lower Second (50-59%), Third (40-49%). Canada: similar to US but thresholds vary by province. Australia: HD (High Distinction 85%+), D (75-84%), C (65-74%), P (50-64%), F (&lt;50%). Converting international grades is important for graduate school applications.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a 3.0 GPA in percentage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">3.0 GPA corresponds to a B average, which is approximately 83-86% under the standard US grading scale. GPA to percentage conversions: 4.0 GPA ≈ 93-100% (A), 3.5 GPA ≈ 90-92% (A-), 3.0 GPA ≈ 83-86% (B), 2.5 GPA ≈ 77-79% (C+), 2.0 GPA ≈ 73-76% (C).</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/final-grade-calculator\"><span class=\"rc-icon\">🏁</span><span class=\"rc-name\">Final Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/test-score-calculator\"><span class=\"rc-icon\">📝</span><span class=\"rc-name\">Test Score Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Percentage Grade Calculator – Points to Percentage and Letter Grade</h2><div class=\"form-group\"><label for=\"pg-earned\">Points Earned</label><input id=\"pg-earned\" min=\"0\" step=\"0.5\" type=\"number\" value=\"85\"/></div><div class=\"form-group\"><label for=\"pg-total\">Total Points Possible</label><input id=\"pg-total\" min=\"1\" step=\"0.5\" type=\"number\" value=\"100\"/></div><div class=\"form-group\"><label for=\"pg-scale\">Grading Scale</label><select id=\"pg-scale\"><option selected=\"\" value=\"standard\">Standard (A=93%)</option><option value=\"10pt\">10-Point (A=90%)</option><option value=\"7pt\">7-Point Scale (A=90%)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','Percentage Grade Calculator – Points to Percentage and Letter Grade')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Percentage Grade Calculator – Points to Percentage and Letter Grade')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-percentage-grade-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var earned=parseFloat(document.getElementById('pg-earned').value)||0;\n  var total=parseFloat(document.getElementById('pg-total').value)||0;\n  if(total<=0){alert('Total points must be greater than 0.');return;}\n  if(earned>total&&earned>total*1.1){alert('Points earned cannot greatly exceed total points (check for typo).');return;}\n  var pct=(earned/total)*100;\n  var scale=document.getElementById('pg-scale').value;\n  var letter,gpa;\n  if(scale==='standard'){\n    letter=pct>=97?'A+':pct>=93?'A':pct>=90?'A-':pct>=87?'B+':pct>=83?'B':pct>=80?'B-':pct>=77?'C+':pct>=73?'C':pct>=70?'C-':pct>=60?'D':'F';\n    gpa=pct>=93?4.0:pct>=90?3.7:pct>=87?3.3:pct>=83?3.0:pct>=80?2.7:pct>=77?2.3:pct>=73?2.0:pct>=70?1.7:pct>=60?1.0:0.0;\n  } else {\n    letter=pct>=90?'A':pct>=80?'B':pct>=70?'C':pct>=60?'D':'F';\n    gpa=pct>=90?4.0:pct>=80?3.0:pct>=70?2.0:pct>=60?1.0:0.0;\n  }\n  var pointsFor90=(total*0.9).toFixed(1);\n  var pointsFor80=(total*0.8).toFixed(1);\n  var aiPrompt='Score: '+earned+'/'+total+' = '+pct.toFixed(1)+'% ('+letter+'), GPA '+gpa.toFixed(1);\n  document.getElementById('ed-ri').innerHTML=\n    ri('Percentage','<strong style=\"font-size:28px;color:var(--c-accent)\">'+pct.toFixed(2)+'%</strong>',true)+\n    ri('Letter Grade',letter)+ri('GPA Equivalent',gpa.toFixed(1)+' / 4.0')+\n    ri('Points Earned',earned+' / '+total)+\n    ri('Points for A (90%)',pointsFor90+' points needed')+\n    ri('Points for B (80%)',pointsFor80+' points needed');\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['Earned','Remaining'],[Math.round(earned*10),Math.max(Math.round((total-earned)*10),0.001)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about grade improvement and academic success strategies.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> Percentage grade conversion translates raw academic marks into standardized letter designations and 4.0 scale quality points. Whether evaluating high school report cards, collegiate transcripts, or standardized test score reports, this tool standardizes performance across both plus/minus and straight grading systems with optional curve adjustments. Calculate your cumulative record using our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link> and track course syllabus weights in our <Link href="/calculators/education/grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">grade calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Percentage to 4.0 Scale GPA Transformation Function
+          </h2>
+          <PercentageToGpaCurveMatrixChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In international and North American education, percentages provide the continuous raw measure of assessment accuracy, while letter grades and quality points provide the discrete currency for transcript notation and degree honors. Because collegiate registrars require discrete quality points (0.0 to 4.0) to calculate cumulative indices, converting percentages into quality points is the foundational mathematical step in educational record keeping. Calculating these conversions is statistically linked to percentage analysis in a <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Grade Cutoffs & Step-Wise Mapping
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"P_{\text{raw}}"}</Formula> denote the raw percentage score earned by a student (<Formula>{"0 \le P_{\text{raw}} \le 100"}</Formula>), and let <Formula>{"C_{\text{curve}}"}</Formula> represent an instructor-granted flat curve offset. The adjusted percentage score <Formula>{"P_{\text{final}}"}</Formula> is defined as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"P_{\text{final}} = \min(100, P_{\text{raw}} + C_{\text{curve}})"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under a standardized plus/minus grading schedule, the continuous variable <Formula>{"P_{\text{final}}"}</Formula> is mapped onto a discrete set of letter grades <Formula>{"L"}</Formula> and 4.0 quality points <Formula>{"Q"}</Formula> using a step function:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"Q(P) = \begin{cases} 4.00 & \text{if } P \ge 93.0 \\ 3.70 & \text{if } 90.0 \le P < 93.0 \\ 3.30 & \text{if } 87.0 \le P < 90.0 \\ 3.00 & \text{if } 83.0 \le P < 87.0 \\ 2.70 & \text{if } 80.0 \le P < 83.0 \\ 2.30 & \text{if } 77.0 \le P < 80.0 \\ 2.00 & \text{if } 73.0 \le P < 77.0 \\ 1.70 & \text{if } 70.0 \le P < 73.0 \\ 1.00 & \text{if } 60.0 \le P < 70.0 \\ 0.00 & \text{if } P < 60.0 \end{cases}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under a non-linear curving model—such as the square-root curve used in high-difficulty mathematics and engineering exams—the adjusted percentage <Formula>{"P_{\text{curved}}"}</Formula> compresses upper-tier ceiling effects while lifting the bottom quartile:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"P_{\text{curved}} = 10 \times \sqrt{P_{\text{raw}}}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under this formula, a raw score of 64% transforms into <Formula>{"10 \times \sqrt{64} = 80\%"}</Formula> (a B- grade), whereas a raw score of 81% transforms into <Formula>{"10 \times \sqrt{81} = 90\%"}</Formula> (an A- grade). Students evaluating target final marks can project needed scores through our <Link href="/calculators/education/final-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">final grade calculator</Link> and test accuracy distributions with our <Link href="/calculators/education/test-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">test score calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Standard Collegiate Percentage to Letter Grade Conversion Schedule
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays the authoritative percentage cutoffs, letter designations, 4.0 quality points, and performance descriptions recognized across North American higher education:
+          </p>
+
+          <DataTable
+            head={["Percentage Range", "Plus/Minus Letter", "Straight Scale Letter", "4.0 GPA Quality Points", "Academic Standing & Performance Classification"]}
+            rows={[
+              ["97.0% – 100%", "A+", "A", "4.00", "Exceptional Academic Distinction / Perfect Mastery"],
+              ["93.0% – 96.9%", "A", "A", "4.00", "Superior Mastery of Course Subject Matter"],
+              ["90.0% – 92.9%", "A-", "A", "3.70", "Excellent Competence / Dean's Honors Level"],
+              ["87.0% – 89.9%", "B+", "B", "3.30", "Very Good Performance / Above Average"],
+              ["83.0% – 86.9%", "B", "B", "3.00", "Good Solid Understanding of Principles"],
+              ["80.0% – 82.9%", "B-", "B", "2.70", "Adequate Collegiate Level Performance"],
+              ["77.0% – 79.9%", "C+", "C", "2.30", "Average Competency / Satisfactory Progress"],
+              ["73.0% – 76.9%", "C", "C", "2.00", "Minimum Standard for Major Course Credit"],
+              ["70.0% – 72.9%", "C-", "C", "1.70", "Marginal Pass / Prerequisite Review Required"],
+              ["60.0% – 69.9%", "D", "D", "1.00", "Poor / Conditional Credit Only"],
+              ["< 60.0%", "F", "F", "0.00", "Failing / Zero Credit Awarded"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: Boundary Rounding Near High Honors Threshold
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A student in College Physics completes all exams, laboratory writeups, and homework sets, securing a raw cumulative weighted average of 89.65%. The university utilizes a standard plus/minus grading framework where an A- cut occurs at 90.00% and a B+ cut occurs at 87.00%.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under standard mathematical rounding rules, 89.65% rounds to 90.00%, elevating the student into the A- bracket and awarding 3.70 quality points per credit hour. Over a 4-credit physics course, this yields <Formula>{"4 \times 3.70 = 14.80"}</Formula> quality points. If the university enforced strict truncations without rounding, the 89.65% would remain a B+, yielding <Formula>{"4 \times 3.30 = 13.20"}</Formula> quality points. The 1.6 quality point difference meaningfully influences the student&apos;s cumulative index in our <Link href="/calculators/education/cgpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">CGPA calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Curved Examination Scaling in Undergraduate Statistics
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An entire cohort of 120 students sits for a rigorous mid-semester statistics examination where the class raw mean is 58.0% with a standard deviation of 12.0%. The professor applies a flat curve of +8.0% across all scores to bring the cohort median to 66.0%.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A student with a raw score of 72.0% sees their grade adjust to <Formula>{"72.0\% + 8.0\% = 80.0\%"}</Formula>. On the plus/minus scale, this moves the student from a C- (1.7 quality points) directly into a B- (2.7 quality points), producing a full 1.0 GPA quality point gain for that assessment component. These score elevations directly enhance class cohort rankings analyzed in our <Link href="/calculators/education/class-rank-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">class rank calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Institutional Pass/Fail Policies & Grade Transmutation Guidelines
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Many collegiate institutions permit undergraduate scholars to elect Pass/Fail (or Credit/No-Credit) grading options for a limited roster of elective courses. Under standard Pass/Fail guidelines, any percentage score equal to or exceeding 70.0% (a C grade) transmutates into a Pass (P) notation on official transcripts. Passing marks confer degree credit hours toward graduation but are completely excluded from GPA quality point calculations.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            However, receiving a Fail (F) grade in a Pass/Fail course frequently impacts transcripts punitively, adding zero quality points while counting in credit denominators at certain institutions. Students must also maintain satisfactory course attendance compliance via our <Link href="/calculators/education/attendance-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">attendance calculator</Link> and optimize daily study rhythms through our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Academic Accreditation Standards & Educational Policy
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Statutory percentage grading conversions, transcript standardization protocols, and academic transfer equivalencies are governed by national and international accreditation standards:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>AACRAO Transfer Credit Practices:</strong> National guidelines defining grading conversion schedules, plus/minus weighting standards, and transcript evaluation.
+            </li>
+            <li>
+              <strong>National Center for Education Statistics (NCES Integrated Postsecondary Education Data System):</strong> Federal benchmarks for retention rates, grading metrics, and degree completions.
+            </li>
+            <li>
+              <strong>Bologna Process European Higher Education Area (EHEA):</strong> Cross-border framework governing grading transparency, percentage distributions, and international credit mobility.
+            </li>
+          </ul>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Psychometric Scaling: Raw Scores, Percentile Ranks & Standardized Grading Curves
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In standardized psychometric testing and large-cohort collegiate courses, raw percentage marks are rarely evaluated in isolation. When professors administer an examination where the highest achieved mark across 300 students is 84%, treating 93% as the absolute threshold for an A grade fails to capture relative scholastic mastery. Psychometricians address this challenge through standardized scaling, converting raw scores into z-scores that quantify exactly how many standard deviations an individual score lies above or below the cohort mean.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under standardized Gaussian distributions, an individual z-score of +1.5 places a student in the top 7% of their class, earning an A grade regardless of whether their raw numerical percentage was 78% or 95%. This relative grading methodology aligns with high-stakes standardized testing frameworks utilized across national college admissions and professional licensing examinations.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Academic Transmutation Tables & Criterion-Referenced vs Norm-Referenced Evaluation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Educational institutions fundamentally divide grading philosophy into criterion-referenced assessment and norm-referenced assessment. Criterion-referenced grading evaluates student work against fixed, unyielding rubrics and predetermined absolute percentage cutoffs: if every student demonstrates complete mastery of curriculum objectives, every student can mathematically earn an A grade. This framework is universally mandated in medical, nursing, and civil engineering programs where absolute safety competencies must be demonstrated without compromise.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conversely, norm-referenced grading (grading on a curve) enforces competitive rationing of top marks, restricting A grades to a predetermined top percentage of the class. While norm-referenced evaluation protects against grade inflation across multi-section introductory courses, it can introduce competitive student friction. Understanding which evaluation philosophy governs your syllabus enables strategic academic planning and optimal study allocation.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Standard Error of Measurement & Grade Boundary Fairness in Educational Testing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Educational psychometricians emphasize that every assessment tool inherently possesses a Standard Error of Measurement (SEM). A student who earns an 89.4% on an examination might have scored a 91.2% or an 87.6% under slightly different testing conditions or alternate question sampling. Because observed percentage scores represent a sample estimate of true student ability rather than an immutable truth, progressive academic senates encourage holistic grading rubrics and faculty discretion near critical letter boundaries.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Recognizing the statistical variance inherent in raw percentage scores helps students approach academic grading with objective resilience. Tracking overall course trajectory rather than fixating on minor tenth-of-a-percent variances enables sustainable intellectual focus and long-term scholastic achievement across complex undergraduate degree pathways.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            International student advising offices frequently assist transfer applicants with standardized conversion petitions. Translating foreign percentage marks into equivalent North American letter grades ensures equitable admissions consideration, facilitating seamless academic mobility across international higher education systems.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Undergraduate academic advising committees encourage scholars to consult departmental grading policies early in their degree trajectory. Understanding specific cutoff standards empowers proactive study habits and eliminates surprises during formal end-of-term transcript degree audits.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In competitive admissions environments, admissions committees review official grading keys printed on transcript reverses to calibrate raw GPA metrics against institutional course rigor and percentage grade distributions.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Ultimately, mastering the mathematical conversion between raw assessment percentages and collegiate quality points demystifies transcript mechanics, enabling scholars to pursue academic honors with intentional focus and measured precision.
+          </p>
+
+        </>
+      }
+    >
+      <PercentageGradeCalculatorComponent />
+    </CalcPage>
   );
 }

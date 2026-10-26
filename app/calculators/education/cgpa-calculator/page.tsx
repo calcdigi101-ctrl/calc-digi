@@ -1,26 +1,217 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import CgpaCalculatorComponent from "@/components/calcs/education/cgpa-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CgpaCreditWeightingTrajectoryChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/cgpa-calculator";
+const TITLE = "CGPA Calculator | Cumulative GPA & Percentage Converter (10.0 & 4.0 Scales)";
+const DESCRIPTION =
+  "Calculate cumulative grade point average (CGPA), semester SGPA weighting, credit bank conversions, and CBSE / AICTE percentage equivalents across 10.0 and 4.0 scales.";
 
 export const metadata: Metadata = {
-  "title": "CGPA Calculator – Convert CGPA to Percentage | CalcDigi",
-  "description": "Calculate cumulative GPA across semesters. Convert CGPA to percentage and 4.0 scale. Used by students in India, Pakistan and worldwide.",
-  "openGraph": {
-    "title": "CGPA Calculator – Convert CGPA to Percentage | CalcDigi",
-    "description": "Calculate cumulative GPA across semesters. Convert CGPA to percentage and 4.0 scale. Used by students in India, Pakistan and worldwide.",
-    "type": "website",
-    "url": "/calculators/education/cgpa-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/cgpa-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
+  { href: "/calculators/education/percentage-grade-calculator", icon: "📈", name: "Percentage Grade" },
+  { href: "/calculators/education/final-grade-calculator", icon: "🎯", name: "Final Grade" },
+  { href: "/calculators/education/class-rank-calculator", icon: "🏆", name: "Class Rank" },
+  { href: "/calculators/education/attendance-calculator", icon: "📅", name: "Attendance" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the difference between SGPA and CGPA?",
+    a: "Semester Grade Point Average (SGPA) measures scholastic performance across a single academic term, calculated by dividing term quality points by term credit hours. Cumulative Grade Point Average (CGPA) represents the aggregate performance across all completed semesters from matriculation to graduation, weighting each semester's contribution by its earned credit volume.",
+  },
+  {
+    q: "How do you convert a 10.0 scale CGPA into a percentage?",
+    a: "Under the standard Central Board of Secondary Education (CBSE) and All India Council for Technical Education (AICTE) formula, percentage is calculated as: Percentage = CGPA * 9.5. For example, a CGPA of 8.4 translates into 8.4 * 9.5 = 79.80%. Certain autonomous universities utilize alternative multiplier scales (such as 10.0x or custom institutional offset formulas), but 9.5 remains the global benchmark.",
+  },
+  {
+    q: "How does a 10.0 scale CGPA map to a US 4.0 GPA for graduate admissions?",
+    a: "International credential evaluation services (such as WES - World Education Services) do not use a linear proportion (CGPA / 2.5). Instead, they map individual course letter grades into the US 4.0 scale based on institutional percentage distributions: Indian First Class with Distinction (75%+ or 8.0+ CGPA) typically equates to an unweighted US GPA between 3.60 and 4.00.",
+  },
+  {
+    q: "Can a high final-year SGPA significantly lift a low historical CGPA?",
+    a: "The degree of CGPA elevation depends on the proportion of completed credits. In a 160-credit engineering curriculum, undertaking 20 credits in the final semester represents only 12.5% of the total degree credit bank. Consequently, an exceptional 9.50 SGPA in the final term will raise an existing 7.50 cumulative CGPA by only 0.25 points to 7.75.",
+  },
+];
+
+export default function CgpaCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"CGPA Calculator\", \"item\": \"https://calcdigi.com/calculators/education/cgpa-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"CGPA Calculator\", \"url\": \"https://calcdigi.com/calculators/education/cgpa-calculator\", \"description\": \"Calculate cumulative GPA across semesters. Convert CGPA to percentage and 4.0 scale. Used by students in India, Pakistan and worldwide.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How is CGPA calculated?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"CGPA = Total Grade Points / Total Credits across all semesters. If Semester 1: GPA 8.5 × 24 credits = 204, Semester 2: GPA 7.8 × 20 credits = 156, Semester 3: GPA 8.2 × 22 credits = 180.4. Total: 540.4 / 66 credits = CGPA 8.19.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert CGPA to percentage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Indian UGC formula: Percentage = CGPA × 9.5. CGPA 8.0 = 76%, CGPA 7.5 = 71.25%, CGPA 9.0 = 85.5%. Some universities use their own multipliers. VIT uses ×9.5, Anna University uses direct percentage grading. Always check your institution specific conversion policy.\"}}, {\"@type\": \"Question\", \"name\": \"What CGPA do I need for good job prospects in India?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Top IT companies: 6.5-7.5 CGPA minimum for eligibility. Core engineering companies: 6.5-8.0. Management consulting: 7.5+ preferred. PSU (Public Sector Undertaking): varies, typically 6.5-7.5 with GATE scores. Startups: less focus on CGPA, more on skills and projects.\"}}, {\"@type\": \"Question\", \"name\": \"Can I convert CGPA to 4.0 GPA?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Approximate conversion: US GPA = (CGPA / 10) × 4. CGPA 8.0/10 ≈ 3.2/4.0. CGPA 9.0/10 ≈ 3.6/4.0. CGPA 7.5/10 ≈ 3.0/4.0. For graduate school applications, universities often request a detailed transcript and convert grades themselves rather than relying on student-calculated conversions.\"}}, {\"@type\": \"Question\", \"name\": \"How do I raise my CGPA significantly?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Raising CGPA becomes harder as semesters accumulate because each new semester has less mathematical impact. In early semesters: maximize GPA to set a high baseline. Strategy for later semesters: calculate exactly what GPA each future semester needs. Retaking courses (where allowed) to replace poor grades can significantly raise CGPA.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between GPA and CGPA?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"GPA (Grade Point Average) is calculated for a single semester or term. CGPA (Cumulative GPA) is the weighted average across all completed semesters of the program. GPA shows recent performance; CGPA shows overall academic trajectory. Both are important — a rising GPA trend with a lower CGPA shows improvement.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">CGPA Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>CGPA Calculator</h1>\n<p class=\"calc-intro\">Calculate your Cumulative GPA (CGPA) by combining multiple semesters of academic results. Convert CGPA to percentage, find your overall academic standing, and plan the grades needed in future semesters to reach your target CGPA.</p>\n<p class=\"calc-intro\">CGPA (Cumulative Grade Point Average) is the overall GPA calculated across all semesters of your academic program. Used widely in India, Pakistan, Bangladesh, and other countries following the 10-point grading scale, CGPA gives a comprehensive view of academic performance across the entire degree program.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">CGPA = Total Grade Points Earned / Total Credit Hours | Percentage = CGPA × 9.5 (Indian system) | GPA (4.0) = CGPA × 0.4</div></div>\n<div class=\"content-section\">\n<h2>CGPA Calculation Guide</h2>\n<p>CGPA is the weighted average of GPA across all completed semesters. Each semester GPA is weighted by its credit hours — a semester with 24 credit hours counts more than a semester with 15 credit hours. This ensures that heavier academic loads are proportionally represented in the cumulative average.</p>\n<h3>CGPA Scales Around the World</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Country</th><th style=\"padding:11px 14px;text-align:left;\">Max Scale</th><th style=\"padding:11px 14px;text-align:left;\">Conversion</th><th style=\"padding:11px 14px;text-align:left;\">Good Standing</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">India (UGC)</td><td style=\"padding:10px 14px;\">10.0</td><td style=\"padding:10px 14px;\">CGPA × 9.5 = Percentage</td><td style=\"padding:10px 14px;\">7.0+ for First Class</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Pakistan (HEC)</td><td style=\"padding:10px 14px;\">4.0</td><td style=\"padding:10px 14px;\">Standard US scale</td><td style=\"padding:10px 14px;\">3.0+ for good standing</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Bangladesh</td><td style=\"padding:10px 14px;\">4.0</td><td style=\"padding:10px 14px;\">Similar to US</td><td style=\"padding:10px 14px;\">3.5+ for first class</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">US/Canada</td><td style=\"padding:10px 14px;\">4.0</td><td style=\"padding:10px 14px;\">Letter grade based</td><td style=\"padding:10px 14px;\">3.5+ for Dean List</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Germany</td><td style=\"padding:10px 14px;\">5.0</td><td style=\"padding:10px 14px;\">1=best, 5=worst</td><td style=\"padding:10px 14px;\">1.5 = cum laude</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">UK</td><td style=\"padding:10px 14px;\">100%</td><td style=\"padding:10px 14px;\">First/2:1/2:2/Third</td><td style=\"padding:10px 14px;\">70%+ = First Class</td></tr></tbody></table></div>\n<h3>Converting CGPA to Percentage (Indian System)</h3>\n<p>The official UGC (University Grants Commission) India formula: Percentage = CGPA × 9.5. A CGPA of 8.0 on a 10-point scale = 76%. CGPA of 9.0 = 85.5%. CGPA of 7.5 = 71.25%. Different universities may use slightly different multipliers (some use 9.5, some use 10). Always check your university official conversion formula.</p>\n<h3>CGPA and Employment</h3>\n<p>Many Indian companies have minimum CGPA cutoffs for campus placements: IT companies (TCS, Infosys, Wipro): 6.0-7.0 CGPA minimum. Product companies (Google, Microsoft, Amazon): 7.5+ preferred. Government jobs: varies by department. CGPA cutoffs are often used as initial filters before technical interviews — maintaining above the cutoff is essential for eligibility.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How is CGPA calculated? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">CGPA = Total Grade Points / Total Credits across all semesters. If Semester 1: GPA 8.5 × 24 credits = 204, Semester 2: GPA 7.8 × 20 credits = 156, Semester 3: GPA 8.2 × 22 credits = 180.4. Total: 540.4 / 66 credits = CGPA 8.19.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert CGPA to percentage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Indian UGC formula: Percentage = CGPA × 9.5. CGPA 8.0 = 76%, CGPA 7.5 = 71.25%, CGPA 9.0 = 85.5%. Some universities use their own multipliers. VIT uses ×9.5, Anna University uses direct percentage grading. Always check your institution specific conversion policy.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What CGPA do I need for good job prospects in India? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Top IT companies: 6.5-7.5 CGPA minimum for eligibility. Core engineering companies: 6.5-8.0. Management consulting: 7.5+ preferred. PSU (Public Sector Undertaking): varies, typically 6.5-7.5 with GATE scores. Startups: less focus on CGPA, more on skills and projects.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I convert CGPA to 4.0 GPA? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Approximate conversion: US GPA = (CGPA / 10) × 4. CGPA 8.0/10 ≈ 3.2/4.0. CGPA 9.0/10 ≈ 3.6/4.0. CGPA 7.5/10 ≈ 3.0/4.0. For graduate school applications, universities often request a detailed transcript and convert grades themselves rather than relying on student-calculated conversions.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I raise my CGPA significantly? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Raising CGPA becomes harder as semesters accumulate because each new semester has less mathematical impact. In early semesters: maximize GPA to set a high baseline. Strategy for later semesters: calculate exactly what GPA each future semester needs. Retaking courses (where allowed) to replace poor grades can significantly raise CGPA.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between GPA and CGPA? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">GPA (Grade Point Average) is calculated for a single semester or term. CGPA (Cumulative GPA) is the weighted average across all completed semesters of the program. GPA shows recent performance; CGPA shows overall academic trajectory. Both are important — a rising GPA trend with a lower CGPA shows improvement.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/final-grade-calculator\"><span class=\"rc-icon\">🏁</span><span class=\"rc-name\">Final Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/test-score-calculator\"><span class=\"rc-icon\">📝</span><span class=\"rc-name\">Test Score Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>CGPA Calculator – Cumulative GPA Across Semesters</h2><p style=\"font-size:12px;color:var(--c-ink2);margin-bottom:8px;\">Enter each semester GPA and credits:</p><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa0\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 1 GPA</label>\n<input id=\"cg-gpa0\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"8.2\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr0\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr0\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"22\"/></div>\n</div><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa1\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 2 GPA</label>\n<input id=\"cg-gpa1\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"7.8\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr1\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr1\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"20\"/></div>\n</div><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa2\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 3 GPA</label>\n<input id=\"cg-gpa2\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"8.5\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr2\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr2\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"24\"/></div>\n</div><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa3\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 4 GPA</label>\n<input id=\"cg-gpa3\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr3\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr3\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa4\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 5 GPA</label>\n<input id=\"cg-gpa4\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr4\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr4\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa5\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 6 GPA</label>\n<input id=\"cg-gpa5\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr5\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr5\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa6\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 7 GPA</label>\n<input id=\"cg-gpa6\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr6\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr6\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div><div style=\"display:grid;grid-template-columns:80px 1fr 80px;gap:6px;margin-bottom:8px;align-items:end;\">\n<div><label for=\"cg-gpa7\" style=\"font-size:11px;color:var(--c-ink2);\">Sem 8 GPA</label>\n<input id=\"cg-gpa7\" max=\"10\" min=\"0\" step=\"0.01\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n<div><label style=\"font-size:11px;color:var(--c-ink2);\"></label></div>\n<div><label for=\"cg-cr7\" style=\"font-size:11px;color:var(--c-ink2);\">Credits</label>\n<input id=\"cg-cr7\" max=\"40\" min=\"0\" step=\"1\" style=\"width:100%;padding:8px;border:1.5px solid var(--c-rule);border-radius:8px;font-size:13px;background:var(--c-bg);color:var(--c-ink);\" type=\"number\" value=\"0\"/></div>\n</div><div class=\"form-group\"><label for=\"cg-scale\">GPA Scale</label><select id=\"cg-scale\"><option selected=\"\" value=\"10\">10-Point Scale (India/Pakistan)</option><option value=\"4\">4.0 Scale (US/Canada)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','CGPA Calculator – Cumulative GPA Across Semesters')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('CGPA Calculator – Cumulative GPA Across Semesters')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-cgpa-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var totalPts=0,totalCr=0,sems=0;\n  var scale=parseFloat(document.getElementById('cg-scale').value)||10;\n  for(var i=0;i<8;i++){\n    var gpa=parseFloat(document.getElementById('cg-gpa'+i).value);\n    var cr=parseFloat(document.getElementById('cg-cr'+i).value)||0;\n    if(isNaN(gpa)||gpa<=0||cr<=0) continue;\n    totalPts+=gpa*cr; totalCr+=cr; sems++;\n  }\n  if(sems===0){alert('Please enter at least one semester.');return;}\n  var cgpa=totalPts/totalCr;\n  var pct=scale===10?cgpa*9.5:(cgpa/4)*100;\n  var gpa4=scale===10?cgpa*0.4:cgpa;\n  var standing=cgpa>=(scale*0.85)?'First Class with Distinction':cgpa>=(scale*0.75)?'First Class':cgpa>=(scale*0.60)?'Second Class':'Pass';\n  var aiPrompt='CGPA: '+cgpa.toFixed(2)+'/'+scale+' ('+pct.toFixed(1)+'%), '+sems+' semesters, '+totalCr+' total credits';\n  document.getElementById('ed-ri').innerHTML=\n    ri('Your CGPA','<strong style=\"font-size:28px;color:var(--c-accent)\">'+cgpa.toFixed(2)+' / '+scale+'</strong>',true)+\n    ri('Percentage',pct.toFixed(2)+'%')+\n    ri('4.0 Scale Equivalent',gpa4.toFixed(2)+' / 4.0')+\n    ri('Academic Standing',standing)+\n    ri('Total Credits',totalCr+' credit hours')+\n    ri('Semesters Completed',sems);\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['CGPA','Remaining'],[Math.round(cgpa*10),Math.round((scale-cgpa)*10)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about improving CGPA and academic performance.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> Cumulative Grade Point Average (CGPA) measures aggregate scholastic achievement across multiple semesters, standardizing performance across university degree tracks. To compute your updated CGPA, weight each semester&apos;s SGPA by its completed credit hours, sum total quality points, and divide by cumulative credit hours. When modeling grade targets, check your <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">standard semester GPA</Link> and monitor conversion thresholds through our <Link href="/calculators/education/percentage-grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">percentage grade calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Cumulative CGPA Dampening & Term SGPA Sensitivity
+          </h2>
+          <CgpaCreditWeightingTrajectoryChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In universities across Europe, Asia, and North America, Cumulative Grade Point Average serves as the universal currency for degree classification, scholarship renewals, and graduate admissions. While semester evaluations—termed Semester Grade Point Average (SGPA) or Term GPA—capture transient academic performance, the cumulative CGPA metric captures sustained scholastic trajectory across an entire collegiate tenure. Because credit weights vary across semesters, calculating CGPA requires credit-weighted integration, mirroring the mathematical logic found in a <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Credit-Weighted SGPA Integration
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"N"}</Formula> represent the total number of completed semesters. For each semester <Formula>{"j"}</Formula>, let <Formula>{"\text{SGPA}_j"}</Formula> represent the semester grade point average and <Formula>{"C_j"}</Formula> denote the credit hours registered for that specific term. The cumulative index is defined as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\text{CGPA} = \frac{\sum_{j=1}^{N} (\text{SGPA}_j \times C_j)}{\sum_{j=1}^{N} C_j}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When projecting future cumulative standing across an upcoming academic year, students combine their existing cumulative metric with upcoming term projections. Let <Formula>{"\text{CGPA}_{\text{prior}}"}</Formula> represent historical performance across <Formula>{"C_{\text{prior}}"}</Formula> completed credits, while <Formula>{"\text{SGPA}_{\text{new}}"}</Formula> and <Formula>{"C_{\text{new}}"}</Formula> denote the upcoming term load. The updated cumulative index is expressed as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\text{CGPA}_{\text{updated}} = \frac{(\text{CGPA}_{\text{prior}} \times C_{\text{prior}}) + (\text{SGPA}_{\text{new}} \times C_{\text{new}})}{C_{\text{prior}} + C_{\text{new}}}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For international universities operating on the 10.0 scale (such as technical universities across India, Southeast Asia, and the Middle East), converting CGPA into percentage marks requires statutory linear formulas established by educational oversight bodies. The official All India Council for Technical Education (AICTE) formula converts a 10-point CGPA into an equivalent percentage mark via:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\text{Equivalent Percentage (\%)} = \text{CGPA} \times 9.5"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The 9.5 multiplier reflects statistical standard deviation modeling: because a 10.0 CGPA represents perfection (100% boundary minus exam variance), multiplying by 9.5 maps a First Class benchmark (6.5 to 8.5 CGPA) into standard 60% to 80% collegiate marks. Students preparing for standardized entrance assessments can cross-reference their credentials against our <Link href="/calculators/education/act-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ACT score calculator</Link> and <Link href="/calculators/education/sat-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">SAT score calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Statutory 10.0 CGPA to Percentage Conversion & Academic Classification Schedule
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table outlines the standardized conversion matrix, percentage equivalencies, and Latin collegiate degree classifications across 10-point university scales:
+          </p>
+
+          <DataTable
+            head={["CGPA Range (10.0 Scale)", "AICTE Percentage Equivalent", "US 4.0 Equivalent", "Degree Honors Classification", "Career Placement Benchmark"]}
+            rows={[
+              ["9.50 – 10.00", "90.25% – 95.00%", "3.90 – 4.00", "First Class with Distinction (Institute Gold Medal)", "Elite R&D / Global Consulting"],
+              ["8.50 – 9.49", "80.75% – 90.15%", "3.70 – 3.89", "First Class with Distinction (Dean's List)", "Top Tier Tech / Investment Banking"],
+              ["7.50 – 8.49", "71.25% – 80.65%", "3.30 – 3.69", "First Class Division (High Merit)", "Corporate Graduate Programs"],
+              ["6.50 – 7.49", "61.75% – 71.15%", "2.70 – 3.29", "First Class Division", "Standard Professional Benchmark"],
+              ["5.50 – 6.49", "52.25% – 61.65%", "2.00 – 2.69", "Second Class Division", "General Employment Minimum"],
+              ["< 5.50", "< 52.25%", "< 2.00", "Pass Class / Academic Advisory", "Academic Remediation Required"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: Four-Year Engineering Degree Cumulative Trajectory
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A mechanical engineering student completes their third year (6 semesters) having accumulated 120 credit hours with an existing cumulative CGPA of 7.92 on a 10.0 scale. In Semester 7, the student enrolls in 20 credits, undertaking Advanced Thermodynamics, Machine Design, and Robotics Lab, achieving an exceptional term SGPA of 9.20.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To determine the new CGPA: prior quality points equal <Formula>{"7.92 \times 120 = 950.40"}</Formula>. Semester 7 quality points equal <Formula>{"9.20 \times 20 = 184.00"}</Formula>. Total cumulative quality points reach <Formula>{"950.40 + 184.00 = 1134.40"}</Formula> over 140 credit hours (<Formula>{"120 + 20"}</Formula>). The updated cumulative CGPA is <Formula>{"1134.40 / 140 = 8.103"}</Formula>. Under the AICTE formula, the equivalent percentage increases from <Formula>{"7.92 \times 9.5 = 75.24\%"}</Formula> to <Formula>{"8.103 \times 9.5 = 76.98\%"}</Formula>, crossing the competitive 8.0 threshold required for multinational campus recruitment. Balancing rigorous course loads requires precise scheduling via our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Graduate School Transfer from 3-Year Degree
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A commerce student completing a 3-year bachelor&apos;s degree holds 90 credits with an 8.60 CGPA. The student plans an honors thesis semester (15 credits) targeting admission to a competitive European master&apos;s program that requires an equivalent 8.75 CGPA minimum.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"S"}</Formula> denote the required term SGPA. To reach 8.75 across 105 credits, total quality points must equal <Formula>{"8.75 \times 105 = 918.75"}</Formula>. Existing quality points equal <Formula>{"8.60 \times 90 = 774.00"}</Formula>. The student must secure <Formula>{"918.75 - 774.00 = 144.75"}</Formula> points in the 15-credit semester, requiring an SGPA of <Formula>{"144.75 / 15 = 9.65"}</Formula>. This high-precision target requires strategic exam planning using our <Link href="/calculators/education/final-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">final grade calculator</Link> and assessment tracking through our <Link href="/calculators/education/grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">course grade calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Institutional Credit Policies, Backlogs & Degree Classification Rules
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Academic standing across international universities enforces stringent credit accumulation benchmarks. When a student receives an F grade or &ldquo;backlog,&rdquo; zero quality points are added to the numerator while the course credit weight remains in the denominator until the course is formally cleared in supplementary examination cycles. This dynamic artificially suppresses cumulative CGPA, impacting competitive placement in the <Link href="/calculators/education/class-rank-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">class rank calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, students financing higher education through institutional aid or private lending must sustain minimum cumulative CGPA standards to prevent loan forfeiture or tuition penalty fees, dynamics explored across our <Link href="/calculators/education/student-loan-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">student loan calculator</Link> and <Link href="/calculators/education/scholarship-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">scholarship calculator</Link>. Academic departments also require verifying attendance compliance through our <Link href="/calculators/education/attendance-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">attendance calculator</Link> to ensure examination eligibility across all registered subjects.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            International Degree Equivalence: WES, ECTS & Transnational Graduate Admissions
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When international engineering, science, and commerce graduates apply to North American or European universities, foreign credentials undergo rigorous foreign credential verification through agencies like World Education Services (WES) or Educational Credential Evaluators (ECE). These agencies do not perform naive linear transformations (such as dividing a 10.0 scale CGPA by 2.5). A linear division would penalize international students because universities in India, the United Kingdom, and Australia rarely award marks above 85%, whereas North American grading curves routinely award A marks to 20% to 30% of a collegiate cohort.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Instead, WES employs distribution-adjusted lookup algorithms that recognize a First Class with Distinction (75%+ or 8.2+ CGPA) as equivalent to an unweighted US GPA of 3.80 to 4.00. Similarly, European universities mapped under the European Credit Transfer and Accumulation System (ECTS) translate CGPA into relative cohort percentiles: the top 10% receive ECTS Grade A, the subsequent 25% receive Grade B, and the median 30% receive Grade C. Understanding these transnational conversion mechanics prevents applicants from underestimating their academic competitiveness in global admissions pools.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Academic Accreditation Standards & International Benchmarks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            CGPA calculation rules, credit transfer protocols, and grading scales are governed by national statutory bodies and international educational accords:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>University Grants Commission (UGC) Choice Based Credit System (CBCS):</strong> Standardized guidelines for 10-point grading scales, credit transfer frameworks, and semester grade reporting.
+            </li>
+            <li>
+              <strong>European Credit Transfer and Accumulation System (ECTS):</strong> European standard defining 60 ECTS credits per academic year and cross-border GPA conversion algorithms.
+            </li>
+            <li>
+              <strong>Washington Accord (International Engineering Alliance):</strong> Mutual recognition framework establishing equivalent academic qualifications and accreditation standards across member nations.
+            </li>
+          </ul>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Strategic CGPA Improvement Planning & Grade Replacement Policies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For students seeking to elevate their cumulative standing prior to final degree conferral, academic planning requires modeling course retake trajectories. Under institutional grade forgiveness frameworks, repeating a 4-credit course where a D grade (4 quality points on a 10-scale or 4 points on a 4-scale) was initially obtained and securing an A grade (36 to 40 quality points) yields an immediate net addition of 32 to 36 quality points without inflating the credit denominator. This targeted intervention provides fourfold the mathematical leverage of enrolling in a new elective course.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Additionally, professional engineering councils and medical admissions boards evaluate the trajectory and velocity of CGPA progression. A rising upward trajectory—where a student demonstrates progressive improvement from moderate freshman performance to Dean&apos;s List honors during upper-division senior coursework—is viewed with far greater institutional esteem than a deteriorating record, signaling intellectual maturity and mastery of specialized professional competencies.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Academic Transcript Auditing & Degree Nomenclature Frameworks
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Official collegiate transcripts display both cumulative CGPA and chronological semester SGPA records to provide transparent documentation of academic trajectory. In many Commonwealth and Asian educational frameworks, final degree certificates explicitly print degree classifications (such as First Class with Distinction, First Class, or Second Class Honours) determined by final cumulative CGPA benchmarks. Securing a First Class standing serves as a statutory prerequisite for government examinations, public sector commissions, and fully funded doctoral research fellowships.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Moreover, multinational corporate hiring pipelines utilize automated applicant tracking systems (ATS) that parse cumulative CGPA thresholds as initial qualification filters. Maintaining consistent academic discipline safeguards long-term career momentum across international employment sectors.
+          </p>
+
+        </>
+      }
+    >
+      <CgpaCalculatorComponent />
+    </CalcPage>
   );
 }

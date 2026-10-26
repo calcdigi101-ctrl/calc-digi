@@ -1,26 +1,246 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import FinalGradeCalculatorComponent from "@/components/calcs/education/final-grade-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { FinalExamTargetFeasibilityChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/final-grade-calculator";
+const TITLE = "Final Grade Calculator | Required Final Exam Score & Target Grade Feasibility";
+const DESCRIPTION =
+  "Calculate the exact exam score required on your final to achieve your target course letter grade, factoring in syllabus weight, current percentage, and extra credit.";
 
 export const metadata: Metadata = {
-  "title": "Final Grade Calculator | CalcDigi",
-  "description": "Calculate exactly what score you need on your final exam to achieve your target grade. Works for any current grade and exam weight.",
-  "openGraph": {
-    "title": "Final Grade Calculator | CalcDigi",
-    "description": "Calculate exactly what score you need on your final exam to achieve your target grade. Works for any current grade and exam weight.",
-    "type": "website",
-    "url": "/calculators/education/final-grade-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/final-grade-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/percentage-grade-calculator", icon: "📈", name: "Percentage Grade" },
+  { href: "/calculators/education/cgpa-calculator", icon: "🎓", name: "CGPA Calculator" },
+  { href: "/calculators/education/test-score-calculator", icon: "📝", name: "Test Score" },
+  { href: "/calculators/education/study-hours-calculator", icon: "⏱️", name: "Study Hours" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What does it mean if my required final exam score is negative?",
+    a: "If the calculation yields a required score less than or equal to zero (e.g., -12%), it indicates that your cumulative points earned across prior coursework already satisfy your target grade threshold. You have mathematically locked that grade (or higher) even if you receive zero points on the final exam, provided the instructor does not mandate a passing final exam score as an independent course prerequisite.",
+  },
+  {
+    q: "What should I do if my required final exam score exceeds 100%?",
+    a: "A required score exceeding 100% means that your target grade is mathematically impossible under standard scoring rules. However, you can explore two viable avenues: inquire whether the final exam includes bonus questions or an instructor curve, or focus your preparation on the next attainable grade bracket (e.g., securing an 88% to lock a B+ rather than pursuing an impossible A).",
+  },
+  {
+    q: "How does final exam weight influence score sensitivity?",
+    a: "The final exam weight serves as the denominator in the required score formula. When the final carries a heavy weight (such as 40%), each percentage point on the exam moves your final course average by 0.40 points. Conversely, when the final carries a light weight (such as 15%), an exceptional exam score will move your overall course standing by at most 1.5 percentage points.",
+  },
+  {
+    q: "Does a high final exam score overwrite previous poor exam performances?",
+    a: "Under standard weighted syllabus policies, the final exam simply contributes its designated percentage weight to the cumulative average. However, certain professors implement 'mastery replacement' policies where scoring higher on the comprehensive final exam retroactively replaces your lowest midterm score, creating dramatic upward grade adjustments.",
+  },
+];
+
+export default function FinalGradeCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Final Grade Calculator\", \"item\": \"https://calcdigi.com/calculators/education/final-grade-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Final Grade Calculator\", \"url\": \"https://calcdigi.com/calculators/education/final-grade-calculator\", \"description\": \"Calculate exactly what score you need on your final exam to achieve your target grade. Works for any current grade and exam weight.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What do I need on my final to get a B?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Enter your current grade and final exam weight into the calculator. Formula: Required Score = (Target - Current × (1 - FinalWeight)) / FinalWeight. Example: Current 82%, final worth 30%, need 83% (B): (83 - 82×0.7)/0.3 = (83-57.4)/0.3 = 85.3% on the final.\"}}, {\"@type\": \"Question\", \"name\": \"Can I still get an A if I failed the midterm?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"It depends on the remaining course weight and your current grade. If midterm was 25% and you scored 55% (contributing 13.75%), and remaining work including the final is worth 75%, you need an average of (93-13.75)/0.75 = 105.7% on remaining work — generally impossible. Lower your target to a B or C.\"}}, {\"@type\": \"Question\", \"name\": \"How much does the final exam affect my grade?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The final exam affect = Final Weight × (Score Difference). A 40% final exam: scoring 100% vs 60% changes your course grade by 40% × 40% = 16 percentage points — potentially 2+ letter grades. A 20% final: the same 40-point score difference only changes your grade by 8 points.\"}}, {\"@type\": \"Question\", \"name\": \"What is a passing grade?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most US colleges require a D (60%) or better to pass a course. However, major courses often require a C (70%) or better. Graduate programs typically require a B (80%) or better in all courses. Some programs have minimum grade requirements for specific prerequisite courses.\"}}, {\"@type\": \"Question\", \"name\": \"Is it worth withdrawing from a class?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Consider withdrawing if: you cannot pass even with a perfect final, the withdrawal deadline has not passed, failing would significantly damage your GPA, and retaking the course would be manageable. A W (Withdrawal) on your transcript is generally preferable to an F. Check with your advisor on financial aid impact.\"}}, {\"@type\": \"Question\", \"name\": \"How do I calculate my grade if some assignments are missing?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Missing assignments are typically counted as 0. Recalculate your current grade including zeros for all missing work. This often reveals a much lower current grade than expected. Contact your professor — some accept late work with penalty, and addressing missing work early is always better than waiting until final exam week.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Final Grade Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Final Grade Calculator</h1>\n<p class=\"calc-intro\">Calculate exactly what score you need on your final exam to achieve your target course grade. Enter your current grade, final exam weight, and desired grade to get the minimum score needed — and find out if your target grade is still achievable.</p>\n<p class=\"calc-intro\">This is the most-asked question at the end of every semester: \"What do I need on the final to get a B?\" Our calculator answers it instantly and also tells you if your goal is still mathematically possible given your current grade.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Required Final Score = (Target Grade - Current Grade × (1 - Final Weight)) / Final Weight</div></div>\n<div class=\"content-section\">\n<h3>What If the Required Score is Over 100%?</h3>\n<p>If this calculator shows you need more than 100% on the final, your target grade is mathematically impossible given your current grade. You have two options: lower your target grade to something still achievable, or check whether extra credit opportunities are available. Sometimes professors offer makeup assignments or curve the final — ask your instructor.</p>\n<h3>Strategic Final Exam Planning</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Scenario</th><th style=\"padding:11px 14px;text-align:left;\">Target</th><th style=\"padding:11px 14px;text-align:left;\">Final Score Needed</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">95% current, 40% final</td><td style=\"padding:10px 14px;\">B (80%) needed</td><td style=\"padding:10px 14px;\">58.3% on final</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">80% current, 30% final</td><td style=\"padding:10px 14px;\">A (93%) needed</td><td style=\"padding:10px 14px;\">128.6% — impossible</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">75% current, 40% final</td><td style=\"padding:10px 14px;\">C (73%) needed</td><td style=\"padding:10px 14px;\">69.2% on final</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">65% current, 50% final</td><td style=\"padding:10px 14px;\">D (60%) needed</td><td style=\"padding:10px 14px;\">55% on final</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">88% current, 25% final</td><td style=\"padding:10px 14px;\">A- (90%) needed</td><td style=\"padding:10px 14px;\">94.7% on final</td></tr></tbody></table></div>\n<h3>When Is a Grade Mathematically Impossible?</h3>\n<p>Your target grade becomes impossible when: Required Score = (Target - Current × (1 - Final Weight)) / Final Weight &gt; 100. This happens when your current grade is too far below your target for even a perfect final to bridge the gap. A student with 60% current grade needing 90% overall with a 40% final needs: (90 - 60×0.6)/0.4 = (90 - 36)/0.4 = 135% — impossible.</p>\n<h3>How to Prepare for Your Final Exam</h3>\n<p>Study strategies: create a study schedule starting 2 weeks before, focus on high-weighted topics and common exam formats, review all previous exams and quizzes for patterns, form or join study groups, visit professor during office hours to ask about exam focus areas, use spaced repetition for memorization, and simulate exam conditions during practice sessions.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What do I need on my final to get a B? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Enter your current grade and final exam weight into the calculator. Formula: Required Score = (Target - Current × (1 - FinalWeight)) / FinalWeight. Example: Current 82%, final worth 30%, need 83% (B): (83 - 82×0.7)/0.3 = (83-57.4)/0.3 = 85.3% on the final.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Can I still get an A if I failed the midterm? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">It depends on the remaining course weight and your current grade. If midterm was 25% and you scored 55% (contributing 13.75%), and remaining work including the final is worth 75%, you need an average of (93-13.75)/0.75 = 105.7% on remaining work — generally impossible. Lower your target to a B or C.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How much does the final exam affect my grade? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The final exam affect = Final Weight × (Score Difference). A 40% final exam: scoring 100% vs 60% changes your course grade by 40% × 40% = 16 percentage points — potentially 2+ letter grades. A 20% final: the same 40-point score difference only changes your grade by 8 points.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a passing grade? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most US colleges require a D (60%) or better to pass a course. However, major courses often require a C (70%) or better. Graduate programs typically require a B (80%) or better in all courses. Some programs have minimum grade requirements for specific prerequisite courses.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is it worth withdrawing from a class? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Consider withdrawing if: you cannot pass even with a perfect final, the withdrawal deadline has not passed, failing would significantly damage your GPA, and retaking the course would be manageable. A W (Withdrawal) on your transcript is generally preferable to an F. Check with your advisor on financial aid impact.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my grade if some assignments are missing? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Missing assignments are typically counted as 0. Recalculate your current grade including zeros for all missing work. This often reveals a much lower current grade than expected. Contact your professor — some accept late work with penalty, and addressing missing work early is always better than waiting until final exam week.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/test-score-calculator\"><span class=\"rc-icon\">📝</span><span class=\"rc-name\">Test Score Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Final Grade Calculator – What Score Do I Need on My Final?</h2><div class=\"form-group\"><label for=\"fg-current\">Current Course Grade (%)</label><input id=\"fg-current\" max=\"100\" min=\"0\" step=\"0.1\" type=\"number\" value=\"82\"/></div><div class=\"form-group\"><label for=\"fg-weight\">Final Exam Weight (%)</label><input id=\"fg-weight\" max=\"100\" min=\"1\" step=\"1\" type=\"number\" value=\"30\"/></div><div class=\"form-group\"><label for=\"fg-target\">Target Course Grade (%)</label><input id=\"fg-target\" max=\"100\" min=\"0\" step=\"0.1\" type=\"number\" value=\"85\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','Final Grade Calculator – What Score Do I Need on My Final?')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Final Grade Calculator – What Score Do I Need on My Final?')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-final-grade-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var current=parseFloat(document.getElementById('fg-current').value)||0;\n  var weight=parseFloat(document.getElementById('fg-weight').value)||30;\n  var target=parseFloat(document.getElementById('fg-target').value)||80;\n  if(weight<=0||weight>100){alert('Final exam weight must be between 1 and 100%.');return;}\n  var wf=weight/100;\n  var required=(target-current*(1-wf))/wf;\n  var possible=required<=100;\n  var letter=function(g){return g>=97?'A+':g>=93?'A':g>=90?'A-':g>=87?'B+':g>=83?'B':g>=80?'B-':g>=77?'C+':g>=73?'C':g>=70?'C-':g>=60?'D':'F';};\n  var status=required<0?'You already have this grade! ✅':possible?'Achievable ✅':'Not possible — lower target ❌';\n  var aiPrompt='Need '+required.toFixed(1)+'% on final (worth '+weight+'%) to get '+target+'%. Current: '+current+'%';\n  document.getElementById('ed-ri').innerHTML=\n    ri('Score Needed on Final','<strong style=\"font-size:24px;color:'+(possible?'var(--c-accent)':'#c0392b')+'\">'+( required<0?'Already achieved!':required>100?'Impossible (>100%)':required.toFixed(1)+'%')+'</strong>',true)+\n    ri('Status',status)+\n    ri('Target Grade',target+'% ('+letter(target)+')')+\n    ri('Current Grade',current+'% ('+letter(current)+')')+\n    ri('Final Exam Weight',weight+'%')+\n    ri('If you score 70%',((current*(1-wf)+70*wf)).toFixed(1)+'% final grade ('+letter(current*(1-wf)+70*wf)+')')+\n    ri('If you score 90%',((current*(1-wf)+90*wf)).toFixed(1)+'% final grade ('+letter(current*(1-wf)+90*wf)+')');\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['Current Weight','Final Weight'],[Math.round(100-weight),weight],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about final exam preparation and achieving target grades.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> The final grade calculation determines the exact percentage score you must achieve on your comprehensive final examination to secure your desired course letter grade. By factoring in your current course standing, the final exam&apos;s syllabus percentage weight, and any accumulated extra credit, this tool establishes whether your academic goal is easily attainable, realistic, or statistically out of reach. Check overall course weights in our <Link href="/calculators/education/grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">grade calculator</Link> and track cumulative impacts using our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Required Final Exam Score vs Current Grade Across Target Tiers
+          </h2>
+          <FinalExamTargetFeasibilityChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            During the final weeks of an academic semester, students face high-stakes resource allocation decisions. Preparing for comprehensive examinations across four or five simultaneous courses requires triage: determining exactly which classes demand intensive study to cross letter grade thresholds versus courses where grades are already mathematically locked. Because final exams frequently carry between 20% and 40% of the entire syllabus weight, understanding mathematical sensitivity prevents academic burnout, leveraging formulations identical to those found in our <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Derivation: The Final Exam Requirement Equation
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"C"}</Formula> represent your current course percentage average prior to taking the final exam (<Formula>{"0 \le C \le 100"}</Formula>). Let <Formula>{"W"}</Formula> denote the final examination&apos;s percentage weight expressed as a decimal (<Formula>{"0 < W < 1"}</Formula>), such that the cumulative weight of coursework completed to date is <Formula>{"1 - W"}</Formula>. Let <Formula>{"T"}</Formula> denote your target final course percentage (e.g., 90.0% for an A, or 80.0% for a B), and let <Formula>{"\text{EC}"}</Formula> represent raw extra credit course points. The cumulative course grade <Formula>{"G"}</Formula> is modeled by:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"G = [C \times (1 - W)] + (F \times W) + \text{EC}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where <Formula>{"F"}</Formula> is the score achieved on the final examination. To find the minimum final exam score <Formula>{"F_{\text{req}}"}</Formula> necessary to satisfy the condition <Formula>{"G \ge T"}</Formula>, we rearrange the linear equation by isolating <Formula>{"F"}</Formula>:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"F_{\text{req}} = \frac{T - [C \times (1 - W)] - \text{EC}}{W}"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This elegant formulation reveals the core dynamics of academic risk:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Locked Grade (<Formula>{"F_{\text{req}} \le 0"}</Formula>):</strong> Your secured points <Formula>{"C \times (1 - W) + \text{EC}"}</Formula> already equal or exceed the target <Formula>{"T"}</Formula>. You can achieve your desired grade with zero points on the final.
+            </li>
+            <li>
+              <strong>High Feasibility (<Formula>{"0 < F_{\text{req}} \le 75\%"}</Formula>):</strong> The required score lies well below your historical course average, providing a substantial safety cushion.
+            </li>
+            <li>
+              <strong>Realistic Target (<Formula>{"75\% < F_{\text{req}} \le 90\%"}</Formula>):</strong> The target requires solid mastery and focused review, modeled through our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+            </li>
+            <li>
+              <strong>Challenging Stretch (<Formula>{"90\% < F_{\text{req}} \le 100\%"}</Formula>):</strong> Demands near-flawless exam performance, requiring comprehensive practice with our <Link href="/calculators/education/test-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">test score calculator</Link>.
+            </li>
+            <li>
+              <strong>Statistically Unattainable (<Formula>{"F_{\text{req}} > 100\%"}</Formula>):</strong> The target cannot be attained under standard grading without instructor curves.
+            </li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Final Exam Feasibility Matrix: Current Grade vs Syllabus Weight
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays the required final exam score to achieve an overall course grade of A (90.0%) across various combinations of current course standing and final exam weights:
+          </p>
+
+          <DataTable
+            head={["Current Grade", "15% Final Weight", "20% Final Weight", "25% Final Weight", "30% Final Weight", "35% Final Weight", "40% Final Weight"]}
+            rows={[
+              ["95.0% (Strong A)", "61.7% (Safe)", "70.0% (Safe)", "75.0% (Safe)", "78.3% (Safe)", "80.7% (Safe)", "82.5% (Safe)"],
+              ["92.0% (Solid A-)", "78.7% (Safe)", "82.0% (Safe)", "84.0% (Safe)", "85.3% (Safe)", "86.3% (Safe)", "87.0% (Safe)"],
+              ["88.0% (High B+)", "101.3% (Curve)", "98.0% (Stretch)", "96.0% (Stretch)", "94.7% (Stretch)", "93.7% (Stretch)", "93.0% (Realistic)"],
+              ["85.0% (Mid B)", "118.3% (Impossible)", "110.0% (Impossible)", "105.0% (Curve)", "101.7% (Curve)", "99.3% (Stretch)", "97.5% (Stretch)"],
+              ["82.0% (Low B-)", "135.3% (Impossible)", "122.0% (Impossible)", "114.0% (Impossible)", "108.7% (Impossible)", "104.9% (Curve)", "102.0% (Curve)"],
+              ["78.0% (High C+)", "158.0% (Impossible)", "138.0% (Impossible)", "126.0% (Impossible)", "118.0% (Impossible)", "112.3% (Impossible)", "108.0% (Impossible)"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: Protecting an A- in Collegiate Microeconomics
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A sophomore business student holds a current average of 91.2% in Intermediate Microeconomics heading into the final examination. The final exam represents 25% of the total course syllabus, and the student has earned 1.5 points of raw bonus extra credit through seminar participation. The student wishes to secure a final grade of A- (90.0%).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Applying the derivation formula: completed coursework represents <Formula>{"1 - 0.25 = 0.75"}</Formula> of the syllabus. Secured course points equal <Formula>{"(91.2 \times 0.75) + 1.5 = 68.40 + 1.5 = 69.90 \text{ points}"}</Formula>. To achieve the 90.0% target, the net points required from the final exam are <Formula>{"90.0 - 69.90 = 20.10 \text{ points}"}</Formula>. Dividing by the exam weight yields: <Formula>{"F_{\text{req}} = 20.10 / 0.25 = 80.40\%"}</Formula>. The student only needs to score an 80.4% (a low B-) on the final to protect their A- grade, allowing them to shift preparation hours toward more vulnerable subjects evaluated in our <Link href="/calculators/education/cgpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">CGPA calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Passing Threshold Rescue in Organic Chemistry
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A pre-pharmacy student struggles with Organic Chemistry, holding an average of 64.5% across midterms and quizzes. The university requires a minimum grade of C (70.0%) for prerequisite degree credit. The final exam carries a heavy 35% syllabus weight with zero extra credit.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Coursework completed to date represents <Formula>{"1 - 0.35 = 0.65"}</Formula> of the syllabus, generating <Formula>{"64.5 \times 0.65 = 41.925 \text{ points}"}</Formula>. To cross the 70.0% passing threshold, the student requires <Formula>{"70.0 - 41.925 = 28.075 \text{ points}"}</Formula> from the final exam. The required score is: <Formula>{"F_{\text{req}} = 28.075 / 0.35 = 80.21\%"}</Formula>. Scoring an 80.21% (a B- mark) rescues the course from failing status, preserving graduation timelines and preventing academic probation on official transcripts modeled in our <Link href="/calculators/education/percentage-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage grade calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Final Exam Policies, Incomplete Marks & Examination Deferrals
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under official university registrar statutes, students facing medical emergencies or family crises during final examination periods may request a formal Incomplete (I) grade. An Incomplete grade permits students to postpone the final examination without GPA penalty, typically providing an administrative window of 60 to 90 days into the subsequent term to complete the deferred assessment. If the deferred exam is not completed within statutory deadlines, the temporary Incomplete mark automatically converts to a punitive F on official transcripts.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Additionally, maintaining continuous attendance eligibility throughout the semester is mandatory: students with unauthorized absence rates exceeding 25% are frequently debarred from sitting for final examinations, a policy students can monitor in advance via our <Link href="/calculators/education/attendance-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">attendance calculator</Link>. Protecting your final GPA also ensures retention of institutional scholarships modeled in our <Link href="/calculators/education/scholarship-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">scholarship calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Academic Accreditation Standards & Policy Guidelines
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Comprehensive final examination administration, proctoring integrity, and grade appeal protocols are governed by statutory university academic senates and accreditation authorities:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>AACRAO Academic Record and Transcript Guide:</strong> Standardized definitions for grade replacement, incomplete mark conversions, and cumulative grade recording.
+            </li>
+            <li>
+              <strong>Council for Higher Education Accreditation (CHEA):</strong> Institutional standards ensuring that final summative examinations accurately reflect published course learning outcomes.
+            </li>
+            <li>
+              <strong>Higher Learning Commission (HLC Assuring Quality):</strong> Institutional criteria governing faculty grading policies, examination scheduling, and student grievance procedures.
+            </li>
+          </ul>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Cognitive Test Preparation Rhythms & Spaced Retrieval Strategies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When the final exam equation indicates a challenging score requirement (such as 88% to 95%), academic cognitive psychology recommends abandoning passive review techniques—such as re-reading highlighted textbook chapters or reviewing completed slide decks—in favor of active spaced retrieval practice. Spaced retrieval mandates completing timed, closed-book practice examinations under simulated testing conditions, forcing synaptic neural pathways to reconstruct complex mathematical formulations and theoretical principles without external aids.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, empirical educational research demonstrates that distributing study sessions into 50-minute focused blocks separated by 10-minute rest intervals (the Pomodoro framework) optimizes neuro-cognitive consolidation, preventing the severe mental fatigue associated with prolonged overnight study marathons. Students can design rigorous daily study schedules tailored to their credit hours using our dedicated planning tools.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            High-Stakes Examination Psychology: Test Anxiety Mitigation & Optimal Pacing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under high-stakes final examination conditions where a single test dictates degree progress, acute physiological stress can induce cognitive tunneling and working memory interference. Psychologists recommend establishing systematic exam pacing protocols: spending the initial three minutes surveying the entire test paper, categorizing questions into immediate execution items versus complex multi-stage derivation problems. Executing high-confidence problems first secures baseline points early, reducing sympathetic nervous system arousal and restoring working memory capacity for challenging analytical sections.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Moreover, verifying exam room logistics, permitted reference aids (such as formula sheets or graphing calculators), and statutory accommodations ensures that examination performance reflects true academic mastery rather than procedural anxiety.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive vs Modular Final Examinations & Syllabus Weight Policies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Academic departments distinguish fundamentally between modular unit examinations and comprehensive final examinations. A modular exam tests solely the content delivered in the final third of the semester, typically carrying modest weighting (15% to 20%). In contrast, a comprehensive final exam synthesizes an entire semester&apos;s theoretical and practical curriculum, carrying substantial weighting (30% to 45%) to verify long-term knowledge retention and analytical integration.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because comprehensive final exams assess knowledge retention across foundational concepts, faculty committees mandate rigorous proctoring protocols and uniform examination schedules. Modeling your exact required score early in the study cycle eliminates unnecessary testing anxiety, allowing students to focus mental bandwidth on high-yield analytical domains where point gains provide maximum course leverage.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Academic support centers also emphasize post-exam debriefing sessions. Reviewing graded final examination papers with faculty provides invaluable diagnostic feedback, pinpointing specific analytical gaps and reinforcing conceptual mastery before students matriculate into sequential upper-division prerequisite courses.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Faculty senates routinely enforce statutory limits prohibiting instructors from assigning final examinations carrying more than 50% of aggregate course weight. This statutory restriction shields students from excessive single-event testing variance while promoting continuous pedagogical assessment across the academic semester.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Structured exam study groups and peer problem-solving seminars further reinforce cognitive recall, helping students systematically eliminate conceptual errors prior to sitting for high-stakes comprehensive final evaluations.
+          </p>
+
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Maintaining open communication with academic faculty and department chairs ensures that students navigate final examination hurdles with confidence, strategic foresight, and institutional clarity.
+          </p>
+
+        </>
+      }
+    >
+      <FinalGradeCalculatorComponent />
+    </CalcPage>
   );
 }

@@ -1,26 +1,252 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import TestScoreCalculatorComponent from "@/components/calcs/education/test-score-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TestScoreRawGradingCurveChart } from "@/components/flagship/education/editorial-charts";
+
+const PATH = "/calculators/education/test-score-calculator";
+const TITLE = "Test Score Calculator | Raw Percentage, Grading Curves & Scaled Scores";
+const DESCRIPTION =
+  "Calculate test percentage scores, negative marking penalty deductions, square root curves, standard deviation curves, and letter grade distributions.";
 
 export const metadata: Metadata = {
-  "title": "Test Score Calculator – Raw Score to Percentage | CalcDigi",
-  "description": "Convert raw test scores to percentage, letter grade, and GPA. Calculate class average, curve, and percentile rank for any exam.",
-  "openGraph": {
-    "title": "Test Score Calculator – Raw Score to Percentage | CalcDigi",
-    "description": "Convert raw test scores to percentage, letter grade, and GPA. Calculate class average, curve, and percentile rank for any exam.",
-    "type": "website",
-    "url": "/calculators/education/test-score-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/education/test-score-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/education/grade-calculator", icon: "📈", name: "Grade Calculator" },
+  { href: "/calculators/education/final-grade-calculator", icon: "🎯", name: "Final Grade" },
+  { href: "/calculators/education/percentage-grade-calculator", icon: "💯", name: "Percentage Grade" },
+  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
+  { href: "/calculators/education/act-score-calculator", icon: "📊", name: "ACT Score" },
+  { href: "/calculators/education/sat-score-calculator", icon: "📐", name: "SAT Score" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "How does the Square Root curve formula work for difficult examinations?",
+    a: "The square root grading curve is formulated as Curved Score = 10 * sqrt(Raw Score). It is widely favored by STEM educators because it disproportionately aids lower passing scores while preserving upper distinction. For instance, a raw score of 64% curves to 10 * 8 = 80% (a 16-point boost), whereas a raw score of 81% curves to 10 * 9 = 90% (a 9-point boost), and 100% remains exactly 100%.",
+  },
+  {
+    q: "What is negative marking and how does it penalize blind guessing?",
+    a: "Negative marking deducts fractional points for incorrect answers to discourage random guessing on multiple-choice examinations. The classical mathematical penalty formula is Penalty = 1 / (k - 1), where k is the number of response options. On a 4-option test, an incorrect answer loses 1/3 of a point, making the mathematical expected value of blind guessing exactly zero.",
+  },
+  {
+    q: "What is a standard deviation (Z-score) normal distribution curve?",
+    a: "A Z-score curve re-scales raw student scores based on the class mean (mu) and standard deviation (sigma). The instructor sets the class mean to a target grade (typically 75% or 80%) and distributes letter grades based on standard deviation intervals (e.g., scores > 1 sigma above mean receive an A, within +/- 1 sigma receive a B or C, and < 1 sigma below receive lower marks).",
+  },
+  {
+    q: "How do raw test points translate into weighted course grades?",
+    a: "A test score contributes to your overall course grade proportionally to its syllabus weight category. For example, scoring 85% on a midterm worth 25% of the total course adds 0.85 * 25 = 21.25 weighted percentage points toward your final semester average.",
+  },
+];
+
+export default function TestScoreCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Education Calculators\", \"item\": \"https://calcdigi.com/pages/education\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Test Score Calculator\", \"item\": \"https://calcdigi.com/calculators/education/test-score-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Test Score Calculator\", \"url\": \"https://calcdigi.com/calculators/education/test-score-calculator\", \"description\": \"Convert raw test scores to percentage, letter grade, and GPA. Calculate class average, curve, and percentile rank for any exam.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do I calculate my test score percentage?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Percentage = (Points Earned / Total Points) × 100. For 47/60: 47/60 × 100 = 78.3%. For 143/175: 143/175 × 100 = 81.7%. Always divide your score by the total possible, then multiply by 100.\"}}, {\"@type\": \"Question\", \"name\": \"What is a curved test score?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A curved score adjusts raw scores upward when the class average is lower than expected. Common methods: adding flat points to everyone (e.g., +8 points), scaling so the highest score = 100%, or using square root curve (multiply √raw% by 10). A 72% with an 8-point curve becomes 80%.\"}}, {\"@type\": \"Question\", \"name\": \"What is my percentile rank on a test?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Percentile rank = (number of students who scored below you / total students) × 100. If you scored higher than 35 of 40 students: 35/40 × 100 = 87.5th percentile. Percentile rank shows relative performance compared to your class, not your absolute score.\"}}, {\"@type\": \"Question\", \"name\": \"How does the square root grading curve work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Square root curve: new score = √(raw%) × 10. Example: raw score 64% → √64 × 10 = 8 × 10 = 80%. Raw 81% → √81 × 10 = 90%. This curve helps lower scores more than higher scores and keeps perfect scores at 100%.\"}}, {\"@type\": \"Question\", \"name\": \"What raw score do I need to get an A?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Work backwards: Points for A = (90/100) × Total Points. For 90% = A on a 80-point test: 90/100 × 80 = 72 points minimum. For 93% = A on 60-point test: 93/100 × 60 = 55.8 → need 56 points. For curved exams, you need fewer raw points to achieve the same letter grade.\"}}, {\"@type\": \"Question\", \"name\": \"How important is one bad test score?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"One test score impact = (Test Weight / Number of Tests) × Grade Shift. If tests are 60% of grade and there are 3 tests (20% each): one 50% test vs 90% means losing 40% × 20% = 8 percentage points on your course grade — roughly one letter grade. Recoverable, but act quickly by improving on subsequent tests.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/education\">Education</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Test Score Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Test Score Calculator</h1>\n<p class=\"calc-intro\">Convert your raw test score to percentage, letter grade, percentile rank, and GPA equivalent. Supports curved grading, class average comparison, and multiple grading scales. Perfect for students analyzing exam results.</p>\n<p class=\"calc-intro\">Understanding your test score in context helps you assess your academic standing and identify areas for improvement. This calculator converts raw scores to all standard grade formats and shows how your result compares to class averages and grading curves.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Percentage = (Raw Score / Total Points) × 100 | Curved Score = Raw% + Curve Points | Percentile = (Students Below / Total) × 100</div></div>\n<div class=\"content-section\">\n<h2>Understanding Test Scores</h2>\n<p>A raw test score only becomes meaningful when converted to a percentage and compared to the class performance. A 72/100 on a very hard exam might earn an A after curving, while 90/100 on an easy exam might be a class average. Context matters as much as the raw score.</p>\n<h3>Types of Grading Curves</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Curve Type</th><th style=\"padding:11px 14px;text-align:left;\">Method</th><th style=\"padding:11px 14px;text-align:left;\">Example</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Flat Curve</td><td style=\"padding:10px 14px;\">Add fixed points to all scores</td><td style=\"padding:10px 14px;\">72 + 8 = 80%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Scale to Top</td><td style=\"padding:10px 14px;\">Highest score = 100%, others scale</td><td style=\"padding:10px 14px;\">Top=92: multiply by 100/92=1.087</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Square Root</td><td style=\"padding:10px 14px;\">Score% × 10 = curved grade</td><td style=\"padding:10px 14px;\">72% → √72 × 10 = 84.9%</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Bell Curve</td><td style=\"padding:10px 14px;\">Adjust to target class mean</td><td style=\"padding:10px 14px;\">Mean 65 → target 75: add 10</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">No Curve</td><td style=\"padding:10px 14px;\">Raw score is final grade</td><td style=\"padding:10px 14px;\">72% = 72%</td></tr></tbody></table></div>\n<h3>How Curves Affect Rankings</h3>\n<p>Grade curves are applied when the class average is significantly lower than the instructor target (typically 70-75%). Curves benefit all students proportionally but do not change relative rankings. If you scored above average before the curve, you will still be above average after. Focus on absolute score improvements rather than relying on curves.</p>\n<h3>Standardized vs Classroom Tests</h3>\n<p>Classroom tests: raw score converted directly to percentage. Standardized tests (SAT, ACT, GRE, MCAT): use scaled scoring — raw score converted to a scale score through equating to account for test difficulty variation across different administrations. A 700/800 on the SAT Math in one year equals the same percentile as 700 in another year, even if the tests had different difficulty levels.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I calculate my test score percentage? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Percentage = (Points Earned / Total Points) × 100. For 47/60: 47/60 × 100 = 78.3%. For 143/175: 143/175 × 100 = 81.7%. Always divide your score by the total possible, then multiply by 100.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a curved test score? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A curved score adjusts raw scores upward when the class average is lower than expected. Common methods: adding flat points to everyone (e.g., +8 points), scaling so the highest score = 100%, or using square root curve (multiply √raw% by 10). A 72% with an 8-point curve becomes 80%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is my percentile rank on a test? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Percentile rank = (number of students who scored below you / total students) × 100. If you scored higher than 35 of 40 students: 35/40 × 100 = 87.5th percentile. Percentile rank shows relative performance compared to your class, not your absolute score.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How does the square root grading curve work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Square root curve: new score = √(raw%) × 10. Example: raw score 64% → √64 × 10 = 8 × 10 = 80%. Raw 81% → √81 × 10 = 90%. This curve helps lower scores more than higher scores and keeps perfect scores at 100%.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What raw score do I need to get an A? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Work backwards: Points for A = (90/100) × Total Points. For 90% = A on a 80-point test: 90/100 × 80 = 72 points minimum. For 93% = A on 60-point test: 93/100 × 60 = 55.8 → need 56 points. For curved exams, you need fewer raw points to achieve the same letter grade.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How important is one bad test score? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">One test score impact = (Test Weight / Number of Tests) × Grade Shift. If tests are 60% of grade and there are 3 tests (20% each): one 50% test vs 90% means losing 40% × 20% = 8 percentage points on your course grade — roughly one letter grade. Recoverable, but act quickly by improving on subsequent tests.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Education Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/education/gpa-calculator\"><span class=\"rc-icon\">🎓</span><span class=\"rc-name\">GPA Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/grade-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Grade Calculator</span></a><a class=\"related-card\" href=\"/calculators/education/final-grade-calculator\"><span class=\"rc-icon\">🏁</span><span class=\"rc-name\">Final Grade Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Test Score Calculator – Raw Score, Percentile and Curve</h2><div class=\"form-group\"><label for=\"ts-raw\">Raw Score (points earned)</label><input id=\"ts-raw\" min=\"0\" step=\"0.5\" type=\"number\" value=\"47\"/></div><div class=\"form-group\"><label for=\"ts-total\">Total Points Possible</label><input id=\"ts-total\" min=\"1\" step=\"0.5\" type=\"number\" value=\"60\"/></div><div class=\"form-group\"><label for=\"ts-curve\">Curve Points Added (0 if none)</label><input id=\"ts-curve\" max=\"50\" min=\"0\" step=\"0.5\" type=\"number\" value=\"0\"/></div><div class=\"form-group\"><label for=\"ts-classavg\">Class Average % (optional)</label><input id=\"ts-classavg\" max=\"100\" min=\"0\" step=\"0.1\" type=\"number\" value=\"68\"/></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('ed-result').style.display='none';document.getElementById('ed-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"ed-result\" style=\"display:none;\"><div id=\"ed-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"ed-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"ed-ai\" style=\"display:none;\"></div></div>\n<div id=\"ed-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-ed\" onclick=\"printResult('ed-result','Test Score Calculator – Raw Score, Percentile and Curve')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Test Score Calculator – Raw Score, Percentile and Curve')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-test-score-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doCalc(){\n  var raw=parseFloat(document.getElementById('ts-raw').value)||0;\n  var total=parseFloat(document.getElementById('ts-total').value)||1;\n  var curve=parseFloat(document.getElementById('ts-curve').value)||0;\n  var classavg=parseFloat(document.getElementById('ts-classavg').value)||0;\n  var pct=(raw/total)*100+curve;\n  var letter=pct>=97?'A+':pct>=93?'A':pct>=90?'A-':pct>=87?'B+':pct>=83?'B':pct>=80?'B-':pct>=77?'C+':pct>=73?'C':pct>=70?'C-':pct>=60?'D':'F';\n  var gpa=pct>=93?4.0:pct>=90?3.7:pct>=87?3.3:pct>=83?3.0:pct>=80?2.7:pct>=77?2.3:pct>=73?2.0:pct>=70?1.7:pct>=60?1.0:0.0;\n  var sqrtCurve=Math.min(Math.sqrt((raw/total)*100)*10,100);\n  var aboveClass=classavg>0?(pct-classavg).toFixed(1):null;\n  var aiPrompt='Test score: '+raw+'/'+total+' = '+pct.toFixed(1)+'% ('+letter+')'+( classavg?', class avg: '+classavg+'%':'');\n  document.getElementById('ed-ri').innerHTML=\n    ri('Your Score','<strong style=\"font-size:26px;color:var(--c-accent)\">'+pct.toFixed(1)+'% ('+letter+')</strong>',true)+\n    ri('GPA Equivalent',gpa.toFixed(1)+' / 4.0')+\n    ri('Raw Score',raw+' / '+total+' points')+\n    (curve>0?ri('After Curve','+'+curve+' points added'):'') +\n    ri('Square Root Curve',sqrtCurve.toFixed(1)+'%')+\n    (aboveClass?ri('vs Class Average',(parseFloat(aboveClass)>=0?'+':'')+aboveClass+'% '+(parseFloat(aboveClass)>=0?'above ✅':'below')):'');\n  document.getElementById('ed-result').style.display='block';document.getElementById('ed-actions').style.display='flex';\n  drawDonut('ed-chart',['Your Score','Missed Points'],[Math.round(pct),Math.max(Math.round(100-pct),0.001)],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('ed-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical academic tip about test preparation and improving exam scores.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/education", label: "Education & School" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Academic Guidance:</strong> Evaluating test performance requires translating raw question counts into standardized percentage marks, analyzing negative marking penalties, and applying statistical grading curves (square root, linear flat boost, or standard deviation normalization). By calculating exact earned points across varying test lengths, this calculator reveals your true standing. Integrate your test scores into term averages using our <Link href="/calculators/education/grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">grade calculator</Link> and determine required final exam scores with our <Link href="/calculators/education/final-grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">final grade calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Raw Test Scores vs Curving Mathematical Models (Square Root & Flat Shift)
+          </h2>
+          <TestScoreRawGradingCurveChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Standardized testing, collegiate midterms, and professional licensing examinations utilize sophisticated statistical psychometrics to calibrate raw assessment scores. Whether calculating the baseline accuracy percentage on a 50-question quiz or evaluating curved distributions on a multi-variable calculus midterm, understanding scoring formulations provides essential clarity. Convert your overall scores into official letter marks using our <Link href="/calculators/education/percentage-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage grade calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Raw Accuracy, Penalties & Curves
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"T"}</Formula> represent the total number of scored items on an examination (<Formula>{"T > 0"}</Formula>), let <Formula>{"C"}</Formula> denote the number of correct responses, let <Formula>{"W"}</Formula> represent incorrect answers, and let <Formula>{"U"}</Formula> represent unattempted questions (<Formula>{"T = C + W + U"}</Formula>). On standard linear tests without penalty, the raw score percentage (<Formula>{"S_{\\text{raw}}"}</Formula>) is:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"S_{\\text{raw}} = \\left( \\frac{C}{T} \\right) \\times 100"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            On competitive standardized examinations employing negative marking (e.g. historical SAT, IIT-JEE, or AMC mathematics competitions), an incorrect answer incurs a fractional deduction penalty <Formula>{"p = \\frac{1}{k - 1}"}</Formula>, where <Formula>{"k"}</Formula> is the number of answer choices per question. The net penalized raw points (<Formula>{"R_{\\text{net}}"}</Formula>) and penalized percentage (<Formula>{"S_{\\text{penalized}}"}</Formula>) are formulated as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"R_{\\text{net}} = C - \\left( W \\times \\frac{1}{k - 1} \\right)"}</Formula>
+          </div>
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"S_{\\text{penalized}} = \\max\\left(0, \\left( \\frac{R_{\\text{net}}}{T} \\right) \\times 100\\right)"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When academic faculty apply statistical curves to normalize difficult examination outcomes, two primary models are implemented:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Square Root Curve:</strong> <Formula>{"S_{\\text{curved}} = 10 \\times \\sqrt{S_{\\text{raw}}}"}</Formula>
+            </li>
+            <li>
+              <strong>Linear Shift to High Score:</strong> <Formula>{"S_{\\text{curved}} = S_{\\text{raw}} + (100 - S_{\\text{max}})"}</Formula>
+            </li>
+          </ul>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Protecting your academic transcript evaluated in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> requires tracking test outcomes against standardized benchmarks. Cross-reference your results with our <Link href="/calculators/education/act-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ACT score calculator</Link> and <Link href="/calculators/education/sat-score-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">SAT score calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Standard Raw Percentage to Letter Grade Conversion Matrix
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays standard raw percentage thresholds, standard letter grades, 4.0 scale quality points, and performance classifications:
+          </p>
+
+          <DataTable
+            head={["Percentage Range", "Letter Grade", "4.0 Scale Quality Points", "Square Root Curved Equivalent", "Academic Performance Classification"]}
+            rows={[
+              ["93.0% – 100.0%", "A", "4.00", "96.4% – 100.0%", "Exemplary Scholastic Mastery"],
+              ["90.0% – 92.9%", "A-", "3.70", "94.9% – 96.3%", "Superior Academic Achievement"],
+              ["87.0% – 89.9%", "B+", "3.30", "93.3% – 94.8%", "Above Average Competence"],
+              ["83.0% – 86.9%", "B", "3.00", "91.1% – 93.2%", "Solid Core Understanding"],
+              ["80.0% – 82.9%", "B-", "2.70", "89.4% – 91.0%", "Adequate Concept Grasp"],
+              ["77.0% – 79.9%", "C+", "2.30", "87.7% – 89.3%", "Marginal Passing Competence"],
+              ["70.0% – 76.9%", "C / C-", "2.00 / 1.70", "83.7% – 87.6%", "Minimum Prerequisite Standard"],
+              ["Below 60.0%", "F", "0.00", "< 77.5%", "Course Prerequisite Failure"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Academic Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: 80-Question Science Midterm With Guessing Deductions
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An organic chemistry midterm contains 80 multiple-choice questions with 4 options each (<Formula>{"k = 4"}</Formula>). The penalty for a wrong answer is <Formula>{"1 / (4 - 1) = 0.333"}</Formula> raw points. A student answers 58 questions correctly, gets 18 wrong, and leaves 4 blank.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            First, calculate raw net score: <Formula>{"R_{\\text{net}} = 58 - (18 \\times 0.333) = 58 - 6.0 = 52.0 \\text{ points}"}</Formula>. The penalized percentage is <Formula>{"52.0 / 80 = 65.0\\%"}</Formula> (a grade of D). Without negative marking, the student&apos;s raw accuracy would have been <Formula>{"58 / 80 = 72.5\\%"}</Formula> (a solid C). The student&apos;s blind guessing on 18 uncertain questions destroyed 7.5 percentage points of net standing, underscoring the critical rule of negative marking: never guess blindly when penalty parameters are active. Schedule targeted revision via our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: The Square Root Curve in Advanced Engineering Calculus
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            On a notoriously difficult multi-variable calculus midterm, the class raw average is 49%, and the top raw score achieved is 81%. The professor announces a Square Root Curve will be applied to protect student progression and class standing evaluated in our <Link href="/calculators/education/class-rank-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">class rank calculator</Link>.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Student 1 scored a raw 49%. Applying the formula: <Formula>{"10 \\times \\sqrt{49} = 10 \\times 7 = 70.0\\%"}</Formula>—a massive +21 percentage point boost that elevates the student from a failing grade into a passing C. Student 2 scored a raw 81%. Applying the formula: <Formula>{"10 \\times \\sqrt{81} = 10 \\times 9 = 90.0\\%"}</Formula>—a +9 percentage point increase that rewards mastery with a solid A-. The non-linear square root function acts as a mathematical shock absorber for rigorous academic departments.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Item Response Theory (IRT) & Psychometric Standard Error of Measurement (SEM)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern high-stakes examinations—such as the computer-adaptive Digital SAT, GRE, and USMLE medical licensing exams—no longer rely on simplistic raw percentage calculations. Instead, psychometricians implement Item Response Theory (IRT). Under IRT, each test item is assigned specific statistical parameters: difficulty level (<Formula>{"b"}</Formula>), discrimination power (<Formula>{"a"}</Formula>), and pseudo-guessing probability (<Formula>{"c"}</Formula>).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Additionally, all testing instruments carry a Standard Error of Measurement (SEM), which quantifies test score confidence bands (typically +/- 2 to 3 percentage points). Understanding these psychometric principles prevents students from over-interpreting minor single-point fluctuations between practice tests. Optimize your reading pace for long test passages with our <Link href="/calculators/education/reading-speed-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">reading speed calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Assessment Standards & Educational Testing Authorities
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Educational assessment guidelines, psychometric validation standards, and ethical testing protocols are defined by national psychometric bodies:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>American Educational Research Association (AERA):</strong> Co-author of the Standards for Educational and Psychological Testing governing test validity, reliability, and fairness.
+            </li>
+            <li>
+              <strong>National Council on Measurement in Education (NCME):</strong> Professional association dedicated to the science of assessment, psychometric modeling, and scoring ethics.
+            </li>
+            <li>
+              <strong>Educational Testing Service (ETS Research Division):</strong> Technical publisher of landmark research on standardized test scaling, equating, and adaptive scoring algorithms.
+            </li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Psychometric Reliability, Validity & Test-Retest Variance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When analyzing test scores, psychometricians evaluate two foundational criteria: reliability and validity. Test reliability measures score consistency across repeated administrations. A test with high internal consistency (measured via Cronbach&apos;s alpha exceeding 0.85) ensures that student scores reflect genuine subject mastery rather than momentary chance or test question idiosyncrasies.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Validity, conversely, assesses whether an examination accurately measures the specific intellectual competency it claims to evaluate. Construct validity ensures that exam items test deep conceptual comprehension rather than mere rote memorization or surface-level test-taking tricks, preserving assessment integrity across educational curricula.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Exam Room Strategy: Time Allocation & Elimination Heuristics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Translating mathematical test scoring models into optimal exam performance requires tactical time management during testing sessions. When taking timed exams without negative marking, students should apply the two-pass heuristic: answering all immediate, high-confidence questions during the initial pass, while flagging complex analytical problems for a second pass.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            On examinations featuring penalty deductions for incorrect answers, students should only guess when they can confidently eliminate at least two plausible distractors. Eliminating two choices on a four-option question shifts the mathematical expected value from zero to a positive +0.167 points per question, converting probabilistic risk into a strategic advantage.
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mastering the mathematical principles behind test scoring, negative marking, and statistical curves equips scholars with the analytical insights needed to optimize exam strategy.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            By understanding how raw points convert into standardized marks, students approach exams with tactical confidence and achieve their highest potential academic distinction.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Test Anxiety Mitigation & Cognitive Performance Under Pressure
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            High-stakes examinations frequently induce acute physiological and psychological stress responses, colloquially known as test anxiety. Cognitive science research demonstrates that high acute anxiety triggers working memory overload, impairing executive problem-solving speed and causing students to commit unforced computational errors on problems they easily solve during untimed practice.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To mitigate test anxiety, educational psychologists recommend systematic desensitization through full-length timed diagnostic simulations that replicate real examination environments. Implementing tactical physiological breathing exercises (such as cyclic physiological sighing) reduces sympathetic nervous system arousal, restoring prefrontal cognitive clarity during challenging test sections.
+          </p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Diagnostic Post-Test Analysis & Error Categorization Rubrics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The most significant academic gains occur after test completion through structured post-test diagnostic debriefing. Rather than simply viewing raw percentage scores, diligent students categorize every missed question into one of three distinct error classes: conceptual deficits (not understanding underlying principles), tactical execution errors (misreading questions or rushing calculations), or temporal constraints (running out of allotted time).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Maintaining an error log that documents root causes and corrective takeaways transforms past mistakes into actionable study targets, ensuring exponential score improvement across future collegiate examinations.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Formative Assessment vs Summative Examination Mastery
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Educational researchers distinguish between formative assessments—low-stakes quizzes and diagnostic problem sets designed to monitor learning and provide ongoing feedback—and summative assessments, which evaluate cumulative competence at the end of an instructional unit. Incorporating regular formative self-testing into weekly study routines builds robust cognitive retrieval pathways that dramatically elevate performance on high-stakes summative exams.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Viewing every practice test as a diagnostic feedback mechanism rather than an absolute judgment of capability fosters a resilient academic growth mindset that fuels sustained collegiate excellence.
+          </p>
+
+        </>
+      }
+    >
+      <TestScoreCalculatorComponent />
+    </CalcPage>
   );
 }
