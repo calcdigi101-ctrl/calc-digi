@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/weather/heat-index-calculator", icon: "☀️", name: "Heat Index Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "Why does 1 inch of rain not always equal 10 inches of snow?",
+    a: "The classic 10:1 ratio is merely a climatological average near 28°F to 30°F. The actual ratio depends on the air temperature in the dendritic growth zone aloft and near the surface. In cold dry air (10°F to 15°F), delicate branching dendrites trap vast amounts of air, easily yielding 20 to 25 inches of snow from 1 inch of liquid water. Near freezing (32°F to 34°F), snowflakes partially melt and stick together, yielding only 5 to 8 inches of dense slush.",
+  },
+  {
+    q: "How much snow weight can a typical residential roof safely hold?",
+    a: "Most modern residential building codes in snow zones require roofs to support a minimum ground snow load of 20 to 40 pounds per square foot (psf). Because 1 inch of liquid water equals 5.2 psf, a roof rated for 30 psf can support approximately 5.7 inches of pure water equivalent—which equals about 50 to 60 inches of light dry snow, or only 18 to 22 inches of heavy, water-logged wet snow.",
+  },
+  {
+    q: "Why is shoveling wet snow considered a serious cardiovascular risk?",
+    a: "Dense wet snow weighs 15 to 25 pounds per shovel scoop. Lifting this weight in freezing weather constricts peripheral blood vessels (raising blood pressure) while heavy upper-body arm exertion elevates heart rate. This dangerous combination can cause myocardial ischemia or heart attacks in sedentary individuals, giving wet slush the medical nickname \"heart-attack snow.\"",
+  },
+  {
+    q: "What causes \"thundersnow\" during intense winter blizzards?",
+    a: "Thundersnow occurs when strong synoptic lift and cold air aloft create convective instability within a winter cyclone, similar to a summer thunderstorm. Intense convective updrafts generate lightning and thunder; however, the surrounding heavy snow muffles the thunder acoustic wave, limiting its audible radius to just 2 to 3 miles around the strike.",
+  },
+];
+
 export default function SnowfallCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function SnowfallCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -156,48 +176,32 @@ export default function SnowfallCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             In mountainous western watersheds, water resource authorities monitor the Western United States Snow Telemetry (SNOTEL) automated sensor network to forecast agricultural water supplies. SNOTEL stations deploy acoustic ultrasonic depth sensors paired with stainless steel fluid-filled snow pillows that weigh the snowpack directly to record real-time Snow Water Equivalent (SWE). Manual backcountry core sampling utilizes standardized Federal Snow Sampling tubes—hollow aluminum tubes driven through the full depth of the snowpack down to soil level, extracting a core sample that is weighed on a calibrated spring scale to measure liquid water content directly. In maritime snowpacks of the Pacific Northwest (the Cascade Mountains), high moisture content produces dense SWE values where 30 inches of snowpack holds over 10 inches of pure liquid water. This extreme snowpack weight variation emphasizes why backcountry skiers and civil engineers must measure water mass rather than mere snowpack depth when evaluating snow loads.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About Snowfall Accumulation & Snowpack Physics
+            Structural Snow Drift Aerodynamics & ASCE 7-22 Building Code Engineering
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Structural building failures during extreme winter blizzards rarely stem from balanced, uniform snowfall across open roof expanses. Rather, structural collapses occur due to aerodynamic snow drifting and unbalanced lee-side drift surcharge loads, as formalized in the American Society of Civil Engineers standard ASCE 7-22 (Minimum Design Loads and Associated Criteria for Buildings and Other Structures). When sustained high winds blow across upper roofs or parapet walls, snow particles become entrained in turbulent boundary layer eddies and deposit in deep, dense drift wedges against lower adjacent structural spans.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Engineers calculate snow drift width, peak surcharge height, and density adjustments based on ground snow load maps, terrain exposure factors, and thermal building occupancy classifications. In unheated industrial warehouses or canopies with low roof slopes, rain-on-snow events present catastrophic surcharge hazards: cold dense snowpack absorbs subsequent liquid precipitation like a sponge without discharging water through frozen scupper drains, instantaneously quadrupling dead loads and triggering catastrophic roof truss shear failures.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why does 1 inch of rain not always equal 10 inches of snow?
-              </h3>
-              <p>
-                The classic 10:1 ratio is merely a climatological average near 28°F to 30°F. The actual ratio depends on the air temperature in the dendritic growth zone aloft and near the surface. In cold dry air (10°F to 15°F), delicate branching dendrites trap vast amounts of air, easily yielding 20 to 25 inches of snow from 1 inch of liquid water. Near freezing (32°F to 34°F), snowflakes partially melt and stick together, yielding only 5 to 8 inches of dense slush.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Highway departments and transportation authorities incorporate Automated Road Weather Information Systems (RWIS) embedded with subsurface temperature sensors and active freezing-point detectors. By tracking pavement heat flux alongside forecast snow-liquid ratios, maintenance fleets optimize anti-icing brine applications, preventing initial snowpack bonding before heavy accumulation begins.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                How much snow weight can a typical residential roof safely hold?
-              </h3>
-              <p>
-                Most modern residential building codes in snow zones require roofs to support a minimum ground snow load of 20 to 40 pounds per square foot (psf). Because 1 inch of liquid water equals 5.2 psf, a roof rated for 30 psf can support approximately 5.7 inches of pure water equivalent—which equals about 50 to 60 inches of light dry snow, or only 18 to 22 inches of heavy, water-logged wet snow.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Commercial ski resort operations and avalanche safety centers evaluate snowpack stratigraphy through comprehensive snow pit compression tests. Analyzing structural shear planes between light low-density dendritic powder layers and hard refrozen melt-crusts allows backcountry safety forecasters to predict catastrophic slab avalanches with rigorous scientific precision.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why is shoveling wet snow considered a serious cardiovascular risk?
-              </h3>
-              <p>
-                Dense wet snow weighs 15 to 25 pounds per shovel scoop. Lifting this weight in freezing weather constricts peripheral blood vessels (raising blood pressure) while heavy upper-body arm exertion elevates heart rate. This dangerous combination can cause myocardial ischemia or heart attacks in sedentary individuals, giving wet slush the medical nickname "heart-attack snow."
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Municipal public works departments map snowplow routing grids based on real-time acoustic snow depth sensor readings, deploying salt spreaders proactively to prevent icy snowpack bonding across high-volume commuter transit corridors.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What causes "thundersnow" during intense winter blizzards?
-              </h3>
-              <p>
-                Thundersnow occurs when strong synoptic lift and cold air aloft create convective instability within a winter cyclone, similar to a summer thunderstorm. Intense convective updrafts generate lightning and thunder; however, the surrounding heavy snow muffles the thunder acoustic wave, limiting its audible radius to just 2 to 3 miles around the strike.
-              </p>
-            </div>
-          </div>
         </>
       }
     >

@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "What is the difference between relative humidity and specific humidity?",
+    a: "Relative humidity expresses current vapor pressure as a percentage of maximum saturation vapor pressure at that specific temperature. Because saturation capacity changes with temperature, relative humidity changes whenever the thermometer moves. Specific humidity measures the actual mass ratio of water vapor (in grams) per kilogram of total moist air. Specific humidity remains constant regardless of temperature changes or air parcel expansion as long as moisture is not physically added or condensed out.",
+  },
+  {
+    q: "Why does indoor air feel so dry during winter heating seasons?",
+    a: "Cold outdoor winter air can only hold small quantities of water vapor before reaching saturation. When cold air (e.g., 30°F with 80% RH) infiltrates a home and is warmed by a furnace to 70°F, its moisture capacity expands exponentially. Because no moisture was added to the air, the existing water vapor represents a tiny fraction of the warm air's expanded capacity, causing indoor relative humidity to plummet to 15% to 20%.",
+  },
+  {
+    q: "Is humid air heavier or lighter than dry air?",
+    a: "Contrary to intuition, humid air is lighter (less dense) than dry air at identical temperature and pressure. According to Avogadro's law, a fixed volume of gas contains the same number of molecules regardless of composition. Water molecules (\\text{H}_2\\text{O}, molecular mass 18) displace diatomic nitrogen (\\text{N}_2, mass 28) and oxygen (\\text{O}_2, mass 32), reducing the average molecular weight and density of the air parcel.",
+  },
+  {
+    q: "How does relative humidity affect the growth of indoor mold?",
+    a: "Mold spores require an equilibrium relative humidity above 65% to 70% at the surface material boundary to germinate and reproduce. Keeping indoor ambient relative humidity below 50% guarantees that exterior wall surfaces and cold corners stay below the threshold water activity (a_w < 0.70), halting microbial fungal development.",
+  },
+];
+
 export default function HumidityCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function HumidityCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -161,48 +181,32 @@ export default function HumidityCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             According to Dalton's Law of Partial Pressures, total barometric atmospheric pressure is the exact sum of individual partial gas pressures exerted by nitrogen, oxygen, argon, carbon dioxide, and water vapor (<Formula>{'P_{total} = P_{N_2} + P_{O_2} + P_{Ar} + P_{CO_2} + e'}</Formula>). Because water vapor pressure is strictly bounded by saturation thermodynamics, moist air enthalpy—the total thermal energy per unit mass—combines the sensible heat of dry air and the latent heat of vaporization: <Formula>{'h = c_{pa} T + w(h_{we} + c_{pw} T)'}</Formula>. Tracking psychrometric enthalpy allows HVAC engineers to optimize heat recovery ventilators (HRVs) and energy recovery ventilators (ERVs), capturing both sensible warmth and latent humidity from exhausted building airflow.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About Atmospheric Humidity Metrics
+            Psychrometric Thermodynamics, Enthalpy & Industrial Process Air Conditioning
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In industrial HVAC engineering, cleanrooms, and pharmaceutical manufacturing facilities, psychrometric calculations extend beyond relative humidity to moist air enthalpy and specific volume. Enthalpy quantifies the cumulative internal thermal energy of dry air plus associated water vapor per unit mass. During latent cooling dehumidification processes, chilled-water cooling coils must remove both the sensible heat required to lower air temperature to its dew point and the substantial latent heat of vaporization (approximately 2,501 kJ/kg of water condensed) to extract excess moisture.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Semiconductor lithography suites, lithium-ion battery dry rooms, and archival preservation vaults require precise absolute moisture tolerances rather than transient relative humidity bands. For example, lithium battery production requires specialized industrial desiccant wheel dehumidifiers that sustain dew points below -40&deg;C (mixing ratios under 0.08 grams of moisture per kilogram of dry air) to prevent explosive electrolyte decomposition and moisture-induced cathode degradation during continuous automated assembly.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What is the difference between relative humidity and specific humidity?
-              </h3>
-              <p>
-                Relative humidity expresses current vapor pressure as a percentage of maximum saturation vapor pressure at that specific temperature. Because saturation capacity changes with temperature, relative humidity changes whenever the thermometer moves. Specific humidity measures the actual mass ratio of water vapor (in grams) per kilogram of total moist air. Specific humidity remains constant regardless of temperature changes or air parcel expansion as long as moisture is not physically added or condensed out.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, precision aerospace manufacturing and carbon-fiber composite curing autoclaves mandate strict psychrometric controls during pre-preg layup cycles. Excess relative humidity induces resin moisture absorption and micro-void formation during polymerization, degrading composite tensile strength and causing delamination risks under supersonic aerodynamic stress profiles.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why does indoor air feel so dry during winter heating seasons?
-              </h3>
-              <p>
-                Cold outdoor winter air can only hold small quantities of water vapor before reaching saturation. When cold air (e.g., 30°F with 80% RH) infiltrates a home and is warmed by a furnace to 70°F, its moisture capacity expands exponentially. Because no moisture was added to the air, the existing water vapor represents a tiny fraction of the warm air's expanded capacity, causing indoor relative humidity to plummet to 15% to 20%.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In hospital surgical suites and acute care operating rooms, ASHRAE Standard 170 mandates relative humidity levels strictly between 20% and 60% to suppress airborne bacterial pathogen viability while preventing electrostatic discharge sparks near medical oxygen delivery apparatus and sensitive cardiac monitoring devices.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Is humid air heavier or lighter than dry air?
-              </h3>
-              <p>
-                Contrary to intuition, humid air is lighter (less dense) than dry air at identical temperature and pressure. According to Avogadro's law, a fixed volume of gas contains the same number of molecules regardless of composition. Water molecules (<Formula>{"\text{H}_2\text{O}"}</Formula>, molecular mass 18) displace diatomic nitrogen (<Formula>{"\text{N}_2"}</Formula>, mass 28) and oxygen (<Formula>{"\text{O}_2"}</Formula>, mass 32), reducing the average molecular weight and density of the air parcel.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Building commissioning specialists routinely verify psychrometric sensor accuracy using calibrated electronic aspirated psychrometers during seasonal climate changeovers, ensuring heating, ventilation, and air-conditioning systems maintain steady indoor air quality targets without unnecessary chilled water energy waste.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                How does relative humidity affect the growth of indoor mold?
-              </h3>
-              <p>
-                Mold spores require an equilibrium relative humidity above 65% to 70% at the surface material boundary to germinate and reproduce. Keeping indoor ambient relative humidity below 50% guarantees that exterior wall surfaces and cold corners stay below the threshold water activity (<Formula>{"a_w < 0.70"}</Formula>), halting microbial fungal development.
-              </p>
-            </div>
-          </div>
         </>
       }
     >

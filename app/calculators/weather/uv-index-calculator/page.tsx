@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/environment/solar-panel-calculator", icon: "🔋", name: "Solar Panel Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "Can you get sunburned on a cool or cloudy day?",
+    a: "Yes. Ambient temperature has zero correlation with ultraviolet radiation strength. You can sustain severe sunburn in 45°F (7°C) weather if the UV Index is high. Furthermore, thin cirrus and fair-weather clouds allow up to 80% of solar UV radiation to penetrate directly to the surface.",
+  },
+  {
+    q: "What is the difference between UVA and UVB radiation?",
+    a: "UVB (280 to 315 nm) comprises about 5% of terrestrial ultraviolet rays; it possesses high photon energy, damages cellular DNA in the epidermis, triggers Vitamin D synthesis, and is the primary cause of sunburn. UVA (315 to 400 nm) comprises 95% of ground UV; it penetrates deeply into the dermal layers, degrades collagen and elastin fibers (causing skin aging and wrinkles), and generates harmful free radicals.",
+  },
+  {
+    q: "Does a higher SPF sunscreen allow you to stay in the sun twice as long?",
+    a: "In clinical theory, an SPF 30 sunscreen filters out 96.7% of UVB photons, allowing a user to stay in the sun 30 times longer than unprotected skin. An SPF 50 filters out 98.0%. However, because sunscreen rubs off, breaks down under perspiration, and is rarely applied at the clinical laboratory density (2 mg/cm²), dermatologists advise reapplying every 2 hours regardless of SPF rating.",
+  },
+  {
+    q: "What was the highest UV Index ever recorded on Earth?",
+    a: "The world record UV Index was measured at 43.3 atop the Licancabur volcano in the Bolivian Andes (altitude 19,400 feet) on December 29, 2003. In populated tropical areas, solar noon summer UV Index readings regularly reach 12 to 14, which falls into the Extreme Danger category.",
+  },
+];
+
 export default function UvIndexCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function UvIndexCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -160,48 +180,27 @@ export default function UvIndexCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             The International Commission on Illumination (CIE) standardized erythema action spectrum quantifies how individual wavelengths of solar light trigger epidermal inflammation. Between 298 nm and 328 nm, biological erythemal effectiveness plummets by more than three orders of magnitude (1,000-fold reduction). Consequently, solar UV Index is exceptionally sensitive to solar zenith angle (<Formula>{'\theta_z'}</Formula>), which is determined by latitude, calendar day of the year, and local solar hour angle: <Formula>{'\cos(\theta_z) = \sin(\phi) \sin(\delta) + \cos(\phi) \cos(\delta) \cos(\omega)'}</Formula>. When the sun drops below 45 degrees elevation from the horizon, the extended optical atmospheric air mass absorbs virtually all UVB radiation, reducing the UV Index below 3.0 and eliminating sunburn hazards for most skin types.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About the Global Solar UV Index
+            Photocarcinogenesis, DNA Thymine Dimerization & Spectral Sunscreen Efficacy
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At the molecular biophysical level, solar UV radiation damages human epidermal cells through distinct photochemical mechanisms. UVB photons (280-315 nm) possess sufficient quantum energy to be absorbed directly by native DNA molecules, inducing covalent cross-linking between adjacent pyrimidine bases to form cyclobutane pyrimidine dimers (CPDs) and 6-4 photoproducts. If cellular nucleotide excision repair mechanisms fail to excise these lesions prior to DNA replication, signature C-to-T transition mutations arise, predisposing melanocytes and keratinocytes to malignant melanoma, basal cell carcinoma, and squamous cell carcinoma.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Conversely, UVA radiation (315-400 nm) penetrates deeper into the dermal matrix, generating reactive oxygen species (ROS) that oxidize lipid membranes, degrade structural collagen fibers, and induce premature photoaging. Dermatologists and the FDA recommend broad-spectrum mineral sunscreens containing micronized zinc oxide or photostable chemical filters, applied at a standard laboratory density of 2.0 mg/cm&sup2; of exposed skin every two hours, providing balanced photoprotection across both the UVA and UVB action spectra.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Can you get sunburned on a cool or cloudy day?
-              </h3>
-              <p>
-                Yes. Ambient temperature has zero correlation with ultraviolet radiation strength. You can sustain severe sunburn in 45°F (7°C) weather if the UV Index is high. Furthermore, thin cirrus and fair-weather clouds allow up to 80% of solar UV radiation to penetrate directly to the surface.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Ophthalmologists emphasize that ocular UV exposure poses cumulative risks analogous to cutaneous damage. Ultraviolet radiation absorbed by the crystalline lens and cornea accelerates nuclear cataractogenesis and promotes pterygium development, necessitating UV400-rated sunglasses that absorb 99% to 100% of UVA and UVB radiation across all daytime solar zenith angles.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What is the difference between UVA and UVB radiation?
-              </h3>
-              <p>
-                UVB (280 to 315 nm) comprises about 5% of terrestrial ultraviolet rays; it possesses high photon energy, damages cellular DNA in the epidermis, triggers Vitamin D synthesis, and is the primary cause of sunburn. UVA (315 to 400 nm) comprises 95% of ground UV; it penetrates deeply into the dermal layers, degrades collagen and elastin fibers (causing skin aging and wrinkles), and generates harmful free radicals.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In aquatic recreation and alpine mountaineering, high-albedo reflective surfaces dramatically augment effective UV dose rates. Fresh clean snow reflects up to 80% of ambient solar UV radiation, while white foamy ocean surf and sea spray reflect approximately 25%, effectively doubling exposure to facial skin and unprotected eyes.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Does a higher SPF sunscreen allow you to stay in the sun twice as long?
-              </h3>
-              <p>
-                In clinical theory, an SPF 30 sunscreen filters out 96.7% of UVB photons, allowing a user to stay in the sun 30 times longer than unprotected skin. An SPF 50 filters out 98.0%. However, because sunscreen rubs off, breaks down under perspiration, and is rarely applied at the clinical laboratory density (2 mg/cm²), dermatologists advise reapplying every 2 hours regardless of SPF rating.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What was the highest UV Index ever recorded on Earth?
-              </h3>
-              <p>
-                The world record UV Index was measured at 43.3 atop the Licancabur volcano in the Bolivian Andes (altitude 19,400 feet) on December 29, 2003. In populated tropical areas, solar noon summer UV Index readings regularly reach 12 to 14, which falls into the Extreme Danger category.
-              </p>
-            </div>
-          </div>
         </>
       }
     >

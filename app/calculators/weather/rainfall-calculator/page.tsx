@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Carbon Footprint" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "How many gallons of water does 1 inch of rain yield per square foot?",
+    a: "One inch of rain on one square foot of catchment area yields exactly 0.6233 United States gallons of water. This is calculated by dividing 144 cubic inches (1 sq ft at 1-inch depth) by 231 cubic inches (the volume of one US liquid gallon). In metric terms, 1 millimeter of rain on 1 square meter yields exactly 1.0 liter of water.",
+  },
+  {
+    q: "Is harvested rainwater safe to drink?",
+    a: "Untreated rainwater collected from roof surfaces is not potable because it contains dissolved atmospheric pollutants, bird droppings, bacterial pathogens, and particulate debris. To make harvested rainwater safe for drinking, it must undergo multi-stage sediment filtration (5-micron and 1-micron), activated carbon filtration to remove volatile organic compounds, and ultraviolet (UV) disinfection or chlorination to neutralize bacteria and viruses.",
+  },
+  {
+    q: "Is rainwater harvesting legal in all United States jurisdictions?",
+    a: "In the vast majority of US states, rainwater harvesting is completely legal and actively encouraged through municipal tax credits and free rain barrel distributions. In historical western water-rights states (such as Colorado), residential harvesting is permitted with specific restrictions (typically capped at two 55-gallon rain barrels per single-family residence to protect downstream prior appropriation water rights).",
+  },
+  {
+    q: "How do I prevent mosquitoes from breeding in my rain barrels?",
+    a: "To eliminate mosquito breeding, all barrel inlet and overflow pipes must be tightly sealed with fine stainless steel wire mesh (1mm or smaller aperture). Alternatively, adding biological mosquito dunks containing Bacillus thuringiensis israelensis (Bti) kills mosquito larvae safely without harming plants, pets, or humans.",
+  },
+];
+
 export default function RainfallCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function RainfallCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -156,48 +176,32 @@ export default function RainfallCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             Preventing structural foundation damage during intense precipitation requires properly engineering roof drainage conveyance. Standard residential gutters must be pitched at a minimum slope of 0.5 inches per 10 feet of horizontal run toward downspouts to maintain self-cleansing hydraulic velocities. Hydraulic flow rate through a downspout is governed by the orifice equation: <Formula>{'Q = C_d A \sqrt{2 g H}'}</Formula>, where <Formula>{'C_d'}</Formula> is the discharge coefficient, <Formula>{'A'}</Formula> is cross-sectional downspout area, and <Formula>{'H'}</Formula> is hydraulic head pressure. A single 3-inch by 4-inch rectangular downspout safely drains up to 1,200 square feet of roof under a peak storm intensity of 4 inches per hour. When downspouts discharge into municipal storm sewers, urban runoff accelerates river flooding; routing roof water into residential rain gardens or permeable gravel trenches recharges groundwater tables while filtering suspended solids and heavy metals. Furthermore, commercial civil engineering standards mandate that overflow outlets on rainwater collection cisterns be equal in diameter to the inlet piping and directed away from building footings toward positive-draining swales to prevent structural foundation subsidence during record cloudburst events. Routine seasonal inspection of leaf screens, gutter drop outlets, and tank calming inlets ensures hydraulic flow capacity is maintained throughout high-volume autumn precipitation cycles. Installing secondary overflow weirs and automated tank level sensors provides real-time alerts before heavy seasonal atmospheric river events.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About Rainfall Collection & Runoff
+            Sustainable Stormwater Best Management Practices (BMPs) & Hydraulic Retention Design
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern civil stormwater infrastructure emphasizes Low Impact Development (LID) and green infrastructure to mitigate catastrophic urban runoff surges. Bioretention bioswales, permeable interlocking concrete pavements, and engineered vegetated green roofs act as decentralized infiltration sponges, significantly reducing peak volumetric discharge into municipal storm sewers while filtering out heavy metals, petroleum hydrocarbons, and suspended sediment.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When sizing retention basins, cistern storage networks, and infiltration trenches, drainage engineers combine rational runoff coefficients with local NOAA Atlas 14 Precipitation-Frequency Data Server (PFDS) intensity-duration-frequency (IDF) curves. Designing storage systems to detain the 10-year and 25-year 24-hour storm events prevents downstream channel erosion and protects municipal sewer systems from surcharge back-pressures, transforming destructive stormwater surges into localized non-potable irrigation assets.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                How many gallons of water does 1 inch of rain yield per square foot?
-              </h3>
-              <p>
-                One inch of rain on one square foot of catchment area yields exactly 0.6233 United States gallons of water. This is calculated by dividing 144 cubic inches (1 sq ft at 1-inch depth) by 231 cubic inches (the volume of one US liquid gallon). In metric terms, 1 millimeter of rain on 1 square meter yields exactly 1.0 liter of water.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Municipal civil engineering departments increasingly mandate hydrologic modeling simulations using EPA SWMM (Storm Water Management Model) software for newly planned commercial developments. By simulating continuous rainfall-runoff routing across composite impervious surfaces, civil engineers design multi-stage outlet control structures that limit post-development discharge hydrographs to pre-development baseline rates, safeguarding fragile riparian wetlands and urban waterways.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Is harvested rainwater safe to drink?
-              </h3>
-              <p>
-                Untreated rainwater collected from roof surfaces is not potable because it contains dissolved atmospheric pollutants, bird droppings, bacterial pathogens, and particulate debris. To make harvested rainwater safe for drinking, it must undergo multi-stage sediment filtration (5-micron and 1-micron), activated carbon filtration to remove volatile organic compounds, and ultraviolet (UV) disinfection or chlorination to neutralize bacteria and viruses.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In agricultural water resource engineering, automated drip irrigation systems integrate rainfall collection storage with soil moisture capacitive probes. By prioritizing harvested rainwater over municipal tap water, commercial greenhouse operators reduce operational overhead while preventing root-zone soil salinization from dissolved mineral carbonates, optimizing nutrient uptake across sensitive crop cultivars.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Is rainwater harvesting legal in all United States jurisdictions?
-              </h3>
-              <p>
-                In the vast majority of US states, rainwater harvesting is completely legal and actively encouraged through municipal tax credits and free rain barrel distributions. In historical western water-rights states (such as Colorado), residential harvesting is permitted with specific restrictions (typically capped at two 55-gallon rain barrels per single-family residence to protect downstream prior appropriation water rights).
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Civil engineers also evaluate sediment accumulation rates within primary catchment pre-filtration chambers. Routine biannual cleaning of silt traps and vortex leaf separators ensures full volumetric capacity remains accessible during peak seasonal monsoonal precipitation events.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                How do I prevent mosquitoes from breeding in my rain barrels?
-              </h3>
-              <p>
-                To eliminate mosquito breeding, all barrel inlet and overflow pipes must be tightly sealed with fine stainless steel wire mesh (1mm or smaller aperture). Alternatively, adding biological mosquito dunks containing <em>Bacillus thuringiensis israelensis</em> (Bti) kills mosquito larvae safely without harming plants, pets, or humans.
-              </p>
-            </div>
-          </div>
         </>
       }
     >
