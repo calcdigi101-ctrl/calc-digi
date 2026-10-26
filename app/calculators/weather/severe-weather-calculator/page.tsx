@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/weather/snowfall-calculator", icon: "❄️", name: "Snowfall Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "What CAPE value is required for severe thunderstorms to develop?",
+    a: "Severe thunderstorms typically require a minimum surface-based CAPE of 1,000 to 1,500 J/kg. Moderate instability ranges from 1,500 to 2,500 J/kg, while values above 2,500 J/kg represent extreme instability. However, during high-shear low-CAPE (HSLC) cool-season setups, severe tornadoes can occasionally form with CAPE values as low as 400 to 800 J/kg if low-level wind shear and helicity are extraordinarily strong.",
+  },
+  {
+    q: "What is the difference between a tornado watch and a tornado warning?",
+    a: "A Tornado Watch is issued by the NOAA Storm Prediction Center hours in advance when meteorological conditions are favorable for supercells capable of producing tornadoes across a broad region (be prepared). A Tornado Warning is issued by local National Weather Service forecast offices when an actual tornado has been visually spotted by trained storm spotters or indicated by Doppler radar rotation (take immediate shelter in an interior room or basement).",
+  },
+  {
+    q: "Why does vertical wind shear matter so much for severe storms?",
+    a: "Without vertical wind shear, a thunderstorm's updraft rises vertically, condenses moisture, and produces rain that falls straight back down through the updraft, choking off the storm's warm fuel supply and causing it to collapse in 30 to 45 minutes. Vertical wind shear tilts the updraft, allowing rain to fall away from the updraft, sustaining the storm for hours as an organized multicell or rotating supercell.",
+  },
+  {
+    q: "How is hail size related to thunderstorm updraft strength?",
+    a: "Hail forms when supercooled water droplets freeze onto ice nuclei in the updraft. To grow to golf ball size (1.75 inches), a hailstone requires a vertical updraft of at least 55 mph (25 m/s). To grow to softball size (4.0 inches), the updraft must exceed 100 mph (45 m/s), which directly corresponds to theoretical updraft velocities generated in environments with CAPE exceeding 3,000 J/kg (W_{\\max} = \\sqrt{2 \\cdot \\text{CAPE}}).",
+  },
+];
+
 export default function SevereWeatherCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function SevereWeatherCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -157,48 +177,32 @@ export default function SevereWeatherCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             When large Mesoscale Convective Systems (MCS) persist across hundreds of miles overnight, latent heat release from condensing water vapor drives the development of a warm-core, mid-tropospheric cyclonic circulation known as a Mesoscale Convective Vortex (MCV). MCVs can survive for days after their parent thunderstorms dissipate, drifting downwind and acting as miniature tropical disturbances that trigger severe supercell and tornado outbreaks when exposed to daytime solar heating. Furthermore, when rear-inflow jets (RIJ) descend from the mid-troposphere to ground level, they generate violent progressive derechos—long-lived windstorms with continuous swaths of 75 to 100+ mph straight-line winds that flatten mature timber and cause widespread electrical grid blackouts across multi-state regions. Post-event storm damage surveys conducted by National Weather Service meteorologists utilize the Enhanced Fujita (EF) scale, analyzing 28 specific structural damage indicators to differentiate between straight-line microburst winds and multi-vortex rotational tornado damage tracks. This forensic meteorological evidence helps improve structural building codes for residential tornado safe rooms.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About Severe Weather & Storm Instability
+            Doppler Radar Signatures, Dual-Polarization Metrics & Mesocyclone Dynamics
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern severe weather warning meteorologists integrate thermodynamic sounding parameters with dual-polarization WSR-88D Doppler radar imagery to detect tornado genesis in real time. Beyond base reflectivity hook echoes and storm-relative velocity azimuthal shear couplets, dual-polarization variables provide definitive physical confirmation of severe phenomena. Differential Reflectivity (ZDR) identifies oblate raindrops and hail cores, while Correlation Coefficient (CC) detects non-meteorological scatterers.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The co-location of a tight velocity circulation couplet with a dramatic drop in Correlation Coefficient below 0.80 constitutes a definitive Tornado Debris Signature (TDS), confirming that lofted debris such as splintered wood, insulation, and foliage is circulating within the vortex. This real-time polarimetric radar confirmation enables National Weather Service warning meteorologists to issue emergency Tornado Catastrophe Warnings with zero-minute verification latency, saving lives prior to ground visual reporting.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What CAPE value is required for severe thunderstorms to develop?
-              </h3>
-              <p>
-                Severe thunderstorms typically require a minimum surface-based CAPE of 1,000 to 1,500 J/kg. Moderate instability ranges from 1,500 to 2,500 J/kg, while values above 2,500 J/kg represent extreme instability. However, during high-shear low-CAPE (HSLC) cool-season setups, severe tornadoes can occasionally form with CAPE values as low as 400 to 800 J/kg if low-level wind shear and helicity are extraordinarily strong.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Advanced operational meteorology also utilizes high-resolution numerical weather prediction systems like the High-Resolution Rapid Refresh (HRRR) model, updated hourly at 3-kilometer grid spacing. HRRR forecasts explicit convective storm initiation, simulated composite radar reflectivity, and updraft helicity tracks, allowing storm prediction centers to issue targeted mesoscale convective discussions several hours before supercells develop.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What is the difference between a tornado watch and a tornado warning?
-              </h3>
-              <p>
-                A <strong>Tornado Watch</strong> is issued by the NOAA Storm Prediction Center hours in advance when meteorological conditions are favorable for supercells capable of producing tornadoes across a broad region (be prepared). A <strong>Tornado Warning</strong> is issued by local National Weather Service forecast offices when an actual tornado has been visually spotted by trained storm spotters or indicated by Doppler radar rotation (take immediate shelter in an interior room or basement).
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Broadcast meteorologists and certified storm spotters examine real-time hodograph curvature to anticipate convective storm evolution. Clockwise looping hodographs in the lowest kilometer indicate strong positive storm-relative helicity, favoring long-lived cyclonic right-moving supercells capable of producing long-track violent tornadoes and giant destructive hail swaths across vulnerable communities. Emergency managers utilize these physical indicators to initiate sirens well before storm cores cross jurisdictional borders.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why does vertical wind shear matter so much for severe storms?
-              </h3>
-              <p>
-                Without vertical wind shear, a thunderstorm's updraft rises vertically, condenses moisture, and produces rain that falls straight back down through the updraft, choking off the storm's warm fuel supply and causing it to collapse in 30 to 45 minutes. Vertical wind shear tilts the updraft, allowing rain to fall away from the updraft, sustaining the storm for hours as an organized multicell or rotating supercell.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Severe convective storm warning meteorologists correlate ground-based mesonets with terminal Doppler weather radars at major metropolitan airports. This multi-sensor network detects microburst wind shear events and gust fronts, providing immediate runway divergence alerts for commercial aviation traffic. Civil protection agencies conduct annual severe weather preparedness drills with regional school districts and municipal hospital systems, ensuring emergency operations centers maintain redundant satellite communication channels during destructive convective squall lines.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                How is hail size related to thunderstorm updraft strength?
-              </h3>
-              <p>
-                Hail forms when supercooled water droplets freeze onto ice nuclei in the updraft. To grow to golf ball size (1.75 inches), a hailstone requires a vertical updraft of at least 55 mph (25 m/s). To grow to softball size (4.0 inches), the updraft must exceed 100 mph (45 m/s), which directly corresponds to theoretical updraft velocities generated in environments with CAPE exceeding 3,000 J/kg (<Formula>{"W_{\max} = \sqrt{2 \cdot \text{CAPE}}"}</Formula>).
-              </p>
-            </div>
-          </div>
         </>
       }
     >

@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/weather/snowfall-calculator", icon: "❄️", name: "Snowfall Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "Why do meteorologists consider dew point a better comfort indicator than relative humidity?",
+    a: "Relative humidity changes constantly throughout the day even when no moisture is added or removed from the atmosphere. As afternoon sunshine warms the air, relative humidity drops because warmer air has a greater moisture capacity. In contrast, dew point remains constant as long as the absolute mass of water vapor stays unchanged. A dew point of 68°F feels equally sticky and humid at 72°F in the morning (87% RH) as it does at 90°F in the afternoon (49% RH).",
+  },
+  {
+    q: "What is the quick mental rule of thumb to estimate dew point without a calculator?",
+    a: "A reliable mental approximation for moderate relative humidity (above 50%) is: T_d \\approx T - \\frac{100 - RH}{5} in degrees Celsius. For example, if the temperature is 25°C and relative humidity is 70%, the dew point depression is approximately (100 - 70) / 5 = 6^\\circ\\text{C}, giving an estimated dew point of 19°C (66.2°F), which closely aligns with rigorous Magnus-Tetens psychrometric formulas.",
+  },
+  {
+    q: "Can the dew point ever be higher than the ambient air temperature?",
+    a: "No. In the natural atmosphere, dew point can never exceed ambient air temperature. When air cools down to its dew point, relative humidity reaches 100% (supersaturation). Any further cooling forces excess water vapor to immediately condense out as airborne fog droplets or surface dew, keeping temperature and dew point identical.",
+  },
+  {
+    q: "What was the highest dew point ever recorded on Earth?",
+    a: "The highest world record dew point occurred in Dhahran, Saudi Arabia on July 8, 2003, when an air temperature of 108°F (42.2°C) combined with a Persian Gulf moisture surge to produce a staggering dew point of 95°F (35°C), creating an apparent heat index of 176°F (80°C). In North America, the highest reliable dew point was recorded at 90°F (32.2°C) in Moorhead, Minnesota during an extreme corn transpiration event in July 2011.",
+  },
+];
+
 export default function DewPointCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function DewPointCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -164,48 +184,27 @@ export default function DewPointCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             In national metrological standards laboratories, reference dew point temperatures are measured using chilled mirror hygrometers—the primary gold standard for humidity instrumentation. A thermoelectric Peltier module cools a polished rhodium or platinum mirror until an optical photodiode detects microscopic dew or frost formation. An active feedback loop modulates the mirror temperature to maintain continuous phase equilibrium between condensation and evaporation, allowing resistance thermometers to measure the true dew point with an accuracy of ±0.1°C. In contrast, capacitive polymer hygrometers used in consumer weather stations suffer from calibration drift of 2% to 5% relative humidity annually, requiring periodic recalibration against saturated salt solution benchmarks to maintain accuracy.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About Atmospheric Dew Point & Humidity
+            Meteorological Instrumentation, Chilled-Mirror Hygrometry & Calibration Standards
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In certified meteorological stations, automated surface observing systems (ASOS) and World Meteorological Organization (WMO) synoptic networks, dew point is measured using high-precision chilled-mirror hygrometers or capacitive thin-film polymer sensors. Chilled-mirror systems operate on primary physical principles: a thermoelectric Peltier cooler lowers the temperature of a miniature polished mirror until optoelectronic photodetectors observe condensation droplets scattering an incident light beam. The mirror temperature is dynamically stabilized at this exact condensation threshold, yielding a direct thermodynamic measurement of dew point with laboratory accuracies exceeding &plusmn;0.1&deg;C.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In contrast, commercial HVAC building management systems and portable psychrometers employ capacitive sensors that measure changes in the dielectric constant of a hygroscopic polymer film as ambient water vapor diffuses across a porous platinum electrode. While responsive and cost-effective, capacitive sensors exhibit temperature-dependent hysteresis, requiring routine multi-point calibration against NIST-traceable saturated salt solutions or secondary psychrometric transfer standards. Maintaining clean sensor membranes is essential in coastal, marine, and industrial environments where airborne aerosols, sulfur compounds, and saline particulates induce sensor drift and premature surface contamination.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why do meteorologists consider dew point a better comfort indicator than relative humidity?
-              </h3>
-              <p>
-                Relative humidity changes constantly throughout the day even when no moisture is added or removed from the atmosphere. As afternoon sunshine warms the air, relative humidity drops because warmer air has a greater moisture capacity. In contrast, dew point remains constant as long as the absolute mass of water vapor stays unchanged. A dew point of 68°F feels equally sticky and humid at 72°F in the morning (87% RH) as it does at 90°F in the afternoon (49% RH).
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Routine field verification also incorporates Assmann aspiration psychrometers, which draw ambient air across matched precision thermometers via an internal spring-driven or battery-powered ventilation fan at a constant velocity of 2.5 meters per second. This calibrated airflow eliminates stagnant boundary layers, guaranteeing that evaporative cooling rates reach true thermodynamic equilibrium for reliable validation against digital weather station telemetry.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What is the quick mental rule of thumb to estimate dew point without a calculator?
-              </h3>
-              <p>
-                A reliable mental approximation for moderate relative humidity (above 50%) is: <Formula>{"T_d \approx T - \frac{100 - RH}{5}"}</Formula> in degrees Celsius. For example, if the temperature is 25°C and relative humidity is 70%, the dew point depression is approximately <Formula>{"(100 - 70) / 5 = 6^\circ\text{C}"}</Formula>, giving an estimated dew point of 19°C (66.2°F), which closely aligns with rigorous Magnus-Tetens psychrometric formulas.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Industrial cleanrooms and electronics semiconductor manufacturing facilities maintain continuous chilled-mirror verification to prevent microscopic condensation from forming on silicon wafers during photolithographic etching, ensuring zero defect density across nanoscale transistor circuits.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Can the dew point ever be higher than the ambient air temperature?
-              </h3>
-              <p>
-                No. In the natural atmosphere, dew point can never exceed ambient air temperature. When air cools down to its dew point, relative humidity reaches 100% (supersaturation). Any further cooling forces excess water vapor to immediately condense out as airborne fog droplets or surface dew, keeping temperature and dew point identical.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What was the highest dew point ever recorded on Earth?
-              </h3>
-              <p>
-                The highest world record dew point occurred in Dhahran, Saudi Arabia on July 8, 2003, when an air temperature of 108°F (42.2°C) combined with a Persian Gulf moisture surge to produce a staggering dew point of 95°F (35°C), creating an apparent heat index of 176°F (80°C). In North America, the highest reliable dew point was recorded at 90°F (32.2°C) in Moorhead, Minnesota during an extreme corn transpiration event in July 2011.
-              </p>
-            </div>
-          </div>
         </>
       }
     >

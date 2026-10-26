@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/weather/rainfall-calculator", icon: "🌧️", name: "Rainfall Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "What is the critical physiological difference between heat exhaustion and heat stroke?",
+    a: "Heat exhaustion is characterized by heavy sweating, pale clammy skin, rapid weak pulse, muscle cramps, and dizziness; core body temperature typically stays below 104°F (40°C), and the victim remains conscious. Heat stroke is a medical emergency where the body's thermoregulatory center fails: sweating ceases, skin becomes hot and red, core temperature spikes above 104°F, and confusion, seizures, or unconsciousness occur. Heat stroke requires immediate emergency medical transport and rapid cold-water immersion.",
+  },
+  {
+    q: "Why does wind not cool you down when the heat index is extremely high?",
+    a: "When ambient air temperature exceeds normal skin temperature (approximately 95°F / 35°C), air moving across the skin transfers heat into the body via forced convection rather than removing it. If the air is also humid, sweat cannot evaporate. Under these conditions, a fan acts like a convective convection oven, accelerating rather than mitigating heat stress.",
+  },
+  {
+    q: "Does drinking ice water cause stomach cramps during extreme heat?",
+    a: "Contrary to popular mythology, drinking cool or chilled water (50°F to 60°F / 10°C to 15°C) is highly recommended during heat stress. Cool fluids absorb internal core heat, reduce gastric emptying latency, and rehydrate vascular volume faster than lukewarm fluids without inducing gastrointestinal distress.",
+  },
+  {
+    q: "Why is the heat index only calculated for temperatures of 80°F (27°C) or higher?",
+    a: "At temperatures below 80°F, natural biological skin temperature easily exceeds ambient air temperature, allowing effortless dry convective and radiative heat loss. Moisture in the air below 80°F does not suppress metabolic thermoregulation enough to create apparent heat strain, rendering the Rothfusz regression polynomial physiologically invalid below that baseline.",
+  },
+];
+
 export default function HeatIndexCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function HeatIndexCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -158,48 +178,27 @@ export default function HeatIndexCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             When human core body temperature rises above 104°F (40°C), cellular proteins begin denaturing, causing systemic inflammatory response syndrome (SIRS), microvascular thrombosis, and acute multi-organ dysfunction. The definitive gold-standard medical intervention for exertional heat stroke is immediate, aggressive Cold-Water Immersion (CWI). Submerging a hyperthermic patient in an ice-water bath (35°F to 50°F / 1.7°C to 10°C) with vigorous continuous water circulation cools the patient at an astounding rate of 0.35°F (0.20°C) per minute—more than ten times faster than fanning or applying ice packs to groin and axilla arterial pulse points. Athletic trainers enforce the clinical rule: 'Cool First, Transport Second,' requiring core body temperature to be reduced below 102°F (38.9°C) prior to emergency ambulance transit to prevent irreversible neurological damage. Emergency response protocols emphasize that applying wet towels or ice packs without full body immersion fails to arrest internal core heating during exertional hyperthermia crises.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About the NOAA Heat Index
+            Industrial Heat Stress Standards: OSHA Guidelines & Wet Bulb Globe Temperature (WBGT)
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While the NOAA Heat Index provides vital public warnings for shaded environments, occupational safety managers and military training commands rely on Wet Bulb Globe Temperature (WBGT) to quantify occupational heat strain under direct solar loading. The WBGT index integrates natural wet-bulb temperature (70%), black globe radiant thermometer temperature (20%), and shaded dry-bulb temperature (10%). Under OSHA heat safety standards, when apparent temperatures or WBGT enter severe danger zones, mandatory administrative controls must be enforced, including mandatory rest cycles of 15 to 45 minutes per work hour in climate-controlled shade tents, accompanied by electrolyte fluid replacement protocols.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Industrial hygiene engineers must also account for personal protective equipment (PPE) microclimates. Impermeable chemical suits, hazardous material turnout gear, and heavy ballistic vests create an artificial zero-air-permeability vapor barrier around workers, elevating metabolic heat storage and core body temperatures far faster than ambient weather indices suggest. Under such high-burden operational conditions, continuous physiologic telemetry monitoring heart rate and core temperature is recommended to preemptively abort work before exertional heat illness transpires.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What is the critical physiological difference between heat exhaustion and heat stroke?
-              </h3>
-              <p>
-                Heat exhaustion is characterized by heavy sweating, pale clammy skin, rapid weak pulse, muscle cramps, and dizziness; core body temperature typically stays below 104°F (40°C), and the victim remains conscious. Heat stroke is a medical emergency where the body's thermoregulatory center fails: sweating ceases, skin becomes hot and red, core temperature spikes above 104°F, and confusion, seizures, or unconsciousness occur. Heat stroke requires immediate emergency medical transport and rapid cold-water immersion.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Emergency medical technicians and athletic trainers also employ physiological strain index (PSI) scoring during prolonged outdoor workouts. By tracking heart rate elevations alongside core temperature trends, athletic staff can pinpoint individual hyperthermic vulnerability, establishing personalized rehydration timetables before heat exhaustion degrades neurocognitive motor coordination.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why does wind not cool you down when the heat index is extremely high?
-              </h3>
-              <p>
-                When ambient air temperature exceeds normal skin temperature (approximately 95°F / 35°C), air moving across the skin transfers heat into the body via forced convection rather than removing it. If the air is also humid, sweat cannot evaporate. Under these conditions, a fan acts like a convective convection oven, accelerating rather than mitigating heat stress.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Municipal public health authorities also establish community cooling centers and distribute public heat advisories through broadcast emergency alert networks whenever heat indices remain above danger thresholds for consecutive daylight cycles.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Does drinking ice water cause stomach cramps during extreme heat?
-              </h3>
-              <p>
-                Contrary to popular mythology, drinking cool or chilled water (50°F to 60°F / 10°C to 15°C) is highly recommended during heat stress. Cool fluids absorb internal core heat, reduce gastric emptying latency, and rehydrate vascular volume faster than lukewarm fluids without inducing gastrointestinal distress.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why is the heat index only calculated for temperatures of 80°F (27°C) or higher?
-              </h3>
-              <p>
-                At temperatures below 80°F, natural biological skin temperature easily exceeds ambient air temperature, allowing effortless dry convective and radiative heat loss. Moisture in the air below 80°F does not suppress metabolic thermoregulation enough to create apparent heat strain, rendering the Rothfusz regression polynomial physiologically invalid below that baseline.
-              </p>
-            </div>
-          </div>
         </>
       }
     >

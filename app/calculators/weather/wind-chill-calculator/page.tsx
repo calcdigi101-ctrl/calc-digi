@@ -31,6 +31,25 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚛️", name: "Kinetic Energy" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "Can wind chill freeze my car's engine or burst home plumbing pipes?",
+    a: "No inanimate object can ever cool below the actual ambient air temperature. If the air temperature is 35°F and the wind chill is 20°F, your home pipes or car radiator will never freeze, because they will never drop below 35°F. However, wind chill will cool warm pipes or a running engine down to 35°F much faster than calm air.",
+  },
+  {
+    q: "Why was the old pre-2001 wind chill formula replaced?",
+    a: "The original 1945 Siple-Passel wind chill formula was based on measuring how fast water froze inside a small plastic cylinder suspended on a pole in Antarctica. It assumed wind speed at the top of the pole rather than human facial height (5 feet), resulting in unrealistically exaggerated wind chill values (such as -80°F for mild winter storms). The modern 2001 JAG/TI formula utilizes human facial wind tunnel trials to provide biologically accurate feels-like metrics.",
+  },
+  {
+    q: "What are the early warning signs of frostbite?",
+    a: "Early frostbite (frostnip) begins with cold, red skin followed by a prickling or tingling sensation. As tissue freezes, the skin becomes numb, pale white, or yellowish-gray and feels unusually firm or waxy to the touch. If frostnip occurs, immediately rewarm the affected area with skin-to-skin contact (such as placing cold fingers inside your armpits). Never rub frostbitten skin with snow, as ice crystals will lacerate frozen cell membranes.",
+  },
+  {
+    q: "How does wind chill differ from hypothermia?",
+    a: "Wind chill is an atmospheric weather metric describing the rate of surface cooling on exposed skin. Frostbite is localized freezing of skin tissue. Hypothermia is a systemic medical emergency where the body's internal core temperature drops below 95°F (35°C), leading to violent shivering, slurred speech, confusion, and cardiovascular failure.",
+  },
+];
+
 export default function WindChillCalculatorPage() {
   return (
     <CalcPage
@@ -40,6 +59,7 @@ export default function WindChillCalculatorPage() {
       title={TITLE}
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
@@ -155,48 +175,32 @@ export default function WindChillCalculatorPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
             At a microscopic fluid dynamics level, heat transfer from human skin into passing air is governed by the Nusselt number (<Formula>{'\text{Nu}'}</Formula>) and Reynolds number (<Formula>{'\text{Re}'}</Formula>) of turbulent boundary layer flow across a cylindrical bluff body. In calm air, stagnant air molecules form a laminar thermal boundary layer approximately 3 to 5 millimeters thick that acts as an invisible insulating jacket. Aerodynamic wind creates turbulent vortices that erode this boundary layer down to less than 0.2 millimeters, increasing the convective heat transfer coefficient (<Formula>{'h_c'}</Formula>) by over 400%. Living dermal cells rapidly lose caloric energy to the passing airstream, causing capillary vasoconstriction, tissue cooling, and ice crystal nucleation inside cellular cytoplasm within minutes. Covering all exposed facial skin with a windproof neoprene or fleece balaclava eliminates direct convective boundary layer stripping, restoring skin safety buffers.
           </p>
-
+        
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Frequently Asked Questions About NOAA Wind Chill & Cold Weather
+            Physiological Peripheral Vasoconstriction, Hunting Reaction & Frostbite Pathology
           </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When exposed to severe wind chill conditions, the human autonomic nervous system triggers intense cutaneous vasoconstriction, shunting oxygenated blood away from peripheral extremities (fingers, toes, ears, and nose) toward core thoracic organs to preserve cardiac and cerebral viability. At skin temperatures below 59&deg;F (15&deg;C), the body periodically activates Lewis's Hunting Reaction—a transient cyclical vasodilation that momentarily flushes warm blood back into freezing extremities to stave off immediate cellular necrosis without excessively compromising core thermal balance.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            However, when convective heat extraction outstrips metabolic heat delivery, cellular ice crystallization begins at approximately 28&deg;F (-2.2&deg;C) within extracellular fluid spaces. Ice crystals withdraw water from cells, causing severe hyperosmotic dehydration, membrane protein denaturation, and microvascular endothelial thrombosis. Rewarming frostbitten tissue requires controlled warm-water baths (100&deg;F to 104&deg;F / 38&deg;C to 40&deg;C); rubbing frostbitten skin with snow or applying dry radiative heat causes severe secondary mechanical trauma and irreversible tissue loss.
+          </p>
 
-          <div className="space-y-4 text-sm text-slate-700 dark:text-slate-300">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Can wind chill freeze my car's engine or burst home plumbing pipes?
-              </h3>
-              <p>
-                No inanimate object can ever cool below the actual ambient air temperature. If the air temperature is 35°F and the wind chill is 20°F, your home pipes or car radiator will never freeze, because they will never drop below 35°F. However, wind chill will cool warm pipes or a running engine down to 35°F much faster than calm air.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Arctic and mountaineering survival experts stress the critical role of multi-layer garment systems: a hydrophobic wicking base layer to transport perspiration away from skin, an insulating loft mid-layer (fleece or down) to trap non-circulating warm air, and an impermeable windproof outer shell to neutralize high-velocity convective boundary layer stripping.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                Why was the old pre-2001 wind chill formula replaced?
-              </h3>
-              <p>
-                The original 1945 Siple-Passel wind chill formula was based on measuring how fast water froze inside a small plastic cylinder suspended on a pole in Antarctica. It assumed wind speed at the top of the pole rather than human facial height (5 feet), resulting in unrealistically exaggerated wind chill values (such as -80°F for mild winter storms). The modern 2001 JAG/TI formula utilizes human facial wind tunnel trials to provide biologically accurate feels-like metrics.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Emergency survival protocols for wilderness search and rescue teams emphasize immediate construction of windbreaks, snow trenches, or bivouac shelters. By eliminating moving surface air, emergency shelters re-establish a stagnant microclimate that reduces bodily convective heat dissipation by more than 80%, sustaining core metabolic heat until extraction arrives.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                What are the early warning signs of frostbite?
-              </h3>
-              <p>
-                Early frostbite (frostnip) begins with cold, red skin followed by a prickling or tingling sensation. As tissue freezes, the skin becomes numb, pale white, or yellowish-gray and feels unusually firm or waxy to the touch. If frostnip occurs, immediately rewarm the affected area with skin-to-skin contact (such as placing cold fingers inside your armpits). Never rub frostbitten skin with snow, as ice crystals will lacerate frozen cell membranes.
-              </p>
-            </div>
+        
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Workplace safety officers in sub-zero industrial cold storage facilities mandate thermal warming breaks inside temperature-controlled anterooms, ensuring forklift operators and warehouse inventory technicians avoid cold-induced neuro-muscular fatigue.
+          </p>
 
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100 mb-1">
-                How does wind chill differ from hypothermia?
-              </h3>
-              <p>
-                Wind chill is an atmospheric weather metric describing the rate of surface cooling on exposed skin. Frostbite is localized freezing of skin tissue. Hypothermia is a systemic medical emergency where the body's internal core temperature drops below 95°F (35°C), leading to violent shivering, slurred speech, confusion, and cardiovascular failure.
-              </p>
-            </div>
-          </div>
         </>
       }
     >
