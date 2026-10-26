@@ -158,11 +158,7 @@ export default function DataStorageConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In academic and computer science coursework, mastering binary data conversions is fundamental to hardware design, operating systems engineering, and database indexing. For student performance tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and visit our comprehensive <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <DataStorageConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Enterprise RAID Topologies & Usable Parity Storage Capacity Formulas
           </h2>
@@ -197,7 +193,10 @@ export default function DataStorageConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Furthermore, ACID transactional durability requires Write-Ahead Logging (WAL) where every data modification is sequentially flushed to append-only log segments before being applied to data table pages. Database administrators compute total IOPS (Input/Output Operations Per Second) and convert between MiB/s throughput and disk sector capacities to optimize cloud storage provisioning.
           </p>
-
+        </>
+      }
+    >
+      <DataStorageConverterComponent />
     </CalcPage>
   );
 }

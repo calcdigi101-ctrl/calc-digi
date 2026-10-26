@@ -159,11 +159,7 @@ export default function CurrencyConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In academic coursework, finance students analyze international monetary economics and foreign direct investment (FDI). For student performance tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and track test percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <CurrencyConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Triangular Foreign Exchange Arbitrage & Algorithmic Market Liquidity
           </h2>
@@ -210,7 +206,10 @@ export default function CurrencyConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In commercial travel and overseas tourism, credit cards offering zero foreign transaction fees eliminate traditional 3% bank currency conversion markups. Understanding wholesale interbank mid-market exchange rates allows consumers to avoid dynamic currency conversion (DCC) markups at foreign merchant point-of-sale terminals.
           </p>
-
+        </>
+      }
+    >
+      <CurrencyConverterComponent />
     </CalcPage>
   );
 }

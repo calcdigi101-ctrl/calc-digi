@@ -168,11 +168,7 @@ export default function AngleConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In renewable solar energy, dual-axis solar trackers continuously compute solar azimuth and zenith angles using astronomical ephemeris algorithms, orienting photovoltaic panels perpendicular to incoming sunlight to boost annual electrical generation by up to 35%. For academic grading and coursework tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and track test percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <AngleConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Geodetic Cartography: Ellipsoid Latitude / Longitude to UTM Plane Coordinates
           </h2>
@@ -208,7 +204,10 @@ export default function AngleConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In optical lens manufacturing, surface profile curvature is measured using laser phase-shifting interferometry in fringes and arcseconds. Eliminating astigmatic wavefront aberrations ensures high-numerical-aperture microscope objectives deliver sharp sub-micron image resolution across the entire field of view.
           </p>
-
+        </>
+      }
+    >
+      <AngleConverterComponent />
     </CalcPage>
   );
 }

@@ -170,11 +170,7 @@ export default function PressureConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In recreational scuba diving, divers breathe compressed air delivered via two-stage demand regulators. For every 10 meters (33 feet) of seawater depth, ambient pressure increases by approximately 1 atmosphere (~1 bar / 14.7 PSI), requiring careful ascent timing to prevent nitrogen supersaturation and decompression sickness (&apos;the bends&apos;). For comprehensive unit tools across all physical domains, explore our <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <PressureConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Compressible Aerodynamics: Isentropic Stagnation Pressure Ratios
           </h2>
@@ -205,7 +201,10 @@ export default function PressureConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Because vascular resistance scales inversely with the fourth power of vessel radius (r⁴), a mere 16% reduction in coronary lumen diameter doubles the required perfusion pressure gradient. Clinical cardiologists convert pressure measurements from millimeters of mercury (mmHg) to kilopascals to evaluate systemic vascular resistance (SVR) and myocardial workload.
           </p>
-
+        </>
+      }
+    >
+      <PressureConverterComponent />
     </CalcPage>
   );
 }

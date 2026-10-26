@@ -163,11 +163,7 @@ export default function CookingMeasurementConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             For academic coursework and general mathematical analysis, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and track nutritional ratios in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit our comprehensive <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <CookingMeasurementConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Colloid Food Chemistry: Emulsion Phase Volume Fractions (Oil-in-Water)
           </h2>
@@ -203,7 +199,10 @@ export default function CookingMeasurementConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In artisanal chocolate confectionery and tempering, cocoa butter polymorphism dictates snap and gloss. Pastry chefs carefully temper melted chocolate through precise cooling and re-heating cycles to crystallize stable Form V beta crystals, preventing fat bloom and dull surface finishes.
           </p>
-
+        </>
+      }
+    >
+      <CookingMeasurementConverterComponent />
     </CalcPage>
   );
 }

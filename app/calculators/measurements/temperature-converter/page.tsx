@@ -169,11 +169,7 @@ export default function TemperatureConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In energy-efficient building architecture, heating and cooling engineers calculate heating degree days (HDD) and cooling degree days (CDD) relative to a base temperature of 65°F (18.3°C) to optimize HVAC chiller sizing and insulation ratings. For academic modeling, students can evaluate statistical results in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and track course metrics in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>, or visit our comprehensive <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <TemperatureConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Cryogenic Superconductivity & Critical Transition Temperatures (Tc)
           </h2>
@@ -203,7 +199,10 @@ export default function TemperatureConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In pharmaceutical bioreactor cultivation and vaccine cold-chain distribution, ultra-low temperature freezers maintain mRNA therapeutics at -80°C (-112°F). Thermal mapping validations certified under WHO Good Distribution Practices ensure uniform temperature gradients, eliminating batch degradation from localized temperature excursions.
           </p>
-
+        </>
+      }
+    >
+      <TemperatureConverterComponent />
     </CalcPage>
   );
 }

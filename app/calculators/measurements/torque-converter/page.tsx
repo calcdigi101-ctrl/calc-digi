@@ -160,11 +160,7 @@ export default function TorqueConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             For academic tracking and statistical analysis, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and calculate statistical percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
           </p>
-        </>
-      }
-    >
-      <TorqueConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Torque-to-Yield (TTY) Fasteners & Plastic Elastic Deformation Limits
           </h2>
@@ -208,7 +204,10 @@ export default function TorqueConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In motorsport aerodynamics and chassis tuning, suspension anti-roll bar torsional stiffness governs cornering chassis roll gradients. Mechanics adjust anti-roll bar leverage blade angles to dial in neutral handling and optimize front-to-rear mechanical grip balance during competitive circuit racing.
           </p>
-
+        </>
+      }
+    >
+      <TorqueConverterComponent />
     </CalcPage>
   );
 }

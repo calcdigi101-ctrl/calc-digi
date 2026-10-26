@@ -161,11 +161,7 @@ export default function SpeedConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In commercial shipping, container vessels operate in &apos;slow-steaming&apos; mode (typically 12 to 18 knots instead of 24 knots), exploiting the cubic law of hydrodynamic resistance (propulsive power scales with v³) to reduce bunker fuel consumption by over 40%. For further engineering tools, explore our <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link> or calculate academic statistics in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>.
           </p>
-        </>
-      }
-    >
-      <SpeedConverterComponent />
-    
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Special Relativity: Lorentz Transformation & Time Dilation at Relativistic Speeds
           </h2>
@@ -202,7 +198,10 @@ export default function SpeedConverterPage() {
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In wind turbine power generation, electrical power yield scales with the cube of wind velocity: P = 0.5 × ρ × A × v³ × C_p. Accurate anemometer velocity conversions between knots, meters per second, and miles per hour allow wind farm operators to optimize turbine pitch angles and trigger storm cut-out braking mechanisms.
           </p>
-
+        </>
+      }
+    >
+      <SpeedConverterComponent />
     </CalcPage>
   );
 }
