@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Copy, Check, RotateCcw, Share2, Activity, ShieldCheck, Heart, Info } from "lucide-react";
+import { Copy, Check, RotateCcw, Share2, Printer, Sparkles, Activity, ShieldCheck, Heart, Info } from "lucide-react";
 
 type Unit = "us" | "metric";
 type Sex = "male" | "female";
@@ -28,6 +28,29 @@ export function BodyFatCalculator() {
 
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+  const [showAiModal, setShowAiModal] = useState(false);
+
+  const handlePrint = () => {
+    if (typeof window !== "undefined") window.print();
+  };
+
+  const handleReset = () => {
+    setUnit("us");
+    setSex("male");
+    setAge("30");
+    setHeightFt("5");
+    setHeightIn("10");
+    setWeightLb("175");
+    setNeckIn("15.5");
+    setWaistIn("34");
+    setHipIn("38");
+    setHeightCm("178");
+    setWeightKg("79");
+    setNeckCm("39");
+    setWaistCm("86");
+    setHipCm("96");
+    setShowAiModal(false);
+  };
 
   // Sync state with URL parameters
   useEffect(() => {
@@ -248,7 +271,7 @@ export function BodyFatCalculator() {
                   max="100"
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="absolute right-3.5 text-xs text-slate-400 font-medium">years</span>
               </div>
@@ -268,7 +291,7 @@ export function BodyFatCalculator() {
                       max="7"
                       value={heightFt}
                       onChange={(e) => setHeightFt(e.target.value)}
-                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                     <span className="absolute right-3.5 text-xs text-slate-400 font-medium">ft</span>
                   </div>
@@ -280,7 +303,7 @@ export function BodyFatCalculator() {
                       max="11"
                       value={heightIn}
                       onChange={(e) => setHeightIn(e.target.value)}
-                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                     <span className="absolute right-3.5 text-xs text-slate-400 font-medium">in</span>
                   </div>
@@ -299,7 +322,7 @@ export function BodyFatCalculator() {
                     max="250"
                     value={heightCm}
                     onChange={(e) => setHeightCm(e.target.value)}
-                    className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                    className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <span className="absolute right-3.5 text-xs text-slate-400 font-medium">cm</span>
                 </div>
@@ -320,7 +343,7 @@ export function BodyFatCalculator() {
                   step="any"
                   value={unit === "us" ? weightLb : weightKg}
                   onChange={(e) => unit === "us" ? setWeightLb(e.target.value) : setWeightKg(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
                   {unit === "us" ? "lbs" : "kg"}
@@ -339,7 +362,7 @@ export function BodyFatCalculator() {
                   step="0.1"
                   value={unit === "us" ? neckIn : neckCm}
                   onChange={(e) => unit === "us" ? setNeckIn(e.target.value) : setNeckCm(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
                   {unit === "us" ? "inches" : "cm"}
@@ -361,7 +384,7 @@ export function BodyFatCalculator() {
                   step="0.1"
                   value={unit === "us" ? waistIn : waistCm}
                   onChange={(e) => unit === "us" ? setWaistIn(e.target.value) : setWaistCm(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
                   {unit === "us" ? "inches" : "cm"}
@@ -381,7 +404,7 @@ export function BodyFatCalculator() {
                     step="0.1"
                     value={unit === "us" ? hipIn : hipCm}
                     onChange={(e) => unit === "us" ? setHipIn(e.target.value) : setHipCm(e.target.value)}
-                    className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                    className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
                   <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
                     {unit === "us" ? "inches" : "cm"}
@@ -577,6 +600,60 @@ export function BodyFatCalculator() {
               </span>
             </div>
           </div>
+
+          {/* Action Toolbar Row: Reset, Share, Print, Ask AI */}
+          <div className="mt-4 pt-3 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 font-medium">
+            <button
+              type="button"
+              onClick={handleReset}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              {shared ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5 text-slate-500" />}
+              <span>{shared ? "Copied!" : "Share"}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>Print</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowAiModal(!showAiModal)}
+              className="inline-flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Ask AI</span>
+            </button>
+          </div>
+
+          {showAiModal && (
+            <div className="mt-3 p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 text-xs space-y-1.5 shadow-xs">
+              <div className="flex items-center justify-between font-bold text-emerald-700 dark:text-emerald-400">
+                <span className="flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>AI Body Composition Insight</span>
+                </span>
+                <button type="button" onClick={() => setShowAiModal(false)} className="text-slate-400 hover:text-slate-600">✕</button>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                Your estimated body fat percentage is {formatNum(bodyFat)}%, placing you in the <strong className="text-slate-800 dark:text-slate-200">{category.label}</strong> classification. Total fat mass is {unit === "us" ? `${formatNum(fatMassLb)} lbs` : `${formatNum(fatMassKg)} kg`} against {unit === "us" ? `${formatNum(leanMassLb)} lbs` : `${formatNum(leanMassKg)} kg`} of metabolically active lean tissue. To shift toward a lean fitness target ({sex === "male" ? "14%" : "21%"}), prioritize progressive resistance hypertrophy and a modest 300-500 kcal deficit.
+              </p>
+            </div>
+          )}
 
           <div className="mt-4 text-[11px] text-slate-400 leading-relaxed text-center">
             Standard clinical guideline values based on the American Council on Exercise (ACE). For diagnostic-level body composition, consider a DEXA scan.

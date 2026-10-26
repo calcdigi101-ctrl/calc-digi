@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Copy, Check, RotateCcw, Share2, Flame, Activity, Target, Utensils } from "lucide-react";
+import { Copy, Check, RotateCcw, Share2, Printer, Sparkles, Flame, Activity, Target, Utensils } from "lucide-react";
 
 type Unit = "us" | "metric";
 type Sex = "male" | "female";
@@ -22,6 +22,25 @@ export function CalorieCalculator() {
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
   const [chartView, setChartView] = useState<"macros" | "burn">("macros");
+  const [showAiModal, setShowAiModal] = useState(false);
+
+  const handlePrint = () => {
+    if (typeof window !== "undefined") window.print();
+  };
+
+  const handleReset = () => {
+    setUnit("us");
+    setSex("male");
+    setAge("30");
+    setFt("5");
+    setInch("10");
+    setCm("178");
+    setLb("165");
+    setKg("75");
+    setActivity(1.55);
+    setGoal("maintain");
+    setShowAiModal(false);
+  };
 
   // Sync from URL params
   useEffect(() => {
@@ -659,6 +678,60 @@ export function CalorieCalculator() {
               </div>
             </div>
           </div>
+
+          {/* Action Toolbar Row: Reset, Share, Print, Ask AI */}
+          <div className="mt-4 pt-3 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 font-medium">
+            <button
+              type="button"
+              onClick={handleReset}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              {shared ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
+              <span>{shared ? "Copied!" : "Share"}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>Print</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowAiModal(!showAiModal)}
+              className="inline-flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Ask AI</span>
+            </button>
+          </div>
+
+          {showAiModal && (
+            <div className="mt-3 p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 text-xs space-y-1.5 shadow-xs">
+              <div className="flex items-center justify-between font-bold text-emerald-700 dark:text-emerald-400">
+                <span className="flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>AI Metabolic Insight</span>
+                </span>
+                <button type="button" onClick={() => setShowAiModal(false)} className="text-slate-400 hover:text-slate-600">✕</button>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-[11px]">
+                Your basal metabolic rate (BMR) represents {bmr > 0 ? formatNum(bmr) : "1,700"} kcal needed for vital cellular maintenance at complete physical rest. To lose 1 pound of adipose tissue per week safely, maintain a consistent 500 kcal daily deficit ({targetCalories > 0 ? formatNum(targetCalories) : "2,100"} kcal target) while keeping protein intake at {proteinGrams}g to safeguard lean skeletal muscle mass.
+              </p>
+            </div>
+          )}
 
           <div className="mt-4 text-[11px] text-slate-400 leading-relaxed text-center">
             Calculated via the clinically validated Mifflin-St Jeor formula. Results are for educational purposes.
