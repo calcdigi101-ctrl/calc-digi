@@ -1,26 +1,214 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import TorqueConverterComponent from "@/components/calcs/measurements/torque-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TorqueRotationalMechanicalMomentChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/torque-converter";
+const TITLE = "Torque Converter | Newton-Meters, Foot-Pounds & Inch-Pounds";
+const DESCRIPTION =
+  "Convert Newton-meters (N·m), foot-pounds (ft-lb), inch-pounds, kilogram-force meters, and dyne-centimeters with fastener bolt preload tension modeling.";
 
 export const metadata: Metadata = {
-  "title": "Torque Converter – Nm to Lb-ft, Kgm to Nm | CalcDigi",
-  "description": "Convert Newton-meters to foot-pounds, kilogram-meters to Nm. Essential for automotive, engineering, and mechanical applications.",
-  "openGraph": {
-    "title": "Torque Converter – Nm to Lb-ft, Kgm to Nm | CalcDigi",
-    "description": "Convert Newton-meters to foot-pounds, kilogram-meters to Nm. Essential for automotive, engineering, and mechanical applications.",
-    "type": "website",
-    "url": "/calculators/measurements/torque-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/torque-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/force-calculator", icon: "💥", name: "Force Calculator" },
+  { href: "/calculators/measurements/power-converter", icon: "🔌", name: "Power Converter" },
+  { href: "/calculators/measurements/energy-converter", icon: "⚡", name: "Energy Converter" },
+  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "/calculators/measurements/angle-converter", icon: "📐", name: "Angle Converter" },
+  { href: "/pages/measurements", icon: "🔧", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical definition of torque and how does it differ from work energy?",
+    a: "Torque (rotational moment of force, τ) is a pseudovector measuring the rotational tendency of a force applied at a perpendicular distance from a pivot axis: τ = r × F. While both torque and mechanical work share the same dimensional units in SI (Newton-meters, N·m), work is a scalar quantity representing force acting through a linear distance, while torque is a rotational moment acting through an angle (Joules per radian).",
+  },
+  {
+    q: "Why does bolt tightening torque primarily overcome friction rather than clamping force?",
+    a: "In mechanical bolted joint assembly, approximately 85% to 90% of applied tightening torque is consumed overcoming thread friction and fastener underhead bearing friction (the Motosh formula: T = F_clamp × [0.161 × P + 0.583 × d_2 × μ_th + 0.5 × D_b × μ_b]). Only 10% to 15% of applied torque converts into useful axial bolt preload tension.",
+  },
+  {
+    q: "How many foot-pounds (ft-lb) are in one Newton-meter (N·m)?",
+    a: "One Newton-meter (N·m) equals approximately 0.737562 foot-pounds (ft-lb or lbf·ft). Conversely, one foot-pound equals approximately 1.355818 Newton-meters. To quickly convert in mental math: multiply N·m by 0.74 to get ft-lb, or multiply ft-lb by 1.36 to get N·m.",
+  },
+  {
+    q: "What is the difference between foot-pounds (ft-lb) and inch-pounds (in-lb)?",
+    a: "One foot-pound equals exactly 12 inch-pounds (1 ft-lb = 12 in-lb = 1.35582 N·m). Inch-pounds are standard for low-torque precision fasteners—such as bicycle carbon handlebars (typically 5 to 6 N·m / 44 to 53 in-lb) and automotive engine valve cover bolts—where full foot-pound torque wrenches lack measurement resolution.",
+  },
+];
+
+export default function TorqueConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Torque Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/torque-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Torque Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/torque-converter\", \"description\": \"Convert Newton-meters to foot-pounds, kilogram-meters to Nm. Essential for automotive, engineering, and mechanical applications.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do you convert Nm to lb-ft?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply Newton-meters by 0.7376 to get foot-pounds. Example: 200 Nm x 0.7376 = 147.5 lb-ft. To convert lb-ft to Nm, multiply by 1.3558. Example: 100 lb-ft = 135.58 Nm.\"}}, {\"@type\": \"Question\", \"name\": \"What is torque in a car engine?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Engine torque is the twisting force the engine produces, measured at the crankshaft. Higher torque = better acceleration and towing capacity. Electric motors produce 300-1,000+ Nm from 0 RPM. Gasoline engines peak at higher RPMs.\"}}, {\"@type\": \"Question\", \"name\": \"How tight should lug nuts be?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most passenger cars require 80-120 lb-ft (108-163 Nm) of torque for lug nuts. Always check your vehicle owner manual for the specific torque spec. Using a calibrated torque wrench is important — overtightening can warp brake rotors; undertightening can be dangerous.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between torque and horsepower?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Torque is rotational force (Nm or lb-ft). Horsepower is the rate of doing work (how fast torque is applied). HP = Torque x RPM / 5,252 (in lb-ft and HP). At 5,252 RPM, a vehicle produces equal numbers of horsepower and torque (in US units).\"}}, {\"@type\": \"Question\", \"name\": \"What is kilogram-force meter (kgm)?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 kgm (kilogram-force meter) = 9.8067 Nm = 7.233 lb-ft. This older metric unit represents the torque of 1 kilogram of force at 1 meter distance. Still appears in some older European and Japanese specifications.\"}}, {\"@type\": \"Question\", \"name\": \"How do I use a torque wrench?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Set the torque wrench to the specified value (e.g., 100 Nm). Tighten until the wrench clicks or beeps. Do not continue tightening after the click. Torque wrenches should be stored at their lowest setting and recalibrated annually for accuracy.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Torque Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Torque Converter</h1>\n<p class=\"calc-intro\">Convert between Newton-meters (Nm), foot-pounds (lb-ft), inch-pounds, kilogram-meters, and kilogram-centimeters. Essential for automotive engine specs, bolt tightening, and mechanical engineering calculations.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">1 Nm = 0.7376 lb-ft | 1 lb-ft = 1.3558 Nm | 1 kg-m = 9.8067 Nm | 1 Nm = 8.8507 in-lb</div></div>\n<div class=\"content-section\"><h2>Torque Unit Conversion Guide</h2><p>Torque is a rotational force — the tendency of a force to rotate an object around an axis. It is the product of force and the distance from the pivot point. Torque is critical in automotive engineering (engine output, lug nut tightening), structural engineering, and any mechanical system involving rotation.</p><h3>Newton-Meters (Nm)</h3><p>The Newton-meter (Nm) is the SI unit of torque. European cars and most international engineering specs use Nm. 1 Nm = the torque produced by 1 Newton of force applied at 1 meter from the pivot. Modern car engines produce 150-500 Nm of torque. Electric motors often produce over 1,000 Nm.</p><h3>Foot-Pounds (lb-ft)</h3><p>The foot-pound (lb-ft) is the US customary unit of torque. US car specs, torque wrenches sold in the US, and American engineering documents use lb-ft. 1 lb-ft = the torque from 1 pound of force at 1 foot distance = 1.3558 Nm. A typical car engine: 150-350 lb-ft of torque.</p><h3>Why Torque Matters in Automotive</h3><p>Torque determines how quickly a vehicle can accelerate, especially at low RPMs. More torque = better pulling power. Electric vehicles produce maximum torque from 0 RPM, which is why EVs accelerate so quickly compared to gasoline engines that build torque as RPM increases.</p><div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Input</th><th style=\"padding:12px 16px;\">lb-ft / Nm</th><th style=\"padding:12px 16px;\">kgm</th><th style=\"padding:12px 16px;\">in-lb</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">100 Nm</td> <td style=\"padding:11px 16px;\">73.76 lb-ft</td> <td style=\"padding:11px 16px;\">10.197 kgm</td> <td style=\"padding:11px 16px;\">885 in-lb</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">200 Nm</td> <td style=\"padding:11px 16px;\">147.5 lb-ft</td> <td style=\"padding:11px 16px;\">20.39 kgm</td> <td style=\"padding:11px 16px;\">1,770 in-lb</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">400 Nm</td> <td style=\"padding:11px 16px;\">295.1 lb-ft</td> <td style=\"padding:11px 16px;\">40.79 kgm</td> <td style=\"padding:11px 16px;\">3,540 in-lb</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">100 lb-ft</td> <td style=\"padding:11px 16px;\">135.6 Nm</td> <td style=\"padding:11px 16px;\">13.83 kgm</td> <td style=\"padding:11px 16px;\">1,200 in-lb</td></tr></tbody></table></div></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you convert Nm to lb-ft? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply Newton-meters by 0.7376 to get foot-pounds. Example: 200 Nm x 0.7376 = 147.5 lb-ft. To convert lb-ft to Nm, multiply by 1.3558. Example: 100 lb-ft = 135.58 Nm.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is torque in a car engine? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Engine torque is the twisting force the engine produces, measured at the crankshaft. Higher torque = better acceleration and towing capacity. Electric motors produce 300-1,000+ Nm from 0 RPM. Gasoline engines peak at higher RPMs.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How tight should lug nuts be? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most passenger cars require 80-120 lb-ft (108-163 Nm) of torque for lug nuts. Always check your vehicle owner manual for the specific torque spec. Using a calibrated torque wrench is important — overtightening can warp brake rotors; undertightening can be dangerous.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between torque and horsepower? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Torque is rotational force (Nm or lb-ft). Horsepower is the rate of doing work (how fast torque is applied). HP = Torque x RPM / 5,252 (in lb-ft and HP). At 5,252 RPM, a vehicle produces equal numbers of horsepower and torque (in US units).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is kilogram-force meter (kgm)? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 kgm (kilogram-force meter) = 9.8067 Nm = 7.233 lb-ft. This older metric unit represents the torque of 1 kilogram of force at 1 meter distance. Still appears in some older European and Japanese specifications.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I use a torque wrench? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Set the torque wrench to the specified value (e.g., 100 Nm). Tighten until the wrench clicks or beeps. Do not continue tightening after the click. Torque wrenches should be stored at their lowest setting and recalibrated annually for accuracy.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/energy-converter\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/power-converter\"><span class=\"rc-icon\">💪</span><span class=\"rc-name\">Power Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Torque Converter – Newton-Meters, Foot-Pounds and More</h2><div class=\"form-group\"><label for=\"cv-val\">Value</label><input id=\"cv-val\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"cv-from\">From</label><select id=\"cv-from\"><option selected=\"\" value=\"nm\">Newton-meter (Nm)</option><option value=\"lbft\">Foot-pound (lb-ft)</option><option value=\"inlb\">Inch-pound (in-lb)</option><option value=\"kgm\">Kilogram-meter (kgm)</option><option value=\"kgcm\">Kilogram-centimeter (kgcm)</option></select></div><div class=\"form-group\"><label for=\"cv-to\">To</label><select id=\"cv-to\"><option value=\"nm\">Newton-meter (Nm)</option><option selected=\"\" value=\"lbft\">Foot-pound (lb-ft)</option><option value=\"inlb\">Inch-pound (in-lb)</option><option value=\"kgm\">Kilogram-meter (kgm)</option><option value=\"kgcm\">Kilogram-centimeter (kgcm)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Torque Converter – Newton-Meters, Foot-Pounds and More')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Torque Converter – Newton-Meters, Foot-Pounds and More')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-torque-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var F={\"nm\":1,\"lbft\":1.35582,\"inlb\":0.112985,\"kgm\":9.80665,\"kgcm\":0.0980665};var N={\"nm\":\"Nm\",\"lbft\":\"lb-ft\",\"inlb\":\"in-lb\",\"kgm\":\"kgm\",\"kgcm\":\"kgcm\"};\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('cv-val').value);\n  var from=document.getElementById('cv-from').value;\n  var to=document.getElementById('cv-to').value;\n  if(isNaN(val)){alert('Please enter a valid number.');return;}\n  var base=val*F[from];var result=base/F[to];\n  var fromN=N[from];var toN=N[to];\n  var fmt=function(n){return n>=0.0001&&n<1e12?parseFloat(n.toFixed(8)).toString():n.toExponential(4);};\n  var extras=Object.keys(F).filter(function(u){return u!==from&&u!==to;}).slice(0,3).map(function(u){return ri('In '+N[u],fmt(base/F[u])+' '+u);}).join('');\n  document.getElementById('cv-ri').innerHTML=ri('Result','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmt(result)+' '+toN+'</strong>',true)+ri(val+' '+fromN+' =',fmt(result)+' '+toN)+extras;\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',[fromN,toN],[Math.abs(val)||0.001,Math.abs(result)||0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(val+' '+fromN+' = '+fmt(result)+' '+toN+'. In 2 sentences share a practical real-world example where this torque conversion matters most.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Mechanical Guidance:</strong> Torque measures rotational moment of force. In automotive drivetrain engineering, structural bolted joint design, and robotics, cross-reference applied force in our <Link href="/calculators/physics/force-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">force calculator</Link> and calculate engine horsepower in our <Link href="/calculators/measurements/power-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mechanical Foundations of Rotational Moment: Vector Cross-Products
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Torque (also termed the moment of force) quantifies the capacity of an applied force to induce rotational angular acceleration about a fixed pivot or axle axis. Formally derived in classical Newtonian vector mechanics as the cross-product of the radial position lever arm vector r and the applied force vector F: τ = r × F = |r| × |F| × sin(θ), torque governs everything from tightening critical automotive wheel lug nuts to turbine rotor balancing and robotic arm joint actuators.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In mechanical engineering, regional measurement units reflect historical industrial tooling traditions. The International System of Units standardizes torque in Newton-meters (N·m). The American automotive and aerospace industries measure heavy mechanical torque in foot-pounds (ft-lb / lbf·ft) and delicate fasteners in inch-pounds (in-lb). Continental European legacy machinery specifies kilogram-force meters (kgf·m), while micro-optics and laboratory instrument manufacturers utilize centiNewton-meters (cN·m) and dyne-centimeters (dyn·cm).
+          </p>
+
+          <TorqueRotationalMechanicalMomentChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivation & Fundamental Torque Multipliers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            All rotational torque transformations compute through the SI coherent derived unit of Newton-meters (1 N·m = 1 kg·m²·s⁻²):
+          </p>
+          <Formula>{"\\tau_{\\text{target}} = \\tau_{\\text{source}} \\times \\left( \\frac{\\mu_{\\text{source}}}{\\mu_{\\text{target}}} \\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where μ represents the exact scalar factor in Newton-meters. Under standard legal metrology:
+          </p>
+          <Formula>{"1 \\text{ ft}\\cdot\\text{lbf} = 0.3048 \\text{ m} \\times (0.45359237 \\text{ kg} \\times 9.80665 \\text{ m/s}^2) \\approx 1.3558179483314 \\text{ N}\\cdot\\text{m}"}</Formula>
+          <Formula>{"1 \\text{ in}\\cdot\\text{lbf} = \\frac{1}{12} \\text{ ft}\\cdot\\text{lbf} \\approx 0.1129848290276 \\text{ N}\\cdot\\text{m}"}</Formula>
+          <Formula>{"1 \\text{ kgf}\\cdot\\text{m} = 9.80665 \\text{ N}\\cdot\\text{m}, \\quad 1 \\text{ N}\\cdot\\text{m} = 10^7 \\text{ dyn}\\cdot\\text{cm}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In mechanical power drivetrains, shaft torque τ combines with angular rotational velocity ω to generate mechanical power: P = τ × ω; cross-reference shaft wattage in our <Link href="/calculators/measurements/power-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">power converter</Link> and calculate angular arc rotations in our <Link href="/calculators/measurements/angle-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">angle converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Global Torque Units
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles exact metric conversion constants across micro-precision, automotive, and heavy industrial torque regimes:
+          </p>
+          <DataTable
+            head={["Torque Unit", "Symbol", "Value in Newton-Meters (N·m)", "Value in Foot-Pounds (ft-lb)", "Value in Inch-Pounds (in-lb)"]}
+            rows={[
+              ["Dyne-Centimeter", "dyn·cm", "1.0 × 10⁻⁷ N·m", "7.37562 × 10⁻⁸ ft-lb", "8.85075 × 10⁻⁷ in-lb"],
+              ["CentiNewton-Meter", "cN·m", "0.01 N·m", "0.00737562 ft-lb", "0.0885075 in-lb"],
+              ["Newton-Centimeter", "N·cm", "0.01 N·m", "0.00737562 ft-lb", "0.0885075 in-lb"],
+              ["Newton-Meter (SI Coherent)", "N·m", "1.0 N·m", "0.737562 ft-lb", "8.850746 in-lb"],
+              ["KiloNewton-Meter", "kN·m", "1,000.0 N·m", "737.562 ft-lb", "8,850.746 in-lb"],
+              ["Inch-Pound Force", "in-lb / in·lbf", "0.112985 N·m", "0.083333 ft-lb", "1.0 in-lb"],
+              ["Foot-Pound Force", "ft-lb / ft·lbf", "1.355818 N·m", "1.0 ft-lb", "12.0 in-lb"],
+              ["Kilogram-Force Meter", "kgf·m", "9.80665 N·m", "7.233014 ft-lb", "86.79617 in-lb"],
+              ["Ounce-Force Inch", "oz-in", "0.00706155 N·m", "0.0052083 ft-lb", "0.0625 in-lb"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Automotive Wheel Hub Lug Nut Torquing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a motorsport mechanic tightening wheel lug nuts on a high-performance GT3 racing car fitted with M14×1.5 Grade 10.9 wheel studs. The workshop manual specifies a tightening torque of 140 Newton-meters (N·m). The pit crew uses calibrated imperial torque wrenches with micrometer dials graduated in foot-pounds (ft-lb):
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Convert N·m to Foot-Pounds):</strong> 140 N·m ÷ 1.35581795 N·m/(ft-lb) = 103.259 ft-lb.</li>
+            <li><strong>Step 2 (Convert to Inch-Pounds):</strong> 103.259 ft-lb × 12 in/ft = 1,239.11 in-lb.</li>
+            <li><strong>Step 3 (Calculate Axial Bolt Clamping Preload Tension):</strong> Using the empirical short-form fastener equation T = K × D × F_p, where K is the friction nut factor (~0.20 for dry steel) and D is bolt diameter (0.014 m): F_p = 140 N·m ÷ (0.20 × 0.014 m) = 50,000 Newtons (50 kN, or approximately 11,240 pounds-force of axial clamping load).</li>
+            <li><strong>Step 4 (Preload Yield Safety Margin):</strong> Fastener proof load stress can be cross-verified in our <Link href="/calculators/measurements/pressure-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">pressure converter</Link> and lever arm lengths verified in our <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Fastener Tribology: VDI 2230 Bolted Joint Mechanics & Underhead Friction
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In structural bolted joint engineering governed by VDI 2230 guidelines, torque control is fundamentally an indirect method of establishing axial fastener clamping preload. The relationship between applied tightening torque T and induced bolt clamping force F_M is dictated by thread helix geometry and friction coefficients:
+          </p>
+          <Formula>{"T = F_M \\left( \\frac{P}{2\\pi} + \\frac{\\mu_{\\text{th}} d_2}{2 \\cos \\alpha} + \\frac{\\mu_b D_b}{2} \\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where P is thread pitch, d_2 is pitch diameter, α is thread flank angle (30° for 60° metric threads), μ_th is thread friction, μ_b is underhead bearing friction, and D_b is effective bearing diameter. Because friction coefficients vary widely (μ = 0.08 for lubricated cadmium plating to μ = 0.35 for dry rusty steel), applying identical torque can produce clamping tension variations of over ±30%. For critical aerospace engine casings, engineers employ torque-angle tightening or ultrasonic bolt elongation measurement.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Internal Combustion Engine Dynamometers: Torque vs Horsepower Curves
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In automotive dynamometer testing, an engine dynamometer does not measure horsepower directly; it measures mechanical shaft torque using a water brake or eddy current load cell. Mechanical horsepower is calculated algebraically from measured torque τ and engine rotational speed in revolutions per minute (RPM):
+          </p>
+          <Formula>{"\\text{Horsepower (hp)} = \\frac{\\tau_{\\text{ft-lb}} \\times \\text{RPM}}{5252} = \\frac{\\tau_{\\text{N}\\cdot\\text{m}} \\times \\text{RPM}}{7121}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because 5,252 is the exact mathematical constant derived from (33,000 ft-lb/min) ÷ (2π rad/rev), any reciprocating engine&apos;s horsepower and foot-pound torque curves intersect at precisely 5,252 RPM. Low-end torque dictates off-the-line vehicle acceleration, while high-RPM horsepower sustains high aerodynamic top speeds.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Bicycle Maintenance, Heavy Machinery & Pipeline Flanges
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In everyday bicycle maintenance, lightweight carbon fiber frames and seatposts require precise low-torque fastening using micrometer torque wrenches (typically 4 to 6 N·m); over-torquing crushes hollow composite fibers, while under-torquing leads to seatpost slippage. In heavy industrial petrochemical pipelines, multi-bolt flange joints require cross-pattern star torquing in incremental steps (30%, 70%, 100%) to compress spiral-wound metallic gaskets uniformly and prevent hazardous chemical leaks.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For academic tracking and statistical analysis, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and calculate statistical percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <TorqueConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Torque-to-Yield (TTY) Fasteners & Plastic Elastic Deformation Limits
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern automotive internal combustion engine assembly (specifically cylinder head bolts and connecting rod cap bolts), traditional torque tightening is replaced by Torque-to-Yield (TTY) fasteners. When tightening a standard elastic bolt, clamping force increases linearly with torque according to Hooke&apos;s law until reaching the material&apos;s proportional elastic yield limit.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            TTY bolts are intentionally tightened past their elastic yield point into the plastic deformation zone. Engine technicians execute a multi-stage procedure: first applying a snug baseline torque (e.g., 40 N·m), followed by one or two precise angular rotations (e.g., +90° plus an additional +90°). In the plastic plateau region, the bolt elongates permanently like a stiff mechanical spring, maintaining consistent clamping force across thermal expansion cycles. Because TTY bolts undergo permanent crystalline lattice elongation, they must be discarded and replaced whenever an engine cylinder head is serviced.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Torsional Shear Stress & Polar Moment of Inertia in Driveshafts
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In mechanical powertrain engineering, transmitting engine torque through a rotating tubular driveshaft generates internal torsional shear stresses τ_shear. According to the torsion formula of circular shafts: τ_shear = (T × r) / J, where T is applied torque in Newton-meters, r is outer shaft radius in meters, and J is the polar moment of inertia of the shaft cross-section.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For a hollow cylindrical driveshaft of outer radius r_o and inner radius r_i, the polar moment of inertia is J = (π / 2) × (r_o⁴ - r_i⁴). Mechanical engineers select high-strength alloy steels or carbon-fiber composites to ensure maximum torsional shear stress remains well below the torsional shear yield strength (τ_yield ≈ 0.577 × σ_yield under the von Mises yield criterion), preventing catastrophic catastrophic driveshaft twisting during launch acceleration.
+          </p>
+
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            ISO 6789 Calibration & Hand Torque Tool Measurement Uncertainty
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In industrial manufacturing quality assurance and aerospace aircraft maintenance, hand torque tools (click-type torque wrenches, dial-indicating wrenches, and electronic digital torque angle wrenches) are regulated under international standard ISO 6789 (Parts 1 and 2:2017).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under ISO 6789-1, standard mechanical click-type torque wrenches must conform to a maximum permissible deviation of ±4% of the set dial value between 20% and 100% of full-scale range (and ±6% for low-torque wrenches below 10 N·m). Part 2 establishes rigorous laboratory calibration procedures using electronic torque transducers with automated deadweight calibration arms, calculating measurement uncertainty across five sequential loading cycles.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mechanics are trained to release mechanical spring tension down to zero after use to prevent spring set fatigue, ensuring calibrated accuracy is preserved during critical engine maintenance.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In heavy industrial civil construction and crane rigging, high-strength structural bolts (such as ASTM A325 and A490) are tightened using electric or pneumatic hydraulic torque wrenches. Calibrated tension-indicating washers (DTIs) provide visual confirmation that required structural bolt clamping tension has been reached.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In motorsport aerodynamics and chassis tuning, suspension anti-roll bar torsional stiffness governs cornering chassis roll gradients. Mechanics adjust anti-roll bar leverage blade angles to dial in neutral handling and optimize front-to-rear mechanical grip balance during competitive circuit racing.
+          </p>
+
+    </CalcPage>
   );
 }

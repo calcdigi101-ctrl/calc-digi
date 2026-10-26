@@ -1,26 +1,213 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import RomanNumeralConverterComponent from "@/components/calcs/measurements/roman-numeral-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { RomanNumeralAdditiveSubtractiveEvolutionChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/roman-numeral-converter";
+const TITLE = "Roman Numeral Converter | Roman to Arabic & Arabic to Roman";
+const DESCRIPTION =
+  "Convert Roman numerals to Arabic integers and vice versa (1 to 3,999) with epigraphic subtractive conventions and interactive character composition modeling.";
 
 export const metadata: Metadata = {
-  "title": "Roman Numeral Converter – Numbers to Roman | CalcDigi",
-  "description": "Convert numbers to Roman numerals and Roman numerals to numbers instantly. Complete conversion table and rules guide.",
-  "openGraph": {
-    "title": "Roman Numeral Converter – Numbers to Roman | CalcDigi",
-    "description": "Convert numbers to Roman numerals and Roman numerals to numbers instantly. Complete conversion table and rules guide.",
-    "type": "website",
-    "url": "/calculators/measurements/roman-numeral-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/roman-numeral-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/number-system-converter", icon: "🔢", name: "Number System" },
+  { href: "/calculators/measurements/time-converter", icon: "⏱️", name: "Time Converter" },
+  { href: "/calculators/math/ratio-calculator", icon: "🔢", name: "Ratio Calculator" },
+  { href: "/calculators/education/gpa-calculator", icon: "🎓", name: "GPA Calculator" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage" },
+  { href: "/pages/measurements", icon: "🏛️", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why do Roman numerals omit the number zero (0)?",
+    a: "Classical Roman mathematics was an empirical counting and accounting system based on physical tallies (abaci and counting boards). Roman numerals functioned as linguistic label tokens for tangible quantities of coins, soldiers, or grain bushels. Because 'nothing' cannot be counted as a physical collection, the Romans had no conceptual symbol for zero, using the Latin word 'nulla' when representing absence.",
+  },
+  {
+    q: "Why do clock faces often display 'IIII' instead of 'IV' for the number four?",
+    a: "The use of additive 'IIII' on traditional clock faces stems from four historical traditions: religious deference (in classical Latin, the Roman supreme deity Jupiter was spelled 'IVPPITER', making 'IV' taboo), visual aesthetic balance (IIII neatly balances the heavy VIII on the opposite side of the clock dial), and medieval clockmaker foundry convenience using four identical casting molds.",
+  },
+  {
+    q: "What is the standard upper limit of standard Roman numeral representation?",
+    a: "Standard classical Roman notation without overlines operates from 1 (I) to 3,999 (MMMCMXCIX). Beyond 3,999, classical epigraphy employed the 'vinculum'—a horizontal overline placed above a numeral to multiply its value by 1,000 (e.g., V̄ represents 5,000, and X̄ represents 10,000).",
+  },
+  {
+    q: "What are the strict subtractive rules in standard modern Roman numerals?",
+    a: "Modern standardized subtractive notation restricts subtractive prefixes: 'I' can precede only 'V' (IV = 4) and 'X' (IX = 9); 'X' can precede only 'L' (XL = 40) and 'C' (XC = 90); and 'C' can precede only 'D' (CD = 400) and 'M' (CM = 900). Symbols V, L, and D are never used subtractively, and a smaller numeral cannot be placed before a larger one if their difference is greater than one power of ten.",
+  },
+];
+
+export default function RomanNumeralConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Roman Numeral Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/roman-numeral-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Roman Numeral Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/roman-numeral-converter\", \"description\": \"Convert numbers to Roman numerals and Roman numerals to numbers instantly. Complete conversion table and rules guide.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do Roman numerals work?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Roman numerals use 7 letters: I=1, V=5, X=10, L=50, C=100, D=500, M=1000. Add values left to right: VIII = 5+1+1+1 = 8. Subtract when smaller precedes larger: IV = 5-1 = 4, XL = 50-10 = 40.\"}}, {\"@type\": \"Question\", \"name\": \"What is 2024 in Roman numerals?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"2024 = MMXXIV. M=1000, M=1000, XX=20, IV=4. So MMXXIV = 2000+20+4 = 2024.\"}}, {\"@type\": \"Question\", \"name\": \"What is the largest number in Roman numerals?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Traditional Roman numerals can represent up to 3,999 (MMMCMXCIX). For larger numbers, a bar over a letter multiplied it by 1,000, but this system is rarely used today. Our converter handles 1 to 3,999.\"}}, {\"@type\": \"Question\", \"name\": \"Why are Roman numerals still used today?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Roman numerals appear on clock faces, in movie credits for copyright years, Super Bowl names, book chapters, royalty names (Henry VIII), building cornerstones, and academic outlines. They add formality and historical distinction.\"}}, {\"@type\": \"Question\", \"name\": \"What year is MCMXCIX?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"MCMXCIX = 1999. M=1000, CM=900, XC=90, IX=9. Total: 1000+900+90+9 = 1999. This is one of the more complex Roman numeral years because of the multiple subtractive combinations.\"}}, {\"@type\": \"Question\", \"name\": \"Is there a zero in Roman numerals?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"No. The Roman numeral system has no symbol for zero. The concept of zero was developed in India and the Arab world. This absence was a significant limitation that made complex arithmetic very difficult in ancient Rome.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Roman Numeral Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Roman Numeral Converter</h1>\n<p class=\"calc-intro\">Convert any number (1 to 3,999) to Roman numerals and Roman numerals back to numbers instantly. Includes a complete conversion table, Roman numeral rules, and interesting historical facts about where Roman numerals are still used today.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">I=1, V=5, X=10, L=50, C=100, D=500, M=1000 | Subtract if smaller value precedes larger (IV=4, IX=9)</div></div>\n<div class=\"content-section\"><h2>Roman Numeral System Guide</h2><p>Roman numerals were the standard number system used in ancient Rome and throughout Europe until the Middle Ages. Today they are still used for clock faces, movie release years, book chapters, Super Bowl numbers, and formal documents. Understanding the system helps decode these modern uses.</p><h3>Roman Numeral Values</h3><p>Seven letters represent values: I (1), V (5), X (10), L (50), C (100), D (500), M (1000). Numbers are formed by combining these letters and applying subtractive notation for certain combinations.</p><h3>Subtractive Notation Rule</h3><p>When a smaller value precedes a larger value, subtract it: IV = 4 (5-1), IX = 9 (10-1), XL = 40 (50-10), XC = 90 (100-10), CD = 400 (500-100), CM = 900 (1000-100). These are the only valid subtractive combinations.</p><div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Arabic</th><th style=\"padding:12px 16px;\">Roman</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1</td> <td style=\"padding:11px 16px;\">I</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">4</td> <td style=\"padding:11px 16px;\">IV</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">5</td> <td style=\"padding:11px 16px;\">V</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">9</td> <td style=\"padding:11px 16px;\">IX</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">10</td> <td style=\"padding:11px 16px;\">X</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">40</td> <td style=\"padding:11px 16px;\">XL</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">50</td> <td style=\"padding:11px 16px;\">L</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">90</td> <td style=\"padding:11px 16px;\">XC</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">100</td> <td style=\"padding:11px 16px;\">C</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">400</td> <td style=\"padding:11px 16px;\">CD</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">500</td> <td style=\"padding:11px 16px;\">D</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">900</td> <td style=\"padding:11px 16px;\">CM</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1000</td> <td style=\"padding:11px 16px;\">M</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">2024</td> <td style=\"padding:11px 16px;\">MMXXIV</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1999</td> <td style=\"padding:11px 16px;\">MCMXCIX</td></tr></tbody></table></div></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do Roman numerals work? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Roman numerals use 7 letters: I=1, V=5, X=10, L=50, C=100, D=500, M=1000. Add values left to right: VIII = 5+1+1+1 = 8. Subtract when smaller precedes larger: IV = 5-1 = 4, XL = 50-10 = 40.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is 2024 in Roman numerals? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">2024 = MMXXIV. M=1000, M=1000, XX=20, IV=4. So MMXXIV = 2000+20+4 = 2024.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the largest number in Roman numerals? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Traditional Roman numerals can represent up to 3,999 (MMMCMXCIX). For larger numbers, a bar over a letter multiplied it by 1,000, but this system is rarely used today. Our converter handles 1 to 3,999.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why are Roman numerals still used today? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Roman numerals appear on clock faces, in movie credits for copyright years, Super Bowl names, book chapters, royalty names (Henry VIII), building cornerstones, and academic outlines. They add formality and historical distinction.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What year is MCMXCIX? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">MCMXCIX = 1999. M=1000, CM=900, XC=90, IX=9. Total: 1000+900+90+9 = 1999. This is one of the more complex Roman numeral years because of the multiple subtractive combinations.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Is there a zero in Roman numerals? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">No. The Roman numeral system has no symbol for zero. The concept of zero was developed in India and the Arab world. This absence was a significant limitation that made complex arithmetic very difficult in ancient Rome.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/temperature-converter\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Temperature Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/volume-converter\"><span class=\"rc-icon\">🥄</span><span class=\"rc-name\">Volume Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Roman Numeral Converter – Numbers and Roman Numerals</h2><div class=\"form-group\"><label for=\"rn-mode\">Convert</label><select id=\"rn-mode\"><option selected=\"\" value=\"toRoman\">Number to Roman</option><option value=\"toDecimal\">Roman to Number</option></select></div><div id=\"rn-num-input\"><div class=\"form-group\"><label for=\"rn-num\">Number (1-3999)</label><input id=\"rn-num\" max=\"3999\" min=\"1\" type=\"number\" value=\"2024\"/></div></div><div id=\"rn-rom-input\" style=\"display:none;\"><div class=\"form-group\"><label for=\"rn-rom\">Roman Numeral</label><input id=\"rn-rom\" placeholder=\"e.g. MMXXIV\" style=\"text-transform:uppercase;\" type=\"text\" value=\"MMXXIV\"/></div></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Roman Numeral Converter – Numbers and Roman Numerals')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Roman Numeral Converter – Numbers and Roman Numerals')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-roman-numeral-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "document.getElementById('rn-mode').addEventListener('change',function(){\n  var m=this.value;\n  document.getElementById('rn-num-input').style.display=m==='toRoman'?'block':'none';\n  document.getElementById('rn-rom-input').style.display=m==='toDecimal'?'block':'none';\n});\nfunction toRoman(num){\n  var vals=[1000,900,500,400,100,90,50,40,10,9,5,4,1];\n  var syms=['M','CM','D','CD','C','XC','L','XL','X','IX','V','IV','I'];\n  var result='';\n  for(var i=0;i<vals.length;i++){while(num>=vals[i]){result+=syms[i];num-=vals[i];}}\n  return result;\n}\nfunction fromRoman(s){\n  var map={I:1,V:5,X:10,L:50,C:100,D:500,M:1000};\n  var result=0;\n  for(var i=0;i<s.length;i++){\n    var cur=map[s[i]];var next=map[s[i+1]];\n    if(next&&cur<next)result-=cur;else result+=cur;\n  }\n  return result;\n}\nfunction doConvert(){\n  var mode=document.getElementById('rn-mode').value;\n  if(mode==='toRoman'){\n    var num=parseInt(document.getElementById('rn-num').value);\n    if(isNaN(num)||num<1||num>3999){alert('Please enter a number between 1 and 3999.');return;}\n    var roman=toRoman(num);\n    document.getElementById('cv-ri').innerHTML=\n      ri('Roman Numeral','<strong style=\"font-size:24px;color:var(--c-accent);letter-spacing:2px;\">'+roman+'</strong>',true)+\n      ri('Arabic Number',num)+ri('Digits in Roman',roman.length);\n  } else {\n    var romVal=document.getElementById('rn-rom').value.toUpperCase().trim();\n    if(!romVal){alert('Please enter a Roman numeral.');return;}\n    var dec=fromRoman(romVal);\n    if(dec<=0||dec>3999){alert('Invalid Roman numeral or out of range (1-3999).');return;}\n    document.getElementById('cv-ri').innerHTML=\n      ri('Arabic Number','<strong style=\"font-size:24px;color:var(--c-accent)\">'+dec+'</strong>',true)+\n      ri('Roman Numeral',romVal)+ri('Verified',toRoman(dec)===romVal?'Valid Roman numeral':'Check input');\n  }\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',['Value','Remaining to 3999'],[mode==='toRoman'?parseInt(document.getElementById('rn-num').value)||1:fromRoman(document.getElementById('rn-rom').value.toUpperCase())||1,1000],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Roman numeral conversion. In 2 sentences share an interesting fact about where Roman numerals are still used in modern life or history.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Epigraphic Guidance:</strong> Roman numerals represent historical additive and subtractive tally tokens. In historical chronology, legal document dating, and horology, cross-reference positional computer radices in our <Link href="/calculators/measurements/number-system-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">number system converter</Link> and calculate chronological dates using our <Link href="/calculators/measurements/time-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Epigraphic Origins of Roman Numerals: From Tally Sticks to Inscriptions
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Roman numerals constitute Western civilization&apos;s most enduring non-positional numeral system. Originating from prehistoric shepherd tally sticks and Etruscan notch carving practices rather than abstract alphabet letters, each fundamental symbol mimics physical hand gestures: a single vertical notch represents one finger (I); a V-shaped cut represents the open hand between thumb and index finger (V, five); and two crossed notches represent ten fingers (X, ten).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            As Roman administrative statecraft expanded across the Mediterranean basin, stone carvers standardized these symbols into Latin epigraphic majuscules: C (centum, 100), M (mille, 1,000), alongside intermediate half-values L (50) and D (500). While replaced by Hindu-Arabic decimal numerals for scientific calculation in the late Middle Ages, Roman numerals retain profound cultural, legal, and architectural resonance across the modern world.
+          </p>
+
+          <RomanNumeralAdditiveSubtractiveEvolutionChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Rules: Greedy Decomposition & Subtractive Syntax
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Converting a modern Arabic decimal integer N into standard Roman numerals executes via a greedy algorithm against an ordered descending table of thirteen discrete token values:
+          </p>
+          <Formula>{"\\mathcal{T} = \\{ (1000, \\text{M}), (900, \\text{CM}), (500, \\text{D}), (400, \\text{CD}), (100, \\text{C}), \\dots, (4, \\text{IV}), (1, \\text{I}) \\}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At each iterative step, the algorithm matches the largest integer v ≤ N, appends its character token to the output string, and decrements N = N - v until N = 0:
+          </p>
+          <Formula>{"2026 = 1000 (\\text{M}) + 1000 (\\text{M}) + 20 (\\text{XX}) + 6 (\\text{VI}) \\implies \\text{MMXXVI}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To parse a Roman numeral string back to decimal, the parser iterates left-to-right: if a current character value is less than the subsequent character value (e.g., I before X in IX), it subtracts its value (-1); otherwise, it adds its value (+10), resolving IX to -1 + 10 = 9. For positional binary and hexadecimal conversions, explore our <Link href="/calculators/measurements/number-system-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">number system converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Roman Numeral Value Tokens
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles exact numerical values, Latin etymological origins, and subtractive character pairs across the classical Roman numbering system:
+          </p>
+          <DataTable
+            head={["Roman Numeral", "Decimal Value", "Token Type", "Latin Linguistic Origin", "Max Sequential Repeats"]}
+            rows={[
+              ["I", "1", "Base Unit", "Unus (Single Tally)", "3 (III)"],
+              ["IV", "4", "Subtractive Pair", "Quattuor (5 - 1)", "1"],
+              ["V", "5", "Intermediate", "Quinque (Open Hand)", "1"],
+              ["IX", "9", "Subtractive Pair", "Novem (10 - 1)", "1"],
+              ["X", "10", "Base Unit", "Decem (Crossed Hands)", "3 (XXX)"],
+              ["XL", "40", "Subtractive Pair", "Quadraginta (50 - 10)", "1"],
+              ["L", "50", "Intermediate", "Quinquaginta", "1"],
+              ["XC", "90", "Subtractive Pair", "Nonaginta (100 - 10)", "1"],
+              ["C", "100", "Base Unit", "Centum (Hundred)", "3 (CCC)"],
+              ["CD", "400", "Subtractive Pair", "Quadringenti (500 - 100)", "1"],
+              ["D", "500", "Intermediate", "Quingenti", "1"],
+              ["CM", "900", "Subtractive Pair", "Nongenti (1,000 - 100)", "1"],
+              ["M", "1,000", "Base Unit", "Mille (Thousand)", "3 (MMM)"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Case Study: Deciphering Monumental Epigraphy & Architectural Dates
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider an architectural historian inspecting a carved stone cornerstone inscription on a historic public library building in Boston: MDCCCLXXXVII. The historian must translate this Roman numeral string into the modern Gregorian calendar year to cross-reference historical municipal construction permits:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Parse Thousands Token):</strong> M = 1,000.</li>
+            <li><strong>Step 2 (Parse Hundreds Tokens):</strong> D = 500; followed by CCC = 100 + 100 + 100 = 300. Combined hundreds = 500 + 300 = 800.</li>
+            <li><strong>Step 3 (Parse Tens Tokens):</strong> L = 50; followed by XXX = 10 + 10 + 10 = 30. Combined tens = 50 + 30 = 80.</li>
+            <li><strong>Step 4 (Parse Units Tokens):</strong> V = 5; followed by II = 1 + 1 = 2. Combined units = 5 + 2 = 7.</li>
+            <li><strong>Step 5 (Sum Positional Sub-Totals):</strong> 1,000 + 800 + 80 + 7 = 1887. The building cornerstone was laid in the year 1887. Elapsed centuries can be cross-verified in our <Link href="/calculators/measurements/time-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The Historical Transition from Roman Numerals to Hindu-Arabic Decimals
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Throughout the Middle Ages, arithmetic calculations in Europe were executed physically using abacus counting boards, while Roman numerals served solely to record the final result in commercial ledgers. Performing long multiplication or division directly in Roman numerals is notoriously unwieldy (e.g., multiplying CXLVII by XXXIV).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 1202, Leonardo of Pisa (Fibonacci) published &apos;Liber Abaci&apos; (The Book of Calculation), introducing the Hindu-Arabic positional numeral system (0, 1, 2, 3, 4, 5, 6, 7, 8, 9) to European merchants. Positional decimal arithmetic enabled rapid pencil-and-paper commercial accounting, sparking the commercial banking boom of Renaissance Italy and laying the mathematical foundation for modern scientific computing.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Horology, Monarchy & Cinematic Copyrights
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In contemporary society, Roman numerals fulfill prestigious ornamental and legal roles. In horology, luxury mechanical watch dials feature Roman numerals. In cinema and television production, motion picture copyright notices at the conclusion of closing credits display production years in Roman numerals (e.g., MCMXCV for 1995, MMXXIV for 2024).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In sports, the National Football League (NFL) designates championship Super Bowls using Roman numerals (e.g., Super Bowl LVIII). In medicine and publishing, book prefaces and preface pagination utilize lowercase Roman numerals (i, ii, iii, iv). For academic and general tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and calculate statistical percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <RomanNumeralConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The Roman Hand Abacus & The Physical &apos;Calculi&apos; Origins of Calculus
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because Roman numerals were impossible to calculate with directly using pencil-and-paper long division, Roman engineers, tax collectors (publicani), and military quartermasters executed all mathematical calculations using portable bronze pocket abaci. A Roman hand abacus featured parallel vertical slots containing movable bronze pebbles called &apos;calculi&apos; (from the Latin word for limestone pebble, which gave rise to the modern mathematical terms &apos;calculate&apos; and &apos;calculus&apos;).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Remarkably, while written Roman numerals lacked a zero symbol, the physical abacus operated as a positional biquinary decimal calculator! Each vertical slot represented a decimal power of ten (units, tens, hundreds, thousands), with an upper slot containing one pebble worth 5 and a lower slot containing four pebbles worth 1 each. An empty slot physically represented zero! Once the calculation was completed on the bronze abacus, the accountant recorded only the final static tally string in stone or papyrus using standard Roman numerals. You can cross-reference ancient linear measures using our <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link> and calculate Roman trade ballast mass in our <Link href="/calculators/measurements/weight-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weight converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Classical Roman Duodecimal Fractions: Unciae & As Subdivisions
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While whole integers in Roman mathematics were counted in decimal base-10 groupings, Roman commercial currency and weight fractions operated in a duodecimal (base-12) system based on the &apos;as&apos; (a standard bronze unit of weight). The fundamental fractional unit was the &apos;uncia&apos; (one-twelfth, 1/12), which is the direct etymological ancestor of both the modern English word &apos;ounce&apos; (weight) and &apos;inch&apos; (length).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Roman epigraphers denoted fractions through dot symbols (·): one dot represented 1/12 (uncia); two dots represented 2/12 (sextans, 1/6); three dots represented 3/12 (quadrans, 1/4); four dots represented 4/12 (triens, 1/3); five dots represented 5/12 (quincunx); and the letter S (semis) represented one half (6/12 = 1/2). Combining whole numerals with fraction dots allowed Roman tax assessors to document complex fractional coin and land valuations with rigorous legal precision.
+          </p>
+
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Epigraphic Serifs & Classical Trajan Inscriptional Geometry
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In typography, epigraphy, and graphic arts, classical Roman numerals represent the pinnacle of proportional letterform aesthetics. The monumental inscriptional capitals carved at the base of Trajan&apos;s Column in Rome (dedicated in 113 CE) established the geometric proportions for Western uppercase typography.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Stone masons painted letters on marble blocks with flat broad-edge brushes before chiseling incisions with hammers and stone gouges. The characteristic flared terminal &apos;serifs&apos; at the tips of Roman numerals (such as the crossbars atop I, V, and X) originated as practical stonecutting techniques: a horizontal chisel stroke carved into the stone prevented vertical fractures from splitting along marble crystalline fault planes when chiseling deep V-grooves.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            These ancient stonecutter proportions were revived by Italian Renaissance masters like Luca Pacioli and Leonardo da Vinci, establishing the golden proportions that continue to define Roman numerals on government monuments and historic buildings today.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern legal codification and statutory drafting, legislative acts and constitutional articles are partitioned into major titles, chapters, and sections using Roman numerals to denote hierarchical priority. This epigraphic structure ensures unambiguous legal cross-referencing across centuries of judicial precedents.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Similarly, in pharmaceutical pharmacopeias and traditional medical prescriptions, apothecaries historically used Roman numerals alongside grain and dram measures to prevent decimal transcription errors that could lead to dangerous drug overdoses.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In classical numismatics and coin collecting, ancient Roman imperial coins (denarii, sesterces, and aurei) feature inscriptions with abbreviated imperial titles and consular dates in Roman numerals, allowing museum historians to date archaeological artifacts to exact calendar years.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding the distinction between additive classical epigraphy and standardized medieval subtractive notation ensures historians, educators, and archivists transcribe historical manuscripts with complete archaeological accuracy.
+          </p>
+
+    </CalcPage>
   );
 }

@@ -1,26 +1,211 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PressureConverterComponent from "@/components/calcs/measurements/pressure-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PressureAtmosphericDepthGradientChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/pressure-converter";
+const TITLE = "Pressure Converter | Pascals, PSI, Bar, Atmospheres & Torr";
+const DESCRIPTION =
+  "Convert Pascals, pounds per square inch (PSI), bar, standard atmospheres, kilopascals, and millimeters of mercury with hydrostatic depth modeling.";
 
 export const metadata: Metadata = {
-  "title": "Pressure Converter – PSI to Bar, Pascal to ATM | CalcDigi",
-  "description": "Convert PSI to bar, Pascal to ATM, mmHg to kPa. Instant pressure unit conversion for engineering, weather, and medical use.",
-  "openGraph": {
-    "title": "Pressure Converter – PSI to Bar, Pascal to ATM | CalcDigi",
-    "description": "Convert PSI to bar, Pascal to ATM, mmHg to kPa. Instant pressure unit conversion for engineering, weather, and medical use.",
-    "type": "website",
-    "url": "/calculators/measurements/pressure-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/pressure-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/physics/force-calculator", icon: "💥", name: "Force Calculator" },
+  { href: "/calculators/measurements/temperature-converter", icon: "🌡️", name: "Temperature Converter" },
+  { href: "/calculators/measurements/volume-converter", icon: "🧪", name: "Volume Converter" },
+  { href: "/calculators/measurements/energy-converter", icon: "⚡", name: "Energy Converter" },
+  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/pages/measurements", icon: "⏱️", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the physical definition of a Pascal (Pa) in the SI system?",
+    a: "One Pascal (1 Pa) is the SI coherent derived unit of pressure and mechanical stress, defined as exactly one Newton of perpendicular force applied uniformly across a surface area of one square meter (1 Pa = 1 N/m²). Because 1 Pa is a relatively gentle pressure (~the weight of a single dollar bill resting on a flat surface), engineers routinely work in kilopascals (kPa), megapascals (MPa), or gigapascals (GPa).",
+  },
+  {
+    q: "What is the difference between gauge pressure (psig) and absolute pressure (psia)?",
+    a: "Absolute pressure (psia or Pa absolute) is measured relative to a perfect thermodynamic vacuum (zero pressure). Gauge pressure (psig or Pa gauge) is measured relative to local ambient atmospheric pressure: P_absolute = P_gauge + P_ambient. A tire gauge reading 32 psig actually indicates an internal absolute pressure of ~46.7 psia at standard sea level.",
+  },
+  {
+    q: "How many Pascals are in one standard atmosphere (1 atm)?",
+    a: "Under the 10th CGPM in 1954, one standard atmosphere (1 atm) is legally fixed at exactly 101,325 Pascals (101.325 kPa, or 1.01325 bar, or ~14.69595 PSI). This represents mean sea-level atmospheric pressure under standard gravity (9.80665 m/s²).",
+  },
+  {
+    q: "Why is pressure frequently reported in millimeters of mercury (mmHg or Torr)?",
+    a: "In 1643, Evangelista Torricelli invented the mercury barometer, observing that atmospheric pressure supports a column of liquid mercury approximately 760 mm high at sea level. The unit Torr is defined as exactly 1/760 of a standard atmosphere (~133.322 Pa). It remains standard in clinical blood pressure monitoring (e.g., 120/80 mmHg) and high-vacuum semiconductor processing.",
+  },
+];
+
+export default function PressureConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Pressure Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/pressure-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Pressure Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/pressure-converter\", \"description\": \"Convert PSI to bar, Pascal to ATM, mmHg to kPa. Instant pressure unit conversion for engineering, weather, and medical use.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do you convert PSI to bar?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide PSI by 14.5038 to get bar. Or multiply PSI by 0.0689476. For example: 35 PSI ÷ 14.5038 = 2.41 bar. Car tires: 30 PSI = 2.07 bar, 35 PSI = 2.41 bar.\"}}, {\"@type\": \"Question\", \"name\": \"What is atmospheric pressure in PSI?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Standard atmospheric pressure (1 atm) = 14.6959 PSI = 101,325 Pa = 1.01325 bar = 760 mmHg. This is the average air pressure at sea level. Weather reports use hectopascals (hPa) where standard pressure = 1013.25 hPa.\"}}, {\"@type\": \"Question\", \"name\": \"What is normal tire pressure in bar and PSI?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Passenger car tire pressure: 30-35 PSI = 2.07-2.41 bar. Motorcycle tires: 28-40 PSI = 1.93-2.76 bar. Always check your vehicle door jamb sticker for the manufacturer recommended tire pressure.\"}}, {\"@type\": \"Question\", \"name\": \"What is blood pressure in Pa?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Normal blood pressure of 120 mmHg systolic = 15,999 Pa = 0.160 bar. Blood pressure is always reported in mmHg by medical convention because mercury manometers were the original measurement tool.\"}}, {\"@type\": \"Question\", \"name\": \"How many Pascal in one bar?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 bar = 100,000 Pascal (Pa) = 100 kilopascal (kPa) = 1,000 millibar (mbar) = 1,000 hPa. The bar is not an SI unit but is widely accepted in science and engineering.\"}}, {\"@type\": \"Question\", \"name\": \"What pressure is used in scuba diving?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Scuba tanks are typically filled to 200-300 bar (2,900-4,350 PSI). Underwater pressure increases by 1 bar (14.5 PSI) for every 10 meters of depth. At 30m depth, total pressure = 4 bar (1 atm + 3 bar water pressure).\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Pressure Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Pressure Converter</h1>\n<p class=\"calc-intro\">Convert between PSI, bar, Pascal, atmospheres, mmHg, and kilopascals. Used in engineering, tire pressure, weather forecasting, diving, and medical blood pressure measurements.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">1 atm = 101,325 Pa = 14.6959 PSI = 1.01325 bar = 760 mmHg</div></div>\n<div class=\"content-section\"><h2>Pressure Unit Conversion Guide</h2>\n<p>Pressure is used in many contexts: weather (atmospheric pressure in millibars or hPa), tire pressure (PSI or bar), blood pressure (mmHg), industrial systems (bar or Pascal), and scuba diving (bars of depth pressure). Different industries use different units.</p>\n<h3>PSI (Pounds per Square Inch)</h3>\n<p>PSI is the most common pressure unit in the US for tire pressure (30-35 PSI), hydraulic systems, and compressed air. 1 PSI = 6,894.76 Pascal = 0.0689476 bar. Standard car tire pressure: 32-35 PSI = 2.2-2.4 bar.</p>\n<h3>Bar vs Pascal</h3>\n<p>The bar is used widely in meteorology and engineering. 1 bar = 100,000 Pascal (Pa) = 100 kPa. Standard atmospheric pressure is 1.01325 bar = 1 atm = 101,325 Pa. Weather stations report pressure in hectopascals (hPa) where 1 hPa = 1 millibar (mbar).</p>\n<h3>Blood Pressure: mmHg</h3>\n<p>Blood pressure is measured in millimeters of mercury (mmHg). Normal blood pressure is 120/80 mmHg. 1 mmHg = 133.322 Pa = 0.001333 bar. The two numbers represent systolic (heart pumping) and diastolic (heart resting) pressures.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you convert PSI to bar? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide PSI by 14.5038 to get bar. Or multiply PSI by 0.0689476. For example: 35 PSI ÷ 14.5038 = 2.41 bar. Car tires: 30 PSI = 2.07 bar, 35 PSI = 2.41 bar.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is atmospheric pressure in PSI? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Standard atmospheric pressure (1 atm) = 14.6959 PSI = 101,325 Pa = 1.01325 bar = 760 mmHg. This is the average air pressure at sea level. Weather reports use hectopascals (hPa) where standard pressure = 1013.25 hPa.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is normal tire pressure in bar and PSI? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Passenger car tire pressure: 30-35 PSI = 2.07-2.41 bar. Motorcycle tires: 28-40 PSI = 1.93-2.76 bar. Always check your vehicle door jamb sticker for the manufacturer recommended tire pressure.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is blood pressure in Pa? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Normal blood pressure of 120 mmHg systolic = 15,999 Pa = 0.160 bar. Blood pressure is always reported in mmHg by medical convention because mercury manometers were the original measurement tool.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many Pascal in one bar? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 bar = 100,000 Pascal (Pa) = 100 kilopascal (kPa) = 1,000 millibar (mbar) = 1,000 hPa. The bar is not an SI unit but is widely accepted in science and engineering.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What pressure is used in scuba diving? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Scuba tanks are typically filled to 200-300 bar (2,900-4,350 PSI). Underwater pressure increases by 1 bar (14.5 PSI) for every 10 meters of depth. At 30m depth, total pressure = 4 bar (1 atm + 3 bar water pressure).</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/temperature-converter\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Temperature Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/speed-converter\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Speed Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Pressure Converter – PSI, Bar, Pascal &amp; ATM</h2>\n<div class=\"form-group\"><label for=\"cv-val\">Value</label><input id=\"cv-val\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"cv-from\">From</label><select id=\"cv-from\"><option value=\"pa\">Pascal (Pa)</option><option value=\"kpa\">Kilopascal (kPa)</option><option value=\"bar\">Bar</option><option value=\"mbar\">Millibar (mbar)</option><option selected=\"\" value=\"psi\">PSI</option><option value=\"atm\">Atmosphere (atm)</option><option value=\"mmhg\">mmHg</option><option value=\"inhg\">inHg</option></select></div><div class=\"form-group\"><label for=\"cv-to\">To</label><select id=\"cv-to\"><option value=\"pa\">Pascal (Pa)</option><option value=\"kpa\">Kilopascal (kPa)</option><option selected=\"\" value=\"bar\">Bar</option><option value=\"mbar\">Millibar (mbar)</option><option value=\"psi\">PSI</option><option value=\"atm\">Atmosphere (atm)</option><option value=\"mmhg\">mmHg</option><option value=\"inhg\">inHg</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Pressure Converter – PSI, Bar, Pascal &amp; ATM')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Pressure Converter – PSI, Bar, Pascal &amp; ATM')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-pressure-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var F={\"pa\":1,\"kpa\":1000,\"bar\":100000,\"mbar\":100,\"psi\":6894.76,\"atm\":101325,\"mmhg\":133.322,\"inhg\":3386.39};var N={\"pa\":\"Pascal\",\"kpa\":\"kPa\",\"bar\":\"Bar\",\"mbar\":\"mbar\",\"psi\":\"PSI\",\"atm\":\"ATM\",\"mmhg\":\"mmHg\",\"inhg\":\"inHg\"};\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('cv-val').value);\n  var from=document.getElementById('cv-from').value;\n  var to=document.getElementById('cv-to').value;\n  if(isNaN(val)){alert('Please enter a valid number.');return;}\n  var base=val*F[from]; var result=base/F[to];\n  var fromN=N[from]; var toN=N[to];\n  var fmt=function(n){return n>=0.0001&&n<1e10?parseFloat(n.toFixed(8)).toString():n.toExponential(4);};\n  var extras=Object.keys(F).filter(function(u){return u!==from&&u!==to;}).slice(0,3).map(function(u){return ri('In '+N[u],fmt(base/F[u])+' '+u);}).join('');\n  document.getElementById('cv-ri').innerHTML=ri('Result','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmt(result)+' '+toN+'</strong>',true)+ri(val+' '+fromN+' =',fmt(result)+' '+toN)+extras;\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',[fromN,toN],[Math.abs(val)||0.001,Math.abs(result)||0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(val+' '+fromN+' = '+fmt(result)+' '+toN+'. In 2 sentences share a practical real-world example where this pressure conversion is commonly used.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Pressure Guidance:</strong> Pressure measures perpendicular compressive force distributed per unit area. In hydraulic mechanics, chemical reaction kinetics, and aerodynamics, cross-reference applied load in our <Link href="/calculators/physics/force-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">force calculator</Link> and calculate gas temperature interactions in our <Link href="/calculators/measurements/temperature-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">temperature converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Foundations of Continuum Mechanics: Hydrostatic & Barometric Pressure
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Pressure represents one of the most critical state variables in continuum mechanics, fluid dynamics, and chemical thermodynamics. Formally defined as the normal compressive force exerted by particles colliding against a unit area of a boundary surface (P = dF_⊥ / dA), pressure governs everything from atmospheric meteorology and cardiovascular hemodynamics to subsea oceanic trenches and rocket engine combustion chambers.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because pressure instrumentation evolved across divergent technical disciplines, a bewildering array of legacy units persists in modern industry. Mechanical engineers in the United States calibrate pneumatic compressors in pounds per square inch (PSI), European process plants monitor chemical reactors in bar, meteorologists report hurricane barometric pressure in hectopascals (hPa) or millibars (mbar), and medical clinicians record arterial blood pressure in millimeters of mercury (mmHg).
+          </p>
+
+          <PressureAtmosphericDepthGradientChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivation & Fundamental SI Multipliers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In the International System of Units, the coherent derived unit of pressure is the Pascal (1 Pa = 1 N/m² = 1 kg·m⁻¹·s⁻²). All pressure conversions compute through the Pascal:
+          </p>
+          <Formula>{"P_{\\text{target}} = P_{\\text{source}} \\times \\left( \\frac{\\sigma_{\\text{source}}}{\\sigma_{\\text{target}}} \\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where σ represents the exact equivalency factor in Pascals. Under standard international definitions:
+          </p>
+          <Formula>{"1 \\text{ bar} = 100,000 \\text{ Pa} = 100 \\text{ kPa}, \\quad 1 \\text{ atm} = 101,325 \\text{ Pa}"}</Formula>
+          <Formula>{"1 \\text{ PSI} = \\frac{0.45359237 \\text{ kg} \\times 9.80665 \\text{ m/s}^2}{(0.0254 \\text{ m})^2} \\approx 6894.757293 \\text{ Pa}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In pneumatic and hydraulic cylinders, pressure translates directly into mechanical actuation force; explore load ratings in our <Link href="/calculators/physics/force-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">force calculator</Link> and calculate thermodynamic gas work in our <Link href="/calculators/measurements/energy-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">energy converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Global Pressure Equivalencies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles exact metric conversion constants across scientific, industrial, barometric, and ultra-high-vacuum regimes:
+          </p>
+          <DataTable
+            head={["Pressure Unit", "Symbol", "Value in Pascals (Pa)", "Value in PSI", "Value in Bar"]}
+            rows={[
+              ["Pascal (SI Coherent)", "Pa", "1.0 Pa", "0.000145038 PSI", "0.00001 bar"],
+              ["Hectopascal (Millibar)", "hPa / mbar", "100.0 Pa", "0.0145038 PSI", "0.001 bar"],
+              ["Kilopascal", "kPa", "1,000.0 Pa", "0.145038 PSI", "0.01 bar"],
+              ["Megapascal", "MPa", "1,000,000.0 Pa", "145.038 PSI", "10.0 bar"],
+              ["Bar", "bar", "100,000.0 Pa", "14.503774 PSI", "1.0 bar"],
+              ["Pounds per Square Inch", "psi / lbf/in²", "6,894.757 Pa", "1.0 PSI", "0.0689476 bar"],
+              ["Standard Atmosphere", "atm", "101,325.0 Pa", "14.695949 PSI", "1.01325 bar"],
+              ["Technical Atmosphere", "at / kgf/cm²", "98,066.5 Pa", "14.223343 PSI", "0.980665 bar"],
+              ["Millimeters of Mercury (Torr)", "mmHg / Torr", "133.322368 Pa", "0.0193368 PSI", "0.0013332 bar"],
+              ["Inches of Water Column", "inH2O (at 4°C)", "249.0889 Pa", "0.0361273 PSI", "0.0024909 bar"],
+              ["Inches of Mercury", "inHg (at 0°C)", "3,386.389 Pa", "0.491154 PSI", "0.0338639 bar"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Deep-Sea Submersible Hull Design
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a marine engineering firm designing a titanium pressure hull for a deep-sea research submersible certified to dive to the bottom of the Puerto Rico Trench at a depth of 8,376 meters in seawater (density ρ = 1,028 kg/m³). Structural hull stress analysis requires computing hydrostatic pressure in megapascals (MPa), bar, and imperial pounds per square inch (PSI):
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Calculate Hydrostatic Pressure via P = ρgh):</strong> P_hydro = 1,028 kg/m³ × 9.80665 m/s² × 8,376 m = 84,438,819 Pascals.</li>
+            <li><strong>Step 2 (Add Atmospheric Surface Pressure):</strong> P_total = 84,438,819 Pa + 101,325 Pa = 84,540,144 Pa ≈ 84.54 MPa.</li>
+            <li><strong>Step 3 (Convert to Bar):</strong> 84,540,144 Pa ÷ 100,000 Pa/bar = 845.40 bar (nearly 834 times standard atmospheric pressure).</li>
+            <li><strong>Step 4 (Convert to PSI):</strong> 84,540,144 Pa ÷ 6,894.757 Pa/PSI = 12,261.51 PSI.</li>
+            <li><strong>Step 5 (Cross-Verify Structural Displacement):</strong> Submersible displacement volume can be verified in our <Link href="/calculators/measurements/volume-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">volume converter</Link> and ballast mass confirmed in our <Link href="/calculators/measurements/weight-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weight converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Pascal&apos;s Principle & Hydraulic Actuation Multipliers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Formulated in 1648 by French polymath Blaise Pascal, Pascal&apos;s principle states that a pressure change applied to an enclosed, incompressible fluid is transmitted undiminished to every portion of the fluid and the container walls. This fundamental law underpins heavy hydraulic machinery, excavator arms, automotive braking systems, and aircraft flight control surface actuators.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because pressure remains constant throughout a static fluid circuit (P₁ = P₂), applying a modest input force F₁ on a small master piston of area A₁ generates an immense output force F₂ on a slave piston of larger area A₂: F₂ = F₁ × (A₂ / A₁). Mechanical engineers design hydraulic systems operating at 210 to 350 bar (3,000 to 5,000 PSI) to deliver hundreds of kilonewtons of clamping force within compact mechanical envelopes.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Barometric Altimetry & Standard Atmospheric Temperature Lapse Rates
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In aviation, aircraft altimeters are sensitive aneroid barometers calibrated to report flight altitude based on the International Standard Atmosphere (ISA) barometric formula: P(h) = P₀ × [1 - (L × h / T₀)]^(gM / RL). At standard sea level, barometric pressure is set to 29.92 inches of mercury (inHg) or 1013.25 hPa.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            As an aircraft ascends through the troposphere, ambient pressure decreases at roughly 1 inch of mercury per 1,000 feet of climb. Airline pilots continuously calibrate their barometric altimeter sub-scale (&apos;Kollsman window&apos;) to local airport QNH settings to maintain true terrain separation during instrument approaches. You can evaluate linear climb distances in our <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            ASME Boiler & Pressure Vessel Code (BPVC Section VIII) Standards
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In industrial chemical refineries and power generation plants, pressurized storage tanks and steam boilers are regulated under the American Society of Mechanical Engineers (ASME) Boiler and Pressure Vessel Code (BPVC). Under ASME Section VIII, vessel wall thickness t must satisfy the Barlow circumferential hoop stress equation: t = (P × R) / (S × E - 0.6 × P), where P is maximum allowable working pressure (MAWP), R is inside vessel radius, S is maximum allowable material stress in megapascals, and E is weld joint efficiency.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Ensuring precise unit conversions between gauge PSI and bar prevents catastrophic vessel overpressure failures. For academic engineering coursework, students can track performance metrics in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and evaluate statistical tolerances in the <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Automotive Tires, Medicine & Diving Physiology
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In everyday consumer life, maintaining proper automotive tire pressure in PSI or bar optimizes fuel economy, prevents hydroplaning, and minimizes tire tread wear. In clinical healthcare, sphygmomanometers measure arterial systolic and diastolic blood pressure in millimeters of mercury (mmHg); a normal reading of 120/80 mmHg corresponds to an absolute gauge pressure of 16.0 / 10.7 kPa.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In recreational scuba diving, divers breathe compressed air delivered via two-stage demand regulators. For every 10 meters (33 feet) of seawater depth, ambient pressure increases by approximately 1 atmosphere (~1 bar / 14.7 PSI), requiring careful ascent timing to prevent nitrogen supersaturation and decompression sickness (&apos;the bends&apos;). For comprehensive unit tools across all physical domains, explore our <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <PressureConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Compressible Aerodynamics: Isentropic Stagnation Pressure Ratios
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In high-speed aerodynamics and gas turbine compressor design, air can no longer be modeled as an incompressible fluid. When a high-velocity gas stream traveling at Mach number M is decelerated isentropically to rest at a stagnation point (such as an aircraft pitot tube tip or turbine leading edge), its total pressure P_0 rises above ambient static pressure P according to the compressible isentropic flow relationship: P_0 / P = [1 + (γ - 1) / 2 × M²]^(γ / (γ - 1)), where γ is the specific heat ratio (1.4 for air).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At supersonic velocities (M &gt; 1), detached bow shockwaves introduce non-isentropic entropy gains, causing total pressure recovery losses across the shock front governed by the Rayleigh pitot tube formula. Aerospace flight test engineers convert pressure transducer readings between kilopascals, bar, and pounds per square inch to calibrate air data computers.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Vacuum Metrology: Mean Free Path & The Knudsen Number (Kn)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In semiconductor physical vapor deposition (PVD) chambers and space simulation vacuum vessels, pressures drop millions of times below atmospheric pressure into the high-vacuum (10⁻³ to 10⁻⁷ Torr) and ultra-high-vacuum (UHV, &lt; 10⁻⁷ Torr / 10⁻⁵ Pa) regimes. At these rarefied states, gas molecules collide more frequently with chamber walls than with one another.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Physicists categorize vacuum flow using the dimensionless Knudsen number Kn = λ / L, where λ is the molecular mean free path and L is chamber characteristic dimension. When Kn &gt; 1, continuum fluid mechanics breaks down into free molecular flow. Mechanical vacuum gauges like Bourdon tubes become completely inoperative, requiring hot-filament ionization gauges and Penning cold-cathode sensors calibrated to convert micro-Ampere ion currents into fractional Torr and micro-Pascals.
+          </p>
+
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Cardiovascular Hemodynamics & Poiseuille Hagen Pressure Gradients
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In clinical physiology and biofluid mechanics, the flow of blood through the circulatory system is governed by the Hagen-Poiseuille law: ΔP = (8 × μ × L × Q) / (π × r⁴), where ΔP is arterial pressure drop, μ is dynamic fluid viscosity, L is vessel length, Q is cardiac output, and r is arterial radius.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because vascular resistance scales inversely with the fourth power of vessel radius (r⁴), a mere 16% reduction in coronary lumen diameter doubles the required perfusion pressure gradient. Clinical cardiologists convert pressure measurements from millimeters of mercury (mmHg) to kilopascals to evaluate systemic vascular resistance (SVR) and myocardial workload.
+          </p>
+
+    </CalcPage>
   );
 }

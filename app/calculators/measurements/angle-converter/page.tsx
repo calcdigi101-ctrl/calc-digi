@@ -1,26 +1,214 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import AngleConverterComponent from "@/components/calcs/measurements/angle-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { AngleTrigonometricCircularDistributionChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/angle-converter";
+const TITLE = "Angle Converter | Degrees, Radians, Gradians & Arcminutes";
+const DESCRIPTION =
+  "Convert degrees, radians, gradians, arcminutes, arcseconds, and full turns with trigonometric circular derivations and interactive arc modeling.";
 
 export const metadata: Metadata = {
-  "title": "Angle Converter – Degrees to Radians, Gradians | CalcDigi",
-  "description": "Convert degrees to radians, radians to degrees, and gradians. Instant angle unit conversion for math, physics, and engineering.",
-  "openGraph": {
-    "title": "Angle Converter – Degrees to Radians, Gradians | CalcDigi",
-    "description": "Convert degrees to radians, radians to degrees, and gradians. Instant angle unit conversion for math, physics, and engineering.",
-    "type": "website",
-    "url": "/calculators/measurements/angle-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/angle-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/torque-converter", icon: "🔧", name: "Torque Converter" },
+  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🏎️", name: "Velocity Calculator" },
+  { href: "/calculators/math/ratio-calculator", icon: "🔢", name: "Ratio Calculator" },
+  { href: "/calculators/measurements/speed-converter", icon: "🚀", name: "Speed Converter" },
+  { href: "/pages/measurements", icon: "📐", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why is a full circle divided into 360 degrees?",
+    a: "The 360-degree circular division originated in ancient Mesopotamia with the Babylonians around 2000 BCE, using a sexagesimal (base-60) numerical system. 360 closely mirrored the 365-day solar year and possesses exceptional composite divisibility: 360 is evenly divisible by 24 distinct integer factors (1, 2, 3, 4, 5, 6, 8, 9, 10, 12, etc.), simplifying celestial navigation.",
+  },
+  {
+    q: "What is the natural mathematical definition of a radian (rad)?",
+    a: "A radian is the natural, dimensionless SI unit of angular measure. One radian is defined as the plane angle subtended at the center of a circle by an arc whose length along the circumference is equal to the radius of the circle: θ = s / r. Because a circle's circumference is 2πr, a full circle contains exactly 2π radians (~6.283185 rad), and 1 radian equals exactly 180° / π ≈ 57.29578°.",
+  },
+  {
+    q: "What are gradians (gons) and where are they used today?",
+    a: "The gradian (gon or grade) is a decimalized angular unit introduced in France during the metrication movement of the 1790s. In the gradian system, a right angle is divided into exactly 100 gradians (and a full circle into 400 gradians). While not widely adopted in general science, gradians remain standard in civil land surveying, topographic leveling, and tunnel boring across continental Europe.",
+  },
+  {
+    q: "How are arcminutes and arcseconds defined in astronomy and ballistics?",
+    a: "An arcminute (MOA, or minute of arc) is exactly 1/60th of a degree (0.01667°), and an arcsecond is 1/60th of an arcminute (1/3600th of a degree). In precision long-range ballistics, 1 MOA corresponds to approximately 1.047 inches at 100 yards. In astronomy, arcseconds measure the apparent angular diameter of planets and stellar parallax.",
+  },
+];
+
+export default function AngleConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Angle Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/angle-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Angle Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/angle-converter\", \"description\": \"Convert degrees to radians, radians to degrees, and gradians. Instant angle unit conversion for math, physics, and engineering.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do you convert degrees to radians?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply degrees by pi/180 (approximately 0.017453). To convert radians to degrees, multiply by 180/pi (approximately 57.2958). Example: 90 degrees = 90 x pi/180 = pi/2 = 1.5708 radians.\"}}, {\"@type\": \"Question\", \"name\": \"What is pi radians in degrees?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"pi radians = 180 degrees exactly. 2*pi radians = 360 degrees. pi/2 radians = 90 degrees. pi/4 = 45 degrees. pi/6 = 30 degrees. pi/3 = 60 degrees. These are the key angle relationships in trigonometry.\"}}, {\"@type\": \"Question\", \"name\": \"Why do mathematicians use radians instead of degrees?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Radians simplify calculus formulas. The derivative of sin(x) is cos(x) only when x is in radians. All Taylor series for trig functions assume radians. Physics and engineering equations are naturally simpler in radians.\"}}, {\"@type\": \"Question\", \"name\": \"What is 1 radian in degrees?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 radian = 180/pi = approximately 57.2958 degrees. A full circle has 2*pi = 6.2832 radians. One radian is the angle where the arc length equals the circle radius — about 57.3 degrees or roughly 1/6 of a circle.\"}}, {\"@type\": \"Question\", \"name\": \"What is a gradian or gon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"A gradian (gon) divides a right angle into 100 units, making a full circle 400 gradians. This base-10 system simplifies some surveying calculations. 1 gradian = 0.9 degrees = pi/200 radians.\"}}, {\"@type\": \"Question\", \"name\": \"How many arc-seconds are in a degree?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 degree = 60 arc-minutes = 3,600 arc-seconds. Arc-seconds are used in astronomy and GPS precision. The Hubble Space Telescope resolves detail at about 0.1 arc-seconds — about 1/36,000 of a degree.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Angle Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Angle Converter</h1>\n<p class=\"calc-intro\">Convert between degrees, radians, gradians, and arc-minutes. Essential for trigonometry, navigation, engineering, and physics. Learn why radians are the mathematical standard and how to convert between all angle units.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">Radians = Degrees x pi / 180 | Degrees = Radians x 180 / pi | Gradians = Degrees x 10/9</div></div>\n<div class=\"content-section\"><h2>Angle Unit Conversion Guide</h2><p>Angles are measured in three main units: degrees (everyday use), radians (mathematics and physics), and gradians (surveying). The degree system (360 per circle) dates to ancient Babylon. Radians are the SI standard used in all advanced mathematics.</p><h3>Degrees — The Everyday Angle</h3><p>A full circle = 360 degrees. Right angle = 90 degrees. Straight angle = 180 degrees. Each degree is divided into 60 arc-minutes and 3,600 arc-seconds — used in GPS coordinates and astronomy.</p><h3>Radians — The Mathematical Standard</h3><p>1 radian is the angle subtended by an arc equal to the radius. A full circle = 2*pi radians. pi radians = 180 degrees. Calculus and physics formulas require radians — the derivative of sin(x) is cos(x) ONLY when x is in radians.</p><h3>Gradians</h3><p>A gradian (gon) divides a right angle into 100 units, making a full circle 400 gradians. Used in some European surveying systems. 1 degree = 1.1111 gradians.</p><div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Angle</th><th style=\"padding:12px 16px;\">Degrees</th><th style=\"padding:12px 16px;\">Radians</th><th style=\"padding:12px 16px;\">Gradians</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Full circle</td> <td style=\"padding:11px 16px;\">360</td> <td style=\"padding:11px 16px;\">2*pi (6.2832)</td> <td style=\"padding:11px 16px;\">400</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Straight angle</td> <td style=\"padding:11px 16px;\">180</td> <td style=\"padding:11px 16px;\">pi (3.1416)</td> <td style=\"padding:11px 16px;\">200</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Right angle</td> <td style=\"padding:11px 16px;\">90</td> <td style=\"padding:11px 16px;\">pi/2 (1.5708)</td> <td style=\"padding:11px 16px;\">100</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">1 degree</td> <td style=\"padding:11px 16px;\">1</td> <td style=\"padding:11px 16px;\">0.017453</td> <td style=\"padding:11px 16px;\">1.1111</td></tr></tbody></table></div></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you convert degrees to radians? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply degrees by pi/180 (approximately 0.017453). To convert radians to degrees, multiply by 180/pi (approximately 57.2958). Example: 90 degrees = 90 x pi/180 = pi/2 = 1.5708 radians.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is pi radians in degrees? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">pi radians = 180 degrees exactly. 2*pi radians = 360 degrees. pi/2 radians = 90 degrees. pi/4 = 45 degrees. pi/6 = 30 degrees. pi/3 = 60 degrees. These are the key angle relationships in trigonometry.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why do mathematicians use radians instead of degrees? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Radians simplify calculus formulas. The derivative of sin(x) is cos(x) only when x is in radians. All Taylor series for trig functions assume radians. Physics and engineering equations are naturally simpler in radians.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is 1 radian in degrees? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 radian = 180/pi = approximately 57.2958 degrees. A full circle has 2*pi = 6.2832 radians. One radian is the angle where the arc length equals the circle radius — about 57.3 degrees or roughly 1/6 of a circle.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a gradian or gon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">A gradian (gon) divides a right angle into 100 units, making a full circle 400 gradians. This base-10 system simplifies some surveying calculations. 1 gradian = 0.9 degrees = pi/200 radians.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many arc-seconds are in a degree? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 degree = 60 arc-minutes = 3,600 arc-seconds. Arc-seconds are used in astronomy and GPS precision. The Hubble Space Telescope resolves detail at about 0.1 arc-seconds — about 1/36,000 of a degree.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/temperature-converter\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Temperature Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/volume-converter\"><span class=\"rc-icon\">🥄</span><span class=\"rc-name\">Volume Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Angle Converter – Degrees, Radians and Gradians</h2><div class=\"form-group\"><label for=\"cv-val\">Value</label><input id=\"cv-val\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"cv-from\">From</label><select id=\"cv-from\"><option selected=\"\" value=\"deg\">Degree</option><option value=\"rad\">Radian (rad)</option><option value=\"grad\">Gradian</option><option value=\"arcmin\">Arc-minute</option><option value=\"arcsec\">Arc-second</option><option value=\"turn\">Full Turn</option></select></div><div class=\"form-group\"><label for=\"cv-to\">To</label><select id=\"cv-to\"><option value=\"deg\">Degree</option><option selected=\"\" value=\"rad\">Radian (rad)</option><option value=\"grad\">Gradian</option><option value=\"arcmin\">Arc-minute</option><option value=\"arcsec\">Arc-second</option><option value=\"turn\">Full Turn</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Angle Converter – Degrees, Radians and Gradians')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Angle Converter – Degrees, Radians and Gradians')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-angle-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var F={\"deg\":1,\"rad\":57.29578,\"grad\":0.9,\"arcmin\":0.016667,\"arcsec\":0.000278,\"turn\":360};var N={\"deg\":\"Degree\",\"rad\":\"Radian\",\"grad\":\"Gradian\",\"arcmin\":\"Arc-minute\",\"arcsec\":\"Arc-second\",\"turn\":\"Full Turn\"};\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('cv-val').value);\n  var from=document.getElementById('cv-from').value;\n  var to=document.getElementById('cv-to').value;\n  if(isNaN(val)){alert('Please enter a valid number.');return;}\n  var base=val*F[from];var result=base/F[to];\n  var fromN=N[from];var toN=N[to];\n  var fmt=function(n){return n>=0.0001&&n<1e12?parseFloat(n.toFixed(8)).toString():n.toExponential(4);};\n  var extras=Object.keys(F).filter(function(u){return u!==from&&u!==to;}).slice(0,3).map(function(u){return ri('In '+N[u],fmt(base/F[u])+' '+u);}).join('');\n  document.getElementById('cv-ri').innerHTML=ri('Result','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmt(result)+' '+toN+'</strong>',true)+ri(val+' '+fromN+' =',fmt(result)+' '+toN)+extras;\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',[fromN,toN],[Math.abs(val)||0.001,Math.abs(result)||0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(val+' '+fromN+' = '+fmt(result)+' '+toN+'. In 2 sentences share a practical real-world example where this angle conversion matters most.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Trigonometric Guidance:</strong> Angular measure quantifies rotational divergence between intersecting lines or coordinate axes. In mechanical robotics, civil surveying, and astrophysics, cross-reference rotational moments in our <Link href="/calculators/measurements/torque-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">torque converter</Link> and calculate tangential arc displacement using our <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Foundations of Trigonometric Geometry: Circular Division Systems
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Angular measurement represents humanity&apos;s primary tool for geometric positioning, cartography, celestial navigation, and harmonic wave analysis. In Euclidean geometry, an angle quantifies the amount of rotation required to bring one ray into coincidence with another around a shared vertex point. In the International System of Units (SI), the radian (rad) serves as the coherent derived unit, defined naturally through arc length ratios without arbitrary imperial or historical graduations.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            However, civil engineering, optical astronomy, military artillery, and digital computer graphics each utilize specialized angular systems. Surveyors in Europe employ decimal gradians (400 gon per circle); astronomers catalog celestial coordinates using degrees, arcminutes, and arcseconds; military artillery spotters measure target deflection using NATO artillery mils (6,400 mils per circle); and game physics engines calculate rotational velocity in full revolutions or turns per second.
+          </p>
+
+          <AngleTrigonometricCircularDistributionChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivations: Radians, Degrees & Trigonometric Identity
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            All planar angle transformations compute through the SI dimensionless unit of the radian (rad). The circular conversion from source angle to target unit executes through fundamental constants:
+          </p>
+          <Formula>{"\\theta_{\\text{target}} = \\theta_{\\text{source}} \\times \\left( \\frac{\\alpha_{\\text{source}}}{\\alpha_{\\text{target}}} \\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where α represents the unit value in radians. The exact circular constants are:
+          </p>
+          <Formula>{"180^\\circ = \\pi \\text{ rad} \\implies 1^\\circ = \\frac{\\pi}{180} \\text{ rad} \\approx 0.0174532925 \\text{ rad}"}</Formula>
+          <Formula>{"1 \\text{ rad} = \\frac{180^\\circ}{\\pi} \\approx 57.2957795^\\circ, \\quad 1 \\text{ gon} = \\frac{\\pi}{200} \\text{ rad} = 0.9^\\circ"}</Formula>
+          <Formula>{"1 \\text{ arcmin} = \\frac{1^\\circ}{60} = 0.000290888 \\text{ rad}, \\quad 1 \\text{ arcsec} = \\frac{1^\\circ}{3600} = 4.8481368 \\times 10^{-6} \\text{ rad}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In rotating machinery, angular velocity ω relates to linear peripheral speed via v = r × ω; cross-reference tangential velocity in our <Link href="/calculators/measurements/speed-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">speed converter</Link> and calculate geometric proportions in our <Link href="/calculators/math/ratio-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ratio calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Global Angular Dimensions
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles exact metric conversion constants across astronomical, navigational, artillery, and trigonometric domains:
+          </p>
+          <DataTable
+            head={["Angle Unit", "Symbol", "Value in Radians (rad)", "Value in Degrees (°)", "Divisions per Circle"]}
+            rows={[
+              ["Arcsecond", "arcsec / ″", "4.848137 × 10⁻⁶ rad", "0.000277778°", "1,296,000 ″"],
+              ["Arcminute (MOA)", "arcmin / ′", "0.000290888 rad", "0.0166667°", "21,600 ′"],
+              ["Milliradian (NATO Mil)", "mil / mrad", "0.001 rad", "0.0572958°", "6,283.19 mrad (6,400 NATO)"],
+              ["Gradian (Gon)", "gon / grad", "0.01570796 rad", "0.90°", "400.0 gon"],
+              ["Degree (Sexagesimal)", "° / deg", "0.01745329 rad", "1.0°", "360.0°"],
+              ["Radian (SI Coherent)", "rad", "1.0 rad", "57.2957795°", "2π rad (~6.283185)"],
+              ["Quadrant (Right Angle)", "quad", "1.5707963 rad", "90.0°", "4.0 quadrants"],
+              ["Semicircle (Straight Angle)", "π rad", "3.14159265 rad", "180.0°", "2.0 semicircles"],
+              ["Full Turn (Revolution)", "rev / turn", "6.2831853 rad", "360.0°", "1.0 turn"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Long-Range Rifle Ballistics & MOA Adjustment
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a precision marksmanship ballistics engineer calibrating an optical telescopic sight for long-range target shooting at 800 yards. At this distance, crosswind drift shifts the bullet impact point horizontally by 28.5 inches. The marksman must calculate required optic turret clicks if the scope is calibrated in 1/4 MOA (Minutes of Angle) increments, and verify equivalence in milliradians (mrad):
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Compute 1 MOA Subtension at 800 Yards):</strong> 1 MOA subtends tan(1° / 60) × (800 × 36 inches) = tan(0.016667°) × 28,800 inches ≈ 8.3776 inches.</li>
+            <li><strong>Step 2 (Calculate Required MOA Correction):</strong> 28.5 inches ÷ 8.3776 inches/MOA = 3.402 MOA.</li>
+            <li><strong>Step 3 (Determine Turret Click Adjustments):</strong> At 1/4 MOA per click: 3.402 × 4 ≈ 13.6 clicks (rounded to 14 turret clicks).</li>
+            <li><strong>Step 4 (Milliradian Equivalent Verification):</strong> In radians: 3.402 MOA × (0.000290888 rad/MOA) = 0.000989 rad ≈ 0.989 mrad. In milliradian turrets (0.1 mrad per click), this requires exactly 10 clicks, confirming ballistic trajectory alignment. Cross-reference projectile impact velocity using our <Link href="/calculators/physics/velocity-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">velocity calculator</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Stellar Parallax & The Geometric Definition of the Parsec
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In observational astrophysics, trigonometric stellar parallax represents the premier foundational rung of the cosmic distance ladder. As Earth orbits the Sun, nearby stars appear to shift slightly against the background of distant galaxies over a six-month baseline (2 Astronomical Units, AU).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Astronomers define the parsec (parallax arcsecond) as the distance at which a star exhibits a parallax half-angle of exactly one arcsecond (1″): d = 1 AU / tan(1″). Because 1 arcsecond is extraordinarily minuscule (4.84814 × 10⁻⁶ radians), the small-angle approximation tan(θ) ≈ θ applies: d ≈ 149,597,870,700 m ÷ 4.8481368 × 10⁻⁶ rad ≈ 3.08567758 × 10¹⁶ meters (approximately 3.26156 light-years).
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Military Artillery Mils & The Stadiametric Rangefinding Formula
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In military field artillery and tactical binoculars, angles are measured in angular mils. Mathematically, 1 milliradian is 1/1,000 of a radian, possessing the property that an object 1 meter tall subtends an angle of exactly 1 mil at a distance of 1,000 meters.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For practical compass dials, NATO standardizes the circle into exactly 6,400 mils (allowing easy halving and quartering), whereas Soviet Warsaw Pact artillery utilized 6,000 mils, and Sweden adopted 6,300 mils. Forward observers calculate target distance using the simple stadiametric formula: Range (meters) = [Target Size (meters) × 1,000] ÷ Subtended Mils.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Euler Angles, Quaternions & Rotational Kinematics in Robotics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 3D aerospace flight control and multi-axis industrial robotics, spatial orientations are parameterized via Euler angles: Yaw (ψ), Pitch (θ), and Roll (ϕ). However, Euler angle transformations suffer from a fundamental topological mathematical singularity known as &apos;gimbal lock&apos;—when the pitch angle reaches ±90°, the yaw and roll axes align collinear, losing one rotational degree of freedom.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To prevent flight computer crashes and robotic gimbal lock, modern guidance algorithms utilize four-dimensional hypercomplex unit quaternions q = [w, x, y, z] invented by William Rowan Hamilton in 1843, ensuring smooth spherical linear interpolation (SLERP) without trigonometric singularities.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Carpentry, Wheel Alignment & Solar Tracking
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In domestic carpentry and timber framing, roof pitches are expressed as slope ratios (e.g., 6:12 pitch indicates a 6-inch vertical rise over a 12-inch horizontal run, corresponding to arctan(6/12) ≈ 26.57°). In automotive chassis suspension tuning, mechanics adjust front wheel camber and caster angles within tenths of a degree to prevent uneven tire wear and ensure high-speed directional tracking stability.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In renewable solar energy, dual-axis solar trackers continuously compute solar azimuth and zenith angles using astronomical ephemeris algorithms, orienting photovoltaic panels perpendicular to incoming sunlight to boost annual electrical generation by up to 35%. For academic grading and coursework tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and track test percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <AngleConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Geodetic Cartography: Ellipsoid Latitude / Longitude to UTM Plane Coordinates
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In satellite geodesy and GIS surveying, Earth&apos;s shape is modeled as a reference oblate spheroid (WGS 84). Positions on the curved planet are defined by angular coordinates: geodetic latitude (ϕ, north-south angle from the equatorial plane) and geodetic longitude (λ, east-west angle from the Greenwich prime meridian) measured in sexagesimal degrees, minutes, and seconds.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To translate angular spherical coordinates into Cartesian metric x/y grid coordinates for civil engineering construction, surveyors apply Universal Transverse Mercator (UTM) map projections. UTM divides the globe into 60 longitudinal zones of 6 degrees each. By applying Gaussian conformal mapping equations, angular arc divergences are projected onto planar grid coordinates (easting and northing in meters) with scale distortion constrained to less than 1 part in 1,000 across each zone.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Optical Diffraction & The Rayleigh Angular Resolution Criterion
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In optical physics, astronomy, and camera lens design, angular resolving power is fundamentally limited by the wave nature of light rather than lens manufacturing imperfections. When light of wavelength λ passes through a circular aperture of diameter D, wave diffraction forms a central bright spot surrounded by concentric dark rings (the Airy disk pattern).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Lord Rayleigh formulated the criterion for resolving two closely spaced point sources: their angular separation θ must satisfy θ ≥ 1.22 × (λ / D) radians. For the James Webb Space Telescope with a primary mirror diameter D = 6.5 meters observing infrared light at λ = 2.0 micrometers, the theoretical diffraction limit is: θ = 1.22 × (2.0 × 10⁻⁶ m ÷ 6.5 m) ≈ 3.75 × 10⁻⁷ radians (approximately 0.077 arcseconds), allowing astronomers to resolve distant exoplanetary atmospheres.
+          </p>
+
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Computer Graphics: Spherical Coordinates & Trigonometric Ray Tracing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 3D video game graphics engines and cinematic photorealistic ray tracing, illumination calculations require evaluating angles between surface normal vectors N and incident light direction vectors L. The rendering equation computes Lambertian diffuse reflection proportional to the cosine of the incidence angle: I = I_0 × cos(θ) = I_0 × (N · L).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Graphics Processing Units (GPUs) execute billions of trigonometric sine and cosine functions every second using fast hardware-approximated CORDIC (Coordinate Rotation Digital Computer) algorithms. Converting between sexagesimal degrees in artist modeling software and floating-point radians in shading code ensures seamless photorealistic rendering of complex 3D virtual environments.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In optical lens manufacturing, surface profile curvature is measured using laser phase-shifting interferometry in fringes and arcseconds. Eliminating astigmatic wavefront aberrations ensures high-numerical-aperture microscope objectives deliver sharp sub-micron image resolution across the entire field of view.
+          </p>
+
+    </CalcPage>
   );
 }

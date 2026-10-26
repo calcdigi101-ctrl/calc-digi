@@ -1,26 +1,209 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import TemperatureConverterComponent from "@/components/calcs/measurements/temperature-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { TemperatureThermodynamicScalesChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/temperature-converter";
+const TITLE = "Temperature Converter | Celsius, Fahrenheit & Kelvin Scales";
+const DESCRIPTION =
+  "Convert Celsius, Fahrenheit, Kelvin, and Rankine scales with thermodynamic zero-point derivations and interactive phase transition modeling.";
 
 export const metadata: Metadata = {
-  "title": "Temperature Converter – Celsius to Fahrenheit | CalcDigi",
-  "description": "Convert Celsius to Fahrenheit, Kelvin to Celsius, and more. Instant temperature unit conversion with formulas and examples.",
-  "openGraph": {
-    "title": "Temperature Converter – Celsius to Fahrenheit | CalcDigi",
-    "description": "Convert Celsius to Fahrenheit, Kelvin to Celsius, and more. Instant temperature unit conversion with formulas and examples.",
-    "type": "website",
-    "url": "/calculators/measurements/temperature-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/temperature-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/energy-converter", icon: "⚡", name: "Energy Converter" },
+  { href: "/calculators/measurements/pressure-converter", icon: "⏱️", name: "Pressure Converter" },
+  { href: "/calculators/measurements/volume-converter", icon: "🧪", name: "Volume Converter" },
+  { href: "/calculators/physics/force-calculator", icon: "💥", name: "Force Calculator" },
+  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "/pages/measurements", icon: "🌡️", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why does the Fahrenheit scale have a 32-degree freezing offset?",
+    a: "In 1724, physicist Daniel Gabriel Fahrenheit established 0°F as the stabilized temperature of an ice, water, and ammonium chloride brine mixture (the coldest achievable laboratory freezing mixture at the time). Pure water freezes at 32°F on this empirical scale and boils at 212°F, creating a 180-degree interval between phase changes.",
+  },
+  {
+    q: "At what specific temperature do Celsius and Fahrenheit read identical numerical values?",
+    a: "Celsius and Fahrenheit intersect at exactly -40° (-40°C = -40°F). Setting C = F in the conversion equation F = 1.8C + 32 yields x = 1.8x + 32, which algebraically resolves to -0.8x = 32, meaning x = -40°.",
+  },
+  {
+    q: "What is the physical meaning of Absolute Zero (0 Kelvin)?",
+    a: "Absolute Zero (0 K, -273.15°C, or -459.67°F) is the thermodynamic state where enthalpy and entropy of a cooled ideal gas reach their minimum theoretical values. At absolute zero, classical atomic kinetic motion ceases entirely, with matter retaining only quantum mechanical zero-point energy.",
+  },
+  {
+    q: "Why is the degree symbol (°) omitted when reporting Kelvin temperatures?",
+    a: "Under BIPM and SI conventions, Kelvin is an absolute thermodynamic unit of temperature measure rather than an arbitrary graduated scale. Temperatures in Kelvin are expressed simply as 'Kelvin' with the symbol K (e.g., 300 K, not 300°K), whereas relative empirical scales like Celsius (°C) and Fahrenheit (°F) retain the degree sign.",
+  },
+];
+
+export default function TemperatureConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Temperature Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/temperature-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Temperature Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/temperature-converter\", \"description\": \"Convert Celsius to Fahrenheit, Kelvin to Celsius, and more. Instant temperature unit conversion with formulas and examples.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the formula to convert Celsius to Fahrenheit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply Celsius by 9/5, then add 32: °F = (°C × 9/5) + 32. For example, 25°C = (25 × 1.8) + 32 = 45 + 32 = 77°F. To reverse: °C = (°F − 32) × 5/9.\"}}, {\"@type\": \"Question\", \"name\": \"What is 37 degrees Celsius in Fahrenheit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"37°C is 98.6°F — the normal human body temperature. Using the formula: (37 × 9/5) + 32 = 66.6 + 32 = 98.6°F. A fever in adults is generally considered 38°C (100.4°F) or above.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between Celsius and Kelvin?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Celsius and Kelvin use the same size degree but different zero points. 0°C = 273.15 K. To convert Celsius to Kelvin, simply add 273.15. Kelvin starts at absolute zero (-273.15°C), where all thermal motion stops.\"}}, {\"@type\": \"Question\", \"name\": \"At what temperature are Fahrenheit and Celsius equal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"At -40 degrees — both scales read -40 at this unique point. This is because the two scales converge at exactly -40, making it the only temperature with the same value in both Celsius and Fahrenheit.\"}}, {\"@type\": \"Question\", \"name\": \"What temperature is comfortable room temperature?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Comfortable room temperature is typically 20-22°C (68-72°F). Most HVAC systems are set to maintain 21°C (70°F) as a default comfortable indoor temperature for most people.\"}}, {\"@type\": \"Question\", \"name\": \"What is absolute zero in Celsius and Fahrenheit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Absolute zero is -273.15°C or -459.67°F (0 Kelvin). At this temperature, all molecular motion theoretically stops. It has never been achieved in practice, though scientists have come within billionths of a degree.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\">\n<div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Temperature Converter</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Temperature Converter</h1>\n<p class=\"calc-intro\">Convert between Celsius, Fahrenheit, and Kelvin instantly. Learn the exact formulas, understand why temperature scales differ, and find common temperature references for weather, cooking, science, and body temperature.</p>\n<div class=\"content-section\">\n<h2>Conversion Formula</h2>\n<div class=\"formula-box\">°F = (°C × 9/5) + 32 | °C = (°F − 32) × 5/9 | K = °C + 273.15</div>\n</div>\n<div class=\"content-section\">\n<h2>How to Convert Temperature Scales</h2>\n<p>Temperature conversion is one of the most commonly needed conversions in daily life. The United States uses the Fahrenheit scale for weather and everyday temperature, while the rest of the world uses Celsius. Scientists worldwide use the Kelvin scale for absolute temperature measurements.</p>\n<h3>Celsius to Fahrenheit Formula</h3>\n<p>The formula to convert Celsius to Fahrenheit is: <strong>°F = (°C × 9/5) + 32</strong>. To convert Fahrenheit to Celsius: <strong>°C = (°F − 32) × 5/9</strong>.</p>\n<ul><li>0°C = 32°F (water freezes)</li><li>20°C = 68°F (comfortable room temperature)</li><li>37°C = 98.6°F (normal body temperature)</li><li>100°C = 212°F (water boils at sea level)</li></ul>\n<h3>Celsius to Kelvin</h3>\n<p>Kelvin is the SI unit of temperature used in science and engineering. Unlike Celsius and Fahrenheit, Kelvin starts at absolute zero — the coldest possible temperature where all molecular motion stops. <strong>K = °C + 273.15</strong>.</p>\n<ul><li>Absolute zero: 0 K = -273.15°C = -459.67°F</li><li>Water freezes: 273.15 K = 0°C</li><li>Room temperature: 293.15 K = 20°C</li><li>Water boils: 373.15 K = 100°C</li></ul>\n<h3>Quick Mental Conversion Tricks</h3>\n<p>For a quick Celsius to Fahrenheit estimate: double the Celsius and add 30. For example, 20°C → (20×2)+30 = 70°F (actual is 68°F — close enough for everyday use).</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;text-align:left;\">Landmark Temperature</th><th style=\"padding:12px 16px;\">°C</th><th style=\"padding:12px 16px;\">°F</th><th style=\"padding:12px 16px;\">K</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Absolute Zero</td><td style=\"padding:11px 16px;\">-273.15</td><td style=\"padding:11px 16px;\">-459.67</td><td style=\"padding:11px 16px;\">0</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Water Freezes</td><td style=\"padding:11px 16px;\">0</td><td style=\"padding:11px 16px;\">32</td><td style=\"padding:11px 16px;\">273.15</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Body Temperature</td><td style=\"padding:11px 16px;\">37</td><td style=\"padding:11px 16px;\">98.6</td><td style=\"padding:11px 16px;\">310.15</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Water Boils</td><td style=\"padding:11px 16px;\">100</td><td style=\"padding:11px 16px;\">212</td><td style=\"padding:11px 16px;\">373.15</td></tr>\n<tr><td style=\"padding:11px 16px;\">Oven (moderate)</td><td style=\"padding:11px 16px;\">180</td><td style=\"padding:11px 16px;\">356</td><td style=\"padding:11px 16px;\">453.15</td></tr>\n</tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the formula to convert Celsius to Fahrenheit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply Celsius by 9/5, then add 32: °F = (°C × 9/5) + 32. For example, 25°C = (25 × 1.8) + 32 = 45 + 32 = 77°F. To reverse: °C = (°F − 32) × 5/9.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is 37 degrees Celsius in Fahrenheit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">37°C is 98.6°F — the normal human body temperature. Using the formula: (37 × 9/5) + 32 = 66.6 + 32 = 98.6°F. A fever in adults is generally considered 38°C (100.4°F) or above.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between Celsius and Kelvin? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Celsius and Kelvin use the same size degree but different zero points. 0°C = 273.15 K. To convert Celsius to Kelvin, simply add 273.15. Kelvin starts at absolute zero (-273.15°C), where all thermal motion stops.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">At what temperature are Fahrenheit and Celsius equal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">At -40 degrees — both scales read -40 at this unique point. This is because the two scales converge at exactly -40, making it the only temperature with the same value in both Celsius and Fahrenheit.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What temperature is comfortable room temperature? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Comfortable room temperature is typically 20-22°C (68-72°F). Most HVAC systems are set to maintain 21°C (70°F) as a default comfortable indoor temperature for most people.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is absolute zero in Celsius and Fahrenheit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Absolute zero is -273.15°C or -459.67°F (0 Kelvin). At this temperature, all molecular motion theoretically stops. It has never been achieved in practice, though scientists have come within billionths of a degree.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Measurement Converters</h2>\n<div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/volume-converter\"><span class=\"rc-icon\">🥄</span><span class=\"rc-name\">Volume Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/speed-converter\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Speed Converter</span></a></div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Temperature Converter – Celsius, Fahrenheit &amp; Kelvin</h2>\n<div class=\"form-group\"><label for=\"cv-val\">Value</label><input id=\"cv-val\" step=\"any\" type=\"number\" value=\"1\"/></div>\n<div class=\"form-group\"><label for=\"cv-from\">From</label><select id=\"cv-from\"><option selected=\"\" value=\"c\">Celsius (°C)</option>\n<option value=\"f\">Fahrenheit (°F)</option>\n<option value=\"k\">Kelvin (K)</option></select></div>\n<div class=\"form-group\"><label for=\"cv-to\">To</label><select id=\"cv-to\"><option value=\"c\">Celsius (°C)</option>\n<option selected=\"\" value=\"f\">Fahrenheit (°F)</option>\n<option value=\"k\">Kelvin (K)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\">\n<div id=\"cv-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Temperature Converter – Celsius, Fahrenheit &amp; Kelvin')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Temperature Converter – Celsius, Fahrenheit &amp; Kelvin')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-temperature-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('cv-val').value);\n  var from=document.getElementById('cv-from').value;\n  var to=document.getElementById('cv-to').value;\n  if(isNaN(val)){alert('Please enter a valid temperature.');return;}\n  var celsius;\n  if(from==='c') celsius=val;\n  else if(from==='f') celsius=(val-32)*5/9;\n  else celsius=val-273.15;\n  var result;\n  var toN;\n  if(to==='c'){result=celsius;toN='°C';}\n  else if(to==='f'){result=celsius*9/5+32;toN='°F';}\n  else {result=celsius+273.15;toN='K';}\n  var fromN=from==='c'?'°C':from==='f'?'°F':'K';\n  var fmt=function(n){return parseFloat(n.toFixed(4)).toString();};\n  document.getElementById('cv-ri').innerHTML=\n    ri('Result','<strong style=\"font-size:24px;color:var(--c-accent)\">'+fmt(result)+' '+toN+'</strong>',true)+\n    ri(fmt(val)+' '+fromN+' =',fmt(result)+' '+toN)+\n    ri('In Celsius',fmt(celsius)+' °C')+\n    ri('In Fahrenheit',fmt(celsius*9/5+32)+' °F')+\n    ri('In Kelvin',fmt(celsius+273.15)+' K');\n  document.getElementById('cv-result').style.display='block';\n  document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',[fromN,toN],[Math.abs(val)+0.001,Math.abs(result)+0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(fmt(val)+fromN+' = '+fmt(result)+toN+'. In 2 sentences give a real-world context for this temperature, such as weather, cooking, or medical significance.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Thermodynamic Guidance:</strong> Temperature quantifies the average microscopic kinetic energy of atomic particles. In thermal physics and chemical process engineering, cross-reference our <Link href="/calculators/measurements/energy-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">energy converter</Link> for heat transfer wattage and analyze ideal gas parameters in our <Link href="/calculators/measurements/pressure-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">pressure converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Thermodynamic Foundations & Empirical Temperature Scales
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Unlike scalar physical quantities such as length, mass, or time—which are extensive properties that sum linearly when combining system subsystems—temperature is an intensive thermodynamic state variable. It does not depend on the quantity of matter in a vessel, but rather reflects the statistical distribution of microscopic thermal velocities among constituent atoms and molecules per Maxwell-Boltzmann statistics.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because early thermometer inventors lacked atomic theory, initial temperature scales were constructed empirically around convenient physical reference points, such as the freezing of salty brine, melting ice, and the human armpit. Today, thermodynamic temperature is anchored to the Boltzmann constant k_B, harmonizing laboratory cryogenic cryostats, HVAC environmental controls, and stellar astrophysics into a unified quantitative framework.
+          </p>
+
+          <TemperatureThermodynamicScalesChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Transformation Formulas Across Thermal Systems
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Transformations between temperature scales require both a multiplicative scaling factor (due to differing degree step intervals) and an additive linear offset (due to differing zero-point origins):
+          </p>
+          <Formula>{"T_{^\\circ\\text{F}} = \\left( T_{^\\circ\\text{C}} \\times \\frac{9}{5} \\right) + 32, \\quad T_{^\\circ\\text{C}} = \\left( T_{^\\circ\\text{F}} - 32 \\right) \\times \\frac{5}{9}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For thermodynamic engineering and gas law calculations (PV = nRT), temperatures must be expressed in absolute scales: Kelvin (for metric systems) or Rankine (for imperial engineering):
+          </p>
+          <Formula>{"T_{\\text{K}} = T_{^\\circ\\text{C}} + 273.15, \\quad T_{^\\circ\\text{R}} = T_{^\\circ\\text{F}} + 459.67 = T_{\\text{K}} \\times 1.8"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When calculating convective or radiative heat transfer rates, temperature differences directly determine thermodynamic work. You can evaluate thermal energy in our <Link href="/calculators/measurements/energy-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">energy converter</Link> and cross-reference volumetric fluid expansions in our <Link href="/calculators/measurements/volume-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">volume converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Benchmarks Across Physical Scales
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles critical thermodynamic state transitions across Kelvin, Celsius, Fahrenheit, and Rankine scales:
+          </p>
+          <DataTable
+            head={["Thermodynamic Benchmark", "Kelvin (K)", "Celsius (°C)", "Fahrenheit (°F)", "Rankine (°R)"]}
+            rows={[
+              ["Absolute Zero (Ideal Gas Zero)", "0 K", "-273.15 °C", "-459.67 °F", "0 °R"],
+              ["Liquid Nitrogen Boiling (1 atm)", "77.36 K", "-195.79 °C", "-320.42 °F", "139.25 °R"],
+              ["Dry Ice Sublimation (CO2)", "194.65 K", "-78.50 °C", "-109.30 °F", "350.37 °R"],
+              ["Water Freezing Point (1 atm)", "273.15 K", "0.00 °C", "32.00 °F", "491.67 °R"],
+              ["Water Triple Point (BIPM Anchor)", "273.16 K", "0.01 °C", "32.018 °F", "491.688 °R"],
+              ["Standard Ambient (ISO 1)", "293.15 K", "20.00 °C", "68.00 °F", "527.67 °R"],
+              ["Human Core Body Temperature", "310.15 K", "37.00 °C", "98.60 °F", "558.27 °R"],
+              ["Water Boiling Point (1 atm)", "373.15 K", "100.00 °C", "212.00 °F", "671.67 °R"],
+              ["Lead Melting Point", "600.61 K", "327.46 °C", "621.43 °F", "1081.10 °R"],
+              ["Surface of the Sun (Photosphere)", "5,778 K", "5,505 °C", "9,941 °F", "10,400 °R"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Cryogenic Liquid Natural Gas Transport
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a maritime cryogenic engineer supervising the loading of a liquefied natural gas (LNG) carrier. The methane cargo must be chilled to atmospheric liquefaction temperature of -161.5°C. American port safety inspectors require temperature monitoring logs to be validated in degrees Fahrenheit (°F), while the boil-off vapor pressure equations require absolute Kelvin (K):
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Convert Celsius to Fahrenheit):</strong> Multiply by 1.8 and add 32: (-161.5 × 1.8) + 32 = -290.7 + 32 = -258.7°F.</li>
+            <li><strong>Step 2 (Convert Celsius to Absolute Kelvin):</strong> Add 273.15: -161.5 + 273.15 = 111.65 K.</li>
+            <li><strong>Step 3 (Rankine Verification):</strong> T_R = -258.7 + 459.67 = 200.97 °R. Verifying: 111.65 K × 1.8 = 200.97 °R, confirming thermal equivalence.</li>
+            <li><strong>Step 4 (Boil-Off Vapor Pressure Modeling):</strong> Cargo tank pressure must remain strictly regulated; cross-reference allowable ullage pressures in our <Link href="/calculators/measurements/pressure-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">pressure converter</Link> and pipeline flow velocity in the <Link href="/calculators/measurements/speed-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">speed converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The 2019 SI Redefinition of the Kelvin via the Boltzmann Constant
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            From 1954 until May 2019, the Kelvin was defined by setting the triple point of water—the unique thermodynamic state where solid ice, liquid water, and water vapor coexist in stable equilibrium—to exactly 273.16 K (0.01°C). While elegant, this definition suffered from a fundamental flaw: the isotopic composition of water varies across planetary sources. Standard Mean Ocean Water (VSMOW) had to be carefully manufactured to control deuterium and oxygen-18 concentrations.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 2019, the General Conference on Weights and Measures redefined the Kelvin by fixing the Boltzmann constant k_B to exactly 1.380649 × 10⁻²³ Joules per Kelvin (J·K⁻¹). This links thermal measurements directly to microscopic energy per degree of freedom, enabling primary thermometry using acoustic gas thermometers, Johnson noise thermometers, and Doppler broadening laser spectroscopy without relying on water samples.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Thermal Expansion and Invar Alloy Dimensional Stability
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Temperature fluctuations cause metallic components to expand and contract, posing significant challenges in precision optical instruments, aerospace satellite frames, and chronometer pendulums. In 1896, Swiss physicist Charles Édouard Guillaume discovered Invar (FeNi36), a nickel-iron alloy with an anomalously low coefficient of thermal expansion (α ≈ 1.2 × 10⁻⁶ K⁻¹ near room temperature, roughly one-tenth that of structural steel).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding thermal coefficient shifts across temperature ranges prevents optical defocusing in space telescopes as they transition between orbital sunlight (+120°C) and orbital shadow (-100°C). You can evaluate structural dimensions using our <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link> and calculate mass ballast in our <Link href="/calculators/measurements/weight-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weight converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Industrial Thermometry: Thermocouples, RTDs & Infrared Pyrometry
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern manufacturing plants, automated process control relies on three primary sensor architectures:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Thermocouples (Seebeck Effect):</strong> Dissimilar metal junctions (e.g., Type K Chromel-Alumel) generate microvolt-level potential differences proportional to temperature gradients, operating across extreme ranges from -200°C to +1,350°C.</li>
+            <li><strong>Resistance Temperature Detectors (RTDs):</strong> Platinum sensors (Pt100, Pt1000) exploit the highly linear positive temperature coefficient of platinum (0.385 Ω/°C) to achieve high measurement precision (±0.05°C) across -200°C to +850°C.</li>
+            <li><strong>Optical & Infrared Pyrometers:</strong> Non-contact sensors measure Planck blackbody spectral radiance to calculate furnace and molten steel temperatures exceeding 2,000°C without sensor degradation.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Meteorology, Culinary Science & Building HVAC
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In daily life, converting temperatures is essential for international travel, weather tracking, and culinary preparation. While the United States utilizes Fahrenheit for domestic weather forecasts and oven settings (e.g., standard baking at 350°F corresponds to ~177°C or gas mark 4), the vast majority of the globe uses Celsius. In meteorology, relative humidity calculations require determining the dew point temperature, where water vapor begins condensing into dew or fog.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In energy-efficient building architecture, heating and cooling engineers calculate heating degree days (HDD) and cooling degree days (CDD) relative to a base temperature of 65°F (18.3°C) to optimize HVAC chiller sizing and insulation ratings. For academic modeling, students can evaluate statistical results in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and track course metrics in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>, or visit our comprehensive <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <TemperatureConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Cryogenic Superconductivity & Critical Transition Temperatures (Tc)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When certain conductive elements and ceramics are chilled below a characteristic critical temperature (T_c), their DC electrical resistivity vanishes abruptly to zero, a quantum macroscopic phenomenon first observed by Heike Kamerlingh Onnes in 1911 when cooling liquid mercury to 4.2 K. In modern medical magnetic resonance imaging (MRI) scanners and particle colliders such as CERN&apos;s Large Hadron Collider, niobium-titanium superconducting electromagnets are continuously bathed in liquid helium at 1.9 K to sustain electrical currents exceeding 12,000 Amperes without resistive Joule dissipation.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 1986, the breakthrough discovery of cuprate &apos;high-temperature superconductors&apos; like Yttrium Barium Copper Oxide (YBCO, T_c = 93 K / -180.15°C) allowed superconductivity to be achieved using inexpensive liquid nitrogen (boiling point 77.36 K / -195.79°C). Accurately converting between Kelvin and Celsius is critical in cryogenic thermal modeling to prevent destructive magnet quenches, where localized heating above T_c converts supercurrent into sudden explosive boiling of liquid cryogens.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Stefan-Boltzmann Blackbody Radiation & Stellar Astrophysics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In astrophysics and thermal radiative physics, every thermodynamic body with a temperature above absolute zero emits electromagnetic radiation. Josef Stefan and Ludwig Boltzmann established that the total radiant exitance j* of an idealized blackbody is directly proportional to the fourth power of its absolute thermodynamic temperature: j* = σ × T⁴, where σ is the Stefan-Boltzmann constant (5.670374419 × 10⁻⁸ W·m⁻²·K⁻⁴).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Crucially, this fourth-power relationship mandates the use of absolute temperature in Kelvin or Rankine. Attempting to evaluate thermal radiation using relative Celsius or Fahrenheit scales produces completely invalid mathematical results. For example, doubling a star&apos;s surface temperature from 3,000 K to 6,000 K multiplies its radiative energy output by a factor of 2⁴ = 16. Astronomers utilize Wien&apos;s displacement law (λ_max × T = 2.89777 × 10⁻³ m·K) to determine the surface temperatures of distant celestial bodies directly from their peak emission spectra.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In petrochemical refining and crude distillation towers, operating temperatures govern fractional boiling points between light naphtha, kerosene, diesel, and heavy bitumen. Maintaining precise fractionator temperature profiles prevents thermal cracking and ensures fuel flash points comply strictly with ASTM D93 safety specifications.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In pharmaceutical bioreactor cultivation and vaccine cold-chain distribution, ultra-low temperature freezers maintain mRNA therapeutics at -80°C (-112°F). Thermal mapping validations certified under WHO Good Distribution Practices ensure uniform temperature gradients, eliminating batch degradation from localized temperature excursions.
+          </p>
+
+    </CalcPage>
   );
 }
