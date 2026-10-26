@@ -1,26 +1,218 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import ShoeSizeConverterComponent from "@/components/calcs/measurements/shoe-size-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { ShoeSizeInternationalFitMatrixChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/shoe-size-converter";
+const TITLE = "Shoe Size Converter | US, UK, EU & Centimeter Sizing Charts";
+const DESCRIPTION =
+  "Convert US Men, US Women, UK, European (EU), Japanese (CM), and Mondo point shoe sizes with exact anatomical foot length derivations and fit matrices.";
 
 export const metadata: Metadata = {
-  "title": "Shoe Size Converter – US to EU, UK to US | CalcDigi",
-  "description": "Convert US to EU shoe sizes, UK to US, EU to US for men and women. Includes size chart and foot length measurement guide.",
-  "openGraph": {
-    "title": "Shoe Size Converter – US to EU, UK to US | CalcDigi",
-    "description": "Convert US to EU shoe sizes, UK to US, EU to US for men and women. Includes size chart and foot length measurement guide.",
-    "type": "website",
-    "url": "/calculators/measurements/shoe-size-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/shoe-size-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/clothing-size-converter", icon: "👗", name: "Clothing Size" },
+  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
+  { href: "/calculators/math/ratio-calculator", icon: "🔢", name: "Ratio Calculator" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage" },
+  { href: "/pages/measurements", icon: "👟", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why is a European (EU) shoe size so different from US and UK sizing numbers?",
+    a: "Continental European shoe sizing uses the 'Paris Point' (point de Paris), established in the mid-19th century as 2/3 of a centimeter (~6.67 mm). A foot measuring 26 cm plus 1.5 cm toe clearance requires an internal shoe last of 27.5 cm = 275 mm ÷ 6.67 mm ≈ EU size 41.5. US and UK systems, by contrast, use barleycorn units of 1/3 inch (8.47 mm) with historical gender-based offset zero points.",
+  },
+  {
+    q: "What is the exact offset between US Men's and US Women's shoe sizing?",
+    a: "Under the standard FIA (Footwear Industries of America) scale, US Women's shoe sizes are offset by exactly 1.5 sizes larger than US Men's sizes for an identical foot length. A US Men's size 8.5 corresponds directly to a US Women's size 10.0 (both designed for a foot length of ~26.0 cm).",
+  },
+  {
+    q: "What is the Mondopoint shoe sizing system and where is it used?",
+    a: "Standardized under ISO 9407:2019, Mondopoint is the only truly universal, metric shoe sizing standard in the world. It measures foot length in millimeters (mm) and foot width in millimeters across the ball joint (e.g., 270/100 denotes a foot 270 mm long and 100 mm wide). It is universally mandated by NATO military forces, ski boot manufacturers, and high-altitude mountaineering equipment.",
+  },
+  {
+    q: "How much extra toe clearance space is engineered into shoe last sizing?",
+    a: "Orthopedic podiatrists and footwear designers incorporate approximately 12 mm to 15 mm (~0.5 inches) of internal length allowance beyond actual bare foot length. This ease allowance accommodates forward foot sliding during gait deceleration and natural foot elongation during weight-bearing stance phases.",
+  },
+];
+
+export default function ShoeSizeConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Shoe Size Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/shoe-size-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Shoe Size Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/shoe-size-converter\", \"description\": \"Convert US to EU shoe sizes, UK to US, EU to US for men and women. Includes size chart and foot length measurement guide.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is US shoe size 10 in EU?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"US Men 10 = EU 43-44, approximately 27.3-27.6 cm foot length. US Women 10 = EU 41. Sizes can vary by brand and shoe model, so checking specific brand size charts is always recommended.\"}}, {\"@type\": \"Question\", \"name\": \"What is EU shoe size 42 in US?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"EU 42 = US Men 8.5-9 = US Women 10-10.5 = UK 8. EU 42 corresponds to approximately 26.7 cm (10.5 inches) foot length. EU sizes are the same for men and women.\"}}, {\"@type\": \"Question\", \"name\": \"How do I measure my shoe size at home?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Stand on paper and trace your foot. Measure heel to longest toe in centimeters. US Men size = (foot length in inches - 0.66) / 0.33 + 1. US Women = Men size + 1.5. Round to nearest half size.\"}}, {\"@type\": \"Question\", \"name\": \"Why do men and women have different US shoe sizes?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"US shoe sizing evolved separately for men and women with different baseline measurements. The result is a 1.5 US size gap for the same foot length. Most other countries use a single unisex scale (EU, UK, Japanese).\"}}, {\"@type\": \"Question\", \"name\": \"What do shoe width letters mean?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Men widths: B (narrow), D (standard), 2E/EE (wide), 4E/EEEE (extra wide). Women widths: AA (narrow), B (standard), D (wide). Most shoes are made in standard width. Wide widths are important for comfort and foot health.\"}}, {\"@type\": \"Question\", \"name\": \"Are different shoe brands true to size?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Most major brands (Nike, Adidas, New Balance) are close to standard sizing but can differ by half a size between models. Running shoes are typically worn 0.5-1 size larger than dress shoes to accommodate toe spread during activity.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Shoe Size Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Shoe Size Converter</h1>\n<p class=\"calc-intro\">Convert shoe sizes between US men, US women, UK, and European (EU) sizing systems. Never buy the wrong shoe size when shopping internationally or online — includes a complete size chart and foot measurement guide.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">EU Size = Foot (cm) x 1.5 approx | US Men = EU - 33 | US Women = EU - 31 | UK = US Men - 0.5</div></div>\n<div class=\"content-section\"><h2>Shoe Size Conversion Guide</h2><p>Shoe sizing varies significantly between countries. A US men size 10 = UK 9.5 = EU 43-44. Shopping internationally or online without knowing your size in different systems often leads to poorly fitting shoes. This guide helps you convert accurately.</p><h3>US Men vs Women Sizing</h3><p>In the US, women sizes are 1.5 sizes larger than men for the same foot length. Men US 8 = Women US 9.5 for the same foot. Both use barleycorn (1/3 inch) increments starting from different baselines.</p><h3>European (EU) Sizing</h3><p>EU uses Paris Points (2/3 cm each). EU 42 = approximately 26.7 cm foot length. EU sizing is gender-neutral — the same scale applies to both men and women, unlike the US system which has separate scales.</p><div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">US Men</th><th style=\"padding:12px 16px;\">US Women</th><th style=\"padding:12px 16px;\">UK</th><th style=\"padding:12px 16px;\">EU</th><th style=\"padding:12px 16px;\">Foot (cm)</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">7</td> <td style=\"padding:11px 16px;\">8.5</td> <td style=\"padding:11px 16px;\">6.5</td> <td style=\"padding:11px 16px;\">40</td> <td style=\"padding:11px 16px;\">25.1</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">8</td> <td style=\"padding:11px 16px;\">9.5</td> <td style=\"padding:11px 16px;\">7.5</td> <td style=\"padding:11px 16px;\">41</td> <td style=\"padding:11px 16px;\">25.7</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">9</td> <td style=\"padding:11px 16px;\">10.5</td> <td style=\"padding:11px 16px;\">8.5</td> <td style=\"padding:11px 16px;\">42-43</td> <td style=\"padding:11px 16px;\">26.7</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">10</td> <td style=\"padding:11px 16px;\">11.5</td> <td style=\"padding:11px 16px;\">9.5</td> <td style=\"padding:11px 16px;\">43-44</td> <td style=\"padding:11px 16px;\">27.6</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">11</td> <td style=\"padding:11px 16px;\">12.5</td> <td style=\"padding:11px 16px;\">10.5</td> <td style=\"padding:11px 16px;\">44-45</td> <td style=\"padding:11px 16px;\">28.6</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">12</td> <td style=\"padding:11px 16px;\">13.5</td> <td style=\"padding:11px 16px;\">11.5</td> <td style=\"padding:11px 16px;\">46</td> <td style=\"padding:11px 16px;\">29.4</td></tr></tbody></table></div></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is US shoe size 10 in EU? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">US Men 10 = EU 43-44, approximately 27.3-27.6 cm foot length. US Women 10 = EU 41. Sizes can vary by brand and shoe model, so checking specific brand size charts is always recommended.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is EU shoe size 42 in US? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">EU 42 = US Men 8.5-9 = US Women 10-10.5 = UK 8. EU 42 corresponds to approximately 26.7 cm (10.5 inches) foot length. EU sizes are the same for men and women.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I measure my shoe size at home? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Stand on paper and trace your foot. Measure heel to longest toe in centimeters. US Men size = (foot length in inches - 0.66) / 0.33 + 1. US Women = Men size + 1.5. Round to nearest half size.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why do men and women have different US shoe sizes? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">US shoe sizing evolved separately for men and women with different baseline measurements. The result is a 1.5 US size gap for the same foot length. Most other countries use a single unisex scale (EU, UK, Japanese).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What do shoe width letters mean? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Men widths: B (narrow), D (standard), 2E/EE (wide), 4E/EEEE (extra wide). Women widths: AA (narrow), B (standard), D (wide). Most shoes are made in standard width. Wide widths are important for comfort and foot health.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Are different shoe brands true to size? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Most major brands (Nike, Adidas, New Balance) are close to standard sizing but can differ by half a size between models. Running shoes are typically worn 0.5-1 size larger than dress shoes to accommodate toe spread during activity.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/temperature-converter\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Temperature Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/volume-converter\"><span class=\"rc-icon\">🥄</span><span class=\"rc-name\">Volume Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Shoe Size Converter – US, UK, EU and International</h2><div class=\"form-group\"><label for=\"ss-gender\">Gender</label>\n<select id=\"ss-gender\" onchange=\"updateSSRange()\">\n<option selected=\"\" value=\"men\">Men</option>\n<option value=\"women\">Women</option>\n<option value=\"kids\">Kids</option>\n</select></div>\n<div class=\"form-group\"><label for=\"ss-val\" id=\"ss-label\">US Men Size</label>\n<input id=\"ss-val\" max=\"16\" min=\"4\" step=\"0.5\" type=\"number\" value=\"10\"/></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Shoe Size Converter – US, UK, EU and International')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Shoe Size Converter – US, UK, EU and International')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-shoe-size-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function updateSSRange(){\n  var g=document.getElementById('ss-gender').value;\n  var inp=document.getElementById('ss-val');\n  var lbl=document.getElementById('ss-label');\n  if(g==='men'){lbl.textContent='US Men Size';inp.min=4;inp.max=16;inp.value=10;}\n  else if(g==='women'){lbl.textContent='US Women Size';inp.min=4;inp.max=16;inp.value=8;}\n  else{lbl.textContent='US Kids Size';inp.min=1;inp.max=7;inp.step=0.5;inp.value=4;}\n}\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('ss-val').value);\n  var gender=document.getElementById('ss-gender').value;\n  if(isNaN(val)){alert('Please enter a valid shoe size.');return;}\n  var usMen,usW,uk,eu,cm;\n  if(gender==='men'){\n    usMen=val;usW=val+1.5;uk=val-0.5;\n    eu=Math.round(val*1.27+31.94);\n    cm=parseFloat((val*0.26+22.4).toFixed(1));\n  } else if(gender==='women'){\n    usW=val;usMen=val-1.5;uk=val-2.5;\n    eu=Math.round((val-1.5)*1.27+31.94);\n    cm=parseFloat(((val-1.5)*0.26+22.4).toFixed(1));\n  } else {\n    // kids\n    usMen=null;usW=null;\n    uk=val-0.5;eu=Math.round(val*1.27+17);\n    cm=parseFloat((val*0.21+15.2).toFixed(1));\n  }\n  var rows='';\n  if(gender==='men') rows+=ri('US Men','<strong style=\"font-size:24px;color:var(--c-accent)\">'+usMen+'</strong>',true)+ri('US Women',usW);\n  else if(gender==='women') rows+=ri('US Women','<strong style=\"font-size:24px;color:var(--c-accent)\">'+usW+'</strong>',true)+ri('US Men',usMen);\n  else rows+=ri('US Kids','<strong style=\"font-size:24px;color:var(--c-accent)\">'+val+'</strong>',true);\n  rows+=ri('UK Size',uk)+ri('EU Size',eu)+ri('Approx Foot Length',cm+' cm / '+parseFloat((cm/2.54).toFixed(1))+' in');\n  document.getElementById('cv-ri').innerHTML=rows;\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',['US','UK','EU'],[(usMen||val)*10,uk*10,eu],['#1a5c3a','#c8832a','#3a7abf']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  var aiCtx=gender+' size '+val+' = UK '+uk+' = EU '+eu;\n  getAIInsight('Shoe size conversion: '+aiCtx+'. In 2 sentences give a practical tip about buying the right shoe size when shopping internationally or online.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Sizing Guidance:</strong> Footwear sizing converts between regional shoemaking last standards and anatomical foot lengths. In international retail e-commerce and athletic footwear selection, cross-reference garment charts in our <Link href="/calculators/measurements/clothing-size-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">clothing size converter</Link> and calculate linear millimeter foot spans in our <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Anthropometric Podiatry: Historical Sizing Systems & Last Geometry
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Human footwear manufacturing represents one of the oldest intersection points between biomechanical ergonomics and industrial mass production. Historically, bespoke shoemakers carved wooden lasts modeled after individual client feet. In medieval England, King Edward II codified the &apos;barleycorn&apos; in 1324 as 1/3 of an inch (~8.467 mm), establishing the fundamental step interval that still governs British and American shoe sizes today.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In continental Europe, 19th-century French shoemakers adopted the &apos;Paris Point&apos; (2/3 cm or ~6.667 mm). Japan and East Asia standardized on direct anatomical foot length in centimeters (cm), while the International Organization for Standardization developed the Mondopoint system (ISO 9407) in millimeters. Today, purchasing athletic shoes or luxury footwear from international online retailers requires navigating these four divergent sizing matrices.
+          </p>
+
+          <ShoeSizeInternationalFitMatrixChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivation: Last Length vs Foot Length Formulas
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Shoe sizes are calculated from internal shoe last length L_last in inches or centimeters, where last length equals bare foot length L_foot plus ~1.5 cm toe ease allowance:
+          </p>
+          <Formula>{"L_{\\text{last}} = L_{\\text{foot}} + 1.5 \\text{ cm} = L_{\\text{foot}} + 0.59 \\text{ in}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The legal conversion formulas across international sizing standards are:
+          </p>
+          <Formula>{"\\text{Size}_{\\text{UK}} = (3 \\times L_{\\text{last, in}}) - 25, \\quad \\text{Size}_{\\text{US Men}} = (3 \\times L_{\\text{last, in}}) - 24 = \\text{Size}_{\\text{UK}} + 1"}</Formula>
+          <Formula>{"\\text{Size}_{\\text{US Women}} = \\text{Size}_{\\text{US Men}} + 1.5 = (3 \\times L_{\\text{last, in}}) - 22.5"}</Formula>
+          <Formula>{"\\text{Size}_{\\text{EU}} = \\frac{3}{2} \\times L_{\\text{last, cm}} = 1.5 \\times (L_{\\text{foot, cm}} + 1.5)"}</Formula>
+          <Formula>{"\\text{Mondopoint (mm)} = L_{\\text{foot, mm}} = L_{\\text{foot, cm}} \\times 10"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When calculating foot width fittings (from narrow B width to extra-wide 4E), ball-girth measurements scale proportionally with foot length; explore width proportions in our <Link href="/calculators/math/ratio-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ratio calculator</Link> and calculate body weight distribution in our <Link href="/calculators/measurements/weight-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weight converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Global Shoe Sizing Matrices
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles exact size equivalencies across adult foot length benchmarks:
+          </p>
+          <DataTable
+            head={["Foot Length (cm)", "Mondopoint (mm)", "US Men", "US Women", "UK / Australia", "Europe (EU)", "Japan (cm)"]}
+            rows={[
+              ["23.5 cm", "235 mm", "5.5", "7.0", "5.0", "38.0", "23.5"],
+              ["24.0 cm", "240 mm", "6.0", "7.5", "5.5", "38.5", "24.0"],
+              ["24.5 cm", "245 mm", "6.5", "8.0", "6.0", "39.0", "24.5"],
+              ["25.0 cm", "250 mm", "7.0", "8.5", "6.5", "40.0", "25.0"],
+              ["25.5 cm", "255 mm", "7.5", "9.0", "7.0", "40.5", "25.5"],
+              ["26.0 cm", "260 mm", "8.0", "9.5", "7.5", "41.5", "26.0"],
+              ["26.5 cm", "265 mm", "8.5", "10.0", "8.0", "42.0", "26.5"],
+              ["27.0 cm", "270 mm", "9.0", "10.5", "8.5", "42.5", "27.0"],
+              ["27.5 cm", "275 mm", "9.5", "11.0", "9.0", "43.5", "27.5"],
+              ["28.0 cm", "280 mm", "10.0", "11.5", "9.5", "44.0", "28.0"],
+              ["28.5 cm", "285 mm", "10.5", "12.0", "10.0", "44.5", "28.5"],
+              ["29.0 cm", "290 mm", "11.0", "12.5", "10.5", "45.0", "29.0"],
+              ["30.0 cm", "300 mm", "12.0", "13.5", "11.5", "46.5", "30.0"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Cross-Border Footwear E-Commerce Sizing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider an e-commerce retail operations analyst for an Italian luxury leather footwear brand launching an international direct-to-consumer online store in the United States. The brand crafts shoes on EU lasts: a customer in California measures their foot barefoot at exactly 27.2 centimeters (10.71 inches) and inquires which EU size to order for Oxford dress shoes versus athletic sneakers:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Determine Last Length with Toe Ease):</strong> L_last = 27.2 cm + 1.5 cm ease allowance = 28.7 cm.</li>
+            <li><strong>Step 2 (Compute European Size):</strong> EU size = 1.5 × 28.7 cm = 43.05 (rounded to standard EU 43).</li>
+            <li><strong>Step 3 (Cross-Verify in US Men&apos;s Sizing):</strong> L_last in inches = 28.7 cm ÷ 2.54 = 11.299 inches. US Men&apos;s size = (3 × 11.299) - 24 = 33.898 - 24 = 9.898 ≈ US Men&apos;s 10.0.</li>
+            <li><strong>Step 4 (Width Compensation):</strong> If the customer has an extra-wide foot (E or EE width), sizing up to EU 43.5 or US 10.5 prevents lateral forefoot constriction. Cross-reference garment sizing in our <Link href="/calculators/measurements/clothing-size-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">clothing size converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Footwear Width Systems: From Narrow B to Extra-Wide 4E
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Shoe length is only one of two vital spatial dimensions; foot width across the first and fifth metatarsophalangeal joints (the ball girth) dictates comfort and foot health. The American Footwear Industries Association (FIA) classifies width using letter codes:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Narrow Widths (A, B for Men / 2A, A for Women):</strong> Tailored for slender feet with low arch volume; prevents heel slippage and blisters.</li>
+            <li><strong>Medium / Standard Width (D for Men / B for Women):</strong> Represents standard industrial shoemaking lasts, fitting approximately 70% to 75% of the adult population.</li>
+            <li><strong>Wide Widths (2E, EE for Men / D for Women):</strong> Adds ~5 mm to 8 mm of circumscribing ball girth allowance per width step.</li>
+            <li><strong>Extra Wide (4E, 6E):</strong> Essential for individuals with bunions (hallux valgus), fallen transverse arches, or orthotic insoles to prevent peripheral nerve compression.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Biomechanical Foot Volumetric Expansion During Running & Stance Phases
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The human foot is an active biological shock absorber comprising 26 bones, 33 joints, and over 100 ligaments and tendons. Under dynamic running impacts, the longitudinal medial arch flattens dynamically, elongating the foot by up to 5 mm and expanding forefoot width by 4% to 6%.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, prolonged standing or distance running increases foot fluid volume by up to 8% due to gravity-induced venous pooling. Sports medicine orthopedists advise measuring shoe sizes in the late afternoon or evening and selecting marathon running shoes a half-size larger than formal leather dress shoes.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Athletic Training, Ski Boots & Children&apos;s Growth
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In specialized athletic equipment like alpine ski boots, exact Mondopoint sizing is mandatory because rigid polyurethane shells cannot flex to accommodate incorrect sizing. In pediatric healthcare, children&apos;s feet grow rapidly (often an entire half-size every 3 to 4 months between ages 2 and 6), requiring routine millimeter measurement to prevent ingrown toenails and digital deformities.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For academic tracking and statistical analysis, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and calculate conversion variances in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <ShoeSizeConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Pedobarography: Dynamic Plantar Pressure & Footwear Cushioning Biomechanics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In clinical podiatry and athletic footwear biomechanics, pedobarography evaluates the distribution of vertical ground reaction forces exerted by the human foot during the gait cycle. Force sensor matrices measure dynamic pressure (in kilopascals, kPa, or pounds per square inch, PSI) across anatomical foot zones: the heel (calcaneus), the midfoot lateral arch, the metatarsal heads, and the hallux (big toe).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            During heel-strike in distance running, impact peak forces reach 2.5 to 3.0 times total body weight within 25 milliseconds. Footwear designers engineer midsole foam geometry—utilizing supercritical foamed polyether block amide (PEBAX) and ethylene-vinyl acetate (EVA)—to absorb impact shock waves and attenuate peak tibial acceleration. Mismatched shoe sizing that shifts the shoe&apos;s engineered flex groove away from the biological metatarsophalangeal hinge alters mechanical leverage, inducing Achilles tendinitis and plantar fasciitis.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            3D Laser Anthropometry & Additive Manufacturing of Custom Footwear
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern high-performance athletic footwear and medical prescription orthotics are increasingly abandoning traditional standardized sizing charts in favor of 3D optical laser foot scanning. Structured-light optical scanners capture over 100,000 coordinate surface points in under five seconds, generating a fully parametric digital foot mesh measuring thirty distinct anthropometric dimensions, including heel width, instep circumference, navicular height, and toe box volume.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Computer-aided manufacturing systems utilize selective laser sintering (SLS) 3D printing to fabricate custom elastomeric lattice midsoles with spatially graded mechanical stiffness tailored to the wearer&apos;s individual gait kinematics. This bespoke digital workflow bridges historical regional shoe size approximations with direct millimeter anatomical perfection.
+          </p>
+
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Pediatric Podiatry: Skeletal Ossification & Children&apos;s Footwear Selection
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In pediatric orthopedics, the human infant foot consists primarily of pliable cartilaginous models rather than fully ossified bone. Complete primary and secondary skeletal ossification of the 26 foot bones is not fully completed until approximately 18 to 21 years of age. During early childhood (ages 1 to 5), the medial longitudinal arch is masked by a thick protective plantar fat pad, giving young children&apos;s feet a natural flatfoot appearance.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because growing cartilage is easily molded by external compressive forces, ill-fitting footwear poses serious developmental hazards. Shoes that are too tight compress the hallux laterally, encouraging early bunion formation and hammer toes. Pediatricians recommend leaving at least 12 mm to 15 mm of forward toe clearance space when purchasing children&apos;s shoes, re-measuring foot length every three months to keep pace with rapid skeletal growth spurts.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, children&apos;s shoe sizing charts feature independent infant (sizes 0 to 4), toddler (sizes 5 to 10), and youth/junior (sizes 11 to 3) classifications that reset numbering before merging into adult scales, requiring careful millimeter foot length cross-referencing.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In competitive track and field athletics, sprinting spikes are engineered with rigid carbon fiber footplates tuned to maximize Achilles tendon elastic energy return during explosive blocks acceleration. Millimeter-accurate heel counter lock-down prevents energy dissipation, optimizing sprint power transfer.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Orthopedic shoe lasts also accommodate bespoke medical foot orthoses (AFOs) for patients recovering from neurological trauma, ensuring even plantar pressure redistribution and preventing skin ulceration.
+          </p>
+
+    </CalcPage>
   );
 }

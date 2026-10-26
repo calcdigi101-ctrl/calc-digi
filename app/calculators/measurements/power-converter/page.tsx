@@ -1,26 +1,212 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import PowerConverterComponent from "@/components/calcs/measurements/power-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { PowerEnergyRateComparisonChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/power-converter";
+const TITLE = "Power Converter | Watts, Horsepower, Kilowatts & BTU/hr";
+const DESCRIPTION =
+  "Convert Watts, mechanical horsepower, metric horsepower, kilowatts, and BTU per hour with thermodynamic rate derivations and interactive power regime charts.";
 
 export const metadata: Metadata = {
-  "title": "Power Converter – Watts to Horsepower, kW | CalcDigi",
-  "description": "Convert watts to horsepower, kilowatts to BTU per hour. Instant power unit conversion for motors, HVAC, and electrical systems.",
-  "openGraph": {
-    "title": "Power Converter – Watts to Horsepower, kW | CalcDigi",
-    "description": "Convert watts to horsepower, kilowatts to BTU per hour. Instant power unit conversion for motors, HVAC, and electrical systems.",
-    "type": "website",
-    "url": "/calculators/measurements/power-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/power-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/energy-converter", icon: "⚡", name: "Energy Converter" },
+  { href: "/calculators/measurements/torque-converter", icon: "🔧", name: "Torque Converter" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "💡", name: "Ohm's Law" },
+  { href: "/calculators/physics/kinetic-energy-calculator", icon: "🏎️", name: "Kinetic Energy" },
+  { href: "/calculators/measurements/fuel-economy-converter", icon: "⛽", name: "Fuel Economy" },
+  { href: "/pages/measurements", icon: "🔌", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the exact physical definition of a Watt (W) in the SI system?",
+    a: "One Watt (1 W) is the SI coherent derived unit of power, defined as an energy transfer rate of exactly one Joule per second (1 W = 1 J/s = 1 N·m/s = 1 kg·m²·s⁻³). In electrical circuits, one Watt equals the power dissipated when an electric potential of one Volt produces a current of one Ampere (P = V × I).",
+  },
+  {
+    q: "What is the difference between mechanical horsepower and metric horsepower?",
+    a: "Mechanical horsepower (hp or imperial hp) was formulated by James Watt as 33,000 foot-pounds per minute, equaling approximately 745.69987 Watts. Metric horsepower (PS, cv, or pk) was standardized in continental Europe as the power needed to lift 75 kilograms against standard gravity by 1 meter in 1 second, equaling exactly 735.49875 Watts. A 300 PS German car produces ~295.8 imperial horsepower.",
+  },
+  {
+    q: "What is a 'ton of refrigeration' in air conditioning and chiller systems?",
+    a: "A ton of refrigeration (TR or RT) is an HVAC power rating equal to the continuous cooling rate required to freeze 2,000 pounds (one US short ton) of liquid water at 0°C into ice in 24 hours. Under standard latent heat of fusion (144 BTU/lb), one ton of refrigeration equals exactly 12,000 BTU/hr (approximately 3,516.85 Watts or 3.517 kW).",
+  },
+  {
+    q: "How does rotational torque relate mathematically to engine horsepower?",
+    a: "In rotational mechanical drivetrains, power equals torque multiplied by angular velocity: P = τ × ω. In imperial engineering units, horsepower = (Torque in ft-lb × RPM) ÷ 5,252. In metric units, Power in kW = (Torque in N·m × RPM) ÷ 9,549. Because 5,252 is the mathematical balance constant, any engine's horsepower and torque curves intersect at exactly 5,252 RPM.",
+  },
+];
+
+export default function PowerConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Power Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/power-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Power Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/power-converter\", \"description\": \"Convert watts to horsepower, kilowatts to BTU per hour. Instant power unit conversion for motors, HVAC, and electrical systems.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many watts are in one horsepower?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 mechanical horsepower = 745.699 watts. 1 metric horsepower = 735.499 watts. Electric motors are often rated in both kW and hp. A 100 hp car engine = 74.6 kW. A 200 hp engine = 149.1 kW.\"}}, {\"@type\": \"Question\", \"name\": \"How do you convert kilowatts to horsepower?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply kilowatts by 1.34102 to get mechanical horsepower. For example: 100 kW × 1.34102 = 134.1 hp. To convert hp to kW, multiply by 0.7457. A 250 hp engine = 186.4 kW.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between kW and kWh?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"kW (kilowatt) is a unit of power — the rate of energy use at a given moment. kWh (kilowatt-hour) is a unit of energy — the total energy used over time. A 2 kW heater running for 3 hours uses 6 kWh of energy.\"}}, {\"@type\": \"Question\", \"name\": \"How many BTU/hr is 1 ton of air conditioning?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 ton of AC = 12,000 BTU/hr = 3,517 watts = 3.517 kW. Larger homes typically need 2-5 tons of cooling capacity. Rule of thumb: 1 ton per 500-600 sq ft in a well-insulated home.\"}}, {\"@type\": \"Question\", \"name\": \"What is a watt exactly?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 watt = 1 joule per second. Named after James Watt, it measures the rate of energy transfer. A 60W bulb converts 60 joules of electrical energy into light and heat every second.\"}}, {\"@type\": \"Question\", \"name\": \"How many watts does a typical house use?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Average US home uses about 1.2 kW average power (10,500 kWh/year). Peak usage can reach 5-10 kW with AC, oven, and other appliances running simultaneously. A solar array of 5-8 kW typically covers most household needs.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Power Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Power Converter</h1>\n<p class=\"calc-intro\">Convert between watts, kilowatts, horsepower, BTU/hour, and foot-pounds per minute. Essential for understanding motor ratings, electrical systems, HVAC sizing, and vehicle engine power.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">1 horsepower = 745.7 watts | 1 kilowatt = 1,000 watts | 1 BTU/hr = 0.293 watts</div></div>\n<div class=\"content-section\"><h2>Power Unit Conversion Guide</h2>\n<p>Power is the rate at which energy is transferred or converted. The SI unit is the Watt (W). Different industries use different units: electrical systems use watts and kilowatts, automotive engineering uses horsepower, HVAC uses BTU/hour, and older mechanical systems use foot-pounds per minute.</p>\n<h3>Watts and Kilowatts</h3>\n<p>1 kilowatt (kW) = 1,000 watts (W). Household appliances range from 5W (LED bulb) to 5,000W (electric oven). A typical home uses 1-5 kW average power. Solar panels are rated in kilowatts peak (kWp).</p>\n<h3>Horsepower</h3>\n<p>1 mechanical horsepower (hp) = 745.699 watts. The unit was coined by James Watt in the 18th century to compare steam engine output to horse-pulling power. A typical car engine: 100-400 hp = 75-300 kW. An electric motor is more efficient than a combustion engine in converting watts to mechanical power.</p>\n<h3>BTU per Hour for HVAC</h3>\n<p>HVAC systems use BTU/hr for heating and cooling capacity. 1 BTU/hr = 0.293071 watts. A 10,000 BTU/hr window AC = 2,930 watts. Home furnaces range from 40,000 to 120,000 BTU/hr (11.7 to 35.2 kW).</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many watts are in one horsepower? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 mechanical horsepower = 745.699 watts. 1 metric horsepower = 735.499 watts. Electric motors are often rated in both kW and hp. A 100 hp car engine = 74.6 kW. A 200 hp engine = 149.1 kW.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you convert kilowatts to horsepower? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply kilowatts by 1.34102 to get mechanical horsepower. For example: 100 kW × 1.34102 = 134.1 hp. To convert hp to kW, multiply by 0.7457. A 250 hp engine = 186.4 kW.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between kW and kWh? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">kW (kilowatt) is a unit of power — the rate of energy use at a given moment. kWh (kilowatt-hour) is a unit of energy — the total energy used over time. A 2 kW heater running for 3 hours uses 6 kWh of energy.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many BTU/hr is 1 ton of air conditioning? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 ton of AC = 12,000 BTU/hr = 3,517 watts = 3.517 kW. Larger homes typically need 2-5 tons of cooling capacity. Rule of thumb: 1 ton per 500-600 sq ft in a well-insulated home.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a watt exactly? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 watt = 1 joule per second. Named after James Watt, it measures the rate of energy transfer. A 60W bulb converts 60 joules of electrical energy into light and heat every second.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many watts does a typical house use? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Average US home uses about 1.2 kW average power (10,500 kWh/year). Peak usage can reach 5-10 kW with AC, oven, and other appliances running simultaneously. A solar array of 5-8 kW typically covers most household needs.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/energy-converter\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/temperature-converter\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Temperature Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Power Converter – Watts, Horsepower &amp; Kilowatts</h2>\n<div class=\"form-group\"><label for=\"cv-val\">Value</label><input id=\"cv-val\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"cv-from\">From</label><select id=\"cv-from\"><option value=\"w\">Watt (W)</option><option selected=\"\" value=\"kw\">Kilowatt (kW)</option><option value=\"mw\">Megawatt (MW)</option><option value=\"hp\">Horsepower (hp)</option><option value=\"btuh\">BTU/hour</option><option value=\"ftlbmin\">ft·lb/min</option></select></div><div class=\"form-group\"><label for=\"cv-to\">To</label><select id=\"cv-to\"><option value=\"w\">Watt (W)</option><option value=\"kw\">Kilowatt (kW)</option><option value=\"mw\">Megawatt (MW)</option><option selected=\"\" value=\"hp\">Horsepower (hp)</option><option value=\"btuh\">BTU/hour</option><option value=\"ftlbmin\">ft·lb/min</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Power Converter – Watts, Horsepower &amp; Kilowatts')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Power Converter – Watts, Horsepower &amp; Kilowatts')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-power-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var F={\"w\":1,\"kw\":1000,\"mw\":1000000,\"hp\":745.699,\"btuh\":0.293071,\"ftlbmin\":0.022597};var N={\"w\":\"Watt\",\"kw\":\"kW\",\"mw\":\"MW\",\"hp\":\"HP\",\"btuh\":\"BTU/hr\",\"ftlbmin\":\"ft·lb/min\"};\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('cv-val').value);\n  var from=document.getElementById('cv-from').value;\n  var to=document.getElementById('cv-to').value;\n  if(isNaN(val)){alert('Please enter a valid number.');return;}\n  var base=val*F[from]; var result=base/F[to];\n  var fromN=N[from]; var toN=N[to];\n  var fmt=function(n){return n>=0.0001&&n<1e10?parseFloat(n.toFixed(8)).toString():n.toExponential(4);};\n  var extras=Object.keys(F).filter(function(u){return u!==from&&u!==to;}).slice(0,3).map(function(u){return ri('In '+N[u],fmt(base/F[u])+' '+u);}).join('');\n  document.getElementById('cv-ri').innerHTML=ri('Result','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmt(result)+' '+toN+'</strong>',true)+ri(val+' '+fromN+' =',fmt(result)+' '+toN)+extras;\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',[fromN,toN],[Math.abs(val)||0.001,Math.abs(result)||0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(val+' '+fromN+' = '+fmt(result)+' '+toN+'. In 2 sentences share a practical real-world example where this power conversion is commonly used.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Power Guidance:</strong> Power quantifies the temporal rate of energy transfer or work delivery. In electrical engineering, automotive dynamometer testing, and industrial HVAC, cross-reference accumulated energy in our <Link href="/calculators/measurements/energy-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">energy converter</Link> and calculate engine rotational dynamics using our <Link href="/calculators/measurements/torque-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">torque converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Physical Foundations of Power Delivery: Rate of Work Transfer
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While energy measures total capacity to perform mechanical work, power measures how rapidly that work is executed: P = dW/dt. An athlete lifting a 100 kg barbell in 1 second performs identical mechanical work to an athlete lifting the same barbell in 4 seconds; however, the first athlete delivers four times the instantaneous power output. In the International System of Units, power is measured in Watts (W), named after Scottish inventor James Watt whose steam engines propelled the Industrial Revolution.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern technological systems span staggering orders of magnitude in power delivery. Microscopic biosensors consume picowatts (10⁻¹² W), smartphone processors operate on milliwatts to watts, passenger automobiles generate kilowatts (hundreds of horsepower), commercial jet engines generate tens of megawatts, and national power grids synchronize gigawatts (10⁹ W) of electrical capacity.
+          </p>
+
+          <PowerEnergyRateComparisonChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Formulation & Exact Conversion Equivalencies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Every power conversion executes through the SI base unit of Watts (1 W = 1 J/s). The conversion from source power to target unit computes via scalar ratios:
+          </p>
+          <Formula>{"P_{\\text{target}} = P_{\\text{source}} \\times \\left( \\frac{\\pi_{\\text{source}}}{\\pi_{\\text{target}}} \\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where π represents the exact conversion scalar in Watts. Under international metrological definitions:
+          </p>
+          <Formula>{"1 \\text{ hp}_{\\text{mech}} = \\frac{33,000 \\text{ ft}\\cdot\\text{lbf}}{\\text{min}} = \\frac{33,000 \\times 1.355817948 \\text{ J}}{60 \\text{ s}} \\approx 745.699872 \\text{ W}"}</Formula>
+          <Formula>{"1 \\text{ PS (metric hp)} = 75 \\text{ kg} \\times 9.80665 \\text{ m/s}^2 \\times 1 \\text{ m/s} = 735.49875 \\text{ W}"}</Formula>
+          <Formula>{"1 \\text{ BTU/hr} = \\frac{1055.055852 \\text{ J}}{3600 \\text{ s}} \\approx 0.29307107 \\text{ W}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In electrical power distribution circuits, real power interacts with reactive impedance; analyze circuit voltage and current in our <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link> and calculate wire transmission losses using our <Link href="/calculators/electronics/wire-gauge-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">wire gauge calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Global Power Units
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles exact metric conversion constants across mechanical, thermal, electrical, and refrigeration engineering domains:
+          </p>
+          <DataTable
+            head={["Power Unit", "Symbol", "Value in Watts (W)", "Value in Mechanical Horsepower (hp)"]}
+            rows={[
+              ["Milliwatt", "mW", "0.001 W", "1.34102 × 10⁻⁶ hp"],
+              ["Watt (SI Coherent)", "W / J·s⁻¹", "1.0 W", "0.00134102 hp"],
+              ["Kilowatt", "kW", "1,000.0 W", "1.341022 hp"],
+              ["Megawatt", "MW", "1,000,000.0 W", "1,341.022 hp"],
+              ["Gigawatt", "GW", "1,000,000,000.0 W", "1,341,022 hp"],
+              ["Mechanical Horsepower (Imperial)", "hp / bhp", "745.69987 W", "1.0 hp"],
+              ["Metric Horsepower (Pferdestärke)", "PS / cv / ch", "735.49875 W", "0.986320 hp"],
+              ["Electric Horsepower", "hp(E)", "746.0 W", "1.000403 hp"],
+              ["Boiler Horsepower", "BHP", "9,809.5 W", "13.1547 hp"],
+              ["BTU per Hour", "BTU/hr", "0.293071 W", "0.000393015 hp"],
+              ["Foot-Pound per Second", "ft·lbf/s", "1.355818 W", "0.00181818 hp"],
+              ["Ton of Refrigeration", "TR / RT", "3,516.853 W", "4.71618 hp"],
+              ["Calorie per Second", "cal/s", "4.184 W", "0.00561083 hp"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Commercial Industrial Chiller Plant
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a facility mechanical engineer selecting a centrifugal water chiller for a 350,000-square-foot corporate data center. Thermal cooling load calculations indicate a peak cooling demand of 1,250 tons of refrigeration (TR). The electrical utility infrastructure team requires this rating converted to metric kilowatts (kW) and thermal BTU/hr to verify cooling tower heat dissipation:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Convert Tons of Refrigeration to Kilowatts):</strong> 1,250 TR × 3.516853 kW/TR = 4,396.07 kW (approximately 4.40 MW thermal cooling capacity).</li>
+            <li><strong>Step 2 (Convert to BTU per Hour):</strong> 1,250 TR × 12,000 BTU/(hr·TR) = 15,000,000 BTU/hr.</li>
+            <li><strong>Step 3 (Mechanical Horsepower Equivalent):</strong> 4,396,066 W ÷ 745.69987 W/hp = 5,895.22 mechanical horsepower.</li>
+            <li><strong>Step 4 (Electrical Input Power & COP):</strong> With a coefficient of performance (COP) of 6.2, required electrical input compressor power equals 4,396.07 ÷ 6.2 = 709.04 kW. You can verify total hourly electricity cost in our <Link href="/calculators/measurements/energy-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">energy converter</Link> and calculate circuit breaker sizing in the <Link href="/calculators/electronics/ohms-law-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ohms law calculator</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The Historical Origin of James Watt&apos;s Horsepower Standard
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In the early 1780s, Scottish engineer James Watt sought a compelling marketing metric to convince coal mine operators to replace traditional draft pit ponies with his newly patented condensing steam engines. Observing heavy draft horses operating a mine capstan wheel over an eight-hour shift, Watt estimated that an average horse could pull with a force of 180 pounds while walking a 24-foot diameter circle 2.5 times per minute.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Watt calculated the distance covered per minute as 2.5 × 24π ≈ 188.5 feet. Multiplying by 180 pounds-force yielded 33,929 foot-pounds per minute, which he generously rounded to exactly 33,000 ft·lbf/min (550 ft·lbf per second). Although peak athletic horses can transiently exert upwards of 14 to 15 horsepower in brief sprint bursts, Watt&apos;s standard represented sustainable, continuous industrial work delivery.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Three-Phase AC Electrical Power: Real, Reactive & Apparent Power
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In alternating current (AC) power engineering, calculating electrical power is more complex than simple DC multiplication (P = V × I) due to phase shifts between sinusoidal voltage and current waveforms caused by inductive electric motors and capacitive banks:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Active / Real Power (P, Watts):</strong> The actual rate of electrical energy converted into mechanical shaft torque, heat, or light: P = V_rms × I_rms × cos(θ).</li>
+            <li><strong>Reactive Power (Q, Volt-Amperes Reactive, VAR):</strong> The sustaining magnetic energy oscillating back and forth between generator windings and inductive motor coils: Q = V_rms × I_rms × sin(θ).</li>
+            <li><strong>Apparent Power (S, Volt-Amperes, VA):</strong> The vector hypotenuse representing total generating capacity required to service the load: S = √(P² + Q²).</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Automotive Dynamometers: Brake Horsepower (bhp) vs Wheel Horsepower (whp)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In automotive performance tuning, enthusiasts must differentiate engine brake horsepower (bhp) measured directly at the engine flywheel from wheel horsepower (whp) measured at the tire contact patch on a chassis dynamometer roller. Parasitic frictional losses in the transmission gears, driveshaft universal joints, differential hypoid gears, and wheel bearings consume approximately 15% (for manual front-wheel-drive vehicles) to 25% (for all-wheel-drive automatic vehicles) of flywheel power.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A vehicle rated by the manufacturer at 400 bhp will typically record between 320 and 340 whp on a rolling-road dyno. Cross-reference vehicle speed and acceleration dynamics using our <Link href="/calculators/measurements/speed-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">speed converter</Link> and calculate drivetrain rotational moment in the <Link href="/calculators/measurements/torque-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">torque converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Home Appliances, Fitness & Sustainable Energy
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In domestic households, power ratings dictate energy consumption and electrical panel loading. A standard microwave oven draws 1,200 Watts, an electric kettle draws 1,800 Watts, and a central heat pump operates at 3,500 to 5,000 Watts. In indoor fitness training, stationary cycling trainers display athletic power in Watts; an average recreational cyclist sustains 150 to 200 Watts, while elite Tour de France cyclists sustain 400 to 450 Watts over grueling mountain ascents.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In clean energy transitions, utility-scale wind turbines generate peak power ratings between 3 MW and 15 MW each. For academic calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and track coursework in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <PowerConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Aerodynamic Power Extraction: The Betz Limit in Wind Turbines
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In renewable wind power generation, kinetic power available in an oncoming column of wind of cross-sectional area A and velocity v is given by classical fluid dynamics: P_wind = 0.5 × ρ × A × v³, where ρ is air density (~1.225 kg/m³ at sea level). Because kinetic power scales with the cube of wind velocity, doubling wind speed from 5 m/s to 10 m/s increases available wind power by eightfold (2³ = 8).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            However, no wind turbine can extract 100% of this kinetic power because air must retain sufficient velocity to exit the swept rotor disk area. In 1919, German physicist Albert Betz derived the theoretical maximum power extraction efficiency of an idealized thin actuator disk: C_p_max = 16/27 ≈ 59.26% (the Betz Limit). Modern utility-scale wind turbines with aerodynamically optimized carbon-fiber blades achieve operational power coefficients C_p between 45% and 50%, converting megawatts of mechanical shaft power into grid electricity.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Aviation Propulsion: Thrust Specific Fuel Consumption & Propulsive Power
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In aeronautical engineering, jet engines produce thrust force (expressed in kilonewtons, kN, or pounds-force, lbf) rather than rotational shaft horsepower. However, propulsive power delivered to an aircraft in flight is the product of net aerodynamic thrust force and aircraft true airspeed: P_prop = T × v_TAS. A commercial high-bypass turbofan producing 70,000 lbf (311.4 kN) of thrust while propelling an airliner at 500 knots (257.2 m/s) delivers: 311,375 N × 257.2 m/s = 80,085,850 Watts (approximately 80.1 MW, or over 107,400 mechanical horsepower).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Aeronautical engineers evaluate engine thermodynamic efficiency using Thrust Specific Fuel Consumption (TSFC), measuring fuel burn mass per unit of thrust delivered per hour, converting between metric grams per kilonewton-second (g/(kN·s)) and imperial pounds of fuel per pound-thrust per hour (lbm/(lbf·hr)).
+          </p>
+
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Electrical Transformer Core Hysteresis & Copper Joule Losses
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In electrical power grid transmission, high-voltage substations employ step-up and step-down transformers operating with efficiencies exceeding 98.5%. Electrical engineers divide power losses into two primary categories: no-load core losses (iron hysteresis and eddy currents in magnetic silicon steel laminations) and full-load copper losses (I²R resistive Joule dissipation in primary and secondary copper windings). Minimizing these thermal megawatt losses across national electrical distribution networks saves millions of kilowatt-hours annually.
+          </p>
+
+    </CalcPage>
   );
 }

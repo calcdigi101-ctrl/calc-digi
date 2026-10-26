@@ -1,26 +1,223 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import NumberSystemConverterComponent from "@/components/calcs/measurements/number-system-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { NumberSystemPositionalRadixDensityChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/number-system-converter";
+const TITLE = "Number System Converter | Binary, Decimal, Hexadecimal & Octal";
+const DESCRIPTION =
+  "Convert between decimal, binary, hexadecimal, and octal positional radices with full two's complement, ASCII, and IEEE-754 bit-pattern modeling.";
 
 export const metadata: Metadata = {
-  "title": "Number System Converter – Binary, Decimal, Hex | CalcDigi",
-  "description": "Convert binary to decimal, decimal to hex, hex to binary, octal to decimal. Essential for programming and computer science.",
-  "openGraph": {
-    "title": "Number System Converter – Binary, Decimal, Hex | CalcDigi",
-    "description": "Convert binary to decimal, decimal to hex, hex to binary, octal to decimal. Essential for programming and computer science.",
-    "type": "website",
-    "url": "/calculators/measurements/number-system-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/number-system-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/data-storage-converter", icon: "💾", name: "Data Storage" },
+  { href: "/calculators/measurements/roman-numeral-converter", icon: "🏛️", name: "Roman Numerals" },
+  { href: "/calculators/internet/bandwidth-calculator", icon: "🌐", name: "Bandwidth Calculator" },
+  { href: "/calculators/math/scientific-notation-calculator", icon: "🔬", name: "Scientific Notation" },
+  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage" },
+  { href: "/pages/measurements", icon: "🔢", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why do modern digital computers operate exclusively in binary (Base-2)?",
+    a: "Modern computer microprocessors are constructed from billions of CMOS field-effect transistors acting as microscopic electronic switches. In semiconductor physics, two discrete voltage states (e.g., 0V for logic 0, and +1.2V for logic 1) provide massive noise margins against thermal fluctuation, electromagnetic interference, and manufacturing tolerances. Binary arithmetic simplifies logic gate design (AND, OR, NOT, XOR) into robust silicon circuits.",
+  },
+  {
+    q: "Why is hexadecimal (Base-16) so ubiquitous in computer programming?",
+    a: "Hexadecimal functions as a compact human-readable shorthand for binary bit streams. Because 16 is an exact power of 2 (2⁴ = 16), exactly one hexadecimal character (0-9, A-F) maps directly to a 4-bit binary 'nibble'. Consequently, an 8-bit byte (00000000 to 11111111) is expressed cleanly as exactly two hex digits (0x00 to 0xFF), condensing memory addresses and web color codes.",
+  },
+  {
+    q: "What is octal (Base-8) and where is it used today?",
+    a: "Octal uses digits 0 through 7, where each octal digit maps to exactly 3 binary bits (2³ = 8). While largely replaced by hexadecimal in modern computing, octal remains standard in Unix/Linux file permissions (e.g., chmod 755 corresponds to binary 111 101 101: read/write/execute for owner, read/execute for group and others) and aviation transponder squawk codes (e.g., 7700 for emergency).",
+  },
+  {
+    q: "How does two's complement represent negative integers in binary?",
+    a: "Two's complement is the universal mathematical convention for signed integers in digital processors. To negate an n-bit binary number: invert all bits (0 becomes 1, 1 becomes 0) and add 1 to the least significant bit. This eliminates duplicate zero representations (+0 and -0) and allows standard binary addition circuits to perform subtraction without auxiliary hardware.",
+  },
+];
+
+export default function NumberSystemConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Number System Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/number-system-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Number System Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/number-system-converter\", \"description\": \"Convert binary to decimal, decimal to hex, hex to binary, octal to decimal. Essential for programming and computer science.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How do you convert decimal to binary?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Repeatedly divide by 2 and record remainders from bottom to top. Example: 13 / 2 = 6 R1, 6/2=3 R0, 3/2=1 R1, 1/2=0 R1. Reading remainders bottom to top: 13 = 1101 binary.\"}}, {\"@type\": \"Question\", \"name\": \"How do you convert hex to decimal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply each hex digit by its power of 16 and sum. Example: 1F hex = (1x16) + (15x1) = 16 + 15 = 31 decimal. A = 10, B = 11, C = 12, D = 13, E = 14, F = 15.\"}}, {\"@type\": \"Question\", \"name\": \"What is FF in decimal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"FF hex = 255 decimal = 11111111 binary. This is the maximum value of 1 byte (8 bits). Used in networking (255.255.255.0 subnet mask), HTML colors (#FFFFFF = white), and many other computing contexts.\"}}, {\"@type\": \"Question\", \"name\": \"What does 0x mean before a number?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"0x is a prefix in programming languages (C, C++, Java, Python) indicating the number is hexadecimal. 0x1A = 26 decimal. 0xFF = 255 decimal. Similarly, 0b prefix indicates binary: 0b1010 = 10 decimal.\"}}, {\"@type\": \"Question\", \"name\": \"How are HTML colors in hexadecimal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"HTML colors use 6 hex digits: #RRGGBB where RR, GG, BB are red, green, blue values from 00 (0) to FF (255). #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, #000000 = black.\"}}, {\"@type\": \"Question\", \"name\": \"What are Unix file permissions in octal?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Unix permissions: r (read=4), w (write=2), x (execute=1). chmod 755 = 7 (rwx for owner) + 5 (r-x for group) + 5 (r-x for others). chmod 644 = 6 (rw- owner) + 4 (r-- group) + 4 (r-- others).\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Number System Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Number System Converter</h1>\n<p class=\"calc-intro\">Convert between binary (base-2), decimal (base-10), hexadecimal (base-16), and octal (base-8) number systems instantly. Essential for programmers, students, and anyone working with computer science, networking, or electronics.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">Decimal to Binary: divide by 2, note remainders | Hex: 0-9 then A=10,B=11,C=12,D=13,E=14,F=15</div></div>\n<div class=\"content-section\"><h2>Number System Conversion Guide</h2><p>Different number systems are used in computing, electronics, and mathematics. Computers use binary (base-2) internally. Programmers often use hexadecimal (base-16) for memory addresses and color codes. Octal (base-8) was once common in Unix systems. Understanding conversion between these systems is a fundamental programming skill.</p><h3>Binary (Base-2)</h3><p>Binary uses only 0 and 1. Each position represents a power of 2: 1, 2, 4, 8, 16, 32, 64, 128... Binary 1010 = 1x8 + 0x4 + 1x2 + 0x1 = 10 decimal. All computer data is ultimately stored as binary bits. 8 bits = 1 byte. 1 KB = 1,024 bytes = 8,192 bits.</p><h3>Hexadecimal (Base-16)</h3><p>Hex uses 0-9 and A-F (A=10, B=11, C=12, D=13, E=14, F=15). Each hex digit = 4 binary bits (a nibble). Used for HTML colors (#FF5733), memory addresses (0x1A2B), and machine code. FF hex = 255 decimal = 11111111 binary.</p><h3>Octal (Base-8)</h3><p>Octal uses digits 0-7. Each octal digit = 3 binary bits. Unix file permissions use octal: chmod 755 = binary 111 101 101 = rwxr-xr-x. Less common today but still used in Linux/Unix systems.</p><div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Decimal</th><th style=\"padding:12px 16px;\">Binary</th><th style=\"padding:12px 16px;\">Octal</th><th style=\"padding:12px 16px;\">Hex</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">0</td> <td style=\"padding:11px 16px;\">0</td> <td style=\"padding:11px 16px;\">0</td> <td style=\"padding:11px 16px;\">0</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">1</td> <td style=\"padding:11px 16px;\">1</td> <td style=\"padding:11px 16px;\">1</td> <td style=\"padding:11px 16px;\">1</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">8</td> <td style=\"padding:11px 16px;\">1000</td> <td style=\"padding:11px 16px;\">10</td> <td style=\"padding:11px 16px;\">8</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">10</td> <td style=\"padding:11px 16px;\">1010</td> <td style=\"padding:11px 16px;\">12</td> <td style=\"padding:11px 16px;\">A</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">15</td> <td style=\"padding:11px 16px;\">1111</td> <td style=\"padding:11px 16px;\">17</td> <td style=\"padding:11px 16px;\">F</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">16</td> <td style=\"padding:11px 16px;\">10000</td> <td style=\"padding:11px 16px;\">20</td> <td style=\"padding:11px 16px;\">10</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">255</td> <td style=\"padding:11px 16px;\">11111111</td> <td style=\"padding:11px 16px;\">377</td> <td style=\"padding:11px 16px;\">FF</td></tr></tbody></table></div></div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you convert decimal to binary? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Repeatedly divide by 2 and record remainders from bottom to top. Example: 13 / 2 = 6 R1, 6/2=3 R0, 3/2=1 R1, 1/2=0 R1. Reading remainders bottom to top: 13 = 1101 binary.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do you convert hex to decimal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply each hex digit by its power of 16 and sum. Example: 1F hex = (1x16) + (15x1) = 16 + 15 = 31 decimal. A = 10, B = 11, C = 12, D = 13, E = 14, F = 15.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is FF in decimal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">FF hex = 255 decimal = 11111111 binary. This is the maximum value of 1 byte (8 bits). Used in networking (255.255.255.0 subnet mask), HTML colors (#FFFFFF = white), and many other computing contexts.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What does 0x mean before a number? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">0x is a prefix in programming languages (C, C++, Java, Python) indicating the number is hexadecimal. 0x1A = 26 decimal. 0xFF = 255 decimal. Similarly, 0b prefix indicates binary: 0b1010 = 10 decimal.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How are HTML colors in hexadecimal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">HTML colors use 6 hex digits: #RRGGBB where RR, GG, BB are red, green, blue values from 00 (0) to FF (255). #FF0000 = red, #00FF00 = green, #0000FF = blue, #FFFFFF = white, #000000 = black.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What are Unix file permissions in octal? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Unix permissions: r (read=4), w (write=2), x (execute=1). chmod 755 = 7 (rwx for owner) + 5 (r-x for group) + 5 (r-x for others). chmod 644 = 6 (rw- owner) + 4 (r-- group) + 4 (r-- others).</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/data-storage-converter\"><span class=\"rc-icon\">💾</span><span class=\"rc-name\">Data Storage Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/energy-converter\"><span class=\"rc-icon\">⚡</span><span class=\"rc-name\">Energy Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/speed-converter\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Speed Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Number System Converter – Binary, Decimal, Hex and Octal</h2><div class=\"form-group\"><label for=\"ns-val\">Input Value</label><input id=\"ns-val\" placeholder=\"Enter a number\" type=\"text\" value=\"255\"/></div><div class=\"form-group\"><label for=\"ns-from\">From Base</label><select id=\"ns-from\"><option selected=\"\" value=\"10\">Decimal (Base 10)</option><option value=\"2\">Binary (Base 2)</option><option value=\"16\">Hexadecimal (Base 16)</option><option value=\"8\">Octal (Base 8)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Number System Converter – Binary, Decimal, Hex and Octal')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Number System Converter – Binary, Decimal, Hex and Octal')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-number-system-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "function doConvert(){\n  var val=document.getElementById('ns-val').value.trim().toUpperCase();\n  var base=parseInt(document.getElementById('ns-from').value);\n  if(!val){alert('Please enter a value to convert.');return;}\n  var dec=parseInt(val,base);\n  if(isNaN(dec)||dec<0){alert('Invalid input for the selected base. Check your number.');return;}\n  document.getElementById('cv-ri').innerHTML=\n    ri('Decimal (Base 10)','<strong style=\"font-size:22px;color:var(--c-accent)\">'+dec+'</strong>',true)+\n    ri('Binary (Base 2)',dec.toString(2))+\n    ri('Hexadecimal (Base 16)',dec.toString(16).toUpperCase())+\n    ri('Octal (Base 8)',dec.toString(8))+\n    ri('Input',val+' (base '+base+')');\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',['Binary Digits','Hex Digits'],[dec.toString(2).length,dec.toString(16).length],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Number '+dec+' in decimal = '+dec.toString(2)+' binary = '+dec.toString(16).toUpperCase()+' hex. In 2 sentences explain a real-world computing context where this number appears (e.g. colors, memory, permissions).').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Radix Guidance:</strong> Positional numeral systems represent quantities through radix bases and weighted digit positions. In computer architecture, cybersecurity, and embedded software, cross-reference byte memory units in our <Link href="/calculators/measurements/data-storage-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">data storage converter</Link> and convert classical non-positional numerals in our <Link href="/calculators/measurements/roman-numeral-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">roman numeral converter</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Foundations of Positional Radix Notation: The Power-Base Architecture
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Positional notation represents one of the crowning intellectual achievements in the history of mathematics. Developed by Indian mathematicians and popularized in Europe by Persian polymath Al-Khwarizmi and Italian mathematician Fibonacci, positional number systems represent numbers through an ordered sequence of digits where the absolute value of each symbol depends on its relative position within the string, scaled by successive powers of an integer radix base b.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While human biology settled on decimal (Base-10) due to our ten anatomical fingers, digital silicon computers operate natively in binary (Base-2). Bridging the gap between human cognitive preferences and silicon machine language requires constant translation across binary, octal (Base-8), decimal (Base-10), and hexadecimal (Base-16) radices in assembly programming, network packet inspection, and cryptographic key generation.
+          </p>
+
+          <NumberSystemPositionalRadixDensityChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivation: Polynomial Radix Expansion & Repeated Division
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Any non-negative integer N expressed in a positional radix base b with digits d_k computes via polynomial summation:
+          </p>
+          <Formula>{"N = \\sum_{k=0}^{n-1} d_k \\times b^k = d_{n-1} b^{n-1} + \\dots + d_2 b^2 + d_1 b^1 + d_0 b^0"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where each digit d_k is an integer strictly bounded by 0 ≤ d_k &lt; b. To convert from decimal Base-10 into any arbitrary target radix b, computer algorithms execute the repeated division algorithm:
+          </p>
+          <Formula>{"N_{i+1} = \\lfloor N_i / b \\rfloor, \\quad \\text{remainder } r_i = N_i \\pmod b"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The remainders r_i recorded in reverse chronological order form the exact digits of the target radix string. For example, converting decimal 250 into hexadecimal Base-16:
+          </p>
+          <Formula>{"250 \\div 16 = 15 \\text{ R } 10 (\\text{A}), \\quad 15 \\div 16 = 0 \\text{ R } 15 (\\text{F}) \\implies 250_{10} = \\text{FA}_{16}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When calculating network bit throughput and byte transmission timings, cross-reference line rates in our <Link href="/calculators/internet/bandwidth-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">bandwidth calculator</Link> and calculate exponential quantities using our <Link href="/calculators/math/scientific-notation-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">scientific notation calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Positional Radix Values (0 to 15)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles exact numerical equivalencies across the four fundamental computational radices for a 4-bit nibble:
+          </p>
+          <DataTable
+            head={["Decimal (Base 10)", "Binary (Base 2)", "Octal (Base 8)", "Hexadecimal (Base 16)", "ASCII Character Equivalent"]}
+            rows={[
+              ["0", "0000", "0", "0x0", "NUL (Null Byte)"],
+              ["1", "0001", "1", "0x1", "SOH (Start of Header)"],
+              ["2", "0010", "2", "0x2", "STX (Start of Text)"],
+              ["3", "0011", "3", "0x3", "ETX (End of Text)"],
+              ["4", "0100", "4", "0x4", "EOT (End of Trans)"],
+              ["5", "0101", "5", "0x5", "ENQ (Enquiry)"],
+              ["6", "0110", "6", "0x6", "ACK (Acknowledge)"],
+              ["7", "0111", "7", "0x7", "BEL (Bell Sound)"],
+              ["8", "1000", "10", "0x8", "BS (Backspace)"],
+              ["9", "1001", "11", "0x9", "HT (Horizontal Tab)"],
+              ["10", "1010", "12", "0xA", "LF (Line Feed)"],
+              ["11", "1011", "13", "0xB", "VT (Vertical Tab)"],
+              ["12", "1100", "14", "0xC", "FF (Form Feed)"],
+              ["13", "1101", "15", "0xD", "CR (Carriage Return)"],
+              ["14", "1110", "16", "0xE", "SO (Shift Out)"],
+              ["15", "1111", "17", "0xF", "SI (Shift In)"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: IPv4 Subnet Mask & Network IP Parsing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a network security engineer configuring a Cisco core router interface. A security policy specifies a Classless Inter-Domain Routing (CIDR) subnet prefix of /27 on an interface assigned the decimal dotted IP address 192.168.10.142. The engineer must convert the IP octets into 32-bit binary, derive the subnet mask in hexadecimal, and calculate the broadcast address:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Convert Decimal Octets to 8-bit Binary):</strong> 192 = 11000000; 168 = 10101000; 10 = 00001010; 142 = 10001110. Concatenated binary: 11000000.10101000.00001010.10001110.</li>
+            <li><strong>Step 2 (Construct /27 Subnet Mask in Binary & Hex):</strong> 27 leading ones followed by 5 zeros: 11111111.11111111.11111111.11100000. In decimal: 255.255.255.224. In hexadecimal: 0xFFFFFFE0.</li>
+            <li><strong>Step 3 (Execute Bitwise AND for Network Address):</strong> Host octet 142 (10001110) AND mask 224 (11100000) = 10000000 (decimal 128). Network address = 192.168.10.128.</li>
+            <li><strong>Step 4 (Usable Host Verification):</strong> 5 host bits provide 2⁵ - 2 = 30 usable host IP addresses. Total subnet bandwidth can be modeled in our <Link href="/calculators/internet/bandwidth-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">bandwidth calculator</Link> and file download durations verified in our <Link href="/calculators/internet/download-time-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">download time calculator</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Floating-Point Representation: The IEEE 754 Binary Standard
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern computer programming (C++, Rust, Python, JavaScript), real decimal numbers with fractional parts are encoded using the IEEE 754 binary floating-point standard. A standard 64-bit double-precision floating-point number (binary64) partitions bits into three distinct fields:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Sign Bit (Bit 63):</strong> 1 bit (0 for positive, 1 for negative).</li>
+            <li><strong>Biased Exponent (Bits 62 to 52):</strong> 11 bits with a bias offset of +1023, representing powers of 2 from 2⁻¹⁰²² to 2⁺¹⁰²³.</li>
+            <li><strong>Significand / Mantissa (Bits 51 to 0):</strong> 52 explicit bits providing 53 bits of precision (~15 to 17 decimal digits) via an implicit leading 1 bit.</li>
+          </ul>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Because decimal fractions like 0.1 (1/10) cannot be represented cleanly in finite binary powers of two (0.1 in binary is a recurring fraction: 0.0001100110011...b), floating-point arithmetic produces microscopic rounding artifacts (e.g., 0.1 + 0.2 = 0.30000000000000004 in JavaScript), requiring fixed-point decimal integer math in financial software.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Web Design: 24-Bit RGB Hexadecimal Color Triplet Coding
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In web design and digital graphics, colors are displayed on computer monitors through additive RGB (Red, Green, Blue) color mixing. Standard TrueColor uses 24 bits per pixel, allocating exactly 8 bits (one byte, 0 to 255) per color channel.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            CSS style sheets encode these 24 bits as a six-digit hexadecimal triplet prefixed with a hash mark (#RRGGBB). For instance, pure emerald green (#10B981) decomposes into: Red = 0x10 = 16/255 (6.3%), Green = 0xB9 = 185/255 (72.5%), and Blue = 0x81 = 129/255 (50.6%). Hexadecimal coding condenses over 16.7 million distinct color combinations into compact, easily parseable strings.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Assembly Debugging, Cryptography & Transponders
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In software reverse engineering and assembly debugging, disassembly listings display machine opcodes in hexadecimal bytes (e.g., 0x90 for NOP, 0xCC for INT3 software breakpoint). In cryptography, cryptographic hash functions like SHA-256 output 256-bit digest integers formatted as 64-character hexadecimal strings.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For academic tracking and general mathematical tools, explore our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and track test percentages in our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>, or visit the centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <NumberSystemConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Gray Code: Reflected Binary & Rotary Optical Shaft Encoders
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In industrial automation, robotics, and aerospace fly-by-wire controls, optical rotary shaft encoders measure the exact rotational angle of motor shafts. In standard binary arithmetic, counting from 3 (0011b) to 4 (0100b) requires three simultaneous bit transitions (two bits flip from 1 to 0, and one bit flips from 0 to 1). In physical hardware, microscopic misalignments of optical photodetectors cause bits to switch at slightly staggered nanosecond intervals, generating catastrophic spurious transient codes (e.g., momentarily reading 7 or 0 during the transition).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In 1953, Bell Labs engineer Frank Gray patented the Reflected Binary Code (Gray Code). In Gray code, consecutive numbers differ by exactly one single binary bit flip (Hamming distance = 1). Because only a single track transition occurs at any boundary, physical read glitches are completely eliminated. Software algorithms convert standard binary N into Gray code using a simple bitwise shift and XOR: G = N ^ (N &gt;&gt; 1).
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Binary Coded Decimal (BCD) & Real-Time Clock Hardware Registers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In hardware real-time clock (RTC) chips (such as the ubiquitous DS3231) and legacy financial mainframe transaction processors, numbers are stored in Binary Coded Decimal (BCD). Rather than converting a large decimal number into pure binary, BCD encodes each individual base-10 digit (0 through 9) into its own dedicated 4-bit nibble.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For example, the decimal integer 59 is represented in packed BCD as 0101 1001b (0x59). While BCD wastes approximately 16.7% of potential 4-bit representation capacity (binary states 1010b through 1111b are unused), it completely eliminates fractional decimal rounding errors when performing financial accounting, and allows hardware seven-segment LED display drivers to decode digits without expensive division circuits.
+          </p>
+
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Digital Signal Processors & Fixed-Point Q-Format Arithmetic
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In low-power embedded microcontrollers and audio digital signal processors (DSPs) lacking dedicated hardware floating-point units (FPUs), fractional decimal calculations are implemented using fixed-point Q-format binary arithmetic. In Q15 notation, a 16-bit signed two&apos;s complement integer dedicates 1 bit to the sign and 15 bits to the fractional magnitude.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The numerical value of a Q15 binary integer is computed as N ÷ 2¹⁵ (N ÷ 32,768), representing real numbers between -1.0 and +0.999969. In wireless telecommunications and noise-canceling headphone DSP filters, executing multiply-accumulate (MAC) operations in Q-format binary achieves microsecond throughput with minimal power consumption, proving the enduring practical power of positional radix engineering.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In embedded microcontroller firmware design and programmable logic controllers (PLCs), engineers configure bitmask flags using bitwise logical operators (AND, OR, NOT, XOR, left-shift, right-shift). For related computer engineering tools, explore our <Link href="/calculators/measurements/data-storage-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">data storage converter</Link> and calculate transmission bitrates in the <Link href="/calculators/internet/bandwidth-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">bandwidth calculator</Link>.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In modern cybersecurity and cryptography, large prime numbers spanning 2,048 or 4,096 bits are generated for RSA public-key encryption. Storing and transmitting these gargantuan keys requires base-64 or hexadecimal radix formatting to ensure error-free transmission across international network gateways.
+          </p>
+
+    </CalcPage>
   );
 }

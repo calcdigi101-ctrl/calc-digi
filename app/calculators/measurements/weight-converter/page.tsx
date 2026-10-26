@@ -1,26 +1,209 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import WeightConverterComponent from "@/components/calcs/measurements/weight-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { MassWeightPlanetaryGravitationalChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/weight-converter";
+const TITLE = "Weight & Mass Converter | Kilograms, Pounds, Ounces & Metric Tons";
+const DESCRIPTION =
+  "Convert kilograms, pounds, ounces, grams, stones, and metric tons with precise SI Planck-constant definitions and gravitational weight force modeling.";
 
 export const metadata: Metadata = {
-  "title": "Weight Converter – Kg to Lbs, Grams to Ounces | CalcDigi",
-  "description": "Convert kilograms to pounds, grams to ounces, stones to kg and more. Instant weight and mass unit conversion with all formulas.",
-  "openGraph": {
-    "title": "Weight Converter – Kg to Lbs, Grams to Ounces | CalcDigi",
-    "description": "Convert kilograms to pounds, grams to ounces, stones to kg and more. Instant weight and mass unit conversion with all formulas.",
-    "type": "website",
-    "url": "/calculators/measurements/weight-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/weight-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "/calculators/measurements/volume-converter", icon: "🧪", name: "Volume Converter" },
+  { href: "/calculators/physics/force-calculator", icon: "💥", name: "Force Calculator" },
+  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/calculators/measurements/pressure-converter", icon: "⏱️", name: "Pressure Converter" },
+  { href: "/pages/measurements", icon: "⚖️", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "What is the critical scientific distinction between mass and weight?",
+    a: "Mass represents the fundamental quantitative measure of an object's inertia and amount of matter, expressed in kilograms (kg) and invariant across the cosmos. Weight is the gravitational force exerted upon that mass by a planetary body, expressed in Newtons (N) per W = m × g. While an 80 kg person has an Earth weight of ~785 N (~176 lbf), their weight on the Moon drops to ~130 N (~29 lbf) while their mass remains exactly 80 kg.",
+  },
+  {
+    q: "How is the kilogram defined in the revised SI system?",
+    a: "Prior to May 20, 2019, the kilogram was defined by the physical platinum-iridium cylinder (the International Prototype of the Kilogram, IPK) stored in Sèvres, France. Following the 2019 CGPM revision, the kilogram is defined by fixing the numerical value of the Planck constant h to exactly 6.62607015 × 10⁻³⁴ J·s, realized via Kibble balances.",
+  },
+  {
+    q: "What is the exact legal definition of an avoirdupois pound?",
+    a: "Under the 1959 International Yard and Pound Agreement, one international avoirdupois pound (lb) is legally defined as exactly 0.45359237 kilograms. This exact decimal terminates without recurring fractions, harmonizing trade standards across the English-speaking world.",
+  },
+  {
+    q: "What is the difference between a metric ton, an Imperial long ton, and a US short ton?",
+    a: "A metric ton (tonne, t) equals exactly 1,000 kg (2,204.62 lbs). A US short ton equals 2,000 lbs (907.185 kg), commonly used in North American freight. A British Imperial long ton equals 2,240 lbs (1,016.047 kg), traditionally used in maritime displacement and commodities shipping.",
+  },
+];
+
+export default function WeightConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Weight Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/weight-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Weight Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/weight-converter\", \"description\": \"Convert kilograms to pounds, grams to ounces, stones to kg and more. Instant weight and mass unit conversion with all formulas.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many pounds are in a kilogram?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 kilogram = 2.20462 pounds. To convert kg to lbs, multiply by 2.20462. To convert lbs to kg, multiply by 0.453592. For quick estimation, multiply kg by 2.2.\"}}, {\"@type\": \"Question\", \"name\": \"How many grams are in an ounce?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 ounce = 28.3495 grams exactly. 16 ounces (1 pound) = 453.592 grams. 1 kg = 35.274 ounces. This conversion is critical for cooking and food nutrition labels.\"}}, {\"@type\": \"Question\", \"name\": \"What is a stone in kg?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 stone = 14 pounds = 6.35029 kilograms. The stone is still commonly used for body weight in the UK and Ireland. A person of 70 kg weighs approximately 11 stone.\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between mass and weight?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Mass is the amount of matter in an object (measured in kg). Weight is the force gravity exerts on that mass (measured in Newtons). On Earth they are proportional, but on the Moon your weight would be 1/6th your Earth weight while your mass stays the same.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert my body weight from lbs to kg?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Multiply pounds by 0.453592 to get kilograms. For example: 150 lbs × 0.453592 = 68.04 kg. Or divide pounds by 2.205 for a quick estimate.\"}}, {\"@type\": \"Question\", \"name\": \"How many milligrams are in a gram?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"There are exactly 1,000 milligrams (mg) in 1 gram (g). Milligrams are used for medications, vitamins, and precise chemistry measurements.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\">\n<div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\">\n<a href=\"/\">Home</a><span class=\"bc-sep\"> / </span>\n<a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span>\n<span aria-current=\"page\">Weight Converter</span>\n</nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Weight Converter</h1>\n<p class=\"calc-intro\">Convert between kilograms, pounds, grams, ounces, stones, milligrams, and metric tons instantly. The most complete free weight and mass converter online — with conversion tables, formulas, and real-world examples.</p>\n<div class=\"content-section\">\n<h2>Conversion Formula</h2>\n<div class=\"formula-box\">1 kilogram = 2.20462 pounds | 1 pound = 453.592 grams | 1 ounce = 28.3495 grams | 1 stone = 6.35029 kg</div>\n</div>\n<div class=\"content-section\">\n<h2>How to Convert Weight Units</h2>\n<p>Weight conversion is needed in everyday life — from cooking recipes that use grams vs ounces, to understanding your body weight in both kilograms and pounds, to shipping packages internationally where weight limits are in different units.</p>\n<p>The base unit of mass in the SI system is the <strong>kilogram (kg)</strong>. All other mass units are defined relative to it. The kilogram was redefined in 2019 based on Planck's constant, making it the most precisely defined unit in history.</p>\n<h3>Kilograms to Pounds Conversion</h3>\n<p>The kilogram to pound conversion is the most commonly searched weight conversion worldwide. <strong>1 kg = 2.20462 lbs</strong>. To convert kg to lbs, multiply by 2.20462. To convert lbs to kg, multiply by 0.453592.</p>\n<ul><li>60 kg = 132.28 lbs (average adult female weight)</li><li>70 kg = 154.32 lbs (average adult male weight)</li><li>100 kg = 220.46 lbs</li></ul>\n<h3>Grams to Ounces Conversion</h3>\n<p>Essential for cooking, baking, and food labeling. <strong>1 ounce = 28.3495 grams</strong>. To convert ounces to grams, multiply by 28.3495. To convert grams to ounces, divide by 28.3495.</p>\n<ul><li>100g = 3.527 oz</li><li>500g = 17.637 oz</li><li>1 pound (16 oz) = 453.592g</li></ul>\n<h3>Stones to Kilograms</h3>\n<p>The stone is a unit of weight used in the UK and Ireland for body weight. <strong>1 stone = 14 pounds = 6.35029 kg</strong>. A person weighing 11 stone 7 pounds = 73.03 kg.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;\">Unit</th><th style=\"padding:12px 16px;\">Symbol</th><th style=\"padding:12px 16px;\">Grams Equivalent</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Metric Ton</td><td style=\"padding:11px 16px;\">t</td><td style=\"padding:11px 16px;\">1,000,000 g</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Kilogram</td><td style=\"padding:11px 16px;\">kg</td><td style=\"padding:11px 16px;\">1,000 g</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Pound</td><td style=\"padding:11px 16px;\">lb</td><td style=\"padding:11px 16px;\">453.592 g</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">Ounce</td><td style=\"padding:11px 16px;\">oz</td><td style=\"padding:11px 16px;\">28.3495 g</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">Stone</td><td style=\"padding:11px 16px;\">st</td><td style=\"padding:11px 16px;\">6,350.29 g</td></tr>\n<tr><td style=\"padding:11px 16px;\">Gram</td><td style=\"padding:11px 16px;\">g</td><td style=\"padding:11px 16px;\">1 g</td></tr>\n</tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many pounds are in a kilogram? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 kilogram = 2.20462 pounds. To convert kg to lbs, multiply by 2.20462. To convert lbs to kg, multiply by 0.453592. For quick estimation, multiply kg by 2.2.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many grams are in an ounce? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 ounce = 28.3495 grams exactly. 16 ounces (1 pound) = 453.592 grams. 1 kg = 35.274 ounces. This conversion is critical for cooking and food nutrition labels.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is a stone in kg? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 stone = 14 pounds = 6.35029 kilograms. The stone is still commonly used for body weight in the UK and Ireland. A person of 70 kg weighs approximately 11 stone.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between mass and weight? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Mass is the amount of matter in an object (measured in kg). Weight is the force gravity exerts on that mass (measured in Newtons). On Earth they are proportional, but on the Moon your weight would be 1/6th your Earth weight while your mass stays the same.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert my body weight from lbs to kg? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Multiply pounds by 0.453592 to get kilograms. For example: 150 lbs × 0.453592 = 68.04 kg. Or divide pounds by 2.205 for a quick estimate.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many milligrams are in a gram? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">There are exactly 1,000 milligrams (mg) in 1 gram (g). Milligrams are used for medications, vitamins, and precise chemistry measurements.</div></div></div></div>\n<div class=\"content-section\">\n<h2>Related Measurement Converters</h2>\n<div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/temperature-converter\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Temperature Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/volume-converter\"><span class=\"rc-icon\">🥄</span><span class=\"rc-name\">Volume Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/speed-converter\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Speed Converter</span></a></div>\n</div>\n</div>\n<div class=\"calc-sidebar\">\n<div class=\"calc-widget\">\n<h2>Weight Converter – Kilograms, Pounds, Grams &amp; Ounces</h2>\n<div class=\"form-group\"><label for=\"cv-val\">Value</label><input id=\"cv-val\" step=\"any\" type=\"number\" value=\"1\"/></div>\n<div class=\"form-group\"><label for=\"cv-from\">From</label><select id=\"cv-from\"><option selected=\"\" value=\"kg\">Kilogram (kg)</option>\n<option value=\"g\">Gram (g)</option>\n<option value=\"mg\">Milligram (mg)</option>\n<option value=\"t\">Metric Ton (t)</option>\n<option value=\"lb\">Pound (lb)</option>\n<option value=\"oz\">Ounce (oz)</option>\n<option value=\"st\">Stone (st)</option></select></div>\n<div class=\"form-group\"><label for=\"cv-to\">To</label><select id=\"cv-to\"><option value=\"kg\">Kilogram (kg)</option>\n<option value=\"g\">Gram (g)</option>\n<option value=\"mg\">Milligram (mg)</option>\n<option value=\"t\">Metric Ton (t)</option>\n<option selected=\"\" value=\"lb\">Pound (lb)</option>\n<option value=\"oz\">Ounce (oz)</option>\n<option value=\"st\">Stone (st)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\">\n<div id=\"cv-ri\"></div>\n<div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div>\n<div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div>\n</div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Weight Converter – Kilograms, Pounds, Grams &amp; Ounces')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Weight Converter – Kilograms, Pounds, Grams &amp; Ounces')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div>\n</div>\n</div>\n</div>\n<div class=\"content-section\"><h2>How to Use This Calculator</h2>\n<p>Enter your values into the input fields above and click Calculate for instant results. All calculations run in your browser — no data is sent to any server, ensuring complete privacy. Use the Copy button to save your results and the Share button to send a link to this calculator.</p>\n<h3>Understanding Your Results</h3>\n<p>Results are based on the formula and inputs provided. For important financial, medical, or legal decisions, always verify results with a qualified professional. This tool is designed to give quick, reliable estimates for planning and educational purposes.</p>\n<h3>Tips for Accurate Calculations</h3>\n<p>Always double-check your input values and units before calculating. Small input errors can significantly affect results. Use the Reset button to clear all fields and start fresh. For multi-step calculations, use the result of one calculation as the input for the next.</p>\n<h3>Reference Guide</h3>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\">\n<th style=\"padding:10px 14px;text-align:left;\">Term</th>\n<th style=\"padding:10px 14px;text-align:left;\">Meaning</th>\n<th style=\"padding:10px 14px;text-align:left;\">Example</th>\n</tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Input</td><td style=\"padding:10px 14px;\">Value you enter into the calculator</td><td style=\"padding:10px 14px;\">Amount, rate, or quantity</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Output</td><td style=\"padding:10px 14px;\">Calculated result shown after clicking Calculate</td><td style=\"padding:10px 14px;\">Final answer or converted value</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Formula</td><td style=\"padding:10px 14px;\">Mathematical equation used for the calculation</td><td style=\"padding:10px 14px;\">Shown in Formula section above</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Precision</td><td style=\"padding:10px 14px;\">Number of decimal places in the result</td><td style=\"padding:10px 14px;\">Typically 2-4 decimal places</td></tr>\n</tbody></table></div>\n<h3>Why Use CalcDigi</h3>\n<p>CalcDigi provides over 300 free online calculators covering math, science, finance, health, physics, and more. Every calculator is free with no login required. All tools work on any device and deliver instant accurate results with AI-powered insights to help you understand your numbers better.</p></div>\n</main>" }} />
-      <Script id="calc-script-weight-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "\nvar FACTORS={\"kg\":1,\"g\":0.001,\"mg\":1e-06,\"t\":1000,\"lb\":0.453592,\"oz\":0.0283495,\"st\":6.35029};\nvar NAMES={\"kg\":\"Kilogram\",\"g\":\"Gram\",\"mg\":\"Milligram\",\"t\":\"Metric Ton\",\"lb\":\"Pound\",\"oz\":\"Ounce\",\"st\":\"Stone\"};\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('cv-val').value);\n  var from=document.getElementById('cv-from').value;\n  var to=document.getElementById('cv-to').value;\n  if(isNaN(val)){alert('Please enter a valid number.');return;}\n  var base=val*FACTORS[from];\n  var result=base/FACTORS[to];\n  var fromN=NAMES[from]; var toN=NAMES[to];\n  var fmt=function(n){return n>=0.0001&&n<1e10?parseFloat(n.toFixed(8)).toString():n.toExponential(4);};\n  var otherRows=Object.keys(FACTORS).filter(function(u){return u!==from&&u!==to;}).slice(0,3).map(function(u){return ri('In '+NAMES[u],fmt(base/FACTORS[u])+' '+u);}).join('');\n  document.getElementById('cv-ri').innerHTML=\n    ri('Result','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmt(result)+' '+toN+'</strong>',true)+\n    ri(val+' '+fromN+' =',fmt(result)+' '+toN)+\n    otherRows;\n  document.getElementById('cv-result').style.display='block';\n  document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',[fromN,toN],[Math.abs(val)||0.001,Math.abs(result)||0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight('Converting '+val+' '+fromN+' to '+toN+', result: '+result+'. In 2 sentences share a real-world context where this weight conversion is commonly needed.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\n\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Metrology Guidance:</strong> Mass represents the invariant quantity of matter, with the kilogram (kg) serving as the SI anchor. For structural load analysis or material packaging, cross-reference our <Link href="/calculators/measurements/volume-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">volume converter</Link> and calculate mass-volume relationships using our <Link href="/calculators/physics/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mass Metrology & Gravitational Weight Invariance Principles
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Mass constitutes one of the most fundamental base dimensions in classical and quantum mechanics. In colloquial commercial parlance, the terms &apos;mass&apos; and &apos;weight&apos; are frequently conflated; however, in physics and mechanical engineering, their distinction is vital. Mass measures resistance to linear acceleration when subjected to a net external force (inertial mass, F = m × a) and determines the magnitude of mutual attraction between matter bodies (gravitational mass).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Weight, conversely, represents the local gravitational force vector acting on that mass: W = m × g. Because terrestrial gravitational acceleration g fluctuates between 9.780 m/s² at the equator and 9.832 m/s² at the poles due to Earth&apos;s oblate spheroidal centrifugal flattening, a standard balance measure must be distinguished from a spring-loaded force gauge. Converting between international systems requires translating through the immutable SI kilogram benchmark.
+          </p>
+
+          <MassWeightPlanetaryGravitationalChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Formulation & Exact Conversion Equivalencies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Every mass conversion translates through the base kilogram. Using the 1959 international avoirdupois standard factor, the transformation from mass in system A to target system B computes as follows:
+          </p>
+          <Formula>{"m_{\\text{target}} = m_{\\text{source}} \\times \\left( \\frac{\\mu_{\\text{source}}}{\\mu_{\\text{target}}} \\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where μ represents the exact kilogram equivalency factor. The legally ratified constants under NIST Special Publication 811 are:
+          </p>
+          <Formula>{"1 \\text{ lb} = 0.45359237 \\text{ kg}, \\quad 1 \\text{ oz} = \\frac{1}{16} \\text{ lb} = 0.028349523125 \\text{ kg}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To evaluate mechanical forces arising from accelerated masses in motion, explore our <Link href="/calculators/physics/force-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">force calculator</Link> or evaluate hydrostatic surface pressures in the <Link href="/calculators/measurements/pressure-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">pressure converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Global Reference Table of Mass and Weight Equivalencies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles authoritative conversion coefficients across scientific, commercial, and precious metals regimes:
+          </p>
+          <DataTable
+            head={["Mass Unit", "Symbol", "Kilograms Equivalent (kg)", "Pounds Equivalent (lb)"]}
+            rows={[
+              ["Microgram", "µg", "1.0 × 10⁻⁹ kg", "2.20462 × 10⁻⁹ lb"],
+              ["Milligram", "mg", "1.0 × 10⁻⁶ kg", "2.20462 × 10⁻⁶ lb"],
+              ["Gram", "g", "0.001 kg", "0.00220462 lb"],
+              ["Kilogram (SI Base)", "kg", "1.0 kg", "2.20462262 lb"],
+              ["Metric Ton (Tonne)", "t", "1,000.0 kg", "2,204.62262 lb"],
+              ["Ounce (Avoirdupois)", "oz", "0.028349523 kg", "0.0625 lb"],
+              ["Pound (Avoirdupois)", "lb", "0.45359237 kg", "1.0 lb"],
+              ["Stone (UK)", "st", "6.35029318 kg", "14.0 lb"],
+              ["US Short Ton", "tn", "907.18474 kg", "2,000.0 lb"],
+              ["Imperial Long Ton", "LT", "1,016.0469088 kg", "2,240.0 lb"],
+              ["Troy Ounce (Precious Metals)", "oz t", "0.0311034768 kg", "0.0685714 lb"],
+              ["Carat (Gemstones)", "ct", "0.0002 kg", "0.000440924 lb"],
+              ["Atomic Mass Unit (Dalton)", "u / Da", "1.66053906660 × 10⁻²⁷ kg", "3.66086 × 10⁻²⁷ lb"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Commercial Aircraft Cargo Weight & Balance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a Boeing 777-300ER long-haul cargo dispatcher calculating payload loading for a cross-pacific flight departing Frankfurt (FRA) destined for Chicago O&apos;Hare (ORD). The European cargo manifest records 42,850 kg of palletized freight. FAA flight control regulations require the load manifest to be entered into the American flight management computer in standard imperial pounds (lb):
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Identify Direct Conversion Factor):</strong> 1 lb = 0.45359237 kg; therefore, 1 kg = 1 ÷ 0.45359237 ≈ 2.2046226218 lbs.</li>
+            <li><strong>Step 2 (Compute Imperial Payload Weight):</strong> 42,850 kg × 2.2046226218 lb/kg = 94,468.08 lbs.</li>
+            <li><strong>Step 3 (Short Ton & Metric Ton Equivalence):</strong> In metric tonnes: 42.85 t. In US short tons: 94,468.08 ÷ 2,000 = 47.234 tons.</li>
+            <li><strong>Step 4 (Fuel Consumption Correlation):</strong> Fuel burn rates correlate directly with total aircraft mass. Flight dispatchers cross-verify jet fuel volume in liters using our <Link href="/calculators/measurements/volume-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">volume converter</Link> and calculate route length with the <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The Historical Evolution of the Kilogram: Le Grand K to the Kibble Balance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For 130 years (1889 to 2019), the definition of the kilogram rested entirely on a physical cylinder made of 90% platinum and 10% iridium alloy, known affectionately as &apos;Le Grand K&apos;, secured within a triple-bell-jar vault at the Bureau International des Poids et Mesures in Sèvres, France. However, periodic micro-balance comparisons against official national prototype copies revealed an alarming discrepancy: Le Grand K was losing mass relative to its copies at a rate of approximately 50 micrograms per century, likely due to surface desorption or micro-abrasions during cleaning.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In a historic unanimous vote at the 26th CGPM in Versailles in November 2018, metrologists abandoned physical artifacts forever. Today, the kilogram is realized through the Kibble balance—an electromechanical instrument that balances the gravitational force of a test mass against an electromagnetic force produced by an electric current flowing through a coil immersed in a magnetic field, linking mechanical mass to Planck&apos;s constant h.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Avoirdupois vs Troy Weight Systems in Precious Metals & Bullion
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A notoriously common error in gold and silver commodities trading is confusing the standard avoirdupois ounce with the troy ounce. While standard consumer goods utilize the avoirdupois ounce (28.3495 grams, 16 ounces per pound), gold, silver, and platinum bullion are priced strictly per troy ounce (31.1035 grams, 12 troy ounces per troy pound). A troy ounce is nearly 9.7% heavier than an avoirdupois ounce. Purchasing 100 avoirdupois ounces of investment gold bullion rather than 100 troy ounces results in a shortfall of 275.4 grams of precious metal, causing significant financial discrepancies.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Dynamic Acceleration & Apparent Weight in Aerospace Engineering
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When an astronaut or fighter pilot experiences elevated G-forces, their biological mass remains strictly invariant, but their apparent weight multiplies dramatically. Under 5G vertical acceleration (g_eff = 5 × 9.80665 m/s² = 49.03 m/s²), an 80 kg pilot exerts a downward seat force of 3,922 Newtons—equivalent to an apparent weight of 882 pounds-force. Aerospace structural engineers design ejection seats and airframes around these peak dynamic inertial loads rather than static tare weights.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Laboratory Analytical Balance Calibration & Air Buoyancy Correction
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In analytical chemical formulation and pharmaceutical manufacturing under FDA cGMP regulations, micro-balances measure reagents to 0.1 micrograms (10⁻⁷ g). At this sensitivity level, Archimedes&apos; principle of air buoyancy introduces systematic weighing errors. An object of volume V displaces a mass of ambient air equal to ρ_air × V. Because standard stainless steel calibration weights have a density of ~8,000 kg/m³ while organic chemical powders often exhibit densities near 1,200 kg/m³, the buoyant force difference can alter measured mass by up to 0.1%.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Metrologists apply the air buoyancy correction formula m = m_apparent × [1 - (ρ_air / ρ_weights)] ÷ [1 - (ρ_air / ρ_sample)], incorporating ambient barometric pressure and temperature readings. For pharmaceutical dosage calculations and academic grading of scientific results, students can cross-reference our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link> and statistical tools like the <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Commercial Applications in Health, Nutrition & Global Logistics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In everyday healthcare, tracking body mass in kilograms versus stones and pounds is common across international health databases. In the UK and Ireland, personal weight is traditionally quoted in stones (1 stone = 14 pounds = 6.3503 kg). In nutritional science, calculating macronutrient intake requires converting grams of protein, carbohydrates, and fats into dietary calories.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In global maritime logistics, container vessels load standard twenty-foot equivalent units (TEU) governed by the International Maritime Organization (IMO) Safety of Life at Sea (SOLAS) Verified Gross Mass (VGM) rules, mandating certified weight certificates for all shipping containers prior to vessel stowage. For comprehensive unit conversions across all engineering and physical fields, explore our centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <WeightConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Geotechnical Soil Mechanics & Terzaghi Bearing Capacity Principles
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In civil and geotechnical engineering, structural foundation safety depends on accurately translating dead-load building mass (expressed in metric tonnes or kips) into soil bearing pressures. Karl Terzaghi&apos;s classical bearing capacity formulation q_ult = c N_c + γ D_f N_q + 0.5 γ B N_γ calculates the ultimate pressure supported by cohesive clay or cohesionless sandy strata before shear failure occurs.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When structural engineers calculate foundation footprints, converting total deadweight kilograms to imperial pound-force per square foot (psf) or metric kilopascals (kPa) must maintain strict dimensional fidelity. Overestimating bearing capacity by confusing short tons with metric tonnes can lead to disastrous differential settlement, catastrophic building tilt, or catastrophic structural collapse in high-rise edifices.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mass Spectrometry & High-Precision Atomic Isotope Metrology
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            At the atomic scale, nuclear physicists and analytical chemists measure atomic mass using the unified atomic mass unit (u, or Dalton, Da), defined as exactly one-twelfth of the rest mass of an unbound carbon-12 atom in its nuclear ground state (1 u ≈ 1.66053906660 × 10⁻²⁷ kg). In high-resolution Penning trap mass spectrometers, researchers confine individual ionized atoms within supercooled magnetic and electrostatic fields, measuring cyclotron resonance frequencies to determine atomic mass to eleven decimal digits of precision.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            These precision atomic mass determinations underpin radiocarbon archeological dating (carbon-14 decay ratios), nuclear fission energy yield calculations via Albert Einstein&apos;s mass-energy equivalence principle E = mc², and isotopic hydrological tracking of global climate patterns.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In geotechnical bore logging, soil bulk density is reported in grams per cubic centimeter (g/cm³) or pounds per cubic foot (pcf). Converting soil compaction parameters between ASTM D698 Proctor test results and Eurocode 7 standards requires consistent mass and volume transformations to prevent building foundation settlement.
+          </p>
+
+    </CalcPage>
   );
 }

@@ -1,26 +1,216 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import VolumeConverterComponent from "@/components/calcs/measurements/volume-converter";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { VolumeMetricImperialVolumetricRatioChart } from "@/components/flagship/measurements/editorial-charts";
+
+const PATH = "/calculators/measurements/volume-converter";
+const TITLE = "Volume & Capacity Converter | Liters, Gallons, Quarts & Fluid Ounces";
+const DESCRIPTION =
+  "Convert liters, gallons, cubic meters, fluid ounces, pints, and barrels with exact cubic dimensional derivations and interactive volumetric ratio charts.";
 
 export const metadata: Metadata = {
-  "title": "Volume Converter – Liters to Gallons, Cups to ML | CalcDigi",
-  "description": "Convert liters to gallons, milliliters to cups, fluid ounces to liters. Instant volume and liquid unit conversion.",
-  "openGraph": {
-    "title": "Volume Converter – Liters to Gallons, Cups to ML | CalcDigi",
-    "description": "Convert liters to gallons, milliliters to cups, fluid ounces to liters. Instant volume and liquid unit conversion.",
-    "type": "website",
-    "url": "/calculators/measurements/volume-converter"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/measurements/volume-converter"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "/calculators/measurements/area-converter", icon: "📐", name: "Area Converter" },
+  { href: "/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
+  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/calculators/measurements/cooking-measurement-converter", icon: "🍳", name: "Cooking Converter" },
+  { href: "/pages/measurements", icon: "🧪", name: "Measurements Hub" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why is a British Imperial gallon significantly larger than a US customary gallon?",
+    a: "Under the British Weights and Measures Act of 1824, the Imperial gallon was standardized as the exact volume occupied by 10 pounds of distilled water at 62°F, equaling exactly 4.54609 liters (277.42 cubic inches). The US gallon retained the earlier British Queen Anne wine gallon of 1707, defined as exactly 231 cubic inches (3.78541 liters). As a result, the Imperial gallon is approximately 20% larger than the US gallon.",
+  },
+  {
+    q: "How are fluid ounces defined in the US versus British Imperial systems?",
+    a: "In the US customary system, 1 gallon contains 128 US fluid ounces, making 1 US fl oz equal to 29.5735 mL. In the British Imperial system, 1 Imperial gallon contains 160 Imperial fluid ounces, making 1 Imperial fl oz equal to 28.4131 mL. Thus, while an Imperial gallon is larger, an individual Imperial fluid ounce is about 4% smaller than a US fluid ounce.",
+  },
+  {
+    q: "What is the exact cubic relationship between a liter and a cubic meter?",
+    a: "The liter (L) is officially accepted for use with the SI system and is defined as exactly 1 cubic decimeter (1 dm³). Since 1 meter equals 10 decimeters, 1 cubic meter (m³) contains exactly 10 × 10 × 10 = 1,000 liters. Conversely, 1 milliliter (mL) equals exactly 1 cubic centimeter (1 cm³ or cc).",
+  },
+  {
+    q: "What is a standard petroleum barrel (bbl) and how many gallons does it contain?",
+    a: "In global oil commodities trading, a standard oil barrel (bbl) is legally fixed at exactly 42 US gallons (approximately 158.987 liters or 34.97 Imperial gallons). This standard originated in the early Pennsylvania oil boom of the 1860s, using 42-gallon whiskey barrels to account for transit spillage.",
+  },
+];
+
+export default function VolumeConverterPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Measurements Calculators\", \"item\": \"https://calcdigi.com/pages/measurements\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Volume Converter\", \"item\": \"https://calcdigi.com/calculators/measurements/volume-converter\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Volume Converter\", \"url\": \"https://calcdigi.com/calculators/measurements/volume-converter\", \"description\": \"Convert liters to gallons, milliliters to cups, fluid ounces to liters. Instant volume and liquid unit conversion.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"How many liters are in a gallon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 US gallon = 3.78541 liters. The UK/Imperial gallon is larger: 1 UK gallon = 4.54609 liters. To convert gallons to liters, multiply by 3.78541. To convert liters to gallons, divide by 3.78541.\"}}, {\"@type\": \"Question\", \"name\": \"How many mL in a cup?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 US cup = 236.588 milliliters (approximately 237 mL). This is the standard US legal cup used in nutrition labeling. The metric cup (used in Australia and Canada) is exactly 250 mL.\"}}, {\"@type\": \"Question\", \"name\": \"How many fluid ounces in a liter?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"1 liter = 33.814 US fluid ounces. A standard 500mL water bottle = 16.907 fl oz. A 2-liter bottle = 67.628 fl oz. Note: UK fluid ounces are slightly different (1 liter = 35.195 UK fl oz).\"}}, {\"@type\": \"Question\", \"name\": \"What is the difference between a US and UK gallon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"The US gallon is 3.785 liters while the UK (Imperial) gallon is 4.546 liters — about 20% larger. This difference matters significantly for fuel economy: a UK car rated at 40 mpg is not the same as a US car rated at 40 mpg.\"}}, {\"@type\": \"Question\", \"name\": \"How many cups are in a gallon?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"There are 16 cups in 1 US gallon. Other relationships: 4 quarts = 8 pints = 16 cups = 128 fluid ounces = 1 gallon = 3.785 liters.\"}}, {\"@type\": \"Question\", \"name\": \"How do I convert mL to cups for cooking?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Divide milliliters by 236.588 to get US cups. For example: 500 mL ÷ 236.588 = 2.11 cups. Alternatively: 500 mL ÷ 250 = 2 metric cups (used in Australian recipes).\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/measurements\">Measurements</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Volume Converter</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Volume Converter</h1>\n<p class=\"calc-intro\">Convert between liters, gallons, milliliters, cups, fluid ounces, pints, quarts, and cubic meters instantly. Perfect for cooking, chemistry, fuel economy, and international recipe conversion.</p>\n<div class=\"content-section\"><h2>Conversion Formula</h2><div class=\"formula-box\">1 liter = 0.264172 US gallons | 1 cup = 236.588 mL | 1 fl oz = 29.5735 mL | 1 gallon = 3.78541 L</div></div>\n<div class=\"content-section\"><h2>Volume Unit Conversion Guide</h2>\n<p>Volume conversion is essential in cooking (US cups vs metric milliliters), chemistry (liters vs cubic centimeters), automotive (liters vs gallons for fuel), and everyday life (fluid ounces on product labels). The two main systems — metric and US customary — use very different volume units.</p>\n<h3>Liters to Gallons</h3>\n<p>1 US gallon = 3.78541 liters. The US gallon differs from the UK/Imperial gallon: 1 UK gallon = 4.54609 liters. A standard car fuel tank of 50 liters = 13.2 US gallons. Gas mileage in the US uses miles per gallon (mpg), while Europe uses liters per 100 km (L/100km).</p>\n<h3>Cups to Milliliters for Cooking</h3>\n<p>1 US cup = 236.588 mL. Most cooking recipes in the US use cups, tablespoons, and teaspoons, while European and Asian recipes use grams and milliliters. Key conversions for cooking: 1 tablespoon = 14.787 mL, 1 teaspoon = 4.929 mL, 1 cup = 16 tablespoons = 48 teaspoons.</p>\n<div style=\"overflow-x:auto;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\">\n<thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:12px 16px;text-align:left;\">Unit</th><th style=\"padding:12px 16px;\">Liters</th><th style=\"padding:12px 16px;\">US Fluid Oz</th></tr></thead>\n<tbody>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1 US Gallon</td><td style=\"padding:11px 16px;\">3.78541</td><td style=\"padding:11px 16px;\">128</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">1 US Quart</td><td style=\"padding:11px 16px;\">0.946353</td><td style=\"padding:11px 16px;\">32</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1 US Pint</td><td style=\"padding:11px 16px;\">0.473176</td><td style=\"padding:11px 16px;\">16</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:11px 16px;\">1 US Cup</td><td style=\"padding:11px 16px;\">0.236588</td><td style=\"padding:11px 16px;\">8</td></tr>\n<tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:11px 16px;\">1 US Fl. Oz</td><td style=\"padding:11px 16px;\">0.0295735</td><td style=\"padding:11px 16px;\">1</td></tr>\n<tr><td style=\"padding:11px 16px;\">1 Tablespoon</td><td style=\"padding:11px 16px;\">0.0147868</td><td style=\"padding:11px 16px;\">0.5</td></tr>\n</tbody></table></div>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many liters are in a gallon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 US gallon = 3.78541 liters. The UK/Imperial gallon is larger: 1 UK gallon = 4.54609 liters. To convert gallons to liters, multiply by 3.78541. To convert liters to gallons, divide by 3.78541.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many mL in a cup? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 US cup = 236.588 milliliters (approximately 237 mL). This is the standard US legal cup used in nutrition labeling. The metric cup (used in Australia and Canada) is exactly 250 mL.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many fluid ounces in a liter? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">1 liter = 33.814 US fluid ounces. A standard 500mL water bottle = 16.907 fl oz. A 2-liter bottle = 67.628 fl oz. Note: UK fluid ounces are slightly different (1 liter = 35.195 UK fl oz).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the difference between a US and UK gallon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">The US gallon is 3.785 liters while the UK (Imperial) gallon is 4.546 liters — about 20% larger. This difference matters significantly for fuel economy: a UK car rated at 40 mpg is not the same as a US car rated at 40 mpg.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many cups are in a gallon? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">There are 16 cups in 1 US gallon. Other relationships: 4 quarts = 8 pints = 16 cups = 128 fluid ounces = 1 gallon = 3.785 liters.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How do I convert mL to cups for cooking? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Divide milliliters by 236.588 to get US cups. For example: 500 mL ÷ 236.588 = 2.11 cups. Alternatively: 500 mL ÷ 250 = 2 metric cups (used in Australian recipes).</div></div></div></div>\n<div class=\"content-section\"><h2>Related Measurement Converters</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/measurements/length-converter\"><span class=\"rc-icon\">📏</span><span class=\"rc-name\">Length Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/weight-converter\"><span class=\"rc-icon\">⚖️</span><span class=\"rc-name\">Weight Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/temperature-converter\"><span class=\"rc-icon\">🌡️</span><span class=\"rc-name\">Temperature Converter</span></a><a class=\"related-card\" href=\"/calculators/measurements/speed-converter\"><span class=\"rc-icon\">🚀</span><span class=\"rc-name\">Speed Converter</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Volume Converter – Liters, Gallons, Cups &amp; Milliliters</h2>\n<div class=\"form-group\"><label for=\"cv-val\">Value</label><input id=\"cv-val\" step=\"any\" type=\"number\" value=\"1\"/></div><div class=\"form-group\"><label for=\"cv-from\">From</label><select id=\"cv-from\"><option selected=\"\" value=\"l\">Liter (L)</option><option value=\"ml\">Milliliter (mL)</option><option value=\"m3\">Cubic Meter (m³)</option><option value=\"gal\">US Gallon (gal)</option><option value=\"qt\">US Quart (qt)</option><option value=\"pt\">US Pint (pt)</option><option value=\"cup\">US Cup</option><option value=\"floz\">US Fl. Oz</option><option value=\"tbs\">Tablespoon</option><option value=\"tsp\">Teaspoon</option></select></div><div class=\"form-group\"><label for=\"cv-to\">To</label><select id=\"cv-to\"><option value=\"l\">Liter (L)</option><option value=\"ml\">Milliliter (mL)</option><option value=\"m3\">Cubic Meter (m³)</option><option selected=\"\" value=\"gal\">US Gallon (gal)</option><option value=\"qt\">US Quart (qt)</option><option value=\"pt\">US Pint (pt)</option><option value=\"cup\">US Cup</option><option value=\"floz\">US Fl. Oz</option><option value=\"tbs\">Tablespoon</option><option value=\"tsp\">Teaspoon</option></select></div>\n<button class=\"calc-btn\" onclick=\"doConvert()\">Convert</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('cv-result').style.display='none';document.getElementById('cv-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"cv-result\" style=\"display:none;\"><div id=\"cv-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"cv-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"cv-ai\" style=\"display:none;\"></div></div>\n<div id=\"cv-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-cv\" onclick=\"printResult('cv-result','Volume Converter – Liters, Gallons, Cups &amp; Milliliters')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Volume Converter – Liters, Gallons, Cups &amp; Milliliters')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-volume-converter" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var F={\"l\":1,\"ml\":0.001,\"m3\":1000,\"gal\":3.78541,\"qt\":0.946353,\"pt\":0.473176,\"cup\":0.236588,\"floz\":0.0295735,\"tbs\":0.0147868,\"tsp\":0.00492892};var N={\"l\":\"Liter\",\"ml\":\"Milliliter\",\"m3\":\"Cubic Meter\",\"gal\":\"US Gallon\",\"qt\":\"US Quart\",\"pt\":\"US Pint\",\"cup\":\"US Cup\",\"floz\":\"Fluid Oz\",\"tbs\":\"Tablespoon\",\"tsp\":\"Teaspoon\"};\nfunction doConvert(){\n  var val=parseFloat(document.getElementById('cv-val').value);\n  var from=document.getElementById('cv-from').value;\n  var to=document.getElementById('cv-to').value;\n  if(isNaN(val)){alert('Please enter a valid number.');return;}\n  var base=val*F[from]; var result=base/F[to];\n  var fromN=N[from]; var toN=N[to];\n  var fmt=function(n){return n>=0.0001&&n<1e10?parseFloat(n.toFixed(8)).toString():n.toExponential(4);};\n  var extras=Object.keys(F).filter(function(u){return u!==from&&u!==to;}).slice(0,3).map(function(u){return ri('In '+N[u],fmt(base/F[u])+' '+u);}).join('');\n  document.getElementById('cv-ri').innerHTML=ri('Result','<strong style=\"font-size:22px;color:var(--c-accent)\">'+fmt(result)+' '+toN+'</strong>',true)+ri(val+' '+fromN+' =',fmt(result)+' '+toN)+extras;\n  document.getElementById('cv-result').style.display='block';document.getElementById('cv-actions').style.display='flex';\n  drawDonut('cv-chart',[fromN,toN],[Math.abs(val)||0.001,Math.abs(result)||0.001],['#1a5c3a','#c8832a']);\n  var ai=document.getElementById('cv-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(val+' '+fromN+' = '+fmt(result)+' '+toN+'. In 2 sentences share a practical real-world example where this volume conversion is commonly used.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/measurements", label: "Measurements & Conversions" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
+            <strong>Quick Volumetric Guidance:</strong> Three-dimensional capacity represents cubic spatial extension. For fluid flow engineering, chemical reagent formulation, and bulk storage, cross-reference our <Link href="/calculators/measurements/area-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">area converter</Link> for surface cross-sections and calculate mass yields in our <Link href="/calculators/physics/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Volumetric Metrology: Geometric Displacement & Liquid Capacity
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Volume quantifies three-dimensional space occupied by a solid body, liquid, or gas. In pure geometry, volume is derived directly from linear spatial dimensions as length cubed (L³), with the cubic meter (m³) serving as the SI coherent derived unit. However, throughout industrial history, practical commerce established specialized capacity measures tailored to handling bulk liquids (beer, wine, oil) and granular dry goods (grain, flour).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            This dual lineage created two distinct measurement families: geometric cubic measures (m³, cm³, ft³, in³) and liquid capacity measures (liters, gallons, quarts, fluid ounces). In modern chemical processing, pharmaceutical manufacturing, and petroleum logistics, navigating the historical divergences between US Customary and British Imperial standards is essential to avoid severe operational and contractual discrepancies.
+          </p>
+
+          <VolumeMetricImperialVolumetricRatioChart />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Mathematical Derivation & Fundamental Volumetric Factors
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            All volume transformations compute through the SI derived unit of the cubic meter (m³) or its decimal subunit, the liter (1 L = 0.001 m³):
+          </p>
+          <Formula>{"V_{\\text{target}} = V_{\\text{source}} \\times \\left( \\frac{\\beta_{\\text{source}}}{\\beta_{\\text{target}}} \\right)"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Where β represents the conversion factor in liters. Because an international inch equals exactly 0.0254 meters, cubic spatial measures derive cleanly:
+          </p>
+          <Formula>{"1 \\text{ in}^3 = (0.0254 \\text{ m})^3 = 0.000016387064 \\text{ m}^3 = 0.016387064 \\text{ L}"}</Formula>
+          <Formula>{"1 \\text{ US Gal} = 231 \\text{ in}^3 = 3.785411784 \\text{ L}, \\quad 1 \\text{ UK Gal} = 4.54609 \\text{ L}"}</Formula>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When scaling fluid flows through piping systems, cross-reference fluid velocity in our <Link href="/calculators/measurements/speed-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">speed converter</Link> and calculate line pressure drops in the <Link href="/calculators/measurements/pressure-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">pressure converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comprehensive Reference Table of Global Volume Equivalencies
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The table below compiles authoritative conversion coefficients across SI metric, US customary, and British Imperial capacity systems:
+          </p>
+          <DataTable
+            head={["Volume Unit", "Symbol", "Value in Liters (L)", "Value in Cubic Meters (m³)"]}
+            rows={[
+              ["Milliliter (Cubic Centimeter)", "mL / cm³", "0.001 L", "1.0 × 10⁻⁶ m³"],
+              ["Centiliter", "cL", "0.01 L", "1.0 × 10⁻⁵ m³"],
+              ["Deciliter", "dL", "0.1 L", "1.0 × 10⁻⁴ m³"],
+              ["Liter (SI Accepted)", "L / dm³", "1.0 L", "0.001 m³"],
+              ["Cubic Meter (SI Derived)", "m³", "1,000.0 L", "1.0 m³"],
+              ["US Fluid Ounce", "US fl oz", "0.02957353 L", "2.957353 × 10⁻⁵ m³"],
+              ["UK Imperial Fluid Ounce", "UK fl oz", "0.02841306 L", "2.841306 × 10⁻⁵ m³"],
+              ["US Liquid Pint", "US pt", "0.47317647 L", "4.731765 × 10⁻⁴ m³"],
+              ["UK Imperial Pint", "UK pt", "0.56826125 L", "5.682613 × 10⁻⁴ m³"],
+              ["US Liquid Quart", "US qt", "0.94635294 L", "9.463529 × 10⁻⁴ m³"],
+              ["US Liquid Gallon", "US gal", "3.78541178 L", "0.00378541 m³"],
+              ["UK Imperial Gallon", "UK gal", "4.54609 L", "0.00454609 m³"],
+              ["Petroleum Barrel", "bbl", "158.987295 L", "0.158987 m³"],
+              ["Cubic Foot", "ft³", "28.3168466 L", "0.0283168 m³"],
+              ["Cubic Yard", "yd³", "764.554858 L", "0.764555 m³"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Worked Engineering Case Study: Water Treatment Reservoir Sizing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Consider a municipal civil engineering team designing a drinking water storage reservoir. The regional utility plan requires a storage buffer capacity of 2.5 million US gallons. The structural engineering contractor requires the reservoir dimensions to be finalized in metric cubic meters (m³) and liters to verify concrete casting volumes:
+          </p>
+          <ul className="list-disc pl-6 text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+            <li><strong>Step 1 (Convert US Gallons to Liters):</strong> 2,500,000 gal × 3.785411784 L/gal = 9,463,529.46 liters.</li>
+            <li><strong>Step 2 (Convert Liters to Cubic Meters):</strong> 9,463,529.46 L ÷ 1,000 L/m³ = 9,463.53 cubic meters.</li>
+            <li><strong>Step 3 (Geometric Cross-Verification):</strong> A rectangular reservoir measuring 45 meters long by 35 meters wide with a water depth of 6.008 meters yields: 45 × 35 × 6.008 = 9,463.53 m³, confirming exact volumetric capacity.</li>
+            <li><strong>Step 4 (Mass & Structural Bearing Loads):</strong> At standard water density (1,000 kg/m³), total stored mass equals 9,463.53 metric tons. Soil bearing capacity can be verified in our <Link href="/calculators/measurements/weight-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weight converter</Link> and footprint area in the <Link href="/calculators/measurements/area-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">area converter</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            The Historical Roots of Gallon Divergence: Wine vs Ale Gallons
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The divergence between British and American gallons is rooted in pre-industrial English common law. In medieval England, merchants utilized multiple conflicting gallon definitions: the Winchester corn gallon (268.8 cu in) for grain, the Queen Anne wine gallon (231 cu in) for spirits, and the ale gallon (282 cu in) for beer. When the United States declared independence in 1776, Treasury Secretary Alexander Hamilton adopted the 231-cubic-inch Queen Anne wine gallon as the official national standard for customs taxation.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Britain, however, underwent comprehensive metrological reform in 1824, abolishing all historical wine, ale, and corn measures in favor of the newly synthesized Imperial gallon (277.42 cu in), defined by the volume of 10 pounds of distilled water. This historic divergence persists today, causing recurring confusion in automotive fuel economy ratings (UK MPG is ~20% higher than US MPG for identical vehicle efficiencies).
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Culinary Volumetric Ratios & Domestic Baking Conversions
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In culinary arts and domestic food preparation, volume measures dominate recipe books. However, domestic measuring cups differ subtly between countries: a standard US legal nutrition cup equals 240 mL (while a US customary cup is 236.59 mL), an Australian metric cup equals 250 mL, and a traditional Japanese gō cup equals 180.39 mL.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For precision baking, professional pastry chefs strongly prefer mass measurements in grams over volumetric cups because ingredient packing density varies dramatically (a cup of sifted flour weighs ~120 g, whereas a packed cup can exceed 150 g). To explore specialized culinary conversions, visit our dedicated <Link href="/calculators/measurements/cooking-measurement-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">cooking measurement converter</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Volumetric Flow Rates & Pipeline Hydraulic Sizing
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In chemical plants and HVAC water chillers, volumetric flow rate Q represents fluid volume passing through a conduit cross-section per unit time: Q = A × v, where A is internal pipe area and v is mean flow velocity. Common engineering flow units include cubic meters per hour (m³/h), liters per minute (L/min), and gallons per minute (GPM).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Maintaining fluid velocity within optimal bounds (typically 1.5 to 2.5 m/s for pumped water) prevents excessive pipe friction, pipe erosion, and water hammer surges. You can evaluate linear pipe runs in our <Link href="/calculators/measurements/length-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">length converter</Link> and calculate flow ratios in the <Link href="/calculators/math/ratio-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ratio calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Everyday Applications in Fuel Logistics, Agriculture & Global Shipping
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In global fuel logistics, maritime bunker tankers pump heavy fuel oil measured by volume at ambient temperatures, which must subsequently be converted to metric tonnes using temperature-compensated density correction tables (ASTM D1250). In agricultural irrigation, water rights across North America are leased in acre-feet—the volume of water required to cover one acre of land to a depth of one foot, equaling exactly 43,560 cubic feet or 325,851 US gallons (1,233.48 m³).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In consumer electronics, automotive engine displacement is universally quoted in cubic centimeters (cc) or liters (e.g., a 2.0-liter turbocharged engine equals 2,000 cm³ or approximately 122 cubic inches). For academic and general calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and the central <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+          </p>
+        </>
+      }
+    >
+      <VolumeConverterComponent />
+    
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Naval Architecture: Hydrostatic Displacement & Metacentric Stability
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In naval architecture and marine engineering, Archimedes&apos; principle dictates that a floating vessel displaces a volume of fluid exactly equal in mass to the entire ship: Δ = ∇ × ρ_water, where ∇ represents the underwater molded displacement volume in cubic meters and ρ_water is the ambient water density (typically 1,025 kg/m³ for saltwater). Converting volumetric displacement into displacement tonnage is fundamental to vessel seaworthiness.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Furthermore, naval architects calculate the vessel&apos;s center of buoyancy B—the geometric centroid of the submerged displaced volume—and analyze its relationship to the center of gravity G and the transverse metacenter M. The metacentric height GM determines initial roll stability; if cargo flooding reduces effective volumetric displacement or shifts liquid free surfaces, the vessel risks sudden capsizing.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Gas Compressibility & Real Gas Volumetric Corrections (Van der Waals)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            While ideal liquids are nearly incompressible, the volume occupied by gases varies dramatically with ambient pressure and temperature according to ideal gas laws (PV = nRT). At elevated industrial pressures (such as compressed natural gas storage tanks at 250 bar), intermolecular attraction forces and finite molecular volume cause significant non-ideal deviations.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Chemical process engineers apply the Van der Waals equation [P + a(n/V)²][V - nb] = nRT or the compressibility factor Z = PV / (nRT) to determine actual gas storage capacities in cubic meters and standard cubic feet (SCF). Ignoring non-ideal gas compressibility can cause volumetric gas pipeline metering discrepancies exceeding 15% across transcontinental distribution networks.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In global petrochemical shipping, ullage measurement—the distance from the tank top to the liquid surface—is measured using radar tank gauges. Temperature-induced volume expansion governed by volumetric thermal expansion coefficients (typically β ≈ 0.001 K⁻¹ for fuel oils) alters cargo density. Cargo inspectors utilize ASTM Table 54B to convert ambient cubic meter volumes to metric standard volumes at 15°C, ensuring commercial billing reflects true energy content rather than thermal swell.
+          </p>
+
+    
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In microfluidics and biomedical diagnostic cartridges, reagent volumes are measured in nanoliters and picoliters using piezo-electric droplet dispensers. Converting macro liters to picoliters requires rigorous decimal scaling, enabling lab-on-a-chip genetic assays to operate with minimal reagent consumption and high repeatability.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            In HVAC duct sizing and cleanroom filtration systems, air change rates depend on total room volume in cubic meters. Environmental engineers calculate cubic feet per minute (CFM) flow requirements against HEPA filter face velocities, preventing airborne particulates from settling in surgical suites.
+          </p>
+
+    </CalcPage>
   );
 }
