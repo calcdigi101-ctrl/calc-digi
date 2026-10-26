@@ -162,6 +162,27 @@ export function PercentageCalculator() {
   const m4Ratio = v4 > 0 ? Math.min(Math.max(delta4 / v4, 0), 1) : 0;
   const m4ShareOffset = CIRCLE_C * (1 - m4Ratio);
 
+  // Reusable Mode Switcher Dropdown Pill
+  const ModeDropdownPill = () => (
+    <div className="relative inline-flex items-center">
+      <select
+        value={mode}
+        onChange={(e) => {
+          const newMode = e.target.value as CalcMode;
+          setMode(newMode);
+          syncUrl(newMode);
+        }}
+        className="appearance-none cursor-pointer pl-3 pr-7 py-1.5 rounded-full text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:hover:bg-emerald-900/80 dark:text-emerald-300 border border-emerald-500/30 transition-all outline-none focus:ring-2 focus:ring-emerald-500/30 shadow-2xs"
+      >
+        <option value="part_of_whole">Standard Percent</option>
+        <option value="what_percent">Proportion Share</option>
+        <option value="change">Percentage Change</option>
+        <option value="add_sub">Tax &amp; Discount</option>
+      </select>
+      <ChevronDown className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 absolute right-2.5 pointer-events-none" />
+    </div>
+  );
+
   return (
     <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
       {/* ======================================================== */}
@@ -247,9 +268,7 @@ export function PercentageCalculator() {
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">Calculate portion or share of any number</p>
                 </div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400">
-                  Standard Percent
-                </span>
+                <ModeDropdownPill />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -257,16 +276,16 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Percentage (X)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
                       value={m1Pct}
                       onChange={(e) => setM1Pct(e.target.value)}
                       placeholder="e.g. 15"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-sm font-bold text-slate-400 pl-2">%</span>
+                    <span className="text-sm font-bold text-slate-400 pl-2 select-none">%</span>
                   </div>
                 </div>
 
@@ -274,16 +293,16 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Total Value (Y)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
                       value={m1Val}
                       onChange={(e) => setM1Val(e.target.value)}
                       placeholder="e.g. 200"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2">total</span>
+                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">total</span>
                   </div>
                 </div>
               </div>
@@ -323,9 +342,7 @@ export function PercentageCalculator() {
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">Determine the percentage share of a whole amount</p>
                 </div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-400">
-                  Proportion Share
-                </span>
+                <ModeDropdownPill />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -333,16 +350,16 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Part Amount (X)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
                       value={m2Part}
                       onChange={(e) => setM2Part(e.target.value)}
                       placeholder="e.g. 30"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2">part</span>
+                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">part</span>
                   </div>
                 </div>
 
@@ -350,16 +367,16 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Whole Amount (Y)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
                       value={m2Whole}
                       onChange={(e) => setM2Whole(e.target.value)}
                       placeholder="e.g. 150"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2">whole</span>
+                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">whole</span>
                   </div>
                 </div>
               </div>
@@ -403,9 +420,7 @@ export function PercentageCalculator() {
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">Calculate relative growth or contraction between values</p>
                 </div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-purple-50 text-purple-700 dark:bg-purple-950/50 dark:text-purple-400">
-                  Growth Variance
-                </span>
+                <ModeDropdownPill />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -413,16 +428,16 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Original Baseline (From)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
                       value={m3From}
                       onChange={(e) => setM3From(e.target.value)}
                       placeholder="e.g. 100"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2">start</span>
+                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">start</span>
                   </div>
                 </div>
 
@@ -430,16 +445,16 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     New Ending Value (To)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
                       value={m3To}
                       onChange={(e) => setM3To(e.target.value)}
                       placeholder="e.g. 125"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2">end</span>
+                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">end</span>
                   </div>
                 </div>
               </div>
@@ -479,33 +494,36 @@ export function PercentageCalculator() {
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                    Sales Tax &amp; Discount Calculator
+                    Sales Tax &amp; Discount
                   </h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Add sales tax or subtract retail clearance discounts</p>
+                  <p className="text-xs text-slate-500 mt-0.5">Add tax or subtract clearance discounts</p>
                 </div>
-                <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <button
-                    type="button"
-                    onClick={() => setM4Op("add")}
-                    className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all ${
-                      m4Op === "add"
-                        ? "bg-emerald-600 text-white shadow-2xs"
-                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
-                    }`}
-                  >
-                    + Add Tax
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setM4Op("sub")}
-                    className={`px-2.5 py-1 rounded-md text-xs font-bold transition-all ${
-                      m4Op === "sub"
-                        ? "bg-amber-600 text-white shadow-2xs"
-                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
-                    }`}
-                  >
-                    − Discount
-                  </button>
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <button
+                      type="button"
+                      onClick={() => setM4Op("add")}
+                      className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all ${
+                        m4Op === "add"
+                          ? "bg-emerald-600 text-white shadow-2xs"
+                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                      }`}
+                    >
+                      + Tax
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setM4Op("sub")}
+                      className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all ${
+                        m4Op === "sub"
+                          ? "bg-amber-600 text-white shadow-2xs"
+                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                      }`}
+                    >
+                      − Disc
+                    </button>
+                  </div>
+                  <ModeDropdownPill />
                 </div>
               </div>
 
@@ -514,15 +532,15 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Base Amount
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
-                    <span className="text-sm font-bold text-slate-400 pr-2">{currencySymbol}</span>
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                    <span className="text-sm font-bold text-slate-400 pr-2 select-none">{currencySymbol}</span>
                     <input
                       type="number"
                       step="any"
                       value={m4Val}
                       onChange={(e) => setM4Val(e.target.value)}
                       placeholder="e.g. 120"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   </div>
                 </div>
@@ -531,16 +549,16 @@ export function PercentageCalculator() {
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     {m4Op === "add" ? "Tax / Tip Rate" : "Discount Rate"}
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2.5 shadow-2xs focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
                       value={m4Pct}
                       onChange={(e) => setM4Pct(e.target.value)}
                       placeholder="e.g. 20"
-                      className="w-full bg-transparent text-base font-semibold text-slate-900 dark:text-white outline-hidden"
+                      className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-sm font-bold text-slate-400 pl-2">%</span>
+                    <span className="text-sm font-bold text-slate-400 pl-2 select-none">%</span>
                   </div>
                 </div>
               </div>
@@ -576,7 +594,7 @@ export function PercentageCalculator() {
             </div>
           )}
 
-          {/* Collapsible "+ More options" container (Exactly like screenshot 1) */}
+          {/* Collapsible "+ More options" container */}
           <div className="pt-2">
             <button
               type="button"
@@ -641,7 +659,7 @@ export function PercentageCalculator() {
             )}
           </div>
 
-          {/* Primary Calculate Action (Vibrant Emerald CTA like screenshot 1) */}
+          {/* Primary Calculate Action */}
           <div className="pt-2">
             <button
               type="button"
@@ -658,7 +676,7 @@ export function PercentageCalculator() {
       {/* RIGHT COLUMN: Ultra-Clean Result Card (Exact match SS 1)  */}
       {/* ======================================================== */}
       <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
-        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/20 p-6 sm:p-7 shadow-sm space-y-6">
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/20 p-6 sm:p-7 shadow-sm space-y-5">
           {/* Header Row: Label & LIVE RESULT Badge */}
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
@@ -702,11 +720,11 @@ export function PercentageCalculator() {
           </div>
 
           {/* Visual Donut Chart & Legend Side-by-Side (Screenshot 1 Style) */}
-          <div className="flex items-center gap-5 pt-2">
+          <div className="flex items-center gap-5 pt-1">
             {/* Multi-Color Thick SVG Donut Chart */}
             <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 140 140">
-                {/* Background base track (Blue / Slate) */}
+                {/* Background base track (Amber) */}
                 <circle
                   cx="70"
                   cy="70"
@@ -961,76 +979,8 @@ export function PercentageCalculator() {
             )}
           </div>
 
-          {/* Action Toolbar Row: Reset, Share, Print, Ask AI (Screenshot 1 Style) */}
-          <div className="pt-2 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 font-medium">
-            <button
-              type="button"
-              onClick={handleReset}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleShare}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              {shared ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
-              <span>{shared ? "Copied!" : "Share"}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span>Print</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setShowAiModal(!showAiModal)}
-              className="inline-flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Ask AI</span>
-            </button>
-          </div>
-
-          {/* Interactive AI Quick Explainer Modal/Card */}
-          {showAiModal && (
-            <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 text-xs space-y-2 shadow-xs animate-in fade-in">
-              <div className="flex items-center justify-between font-bold text-emerald-700 dark:text-emerald-400">
-                <span className="flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>AI Mathematical Insight</span>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setShowAiModal(false)}
-                  className="text-slate-400 hover:text-slate-600"
-                >
-                  ✕
-                </button>
-              </div>
-              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                {mode === "part_of_whole" &&
-                  `Evaluating ${p1}% of ${v1} yields ${formatNum(r1)}. Because percentages operate base-100, dividing ${p1} by 100 shifts the decimal point two places left to ${(p1 / 100).toFixed(4)}. Multiplying this scale factor by ${v1} confirms the exact partition.`}
-                {mode === "what_percent" &&
-                  `${p2} represents ${formatNum(r2)}% of ${w2}. In fractional terms, this simplifies to approximately ${(p2 / w2).toFixed(4)} of the entire unit whole.`}
-                {mode === "change" &&
-                  `The transition from ${f3} to ${t3} produces a ${isIncrease ? "+" : ""}${formatNum(r3)}% ${isIncrease ? "increase" : "decrease"}. Note that recovering from a loss requires a larger reciprocal gain.`}
-                {mode === "add_sub" &&
-                  `Adjusting ${currencySymbol}${v4} by ${p4}% results in ${currencySymbol}${formatNum(r4)}. The net adjustment equals ${currencySymbol}${formatNum(delta4)}.`}
-              </p>
-            </div>
-          )}
-
-          {/* Step-by-Step Procedure Accordion (AEO Snippet Friendly) */}
-          <div className="rounded-xl bg-white/70 dark:bg-slate-900/70 p-3.5 border border-slate-200/80 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-1 font-mono">
+          {/* Step-by-Step Procedure Accordion (AEO Snippet Friendly - BEFORE Action Toolbar) */}
+          <div className="rounded-xl bg-white/80 dark:bg-slate-900/80 p-3.5 border border-slate-200/80 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-1 font-mono">
             <div className="font-sans font-bold text-slate-900 dark:text-white mb-1.5 flex items-center justify-between">
               <span>Step-by-step Solution:</span>
               <button
@@ -1082,6 +1032,74 @@ export function PercentageCalculator() {
                 <div>2. Final: {currencySymbol}{v4} {m4Op === "add" ? "+" : "−"} {currencySymbol}{formatNum(delta4)} = <strong>{currencySymbol}{formatNum(r4)}</strong></div>
               </>
             )}
+          </div>
+
+          {/* Interactive AI Quick Explainer Modal/Card */}
+          {showAiModal && (
+            <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 text-xs space-y-2 shadow-xs animate-in fade-in">
+              <div className="flex items-center justify-between font-bold text-emerald-700 dark:text-emerald-400">
+                <span className="flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>AI Mathematical Insight</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowAiModal(false)}
+                  className="text-slate-400 hover:text-slate-600"
+                >
+                  ✕
+                </button>
+              </div>
+              <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+                {mode === "part_of_whole" &&
+                  `Evaluating ${p1}% of ${v1} yields ${formatNum(r1)}. Because percentages operate base-100, dividing ${p1} by 100 shifts the decimal point two places left to ${(p1 / 100).toFixed(4)}. Multiplying this scale factor by ${v1} confirms the exact partition.`}
+                {mode === "what_percent" &&
+                  `${p2} represents ${formatNum(r2)}% of ${w2}. In fractional terms, this simplifies to approximately ${(p2 / w2).toFixed(4)} of the entire unit whole.`}
+                {mode === "change" &&
+                  `The transition from ${f3} to ${t3} produces a ${isIncrease ? "+" : ""}${formatNum(r3)}% ${isIncrease ? "increase" : "decrease"}. Note that recovering from a loss requires a larger reciprocal gain.`}
+                {mode === "add_sub" &&
+                  `Adjusting ${currencySymbol}${v4} by ${p4}% results in ${currencySymbol}${formatNum(r4)}. The net adjustment equals ${currencySymbol}${formatNum(delta4)}.`}
+              </p>
+            </div>
+          )}
+
+          {/* Action Toolbar Row: Reset, Share, Print, Ask AI (AT THE VERY END / BOTTOM like SS 1) */}
+          <div className="pt-3 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 font-medium">
+            <button
+              type="button"
+              onClick={handleReset}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handleShare}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              {shared ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
+              <span>{shared ? "Copied!" : "Share"}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={handlePrint}
+              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>Print</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowAiModal(!showAiModal)}
+              className="inline-flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Ask AI</span>
+            </button>
           </div>
         </div>
       </div>
