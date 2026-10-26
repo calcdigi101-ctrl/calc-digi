@@ -69,13 +69,14 @@ export default function DecibelCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Decibel (dB) Gain & Attenuation vs Linear Scaling Ratio
           </h2>
-          <DecibelLogarithmicRatioScalingChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Originating in the early 20th century at Bell Telephone Laboratories, the decibel (one-tenth of a Bel, named in honor of Alexander Graham Bell) was developed to quantify signal attenuation across transcontinental telephone lines. Because physical signals in acoustics, RF telecommunications, and optical fibers span orders of magnitude—from picowatts of receiver antenna noise to megawatts of broadcast transmission—linear multipliers become unwieldy.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             The decibel logarithmic transformation compresses this vast dynamic range into intuitive numerical values. Furthermore, human sensory organs (both the cochlear auditory system and retinal photoreceptors) perceive stimulus intensity logarithmically, as formalized by the Weber-Fechner Psychophysical Law. A 10 dB power boost is perceived by the human ear as approximately twice as loud, regardless of baseline sound pressure.
           </p>
+
+          <DecibelLogarithmicRatioScalingChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Equations for Power & Voltage Decibels

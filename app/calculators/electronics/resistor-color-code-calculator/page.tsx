@@ -69,13 +69,14 @@ export default function ResistorColorCodeCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Resistor Tolerance Distribution & Production Spread
           </h2>
-          <ResistorToleranceBandSpreadChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Standardized in 1952 by the International Electrotechnical Commission under IEC 60062, the resistor color code system was created to clearly label miniature through-hole axial lead components. Because cylindrical carbon composition and metal film resistors are printed before lead forming, printed numbers could rotate away from view during automated PCB insertion. Colored concentric rings remain visible from any viewing angle.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Modern automated manufacturing produces carbon film resistors with ±5% tolerance (gold band) and metal film resistors with ±1% tolerance (brown band). High-reliability medical, aerospace, and precision analog instrumentation applications employ thin-film resistors with ±0.1% tolerance (violet band) and ultra-low thermal drift below 15 ppm/°C.
           </p>
+
+          <ResistorToleranceBandSpreadChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Color Code Decoding Equations

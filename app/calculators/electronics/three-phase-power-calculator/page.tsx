@@ -69,13 +69,14 @@ export default function ThreePhasePowerCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Three-Phase vs Single-Phase Power Conduction Capacity (kW)
           </h2>
-          <ThreePhaseBalancedLoadPowerChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Conceived by Nikola Tesla and Mikhail Dolivo-Dobrovolsky in the late 1880s, polyphase alternating current systems revolutionized industrial manufacturing. A balanced three-phase system comprises three distinct alternating voltage waveforms of identical frequency and peak amplitude, but separated in time by a mutual phase displacement of 120 electrical degrees (2π / 3 radians).
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             This geometric symmetry provides profound engineering advantages over single-phase distribution. First, the mathematical sum of instantaneous currents in a balanced three-phase system is identically zero (I_A + I_B + I_C = 0), allowing power transmission over three wires without requiring a return neutral conductor. Second, three-phase motors deliver constant, smooth instantaneous mechanical torque without the severe 120 Hz vibrational pulsating torque characteristic of single-phase machines.
           </p>
+
+          <ThreePhaseBalancedLoadPowerChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Equations for Three-Phase Power

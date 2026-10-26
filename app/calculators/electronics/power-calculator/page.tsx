@@ -69,13 +69,14 @@ export default function PowerCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Power Factor Degradation & The AC Power Triangle
           </h2>
-          <PowerFactorActiveReactiveTriangleChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Electrical power engineering bridges fundamental physics and practical utility grid management. In pure direct current (DC) circuits, power calculation is straightforward: potential difference multiplied by current gives instantaneous and average power (P = V × I). However, in alternating current (AC) circuits, inductive and capacitive reactive elements introduce a phase angle shift (θ) between the oscillating sinusoidal voltage and current waveforms.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             When current lags voltage (inductive load) or leads voltage (capacitive load), a portion of the circulating electrical energy is temporarily stored in magnetic or electrostatic fields and reflected back to the source twice per AC cycle. This non-working energy constitutes Reactive Power (measured in VAR), which must be accommodated by transformers and conductors even though it performs no useful mechanical work.
           </p>
+
+          <PowerFactorActiveReactiveTriangleChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Equations of Electrical Power

@@ -69,13 +69,14 @@ export default function SolarPanelCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Monthly Solar Irradiance Harvest vs Household Demand
           </h2>
-          <SolarIrradianceMonthlyYieldCurveChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Solar photovoltaic (PV) engineering transforms electromagnetic solar radiation directly into electrical direct current through the photovoltaic effect discovered by Edmond Becquerel in 1839. When solar photons possessing energy greater than the bandgap threshold strike a doped silicon p-n junction, electron-hole pairs are liberated. The internal built-in electric field sweeps these carriers across the junction, generating usable electrical current.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Designing a reliable residential or commercial solar array requires modeling local solar insolation metrics, panel tilt angles, seasonal sun trajectories, and comprehensive system derating factors. Because solar generation peaks during midday summer months while electrical consumption often peaks during winter heating or summer air conditioning cycles, accurate sizing ensures annual net energy neutrality.
           </p>
+
+          <SolarIrradianceMonthlyYieldCurveChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Photovoltaic Array Sizing & Energy Production Equations

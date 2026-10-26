@@ -69,13 +69,14 @@ export default function VoltageDividerCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Resistive Divider Output Voltage vs Load Impedance Loading
           </h2>
-          <VoltageDividerLoadingErrorCurveChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             The resistive voltage divider is one of the most widely deployed building blocks in analog electronics. By connecting two passive resistors in a series ladder across a direct current voltage rail, engineers generate a fractional potential difference (V_out) proportional to the lower resistor&apos;s impedance. Voltage dividers are ubiquitously utilized to bias bipolar junction transistors (BJTs), scale high-voltage sensor outputs to 3.3 V microcontroller ADC levels, and set operational amplifier feedback thresholds.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             However, novice designers frequently overlook the &lsquo;loading effect.&rsquo; While an unloaded divider produces an ideal mathematical voltage ratio into a high-impedance multimeter, connecting an external load impedance (R_L) places that load in parallel with the lower resistor. This reduces the effective resistance of the bottom arm, dragging down output voltage and distorting analog measurement linearity unless appropriately buffered with an op-amp voltage follower.
           </p>
+
+          <VoltageDividerLoadingErrorCurveChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Equations & Thevenin Analysis

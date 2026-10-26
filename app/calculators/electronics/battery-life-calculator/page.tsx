@@ -69,13 +69,14 @@ export default function BatteryLifeCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Electrochemical Discharge Efficiency & Peukert Capacity Roll-Off
           </h2>
-          <BatteryDischargePeukertCurveChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Battery life determination is a foundational engineering discipline across mobile consumer devices, biomedical implants, electric vehicles, and off-grid wireless sensor networks. In practice, a battery cell rated at 3,000 mAh cannot deliver 3,000 mA of current for one full hour. Internal equivalent series resistance (ESR), electrochemical mass-transport kinetics, and ambient temperature degradation reduce the actual delivered energy.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Furthermore, modern electronic hardware requires stable regulated supply rails (such as 3.3 V or 1.8 V). As a cell discharges from its peak open-circuit voltage down to its minimum cut-off threshold, switch-mode DC-DC buck-boost converters or linear low-dropout (LDO) regulators incur conversion inefficiencies that must be incorporated into operating runtime projections.
           </p>
+
+          <BatteryDischargePeukertCurveChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Governing Battery Autonomy & Energy Formulas

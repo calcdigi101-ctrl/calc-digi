@@ -69,13 +69,14 @@ export default function CapacitorCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Capacitive Reactance (Xc) Attenuation Across Frequency
           </h2>
-          <CapacitiveReactanceFrequencySweepChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Capacitors represent one of the most vital passive components in electrical and electronic circuit design. Physically constructed from two conductive parallel plates separated by an insulating dielectric layer, capacitors store potential electrical energy within an electrostatic field. Unlike chemical batteries which generate free electrons through Faradaic redox reactions, capacitors store static charge carriers electrostatically without chemical phase transitions.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In alternating current (AC) circuit theory, capacitors exhibit a 90-degree phase shift where current leads voltage by one quarter-cycle (I leads V). This phase relationship allows capacitors to cancel out inductive motor lagging currents, forming the core technology behind industrial power factor correction and resonant tuned filter topologies.
           </p>
+
+          <CapacitiveReactanceFrequencySweepChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Equations of Capacitance & Reactance

@@ -69,13 +69,14 @@ export default function InductorCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Inductive Reactance (XL) Growth Across AC Frequencies
           </h2>
-          <InductiveReactanceFrequencySweepChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Inductors represent the magnetic counterpart to electrostatic capacitors in classical circuit theory. Typically fabricated by winding conductive copper wire into a helical coil around a ferromagnetic core or air former, inductors exploit Faraday&apos;s Law of Electromagnetic Induction. Any change in electric current creates a changing magnetic flux, which induces an opposing counter-electromotive force (back-EMF) governed by Heinrich Lenz&apos;s Law.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In alternating current (AC) circuit analysis, inductors introduce a 90-degree phase shift where voltage leads current by one quarter-cycle (V leads I). Because an inductor naturally opposes rapid fluctuations in current, it acts as a low-impedance path for steady DC power while presenting formidable impedance to high-frequency electromagnetic interference (EMI) and harmonic noise.
           </p>
+
+          <InductiveReactanceFrequencySweepChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Governing Inductive Reactance & Magnetic Energy Equations

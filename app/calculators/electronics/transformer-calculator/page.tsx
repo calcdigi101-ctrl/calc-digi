@@ -69,13 +69,14 @@ export default function TransformerCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Transformer Efficiency Curve & Iron vs Copper Loss Balance
           </h2>
-          <TransformerEfficiencyLoadCurveChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Invented in the late 19th century by pioneering electrical engineers including Michael Faraday, William Stanley, and Nikola Tesla, the electrical transformer enabled the global adoption of alternating current (AC) power grids. By stepping up generator output voltages to hundreds of kilovolts, utility operators drastically reduce transmission line currents, slashing I² R Joule heat dissipation over long distances before stepping voltage back down for domestic consumer distribution.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Transformers are static electrodynamic machines containing no moving mechanical parts. Electrical energy transfer occurs entirely through mutual electromagnetic induction between primary and secondary copper coils wound around a shared ferromagnetic core. Real-world transformers achieve exceptional operating efficiencies between 94% and 99.5%, representing some of the most efficient energy conversion devices ever engineered.
           </p>
+
+          <TransformerEfficiencyLoadCurveChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Fundamental Transformer Ratios & Magnetic Transfer Formulas

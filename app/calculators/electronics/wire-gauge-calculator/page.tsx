@@ -69,13 +69,14 @@ export default function WireGaugeCalculatorPage() {
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Percentage Voltage Drop vs Conductor Distance at 15A
           </h2>
-          <WireGaugeDistanceVoltageDropChart />
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Selecting the correct electrical conductor size is one of the most critical responsibilities in electrical engineering, building construction, and industrial automation. Conductor sizing is governed by two distinct engineering constraints: <strong>thermal ampacity</strong> (the maximum current a wire can carry continuously without exceeding insulation thermal ratings) and <strong>voltage drop</strong> (the loss of electrical potential along the length of the conductor due to copper electrical resistance).
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             While a standard AWG 14 copper conductor may be thermally rated by code to carry 15 Amperes over a short 10-foot run, routing that same 15-Amp load over 100 feet produces severe voltage drop exceeding 5%. This causes inductive motors to stall, electronic power supplies to drop out of regulation, and wasted electrical energy to dissipate as heat along building conduits.
           </p>
+
+          <WireGaugeDistanceVoltageDropChart />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Mathematical Equations for Conductor Sizing & Voltage Drop
