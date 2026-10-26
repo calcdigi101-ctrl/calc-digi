@@ -1,26 +1,245 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import Link from "next/link";
+import EmailSizeCalculatorComponent from "@/components/calcs/internet/email-size-calculator";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { EmailPayloadBase64ExpansionChart } from "@/components/flagship/internet/editorial-charts";
+
+const PATH = "/calculators/internet/email-size-calculator";
+const TITLE = "Email Size Calculator | MIME Base64 Overhead & Attachment Limits";
+const DESCRIPTION =
+  "Calculate total email payload size, 33% Base64 MIME encoding overhead, attachment limits (25 MB Gmail/Outlook), and bounce rate risks.";
 
 export const metadata: Metadata = {
-  "title": "Email Size Calculator – Attachment Size Limits | CalcDigi",
-  "description": "Calculate total email size with attachments and check Gmail, Outlook, Yahoo size limits. Avoid bounced emails easily.",
-  "openGraph": {
-    "title": "Email Size Calculator – Attachment Size Limits | CalcDigi",
-    "description": "Calculate total email size with attachments and check Gmail, Outlook, Yahoo size limits. Avoid bounced emails easily.",
-    "type": "website",
-    "url": "/calculators/internet/email-size-calculator"
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
   },
-  "alternates": {
-    "canonical": "/calculators/internet/email-size-calculator"
-  }
 };
 
-export default function Page() {
+const RELATED_CALCULATORS = [
+  { href: "/calculators/internet/data-usage-calculator", icon: "📡", name: "Data Usage" },
+  { href: "/calculators/internet/cloud-storage-calculator", icon: "☁️", name: "Cloud Storage" },
+  { href: "/calculators/internet/bandwidth-calculator", icon: "📊", name: "Bandwidth Calc" },
+  { href: "/calculators/internet/download-time-calculator", icon: "⏱️", name: "Download Time" },
+  { href: "/calculators/internet/website-load-time-calculator", icon: "🚀", name: "Website Load Time" },
+  { href: "/calculators/internet/server-uptime-calculator", icon: "⏱️", name: "Server Uptime" },
+];
+
+const FAQ_ITEMS = [
+  {
+    q: "Why do email attachments expand in size when sent over SMTP?",
+    a: "The Simple Mail Transfer Protocol (SMTP) was historically architected in 1982 to transmit only 7-bit ASCII plain text. To transmit binary files (PDFs, images, ZIP archives), email clients must encode binary data into ASCII characters using Base64 encoding. Base64 maps 3 binary bytes (24 bits) into 4 ASCII characters (32 bits), introducing an unavoidable 33.33% mathematical size expansion over the wire.",
+  },
+  {
+    q: "What is the true maximum file attachment size for Gmail and Google Workspace?",
+    a: "While Google advertises a 25 MB email limit, this limit applies to the total encoded MIME wire payload, not the raw files on your hard drive. Because of Base64 expansion and MIME headers, the maximum raw file size you can attach without bouncing is approximately 18.0 to 18.5 MB. Attaching a 20 MB PDF will expand to 26.7 MB and be rejected by Gmail servers.",
+  },
+  {
+    q: "What is the attachment size limit for Microsoft Outlook and Exchange?",
+    a: "Microsoft Outlook and Office 365 default to a 20 MB message size ceiling (expandable to 150 MB by enterprise Exchange administrators). Factoring in 33% Base64 expansion, the maximum safe raw attachment size on default Microsoft accounts is approximately 14.5 MB.",
+  },
+  {
+    q: "How does recipient mail server policy cause email bounces even if the sender allows it?",
+    a: "Email transmission requires end-to-end consensus: if your corporate server allows 50 MB messages, but your client's receiving mail server enforces a strict 20 MB threshold, the recipient's Mail Transfer Agent (MTA) will reject the message with an SMTP 552 5.3.4 'Message size exceeds fixed maximum message size' bounce error.",
+  },
+];
+
+export default function EmailSizeCalculatorPage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: "{\"@context\": \"https://schema.org\", \"@graph\": [{\"@type\": \"BreadcrumbList\", \"itemListElement\": [{\"@type\": \"ListItem\", \"position\": 1, \"name\": \"Home\", \"item\": \"https://calcdigi.com/\"}, {\"@type\": \"ListItem\", \"position\": 2, \"name\": \"Internet & Tech Calculators\", \"item\": \"https://calcdigi.com/pages/internet\"}, {\"@type\": \"ListItem\", \"position\": 3, \"name\": \"Email Size Calculator\", \"item\": \"https://calcdigi.com/calculators/internet/email-size-calculator\"}]}, {\"@type\": \"WebApplication\", \"name\": \"Email Size Calculator\", \"url\": \"https://calcdigi.com/calculators/internet/email-size-calculator\", \"description\": \"Calculate total email size with attachments and check Gmail, Outlook, Yahoo size limits. Avoid bounced emails easily.\", \"applicationCategory\": \"UtilitiesApplication\", \"operatingSystem\": \"Any\", \"offers\": {\"@type\": \"Offer\", \"price\": \"0\", \"priceCurrency\": \"USD\"}}, {\"@type\": \"FAQPage\", \"mainEntity\": [{\"@type\": \"Question\", \"name\": \"What is the maximum email attachment size for Gmail?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Gmail allows sending emails up to 25 MB total (including all attachments after Base64 encoding). For larger files, Gmail automatically offers to upload to Google Drive and send a link instead. Recipients can receive emails up to 50 MB.\"}}, {\"@type\": \"Question\", \"name\": \"Why does my email attachment exceed the size limit?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Base64 encoding adds 33% overhead to all attachments. A 15 MB PDF becomes 20 MB in the email. Multiple attachments each add 33% overhead independently. An HTML-heavy email body also adds to total size. Compress files before attaching or use cloud sharing.\"}}, {\"@type\": \"Question\", \"name\": \"How can I send files larger than 25 MB?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Options: Google Drive (share link, free 15 GB storage), WeTransfer (free 2 GB per transfer), Dropbox (share link), OneDrive (Microsoft), iCloud Drive (Apple). For business: SFTP, SharePoint, Box, or Slack file sharing. These are faster and more reliable than email for large files.\"}}, {\"@type\": \"Question\", \"name\": \"Does image compression reduce email size?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Yes. JPEG images can be compressed significantly (80% quality vs 100% quality saves 50-70% size with minimal visual difference). Tools: Squoosh.app (free, browser-based), TinyPNG, Photoshop Save for Web. Always compress images before emailing — especially photos from modern smartphones (5-15 MB each).\"}}, {\"@type\": \"Question\", \"name\": \"What is the email attachment limit for Outlook?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Outlook.com (personal): 20 MB per message. Microsoft 365 Business Basic/Standard: 20-150 MB depending on admin settings. Default Exchange Online limit is 25 MB but admins can raise it to 150 MB. Many corporate IT departments keep it at 10-25 MB for security.\"}}, {\"@type\": \"Question\", \"name\": \"How many photos can I attach to one email?\", \"acceptedAnswer\": {\"@type\": \"Answer\", \"text\": \"Depends on photo file size and email provider limit. Modern smartphone photos: 3-8 MB each. At Gmail 25 MB limit (allowing for Base64 overhead): safely attach 2-3 original photos. Compressed to 1 MB each: attach 15-18 photos. Better option: share a Google Photos or iCloud album link.\"}}]}]}" }} />
-      <div dangerouslySetInnerHTML={{ __html: "<main class=\"calc-page\"><div class=\"container\">\n<nav aria-label=\"Breadcrumb\" class=\"calc-breadcrumb\"><a href=\"/\">Home</a><span class=\"bc-sep\"> / </span><a href=\"/pages/internet\">Internet &amp; Tech</a><span class=\"bc-sep\"> / </span><span aria-current=\"page\">Email Size Calculator</span></nav>\n<div class=\"calc-layout\">\n<div class=\"calc-main\">\n<h1>Email Size Calculator</h1>\n<p class=\"calc-intro\">Calculate the total size of your email including all attachments and check whether it meets the size limits for Gmail, Outlook, Yahoo Mail, and other email providers. Avoid bounced emails and find alternatives for large file sharing.</p>\n<p class=\"calc-intro\">Email attachments are encoded in Base64 format which increases file size by approximately 33%. A 10 MB file attachment becomes roughly 13.3 MB in the email. Most email providers have limits of 10-50 MB per message — knowing these limits prevents frustrating delivery failures.</p>\n<div class=\"content-section\"><h2>Formula</h2><div class=\"formula-box\">Email Size = Base Message + Sum of Attachments × 1.33 (Base64 overhead) | Gmail limit: 25 MB | Outlook: 20-150 MB</div></div>\n<div class=\"content-section\">\n<h2>Email Size Limits by Provider</h2>\n<p>Every major email provider enforces maximum message size limits to prevent abuse and manage server load. These limits apply to the total message size including text, HTML formatting, inline images, and all attachments — after Base64 encoding which adds 33% overhead.</p>\n<div style=\"overflow-x:auto;margin:16px 0;\"><table style=\"width:100%;border-collapse:collapse;font-size:14px;\"><thead><tr style=\"background:var(--c-accent);color:#fff;\"><th style=\"padding:11px 14px;text-align:left;\">Provider</th><th style=\"padding:11px 14px;text-align:left;\">Size Limit</th><th style=\"padding:11px 14px;text-align:left;\">Notes</th></tr></thead><tbody><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Gmail</td><td style=\"padding:10px 14px;\">25 MB send / 50 MB receive</td><td style=\"padding:10px 14px;\">Sending over 25MB auto-converts to Google Drive link</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Outlook.com</td><td style=\"padding:10px 14px;\">20 MB</td><td style=\"padding:10px 14px;\">Office 365 business plans: up to 150 MB</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">Yahoo Mail</td><td style=\"padding:10px 14px;\">25 MB</td><td style=\"padding:10px 14px;\">Shared across all attachments</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Apple Mail / iCloud</td><td style=\"padding:10px 14px;\">20 MB</td><td style=\"padding:10px 14px;\">iCloud Drive sharing for larger files</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">ProtonMail</td><td style=\"padding:10px 14px;\">25 MB</td><td style=\"padding:10px 14px;\">Encrypted attachments</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);background:var(--c-rule2);\"><td style=\"padding:10px 14px;\">Corporate Exchange</td><td style=\"padding:10px 14px;\">Usually 10-50 MB</td><td style=\"padding:10px 14px;\">Set by IT admin — often restrictive</td></tr><tr style=\"border-bottom:1px solid var(--c-rule);\"><td style=\"padding:10px 14px;\">WhatsApp</td><td style=\"padding:10px 14px;\">100 MB video / 100 MB docs</td><td style=\"padding:10px 14px;\">Much more generous than email</td></tr></tbody></table></div>\n<h3>Base64 Encoding Overhead</h3>\n<p>Email attachments must be encoded as text (Base64) to travel through email systems. Base64 converts every 3 bytes of binary data into 4 ASCII characters — a 33% size increase. A 15 MB PDF becomes 20 MB in the email, and a 20 MB video becomes 26.7 MB — potentially exceeding limits even though the original file was under the limit.</p>\n<h3>Alternatives to Large Email Attachments</h3>\n<p>For files exceeding email limits: Google Drive or OneDrive (share a link), Dropbox (free 2 GB transfers), WeTransfer (free up to 2 GB per transfer), WhatsApp/Telegram (100 MB per file), FTP or SFTP for business file transfers, or company file sharing platforms (SharePoint, Box, Slack). Cloud sharing is faster, more reliable, and allows version control.</p>\n<h3>Compressing Attachments</h3>\n<p>ZIP compression can reduce file sizes significantly: Word/Excel files: 50-70% smaller. Already-compressed files (JPG, MP4, PDF): little reduction. Multiple small files zipped together: saves Base64 overhead (one 33% overhead instead of one per file). Tools: 7-Zip (free, best compression), WinRAR, macOS built-in compression.</p>\n</div>\n<div class=\"content-section\"><h2>Frequently Asked Questions</h2><div class=\"faq-list\"><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the maximum email attachment size for Gmail? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Gmail allows sending emails up to 25 MB total (including all attachments after Base64 encoding). For larger files, Gmail automatically offers to upload to Google Drive and send a link instead. Recipients can receive emails up to 50 MB.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Why does my email attachment exceed the size limit? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Base64 encoding adds 33% overhead to all attachments. A 15 MB PDF becomes 20 MB in the email. Multiple attachments each add 33% overhead independently. An HTML-heavy email body also adds to total size. Compress files before attaching or use cloud sharing.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How can I send files larger than 25 MB? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Options: Google Drive (share link, free 15 GB storage), WeTransfer (free 2 GB per transfer), Dropbox (share link), OneDrive (Microsoft), iCloud Drive (Apple). For business: SFTP, SharePoint, Box, or Slack file sharing. These are faster and more reliable than email for large files.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">Does image compression reduce email size? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Yes. JPEG images can be compressed significantly (80% quality vs 100% quality saves 50-70% size with minimal visual difference). Tools: Squoosh.app (free, browser-based), TinyPNG, Photoshop Save for Web. Always compress images before emailing — especially photos from modern smartphones (5-15 MB each).</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">What is the email attachment limit for Outlook? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Outlook.com (personal): 20 MB per message. Microsoft 365 Business Basic/Standard: 20-150 MB depending on admin settings. Default Exchange Online limit is 25 MB but admins can raise it to 150 MB. Many corporate IT departments keep it at 10-25 MB for security.</div></div><div class=\"faq-item\"><button class=\"faq-q\" type=\"button\">How many photos can I attach to one email? <span aria-hidden=\"true\" class=\"faq-icon\">+</span></button><div class=\"faq-a\">Depends on photo file size and email provider limit. Modern smartphone photos: 3-8 MB each. At Gmail 25 MB limit (allowing for Base64 overhead): safely attach 2-3 original photos. Compressed to 1 MB each: attach 15-18 photos. Better option: share a Google Photos or iCloud album link.</div></div></div></div>\n<div class=\"content-section\"><h2>Related Internet &amp; Tech Calculators</h2><div class=\"related-grid\"><a class=\"related-card\" href=\"/calculators/internet/internet-speed-calculator\"><span class=\"rc-icon\">🌐</span><span class=\"rc-name\">Internet Speed Calculator</span></a><a class=\"related-card\" href=\"/calculators/internet/download-time-calculator\"><span class=\"rc-icon\">⬇️</span><span class=\"rc-name\">Download Time Calculator</span></a><a class=\"related-card\" href=\"/calculators/internet/bandwidth-calculator\"><span class=\"rc-icon\">📊</span><span class=\"rc-name\">Bandwidth Calculator</span></a><a class=\"related-card\" href=\"/calculators/internet/data-usage-calculator\"><span class=\"rc-icon\">📡</span><span class=\"rc-name\">Data Usage Calculator</span></a></div></div>\n</div>\n<div class=\"calc-sidebar\"><div class=\"calc-widget\">\n<h2>Email Size Calculator – Attachments, Limits and Delivery</h2><div class=\"form-group\"><label for=\"em-body\">Email Body Size (KB)</label><input id=\"em-body\" min=\"1\" step=\"1\" type=\"number\" value=\"50\"/></div>\n<div class=\"form-group\"><label for=\"em-att1\">Attachment 1 (MB)</label><input id=\"em-att1\" min=\"0\" step=\"0.1\" type=\"number\" value=\"5\"/></div>\n<div class=\"form-group\"><label for=\"em-att2\">Attachment 2 (MB)</label><input id=\"em-att2\" min=\"0\" step=\"0.1\" type=\"number\" value=\"0\"/></div>\n<div class=\"form-group\"><label for=\"em-att3\">Attachment 3 (MB)</label><input id=\"em-att3\" min=\"0\" step=\"0.1\" type=\"number\" value=\"0\"/></div>\n<div class=\"form-group\"><label for=\"em-provider\">Email Provider</label><select id=\"em-provider\"><option selected=\"\" value=\"gmail\">Gmail (25 MB limit)</option><option value=\"outlook\">Outlook.com (20 MB)</option><option value=\"yahoo\">Yahoo Mail (25 MB)</option><option value=\"exchange\">Corporate Exchange (10 MB)</option><option value=\"o365\">Office 365 (150 MB)</option></select></div>\n<button class=\"calc-btn\" onclick=\"doCalc()\">Calculate</button>\n<button class=\"calc-btn\" onclick=\"document.getElementById('it-result').style.display='none';document.getElementById('it-actions').style.display='none'\" style=\"background:var(--c-rule2);color:var(--c-ink);margin-top:8px;\">Reset</button>\n<div class=\"result-box\" id=\"it-result\" style=\"display:none;\"><div id=\"it-ri\"></div><div class=\"result-chart\"><canvas height=\"160\" id=\"it-chart\" width=\"220\"></canvas></div><div class=\"ai-box\" id=\"it-ai\" style=\"display:none;\"></div></div>\n<div id=\"it-actions\" style=\"display:none;gap:8px;margin-top:10px;\">\n<button class=\"calc-btn\" id=\"print-btn-it\" onclick=\"printResult('it-result','Email Size Calculator – Attachments, Limits and Delivery')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🖨️</span> Print</button>\n<button class=\"calc-btn\" onclick=\"shareResult('Email Size Calculator – Attachments, Limits and Delivery')\" style=\"background:var(--c-rule2);color:var(--c-ink);font-size:13px;padding:9px;margin-top:0;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;\"><span>🔗</span> Share</button>\n</div>\n</div></div>\n</div></div></main>" }} />
-      <Script id="calc-script-email-size-calculator" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: "var LIMITS={gmail:25,outlook:20,yahoo:25,exchange:10,o365:150};\nfunction doCalc(){\n  var body=parseFloat(document.getElementById('em-body').value)||0;\n  var a1=parseFloat(document.getElementById('em-att1').value)||0;\n  var a2=parseFloat(document.getElementById('em-att2').value)||0;\n  var a3=parseFloat(document.getElementById('em-att3').value)||0;\n  var provider=document.getElementById('em-provider').value;\n  var limit=LIMITS[provider];\n  var attRaw=a1+a2+a3;\n  var attEncoded=attRaw*1.33;\n  var totalMB=body/1024+attEncoded;\n  var ok=totalMB<=limit;\n  var remaining=limit-totalMB;\n  document.getElementById('it-ri').innerHTML=\n    ri('Total Email Size','<strong style=\"font-size:20px;color:'+(ok?'var(--c-accent)':'#c0392b')+'\">'+totalMB.toFixed(2)+' MB '+(ok?'✅':'❌ OVER LIMIT')+'</strong>',true)+\n    ri('Size Limit for Provider',limit+' MB')+\n    ri('Attachments (raw)',attRaw.toFixed(1)+' MB')+\n    ri('Attachments (after Base64)',attEncoded.toFixed(2)+' MB (+33%)')+\n    ri(ok?'Remaining capacity':'Over limit by',(ok?remaining.toFixed(2):Math.abs(remaining).toFixed(2))+' MB');\n  document.getElementById('it-result').style.display='block';document.getElementById('it-actions').style.display='flex';\n  drawDonut('it-chart',['Used','Available'],[Math.round(totalMB*10),Math.max(Math.round((limit-totalMB)*10),1)],['#1a5c3a','#c8832a']);\n  var aiPrompt='Email: '+totalMB.toFixed(1)+'MB total, limit is '+limit+'MB, '+(ok?'within limit':'exceeds limit');\n  var ai=document.getElementById('it-ai');ai.style.display='block';\n  ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p><span class=\"spinner\"></span> Analyzing...</p>';\n  getAIInsight(aiPrompt+'. In 2 sentences give a practical tip about sending large files and alternatives to email attachments.').then(function(t){if(t)ai.innerHTML='<div class=\"ai-header\"><span>&#10024;</span> AI Insight</div><p>'+t+'</p>';else ai.style.display='none';});\n}\ninitFAQ();initScrollReveal();" }} />
-    </>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/internet", label: "Internet & Technology" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      related={RELATED_CALCULATORS}
+      faq={FAQ_ITEMS}
+      article={
+        <>
+          <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
+            <strong>Quick Email Guidance:</strong> Calculating email transmission safety requires evaluating the 33.33% Base64 MIME encoding expansion that occurs when binary attachments (PDFs, images, spreadsheets) traverse SMTP mail servers. By calculating your exact wire payload against provider limits (25 MB Gmail, 20 MB Outlook), this tool prevents undeliverable bounce rejections. Manage large digital archives with our <Link href="/calculators/internet/cloud-storage-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">cloud storage calculator</Link> and monitor monthly data quotas using our <Link href="/calculators/internet/data-usage-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">data usage calculator</Link>.
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Visual Analysis: Email Attachment MIME Expansion: Raw Disk Size vs Transmitted Wire Payload
+          </h2>
+          <EmailPayloadBase64ExpansionChart />
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Electronic mail remains the undisputed transactional backbone of global commerce, legal document execution, and corporate communication. However, millions of high-priority business proposals, legal contracts, and architectural pitch decks bounce daily due to silent message size truncation. Senders frequently attach a 21 MB PDF assuming it fits comfortably under Gmail&apos;s 25 MB limit, unaware of the underlying transport protocol math. Sizing internet payloads utilizes transfer kinetics similar to those in our <Link href="/calculators/internet/download-time-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">download time calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            First-Principles Mathematical Formulations: Base64 MIME Encoding Expansion
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under the Multipurpose Internet Mail Extensions (MIME) standard codified in RFC 2045, binary octets cannot traverse 7-bit ASCII SMTP channels natively. The Base64 algorithm groups 8-bit binary input octets into 24-bit buffers, dividing each buffer into four 6-bit chunks (<Formula>{"4 \\times 6 = 24 \\text{ bits}"}</Formula>). Each 6-bit chunk maps to a printable ASCII symbol. The theoretical expansion ratio (<Formula>{"\\rho_{\\text{base64}}"}</Formula>) is:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"\\rho_{\\text{base64}} = \\frac{4 \\text{ output bytes}}{3 \\text{ input bytes}} = 1.3333 \\quad (+33.33\\%)"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"S_{\\text{raw}}"}</Formula> denote the sum of raw binary file attachments on disk in Megabytes, and let <Formula>{"S_{\\text{body}}"}</Formula> represent the HTML body and inline CSS signatures. Accounting for MIME boundary delimiters, Content-Type headers, and newline characters (CRLF added every 76 characters), the total wire payload (<Formula>{"P_{\\text{wire}}"}</Formula>) in Megabytes is formulated as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"P_{\\text{wire}} = (S_{\\text{raw}} \\times 1.3333) + S_{\\text{body}} + 0.05"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To determine the maximum safe raw attachment size (<Formula>{"S_{\\text{safe}}"}</Formula>) that can be attached without exceeding a provider&apos;s published ceiling (<Formula>{"L_{\\text{provider}}"}</Formula>):
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"S_{\\text{safe}} = \\frac{L_{\\text{provider}} - S_{\\text{body}} - 0.05}{1.3333} \\approx (L_{\\text{provider}} \\times 0.74)"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding web asset loading payloads for corporate landing pages is modeled in our <Link href="/calculators/internet/website-load-time-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">website load time calculator</Link>. Corporate email server availability and uptime guarantees can be audited via our <Link href="/calculators/internet/server-uptime-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">server uptime calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Global Email Provider Attachment Limits & Safe Raw Thresholds
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The following table displays published message limits across major consumer and enterprise email providers alongside their actual maximum safe raw attachment thresholds:
+          </p>
+
+          <DataTable
+            head={["Email Service Provider", "Published Message Limit", "Base64 Wire Expansion", "Max Safe Raw Attachment", "Recommended Large File Workaround"]}
+            rows={[
+              ["Google Gmail / Workspace", "25 MB", "+33.33%", "18.5 MB Raw", "Google Drive Cloud Share Link"],
+              ["Microsoft Outlook / Office 365", "20 MB (Default)", "+33.33%", "14.8 MB Raw", "OneDrive Cloud Attachment"],
+              ["Apple iCloud Mail", "20 MB", "+33.33%", "14.8 MB Raw", "iCloud Mail Drop (Up to 5 GB)"],
+              ["Yahoo! Mail", "25 MB", "+33.33%", "18.5 MB Raw", "Dropbox / Box Integration"],
+              ["Proton Mail (Encrypted)", "25 MB", "+33.33%", "18.5 MB Raw", "Proton Drive Secure Link"],
+              ["Enterprise Exchange (Custom)", "50 – 100 MB", "+33.33%", "37.0 – 74.0 MB Raw", "Enterprise SFTP / ShareFile"],
+            ]}
+          />
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Comparative Worked Engineering Case Studies
+          </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study A: Legal Merger Contract Bounce on Closing Day
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A corporate attorney attempts to email signed acquisition closing documents to outside counsel. The PDF document package measures exactly 21.2 MB on the attorney&apos;s local drive. Outside counsel operates on standard Google Workspace (25 MB limit).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Upon clicking &lsquo;Send&rsquo;, the email client encodes the 21.2 MB file via Base64: <Formula>{"21.2 \\times 1.3333 = 28.26 \\text{ MB}"}</Formula>. Adding the HTML legal disclaimers and MIME boundary headers brings the total wire payload to 28.45 MB. Outside counsel&apos;s Google mail server immediately terminates the SMTP handshake, generating an automated non-delivery report (NDR) stating &lsquo;552 5.3.4 message size exceeds maximum allowed&rsquo;. Compressing the PDF to 16.5 MB drops the encoded wire payload to 22.05 MB, ensuring immediate, successful delivery. Managing office bandwidth during document transfers is evaluated in our <Link href="/calculators/internet/bandwidth-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">bandwidth calculator</Link>.
+          </p>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Case Study B: Architecture Firm High-Resolution Rendering RFP Submission
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            An architectural consultancy prepares an RFP bid containing 8 high-resolution 3D site plan renderings totaling 35 MB of attachments. The municipal client operates an on-premise Microsoft Exchange server with a strict 20 MB message ceiling.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Recognizing that even a single 16 MB rendering will expand to 21.3 MB and bounce, the architect implements an enterprise cloud sharing strategy. The firm uploads the 35 MB package to a cloud object repository, generating an encrypted, time-limited direct download link. The resulting email measures only 85 KB, guaranteeing instant inbox arrival without triggering spam filters or gateway size rejections. Cloud repository capacity and bandwidth egress costs are budgeted through our <Link href="/calculators/internet/cloud-storage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">cloud storage calculator</Link>.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            MIME Standards Architecture: RFC 2045, RFC 2046 & Boundary Delimiters
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern multipart email transmission is orchestrated by the IETF MIME specification. Under MIME, a single email can encapsulate multiple disparate content streams—including plain text, formatted HTML, inline images, and binary document attachments. Each component is separated by a unique pseudo-random cryptographic boundary delimiter string (e.g. &lsquo;--=_boundary_12345&rsquo;).
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Every discrete attachment carries individual MIME headers specifying Content-Type (e.g. application/pdf), Content-Disposition (inline vs attachment), and Content-Transfer-Encoding (base64). While these headers add minimal overhead (typically 1 to 2 KB per attachment), poor client implementations that split Base64 lines with excessive whitespace can introduce subtle size expansion.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Authoritative Internet Messaging Standards & Governance
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Email transport protocols, message size limits, and security encapsulation standards are maintained by international standards bodies:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Internet Engineering Task Force (IETF RFC 5321):</strong> The definitive Simple Mail Transfer Protocol (SMTP) standard governing mail exchange and message size negotiation (SIZE extension RFC 1870).
+            </li>
+            <li>
+              <strong>IETF RFC 2045 & RFC 2046:</strong> Multipurpose Internet Mail Extensions (MIME) Parts One and Two, defining format architectures and Base64 transfer encoding algorithms.
+            </li>
+            <li>
+              <strong>Messaging, Malware and Mobile Anti-Abuse Working Group (M3AAWG):</strong> Global industry alliance publishing best-practice guidelines for corporate mail server security and spam filtering hygiene.
+            </li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Email Compression Techniques: Vector Optimization vs Lossy Image Downsampling
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When email attachments hover near size boundaries, applying strategic compression algorithms ensures safe delivery without sacrificing document readability. For scanned PDF contracts, standard office multi-function printers default to uncompressed 300 DPI TIFF images. Utilizing PDF optimization software to downsample images to 150 DPI and apply JBIG2 monochrome compression reduces document footprints by up to 75%.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Similarly, digital photographs taken on smartphones frequently measure 8 to 12 MB in uncompressed HEIC/JPEG formats. Converting images to WebP format or applying mozjpeg compression reduces file sizes below 1.5 MB while maintaining crystal-clear visual fidelity for corporate presentations.
+          </p>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Modern Cloud Link Alternatives: Overcoming Email File Size Ceilings
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Given the architectural constraints of 40-year-old SMTP protocols, transmitting multi-gigabyte media packages via email attachments is fundamentally obsolete. Modern productivity platforms integrate native cloud attachment mechanisms—such as Google Drive chips, OneDrive links, and Apple Mail Drop.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Apple Mail Drop, for instance, intercepts attachments exceeding 20 MB, uploads the assets to iCloud, and embeds a clean web download link within the message. Recipients can download up to 5 GB per transfer without consuming mail server storage quotas, ensuring effortless enterprise collaboration.
+          </p>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Understanding the mathematical reality of Base64 MIME encoding empowers business professionals to navigate email file size limits with confidence.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            By auditing attachment payloads prior to transmission, corporate senders eliminate undeliverable bounce notifications and maintain professional communication reliability.
+          </p>
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            SMTP Chunking Extensions (BDAT) vs Legacy DATA Commands
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under traditional SMTP protocol (RFC 821), message bodies are transmitted using the monolithic DATA command, which requires the sending client to scan through every byte to escape trailing dot characters (period transparency). Modern enterprise mail transfer agents (MTAs) implement the ESMTP CHUNKING extension codified in RFC 3030.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            CHUNKING replaces the DATA command with the binary BDAT verb, specifying exact byte lengths for each transmitted chunk. BDAT eliminates the need to scan and alter message bodies, accelerating delivery speed over high-bandwidth links audited in our <Link href="/calculators/internet/internet-speed-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">internet speed calculator</Link> and minimizing round-trip latency evaluated in our <Link href="/calculators/internet/ping-latency-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">ping latency calculator</Link>.
+          </p>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            DKIM Cryptographic Signatures & Gateway Header Overhead
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Modern corporate email security mandates DomainKeys Identified Mail (DKIM) signatures, Sender Policy Framework (SPF) validation, and DMARC alignment. As an email traverses corporate security filters, anti-spam gateways (such as Proofpoint or Mimecast) inject detailed cryptographic authentication headers, disclaimer banners, and routing trace stamps.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            These administrative security headers add 40 to 80 KB of text metadata to every outbound message. For emails hovering within 100 KB of hard provider limits, this gateway header expansion can trigger unexpected size threshold rejections, underscoring the critical need to maintain a 15% safety buffer.
+          </p>
+
+        
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Enterprise Mail Server Transport Architecture & Queue Mechanics
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            When mail user agents inject oversized messages into corporate SMTP transport pipelines, messages traverse multiple security scanning layers including anti-spam heuristics, zero-day sandboxes, and data loss prevention (DLP) engines. Processing Base64-encoded file attachments forces mail transfer agents to allocate significant memory buffers for real-time MIME unpacking. Enforcing strict message size thresholds protects email transport relays from memory exhaustion and denial-of-service vulnerabilities.
+          </p>
+
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Configuring automated attachment offloading to secure cloud storage repositories ensures smooth enterprise mail transfer agent operation.
+          </p>
+
+</>
+      }
+    >
+      <EmailSizeCalculatorComponent />
+    </CalcPage>
   );
 }
