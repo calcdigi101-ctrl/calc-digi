@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Suspense } from "react";
 import { PercentageCalculator } from "@/components/flagship/math/PercentageCalculator";
 import { PercentageBreakdownVisualizerChart } from "@/components/flagship/math/editorial-charts/PercentageBreakdownVisualizerChart";
-import { CalculatorPage, DataTable, Editorial, Faq, Formula, JsonLd, RelatedLinks } from "@/components/flagship/shell";
-import { SITE_URL } from "@/lib/site";
+import { CalcPage } from "@/components/flagship/CalcPage";
+import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/math/percentage-calculator";
-const TITLE = "Percentage Calculator – 4-in-1 Free Online Tool | CalcDigi";
+const TITLE = "Percentage Calculator | Free 4-in-1 Percent, Increase & Discount Tool";
 const DESCRIPTION =
-  "Free online percentage calculator. Calculate percentage of a number, percentage change (increase/decrease), what percent X is of Y, sales tax, discounts, and step-by-step formulas.";
+  "Free online percentage calculator. Calculate percent of a number, percentage change (increase/decrease), what percent X is of Y, reverse percentages, sales tax, and discount with step-by-step formulas.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -37,6 +36,10 @@ const FAQ_ITEMS = [
     a: "Percentage points measure arithmetic difference between two percentage values, whereas percentage change measures relative growth. If an interest rate moves from 4% to 5%, that is a 1 percentage point increase, but a 25% relative increase: ((5 − 4) ÷ 4) × 100 = 25%.",
   },
   {
+    q: "What is percentage difference and how does it differ from percentage change?",
+    a: "Percentage difference compares two numbers without designating one as a baseline, dividing the absolute difference by the average of the two numbers: (|A - B| / ((A + B) / 2)) × 100. In contrast, percentage change measures directional movement over time relative to a starting original baseline.",
+  },
+  {
     q: "How do I find the original price before a percentage discount?",
     a: "Divide the discounted price by (1 − (Discount % ÷ 100)). For example, if a coat costs $80 after a 20% discount: $80 ÷ 0.80 = $100 original price.",
   },
@@ -45,16 +48,16 @@ const FAQ_ITEMS = [
     a: "Divide the invoice total by (1 + (Tax % ÷ 100)). For example, if a receipt is $108 with 8% sales tax: $108 ÷ 1.08 = $100 pre-tax base price.",
   },
   {
-    q: "What does the percent sign (%) actually mean?",
-    a: "The word percent comes from Latin 'per centum', meaning 'by the hundred'. The symbol % represents a fraction with denominator 100. 45% means 45 parts per 100, or 0.45.",
+    q: "How do you calculate scientific percentage error in laboratory measurements?",
+    a: "Percentage error measures experimental accuracy relative to an accepted theoretical standard. Formula: % Error = (|Experimental Value − Theoretical Value| ÷ Theoretical Value) × 100. A lower percentage error indicates higher experimental precision.",
   },
   {
     q: "Why does a 10% increase followed by a 10% decrease not return to the original number?",
-    a: "Because the base shifts between calculations. Increasing 100 by 10% gives 110. Decreasing 110 by 10% subtracts 11, leaving 99 (a net 1% loss).",
+    a: "Because the base shifts between calculations. Increasing 100 by 10% gives 110. Decreasing 110 by 10% subtracts 11, leaving 99 (a net 1% loss). Recovering from any percentage loss always requires a larger reciprocal percentage gain.",
   },
   {
     q: "Can a percentage exceed 100%?",
-    a: "Yes. When a quantity exceeds its starting baseline, the percentage exceeds 100%. Doubling a number represents a 100% increase, or 200% of the baseline.",
+    a: "Yes. When a quantity exceeds its starting baseline, the percentage exceeds 100%. Doubling a number represents a 100% increase, or 200% of the baseline, while tripling represents a 200% increase (300% of the baseline).",
   },
 ];
 
@@ -79,6 +82,13 @@ const POINTS_VS_CHANGE_ROWS = [
   ["Typical Usage", "Central bank rates, bond yields", "Revenue growth, stock returns"],
 ];
 
+const ERROR_ROWS = [
+  ["Low Uncertainty (High Accuracy)", "0.00% to 1.00%", "Analytical chemistry titration, GPS atomic timing"],
+  ["Acceptable Experimental Margin", "1.00% to 5.00%", "Physics lab mechanics, calorimeter thermodynamics"],
+  ["Moderate Empirical Variance", "5.00% to 15.00%", "Field ecology sampling, macroeconomic GDP forecasting"],
+  ["High Error Margin (Requires Calibration)", "> 15.00%", "Sensor drift, uncalibrated optical refractometers"],
+];
+
 const RELATED = [
   { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
   { href: "/calculators/finance/discount-calculator", icon: "🏷️", name: "Discount Calculator" },
@@ -90,96 +100,18 @@ const RELATED = [
 
 export default function Page() {
   return (
-    <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@graph": [
-            {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-                { "@type": "ListItem", position: 2, name: "Math Calculators", item: `${SITE_URL}/pages/math` },
-                { "@type": "ListItem", position: 3, name: "Percentage Calculator", item: `${SITE_URL}${PATH}` },
-              ],
-            },
-            {
-              "@type": "WebApplication",
-              name: "Percentage Calculator",
-              url: `${SITE_URL}${PATH}`,
-              description: DESCRIPTION,
-              applicationCategory: "UtilitiesApplication",
-              operatingSystem: "Any",
-              browserRequirements: "Requires JavaScript",
-              offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            },
-            {
-              "@type": "MathSolver",
-              name: "Percentage Calculator",
-              url: `${SITE_URL}${PATH}`,
-              description: DESCRIPTION,
-              potentialAction: [
-                {
-                  "@type": "SolveAction",
-                  target: `${SITE_URL}${PATH}`,
-                  mathExpression: "P = (X / Y) * 100",
-                  eduQuestionType: "Percentage",
-                },
-              ],
-            },
-            {
-              "@type": "HowTo",
-              name: "How to Calculate Percentages",
-              description: "Step-by-step instructions to calculate percentages of numbers, proportions, and percentage changes.",
-              step: [
-                {
-                  "@type": "HowToStep",
-                  name: "Convert percentage to decimal",
-                  text: "Divide the given percentage by 100 (e.g., 20% becomes 0.20).",
-                },
-                {
-                  "@type": "HowToStep",
-                  name: "Multiply by total amount",
-                  text: "Multiply the decimal by the total number (e.g., 0.20 × 150 = 30).",
-                },
-              ],
-            },
-            {
-              "@type": "FAQPage",
-              mainEntity: FAQ_ITEMS.map((f) => ({
-                "@type": "Question",
-                name: f.q,
-                acceptedAnswer: { "@type": "Answer", text: f.a },
-              })),
-            },
-          ],
-        }}
-      />
-
-      <CalculatorPage
-        crumbs={[
-          { href: "/", label: "Home" },
-          { href: "/pages/math", label: "Math" },
-          { label: "Percentage Calculator" },
-        ]}
-        title="Percentage Calculator"
-        intro="Free interactive 4-in-1 percentage tool: compute percentage of a number, find ratios and proportions, calculate percentage increase or decrease, and add sales tax or discounts with step-by-step solutions."
-      >
-        <Suspense fallback={<div className="mt-6 h-[480px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
-          <PercentageCalculator />
-        </Suspense>
-
-        <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span>⚡</span> Related Calculators
-            </h2>
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
-          </div>
-          <RelatedLinks links={RELATED} />
-        </section>
-
-        <Editorial>
+    <CalcPage
+      path={PATH}
+      intro={DESCRIPTION}
+      category={{ href: "/pages/math", label: "Math" }}
+      title={TITLE}
+      description={DESCRIPTION}
+      appCategory="UtilitiesApplication"
+      mathExpression="P = (X / Y) \times 100"
+      related={RELATED}
+      faq={FAQ_ITEMS}
+      article={
+        <>
           <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
@@ -204,65 +136,75 @@ export default function Page() {
             <PercentageBreakdownVisualizerChart />
           </div>
 
-          <h2>The Four Foundational Percentage Formulas &amp; Derivations</h2>
+          <h2>The Five Foundational Percentage Formulas &amp; Derivations</h2>
           <p>
-            Nearly every percentage problem in academic, financial, or daily contexts resolves to one of four canonical mathematical formulas. Understanding these foundational equations allows you to manipulate proportions flexibly:
+            Nearly every percentage calculation in academic examination, retail business, or advanced scientific laboratory analysis resolves to one of five canonical mathematical formulas. Mastering these equations allows you to manipulate quantitative proportions with speed and precision:
           </p>
 
           <h3>1. Percentage of a Number (What is P% of X?)</h3>
           <p>
             This fundamental formula calculates a specific portion of an established whole value. Divide the percentage rate <em>P</em> by 100 to obtain its decimal coefficient, then multiply by the total amount <em>X</em>:
           </p>
-          <Formula>Value = (P ÷ 100) × Total</Formula>
+          <Formula>{"\\text{Value} = \\left( \\frac{P}{100} \\right) \\times X"}</Formula>
           <p>
-            <em>Example:</em> An investor evaluates an 8.5% annual dividend payout on a portfolio valued at $45,000. Applying the formula:
+            <em>Example:</em> An investor evaluates an 8.5% annual dividend payout on a portfolio valued at $45,000 using our <Link href="/calculators/finance/roi-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">ROI calculator</Link>. Applying the formula yields:
           </p>
-          <Formula>Dividend = (8.5 ÷ 100) × $45,000 = 0.085 × $45,000 = $3,825.00</Formula>
+          <Formula>{"\\text{Dividend} = \\left( \\frac{8.5}{100} \\right) \\times 45{,}000 = 0.085 \\times 45{,}000 = \\$3{,}825.00"}</Formula>
 
           <h3>2. Determining Proportional Percentage (X is What Percent of Y?)</h3>
           <p>
             To evaluate a part <em>X</em> relative to a known total <em>Y</em>, divide <em>X</em> by <em>Y</em> and multiply by 100 to convert to a percentage. This arises from the fundamental proportion equation <em>X / Y = P / 100</em>, which through cross-multiplication yields:
           </p>
-          <Formula>Percentage (%) = (Part ÷ Whole) × 100</Formula>
+          <Formula>{"\\text{Percentage (\\%)} = \\left( \\frac{\\text{Part}}{\\text{Whole}} \\right) \\times 100"}</Formula>
           <p>
-            <em>Example:</em> An inspection team reviews 850 components and finds 34 defective units. To calculate the failure rate:
+            <em>Example:</em> An inspection team reviews 850 manufactured components and identifies 34 defective units. To calculate the failure rate:
           </p>
-          <Formula>Defect Rate = (34 ÷ 850) × 100 = 0.040 × 100 = 4.00%</Formula>
+          <Formula>{"\\text{Defect Rate} = \\left( \\frac{34}{850} \\right) \\times 100 = 0.040 \\times 100 = 4.00\\%"}</Formula>
 
           <h3>3. Relative Percentage Change (Increase or Decrease)</h3>
           <p>
-            Percentage change measures relative variance between an initial baseline value and a new ending value over time. The difference must always be divided by the <strong>initial baseline value</strong>, not the new terminal value:
+            Percentage change measures directional relative variance between an initial baseline value and a new ending value over time. The mathematical delta must always be divided by the <strong>initial baseline value</strong>, not the new terminal value:
           </p>
-          <Formula>Percentage Change (%) = [ (New Value − Original Value) ÷ Original Value ] × 100</Formula>
+          <Formula>{"\\text{Percentage Change (\\%)} = \\left( \\frac{\\text{New Value} - \\text{Original Value}}{\\text{Original Value}} \\right) \\times 100"}</Formula>
           <p>
-            A positive result indicates growth (increase); a negative result indicates contraction (decrease). If monthly recurring revenue rises from $120,000 to $156,000:
+            A positive result indicates growth (percentage increase); a negative result indicates contraction (percentage decrease). For instance, when analyzing business revenue expansion or price inflation with our <Link href="/calculators/finance/inflation-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">inflation calculator</Link>, if monthly recurring revenue rises from $120,000 to $156,000:
           </p>
-          <Formula>Revenue Growth (%) = [ ($156,000 − $120,000) ÷ $120,000 ] × 100 = (+36,000 ÷ 120,000) × 100 = +30.00%</Formula>
+          <Formula>{"\\text{Revenue Growth} = \\left( \\frac{156{,}000 - 120{,}000}{120{,}000} \\right) \\times 100 = \\left( \\frac{+36{,}000}{120{,}000} \\right) \\times 100 = +30.00\\%"}</Formula>
 
           <h3>4. Reverse Percentage (Finding the Original Base Before Discount or Tax)</h3>
           <p>
             In retail commerce and accounting, calculating pre-tax costs or pre-discount sticker prices requires dividing by the complementary multiplier rather than simple subtraction. When sales tax or VAT is added, the final invoice equals <em>Base × (1 + Rate / 100)</em>. Rearranging gives:
           </p>
-          <Formula>Original Price = Final Price ÷ [ 1 ± (Rate % ÷ 100) ]</Formula>
+          <Formula>{"\\text{Original Price} = \\frac{\\text{Final Price}}{1 \\pm \\left( \\frac{\\text{Rate \\%}}{100} \\right)}"}</Formula>
           <p>
-            <em>Example:</em> A tablet costs $336.00 after an 8% sales tax. To extract the pre-tax base price:
+            <em>Example:</em> A consumer purchases electronics costing $336.00 after an 8% sales tax calculated using our <Link href="/calculators/finance/sales-tax-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">sales tax calculator</Link>. To extract the true pre-tax merchant base price:
           </p>
-          <Formula>Base Price = $336.00 ÷ (1 + 0.08) = $336.00 ÷ 1.08 = $311.11</Formula>
+          <Formula>{"\\text{Base Price} = \\frac{\\$336.00}{1 + 0.08} = \\frac{\\$336.00}{1.08} = \\$311.11"}</Formula>
+
+          <h3>5. Percentage Difference Between Two Positive Numbers</h3>
+          <p>
+            Unlike percentage change, <strong>percentage difference</strong> evaluates the relative disparity between two independent measurements where neither number represents a historical starting baseline. The formula divides the absolute difference by the arithmetic average of both numbers:
+          </p>
+          <Formula>{"\\text{Percentage Difference (\\%)} = \\left( \\frac{|A - B|}{\\frac{A + B}{2}} \\right) \\times 100"}</Formula>
+          <p>
+            <em>Example:</em> Two competing manufacturing plants produce 180 units and 220 units per shift respectively. The percentage difference between their output capacities evaluates as:
+          </p>
+          <Formula>{"\\text{Difference} = \\left( \\frac{|180 - 220|}{\\frac{180 + 220}{2}} \\right) \\times 100 = \\left( \\frac{40}{200} \\right) \\times 100 = 20.00\\%"}</Formula>
 
           <h2>Percentage Points vs. Percentage Change: The Crucial Statistical Distinction</h2>
           <p>
-            A widespread error in business reporting is confusing <strong>percentage points</strong> with <strong>percentage change</strong>:
+            A widespread error in macroeconomic journalism and corporate earnings reporting is confusing <strong>percentage points</strong> with <strong>percentage change</strong>:
           </p>
           <ul>
             <li>
-              <strong>Percentage Points (pp):</strong> Direct arithmetic subtraction between two percentage rates, describing absolute shift on a percentage scale.
+              <strong>Percentage Points (pp):</strong> Direct arithmetic subtraction between two percentage rates, describing an absolute shift along a percentage scale.
             </li>
             <li>
               <strong>Percentage Change (%):</strong> Relative proportional growth or decline relative to the starting benchmark rate.
             </li>
           </ul>
           <p>
-            When a mortgage rate rises from 4.00% to 5.00%, the difference is 5.00% − 4.00% = <strong>1.00 percentage point</strong>. However, the relative increase is ((5.00 − 4.00) ÷ 4.00) × 100 = <strong>25.00% percentage increase</strong> in borrowing costs.
+            When a central bank increases interest rates from 4.00% to 5.00%, the difference is 5.00% − 4.00% = <strong>1.00 percentage point</strong> (equivalent to 100 basis points or bps). However, the relative increase is ((5.00 − 4.00) ÷ 4.00) × 100 = <strong>25.00% percentage increase</strong> in borrowing costs.
           </p>
 
           <DataTable
@@ -271,9 +213,24 @@ export default function Page() {
             highlight={1}
           />
 
+          <h2>Scientific Percentage Error &amp; Experimental Accuracy</h2>
+          <p>
+            In laboratory sciences, chemistry titration, and mechanical engineering, calculating <strong>percentage error</strong> quantifies the discrepancy between observed experimental measurements and standard accepted theoretical constants:
+          </p>
+          <Formula>{"\\text{Percentage Error (\\%)} = \\left( \\frac{|\\text{Experimental Value} - \\text{Theoretical Value}|}{\\text{Theoretical Value}} \\right) \\times 100"}</Formula>
+          <p>
+            Tracking percentage error allows researchers to identify systematic instrument calibration offsets and calibrate precision equipment:
+          </p>
+
+          <DataTable
+            head={["Error Margin Category", "Typical Variance Range", "Scientific & Engineering Application"]}
+            rows={ERROR_ROWS}
+            highlight={1}
+          />
+
           <h2>Fraction, Decimal, and Percentage Conversion Matrix</h2>
           <p>
-            Converting between fractions, decimals, and percentages is essential for quantitative analysis. Divide by 100 to convert percentages to decimals, or divide numerator by denominator for fractions. For non-terminating rational numbers like 1/3 (0.3333...), standard convention rounds to two decimal places in commerce and four decimal places in scientific modeling:
+            Converting between fractions, decimals, and percentages is essential for quantitative analysis. Divide by 100 to convert percentages to decimals, or divide numerator by denominator for fractions with our <Link href="/calculators/math/fraction-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">fraction calculator</Link>. For non-terminating rational numbers like 1/3 (0.3333...), standard convention rounds to two decimal places in commerce and four decimal places in scientific modeling:
           </p>
           <DataTable
             head={["Fraction", "Decimal Exact", "Percentage Equivalent", "Typical Usage"]}
@@ -283,43 +240,42 @@ export default function Page() {
 
           <h2>Compounding Percentages: The Asymmetry of Sequential Percentage Changes</h2>
           <p>
-            A frequent pitfall occurs when evaluating sequential percentage changes. If an asset gains 10% then loses 10%, it does not break even:
+            A frequent mathematical pitfall occurs when evaluating sequential percentage changes. If an asset gains 10% then loses 10%, it does not break even:
           </p>
-          <Formula>100 × (1 + 0.10) = 110  ⟶  110 × (1 − 0.10) = 99.00  (Net Loss: −1.00%)</Formula>
+          <Formula>{"100 \\times (1 + 0.10) = 110  \\longrightarrow  110 \\times (1 - 0.10) = 99.00  \\quad (\\text{Net Loss: } -1.00\\%)"}</Formula>
           <p>
             Because the 10% reduction applies to the higher base ($110), it subtracts $11.00, yielding a net 1% loss. Multi-period compound changes require multiplying sequential multipliers:
           </p>
-          <Formula>Final Value = Initial Value × (1 + r₁/100) × (1 + r₂/100) × ... × (1 + rₙ/100)</Formula>
+          <Formula>{"\\text{Final Value} = \\text{Initial Value} \\times \\prod_{i=1}^{n} \\left( 1 + \\frac{r_i}{100} \\right)"}</Formula>
           <p>
-            This principle governs <Link href="/calculators/finance/compound-interest-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">compound interest</Link>, inflation erosion, and investment drawdowns. Recovering from a 50% loss requires a 100% gain to restore original principal.
+            This fundamental asymmetric principle governs <Link href="/calculators/finance/compound-interest-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">compound interest</Link>, currency valuations, and portfolio drawdown risk management. Recovering from a 50% loss requires a 100% gain to restore original principal.
           </p>
 
           <h2>Practical Real-World Applications &amp; Contextual Calculations</h2>
           <p>
-            Percentages govern critical financial and quantitative decisions across everyday domains:
+            Percentages govern critical financial and quantitative decisions across everyday commerce and science:
           </p>
           <ul>
             <li>
-              <strong>Retail Shopping &amp; Discounts:</strong> Calculate clearance savings with our <Link href="/calculators/finance/discount-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Discount Calculator</Link>.
+              <strong>Retail Shopping &amp; Discounts:</strong> Calculate clearance savings and seasonal promotional markdowns with our <Link href="/calculators/finance/discount-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Discount Calculator</Link>.
             </li>
             <li>
-              <strong>Restaurant Gratuity:</strong> Split checks and calculate 18% or 20% tips using our <Link href="/calculators/finance/tip-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Tip Calculator</Link>.
+              <strong>Restaurant Gratuity &amp; Bill Splitting:</strong> Split checks and calculate 18% or 20% tips using our <Link href="/calculators/finance/tip-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Tip Calculator</Link>.
             </li>
             <li>
-              <strong>Commercial Margins:</strong> Separate gross margin (profit over revenue) from markup (profit added to cost).
+              <strong>Ratios &amp; Proportions:</strong> Scale physical dimensions, chemical mixtures, and culinary recipes using our <Link href="/calculators/math/ratio-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Ratio Calculator</Link> and <Link href="/calculators/math/average-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Average Calculator</Link>.
             </li>
             <li>
-              <strong>Inflation &amp; Wage Adjustments:</strong> Track annual cost-of-living increases against headline inflation benchmarks to verify real purchasing power retention across multi-year salary reviews.
+              <strong>Commercial Margins vs Markups:</strong> Accurately distinguish gross margin (profit divided by revenue) from markup percentage (profit added to cost of goods sold).
             </li>
             <li>
-              <strong>Ratios &amp; Proportions:</strong> Scale recipes or ratios using our <Link href="/calculators/math/ratio-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Ratio Calculator</Link> and <Link href="/calculators/math/fraction-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Fraction Calculator</Link>.
+              <strong>Academic Examination Grading:</strong> Convert cumulative student scores into standardized percentile ranks and weighted course marks across academic semesters.
             </li>
           </ul>
-
-          <h2>Frequently Asked Questions</h2>
-          <Faq items={FAQ_ITEMS} />
-        </Editorial>
-      </CalculatorPage>
-    </>
+        </>
+      }
+    >
+      <PercentageCalculator />
+    </CalcPage>
   );
 }
