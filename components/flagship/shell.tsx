@@ -18,19 +18,19 @@ export function CalculatorPage({
   children: ReactNode;
 }) {
   return (
-    <main className="fx bg-slate-50 pb-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-      <div className="mx-auto max-w-[1180px] px-4 pt-6 sm:px-6">
-        <nav aria-label="Breadcrumb" className="fx-no-print mb-4">
-          <ol className="flex flex-wrap items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
+    <main className="fx bg-slate-50 pb-12 sm:pb-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100 max-w-full overflow-x-clip">
+      <div className="mx-auto max-w-[1180px] px-3.5 pt-4 sm:px-6 sm:pt-6">
+        <nav aria-label="Breadcrumb" className="fx-no-print mb-3 sm:mb-4">
+          <ol className="flex flex-wrap items-center gap-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             {crumbs.map((c, i) => (
               <li key={c.label} className="flex items-center gap-1">
-                {i > 0 ? <ChevronRight aria-hidden className="size-3.5" /> : null}
+                {i > 0 ? <ChevronRight aria-hidden className="size-3 sm:size-3.5" /> : null}
                 {c.href ? (
                   <a href={c.href} className="hover:text-emerald-600 hover:underline dark:hover:text-emerald-400">
                     {c.label}
                   </a>
                 ) : (
-                  <span aria-current="page" className="text-slate-700 dark:text-slate-300">
+                  <span aria-current="page" className="text-slate-700 dark:text-slate-300 font-medium">
                     {c.label}
                   </span>
                 )}
@@ -38,10 +38,10 @@ export function CalculatorPage({
             ))}
           </ol>
         </nav>
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white" style={{ fontFamily: "var(--font-sans)" }}>
+        <h1 className="text-[clamp(1.5rem,5.5vw,2.25rem)] font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white leading-[1.2] break-words" style={{ fontFamily: "var(--font-sans)" }}>
           {title}
         </h1>
-        <p className="mt-2 max-w-3xl text-base text-slate-600 dark:text-slate-400">{intro}</p>
+        <p className="mt-2 max-w-3xl text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed">{intro}</p>
         {children}
       </div>
     </main>
@@ -54,9 +54,9 @@ export function CalculatorPage({
  */
 export function ToolGrid({ form, result }: { form: ReactNode; result: ReactNode }) {
   return (
-    <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-start">
-      <div className="md:col-span-7">{form}</div>
-      <div className="md:sticky md:top-24 md:col-span-5">{result}</div>
+    <div className="mt-5 sm:mt-6 grid gap-4 sm:gap-6 md:grid-cols-12 md:items-start max-w-full">
+      <div className="md:col-span-7 min-w-0">{form}</div>
+      <div className="md:sticky md:top-24 md:col-span-5 min-w-0">{result}</div>
     </div>
   );
 }
@@ -67,12 +67,12 @@ export function Editorial({ children }: { children: ReactNode }) {
     <article
       className={cn(
         card,
-        "mt-10 p-4 sm:p-8 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300",
-        "[&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-900 dark:[&_h2]:text-white [&_h2:first-child]:mt-0",
-        "[&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-white",
-        "[&_p]:mb-3 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mb-1",
+        "mt-6 sm:mt-10 p-3.5 sm:p-8 text-[14px] sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300 max-w-full overflow-hidden",
+        "[&_h2]:mt-8 sm:[&_h2]:mt-10 [&_h2]:mb-2.5 sm:[&_h2]:mb-3 [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-900 dark:[&_h2]:text-white [&_h2:first-child]:mt-0",
+        "[&_h3]:mt-5 sm:[&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-base sm:[&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-white",
+        "[&_p]:mb-3 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-4.5 sm:[&_ul]:pl-6 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-4.5 sm:[&_ol]:pl-6 [&_li]:mb-1",
         "[&_strong]:font-semibold [&_strong]:text-slate-900 dark:[&_strong]:text-white",
-        "[&_a]:font-medium [&_a]:text-emerald-600 [&_a]:underline-offset-2 hover:[&_a]:underline dark:[&_a]:text-emerald-400",
+        "[&_a]:font-medium [&_a]:text-emerald-600 [&_a]:underline-offset-2 hover:[&_a]:underline dark:[&_a]:text-emerald-400 break-words",
       )}
     >
       {children}
@@ -82,15 +82,15 @@ export function Editorial({ children }: { children: ReactNode }) {
 
 export function Formula({ children }: { children: ReactNode }) {
   return (
-    <div className="my-4 overflow-x-auto rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-3 font-mono text-xs sm:text-sm text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 leading-relaxed">
+    <span className="block my-3 sm:my-4 max-w-full overflow-x-auto scrollbar-thin rounded-lg border border-slate-200 bg-slate-50 px-3 sm:px-3.5 py-2.5 sm:py-3 font-mono text-xs sm:text-sm text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 leading-relaxed [touch-action:pan-x]">
       {children}
-    </div>
+    </span>
   );
 }
 
 export function DataTable({ head, rows, highlight }: { head: string[]; rows: ReactNode[][]; highlight?: number }) {
   return (
-    <div className="my-6 rounded-xl border border-slate-200/90 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
+    <div className="my-5 sm:my-6 w-full max-w-full rounded-xl border border-slate-200/90 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900 overflow-hidden">
       {/* Mobile Swipe Hint */}
       <div className="flex items-center justify-between px-3.5 py-1.5 text-[11px] font-medium text-slate-500 bg-slate-50 border-b border-slate-200/70 dark:bg-slate-900/80 dark:border-slate-800 dark:text-slate-400 sm:hidden">
         <span className="flex items-center gap-1">
@@ -100,8 +100,8 @@ export function DataTable({ head, rows, highlight }: { head: string[]; rows: Rea
           Scroll table horizontally &rarr;
         </span>
       </div>
-      <div className="overflow-x-auto scrollbar-thin">
-        <table className="w-full min-w-[560px] text-left text-sm border-collapse">
+      <div className="w-full max-w-full overflow-x-auto scrollbar-thin [touch-action:pan-x]">
+        <table className="w-full min-w-[480px] sm:min-w-[560px] text-left text-xs sm:text-sm border-collapse">
           <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-800">
             <tr>
               {head.map((h, colIdx) => (
@@ -109,9 +109,9 @@ export function DataTable({ head, rows, highlight }: { head: string[]; rows: Rea
                   key={h}
                   scope="col"
                   className={cn(
-                    "px-4 py-2.5 font-semibold",
+                    "px-3 sm:px-4 py-2 sm:py-2.5 font-semibold",
                     colIdx === 0
-                      ? "sticky left-0 z-20 bg-slate-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:bg-slate-800 whitespace-nowrap min-w-[130px]"
+                      ? "sticky left-0 z-20 bg-slate-100 shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:bg-slate-800 whitespace-nowrap min-w-[110px] sm:min-w-[130px]"
                       : "whitespace-nowrap sm:whitespace-normal"
                   )}
                 >
@@ -134,7 +134,7 @@ export function DataTable({ head, rows, highlight }: { head: string[]; rows: Rea
                     <td
                       key={j}
                       className={cn(
-                        "px-4 py-2.5 tabular-nums text-slate-800 dark:text-slate-200",
+                        "px-3 sm:px-4 py-2 sm:py-2.5 tabular-nums text-slate-800 dark:text-slate-200",
                         j === 0 && (
                           isHigh
                             ? "sticky left-0 z-10 bg-emerald-50/95 font-semibold shadow-[2px_0_5px_-2px_rgba(0,0,0,0.1)] dark:bg-emerald-950"
@@ -158,16 +158,16 @@ export function DataTable({ head, rows, highlight }: { head: string[]; rows: Rea
 
 export function Faq({ items }: { items: { q: string; a: string }[] }) {
   return (
-    <div className="divide-y divide-slate-200 rounded-xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+    <div className="divide-y divide-slate-200 rounded-xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800 overflow-hidden">
       {items.map((it) => (
         <details key={it.q} className="group">
-          <summary className="flex min-h-[48px] cursor-pointer items-center justify-between gap-4 px-4 py-3 font-semibold text-slate-900 dark:text-white">
-            {it.q}
-            <span aria-hidden className="text-xl leading-none text-emerald-600 transition-transform group-open:rotate-45">
+          <summary className="flex min-h-[44px] sm:min-h-[48px] cursor-pointer items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base font-semibold text-slate-900 dark:text-white">
+            <span className="leading-snug">{it.q}</span>
+            <span aria-hidden className="text-xl leading-none text-emerald-600 transition-transform group-open:rotate-45 shrink-0">
               +
             </span>
           </summary>
-          <p className="px-4 pb-4 !mb-0">{it.a}</p>
+          <p className="px-3.5 sm:px-4 pb-3.5 sm:pb-4 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 !mb-0">{it.a}</p>
         </details>
       ))}
     </div>

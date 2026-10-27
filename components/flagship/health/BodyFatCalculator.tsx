@@ -193,7 +193,7 @@ export function BodyFatCalculator() {
     <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
       {/* LEFT COLUMN: Inputs & Controls (7 Cols) */}
       <div className="lg:col-span-7 space-y-5">
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm space-y-5">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-5">
           {/* Unit Toggle & Sex Toggle */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -450,7 +450,7 @@ export function BodyFatCalculator() {
 
       {/* RIGHT COLUMN: Sticky Result Card (5 Cols) */}
       <div id="body-fat-result-panel" className="scroll-mt-20 lg:sticky lg:top-24 lg:col-span-5 space-y-4">
-        <div className="rounded-2xl border border-emerald-200/80 dark:border-emerald-900/60 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 p-6 shadow-sm">
+        <div className="rounded-2xl border border-emerald-200/80 dark:border-emerald-900/60 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 p-3.5 sm:p-6 shadow-sm">
           <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
             <span>Body Composition Result</span>
             <div className="flex items-center gap-1">
@@ -480,7 +480,7 @@ export function BodyFatCalculator() {
               <span>Estimated Body Fat Percentage:</span>
             </div>
             <div className="flex items-baseline gap-2">
-              <span className="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+              <span className="text-3xl min-[360px]:text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight break-words">
                 {formatNum(bodyFat)}%
               </span>
               <span className="text-xs font-bold px-2.5 py-1 rounded-full text-white" style={{ backgroundColor: category.color }}>

@@ -13,10 +13,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Minimal element reset scoped to new components. */
+:where(.fx) {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+:where(.fx) :where(img, svg, canvas) {
+  max-width: 100%;
+  height: auto;
+}
 :where(.fx) :where(button, input, select) {
   font: inherit;
   color: inherit;
   letter-spacing: inherit;
+  max-width: 100%;
 }
 :where(.fx) :where(button) {
   background: none;

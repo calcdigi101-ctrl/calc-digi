@@ -33,7 +33,7 @@ const TRUST_LINKS: [string, string][] = [
 export function Footer() {
   return (
     <>
-      <footer className="bg-slate-50 dark:bg-[#05080f] border-t border-slate-200/90 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 transition-colors pt-16 pb-12 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-slate-50 dark:bg-[#05080f] border-t border-slate-200/90 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 transition-colors pt-10 sm:pt-16 pb-10 sm:pb-12 px-3.5 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           
           {/* Main Footer Grid */}
@@ -140,7 +140,7 @@ export function Footer() {
               &copy; {new Date().getFullYear()} CalcDigi. All rights reserved. Zero tracking, client-side precision.
             </div>
 
-            <div className="flex items-center gap-4 text-[11px]">
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2.5 sm:gap-4 text-[11px]">
               <a href="/pages/privacy-policy" className="hover:underline">Privacy</a>
               <span>•</span>
               <a href="/pages/terms-of-service" className="hover:underline">Terms</a>

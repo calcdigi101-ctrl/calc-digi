@@ -57,7 +57,7 @@ export function FinanceCategoryHub() {
   return (
     <div className="w-full space-y-12 pb-16">
       {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-b from-emerald-50/50 via-white to-slate-50/80 p-6 sm:p-10 shadow-sm dark:border-slate-800 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900/80">
+      <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-b from-emerald-50/50 via-white to-slate-50/80 p-4 sm:p-10 shadow-sm dark:border-slate-800 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900/80">
         <div className="mx-auto max-w-4xl text-center space-y-4">
           <nav className="flex items-center justify-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400">
             <Link href="/" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
@@ -71,7 +71,7 @@ export function FinanceCategoryHub() {
             <span>💰</span> 40 Free Financial Calculators · 100% Client-Side Privacy
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="text-[clamp(1.75rem,5.5vw,3rem)] font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
             Finance &amp; Money <span className="text-emerald-600 dark:text-emerald-400">Calculators</span>
           </h1>
 
@@ -102,7 +102,7 @@ export function FinanceCategoryHub() {
       </section>
 
       {/* GEO AI Overview Box: Direct Answers for AI Search Engines & Users */}
-      <section className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/60 to-white p-5 sm:p-6 shadow-sm dark:border-emerald-900/50 dark:from-emerald-950/20 dark:to-slate-900">
+      <section className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50/60 to-white p-3.5 sm:p-6 shadow-sm dark:border-emerald-900/50 dark:from-emerald-950/20 dark:to-slate-900">
         <div className="flex items-start gap-3">
           <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-500 text-white font-bold text-base shadow-sm">
             💡
@@ -234,7 +234,7 @@ export function FinanceCategoryHub() {
               <Link
                 key={tool.slug}
                 href={tool.href}
-                className="group relative flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-500/60 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/90 dark:hover:border-emerald-500/50"
+                className="group relative flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-500/60 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/90 dark:hover:border-emerald-500/50"
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-3">
