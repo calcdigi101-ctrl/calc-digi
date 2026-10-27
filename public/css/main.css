@@ -1596,10 +1596,3 @@ body.dark .calc-page .content-section h2{color:#fff;}
 .cat-card-icon{font-size:2rem;margin-bottom:12px;}
 .cat-card-name{font-size:14px;font-weight:500;line-height:1.4;}
 @media(max-width:480px){.cat-page .calc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.cat-card{padding:16px 10px;}}
-@media(max-width:360px){
-  .container{padding:0 12px;}
-  .cat-page .calc-grid{grid-template-columns:1fr;gap:8px;}
-  .calc-widget{padding:12px 10px;}
-  .calc-btn{font-size:14px;padding:12px;}
-  .related-grid{grid-template-columns:1fr;}
-}

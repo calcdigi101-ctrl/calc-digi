@@ -276,7 +276,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
   const groups = [...new Set(fields.filter((f) => f.group).map((f) => f.group!))];
 
   const formPanel = (
-    <form onSubmit={handleSubmit((v) => (commit(v), revealResult(`${id}-result`)))} noValidate className={cn(card, "grid gap-5 p-3.5 sm:p-6")}>
+    <form onSubmit={handleSubmit((v) => (commit(v), revealResult(`${id}-result`)))} noValidate className={cn(card, "grid gap-5 p-5 sm:p-6")}>
       <div className="grid gap-5 sm:grid-cols-2">{ungrouped.map(renderField)}</div>
       {groups.map((g) => {
         const gf = fields.filter((f) => f.group === g);
@@ -327,7 +327,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
       aria-labelledby={`${id}-result-h`}
       className={cn(
         card,
-        "scroll-mt-20 p-3.5 sm:p-6 border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 shadow-sm"
+        "scroll-mt-20 p-5 sm:p-6 border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 shadow-sm"
       )}
     >
       <div className="flex items-center justify-between gap-2 mb-2">
@@ -408,7 +408,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
       {"error" in output
         ? null
         : output.details?.map((d) => (
-            <section key={d.title} className={cn(card, "mt-6 p-3.5 sm:p-6")}>
+            <section key={d.title} className={cn(card, "mt-6 p-5 sm:p-6")}>
               {d.amortization ? (
                 <AmortizationSchedule title={d.title} principal={d.amortization.principal} rows={d.amortization.rows} />
               ) : (

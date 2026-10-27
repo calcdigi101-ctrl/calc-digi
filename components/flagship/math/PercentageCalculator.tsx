@@ -257,7 +257,7 @@ export function PercentageCalculator() {
         </div>
 
         {/* INPUT CARD (Mode Specific) */}
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-7 shadow-xs space-y-5 sm:space-y-6">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 shadow-xs space-y-6">
           {/* MODE 1: % OF NUMBER */}
           {mode === "part_of_whole" && (
             <div className="space-y-5">
@@ -676,7 +676,7 @@ export function PercentageCalculator() {
       {/* RIGHT COLUMN: Ultra-Clean Result Card (Exact match SS 1)  */}
       {/* ======================================================== */}
       <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
-        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/20 p-3.5 sm:p-7 shadow-sm space-y-4 sm:space-y-5">
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/20 p-6 sm:p-7 shadow-sm space-y-5">
           {/* Header Row: Label & LIVE RESULT Badge */}
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
@@ -693,7 +693,7 @@ export function PercentageCalculator() {
 
           {/* Hero Main Metric Number & Subtitle */}
           <div>
-            <div className="text-3xl min-[360px]:text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-none break-all">
+            <div className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
               {mode === "part_of_whole" && formatNum(r1)}
               {mode === "what_percent" && `${formatNum(r2)}%`}
               {mode === "change" && `${isIncrease ? "+" : ""}${formatNum(r3)}%`}
@@ -719,8 +719,8 @@ export function PercentageCalculator() {
             </div>
           </div>
 
-          {/* Visual Donut Chart & Legend Side-by-Side (Stacked on narrow mobile) */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 pt-1">
+          {/* Visual Donut Chart & Legend Side-by-Side (Screenshot 1 Style) */}
+          <div className="flex items-center gap-5 pt-1">
             {/* Multi-Color Thick SVG Donut Chart */}
             <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 140 140">

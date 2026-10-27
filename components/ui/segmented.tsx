@@ -57,7 +57,7 @@ export function Segmented<T extends string>({
     <div
       role="radiogroup"
       aria-label={label}
-      className={cn("grid w-full gap-1 sm:gap-1.5 rounded-xl bg-slate-100 p-1 sm:p-1.5 dark:bg-slate-800/80 max-w-full", gridColsClass, className)}
+      className={cn("grid w-full gap-1.5 rounded-xl bg-slate-100 p-1.5 dark:bg-slate-800/80", gridColsClass, className)}
     >
       {options.map((opt, i) => {
         const active = opt.value === value;
@@ -76,7 +76,7 @@ export function Segmented<T extends string>({
             onKeyDown={(e) => onKeyDown(e, i)}
             title={sub ? `${title} (${sub})` : title}
             className={cn(
-              "group flex min-h-[40px] sm:min-h-[46px] min-w-0 flex-col items-center justify-center rounded-lg px-1.5 sm:px-2 py-1 sm:py-1.5 text-center transition-all",
+              "group flex min-h-[46px] min-w-0 flex-col items-center justify-center rounded-lg px-2 py-1.5 text-center transition-all",
               "focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-emerald-600",
               active
                 ? "bg-white text-slate-900 shadow-sm ring-1 ring-slate-900/5 dark:bg-slate-950 dark:text-white dark:ring-white/10 font-bold"
