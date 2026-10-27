@@ -45,22 +45,19 @@ export function ResultActions({ onReset, title }: { onReset: () => void; title: 
   }
 
   return (
-    <div className="fx-no-print mt-4 grid grid-cols-4 gap-1 sm:gap-2 border-t border-slate-200 pt-3 sm:pt-4 dark:border-slate-800">
-      <Button variant="ghost" onClick={onReset} className="px-1 min-[360px]:px-1.5 sm:px-2 text-[11px] min-[360px]:text-xs sm:text-sm min-h-[40px] sm:min-h-[48px] gap-1 sm:gap-1.5">
-        <RotateCcw aria-hidden className="size-3 min-[360px]:size-3.5 sm:size-4 shrink-0" />
-        <span className="truncate">Reset</span>
+    <div className="fx-no-print mt-4 grid grid-cols-4 gap-1.5 sm:gap-2 border-t border-slate-200 pt-4 dark:border-slate-800">
+      <Button variant="ghost" onClick={onReset} className="px-1.5 sm:px-2 text-xs sm:text-sm">
+        <RotateCcw aria-hidden className="size-3.5 sm:size-4" /> Reset
       </Button>
-      <Button variant="ghost" onClick={share} className="px-1 min-[360px]:px-1.5 sm:px-2 text-[11px] min-[360px]:text-xs sm:text-sm min-h-[40px] sm:min-h-[48px] gap-1 sm:gap-1.5">
-        {copied ? <Check aria-hidden className="size-3 min-[360px]:size-3.5 sm:size-4 text-emerald-600 shrink-0" /> : <Link2 aria-hidden className="size-3 min-[360px]:size-3.5 sm:size-4 shrink-0" />}
-        <span className="truncate">{copied ? "Copied" : "Share"}</span>
+      <Button variant="ghost" onClick={share} className="px-1.5 sm:px-2 text-xs sm:text-sm">
+        {copied ? <Check aria-hidden className="size-3.5 sm:size-4 text-emerald-600" /> : <Link2 aria-hidden className="size-3.5 sm:size-4" />}
+        {copied ? "Copied" : "Share"}
       </Button>
-      <Button variant="ghost" onClick={() => window.print()} className="px-1 min-[360px]:px-1.5 sm:px-2 text-[11px] min-[360px]:text-xs sm:text-sm min-h-[40px] sm:min-h-[48px] gap-1 sm:gap-1.5">
-        <Printer aria-hidden className="size-3 min-[360px]:size-3.5 sm:size-4 shrink-0" />
-        <span className="truncate">Print</span>
+      <Button variant="ghost" onClick={() => window.print()} className="px-1.5 sm:px-2 text-xs sm:text-sm">
+        <Printer aria-hidden className="size-3.5 sm:size-4" /> Print
       </Button>
-      <Button variant="ghost" onClick={askAi} className="px-1 min-[360px]:px-1.5 sm:px-2 text-[11px] min-[360px]:text-xs sm:text-sm min-h-[40px] sm:min-h-[48px] gap-1 sm:gap-1.5 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800">
-        <Sparkles aria-hidden className="size-3 min-[360px]:size-3.5 sm:size-4 text-emerald-600 shrink-0" />
-        <span className="truncate">Ask AI</span>
+      <Button variant="ghost" onClick={askAi} className="px-1.5 sm:px-2 text-xs sm:text-sm text-emerald-700 dark:text-emerald-400 hover:text-emerald-800">
+        <Sparkles aria-hidden className="size-3.5 sm:size-4 text-emerald-600" /> Ask AI
       </Button>
     </div>
   );

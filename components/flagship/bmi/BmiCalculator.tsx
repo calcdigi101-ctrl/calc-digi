@@ -176,7 +176,7 @@ export function BmiCalculator() {
   const weightLabel = (kg: number) => (isUs ? `${fmt(kg / LB_TO_KG)} lbs` : `${fmt(kg)} kg`);
 
   const formPanel = (
-    <form onSubmit={handleSubmit((v) => (commit(v), revealResult("bmi-result")))} noValidate className={cn(card, "p-3.5 sm:p-6")}>
+    <form onSubmit={handleSubmit((v) => (commit(v), revealResult("bmi-result")))} noValidate className={cn(card, "p-5 sm:p-6")}>
       <Segmented<Unit>
         label="Unit system"
         value={unit}
@@ -228,14 +228,14 @@ export function BmiCalculator() {
   );
 
   const resultPanel = (
-    <section id="bmi-result" aria-labelledby="bmi-result-h" className={cn(card, "scroll-mt-20 p-3.5 sm:p-6")}>
+    <section id="bmi-result" aria-labelledby="bmi-result-h" className={cn(card, "scroll-mt-20 p-5 sm:p-6")}>
       <h2 id="bmi-result-h" className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
         Your result
       </h2>
       {result ? (
         <div aria-live="polite" aria-atomic="true">
           <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-            <p className="text-3xl min-[360px]:text-4xl sm:text-5xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white break-words">
+            <p className="text-5xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white">
               {fmt(result.bmi)}
               <span className="ml-1.5 font-sans text-lg font-semibold text-slate-500 dark:text-slate-400">kg/m²</span>
             </p>
@@ -300,7 +300,7 @@ export function BmiCalculator() {
 
           {result.deltaToHealthyKg !== 0 ? (
             <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50/80 p-3.5 dark:border-slate-800 dark:bg-slate-950/50">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                     {result.deltaToHealthyKg < 0 ? "Targeting a healthy weight loss?" : "Targeting healthy weight gain?"}
@@ -321,7 +321,7 @@ export function BmiCalculator() {
             </div>
           ) : (
             <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50/60 p-3.5 dark:border-emerald-950/40 dark:bg-emerald-950/20">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
                   <p className="text-xs font-semibold text-emerald-900 dark:text-emerald-200">
                     🎉 You are in the healthy weight range!

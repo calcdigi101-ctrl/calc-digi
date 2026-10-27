@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import Script from "next/script";
 import { SITE_URL } from "@/lib/site";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -6,16 +6,6 @@ import RouteEffects from "@/components/RouteEffects";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import "./flagship.css";
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#090e1a" },
-  ],
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
