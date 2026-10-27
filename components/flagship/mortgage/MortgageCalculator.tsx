@@ -419,7 +419,7 @@ export function MortgageCalculator() {
   const pmiNeeded = result.ltv > 0.8;
 
   const formPanel = (
-    <form onSubmit={handleSubmit((v) => (commit(v), revealResult("mc-result")))} noValidate className={cn(card, "grid gap-5 p-5 sm:p-6")}>
+    <form onSubmit={handleSubmit((v) => (commit(v), revealResult("mc-result")))} noValidate className={cn(card, "grid gap-4 sm:gap-5 p-3.5 sm:p-6 max-w-full")}>
       
       {/* Currency Switcher Pill Header */}
       <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
@@ -485,7 +485,7 @@ export function MortgageCalculator() {
           Down payment
           <InfoTooltip text="Cash you pay upfront. 20% or more eliminates Private Mortgage Insurance (PMI)." />
         </legend>
-        <div className="grid grid-cols-[1fr_8.5rem] gap-3">
+        <div className="grid grid-cols-1 min-[420px]:grid-cols-[1fr_8.5rem] gap-2.5 sm:gap-3">
           <NumberField id="mc-down" aria-label="Down payment, amount" prefix={currency} error={errors.down?.message} {...downField} />
           <NumberField id="mc-down-pct" aria-label="Down payment, percent of price" suffix="%" error={errors.downPct?.message} {...downPctField} />
         </div>
@@ -721,10 +721,10 @@ export function MortgageCalculator() {
   );
 
   const resultPanel = (
-    <section id="mc-result" aria-labelledby="mc-result-h" className={cn(card, "scroll-mt-20 p-5 sm:p-6")}>
+    <section id="mc-result" aria-labelledby="mc-result-h" className={cn(card, "scroll-mt-20 p-3.5 sm:p-6 max-w-full")}>
       
       {/* Payment Frequency Switcher: Monthly vs Accelerated Bi-Weekly */}
-      <div className="flex items-center justify-between border-b border-slate-100 pb-3 dark:border-slate-800">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 border-b border-slate-100 pb-3 dark:border-slate-800">
         <h2 id="mc-result-h" className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           {frequency === "monthly" ? "Monthly Payment" : "Bi-Weekly Payment (Accelerated)"}
         </h2>
@@ -736,12 +736,12 @@ export function MortgageCalculator() {
             { value: "monthly", label: "Monthly" },
             { value: "biweekly", label: "Bi-Weekly" },
           ]}
-          className="w-44 [&_button]:min-h-[30px] [&_button]:text-xs [&_button]:py-0"
+          className="w-full sm:w-44 [&_button]:min-h-[30px] [&_button]:text-xs [&_button]:py-0"
         />
       </div>
 
       <div aria-live="polite" aria-atomic="true">
-        <p className="mt-3 text-5xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white">
+        <p className="mt-3 text-3xl min-[360px]:text-4xl sm:text-5xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white break-words">
           {fmtCurrency(currentPayment, 2)}
         </p>
         <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
@@ -817,10 +817,10 @@ export function MortgageCalculator() {
       <ToolGrid form={formPanel} result={resultPanel} />
 
       {/* Amortization Schedule with CSV Download Button */}
-      <section aria-labelledby="mc-amort-h" className={cn(card, "mt-8 p-5 sm:p-6")}>
+      <section aria-labelledby="mc-amort-h" className={cn(card, "mt-6 sm:mt-8 p-3.5 sm:p-6 max-w-full overflow-hidden")}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 id="mc-amort-h" className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
+            <h2 id="mc-amort-h" className="text-lg sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white">
               Amortization Schedule
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
@@ -828,7 +828,7 @@ export function MortgageCalculator() {
             </p>
           </div>
           
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 w-full sm:w-auto">
             <Segmented
               label="Schedule view"
               value={tableMode}
@@ -837,13 +837,13 @@ export function MortgageCalculator() {
                 { value: "annual", label: "Yearly" },
                 { value: "monthly", label: "Monthly" },
               ]}
-              className="fx-no-print w-48"
+              className="fx-no-print w-full sm:w-48"
             />
             <Button
               type="button"
               variant="outline"
               onClick={downloadCSV}
-              className="fx-no-print flex items-center gap-1.5 text-xs font-semibold py-2 px-3 border border-slate-200 dark:border-slate-700 hover:border-emerald-500"
+              className="fx-no-print flex items-center justify-center gap-1.5 text-xs font-semibold py-2 px-3 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 w-full sm:w-auto min-h-[38px] sm:min-h-[44px]"
               title="Download full 30-year schedule to Excel/CSV"
             >
               <span>📥</span> Export CSV
