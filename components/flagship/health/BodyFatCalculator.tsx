@@ -190,10 +190,10 @@ export function BodyFatCalculator() {
   const formatNum = (n: number, d = 1) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
+    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
       {/* LEFT COLUMN: Inputs & Controls (7 Cols) */}
-      <div className="lg:col-span-7 space-y-5">
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm space-y-5">
+      <div className="lg:col-span-7 space-y-5 w-full max-w-full min-w-0">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-5 w-full max-w-full overflow-hidden">
           {/* Unit Toggle & Sex Toggle */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -291,9 +291,9 @@ export function BodyFatCalculator() {
                       max="7"
                       value={heightFt}
                       onChange={(e) => setHeightFt(e.target.value)}
-                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      className="w-full h-11 sm:h-12 px-2.5 pr-7 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="absolute right-3.5 text-xs text-slate-400 font-medium">ft</span>
+                    <span className="absolute right-2 text-xs text-slate-400 font-medium">ft</span>
                   </div>
                   <div className="relative flex items-center">
                     <input
@@ -303,9 +303,26 @@ export function BodyFatCalculator() {
                       max="11"
                       value={heightIn}
                       onChange={(e) => setHeightIn(e.target.value)}
-                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      className="w-full h-11 sm:h-12 px-2.5 pr-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="absolute right-3.5 text-xs text-slate-400 font-medium">in</span>
+                    <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded px-1 py-0.5 text-xs">
+                      <select
+                        aria-label="Height unit"
+                        value={unit}
+                        onChange={(e) => {
+                          if (e.target.value === "metric") {
+                            const totalIn = (parseFloat(heightFt) || 0) * 12 + (parseFloat(heightIn) || 0);
+                            if (totalIn > 0) setHeightCm(String(Math.round(totalIn * 2.54)));
+                            setUnit("metric");
+                          }
+                        }}
+                        className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-2 appearance-none"
+                      >
+                        <option value="us">in</option>
+                        <option value="metric">cm</option>
+                      </select>
+                      <span className="pointer-events-none text-[8px] text-emerald-600 dark:text-emerald-400">▼</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -322,9 +339,30 @@ export function BodyFatCalculator() {
                     max="250"
                     value={heightCm}
                     onChange={(e) => setHeightCm(e.target.value)}
-                    className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
-                  <span className="absolute right-3.5 text-xs text-slate-400 font-medium">cm</span>
+                  <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                    <select
+                      aria-label="Height unit"
+                      value={unit}
+                      onChange={(e) => {
+                        if (e.target.value === "us") {
+                          const cmVal = parseFloat(heightCm);
+                          if (!isNaN(cmVal) && cmVal > 0) {
+                            const totalIn = cmVal / 2.54;
+                            setHeightFt(String(Math.floor(totalIn / 12)));
+                            setHeightIn(String(Math.round(totalIn % 12)));
+                          }
+                          setUnit("us");
+                        }
+                      }}
+                      className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                    >
+                      <option value="metric">cm</option>
+                      <option value="us">ft/in</option>
+                    </select>
+                    <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                  </div>
                 </div>
               </div>
             )}
@@ -343,11 +381,30 @@ export function BodyFatCalculator() {
                   step="any"
                   value={unit === "us" ? weightLb : weightKg}
                   onChange={(e) => unit === "us" ? setWeightLb(e.target.value) : setWeightKg(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
-                <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
-                  {unit === "us" ? "lbs" : "kg"}
-                </span>
+                <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                  <select
+                    aria-label="Weight unit"
+                    value={unit === "us" ? "lbs" : "kg"}
+                    onChange={(e) => {
+                      if (e.target.value === "kg" && unit === "us") {
+                        const curLb = parseFloat(weightLb);
+                        if (!isNaN(curLb) && curLb > 0) setWeightKg(String(Math.round(curLb * 0.45359237 * 10) / 10));
+                        setUnit("metric");
+                      } else if (e.target.value === "lbs" && unit === "metric") {
+                        const curKg = parseFloat(weightKg);
+                        if (!isNaN(curKg) && curKg > 0) setWeightLb(String(Math.round(curKg * 2.20462262 * 10) / 10));
+                        setUnit("us");
+                      }
+                    }}
+                    className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                  >
+                    <option value="lbs">lbs</option>
+                    <option value="kg">kg</option>
+                  </select>
+                  <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                </div>
               </div>
             </div>
 
@@ -362,11 +419,30 @@ export function BodyFatCalculator() {
                   step="0.1"
                   value={unit === "us" ? neckIn : neckCm}
                   onChange={(e) => unit === "us" ? setNeckIn(e.target.value) : setNeckCm(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="w-full h-11 sm:h-12 px-3 pr-20 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
-                <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
-                  {unit === "us" ? "inches" : "cm"}
-                </span>
+                <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                  <select
+                    aria-label="Neck unit"
+                    value={unit === "us" ? "inches" : "cm"}
+                    onChange={(e) => {
+                      if (e.target.value === "cm" && unit === "us") {
+                        const inVal = parseFloat(neckIn);
+                        if (!isNaN(inVal) && inVal > 0) setNeckCm(String(Math.round(inVal * 2.54 * 10) / 10));
+                        setUnit("metric");
+                      } else if (e.target.value === "inches" && unit === "metric") {
+                        const cmVal = parseFloat(neckCm);
+                        if (!isNaN(cmVal) && cmVal > 0) setNeckIn(String(Math.round((cmVal / 2.54) * 10) / 10));
+                        setUnit("us");
+                      }
+                    }}
+                    className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                  >
+                    <option value="inches">in</option>
+                    <option value="cm">cm</option>
+                  </select>
+                  <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                </div>
               </div>
             </div>
           </div>
@@ -384,11 +460,30 @@ export function BodyFatCalculator() {
                   step="0.1"
                   value={unit === "us" ? waistIn : waistCm}
                   onChange={(e) => unit === "us" ? setWaistIn(e.target.value) : setWaistCm(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="w-full h-11 sm:h-12 px-3 pr-20 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
-                <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
-                  {unit === "us" ? "inches" : "cm"}
-                </span>
+                <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                  <select
+                    aria-label="Waist unit"
+                    value={unit === "us" ? "inches" : "cm"}
+                    onChange={(e) => {
+                      if (e.target.value === "cm" && unit === "us") {
+                        const inVal = parseFloat(waistIn);
+                        if (!isNaN(inVal) && inVal > 0) setWaistCm(String(Math.round(inVal * 2.54 * 10) / 10));
+                        setUnit("metric");
+                      } else if (e.target.value === "inches" && unit === "metric") {
+                        const cmVal = parseFloat(waistCm);
+                        if (!isNaN(cmVal) && cmVal > 0) setWaistIn(String(Math.round((cmVal / 2.54) * 10) / 10));
+                        setUnit("us");
+                      }
+                    }}
+                    className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                  >
+                    <option value="inches">in</option>
+                    <option value="cm">cm</option>
+                  </select>
+                  <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                </div>
               </div>
             </div>
 
@@ -404,11 +499,30 @@ export function BodyFatCalculator() {
                     step="0.1"
                     value={unit === "us" ? hipIn : hipCm}
                     onChange={(e) => unit === "us" ? setHipIn(e.target.value) : setHipCm(e.target.value)}
-                    className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-full h-11 sm:h-12 px-3 pr-20 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                   />
-                  <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
-                    {unit === "us" ? "inches" : "cm"}
-                  </span>
+                  <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                    <select
+                      aria-label="Hip unit"
+                      value={unit === "us" ? "inches" : "cm"}
+                      onChange={(e) => {
+                        if (e.target.value === "cm" && unit === "us") {
+                          const inVal = parseFloat(hipIn);
+                          if (!isNaN(inVal) && inVal > 0) setHipCm(String(Math.round(inVal * 2.54 * 10) / 10));
+                          setUnit("metric");
+                        } else if (e.target.value === "inches" && unit === "metric") {
+                          const cmVal = parseFloat(hipCm);
+                          if (!isNaN(cmVal) && cmVal > 0) setHipIn(String(Math.round((cmVal / 2.54) * 10) / 10));
+                          setUnit("us");
+                        }
+                      }}
+                      className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                    >
+                      <option value="inches">in</option>
+                      <option value="cm">cm</option>
+                    </select>
+                    <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                  </div>
                 </div>
               </div>
             )}
