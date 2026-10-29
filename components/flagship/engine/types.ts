@@ -25,6 +25,7 @@ export type NumberField = FieldBase & {
   prefix?: string;
   suffix?: string;
   integer?: boolean;
+  unitOptions?: { value: string; label: string }[];
 };
 
 export type ChoiceField = FieldBase & {

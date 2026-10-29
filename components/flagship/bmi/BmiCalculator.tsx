@@ -176,7 +176,7 @@ export function BmiCalculator() {
   const weightLabel = (kg: number) => (isUs ? `${fmt(kg / LB_TO_KG)} lbs` : `${fmt(kg)} kg`);
 
   const formPanel = (
-    <form onSubmit={handleSubmit((v) => (commit(v), revealResult("bmi-result")))} noValidate className={cn(card, "p-5 sm:p-6")}>
+    <form onSubmit={handleSubmit((v) => (commit(v), revealResult("bmi-result")))} noValidate className={cn(card, "p-3.5 sm:p-6 w-full max-w-full overflow-hidden")}>
       <Segmented<Unit>
         label="Unit system"
         value={unit}
@@ -187,7 +187,7 @@ export function BmiCalculator() {
         ]}
       />
 
-      <div className="mt-6 grid gap-5 sm:grid-cols-2">
+      <div className="mt-5 grid gap-4 sm:gap-5 sm:grid-cols-2">
         <NumberField id="bmi-age" label="Age" hint="2 – 120" suffix="years" error={errors.age?.message} {...register("age")} />
         <div>
           <Label>Gender</Label>
@@ -204,20 +204,85 @@ export function BmiCalculator() {
       </div>
 
       {unit === "us" ? (
-        <div className="mt-5 grid gap-5 sm:grid-cols-2">
+        <div className="mt-5 grid gap-4 sm:gap-5 sm:grid-cols-2">
           <fieldset className="min-w-0">
-            <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">Height</legend>
-            <div className="grid grid-cols-2 gap-3">
-              <NumberField id="bmi-ft" aria-label="Height, feet" suffix="ft" error={errors.ft?.message} {...register("ft")} />
-              <NumberField id="bmi-in" aria-label="Height, inches" suffix="in" error={errors.inch?.message} {...register("inch")} />
+            <legend className="mb-1.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Height</legend>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3">
+              <NumberField
+                id="bmi-ft"
+                aria-label="Height, feet"
+                unitDropdown={{
+                  value: "ft",
+                  options: [
+                    { value: "ft", label: "ft" },
+                    { value: "cm", label: "cm" },
+                  ],
+                  onChange: (v) => { if (v === "cm") switchUnit("metric"); },
+                }}
+                error={errors.ft?.message}
+                {...register("ft")}
+              />
+              <NumberField
+                id="bmi-in"
+                aria-label="Height, inches"
+                unitDropdown={{
+                  value: "in",
+                  options: [
+                    { value: "in", label: "in" },
+                    { value: "cm", label: "cm" },
+                  ],
+                  onChange: (v) => { if (v === "cm") switchUnit("metric"); },
+                }}
+                error={errors.inch?.message}
+                {...register("inch")}
+              />
             </div>
           </fieldset>
-          <NumberField id="bmi-lb" label="Weight" suffix="lbs" error={errors.lb?.message} {...register("lb")} />
+          <NumberField
+            id="bmi-lb"
+            label="Weight"
+            unitDropdown={{
+              value: "lbs",
+              options: [
+                { value: "lbs", label: "lbs" },
+                { value: "kg", label: "kg" },
+              ],
+              onChange: (v) => { if (v === "kg") switchUnit("metric"); },
+            }}
+            error={errors.lb?.message}
+            {...register("lb")}
+          />
         </div>
       ) : (
-        <div className="mt-5 grid gap-5 sm:grid-cols-2">
-          <NumberField id="bmi-cm" label="Height" suffix="cm" error={errors.cm?.message} {...register("cm")} />
-          <NumberField id="bmi-kg" label="Weight" suffix="kg" error={errors.kg?.message} {...register("kg")} />
+        <div className="mt-5 grid gap-4 sm:gap-5 sm:grid-cols-2">
+          <NumberField
+            id="bmi-cm"
+            label="Height"
+            unitDropdown={{
+              value: "cm",
+              options: [
+                { value: "cm", label: "cm" },
+                { value: "ft/in", label: "ft/in" },
+              ],
+              onChange: (v) => { if (v === "ft/in") switchUnit("us"); },
+            }}
+            error={errors.cm?.message}
+            {...register("cm")}
+          />
+          <NumberField
+            id="bmi-kg"
+            label="Weight"
+            unitDropdown={{
+              value: "kg",
+              options: [
+                { value: "kg", label: "kg" },
+                { value: "lbs", label: "lbs" },
+              ],
+              onChange: (v) => { if (v === "lbs") switchUnit("us"); },
+            }}
+            error={errors.kg?.message}
+            {...register("kg")}
+          />
         </div>
       )}
 
@@ -228,7 +293,7 @@ export function BmiCalculator() {
   );
 
   const resultPanel = (
-    <section id="bmi-result" aria-labelledby="bmi-result-h" className={cn(card, "scroll-mt-20 p-5 sm:p-6")}>
+    <section id="bmi-result" aria-labelledby="bmi-result-h" className={cn(card, "scroll-mt-20 p-3.5 sm:p-6 w-full max-w-full overflow-hidden")}>
       <h2 id="bmi-result-h" className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
         Your result
       </h2>

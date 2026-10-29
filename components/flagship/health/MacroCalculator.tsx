@@ -135,10 +135,10 @@ export function MacroCalculator() {
   const formatNum = (n: number) => Math.round(n).toLocaleString("en-US");
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
+    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
       {/* LEFT COLUMN: Inputs & Controls (7 Cols) */}
-      <div className="lg:col-span-7 space-y-5">
-        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm space-y-5">
+      <div className="lg:col-span-7 space-y-5 w-full max-w-full min-w-0">
+        <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-5 w-full max-w-full overflow-hidden">
           {/* Unit Toggle & Sex Toggle */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
@@ -236,9 +236,9 @@ export function MacroCalculator() {
                       max="7"
                       value={ft}
                       onChange={(e) => setFt(e.target.value)}
-                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-11 sm:h-12 px-2.5 pr-7 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                     />
-                    <span className="absolute right-3.5 text-xs text-slate-400 font-medium">ft</span>
+                    <span className="absolute right-2 text-xs text-slate-400 font-medium">ft</span>
                   </div>
                   <div className="relative flex items-center">
                     <input
@@ -248,9 +248,26 @@ export function MacroCalculator() {
                       max="11"
                       value={inch}
                       onChange={(e) => setInch(e.target.value)}
-                      className="w-full h-12 px-3.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-11 sm:h-12 px-2.5 pr-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                     />
-                    <span className="absolute right-3.5 text-xs text-slate-400 font-medium">in</span>
+                    <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded px-1 py-0.5 text-xs">
+                      <select
+                        aria-label="Height unit"
+                        value={unit}
+                        onChange={(e) => {
+                          if (e.target.value === "metric") {
+                            const totalIn = (parseFloat(ft) || 0) * 12 + (parseFloat(inch) || 0);
+                            if (totalIn > 0) setCm(String(Math.round(totalIn * 2.54)));
+                            setUnit("metric");
+                          }
+                        }}
+                        className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-2 appearance-none"
+                      >
+                        <option value="us">in</option>
+                        <option value="metric">cm</option>
+                      </select>
+                      <span className="pointer-events-none text-[8px] text-emerald-600 dark:text-emerald-400">▼</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -267,9 +284,30 @@ export function MacroCalculator() {
                     max="250"
                     value={cm}
                     onChange={(e) => setCm(e.target.value)}
-                    className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                    className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                   />
-                  <span className="absolute right-3.5 text-xs text-slate-400 font-medium">cm</span>
+                  <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                    <select
+                      aria-label="Height unit"
+                      value={unit}
+                      onChange={(e) => {
+                        if (e.target.value === "us") {
+                          const cmVal = parseFloat(cm);
+                          if (!isNaN(cmVal) && cmVal > 0) {
+                            const totalIn = cmVal / 2.54;
+                            setFt(String(Math.floor(totalIn / 12)));
+                            setInch(String(Math.round(totalIn % 12)));
+                          }
+                          setUnit("us");
+                        }
+                      }}
+                      className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                    >
+                      <option value="metric">cm</option>
+                      <option value="us">ft/in</option>
+                    </select>
+                    <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                  </div>
                 </div>
               </div>
             )}
@@ -288,11 +326,30 @@ export function MacroCalculator() {
                   step="any"
                   value={unit === "us" ? lb : kg}
                   onChange={(e) => unit === "us" ? setLb(e.target.value) : setKg(e.target.value)}
-                  className="w-full h-12 px-3.5 pr-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                  className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                 />
-                <span className="absolute right-3.5 text-xs text-slate-400 font-medium">
-                  {unit === "us" ? "lbs" : "kg"}
-                </span>
+                <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                  <select
+                    aria-label="Weight unit"
+                    value={unit === "us" ? "lbs" : "kg"}
+                    onChange={(e) => {
+                      if (e.target.value === "kg" && unit === "us") {
+                        const curLb = parseFloat(lb);
+                        if (!isNaN(curLb) && curLb > 0) setKg(String(Math.round(curLb * 0.45359237 * 10) / 10));
+                        setUnit("metric");
+                      } else if (e.target.value === "lbs" && unit === "metric") {
+                        const curKg = parseFloat(kg);
+                        if (!isNaN(curKg) && curKg > 0) setLb(String(Math.round(curKg * 2.20462262 * 10) / 10));
+                        setUnit("us");
+                      }
+                    }}
+                    className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                  >
+                    <option value="lbs">lbs</option>
+                    <option value="kg">kg</option>
+                  </select>
+                  <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                </div>
               </div>
             </div>
 

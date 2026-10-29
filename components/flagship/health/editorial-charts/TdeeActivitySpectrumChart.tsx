@@ -48,7 +48,7 @@ export function TdeeActivitySpectrumChart() {
   const display = active || TIERS[2]; // Default to Moderate
   const isHovering = active !== null;
 
-  const tooltipX = display.x > 360 ? display.x - 180 : display.x + 15;
+  const tooltipX = Math.max(10, Math.min(720 - 195, display.x > 360 ? display.x - 185 : display.x + 15));
   const tooltipY = Math.max(15, 200 - display.barH - 45);
 
   return (
@@ -75,10 +75,10 @@ export function TdeeActivitySpectrumChart() {
         </div>
       </div>
 
-      <div className="relative w-full select-none">
+      <div className="relative w-full max-w-full select-none overflow-hidden">
         <svg
           ref={svgRef}
-          className="w-full h-auto cursor-crosshair touch-none overflow-visible"
+          className="w-full h-auto cursor-crosshair touch-none overflow-hidden"
           viewBox="0 0 720 240"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

@@ -56,7 +56,7 @@ export function BmiQueteletPrimeChart() {
   const activeY = getY(cur.hazardRatio);
 
   const isLeft = activeX > 380;
-  const tooltipX = isLeft ? activeX - 200 : activeX + 15;
+  const tooltipX = Math.max(10, Math.min(svgWidth - 195, isLeft ? activeX - 200 : activeX + 15));
 
   const handlePointer = (clientX: number, rect: DOMRect) => {
     const rawX = clientX - rect.left;
@@ -101,10 +101,10 @@ export function BmiQueteletPrimeChart() {
       </div>
 
       {/* Interactive SVG Canvas */}
-      <div className="relative select-none touch-none">
+      <div className="relative select-none touch-none w-full max-w-full overflow-hidden">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          className="w-full h-auto cursor-crosshair overflow-visible"
+          className="w-full h-auto cursor-crosshair overflow-hidden"
           onMouseMove={(e) => handlePointer(e.clientX, e.currentTarget.getBoundingClientRect())}
           onTouchMove={(e) => {
             if (e.touches[0]) {
@@ -190,27 +190,31 @@ export function BmiQueteletPrimeChart() {
       </div>
 
       {/* Selected BMI Summary Card */}
-      <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-4 border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
-        <div>
+      <div className="bg-slate-50/80 dark:bg-slate-800/50 rounded-xl p-3.5 sm:p-4 border border-slate-200/80 dark:border-slate-800 text-xs w-full max-w-full overflow-hidden">
+        <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1.5">
           <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
-            BMI {cur.bmi.toFixed(1)} Clinical Pathology:
+            BMI {cur.bmi.toFixed(1)} Clinical Guidance
           </span>
-          <p className="text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {cur.clinicalNote}
-          </p>
-        </div>
-        <div className="shrink-0 flex items-center gap-3">
-          <div className="px-3 py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-            <span className="text-[10px] text-slate-400 block">BMI Prime</span>
-            <span className="font-bold text-slate-900 dark:text-white text-sm">
-              {cur.prime.toFixed(2)}
+          <div className="flex items-center gap-1.5">
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100/80 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
+              Prime: {cur.prime.toFixed(2)}
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-sky-100/80 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300">
+              Hazard: {cur.hazardRatio}
             </span>
           </div>
-          <div className="px-3 py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-            <span className="text-[10px] text-slate-400 block">Mortality Hazard</span>
-            <span className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">
-              {cur.hazardRatio}
-            </span>
+        </div>
+        <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+          {cur.clinicalNote}
+        </p>
+        <div className="grid grid-cols-2 gap-2 mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px]">
+          <div className="flex items-center justify-between px-2.5 py-1.5 bg-white dark:bg-slate-900/80 rounded-lg border border-slate-200/60 dark:border-slate-800 min-w-0">
+            <span className="text-slate-500 shrink-0">WHO Class</span>
+            <span className="font-semibold text-slate-900 dark:text-white truncate ml-1">{cur.whoCategory}</span>
+          </div>
+          <div className="flex items-center justify-between px-2.5 py-1.5 bg-white dark:bg-slate-900/80 rounded-lg border border-slate-200/60 dark:border-slate-800 min-w-0">
+            <span className="text-slate-500 shrink-0">Asian Std</span>
+            <span className="font-semibold text-slate-900 dark:text-white truncate ml-1">{cur.asianCategory}</span>
           </div>
         </div>
       </div>

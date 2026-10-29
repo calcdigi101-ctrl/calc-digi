@@ -212,6 +212,97 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
     const err = errors[f.key]?.message as string | undefined;
     const span = f.full ? "sm:col-span-2" : undefined;
     if (f.kind === "number") {
+      let unitDropdown: import("@/components/ui/field").UnitDropdown | undefined = undefined;
+
+      const unitChoiceField = fields.find(
+        (cf) => cf.kind === "choice" && (cf.key === "unit" || cf.key === "system" || cf.key === "weightUnit")
+      );
+
+      if (unitChoiceField && (unitChoiceField.key === "unit" || unitChoiceField.key === "system")) {
+        const uKey = unitChoiceField.key;
+        if (f.suffix === "lbs" || (f.key.toLowerCase().includes("weight") && f.suffix === "lbs")) {
+          unitDropdown = {
+            value: "lbs",
+            options: [
+              { value: "lbs", label: "lbs" },
+              { value: "kg", label: "kg" },
+            ],
+            onChange: (newUnit) => {
+              if (newUnit === "kg") {
+                setValue(uKey, "metric", { shouldValidate: true, shouldDirty: true });
+                const lbsVal = parseFloat(live[f.key]);
+                if (fields.some((x) => x.key === "weightKg") && !isNaN(lbsVal) && lbsVal > 0) {
+                  setValue("weightKg", String(Math.round(lbsVal * 0.45359237 * 10) / 10), { shouldValidate: true, shouldDirty: true });
+                }
+              }
+            },
+          };
+        } else if (f.suffix === "kg" || (f.key.toLowerCase().includes("weight") && f.suffix === "kg")) {
+          unitDropdown = {
+            value: "kg",
+            options: [
+              { value: "kg", label: "kg" },
+              { value: "lbs", label: "lbs" },
+            ],
+            onChange: (newUnit) => {
+              if (newUnit === "lbs") {
+                setValue(uKey, "us", { shouldValidate: true, shouldDirty: true });
+                const kgVal = parseFloat(live[f.key]);
+                if (fields.some((x) => x.key === "weightLbs") && !isNaN(kgVal) && kgVal > 0) {
+                  setValue("weightLbs", String(Math.round(kgVal * 2.20462262 * 10) / 10), { shouldValidate: true, shouldDirty: true });
+                }
+              }
+            },
+          };
+        } else if (f.suffix === "ft" || f.suffix === "in" || f.suffix === "inches") {
+          unitDropdown = {
+            value: f.suffix,
+            options: [
+              { value: f.suffix, label: f.suffix },
+              { value: "cm", label: "cm" },
+            ],
+            onChange: (newUnit) => {
+              if (newUnit === "cm") {
+                setValue(uKey, "metric", { shouldValidate: true, shouldDirty: true });
+              }
+            },
+          };
+        } else if (f.suffix === "cm") {
+          unitDropdown = {
+            value: "cm",
+            options: [
+              { value: "cm", label: "cm" },
+              { value: "ft/in", label: "ft/in" },
+            ],
+            onChange: (newUnit) => {
+              if (newUnit === "ft/in") {
+                setValue(uKey, "us", { shouldValidate: true, shouldDirty: true });
+              }
+            },
+          };
+        }
+      } else if (unitChoiceField && unitChoiceField.key === "weightUnit") {
+        const curWeightUnit = String(live.weightUnit || committed.weightUnit || "lbs");
+        if (f.key === "weight" || f.key.toLowerCase().includes("weight")) {
+          unitDropdown = {
+            value: curWeightUnit,
+            options: [
+              { value: "lbs", label: "lbs" },
+              { value: "kg", label: "kg" },
+            ],
+            onChange: (newUnit) => {
+              setValue("weightUnit", newUnit, { shouldValidate: true, shouldDirty: true });
+            },
+          };
+        }
+      } else if (f.unitOptions && f.unitOptions.length > 0) {
+        unitDropdown = {
+          value: f.suffix || f.unitOptions[0].value,
+          options: f.unitOptions,
+          onChange: () => {},
+        };
+      }
+
       return (
         <NumberInput
           key={f.key}
@@ -219,7 +310,8 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
           label={f.label}
           hint={f.hint}
           prefix={f.prefix}
-          suffix={f.suffix}
+          suffix={unitDropdown ? undefined : f.suffix}
+          unitDropdown={unitDropdown}
           error={err}
           className={span}
           step={f.integer ? 1 : "any"}
@@ -276,8 +368,8 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
   const groups = [...new Set(fields.filter((f) => f.group).map((f) => f.group!))];
 
   const formPanel = (
-    <form onSubmit={handleSubmit((v) => (commit(v), revealResult(`${id}-result`)))} noValidate className={cn(card, "grid gap-5 p-5 sm:p-6")}>
-      <div className="grid gap-5 sm:grid-cols-2">{ungrouped.map(renderField)}</div>
+    <form onSubmit={handleSubmit((v) => (commit(v), revealResult(`${id}-result`)))} noValidate className={cn(card, "grid gap-4 sm:gap-5 p-3.5 sm:p-6 w-full max-w-full overflow-hidden")}>
+      <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 w-full min-w-0">{ungrouped.map(renderField)}</div>
       {groups.map((g) => {
         const gf = fields.filter((f) => f.group === g);
         const touched = gf.some((f) => String(committed[f.key]) !== String(defaultOf(f, todayStr)));
@@ -327,7 +419,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
       aria-labelledby={`${id}-result-h`}
       className={cn(
         card,
-        "scroll-mt-20 p-5 sm:p-6 border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 shadow-sm"
+        "scroll-mt-20 p-3.5 sm:p-6 w-full max-w-full overflow-hidden border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 shadow-sm"
       )}
     >
       <div className="flex items-center justify-between gap-2 mb-2">
@@ -408,7 +500,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
       {"error" in output
         ? null
         : output.details?.map((d) => (
-            <section key={d.title} className={cn(card, "mt-6 p-5 sm:p-6")}>
+            <section key={d.title} className={cn(card, "mt-6 p-3.5 sm:p-6 w-full max-w-full overflow-hidden")}>
               {d.amortization ? (
                 <AmortizationSchedule title={d.title} principal={d.amortization.principal} rows={d.amortization.rows} />
               ) : (
