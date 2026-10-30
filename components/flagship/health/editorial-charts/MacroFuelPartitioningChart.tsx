@@ -213,33 +213,31 @@ export function MacroFuelPartitioningChart() {
         </svg>
       </div>
 
-      {/* Selected Archetype Metabolic & Bioenergetic Deep Dive */}
-      <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-4 border border-slate-100 dark:border-slate-800 space-y-3 text-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/60 dark:border-slate-700/60 pb-2">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
-              {cur.name} ({cur.carbPct}C / {cur.proteinPct}P / {cur.fatPct}F)
-            </span>
-          </div>
+      {/* Clean wrap legend */}
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-sky-500" /> Carbohydrates (4 kcal/g)
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-indigo-500" /> Dietary Protein (4 kcal/g)
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-amber-500" /> Essential Lipids / Fats (9 kcal/g)
+        </span>
+      </div>
+
+      <div className="bg-slate-50/80 dark:bg-slate-800/50 rounded-xl p-3.5 sm:p-4 border border-slate-200/80 dark:border-slate-800 text-xs w-full max-w-full overflow-hidden">
+        <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1.5">
+          <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+            {cur.name} ({cur.carbPct}% Carb · {cur.proteinPct}% Protein · {cur.fatPct}% Fat)
+          </span>
           <span className="text-[11px] font-mono text-violet-600 dark:text-violet-400">
-            Primary Substrate: {cur.primarySubstrate}
+            {cur.primarySubstrate}
           </span>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <span className="text-[10px] text-slate-400 block font-semibold uppercase">Physiological Target &amp; Sport Suitability:</span>
-            <p className="text-slate-600 dark:text-slate-300 mt-0.5 leading-relaxed">
-              {cur.idealFor}
-            </p>
-          </div>
-          <div>
-            <span className="text-[10px] text-slate-400 block font-semibold uppercase">Endocrine &amp; Cellular Mechanism:</span>
-            <p className="text-slate-600 dark:text-slate-300 mt-0.5 leading-relaxed">
-              {cur.hormonalProfile}
-            </p>
-          </div>
-        </div>
+        <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
+          {cur.idealFor}
+        </p>
       </div>
     </div>
   );

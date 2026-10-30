@@ -235,9 +235,9 @@ export function CalorieCalculator() {
                         max="8"
                         value={ft}
                         onChange={(e) => setFt(e.target.value)}
-                        className="w-full h-11 sm:h-12 px-2.5 pr-7 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                        className="w-full h-11 sm:h-12 px-2.5 pr-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                       />
-                      <span className="absolute right-2 text-xs text-slate-400">ft</span>
+                      <span className="absolute right-3 text-xs text-slate-400 font-medium">ft</span>
                     </div>
                     <div className="relative flex items-center">
                       <input
@@ -246,26 +246,9 @@ export function CalorieCalculator() {
                         max="11"
                         value={inch}
                         onChange={(e) => setInch(e.target.value)}
-                        className="w-full h-11 sm:h-12 px-2.5 pr-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                        className="w-full h-11 sm:h-12 px-2.5 pr-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                       />
-                      <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded px-1 py-0.5 text-xs">
-                        <select
-                          aria-label="Height unit"
-                          value={unit}
-                          onChange={(e) => {
-                            if (e.target.value === "metric") {
-                              const curTotalIn = (parseFloat(ft) || 0) * 12 + (parseFloat(inch) || 0);
-                              if (curTotalIn > 0) setCm(String(Math.round(curTotalIn * 2.54)));
-                              setUnit("metric");
-                            }
-                          }}
-                          className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-2 appearance-none"
-                        >
-                          <option value="us">in</option>
-                          <option value="metric">cm</option>
-                        </select>
-                        <span className="pointer-events-none text-[8px] text-emerald-600 dark:text-emerald-400">▼</span>
-                      </div>
+                      <span className="absolute right-3 text-xs text-slate-400 font-medium">in</span>
                     </div>
                   </div>
                 </div>
@@ -282,9 +265,9 @@ export function CalorieCalculator() {
                       max="600"
                       value={lb}
                       onChange={(e) => setLb(e.target.value)}
-                      className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-11 sm:h-12 px-3 pr-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                     />
-                    <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                    <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center">
                       <select
                         aria-label="Weight unit"
                         value={unit}
@@ -296,12 +279,12 @@ export function CalorieCalculator() {
                             setUnit("metric");
                           }
                         }}
-                        className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                        className="bg-transparent font-medium text-xs text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
                       >
                         <option value="us">lbs</option>
                         <option value="metric">kg</option>
                       </select>
-                      <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                      <span className="pointer-events-none absolute right-0 text-[8px] text-slate-400">▼</span>
                     </div>
                   </div>
                 </div>
@@ -320,30 +303,9 @@ export function CalorieCalculator() {
                       max="250"
                       value={cm}
                       onChange={(e) => setCm(e.target.value)}
-                      className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-11 sm:h-12 px-3 pr-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                     />
-                    <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
-                      <select
-                        aria-label="Height unit"
-                        value={unit}
-                        onChange={(e) => {
-                          if (e.target.value === "us") {
-                            const curCm = parseFloat(cm);
-                            if (!isNaN(curCm) && curCm > 0) {
-                              const totalIn = curCm / 2.54;
-                              setFt(String(Math.floor(totalIn / 12)));
-                              setInch(String(Math.round(totalIn % 12)));
-                            }
-                            setUnit("us");
-                          }
-                        }}
-                        className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
-                      >
-                        <option value="metric">cm</option>
-                        <option value="us">ft/in</option>
-                      </select>
-                      <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
-                    </div>
+                    <span className="absolute right-3 text-xs text-slate-400 font-medium">cm</span>
                   </div>
                 </div>
 
@@ -359,9 +321,9 @@ export function CalorieCalculator() {
                       max="300"
                       value={kg}
                       onChange={(e) => setKg(e.target.value)}
-                      className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-11 sm:h-12 px-3 pr-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                     />
-                    <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                    <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center">
                       <select
                         aria-label="Weight unit"
                         value={unit}
@@ -373,12 +335,12 @@ export function CalorieCalculator() {
                             setUnit("us");
                           }
                         }}
-                        className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                        className="bg-transparent font-medium text-xs text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
                       >
                         <option value="metric">kg</option>
                         <option value="us">lbs</option>
                       </select>
-                      <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                      <span className="pointer-events-none absolute right-0 text-[8px] text-slate-400">▼</span>
                     </div>
                   </div>
                 </div>
@@ -423,33 +385,35 @@ export function CalorieCalculator() {
                   key={g.id}
                   type="button"
                   onClick={() => setGoal(g.id as Goal)}
-                  className={`p-2.5 rounded-xl border text-left transition-all ${
+                  className={`p-3 rounded-xl border text-center flex flex-col items-center justify-center transition-all ${
                     goal === g.id
-                      ? "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 ring-2 ring-emerald-500/20"
+                      ? "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-100 ring-2 ring-emerald-500/20 shadow-xs"
                       : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                   }`}
                 >
-                  <div className="text-xs font-bold">{g.label}</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5">{g.sub}</div>
+                  <div className="text-xs sm:text-sm font-bold text-center leading-snug">{g.label}</div>
+                  <div className="text-[11px] text-slate-400 mt-1 text-center font-medium">{g.sub}</div>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Calculate Button */}
-          <button
-            type="button"
-            onClick={() => {
-              const el = document.getElementById("calorie-result-panel");
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth", block: "start" });
-              }
-            }}
-            className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-base shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <Flame className="w-5 h-5 text-emerald-200" />
-            <span>Calculate Calories</span>
-          </button>
+          <div className="pt-2 sm:pt-3">
+            <button
+              type="button"
+              onClick={() => {
+                const el = document.getElementById("calorie-result-panel");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+              }}
+              className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-bold text-base shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Flame className="w-5 h-5 text-emerald-200" />
+              <span>Calculate Calories</span>
+            </button>
+          </div>
 
           {/* Reset */}
           <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs">

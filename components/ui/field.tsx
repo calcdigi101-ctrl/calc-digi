@@ -76,12 +76,12 @@ export function NumberField({ id, label, hint, prefix, suffix, unitDropdown, err
           {...props}
         />
         {unitDropdown ? (
-          <div className={cn(affix, "relative border-l border-slate-200 p-0 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-850 transition-colors")}>
+          <div className={cn(affix, "relative border-l border-slate-200 p-0 dark:border-slate-800 transition-colors")}>
             <select
               aria-label={unitDropdown.ariaLabel || "Select measurement unit"}
               value={unitDropdown.value}
               onChange={(e) => unitDropdown.onChange(e.target.value)}
-              className="h-full cursor-pointer appearance-none bg-transparent py-0 pl-2 sm:pl-2.5 pr-5 sm:pr-6 text-xs sm:text-sm font-semibold text-emerald-700 dark:text-emerald-400 outline-none hover:text-emerald-800 dark:hover:text-emerald-300"
+              className="h-full cursor-pointer appearance-none bg-transparent py-0 pl-2 sm:pl-2.5 pr-5 sm:pr-5.5 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 outline-none border-0 ring-0 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
             >
               {unitDropdown.options.map((opt) => (
                 <option key={opt.value} value={opt.value} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-medium">
@@ -89,7 +89,7 @@ export function NumberField({ id, label, hint, prefix, suffix, unitDropdown, err
                 </option>
               ))}
             </select>
-            <span aria-hidden className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[9px] text-emerald-600 dark:text-emerald-400">
+            <span aria-hidden className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[8px] text-slate-400">
               ▼
             </span>
           </div>

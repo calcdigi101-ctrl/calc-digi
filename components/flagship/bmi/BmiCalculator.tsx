@@ -211,28 +211,14 @@ export function BmiCalculator() {
               <NumberField
                 id="bmi-ft"
                 aria-label="Height, feet"
-                unitDropdown={{
-                  value: "ft",
-                  options: [
-                    { value: "ft", label: "ft" },
-                    { value: "cm", label: "cm" },
-                  ],
-                  onChange: (v) => { if (v === "cm") switchUnit("metric"); },
-                }}
+                suffix="ft"
                 error={errors.ft?.message}
                 {...register("ft")}
               />
               <NumberField
                 id="bmi-in"
                 aria-label="Height, inches"
-                unitDropdown={{
-                  value: "in",
-                  options: [
-                    { value: "in", label: "in" },
-                    { value: "cm", label: "cm" },
-                  ],
-                  onChange: (v) => { if (v === "cm") switchUnit("metric"); },
-                }}
+                suffix="in"
                 error={errors.inch?.message}
                 {...register("inch")}
               />
@@ -258,14 +244,7 @@ export function BmiCalculator() {
           <NumberField
             id="bmi-cm"
             label="Height"
-            unitDropdown={{
-              value: "cm",
-              options: [
-                { value: "cm", label: "cm" },
-                { value: "ft/in", label: "ft/in" },
-              ],
-              onChange: (v) => { if (v === "ft/in") switchUnit("us"); },
-            }}
+            suffix="cm"
             error={errors.cm?.message}
             {...register("cm")}
           />

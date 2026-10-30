@@ -236,9 +236,9 @@ export function MacroCalculator() {
                       max="7"
                       value={ft}
                       onChange={(e) => setFt(e.target.value)}
-                      className="w-full h-11 sm:h-12 px-2.5 pr-7 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-11 sm:h-12 px-2.5 pr-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                     />
-                    <span className="absolute right-2 text-xs text-slate-400 font-medium">ft</span>
+                    <span className="absolute right-3 text-xs text-slate-400 font-medium">ft</span>
                   </div>
                   <div className="relative flex items-center">
                     <input
@@ -248,26 +248,9 @@ export function MacroCalculator() {
                       max="11"
                       value={inch}
                       onChange={(e) => setInch(e.target.value)}
-                      className="w-full h-11 sm:h-12 px-2.5 pr-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                      className="w-full h-11 sm:h-12 px-2.5 pr-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                     />
-                    <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded px-1 py-0.5 text-xs">
-                      <select
-                        aria-label="Height unit"
-                        value={unit}
-                        onChange={(e) => {
-                          if (e.target.value === "metric") {
-                            const totalIn = (parseFloat(ft) || 0) * 12 + (parseFloat(inch) || 0);
-                            if (totalIn > 0) setCm(String(Math.round(totalIn * 2.54)));
-                            setUnit("metric");
-                          }
-                        }}
-                        className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-2 appearance-none"
-                      >
-                        <option value="us">in</option>
-                        <option value="metric">cm</option>
-                      </select>
-                      <span className="pointer-events-none text-[8px] text-emerald-600 dark:text-emerald-400">▼</span>
-                    </div>
+                    <span className="absolute right-3 text-xs text-slate-400 font-medium">in</span>
                   </div>
                 </div>
               </div>
@@ -284,30 +267,9 @@ export function MacroCalculator() {
                     max="250"
                     value={cm}
                     onChange={(e) => setCm(e.target.value)}
-                    className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                    className="w-full h-11 sm:h-12 px-3 pr-8 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                   />
-                  <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
-                    <select
-                      aria-label="Height unit"
-                      value={unit}
-                      onChange={(e) => {
-                        if (e.target.value === "us") {
-                          const cmVal = parseFloat(cm);
-                          if (!isNaN(cmVal) && cmVal > 0) {
-                            const totalIn = cmVal / 2.54;
-                            setFt(String(Math.floor(totalIn / 12)));
-                            setInch(String(Math.round(totalIn % 12)));
-                          }
-                          setUnit("us");
-                        }
-                      }}
-                      className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
-                    >
-                      <option value="metric">cm</option>
-                      <option value="us">ft/in</option>
-                    </select>
-                    <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
-                  </div>
+                  <span className="absolute right-3 text-xs text-slate-400 font-medium">cm</span>
                 </div>
               </div>
             )}
@@ -326,9 +288,9 @@ export function MacroCalculator() {
                   step="any"
                   value={unit === "us" ? lb : kg}
                   onChange={(e) => unit === "us" ? setLb(e.target.value) : setKg(e.target.value)}
-                  className="w-full h-11 sm:h-12 px-3 pr-16 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
+                  className="w-full h-11 sm:h-12 px-3 pr-14 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-950 text-slate-900 dark:text-white font-medium text-sm sm:text-base focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 outline-none transition-all"
                 />
-                <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex items-center bg-slate-100 dark:bg-slate-800 rounded-lg px-1.5 py-1 text-xs">
+                <div className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center">
                   <select
                     aria-label="Weight unit"
                     value={unit === "us" ? "lbs" : "kg"}
@@ -343,12 +305,12 @@ export function MacroCalculator() {
                         setUnit("us");
                       }
                     }}
-                    className="bg-transparent font-semibold text-emerald-600 dark:text-emerald-400 cursor-pointer outline-none text-xs pr-3 appearance-none"
+                    className="bg-transparent font-medium text-xs text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
                   >
                     <option value="lbs">lbs</option>
                     <option value="kg">kg</option>
                   </select>
-                  <span className="pointer-events-none absolute right-1 text-[9px] text-emerald-600 dark:text-emerald-400">▼</span>
+                  <span className="pointer-events-none absolute right-0 text-[8px] text-slate-400">▼</span>
                 </div>
               </div>
             </div>
