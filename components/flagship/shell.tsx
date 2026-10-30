@@ -19,7 +19,7 @@ export function CalculatorPage({
 }) {
   return (
     <main className="fx bg-slate-50 pb-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100 w-full max-w-full overflow-x-clip">
-      <div className="mx-auto max-w-[1180px] px-3.5 pt-4 sm:px-6 sm:pt-6 w-full max-w-full min-w-0">
+      <div className="mx-auto max-w-[1180px] px-3.5 pt-4 sm:px-6 sm:pt-6 w-full min-w-0">
         <nav aria-label="Breadcrumb" className="fx-no-print mb-4">
           <ol className="flex flex-wrap items-center gap-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             {crumbs.map((c, i) => (
