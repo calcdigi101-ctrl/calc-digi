@@ -18,8 +18,8 @@ export function CalculatorPage({
   children: ReactNode;
 }) {
   return (
-    <main className="fx bg-slate-50 pb-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100 w-full max-w-full overflow-x-clip">
-      <div className="mx-auto max-w-[1180px] px-3.5 pt-4 sm:px-6 sm:pt-6 w-full min-w-0">
+    <main className="fx bg-slate-50 pb-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100 overflow-x-clip">
+      <div className="mx-auto max-w-[1180px] px-3.5 pt-6 sm:px-6">
         <nav aria-label="Breadcrumb" className="fx-no-print mb-4">
           <ol className="flex flex-wrap items-center gap-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
             {crumbs.map((c, i) => (
@@ -54,9 +54,9 @@ export function CalculatorPage({
  */
 export function ToolGrid({ form, result }: { form: ReactNode; result: ReactNode }) {
   return (
-    <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-start w-full max-w-full min-w-0 overflow-hidden">
-      <div className="md:col-span-7 w-full max-w-full min-w-0">{form}</div>
-      <div className="md:sticky md:top-24 md:col-span-5 w-full max-w-full min-w-0">{result}</div>
+    <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-start">
+      <div className="md:col-span-7">{form}</div>
+      <div className="md:sticky md:top-24 md:col-span-5">{result}</div>
     </div>
   );
 }
@@ -67,7 +67,7 @@ export function Editorial({ children }: { children: ReactNode }) {
     <article
       className={cn(
         card,
-        "mt-10 p-3.5 sm:p-8 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300 w-full max-w-full min-w-0 overflow-hidden",
+        "mt-10 p-4 sm:p-8 text-[15px] leading-relaxed text-slate-700 dark:text-slate-300",
         "[&_h2]:mt-10 [&_h2]:mb-3 [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-slate-900 dark:[&_h2]:text-white [&_h2:first-child]:mt-0",
         "[&_h3]:mt-6 [&_h3]:mb-2 [&_h3]:text-base sm:[&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-slate-900 dark:[&_h3]:text-white",
         "[&_p]:mb-3 [&_ul]:mb-3 [&_ul]:list-disc [&_ul]:pl-5 sm:[&_ul]:pl-6 [&_ol]:mb-3 [&_ol]:list-decimal [&_ol]:pl-5 sm:[&_ol]:pl-6 [&_li]:mb-1",
