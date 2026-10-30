@@ -74,21 +74,25 @@ export function CalorieMacroDeficitTrajectoryChart() {
   return (
     <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 shadow-sm space-y-4">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
-            <h3 className="font-semibold text-slate-900 dark:text-white text-base">
+            <h3 className="font-semibold text-slate-900 dark:text-white text-sm sm:text-base leading-tight">
               Energy Balance Trajectory &amp; Weekly Somatic Velocity
             </h3>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Wishnofsky Energy Equation, Metabolic Adaptation Risks, and Lean Mass Partitioning
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Inspecting {cur.deltaKcal > 0 ? `+${cur.deltaKcal}` : cur.deltaKcal} kcal/day — Pace: {cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lbs/wk ({cur.weeklyChangeKg > 0 ? `+${cur.weeklyChangeKg}` : cur.weeklyChangeKg} kg/wk)
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs">
-          <span className="px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 font-medium">
-            Golden Fat Loss: -500 kcal/day
+        <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-600/20 max-w-full break-words dark:bg-emerald-950/40 dark:text-emerald-300">
+          <span className="relative flex size-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+          </span>
+          <span>
+            {cur.strategyTier}: {cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lbs/wk
           </span>
         </div>
       </div>
@@ -202,34 +206,17 @@ export function CalorieMacroDeficitTrajectoryChart() {
         </svg>
       </div>
 
-      {/* Selected Delta Physiological Summary Card */}
-      <div className="bg-slate-50/80 dark:bg-slate-800/50 rounded-xl p-3.5 sm:p-4 border border-slate-200/80 dark:border-slate-800 text-xs w-full max-w-full overflow-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1.5">
-          <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
-            {cur.strategyTier}
-          </span>
-          <div className="flex items-center gap-1.5">
-            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-100/80 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300">
-              Pace: {cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lbs/wk
-            </span>
-            <span className={cur.metabolicAdaptationRisk === "High" ? "px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300" : "px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"}>
-              Risk: {cur.metabolicAdaptationRisk}
-            </span>
-          </div>
-        </div>
-        <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-          {cur.clinicalGuidance}
-        </p>
-        <div className="grid grid-cols-2 gap-2 mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px]">
-          <div className="flex items-center justify-between px-2.5 py-1.5 bg-white dark:bg-slate-900/80 rounded-lg border border-slate-200/60 dark:border-slate-800 min-w-0">
-            <span className="text-slate-500 shrink-0">Weekly Delta</span>
-            <span className="font-semibold text-slate-900 dark:text-white truncate ml-1">{cur.weeklyChangeKg > 0 ? `+${cur.weeklyChangeKg}` : cur.weeklyChangeKg} kg/wk</span>
-          </div>
-          <div className="flex items-center justify-between px-2.5 py-1.5 bg-white dark:bg-slate-900/80 rounded-lg border border-slate-200/60 dark:border-slate-800 min-w-0">
-            <span className="text-slate-500 shrink-0">Protein Goal</span>
-            <span className="font-semibold text-amber-600 dark:text-amber-400 truncate ml-1">{cur.proteinRecommendation.split('(')[0].trim()}</span>
-          </div>
-        </div>
+      {/* Clean wrap legend matching Screenshots 3 & 4 */}
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-emerald-500" /> Conservative Deficit (-250 to -500 kcal)
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-amber-500" /> Moderate Deficit (-750 kcal)
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-rose-500" /> Aggressive / High Adaptation (-1,000 kcal)
+        </span>
       </div>
     </div>
   );

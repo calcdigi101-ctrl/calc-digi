@@ -254,32 +254,6 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
               }
             },
           };
-        } else if (f.suffix === "ft" || f.suffix === "in" || f.suffix === "inches") {
-          unitDropdown = {
-            value: f.suffix,
-            options: [
-              { value: f.suffix, label: f.suffix },
-              { value: "cm", label: "cm" },
-            ],
-            onChange: (newUnit) => {
-              if (newUnit === "cm") {
-                setValue(uKey, "metric", { shouldValidate: true, shouldDirty: true });
-              }
-            },
-          };
-        } else if (f.suffix === "cm") {
-          unitDropdown = {
-            value: "cm",
-            options: [
-              { value: "cm", label: "cm" },
-              { value: "ft/in", label: "ft/in" },
-            ],
-            onChange: (newUnit) => {
-              if (newUnit === "ft/in") {
-                setValue(uKey, "us", { shouldValidate: true, shouldDirty: true });
-              }
-            },
-          };
         }
       } else if (unitChoiceField && unitChoiceField.key === "weightUnit") {
         const curWeightUnit = String(live.weightUnit || committed.weightUnit || "lbs");

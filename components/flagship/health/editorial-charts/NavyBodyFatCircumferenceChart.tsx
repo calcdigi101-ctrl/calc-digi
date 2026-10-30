@@ -84,8 +84,8 @@ export function NavyBodyFatCircumferenceChart() {
               Body Composition Spectrum &amp; Visual Conditioning Matrix
             </h3>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            American Council on Exercise (ACE) &amp; Jackson-Pollock Clinical Tiers
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Inspecting {cur.bf}% Body Fat ({sex === 'male' ? 'Male' : 'Female'}) — ACE: {category.split('(')[0].trim()} | Optimal: {sex === 'male' ? '10–17%' : '18–24%'}
           </p>
         </div>
 
@@ -227,34 +227,20 @@ export function NavyBodyFatCircumferenceChart() {
         </svg>
       </div>
 
-      {/* Selected Body Fat Visual Conditioning Card */}
-      <div className="bg-slate-50/80 dark:bg-slate-800/50 rounded-xl p-3.5 sm:p-4 border border-slate-200/80 dark:border-slate-800 text-xs w-full max-w-full overflow-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1.5">
-          <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
-            {cur.bf}% Body Fat Profile ({sex === "male" ? "Male" : "Female"})
-          </span>
-          <div className="flex items-center gap-1.5">
-            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-teal-100/80 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300">
-              ACE: {category.split('(')[0].trim()}
-            </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-sky-100/80 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300">
-              Target: {sex === "male" ? "10–17%" : "18–24%"}
-            </span>
-          </div>
-        </div>
-        <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-          {visualDesc}
-        </p>
-        <div className="grid grid-cols-2 gap-2 mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px]">
-          <div className="flex items-center justify-between px-2.5 py-1.5 bg-white dark:bg-slate-900/80 rounded-lg border border-slate-200/60 dark:border-slate-800 min-w-0">
-            <span className="text-slate-500 shrink-0">Physiology</span>
-            <span className="font-semibold text-slate-900 dark:text-white truncate ml-1">{cur.physiologicalStatus.split(';')[0]}</span>
-          </div>
-          <div className="flex items-center justify-between px-2.5 py-1.5 bg-white dark:bg-slate-900/80 rounded-lg border border-slate-200/60 dark:border-slate-800 min-w-0">
-            <span className="text-slate-500 shrink-0">Tier Status</span>
-            <span className="font-semibold text-teal-600 dark:text-teal-400 truncate ml-1">{category.split('(')[0].trim()}</span>
-          </div>
-        </div>
+      {/* Clean wrap legend matching Screenshots 3 & 4 */}
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-sky-500" /> Essential Fat ({sex === 'male' ? '2–5%' : '10–13%'})
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-emerald-500" /> Athletes / Fitness ({sex === 'male' ? '6–17%' : '14–24%'})
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-amber-500" /> Acceptable Average ({sex === 'male' ? '18–24%' : '25–31%'})
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="size-2.5 rounded-full bg-rose-500" /> Obesity Threshold ({sex === 'male' ? '≥ 25%' : '≥ 32%'})
+        </span>
       </div>
     </div>
   );
