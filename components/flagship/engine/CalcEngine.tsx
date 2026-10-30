@@ -76,7 +76,7 @@ function ChartLegend({ chart }: { chart: Extract<Chart, { type: "donut" }> }) {
         <li key={d.name} className={cn("flex items-center justify-between gap-2 min-w-0", d.value <= 0 && "opacity-50")}>
           <div className="flex items-center gap-2 min-w-0 flex-1">
             <span aria-hidden className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: d.color ?? PALETTE[i % PALETTE.length] }} />
-            <span className="truncate text-slate-600 dark:text-slate-400" title={d.name}>{d.name}</span>
+            <span className="break-words min-w-0 text-slate-600 dark:text-slate-400" title={d.name}>{d.name}</span>
           </div>
           <span className="shrink-0 font-semibold tabular-nums text-slate-900 dark:text-slate-100 pl-2">{formatBy(chart.format, d.value)}</span>
         </li>
@@ -254,6 +254,42 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
               }
             },
           };
+        } else if (f.suffix === "mph") {
+          unitDropdown = {
+            value: "mph",
+            options: [
+              { value: "mph", label: "mph" },
+              { value: "km/h", label: "km/h" },
+            ],
+            onChange: (newUnit) => {
+              if (newUnit === "km/h") {
+                setValue(uKey, "metric", { shouldValidate: true, shouldDirty: true });
+                const curVal = parseFloat(live[f.key]);
+                const targetField = fields.find((x) => x.key.toLowerCase().includes("kmh"));
+                if (targetField && !isNaN(curVal) && curVal > 0) {
+                  setValue(targetField.key, String(Math.round(curVal * 1.609344 * 10) / 10), { shouldValidate: true, shouldDirty: true });
+                }
+              }
+            },
+          };
+        } else if (f.suffix === "km/h") {
+          unitDropdown = {
+            value: "km/h",
+            options: [
+              { value: "km/h", label: "km/h" },
+              { value: "mph", label: "mph" },
+            ],
+            onChange: (newUnit) => {
+              if (newUnit === "mph") {
+                setValue(uKey, "us", { shouldValidate: true, shouldDirty: true });
+                const curVal = parseFloat(live[f.key]);
+                const targetField = fields.find((x) => x.key.toLowerCase().includes("mph"));
+                if (targetField && !isNaN(curVal) && curVal > 0) {
+                  setValue(targetField.key, String(Math.round(curVal / 1.609344 * 10) / 10), { shouldValidate: true, shouldDirty: true });
+                }
+              }
+            },
+          };
         }
       } else if (unitChoiceField && unitChoiceField.key === "weightUnit") {
         const curWeightUnit = String(live.weightUnit || committed.weightUnit || "lbs");
@@ -397,7 +433,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
       )}
     >
       <div className="flex items-center justify-between gap-2 mb-2">
-        <h2 id={`${id}-result-h`} className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 truncate flex-1 min-w-0">
+        <h2 id={`${id}-result-h`} className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 break-words flex-1 min-w-0">
           {"error" in output ? "Result" : output.hero.label}
         </h2>
         <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider shrink-0">Live Result</span>

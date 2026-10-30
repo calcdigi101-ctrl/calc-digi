@@ -44,13 +44,11 @@ export function NavyBodyFatCircumferenceChart() {
   const maxBf = 45;
 
   const getX = (bf: number) => padLeft + ((bf - minBf) / (maxBf - minBf)) * plotW;
-  const getY = (idx: number) => padTop + (plotH / (BODY_FAT_SPECTRUM.length - 1)) * idx;
 
   const activeX = getX(cur.bf);
-  const activeY = padTop + plotH * 0.5;
 
   const isLeft = activeX > 380;
-  const tooltipX = Math.max(10, Math.min(svgWidth - 195, isLeft ? activeX - 200 : activeX + 15));
+  const tooltipX = isLeft ? activeX - 200 : activeX + 15;
 
   const handlePointer = (clientX: number, rect: DOMRect) => {
     const rawX = clientX - rect.left;
@@ -74,7 +72,7 @@ export function NavyBodyFatCircumferenceChart() {
   const visualDesc = sex === 'male' ? cur.maleVisual : cur.femaleVisual;
 
   return (
-    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 shadow-sm space-y-4">
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-3.5 sm:p-5 shadow-sm space-y-4">
       {/* Header and Sex Switcher */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
@@ -84,8 +82,8 @@ export function NavyBodyFatCircumferenceChart() {
               Body Composition Spectrum &amp; Visual Conditioning Matrix
             </h3>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Inspecting {cur.bf}% Body Fat ({sex === 'male' ? 'Male' : 'Female'}) — ACE: {category.split('(')[0].trim()} | Optimal: {sex === 'male' ? '10–17%' : '18–24%'}
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            American Council on Exercise (ACE) &amp; Jackson-Pollock Clinical Tiers
           </p>
         </div>
 
@@ -120,7 +118,7 @@ export function NavyBodyFatCircumferenceChart() {
       <div className="relative select-none touch-none w-full max-w-full overflow-hidden">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          className="w-full h-auto cursor-crosshair overflow-hidden"
+          className="w-full h-auto cursor-crosshair overflow-visible max-w-full"
           onMouseMove={(e) => handlePointer(e.clientX, e.currentTarget.getBoundingClientRect())}
           onTouchMove={(e) => {
             if (e.touches[0]) {
@@ -212,7 +210,7 @@ export function NavyBodyFatCircumferenceChart() {
               {cur.bf}% Body Fat ({sex === 'male' ? 'Male' : 'Female'})
             </text>
             <text x="12" y="38" className="text-[10px] fill-slate-300">
-              Tier: <tspan className="font-semibold fill-emerald-400">{category}</tspan>
+              Tier: <tspan className="font-semibold fill-emerald-400">{category.split('(')[0].trim()}</tspan>
             </text>
             <text x="12" y="54" className="text-[10px] fill-slate-300">
               Health Status:
@@ -227,20 +225,35 @@ export function NavyBodyFatCircumferenceChart() {
         </svg>
       </div>
 
-      {/* Clean wrap legend matching Screenshots 3 & 4 */}
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-sky-500" /> Essential Fat ({sex === 'male' ? '2–5%' : '10–13%'})
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-emerald-500" /> Athletes / Fitness ({sex === 'male' ? '6–17%' : '14–24%'})
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-amber-500" /> Acceptable Average ({sex === 'male' ? '18–24%' : '25–31%'})
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-rose-500" /> Obesity Threshold ({sex === 'male' ? '≥ 25%' : '≥ 32%'})
-        </span>
+      {/* Selected Body Fat Visual Conditioning Card */}
+      <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3.5 sm:p-4 border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs w-full max-w-full">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1.5">
+            <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+              {cur.bf}% Body Fat Visual Anatomical Profile:
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100/90 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+              {category}
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed break-words">
+            {visualDesc}
+          </p>
+        </div>
+        <div className="shrink-0 flex items-center gap-2 sm:gap-3">
+          <div className="px-3 py-1.5 sm:py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+            <span className="text-[10px] text-slate-400 block">ACE Classification</span>
+            <span className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+              {category.split('(')[0].trim()}
+            </span>
+          </div>
+          <div className="px-3 py-1.5 sm:py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+            <span className="text-[10px] text-slate-400 block">Optimal Range</span>
+            <span className="font-bold text-teal-600 dark:text-teal-400 text-xs sm:text-sm">
+              {sex === 'male' ? '10% – 17%' : '18% – 24%'}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

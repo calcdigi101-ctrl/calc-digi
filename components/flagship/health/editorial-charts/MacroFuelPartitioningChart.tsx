@@ -84,13 +84,12 @@ export function MacroFuelPartitioningChart() {
   const padBottom = 40;
 
   const plotW = svgWidth - padLeft - padRight;
-  const plotH = svgHeight - padTop - padBottom;
 
   const barH = 26;
   const barGap = 16;
 
   return (
-    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 shadow-sm space-y-4">
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-3.5 sm:p-5 shadow-sm space-y-4">
       {/* Header and Archetype Selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
@@ -108,136 +107,137 @@ export function MacroFuelPartitioningChart() {
         {/* Legend */}
         <div className="flex items-center gap-3 text-xs">
           <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-            <span className="w-3 h-3 rounded-sm bg-sky-500 inline-block" /> Carbs
+            <span className="w-2.5 h-2.5 rounded bg-amber-500" />
+            Carbs (4 kcal/g)
           </span>
           <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-            <span className="w-3 h-3 rounded-sm bg-indigo-500 inline-block" /> Protein
+            <span className="w-2.5 h-2.5 rounded bg-emerald-500" />
+            Protein (4 kcal/g)
           </span>
           <span className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
-            <span className="w-3 h-3 rounded-sm bg-amber-500 inline-block" /> Fats
+            <span className="w-2.5 h-2.5 rounded bg-rose-500" />
+            Fat (9 kcal/g)
           </span>
         </div>
       </div>
 
-      {/* SVG Canvas with Interactive Stacked Bars */}
-      <div className="relative select-none">
-        <svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} className="w-full h-auto overflow-visible">
-          {DIET_ARCHETYPES.map((arch, idx) => {
-            const y = padTop + idx * (barH + barGap);
-            const isSelected = activeIdx === idx;
+      {/* Archetype Quick Selector Pills */}
+      <div className="flex flex-wrap items-center gap-1.5 pt-1">
+        {DIET_ARCHETYPES.map((arch, idx) => (
+          <button
+            key={arch.id}
+            type="button"
+            onClick={() => setActiveIdx(idx)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              activeIdx === idx
+                ? 'bg-violet-600 text-white shadow-sm ring-2 ring-violet-400/20'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+            }`}
+          >
+            {arch.name}
+          </button>
+        ))}
+      </div>
 
-            const carbW = (arch.carbPct / 100) * (plotW - 140);
-            const proteinW = (arch.proteinPct / 100) * (plotW - 140);
-            const fatW = (arch.fatPct / 100) * (plotW - 140);
+      {/* Stacked Macro SVG Canvas */}
+      <div className="relative select-none w-full max-w-full overflow-hidden">
+        <svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} className="w-full h-auto overflow-visible max-w-full">
+          {/* Axis grid */}
+          {[0, 25, 50, 75, 100].map((pct) => {
+            const x = padLeft + (pct / 100) * plotW;
+            return (
+              <g key={pct}>
+                <line x1={x} y1={padTop} x2={x} y2={svgHeight - padBottom} stroke="currentColor" className="text-slate-100 dark:text-slate-800" />
+                <text x={x} y={svgHeight - 14} textAnchor="middle" className="text-[10px] fill-slate-400 dark:fill-slate-500">
+                  {pct}%
+                </text>
+              </g>
+            );
+          })}
 
-            const startX = padLeft + 140;
+          {/* 5 Stacked Macro Bars */}
+          {DIET_ARCHETYPES.map((arch, i) => {
+            const y = padTop + i * (barH + barGap);
+            const carbW = (arch.carbPct / 100) * plotW;
+            const proteinW = (arch.proteinPct / 100) * plotW;
+            const fatW = (arch.fatPct / 100) * plotW;
+            const isSelected = activeIdx === i;
 
             return (
               <g
                 key={arch.id}
-                onClick={() => setActiveIdx(idx)}
-                onTouchStart={() => setActiveIdx(idx)}
+                onClick={() => setActiveIdx(i)}
                 className="cursor-pointer transition-opacity hover:opacity-90"
               >
-                {/* Archetype Label */}
-                <text
-                  x={padLeft}
-                  y={y + barH * 0.65}
-                  className={`text-[11px] font-semibold transition-colors ${
-                    isSelected ? 'fill-violet-600 dark:fill-violet-400' : 'fill-slate-700 dark:fill-slate-300'
-                  }`}
-                >
-                  {arch.name}
-                </text>
-
-                {/* Background Selection Highlight */}
-                {isSelected && (
+                {/* Active selection background glow */}
+                {isSelected ? (
                   <rect
                     x={padLeft - 6}
                     y={y - 4}
                     width={plotW + 12}
                     height={barH + 8}
-                    rx="8"
+                    rx="6"
                     fill="currentColor"
-                    className="text-violet-500/10"
+                    className="text-violet-500/10 dark:text-violet-400/15"
                   />
-                )}
+                ) : null}
 
-                {/* Stacked Bars: Carbs, Protein, Fat */}
-                {/* Carbs */}
-                <rect
-                  x={startX}
-                  y={y}
-                  width={carbW}
-                  height={barH}
-                  rx={arch.proteinPct === 0 && arch.fatPct === 0 ? 6 : 0}
-                  className="fill-sky-500"
-                />
-                {carbW > 25 && (
-                  <text x={startX + carbW / 2} y={y + barH * 0.65} textAnchor="middle" className="text-[10px] font-bold fill-white">
+                {/* Bar segments */}
+                <rect x={padLeft} y={y} width={carbW} height={barH} fill="#f59e0b" rx="3" />
+                <rect x={padLeft + carbW} y={y} width={proteinW} height={barH} fill="#10b981" rx="0" />
+                <rect x={padLeft + carbW + proteinW} y={y} width={fatW} height={barH} fill="#ef4444" rx="3" />
+
+                {/* Percentage Labels Inside Bar Segments */}
+                {arch.carbPct >= 10 ? (
+                  <text x={padLeft + carbW / 2} y={y + 16} textAnchor="middle" className="text-[10px] font-bold fill-white">
                     {arch.carbPct}%
                   </text>
-                )}
-
-                {/* Protein */}
-                <rect
-                  x={startX + carbW}
-                  y={y}
-                  width={proteinW}
-                  height={barH}
-                  className="fill-indigo-500"
-                />
-                {proteinW > 25 && (
-                  <text x={startX + carbW + proteinW / 2} y={y + barH * 0.65} textAnchor="middle" className="text-[10px] font-bold fill-white">
+                ) : null}
+                {arch.proteinPct >= 10 ? (
+                  <text x={padLeft + carbW + proteinW / 2} y={y + 16} textAnchor="middle" className="text-[10px] font-bold fill-white">
                     {arch.proteinPct}%
                   </text>
-                )}
-
-                {/* Fats */}
-                <rect
-                  x={startX + carbW + proteinW}
-                  y={y}
-                  width={fatW}
-                  height={barH}
-                  rx={6}
-                  className="fill-amber-500"
-                />
-                {fatW > 25 && (
-                  <text x={startX + carbW + proteinW + fatW / 2} y={y + barH * 0.65} textAnchor="middle" className="text-[10px] font-bold fill-white">
+                ) : null}
+                {arch.fatPct >= 10 ? (
+                  <text x={padLeft + carbW + proteinW + fatW / 2} y={y + 16} textAnchor="middle" className="text-[10px] font-bold fill-white">
                     {arch.fatPct}%
                   </text>
-                )}
+                ) : null}
               </g>
             );
           })}
         </svg>
       </div>
 
-      {/* Clean wrap legend */}
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-sky-500" /> Carbohydrates (4 kcal/g)
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-indigo-500" /> Dietary Protein (4 kcal/g)
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-amber-500" /> Essential Lipids / Fats (9 kcal/g)
-        </span>
-      </div>
-
-      <div className="bg-slate-50/80 dark:bg-slate-800/50 rounded-xl p-3.5 sm:p-4 border border-slate-200/80 dark:border-slate-800 text-xs w-full max-w-full overflow-hidden">
-        <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1.5">
-          <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
-            {cur.name} ({cur.carbPct}% Carb · {cur.proteinPct}% Protein · {cur.fatPct}% Fat)
-          </span>
-          <span className="text-[11px] font-mono text-violet-600 dark:text-violet-400">
-            {cur.primarySubstrate}
-          </span>
+      {/* Selected Archetype Metabolic Profile Card */}
+      <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3.5 sm:p-4 border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs w-full max-w-full">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1.5">
+            <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+              {cur.name} Metabolic Pathway:
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-violet-100/90 text-violet-800 dark:bg-violet-950 dark:text-violet-300">
+              {cur.pathway}
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed break-words">
+            {cur.hormonalProfile}
+          </p>
         </div>
-        <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-          {cur.idealFor}
-        </p>
+        <div className="shrink-0 flex items-center gap-2 sm:gap-3">
+          <div className="px-3 py-1.5 sm:py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+            <span className="text-[10px] text-slate-400 block">Primary Substrate</span>
+            <span className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+              {cur.primarySubstrate.split(' ')[0]}
+            </span>
+          </div>
+          <div className="px-3 py-1.5 sm:py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+            <span className="text-[10px] text-slate-400 block">Ratio (C/P/F)</span>
+            <span className="font-bold text-violet-600 dark:text-violet-400 text-xs sm:text-sm">
+              {cur.carbPct}/{cur.proteinPct}/{cur.fatPct}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

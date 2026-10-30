@@ -49,7 +49,7 @@ export function CalorieMacroDeficitTrajectoryChart() {
   const activeY = getY(cur.weeklyChangeLbs);
 
   const isLeft = activeX > 380;
-  const tooltipX = Math.max(10, Math.min(svgWidth - 195, isLeft ? activeX - 200 : activeX + 15));
+  const tooltipX = isLeft ? activeX - 200 : activeX + 15;
 
   const handlePointer = (clientX: number, rect: DOMRect) => {
     const rawX = clientX - rect.left;
@@ -72,27 +72,23 @@ export function CalorieMacroDeficitTrajectoryChart() {
   const curvePath = ENERGY_TRAJECTORY_DATA.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(d.deltaKcal).toFixed(1)} ${getY(d.weeklyChangeLbs).toFixed(1)}`).join(' ');
 
   return (
-    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-5 shadow-sm space-y-4">
+    <div className="w-full bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden p-3.5 sm:p-5 shadow-sm space-y-4">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
-            <h3 className="font-semibold text-slate-900 dark:text-white text-sm sm:text-base leading-tight">
+            <h3 className="font-semibold text-slate-900 dark:text-white text-base">
               Energy Balance Trajectory &amp; Weekly Somatic Velocity
             </h3>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Inspecting {cur.deltaKcal > 0 ? `+${cur.deltaKcal}` : cur.deltaKcal} kcal/day — Pace: {cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lbs/wk ({cur.weeklyChangeKg > 0 ? `+${cur.weeklyChangeKg}` : cur.weeklyChangeKg} kg/wk)
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Wishnofsky Energy Equation, Metabolic Adaptation Risks, and Lean Mass Partitioning
           </p>
         </div>
-        <div className="inline-flex items-center gap-2 rounded-lg bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-800 ring-1 ring-emerald-600/20 max-w-full break-words dark:bg-emerald-950/40 dark:text-emerald-300">
-          <span className="relative flex size-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-          </span>
-          <span>
-            {cur.strategyTier}: {cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lbs/wk
+        <div className="flex items-center gap-2 text-xs">
+          <span className="px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 font-medium">
+            Golden Fat Loss: -500 kcal/day
           </span>
         </div>
       </div>
@@ -101,7 +97,7 @@ export function CalorieMacroDeficitTrajectoryChart() {
       <div className="relative select-none touch-none w-full max-w-full overflow-hidden">
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          className="w-full h-auto cursor-crosshair overflow-hidden"
+          className="w-full h-auto cursor-crosshair overflow-visible max-w-full"
           onMouseMove={(e) => handlePointer(e.clientX, e.currentTarget.getBoundingClientRect())}
           onTouchMove={(e) => {
             if (e.touches[0]) {
@@ -112,13 +108,14 @@ export function CalorieMacroDeficitTrajectoryChart() {
           <defs>
             <linearGradient id="energyGrad" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#ef4444" />
-              <stop offset="40%" stopColor="#10b981" />
-              <stop offset="60%" stopColor="#0ea5e9" />
-              <stop offset="100%" stopColor="#f59e0b" />
+              <stop offset="25%" stopColor="#f59e0b" />
+              <stop offset="50%" stopColor="#10b981" />
+              <stop offset="75%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#8b5cf6" />
             </linearGradient>
           </defs>
 
-          {/* Zero Change Homeostasis Reference Line */}
+          {/* Zero Change Reference Line */}
           <line
             x1={padLeft}
             y1={getY(0)}
@@ -129,48 +126,32 @@ export function CalorieMacroDeficitTrajectoryChart() {
             strokeWidth="1.5"
             strokeDasharray="4 4"
           />
-          <text x={padLeft + 8} y={getY(0) - 6} className="text-[10px] fill-slate-400 font-medium">
-            Zero Balance (Maintenance)
-          </text>
 
-          {/* Grid lines (lbs/week) */}
-          {[-2.0, -1.0, 0.0, +1.0].map((val) => {
+          {/* Grid lines for Weekly Change (lbs) */}
+          {[-2.0, -1.0, 0, 1.0, 2.0].map((val) => {
             const y = getY(val);
             return (
               <g key={val}>
-                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-100 dark:text-slate-800" strokeDasharray="3 3" />
+                <line x1={padLeft} y1={y} x2={svgWidth - padRight} y2={y} stroke="currentColor" className="text-slate-100 dark:text-slate-800" />
                 <text x={padLeft - 8} y={y + 3} textAnchor="end" className="text-[10px] fill-slate-400 dark:fill-slate-500">
-                  {val > 0 ? `+${val.toFixed(1)}` : val.toFixed(1)} lbs
+                  {val > 0 ? `+${val.toFixed(1)}` : val.toFixed(1)} lb
                 </text>
               </g>
             );
           })}
 
-          {/* Caloric Delta Axis labels */}
-          {ENERGY_TRAJECTORY_DATA.map((d) => {
-            const x = getX(d.deltaKcal);
+          {/* Caloric Delta Axis Ticks */}
+          {[-1000, -750, -500, -250, 0, 250, 500, 750].map((val) => {
+            const x = getX(val);
             return (
-              <text key={d.deltaKcal} x={x} y={svgHeight - 14} textAnchor="middle" className="text-[9.5px] fill-slate-500 dark:fill-slate-400 font-medium">
-                {d.deltaKcal > 0 ? `+${d.deltaKcal}` : d.deltaKcal}
+              <text key={val} x={x} y={svgHeight - 14} textAnchor="middle" className="text-[10px] fill-slate-500 dark:fill-slate-400 font-medium">
+                {val > 0 ? `+${val}` : val}
               </text>
             );
           })}
 
-          {/* Trajectory Path */}
-          <path d={curvePath} fill="none" stroke="url(#energyGrad)" strokeWidth="3" strokeLinecap="round" />
-
-          {/* Data Points */}
-          {ENERGY_TRAJECTORY_DATA.map((d) => (
-            <circle
-              key={d.deltaKcal}
-              cx={getX(d.deltaKcal)}
-              cy={getY(d.weeklyChangeLbs)}
-              r="4"
-              fill="#ffffff"
-              stroke="#0ea5e9"
-              strokeWidth="2"
-            />
-          ))}
+          {/* Energy Curve Path */}
+          <path d={curvePath} fill="none" stroke="url(#energyGrad)" strokeWidth="3.5" strokeLinecap="round" />
 
           {/* Active scrub crosshair */}
           <line
@@ -178,45 +159,63 @@ export function CalorieMacroDeficitTrajectoryChart() {
             y1={padTop}
             x2={activeX}
             y2={svgHeight - padBottom}
-            stroke="#f59e0b"
+            stroke="#10b981"
             strokeWidth="1.5"
             strokeDasharray="2 2"
           />
-          <circle cx={activeX} cy={activeY} r="6" fill="#f59e0b" stroke="#fff" strokeWidth="2.5" />
+          <circle cx={activeX} cy={activeY} r="5.5" fill="#10b981" stroke="#fff" strokeWidth="2.5" />
 
           {/* Dynamic Inverted Tooltip */}
           <g transform={`translate(${tooltipX}, ${Math.min(activeY, svgHeight - padBottom - 95)})`}>
             <rect width="185" height="92" rx="8" className="fill-slate-900/95 dark:fill-slate-800/95 shadow-xl" />
             <text x="12" y="20" className="text-[11px] font-bold fill-white">
-              Delta: {cur.deltaKcal > 0 ? `+${cur.deltaKcal}` : cur.deltaKcal} kcal / day
+              {cur.deltaKcal > 0 ? `+${cur.deltaKcal}` : cur.deltaKcal} kcal/day ({cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lb/wk)
             </text>
             <text x="12" y="38" className="text-[10px] fill-slate-300">
-              Weekly Rate: <tspan className="font-semibold fill-amber-400">{cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lbs ({cur.weeklyChangeKg > 0 ? `+${cur.weeklyChangeKg}` : cur.weeklyChangeKg} kg)</tspan>
+              Tier: <tspan className="font-semibold fill-amber-400">{cur.strategyTier.split(' ')[0]}</tspan>
             </text>
             <text x="12" y="54" className="text-[10px] fill-slate-300">
-              Adaptation Risk: <tspan className={cur.metabolicAdaptationRisk === 'High' ? 'fill-rose-400 font-bold' : cur.metabolicAdaptationRisk === 'Moderate' ? 'fill-amber-300' : 'fill-emerald-400'}>{cur.metabolicAdaptationRisk}</tspan>
+              Protein Target:
             </text>
-            <text x="12" y="69" className="text-[9.5px] fill-sky-300 font-mono">
-              Protein: {cur.proteinRecommendation.split('(')[0].trim()}
+            <text x="12" y="69" className="text-[9px] fill-emerald-400 font-mono">
+              {cur.proteinRecommendation}
             </text>
             <text x="12" y="83" className="text-[8.5px] fill-slate-400">
-              {cur.strategyTier}
+              Adaptation Risk: {cur.metabolicAdaptationRisk}
             </text>
           </g>
         </svg>
       </div>
 
-      {/* Clean wrap legend matching Screenshots 3 & 4 */}
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-600 dark:text-slate-400">
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-emerald-500" /> Conservative Deficit (-250 to -500 kcal)
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-amber-500" /> Moderate Deficit (-750 kcal)
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="size-2.5 rounded-full bg-rose-500" /> Aggressive / High Adaptation (-1,000 kcal)
-        </span>
+      {/* Selected Energy Balance Summary Card */}
+      <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3.5 sm:p-4 border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs w-full max-w-full">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1.5">
+            <span className="font-bold text-slate-900 dark:text-white uppercase tracking-wider text-[11px]">
+              {cur.deltaKcal > 0 ? `+${cur.deltaKcal}` : cur.deltaKcal} kcal/day: {cur.strategyTier}
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-100/90 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+              {cur.weeklyChangeLbs > 0 ? `+${cur.weeklyChangeLbs}` : cur.weeklyChangeLbs} lbs/week ({cur.weeklyChangeKg > 0 ? `+${cur.weeklyChangeKg}` : cur.weeklyChangeKg} kg)
+            </span>
+          </div>
+          <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed break-words">
+            {cur.clinicalGuidance}
+          </p>
+        </div>
+        <div className="shrink-0 flex items-center gap-2 sm:gap-3">
+          <div className="px-3 py-1.5 sm:py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+            <span className="text-[10px] text-slate-400 block">Protein Intake</span>
+            <span className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
+              {cur.proteinRecommendation.split(' ')[0]} g/kg
+            </span>
+          </div>
+          <div className="px-3 py-1.5 sm:py-2 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+            <span className="text-[10px] text-slate-400 block">Adaptation Risk</span>
+            <span className="font-bold text-amber-600 dark:text-amber-400 text-xs sm:text-sm">
+              {cur.metabolicAdaptationRisk}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
