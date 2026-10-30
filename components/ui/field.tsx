@@ -16,9 +16,9 @@ const affix =
 
 export function Label({ htmlFor, children, hint }: { htmlFor?: string; children: ReactNode; hint?: ReactNode }) {
   return (
-    <label htmlFor={htmlFor} className="mb-1.5 flex items-baseline justify-between gap-2 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
-      <span className="truncate">{children}</span>
-      {hint ? <span className="text-[11px] sm:text-xs font-normal text-slate-500 dark:text-slate-400 shrink-0">{hint}</span> : null}
+    <label htmlFor={htmlFor} className="mb-1.5 flex flex-wrap items-baseline justify-between gap-1.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+      <span className="break-words min-w-0 flex-1">{children}</span>
+      {hint ? <span className="text-[11px] sm:text-xs font-normal text-slate-500 dark:text-slate-400 shrink-0 ml-auto">{hint}</span> : null}
     </label>
   );
 }
