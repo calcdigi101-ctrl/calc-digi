@@ -191,7 +191,7 @@ export function NormalDistributionVisualizerChart() {
       </div>
 
       {/* Empirical Rule Summary Chips */}
-      <div className="grid grid-cols-3 gap-2.5 pt-2 text-center text-xs">
+      <div className="grid grid-cols-1 min-[360px]:grid-cols-3 gap-2.5 pt-2 text-center text-xs">
         <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
           <div className="font-bold text-slate-900 dark:text-white">68.27%</div>
           <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">μ ± 1σ [{mean - stdDev}, {mean + stdDev}]</div>

@@ -101,7 +101,7 @@ export default function BodyShapePage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Anthropometry &amp; Cardiometabolic Review:</span> Calibrated to the World Health Organization (WHO) STEPS surveillance manual, Female Figure Identification Technique (FFIT), and adipose tissue biology.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Epidemiological Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Epidemiological Standards</div>
         </div>
 
         {/* Section 1: Anthropometric Science */}

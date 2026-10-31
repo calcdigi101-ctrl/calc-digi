@@ -47,16 +47,10 @@ export default async function Page() {
           {featured && (
             <Link
               href={`/pages/blog/${featured.slug}`}
+              className="flex flex-col md:grid md:grid-cols-[1fr_200px] gap-6 md:gap-8 items-center p-6 md:p-9 mb-10 rounded-2xl border transition-all w-full max-w-full"
               style={{
                 background: "var(--c-accent-lt)",
-                border: "1.5px solid var(--c-rule)",
-                borderRadius: "var(--radius-xl)",
-                padding: "36px",
-                marginBottom: "40px",
-                display: "grid",
-                gridTemplateColumns: "1fr 200px",
-                gap: "32px",
-                alignItems: "center",
+                borderColor: "var(--c-rule)",
               }}
             >
               <div>

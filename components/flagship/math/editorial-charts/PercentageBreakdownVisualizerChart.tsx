@@ -215,7 +215,7 @@ export function PercentageBreakdownVisualizerChart() {
       </div>
 
       {/* Stats Breakdown Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+      <div className="grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
         <div>
           <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block">
             Selected Part

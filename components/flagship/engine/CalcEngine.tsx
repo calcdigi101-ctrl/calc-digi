@@ -444,7 +444,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         ) : (
           <>
             <div className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <p className="break-words max-w-full text-2xl sm:text-3xl md:text-4xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white">
+              <p className="break-words max-w-full text-2xl sm:text-3xl md:text-4xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white break-all [overflow-wrap:anywhere]">
                 {output.hero.value}
                 {output.hero.unit ? <span className="ml-1.5 text-base sm:text-lg font-semibold text-slate-500 dark:text-slate-400">{output.hero.unit}</span> : null}
               </p>
@@ -461,9 +461,13 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
             ) : null}
 
             {output.chart?.type === "donut" ? (
-              <div className="mt-5 grid items-center gap-5 sm:grid-cols-[180px_1fr] lg:grid-cols-1 xl:grid-cols-[180px_1fr]">
-                <DonutChart chart={output.chart} />
-                <ChartLegend chart={output.chart} />
+              <div className="mt-5 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full min-w-0">
+                <div className="shrink-0">
+                  <DonutChart chart={output.chart} />
+                </div>
+                <div className="w-full min-w-0 flex-1">
+                  <ChartLegend chart={output.chart} />
+                </div>
               </div>
             ) : output.chart ? (
               <div className="mt-5">
@@ -475,8 +479,8 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
               <dl className="mt-5 divide-y divide-slate-200 border-t border-slate-200 text-sm dark:divide-slate-800 dark:border-slate-800">
                 {(output.rows ?? output.secondary)!.map((r) => (
                   <div key={r.label} className="flex items-start justify-between gap-3 py-2.5">
-                    <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2">{r.label}</dt>
-                    <dd className={cn("text-right tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words max-w-[55%]", r.strong ? "font-bold" : "font-semibold")}>{r.value}</dd>
+                    <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2 break-words">{r.label}</dt>
+                    <dd className={cn("text-right tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words shrink-0 max-w-[50%]", r.strong ? "font-bold" : "font-semibold")}>{r.value}</dd>
                   </div>
                 ))}
               </dl>

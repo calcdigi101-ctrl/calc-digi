@@ -104,7 +104,7 @@ export default function FertilityPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Reproductive Endocrinology &amp; Infertility (REI) Review:</span> Calibrated to American Society for Reproductive Medicine (ASRM) Practice Committee Opinions and ESHRE ovarian reserve diagnostic criteria.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Reproductive Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Reproductive Standards</div>
         </div>
 
         {/* Section 1: The Bio-Mathematical Reality */}

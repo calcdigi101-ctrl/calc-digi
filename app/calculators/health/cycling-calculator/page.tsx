@@ -58,7 +58,7 @@ export default function CyclingPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Biomechanics & Aerodynamic Engineering Review:</span> Calibrated to Martin et al. (Journal of Applied Biomechanics) cycling power models and Andrew Coggan's power-duration profiling.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Kinematic Physics</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Kinematic Physics</div>
         </div>
 
         {/* Section 1: The Physics of Cycling */}

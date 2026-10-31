@@ -165,7 +165,7 @@ export function FractionRatioVisualizerChart() {
       </div>
 
       {/* 4 Interactive Metric Cards */}
-      <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+      <div className="mt-5 grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-4 gap-3 text-center">
         <div className="rounded-xl border border-slate-200/80 bg-white p-3.5 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
           <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             Fraction Form

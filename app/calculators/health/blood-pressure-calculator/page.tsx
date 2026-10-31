@@ -58,7 +58,7 @@ export default function BloodPressurePage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Cardiology & Hemodynamic Review:</span> Formulated under American College of Cardiology / American Heart Association (ACC/AHA) 2017 High Blood Pressure Clinical Practice Guidelines.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Clinical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Clinical Standards</div>
         </div>
 
         {/* Section 1: Clinical Definition & The 2017 Guideline Shift */}

@@ -26,11 +26,11 @@ export function CalculatorPage({
               <li key={c.label} className="flex items-center gap-1">
                 {i > 0 ? <ChevronRight aria-hidden className="size-3.5" /> : null}
                 {c.href ? (
-                  <a href={c.href} className="hover:text-emerald-600 hover:underline dark:hover:text-emerald-400">
+                  <a href={c.href} className="inline-flex items-center min-h-[36px] py-1 px-1 hover:text-emerald-600 hover:underline dark:hover:text-emerald-400">
                     {c.label}
                   </a>
                 ) : (
-                  <span aria-current="page" className="text-slate-700 dark:text-slate-300">
+                  <span aria-current="page" className="inline-flex items-center min-h-[36px] py-1 px-1 text-slate-700 dark:text-slate-300">
                     {c.label}
                   </span>
                 )}
@@ -54,9 +54,9 @@ export function CalculatorPage({
  */
 export function ToolGrid({ form, result }: { form: ReactNode; result: ReactNode }) {
   return (
-    <div className="mt-6 grid gap-6 md:grid-cols-12 md:items-start">
-      <div className="md:col-span-7">{form}</div>
-      <div className="md:sticky md:top-24 md:col-span-5">{result}</div>
+    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
+      <div className="lg:col-span-7">{form}</div>
+      <div className="lg:sticky lg:top-24 lg:col-span-5">{result}</div>
     </div>
   );
 }
@@ -101,7 +101,7 @@ export function DataTable({ head, rows, highlight }: { head: string[]; rows: Rea
         </span>
       </div>
       <div className="overflow-x-auto scrollbar-thin w-full max-w-full min-w-0">
-        <table className="w-full min-w-[560px] text-left text-sm border-collapse">
+        <table className="w-full min-w-[680px] text-left text-sm border-collapse">
           <thead className="bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-800">
             <tr>
               {head.map((h, colIdx) => (

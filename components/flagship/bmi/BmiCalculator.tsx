@@ -307,22 +307,22 @@ export function BmiCalculator() {
 
           <dl className="mt-5 divide-y divide-slate-200 text-sm dark:divide-slate-800">
             <div className="flex items-center justify-between gap-4 py-2.5">
-              <dt className="text-slate-600 dark:text-slate-400">Healthy BMI range</dt>
-              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{`${HEALTHY_MIN} – ${HEALTHY_MAX} kg/m²`}</dd>
+              <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2 break-words">Healthy BMI range</dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words shrink-0 max-w-[50%]">{`${HEALTHY_MIN} – ${HEALTHY_MAX} kg/m²`}</dd>
             </div>
             <div className="flex items-center justify-between gap-4 py-2.5">
-              <dt className="text-slate-600 dark:text-slate-400">Healthy weight for your height</dt>
-              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{`${weightLabel(result.healthyKg[0])} – ${weightLabel(result.healthyKg[1])}`}</dd>
+              <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2 break-words">Healthy weight for your height</dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words shrink-0 max-w-[50%]">{`${weightLabel(result.healthyKg[0])} – ${weightLabel(result.healthyKg[1])}`}</dd>
             </div>
             <div className="flex items-center justify-between gap-4 py-2.5">
-              <dt className="text-slate-600 dark:text-slate-400">
+              <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2 break-words">
                 {result.deltaToHealthyKg === 0
                   ? "Distance to healthy range"
                   : result.deltaToHealthyKg < 0
                     ? `Lose to reach BMI ${HEALTHY_MAX}`
                     : `Gain to reach BMI ${HEALTHY_MIN}`}
               </dt>
-              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words shrink-0 max-w-[50%]">
                 {result.deltaToHealthyKg === 0 ? "Within range" : weightLabel(Math.abs(result.deltaToHealthyKg))}
               </dd>
             </div>
@@ -331,14 +331,14 @@ export function BmiCalculator() {
                 BMI Prime
                 <InfoTooltip text="Ratio of your BMI to the upper healthy limit (25). Values from 0.74 to 1.00 indicate a healthy weight." />
               </dt>
-              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{fmt(result.prime, 2)}</dd>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words shrink-0 max-w-[50%]">{fmt(result.prime, 2)}</dd>
             </div>
             <div className="flex items-center justify-between gap-4 py-2.5">
               <dt className="flex items-center text-slate-600 dark:text-slate-400">
                 Ponderal Index
                 <InfoTooltip text="Height-cubed index (weight ÷ height³) that scales more accurately for very tall or very short people." />
               </dt>
-              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{`${fmt(result.ponderal)} kg/m³`}</dd>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words shrink-0 max-w-[50%]">{`${fmt(result.ponderal)} kg/m³`}</dd>
             </div>
           </dl>
 

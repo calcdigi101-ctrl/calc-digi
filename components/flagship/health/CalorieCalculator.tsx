@@ -279,7 +279,7 @@ export function CalorieCalculator() {
                             setUnit("metric");
                           }
                         }}
-                        className="bg-transparent font-medium text-xs text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
+                        className="bg-transparent font-medium text-xs sm:text-sm text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 focus:outline-none focus:ring-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
                       >
                         <option value="us">lbs</option>
                         <option value="metric">kg</option>
@@ -335,7 +335,7 @@ export function CalorieCalculator() {
                             setUnit("us");
                           }
                         }}
-                        className="bg-transparent font-medium text-xs text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
+                        className="bg-transparent font-medium text-xs sm:text-sm text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 focus:outline-none focus:ring-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
                       >
                         <option value="metric">kg</option>
                         <option value="us">lbs</option>
@@ -391,15 +391,15 @@ export function CalorieCalculator() {
                       : "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:border-slate-300"
                   }`}
                 >
-                  <div className="text-xs sm:text-sm font-bold text-center leading-snug">{g.label}</div>
-                  <div className="text-[11px] text-slate-400 mt-1 text-center font-medium">{g.sub}</div>
+                  <div className="text-xs sm:text-sm font-bold text-center leading-snug w-full">{g.label}</div>
+                  <div className="text-xs text-slate-400 mt-1 text-center font-medium w-full">{g.sub}</div>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Calculate Button */}
-          <div className="pt-2 sm:pt-3">
+          <div className="pt-4 sm:pt-5">
             <button
               type="button"
               onClick={() => {

@@ -116,7 +116,7 @@ export default function PregnancyDueDatePage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Obstetrics &amp; Maternal-Fetal Medicine Review:</span> Calibrated to the American College of Obstetricians and Gynecologists (ACOG Committee Opinion No. 700), Naegele&apos;s Rule, and Hadlock biometry standards.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Clinical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Clinical Standards</div>
         </div>
 
         {/* Section 1: The Chronobiology of Gestation */}

@@ -289,7 +289,7 @@ export function SquareFootageGlaChart() {
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="size-2.5 shrink-0 rounded-full" style={{ backgroundColor: cat.color }} />
-                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-tight">
+                  <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white leading-tight break-words min-w-0">
                     {cat.name}
                   </h4>
                 </div>

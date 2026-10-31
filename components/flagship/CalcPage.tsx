@@ -39,6 +39,7 @@ export function CalcPage({
   const publisher = {
     "@type": "Organization",
     name: "CalcDigi",
+    alternateName: ["CalcDigi", "Calc Digi"],
     url: `${SITE_URL}/`,
     logo: {
       "@type": "ImageObject",

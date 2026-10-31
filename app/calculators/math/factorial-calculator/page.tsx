@@ -168,7 +168,7 @@ export default function Page() {
           </p>
           <Formula>Z = ⌊30 ÷ 5⌋ + ⌊30 ÷ 25⌋ = 6 + 1 = 7 trailing zeros</Formula>
           <p>
-            Evaluating 30! confirms this result: 30! = 265,252,859,812,191,058,636,308,480,000,000, terminating in exactly seven zeros.
+<p className="break-words [overflow-wrap:anywhere]">            Evaluating 30! confirms this result: 30! = 265,252,859,812,191,058,636,308,480,000,000, terminating in exactly seven zeros.</p>
           </p>
 
           <h2>Factorial Magnitudes Across Scientific Domains</h2>

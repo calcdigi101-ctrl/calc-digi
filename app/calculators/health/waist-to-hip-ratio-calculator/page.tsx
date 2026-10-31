@@ -92,7 +92,7 @@ export default function WaistToHipRatioPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Cardiovascular Epidemiology Review:</span> Calibrated to World Health Organization (WHO) Technical Report Series 916 and the 52-nation INTERHEART trial standards (Lancet).
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Epidemiological Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Epidemiological Standards</div>
         </div>
 
         {/* Section 1: The INTERHEART Landmark Trial */}

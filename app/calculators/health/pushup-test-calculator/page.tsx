@@ -63,7 +63,7 @@ export default function PushupTestPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Kinesiology & Physical Readiness Review:</span> Calibrated to the American College of Sports Medicine (ACSM 11th Edition) Health-Related Physical Fitness Testing manual and Harvard Chan School of Public Health clinical studies.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Epidemiological Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Epidemiological Standards</div>
         </div>
 
         {/* Section 1: Muscular Endurance Definition */}

@@ -109,7 +109,7 @@ export default function IntermittentFastingPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Endocrinology &amp; Circadian Biology Review:</span> Calibrated to Salk Institute time-restricted eating models (Panda Lab), Yoshinori Ohsumi Nobel autophagy pathways, and AMPK/mTOR metabolic signaling.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Scientific Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Scientific Standards</div>
         </div>
 
         {/* Section 1: The Bioenergetic Switch */}

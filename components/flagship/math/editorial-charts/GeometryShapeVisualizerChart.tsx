@@ -205,7 +205,7 @@ export function GeometryShapeVisualizerChart() {
         )}
 
         {shape === "line" && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
               <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-300">Point 1 (x₁): {x1}</label>
               <input
@@ -415,7 +415,7 @@ export function GeometryShapeVisualizerChart() {
       </div>
 
       {/* 4 Dynamic Output Metric Cards */}
-      <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+      <div className="mt-5 grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-4 gap-3 text-center">
         {shape === "triangle" && (
           <>
             <div className="rounded-xl border border-slate-200/80 bg-white p-3.5 dark:border-slate-800 dark:bg-slate-900 shadow-sm">

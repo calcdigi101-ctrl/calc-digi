@@ -59,7 +59,7 @@ export default function Vo2MaxPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Cardiorespiratory & Exercise Physiology Review:</span> Calibrated to American College of Sports Medicine (ACSM 11th Edition) Guidelines and American Heart Association (AHA) Scientific Statements.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Clinical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Clinical Standards</div>
         </div>
 
         {/* Section 1: Clinical Definition & Fick Equation */}

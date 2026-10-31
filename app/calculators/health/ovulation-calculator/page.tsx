@@ -93,7 +93,7 @@ export default function OvulationPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Reproductive Endocrinology Review:</span> Calibrated to American Society for Reproductive Medicine (ASRM) guidelines, Wilcox fertile window data (NEJM), and WHO fertility awareness standards.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Clinical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Clinical Standards</div>
         </div>
 
         {/* Section 1: The Six-Day Window */}

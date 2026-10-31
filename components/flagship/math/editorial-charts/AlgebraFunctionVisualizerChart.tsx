@@ -238,7 +238,7 @@ export function AlgebraFunctionVisualizerChart() {
         )}
 
         {mode === "matrix" && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-4 gap-3">
             <div>
               <label className="text-[11px] font-semibold text-slate-600 dark:text-slate-300">a₁₁: {m11}</label>
               <input
@@ -385,7 +385,7 @@ export function AlgebraFunctionVisualizerChart() {
       </div>
 
       {/* 4 Dynamic Output Metric Cards */}
-      <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+      <div className="mt-5 grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-4 gap-3 text-center">
         {mode === "quadratic" && (
           <>
             <div className="rounded-xl border border-slate-200/80 bg-white p-3.5 dark:border-slate-800 dark:bg-slate-900 shadow-sm">
