@@ -294,7 +294,7 @@ export function CountryDemographicDensityChart() {
             <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 leading-tight block">
               {cur.densityTier.split(' ')[0]}
             </span>
-            <span className="text-[10px] text-slate-400 block truncate">{cur.densityTier}</span>
+            <span className="text-[10px] text-slate-400 block break-words">{cur.densityTier}</span>
           </div>
         </div>
       </div>

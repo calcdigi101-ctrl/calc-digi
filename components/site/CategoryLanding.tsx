@@ -92,6 +92,26 @@ export function CategoryLanding({ id, children }: { id: CategoryId; children?: R
             <em>Calculators</em>
           </h1>
           <p className="cat-page-sub">{description}</p>
+
+          {/* 4 Clean Stat Counters */}
+          <div className="flex items-center justify-center gap-6 sm:gap-12 flex-wrap pt-6 mt-6 border-t border-slate-200/80 dark:border-slate-800">
+            <div className="text-center min-w-[70px]">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">{count}</div>
+              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Calculators</div>
+            </div>
+            <div className="text-center min-w-[70px]">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">100%</div>
+              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Free</div>
+            </div>
+            <div className="text-center min-w-[70px]">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">0</div>
+              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Sign-Up</div>
+            </div>
+            <div className="text-center min-w-[70px]">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">Fast</div>
+              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Instant Results</div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -103,11 +123,11 @@ export function CategoryLanding({ id, children }: { id: CategoryId; children?: R
           <p className="cat-section-sub">Pick a calculator to get started. No registration required.</p>
           <div className="calc-grid">
             {cat.calculators.map((c) => (
-              <a key={c.href} href={c.href} className="cat-card">
-                <div className="cat-card-icon" aria-hidden>
+              <a key={c.href} href={c.href} className="cat-card group">
+                <div className="cat-card-icon group-hover:scale-105 transition-transform" aria-hidden>
                   {c.icon}
                 </div>
-                <div className="cat-card-name">{c.name}</div>
+                <div className="cat-card-name group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{c.name}</div>
               </a>
             ))}
           </div>

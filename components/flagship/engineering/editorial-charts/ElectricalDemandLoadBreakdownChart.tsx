@@ -207,7 +207,7 @@ export function ElectricalDemandLoadBreakdownChart() {
         </div>
         <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-800/60">
           <p className="text-xs text-slate-500 dark:text-slate-400">Service Conductor</p>
-          <p className="mt-1 text-xs font-bold text-slate-800 dark:text-slate-200 truncate" title={active.wireGauge}>
+          <p className="mt-1 text-xs font-bold text-slate-800 dark:text-slate-200 break-words" title={active.wireGauge}>
             {active.wireGauge}
           </p>
         </div>

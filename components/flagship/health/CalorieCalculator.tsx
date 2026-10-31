@@ -279,7 +279,8 @@ export function CalorieCalculator() {
                             setUnit("metric");
                           }
                         }}
-                        className="bg-transparent font-medium text-xs sm:text-sm text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 focus:outline-none focus:ring-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
+                        style={{ border: "none", outline: "none", background: "transparent", boxShadow: "none" }}
+                        className="bg-transparent font-medium text-xs sm:text-sm text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 ring-0 shadow-none focus:outline-none focus:ring-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
                       >
                         <option value="us">lbs</option>
                         <option value="metric">kg</option>
@@ -335,7 +336,8 @@ export function CalorieCalculator() {
                             setUnit("us");
                           }
                         }}
-                        className="bg-transparent font-medium text-xs sm:text-sm text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 focus:outline-none focus:ring-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
+                        style={{ border: "none", outline: "none", background: "transparent", boxShadow: "none" }}
+                        className="bg-transparent font-medium text-xs sm:text-sm text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 cursor-pointer outline-none border-0 ring-0 shadow-none focus:outline-none focus:ring-0 py-1 pl-1 pr-3.5 appearance-none transition-colors"
                       >
                         <option value="metric">kg</option>
                         <option value="us">lbs</option>

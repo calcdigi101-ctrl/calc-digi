@@ -211,7 +211,7 @@ export function WeightLossTrajectoryChart() {
         </div>
         <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
           <div className="text-[10px] text-slate-500 font-medium">Physiological State</div>
-          <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">{activePoint.phase}</div>
+          <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 break-words leading-tight">{activePoint.phase}</div>
         </div>
       </div>
     </div>
