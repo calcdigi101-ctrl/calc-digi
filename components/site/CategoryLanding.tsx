@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { categoryPath, getCategory, type CategoryId } from "@/lib/calculators";
+import { CATEGORIES, categoryPath, getCategory, type CategoryId } from "@/lib/calculators";
+import { CategoryInteractiveGrid } from "@/components/site/CategoryInteractiveGrid";
 import { SITE_URL } from "@/lib/site";
 
 /** Short topic list per category; counts and names always come from lib/calculators. */
@@ -121,16 +122,12 @@ export function CategoryLanding({ id, children }: { id: CategoryId; children?: R
         <div className="container">
           <h2 className="cat-section-title">All {cat.label} Calculators</h2>
           <p className="cat-section-sub">Pick a calculator to get started. No registration required.</p>
-          <div className="calc-grid">
-            {cat.calculators.map((c) => (
-              <a key={c.href} href={c.href} className="cat-card group">
-                <div className="cat-card-icon group-hover:scale-105 transition-transform" aria-hidden>
-                  {c.icon}
-                </div>
-                <div className="cat-card-name group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">{c.name}</div>
-              </a>
-            ))}
-          </div>
+          
+          <CategoryInteractiveGrid
+            currentCategoryId={id}
+            category={cat}
+            allCategories={CATEGORIES}
+          />
         </div>
       </section>
     </main>
