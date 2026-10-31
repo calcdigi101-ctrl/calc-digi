@@ -200,7 +200,7 @@ export function MetActivitySpectrumChart() {
       <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
         <div className="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30">
           <div className="text-[10px] text-slate-500 font-medium">Activity</div>
-          <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 truncate">{activePoint.name}</div>
+          <div className="text-xs font-bold text-emerald-700 dark:text-emerald-400 break-words leading-tight">{activePoint.name}</div>
         </div>
         <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
           <div className="text-[10px] text-slate-500 font-medium">MET Intensity</div>

@@ -256,7 +256,7 @@ export function SlopeGradeAngleElevationChart() {
             <span className="text-xs font-bold text-blue-600 dark:text-blue-400 leading-tight block">
               {cur.engineeringStandard.split(' ')[0]}
             </span>
-            <span className="text-[10px] text-slate-400 block truncate">{cur.engineeringStandard}</span>
+            <span className="text-[10px] text-slate-400 block break-words">{cur.engineeringStandard}</span>
           </div>
         </div>
 

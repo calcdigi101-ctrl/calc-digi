@@ -71,7 +71,7 @@ export function FenceDurabilityCostChart() {
               </p>
               <div className="mt-2 text-xs space-y-1 text-slate-600 dark:text-slate-300">
                 <p>Lifespan: <span className="font-semibold text-emerald-600 dark:text-emerald-400">{mat.lifespan} Yrs</span></p>
-                <p className="text-[11px] text-slate-500 truncate" title={mat.maintenance}>{mat.maintenance}</p>
+                <p className="text-[11px] text-slate-500 break-words" title={mat.maintenance}>{mat.maintenance}</p>
               </div>
             </div>
           );

@@ -198,7 +198,7 @@ export function ThermalConductivityResistanceChart() {
         </div>
         <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-800/60">
           <p className="text-xs text-slate-500 dark:text-slate-400">Material Category</p>
-          <p className="mt-1 text-xs font-bold text-slate-900 dark:text-white truncate" title={active.category}>
+          <p className="mt-1 text-xs font-bold text-slate-900 dark:text-white break-words" title={active.category}>
             {active.category}
           </p>
         </div>

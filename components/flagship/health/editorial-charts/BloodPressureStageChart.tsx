@@ -257,7 +257,7 @@ export function BloodPressureStageChart() {
         </div>
         <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
           <div className="text-[10px] text-slate-500 font-medium">Clinical Category</div>
-          <div className="text-sm font-bold truncate" style={{ color: activePoint.color }}>{activePoint.stage}</div>
+          <div className="text-sm font-bold break-words leading-tight" style={{ color: activePoint.color }}>{activePoint.stage}</div>
         </div>
         <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
           <div className="text-[10px] text-slate-500 font-medium">MAP Perfusion</div>
@@ -265,7 +265,7 @@ export function BloodPressureStageChart() {
         </div>
         <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
           <div className="text-[10px] text-slate-500 font-medium">Clinical Pathway</div>
-          <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">{activePoint.action}</div>
+          <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 break-words leading-snug">{activePoint.action}</div>
         </div>
       </div>
     </div>

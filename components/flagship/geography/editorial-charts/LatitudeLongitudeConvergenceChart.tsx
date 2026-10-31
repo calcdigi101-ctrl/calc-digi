@@ -256,14 +256,14 @@ export function LatitudeLongitudeConvergenceChart() {
             <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 leading-tight block">
               {cur.label}
             </span>
-            <span className="text-[10px] text-slate-400 block truncate">{cur.parallelName}</span>
+            <span className="text-[10px] text-slate-400 block break-words">{cur.parallelName}</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
           <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Sample Regional Anchor</span>
           <div className="mt-1">
-            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 leading-tight block truncate">
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 leading-tight block break-words">
               {cur.representativeCity.split('/')[0]}
             </span>
             <span className="text-[10px] text-slate-400 block">Typical latitude location</span>

@@ -254,17 +254,17 @@ export function CartographicScaleDetailSpectrumChart() {
             <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 leading-tight block">
               {cur.km2PerCm2 >= 1 ? `${cur.km2PerCm2} km²` : `${(cur.km2PerCm2 * 100).toFixed(1)} ha`}
             </span>
-            <span className="text-[10px] text-slate-400 block truncate">Quadratic ground area</span>
+            <span className="text-[10px] text-slate-400 block break-words">Quadratic ground area</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40">
           <span className="block text-[11px] font-medium text-slate-500 dark:text-slate-400">Scale Tier</span>
           <div className="mt-1">
-            <span className="text-xs font-bold text-blue-600 dark:text-blue-400 leading-tight block truncate">
+            <span className="text-xs font-bold text-blue-600 dark:text-blue-400 leading-tight block break-words">
               {cur.category.split(' ')[0]}
             </span>
-            <span className="text-[10px] text-slate-400 block truncate">{cur.category}</span>
+            <span className="text-[10px] text-slate-400 block break-words">{cur.category}</span>
           </div>
         </div>
       </div>

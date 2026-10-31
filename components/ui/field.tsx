@@ -16,9 +16,9 @@ const affix =
 
 export function Label({ htmlFor, children, hint }: { htmlFor?: string; children: ReactNode; hint?: ReactNode }) {
   return (
-    <label htmlFor={htmlFor} className="mb-1.5 flex flex-wrap items-baseline justify-between gap-1.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
-      <span className="break-words min-w-0 flex-1">{children}</span>
-      {hint ? <span className="text-[11px] sm:text-xs font-normal text-slate-500 dark:text-slate-400 shrink-0 ml-auto">{hint}</span> : null}
+    <label htmlFor={htmlFor} className="mb-1.5 flex flex-col gap-0.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+      <span className="break-words min-w-0">{children}</span>
+      {hint ? <span className="text-xs font-normal text-slate-500 dark:text-slate-400 break-words leading-snug">{hint}</span> : null}
     </label>
   );
 }
@@ -72,7 +72,7 @@ export function NumberField({ id, label, hint, prefix, suffix, unitDropdown, err
           step="any"
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="w-full min-w-0 flex-1 border-0 border-none bg-transparent px-2.5 sm:px-3 text-sm sm:text-base tabular-nums text-slate-900 outline-none focus:outline-none focus:ring-0 placeholder:text-slate-400 dark:text-slate-100 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+          className="w-full min-w-0 flex-1 border-0 border-none bg-transparent px-2.5 sm:px-3 text-base sm:text-sm tabular-nums text-slate-900 outline-none focus:outline-none focus:ring-0 placeholder:text-slate-400 dark:text-slate-100 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           {...props}
         />
         {unitDropdown ? (
@@ -81,7 +81,8 @@ export function NumberField({ id, label, hint, prefix, suffix, unitDropdown, err
               aria-label={unitDropdown.ariaLabel || "Select measurement unit"}
               value={unitDropdown.value}
               onChange={(e) => unitDropdown.onChange(e.target.value)}
-              className="h-full cursor-pointer appearance-none bg-transparent py-0 pl-2 sm:pl-2.5 pr-5 sm:pr-5.5 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-300 outline-none border-0 ring-0 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              style={{ border: "none", outline: "none", background: "transparent", boxShadow: "none" }}
+              className="h-full cursor-pointer appearance-none bg-transparent py-0 pl-2 sm:pl-2.5 pr-5 sm:pr-5.5 text-base sm:text-sm font-medium text-slate-600 dark:text-slate-300 outline-none border-0 ring-0 shadow-none hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
             >
               {unitDropdown.options.map((opt) => (
                 <option key={opt.value} value={opt.value} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-medium">
