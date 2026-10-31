@@ -1,1 +1,1 @@
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://calcdigi.com";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.calcdigi.com";
