@@ -56,6 +56,9 @@ export function Footer() {
                 <span className="font-serif font-bold text-lg sm:text-xl text-slate-900 dark:text-white tracking-tight">
                   Calc<span className="text-emerald-700 dark:text-emerald-400">Digi</span>
                 </span>
+                <span className="text-xs sm:text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
+                  Verified
+                </span>
               </div>
 
               <p className="text-xs sm:text-[13px] text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
