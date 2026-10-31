@@ -94,22 +94,22 @@ export function CategoryLanding({ id, children }: { id: CategoryId; children?: R
           <p className="cat-page-sub">{description}</p>
 
           {/* 4 Clean Stat Counters */}
-          <div className="flex items-center justify-center gap-6 sm:gap-12 flex-wrap pt-6 mt-6 border-t border-slate-200/80 dark:border-slate-800">
-            <div className="text-center min-w-[70px]">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">{count}</div>
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Calculators</div>
+          <div className="grid grid-cols-4 sm:flex sm:justify-center gap-1.5 sm:gap-12 pt-4 mt-4 sm:pt-6 sm:mt-6 border-t border-slate-200/80 dark:border-slate-800">
+            <div className="text-center min-w-0">
+              <div className="font-serif text-lg sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">{count}</div>
+              <div className="text-xs sm:text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5 sm:mt-1 truncate">Calculators</div>
             </div>
-            <div className="text-center min-w-[70px]">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">100%</div>
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Free</div>
+            <div className="text-center min-w-0">
+              <div className="font-serif text-lg sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">100%</div>
+              <div className="text-xs sm:text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5 sm:mt-1 truncate">Free</div>
             </div>
-            <div className="text-center min-w-[70px]">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">0</div>
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Sign-Up</div>
+            <div className="text-center min-w-0">
+              <div className="font-serif text-lg sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">0</div>
+              <div className="text-xs sm:text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5 sm:mt-1 truncate">Sign-Up</div>
             </div>
-            <div className="text-center min-w-[70px]">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">Fast</div>
-              <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-1">Instant Results</div>
+            <div className="text-center min-w-0">
+              <div className="font-serif text-lg sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">Fast</div>
+              <div className="text-xs sm:text-[11px] font-semibold text-slate-500 uppercase tracking-wider mt-0.5 sm:mt-1 truncate">Results</div>
             </div>
           </div>
         </div>
