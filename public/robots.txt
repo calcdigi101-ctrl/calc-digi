@@ -36,6 +36,6 @@ User-agent: Bytespider
 Allow: /
 
 # Sitemaps & Machine-Readable Feeds
-Sitemap: https://calcdigi.com/sitemap.xml
-llms-txt: https://calcdigi.com/llms.txt
-llms-full-txt: https://calcdigi.com/llms-full.txt
+Sitemap: https://www.calcdigi.com/sitemap.xml
+llms-txt: https://www.calcdigi.com/llms.txt
+llms-full-txt: https://www.calcdigi.com/llms-full.txt
