@@ -67,7 +67,7 @@ export default function OneRepMaxPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Clinical & Physiological Review:</span> Formulated under National Strength and Conditioning Association (NSCA) Guidelines and ACSM Exercise Testing Standards.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Scientific Precision</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Scientific Precision</div>
         </div>
 
         {/* Section 1: Clinical Definition & Why 1RM Testing Matters */}
@@ -85,11 +85,11 @@ export default function OneRepMaxPage() {
 
         {/* Section 2: Interactive Editorial Graph #2 */}
         <section className="space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
               Interactive Benchmark: Repetition Fatigue & Load Decay Curve
             </h2>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400">
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 whitespace-nowrap self-start sm:self-auto">
               Live NSCA Model
             </span>
           </div>

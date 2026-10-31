@@ -60,7 +60,7 @@ export default function PaceCalculatorPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Exercise Physiology & Kinesiology Review:</span> Formulated under USA Track & Field (USATF) race measurement standards and Jack Daniels' VDOT coaching principles.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Kinematic Models</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Kinematic Models</div>
         </div>
 
         {/* Section 1: Definition & The Physiology of Pacing */}

@@ -58,7 +58,7 @@ export default function StepsToCaloriesPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Occupational Kinesiology & NEAT Review:</span> Calibrated to Tudor-Locke physical activity classification indices and the Compendium of Physical Activities walking MET standards.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Epidemiological Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Epidemiological Standards</div>
         </div>
 
         {/* Section 1: Non-Exercise Activity Thermogenesis (NEAT) */}

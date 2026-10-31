@@ -63,7 +63,7 @@ export default function CalorieBurnPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Exercise Metabolism & Calorimetry Review:</span> Standardized against the 2024 Compendium of Physical Activities (Ainsworth et al., Medicine & Science in Sports & Exercise).
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Peer-Reviewed MET Data</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Peer-Reviewed MET Data</div>
         </div>
 
         {/* Section 1: Definition of MET & Calorimetry */}

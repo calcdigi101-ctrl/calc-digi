@@ -100,7 +100,7 @@ export default function WaistToHeightRatioPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Cardiometabolic &amp; Longevity Review:</span> Calibrated to Dr. Margaret Ashwell&apos;s meta-analytic standards (Ashwell et al., 2012) and the UK National Institute for Health and Care Excellence (NICE guideline CG189).
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Peer-Reviewed Clinical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Peer-Reviewed Clinical Standards</div>
         </div>
 
         {/* Section 1: The Ashwell Paradigm */}

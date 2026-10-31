@@ -211,7 +211,7 @@ function MonthYear({
             aria-label={`${label} month`}
             value={month}
             onChange={(e) => onMonth(e.target.value)}
-            className="w-full bg-transparent text-sm font-medium text-slate-900 outline-none dark:text-slate-100"
+            className="w-full appearance-none border-0 bg-transparent text-base sm:text-sm font-medium text-slate-900 outline-none cursor-pointer dark:text-slate-100 dark:bg-slate-950"
           >
             {MONTHS.map((name, i) => (
               <option key={name} value={String(i + 1).padStart(2, "0")} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
@@ -226,7 +226,7 @@ function MonthYear({
             aria-label={`${label} year`}
             value={year}
             onChange={(e) => onYear(e.target.value)}
-            className="w-full bg-transparent text-sm font-medium text-slate-900 outline-none dark:text-slate-100"
+            className="w-full appearance-none border-0 bg-transparent text-base sm:text-sm font-medium text-slate-900 outline-none cursor-pointer dark:text-slate-100 dark:bg-slate-950"
           >
             {years.map((y) => (
               <option key={y} value={y} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
@@ -481,7 +481,7 @@ export function MortgageCalculator() {
 
       {/* Down payment Input + Live Range Slider */}
       <fieldset className="min-w-0">
-        <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center">
+        <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 flex flex-wrap items-center gap-1">
           Down payment
           <InfoTooltip text="Cash you pay upfront. 20% or more eliminates Private Mortgage Insurance (PMI)." />
         </legend>
@@ -620,8 +620,8 @@ export function MortgageCalculator() {
         defaultOpen
       >
         <div>
-          <div className="mb-1.5 flex items-center justify-between gap-2">
-            <label htmlFor="mc-tax" className="text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center">
+          <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2">
+            <label htmlFor="mc-tax" className="text-sm font-medium text-slate-700 dark:text-slate-300 flex flex-wrap items-center gap-1">
               Property tax (per year)
               <InfoTooltip text="Local county/state tax on the assessed home value (typically 0.5% - 2.2% annually)." />
             </label>
@@ -655,7 +655,7 @@ export function MortgageCalculator() {
           <NumberField 
             id="mc-ins" 
             label={
-              <span className="flex items-center">
+              <span className="flex flex-wrap items-center gap-1">
                 Homeowners insurance
                 <InfoTooltip text="Annual insurance protecting against property loss, fire, and casualty." />
               </span>
@@ -791,8 +791,8 @@ export function MortgageCalculator() {
               : []),
           ].map(([k, v]) => (
             <div key={k} className="flex items-center justify-between gap-4 py-2.5">
-              <dt className="text-slate-600 dark:text-slate-400">{k}</dt>
-              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100">{v}</dd>
+              <dt className="text-slate-600 dark:text-slate-400 leading-snug flex-1 min-w-0 pr-2 break-words">{k}</dt>
+              <dd className="text-right font-semibold tabular-nums text-slate-900 dark:text-slate-100 leading-snug break-words shrink-0 max-w-[50%]">{v}</dd>
             </div>
           ))}
         </dl>

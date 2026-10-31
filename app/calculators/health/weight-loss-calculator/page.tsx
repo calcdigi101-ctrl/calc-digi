@@ -57,7 +57,7 @@ export default function WeightLossPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Endocrine & Obesity Medicine Review:</span> Calibrated against National Institutes of Health (NIH) mathematical models of human metabolism and The Obesity Society clinical guidelines.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Clinical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Clinical Standards</div>
         </div>
 
         {/* Section 1: The Bioenergetics of Fat Loss */}

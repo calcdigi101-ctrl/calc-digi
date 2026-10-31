@@ -86,7 +86,7 @@ export default function BraSizePage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Ergonomics &amp; Breast Biomechanics Review:</span> Calibrated to University of Portsmouth Breast Health research protocols, modern snug-band standards, and ISO 13402 garment anthropometrics.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Biomechanical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Biomechanical Standards</div>
         </div>
 
         <section className="space-y-4">

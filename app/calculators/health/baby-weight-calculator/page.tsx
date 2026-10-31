@@ -81,7 +81,7 @@ export default function BabyWeightPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Pediatric Review &amp; Methodology:</span> Calibrated to World Health Organization (WHO) Child Growth Standards (Multicentre Growth Reference Study) and AAP clinical guidelines for ages 0–24 months.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Pediatric Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Pediatric Standards</div>
         </div>
 
         <section className="space-y-4">

@@ -36,12 +36,12 @@ export function LifeStageChronologicalDistributionChart() {
       </p>
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 25 }}>
+          <BarChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 35 }}>
             <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
             <XAxis dataKey="stage" angle={-15} textAnchor="end" interval={0} height={45} tick={{ fontSize: 11 }} />
             <YAxis label={{ value: "Span (Years)", angle: -90, position: "insideLeft", offset: 10 }} />
             <Tooltip />
-            <Legend />
+            <Legend verticalAlign="top" wrapperStyle={{ paddingBottom: 12 }} />
             <Bar dataKey="years" name="Duration (Years)" fill="#10b981" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>

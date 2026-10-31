@@ -180,7 +180,7 @@ export default function MapScalePage() {
             In modern GIS and web cartography (Google Maps, OpenStreetMap, Mapbox, ArcGIS Online), scale behaves dynamically through <strong>tiled pyramid zoom levels</strong> ($z = 0$ to $22$). At zoom level 0, the entire planet is rendered onto a single 256×256-pixel tile, resulting in an equatorial ground resolution of approximately 156,543 meters per pixel. With each successive zoom integer, the scale doubles and the pixel ground distance is halved:
           </p>
           <div className="overflow-x-auto my-4">
-            <table className="w-full text-left text-sm border-collapse border border-slate-200 dark:border-slate-800">
+            <table className="w-full min-w-[600px] text-left text-sm border-collapse border border-slate-200 dark:border-slate-800">
               <thead className="bg-slate-100 dark:bg-slate-800/60 font-semibold text-slate-900 dark:text-slate-100">
                 <tr>
                   <th className="p-3 border border-slate-200 dark:border-slate-800">Zoom Level</th>

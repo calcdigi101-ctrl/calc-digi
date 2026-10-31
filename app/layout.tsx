@@ -9,8 +9,19 @@ import "./flagship.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "CalcDigi – Free Online Calculators",
-  description: "Free, accurate online calculators for health, finance, math and more. No sign-up required.",
+  title: {
+    default: "CalcDigi – Free Online Calculators",
+    template: "%s | CalcDigi",
+  },
+  description: "CalcDigi (Calc Digi) offers 341+ free, instant, and accurate online calculators for health, finance, fitness, math, and everyday precision tools. No sign-up required.",
+  openGraph: {
+    siteName: "CalcDigi",
+    images: [{ url: "/icon.svg", width: 512, height: 512, alt: "CalcDigi" }],
+  },
+  twitter: {
+    card: "summary",
+    images: ["/icon.svg"],
+  },
 };
 
 // Cache-busting query param: /css/main.css and /js/*.js are served with a

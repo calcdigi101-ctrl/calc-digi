@@ -98,7 +98,7 @@ export default function LeanBodyMassPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Endocrinology &amp; Pharmacokinetics Review:</span> Calibrated to Boer (1984), James (1976), and Hume (1966) equations with Fat-Free Mass Index (FFMI) natural muscularity stratification.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Peer-Reviewed Clinical Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Peer-Reviewed Clinical Standards</div>
         </div>
 
         {/* Section 1: Clinical Definition and Anatomy */}

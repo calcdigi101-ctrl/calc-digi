@@ -141,13 +141,13 @@ export function Footer() {
             </div>
 
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-4 text-[11px]">
-              <a href="/pages/privacy-policy" className="hover:underline">Privacy</a>
+              <a href="/pages/privacy-policy" className="inline-flex items-center min-h-[36px] py-1 hover:underline">Privacy</a>
               <span>•</span>
-              <a href="/pages/terms-of-service" className="hover:underline">Terms</a>
+              <a href="/pages/terms-of-service" className="inline-flex items-center min-h-[36px] py-1 hover:underline">Terms</a>
               <span>•</span>
-              <a href="/pages/disclaimer" className="hover:underline">Disclaimer</a>
+              <a href="/pages/disclaimer" className="inline-flex items-center min-h-[36px] py-1 hover:underline">Disclaimer</a>
               <span>•</span>
-              <a href="/pages/contact" className="hover:underline">Contact</a>
+              <a href="/pages/contact" className="inline-flex items-center min-h-[36px] py-1 hover:underline">Contact</a>
               <span>•</span>
               <button 
                 type="button"

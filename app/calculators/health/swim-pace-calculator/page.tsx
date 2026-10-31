@@ -59,7 +59,7 @@ export default function SwimPacePage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Aquatic Biomechanics & Hydrodynamics Review:</span> Calibrated to World Aquatics (FINA) distance specifications and USA Triathlon (USAT) Critical Swim Speed protocols.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Fluid Dynamics Models</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Fluid Dynamics Models</div>
         </div>
 
         {/* Section 1: The Hydrodynamics of Swimming */}

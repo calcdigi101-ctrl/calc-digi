@@ -105,7 +105,7 @@ export default function ChildHeightPredictorPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Pediatric Endocrinology Review:</span> Calibrated to Tanner-Goldstein Mid-Parental Height (MPH) methodologies, Greulich-Pyle skeletal maturity models, and AAP growth benchmarks.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Pediatric Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Pediatric Standards</div>
         </div>
 
         <section className="space-y-4">

@@ -364,7 +364,7 @@ export function NumberTheoryFactorVisualizerChart({
       </div>
 
       {/* 4 Dynamic Output Metric Cards */}
-      <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+      <div className="mt-5 grid grid-cols-1 min-[360px]:grid-cols-2 sm:grid-cols-4 gap-3 text-center">
         {mode === "factors" && (
           <>
             <div className="rounded-xl border border-slate-200/80 bg-white p-3.5 dark:border-slate-800 dark:bg-slate-900 shadow-sm">

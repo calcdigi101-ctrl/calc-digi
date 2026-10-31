@@ -98,7 +98,7 @@ export default function PeriodPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Gynecological Endocrinology Review:</span> Calibrated to the International Federation of Gynecology and Obstetrics (FIGO Menstrual Disorders Committee) and ACOG Committee Opinion No. 651.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Gynecological Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Gynecological Standards</div>
         </div>
 
         {/* Section 1: The Fifth Vital Sign */}

@@ -99,7 +99,7 @@ export default function SleepPage() {
           <div>
             <span className="font-bold text-slate-900 dark:text-slate-100">Sleep Medicine &amp; Neurobiology Review:</span> Calibrated to the American Academy of Sleep Medicine (AASM), Sleep Research Society (SRS), and National Sleep Foundation ultradian guidelines.
           </div>
-          <div className="text-slate-500 whitespace-nowrap">Updated: Q4 2026 • Verified Chronobiological Standards</div>
+          <div className="text-slate-500 break-words leading-relaxed">Updated: Q4 2026 • Verified Chronobiological Standards</div>
         </div>
 
         {/* Section 1: The Ultradian Cycle */}
