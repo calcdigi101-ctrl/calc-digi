@@ -56,14 +56,12 @@ export function Header() {
       <header className="sticky top-0 z-50 bg-white/95 dark:bg-[#090e1a]/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800/80 transition-colors">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
           
-          {/* Brand Logo: ∑ CalcDigi (Unified matching screenshot & footer) */}
-          <a href="/" className="flex items-center gap-2 sm:gap-2.5 group shrink-0" aria-label="CalcDigi Home">
-            <div className="size-8 sm:size-9 rounded-xl bg-gradient-to-tr from-[#18533b] to-emerald-500 text-white flex items-center justify-center font-bold text-base sm:text-lg shadow-xs group-hover:scale-105 transition-transform">
-              ∑
-            </div>
+          {/* Brand Logo: CalcDigi• (Serif styled matching screenshot) */}
+          <a href="/" className="flex items-center gap-1 group shrink-0" aria-label="CalcDigi Home">
             <span className="font-serif font-bold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">
-              Calc<span className="text-emerald-700 dark:text-emerald-400">Digi</span>
+              CalcDigi
             </span>
+            <span className="inline-block w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#18533b] dark:bg-emerald-400 mb-0.5 group-hover:scale-125 transition-transform"></span>
           </a>
 
           {/* Screenshot Navigation Links: Home, Calculators, Blog, About */}
