@@ -114,3 +114,12 @@
     display: none !important;
   }
 }
+
+/* Global hover underline for all links */
+a {
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

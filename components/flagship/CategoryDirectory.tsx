@@ -116,7 +116,7 @@ export function CategoryDirectory() {
               <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800/80">
                 <a
                   href={g.more}
-                  className="text-xs font-bold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 flex items-center gap-1"
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border-2 border-emerald-500/50 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-xs font-bold shadow-2xs hover:shadow-xs transition-all group"
                 >
                   <span>More {g.title.toLowerCase()}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
