@@ -457,6 +457,7 @@ export function MortgageCalculator() {
           {...priceField} 
         />
         <input
+          id="mc-home-price-slider"
           type="range"
           min={50000}
           max={2000000}
@@ -490,6 +491,7 @@ export function MortgageCalculator() {
           <NumberField id="mc-down-pct" aria-label="Down payment, percent of price" suffix="%" error={errors.downPct?.message} {...downPctField} />
         </div>
         <input
+          id="mc-down-payment-slider"
           type="range"
           min={0}
           max={50}
@@ -578,6 +580,7 @@ export function MortgageCalculator() {
               {...register("rate")} 
             />
             <input
+              id="mc-interest-rate-slider"
               type="range"
               min={1}
               max={15}

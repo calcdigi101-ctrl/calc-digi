@@ -472,10 +472,10 @@
               <!-- Keypad Grid (With all 0-9 digits, 1, 2, 3, ., and operations) -->
               <div class="grid grid-cols-4 gap-2">
                 <!-- Row 1 -->
-                <button onclick="clearCalc()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">AC</button>
-                <button onclick="toggleSign()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">+/-</button>
-                <button onclick="calcPercent()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">%</button>
-                <button onclick="setOp('/')" class="key-btn py-2.5 sm:py-3 rounded-xl font-bold text-lg bg-[#d4f5e4] dark:bg-emerald-950/70 text-[#046a38] dark:text-emerald-300 hover:bg-[#bbf0d4]">/</button>
+                <button onclick="clearCalc()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80" aria-label="All Clear" title="All Clear (AC)">AC</button>
+                <button onclick="backspaceCalc()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80 flex items-center justify-center gap-1" aria-label="Backspace" title="DEL (Backspace) - Delete last digit"><span>DEL</span><span class="text-xs font-bold">⌫</span></button>
+                <button onclick="calcPercent()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80" aria-label="Percentage">%</button>
+                <button onclick="setOp('/')" class="key-btn py-2.5 sm:py-3 rounded-xl font-bold text-lg bg-[#d4f5e4] dark:bg-emerald-950/70 text-[#046a38] dark:text-emerald-300 hover:bg-[#bbf0d4]" aria-label="Divide">÷</button>
 
                 <!-- Row 2 -->
                 <button onclick="appendNum('7')" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">7</button>
@@ -495,10 +495,11 @@
                 <button onclick="appendNum('3')" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">3</button>
                 <button onclick="setOp('+')" class="key-btn py-2.5 sm:py-3 rounded-xl font-bold text-lg bg-[#d4f5e4] dark:bg-emerald-950/70 text-[#046a38] dark:text-emerald-300 hover:bg-[#bbf0d4]">+</button>
 
-                <!-- Row 5: 0, ., = -->
-                <button onclick="appendNum('0')" class="key-btn col-span-2 py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">0</button>
+                <!-- Row 5: +/-, 0, ., = -->
+                <button onclick="toggleSign()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs" aria-label="Toggle Sign">+/-</button>
+                <button onclick="appendNum('0')" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">0</button>
                 <button onclick="appendDot()" class="key-btn py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">.</button>
-                <button onclick="compute()" class="key-btn py-2.5 sm:py-3 rounded-xl font-bold text-2xl bg-[#10b981] hover:bg-[#059669] text-white shadow-md shadow-emerald-500/25">=</button>
+                <button onclick="compute()" class="key-btn py-2.5 sm:py-3 rounded-xl font-bold text-lg bg-[#046a38] dark:bg-[#00d084] text-white dark:text-slate-950 hover:bg-[#03532c] dark:hover:bg-[#00b875] shadow-sm" aria-label="Calculate">=</button>
               </div>
             </div>
 
@@ -3014,6 +3015,20 @@
       document.getElementById('calc-history').textContent = `${previousVal} ${currentOp}`;
     }
 
+    function backspaceCalc() {
+      if (currentVal === 'Error' || currentVal === 'NaN') {
+        currentVal = '0';
+      } else if (typeof currentVal === 'string' && currentVal.length > 1) {
+        currentVal = currentVal.slice(0, -1);
+        if (currentVal === '-' || currentVal === '') {
+          currentVal = '0';
+        }
+      } else {
+        currentVal = '0';
+      }
+      updateDisplay();
+    }
+
     function clearCalc() {
       currentVal = '0';
       previousVal = '';
@@ -3221,6 +3236,7 @@
       if (e.key === '*' || e.key === 'x' || e.key === 'X') setOp('*');
       if (e.key === '/') setOp('/');
       if (e.key === 'Enter' || e.key === '=') { e.preventDefault(); compute(); }
+      if (e.key === 'Backspace') { e.preventDefault(); backspaceCalc(); }
       if (e.key === 'Escape' || e.key === 'c' || e.key === 'C') clearCalc();
       if (e.key === '%') calcPercent();
     });

@@ -230,6 +230,8 @@ export function CalorieCalculator() {
                   <div className="grid grid-cols-2 gap-2">
                     <div className="relative flex items-center">
                       <input
+                        id="cal-ft"
+                        aria-label="Height in feet"
                         type="number"
                         min="3"
                         max="8"
@@ -241,6 +243,8 @@ export function CalorieCalculator() {
                     </div>
                     <div className="relative flex items-center">
                       <input
+                        id="cal-in"
+                        aria-label="Height in inches"
                         type="number"
                         min="0"
                         max="11"

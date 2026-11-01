@@ -273,13 +273,15 @@ export function PercentageCalculator() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                  <label htmlFor="pct-m1-rate" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Percentage (X)
                   </label>
                   <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
+                      id="pct-m1-rate"
+                      aria-label="Percentage rate (X)"
                       value={m1Pct}
                       onChange={(e) => setM1Pct(e.target.value)}
                       placeholder="e.g. 15"
@@ -297,6 +299,8 @@ export function PercentageCalculator() {
                     <input
                       type="number"
                       step="any"
+                      id="pct-m1-val"
+                      aria-label="Base value / number (Y)"
                       value={m1Val}
                       onChange={(e) => setM1Val(e.target.value)}
                       placeholder="e.g. 200"
@@ -354,6 +358,8 @@ export function PercentageCalculator() {
                     <input
                       type="number"
                       step="any"
+                      id="pct-m2-part"
+                      aria-label="Part value (X)"
                       value={m2Part}
                       onChange={(e) => setM2Part(e.target.value)}
                       placeholder="e.g. 30"
@@ -371,6 +377,8 @@ export function PercentageCalculator() {
                     <input
                       type="number"
                       step="any"
+                      id="pct-m2-whole"
+                      aria-label="Whole / Total (Y)"
                       value={m2Whole}
                       onChange={(e) => setM2Whole(e.target.value)}
                       placeholder="e.g. 150"
@@ -432,6 +440,8 @@ export function PercentageCalculator() {
                     <input
                       type="number"
                       step="any"
+                      id="pct-m3-from"
+                      aria-label="Original / From value (X)"
                       value={m3From}
                       onChange={(e) => setM3From(e.target.value)}
                       placeholder="e.g. 100"
@@ -449,6 +459,8 @@ export function PercentageCalculator() {
                     <input
                       type="number"
                       step="any"
+                      id="pct-m3-to"
+                      aria-label="New / To value (Y)"
                       value={m3To}
                       onChange={(e) => setM3To(e.target.value)}
                       placeholder="e.g. 125"
@@ -537,6 +549,8 @@ export function PercentageCalculator() {
                     <input
                       type="number"
                       step="any"
+                      id="pct-m4-val"
+                      aria-label="Original value"
                       value={m4Val}
                       onChange={(e) => setM4Val(e.target.value)}
                       placeholder="e.g. 120"
@@ -553,6 +567,8 @@ export function PercentageCalculator() {
                     <input
                       type="number"
                       step="any"
+                      id="pct-m4-pct"
+                      aria-label="Percentage to add or subtract"
                       value={m4Pct}
                       onChange={(e) => setM4Pct(e.target.value)}
                       placeholder="e.g. 20"

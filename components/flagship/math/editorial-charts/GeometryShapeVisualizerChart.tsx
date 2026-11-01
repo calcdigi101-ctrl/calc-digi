@@ -148,6 +148,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={1}
                 max={20}
+                aria-label="Triangle leg a"
                 value={legA}
                 onChange={(e) => setLegA(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -162,6 +163,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={1}
                 max={20}
+                aria-label="Triangle leg b"
                 value={legB}
                 onChange={(e) => setLegB(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -181,6 +183,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={1}
                 max={20}
+                aria-label="Circle radius"
                 value={radius}
                 onChange={(e) => setRadius(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -196,6 +199,7 @@ export function GeometryShapeVisualizerChart() {
                 min={10}
                 max={360}
                 step={5}
+                aria-label="Sector angle"
                 value={sectorAngle}
                 onChange={(e) => setSectorAngle(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -212,6 +216,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={-10}
                 max={15}
+                aria-label="Coordinate x1"
                 value={x1}
                 onChange={(e) => setX1(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"
@@ -223,6 +228,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={-10}
                 max={15}
+                aria-label="Coordinate y1"
                 value={y1}
                 onChange={(e) => setY1(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"
@@ -234,6 +240,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={-10}
                 max={15}
+                aria-label="Coordinate x2"
                 value={x2}
                 onChange={(e) => setX2(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"
@@ -245,6 +252,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={-10}
                 max={15}
+                aria-label="Coordinate y2"
                 value={y2}
                 onChange={(e) => setY2(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"
@@ -264,6 +272,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={1}
                 max={15}
+                aria-label="Cylinder radius"
                 value={cylR}
                 onChange={(e) => setCylR(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -278,6 +287,7 @@ export function GeometryShapeVisualizerChart() {
                 type="range"
                 min={1}
                 max={25}
+                aria-label="Cylinder height"
                 value={cylH}
                 onChange={(e) => setCylH(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"

@@ -186,15 +186,33 @@ export default function ScientificCalculator() {
     setIsAlpha(false);
   };
 
-  // Delete single character (DEL)
+  // Delete single character / token (DEL / Backspace)
   const handleDelete = () => {
     playClick();
     if (display === "Math ERROR" || display === "Syntax ERROR") {
       handleAllClear();
       return;
     }
-    setExpr((prev) => (prev.length > 1 ? prev.slice(0, -1) : ""));
-    setDisplay((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
+    const funcs = ["asin(", "acos(", "atan(", "sin(", "cos(", "tan(", "log(", "ln(", "cbrt(", "Ans", "10^(", "e^(", "abs("];
+    setExpr((prev) => {
+      if (!prev) return "";
+      for (const fn of funcs) {
+        if (prev.endsWith(fn)) {
+          return prev.slice(0, -fn.length);
+        }
+      }
+      return prev.length > 1 ? prev.slice(0, -1) : "";
+    });
+    setDisplay((prev) => {
+      if (!prev || prev === "0") return "0";
+      for (const fn of funcs) {
+        if (prev.endsWith(fn)) {
+          const res = prev.slice(0, -fn.length);
+          return res.length > 0 ? res : "0";
+        }
+      }
+      return prev.length > 1 ? prev.slice(0, -1) : "0";
+    });
   };
 
   // Shift toggle
@@ -713,14 +731,19 @@ export default function ScientificCalculator() {
               9
             </button>
 
-            {/* DEL Key in fx-82EX Yellow/Amber */}
+            {/* DEL / Backspace Key in fx-82EX Yellow/Amber */}
             <button
               type="button"
               onClick={handleDelete}
+              aria-label="Delete / Backspace character"
+              title="DEL (Backspace) - Delete last character"
               className="h-11 sm:h-12 rounded-xl bg-[#eab308] hover:bg-[#facc15] text-slate-950 font-black text-sm uppercase tracking-wider shadow-md active:scale-95 transition-all cursor-pointer flex flex-col items-center justify-center border border-amber-500"
             >
               <span className="text-[7px] text-amber-900 font-bold leading-none">INS</span>
-              <span>DEL</span>
+              <span className="flex items-center gap-0.5">
+                <span>DEL</span>
+                <span className="text-[11px] font-bold">⌫</span>
+              </span>
             </button>
 
             {/* AC Key in fx-82EX Yellow/Amber */}

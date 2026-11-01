@@ -110,6 +110,17 @@ export function HomeHero() {
     setHistoryText(`${currentVal} ${op}`);
   }
 
+  function backspaceCalc() {
+    setCurrentVal((prev) => {
+      if (prev === "Error" || prev === "NaN") return "0";
+      if (prev.length > 1) {
+        const next = prev.slice(0, -1);
+        return next === "-" || next === "" ? "0" : next;
+      }
+      return "0";
+    });
+  }
+
   function clearCalc() {
     setCurrentVal("0");
     setPreviousVal("");
@@ -153,6 +164,25 @@ export function HomeHero() {
     if (fn === "sqrt") r = Math.sqrt(v);
     setCurrentVal((Math.round(r * 100000) / 100000).toString());
   }
+
+  // Keyboard support for hero calculator
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (activeTab !== "calc") return;
+      if (e.key >= "0" && e.key <= "9") appendNum(e.key);
+      else if (e.key === ".") appendDot();
+      else if (e.key === "+") setOp("+");
+      else if (e.key === "-") setOp("-");
+      else if (e.key === "*" || e.key === "x" || e.key === "X") setOp("*");
+      else if (e.key === "/") { e.preventDefault(); setOp("/"); }
+      else if (e.key === "Enter" || e.key === "=") { e.preventDefault(); compute(); }
+      else if (e.key === "Backspace") { e.preventDefault(); backspaceCalc(); }
+      else if (e.key === "Escape" || e.key === "c" || e.key === "C") clearCalc();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeTab, currentVal, previousVal, currentOp, isSciMode]);
 
   // Mortgage calculations
   const loanAmount = Math.max(0, homePrice - downPayment);
@@ -210,6 +240,8 @@ export function HomeHero() {
                   </div>
                 </div>
                 <input 
+                  id="hero-calculator-search"
+                  aria-label="Search 341+ calculators"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => {
@@ -423,10 +455,10 @@ export function HomeHero() {
                   {/* 5-Row Keypad Grid (With 1, 2, 3, 0, ., and operations) */}
                   <div className="grid grid-cols-4 gap-2">
                     {/* Row 1 */}
-                    <button onClick={clearCalc} className="py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">AC</button>
-                    <button onClick={toggleSign} className="py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">+/-</button>
-                    <button onClick={calcPercent} className="py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">%</button>
-                    <button onClick={() => setOp("/")} className="py-2.5 sm:py-3 rounded-xl font-bold text-lg bg-[#d4f5e4] dark:bg-emerald-950/70 text-[#046a38] dark:text-emerald-300 hover:bg-[#bbf0d4]">/</button>
+                    <button onClick={clearCalc} aria-label="All Clear" title="All Clear (AC)" className="py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">AC</button>
+                    <button onClick={backspaceCalc} aria-label="Backspace" title="DEL (Backspace) - Delete last digit" className="py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80 flex items-center justify-center gap-1"><span>DEL</span><span className="text-xs font-bold">⌫</span></button>
+                    <button onClick={calcPercent} aria-label="Percentage" className="py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-[#f8fafc] dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-200/80">%</button>
+                    <button onClick={() => setOp("/")} aria-label="Divide" className="py-2.5 sm:py-3 rounded-xl font-bold text-lg bg-[#d4f5e4] dark:bg-emerald-950/70 text-[#046a38] dark:text-emerald-300 hover:bg-[#bbf0d4]">÷</button>
 
                     {/* Row 2 */}
                     <button onClick={() => appendNum("7")} className="py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">7</button>
@@ -446,10 +478,11 @@ export function HomeHero() {
                     <button onClick={() => appendNum("3")} className="py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">3</button>
                     <button onClick={() => setOp("+")} className="py-2.5 sm:py-3 rounded-xl font-bold text-lg bg-[#d4f5e4] dark:bg-emerald-950/70 text-[#046a38] dark:text-emerald-300 hover:bg-[#bbf0d4]">+</button>
 
-                    {/* Row 5: 0, ., = */}
-                    <button onClick={() => appendNum("0")} className="col-span-2 py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">0</button>
+                    {/* Row 5: +/-, 0, ., = */}
+                    <button onClick={toggleSign} aria-label="Toggle Sign" className="py-2.5 sm:py-3 rounded-xl font-medium text-sm sm:text-base bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">+/-</button>
+                    <button onClick={() => appendNum("0")} className="py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">0</button>
                     <button onClick={appendDot} className="py-2.5 sm:py-3 rounded-xl font-medium text-base sm:text-lg bg-white dark:bg-slate-800/90 border border-slate-100 dark:border-slate-700/60 text-slate-800 dark:text-white hover:bg-slate-50 shadow-xs">.</button>
-                    <button onClick={compute} className="py-2.5 sm:py-3 rounded-xl font-bold text-2xl bg-[#10b981] hover:bg-[#059669] text-white shadow-md shadow-emerald-500/25">=</button>
+                    <button onClick={compute} aria-label="Calculate" className="py-2.5 sm:py-3 rounded-xl font-bold text-2xl bg-[#10b981] hover:bg-[#059669] text-white shadow-md shadow-emerald-500/25">=</button>
                   </div>
                 </div>
               )}
@@ -463,6 +496,8 @@ export function HomeHero() {
                       <span className="font-mono text-emerald-600 font-bold">${homePrice.toLocaleString()}</span>
                     </div>
                     <input 
+                      id="hero-react-home-price"
+                      aria-label="Home Price"
                       type="range" 
                       min="100000" 
                       max="1500000" 
@@ -481,6 +516,8 @@ export function HomeHero() {
                       </span>
                     </div>
                     <input 
+                      id="hero-react-down-payment"
+                      aria-label="Down Payment"
                       type="range" 
                       min="10000" 
                       max={homePrice} 
@@ -521,6 +558,8 @@ export function HomeHero() {
                       <span className="font-mono text-emerald-600 font-bold">{bmiHeight} cm</span>
                     </div>
                     <input 
+                      id="hero-react-bmi-height"
+                      aria-label="Height in centimeters"
                       type="range" 
                       min="120" 
                       max="220" 
@@ -537,6 +576,8 @@ export function HomeHero() {
                       <span className="font-mono text-emerald-600 font-bold">{bmiWeight} kg</span>
                     </div>
                     <input 
+                      id="hero-react-bmi-weight"
+                      aria-label="Weight in kilograms"
                       type="range" 
                       min="40" 
                       max="160" 

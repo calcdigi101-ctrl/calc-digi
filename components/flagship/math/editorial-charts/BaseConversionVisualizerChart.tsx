@@ -167,6 +167,7 @@ export function BaseConversionVisualizerChart({
               type="range"
               min="0"
               max="255"
+              aria-label="Decimal number value"
               value={baseData.val}
               onChange={(e) => setDecVal(Number(e.target.value))}
               className="w-full accent-emerald-500 cursor-pointer"
@@ -252,6 +253,7 @@ export function BaseConversionVisualizerChart({
                 min="1"
                 max="9.999"
                 step="0.001"
+                aria-label="Scientific notation mantissa"
                 value={mantissa}
                 onChange={(e) => setMantissa(Number(e.target.value))}
                 className="w-full accent-emerald-500 cursor-pointer"
@@ -271,6 +273,7 @@ export function BaseConversionVisualizerChart({
                 min="-20"
                 max="24"
                 step="1"
+                aria-label="Scientific notation exponent"
                 value={exponent}
                 onChange={(e) => setExponent(Number(e.target.value))}
                 className="w-full accent-indigo-500 cursor-pointer"
@@ -317,6 +320,7 @@ export function BaseConversionVisualizerChart({
             <div className="flex items-center gap-3">
               <input
                 type="text"
+                aria-label="Significant figures input number"
                 value={sigInput}
                 onChange={(e) => setSigInput(e.target.value)}
                 placeholder="e.g. 0.004520, 10200, 3.14159"

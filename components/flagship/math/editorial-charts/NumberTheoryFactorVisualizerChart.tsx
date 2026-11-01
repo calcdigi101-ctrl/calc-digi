@@ -166,6 +166,7 @@ export function NumberTheoryFactorVisualizerChart({
               min={2}
               max={100}
               step={1}
+              aria-label="Target number for prime factorization"
               value={targetN}
               onChange={(e) => setTargetN(Number(e.target.value))}
               className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -191,6 +192,7 @@ export function NumberTheoryFactorVisualizerChart({
                 type="range"
                 min={2}
                 max={72}
+                aria-label="First number a for GCF/LCM"
                 value={numA}
                 onChange={(e) => setNumA(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -205,6 +207,7 @@ export function NumberTheoryFactorVisualizerChart({
                 type="range"
                 min={2}
                 max={72}
+                aria-label="Second number b for GCF/LCM"
                 value={numB}
                 onChange={(e) => setNumB(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -224,6 +227,7 @@ export function NumberTheoryFactorVisualizerChart({
                 type="range"
                 min={1}
                 max={15}
+                aria-label="Combinatorics total items n"
                 value={combN}
                 onChange={(e) => {
                   const newN = Number(e.target.value);
@@ -242,6 +246,7 @@ export function NumberTheoryFactorVisualizerChart({
                 type="range"
                 min={0}
                 max={combN}
+                aria-label="Combinatorics chosen items r"
                 value={combR}
                 onChange={(e) => setCombR(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"

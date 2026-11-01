@@ -164,6 +164,7 @@ export function AlgebraFunctionVisualizerChart() {
                 min={-3}
                 max={3}
                 step={0.5}
+                aria-label="Quadratic coefficient a"
                 value={qa}
                 onChange={(e) => setQa(Number(e.target.value) || 0.5)}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -179,6 +180,7 @@ export function AlgebraFunctionVisualizerChart() {
                 min={-8}
                 max={8}
                 step={1}
+                aria-label="Linear coefficient b"
                 value={qb}
                 onChange={(e) => setQb(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -194,6 +196,7 @@ export function AlgebraFunctionVisualizerChart() {
                 min={-8}
                 max={8}
                 step={1}
+                aria-label="Constant term c"
                 value={qc}
                 onChange={(e) => setQc(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -214,6 +217,7 @@ export function AlgebraFunctionVisualizerChart() {
                 min={1.5}
                 max={5}
                 step={0.5}
+                aria-label="Exponential base value"
                 value={baseVal}
                 onChange={(e) => setBaseVal(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -229,6 +233,7 @@ export function AlgebraFunctionVisualizerChart() {
                 min={-3}
                 max={6}
                 step={1}
+                aria-label="Exponent x"
                 value={expX}
                 onChange={(e) => setExpX(Number(e.target.value))}
                 className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -245,6 +250,7 @@ export function AlgebraFunctionVisualizerChart() {
                 type="range"
                 min={-5}
                 max={5}
+                aria-label="Matrix cell a11"
                 value={m11}
                 onChange={(e) => setM11(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"
@@ -256,6 +262,7 @@ export function AlgebraFunctionVisualizerChart() {
                 type="range"
                 min={-5}
                 max={5}
+                aria-label="Matrix cell a12"
                 value={m12}
                 onChange={(e) => setM12(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"
@@ -267,6 +274,7 @@ export function AlgebraFunctionVisualizerChart() {
                 type="range"
                 min={-5}
                 max={5}
+                aria-label="Matrix cell a21"
                 value={m21}
                 onChange={(e) => setM21(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"
@@ -278,6 +286,7 @@ export function AlgebraFunctionVisualizerChart() {
                 type="range"
                 min={-5}
                 max={5}
+                aria-label="Matrix cell a22"
                 value={m22}
                 onChange={(e) => setM22(Number(e.target.value))}
                 className="w-full accent-emerald-600 cursor-pointer mt-1"

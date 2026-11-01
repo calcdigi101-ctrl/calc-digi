@@ -131,6 +131,7 @@ export function FractionRatioVisualizerChart() {
             min={1}
             max={24}
             step={1}
+            aria-label="Fraction numerator"
             value={numerator}
             onChange={(e) => setNumerator(Number(e.target.value))}
             className="mt-2 w-full accent-emerald-600 cursor-pointer"
@@ -152,6 +153,7 @@ export function FractionRatioVisualizerChart() {
             min={1}
             max={24}
             step={1}
+            aria-label="Fraction denominator"
             value={denominator}
             onChange={(e) => setDenominator(Math.max(1, Number(e.target.value)))}
             className="mt-2 w-full accent-emerald-600 cursor-pointer"
