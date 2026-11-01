@@ -174,7 +174,7 @@ export default function BodyFatCalculatorPage() {
             {"\\text{Lean Body Mass (kg or lbs)} = \\text{Total Weight} - \\text{Fat Mass}"}
           </Formula>
           <p>
-            For example, an individual weighing 180 lbs with 20% body fat carries 36 lbs of fat mass and 144 lbs of lean body mass. Knowing your lean body mass allows you to calculate exact resting caloric expenditure using the Katch-McArdle formula on our <Link href="/calculators/health/bmr-calculator">BMR Calculator</Link>, and determine daily protein targets using our <Link href="/calculators/health/protein-calculator">Protein Calculator</Link>.
+            For example, an individual weighing 180 lbs with 20% body fat carries 36 lbs of fat mass and 144 lbs of lean body mass. Knowing your lean body mass allows you to calculate exact resting caloric expenditure using the Katch-McArdle formula on our <Link href="/calculators/health/bmr-calculator">BMR Calculator</Link>, and determine daily protein targets using our <Link href="/calculators/health/protein-intake-calculator">Protein Calculator</Link>.
           </p>
 
           <h2>American Council on Exercise (ACE) Classification Standards</h2>

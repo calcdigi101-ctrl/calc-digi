@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!article) return {};
   const path = `/pages/blog/${article.slug}`;
   return {
-    title: `${article.title} | CalcDigi`,
+    title: article.title,
     description: article.excerpt,
     openGraph: { title: article.title, description: article.excerpt, type: "article", url: path, publishedTime: article.published_at, modifiedTime: article.updated_at },
     alternates: { canonical: path },

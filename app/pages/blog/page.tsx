@@ -5,11 +5,11 @@ import { getArticles } from "@/lib/articles";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Blog & Guides | CalcDigi",
+  title: "Blog & Guides",
   description:
     "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
   openGraph: {
-    title: "Blog & Guides | CalcDigi",
+    title: "Blog & Guides",
     description:
       "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
     type: "website",

@@ -8,7 +8,7 @@ const POPULAR_TOOLS: [string, string][] = [
   ["BMI & Ideal Weight", "/calculators/health/bmi-calculator"],
   ["Auto Loan Amortization", "/calculators/finance/auto-loan-calculator"],
   ["Salary & Take-Home", "/calculators/finance/take-home-pay-calculator"],
-  ["Unit & Currency Converter", "/calculators/conversion/length-converter"],
+  ["Unit Converter", "/calculators/measurements/length-converter"],
 ];
 
 const PLATFORM_LINKS: [string, string][] = [

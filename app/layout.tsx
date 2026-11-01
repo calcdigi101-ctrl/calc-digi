@@ -16,11 +16,11 @@ export const metadata: Metadata = {
   description: "CalcDigi (Calc Digi) offers 341+ free, instant, and accurate online calculators for health, finance, fitness, math, and everyday precision tools. No sign-up required.",
   openGraph: {
     siteName: "CalcDigi",
-    images: [{ url: "/icon.svg", width: 512, height: 512, alt: "CalcDigi" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "CalcDigi – Free Online Calculators" }],
   },
   twitter: {
-    card: "summary",
-    images: ["/icon.svg"],
+    card: "summary_large_image",
+    images: ["/og-image.png"],
   },
 };
 

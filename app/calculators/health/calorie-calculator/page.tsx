@@ -172,7 +172,7 @@ export default function CalorieCalculatorPage() {
 
           <h2>Macronutrient Partitioning & Energetic Densities</h2>
           <p>
-            While total caloric intake determines the trajectory of body weight changes (thermodynamic energy balance), <strong>macronutrient composition</strong> determines whether weight lost represents adipose tissue or functional skeletal muscle. Protein delivers maximal satiety and thermic expenditure, as detailed in our <Link href="/calculators/health/protein-calculator">Protein Calculator</Link>.
+            While total caloric intake determines the trajectory of body weight changes (thermodynamic energy balance), <strong>macronutrient composition</strong> determines whether weight lost represents adipose tissue or functional skeletal muscle. Protein delivers maximal satiety and thermic expenditure, as detailed in our <Link href="/calculators/health/protein-intake-calculator">Protein Calculator</Link>.
           </p>
           <DataTable
             head={["Macronutrient", "Caloric Density", "Target Intake Range", "Physiological Function"]}

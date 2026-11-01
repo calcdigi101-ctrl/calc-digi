@@ -65,7 +65,7 @@
     {
       "category": "baby",
       "slug": "child-height-predictor-calculator",
-      "url": "https://calcdigi.com/calculators/baby/child-height-predictor-calculator",
+      "url": "https://calcdigi.com/calculators/health/child-height-predictor",
       "title": "Child Height Predictor Calculator",
       "description": "",
       "formulas": [],
@@ -4817,7 +4817,7 @@
     {
       "category": "measurements",
       "slug": "currency-converter",
-      "url": "https://calcdigi.com/calculators/measurements/currency-converter",
+      "url": "https://calcdigi.com/calculators/finance/currency-converter",
       "title": "Currency Converter",
       "description": "",
       "formulas": [],
@@ -4889,7 +4889,7 @@
     {
       "category": "measurements",
       "slug": "roman-numeral-converter",
-      "url": "https://calcdigi.com/calculators/measurements/roman-numeral-converter",
+      "url": "https://calcdigi.com/calculators/math/roman-numeral-converter",
       "title": "Roman Numeral Converter",
       "description": "",
       "formulas": [],

@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us | CalcDigi",
+  title: "Contact Us",
   description: "Contact CalcDigi with feedback, bug reports, calculator suggestions or privacy questions. We read every message.",
   openGraph: {
-    title: "Contact Us | CalcDigi",
+    title: "Contact Us",
     description: "Contact CalcDigi with feedback, bug reports, calculator suggestions or privacy questions. We read every message.",
     type: "website",
   },
