@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Copy, Check, RotateCcw, Share2, Flame, Utensils, Apple, Dumbbell } from "lucide-react";
+import { ResultActions } from "@/components/flagship/ResultActions";
 
 type Unit = "us" | "metric";
 type Sex = "male" | "female";
@@ -24,6 +25,21 @@ export function MacroCalculator() {
 
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
+
+  const handleReset = () => {
+    setUnit("us");
+    setSex("male");
+    setAge("28");
+    setFt("5");
+    setInch("10");
+    setCm("178");
+    setLb("170");
+    setKg("77");
+    setActivity(1.55);
+    setGoal("maintain");
+    setDietPlan("balanced");
+    setMealsPerDay(3);
+  };
 
   // Sync from URL params
   useEffect(() => {
@@ -627,6 +643,7 @@ export function MacroCalculator() {
           <div className="mt-4 text-[11px] text-slate-400 leading-relaxed text-center">
             Macronutrients formulated using clinical IIFYM (If It Fits Your Macros) protocols and Mifflin-St Jeor metabolic equations.
           </div>
+          <ResultActions onReset={handleReset} title="Macro Calculator" />
         </div>
       </div>
     </div>

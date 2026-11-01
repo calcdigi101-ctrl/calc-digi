@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { ResultActions } from "@/components/flagship/ResultActions";
 import {
   Copy,
   Check,
@@ -1079,44 +1080,8 @@ export function PercentageCalculator() {
             </div>
           )}
 
-          {/* Action Toolbar Row: Reset, Share, Print, Ask AI (AT THE VERY END / BOTTOM like SS 1) */}
-          <div className="pt-3 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 font-medium">
-            <button
-              type="button"
-              onClick={handleReset}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>Reset</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleShare}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              {shared ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Share2 className="w-3.5 h-3.5" />}
-              <span>{shared ? "Copied!" : "Share"}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span>Print</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setShowAiModal(!showAiModal)}
-              className="inline-flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Ask AI</span>
-            </button>
-          </div>
+          {/* Action Toolbar Row: Reset, Share, Print, Ask AI */}
+          <ResultActions onReset={handleReset} title="Percentage Calculator" />
         </div>
       </div>
     </div>

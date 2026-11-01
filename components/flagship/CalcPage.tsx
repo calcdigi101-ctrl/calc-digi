@@ -141,7 +141,7 @@ export function CalcPage({
           {children}
         </Suspense>
         {related.length ? (
-          <section className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          <section className="fx-no-print mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <span>⚡</span> Related Calculators
@@ -152,16 +152,18 @@ export function CalcPage({
           </section>
         ) : null}
         {article || html || faq.length ? (
-          <Editorial>
-            {article}
-            {html ? <div className="fx-prose" dangerouslySetInnerHTML={{ __html: html }} /> : null}
-            {faq.length ? (
-              <>
-                <h2>Frequently asked questions</h2>
-                <Faq items={faq} />
-              </>
-            ) : null}
-          </Editorial>
+          <div className="fx-no-print">
+            <Editorial>
+              {article}
+              {html ? <div className="fx-prose" dangerouslySetInnerHTML={{ __html: html }} /> : null}
+              {faq.length ? (
+                <>
+                  <h2>Frequently asked questions</h2>
+                  <Faq items={faq} />
+                </>
+              ) : null}
+            </Editorial>
+          </div>
         ) : null}
       </CalculatorPage>
     </>

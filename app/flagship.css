@@ -108,10 +108,158 @@
 }
 
 @media print {
+  @page {
+    size: auto;
+    margin: 12mm 15mm;
+  }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html, body, main {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Hide distracting website elements in print */
   #site-nav,
   #site-footer,
-  .fx-no-print {
+  #back-to-top,
+  .fx-no-print,
+  .no-print,
+  button[type="submit"],
+  .qmc-hero-continuation,
+  [data-open-ai],
+  [id*="ai-panel"],
+  [role="dialog"] {
     display: none !important;
+  }
+
+  /* Make sure print-only invoice blocks are visible */
+  .fx-print-invoice-header,
+  .fx-print-invoice-footer {
+    display: block !important;
+  }
+
+  /* Invoice layout for ToolGrid: clean 2-column specifications layout */
+  .grid.lg\:grid-cols-12 {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+
+  .lg\:col-span-7,
+  .lg\:col-span-5 {
+    grid-column: span 1 !important;
+    width: 100% !important;
+    position: static !important;
+  }
+
+  /* Form / Input Parameters Card styling as an Invoice Itemized Table */
+  form,
+  section[aria-labelledby*="result-h"],
+  [id$="-result"],
+  [id*="result-panel"] {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    padding: 16px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Highlight the Results section like an Invoice Totals Box */
+  section[aria-labelledby*="result-h"],
+  [id$="-result"],
+  [id*="result-panel"] {
+    border-top: 4px solid #059669 !important;
+    background: #fcfdfc !important;
+  }
+
+  /* Input fields formatted like crisp invoice data cells */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  select {
+    border: 1px solid #cbd5e1 !important;
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    font-weight: 600 !important;
+    font-size: 10pt !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+  }
+
+  /* Form labels */
+  label {
+    color: #475569 !important;
+    font-weight: 600 !important;
+    font-size: 8.5pt !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  /* Result typography */
+  h2[id*="result-h"] {
+    color: #059669 !important;
+    font-size: 9.5pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding-bottom: 4px !important;
+  }
+
+  /* Result Values */
+  .tabular-nums {
+    color: #0f172a !important;
+    font-weight: 800 !important;
+  }
+
+  /* Breakdown rows */
+  dl {
+    border-top: 1px solid #e2e8f0 !important;
+    margin-top: 12px !important;
+  }
+  dl > div,
+  dl dt,
+  dl dd {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+  dt {
+    color: #475569 !important;
+    font-size: 9.5pt !important;
+  }
+  dd {
+    color: #0f172a !important;
+    font-size: 9.5pt !important;
+  }
+
+  /* Charts and visualizers */
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Avoid break cuts */
+  .break-inside-avoid,
+  table,
+  tr,
+  td,
+  th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 }
 
