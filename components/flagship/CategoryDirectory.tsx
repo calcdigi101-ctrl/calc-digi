@@ -90,7 +90,7 @@ export function CategoryDirectory() {
           return (
             <div
               key={g.title}
-              className="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 dark:border-slate-800 p-6 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+              className="group bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/80 dark:border-slate-800 p-5 shadow-dir-card hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center gap-3 mb-5">
@@ -116,10 +116,10 @@ export function CategoryDirectory() {
               <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800/80">
                 <a
                   href={g.more}
-                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border-2 border-emerald-500/50 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-xs font-bold shadow-2xs hover:shadow-xs transition-all group"
+                  className="w-full inline-flex items-center justify-between px-3.5 py-1.5 rounded-full border-2 border-emerald-500/30 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-[11px] sm:text-xs font-bold shadow-2xs transition-all group/link"
                 >
                   <span>More {g.title.toLowerCase()}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 font-bold group-hover/link:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>
@@ -127,7 +127,7 @@ export function CategoryDirectory() {
         })}
 
         {/* 5th Integrated AI Card: Ask CalcDigi AI */}
-        <div className="bg-gradient-to-br from-emerald-50/70 to-teal-50/50 dark:from-slate-900 dark:to-emerald-950/30 rounded-[28px] border-2 border-emerald-500/40 dark:border-emerald-500/30 p-6 shadow-xs hover:shadow-md hover:border-emerald-500 transition-all flex flex-col justify-between relative overflow-hidden">
+        <div className="group bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/80 dark:border-slate-800 p-5 shadow-dir-card hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between">
           <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none"></div>
           
           <div>

@@ -793,46 +793,49 @@
       </a>
     </div>
 
-    <!-- The 4 White Category Cards Grid (Exact from Screenshot) -->
+    <!-- The 4 White Category Cards Grid (Exact matching category card format & full-width buttons) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
       
       <!-- Card 1: Financial -->
-      <div class="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 dark:border-slate-800 p-6 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between">
+      <div class="bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/80 dark:border-slate-800 p-5 shadow-dir-card hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between group">
         <div>
           <!-- Icon + Title -->
-          <div class="flex items-center gap-3 mb-5">
+          <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center text-lg shrink-0">
               🏛️
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/finance" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Financial</a></h3>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/finance" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Financial</a></h3>
           </div>
 
           <!-- Tool Links List -->
-          <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
-            <li><a href="/calculators/finance/mortgage-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Mortgage Calculator</a></li>
-            <li><a href="/calculators/finance/loan-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Loan Calculator</a></li>
-            <li><a href="/calculators/finance/auto-loan-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Auto Loan Calculator</a></li>
-            <li><a href="/calculators/finance/compound-interest-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Compound Interest</a></li>
-            <li><a href="/calculators/finance/salary-calculator" class="hover:text-blue-600 dark:hover:text-sky-400 transition-colors">Salary Calculator</a></li>
+          <ul class="space-y-3 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
+            <li><a href="/calculators/finance/mortgage-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Mortgage Calculator</a></li>
+            <li><a href="/calculators/finance/loan-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Loan Calculator</a></li>
+            <li><a href="/calculators/finance/auto-loan-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Auto Loan Calculator</a></li>
+            <li><a href="/calculators/finance/compound-interest-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Compound Interest</a></li>
+            <li><a href="/calculators/finance/salary-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Salary Calculator</a></li>
           </ul>
         </div>
 
-        <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="/pages/finance" class="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full border-2 border-emerald-500/40 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-xs font-bold shadow-2xs hover:shadow-xs transition-all group"><span>More financial</span><span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">&rarr;</span></a>
+        <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
+          <a href="/pages/finance" class="w-full inline-flex items-center justify-between px-3.5 py-1.5 rounded-full border-2 border-emerald-500/30 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-[11px] sm:text-xs font-bold shadow-2xs transition-all group/link">
+            <span>More financial</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover/link:translate-x-1 transition-transform">&rarr;</span>
+          </a>
         </div>
       </div>
 
       <!-- Card 2: Fitness & Health -->
-      <div class="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 dark:border-slate-800 p-6 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between">
+      <div class="bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/80 dark:border-slate-800 p-5 shadow-dir-card hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between group">
         <div>
-          <div class="flex items-center gap-3 mb-5">
+          <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 flex items-center justify-center text-lg shrink-0">
               🏋️
             </div>
             <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/health" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Fitness & Health</a></h3>
           </div>
 
-          <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
+          <ul class="space-y-3 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
             <li><a href="/calculators/health/bmi-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMI Calculator</a></li>
             <li><a href="/calculators/health/calorie-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Calorie Calculator</a></li>
             <li><a href="/calculators/health/body-fat-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Body Fat Calculator</a></li>
@@ -841,54 +844,63 @@
           </ul>
         </div>
 
-        <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="/pages/health" onclick="filterByDomain('health')" class="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full border-2 border-emerald-500/40 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-xs font-bold shadow-2xs hover:shadow-xs transition-all group"><span>More fitness & health</span><span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">&rarr;</span></a>
+        <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
+          <a href="/pages/health" onclick="filterByDomain('health')" class="w-full inline-flex items-center justify-between px-3.5 py-1.5 rounded-full border-2 border-emerald-500/30 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-[11px] sm:text-xs font-bold shadow-2xs transition-all group/link">
+            <span>More fitness & health</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover/link:translate-x-1 transition-transform">&rarr;</span>
+          </a>
         </div>
       </div>
 
       <!-- Card 3: Math -->
-      <div class="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 dark:border-slate-800 p-6 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between">
+      <div class="bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/80 dark:border-slate-800 p-5 shadow-dir-card hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between group">
         <div>
-          <div class="flex items-center gap-3 mb-5">
+          <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center text-lg shrink-0">
               🧮
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/math" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Math</a></h3>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/pages/math" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Math</a></h3>
           </div>
 
-          <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
-            <li><a href="/calculators/math/scientific-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Scientific Calculator</a></li>
-            <li><a href="/calculators/math/percentage-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Percentage Calculator</a></li>
-            <li><a href="/calculators/math/fraction-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Fraction Calculator</a></li>
-            <li><a href="/calculators/math/triangle-calculator" class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors">Triangle Calculator</a></li>
+          <ul class="space-y-3 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
+            <li><a href="/calculators/math/scientific-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Scientific Calculator</a></li>
+            <li><a href="/calculators/math/percentage-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Percentage Calculator</a></li>
+            <li><a href="/calculators/math/fraction-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Fraction Calculator</a></li>
+            <li><a href="/calculators/math/triangle-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Triangle Calculator</a></li>
           </ul>
         </div>
 
-        <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="/pages/math" class="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full border-2 border-emerald-500/40 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-xs font-bold shadow-2xs hover:shadow-xs transition-all group"><span>More math</span><span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">&rarr;</span></a>
+        <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
+          <a href="/pages/math" class="w-full inline-flex items-center justify-between px-3.5 py-1.5 rounded-full border-2 border-emerald-500/30 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-[11px] sm:text-xs font-bold shadow-2xs transition-all group/link">
+            <span>More math</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover/link:translate-x-1 transition-transform">&rarr;</span>
+          </a>
         </div>
       </div>
 
       <!-- Card 4: General Utility -->
-      <div class="bg-white dark:bg-slate-900 rounded-[28px] border border-slate-100 dark:border-slate-800 p-6 shadow-xs hover:shadow-md hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between">
+      <div class="bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/80 dark:border-slate-800 p-5 shadow-dir-card hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between group">
         <div>
-          <div class="flex items-center gap-3 mb-5">
+          <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center text-lg shrink-0">
               🔧
             </div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/calculators" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">General Utility</a></h3>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base"><a href="/calculators" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">General Utility</a></h3>
           </div>
 
-          <ul class="space-y-3.5 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
-            <li><a href="/calculators/datetime/age-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Age Calculator</a></li>
-            <li><a href="/calculators/datetime/date-difference-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Date Calculator</a></li>
-            <li><a href="/calculators/datetime/time-duration-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Time Duration Calculator</a></li>
-            <li><a href="/calculators/education/gpa-calculator" class="hover:text-amber-600 dark:hover:text-amber-400 transition-colors">GPA Calculator</a></li>
+          <ul class="space-y-3 text-xs sm:text-[13px] text-slate-700 dark:text-slate-300 font-medium">
+            <li><a href="/calculators/datetime/age-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Age Calculator</a></li>
+            <li><a href="/calculators/datetime/date-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Date Calculator</a></li>
+            <li><a href="/calculators/datetime/time-duration-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Time Duration Calculator</a></li>
+            <li><a href="/calculators/education/gpa-calculator" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">GPA Calculator</a></li>
           </ul>
         </div>
 
-        <div class="pt-6 mt-6 border-t border-slate-100 dark:border-slate-800/80">
-          <a href="/calculators" class="inline-flex items-center gap-2 px-4 py-1.5 sm:py-2 rounded-full border-2 border-emerald-500/40 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-xs font-bold shadow-2xs hover:shadow-xs transition-all group"><span>More calculators</span><span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">&rarr;</span></a>
+        <div class="pt-3 mt-4 border-t border-slate-100 dark:border-slate-800/80">
+          <a href="/calculators" class="w-full inline-flex items-center justify-between px-3.5 py-1.5 rounded-full border-2 border-emerald-500/30 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-slate-900 dark:text-white text-[11px] sm:text-xs font-bold shadow-2xs transition-all group/link">
+            <span>More calculators</span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold group-hover/link:translate-x-1 transition-transform">&rarr;</span>
+          </a>
         </div>
       </div>
 
