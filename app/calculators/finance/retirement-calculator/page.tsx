@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RetirementNestEggDrawdownChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/retirement-calculator";
-const TITLE = "Retirement Calculator – Nest Egg Target, 4% Rule & Drawdown Runway | CalcDigi";
+const TITLE = "Retirement Calculator – Nest Egg, 4% Rule & Drawdown Runway | CalcDigi";
 const DESCRIPTION =
-  "Free retirement calculator: calculate how much you need to retire based on the 4% safe withdrawal rule, Social Security offsets, pre-retirement vs. post-retirement returns, and cumulative inflation projections.";
+  "Free retirement calculator: calculate target nest egg requirements, annual drawdown longevity, Social Security integration, and the 4% safe withdrawal rule under Trinity Study benchmarks.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -16,92 +16,175 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="Retirement Calculator"
-      intro="Determine your target retirement nest egg, assess portfolio sustainability under the 4% Safe Withdrawal Rule, and model Social Security integration alongside pre- and post-retirement returns."
+      intro="Determine your target retirement nest egg, required monthly savings, and portfolio drawdown longevity. Model Social Security benefits, pension cash flows, inflation decay, and safe withdrawal rates."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
-      mathExpression="NestEggNeeded = AnnualIncomeGap * 25"
+      mathExpression="\text{Target Nest Egg} = \frac{\text{Annual Retirement Spending} - \text{Social Security} - \text{Pension}}{\text{Safe Withdrawal Rate (SWR)}}"
       article={
         <>
-          <h2>Direct Answer: How Does the 4% Safe Withdrawal Rule &amp; Retirement Nest Egg Formula Work?</h2>
+          <h2>Direct Answer: How to Calculate Your Target Retirement Nest Egg</h2>
           <p>
-            Your target retirement nest egg is the total capital required at your planned retirement age so that periodic decumulation withdrawals—combined with Social Security and pensions—support your target lifestyle throughout retirement without portfolio exhaustion. Under the celebrated <strong>Trinity Study (the 4% Rule)</strong>, withdrawing <strong>4.0% of your starting portfolio value in Year 1 of retirement</strong>, followed by annual inflation adjustments in subsequent years, historically provides a <strong>95%+ probability of portfolio survival across a 30-year retirement horizon</strong> when invested in a diversified 50/50 to 75/25 stock/bond portfolio.
+            Your <strong>target retirement nest egg</strong> is the total accumulated investment capital required to fund your lifestyle for 30 or more years without exhausting your money. Grounded in the landmark <strong>Trinity Study (1998)</strong> and updated by retirement researchers, financial planners rely on the <strong>4% Safe Withdrawal Rule</strong>: an investor who withdraws 4.0% of their initial portfolio in Year 1, adjusted annually for CPI inflation thereafter, maintains a 95%+ probability of portfolio survival across all historical 30-year market cycles.
           </p>
-
-          <Formula>Target Nest Egg = (Annual Desired Spending − Guaranteed Annual Income) × 25</Formula>
-          <Formula>Present Value Decumulation Gap = W × [1 − ((1 + g) ÷ (1 + r))^n] ÷ (r − g)</Formula>
           <p>
-            Where:
-            <br />• <strong>Target Nest Egg:</strong> Total accumulated wealth needed on retirement Day 1 ($)
-            <br />• <strong>W:</strong> Initial periodic monthly withdrawal gap ($)
-            <br />• <strong>g:</strong> Monthly inflation rate
-            <br />• <strong>r:</strong> Monthly portfolio return in retirement (conservative fixed-income and equity blend)
-            <br />• <strong>n:</strong> Number of decumulation months (Retirement Longevity Horizon × 12)
+            To calculate your target nest egg, determine your annual retirement spending deficit—gross living expenses minus guaranteed fixed income sources (Social Security and corporate pensions)—and divide by your chosen safe withdrawal rate.
           </p>
 
           <RetirementNestEggDrawdownChart />
 
-          <h2>Retirement Nest Egg Milestones: Desired Spending vs. Target Capital</h2>
+          <h2>Actuarial Mathematics of Retirement Accumulation &amp; Drawdown Longevity</h2>
           <p>
-            The table below illustrates required capital nest eggs across various annual post-career living expenditure targets (net of an estimated $24,000 annual Social Security benefit) under the 4% Safe Withdrawal Rule:
+            The retirement financial model resolves through two distinct phases: <strong>wealth accumulation</strong> during working years, followed by <strong>systematic portfolio decumulation</strong> in retirement:
+          </p>
+
+          <Formula>{"\text{Target Nest Egg } (PV_{\text{ret}}) = \frac{\text{Annual Living Expenses} - \text{Social Security} - \text{Pensions}}{\text{Safe Withdrawal Rate (SWR)}}"}</Formula>
+          <p>
+            Where SWR is expressed as a decimal (e.g. 0.04 for 4.0%, or 0.035 for a conservative 3.5% early retirement rate).
+          </p>
+          <p>
+            To compute the required monthly savings <em>PMT</em> during the accumulation phase of <em>t</em> years starting with current savings <Formula>{"PV_0"}</Formula> at expected return <em>r</em>:
+          </p>
+          <Formula>{"PMT = \frac{PV_{\text{ret}} - PV_0(1 + r)^t}{\left[ \frac{(1 + r)^t - 1}{r} \right] \times 12}"}</Formula>
+
+          <h3>Step-by-Step Numerical Calculation Walkthrough</h3>
+          <p>
+            Consider a <strong>35-year-old worker planning to retire at age 65</strong> (<Formula>{"t = 30 \text{ years}"}</Formula>) who anticipates <strong>$80,000 per year in retirement spending</strong>, expects <strong>$25,000 per year from Social Security</strong>, has <strong>$100,000 in starting retirement savings</strong>, and benchmarks a <strong>7.50% annual portfolio growth rate</strong> (<Formula>{"r = 0.075"}</Formula>) and a <strong>4.00% safe withdrawal rate</strong>:
+          </p>
+          <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Step 1: Calculate annual retirement portfolio deficit.</strong>
+              <Formula>{"\text{Portfolio Funding Need} = \$80{,}000 - \$25{,}000 = \$55{,}000.00 \text{ / year}"}</Formula>
+            </li>
+            <li>
+              <strong>Step 2: Solve for target retirement nest egg at 4% SWR.</strong>
+              <Formula>{"PV_{\text{ret}} = \frac{\$55{,}000}{0.040} = \$1{,}375{,}000.00"}</Formula>
+            </li>
+            <li>
+              <strong>Step 3: Project growth of existing $100,000 savings over 30 years.</strong>
+              <Formula>{"(1 + 0.075)^{30} = 8.754955"}</Formula>
+              <Formula>{"FV_{\text{existing}} = \$100{,}000 \times 8.754955 = \$875{,}495.50"}</Formula>
+            </li>
+            <li>
+              <strong>Step 4: Determine net remaining capital shortfall at age 65.</strong>
+              <Formula>{"\text{Remaining Shortfall} = \$1{,}375{,}000.00 - \$875{,}495.50 = \$499{,}504.50"}</Formula>
+            </li>
+            <li>
+              <strong>Step 5: Solve for required monthly savings contribution (PMT).</strong>
+              <Formula>{"\text{Annuity Factor} = \frac{8.754955 - 1}{0.075} = \frac{7.754955}{0.075} = 103.3994"}</Formula>
+              <Formula>{"\text{Annual Contribution} = \frac{\$499{,}504.50}{103.3994} = \$4{,}830.83 / \text{year} \rightarrow PMT = \frac{\$4{,}830.83}{12} = \$402.57 \text{ / month}"}</Formula>
+              Contributing <strong>$403 per month</strong> across working years guarantees reaching the full $1,375,000 retirement nest egg.
+            </li>
+          </ol>
+
+          <h2>Retirement Nest Egg Sizing Matrix Across Safe Withdrawal Rates</h2>
+          <p>
+            The matrix below calculates required nest egg capital across spending deficits and withdrawal rates:
           </p>
 
           <DataTable
-            head={["Desired Annual Spending", "Annual Social Security Offset", "Net Annual Portfolio Gap", "Target Nest Egg Required (25x Rule)", "Safe Monthly Drawdown"]}
+            head={["Annual Spending Deficit", "3.0% SWR (Ultra-Safe)", "3.5% SWR (Early Retiree)", "4.0% SWR (Trinity Standard)", "4.5% SWR (Aggressive)"]}
             rows={[
-              ["$50,000 / year", "$24,000 / yr", "$26,000 / yr", "$650,000", "$2,166 / mo"],
-              ["$75,000 / year", "$24,000 / yr", "$51,000 / yr", "$1,275,000", "$4,250 / mo"],
-              ["$100,000 / year", "$24,000 / yr", "$76,000 / yr", "$1,900,000", "$6,333 / mo"],
-              ["$150,000 / year", "$24,000 / yr", "$126,000 / yr", "$3,150,000", "$10,500 / mo"],
-              ["$200,000 / year", "$24,000 / yr", "$176,000 / yr", "$4,400,000", "$14,666 / mo"],
+              ["$40,000 / year ($3,333/mo)", "$1,333,333", "$1,142,857", "$1,000,000", "$888,889"],
+              ["$60,000 / year ($5,000/mo)", "$2,000,000", "$1,714,286", "$1,500,000", "$1,333,333"],
+              ["$80,000 / year ($6,667/mo)", "$2,666,667", "$2,285,714", "$2,000,000", "$1,777,778"],
+              ["$100,000 / year ($8,333/mo)", "$3,333,333", "$2,857,143", "$2,500,000", "$2,222,222"],
+              ["$150,000 / year ($12,500/mo)", "$5,000,000", "$4,285,714", "$3,750,000", "$3,333,333"],
             ]}
           />
 
-          <h2>Core Levers to Close a Projected Retirement Shortfall</h2>
-          <ul>
+          <h2>Sequence of Returns Risk: The Hidden Retirement Portfolio Killer</h2>
+          <p>
+            The greatest threat to retirement solvency is not average long-term returns, but the <strong>timing and sequence of returns</strong> during the first 5 to 7 years of retirement:
+          </p>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>The Downside Spiral:</strong> If an investor suffers a severe market crash (-20% to -35%) immediately upon retiring while liquidating $50,000+ annually for living expenses, they sell heavily depressed equities, permanently destroying capital recovery capacity.</li>
+            <li><strong>The Cash Buffer Defense:</strong> Maintaining a 2- to 3-year cash and short-term bond bucket prevents the need to sell equities during market corrections, allowing equity holdings time to recover.</li>
+            <li><strong>Dynamic Withdrawal Strategies (Guyton-Klinger Rules):</strong> Temporarily foregoing annual inflation increases during negative market years dramatically boosts 30-year portfolio survival rates.</li>
+          </ul>
+
+          <h2>Healthcare &amp; Medicare Considerations (IRMAA Surcharges)</h2>
+          <p>
+            Retirees must account for healthcare costs, which average over $315,000 for a retired 65-year-old couple according to Fidelity research:
+          </p>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Medicare Part B and Part D Premiums:</strong> Deducted directly from Social Security benefit checks.</li>
+            <li><strong>IRMAA Surcharges:</strong> If Modified Adjusted Gross Income (MAGI) exceeds statutory thresholds ($103,000 single, $206,000 married in 2024), retirees incur income-related monthly adjustment surcharges on Medicare premiums.</li>
+            <li><strong>HSA Rollover Advantages:</strong> Health Savings Accounts (HSAs) can be spent 100% tax-free on qualified medical expenses, Medicare premiums, and long-term care insurance.</li>
+          </ul>
+
+          <h2>4 Crucial Steps for Long-Term Retirement Solvency</h2>
+          <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
             <li>
-              <strong>Capture 100% of Employer 401(k) Match:</strong> An employer match provides an immediate 50% to 100% risk-free return on your money that compounds for decades.
+              <strong>Delay Social Security to Age 70:</strong> Claiming benefits at age 70 rather than age 62 increases guaranteed monthly payout checks by 76% to 77%, creating a permanent inflation-adjusted annuity floor.
             </li>
             <li>
-              <strong>Delay Social Security to Age 70:</strong> For each year you delay claiming Social Security past your Full Retirement Age (67), your permanent monthly benefit increases by approximately <strong>8% per year</strong> (up to 124% of your base benefit at Age 70).
+              <strong>Execute Roth Conversions in Low-Income Years:</strong> Convert traditional 401(k) assets to Roth accounts between retirement and age 73 (before Required Minimum Distributions begin) to minimize lifetime taxes.
             </li>
             <li>
-              <strong>Dynamic Spending Adjustments:</strong> Reducing annual withdrawals by 10%–15% during major bear market downturns eliminates sequence-of-returns risk and drastically enhances portfolio longevity.
+              <strong>Adopt a Rising Equity Glidepath:</strong> Modern actuarial studies show that starting retirement with a conservative allocation (50/50 stocks/bonds) and gradually increasing equity exposure over retirement minimizes sequence risk.
             </li>
+            <li>
+              <strong>Eliminate Mortgage Debt Prior to Retirement:</strong> Entering retirement mortgage-free slashes mandatory baseline living costs, lowering the required safe withdrawal rate.
+            </li>
+          </ol>
+
+          <h2>Essential Retirement Terminology</h2>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Safe Withdrawal Rate (SWR):</strong> The percentage of retirement portfolio value that can be withdrawn in year one and adjusted for inflation annually without depleting capital.</li>
+            <li><strong>Required Minimum Distribution (RMD):</strong> Mandatory annual withdrawals from traditional pre-tax retirement accounts required by the IRS starting at age 73.</li>
+            <li><strong>Glidepath:</strong> The scheduled asset allocation trajectory adjusting the stock-to-bond ratio before and during retirement.</li>
+            <li><strong>Annuity Floor:</strong> Guaranteed lifetime monthly income from Social Security, pensions, and fixed annuities covering baseline living expenses.</li>
           </ul>
 
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Retirement Planning &amp; Tax-Advantaged Solvers</h3>
+            <h3>Related Retirement &amp; Tax Solvers</h3>
             <p>
-              Achieving lifelong financial independence requires structured tax optimization. Maximize company match contributions with our <a href="/calculators/finance/401k-calculator">401k Calculator</a>, model tax-free retirement growth using the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, project government benefit entitlements with the <a href="/calculators/finance/social-security-calculator">Social Security Calculator</a>, and track multi-decade asset compounding using our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>.
+              Maximize employer match benefits via our <a href="/calculators/finance/401k-calculator">401(k) Calculator</a>, evaluate tax-free retirement growth with the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, project claiming age benefits using the <a href="/calculators/finance/social-security-calculator">Social Security Calculator</a>, and model multi-decade compounding using the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>.
             </p>
           </div>
         </>
       }
       faq={[
         {
-          q: "What percentage of pre-retirement income do I actually need in retirement?",
-          a: "Most financial planners use a benchmark of 70% to 85% of your final gross working income. This assumes you will no longer have payroll FICA taxes (7.65%), retirement savings deductions (10%–15%), commuting costs, or mortgage payments if your home is paid off.",
+          q: "What is the 4% rule in retirement planning?",
+          a: "The 4% rule originated from the 1998 Trinity Study. It states that an investor who withdraws 4% of their retirement portfolio in their first year of retirement, and adjusts that dollar amount annually for inflation, has a 95%+ probability of having capital left after 30 years.",
         },
         {
-          q: "Does the 4% rule still work in low-yield or high-inflation environments?",
-          a: "Recent academic research (including updated Morningstar retirement studies) recommends a slightly more conservative initial withdrawal rate of 3.8% to 4.0% for traditional 30-year retirements, or 3.2% to 3.5% for early retirees (FIRE community) facing 40 to 50-year horizons.",
+          q: "How much money do I need to retire comfortably?",
+          a: "Most financial planners suggest replacing 70% to 80% of your pre-retirement annual income. Under the 4% rule, if you need $60,000 per year from your portfolio (beyond Social Security), you will need a target nest egg of $1,500,000 ($60,000 ÷ 0.04).",
         },
         {
-          q: "What is 'Sequence of Returns Risk' in retirement?",
-          a: "Sequence of returns risk is the danger of experiencing steep stock market declines in the first 3 to 5 years after retiring while simultaneously liquidating shares to fund living expenses. This permanently depletes the capital base needed to participate in the eventual market recovery.",
+          q: "What is sequence of returns risk?",
+          a: "Sequence of returns risk is the danger of experiencing a major market downturn in the first few years of retirement. Liquidating depressed stocks to fund living expenses permanently impairs portfolio capital, drastically increasing the odds of running out of money.",
         },
         {
-          q: "Are 401(k) and IRA withdrawals taxed in retirement?",
-          a: "Withdrawals from Traditional 401(k)s and Traditional IRAs are taxed as ordinary federal and state income in the year withdrawn. Conversely, qualified distributions from a Roth IRA or Roth 401(k) are 100% tax-free.",
+          q: "When must I start taking Required Minimum Distributions (RMDs)?",
+          a: "Under the federal SECURE 2.0 Act, RMDs must begin by April 1 of the year following the year you turn age 73 (rising to age 75 in 2033). Failing to withdraw your full RMD triggers a 25% IRS excise tax penalty on the shortfall.",
+        },
+        {
+          q: "Should early retirees (FIRE) use a 4% withdrawal rate?",
+          a: "No. The 4% rule was modeled for traditional 30-year retirements. Individuals retiring early at age 40 or 50 facing 40 to 50-year retirement horizons should utilize a more conservative safe withdrawal rate between 3.25% and 3.50% to prevent capital exhaustion.",
+        },
+        {
+          q: "How does inflation affect my retirement portfolio?",
+          a: "Inflation erodes the purchasing power of fixed income and cash. Over a 25-year retirement at 3% annual inflation, consumer prices double, meaning an initial $60,000 budget requires $125,000 in nominal dollars, making equity exposure necessary.",
+        },
+        {
+          q: "Can I work part-time in retirement without losing Social Security?",
+          a: "If you have reached Full Retirement Age (FRA, currently age 67), you can earn unlimited income without any reduction in Social Security benefits. If you claim before FRA, earning above statutory annual limits reduces current benefits by $1 for every $2 earned.",
+        },
+        {
+          q: "What is a bucket strategy for retirement withdrawals?",
+          a: "The bucket strategy divides wealth into three pools: Bucket 1 holds 1 to 2 years of living expenses in cash/HYSA; Bucket 2 holds 3 to 7 years in fixed-income bonds; Bucket 3 holds long-term equities for growth, preventing forced selling during bear markets.",
         },
       ]}
       related={[
-        { href: "/calculators/finance/401k-calculator", icon: "🏦", name: "401(k) Calculator" },
-        { href: "/calculators/finance/roth-ira-calculator", icon: "🌱", name: "Roth IRA" },
-        { href: "/calculators/finance/social-security-calculator", icon: "🏛️", name: "Social Security" },
-        { href: "/calculators/finance/investment-calculator", icon: "📈", name: "Investment" },
-        { href: "/calculators/finance/inflation-calculator", icon: "🎈", name: "Inflation" },
-        { href: "/calculators/finance/net-worth-calculator", icon: "💼", name: "Net Worth" },
+        { href: "/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
+        { href: "/calculators/finance/roth-ira-calculator", icon: "💎", name: "Roth IRA" },
+        { href: "/calculators/finance/social-security-calculator", icon: "👵", name: "Social Security" },
+        { href: "/calculators/finance/investment-calculator", icon: "📈", name: "Investment Calculator" },
+        { href: "/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest" },
+        { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
       ]}
     >
       <Calculator />
