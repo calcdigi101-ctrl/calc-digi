@@ -26,3 +26,13 @@ export * from "./FederalTaxBracketProgressiveCurveChart";
 export * from "./SelfEmploymentTaxBreakdownChart";
 export * from "./SalesTaxRateJurisdictionChart";
 export * from "./VatInputOutputTaxDecompositionChart";
+
+// Batch 4: Income, Cash Flow & Everyday Wealth
+export * from "./SalaryPaycheckFrequencyBreakdownChart";
+export * from "./TakeHomePayWaterfallDeductionChart";
+export * from "./HourlyToSalaryOvertimeImpactChart";
+export * from "./FiftyThirtyTwentyBudgetRuleChart";
+export * from "./NetWorthAssetLiabilityDecompositionChart";
+export * from "./InflationPurchasingPowerDecayChart";
+export * from "./RentVsBuyNetWorthHorizonChart";
+export * from "./PaymentProcessingFeeTierChart";

@@ -1,12 +1,14 @@
 import Calculator from "@/components/calcs/finance/paypal-fee-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
+import { PaymentProcessingFeeTierChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/paypal-fee-calculator";
+const TITLE = "PayPal Fee Calculator – Merchant Processing, Invoicing & Reverse Calculator | CalcDigi";
 const DESCRIPTION =
-  "Free PayPal fee calculator: see how much you receive after PayPal fees, or how much to charge to receive an exact amount, for goods & services, Checkout, international and friends & family payments.";
+  "Free PayPal fee calculator: calculate exact merchant deduction fees and net payout received, or reverse-calculate how much to invoice a client to receive an exact target net amount across domestic and international transactions.";
 
-export const metadata = calcMetadata(PATH, "PayPal Fee Calculator – Fees & Amount Received | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
@@ -14,56 +16,86 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="PayPal Fee Calculator"
-      intro="Find out how much PayPal takes from a payment and what you'll receive — or how much to invoice so you end up with an exact amount."
+      intro="Calculate exact commercial processing fees, net proceeds received, or reverse-solve how much to invoice clients so you receive an exact net amount after merchant deductions."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
+      mathExpression="InvoiceAmount = (DesiredNet + FixedFee) / (1 - FeeRate)"
       article={
         <>
-          <h2>Typical US PayPal fees</h2>
+          <h2>Direct Answer: How Does the PayPal Commercial Processing Fee &amp; Reverse Invoicing Formula Work?</h2>
+          <p>
+            When a merchant, business, or freelancer accepts a commercial payment through PayPal for goods or services, PayPal deducts a two-part processing fee: a <strong>percentage-based variable rate</strong> (typically 2.99% for standard digital payments or 3.49% for integrated PayPal Checkout/Invoicing) plus a <strong>fixed transactional fee</strong> ($0.49 for US Dollar transactions). Because the variable percentage is assessed against the <em>gross incoming payment total</em>, simply adding 2.99% + $0.49 to your target invoice leaves you short. You must use the algebraic <strong>Reverse Invoicing Formula</strong> to ensure you receive 100% of your desired net revenue.
+          </p>
+
+          <Formula>Deducted Merchant Fee = (Gross Payment × Variable Rate) + Fixed Transaction Fee</Formula>
+          <Formula>Net Payout Received = Gross Payment − Deducted Merchant Fee</Formula>
+          <Formula>Required Invoice to Receive Exact Net = (Desired Net Payout + Fixed Fee) ÷ (1 − Variable Rate)</Formula>
+          <p>
+            Example:
+            <br />
+            To net exactly <strong>$100.00</strong> on a standard Goods &amp; Services transaction (2.99% + $0.49):
+            <br />
+            <strong>($100.00 + $0.49) ÷ (1 − 0.0299) = $100.49 ÷ 0.9701 = $103.59</strong>.
+            <br />
+            When the client pays $103.59, PayPal deducts ($103.59 × 2.99%) + $0.49 = $3.59 in fees, depositing exactly $100.00 into your account.
+          </p>
+
+          <PaymentProcessingFeeTierChart />
+
+          <h2>Standard US Merchant Processing Fee Schedule Matrix</h2>
+          <p>
+            The table below reflects current statutory published fee schedules across major digital payment methods and merchant transaction types:
+          </p>
+
           <DataTable
-            head={["Transaction", "Fee"]}
+            head={["Payment Method / Transaction Type", "Domestic Fee Structure", "International Add-On", "Net Payout on $100 Sale", "Net Payout on $1,000 Sale"]}
             rows={[
-              ["Goods & services (personal account)", "2.99% + $0.49"],
-              ["PayPal Checkout & invoices (business)", "3.49% + $0.49"],
-              ["International payment", "+1.5% on top"],
-              ["Friends & family, funded by card", "2.9% + $0.30 (paid by sender)"],
-              ["Friends & family, bank or balance", "Free (domestic)"],
+              ["PayPal Standard Goods & Services", "2.99% + $0.49", "+1.50% cross-border", "$96.52", "$969.61"],
+              ["PayPal Invoicing & Checkout", "3.49% + $0.49", "+1.50% cross-border", "$96.02", "$964.61"],
+              ["Stripe Standard Card Processing", "2.90% + $0.30", "+1.50% intl / +1.0% FX", "$96.80", "$970.70"],
+              ["PayPal In-Person QR Code (> $10)", "1.90% + $0.10", "Not Applicable", "$98.00", "$980.90"],
+              ["PayPal Payouts (Mass Pay API)", "2.00% (capped at $1.00)", "Capped at $20.00", "$99.00", "$999.00 (capped fee)"],
+              ["Friends & Family (Personal Balance)", "0.00% (Free)", "+5.00% intl ($0.99–$4.99 cap)", "$100.00", "$100.00"],
             ]}
           />
-          <p>PayPal adjusts fees from time to time and some business accounts get different rates, so confirm on PayPal&rsquo;s fee page.</p>
-          <h2>How to charge enough to cover the fee</h2>
-          <p>Because the percentage applies to the whole payment, you can&rsquo;t just add the fee on top. Solve for the charge instead:</p>
-          <Formula>Charge = (Amount you want + fixed fee) ÷ (1 − percentage fee)</Formula>
-          <p>
-            To receive $100 on a goods-and-services payment, ask for <strong>$103.59</strong>: (100 + 0.49) ÷ (1 − 0.0299).
-          </p>
-          <h2>Tips to pay less in fees</h2>
+
+          <h2>Core Merchant Fee Optimization Guidelines</h2>
           <ul>
-            <li>Small payments are hit hardest by the fixed fee — combine invoices where you can.</li>
-            <li>Bank transfers (ACH) or other processors may be cheaper for large B2B invoices.</li>
-            <li>Never use friends & family for purchases: it&rsquo;s against PayPal&rsquo;s terms and removes buyer and seller protection.</li>
+            <li>
+              <strong>Micro-Transaction Drag:</strong> On small transactions (e.g., $5.00), the $0.49 fixed fee represents nearly 10% of gross revenue by itself, pushing the total effective fee above 12.8%. For low-ticket digital sales, batch invoices or utilize micro-payment fee structures (5.0% + $0.05).
+            </li>
+            <li>
+              <strong>Cross-Border Surcharges &amp; FX Spread:</strong> International payments incur an extra 1.50% cross-border assessment, plus a 3.0%–4.0% foreign exchange spread if currency conversion is required.
+            </li>
+            <li>
+              <strong>Merchant Surcharging Legality:</strong> Passing credit card processing fees directly to customers as a checkout surcharge is permitted in most US states under card network rules (capped at your actual processing cost or 4%), but is restricted by statute in select jurisdictions (such as Connecticut and Massachusetts).
+            </li>
           </ul>
-        
+
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Freelance & Merchant Fee Tools</h3>
+            <h3>Related Freelance &amp; Merchant Fee Solvers</h3>
             <p>
               Factoring digital payment processor fees into client invoices ensures you receive full compensation. Calculate estimated self-employment quarterly taxes with our <a href="/calculators/finance/freelancer-tax-calculator">Freelancer Tax Calculator</a>, track corporate operating margins via the <a href="/calculators/finance/business-profit-calculator">Business Profit Calculator</a>, model foreign currency exchange using the <a href="/calculators/finance/currency-converter">Currency Converter</a>, and find required sales volume with our <a href="/calculators/finance/break-even-calculator">Break Even Calculator</a>.
             </p>
           </div>
-          </>
+        </>
       }
       faq={[
         {
-          q: "Who pays the PayPal fee?",
-          a: "For goods and services, the seller (recipient) pays. For friends & family payments funded by a card, the sender pays.",
+          q: "Who pays the fee on PayPal Goods and Services transactions?",
+          a: "The seller (payment recipient) always pays the processing fee. The fee is automatically deducted from the gross incoming payment before the remaining net balance is credited to the seller's PayPal balance.",
         },
         {
-          q: "Are PayPal fees refunded if I refund a buyer?",
-          a: "For most commercial transactions, PayPal keeps the fixed fee and returns the percentage portion when you issue a refund.",
+          q: "Can I use PayPal Friends and Family to sell merchandise or freelance services?",
+          a: "No. Using 'Friends & Family' for commercial transactions violates PayPal's User Agreement and terms of service. It also forfeits all PayPal Seller Protection and Buyer Purchase Protection, meaning you have zero dispute recourse in cases of non-delivery, fraud, or chargebacks.",
         },
         {
-          q: "Can I pass the fee on to customers?",
-          a: "It depends on your local laws and card network rules; some places restrict surcharging. Many sellers simply build the fee into their prices instead.",
+          q: "Does PayPal refund merchant processing fees when I issue a refund to a customer?",
+          a: "No. Since PayPal updated its commercial refund policy, the company retains the fixed fee ($0.49) and does not refund original processing fees when a merchant issues a full or partial refund to a buyer.",
+        },
+        {
+          q: "Are PayPal transaction processing fees tax-deductible?",
+          a: "Yes. For freelancers, independent contractors, and business owners, payment processing fees deducted by PayPal, Stripe, Square, or credit card merchant processors are 100% tax-deductible ordinary business expenses reported on Schedule C or corporate tax returns.",
         },
       ]}
       related={[
