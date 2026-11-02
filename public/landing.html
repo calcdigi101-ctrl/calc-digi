@@ -2059,14 +2059,14 @@
         </p>
       </div>
 
-      <!-- Feature Cards Grid (4 Cards: Responsive 4-col / 2-col layout) -->
+      <!-- Feature Cards Grid (4 Cards: Balanced, Equal White Cards with Green CTA Buttons) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         
-        <!-- Card 1: Result Explainer (Active Mint Highlight from screenshot) -->
+        <!-- Card 1: Result Explainer -->
         <div 
           id="ai-card-1" 
           onclick="selectAiCard(1, 'Is a BMI of 23.5 healthy for an adult? What does it mean?')" 
-          class="ai-feature-card cursor-pointer border-2 border-emerald-500/80 bg-[#f2f9f5] dark:bg-emerald-950/20 rounded-[24px] p-6 shadow-xs hover:shadow-md transition-all flex flex-col justify-between group"
+          class="ai-feature-card cursor-pointer border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group"
         >
           <div>
             <div class="w-11 h-11 rounded-2xl bg-pink-100/80 dark:bg-pink-950/70 text-pink-500 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
@@ -2075,20 +2075,24 @@
             <h3 class="font-serif font-bold text-slate-900 dark:text-white text-lg mb-2">
               Result Explainer
             </h3>
-            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
               Ask what your numbers mean, whether they fall in a healthy or typical range, and what to look at next.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-emerald-200/60 dark:border-emerald-800/50 flex items-center justify-between text-xs font-semibold text-emerald-700 dark:text-emerald-400">
+          <button 
+            type="button"
+            onclick="event.stopPropagation(); openAiModalWithPrompt('Is a BMI of 23.5 healthy for an adult? What does it mean?')" 
+            class="w-full py-2.5 px-4 rounded-xl text-white text-xs font-semibold bg-[#18533b] hover:bg-[#12402d] transition-all flex items-center justify-center gap-1.5 shadow-xs group-hover:bg-[#12402d] cursor-pointer"
+          >
             <span>Explain Result</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
-          </div>
+            <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+          </button>
         </div>
 
-        <!-- Card 2: Calculator Chat (With Try AI Chat Button) -->
+        <!-- Card 2: Calculator Chat -->
         <div 
           id="ai-card-2" 
-          onclick="selectAiCard(2, 'How much should I save monthly to retire comfortably?')" 
+          onclick="selectAiCard(2, 'How much should I save for retirement at age 30?')" 
           class="ai-feature-card cursor-pointer border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-[24px] p-6 shadow-xs hover:border-emerald-500/60 hover:shadow-md transition-all flex flex-col justify-between group"
         >
           <div>
@@ -2098,17 +2102,17 @@
             <h3 class="font-serif font-bold text-slate-900 dark:text-white text-lg mb-2">
               Calculator Chat
             </h3>
-            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
               Ask questions like "How much should I save for retirement?" or "Is my BMI healthy?" and get a short, plain-English answer.
             </p>
           </div>
           <button 
             type="button"
             onclick="event.stopPropagation(); openAiModalWithPrompt('How much should I save for retirement at age 30?')" 
-            class="w-full py-2.5 px-4 rounded-xl text-white text-xs font-semibold bg-[#18533b] hover:bg-[#12402d] transition-colors flex items-center justify-center gap-1.5 shadow-xs"
+            class="w-full py-2.5 px-4 rounded-xl text-white text-xs font-semibold bg-[#18533b] hover:bg-[#12402d] transition-all flex items-center justify-center gap-1.5 shadow-xs group-hover:bg-[#12402d] cursor-pointer"
           >
             <span>Try AI Chat</span>
-            <span>→</span>
+            <span class="group-hover:translate-x-0.5 transition-transform">→</span>
           </button>
         </div>
 
@@ -2125,14 +2129,18 @@
             <h3 class="font-serif font-bold text-slate-900 dark:text-white text-lg mb-2">
               Formula Explainer
             </h3>
-            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
               Confused about how a calculation works? Ask the assistant to walk through the formula step by step.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+          <button 
+            type="button"
+            onclick="event.stopPropagation(); openAiModalWithPrompt('How does the compound interest formula A = P(1+r/n)^nt work step by step?')" 
+            class="w-full py-2.5 px-4 rounded-xl text-white text-xs font-semibold bg-[#18533b] hover:bg-[#12402d] transition-all flex items-center justify-center gap-1.5 shadow-xs group-hover:bg-[#12402d] cursor-pointer"
+          >
             <span>Walkthrough Formula</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
-          </div>
+            <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+          </button>
         </div>
 
         <!-- Card 4: Which Calculator? -->
@@ -2148,14 +2156,18 @@
             <h3 class="font-serif font-bold text-slate-900 dark:text-white text-lg mb-2">
               Which Calculator?
             </h3>
-            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">
+            <p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
               Describe what you're trying to work out and the assistant will point you to the right CalcDigi calculator.
             </p>
           </div>
-          <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+          <button 
+            type="button"
+            onclick="event.stopPropagation(); openAiModalWithPrompt('I need to calculate loan payoff with extra monthly payments, which tool should I use?')" 
+            class="w-full py-2.5 px-4 rounded-xl text-white text-xs font-semibold bg-[#18533b] hover:bg-[#12402d] transition-all flex items-center justify-center gap-1.5 shadow-xs group-hover:bg-[#12402d] cursor-pointer"
+          >
             <span>Find Calculator</span>
-            <span class="group-hover:translate-x-1 transition-transform">→</span>
-          </div>
+            <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+          </button>
         </div>
 
       </div>
@@ -2174,7 +2186,7 @@
           <button 
             type="button"
             onclick="handleSectionAiSubmit()" 
-            class="px-4 py-2 rounded-xl bg-[#18533b] hover:bg-[#12402d] text-white text-xs font-semibold transition-colors shrink-0 shadow-xs"
+            class="px-4 py-2 rounded-xl bg-[#18533b] hover:bg-[#12402d] text-white text-xs font-semibold transition-colors shrink-0 shadow-xs cursor-pointer"
           >
             Ask AI
           </button>
@@ -2183,13 +2195,13 @@
         <!-- Quick Suggestions Pill Row -->
         <div class="flex flex-wrap items-center justify-center gap-2 mt-3 text-[11px]">
           <span class="text-slate-400 font-medium">Try asking:</span>
-          <button type="button" onclick="openAiModalWithPrompt('Is a BMI of 23.5 healthy for an adult?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover:border-emerald-400 border border-slate-200 dark:border-slate-800 transition-all">
+          <button type="button" onclick="openAiModalWithPrompt('Is a BMI of 23.5 healthy for an adult?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover:border-emerald-400 border border-slate-200 dark:border-slate-800 transition-all cursor-pointer">
             "Is BMI 23.5 healthy?"
           </button>
-          <button type="button" onclick="openAiModalWithPrompt('How does compound interest formula work?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover:border-emerald-400 border border-slate-200 dark:border-slate-800 transition-all">
+          <button type="button" onclick="openAiModalWithPrompt('How does compound interest formula work?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover:border-emerald-400 border border-slate-200 dark:border-slate-800 transition-all cursor-pointer">
             "Compound interest formula"
           </button>
-          <button type="button" onclick="openAiModalWithPrompt('Which tool should I use for auto loan amortization?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover:border-emerald-400 border border-slate-200 dark:border-slate-800 transition-all">
+          <button type="button" onclick="openAiModalWithPrompt('Which tool should I use for auto loan amortization?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover:border-emerald-400 border border-slate-200 dark:border-slate-800 transition-all cursor-pointer">
             "Which auto loan tool?"
           </button>
         </div>
@@ -2199,7 +2211,7 @@
       <div class="mt-8 text-center">
         <button 
           onclick="openAiModal()" 
-          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#18533b] hover:bg-[#12402d] text-white text-xs sm:text-sm font-semibold shadow-xs hover:shadow transition-all"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#18533b] hover:bg-[#12402d] text-white text-xs sm:text-sm font-semibold shadow-xs hover:shadow transition-all cursor-pointer"
         >
           <span>✨</span>
           <span>Ask AI a Question</span>
@@ -3642,17 +3654,179 @@
       }
     }
   
+    // ================= AI ASSISTANT WORKING ENGINE =================
+    var aiConversationHistory = [];
+
     function openAiModal() {
-      const modal = document.getElementById('ai-modal');
+      var modal = document.getElementById('ai-modal');
+      if (!modal) return;
       modal.style.display = 'flex';
       modal.classList.remove('hidden');
       modal.classList.add('flex');
       document.body.style.overflow = 'hidden';
-      setTimeout(() => {
-        const inp = document.getElementById('ai-modal-input');
+      setTimeout(function() {
+        var inp = document.getElementById('ai-prompt-input');
         if (inp) inp.focus();
       }, 100);
     }
+
+    function closeAiModal() {
+      var modal = document.getElementById('ai-modal');
+      if (!modal) return;
+      modal.style.display = 'none';
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function fillAiPrompt(text) {
+      openAiModal();
+      var inp = document.getElementById('ai-prompt-input');
+      if (inp) {
+        inp.value = text;
+        inp.focus();
+      }
+    }
+
+    function openAiModalWithPrompt(prompt) {
+      openAiModal();
+      var inp = document.getElementById('ai-prompt-input');
+      if (inp) {
+        inp.value = prompt;
+      }
+      submitAiQuestion(prompt);
+    }
+
+    function selectAiCard(cardIdx, prompt) {
+      openAiModalWithPrompt(prompt);
+    }
+
+    function handleSectionAiSubmit() {
+      var inp = document.getElementById('section-ai-input');
+      if (!inp || !inp.value.trim()) return;
+      var q = inp.value.trim();
+      inp.value = '';
+      openAiModalWithPrompt(q);
+    }
+
+    function handleAiSubmit(event) {
+      if (event) event.preventDefault();
+      var inp = document.getElementById('ai-prompt-input');
+      if (!inp || !inp.value.trim()) return;
+      var q = inp.value.trim();
+      inp.value = '';
+      submitAiQuestion(q);
+    }
+
+    function escapeHtml(str) {
+      return (str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function formatAiReply(text) {
+      var safe = escapeHtml(text);
+      // Format markdown links [Text](url)
+      safe = safe.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" class="text-emerald-600 dark:text-emerald-400 font-semibold underline hover:text-emerald-500">$1 &rarr;</a>');
+      // Format bold **text**
+      safe = safe.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
+      // Convert newlines
+      safe = safe.replace(/\n/g, '<br />');
+      return safe;
+    }
+
+    function getLocalSmartAnswer(query) {
+      var q = (query || '').toLowerCase();
+      if (q.includes('bmi') || q.includes('23.5') || q.includes('weight')) {
+        return "A BMI of 23.5 kg/m² falls directly in the **Normal / Healthy weight range** (18.5 – 24.9) for adults. This indicates healthy body composition with low statistical risk of cardiovascular illness.\n\nCalculate your personalized daily calorie targets on our [BMI Calculator](/calculators/health/bmi-calculator) and [TDEE & Calorie Deficit Calculator](/calculators/health/calorie-calculator).";
+      }
+      if (q.includes('retire') || q.includes('401k') || q.includes('save') || q.includes('30')) {
+        return "To retire comfortably, financial planners recommend saving 15%–20% of gross annual income inside a diversified 401(k) or Roth IRA compounding at 7%–10% annually. At age 30, starting early allows compound interest to do over 60% of the heavy lifting to replace 70%–80% of pre-retirement income.\n\nProject your exact portfolio runway using our [Retirement Calculator](/calculators/finance/retirement-calculator) and [401(k) Calculator](/calculators/finance/401k-calculator).";
+      }
+      if (q.includes('compound') || q.includes('formula') || q.includes('interest')) {
+        return "The compound interest formula is **A = P(1 + r/n)^(nt)**, where:\n• **P**: Initial principal\n• **r**: Annual interest rate\n• **n**: Compounding frequency per year\n• **t**: Duration in years\n\nEach period, earned interest is reinvested so you earn interest on interest. Model your savings on our [Compound Interest Calculator](/calculators/finance/compound-interest-calculator).";
+      }
+      if (q.includes('loan') || q.includes('payoff') || q.includes('debt') || q.includes('extra')) {
+        return "Making extra monthly principal payments directly shortens loan amortization schedules and saves thousands in unrecoverable interest charges. The Debt Avalanche method targets highest interest rates first, while the Debt Snowball builds quick psychological momentum.\n\nCalculate your exact payoff schedule on our [Debt Payoff Calculator](/calculators/finance/debt-payoff-calculator) or [Auto Loan Calculator](/calculators/finance/auto-loan-calculator).";
+      }
+      if (q.includes('mortgage') || q.includes('house') || q.includes('afford')) {
+        return "Mortgage affordability relies on the 28/36 debt-to-income (DTI) rule: your monthly housing cost should not exceed 28% of gross monthly income, and total debt payments should stay under 36%.\n\nRun your exact scenario on our [Mortgage Calculator](/calculators/finance/mortgage-calculator) and [Home Affordability Calculator](/calculators/finance/home-affordability-calculator).";
+      }
+      return "CalcDigi provides 341+ precision tools covering finance, health, math, and everyday calculations. Describe what numbers or formulas you are working on, and I will walk you through the math step by step or point you to the right calculator!\n\nYou can also [Browse All 341+ Calculators](/calculators).";
+    }
+
+    async function submitAiQuestion(query) {
+      var chatBox = document.getElementById('ai-chat-box');
+      if (!chatBox) return;
+
+      var userBubble = document.createElement('div');
+      userBubble.className = 'flex justify-end';
+      userBubble.innerHTML = '<div class="bg-[#18533b] text-white p-3 rounded-2xl rounded-tr-xs max-w-[85%] text-xs sm:text-sm shadow-xs leading-relaxed">' + escapeHtml(query) + '</div>';
+      chatBox.appendChild(userBubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      var typingBubble = document.createElement('div');
+      typingBubble.className = 'flex justify-start';
+      typingBubble.id = 'ai-typing-indicator';
+      typingBubble.innerHTML = '<div class="bg-slate-100 dark:bg-slate-800 p-3 rounded-2xl rounded-tl-xs max-w-[85%] text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex items-center gap-2"><span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span><span>Thinking &amp; calculating...</span></div>';
+      chatBox.appendChild(typingBubble);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      aiConversationHistory.push({ role: 'user', content: query });
+
+      try {
+        var res = await fetch('/api/ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ messages: aiConversationHistory.slice(-10) })
+        });
+        var data = await res.json().catch(function() { return {}; });
+
+        var t = document.getElementById('ai-typing-indicator');
+        if (t) t.remove();
+
+        var answer = data.reply;
+        if (!answer || data.error) {
+          answer = getLocalSmartAnswer(query);
+        }
+
+        aiConversationHistory.push({ role: 'assistant', content: answer });
+
+        var botBubble = document.createElement('div');
+        botBubble.className = 'flex justify-start';
+        botBubble.innerHTML = '<div class="bg-slate-100 dark:bg-slate-800/90 text-slate-800 dark:text-slate-100 p-3.5 rounded-2xl rounded-tl-xs max-w-[90%] text-xs sm:text-sm shadow-xs leading-relaxed">' + formatAiReply(answer) + '</div>';
+        chatBox.appendChild(botBubble);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (err) {
+        var t2 = document.getElementById('ai-typing-indicator');
+        if (t2) t2.remove();
+
+        var fallback = getLocalSmartAnswer(query);
+        aiConversationHistory.push({ role: 'assistant', content: fallback });
+
+        var botBubble2 = document.createElement('div');
+        botBubble2.className = 'flex justify-start';
+        botBubble2.innerHTML = '<div class="bg-slate-100 dark:bg-slate-800/90 text-slate-800 dark:text-slate-100 p-3.5 rounded-2xl rounded-tl-xs max-w-[90%] text-xs sm:text-sm shadow-xs leading-relaxed">' + formatAiReply(fallback) + '</div>';
+        chatBox.appendChild(botBubble2);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    }
+
+    // Modal background & escape listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      var modal = document.getElementById('ai-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) closeAiModal();
+        });
+      }
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeAiModal();
+      });
+    });
 
     // FAQ ACCORDION LOGIC
     function toggleFaq(id) {
