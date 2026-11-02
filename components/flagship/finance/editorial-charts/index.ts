@@ -36,3 +36,13 @@ export * from "./NetWorthAssetLiabilityDecompositionChart";
 export * from "./InflationPurchasingPowerDecayChart";
 export * from "./RentVsBuyNetWorthHorizonChart";
 export * from "./PaymentProcessingFeeTierChart";
+
+// Batch 5: Investing, Business & Legal Solvers
+export * from "./RoiSensitivityHorizonChart";
+export * from "./StockTotalReturnVsCpiChart";
+export * from "./CryptoProfitLossFeeErosionChart";
+export * from "./ForexSpreadCostComparisonChart";
+export * from "./BreakEvenContributionMarginChart";
+export * from "./BusinessOperatingMarginWaterfallChart";
+export * from "./ChildSupportIncomeSharesCurveChart";
+export * from "./AlimonyDurationBenchmarkChart";
