@@ -64,10 +64,10 @@ export default async function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
       />
-      <main className="min-h-screen bg-[#fafbfc] dark:bg-slate-950 pb-24">
-        {/* Breadcrumb Bar */}
+      <main className="min-h-screen bg-[#fafbfc] dark:bg-slate-950 pb-28">
+        {/* Breadcrumb Navigation Bar */}
         <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <nav className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <Link href="/" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">
                 Home
@@ -79,14 +79,14 @@ export default async function Page() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative pt-12 pb-10 sm:pt-16 sm:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <section className="relative pt-16 pb-14 sm:pt-20 sm:pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#eefbf4] dark:bg-emerald-950/70 border border-[#c6f0dc] dark:border-emerald-800/80 text-[#065f46] dark:text-emerald-300">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-[#eefbf4] dark:bg-emerald-950/70 border border-[#c6f0dc] dark:border-emerald-800/80 text-[#065f46] dark:text-emerald-300">
               <span>📖</span>
               <span>CALCDIGI LEARNING CENTER</span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
               In-Depth Guides &amp; <span className="text-[#18533b] dark:text-emerald-400">Calculations</span>
             </h1>
 
