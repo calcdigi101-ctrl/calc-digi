@@ -1,12 +1,14 @@
 import Calculator from "@/components/calcs/finance/savings-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
-import { Formula } from "@/components/flagship/shell";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SavingsGoalMilestoneTimelineChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/savings-calculator";
+const TITLE = "Savings Calculator – Monthly Goal Planner & Compound Interest Growth | CalcDigi";
 const DESCRIPTION =
-  "Free savings calculator: find how much to save each month to reach a goal, or how much your savings will grow with monthly deposits and interest, with a year-by-year balance chart.";
+  "Free savings calculator: determine exact monthly contributions needed to reach your savings target, or model future balance growth with high-yield APY, compound interest, and automated deposit timelines.";
 
-export const metadata = calcMetadata(PATH, "Savings Calculator – Reach Your Savings Goal | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
@@ -14,70 +16,81 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="Savings Calculator"
-      intro="Find out how much you need to set aside each month to reach a savings goal — or how much your regular deposits will grow to with interest."
+      intro="Determine exactly how much you must deposit each month to hit your financial milestone—or project how fast your regular cash contributions multiply with high-yield interest."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
+      mathExpression="PMT = (FV - PV*(1 + i)^n) * i / ((1 + i)^n - 1)"
       article={
         <>
-          <h2>How much do I need to save each month?</h2>
+          <h2>Direct Answer: How Does the Sinking Fund Savings Formula Work?</h2>
           <p>
-            The calculator first grows your current savings at the account&rsquo;s APY until the target date. Whatever is
-            still missing must come from monthly deposits, which are solved with the future-value-of-an-annuity formula:
+            To reach a specific future financial goal, savings calculations utilize the <strong>Sinking Fund Formula</strong> (the inverse of an ordinary annuity future value). The calculation first projects your current existing principal balance forward to the target maturity date under the account&rsquo;s Annual Percentage Yield (APY). The remaining gap must be fulfilled through periodic monthly cash deposits, which earn monthly interest from the moment of deposit until the target date.
           </p>
-          <Formula>Monthly deposit = (Goal − Current × (1 + i)^n) × i ÷ [(1 + i)^n − 1]</Formula>
+
+          <Formula>PMT = [FV − PV(1 + i)^n] × i ÷ [(1 + i)^n − 1]</Formula>
           <p>
-            Here <strong>i</strong> is the monthly rate equivalent to the APY and <strong>n</strong> is the number of
-            months. Deposits are assumed at the end of each month.
+            Where:
+            <br />• <strong>PMT</strong> = Required monthly contribution deposit ($)
+            <br />• <strong>FV</strong> = Target future savings goal ($)
+            <br />• <strong>PV</strong> = Current initial starting balance ($)
+            <br />• <strong>i</strong> = Effective monthly interest rate (Annual Percentage Yield converted to monthly equivalent: (1 + APY)^(1/12) − 1)
+            <br />• <strong>n</strong> = Total number of monthly savings cycles (Target Years × 12)
           </p>
-          <h3>Example</h3>
+
+          <SavingsGoalMilestoneTimelineChart />
+
+          <h2>Savings Milestone Matrix: Time Required to Hit Goals at 4.50% APY</h2>
           <p>
-            To turn $2,000 into $20,000 in 3 years in a 4.5% APY high-yield account you need to save about{" "}
-            <strong>$461 a month</strong>. You deposit $18,604 in total and the account pays roughly $1,396 of interest.
+            The table below demonstrates how increasing your recurring monthly savings contribution significantly accelerates the calendar timeline required to achieve major liquid milestones (assuming an initial $1,000 balance):
           </p>
-          <h2>Where to keep short-term savings</h2>
+
+          <DataTable
+            head={["Milestone Goal", "At $250 / Month", "At $500 / Month", "At $1,000 / Month", "Total Interest Earned ($1k/mo)"]}
+            rows={[
+              ["$10,000 Emergency Buffer", "35 Months (2.9 yrs)", "18 Months (1.5 yrs)", "9 Months (0.75 yrs)", "$225 Interest"],
+              ["$25,000 Auto / Down Payment", "80 Months (6.7 yrs)", "43 Months (3.6 yrs)", "23 Months (1.9 yrs)", "$1,120 Interest"],
+              ["$50,000 House Deposit", "144 Months (12.0 yrs)", "81 Months (6.8 yrs)", "43 Months (3.6 yrs)", "$4,180 Interest"],
+              ["$100,000 Wealth Anchor", "242 Months (20.2 yrs)", "143 Months (11.9 yrs)", "80 Months (6.7 yrs)", "$16,400 Interest"],
+            ]}
+          />
+
+          <h2>Optimizing Cash Yield: High-Yield Savings vs. CDs vs. Treasury Bills</h2>
           <ul>
             <li>
-              <strong>High-yield savings accounts</strong> — FDIC-insured, withdraw any time, rates change with the market.
+              <strong>High-Yield Savings Accounts (HYSA):</strong> Liquid, federally insured by FDIC or NCUA up to $250,000 per depositor. Yields fluctuate based on Federal Reserve benchmark adjustments. Ideal for emergency cash.
             </li>
             <li>
-              <strong>Certificates of deposit (CDs)</strong> — a fixed rate for a fixed term; early withdrawal costs a penalty.
+              <strong>Certificates of Deposit (CDs):</strong> Lock in a guaranteed fixed APY for a contracted term (3 months to 5 years). Yield is immune to rate cuts, but withdrawing early incurs penalty forfeitures of 3–6 months of interest.
             </li>
             <li>
-              <strong>Money market accounts and Treasury bills</strong> — competitive yields with high safety.
+              <strong>Treasury Bills (T-Bills):</strong> Backed by the full faith and credit of the US Government. Income is exempt from state and local income taxes, providing higher net after-tax yields for residents in high-tax states.
             </li>
           </ul>
-          <p>
-            For goals more than about five years away, a diversified investment portfolio has historically grown faster
-            than savings accounts, at the cost of short-term ups and downs. Use the{" "}
-            <a href="/calculators/finance/investment-calculator">investment calculator</a> for those.
-          </p>
-          <h2>Tips to reach a savings goal faster</h2>
-          <ul>
-            <li>Automate a transfer on payday so the money is saved before you can spend it.</li>
-            <li>Name the account after the goal — people save more when the purpose is visible.</li>
-            <li>Send windfalls such as tax refunds and bonuses straight to the goal.</li>
-          </ul>
-        
+
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Cash Growth & Compounding Tools</h3>
+            <h3>Related Cash Growth &amp; Compounding Solvers</h3>
             <p>
-              Regular automated deposits transform modest monthly savings into substantial wealth. Model exponential future value growth with our <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, establish a 3-to-6 month safety cushion using the <a href="/calculators/finance/emergency-fund-calculator">Emergency Fund Calculator</a>, compare fixed-term yields via the <a href="/calculators/finance/cd-calculator">CD Calculator</a>, and verify effective compounding with our <a href="/calculators/finance/apy-calculator">APY Calculator</a>.
+              Automated systematic deposits transform monthly cash flow into lasting wealth. Model long-term multi-decade growth curves with the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, evaluate emergency cushions using the <a href="/calculators/finance/emergency-fund-calculator">Emergency Fund Calculator</a>, structure fixed maturity tranches with the <a href="/calculators/finance/cd-calculator">CD Calculator</a>, and audit effective bank yields via our <a href="/calculators/finance/apy-calculator">APY Calculator</a>.
             </p>
           </div>
-          </>
+        </>
       }
       faq={[
         {
-          q: "What's the difference between APY and interest rate?",
-          a: "The interest rate (APR) doesn't include compounding; APY does. A 4.40% rate compounded daily is about a 4.50% APY. Banks advertise APY for savings, and that's what this calculator expects.",
+          q: "What is the difference between APY and nominal interest rate?",
+          a: "The nominal interest rate does not factor in compounding within the calendar year. Annual Percentage Yield (APY) reflects the true annualized rate of return including compound interest. Under the federal Truth in Savings Act (TISA), banks must disclose APY on deposit accounts.",
         },
         {
-          q: "Is interest on savings taxable?",
-          a: "Yes. Interest from savings accounts, CDs and money market accounts is taxed as ordinary income in the year it's paid. Your bank sends Form 1099-INT if you earn $10 or more.",
+          q: "Is interest earned on high-yield savings accounts taxable?",
+          a: "Yes. In the United States, bank interest is classified as ordinary income and taxed at your top marginal federal and state tax rates. Financial institutions issue IRS Form 1099-INT for accounts earning $10 or more annually.",
         },
         {
-          q: "How much should I keep in savings?",
-          a: "A common target is 3–6 months of essential expenses as an emergency fund, plus separate savings for known goals such as a car, home down payment or vacation.",
+          q: "How many months of living expenses should be kept in liquid savings?",
+          a: "Certified Financial Planners (CFPs) recommend keeping 3 to 6 months of non-discretionary essential expenses in liquid, FDIC-insured cash for salaried dual-income households, and 6 to 12 months for single earners, freelancers, and commission-based professionals.",
+        },
+        {
+          q: "What is the 'Pay Yourself First' rule in savings strategy?",
+          a: "Rather than saving whatever money is leftover at the end of the month, the 'Pay Yourself First' methodology automates a direct transfer to savings or investments immediately upon receiving each paycheck.",
         },
       ]}
       related={[

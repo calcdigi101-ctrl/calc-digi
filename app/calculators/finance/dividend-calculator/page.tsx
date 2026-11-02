@@ -1,12 +1,14 @@
 import Calculator from "@/components/calcs/finance/dividend-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
-import { Formula } from "@/components/flagship/shell";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { DividendReinvestmentDripCurveChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/dividend-calculator";
+const TITLE = "Dividend Calculator – DRIP Reinvestment, Yield on Cost & Growth | CalcDigi";
 const DESCRIPTION =
-  "Free dividend calculator: project dividend income and portfolio value with dividend reinvestment (DRIP), dividend growth, share price growth and taxes.";
+  "Free dividend calculator: calculate passive dividend income, portfolio growth with DRIP (dividend reinvestment plans), annual dividend growth rate, and qualified dividend tax drag over 1 to 30 years.";
 
-export const metadata = calcMetadata(PATH, "Dividend Calculator – DRIP & Dividend Income | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
@@ -14,65 +16,81 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="Dividend Calculator"
-      intro="Project your dividend income and portfolio value over time, with or without reinvesting dividends."
+      intro="Project your passive dividend cash flows and total portfolio valuation over time. Model the compounding power of automated dividend reinvestment (DRIP), annual dividend dividend hikes, and tax liabilities."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
+      mathExpression="DY = (DPS / SharePrice) * 100"
       article={
         <>
-          <h2>Dividend yield</h2>
-          <Formula>Dividend yield = Annual dividends per share ÷ Share price</Formula>
+          <h2>Direct Answer: What Is a Dividend Reinvestment Plan (DRIP) &amp; How Does It Compound?</h2>
           <p>
-            A $50 stock paying $2 a year in dividends yields 4%. A $10,000 position in it pays $400 a year before tax.
+            A <strong>Dividend Reinvestment Plan (DRIP)</strong> automatically converts corporate cash distributions into additional full and fractional shares of the underlying stock or exchange-traded fund (ETF) rather than paying cash out to your brokerage balance. This establishes a dual-compounding engine: in each successive quarter, dividend payments are distributed across an ever-larger base of acquired shares, while underlying companies concurrently increase their per-share dividend payout rate. Over extended multi-decade horizons, reinvested dividends have accounted for approximately <strong>84% of the total cumulative return</strong> of the S&amp;P 500.
           </p>
-          <h2>How reinvesting (DRIP) compounds</h2>
+
+          <Formula>Dividend Yield = (Annual Dividends per Share ÷ Current Share Price) × 100</Formula>
+          <Formula>Yield on Cost (YoC) = (Current Annual Dividend per Share ÷ Original Purchase Price) × 100</Formula>
           <p>
-            With a dividend reinvestment plan, each dividend buys more shares, and those shares pay dividends of their own.
-            If the company also raises its dividend each year, income grows on two fronts.
+            Where:
+            <br />• <strong>Dividend Yield:</strong> Instantaneous cash flow return based on current market pricing
+            <br />• <strong>Payout Ratio:</strong> Annual Dividends per Share ÷ Earnings per Share (EPS) — ratios under 60% indicate sustainable distribution safety
+            <br />• <strong>Yield on Cost:</strong> The effective cash yield on your initial out-of-pocket investment dollars, which can easily surpass 10%–20% after years of corporate dividend hikes
           </p>
-          <h3>Example</h3>
+
+          <DividendReinvestmentDripCurveChart />
+
+          <h2>DRIP Compounding vs. Cash Payout Horizon Benchmark: $25,000 Portfolio</h2>
           <p>
-            $10,000 at a 4% yield with 5% annual dividend growth, 3% share price growth, 15% dividend tax and reinvestment
-            grows to about <strong>$19,150</strong> in 10 years. Annual after-tax income rises from $340 to about{" "}
-            <strong>$789</strong> — a 7.9% yield on the original cost.
+            The table below contrasts terminal wealth between reinvesting dividends (DRIP) versus taking cash distributions, modeled on an initial $25,000 portfolio with a 3.5% initial yield, 6.0% annual dividend growth, and 4.0% share price appreciation:
           </p>
-          <h2>Taxes on dividends</h2>
+
+          <DataTable
+            head={["Horizon Duration", "Cash Payouts Taken (Portfolio / Total Cash)", "DRIP Reinvested Portfolio Value", "DRIP Annual Income Produced", "Yield on Cost (YoC)"]}
+            rows={[
+              ["5 Years", "$33,400 / $5,200 Cash", "$39,500", "$1,410 / yr", "5.6% YoC"],
+              ["10 Years", "$44,800 / $12,200 Cash", "$65,100", "$2,480 / yr", "9.9% YoC"],
+              ["15 Years", "$60,100 / $21,600 Cash", "$111,400", "$4,530 / yr", "18.1% YoC"],
+              ["20 Years", "$80,600 / $34,300 Cash", "$196,800", "$8,540 / yr", "34.1% YoC"],
+              ["25 Years", "$108,100 / $51,200 Cash", "$358,200", "$16,560 / yr", "66.2% YoC"],
+            ]}
+          />
+
+          <h2>Dividend Taxation: Qualified vs. Non-Qualified Ordinary Dividends</h2>
           <ul>
             <li>
-              <strong>Qualified dividends</strong> (most US stocks held more than 60 days around the ex-dividend date) are
-              taxed at 0%, 15% or 20% depending on income.
+              <strong>Qualified Dividends:</strong> Distributed by US corporations or qualified foreign firms where shares are held unhedged for more than 60 days during the 121-day window surrounding the ex-dividend date. Taxed at favorable federal long-term capital gains rates (0%, 15%, or 20% depending on taxable income).
             </li>
             <li>
-              <strong>Ordinary dividends</strong> — including most REIT and money-market distributions — are taxed as regular
-              income.
+              <strong>Ordinary (Non-Qualified) Dividends:</strong> Distributed by Real Estate Investment Trusts (REITs), Master Limited Partnerships (MLPs), employee stock option plans, and short-term holdings. Taxed as ordinary income at your top marginal federal tax bracket (up to 37%).
             </li>
-            <li>Dividends inside IRAs and 401(k)s aren&rsquo;t taxed each year.</li>
+            <li>
+              <strong>Tax-Advantaged Sheltering:</strong> In Traditional and Roth IRAs or 401(k) accounts, dividend distributions are 100% shielded from annual dividend taxes, maximizing the mathematical efficiency of DRIP.
+            </li>
           </ul>
-          <h2>Beware of very high yields</h2>
-          <p>
-            An unusually high yield can mean the share price has fallen because investors expect a dividend cut. Look at the
-            payout ratio (dividends ÷ earnings) and the company&rsquo;s history of raising dividends.
-          </p>
-        
+
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Passive Income & Equities Tools</h3>
+            <h3>Related Passive Income &amp; Equities Solvers</h3>
             <p>
               Reinvesting dividend cash flows unlocks compounding returns without requiring capital liquidation. Track total equity performance and CAGR with our <a href="/calculators/finance/stock-return-calculator">Stock Return Calculator</a>, project exponential portfolio growth via the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, model tax-free retirement distributions using the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, and plan long-term asset growth with our <a href="/calculators/finance/investment-calculator">Investment Calculator</a>.
             </p>
           </div>
-          </>
+        </>
       }
       faq={[
         {
-          q: "How often are dividends paid?",
-          a: "Most US companies pay quarterly. Some funds pay monthly, and many international companies pay semi-annually. This calculator works with annual totals.",
+          q: "What is an 'Ex-Dividend Date' and why does it matter?",
+          a: "The ex-dividend date is the cutoff date established by stock exchanges. You must purchase shares at least one business day prior to the ex-dividend date to be entitled to receive the upcoming declared dividend payment.",
         },
         {
-          q: "What is a good dividend yield?",
-          a: "For broad US stock indexes it's been roughly 1–2% in recent years. Established dividend payers often yield 2–5%. Much higher yields deserve extra scrutiny.",
+          q: "What constitutes a 'Dividend Aristocrat'?",
+          a: "A Dividend Aristocrat is an S&P 500 company that has successfully increased its base dividend payout every consecutive year for at least 25 consecutive calendar years (e.g., Procter & Gamble, Johnson & Johnson, Coca-Cola).",
         },
         {
-          q: "Should I reinvest dividends?",
-          a: "If you don't need the income yet, reinvesting maximizes long-term growth. In retirement, many investors switch to taking dividends as cash to cover spending.",
+          q: "Why is a dividend yield over 10% often dangerous?",
+          a: "Extremely high dividend yields often indicate a 'dividend trap'—a company whose share price has collapsed due to declining earnings, impending bankruptcy, or structural obsolescence, foreshadowing an imminent dividend reduction or elimination.",
+        },
+        {
+          q: "Do I pay taxes on reinvested dividends even if I didn't receive cash?",
+          a: "Yes. In taxable accounts, the IRS considers reinvested dividends as constructively received cash income in the year distributed, regardless of whether you received a check or automatically bought more shares.",
         },
       ]}
       related={[

@@ -1,12 +1,14 @@
 import Calculator from "@/components/calcs/finance/cd-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
-import { Formula } from "@/components/flagship/shell";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { CdLadderingMaturityYieldChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/cd-calculator";
+const TITLE = "CD Calculator – Certificate of Deposit Interest, APY & Maturity Value | CalcDigi";
 const DESCRIPTION =
-  "Free CD calculator: see how much a certificate of deposit earns by maturity from its APY or interest rate and term, plus after-tax interest and a typical early-withdrawal penalty.";
+  "Free CD calculator: calculate guaranteed interest earnings, maturity value, and after-tax returns across 3-month to 5-year certificates of deposit. Model early withdrawal penalties and CD laddering yield structures.";
 
-export const metadata = calcMetadata(PATH, "CD Calculator – Certificate of Deposit Interest | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
@@ -14,64 +16,84 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="CD Calculator"
-      intro="Find out how much interest a certificate of deposit will earn and what it will be worth when it matures."
+      intro="Calculate exact maturity payouts, total earned interest, and net proceeds after taxes on bank and credit union certificates of deposit. Model early withdrawal penalties and custom CD ladders."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
+      mathExpression="MV = P * (1 + APY)^(m / 12)"
       article={
         <>
-          <h2>How CD interest is calculated</h2>
+          <h2>Direct Answer: What Is a Certificate of Deposit &amp; How Is Maturity Value Calculated?</h2>
           <p>
-            Banks quote CDs by <strong>APY</strong>, which already includes compounding. To find the value at maturity,
-            grow the deposit by the APY for the length of the term:
+            A <strong>Certificate of Deposit (CD)</strong> is a federally insured promissory time deposit issued by banks (FDIC-insured) and credit unions (NCUSIF-insured) that pays a contractual, fixed Annual Percentage Yield (APY) in exchange for locking up capital for an agreed maturity duration (typically ranging from 3 months to 5 years). Because APY incorporates the bank&rsquo;s internal compounding frequency (daily or monthly), maturity valuation follows an exponential term formula. Withdrawing funds prior to the maturity date triggers a statutory early withdrawal interest penalty.
           </p>
-          <Formula>Maturity value = Deposit × (1 + APY)^(months ÷ 12)</Formula>
-          <p>If you only know the stated interest rate and how often it compounds, convert it first:</p>
-          <Formula>APY = (1 + rate ÷ n)^n − 1</Formula>
-          <h3>Example</h3>
+
+          <Formula>MV = P × (1 + APY)^(m ÷ 12)</Formula>
           <p>
-            $10,000 in a 12-month CD at 4.25% APY is worth <strong>$10,425</strong> at maturity — $425 of interest. If the
-            CD were broken early with a typical three-month interest penalty, you&rsquo;d give up about $105.
+            Where:
+            <br />• <strong>MV</strong> = Total maturity value payout ($)
+            <br />• <strong>P</strong> = Initial principal deposit amount ($)
+            <br />• <strong>APY</strong> = Contractual Annual Percentage Yield (decimal, e.g. 0.05 for 5.00%)
+            <br />• <strong>m</strong> = Certificate term duration in months
           </p>
-          <h2>Things to check before opening a CD</h2>
+
+          <CdLadderingMaturityYieldChart />
+
+          <h2>Certificate of Deposit Term &amp; Yield Benchmarks: $25,000 Deposit</h2>
+          <p>
+            The table below illustrates maturity payouts, total interest, and early withdrawal penalty impacts across standard term durations on a $25,000 deposit:
+          </p>
+
+          <DataTable
+            head={["CD Term Duration", "Sample APY (%)", "Total Interest at Maturity", "Maturity Payout Value", "Early Withdrawal Penalty (3–6 Mo Int.)"]}
+            rows={[
+              ["6 Months", "5.10%", "$630", "$25,630", "$315 (90 days interest)"],
+              ["1 Year (12 Mo)", "4.85%", "$1,212", "$26,212", "$303 (90 days interest)"],
+              ["2 Years (24 Mo)", "4.40%", "$2,248", "$27,248", "$550 (180 days interest)"],
+              ["3 Years (36 Mo)", "4.15%", "$3,245", "$28,245", "$519 (180 days interest)"],
+              ["5 Years (60 Mo)", "4.00%", "$5,416", "$30,416", "$1,000 (365 days interest)"],
+            ]}
+          />
+
+          <h2>Core CD Strategies: The Laddering Architecture</h2>
+          <p>
+            Locking all available cash into a single long-term CD exposes depositors to two distinct risks: lack of intermediate liquidity, and opportunity cost if market interest rates rise. The <strong>CD Laddering Strategy</strong> overcomes both limitations:
+          </p>
           <ul>
             <li>
-              <strong>Early-withdrawal penalty:</strong> usually 3–12 months of interest depending on the term. No-penalty CDs
-              exist but pay a little less.
+              <strong>Tranche Division:</strong> Divide your target capital (e.g., $50,000) into five equal parts ($10,000 each) and purchase 1-year, 2-year, 3-year, 4-year, and 5-year CDs simultaneously.
             </li>
             <li>
-              <strong>Insurance:</strong> CDs at FDIC banks and NCUA credit unions are insured up to $250,000 per depositor,
-              per institution, per ownership category.
+              <strong>Perpetual Rollover:</strong> As the 1-year CD matures in 12 months, roll the principal and interest into a new 5-year CD at prevailing peak rates.
             </li>
             <li>
-              <strong>Renewal:</strong> many CDs roll over automatically at maturity, often at a lower rate. Set a reminder for
-              the grace period.
-            </li>
-            <li>
-              <strong>Laddering:</strong> splitting money across 1-, 2-, 3-, 4- and 5-year CDs gives you a maturing CD every
-              year while capturing longer-term rates.
+              <strong>Guaranteed Liquidity:</strong> After Year 1, exactly 20% of your total fixed-income portfolio matures every 12 months, ensuring ongoing cash access without incurring early redemption penalties.
             </li>
           </ul>
-        
+
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Fixed-Income & Capital Preservation Tools</h3>
+            <h3>Related Fixed-Income &amp; Capital Preservation Solvers</h3>
             <p>
-              Certificates of Deposit provide guaranteed, FDIC-insured fixed returns. Convert stated interest rates to true yields with our <a href="/calculators/finance/apy-calculator">APY Calculator</a>, model long-term compounding growth via the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, track liquid cash reserves using the <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, and evaluate real purchasing power erosion with the <a href="/calculators/finance/inflation-calculator">Inflation Calculator</a>.
+              Certificates of Deposit provide guaranteed capital protection with zero volatility. Convert stated interest rates to true yields with our <a href="/calculators/finance/apy-calculator">APY Calculator</a>, model long-term compounding growth via the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, track liquid cash reserves using the <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, and audit real purchasing power erosion with the <a href="/calculators/finance/inflation-calculator">Inflation Calculator</a>.
             </p>
           </div>
-          </>
+        </>
       }
       faq={[
         {
-          q: "Is CD interest taxable?",
-          a: "Yes, as ordinary income in the year it's credited — even if you can't withdraw it until maturity. CDs inside an IRA are tax-deferred or tax-free.",
+          q: "How are early withdrawal penalties calculated on a CD?",
+          a: "Most financial institutions assess early withdrawal penalties as a forfeit of a set number of months of interest. For example, short-term CDs (under 12 months) typically penalize 90 days of interest, while multi-year CDs forfeit 180 to 365 days of interest. If you break the CD before earning sufficient interest, the difference is deducted from your original principal.",
         },
         {
-          q: "Are CDs better than a high-yield savings account?",
-          a: "A CD locks in a rate, which helps if rates fall, but your money is tied up. High-yield savings is flexible but its rate can drop at any time. Many people use savings for emergencies and CDs for money with a known future date.",
+          q: "Is CD interest taxed every year or only when the CD matures?",
+          a: "Under IRS regulations, CD interest is taxed as ordinary income in the calendar year it is credited to your account, regardless of whether you withdraw the money or leave it locked inside the CD until maturity.",
         },
         {
-          q: "What happens if rates rise after I open a CD?",
-          a: "Your rate stays the same until maturity. Some banks offer bump-up CDs that let you raise the rate once, usually at a slightly lower starting rate.",
+          q: "Are brokered CDs different from bank CDs?",
+          a: "Yes. Brokered CDs are purchased through an investment brokerage firm (such as Fidelity, Schwab, or Vanguard). They can be sold on a secondary market before maturity without paying a bank penalty, though their market value fluctuates inversely with interest rates.",
+        },
+        {
+          q: "Are CDs safe from bank failures?",
+          a: "Yes, up to the statutory limit. CDs issued by FDIC-insured commercial banks or NCUA-insured credit unions are protected up to $250,000 per depositor, per insured institution, for each account ownership category.",
         },
       ]}
       related={[
