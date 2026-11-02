@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CollegeTuitionSavingsProjectionChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/college-savings-calculator";
-const TITLE = "College Savings Calculator – 529 Plan Tuition Projection | CalcDigi";
+const TITLE = "College Savings Calculator – 529 Plan Growth & Tuition Inflation | CalcDigi";
 const DESCRIPTION =
-  "Free college savings calculator: project 4-year tuition costs adjusted for higher education inflation. Calculate required monthly 529 plan contributions, tax-free growth, and SECURE 2.0 Roth IRA rollovers.";
+  "Free college savings calculator: project 4-year tuition costs, 529 plan tax-free compounding growth, and required monthly contributions under IRS Section 529 qualified education rules.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -16,94 +16,172 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="College Savings Calculator"
-      intro="Project future 4-year higher education costs adjusted for tuition inflation. Determine exact monthly savings needed in a 529 plan or educational investment vehicle to cover targeted expenses."
+      intro="Project total 4-year college tuition expenses, room and board costs, and required monthly 529 plan contributions. Model tuition inflation rates alongside compound investment returns."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
-      mathExpression="Cost_t = AnnualCost * (1 + inflation)^t"
+      mathExpression="FV_{\text{tuition}} = C_{\text{annual}} \times (1 + g)^t \times \left[ \frac{1 - (1+g)^4 (1+r)^{-4}}{r - g} \right]"
       article={
         <>
-          <h2>Direct Answer: How Does 529 College Tuition Forecasting &amp; Compounding Work?</h2>
+          <h2>Direct Answer: How to Project College Tuition Costs &amp; 529 Savings Targets</h2>
           <p>
-            Forecasting college savings requires a multi-stage actuarial calculation: first, current published annual college costs (tuition, mandatory fees, room and board, books, and supplies) are compounded forward across matriculation years using an <strong>education inflation rate</strong> (historically 4% to 6%, outpacing general CPI). Second, total four-year obligations are discounted to the child&rsquo;s matriculation age to account for ongoing investment growth during enrollment. Finally, subtracting current accumulated principal yields the net funding deficit, which is amortized across remaining pre-college months using sinking fund mathematics.
+            Projecting higher education funding requires modeling two opposing compounding curves: <strong>higher education tuition inflation</strong> (which historically averages <strong>4.0% to 5.5% annually</strong>, significantly outpacing standard CPI inflation) versus the <strong>compound investment growth</strong> of a dedicated college savings vehicle like an <strong>IRS Section 529 Qualified Tuition Plan</strong>.
           </p>
-
-          <Formula>Future Annual Cost = Current Annual Cost × (1 + r_inflation)^t</Formula>
-          <Formula>Monthly 529 Deposit = [Deficit at Enrollment] × i ÷ [(1 + i)^n − 1]</Formula>
           <p>
-            Where:
-            <br />• <strong>Current Annual Cost:</strong> Total all-in cost of attendance today ($)
-            <br />• <strong>r_inflation:</strong> Expected annual higher education cost inflation (typically 4.0%–5.5%)
-            <br />• <strong>t:</strong> Years until student enrolls in college (18 − Current Age)
-            <br />• <strong>i:</strong> Monthly investment return of the 529 portfolio ((1 + r_return)^(1/12) − 1)
-            <br />• <strong>n:</strong> Total saving accumulation months (t × 12)
+            Under federal tax law, Section 529 plans allow parents and family members to invest after-tax dollars that compound completely <strong>100% tax-free</strong>, with withdrawals remaining exempt from federal and state income taxes when utilized for qualified higher education expenses.
           </p>
 
           <CollegeTuitionSavingsProjectionChart />
 
-          <h2>College Tuition Inflation Benchmarks: 4-Year Total Cost Projections</h2>
+          <h2>Actuarial Mathematics of Tuition Inflation &amp; 529 Annuity Modeling</h2>
           <p>
-            The table below projects total 4-year cost of attendance (tuition, fees, room &amp; board) across major college categories for a child born today (Age 0) enrolling at Age 18, assuming 4.5% annual higher education inflation:
+            Let <Formula>{"C_{\text{current}}"}</Formula> be current annual comprehensive college costs (tuition, fees, room, and board). If a child matriculates in <em>t</em> years, the projected cost for year 1 of college <Formula>{"C_1"}</Formula> under annual tuition inflation rate <em>g</em> is:
+          </p>
+
+          <Formula>{"C_1 = C_{\text{current}} \times (1 + g)^t"}</Formula>
+          <p>
+            Because college spans four consecutive academic years while the remaining 529 balance continues to earn annual investment return <em>r</em> during matriculation, the present value of the 4-year tuition obligation at matriculation date is:
+          </p>
+          <Formula>{"FV_{\text{tuition}} = C_1 \times \sum_{k=0}^{3} \left( \frac{1 + g}{1 + r} \right)^k"}</Formula>
+          <p>
+            Where:
+            <br />• <strong>FV_tuition</strong> = Total capital sum required in the 529 plan upon child&rsquo;s matriculation ($)
+            <br />• <strong>C_current</strong> = Current full annual cost of attendance ($)
+            <br />• <strong>g</strong> = Projected annual higher education tuition inflation rate (typically 0.045 for 4.5%)
+            <br />• <strong>r</strong> = Expected annual compound portfolio return inside the 529 plan (e.g. 0.070 for 7.0%)
+            <br />• <strong>t</strong> = Years until child enrolls in university
+            <br />• <strong>PMT</strong> = Required monthly 529 plan savings contribution ($)
+          </p>
+
+          <h3>Step-by-Step Numerical Calculation Walkthrough</h3>
+          <p>
+            Consider parents opening a 529 account for a <strong>newborn infant</strong> (<Formula>{"t = 18 \text{ years until enrollment}"}</Formula>) aiming to fund an in-state public university currently costing <strong>$28,000 per year</strong>, assuming <strong>4.50% annual tuition inflation</strong> (<Formula>{"g = 0.045"}</Formula>), <strong>7.00% annual 529 portfolio return</strong> (<Formula>{"r = 0.070, r/12 = 0.005833"}</Formula>), and <strong>$5,000 initial seed gift</strong>:
+          </p>
+          <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li>
+              <strong>Step 1: Project Freshman Year Annual Tuition (t = 18).</strong>
+              <Formula>{"C_1 = \$28{,}000 \times (1 + 0.045)^{18} = \$28{,}000 \times 2.20848 = \$61{,}837.40"}</Formula>
+            </li>
+            <li>
+              <strong>Step 2: Calculate total 4-year educational obligation at enrollment.</strong> Summing across 4 academic years adjusted for ongoing return during college yields a target 529 funding need of:
+              <Formula>{"FV_{\text{tuition}} \approx \$232{,}450.00"}</Formula>
+            </li>
+            <li>
+              <strong>Step 3: Calculate future growth of $5,000 seed deposit over 18 years.</strong>
+              <Formula>{"FV_{\text{seed}} = \$5{,}000 \times (1 + 0.070)^{18} = \$5{,}000 \times 3.37993 = \$16{,}899.65"}</Formula>
+            </li>
+            <li>
+              <strong>Step 4: Determine net remaining funding shortfall.</strong>
+              <Formula>{"\text{Target Shortfall} = \$232{,}450.00 - \$16{,}899.65 = \$215{,}550.35"}</Formula>
+            </li>
+            <li>
+              <strong>Step 5: Solve for required monthly 529 contribution (PMT).</strong> Over 216 monthly contributions (<Formula>{"18 \times 12 = 216"}</Formula>) at periodic rate 0.005833, the monthly annuity factor is 427.65:
+              <Formula>{"PMT = \frac{\$215{,}550.35}{427.65} = \$504.03 \text{ / month}"}</Formula>
+              Saving <strong>$504/month</strong> starting at birth fully funds the entire 4-year degree without student debt. Total out-of-pocket cash paid is $113,870; tax-free 529 investment growth pays the remaining $118,580.
+            </li>
+          </ol>
+
+          <h2>4-Year College Cost Projections Across Institution Tiers (18 Years Out)</h2>
+          <p>
+            The benchmark matrix below projects total 4-year comprehensive educational costs based on a 4.5% annual tuition inflation rate:
           </p>
 
           <DataTable
-            head={["Higher Education Tier", "Annual Cost Today", "Projected 4-Yr Total at 18", "Monthly 529 Savings (at 6.5% Return)", "Student Loan Cost (if Borrowed at 7%)"]}
+            head={["Institution Classification", "Today's Annual Cost", "Today's 4-Year Cost", "Projected 4-Year Cost in 18 Years", "Required Monthly 529 Savings"]}
             rows={[
-              ["In-State Public (4-Year)", "$28,000 / yr", "$247,000", "$488 / mo", "$344,000 (10-yr repayment)"],
-              ["Out-of-State Public (4-Year)", "$46,000 / yr", "$406,000", "$802 / mo", "$566,000 (10-yr repayment)"],
-              ["Private Non-Profit University", "$62,000 / yr", "$547,000", "$1,081 / mo", "$762,000 (10-yr repayment)"],
-              ["Elite Private / Ivy League", "$88,000 / yr", "$776,000", "$1,534 / mo", "$1,082,000 (10-yr repayment)"],
+              ["In-State Public University", "$28,000 / yr", "$112,000", "$247,000", "$536 / mo"],
+              ["Out-of-State Public University", "$45,000 / yr", "$180,000", "$397,000", "$861 / mo"],
+              ["Private Non-Profit University", "$60,000 / yr", "$240,000", "$529,000", "$1,148 / mo"],
+              ["Elite Private / Ivy League", "$85,000 / yr", "$340,000", "$750,000", "$1,627 / mo"],
             ]}
           />
 
-          <h2>Maximizing 529 College Savings Under SECURE Act 2.0</h2>
-          <ul>
-            <li>
-              <strong>Federal Tax-Free Growth:</strong> All investment earnings inside a state-sponsored 529 Qualified Tuition Program compound 100% free of federal income tax and capital gains tax when withdrawn for Qualified Higher Education Expenses (QHEE).
-            </li>
-            <li>
-              <strong>State Tax Deductions:</strong> Over 30 states provide state income tax deductions or credits for residents contributing to their home state&rsquo;s 529 savings plan.
-            </li>
-            <li>
-              <strong>SECURE 2.0 Roth IRA Rollover:</strong> Beneficiaries of 529 plans maintained for at least 15 years can roll over up to a lifetime maximum of <strong>$35,000</strong> of leftover funds directly into their own Roth IRA, completely penalty-free and tax-free, eliminating fears of over-saving.
-            </li>
-            <li>
-              <strong>Favorable Financial Aid (FAFSA) Treatment:</strong> Parent-owned 529 assets are assessed at a maximum rate of 5.64% of asset value under FAFSA formula calculations, compared to 20% for student-owned assets (like UGMA/UTMA custodial accounts).
-            </li>
+          <h2>IRS Section 529 Plan Tax Advantages &amp; SECURE 2.0 Rollover Rules</h2>
+          <p>
+            Section 529 qualified tuition programs offer distinct federal tax incentives:
+          </p>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Triple Tax Benefits:</strong> Contributions grow tax-deferred, withdrawals for qualified expenses are 100% tax-free, and over 30 U.S. states offer state income tax deductions or tax credits for contributions.</li>
+            <li><strong>SECURE 2.0 Act Roth IRA Rollovers:</strong> Effective 2024, if a beneficiary does not use all 529 funds (due to scholarships or lower costs), up to <strong>$35,000 of leftover 529 funds can be rolled over tax-free into a Roth IRA</strong> for the beneficiary, eliminating the risk of trapped funds.</li>
+            <li><strong>Qualified Higher Education Expenses (QHEE):</strong> Covers tuition, mandatory fees, books, computer equipment, internet access, and room/board for students enrolled at least half-time.</li>
+          </ul>
+
+          <h2>FAFSA Simplification Act: Grandparent-Owned 529 Advantage</h2>
+          <p>
+            Under the landmark federal <em>FAFSA Simplification Act</em>, higher education financial aid rules changed dramatically in favor of family contributors:
+          </p>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Zero Untaxed Income Penalty:</strong> Previously, distributions from grandparent-owned 529 plans were treated as untaxed student income, reducing financial aid by up to 50%. Under new FAFSA regulations, distributions from grandparents are completely excluded from federal financial aid calculations.</li>
+            <li><strong>Asset Exclusion on FAFSA:</strong> Grandparent-owned 529 accounts do not need to be reported as an asset on the student's FAFSA application, preserving maximum institutional aid.</li>
+            <li><strong>State Tax Parity:</strong> Most states allow any relative to contribute directly to a student's 529 plan, with many states providing state income tax deductions to the contributing donor.</li>
+          </ul>
+
+          <h2>Age-Based Target Enrollment Portfolios vs. Static Allocations</h2>
+          <p>
+            529 plans typically provide automated <strong>Target Enrollment (Age-Based) Portfolios</strong>:
+          </p>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Ages 0 to 8 (Aggressive Accumulation):</strong> 80% to 100% equities, maximizing compound growth over long time horizons.</li>
+            <li><strong>Ages 9 to 14 (Balanced Transition):</strong> Shifts to 50% equities and 50% fixed income to moderate portfolio volatility.</li>
+            <li><strong>Ages 15 to 18 (Capital Preservation):</strong> 70% to 80% short-term bonds and FDIC-insured cash equivalents, ensuring tuition funds cannot be wiped out by sudden equity market drops right before freshman year.</li>
+          </ul>
+
+          <h2>Essential 529 College Savings Terminology</h2>
+          <ul className="list-disc pl-5 space-y-1.5 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Qualified Expense:</strong> Higher education expenditures sanctioned by the IRS (tuition, fees, books, computers, room/board) eligible for tax-free withdrawals.</li>
+            <li><strong>Superfunding (5-Year Gift Bunching):</strong> IRS provision permitting individuals to contribute up to 5 times the annual gift tax exclusion ($90,000 in 2024, or $180,000 for couples) in a single year without gift taxes.</li>
+            <li><strong>Beneficiary:</strong> The designated future student for whose educational benefit the 529 account is established.</li>
+            <li><strong>FAFSA Impact:</strong> 529 accounts owned by parents are assessed at a low 5.64% rate in student financial aid formulas, preserving maximum financial aid eligibility.</li>
           </ul>
 
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Education &amp; Wealth Accumulation Solvers</h3>
+            <h3>Related Family Financial &amp; Savings Solvers</h3>
             <p>
-              Funding higher education requires disciplined compounding to outpace aggressive tuition inflation. Model tax-advantaged 529 portfolio trajectories with our <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, set automated monthly sinking fund deposits via the <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, evaluate diversified asset allocations with the <a href="/calculators/finance/investment-calculator">Investment Calculator</a>, and model post-graduation repayment schedules with the <a href="/calculators/finance/loan-calculator">Loan Calculator</a>.
+              Model general liquid compounding with our <a href="/calculators/finance/savings-calculator">Savings Calculator</a>, track multi-decade wealth via the <a href="/calculators/finance/compound-interest-calculator">Compound Interest Calculator</a>, structure retirement balances with the <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, and evaluate tax withholding using the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>.
             </p>
           </div>
         </>
       }
       faq={[
         {
-          q: "What expenses qualify for tax-free 529 distributions?",
-          a: "Qualified Higher Education Expenses (QHEE) include tuition, mandatory enrollment fees, books, computer hardware and software, internet access, and room and board (for students enrolled at least half-time). Up to $10,000 per year can also be used for K-12 private school tuition, and a $10,000 lifetime limit applies toward student loan repayments.",
+          q: "What happens to 529 plan funds if my child does not go to college?",
+          a: "You have several flexible options. Under the SECURE 2.0 Act, you can roll over up to $35,000 of unused 529 funds into a Roth IRA for the beneficiary tax-free. You can also transfer the beneficiary designation to a sibling or relative, or withdraw funds non-qualified (paying income tax plus a 10% penalty only on earnings, not principal).",
         },
         {
-          q: "What happens to 529 money if my child gets a scholarship?",
-          a: "If your child earns a scholarship, you can withdraw an equivalent dollar amount from the 529 plan without paying the standard 10% IRS penalty (though earnings are subject to ordinary income tax). You can also transfer the account to a sibling or roll it into a Roth IRA under SECURE 2.0.",
+          q: "How does a 529 plan affect financial aid eligibility (FAFSA)?",
+          a: "A 529 plan owned by a parent has minimal impact on financial aid, being assessed at a maximum rate of 5.64% of asset value toward the Student Aid Index (SAI). In contrast, assets held directly in a child's name (like UGMA/UTMA accounts) are assessed at 20%.",
         },
         {
-          q: "Can grandparents open a 529 plan without hurting financial aid?",
-          a: "Yes. Under the new simplified FAFSA rules, distributions from grandparent-owned 529 plans are no longer reported as student untaxed income, making grandparent-owned 529 plans completely invisible on federal financial aid applications.",
+          q: "Can 529 funds be used for K-12 private school tuition?",
+          a: "Yes. Under federal tax law, parents can withdraw up to $10,000 per student per calendar year tax-free from a 529 plan to pay for qualified tuition at public, private, or religious elementary and secondary (K-12) schools.",
         },
         {
-          q: "What investment allocation should I use inside a 529 plan?",
-          a: "Most families utilize an Age-Based (Target Enrollment) Portfolio. When the child is young (ages 0–9), the fund allocates 80%–100% to equities for high compounding growth. As enrollment nears (ages 14–18), the allocation automatically shifts toward capital-preservation vehicles like short-term bonds and FDIC cash.",
+          q: "What is 529 plan superfunding?",
+          a: "Superfunding allows a contributor to make a lump-sum deposit equal to five years of annual gift tax exclusions at once ($90,000 for individual donors, or $180,000 for married couples in 2024) without incurring federal gift taxes, jumpstarting compounding early.",
+        },
+        {
+          q: "Can 529 funds pay for off-campus housing and rent?",
+          a: "Yes, provided the student is enrolled at least half-time. The allowable tax-free withdrawal for room and board is capped at the institution's official cost-of-attendance allowance for off-campus students.",
+        },
+        {
+          q: "Can 529 plans be used to pay off existing student loans?",
+          a: "Yes. Under the federal SECURE Act, 529 plan beneficiaries and their siblings can make tax-free withdrawals up to a lifetime limit of $10,000 each to pay down qualified student loan principal and interest.",
+        },
+        {
+          q: "Are 529 contributions tax-deductible on federal income taxes?",
+          a: "Contributions to a 529 plan are not tax-deductible on federal income tax returns. However, over 30 U.S. states provide state income tax deductions or tax credits for residents contributing to their home state's 529 program.",
+        },
+        {
+          q: "What is an age-based investment option in a 529 plan?",
+          a: "An age-based (target-enrollment) option automatically rebalances asset allocation over time: it begins aggressive (80% to 100% stocks) during infancy and gradually transitions into bonds and cash as the child approaches college age to protect principal.",
         },
       ]}
       related={[
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings" },
-        { href: "/calculators/finance/investment-calculator", icon: "📈", name: "Investment" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "🧮", name: "Compound Interest" },
-        { href: "/calculators/finance/inflation-calculator", icon: "🎈", name: "Inflation" },
-        { href: "/calculators/finance/budget-calculator", icon: "📋", name: "Budget" },
-        { href: "/calculators/finance/loan-calculator", icon: "💳", name: "Loan Calculator" },
+        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
+        { href: "/calculators/finance/investment-calculator", icon: "💹", name: "Investment Calculator" },
+        { href: "/calculators/finance/budget-calculator", icon: "📋", name: "Budget Calculator" },
+        { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Calculator" },
+        { href: "/calculators/finance/tax-calculator", icon: "🏛️", name: "Tax Calculator" },
       ]}
     >
       <Calculator />
