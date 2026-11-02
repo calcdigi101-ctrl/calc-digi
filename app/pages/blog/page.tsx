@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getArticles } from "@/lib/articles";
+import { SITE_URL } from "@/lib/site";
+import { BlogDirectory } from "@/components/BlogDirectory";
 
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Blog & Guides",
+  title: "Blog & Learning Center: Financial, Health & Math Guides",
   description:
-    "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
+    "In-depth actuarial, financial, health, and everyday math guides with verified formulas, benchmarks, and step-by-step calculation examples.",
   openGraph: {
-    title: "Blog & Guides",
+    title: "Blog & Learning Center | CalcDigi",
     description:
-      "CalcDigi Blog – Guides on health, finance, fitness, tax, and math to help you make smarter decisions with your numbers.",
+      "In-depth actuarial, financial, health, and everyday math guides with verified formulas, benchmarks, and step-by-step calculation examples.",
     type: "website",
+    url: `${SITE_URL}/pages/blog`,
   },
   alternates: {
     canonical: "/pages/blog",
@@ -21,96 +24,83 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const articles = await getArticles();
-  const featured = articles.find((a) => a.featured) ?? articles[0];
-  const rest = articles.filter((a) => a.slug !== featured?.slug);
+
+  const jsonLdData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Blog & Guides", item: `${SITE_URL}/pages/blog` },
+        ],
+      },
+      {
+        "@type": "CollectionPage",
+        name: "CalcDigi Blog & Learning Center",
+        url: `${SITE_URL}/pages/blog`,
+        description:
+          "In-depth actuarial, financial, health, and everyday math guides with verified formulas and calculation examples.",
+        publisher: {
+          "@type": "Organization",
+          name: "CalcDigi",
+          url: `${SITE_URL}/`,
+        },
+        hasPart: articles.map((article) => ({
+          "@type": "Article",
+          headline: article.title,
+          description: article.excerpt,
+          url: `${SITE_URL}/pages/blog/${article.slug}`,
+          datePublished: article.published_at,
+          dateModified: article.updated_at,
+        })),
+      },
+    ],
+  };
 
   return (
-    <main>
-      <section className="hero" style={{ padding: "60px 0 48px" }}>
-        <div className="container">
-          <div className="hero-badge">📖 Learning Center</div>
-          <h1 style={{ fontSize: "clamp(30px,4vw,52px)" }}>
-            Guides &amp; <em>Articles</em>
-          </h1>
-          <p className="hero-sub">
-            In-depth guides on health, finance, fitness, tax, and math to help you make smarter decisions.
-          </p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          {!articles.length && (
-            <p style={{ color: "var(--c-ink3)" }}>No articles published yet — check back soon.</p>
-          )}
-
-          {featured && (
-            <Link
-              href={`/pages/blog/${featured.slug}`}
-              className="flex flex-col md:grid md:grid-cols-[1fr_200px] gap-6 md:gap-8 items-center p-6 md:p-9 mb-10 rounded-2xl border transition-all w-full max-w-full"
-              style={{
-                background: "var(--c-accent-lt)",
-                borderColor: "var(--c-rule)",
-              }}
-            >
-              <div>
-                <div className="section-label" style={{ marginBottom: "12px" }}>
-                  ⭐ Featured Article
-                </div>
-                <h2
-                  style={{
-                    fontFamily: "var(--font-serif)",
-                    fontSize: "clamp(22px,3vw,34px)",
-                    letterSpacing: "-0.4px",
-                    marginBottom: "12px",
-                  }}
-                >
-                  {featured.title}
-                </h2>
-                <p style={{ color: "var(--c-ink2)", fontSize: "15px", lineHeight: 1.7, marginBottom: "20px" }}>
-                  {featured.excerpt}
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "16px",
-                    fontSize: "13px",
-                    color: "var(--c-ink3)",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <span>{featured.read_minutes} min read</span>
-                  <span>·</span>
-                  <span>{featured.category}</span>
-                </div>
-                <span className="btn btn-primary">Read Article →</span>
-              </div>
-              <div style={{ fontSize: "80px", textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {featured.cover_emoji}
-              </div>
-            </Link>
-          )}
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(290px,1fr))", gap: "24px" }}>
-            {rest.map((article) => (
-              <Link href={`/pages/blog/${article.slug}`} className="blog-card" key={article.slug}>
-                <div className="blog-card-img">{article.cover_emoji}</div>
-                <div className="blog-card-body">
-                  <div className="blog-card-cat">{article.category}</div>
-                  <div className="blog-card-title">{article.title}</div>
-                  <div className="blog-card-desc">{article.excerpt}</div>
-                  <div className="blog-card-meta">
-                    <span>{article.read_minutes} min</span>
-                    <span>·</span>
-                    <span>{article.category}</span>
-                  </div>
-                </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+      />
+      <main className="min-h-screen bg-[#fafbfc] dark:bg-slate-950 pb-24">
+        {/* Breadcrumb Bar */}
+        <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+            <nav className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <Link href="/" className="hover:text-emerald-700 dark:hover:text-emerald-400 transition-colors">
+                Home
               </Link>
-            ))}
+              <span>/</span>
+              <span className="font-semibold text-slate-800 dark:text-slate-200">Blog &amp; Guides</span>
+            </nav>
           </div>
         </div>
-      </section>
-    </main>
+
+        {/* Hero Section */}
+        <section className="relative pt-12 pb-10 sm:pt-16 sm:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#eefbf4] dark:bg-emerald-950/70 border border-[#c6f0dc] dark:border-emerald-800/80 text-[#065f46] dark:text-emerald-300">
+              <span>📖</span>
+              <span>CALCDIGI LEARNING CENTER</span>
+            </div>
+
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
+              In-Depth Guides &amp; <span className="text-[#18533b] dark:text-emerald-400">Calculations</span>
+            </h1>
+
+            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto">
+              Authoritative guides on finance, health, real estate, taxes, and math to help you make smarter decisions with your numbers.
+            </p>
+          </div>
+        </section>
+
+        {/* Blog Directory & Cards Grid */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <BlogDirectory articles={articles} />
+        </section>
+      </main>
+    </>
   );
 }
