@@ -2248,7 +2248,7 @@
           id="scenario-tab-home"
           type="button"
           onclick="switchScenario('home')"
-          class="scenario-tab px-4 py-2 rounded-full bg-[#18533b] text-white shadow-xs transition-all flex items-center gap-1.5 shrink-0"
+          class="scenario-tab cursor-pointer px-4 py-2 rounded-full bg-[#18533b] text-white shadow-xs transition-all flex items-center gap-1.5 shrink-0"
         >
           <span>🏡</span>
           <span>Buying a Home</span>
@@ -2257,7 +2257,7 @@
           id="scenario-tab-fitness"
           type="button"
           onclick="switchScenario('fitness')"
-          class="scenario-tab px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
+          class="scenario-tab cursor-pointer px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
         >
           <span>🥗</span>
           <span>Fitness Goals</span>
@@ -2266,7 +2266,7 @@
           id="scenario-tab-budgeting"
           type="button"
           onclick="switchScenario('budgeting')"
-          class="scenario-tab px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
+          class="scenario-tab cursor-pointer px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
         >
           <span>💰</span>
           <span>Daily Budgeting</span>
@@ -2275,7 +2275,7 @@
           id="scenario-tab-business"
           type="button"
           onclick="switchScenario('business')"
-          class="scenario-tab px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
+          class="scenario-tab cursor-pointer px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
         >
           <span>💼</span>
           <span>Business Planning</span>
@@ -2284,7 +2284,7 @@
           id="scenario-tab-diy"
           type="button"
           onclick="switchScenario('diy')"
-          class="scenario-tab px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
+          class="scenario-tab cursor-pointer px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0"
         >
           <span>📐</span>
           <span>DIY Projects</span>
@@ -3827,6 +3827,186 @@
         if (e.key === 'Escape') closeAiModal();
       });
     });
+
+    
+    // ================= REAL-WORLD SCENARIOS INTERACTIVE TABS =================
+    var SCENARIOS_DATA = {
+      home: [
+        {
+          icon: '🏡',
+          iconBg: 'bg-orange-50 dark:bg-orange-950/60 text-orange-600',
+          title: 'Planning a Home Purchase with Confidence',
+          desc: 'Compare loan options, calculate monthly payments including taxes and insurance, and find out how much house you can truly afford.',
+          ctaText: 'Try Mortgage Calculator',
+          url: '/calculators/finance/mortgage-calculator'
+        },
+        {
+          icon: '💰',
+          iconBg: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600',
+          title: 'Down Payment & PMI Optimization',
+          desc: 'See how putting 5%, 10%, or 20% down eliminates PMI insurance fees and saves tens of thousands in 30-year cumulative interest.',
+          ctaText: 'Try Down Payment Calculator',
+          url: '/calculators/finance/down-payment-calculator'
+        },
+        {
+          icon: '⚖️',
+          iconBg: 'bg-blue-50 dark:bg-blue-950/60 text-blue-600',
+          title: 'Rent vs. Buy 10-Year Wealth Horizon',
+          desc: 'Evaluate unrecoverable ownership costs against investing surplus cash in low-cost index funds to find your true break-even.',
+          ctaText: 'Try Rent vs Buy Calculator',
+          url: '/calculators/finance/rent-vs-buy-calculator'
+        }
+      ],
+      fitness: [
+        {
+          icon: '🥗',
+          iconBg: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600',
+          title: 'Crushing a 12-Week Fitness Transformation',
+          desc: 'Dial in maintenance calories, plan a sustainable deficit, and track body fat percentages with medical-grade precision.',
+          ctaText: 'Try TDEE Calculator',
+          url: '/calculators/health/calorie-calculator'
+        },
+        {
+          icon: '🏋️',
+          iconBg: 'bg-purple-50 dark:bg-purple-950/60 text-purple-600',
+          title: 'US Navy Body Fat & Lean Mass Split',
+          desc: 'Accurately measure lean body mass versus subcutaneous adipose tissue using standard tape-measure circumferences.',
+          ctaText: 'Try Body Fat Calculator',
+          url: '/calculators/health/body-fat-calculator'
+        },
+        {
+          icon: '🥩',
+          iconBg: 'bg-rose-50 dark:bg-rose-950/60 text-rose-600',
+          title: 'Target Macronutrient Allocation',
+          desc: 'Calculate exact daily grams of protein, complex carbohydrates, and essential fatty acids for optimal energy and muscle retention.',
+          ctaText: 'Try Macro Calculator',
+          url: '/calculators/health/macro-calculator'
+        }
+      ],
+      budgeting: [
+        {
+          icon: '📊',
+          iconBg: 'bg-blue-50 dark:bg-blue-950/60 text-blue-600',
+          title: 'Mastering the 50/30/20 Budgeting Rule',
+          desc: 'Allocate 50% to essential needs, 30% to discretionary lifestyle wants, and 20% to debt elimination and wealth building.',
+          ctaText: 'Try Budget Calculator',
+          url: '/calculators/finance/budget-calculator'
+        },
+        {
+          icon: '💵',
+          iconBg: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600',
+          title: 'True Take-Home Paycheck Estimator',
+          desc: 'Calculate exact net salary after federal, state, and FICA statutory withholdings, plus pre-tax 401(k) deductions.',
+          ctaText: 'Try Take-Home Pay Calculator',
+          url: '/calculators/finance/take-home-pay-calculator'
+        },
+        {
+          icon: '🛡️',
+          iconBg: 'bg-amber-50 dark:bg-amber-950/60 text-amber-600',
+          title: '3-to-6 Month Emergency Cash Runway',
+          desc: 'Determine your household survival baseline expense burn rate and calculate how many months of reserves you require.',
+          ctaText: 'Try Emergency Fund Calculator',
+          url: '/calculators/finance/emergency-fund-calculator'
+        }
+      ],
+      business: [
+        {
+          icon: '📈',
+          iconBg: 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600',
+          title: 'Break-Even Production Volume & Safety',
+          desc: 'Determine the exact sales units and dollar revenue required to cover all fixed and variable enterprise overhead.',
+          ctaText: 'Try Break-Even Calculator',
+          url: '/calculators/finance/break-even-calculator'
+        },
+        {
+          icon: '💼',
+          iconBg: 'bg-blue-50 dark:bg-blue-950/60 text-blue-600',
+          title: 'Scaling a Small Business Profitably',
+          desc: 'Deconstruct top-line revenue into gross margins, operating EBIT, and bottom-line net profit after corporate taxes.',
+          ctaText: 'Try Business Profit Calculator',
+          url: '/calculators/finance/business-profit-calculator'
+        },
+        {
+          icon: '💳',
+          iconBg: 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600',
+          title: 'Merchant Payment Processing & Net Payout',
+          desc: 'Calculate gross-up invoicing amounts and credit card processing deductions to ensure you receive exact target net revenue.',
+          ctaText: 'Try PayPal Fee Calculator',
+          url: '/calculators/finance/paypal-fee-calculator'
+        }
+      ],
+      diy: [
+        {
+          icon: '🧱',
+          iconBg: 'bg-amber-50 dark:bg-amber-950/60 text-amber-600',
+          title: 'Concrete Slab Volume & Bag Estimator',
+          desc: 'Calculate cubic yards and 60lb/80lb premix bags required for foundations, driveways, patios, and post holes.',
+          ctaText: 'Try Concrete Calculator',
+          url: '/calculators/housing/concrete-calculator'
+        },
+        {
+          icon: '📐',
+          iconBg: 'bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600',
+          title: 'Flooring Square Footage with 10% Waste',
+          desc: 'Measure room dimensions, tile or hardwood floor area, and calculate exact materials factoring in cutting waste.',
+          ctaText: 'Try Square Footage Calculator',
+          url: '/calculators/housing/square-footage-calculator'
+        },
+        {
+          icon: '🎨',
+          iconBg: 'bg-violet-50 dark:bg-violet-950/60 text-violet-600',
+          title: 'Interior & Exterior Wall Paint Coverage',
+          desc: 'Subtract doors and windows from wall surface area to calculate required primer and finish paint coats.',
+          ctaText: 'Try Paint Calculator',
+          url: '/calculators/housing/paint-calculator'
+        }
+      ]
+    };
+
+    function switchScenario(key) {
+      var tabs = ['home', 'fitness', 'budgeting', 'business', 'diy'];
+      tabs.forEach(function(t) {
+        var el = document.getElementById('scenario-tab-' + t);
+        if (!el) return;
+        if (t === key) {
+          el.className = 'scenario-tab cursor-pointer px-4 py-2 rounded-full bg-[#18533b] text-white shadow-xs transition-all flex items-center gap-1.5 shrink-0 font-semibold text-xs';
+        } else {
+          el.className = 'scenario-tab cursor-pointer px-4 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center gap-1.5 shrink-0 font-semibold text-xs';
+        }
+      });
+
+      var container = document.getElementById('scenario-cards-container');
+      if (!container) return;
+
+      var items = SCENARIOS_DATA[key] || SCENARIOS_DATA.home;
+      var outHtml = '';
+
+      items.forEach(function(item, idx) {
+        var borderClass = idx === 0 
+          ? 'border-2 border-emerald-400/90 dark:border-emerald-500' 
+          : 'border border-slate-200/80 dark:border-slate-800';
+
+        outHtml += '<div class="scenario-card bg-white dark:bg-slate-900 rounded-[24px] ' + borderClass + ' p-6 sm:p-7 shadow-xs hover:border-emerald-400/60 hover:shadow-md transition-all flex flex-col justify-between group animate-fadeIn">' +
+          '<div>' +
+            '<div class="w-11 h-11 rounded-2xl ' + item.iconBg + ' flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">' +
+              item.icon +
+            '</div>' +
+            '<h3 class="font-bold text-slate-900 dark:text-white text-base sm:text-lg mb-2">' +
+              escapeHtml(item.title) +
+            '</h3>' +
+            '<p class="text-xs sm:text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed mb-6">' +
+              escapeHtml(item.desc) +
+            '</p>' +
+          '</div>' +
+          '<a href="' + item.url + '" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border-2 border-emerald-500/30 hover:border-emerald-500 bg-[#eefbf4] dark:bg-emerald-950/60 hover:bg-[#d4f5e4] text-[#065f46] dark:text-emerald-300 text-xs font-bold transition-all group/link">' +
+            '<span>' + escapeHtml(item.ctaText) + '</span>' +
+            '<span class="group-hover/link:translate-x-1 transition-transform">&rarr;</span>' +
+          '</a>' +
+        '</div>';
+      });
+
+      container.innerHTML = outHtml;
+    }
 
     // FAQ ACCORDION LOGIC
     function toggleFaq(id) {
