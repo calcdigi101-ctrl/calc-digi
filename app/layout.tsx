@@ -33,7 +33,7 @@ const ASSET_VERSION = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 10) ?? "dev";
 
 // Runs before first paint: marks JS as available (scroll-reveal only hides
 // content when it can be revealed again) and applies the saved theme.
-const HEAD_SCRIPT = "document.documentElement.classList.add('js')";
+const HEAD_SCRIPT = "document.documentElement.classList.add('js');try{if(new URLSearchParams(location.search).get('embed')==='true'||window.self!==window.top){document.documentElement.classList.add('is-embedded')}}catch(e){}";
 const THEME_SCRIPT = "try{if(localStorage.getItem('cd-dark')==='1')document.body.classList.add('dark')}catch(e){}";
 
 export default function RootLayout({

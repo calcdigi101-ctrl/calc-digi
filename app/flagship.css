@@ -271,3 +271,57 @@ a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* ==========================================================================
+   Embedded Calculator Widget Mode (for iframes on external websites)
+   ========================================================================== */
+html.is-embedded,
+html.is-embedded body {
+  background: transparent !important;
+  overflow-x: hidden !important;
+}
+
+html.is-embedded #site-nav,
+html.is-embedded #site-footer,
+html.is-embedded #back-to-top,
+html.is-embedded [data-open-ai],
+html.is-embedded nav[aria-label="Breadcrumb"],
+html.is-embedded .fx-no-print,
+html.is-embedded .fx-print-invoice-header,
+html.is-embedded .fx-print-invoice-footer,
+html.is-embedded article,
+html.is-embedded .fx-editorial,
+html.is-embedded .fx-prose,
+html.is-embedded .qmc-hero-continuation {
+  display: none !important;
+}
+
+html.is-embedded main {
+  background: transparent !important;
+  padding: 0 !important;
+  min-height: auto !important;
+}
+
+html.is-embedded main > div {
+  padding: 6px 8px !important;
+  max-width: 100% !important;
+}
+
+html.is-embedded h1 {
+  font-size: 1.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+html.is-embedded p.max-w-3xl {
+  display: none !important;
+}
+
+/* In embed mode, hide the embed trigger button itself */
+html.is-embedded .fx-embed-trigger {
+  display: none !important;
+}
+
+/* Show the attribution bar in embedded iframes */
+html.is-embedded .fx-embed-attribution {
+  display: block !important;
+}

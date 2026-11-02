@@ -75,6 +75,20 @@ export function CalculatorPage({
         </div>
         {children}
 
+        {/* Embedded Widget Bottom Attribution Bar (Visible only inside embedded iframes) */}
+        <div className="fx-embed-attribution hidden mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500">
+          <div className="flex items-center justify-between w-full">
+            <span className="flex items-center gap-1.5 font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
+              <span>Free calculator widget by <a href={crumbs?.[crumbs.length - 1]?.href ?? "https://www.calcdigi.com"} target="_blank" rel="noopener" className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline">CalcDigi.com</a></span>
+            </span>
+            <a href={crumbs?.[crumbs.length - 1]?.href ?? "https://www.calcdigi.com"} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400">
+              <span>Open Full Screen</span>
+              <span>↗</span>
+            </a>
+          </div>
+        </div>
+
         {/* Printable Official Invoice Footer */}
         <div className="fx-print-invoice-footer hidden print:block mt-8 pt-4 border-t border-slate-300 text-center text-xs text-slate-500">
           <div className="flex items-center justify-between text-slate-600 mb-1">
