@@ -1,12 +1,14 @@
 import Calculator from "@/components/calcs/finance/social-security-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
-import { DataTable } from "@/components/flagship/shell";
+import { DataTable, Formula } from "@/components/flagship/shell";
+import { SocialSecurityClaimingAgeBenefitChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/social-security-calculator";
+const TITLE = "Social Security Calculator – Claiming Age Benefits, PIA & Break-Even Analysis | CalcDigi";
 const DESCRIPTION =
-  "Free Social Security calculator: see your monthly benefit at every claiming age from 62 to 70, your full retirement age by birth year, and lifetime benefits.";
+  "Free Social Security calculator: calculate exact monthly payouts across claiming ages 62 to 70 based on Primary Insurance Amount (PIA), Full Retirement Age (FRA), delayed retirement credits, and actuarial break-even ages.";
 
-export const metadata = calcMetadata(PATH, "Social Security Calculator – Benefits by Age | CalcDigi", DESCRIPTION);
+export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
 export default function Page() {
   return (
@@ -14,67 +16,75 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="Social Security Calculator"
-      intro="See how your Social Security retirement benefit changes depending on when you claim, from age 62 to 70."
+      intro="Calculate your monthly Social Security retirement benefit across every claiming age from 62 to 70. Model actuarial reductions, delayed retirement credits (8%/yr), and lifetime break-even horizons."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
+      mathExpression="Benefit = PIA * (1 + DelayedCredits - EarlyReductions)"
       article={
         <>
-          <h2>Full retirement age</h2>
+          <h2>Direct Answer: How Does the Social Security Retirement Benefit Formula Work?</h2>
+          <p>
+            Your baseline Social Security retirement benefit—called the <strong>Primary Insurance Amount (PIA)</strong>—is calculated from your highest 35 years of wage-indexed earnings. The actual monthly cash check you receive depends on the exact calendar month you elect to begin claiming relative to your statutory <strong>Full Retirement Age (FRA)</strong> (age 67 for all workers born in 1960 or later). Claiming as early as possible at age 62 imposes a permanent <strong>30% lifetime reduction</strong>; delaying claiming until age 70 earns <strong>Delayed Retirement Credits of 8% per year</strong>, yielding a permanent <strong>24% bonus above your baseline PIA</strong> (a 77% higher monthly check than claiming at 62).
+          </p>
+
+          <Formula>Early Claiming Reduction: (5/9 of 1% × First 36 Mo) + (5/12 of 1% × Remaining Mo)</Formula>
+          <Formula>Delayed Retirement Bonus: 2/3 of 1% per Month (8.0% per Year) from FRA to Age 70</Formula>
+
+          <SocialSecurityClaimingAgeBenefitChart />
+
+          <h2>Social Security Claiming Age Payout Matrix: $2,500 Base PIA</h2>
+          <p>
+            The table below illustrates monthly benefit amounts, percentage of base PIA, and cumulative lifetime payouts across varying longevity horizons for a worker born in 1960 or later with a $2,500 Full Retirement Age benefit:
+          </p>
+
           <DataTable
-            head={["Year of birth", "Full retirement age (FRA)"]}
+            head={["Claiming Age", "% of Base PIA", "Monthly Payout ($)", "Cumulative Total at Age 80", "Cumulative Total at Age 85", "Break-Even Horizon"]}
             rows={[
-              ["1943–1954", "66"],
-              ["1955", "66 and 2 months"],
-              ["1956", "66 and 4 months"],
-              ["1957", "66 and 6 months"],
-              ["1958", "66 and 8 months"],
-              ["1959", "66 and 10 months"],
-              ["1960 or later", "67"],
+              ["Age 62 (Earliest)", "70.0%", "$1,750 / mo", "$378,000", "$483,000", "Baseline"],
+              ["Age 64", "80.0%", "$2,000 / mo", "$384,000", "$504,000", "Age 78 vs 62"],
+              ["Age 66", "93.3%", "$2,333 / mo", "$392,000", "$532,000", "Age 79 vs 62"],
+              ["Age 67 (Full Retirement Age)", "100.0%", "$2,500 / mo", "$390,000", "$540,000", "Age 80.5 vs 62"],
+              ["Age 70 (Maximum Delayed)", "124.0%", "$3,100 / mo", "$372,000", "$558,000", "Age 82.5 vs 62"],
             ]}
           />
-          <h2>How claiming age changes your benefit</h2>
+
+          <h2>Core Claiming Decision Rules: Longevity &amp; Spousal Protection</h2>
           <ul>
             <li>
-              <strong>Claiming early:</strong> benefits are cut by 5/9 of 1% for each of the first 36 months before FRA, and
-              5/12 of 1% for each additional month. At 62 with an FRA of 67, that&rsquo;s a 30% reduction — permanently.
+              <strong>The Actuarial Break-Even Age (~81–83 Years):</strong> If you live past age 82.5, delaying to age 70 produces significantly more total lifetime wealth than taking smaller checks starting at 62.
             </li>
             <li>
-              <strong>Delaying:</strong> you earn delayed retirement credits of 2/3 of 1% per month (8% a year) after FRA, up
-              to age 70. With an FRA of 67, claiming at 70 pays 124%.
+              <strong>Spousal &amp; Survivor Benefit Shield:</strong> For married couples, the higher-earning spouse delaying to age 70 locks in the highest possible survivor benefit for the surviving spouse for the rest of their natural life.
+            </li>
+            <li>
+              <strong>Social Security Earnings Test (Prior to FRA):</strong> If you claim benefits before reaching Full Retirement Age and continue to work, $1 in benefits is temporarily withheld for every $2 earned above the annual earnings limit ($23,400 in 2026). Once you reach FRA, the earnings test vanishes completely.
             </li>
           </ul>
-          <h3>Example</h3>
-          <p>
-            A $2,000 benefit at FRA 67 becomes <strong>$1,400</strong> at 62 or <strong>$2,480</strong> at 70. Waiting from 62
-            to 70 increases the monthly check by about 77%.
-          </p>
-          <h2>Which age is best?</h2>
-          <p>
-            Delaying usually pays off if you expect to live past your early 80s, since the larger checks eventually make up for
-            the years you waited. Claiming earlier can make sense with health concerns, an immediate need for income, or as
-            part of a married couple&rsquo;s strategy where the higher earner delays to maximize the survivor benefit.
-          </p>
-        
+
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Retirement Income & Longevity Tools</h3>
+            <h3>Related Retirement Income &amp; Longevity Solvers</h3>
             <p>
               Deciding when to claim Social Security between ages 62 and 70 significantly alters lifetime retirement income. Integrate your benefits into a complete nest egg model with our <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, optimize employer-sponsored retirement savings using the <a href="/calculators/finance/401k-calculator">401k Calculator</a>, build tax-free private reserves via the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, and adjust future income for purchasing power loss with our <a href="/calculators/finance/inflation-calculator">Inflation Calculator</a>.
             </p>
           </div>
-          </>
+        </>
       }
       faq={[
         {
-          q: "Where do I find my benefit at full retirement age?",
-          a: "Sign in to your my Social Security account at ssa.gov. Your statement shows your estimated benefit at 62, at full retirement age and at 70 based on your actual earnings record.",
+          q: "Are Social Security retirement benefits subject to federal income tax?",
+          a: "Yes, depending on your 'Combined Income' (Adjusted Gross Income + Non-taxable interest + 50% of your Social Security benefits). For single filers with combined income between $25,000 and $34,000, up to 50% of benefits are taxable; above $34,000, up to 85% of benefits become taxable.",
         },
         {
-          q: "Are Social Security benefits taxed?",
-          a: "Up to 85% of benefits can be subject to federal income tax if your combined income exceeds certain thresholds. Some states also tax benefits.",
+          q: "What is an annual Cost of Living Adjustment (COLA)?",
+          a: "Social Security benefits are protected against inflation through an annual statutory COLA based on the percentage increase in the Consumer Price Index for Urban Wage Earners and Clerical Workers (CPI-W) from the third quarter of the prior year.",
         },
         {
-          q: "Do benefits increase with inflation?",
-          a: "Yes. Benefits receive an annual cost-of-living adjustment (COLA) based on inflation — 2.8% for 2026. This calculator shows figures in today's dollars.",
+          q: "Can I collect benefits based on an ex-spouse's work record?",
+          a: "Yes, provided the marriage lasted at least 10 consecutive years, you are currently unmarried, and you are age 62 or older. Claiming on an ex-spouse's record does not impact their benefit or their current spouse's benefit in any way.",
+        },
+        {
+          q: "Does delaying past age 70 provide additional delayed retirement credits?",
+          a: "No. Delayed retirement credits cease completely upon reaching your 70th birthday. There is zero financial benefit to delaying claiming past age 70.",
         },
       ]}
       related={[

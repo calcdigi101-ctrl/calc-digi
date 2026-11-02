@@ -16,3 +16,13 @@ export * from "./ApyCompoundingFrequencyImpactChart";
 export * from "./DividendReinvestmentDripCurveChart";
 export * from "./EmergencyFundRunwayTiersChart";
 export * from "./CollegeTuitionSavingsProjectionChart";
+
+// Batch 3: Retirement, Tax & Government Benefits
+export * from "./RetirementNestEggDrawdownChart";
+export * from "./FourOhOneKEmployerMatchGrowthChart";
+export * from "./RothVsTraditionalIraTaxHorizonChart";
+export * from "./SocialSecurityClaimingAgeBenefitChart";
+export * from "./FederalTaxBracketProgressiveCurveChart";
+export * from "./SelfEmploymentTaxBreakdownChart";
+export * from "./SalesTaxRateJurisdictionChart";
+export * from "./VatInputOutputTaxDecompositionChart";
