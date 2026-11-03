@@ -6,9 +6,9 @@ import { SmokingCompoundWealthLossChart } from "@/components/flagship/health/edi
 import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/smoking-cost-calculator";
-const TITLE = "Smoking Cost Calculator – Financial Toll & Compound Wealth | CalcDigi";
+const TITLE = "Smoking Cost Calculator";
 const DESCRIPTION =
-  "Calculate the true financial and physiological cost of smoking. See daily, annual, and lifetime costs, alongside compounded investment returns and the CDC healing timeline.";
+  "Calculate the true financial and physiological cost of smoking. See daily, annual, and lifetime costs, alongside compounded investment returns and the CDC.";
 
 export const metadata: Metadata = {
   title: TITLE,

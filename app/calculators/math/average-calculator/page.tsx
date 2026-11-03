@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/average-calculator";
-const TITLE = "Average Calculator (Mean, Median, Mode) | CalcDigi";
+const TITLE = "Average Calculator (Mean, Median, Mode)";
 const DESCRIPTION =
   "Free online average calculator. Calculate arithmetic mean, weighted mean, median, mode, range, and standard deviation with step-by-step solutions and formulas.";
 

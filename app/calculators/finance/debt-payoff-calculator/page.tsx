@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DebtSnowballVsAvalancheChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/debt-payoff-calculator";
-const TITLE = "Debt Payoff Calculator – Debt Snowball vs. Debt Avalanche Strategy | CalcDigi";
+const TITLE = "Debt Payoff Calculator";
 const DESCRIPTION =
-  "Free debt payoff calculator: compare the Debt Snowball vs. Debt Avalanche methods across multiple loans and credit cards. Calculate total interest saved, debt-free dates, and payment rollovers under CFPB guidelines.";
+  "Free debt payoff calculator: compare the Debt Snowball vs. Debt Avalanche methods across multiple loans and credit cards. Calculate total interest saved.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

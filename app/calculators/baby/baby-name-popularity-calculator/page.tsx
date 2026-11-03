@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BabyNamePopularityEraSpectrumChart } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/baby-name-popularity-calculator";
-const TITLE = "Baby Name Popularity Calculator – SSA Historical Trends & Uniqueness | CalcDigi";
+const TITLE = "Baby Name Popularity Calculator";
 const DESCRIPTION =
-  "Search baby name popularity rankings, national frequency, and uniqueness percentiles based on official U.S. Social Security Administration (SSA) records from 1880 to 2026. Discover century naming cycles and phonetic trend analyses.";
+  "Search baby name popularity rankings, national frequency, and uniqueness percentiles based on official U.S. Social Security Administration (SSA) records.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/baby/due-date-calculator", icon: "📅", name: "Pregnancy Due Date Calculator" },
-  { href: "/calculators/baby/child-height-predictor-calculator", icon: "📏", name: "Child Height Predictor Calculator" },
+  { href: "/calculators/health/child-height-predictor", icon: "📏", name: "Child Height Predictor Calculator" },
   { href: "/calculators/baby/baby-sleep-calculator", icon: "🌙", name: "Baby Sleep & Wake Windows" },
   { href: "/calculators/baby/baby-feeding-calculator", icon: "🍼", name: "Baby Feeding Calculator" },
   { href: "/calculators/baby/baby-weight-percentile-calculator", icon: "⚖️", name: "Baby Weight Percentile Calculator" },
@@ -62,7 +62,7 @@ export default function BabyNamePopularityPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
       title="Baby Name Popularity Calculator"
       intro="Explore historical popularity ranks, annual frequency, and uniqueness percentiles based on the U.S. Social Security Administration (SSA) naming registry (1880–2026). Discover century naming cycles and phonetic trend analyses."
       description={DESCRIPTION}
@@ -171,7 +171,7 @@ export default function BabyNamePopularityPage() {
             Naming your baby is the first of hundreds of family decisions. Pair your naming process with comprehensive long-term financial and physical preparation:
           </p>
           <ul>
-            <li><strong>Growth Projections:</strong> Project your child&apos;s adult stature alongside family genetic parameters using our <a href="/calculators/baby/child-height-predictor-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">child height predictor calculator</a> and monitor early physical gains on our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a>.</li>
+            <li><strong>Growth Projections:</strong> Project your child&apos;s adult stature alongside family genetic parameters using our <a href="/calculators/health/child-height-predictor" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">child height predictor calculator</a> and monitor early physical gains on our <a href="/calculators/baby/baby-weight-percentile-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby weight percentile calculator</a>.</li>
             <li><strong>Nursery Logistics:</strong> Set up realistic post-natal sleep schedules on our <a href="/calculators/baby/baby-sleep-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby sleep calculator</a> and feeding routines using our <a href="/calculators/baby/baby-feeding-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby feeding calculator</a>.</li>
             <li><strong>Financial Foundation:</strong> Balance household budgets on our <a href="/calculators/finance/budget-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">family budget calculator</a>, compare regional childcare options on our <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare cost calculator</a>, and open a tax-advantaged college savings vehicle with our <a href="/calculators/finance/college-savings-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">college savings calculator</a>.</li>
           </ul>

@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GearSpeedTorqueTradeoffChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/gear-ratio-calculator";
-const TITLE = "Gear Ratio Calculator — Speed Reduction, Torque Multiplier & Efficiency | CalcDigi";
+const TITLE = "Gear Ratio Calculator";
 const DESCRIPTION =
-  "Calculate gear train velocity ratio, output shaft RPM, torque multiplication, mechanical advantage, and transferred power (kW / HP) across spur, helical, planetary, and compound gearbox configurations.";
+  "Calculate gear train velocity ratio, output shaft RPM, torque multiplication, mechanical advantage, and transferred power (kW / HP) across spur, helical.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const RELATED_CALCULATORS = [
   { href: "/calculators/engineering/bolt-torque-calculator", icon: "🔩", name: "Bolt Torque & Preload Force" },
   { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & Motor Sizing" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Angular & Linear Speed Calculator" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Angular & Linear Speed Calculator" },
   { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Force & Torque Newton Calculator" },
   { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Proportional Ratio Calculator" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Gear Efficiency Percentage" },
@@ -113,7 +113,7 @@ export default function GearRatioPage() {
             Gears are among the most fundamental machine elements in mechanical engineering, providing positive, non-slip power transmission between rotating shafts. Whether in an electric vehicle transaxle, industrial conveyor reducer, robotics servo actuator, or wind turbine planetary drive, gear trains match the high-speed, low-torque operating characteristics of electric motors and internal combustion engines to the high-torque, low-speed demands of physical work loads.
           </p>
           <p>
-            Conservation of energy dictates that in an ideal mechanical transmission system, mechanical power input equals power output. Because rotational mechanical power is the product of torque and angular speed (<code>P = τ × ω</code>), reducing rotational velocity by a given gear factor enables a reciprocal increase in torque. To convert between linear vehicle velocities and rotational shaft speeds, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate required linear driving forces using our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and evaluate transmission mechanical loss percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>.
+            Conservation of energy dictates that in an ideal mechanical transmission system, mechanical power input equals power output. Because rotational mechanical power is the product of torque and angular speed (<code>P = τ × ω</code>), reducing rotational velocity by a given gear factor enables a reciprocal increase in torque. To convert between linear vehicle velocities and rotational shaft speeds, use our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate required linear driving forces using our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and evaluate transmission mechanical loss percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>.
           </p>
 
           <Formula>

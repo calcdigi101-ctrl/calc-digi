@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FourOhOneKEmployerMatchGrowthChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/401k-calculator";
-const TITLE = "401(k) Calculator – Employer Match, Contribution Limits & Growth | CalcDigi";
+const TITLE = "401(k) Calculator";
 const DESCRIPTION =
-  "Free 401(k) calculator: calculate pre-tax employer match growth, employee contribution limits, vesting schedules, and retirement nest egg accumulation under IRS and ERISA guidelines.";
+  "Free 401(k) calculator: calculate pre-tax employer match growth, employee contribution limits, vesting schedules, and retirement nest egg accumulation.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

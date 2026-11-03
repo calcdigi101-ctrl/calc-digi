@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CloudStorageGrowthCostTrajectoryChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/cloud-storage-calculator";
-const TITLE = "Cloud Storage Calculator | Capacity Growth & Multi-Year Budget";
+const TITLE = "Cloud Storage Calculator";
 const DESCRIPTION =
   "Calculate enterprise cloud object storage costs, annual data compounding, egress bandwidth transfer fees, and multi-year budget forecasts.";
 

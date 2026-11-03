@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { Vo2MaxAgeNormsChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/vo2-max-calculator";
-const TITLE = "VO2 Max Calculator – ACSM Cardiorespiratory Fitness Standards | CalcDigi";
+const TITLE = "VO2 Max Calculator";
 const DESCRIPTION =
-  "Free VO2 Max calculator: estimate your maximal oxygen consumption (mL/kg/min) and biological aerobic fitness age using Rockport 1-mile walk, Cooper 12-min run, or heart rate ratio.";
+  "Free VO2 Max calculator: estimate your maximal oxygen consumption (mL/kg/min) and biological aerobic fitness age using Rockport 1-mile walk, Cooper 12-min.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

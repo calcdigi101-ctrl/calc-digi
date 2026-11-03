@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TransformerEfficiencyLoadCurveChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/transformer-calculator";
-const TITLE = "Transformer Calculator | Turns Ratio, Voltage Step-Up/Down & Power";
+const TITLE = "Transformer Calculator";
 const DESCRIPTION =
   "Calculate electrical transformer turns ratio (Np:Ns), secondary output voltage, primary reflected current, and apparent power transfer capacity.";
 

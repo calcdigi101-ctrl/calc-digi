@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/scientific-notation-calculator";
-const TITLE = "Scientific Notation Calculator | Convert, Add, Multiply & Powers | CalcDigi";
+const TITLE = "Scientific Notation Calculator";
 const DESCRIPTION =
-  "Free online scientific notation calculator. Convert decimals to scientific and engineering notation, perform arithmetic (add, subtract, multiply, divide), and evaluate powers step-by-step.";
+  "Free online scientific notation calculator. Convert decimals to scientific and engineering notation, perform arithmetic (add, subtract, multiply, divide).";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

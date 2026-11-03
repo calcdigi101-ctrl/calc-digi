@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SalaryPaycheckFrequencyBreakdownChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/salary-calculator";
-const TITLE = "Salary Calculator – Annual, Monthly, Bi-Weekly & Hourly Paycheck Conversion | CalcDigi";
+const TITLE = "Salary Calculator";
 const DESCRIPTION =
-  "Free salary calculator: convert annual salary to hourly, weekly, bi-weekly, semi-monthly, and monthly pay rates. Calculate unadjusted gross earnings and standard 2,080 working hour equivalents.";
+  "Free salary calculator: convert annual salary to hourly, weekly, bi-weekly, semi-monthly, and monthly pay rates. Calculate unadjusted gross earnings.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

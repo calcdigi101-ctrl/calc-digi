@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BoilingElevationPressureChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/boiling-point-calculator";
-const TITLE = "Boiling Point Calculator | Colligative Elevation & Clausius-Clapeyron Pressure Solver";
+const TITLE = "Boiling Point Calculator";
 const DESCRIPTION =
-  "Calculate colligative boiling point elevation, freezing point depression, and ambient barometric vapor pressure boiling shifts using ebullioscopic constants and Clausius-Clapeyron thermodynamics.";
+  "Calculate colligative boiling point elevation, freezing point depression, and ambient barometric vapor pressure boiling shifts using ebullioscopic constants.";
 
 export const metadata: Metadata = {
   title: TITLE,

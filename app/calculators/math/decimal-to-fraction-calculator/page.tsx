@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FractionRatioVisualizerChart } from "@/components/flagship/math/editorial-charts/FractionRatioVisualizerChart";
 
 const PATH = "/calculators/math/decimal-to-fraction-calculator";
-const TITLE = "Decimal to Fraction Calculator | Step-by-Step Converter | CalcDigi";
+const TITLE = "Decimal to Fraction Calculator";
 const DESCRIPTION =
-  "Free online decimal to fraction calculator. Convert terminating and repeating decimals into exact simplified fractions or mixed numbers with complete algebraic derivations.";
+  "Free online decimal to fraction calculator. Convert terminating and repeating decimals into exact simplified fractions or mixed numbers with complete.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

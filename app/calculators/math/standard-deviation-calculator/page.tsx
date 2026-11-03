@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/standard-deviation-calculator";
-const TITLE = "Standard Deviation Calculator (Sample & Population) | CalcDigi";
+const TITLE = "Standard Deviation Calculator (Sample & Populatio";
 const DESCRIPTION =
   "Free online standard deviation calculator. Calculate sample and population standard deviation, variance, mean, and sum of squares with step-by-step formulas.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AngleTrigonometricCircularDistributionChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/angle-converter";
-const TITLE = "Angle Converter | Degrees, Radians, Gradians & Arcminutes";
+const TITLE = "Angle Converter";
 const DESCRIPTION =
   "Convert degrees, radians, gradians, arcminutes, arcseconds, and full turns with trigonometric circular derivations and interactive arc modeling.";
 

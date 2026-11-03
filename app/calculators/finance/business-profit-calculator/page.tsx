@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BusinessOperatingMarginWaterfallChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/business-profit-calculator";
-const TITLE = "Business Profit Calculator — Gross, Operating, EBITDA & Net Margin Waterfall | CalcDigi";
+const TITLE = "Business Profit Calculator";
 const DESCRIPTION =
-  "Free business profit calculator: model complete corporate income statement margins, gross profit, EBITDA, operating EBIT, interest, corporate taxes, and net profit waterfalls.";
+  "Free business profit calculator: model complete corporate income statement margins, gross profit, EBITDA, operating EBIT, interest, corporate taxes, and net.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

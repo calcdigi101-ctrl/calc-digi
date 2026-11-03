@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InvestmentPortfolioHorizonChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/investment-calculator";
-const TITLE = "Investment Calculator – Portfolio Growth, Asset Allocation & Returns | CalcDigi";
+const TITLE = "Investment Calculator";
 const DESCRIPTION =
-  "Free investment calculator: project portfolio accumulation with recurring contributions, compound asset allocation returns, expense ratio fee erosion, and inflation adjustments under SEC standards.";
+  "Free investment calculator: project portfolio accumulation with recurring contributions, compound asset allocation returns, expense ratio fee erosion.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

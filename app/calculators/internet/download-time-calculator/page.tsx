@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DownloadTimeByConnectionTierChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/download-time-calculator";
-const TITLE = "Download Time Calculator | File Transfer & Network Overhead";
+const TITLE = "Download Time Calculator";
 const DESCRIPTION =
   "Calculate exact download times for games, 4K movies, software updates, and cloud backups at your broadband speed with realistic TCP/IP overhead factored in.";
 

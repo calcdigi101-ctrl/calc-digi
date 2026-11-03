@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { OhmsLawVoltageCurrentLinearityChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/ohms-law-calculator";
-const TITLE = "Ohm's Law Calculator | Voltage, Current, Resistance & Power";
+const TITLE = "Ohm's Law Calculator";
 const DESCRIPTION =
   "Calculate electrical voltage, current, resistance, and power dissipation using Georg Ohm's fundamental circuit relationship with interactive chart modeling.";
 

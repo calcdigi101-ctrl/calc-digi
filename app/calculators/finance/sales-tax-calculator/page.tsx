@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SalesTaxRateJurisdictionChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/sales-tax-calculator";
-const TITLE = "Sales Tax Calculator – State, County, City Rates & Total Price | CalcDigi";
+const TITLE = "Sales Tax Calculator";
 const DESCRIPTION =
-  "Free sales tax calculator: calculate state, county, municipal, and special district sales taxes. Convert between pre-tax net prices and tax-inclusive gross totals under US economic nexus laws.";
+  "Free sales tax calculator: calculate state, county, municipal, and special district sales taxes. Convert between pre-tax net prices and tax-inclusive gross.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

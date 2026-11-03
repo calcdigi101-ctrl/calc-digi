@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RecurringVsTransactionalRevenueChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/business-revenue-calculator";
-const TITLE = "Business Revenue Calculator | MRR, ARR & Blended Run-Rate Solver";
+const TITLE = "Business Revenue Calculator";
 const DESCRIPTION =
   "Calculate total business revenue, monthly recurring revenue (MRR), annual recurring revenue (ARR), average order values, and blended commercial run-rates.";
 

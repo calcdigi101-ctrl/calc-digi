@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ThermalConductivityResistanceChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/heat-transfer-calculator";
-const TITLE = "Heat Transfer Calculator — Conduction, Convection & Radiation Heat Rate | CalcDigi";
+const TITLE = "Heat Transfer Calculator";
 const DESCRIPTION =
-  "Calculate multi-mode thermal heat transfer rates (Watts & BTU/h), heat flux (W/m²), thermal resistance R-value, overall U-factor, and wall assembly surface temperatures across conduction (Fourier), convection (Newton), and radiation (Stefan-Boltzmann).";
+  "Calculate multi-mode thermal heat transfer rates (Watts & BTU/h), heat flux (W/m²), thermal resistance R-value, overall U-factor, and wall assembly surface.";
 
 export const metadata: Metadata = {
   title: TITLE,

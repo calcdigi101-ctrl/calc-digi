@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PregnancyMilestoneVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/due-date-calculator";
-const TITLE = "Due Date Calculator – Clinical Pregnancy EDD & Gestation Timeline | CalcDigi";
+const TITLE = "Due Date Calculator";
 const DESCRIPTION =
-  "Calculate your estimated date of delivery (EDD) using clinical Naegele's rule, cycle length adjustments, or exact conception date. Features gestational week countdown, trimester milestones, and AAP/ACOG fetal development timelines.";
+  "Calculate your estimated date of delivery (EDD) using clinical Naegele's rule, cycle length adjustments, or exact conception date. Features gestational week.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -62,7 +62,7 @@ export default function DueDatePage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
       title="Due Date Calculator"
       intro="Determine your estimated date of delivery (EDD), current gestational age, and fetal development milestones. Powered by clinical Naegele's rule with personalized cycle length adjustments."
       description={DESCRIPTION}

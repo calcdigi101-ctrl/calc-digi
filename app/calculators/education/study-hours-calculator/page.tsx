@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CarnegieStudyHoursAllocationChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/study-hours-calculator";
-const TITLE = "Study Hours Calculator | Carnegie Credit Hour Rule & Weekly Study Budget";
+const TITLE = "Study Hours Calculator";
 const DESCRIPTION =
-  "Calculate recommended weekly college study hours, Carnegie unit ratios (2:1 and 3:1), daily homework scheduling, and time management feasibility across 168 hours.";
+  "Calculate recommended weekly college study hours, Carnegie unit ratios (2:1 and 3:1), daily homework scheduling, and time management feasibility across 168.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -72,7 +72,7 @@ export default function StudyHoursCalculatorPage() {
           <CarnegieStudyHoursAllocationChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            The transition from secondary education to undergraduate university life presents a dramatic shift in temporal autonomy. In high school, students spend approximately 30 hours per week under direct classroom supervision, with modest outside homework demands. In contrast, collegiate education inverts this ratio: students spend only 12 to 16 hours in formal lecture halls, while remaining expected to direct 25 to 45 hours of independent learning. Calculating these weekly commitments requires time-budgeting principles identical to those in a <Link href="/calculators/datetime/hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weekly hours calculator</Link>.
+            The transition from secondary education to undergraduate university life presents a dramatic shift in temporal autonomy. In high school, students spend approximately 30 hours per week under direct classroom supervision, with modest outside homework demands. In contrast, collegiate education inverts this ratio: students spend only 12 to 16 hours in formal lecture halls, while remaining expected to direct 25 to 45 hours of independent learning. Calculating these weekly commitments requires time-budgeting principles identical to those in a <Link href="/calculators/datetime/time-duration-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weekly hours calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

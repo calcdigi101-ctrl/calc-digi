@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WeekdayFrequencyPerCenturyChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/date-to-day-calculator";
-const TITLE = "Date to Day Calculator | Day of Week by Date & Zeller's Congruence";
+const TITLE = "Date to Day Calculator";
 const DESCRIPTION =
-  "Find the exact day of the week for any past, present, or future calendar date using Zeller's congruence algorithm, John Conway's Doomsday rule, and Gregorian perpetual calendar mechanics.";
+  "Find the exact day of the week for any past, present, or future calendar date using Zeller's congruence algorithm, John Conway's Doomsday rule, and Gregorian.";
 
 export const metadata: Metadata = {
   title: TITLE,

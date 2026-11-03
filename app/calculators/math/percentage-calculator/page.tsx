@@ -6,9 +6,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/math/percentage-calculator";
-const TITLE = "Percentage Calculator | Free 4-in-1 Percent, Increase & Discount Tool";
+const TITLE = "Percentage Calculator";
 const DESCRIPTION =
-  "Free online percentage calculator. Calculate percent of a number, percentage change (increase/decrease), what percent X is of Y, reverse percentages, sales tax, and discount with step-by-step formulas.";
+  "Free online percentage calculator. Calculate percent of a number, percentage change (increase/decrease), what percent X is of Y, reverse percentages, sales.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -91,8 +91,8 @@ const ERROR_ROWS = [
 
 const RELATED = [
   { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
-  { href: "/calculators/finance/discount-calculator", icon: "🏷️", name: "Discount Calculator" },
-  { href: "/calculators/finance/tip-calculator", icon: "🧾", name: "Tip Calculator" },
+  { href: "/calculators/business/discount-calculator", icon: "🏷️", name: "Discount Calculator" },
+  { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
   { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
   { href: "/calculators/math/average-calculator", icon: "📐", name: "Average Calculator" },
@@ -257,10 +257,10 @@ export default function Page() {
           </p>
           <ul>
             <li>
-              <strong>Retail Shopping &amp; Discounts:</strong> Calculate clearance savings and seasonal promotional markdowns with our <Link href="/calculators/finance/discount-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Discount Calculator</Link>.
+              <strong>Retail Shopping &amp; Discounts:</strong> Calculate clearance savings and seasonal promotional markdowns with our <Link href="/calculators/business/discount-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Discount Calculator</Link>.
             </li>
             <li>
-              <strong>Restaurant Gratuity &amp; Bill Splitting:</strong> Split checks and calculate 18% or 20% tips using our <Link href="/calculators/finance/tip-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Tip Calculator</Link>.
+              <strong>Restaurant Gratuity &amp; Bill Splitting:</strong> Split checks and calculate 18% or 20% tips using our <Link href="/calculators/food/tip-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Tip Calculator</Link>.
             </li>
             <li>
               <strong>Ratios &amp; Proportions:</strong> Scale physical dimensions, chemical mixtures, and culinary recipes using our <Link href="/calculators/math/ratio-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Ratio Calculator</Link> and <Link href="/calculators/math/average-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Average Calculator</Link>.

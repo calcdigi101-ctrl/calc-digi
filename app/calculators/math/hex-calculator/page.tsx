@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/hex-calculator";
-const TITLE = "Hex Calculator | Hexadecimal Arithmetic, Bitwise & Base 16 Converter | CalcDigi";
+const TITLE = "Hex Calculator";
 const DESCRIPTION =
   "Free online hexadecimal calculator. Perform hex addition, subtraction, multiplication, division, ASCII/binary conversions, and bitwise logic step-by-step.";
 

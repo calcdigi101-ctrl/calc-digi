@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EmergencyFundRunwayTiersChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/emergency-fund-calculator";
-const TITLE = "Emergency Fund Calculator – Cash Runway & Sizing Benchmarks | CalcDigi";
+const TITLE = "Emergency Fund Calculator";
 const DESCRIPTION =
-  "Free emergency fund calculator: calculate exact liquid cash reserves needed for 3, 6, or 9 months of non-discretionary living expenses. Model monthly savings accumulation timelines under CFPB guidelines.";
+  "Free emergency fund calculator: calculate exact liquid cash reserves needed for 3, 6, or 9 months of non-discretionary living expenses.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TreePlantingCarbonSequestrationTimelineChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/tree-planting-calculator";
-const TITLE = "Tree Planting Calculator | Carbon Offset, Forest Sizing & Seedling Estimation";
+const TITLE = "Tree Planting Calculator";
 const DESCRIPTION =
-  "Calculate the number of saplings and mature trees required to offset annual carbon dioxide (CO2) emissions. Model forest land area in acres, species sequestration rates, and 30-year carbon timelines.";
+  "Calculate the number of saplings and mature trees required to offset annual carbon dioxide (CO2) emissions. Model forest land area in acres, species.";
 
 export const metadata: Metadata = {
   title: TITLE,

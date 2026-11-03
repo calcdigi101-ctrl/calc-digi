@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WhtrLongevityRiskCurveChart } from "@/components/flagship/health/editorial-charts/WhtrLongevityRiskCurveChart";
 
 const PATH = "/calculators/health/waist-to-height-ratio-calculator";
-const TITLE = "Waist to Height Ratio Calculator – Cardiometabolic Longevity | CalcDigi";
+const TITLE = "Waist to Height Ratio Calculator";
 const DESCRIPTION =
-  "Calculate your Waist-to-Height Ratio (WHtR) with clinical precision. Screen for visceral adiposity, cardiometabolic risk, and mortality hazard using Dr. Margaret Ashwell's 0.50 threshold.";
+  "Calculate your Waist-to-Height Ratio (WHtR) with clinical precision. Screen for visceral adiposity, cardiometabolic risk, and mortality hazard using Dr.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

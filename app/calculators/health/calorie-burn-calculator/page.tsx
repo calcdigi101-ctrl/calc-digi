@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MetActivitySpectrumChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/calorie-burn-calculator";
-const TITLE = "Calorie Burn Calculator – Ainsworth Compendium MET Precision | CalcDigi";
+const TITLE = "Calorie Burn Calculator";
 const DESCRIPTION =
-  "Free calorie burn calculator: calculate gross and net calories burned for running, cycling, swimming, weight lifting, and sports using the 2024 Ainsworth Compendium MET database.";
+  "Free calorie burn calculator: calculate gross and net calories burned for running, cycling, swimming, weight lifting, and sports using the 2024 Ainsworth.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VideoGameCostPerHourValueChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/video-game-hours-calculator";
-const TITLE = "Video Game Backlog & Cost-Per-Hour Value Calculator | CalcDigi";
+const TITLE = "Video Game Backlog & Cost-Per-Hour Value Calculat";
 const DESCRIPTION =
-  "Calculate how long it takes to clear your video game backlog queue and determine the cost per hour of entertainment value across Main Story, Side Quests, and 100% Completionist playthroughs.";
+  "Calculate how long it takes to clear your video game backlog queue and determine the cost per hour of entertainment value across Main Story, Side Quests.";
 
 export const metadata: Metadata = {
   title: TITLE,

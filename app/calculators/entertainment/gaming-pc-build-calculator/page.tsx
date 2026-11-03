@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GamingPcComponentBudgetDistributionChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/gaming-pc-build-calculator";
-const TITLE = "Gaming PC Build Budget Calculator — Component Balance & PSU Wattage | CalcDigi";
+const TITLE = "Gaming PC Build Budget Calculator";
 const DESCRIPTION =
-  "Calculate optimal component budget allocation, power supply (PSU) wattage requirements, and target resolution performance (1080p, 1440p, 4K) across GPU, CPU, RAM, NVMe SSD, and motherboard for custom gaming PC builds.";
+  "Calculate optimal component budget allocation, power supply (PSU) wattage requirements, and target resolution performance (1080p, 1440p, 4K) across GPU, CPU.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 const RELATED_CALCULATORS = [
   { href: "/calculators/entertainment/video-game-hours-calculator", icon: "🎮", name: "Video Game Backlog & Value" },
   { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Power & Breaker Sizing" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Hardware Clock Speed & Bandwidth" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Hardware Clock Speed & Bandwidth" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Component Budget Percentage" },
   { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "GPU to CPU Price Ratio" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "PC Hardware Depreciation & Upgrade ROI" },
@@ -113,7 +113,7 @@ export default function GamingPcBuildPage() {
             Assembling a custom gaming PC offers unrivaled gaming performance, modular upgradeability, and personalized aesthetics compared to locked-down gaming consoles. However, first-time builders frequently stumble into common budgeting pitfalls: overspending on high-end motherboards, expensive RGB aesthetic liquid coolers, or flagship multi-core CPUs while skimping on the single component that dictates 85% of gaming performance—the graphics card.
           </p>
           <p>
-            An optimized gaming PC functions as a synchronized ecosystem where the GPU renders visual geometry, the CPU processes game physics and artificial intelligence scripts, and fast dual-channel RAM feeds game assets smoothly without micro-stuttering. To calculate GPU-to-CPU expenditure ratios, use our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, calculate hardware data bus speeds with our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, and forecast multi-year hardware depreciation using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            An optimized gaming PC functions as a synchronized ecosystem where the GPU renders visual geometry, the CPU processes game physics and artificial intelligence scripts, and fast dual-channel RAM feeds game assets smoothly without micro-stuttering. To calculate GPU-to-CPU expenditure ratios, use our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, calculate hardware data bus speeds with our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, and forecast multi-year hardware depreciation using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
           </p>
 
           <Formula>

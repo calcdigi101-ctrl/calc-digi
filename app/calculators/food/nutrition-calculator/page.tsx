@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MacronutrientCaloricDensityChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/nutrition-calculator";
-const TITLE = "Nutrition Calculator | Macronutrient Splits, Calories & Fiber Targets";
+const TITLE = "Nutrition Calculator";
 const DESCRIPTION =
   "Calculate daily calories, protein, carbohydrates, fats, and dietary fiber intake across meals based on USDA Acceptable Macronutrient Distribution Ranges.";
 

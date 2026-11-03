@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/area-calculator";
-const TITLE = "Area Calculator | Calculate Area of 2D Polygons & Shapes | CalcDigi";
+const TITLE = "Area Calculator";
 const DESCRIPTION =
-  "Free online area calculator. Calculate area of rectangles, squares, triangles, circles, trapezoids, parallelograms, ellipses, and irregular polygons step-by-step.";
+  "Free online area calculator. Calculate area of rectangles, squares, triangles, circles, trapezoids, parallelograms, ellipses, and irregular polygons.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

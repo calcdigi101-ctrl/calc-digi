@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MonthlyDataUsageCategoryBreakdownChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/data-usage-calculator";
-const TITLE = "Data Usage Calculator | Monthly ISP Cap & Streaming Consumption";
+const TITLE = "Data Usage Calculator";
 const DESCRIPTION =
   "Calculate monthly internet data usage in Gigabytes (GB). Estimate 4K video streaming, Zoom video calls, gaming downloads, and ISP data cap overage risks.";
 

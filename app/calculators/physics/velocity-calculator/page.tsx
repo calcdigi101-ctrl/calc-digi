@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VelocityDecelerationStoppingChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/velocity-calculator";
-const TITLE = "Velocity Calculator | Vector Kinematics, Displacement & Average Speed";
+const TITLE = "Velocity Calculator";
 const DESCRIPTION =
-  "Calculate instantaneous velocity, average velocity, constant acceleration progress, spatial displacement, and multi-unit speed conversions across metric, imperial, and nautical frames.";
+  "Calculate instantaneous velocity, average velocity, constant acceleration progress, spatial displacement, and multi-unit speed conversions across metric.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Free Fall Kinematics" },
   { href: "/calculators/physics/momentum-calculator", icon: "🎯", name: "Linear Momentum p=mv" },
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚡", name: "Kinetic Energy" },
-  { href: "/calculators/everyday/pace-calculator", icon: "🏃", name: "Running Pace & Speed" },
+  { href: "/calculators/health/pace-calculator", icon: "🏃", name: "Running Pace & Speed" },
 ];
 
 const FAQ_ITEMS = [

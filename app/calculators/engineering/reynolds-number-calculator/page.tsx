@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ReynoldsFlowRegimeChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/reynolds-number-calculator";
-const TITLE = "Reynolds Number Calculator — Laminar, Transitional & Turbulent Flow | CalcDigi";
+const TITLE = "Reynolds Number Calculator";
 const DESCRIPTION =
-  "Calculate the dimensionless Reynolds number (Re), determine fluid flow regimes (laminar Re < 2,300, transition, turbulent Re > 4,000), hydrodynamic entrance length, and boundary layer thickness across internal pipes and external airfoils.";
+  "Calculate the dimensionless Reynolds number (Re), determine fluid flow regimes (laminar Re < 2,300, transition, turbulent Re > 4,000), hydrodynamic entrance.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Head Loss Calculator" },
   { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & Head Calculator" },
   { href: "/calculators/engineering/heat-transfer-calculator", icon: "🔥", name: "Convection Heat Transfer Sizing" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Fluid Velocity & Flow Speed" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Fluid Velocity & Flow Speed" },
   { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Viscous Drag & Fluid Shear Force" },
   { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Inertial to Viscous Ratio Calculator" },
 ];
@@ -113,7 +113,7 @@ export default function ReynoldsNumberPage() {
             Introduced by Osborne Reynolds in his classic 1883 dye-streak experiments, the Reynolds number is the single most important dimensionless parameter in fluid mechanics, chemical engineering, aerodynamics, and naval architecture. It provides the universal scaling criterion that enables engineers to predict whether a fluid will flow in calm, smooth, parallel laminar sheets or devolve into chaotic, energy-dissipating turbulent vortices.
           </p>
           <p>
-            The transition from laminar to turbulent flow fundamentally transforms hydraulic friction factors, wall shear stresses, boundary layer heat convection, and acoustic noise generation. To analyze flow velocity conversions, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate viscous drag forces with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and calculate dimensionless force ratios with our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>.
+            The transition from laminar to turbulent flow fundamentally transforms hydraulic friction factors, wall shear stresses, boundary layer heat convection, and acoustic noise generation. To analyze flow velocity conversions, use our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate viscous drag forces with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and calculate dimensionless force ratios with our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>.
           </p>
 
           <Formula>

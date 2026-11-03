@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VolumeMetricImperialVolumetricRatioChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/volume-converter";
-const TITLE = "Volume & Capacity Converter | Liters, Gallons, Quarts & Fluid Ounces";
+const TITLE = "Volume & Capacity Converter";
 const DESCRIPTION =
   "Convert liters, gallons, cubic meters, fluid ounces, pints, and barrels with exact cubic dimensional derivations and interactive volumetric ratio charts.";
 
@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
   { href: "/calculators/measurements/area-converter", icon: "📐", name: "Area Converter" },
   { href: "/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
-  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/calculators/science/density-calculator", icon: "🧱", name: "Density Calculator" },
   { href: "/calculators/measurements/cooking-measurement-converter", icon: "🍳", name: "Cooking Converter" },
   { href: "/pages/measurements", icon: "🧪", name: "Measurements Hub" },
 ];
@@ -63,7 +63,7 @@ export default function VolumeConverterPage() {
       article={
         <>
           <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
-            <strong>Quick Volumetric Guidance:</strong> Three-dimensional capacity represents cubic spatial extension. For fluid flow engineering, chemical reagent formulation, and bulk storage, cross-reference our <Link href="/calculators/measurements/area-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">area converter</Link> for surface cross-sections and calculate mass yields in our <Link href="/calculators/physics/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
+            <strong>Quick Volumetric Guidance:</strong> Three-dimensional capacity represents cubic spatial extension. For fluid flow engineering, chemical reagent formulation, and bulk storage, cross-reference our <Link href="/calculators/measurements/area-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">area converter</Link> for surface cross-sections and calculate mass yields in our <Link href="/calculators/science/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
           </div>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

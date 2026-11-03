@@ -145,9 +145,9 @@ export function CalculationInvoice({
         {/* Title & Subject */}
         <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
               {title}
-            </h1>
+            </h2>
             {category ? (
               <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mt-0.5">
                 Category: {category}

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ProbabilityDistributionChart } from "@/components/flagship/math/editorial-charts/ProbabilityDistributionChart";
 
 const PATH = "/calculators/math/sample-size-calculator";
-const TITLE = "Sample Size Calculator (Survey & Scientific Study) | CalcDigi";
+const TITLE = "Sample Size Calculator (Survey & Scientific Study";
 const DESCRIPTION =
-  "Free online sample size calculator. Calculate required sample size for surveys, clinical trials, and experiments with margin of error, confidence level, and finite population correction.";
+  "Free online sample size calculator. Calculate required sample size for surveys, clinical trials, and experiments with margin of error, confidence level.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

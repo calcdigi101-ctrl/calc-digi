@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PartyDrinksFoodSupplyMatrixChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/party-planning-calculator";
-const TITLE = "Party Planning Calculator — Food Portions, Drinks & Ice Supply | CalcDigi";
+const TITLE = "Party Planning Calculator";
 const DESCRIPTION =
-  "Calculate food portions, alcoholic drinks, beer cases, wine bottles, non-alcoholic beverages, and bagged ice for any party size and duration. Features professional catering formulas for BBQs, cocktail parties, and seated dinners.";
+  "Calculate food portions, alcoholic drinks, beer cases, wine bottles, non-alcoholic beverages, and bagged ice for any party size and duration.";
 
 export const metadata: Metadata = {
   title: TITLE,

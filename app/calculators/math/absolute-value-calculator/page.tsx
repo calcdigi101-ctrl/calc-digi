@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
 
 const PATH = "/calculators/math/absolute-value-calculator";
-const TITLE = "Absolute Value Calculator | Modulus, Inequalities & Distance | CalcDigi";
+const TITLE = "Absolute Value Calculator";
 const DESCRIPTION =
-  "Free online absolute value calculator. Calculate real and complex modulus (|x|), solve absolute value equations and inequalities, and evaluate distance step-by-step.";
+  "Free online absolute value calculator. Calculate real and complex modulus (|x|), solve absolute value equations and inequalities, and evaluate distance.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

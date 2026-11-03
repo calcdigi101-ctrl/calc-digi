@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PayrollTaxDeductionSplitChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/payroll-calculator";
-const TITLE = "Payroll Calculator | Net Pay, Federal Withholding & FICA Taxes";
+const TITLE = "Payroll Calculator";
 const DESCRIPTION =
   "Calculate employee net pay, employer payroll tax liabilities, federal and state income tax withholding, Social Security, Medicare, and pre-tax deductions.";
 

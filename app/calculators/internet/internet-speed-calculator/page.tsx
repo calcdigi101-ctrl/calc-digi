@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InternetSpeedBandwidthLossDistributionChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/internet-speed-calculator";
-const TITLE = "Internet Speed Calculator | Bandwidth Throughput & Efficiency";
+const TITLE = "Internet Speed Calculator";
 const DESCRIPTION =
   "Calculate delivered broadband throughput efficiency, TCP/IP protocol overhead, Wi-Fi attenuation losses, and latency jitter across network connections.";
 

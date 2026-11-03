@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SnowToLiquidRatioTemperatureGradientChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/snowfall-calculator";
-const TITLE = "Snowfall Calculator | Snow Accumulation, Snow-to-Liquid Ratio & Weight";
+const TITLE = "Snowfall Calculator";
 const DESCRIPTION =
-  "Calculate snowfall accumulation depth from liquid water equivalent precipitation, snow-to-liquid ratio (SLR), roof snowpack structural load weight, and compaction.";
+  "Calculate snowfall accumulation depth from liquid water equivalent precipitation, snow-to-liquid ratio (SLR), roof snowpack structural load weight.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -76,7 +76,7 @@ export default function SnowfallCalculatorPage() {
           <SnowToLiquidRatioTemperatureGradientChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-6">
-            The temperature gradient chart above illustrates the non-linear relationship between atmospheric temperature and the resulting snow-to-liquid ratio. Near the freezing point (32°F to 34°F), snow crystals partially melt, coating their surfaces in liquid water film that aggregates into dense, compacting flakes with low ratios (5:1 to 8:1). As temperatures plunge into the teens, ratios escalate sharply to 20:1 and 25:1. However, at extreme Arctic cold (below -5°F / -21°C), ice crystals become brittle columns and plates that fracture upon impact, packing tightly and causing the snow ratio to fall back toward 15:1. Drivers navigating winter roadways must also monitor tire friction dynamics using our <Link href="/calculators/physics/friction-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">friction calculator</Link> and verify tire outer dimensions with our <Link href="/calculators/transportation/tire-size-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">tire size calculator</Link>.
+            The temperature gradient chart above illustrates the non-linear relationship between atmospheric temperature and the resulting snow-to-liquid ratio. Near the freezing point (32°F to 34°F), snow crystals partially melt, coating their surfaces in liquid water film that aggregates into dense, compacting flakes with low ratios (5:1 to 8:1). As temperatures plunge into the teens, ratios escalate sharply to 20:1 and 25:1. However, at extreme Arctic cold (below -5°F / -21°C), ice crystals become brittle columns and plates that fracture upon impact, packing tightly and causing the snow ratio to fall back toward 15:1. Drivers navigating winter roadways must also monitor tire friction dynamics using our <Link href="/calculators/physics/force-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">friction calculator</Link> and verify tire outer dimensions with our <Link href="/calculators/transportation/tire-size-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">tire size calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

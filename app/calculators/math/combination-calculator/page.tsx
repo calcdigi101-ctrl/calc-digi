@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/combination-calculator";
-const TITLE = "Combination Calculator | nCr Combinations & Binomial Coefficients | CalcDigi";
+const TITLE = "Combination Calculator";
 const DESCRIPTION =
-  "Free online combination calculator. Compute combinations (n choose r, nCr) without repetition and with repetition, Pascal's triangle rows, and probability distributions.";
+  "Free online combination calculator. Compute combinations (n choose r, nCr) without repetition and with repetition, Pascal's triangle rows, and probability.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

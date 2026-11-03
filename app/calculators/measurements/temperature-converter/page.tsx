@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TemperatureThermodynamicScalesChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/temperature-converter";
-const TITLE = "Temperature Converter | Celsius, Fahrenheit & Kelvin Scales";
+const TITLE = "Temperature Converter";
 const DESCRIPTION =
   "Convert Celsius, Fahrenheit, Kelvin, and Rankine scales with thermodynamic zero-point derivations and interactive phase transition modeling.";
 

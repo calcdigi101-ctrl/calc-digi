@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
 
 const PATH = "/calculators/math/matrix-calculator";
-const TITLE = "Matrix Calculator | Determinant, Inverse, Multiplication & Eigenvalues | CalcDigi";
+const TITLE = "Matrix Calculator";
 const DESCRIPTION =
-  "Free online matrix calculator. Perform matrix addition, scalar multiplication, matrix multiplication, determinant evaluation, inversion, and eigenvalue analysis step-by-step.";
+  "Free online matrix calculator. Perform matrix addition, scalar multiplication, matrix multiplication, determinant evaluation, inversion, and eigenvalue.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

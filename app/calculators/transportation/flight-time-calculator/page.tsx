@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CommercialAircraftBlockTimeProfileChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/flight-time-calculator";
-const TITLE = "Flight Time Calculator | Flight Duration, Block Time & Wind Vectors";
+const TITLE = "Flight Time Calculator";
 const DESCRIPTION =
   "Calculate airborne flight duration, gate-to-gate block times, high-altitude headwind and tailwind vectors, true airspeed, and Great Circle route distances.";
 

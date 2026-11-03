@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EnergyThermodynamicWorkEquivalenceChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/energy-converter";
-const TITLE = "Energy Converter | Joules, Kilowatt-Hours, Calories & BTUs";
+const TITLE = "Energy Converter";
 const DESCRIPTION =
   "Convert Joules, kilowatt-hours, dietary calories, British Thermal Units (BTU), electronvolts, and foot-pounds with thermodynamic work and enthalpy modeling.";
 

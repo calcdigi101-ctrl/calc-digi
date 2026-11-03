@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PaceDistanceCurveChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/pace-calculator";
-const TITLE = "Running Pace Calculator – Splits, Finish Times & Peter Riegel Predictor | CalcDigi";
+const TITLE = "Running Pace Calculator";
 const DESCRIPTION =
-  "Free running pace calculator: compute min/mile and min/km paces, projected finish times, and kilometer splits for 5K, 10K, half marathons, and marathons using Peter Riegel’s formula.";
+  "Free running pace calculator: compute min/mile and min/km paces, projected finish times, and kilometer splits for 5K, 10K, half marathons, and marathons.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

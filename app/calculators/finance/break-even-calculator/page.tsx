@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BreakEvenContributionMarginChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/break-even-calculator";
-const TITLE = "Break-Even Calculator — Units, Revenue, Margin of Safety & Target Profit | CalcDigi";
+const TITLE = "Break-Even Calculator";
 const DESCRIPTION =
-  "Free break-even calculator: calculate unit volume break-even points, required gross revenue, contribution margin ratios, margin of safety buffer, and target profit pricing.";
+  "Free break-even calculator: calculate unit volume break-even points, required gross revenue, contribution margin ratios, margin of safety buffer, and target.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

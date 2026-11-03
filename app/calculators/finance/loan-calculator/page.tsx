@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LoanAmortizationScheduleChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/loan-calculator";
-const TITLE = "Loan Calculator – Monthly Payment & Amortization Schedule | CalcDigi";
+const TITLE = "Loan Calculator";
 const DESCRIPTION =
-  "Free fixed-rate loan calculator: calculate exact monthly payments, cumulative interest expenses, and full amortization schedules across personal, auto, student, or business loans with extra principal payment modeling under TILA guidelines.";
+  "Free fixed-rate loan calculator: calculate exact monthly payments, cumulative interest expenses, and full amortization schedules across personal, auto.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

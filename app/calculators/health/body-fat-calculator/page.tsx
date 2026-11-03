@@ -7,9 +7,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/health/body-fat-calculator";
-const TITLE = "Body Fat Calculator | US Navy Circumference Method & Body Composition";
+const TITLE = "Body Fat Calculator";
 const DESCRIPTION =
-  "Calculate your body fat percentage, lean body mass, and fat mass using the clinically validated US Navy circumference method. Review ACE healthy fitness categories.";
+  "Calculate your body fat percentage, lean body mass, and fat mass using the clinically validated US Navy circumference method. Review ACE healthy fitness.";
 
 export const metadata: Metadata = {
   title: TITLE,

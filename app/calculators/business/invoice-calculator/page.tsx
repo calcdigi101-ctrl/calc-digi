@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InvoiceAgingCashFlowChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/invoice-calculator";
-const TITLE = "Invoice Calculator | Commercial Billing, Discounts & Sales Tax";
+const TITLE = "Invoice Calculator";
 const DESCRIPTION =
   "Compute commercial invoice totals, trade discounts, freight additions, and sales tax across line items with automated payment terms and cash flow tracking.";
 

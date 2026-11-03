@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/permutation-calculator";
-const TITLE = "Permutation Calculator | nPr Ordered Arrangements & Sequences | CalcDigi";
+const TITLE = "Permutation Calculator";
 const DESCRIPTION =
-  "Free online permutation calculator. Calculate ordered permutations nPr = n! / (n - r)!, permutations with repetition, circular arrangements, and derangements step-by-step.";
+  "Free online permutation calculator. Calculate ordered permutations nPr = n! / (n - r)!, permutations with repetition, circular arrangements, and derangements.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

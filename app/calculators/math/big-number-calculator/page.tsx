@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/big-number-calculator";
-const TITLE = "Big Number Calculator | Arbitrary-Precision Arithmetic & Huge Numbers | CalcDigi";
+const TITLE = "Big Number Calculator";
 const DESCRIPTION =
-  "Free online big number calculator. Perform arbitrary-precision addition, subtraction, multiplication, division, exponents, and factorials for numbers with hundreds of digits.";
+  "Free online big number calculator. Perform arbitrary-precision addition, subtraction, multiplication, division, exponents, and factorials for numbers.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

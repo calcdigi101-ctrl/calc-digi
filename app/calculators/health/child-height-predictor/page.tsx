@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MidParentalStatureCurveChart } from "@/components/flagship/health/editorial-charts/MidParentalStatureCurveChart";
 
 const PATH = "/calculators/health/child-height-predictor";
-const TITLE = "Child Height Predictor – Mid-Parental Adult Stature Formula | CalcDigi";
+const TITLE = "Child Height Predictor";
 const DESCRIPTION =
-  "Predict your child's adult height using the Tanner-Goldstein Mid-Parental Stature formula. Explore genetic target ranges, pubertal growth plate timelines, and endocrinology standards.";
+  "Predict your child's adult height using the Tanner-Goldstein Mid-Parental Stature formula. Explore genetic target ranges, pubertal growth plate timelines.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

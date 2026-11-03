@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SpecificHeatThermalStorageChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/specific-heat-calculator";
-const TITLE = "Specific Heat Calculator | Sensible Heat Transfer & Calorimetry Solver";
+const TITLE = "Specific Heat Calculator";
 const DESCRIPTION =
   "Calculate sensible heat transfer Q = mcΔT, equilibrium temperature, specific heat capacity, and thermal energy storage across materials and phases.";
 

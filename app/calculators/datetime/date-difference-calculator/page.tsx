@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CalendarDriftGregorianVsJulianChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/date-difference-calculator";
-const TITLE = "Date Difference Calculator | Days Between Dates & Calendar Drift";
+const TITLE = "Date Difference Calculator";
 const DESCRIPTION =
-  "Calculate exact days between two dates, elapsed weeks, months, business workdays, and explore astronomical Julian Day Number algorithms and Gregorian calendar drift.";
+  "Calculate exact days between two dates, elapsed weeks, months, business workdays, and explore astronomical Julian Day Number algorithms and Gregorian.";
 
 export const metadata: Metadata = {
   title: TITLE,

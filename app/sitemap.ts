@@ -4,15 +4,31 @@ import path from "path";
 import { SITE_URL } from "@/lib/site";
 import { getArticles } from "@/lib/articles";
 
-function walkPages(dir: string, routePrefix = ""): string[] {
-  const routes: string[] = [];
+interface RouteInfo {
+  route: string;
+  lastModified: Date;
+}
+
+function walkPages(dir: string, routePrefix = ""): RouteInfo[] {
+  const routes: RouteInfo[] = [];
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   for (const entry of entries) {
     if (entry.isDirectory()) {
       if (entry.name.startsWith("[")) continue; // dynamic routes handled separately
       routes.push(...walkPages(path.join(dir, entry.name), `${routePrefix}/${entry.name}`));
     } else if (entry.name === "page.tsx") {
-      routes.push(routePrefix || "/");
+      const pageFile = path.join(dir, entry.name);
+      let lastMod: Date;
+      try {
+        const stat = fs.statSync(pageFile);
+        lastMod = stat.mtime;
+      } catch {
+        lastMod = new Date("2026-10-24T00:00:00.000Z");
+      }
+      routes.push({
+        route: routePrefix || "/",
+        lastModified: lastMod,
+      });
     }
   }
   return routes;
@@ -21,11 +37,24 @@ function walkPages(dir: string, routePrefix = ""): string[] {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const appDir = path.join(process.cwd(), "app");
   const walked = walkPages(appDir);
-  // Ensure homepage root '/' is always present
-  const routes = Array.from(new Set(["/", ...walked]));
+  
+  // Ensure homepage root '/' is present with its file mtime
+  let homeMod = new Date("2026-10-24T00:00:00.000Z");
+  try {
+    homeMod = fs.statSync(path.join(appDir, "page.tsx")).mtime;
+  } catch {}
+
+  const routeMap = new Map<string, Date>();
+  routeMap.set("/", homeMod);
+  for (const item of walked) {
+    if (!routeMap.has(item.route)) {
+      routeMap.set(item.route, item.lastModified);
+    }
+  }
+
   const articles = await getArticles();
 
-  const staticEntries: MetadataRoute.Sitemap = routes.map((route) => {
+  const staticEntries: MetadataRoute.Sitemap = Array.from(routeMap.entries()).map(([route, lastModified]) => {
     let priority = 0.6;
     let changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] = "monthly";
 
@@ -45,7 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return {
       url: route === "/" ? `${SITE_URL}/` : `${SITE_URL}${route}`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency,
       priority,
     };

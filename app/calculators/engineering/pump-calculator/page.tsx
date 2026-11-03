@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PumpSystemHeadCurveChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/pump-calculator";
-const TITLE = "Pump Calculator — Water Horsepower, Brake Power (BHP) & Electrical kW | CalcDigi";
+const TITLE = "Pump Calculator";
 const DESCRIPTION =
-  "Calculate centrifugal pump water horsepower (WHP), shaft brake horsepower (BHP), electrical power draw (kW), total dynamic head (TDH), and annual operational energy cost across water, glycol, and hydrocarbon slurries.";
+  "Calculate centrifugal pump water horsepower (WHP), shaft brake horsepower (BHP), electrical power draw (kW), total dynamic head (TDH), and annual operational.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Head Loss Calculator" },
   { href: "/calculators/engineering/reynolds-number-calculator", icon: "🌀", name: "Reynolds Number Flow Regime" },
   { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Motor Load & Amperage" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Impeller Velocity Calculator" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Impeller Velocity Calculator" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Pump Efficiency Percentage" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Lifecycle Pumping Energy Cost" },
 ];
@@ -113,7 +113,7 @@ export default function PumpPage() {
             Centrifugal pumps are the workhorses of municipal potable water plants, industrial chemical processing facilities, wastewater collection networks, and commercial building HVAC hydronic heating/cooling loops. A pump converts mechanical rotational energy from an electric motor or diesel engine into hydraulic pressure energy by accelerating fluid through a high-speed rotating impeller and decelerating it in an expanding volute casing.
           </p>
           <p>
-            The physical operating point of any pumping installation is determined by the intersection of the manufacturer's pump performance curve (head vs. flow) and the system resistance curve. System resistance consists of a static elevation component plus dynamic friction head loss that increases quadratically with flow rate. To evaluate motor peripheral tip velocities, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, assess combined system efficiency percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and forecast cumulative lifecycle electric utility bills using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            The physical operating point of any pumping installation is determined by the intersection of the manufacturer's pump performance curve (head vs. flow) and the system resistance curve. System resistance consists of a static elevation component plus dynamic friction head loss that increases quadratically with flow rate. To evaluate motor peripheral tip velocities, use our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, assess combined system efficiency percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and forecast cumulative lifecycle electric utility bills using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
           </p>
 
           <Formula>

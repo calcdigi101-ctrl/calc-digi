@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CollegeCostOfAttendanceBreakdownChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/college-cost-calculator";
-const TITLE = "College Cost Calculator | Cost of Attendance (COA) & 4-Year Tuition Budget";
+const TITLE = "College Cost Calculator";
 const DESCRIPTION =
-  "Calculate full college Cost of Attendance (COA), direct vs indirect expenses, net price after scholarships, and 4-year cumulative tuition projections with inflation.";
+  "Calculate full college Cost of Attendance (COA), direct vs indirect expenses, net price after scholarships, and 4-year cumulative tuition projections.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -155,7 +155,7 @@ export default function CollegeCostCalculatorPage() {
             Undergraduate families routinely underestimate ancillary educational expenses that are not included in base tuition. Laboratory science materials fees, specialized engineering computing licenses, art studio supplies, and clinical nursing uniforms can add $800 to $2,500 per academic year. Additionally, campus parking permits, mandatory university student health insurance plans ($2,000 to $4,000 annually if not waived with family policy proof), and return flights during academic recesses substantially alter the real cost ledger.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Developing a comprehensive multi-year college financial blueprint requires modeling both direct institutional billing statements and indirect living expenditures. Establishing an education savings fund using our <Link href="/calculators/finance/savings-goal-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">savings goal calculator</Link> ensures prospective scholars avoid sudden mid-degree funding deficits.
+            Developing a comprehensive multi-year college financial blueprint requires modeling both direct institutional billing statements and indirect living expenditures. Establishing an education savings fund using our <Link href="/calculators/finance/savings-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">savings goal calculator</Link> ensures prospective scholars avoid sudden mid-degree funding deficits.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

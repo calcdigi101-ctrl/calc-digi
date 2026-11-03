@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RoadTripCostCategoryWaterfallChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/road-trip-cost-calculator";
-const TITLE = "Road Trip Cost Calculator | Fuel, Lodging, Tolls & Split Budget";
+const TITLE = "Road Trip Cost Calculator";
 const DESCRIPTION =
   "Estimate total road trip driving expenses, fuel consumption across highway speeds, overnight lodging, tollway fees, and passenger cost-per-person splits.";
 

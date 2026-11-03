@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SalesTaxJurisdictionDecompositionChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/sales-tax-calculator";
-const TITLE = "Sales Tax Calculator | State, County & Local Tax Rate Solver";
+const TITLE = "Sales Tax Calculator";
 const DESCRIPTION =
   "Calculate state and local sales tax liabilities, inclusive versus exclusive gross totals, economic nexus compliance thresholds, and municipal surcharges.";
 

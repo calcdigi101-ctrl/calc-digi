@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ReadingSpeedComprehensionCurveChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/reading-speed-calculator";
-const TITLE = "Reading Speed Calculator | Words Per Minute (WPM) & Retention Rate";
+const TITLE = "Reading Speed Calculator";
 const DESCRIPTION =
   "Calculate reading speed in Words Per Minute (WPM), effective comprehension rates, textbook chapter reading times, and psycholinguistic reading fluency.";
 

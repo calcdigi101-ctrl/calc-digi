@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ForexSpreadCostComparisonChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/currency-converter";
-const TITLE = "Currency Converter — Mid-Market FX Rates, Bank Spreads & Wire Fees | CalcDigi";
+const TITLE = "Currency Converter";
 const DESCRIPTION =
-  "Free currency converter: convert foreign exchange rates with live mid-market valuations, retail bank spread markup calculations, wire transfer fees, and cross-rate triangulation.";
+  "Free currency converter: convert foreign exchange rates with live mid-market valuations, retail bank spread markup calculations, wire transfer fees.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

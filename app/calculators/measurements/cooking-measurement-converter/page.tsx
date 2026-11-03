@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CookingVolumeCulinaryProportionsChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/cooking-measurement-converter";
-const TITLE = "Cooking Measurement Converter | Cups, Tablespoons, Teaspoons & Ounces";
+const TITLE = "Cooking Measurement Converter";
 const DESCRIPTION =
   "Convert culinary cups, tablespoons, teaspoons, fluid ounces, grams, and milliliters with culinary density scaling and interactive recipe ratio charts.";
 
@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/measurements/volume-converter", icon: "🧪", name: "Volume Converter" },
   { href: "/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
   { href: "/calculators/measurements/temperature-converter", icon: "🌡️", name: "Temperature Converter" },
-  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/calculators/science/density-calculator", icon: "🧱", name: "Density Calculator" },
   { href: "/calculators/math/ratio-calculator", icon: "🔢", name: "Ratio Calculator" },
   { href: "/pages/measurements", icon: "🍳", name: "Measurements Hub" },
 ];
@@ -91,7 +91,7 @@ export default function CookingMeasurementConverterPage() {
           <Formula>{"\\rho_{\\text{water}} = 1.00 \\text{ g/mL}, \\quad \\rho_{\\text{sugar}} \\approx 0.85 \\text{ g/mL}, \\quad \\rho_{\\text{flour (sifted)}} \\approx 0.53 \\text{ g/mL}"}</Formula>
           <Formula>{"\\rho_{\\text{butter}} \\approx 0.911 \\text{ g/mL}, \\quad \\rho_{\\text{honey}} \\approx 1.42 \\text{ g/mL}, \\quad \\rho_{\\text{olive oil}} \\approx 0.92 \\text{ g/mL}"}</Formula>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            To evaluate temperature scaling for oven baking between Fahrenheit and Celsius, cross-reference our <Link href="/calculators/measurements/temperature-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">temperature converter</Link> and calculate ingredient packing ratios in our <Link href="/calculators/physics/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
+            To evaluate temperature scaling for oven baking between Fahrenheit and Celsius, cross-reference our <Link href="/calculators/measurements/temperature-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">temperature converter</Link> and calculate ingredient packing ratios in our <Link href="/calculators/science/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

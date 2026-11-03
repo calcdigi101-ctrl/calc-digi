@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PhScaleHydroniumConcentrationChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/ph-calculator";
-const TITLE = "pH Calculator | Hydronium [H⁺], pOH & Weak Acid Equilibrium Solver";
+const TITLE = "pH Calculator";
 const DESCRIPTION =
   "Calculate solution pH, pOH, hydronium [H⁺] and hydroxide [OH⁻] concentrations, and weak acid Ka dissociation quadratic equilibria.";
 

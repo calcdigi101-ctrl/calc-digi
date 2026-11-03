@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ChildcareCareModelComparisonChart } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/childcare-cost-calculator";
-const TITLE = "Childcare Cost Calculator – Daycare, Nanny & Tax Savings | CalcDigi";
+const TITLE = "Childcare Cost Calculator";
 const DESCRIPTION =
-  "Calculate and compare childcare expenses across daycare centers, in-home licensed daycares, and private nannies. Factor in pre-tax Dependent Care FSA ($5,000 limit) and Child and Dependent Care Tax Credits (CDCTC).";
+  "Calculate and compare childcare expenses across daycare centers, in-home licensed daycares, and private nannies. Factor in pre-tax Dependent Care FSA.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -62,7 +62,7 @@ export default function ChildcareCostPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
       title="Childcare Cost Calculator"
       intro="Estimate and compare annual expenses across daycare centers, licensed family in-home programs, and private nannies. Factor in pre-tax Dependent Care FSA ($5,000 cap) and Child and Dependent Care Tax Credits."
       description={DESCRIPTION}

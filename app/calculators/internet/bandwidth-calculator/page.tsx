@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcurrentBandwidthAllocationChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/bandwidth-calculator";
-const TITLE = "Bandwidth Calculator | Household & Office Network Capacity Planning";
+const TITLE = "Bandwidth Calculator";
 const DESCRIPTION =
   "Calculate recommended internet bandwidth for multi-user households and offices. Model concurrent 4K streaming, Zoom calls, gaming, and QoS headroom.";
 

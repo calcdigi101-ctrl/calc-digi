@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
 
 const PATH = "/calculators/math/quadratic-equation-calculator";
-const TITLE = "Quadratic Equation Calculator | Solve ax² + bx + c = 0 Step-by-Step | CalcDigi";
+const TITLE = "Quadratic Equation Calculator";
 const DESCRIPTION =
-  "Free online quadratic equation calculator. Solve quadratic equations step-by-step using the quadratic formula, factoring, completing the square, discriminant analysis, and vertex form.";
+  "Free online quadratic equation calculator. Solve quadratic equations step-by-step using the quadratic formula, factoring, completing the square, discriminant.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

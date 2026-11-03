@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EcommerceCostWaterfallChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/ecommerce-profit-calculator";
-const TITLE = "E-Commerce Profit Calculator | Store Margins & ROAS Unit Economics Solver";
+const TITLE = "E-Commerce Profit Calculator";
 const DESCRIPTION =
   "Calculate online store net profit, return on ad spend (ROAS), payment processing fees, 3PL fulfillment expenses, and true landed product margins.";
 

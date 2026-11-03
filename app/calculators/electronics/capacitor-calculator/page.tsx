@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CapacitiveReactanceFrequencySweepChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/capacitor-calculator";
-const TITLE = "Capacitor Reactance Calculator | Impedance (Xc) & Stored Energy";
+const TITLE = "Capacitor Reactance Calculator";
 const DESCRIPTION =
   "Calculate capacitive reactance (Xc), electrostatic stored energy (Joules), AC peak current draw, and reactive power generation across AC circuits.";
 

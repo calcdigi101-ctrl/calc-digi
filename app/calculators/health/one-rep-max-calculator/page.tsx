@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { OneRepMaxFatigueChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/one-rep-max-calculator";
-const TITLE = "One Rep Max Calculator (1RM) – NSCA & Epley Formula Precision | CalcDigi";
+const TITLE = "One Rep Max Calculator (1RM)";
 const DESCRIPTION =
-  "Free One Rep Max calculator: estimate your true single-repetition maximum load across 7 validated exercise science formulas (Epley, Brzycki, Lander) without injury risk.";
+  "Free One Rep Max calculator: estimate your true single-repetition maximum load across 7 validated exercise science formulas (Epley, Brzycki, Lander) without.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

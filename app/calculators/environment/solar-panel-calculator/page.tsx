@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SolarPanel25YearCumulativeCashflowChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/solar-panel-calculator";
-const TITLE = "Solar Panel Calculator | Sizing, Cost, 30% ITC & 25-Year Payback Analysis";
+const TITLE = "Solar Panel Calculator";
 const DESCRIPTION =
-  "Calculate residential rooftop solar panel system size (kW), required monocrystalline panels, turnkey costs, 30% federal clean energy tax credits, annual electric bill savings, and simple capital payback.";
+  "Calculate residential rooftop solar panel system size (kW), required monocrystalline panels, turnkey costs, 30% federal clean energy tax credits, annual.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -195,7 +195,7 @@ export default function SolarPanelPage() {
           </ul>
 
           <p>
-            To evaluate circuit sizing and voltage drop along dedicated conduit runs from rooftop arrays to the main service panel, consult our <Link href="/calculators/engineering/voltage-drop-calculator">Voltage Drop Calculator</Link> and <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
+            To evaluate circuit sizing and voltage drop along dedicated conduit runs from rooftop arrays to the main service panel, consult our <Link href="/calculators/electronics/voltage-divider-calculator">Voltage Drop Calculator</Link> and <Link href="/calculators/math/percentage-calculator">Percentage Calculator</Link>.
           </p>
 
           <h2>Inverter Architectures: String Inverters vs. Microinverters</h2>

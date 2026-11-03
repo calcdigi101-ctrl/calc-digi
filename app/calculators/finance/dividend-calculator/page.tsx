@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DividendReinvestmentDripCurveChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/dividend-calculator";
-const TITLE = "Dividend Calculator – DRIP Reinvestment & Dividend Growth | CalcDigi";
+const TITLE = "Dividend Calculator";
 const DESCRIPTION =
-  "Free dividend calculator: calculate Dividend Reinvestment Plan (DRIP) growth, annual passive cash flow, dividend payout growth, and yield-on-cost under IRS dividend tax guidelines.";
+  "Free dividend calculator: calculate Dividend Reinvestment Plan (DRIP) growth, annual passive cash flow, dividend payout growth, and yield-on-cost under IRS.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

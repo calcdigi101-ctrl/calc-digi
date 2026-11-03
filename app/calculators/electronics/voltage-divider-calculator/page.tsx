@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VoltageDividerLoadingErrorCurveChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/voltage-divider-calculator";
-const TITLE = "Voltage Divider Calculator | Loaded Vout, Thevenin & Power Dissipation";
+const TITLE = "Voltage Divider Calculator";
 const DESCRIPTION =
   "Calculate resistive voltage divider output voltage under open-circuit and loaded conditions, Thevenin equivalent resistance, and resistor power dissipation.";
 

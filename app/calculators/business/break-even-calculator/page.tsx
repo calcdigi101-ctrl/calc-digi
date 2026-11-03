@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BreakEvenSensitivityChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/break-even-calculator";
-const TITLE = "Break-Even Calculator | Units, Revenue & Margin of Safety Solver";
+const TITLE = "Break-Even Calculator";
 const DESCRIPTION =
   "Calculate break-even units, break-even revenue, contribution margin ratio, and margin of safety across commercial business models and cost structures.";
 

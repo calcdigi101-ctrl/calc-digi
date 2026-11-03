@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ActivityMetCalorieExpenditureChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/calorie-burn-calculator";
-const TITLE = "Calorie Burn Calculator | MET Energy Expenditure & Exercise Physiology";
+const TITLE = "Calorie Burn Calculator";
 const DESCRIPTION =
   "Calculate physical exercise calorie expenditure, MET intensity, substrate fat oxidation, and basal metabolic displacement across sports and culinary work.";
 

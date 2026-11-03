@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LbmCompositionSpectrumChart } from "@/components/flagship/health/editorial-charts/LbmCompositionSpectrumChart";
 
 const PATH = "/calculators/health/lean-body-mass-calculator";
-const TITLE = "Lean Body Mass Calculator – Boer, James & Hume Precision | CalcDigi";
+const TITLE = "Lean Body Mass Calculator";
 const DESCRIPTION =
-  "Calculate your lean body mass (LBM), fat mass, and Fat-Free Mass Index (FFMI) with clinical precision using Boer, James, and Hume formulas. Includes Katch-McArdle BMR and protein targets.";
+  "Calculate your lean body mass (LBM), fat mass, and Fat-Free Mass Index (FFMI) with clinical precision using Boer, James, and Hume formulas.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

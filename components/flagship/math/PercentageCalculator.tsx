@@ -168,6 +168,8 @@ export function PercentageCalculator() {
   const ModeDropdownPill = () => (
     <div className="relative inline-flex items-center">
       <select
+        id="percentage-calc-mode"
+        aria-label="Percentage Calculation Mode"
         value={mode}
         onChange={(e) => {
           const newMode = e.target.value as CalcMode;
@@ -635,10 +637,12 @@ export function PercentageCalculator() {
             {showMoreOptions && (
               <div className="mt-3 p-4 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/30 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-500 mb-1">
+                  <label htmlFor="percentage-decimals" className="block text-[11px] font-semibold text-slate-500 mb-1">
                     Decimal Precision
                   </label>
                   <select
+                    id="percentage-decimals"
+                    aria-label="Decimal Precision"
                     value={decimals}
                     onChange={(e) => setDecimals(Number(e.target.value))}
                     className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2.5 py-1.5 font-medium text-slate-800 dark:text-slate-200"
@@ -650,10 +654,12 @@ export function PercentageCalculator() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-slate-500 mb-1">
+                  <label htmlFor="percentage-currency" className="block text-[11px] font-semibold text-slate-500 mb-1">
                     Currency Symbol
                   </label>
                   <select
+                    id="percentage-currency"
+                    aria-label="Currency Symbol"
                     value={currencySymbol}
                     onChange={(e) => setCurrencySymbol(e.target.value)}
                     className="w-full rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-2.5 py-1.5 font-medium text-slate-800 dark:text-slate-200"

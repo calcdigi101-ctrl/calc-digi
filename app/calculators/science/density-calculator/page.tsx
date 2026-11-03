@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DensityMaterialComparisonChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/density-calculator";
-const TITLE = "Density Calculator | Specific Gravity, Mass & Buoyancy Archimedes Solver";
+const TITLE = "Density Calculator";
 const DESCRIPTION =
-  "Calculate material density, specific gravity, volume displacement, and Archimedes buoyant lift forces across solids, liquids, and atmospheric gases with precision unit conversions.";
+  "Calculate material density, specific gravity, volume displacement, and Archimedes buoyant lift forces across solids, liquids, and atmospheric gases.";
 
 export const metadata: Metadata = {
   title: TITLE,

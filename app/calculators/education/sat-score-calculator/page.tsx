@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SatScoreDistributionPercentilesChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/sat-score-calculator";
-const TITLE = "SAT Score Calculator | Total Composite, Percentile Rank & ACT Concordance";
+const TITLE = "SAT Score Calculator";
 const DESCRIPTION =
-  "Calculate total SAT scores across Reading and Writing (EBRW) and Math sections (400-1600), national percentile rankings, and official ACT concordance equivalents.";
+  "Calculate total SAT scores across Reading and Writing (EBRW) and Math sections (400-1600), national percentile rankings, and official ACT concordance.";
 
 export const metadata: Metadata = {
   title: TITLE,

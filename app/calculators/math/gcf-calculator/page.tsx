@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/gcf-calculator";
-const TITLE = "GCF Calculator | Greatest Common Factor & Euclidean Algorithm | CalcDigi";
+const TITLE = "GCF Calculator";
 const DESCRIPTION =
-  "Free online GCF calculator. Find the greatest common factor (HCF / GCD) of two or more numbers using the Euclidean algorithm, prime factorization, and Venn diagrams.";
+  "Free online GCF calculator. Find the greatest common factor (HCF / GCD) of two or more numbers using the Euclidean algorithm, prime factorization, and Venn.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

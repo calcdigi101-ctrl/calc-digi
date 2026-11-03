@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SexagesimalTimeSubdivisionHierarchyChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/time-calculator";
-const TITLE = "Time Calculator | Sexagesimal Addition, Subtraction & Modulo Arithmetic";
+const TITLE = "Time Calculator";
 const DESCRIPTION =
-  "Add, subtract, and multiply hours, minutes, and seconds with sexagesimal base-60 modulo arithmetic, decimal hour conversions, and astronomical sidereal day mechanics.";
+  "Add, subtract, and multiply hours, minutes, and seconds with sexagesimal base-60 modulo arithmetic, decimal hour conversions, and astronomical sidereal day.";
 
 export const metadata: Metadata = {
   title: TITLE,

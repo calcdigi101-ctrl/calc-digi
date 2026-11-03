@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StoichiometricMoleRatioChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/stoichiometry-calculator";
-const TITLE = "Stoichiometry Calculator | Limiting Reagent & Mole Ratio Solver";
+const TITLE = "Stoichiometry Calculator";
 const DESCRIPTION =
   "Calculate balanced chemical equation stoichiometry, mole ratios, limiting reactants, theoretical product yields, and unreacted excess reagents.";
 

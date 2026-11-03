@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PowerHorsepowerCurrentChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/power-calculator";
-const TITLE = "Power Calculator | Mechanical Watts, Brake Horsepower & Electrical Amps";
+const TITLE = "Power Calculator";
 const DESCRIPTION =
   "Calculate mechanical power output (P = E/t), brake horsepower, electrical input power, thermal dissipation losses, and AC/DC line current across voltages.";
 
@@ -26,8 +26,8 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚡", name: "Kinetic Energy" },
   { href: "/calculators/physics/potential-energy-calculator", icon: "🏔️", name: "Potential Energy" },
-  { href: "/calculators/engineering/horsepower-calculator", icon: "🏎️", name: "Engine Horsepower" },
-  { href: "/calculators/engineering/ohms-law-calculator", icon: "🔌", name: "Ohm's Law (V=IR)" },
+  { href: "/calculators/physics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "🔌", name: "Ohm's Law (V=IR)" },
   { href: "/calculators/environment/energy-consumption-calculator", icon: "🌱", name: "Energy Consumption" },
 ];
 

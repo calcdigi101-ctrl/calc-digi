@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StreamingBitrateCodecEfficiencyChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/streaming-quality-calculator";
-const TITLE = "Streaming Quality Calculator | Video Bitrate, Codec & Bandwidth";
+const TITLE = "Streaming Quality Calculator";
 const DESCRIPTION =
   "Calculate required streaming bandwidth for 4K UHD, 1080p, and 720p video. Compare H.264, HEVC (H.265), and AV1 compression codec efficiencies.";
 

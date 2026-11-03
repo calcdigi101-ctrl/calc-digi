@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CoreWebVitalsPageLoadWaterfallChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/website-load-time-calculator";
-const TITLE = "Website Load Time Calculator | Core Web Vitals & Page Speed";
+const TITLE = "Website Load Time Calculator";
 const DESCRIPTION =
   "Calculate website page load time, Core Web Vitals LCP, TTFB server response latency, HTTP/2 asset multiplexing, and bounce rate impacts.";
 

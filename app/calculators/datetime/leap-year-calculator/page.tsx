@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TropicalYearVarianceDriftChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/leap-year-calculator";
-const TITLE = "Leap Year Calculator | 400-Year Gregorian Divisibility Rules & Solar Drift";
+const TITLE = "Leap Year Calculator";
 const DESCRIPTION =
-  "Determine whether any past or future year is a leap year using the complete Gregorian 400-year divisibility algorithm, astronomical tropical year drift calculations, and leap second standards.";
+  "Determine whether any past or future year is a leap year using the complete Gregorian 400-year divisibility algorithm, astronomical tropical year drift.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SlopeGradeAngleElevationChart } from "@/components/flagship/geography/editorial-charts";
 
 const PATH = "/calculators/geography/elevation-grade-calculator";
-const TITLE = "Elevation Grade Calculator – Slope Percent, Incline Angle & ADA Standards | CalcDigi";
+const TITLE = "Elevation Grade Calculator";
 const DESCRIPTION =
-  "Calculate slope percent grade, angle in degrees, slope ratio, and actual travel hypotenuse distance from vertical rise and horizontal run. Features ADA Title III ramp compliance and FHWA road safety benchmarks.";
+  "Calculate slope percent grade, angle in degrees, slope ratio, and actual travel hypotenuse distance from vertical rise and horizontal run.";
 
 export const metadata: Metadata = {
   title: TITLE,

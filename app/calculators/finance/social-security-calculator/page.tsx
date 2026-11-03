@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SocialSecurityClaimingAgeBenefitChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/social-security-calculator";
-const TITLE = "Social Security Calculator – Claiming Age 62 vs 67 vs 70 & Benefits | CalcDigi";
+const TITLE = "Social Security Calculator";
 const DESCRIPTION =
-  "Free Social Security calculator: compare monthly benefit payouts across claiming ages 62, Full Retirement Age (FRA 67), and age 70. Calculate Primary Insurance Amount (PIA) and break-even ages under SSA rules.";
+  "Free Social Security calculator: compare monthly benefit payouts across claiming ages 62, Full Retirement Age (FRA 67), and age 70. Calculate Primary.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -123,7 +123,7 @@ export default function Page() {
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
             <h3>Related Retirement &amp; Longevity Solvers</h3>
             <p>
-              Integrate Social Security into your overall plan via our <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, model workplace retirement savings with the <a href="/calculators/finance/401k-calculator">401(k) Calculator</a>, evaluate tax-sheltered accounts using the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, and calculate exact chronological age using our <a href="/calculators/time/exact-age-calculator">Exact Age Calculator</a>.
+              Integrate Social Security into your overall plan via our <a href="/calculators/finance/retirement-calculator">Retirement Calculator</a>, model workplace retirement savings with the <a href="/calculators/finance/401k-calculator">401(k) Calculator</a>, evaluate tax-sheltered accounts using the <a href="/calculators/finance/roth-ira-calculator">Roth IRA Calculator</a>, and calculate exact chronological age using our <a href="/calculators/datetime/age-calculator">Exact Age Calculator</a>.
             </p>
           </div>
         </>
@@ -167,7 +167,7 @@ export default function Page() {
         { href: "/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
         { href: "/calculators/finance/roth-ira-calculator", icon: "💎", name: "Roth IRA" },
         { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
-        { href: "/calculators/time/exact-age-calculator", icon: "🎂", name: "Exact Age" },
+        { href: "/calculators/datetime/age-calculator", icon: "🎂", name: "Exact Age" },
         { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
       ]}
     >

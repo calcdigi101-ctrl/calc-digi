@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WhrCardiovascularRiskChart } from "@/components/flagship/health/editorial-charts/WhrCardiovascularRiskChart";
 
 const PATH = "/calculators/health/waist-to-hip-ratio-calculator";
-const TITLE = "Waist to Hip Ratio Calculator – WHO Cardiovascular Risk | CalcDigi";
+const TITLE = "Waist to Hip Ratio Calculator";
 const DESCRIPTION =
-  "Calculate your Waist-to-Hip Ratio (WHR) and evaluate cardiovascular disease risk, myocardial infarction hazard, and android vs. gynoid fat distribution using WHO standards.";
+  "Calculate your Waist-to-Hip Ratio (WHR) and evaluate cardiovascular disease risk, myocardial infarction hazard, and android vs. gynoid fat distribution.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

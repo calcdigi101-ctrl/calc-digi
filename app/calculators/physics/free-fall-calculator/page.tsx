@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FreeFallHeightVelocityChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/free-fall-calculator";
-const TITLE = "Free Fall Calculator | Gravity Kinematics, Drop Duration & Impact Velocity";
+const TITLE = "Free Fall Calculator";
 const DESCRIPTION =
-  "Calculate free fall duration, terminal impact velocity, impact kinetic energy, and momentum for falling objects across Earth, Lunar, and Martian gravitational fields.";
+  "Calculate free fall duration, terminal impact velocity, impact kinetic energy, and momentum for falling objects across Earth, Lunar, and Martian.";
 
 export const metadata: Metadata = {
   title: TITLE,

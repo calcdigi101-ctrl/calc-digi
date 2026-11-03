@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SleepArchitectureCyclesChart } from "@/components/flagship/health/editorial-charts/SleepArchitectureCyclesChart";
 
 const PATH = "/calculators/health/sleep-calculator";
-const TITLE = "Sleep Calculator – 90-Minute Cycles, Bedtime & Wake Times | CalcDigi";
+const TITLE = "Sleep Calculator";
 const DESCRIPTION =
-  "Find the optimal bedtime and wake-up times based on natural 90-minute ultradian sleep cycles. Prevent sleep inertia grogginess and wake up alert and fully refreshed.";
+  "Find the optimal bedtime and wake-up times based on natural 90-minute ultradian sleep cycles. Prevent sleep inertia grogginess and wake up alert and fully.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

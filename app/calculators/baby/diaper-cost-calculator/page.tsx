@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DiaperStageExpenseTimelineChart } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/diaper-cost-calculator";
-const TITLE = "Diaper Cost Calculator – Lifetime Disposable vs Cloth Expense | CalcDigi";
+const TITLE = "Diaper Cost Calculator";
 const DESCRIPTION =
-  "Calculate total diaper and wipes expenses from birth to potty training (approx. 30 months). Compare store brands, name brands, organic eco-diapers, and cloth diaper savings with real-world unit pricing and stage durations.";
+  "Calculate total diaper and wipes expenses from birth to potty training (approx. 30 months). Compare store brands, name brands, organic eco-diapers, and cloth.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -62,7 +62,7 @@ export default function DiaperCostPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
       title="Diaper Cost Calculator"
       intro="Estimate your total financial outlay for diapers and wipes from birth through potty training. Compare store brands, premium brands, and modern cloth diapering systems."
       description={DESCRIPTION}

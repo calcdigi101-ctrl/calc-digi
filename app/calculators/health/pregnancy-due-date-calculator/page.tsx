@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PregnancyFetalGrowthCurveChart } from "@/components/flagship/health/editorial-charts/PregnancyFetalGrowthCurveChart";
 
 const PATH = "/calculators/health/pregnancy-due-date-calculator";
-const TITLE = "Pregnancy Due Date Calculator – LMP, Trimesters & Growth | CalcDigi";
+const TITLE = "Pregnancy Due Date Calculator";
 const DESCRIPTION =
-  "Calculate your estimated due date (EDD), current gestational week, and trimester using Naegele's Rule. Includes fetal biometry curves, ACOG term benchmarks, and ultrasound dating.";
+  "Calculate your estimated due date (EDD), current gestational week, and trimester using Naegele's Rule. Includes fetal biometry curves, ACOG term benchmarks.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FractionRatioVisualizerChart } from "@/components/flagship/math/editorial-charts/FractionRatioVisualizerChart";
 
 const PATH = "/calculators/math/percentage-change-calculator";
-const TITLE = "Percentage Change Calculator | Increase, Decrease & Difference | CalcDigi";
+const TITLE = "Percentage Change Calculator";
 const DESCRIPTION =
-  "Free online percentage change calculator. Calculate percent increase, percent decrease, and relative difference between any two numbers step-by-step with economic growth derivations.";
+  "Free online percentage change calculator. Calculate percent increase, percent decrease, and relative difference between any two numbers step-by-step.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

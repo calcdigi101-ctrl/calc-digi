@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BatteryDischargePeukertCurveChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/battery-life-calculator";
-const TITLE = "Battery Life Calculator | Runtime (mAh), Discharge Rate & Autonomy";
+const TITLE = "Battery Life Calculator";
 const DESCRIPTION =
   "Calculate portable battery runtime in hours and days based on cell capacity (mAh), device current consumption, discharge efficiency, and Peukert losses.";
 

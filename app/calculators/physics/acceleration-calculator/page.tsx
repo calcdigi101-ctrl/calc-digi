@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AccelerationProfilesChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/acceleration-calculator";
-const TITLE = "Acceleration Calculator | Linear Kinematics & F=ma Motive Dynamics";
+const TITLE = "Acceleration Calculator";
 const DESCRIPTION =
-  "Calculate linear acceleration, g-force ratios, velocity differentials, stopping distances, and motive thrust forces via Newton's Second Law and uniform kinematic equations.";
+  "Calculate linear acceleration, g-force ratios, velocity differentials, stopping distances, and motive thrust forces via Newton's Second Law and uniform.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Gravitational Free Fall" },
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy Dynamics" },
   { href: "/calculators/physics/projectile-motion-calculator", icon: "📐", name: "Projectile Ballistics" },
-  { href: "/calculators/engineering/horsepower-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/physics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AstronomicalYearTypesComparisonChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/year-calculator";
-const TITLE = "Year Calculator | Calendar Year Span, Leap Cycles & Astronomical Years";
+const TITLE = "Year Calculator";
 const DESCRIPTION =
-  "Calculate years between dates, total leap vs common years across multi-decade spans, and explore astronomical tropical, sidereal, and anomalistic year definitions.";
+  "Calculate years between dates, total leap vs common years across multi-decade spans, and explore astronomical tropical, sidereal, and anomalistic year.";
 
 export const metadata: Metadata = {
   title: TITLE,

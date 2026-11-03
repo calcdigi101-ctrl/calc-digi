@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/median-calculator";
-const TITLE = "Median Calculator | CalcDigi";
+const TITLE = "Median Calculator";
 const DESCRIPTION =
   "Free online median calculator. Find the median, quartiles (Q1, Q3), interquartile range (IQR), mean, and mode for any numerical dataset with step-by-step steps.";
 

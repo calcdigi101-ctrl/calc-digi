@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EmployeeOverheadBurdenSplitChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/employee-cost-calculator";
-const TITLE = "Employee Cost Calculator | Fully Loaded Labor & Burden Multiplier Solver";
+const TITLE = "Employee Cost Calculator";
 const DESCRIPTION =
   "Calculate the true fully loaded cost of an employee, employer payroll taxes (FICA/FUTA/SUTA), health benefits, retirement matching, and overhead multipliers.";
 

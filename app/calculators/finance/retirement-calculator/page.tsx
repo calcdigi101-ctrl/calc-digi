@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RetirementNestEggDrawdownChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/retirement-calculator";
-const TITLE = "Retirement Calculator – Nest Egg, 4% Rule & Drawdown Runway | CalcDigi";
+const TITLE = "Retirement Calculator";
 const DESCRIPTION =
-  "Free retirement calculator: calculate target nest egg requirements, annual drawdown longevity, Social Security integration, and the 4% safe withdrawal rule under Trinity Study benchmarks.";
+  "Free retirement calculator: calculate target nest egg requirements, annual drawdown longevity, Social Security integration, and the 4% safe withdrawal rule.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

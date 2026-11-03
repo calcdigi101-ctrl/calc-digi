@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/confidence-interval-calculator";
-const TITLE = "Confidence Interval Calculator | CalcDigi";
+const TITLE = "Confidence Interval Calculator";
 const DESCRIPTION =
-  "Free online confidence interval calculator. Calculate confidence intervals for population means and proportions at 90%, 95%, and 99% levels with step-by-step margin of error.";
+  "Free online confidence interval calculator. Calculate confidence intervals for population means and proportions at 90%, 95%, and 99% levels with step-by-step.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

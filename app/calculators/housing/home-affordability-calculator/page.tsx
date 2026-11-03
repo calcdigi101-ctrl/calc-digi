@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HomeAffordabilityCurveChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/home-affordability-calculator";
-const TITLE = "Home Affordability Calculator – How Much House? | CalcDigi";
+const TITLE = "Home Affordability Calculator – How Much House?";
 const DESCRIPTION = "Free home affordability calculator: estimate how much house you can afford based on household income, down payment, monthly debts, and interest rates.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

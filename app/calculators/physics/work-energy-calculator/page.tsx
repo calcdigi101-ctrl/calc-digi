@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WorkAngleForceEfficiencyChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/work-energy-calculator";
-const TITLE = "Work & Mechanical Energy Calculator | W = F·d·cosθ, Joules & Horsepower";
+const TITLE = "Work & Mechanical Energy Calculator";
 const DESCRIPTION =
   "Calculate mechanical work done, vector angle efficiency, power rates in Watts and Horsepower, foot-pounds, and mechanical energy transfer across varied angles.";
 
@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
   { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Force F = ma" },
   { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Torque & Rotational Work" },
-  { href: "/calculators/engineering/horsepower-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/physics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [

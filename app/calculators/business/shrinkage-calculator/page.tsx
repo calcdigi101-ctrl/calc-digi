@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InventoryShrinkageLossBreakdownChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/shrinkage-calculator";
-const TITLE = "Shrinkage Calculator | Retail Inventory Loss & Theft Audit Solver";
+const TITLE = "Shrinkage Calculator";
 const DESCRIPTION =
   "Calculate retail inventory shrinkage rates, dollar loss discrepancies between book and physical audits, shoplifting splits, and loss prevention benchmarks.";
 

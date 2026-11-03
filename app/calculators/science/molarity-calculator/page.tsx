@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MolarityDilutionCascadeChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/molarity-calculator";
-const TITLE = "Molarity Calculator | Solution Preparation & M1V1=M2V2 Dilution Solver";
+const TITLE = "Molarity Calculator";
 const DESCRIPTION =
-  "Calculate molarity, required dry solute mass, and liquid stock dilutions using the fundamental dilution equation M1V1 = M2V2 with automated volumetric unit conversions.";
+  "Calculate molarity, required dry solute mass, and liquid stock dilutions using the fundamental dilution equation M1V1 = M2V2 with automated volumetric unit.";
 
 export const metadata: Metadata = {
   title: TITLE,

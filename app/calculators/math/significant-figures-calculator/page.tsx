@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/significant-figures-calculator";
-const TITLE = "Significant Figures Calculator | Sig Fig Counter & Rounding Rules | CalcDigi";
+const TITLE = "Significant Figures Calculator";
 const DESCRIPTION =
-  "Free online significant figures calculator. Count sig figs, perform rounded arithmetic operations (addition, subtraction, multiplication, division), and format scientific notation.";
+  "Free online significant figures calculator. Count sig figs, perform rounded arithmetic operations (addition, subtraction, multiplication, division).";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

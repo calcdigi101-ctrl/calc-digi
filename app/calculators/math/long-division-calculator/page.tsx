@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/long-division-calculator";
-const TITLE = "Long Division Calculator | Step-by-Step with Remainders & Decimals | CalcDigi";
+const TITLE = "Long Division Calculator";
 const DESCRIPTION =
-  "Free online long division calculator. Solve long division problems step-by-step with integer remainders, repeating decimals, quotient steps, and polynomial division.";
+  "Free online long division calculator. Solve long division problems step-by-step with integer remainders, repeating decimals, quotient steps, and polynomial.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

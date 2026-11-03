@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MarkupVsMarginSpreadChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/markup-calculator";
-const TITLE = "Markup Calculator | Cost Markup vs Gross Margin Pricing Engine";
+const TITLE = "Markup Calculator";
 const DESCRIPTION =
   "Calculate cost markup percentages, selling price points, gross margin spreads, and dollar profit yields across retail and manufacturing inventory.";
 

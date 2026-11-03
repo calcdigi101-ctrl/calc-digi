@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ClassRankPercentileDecileDistributionChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/class-rank-calculator";
-const TITLE = "Class Rank Calculator | Percentile Standing, Decile & Cohort Placement";
+const TITLE = "Class Rank Calculator";
 const DESCRIPTION =
   "Calculate high school and college class rank percentile standing, decile placement, cohort quartiles, and college admissions competitiveness from class size.";
 

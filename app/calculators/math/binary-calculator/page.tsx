@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/binary-calculator";
-const TITLE = "Binary Calculator | Bitwise Operations, Two's Complement & Base 2 | CalcDigi";
+const TITLE = "Binary Calculator";
 const DESCRIPTION =
-  "Free online binary calculator. Add, subtract, multiply, divide binary numbers, execute bitwise logic (AND, OR, XOR, NOT, shifts), and compute Two's Complement step-by-step.";
+  "Free online binary calculator. Add, subtract, multiply, divide binary numbers, execute bitwise logic (AND, OR, XOR, NOT, shifts), and compute Two's.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

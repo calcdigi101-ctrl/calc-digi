@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WaterUsageIndoorOutdoorDistributionChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/water-usage-calculator";
-const TITLE = "Water Usage Calculator | Daily Household Consumption & WaterSense Savings";
+const TITLE = "Water Usage Calculator";
 const DESCRIPTION =
-  "Calculate daily and annual household water consumption across showers, toilets, laundry, dishwashing, and lawn irrigation. Compare standard fixtures against EPA WaterSense high-efficiency models.";
+  "Calculate daily and annual household water consumption across showers, toilets, laundry, dishwashing, and lawn irrigation. Compare standard fixtures against.";
 
 export const metadata: Metadata = {
   title: TITLE,

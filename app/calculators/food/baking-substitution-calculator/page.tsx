@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BakingIngredientHydrationRatioChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/baking-substitution-calculator";
-const TITLE = "Baking Substitution Calculator | Ratio, Hydration & Chemistry Balance";
+const TITLE = "Baking Substitution Calculator";
 const DESCRIPTION =
   "Calculate exact culinary ingredient substitutions for buttermilk, butter, eggs, sugar, and cake flour while preserving pastry hydration and moisture.";
 

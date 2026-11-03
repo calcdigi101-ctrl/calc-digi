@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StartupValuationDilutionRoundsChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/startup-valuation-calculator";
-const TITLE = "Startup Valuation Calculator | Pre-Money, Post-Money & Cap Table Dilution";
+const TITLE = "Startup Valuation Calculator";
 const DESCRIPTION =
   "Calculate startup pre-money vs post-money valuations, investor equity ownership stakes, employee option pool (ESOP) dilution, and venture round metrics.";
 

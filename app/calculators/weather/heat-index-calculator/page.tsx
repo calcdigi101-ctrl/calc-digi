@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NoaaHeatIndexDangerZonesChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/heat-index-calculator";
-const TITLE = "Heat Index Calculator | NOAA Apparent Temperature & Heat Stress Scale";
+const TITLE = "Heat Index Calculator";
 const DESCRIPTION =
   "Calculate the NOAA Heat Index, apparent feels-like temperature, evaporative cooling penalty, thermal stress danger tier, and OSHA outdoor work-rest cycles.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StudentLoanAmortizationInterestChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/student-loan-calculator";
-const TITLE = "Student Loan Calculator | Amortization Schedule & Repayment Plans";
+const TITLE = "Student Loan Calculator";
 const DESCRIPTION =
   "Calculate student loan monthly payments, lifetime interest accrual, standard 10-year vs income-driven repayment plans, and debt-to-income salary benchmarks.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HospitalityTipPercentageBenchmarkChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/tip-calculator";
-const TITLE = "Tip Calculator | Restaurant Bill Split, Gratuity % & Tax Allocation";
+const TITLE = "Tip Calculator";
 const DESCRIPTION =
   "Calculate restaurant tips, sales tax, total dining check splits per person, and hospitality gratuity percentiles for casual and fine dining.";
 

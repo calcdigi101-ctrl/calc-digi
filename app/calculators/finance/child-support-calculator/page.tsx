@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ChildSupportIncomeSharesCurveChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/child-support-calculator";
-const TITLE = "Child Support Calculator — Income Shares Model, Overnights & Add-Ons | CalcDigi";
+const TITLE = "Child Support Calculator";
 const DESCRIPTION =
-  "Free child support calculator: model state statutory income shares formulas, parental income allocation ratios, overnight custody time credits, and mandatory healthcare add-ons.";
+  "Free child support calculator: model state statutory income shares formulas, parental income allocation ratios, overnight custody time credits, and mandatory.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

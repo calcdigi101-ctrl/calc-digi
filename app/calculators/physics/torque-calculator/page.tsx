@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TorqueAngleEfficiencyChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/torque-calculator";
-const TITLE = "Torque Calculator | Rotational Moment (τ = F·r·sinθ), lb-ft & Horsepower";
+const TITLE = "Torque Calculator";
 const DESCRIPTION =
   "Calculate rotational torque moments (τ = Fr sinθ), pound-feet, inch-pounds, effective moment arms, and equivalent mechanical horsepower at operating RPM.";
 
@@ -27,8 +27,8 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
   { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newton's Force F=ma" },
   { href: "/calculators/physics/circular-motion-calculator", icon: "🔄", name: "Circular Motion" },
-  { href: "/calculators/engineering/torque-calculator", icon: "🏎️", name: "Engineering Engine Torque" },
-  { href: "/calculators/engineering/horsepower-calculator", icon: "🐎", name: "Engine Horsepower" },
+  { href: "/calculators/physics/torque-calculator", icon: "🏎️", name: "Engineering Engine Torque" },
+  { href: "/calculators/physics/power-calculator", icon: "🐎", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [

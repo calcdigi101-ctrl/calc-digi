@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberSystemPositionalRadixDensityChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/number-system-converter";
-const TITLE = "Number System Converter | Binary, Decimal, Hexadecimal & Octal";
+const TITLE = "Number System Converter";
 const DESCRIPTION =
   "Convert between decimal, binary, hexadecimal, and octal positional radices with full two's complement, ASCII, and IEEE-754 bit-pattern modeling.";
 
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/measurements/data-storage-converter", icon: "💾", name: "Data Storage" },
-  { href: "/calculators/measurements/roman-numeral-converter", icon: "🏛️", name: "Roman Numerals" },
+  { href: "/calculators/math/roman-numeral-converter", icon: "🏛️", name: "Roman Numerals" },
   { href: "/calculators/internet/bandwidth-calculator", icon: "🌐", name: "Bandwidth Calculator" },
   { href: "/calculators/math/scientific-notation-calculator", icon: "🔬", name: "Scientific Notation" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage" },
@@ -63,7 +63,7 @@ export default function NumberSystemConverterPage() {
       article={
         <>
           <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
-            <strong>Quick Radix Guidance:</strong> Positional numeral systems represent quantities through radix bases and weighted digit positions. In computer architecture, cybersecurity, and embedded software, cross-reference byte memory units in our <Link href="/calculators/measurements/data-storage-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">data storage converter</Link> and convert classical non-positional numerals in our <Link href="/calculators/measurements/roman-numeral-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">roman numeral converter</Link>.
+            <strong>Quick Radix Guidance:</strong> Positional numeral systems represent quantities through radix bases and weighted digit positions. In computer architecture, cybersecurity, and embedded software, cross-reference byte memory units in our <Link href="/calculators/measurements/data-storage-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">data storage converter</Link> and convert classical non-positional numerals in our <Link href="/calculators/math/roman-numeral-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">roman numeral converter</Link>.
           </div>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

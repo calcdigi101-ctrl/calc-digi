@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TransitModeSpeedDistanceMatrixChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/distance-calculator";
-const TITLE = "Distance Calculator | Travel Time, Transit Speed & CO2 Emissions";
+const TITLE = "Distance Calculator";
 const DESCRIPTION =
   "Calculate travel distance, elapsed door-to-door transit time, average speed, terminal buffers, and greenhouse gas carbon emissions across transit modes.";
 

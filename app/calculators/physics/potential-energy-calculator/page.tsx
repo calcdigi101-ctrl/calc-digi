@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PotentialEnergyElevationChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/potential-energy-calculator";
-const TITLE = "Potential Energy Calculator | Gravitational PE = mgh & Planetary Gravity";
+const TITLE = "Potential Energy Calculator";
 const DESCRIPTION =
-  "Calculate gravitational potential energy (PE = mgh), static weight loads, equivalent free fall impact speeds, and hydroelectric energy storage across Earth, Lunar, and Martian fields.";
+  "Calculate gravitational potential energy (PE = mgh), static weight loads, equivalent free fall impact speeds, and hydroelectric energy storage across Earth.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Free Fall Gravity" },
   { href: "/calculators/physics/gravitational-force-calculator", icon: "🌌", name: "Newtonian Gravitation" },
   { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
-  { href: "/calculators/engineering/torque-calculator", icon: "🔄", name: "Engineering Torque" },
+  { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Engineering Torque" },
 ];
 
 const FAQ_ITEMS = [

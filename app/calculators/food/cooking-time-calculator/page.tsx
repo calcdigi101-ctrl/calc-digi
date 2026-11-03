@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MeatThermalInternalTemperatureCurveChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/cooking-time-calculator";
-const TITLE = "Cooking Time Calculator | Meat Roasting, Thermal Curves & Resting";
+const TITLE = "Cooking Time Calculator";
 const DESCRIPTION =
   "Calculate roasting and braising duration by weight, safe USDA internal core temperatures, convection adjustments, and carryover thermal rest curves.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EmailPayloadBase64ExpansionChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/email-size-calculator";
-const TITLE = "Email Size Calculator | MIME Base64 Overhead & Attachment Limits";
+const TITLE = "Email Size Calculator";
 const DESCRIPTION =
   "Calculate total email payload size, 33% Base64 MIME encoding overhead, attachment limits (25 MB Gmail/Outlook), and bounce rate risks.";
 

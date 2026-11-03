@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AtmosphericInstabilityCapeWindShearChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/severe-weather-calculator";
-const TITLE = "Severe Weather Calculator | CAPE, Bulk Wind Shear & Tornado Helicity";
+const TITLE = "Severe Weather Calculator";
 const DESCRIPTION =
   "Assess severe convective storm hazards, thermodynamic CAPE, 0-6 km bulk wind shear, Energy Helicity Index (EHI), and supercell tornado potential.";
 

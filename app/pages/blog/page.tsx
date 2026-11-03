@@ -7,7 +7,7 @@ import { BlogDirectory } from "@/components/BlogDirectory";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Blog & Learning Center: Financial, Health & Math Guides",
+  title: "Blog & Learning Center: Precision Guides",
   description:
     "In-depth actuarial, financial, health, and everyday math guides with verified formulas, benchmarks, and step-by-step calculation examples.",
   openGraph: {

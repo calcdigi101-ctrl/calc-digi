@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SpeedKinematicRegimesChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/speed-converter";
-const TITLE = "Speed & Velocity Converter | m/s, km/h, mph & Nautical Knots";
+const TITLE = "Speed & Velocity Converter";
 const DESCRIPTION =
   "Convert meters per second, kilometers per hour, miles per hour, knots, and Mach numbers with exact kinematic derivations and interactive speed regime modeling.";
 

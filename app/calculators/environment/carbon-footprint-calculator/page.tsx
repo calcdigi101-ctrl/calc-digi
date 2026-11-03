@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CarbonFootprintSectorBreakdownChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/carbon-footprint-calculator";
-const TITLE = "Carbon Footprint Calculator | Measure Annual CO2e Greenhouse Emissions";
+const TITLE = "Carbon Footprint Calculator";
 const DESCRIPTION =
-  "Calculate your total annual household carbon footprint across vehicle transportation, flights, home energy, natural gas heating, diet, and waste. Compare your footprint against national and global benchmarks.";
+  "Calculate your total annual household carbon footprint across vehicle transportation, flights, home energy, natural gas heating, diet, and waste.";
 
 export const metadata: Metadata = {
   title: TITLE,

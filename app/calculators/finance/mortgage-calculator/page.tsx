@@ -7,9 +7,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/finance/mortgage-calculator";
-const TITLE = "Mortgage Calculator | Monthly Payment with Taxes, Insurance, PMI & Amortization";
+const TITLE = "Mortgage Calculator";
 const DESCRIPTION =
-  "Calculate your exact monthly mortgage payment with principal, interest, property taxes, home insurance, and PMI. Compare 15 vs 30-year amortization schedules and accelerated bi-weekly savings.";
+  "Calculate your exact monthly mortgage payment with principal, interest, property taxes, home insurance, and PMI. Compare 15 vs 30-year amortization schedules.";
 
 export const metadata: Metadata = {
   title: TITLE,

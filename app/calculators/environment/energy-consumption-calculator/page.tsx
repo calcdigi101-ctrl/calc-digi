@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EnergyConsumptionByApplianceChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/energy-consumption-calculator";
-const TITLE = "Energy Consumption Calculator | Appliance Watts to kWh & Utility Bill Cost";
+const TITLE = "Energy Consumption Calculator";
 const DESCRIPTION =
-  "Calculate electric appliance power consumption, convert watts to daily and annual kilowatt-hours (kWh), and estimate utility electricity costs based on runtime, duty cycles, and electric tariffs.";
+  "Calculate electric appliance power consumption, convert watts to daily and annual kilowatt-hours (kWh), and estimate utility electricity costs.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -27,7 +27,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
   { href: "/calculators/environment/electric-vehicle-savings-calculator", icon: "⚡", name: "EV Charging Cost Calculator" },
   { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Load Calculator" },
-  { href: "/calculators/engineering/heat-loss-calculator", icon: "🔥", name: "Home Heat Loss Sizing" },
+  { href: "/calculators/engineering/heat-transfer-calculator", icon: "🔥", name: "Home Heat Loss Sizing" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Utility Bill Budget Share" },
 ];
 
@@ -123,7 +123,7 @@ export default function EnergyConsumptionPage() {
           </p>
 
           <p>
-            To evaluate how generating your own clean power offsets these appliance loads, cross-reference our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link>. For sizing home heating capacity or evaluating whole-home electrical breaker panel demand, explore our <Link href="/calculators/engineering/electrical-load-calculator">Electrical Load Calculator</Link> and <Link href="/calculators/engineering/heat-loss-calculator">Home Heat Loss Sizing Calculator</Link>.
+            To evaluate how generating your own clean power offsets these appliance loads, cross-reference our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link>. For sizing home heating capacity or evaluating whole-home electrical breaker panel demand, explore our <Link href="/calculators/engineering/electrical-load-calculator">Electrical Load Calculator</Link> and <Link href="/calculators/engineering/heat-transfer-calculator">Home Heat Loss Sizing Calculator</Link>.
           </p>
 
           <h2>Mathematical Principles of Electrical Energy & Cost Calculations</h2>

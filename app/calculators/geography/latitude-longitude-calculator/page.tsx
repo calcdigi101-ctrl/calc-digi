@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LatitudeLongitudeConvergenceChart } from "@/components/flagship/geography/editorial-charts";
 
 const PATH = "/calculators/geography/latitude-longitude-calculator";
-const TITLE = "Latitude and Longitude Calculator – DD to DMS Converter & Geodesy | CalcDigi";
+const TITLE = "Latitude and Longitude Calculator";
 const DESCRIPTION =
-  "Convert coordinates between Decimal Degrees (DD) and Degrees-Minutes-Seconds (DMS). Calculate longitudinal meridian convergence, distance to the Equator, antipodal coordinates, and UTM grid zones.";
+  "Convert coordinates between Decimal Degrees (DD) and Degrees-Minutes-Seconds (DMS). Calculate longitudinal meridian convergence, distance to the Equator.";
 
 export const metadata: Metadata = {
   title: TITLE,

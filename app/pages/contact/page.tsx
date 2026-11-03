@@ -1,8 +1,10 @@
+import { JsonLd } from "@/components/flagship/shell";
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import { ContactForm } from "./ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Us – CalcDigi Team & Support",
   description: "Contact CalcDigi with feedback, bug reports, calculator suggestions or privacy questions. We read every message.",
   openGraph: {
     title: "Contact Us",
@@ -21,9 +23,40 @@ const REASONS: [string, string, string][] = [
   ["🔒", "Privacy & legal", "Choose \"Privacy Question\" as the topic."],
 ];
 
+
+const SCHEMA_DATA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Contact CalcDigi", item: `${SITE_URL}/pages/contact` }
+      ]
+    },
+    {
+      "@type": "ContactPage",
+      name: "Contact CalcDigi",
+      url: `${SITE_URL}/pages/contact`,
+      description: "Contact CalcDigi with feedback, bug reports, calculator suggestions or privacy questions.",
+      inLanguage: "en-US",
+      publisher: {
+        "@type": "Organization",
+        name: "CalcDigi",
+        url: `${SITE_URL}/`,
+        logo: {
+          "@type": "ImageObject",
+          url: `${SITE_URL}/icon.svg`
+        }
+      }
+    }
+  ]
+};
+
 export default function Page() {
   return (
     <>
+      <JsonLd data={SCHEMA_DATA} />
       <style dangerouslySetInnerHTML={{ __html: STYLE }} />
       <div className="contact-hero">
         <div className="container">

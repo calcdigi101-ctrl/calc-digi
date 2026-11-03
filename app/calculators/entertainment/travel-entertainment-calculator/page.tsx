@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VacationEntertainmentDailyBurnChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/travel-entertainment-calculator";
-const TITLE = "Travel Entertainment Calculator — Vacation Activities & Nightlife Budget | CalcDigi";
+const TITLE = "Travel Entertainment Calculator";
 const DESCRIPTION =
-  "Calculate total vacation entertainment and activity spending for families, couples, and solo travelers. Factor in theme park passes, museum tickets, guided excursions, live shows, and dining nightlife.";
+  "Calculate total vacation entertainment and activity spending for families, couples, and solo travelers. Factor in theme park passes, museum tickets, guided.";
 
 export const metadata: Metadata = {
   title: TITLE,

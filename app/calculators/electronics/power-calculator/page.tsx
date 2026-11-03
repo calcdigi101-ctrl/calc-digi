@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PowerFactorActiveReactiveTriangleChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/power-calculator";
-const TITLE = "Electric Power Calculator | Real Watts, Apparent VA & Power Factor";
+const TITLE = "Electric Power Calculator";
 const DESCRIPTION =
   "Calculate active electrical power (Watts), apparent power (VA), reactive power (VAR), and power factor across single-phase AC and DC circuits.";
 

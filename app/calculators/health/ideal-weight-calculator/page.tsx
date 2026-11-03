@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { IdealWeightFormulaChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/ideal-weight-calculator";
-const TITLE = "Ideal Weight Calculator – 4 Clinical Formulas & WHO Healthy BMI | CalcDigi";
+const TITLE = "Ideal Weight Calculator";
 const DESCRIPTION =
   "Free ideal weight calculator: determine your optimal body weight across Devine, Robinson, Miller, and Hamwi clinical equations with WHO healthy BMI boundaries.";
 

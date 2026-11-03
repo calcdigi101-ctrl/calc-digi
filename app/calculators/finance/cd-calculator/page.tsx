@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CdLadderingMaturityYieldChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/cd-calculator";
-const TITLE = "CD Calculator – Certificate of Deposit Interest & Laddering | CalcDigi";
+const TITLE = "CD Calculator";
 const DESCRIPTION =
-  "Free Certificate of Deposit (CD) calculator: calculate fixed maturity value, compounding yields, early withdrawal penalties, and CD laddering strategies under FDIC banking rules.";
+  "Free Certificate of Deposit (CD) calculator: calculate fixed maturity value, compounding yields, early withdrawal penalties, and CD laddering strategies.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

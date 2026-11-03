@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FiscalRetailCalendarVariationsChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/week-number-calculator";
-const TITLE = "Week Number Calculator | ISO 8601 Week Date & Fiscal Retail 4-4-5 Calendar";
+const TITLE = "Week Number Calculator";
 const DESCRIPTION =
   "Determine the current ISO 8601 week number, calculate weeks between dates, and explore National Retail Federation (NRF) 4-4-5 merchandise accounting calendars.";
 

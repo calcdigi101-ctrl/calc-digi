@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { UnixIntegerBitDepthTimelineChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/unix-timestamp-converter";
-const TITLE = "UNIX Timestamp Converter | Epoch Seconds, Milliseconds & Y2038 Analysis";
+const TITLE = "UNIX Timestamp Converter";
 const DESCRIPTION =
-  "Convert UNIX epoch timestamps to human-readable ISO 8601 dates, inspect millisecond epoch values, and analyze the 32-bit signed integer Year 2038 (Y2038) overflow boundary.";
+  "Convert UNIX epoch timestamps to human-readable ISO 8601 dates, inspect millisecond epoch values, and analyze the 32-bit signed integer Year 2038 (Y2038).";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AttendanceRateImpactThresholdChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/attendance-calculator";
-const TITLE = "Attendance Calculator | Class Absence Rate & Mandatory Compliance Thresholds";
+const TITLE = "Attendance Calculator";
 const DESCRIPTION =
   "Calculate student attendance percentage, allowable future class cuts, mandatory attendance compliance (75%, 80%, 85%), and debarment risk thresholds.";
 

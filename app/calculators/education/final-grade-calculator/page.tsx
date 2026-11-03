@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FinalExamTargetFeasibilityChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/final-grade-calculator";
-const TITLE = "Final Grade Calculator | Required Final Exam Score & Target Grade Feasibility";
+const TITLE = "Final Grade Calculator";
 const DESCRIPTION =
-  "Calculate the exact exam score required on your final to achieve your target course letter grade, factoring in syllabus weight, current percentage, and extra credit.";
+  "Calculate the exact exam score required on your final to achieve your target course letter grade, factoring in syllabus weight, current percentage, and extra.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -72,7 +72,7 @@ export default function FinalGradeCalculatorPage() {
           <FinalExamTargetFeasibilityChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            During the final weeks of an academic semester, students face high-stakes resource allocation decisions. Preparing for comprehensive examinations across four or five simultaneous courses requires triage: determining exactly which classes demand intensive study to cross letter grade thresholds versus courses where grades are already mathematically locked. Because final exams frequently carry between 20% and 40% of the entire syllabus weight, understanding mathematical sensitivity prevents academic burnout, leveraging formulations identical to those found in our <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
+            During the final weeks of an academic semester, students face high-stakes resource allocation decisions. Preparing for comprehensive examinations across four or five simultaneous courses requires triage: determining exactly which classes demand intensive study to cross letter grade thresholds versus courses where grades are already mathematically locked. Because final exams frequently carry between 20% and 40% of the entire syllabus weight, understanding mathematical sensitivity prevents academic burnout, leveraging formulations identical to those found in our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

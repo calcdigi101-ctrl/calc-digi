@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DewPointRelativeHumidityComfortMatrixChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/dew-point-calculator";
-const TITLE = "Dew Point Calculator | Relative Humidity, Comfort Scale & Psychrometrics";
+const TITLE = "Dew Point Calculator";
 const DESCRIPTION =
-  "Calculate dew point temperature, water vapor saturation pressure, condensation spread, human comfort tiers, and fog or frost risk from air temperature and relative humidity.";
+  "Calculate dew point temperature, water vapor saturation pressure, condensation spread, human comfort tiers, and fog or frost risk from air temperature.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -138,7 +138,7 @@ export default function DewPointCalculatorPage() {
           />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 my-4">
-            The data demonstrates that once dew point crosses 65°F, cutaneous sweat evaporation efficiency drops below 70%, forcing the human cardiovascular system to divert substantial blood flow to peripheral dermal capillaries to facilitate sensible convective heat transfer. In sub-freezing winter scenarios evaluated in our <Link href="/calculators/weather/snowfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">snowfall calculator</Link>, surface dew points below 32°F transform condensation into direct crystal deposition, producing frost that alters roadway friction analyzed in our <Link href="/calculators/physics/friction-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">friction calculator</Link>.
+            The data demonstrates that once dew point crosses 65°F, cutaneous sweat evaporation efficiency drops below 70%, forcing the human cardiovascular system to divert substantial blood flow to peripheral dermal capillaries to facilitate sensible convective heat transfer. In sub-freezing winter scenarios evaluated in our <Link href="/calculators/weather/snowfall-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">snowfall calculator</Link>, surface dew points below 32°F transform condensation into direct crystal deposition, producing frost that alters roadway friction analyzed in our <Link href="/calculators/physics/force-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">friction calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

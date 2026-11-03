@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SolarIrradianceMonthlyYieldCurveChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/solar-panel-calculator";
-const TITLE = "Solar Panel Calculator | Photovoltaic System Sizing & Energy Yield";
+const TITLE = "Solar Panel Calculator";
 const DESCRIPTION =
   "Calculate solar PV array kilowatt capacity, number of solar panels required, daily kilowatt-hour yield, and inverter sizing based on peak sun hours.";
 

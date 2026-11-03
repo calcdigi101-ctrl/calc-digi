@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
 
 const PATH = "/calculators/math/exponent-calculator";
-const TITLE = "Exponent Calculator | Powers, Bases, Laws of Exponents & Growth | CalcDigi";
+const TITLE = "Exponent Calculator";
 const DESCRIPTION =
   "Free online exponent calculator. Calculate powers, negative exponents, fractional powers, scientific notation, and compound exponential growth step-by-step.";
 

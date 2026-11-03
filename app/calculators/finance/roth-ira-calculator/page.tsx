@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RothVsTraditionalIraTaxHorizonChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/roth-ira-calculator";
-const TITLE = "Roth IRA Calculator – Tax-Free Growth, Limits & Conversions | CalcDigi";
+const TITLE = "Roth IRA Calculator";
 const DESCRIPTION =
-  "Free Roth IRA calculator: calculate tax-free compounding growth, annual contribution limits, income phase-outs, backdoor Roth conversions, and Traditional vs. Roth wealth comparison.";
+  "Free Roth IRA calculator: calculate tax-free compounding growth, annual contribution limits, income phase-outs, backdoor Roth conversions, and Traditional vs.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

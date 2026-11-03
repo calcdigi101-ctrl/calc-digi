@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/random-number-generator";
-const TITLE = "Random Number Generator | True & Pseudo-Random RNG Tool | CalcDigi";
+const TITLE = "Random Number Generator";
 const DESCRIPTION =
-  "Free online random number generator. Generate uniform pseudo-random integers, floating-point decimals, non-repeating lottery sets, and cryptographic sequences step-by-step.";
+  "Free online random number generator. Generate uniform pseudo-random integers, floating-point decimals, non-repeating lottery sets, and cryptographic.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

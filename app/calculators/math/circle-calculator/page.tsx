@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/circle-calculator";
-const TITLE = "Circle Calculator | Area, Circumference, Radius & Diameter | CalcDigi";
+const TITLE = "Circle Calculator";
 const DESCRIPTION =
-  "Free online circle calculator. Calculate radius, diameter, circumference, area, sector arc length, and chord length step-by-step with precision mathematical derivations.";
+  "Free online circle calculator. Calculate radius, diameter, circumference, area, sector arc length, and chord length step-by-step with precision mathematical.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

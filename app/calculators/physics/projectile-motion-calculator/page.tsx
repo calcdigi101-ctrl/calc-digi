@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ProjectileTrajectoriesAngleChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/projectile-motion-calculator";
-const TITLE = "Projectile Motion Calculator | 2D Ballistic Trajectory, Range & Apex";
+const TITLE = "Projectile Motion Calculator";
 const DESCRIPTION =
-  "Calculate horizontal range, maximum apex height, flight time, and velocity vectors for 2D parabolic ballistic trajectories launched at arbitrary angles and elevations.";
+  "Calculate horizontal range, maximum apex height, flight time, and velocity vectors for 2D parabolic ballistic trajectories launched at arbitrary angles.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/acceleration-calculator", icon: "🚀", name: "Acceleration & Kinematics" },
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy" },
   { href: "/calculators/physics/force-calculator", icon: "⚖️", name: "Newton's Force F=ma" },
-  { href: "/calculators/math/trigonometry-calculator", icon: "📐", name: "Trigonometric Sine/Cosine" },
+  { href: "/calculators/math/scientific-calculator", icon: "📐", name: "Trigonometric Sine/Cosine" },
 ];
 
 const FAQ_ITEMS = [

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GlobalUtcOffsetLongitudinalSpanChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/time-zone-converter";
-const TITLE = "Time Zone Converter | Global UTC Offsets, DST & World Meeting Planner";
+const TITLE = "Time Zone Converter";
 const DESCRIPTION =
-  "Convert time across world time zones with Coordinated Universal Time (UTC) offsets, Daylight Saving Time (DST) transitions, and international business meeting coordination.";
+  "Convert time across world time zones with Coordinated Universal Time (UTC) offsets, Daylight Saving Time (DST) transitions, and international business.";
 
 export const metadata: Metadata = {
   title: TITLE,

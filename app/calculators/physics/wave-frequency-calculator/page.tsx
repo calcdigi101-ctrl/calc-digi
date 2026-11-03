@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ElectromagneticSpectrumWavelengthChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/wave-frequency-calculator";
-const TITLE = "Wave Frequency & Wavelength Calculator | c = f·λ, Hertz & Photon Energy";
+const TITLE = "Wave Frequency & Wavelength Calculator";
 const DESCRIPTION =
-  "Calculate wave frequency, electromagnetic wavelength (λ = v/f), wave periods, angular frequency, spatial wave numbers, and quantum photon energy across radio, light, and sound.";
+  "Calculate wave frequency, electromagnetic wavelength (λ = v/f), wave periods, angular frequency, spatial wave numbers, and quantum photon energy.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -27,7 +27,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy" },
   { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical & Electrical Power" },
   { href: "/calculators/physics/circular-motion-calculator", icon: "🔄", name: "Rotational Frequency & Period" },
-  { href: "/calculators/engineering/torque-calculator", icon: "🏎️", name: "Engineering Torque" },
+  { href: "/calculators/physics/torque-calculator", icon: "🏎️", name: "Engineering Torque" },
   { href: "/calculators/environment/air-quality-index-calculator", icon: "🌱", name: "Environmental Air Quality" },
 ];
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TireDiameterSpeedometerVarianceChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/tire-size-calculator";
-const TITLE = "Tire Size Calculator | Diameter, Sidewall & Speedometer Error";
+const TITLE = "Tire Size Calculator";
 const DESCRIPTION =
   "Compare tire dimensions, overall diameter, sidewall height, wheel circumference, revolutions per mile, and speedometer calibration error.";
 

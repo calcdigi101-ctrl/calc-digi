@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WholesaleRetailKeystonePricingChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/wholesale-price-calculator";
-const TITLE = "Wholesale Price Calculator | B2B & Retail Keystone Pricing Engine";
+const TITLE = "Wholesale Price Calculator";
 const DESCRIPTION =
   "Calculate B2B wholesale selling prices, retailer MSRP keystone markups, supply chain gross margins, and production batch volume profitability.";
 

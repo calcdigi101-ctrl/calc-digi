@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BmrAgeDeclineChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/bmr-calculator";
-const TITLE = "BMR Calculator – Basal Metabolic Rate (Mifflin-St Jeor) | CalcDigi";
+const TITLE = "BMR Calculator";
 const DESCRIPTION =
-  "Free BMR calculator: calculate your Basal Metabolic Rate using the clinically validated Mifflin-St Jeor and Revised Harris-Benedict formulas with daily calorie targets.";
+  "Free BMR calculator: calculate your Basal Metabolic Rate using the clinically validated Mifflin-St Jeor and Revised Harris-Benedict formulas with daily.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

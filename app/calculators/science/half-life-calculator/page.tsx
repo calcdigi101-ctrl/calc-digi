@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RadioactiveDecayHalfLifeChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/half-life-calculator";
-const TITLE = "Half-Life Calculator | Radioactive Decay & First-Order Kinetics Solver";
+const TITLE = "Half-Life Calculator";
 const DESCRIPTION =
-  "Calculate radioactive decay remaining amounts, decay constants, mean lifetimes, and elapsed half-lives using first-order exponential decay kinetics and isotopic half-life benchmarks.";
+  "Calculate radioactive decay remaining amounts, decay constants, mean lifetimes, and elapsed half-lives using first-order exponential decay kinetics.";
 
 export const metadata: Metadata = {
   title: TITLE,

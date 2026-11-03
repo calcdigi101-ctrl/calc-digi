@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BoltTorqueClampingForceChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/bolt-torque-calculator";
-const TITLE = "Bolt Torque Calculator — Tightening Torque, Preload Clamping & Nut Factor K | CalcDigi";
+const TITLE = "Bolt Torque Calculator";
 const DESCRIPTION =
-  "Calculate bolt tightening torque (N·m & lb-ft), tensile preload clamping force (kN / lbs), proof load stresses, and K nut friction factors for ISO Grade 8.8, 10.9, 12.9, and SAE Grade 5 and 8 fasteners across dry, lubricated, and anti-seize conditions.";
+  "Calculate bolt tightening torque (N·m & lb-ft), tensile preload clamping force (kN / lbs), proof load stresses, and K nut friction factors for ISO Grade 8.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WorldTimeZoneCircadianSpectrumChart } from "@/components/flagship/geography/editorial-charts";
 
 const PATH = "/calculators/geography/time-zone-difference-calculator";
-const TITLE = "Time Zone Difference Calculator – Global UTC Offsets & Meeting Planner | CalcDigi";
+const TITLE = "Time Zone Difference Calculator";
 const DESCRIPTION =
-  "Calculate exact time differences and hour offsets between global cities and UTC time zones. Plan cross-border business meetings, track daylight saving time transitions, and analyze international working overlaps.";
+  "Calculate exact time differences and hour offsets between global cities and UTC time zones. Plan cross-border business meetings, track daylight saving time.";
 
 export const metadata: Metadata = {
   title: TITLE,

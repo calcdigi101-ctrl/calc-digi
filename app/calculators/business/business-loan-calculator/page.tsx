@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CommercialDebtAmortizationChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/business-loan-calculator";
-const TITLE = "Business Loan Calculator | Commercial Debt Amortization Solver";
+const TITLE = "Business Loan Calculator";
 const DESCRIPTION =
   "Calculate commercial business loan monthly debt service payments, total interest costs, amortization schedules, and upfront origination fees.";
 

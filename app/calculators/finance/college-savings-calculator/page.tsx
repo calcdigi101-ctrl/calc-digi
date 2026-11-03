@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CollegeTuitionSavingsProjectionChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/college-savings-calculator";
-const TITLE = "College Savings Calculator – 529 Plan Growth & Tuition Inflation | CalcDigi";
+const TITLE = "College Savings Calculator";
 const DESCRIPTION =
-  "Free college savings calculator: project 4-year tuition costs, 529 plan tax-free compounding growth, and required monthly contributions under IRS Section 529 qualified education rules.";
+  "Free college savings calculator: project 4-year tuition costs, 529 plan tax-free compounding growth, and required monthly contributions under IRS Section 529.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

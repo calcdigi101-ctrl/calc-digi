@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RenovationRoiChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/renovation-cost-calculator";
-const TITLE = "Renovation Cost Calculator – Remodel Estimator | CalcDigi";
+const TITLE = "Renovation Cost Calculator – Remodel Estimator";
 const DESCRIPTION = "Free renovation cost calculator: estimate accurate budgets for kitchen remodels, bathroom renovations, basement finishes, and whole-home upgrades with labor.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);

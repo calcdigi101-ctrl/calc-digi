@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DiurnalUvIndexSunAngleExposureChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/uv-index-calculator";
-const TITLE = "UV Index Calculator | Solar Ultraviolet Radiation & Burn Time";
+const TITLE = "UV Index Calculator";
 const DESCRIPTION =
   "Calculate solar UV index, Fitzpatrick skin phototype burn time in minutes, minimum erythemal dose (MED), altitude amplification, and SPF sunscreen requirements.";
 

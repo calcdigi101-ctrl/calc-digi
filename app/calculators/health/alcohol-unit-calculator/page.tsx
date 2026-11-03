@@ -6,9 +6,9 @@ import { BacMetabolismEliminationChart } from "@/components/flagship/health/edit
 import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/alcohol-unit-calculator";
-const TITLE = "Alcohol Unit & BAC Calculator – Blood Alcohol & Sobriety | CalcDigi";
+const TITLE = "Alcohol Unit & BAC Calculator";
 const DESCRIPTION =
-  "Calculate alcohol units, standard drinks, and Blood Alcohol Concentration (BAC) using the clinical Widmark equation. Estimate clearance time to zero sobriety and track DUI legal thresholds.";
+  "Calculate alcohol units, standard drinks, and Blood Alcohol Concentration (BAC) using the clinical Widmark equation. Estimate clearance time to zero sobriety.";
 
 export const metadata: Metadata = {
   title: TITLE,

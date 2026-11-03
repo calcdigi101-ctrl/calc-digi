@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WeightLossTrajectoryChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/weight-loss-calculator";
-const TITLE = "Weight Loss Calculator – NIH Dynamic Energy Balance & Safe Deficit Modeling | CalcDigi";
+const TITLE = "Weight Loss Calculator";
 const DESCRIPTION =
-  "Free weight loss calculator: calculate your optimal daily calorie deficit, target date, and lean muscle retention protein targets using Mifflin-St Jeor and Kevin Hall’s NIH adaptive metabolic model.";
+  "Free weight loss calculator: calculate your optimal daily calorie deficit, target date, and lean muscle retention protein targets using Mifflin-St Jeor.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

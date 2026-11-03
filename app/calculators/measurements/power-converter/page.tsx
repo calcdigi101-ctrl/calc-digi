@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PowerEnergyRateComparisonChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/power-converter";
-const TITLE = "Power Converter | Watts, Horsepower, Kilowatts & BTU/hr";
+const TITLE = "Power Converter";
 const DESCRIPTION =
   "Convert Watts, mechanical horsepower, metric horsepower, kilowatts, and BTU per hour with thermodynamic rate derivations and interactive power regime charts.";
 

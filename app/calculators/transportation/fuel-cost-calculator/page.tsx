@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FuelCostPerMileSensitivityChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/fuel-cost-calculator";
-const TITLE = "Fuel Cost Calculator | Gas Trip Expense & Passenger Split Solver";
+const TITLE = "Fuel Cost Calculator";
 const DESCRIPTION =
   "Calculate road trip fuel costs, gallons consumed, gas price per mile, and fair passenger expense splits based on real-world vehicle MPG.";
 

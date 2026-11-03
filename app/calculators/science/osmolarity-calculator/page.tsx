@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SerumOsmolarityElectrolyteChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/osmolarity-calculator";
-const TITLE = "Osmolarity Calculator | Serum Osmolality & Van 't Hoff Pressure Solver";
+const TITLE = "Osmolarity Calculator";
 const DESCRIPTION =
-  "Calculate total solution osmolarity, clinical serum osmolality, Van 't Hoff osmotic pressure, and tonicity balance across biological and pharmaceutical solutions.";
+  "Calculate total solution osmolarity, clinical serum osmolality, Van 't Hoff osmotic pressure, and tonicity balance across biological and pharmaceutical.";
 
 export const metadata: Metadata = {
   title: TITLE,

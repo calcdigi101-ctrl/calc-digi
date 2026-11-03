@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DecibelLogarithmicRatioScalingChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/decibel-calculator";
-const TITLE = "Decibel (dB) Calculator | Power Gain, Voltage Ratio & dBm Scaling";
+const TITLE = "Decibel (dB) Calculator";
 const DESCRIPTION =
   "Calculate decibel (dB) gain and attenuation, linear power and voltage multiplication ratios, and absolute RF power levels in dBm.";
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HydrostaticPressureDepthChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/pressure-calculator";
-const TITLE = "Pressure Calculator | Mechanical P = F/A, Hydrostatic ρgh & Multi-Unit Bar/psi";
+const TITLE = "Pressure Calculator";
 const DESCRIPTION =
-  "Calculate mechanical pressure (P = F/A), hydrostatic ocean depth pressure (P = ρgh), barometric atmospheres, kPa, bar, and psi across metric and imperial frames.";
+  "Calculate mechanical pressure (P = F/A), hydrostatic ocean depth pressure (P = ρgh), barometric atmospheres, kPa, bar, and psi across metric and imperial.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -26,8 +26,8 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newton's Force F=ma" },
   { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
   { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
-  { href: "/calculators/engineering/torque-calculator", icon: "🔄", name: "Torque & Rotational Moment" },
-  { href: "/calculators/engineering/cfm-calculator", icon: "💨", name: "HVAC CFM Airflow" },
+  { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Torque & Rotational Moment" },
+  { href: "/calculators/engineering/hvac-load-calculator", icon: "💨", name: "HVAC CFM Airflow" },
   { href: "/calculators/environment/water-usage-calculator", icon: "💧", name: "Household Water Usage" },
 ];
 

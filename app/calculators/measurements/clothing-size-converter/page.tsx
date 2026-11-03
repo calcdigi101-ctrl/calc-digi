@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ClothingSizeInternationalSizingMatrixChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/clothing-size-converter";
-const TITLE = "Clothing Size Converter | International US, UK, EU & Asian Sizes";
+const TITLE = "Clothing Size Converter";
 const DESCRIPTION =
   "Convert women's and men's international clothing sizes across US, UK, EU, Italy, and Japan with ISO anthropometric body measurement modeling.";
 

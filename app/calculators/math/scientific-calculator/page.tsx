@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/scientific-calculator";
-const TITLE = "Scientific Calculator | Advanced Online Multi-Function Math Tool | CalcDigi";
+const TITLE = "Scientific Calculator";
 const DESCRIPTION =
-  "Free online scientific calculator. Calculate trigonometry (sin, cos, tan), logarithms (ln, log), powers, roots, factorials, permutations, combinations, and memory functions.";
+  "Free online scientific calculator. Calculate trigonometry (sin, cos, tan), logarithms (ln, log), powers, roots, factorials, permutations, combinations.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

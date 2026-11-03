@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WorkshiftBreakdownDurationCurveChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/time-duration-calculator";
-const TITLE = "Time Duration Calculator | Elapsed Hours, Workshift & Billing Timesheet";
+const TITLE = "Time Duration Calculator";
 const DESCRIPTION =
-  "Calculate elapsed time between start and end timestamps, deduct unpaid lunch breaks, convert hours to commercial decimal timesheet billing, and model industrial work shifts.";
+  "Calculate elapsed time between start and end timestamps, deduct unpaid lunch breaks, convert hours to commercial decimal timesheet billing, and model.";
 
 export const metadata: Metadata = {
   title: TITLE,

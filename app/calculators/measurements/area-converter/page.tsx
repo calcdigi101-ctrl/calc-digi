@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AreaSpatialFootprintComparisonChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/area-converter";
-const TITLE = "Area Converter | Square Meters, Acres, Hectares & Square Feet";
+const TITLE = "Area Converter";
 const DESCRIPTION =
-  "Convert square meters, square feet, acres, hectares, square kilometers, and square miles with exact cadastral geometry constants and interactive footprint modeling.";
+  "Convert square meters, square feet, acres, hectares, square kilometers, and square miles with exact cadastral geometry constants and interactive footprint.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
   { href: "/calculators/measurements/volume-converter", icon: "🧪", name: "Volume Converter" },
   { href: "/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
-  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/calculators/science/density-calculator", icon: "🧱", name: "Density Calculator" },
   { href: "/calculators/math/ratio-calculator", icon: "🔢", name: "Ratio Calculator" },
   { href: "/pages/measurements", icon: "📐", name: "Measurements Hub" },
 ];
@@ -91,7 +91,7 @@ export default function AreaConverterPage() {
           <Formula>{"1 \\text{ ft}^2 = (0.3048 \\text{ m})^2 = 0.09290304 \\text{ m}^2"}</Formula>
           <Formula>{"1 \\text{ acre} = 43,560 \\text{ ft}^2 \\times 0.09290304 \\text{ m}^2/\\text{ft}^2 = 4046.8564224 \\text{ m}^2"}</Formula>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            When calculating agricultural crop yields or soil fertilization mass requirements, surface area directly determines material distribution density; cross-reference soil amendment masses in our <Link href="/calculators/measurements/weight-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weight converter</Link> and calculate bulk density ratios using our <Link href="/calculators/physics/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
+            When calculating agricultural crop yields or soil fertilization mass requirements, surface area directly determines material distribution density; cross-reference soil amendment masses in our <Link href="/calculators/measurements/weight-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weight converter</Link> and calculate bulk density ratios using our <Link href="/calculators/science/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

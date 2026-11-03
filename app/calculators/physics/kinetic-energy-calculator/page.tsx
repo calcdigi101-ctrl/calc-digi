@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { KineticEnergyVelocityScalingChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/kinetic-energy-calculator";
-const TITLE = "Kinetic Energy Calculator | Classical KE = ½mv², Joules & Explosive TNT";
+const TITLE = "Kinetic Energy Calculator";
 const DESCRIPTION =
-  "Calculate translational kinetic energy, linear momentum, impact energy in Joules and kWh, equivalent TNT yield, and quadratic velocity scaling under Newtonian dynamics.";
+  "Calculate translational kinetic energy, linear momentum, impact energy in Joules and kWh, equivalent TNT yield, and quadratic velocity scaling.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
   { href: "/calculators/physics/acceleration-calculator", icon: "🚀", name: "Acceleration & Kinematics" },
   { href: "/calculators/physics/velocity-calculator", icon: "⚡", name: "Velocity Dynamics" },
-  { href: "/calculators/engineering/horsepower-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/physics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [

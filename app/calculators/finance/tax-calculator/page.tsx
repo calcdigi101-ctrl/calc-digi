@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FederalTaxBracketProgressiveCurveChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/tax-calculator";
-const TITLE = "Income Tax Calculator – Federal Brackets, FICA & Effective Rates | CalcDigi";
+const TITLE = "Income Tax Calculator";
 const DESCRIPTION =
-  "Free federal income tax calculator: calculate marginal tax brackets, effective tax rates, standard deductions, FICA payroll withholdings, and take-home pay under IRS 2024/2025 guidelines.";
+  "Free federal income tax calculator: calculate marginal tax brackets, effective tax rates, standard deductions, FICA payroll withholdings, and take-home pay.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

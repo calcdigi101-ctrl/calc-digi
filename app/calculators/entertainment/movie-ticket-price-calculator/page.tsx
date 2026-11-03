@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CinemaOutingExpenseSplitChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/movie-ticket-price-calculator";
-const TITLE = "Movie Ticket Price Calculator — Cinema Outing & Concession Costs | CalcDigi";
+const TITLE = "Movie Ticket Price Calculator";
 const DESCRIPTION =
-  "Calculate the complete cost of a movie theater outing for individuals, couples, and families. Compare standard 2D, IMAX with Laser, Dolby Cinema, popcorn combos, snacks, and online convenience booking fees.";
+  "Calculate the complete cost of a movie theater outing for individuals, couples, and families. Compare standard 2D, IMAX with Laser, Dolby Cinema, popcorn.";
 
 export const metadata: Metadata = {
   title: TITLE,

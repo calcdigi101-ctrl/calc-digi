@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BodyProportionsMatrixChart } from "@/components/flagship/health/editorial-charts/BodyProportionsMatrixChart";
 
 const PATH = "/calculators/health/body-shape-calculator";
-const TITLE = "Body Shape Calculator – Hourglass, Pear, Apple & WHR | CalcDigi";
+const TITLE = "Body Shape Calculator";
 const DESCRIPTION =
-  "Discover your precise anatomical body shape (Hourglass, Pear, Rectangle, Apple, Inverted Triangle) with our clinical calculator. Includes WHO waist-to-hip risk profiling and tailored training.";
+  "Discover your precise anatomical body shape (Hourglass, Pear, Rectangle, Apple, Inverted Triangle) with our clinical calculator. Includes WHO waist-to-hip.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/volume-calculator";
-const TITLE = "Volume Calculator | Cube, Box, Cylinder, Sphere, Cone & Tank | CalcDigi";
+const TITLE = "Volume Calculator";
 const DESCRIPTION =
-  "Free online volume calculator. Calculate 3D capacity and liquid volume for cubes, rectangular tanks, cylinders, spheres, cones, capsules, and pyramids step-by-step.";
+  "Free online volume calculator. Calculate 3D capacity and liquid volume for cubes, rectangular tanks, cylinders, spheres, cones, capsules, and pyramids.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

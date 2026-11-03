@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ElectrochemicalCellOverpotentialChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/ohms-law-calculator";
-const TITLE = "Ohm's Law Calculator | Electrochemical Potential, Resistance & Power Solver";
+const TITLE = "Ohm's Law Calculator";
 const DESCRIPTION =
   "Calculate electrical voltage, current, resistance, and Joule heating power in physical chemistry, electrochemical cells, and laboratory circuits with Ohm's Law.";
 

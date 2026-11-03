@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WhoInfantGrowthVisualizerChart } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/baby-weight-percentile-calculator";
-const TITLE = "Baby Weight Percentile Calculator – WHO Growth Standards (0–24 Months) | CalcDigi";
+const TITLE = "Baby Weight Percentile Calculator";
 const DESCRIPTION =
-  "Calculate exact infant weight-for-age percentiles and clinical Z-scores using official World Health Organization (WHO) Child Growth Standards (0 to 24 months). Features sex-specific growth curve benchmarks, daily gain rates, and clinical health guidance.";
+  "Calculate exact infant weight-for-age percentiles and clinical Z-scores using official World Health Organization (WHO) Child Growth Standards (0 to 24 months).";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/baby/child-height-predictor-calculator", icon: "📏", name: "Child Height Predictor Calculator" },
+  { href: "/calculators/health/child-height-predictor", icon: "📏", name: "Child Height Predictor Calculator" },
   { href: "/calculators/baby/baby-feeding-calculator", icon: "🍼", name: "Baby Feeding Calculator" },
   { href: "/calculators/baby/due-date-calculator", icon: "📅", name: "Pregnancy Due Date Calculator" },
   { href: "/calculators/baby/baby-sleep-calculator", icon: "🌙", name: "Baby Sleep & Wake Windows" },
@@ -62,7 +62,7 @@ export default function BabyWeightPercentilePage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
       title="Baby Weight Percentile Calculator"
       intro="Evaluate your infant's weight-for-age percentile and clinical Z-scores based on official World Health Organization (WHO) Child Growth Standards (0–24 months). Supports metric (kg) and imperial (lbs/oz) inputs."
       description={DESCRIPTION}
@@ -169,7 +169,7 @@ export default function BabyWeightPercentilePage() {
             When evaluating the physical growth of infants born prematurely (before 37 weeks gestation based on the initial clinical <a href="/calculators/baby/due-date-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">due date</a>), calculating percentiles against chronological age produces an artificial appearance of severe growth delay. For instance, an infant born 8 weeks early who is 16 weeks old chronologically has a <strong>corrected age of 8 weeks</strong> ($16 - 8 = 8$).
           </p>
           <p>
-            Pediatric guidelines dictate that growth parameters must be plotted using corrected age until <strong>24 to 36 months of age</strong>, allowing adequate biological time for neurodevelopmental and physical catch-up growth. Future adult stature can be modeled alongside parental genetics on our <a href="/calculators/baby/child-height-predictor-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">child height predictor calculator</a>.
+            Pediatric guidelines dictate that growth parameters must be plotted using corrected age until <strong>24 to 36 months of age</strong>, allowing adequate biological time for neurodevelopmental and physical catch-up growth. Future adult stature can be modeled alongside parental genetics on our <a href="/calculators/health/child-height-predictor" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">child height predictor calculator</a>.
           </p>
 
           <h2>Healthy Weight Gain Strategies for Nursing and Formula-Fed Infants</h2>

@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BeamDeflectionStressSpectrumChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/beam-load-calculator";
-const TITLE = "Beam Load Calculator — Deflection, Bending Stress & Moment | CalcDigi";
+const TITLE = "Beam Load Calculator";
 const DESCRIPTION =
-  "Calculate structural beam deflection, maximum bending moment, extreme fiber stress, and support reactions for simply supported and cantilever beams under point loads and uniform distributed loads (UDL). Evaluates IBC/AISC L/360 serviceability limits.";
+  "Calculate structural beam deflection, maximum bending moment, extreme fiber stress, and support reactions for simply supported and cantilever beams.";
 
 export const metadata: Metadata = {
   title: TITLE,

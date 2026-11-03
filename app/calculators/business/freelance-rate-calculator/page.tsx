@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FreelanceBillableUtilizationChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/freelance-rate-calculator";
-const TITLE = "Freelance Rate Calculator | Consulting Hourly & Day Rate Solver";
+const TITLE = "Freelance Rate Calculator";
 const DESCRIPTION =
   "Calculate freelance hourly rates, consulting day rates, self-employment tax buffers, and billable utilization targets to meet take-home income goals.";
 

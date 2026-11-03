@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FastingAutophagySpectrumChart } from "@/components/flagship/health/editorial-charts/FastingAutophagySpectrumChart";
 
 const PATH = "/calculators/health/intermittent-fasting-calculator";
-const TITLE = "Intermittent Fasting Calculator – 16:8, 18:6, OMAD & Autophagy | CalcDigi";
+const TITLE = "Intermittent Fasting Calculator";
 const DESCRIPTION =
-  "Calculate your exact fasting and eating windows for 16:8, 18:6, 20:4, and OMAD. Track autophagy onset, ketosis timelines, insulin reset, and circadian meal timing.";
+  "Calculate your exact fasting and eating windows for 16:8, 18:6, 20:4, and OMAD. Track autophagy onset, ketosis timelines, insulin reset, and circadian meal.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

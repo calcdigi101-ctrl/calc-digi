@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/distance-formula-calculator";
-const TITLE = "Distance Formula Calculator | 2D, 3D Euclidean & Coordinate Distance | CalcDigi";
+const TITLE = "Distance Formula Calculator";
 const DESCRIPTION =
-  "Free online distance formula calculator. Calculate 2D and 3D Euclidean distance, midpoint, and vector length between two coordinates step-by-step with metric proofs.";
+  "Free online distance formula calculator. Calculate 2D and 3D Euclidean distance, midpoint, and vector length between two coordinates step-by-step with metric.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

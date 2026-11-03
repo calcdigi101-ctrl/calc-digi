@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlcoholMetabolismEliminationCurveChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/alcohol-unit-calculator";
-const TITLE = "Alcohol Unit Calculator | Standard Drinks, Pure Ethanol & BAC Clearance";
+const TITLE = "Alcohol Unit Calculator";
 const DESCRIPTION =
   "Calculate UK alcohol units, US standard drinks, pure ethanol grams, caloric load, and hepatic metabolism clearance time across beer, wine, and spirits.";
 

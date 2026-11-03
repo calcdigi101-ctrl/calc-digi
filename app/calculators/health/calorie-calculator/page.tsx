@@ -7,9 +7,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/health/calorie-calculator";
-const TITLE = "Calorie Calculator | Daily Calorie Needs, TDEE, Deficit & Macro Split";
+const TITLE = "Calorie Calculator";
 const DESCRIPTION =
-  "Calculate your exact daily calorie needs for sustainable fat loss, weight maintenance, or lean muscle gain. Powered by the clinically validated Mifflin-St Jeor formula.";
+  "Calculate your exact daily calorie needs for sustainable fat loss, weight maintenance, or lean muscle gain. Powered by the clinically validated Mifflin-St.";
 
 export const metadata: Metadata = {
   title: TITLE,

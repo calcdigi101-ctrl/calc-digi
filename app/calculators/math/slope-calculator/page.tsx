@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/slope-calculator";
-const TITLE = "Slope Calculator | Find Slope, Angle of Inclination & Line Equations | CalcDigi";
+const TITLE = "Slope Calculator";
 const DESCRIPTION =
-  "Free online slope calculator. Calculate slope (m), angle of inclination, y-intercept, point-slope, and standard form line equations between two points step-by-step.";
+  "Free online slope calculator. Calculate slope (m), angle of inclination, y-intercept, point-slope, and standard form line equations between two points.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

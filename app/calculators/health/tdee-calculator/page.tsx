@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TdeeActivitySpectrumChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/tdee-calculator";
-const TITLE = "TDEE Calculator – Total Daily Energy Expenditure & Calorie Deficit | CalcDigi";
+const TITLE = "TDEE Calculator";
 const DESCRIPTION =
-  "Free TDEE calculator: estimate Total Daily Energy Expenditure, maintenance calories, and target caloric deficits for sustainable fat loss and muscle hypertrophy using physical activity multipliers.";
+  "Free TDEE calculator: estimate Total Daily Energy Expenditure, maintenance calories, and target caloric deficits for sustainable fat loss and muscle.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StormwaterCatchmentRunoffVolumeChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/rainfall-calculator";
-const TITLE = "Rainfall Calculator | Stormwater Catchment & Rainwater Harvesting";
+const TITLE = "Rainfall Calculator";
 const DESCRIPTION =
   "Calculate rainfall volume, stormwater roof catchment runoff in gallons and liters, rainwater harvesting tank sizing, and first-flush filtration diversion.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GpaScaleWeightingComparisonChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/gpa-calculator";
-const TITLE = "GPA Calculator | Weighted, Unweighted & Cumulative Grade Point Average";
+const TITLE = "GPA Calculator";
 const DESCRIPTION =
   "Calculate semester and cumulative high school and college GPA across 4.0, 4.5, and 5.0 weighted scales with honors, AP, IB, and quality points conversion.";
 
@@ -72,7 +72,7 @@ export default function GpaCalculatorPage() {
           <GpaScaleWeightingComparisonChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            The collegiate Grade Point Average system distills multidimensional course rigor and academic achievement into a singular, highly legible decimal metric. Standard unweighted scaling assigns a strict integer-anchored range: an earned grade of A equals 4.0 quality points, B equals 3.0 points, C equals 2.0 points, D equals 1.0 point, and F yields 0.0 points. Because academic departments assign variable credit loads (such as 4 credits for intensive laboratory sciences versus 1 credit for seminar electives), a simple arithmetic mean provides an erroneous measure of overall competence. Instead, academic registrars employ credit weighting, mathematically identical to the statistical formulations found in a <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
+            The collegiate Grade Point Average system distills multidimensional course rigor and academic achievement into a singular, highly legible decimal metric. Standard unweighted scaling assigns a strict integer-anchored range: an earned grade of A equals 4.0 quality points, B equals 3.0 points, C equals 2.0 points, D equals 1.0 point, and F yields 0.0 points. Because academic departments assign variable credit loads (such as 4 credits for intensive laboratory sciences versus 1 credit for seminar electives), a simple arithmetic mean provides an erroneous measure of overall competence. Instead, academic registrars employ credit weighting, mathematically identical to the statistical formulations found in a <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

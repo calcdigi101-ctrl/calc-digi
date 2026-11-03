@@ -6,9 +6,9 @@ import { MacroFuelPartitioningChart } from "@/components/flagship/health/editori
 import { SITE_URL } from "@/lib/site";
 
 const PATH = "/calculators/health/macro-calculator";
-const TITLE = "Macro Calculator – Daily Protein, Carbs & Fat Targets | CalcDigi";
+const TITLE = "Macro Calculator";
 const DESCRIPTION =
-  "Free Macro Calculator (IIFYM). Calculate your daily macronutrient breakdown in grams for weight loss, lean muscle gain, keto, or maintenance with interactive visual charts.";
+  "Free Macro Calculator (IIFYM). Calculate your daily macronutrient breakdown in grams for weight loss, lean muscle gain, keto, or maintenance with interactive.";
 
 export const metadata: Metadata = {
   title: TITLE,

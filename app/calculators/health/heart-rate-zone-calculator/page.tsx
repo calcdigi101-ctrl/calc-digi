@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HeartRateZoneSpectrumChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/heart-rate-zone-calculator";
-const TITLE = "Heart Rate Zone Calculator – 5 Training Zones & Karvonen Formula | CalcDigi";
+const TITLE = "Heart Rate Zone Calculator";
 const DESCRIPTION =
-  "Free heart rate zone calculator: determine target heart rate training zones for fat burning, Zone 2 aerobic endurance, lactate threshold, and VO2 max using Karvonen and Tanaka equations.";
+  "Free heart rate zone calculator: determine target heart rate training zones for fat burning, Zone 2 aerobic endurance, lactate threshold, and VO2 max.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

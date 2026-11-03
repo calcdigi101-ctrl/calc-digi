@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StreamingVsCableCordCuttingCostChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/streaming-cost-calculator";
-const TITLE = "Streaming Cost Calculator — Subscriptions vs Cable TV Cord Cutting | CalcDigi";
+const TITLE = "Streaming Cost Calculator";
 const DESCRIPTION =
-  "Calculate your total monthly and annual streaming subscription expenses across Netflix, Disney+, Max, Hulu, Prime Video, Apple TV+, and Spotify. Compare cord-cutting savings against traditional cable TV packages.";
+  "Calculate your total monthly and annual streaming subscription expenses across Netflix, Disney+, Max, Hulu, Prime Video, Apple TV+, and Spotify.";
 
 export const metadata: Metadata = {
   title: TITLE,

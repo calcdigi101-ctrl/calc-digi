@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DownPaymentPmiComparisonChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/down-payment-calculator";
-const TITLE = "Down Payment Calculator – Home Purchase Equity & PMI Savings | CalcDigi";
+const TITLE = "Down Payment Calculator";
 const DESCRIPTION =
-  "Free home down payment calculator: calculate down payment amounts across 3%, 3.5%, 5%, 10%, and 20% tiers. Analyze private mortgage insurance (PMI) costs, upfront cash required, and monthly mortgage impact under CFPB and Fannie Mae guidelines.";
+  "Free home down payment calculator: calculate down payment amounts across 3%, 3.5%, 5%, 10%, and 20% tiers. Analyze private mortgage insurance (PMI) costs.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MomentumCollisionForceTimeChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/momentum-calculator";
-const TITLE = "Momentum Calculator | Linear Momentum (p = mv), Impulse & Collision Force";
+const TITLE = "Momentum Calculator";
 const DESCRIPTION =
-  "Calculate linear momentum (p = mv), collision impulse, average impact deceleration force in kN and lbf, g-force deceleration, and coefficient of restitution dynamics.";
+  "Calculate linear momentum (p = mv), collision impulse, average impact deceleration force in kN and lbf, g-force deceleration, and coefficient of restitution.";
 
 export const metadata: Metadata = {
   title: TITLE,

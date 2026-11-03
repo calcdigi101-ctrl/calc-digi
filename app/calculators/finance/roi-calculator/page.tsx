@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RoiSensitivityHorizonChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/roi-calculator";
-const TITLE = "ROI Calculator — Return on Investment, Annualized CAGR & Hurdle Rates | CalcDigi";
+const TITLE = "ROI Calculator";
 const DESCRIPTION =
-  "Free ROI calculator: calculate simple return on investment, annualized CAGR, net present value benchmarks, hurdle rate sensitivity, and real after-tax investment performance.";
+  "Free ROI calculator: calculate simple return on investment, annualized CAGR, net present value benchmarks, hurdle rate sensitivity, and real after-tax.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

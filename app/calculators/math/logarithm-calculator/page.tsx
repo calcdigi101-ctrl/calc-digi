@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
 
 const PATH = "/calculators/math/logarithm-calculator";
-const TITLE = "Logarithm Calculator | Log Base 10, Natural Log (ln) & Custom Bases | CalcDigi";
+const TITLE = "Logarithm Calculator";
 const DESCRIPTION =
-  "Free online logarithm calculator. Calculate log base 10, natural log (ln), log base 2 (lb), and arbitrary custom bases step-by-step with logarithmic laws and change-of-base proofs.";
+  "Free online logarithm calculator. Calculate log base 10, natural log (ln), log base 2 (lb), and arbitrary custom bases step-by-step with logarithmic laws.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CycleLengthVariabilitySpectrumChart } from "@/components/flagship/health/editorial-charts/CycleLengthVariabilitySpectrumChart";
 
 const PATH = "/calculators/health/period-calculator";
-const TITLE = "Period Calculator – Menstrual Cycle Tracker & PMS Window | CalcDigi";
+const TITLE = "Period Calculator";
 const DESCRIPTION =
-  "Predict your next period dates, bleeding duration, and premenstrual (PMS) windows with clinical accuracy. Calibrated to FIGO menstrual standards and cycle variability norms.";
+  "Predict your next period dates, bleeding duration, and premenstrual (PMS) windows with clinical accuracy. Calibrated to FIGO menstrual standards and cycle.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

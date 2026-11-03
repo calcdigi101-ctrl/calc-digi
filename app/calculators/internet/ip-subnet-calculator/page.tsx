@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { IpSubnetAddressSpaceDistributionChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/ip-subnet-calculator";
-const TITLE = "IP Subnet Calculator | IPv4 CIDR Prefix, Netmask & Host Range";
+const TITLE = "IP Subnet Calculator";
 const DESCRIPTION =
   "Calculate IPv4 CIDR subnet masks, usable host IP address ranges, broadcast addresses, wildcard masks, and binary network boundary allocations.";
 

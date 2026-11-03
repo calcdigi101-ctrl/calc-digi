@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/variance-calculator";
-const TITLE = "Variance Calculator (Sample & Population) | CalcDigi";
+const TITLE = "Variance Calculator (Sample & Population)";
 const DESCRIPTION =
   "Free online variance calculator. Calculate sample variance (s²), population variance (σ²), standard deviation, and sum of squared differences step-by-step.";
 

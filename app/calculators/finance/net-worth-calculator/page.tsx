@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NetWorthAssetLiabilityDecompositionChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/net-worth-calculator";
-const TITLE = "Net Worth Calculator — Assets vs. Liabilities Balance Sheet | CalcDigi";
+const TITLE = "Net Worth Calculator";
 const DESCRIPTION =
-  "Free net worth calculator: calculate personal balance sheet net worth, liquid vs. fixed assets, debt-to-asset ratios, and Stanley-Danko wealth accumulation benchmarks.";
+  "Free net worth calculator: calculate personal balance sheet net worth, liquid vs. fixed assets, debt-to-asset ratios, and Stanley-Danko wealth accumulation.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

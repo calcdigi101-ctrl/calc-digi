@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InductiveReactanceFrequencySweepChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/inductor-calculator";
-const TITLE = "Inductor Reactance Calculator | Impedance (XL) & Magnetic Energy";
+const TITLE = "Inductor Reactance Calculator";
 const DESCRIPTION =
   "Calculate inductive reactance (XL), magnetic stored energy (Joules), back-EMF potential, and quality factor (Q) across AC and RF electromagnetic circuits.";
 

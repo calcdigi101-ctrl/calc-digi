@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MenstrualHormonePhaseChart } from "@/components/flagship/health/editorial-charts/MenstrualHormonePhaseChart";
 
 const PATH = "/calculators/health/ovulation-calculator";
-const TITLE = "Ovulation Calculator – Fertile Window, LH Surge & Conception | CalcDigi";
+const TITLE = "Ovulation Calculator";
 const DESCRIPTION =
   "Calculate your exact ovulation day, 6-day fertile window, and peak conception dates. Track luteal phase duration, cervical mucus biomarkers, and hormone shifts.";
 

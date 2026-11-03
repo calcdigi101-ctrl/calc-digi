@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ElectricalDemandLoadBreakdownChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/electrical-load-calculator";
-const TITLE = "Electrical Load Calculator — NEC Panel Sizing & Demand Amperage | CalcDigi";
+const TITLE = "Electrical Load Calculator";
 const DESCRIPTION =
-  "Calculate residential and commercial electrical service load, total connected wattage, NEC 220 demand factors, continuous EV charger loads, main breaker panel sizing (100A, 200A, 400A), and required copper/aluminum service feeder conductor gauge.";
+  "Calculate residential and commercial electrical service load, total connected wattage, NEC 220 demand factors, continuous EV charger loads, main breaker.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ScholarshipCoverageFourYearHorizonChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/scholarship-calculator";
-const TITLE = "Scholarship Calculator | 4-Year Merit Aid & Renewal Valuation";
+const TITLE = "Scholarship Calculator";
 const DESCRIPTION =
   "Calculate multi-year scholarship values, institutional merit awards, tuition coverage percentages, renewal GPA thresholds, and scholarship tax implications.";
 

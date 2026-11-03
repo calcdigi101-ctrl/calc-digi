@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcentrationPpmMolarityScaleChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/concentration-calculator";
-const TITLE = "Concentration Calculator | Molarity, PPM, Mass Percent & Dilution Converter";
+const TITLE = "Concentration Calculator";
 const DESCRIPTION =
-  "Convert and calculate solution concentration metrics including molarity, parts per million (PPM), mass percent (% w/w), volume percent, and grams per liter with volumetric density corrections.";
+  "Convert and calculate solution concentration metrics including molarity, parts per million (PPM), mass percent (% w/w), volume percent, and grams per liter.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ProteinIntakeSpectrumChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/protein-intake-calculator";
-const TITLE = "Protein Intake Calculator – Daily Grams for Muscle & Fat Loss | CalcDigi";
+const TITLE = "Protein Intake Calculator";
 const DESCRIPTION =
-  "Free protein intake calculator: determine your optimal daily protein target in grams based on body weight, resistance training, fat loss preservation, and ISSN sports nutrition guidelines.";
+  "Free protein intake calculator: determine your optimal daily protein target in grams based on body weight, resistance training, fat loss preservation.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

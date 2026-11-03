@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/prime-number-checker";
-const TITLE = "Prime Number Checker | Primality Test, Factorization & Generator | CalcDigi";
+const TITLE = "Prime Number Checker";
 const DESCRIPTION =
-  "Free online prime number checker. Test whether any integer is prime or composite, compute canonical prime factorizations, and explore Mersenne primes and twin primes step-by-step.";
+  "Free online prime number checker. Test whether any integer is prime or composite, compute canonical prime factorizations, and explore Mersenne primes.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

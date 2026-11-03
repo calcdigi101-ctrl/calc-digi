@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ResistorToleranceBandSpreadChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/resistor-color-code-calculator";
-const TITLE = "Resistor Color Code Calculator | 4, 5 & 6 Band Resistance & Tolerance";
+const TITLE = "Resistor Color Code Calculator";
 const DESCRIPTION =
   "Decode 4-band, 5-band, and 6-band resistor color codes to calculate nominal resistance, manufacturing tolerance, and temperature coefficient.";
 

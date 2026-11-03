@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HourlyToSalaryOvertimeImpactChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/hourly-to-salary-calculator";
-const TITLE = "Hourly to Salary Calculator – Wage Conversion, Overtime & Paychecks | CalcDigi";
+const TITLE = "Hourly to Salary Calculator";
 const DESCRIPTION =
-  "Free hourly to salary calculator: convert hourly wage to annual, monthly, and bi-weekly salary. Calculate overtime premiums (1.5x time-and-a-half), paid time off, and standard 2,080 working hours.";
+  "Free hourly to salary calculator: convert hourly wage to annual, monthly, and bi-weekly salary. Calculate overtime premiums (1.5x time-and-a-half), paid time.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

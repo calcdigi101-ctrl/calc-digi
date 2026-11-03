@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ElectricVehicleVsGasTcoSavingsChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/electric-vehicle-savings-calculator";
-const TITLE = "Electric Vehicle (EV) Savings Calculator | Gas vs EV TCO & Carbon Comparison";
+const TITLE = "Electric Vehicle (EV) Savings Calculator";
 const DESCRIPTION =
-  "Calculate your annual and 10-year total cost of ownership (TCO) savings switching from gasoline to an electric vehicle. Compare fuel costs, maintenance, tax credits, and tailpipe carbon reductions.";
+  "Calculate your annual and 10-year total cost of ownership (TCO) savings switching from gasoline to an electric vehicle. Compare fuel costs, maintenance, tax.";
 
 export const metadata: Metadata = {
   title: TITLE,

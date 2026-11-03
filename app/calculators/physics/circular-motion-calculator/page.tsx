@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CentripetalForceVelocityRadiusChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/circular-motion-calculator";
-const TITLE = "Circular Motion Calculator | Centripetal Force, Acceleration & Banking Angle";
+const TITLE = "Circular Motion Calculator";
 const DESCRIPTION =
   "Calculate centripetal acceleration (a_c = v²/r), inward centripetal force, lateral g-force, angular velocity, orbital period, and roadway banking angles.";
 

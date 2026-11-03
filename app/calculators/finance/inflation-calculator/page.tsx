@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InflationPurchasingPowerDecayChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/inflation-calculator";
-const TITLE = "Inflation Calculator — CPI Purchasing Power Decay & Future Cost | CalcDigi";
+const TITLE = "Inflation Calculator";
 const DESCRIPTION =
-  "Free inflation calculator: model purchasing power decay, historical CPI rate compounding, future equivalent cost of living, and the Fisher equation real return on investments.";
+  "Free inflation calculator: model purchasing power decay, historical CPI rate compounding, future equivalent cost of living, and the Fisher equation real.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

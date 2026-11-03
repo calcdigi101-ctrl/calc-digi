@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CogsManufacturingCostStructureChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/cogs-calculator";
-const TITLE = "COGS Calculator | Cost of Goods Sold & Gross Margin Solver";
+const TITLE = "COGS Calculator";
 const DESCRIPTION =
   "Calculate Cost of Goods Sold (COGS), direct materials, direct labor, applied factory overhead, and gross margins across retail and manufacturing businesses.";
 

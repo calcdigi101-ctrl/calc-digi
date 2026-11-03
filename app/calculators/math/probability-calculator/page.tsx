@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ProbabilityDistributionChart } from "@/components/flagship/math/editorial-charts/ProbabilityDistributionChart";
 
 const PATH = "/calculators/math/probability-calculator";
-const TITLE = "Probability Calculator (Single, Multiple & Conditional) | CalcDigi";
+const TITLE = "Probability Calculator (Single, Multiple & Condit";
 const DESCRIPTION =
-  "Free online probability calculator. Calculate single event, multiple events (AND/OR), conditional probability, Bayes' theorem, odds, and permutations step-by-step.";
+  "Free online probability calculator. Calculate single event, multiple events (AND/OR), conditional probability, Bayes' theorem, odds, and permutations.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

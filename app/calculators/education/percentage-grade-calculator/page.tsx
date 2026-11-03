@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PercentageToGpaCurveMatrixChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/percentage-grade-calculator";
-const TITLE = "Percentage Grade Calculator | Percentage to Letter Grade & 4.0 GPA Converter";
+const TITLE = "Percentage Grade Calculator";
 const DESCRIPTION =
   "Convert raw test percentages into standardized letter grades, 4.0 scale GPA quality points, and curved scores across standard plus/minus and straight scales.";
 

@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CountryDemographicDensityChart } from "@/components/flagship/geography/editorial-charts";
 
 const PATH = "/calculators/geography/country-area-population-calculator";
-const TITLE = "Country Statistics Calculator – Population Density, GDP per Capita & Demographic Projections | CalcDigi";
+const TITLE = "Country Statistics Calculator";
 const DESCRIPTION =
-  "Calculate crude population density, nominal GDP per capita, demographic doubling time, and multi-decade population projections. Features UN World Factbook reference benchmarks and spatial urbanization tiers.";
+  "Calculate crude population density, nominal GDP per capita, demographic doubling time, and multi-decade population projections. Features UN World Factbook.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { KineticVelocityStoppingDistanceChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/speed-distance-time-calculator";
-const TITLE = "Speed Distance Time Calculator | Velocity, Transit & Stopping Physics";
+const TITLE = "Speed Distance Time Calculator";
 const DESCRIPTION =
   "Solve speed, distance, and transit travel time with unit conversions across mph, km/h, knots, pace, and kinetic vehicle stopping distance physics.";
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LifeStageChronologicalDistributionChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/age-calculator";
-const TITLE = "Exact Age Calculator | Chronological Lifespan & Leap Year Precision";
+const TITLE = "Exact Age Calculator";
 const DESCRIPTION =
-  "Calculate your exact chronological age in years, months, days, hours, and minutes with leap-year compensation, actuarial life expectancy tables, and generational demographic milestones.";
+  "Calculate your exact chronological age in years, months, days, hours, and minutes with leap-year compensation, actuarial life expectancy tables.";
 
 export const metadata: Metadata = {
   title: TITLE,

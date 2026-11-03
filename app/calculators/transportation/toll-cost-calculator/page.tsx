@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HighwayTollTransponderDiscountBenchmarkChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/toll-cost-calculator";
-const TITLE = "Toll Cost Calculator | Turnpike, Bridge & Electronic Toll Tag Savings";
+const TITLE = "Toll Cost Calculator";
 const DESCRIPTION =
   "Calculate highway toll costs, toll plaza bridge tariffs, electronic transponder discounts (E-ZPass, SunPass, FasTrak), and Pay-by-Plate surcharges.";
 

@@ -12,6 +12,11 @@
 /* The site's dark-mode toggle (public/js/main.js) puts `.dark` on <body>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Accessibility contrast enhancement for WCAG AA compliance (4.5:1 ratio) */
+:root:not(.dark) .text-slate-400 {
+  color: #64748b;
+}
+
 /* Minimal element reset scoped to new components. */
 :where(.fx) :where(button, input, select) {
   font: inherit;

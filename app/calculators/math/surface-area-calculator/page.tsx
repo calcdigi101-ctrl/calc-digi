@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/surface-area-calculator";
-const TITLE = "Surface Area Calculator | Sphere, Cylinder, Cone, Cube & Prisms | CalcDigi";
+const TITLE = "Surface Area Calculator";
 const DESCRIPTION =
-  "Free online surface area calculator. Calculate total and lateral surface area for cubes, rectangular prisms, cylinders, spheres, cones, capsules, and pyramids step-by-step.";
+  "Free online surface area calculator. Calculate total and lateral surface area for cubes, rectangular prisms, cylinders, spheres, cones, capsules.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

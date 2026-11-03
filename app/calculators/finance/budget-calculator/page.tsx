@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FiftyThirtyTwentyBudgetRuleChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/budget-calculator";
-const TITLE = "Budget Calculator – 50/30/20 Rule, Zero-Based Budgeting & Cash Flow | CalcDigi";
+const TITLE = "Budget Calculator";
 const DESCRIPTION =
-  "Free household budget calculator: allocate take-home income across the 50/30/20 budget rule (Needs, Wants, Savings), Zero-Based Budgeting (ZBB), and debt payoff acceleration.";
+  "Free household budget calculator: allocate take-home income across the 50/30/20 budget rule (Needs, Wants, Savings), Zero-Based Budgeting (ZBB), and debt.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

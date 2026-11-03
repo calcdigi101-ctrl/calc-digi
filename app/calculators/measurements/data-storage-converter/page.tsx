@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DataStorageBinaryVsDecimalStandardChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/data-storage-converter";
-const TITLE = "Data Storage Converter | Bits, Bytes, Megabytes & Gigabytes";
+const TITLE = "Data Storage Converter";
 const DESCRIPTION =
   "Convert bits, bytes, kilobytes, megabytes, gigabytes, and terabytes with decimal SI versus binary IEC standards and storage capacity modeling.";
 

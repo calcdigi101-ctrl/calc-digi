@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FractionRatioVisualizerChart } from "@/components/flagship/math/editorial-charts/FractionRatioVisualizerChart";
 
 const PATH = "/calculators/math/fraction-calculator";
-const TITLE = "Fraction Calculator | Add, Subtract, Multiply & Divide Fractions | CalcDigi";
+const TITLE = "Fraction Calculator";
 const DESCRIPTION =
-  "Free online fraction calculator. Add, subtract, multiply, and divide proper, improper, and mixed fractions step-by-step with common denominators and simplification.";
+  "Free online fraction calculator. Add, subtract, multiply, and divide proper, improper, and mixed fractions step-by-step with common denominators.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

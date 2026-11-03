@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AutoLoanAmortizationBalanceChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/car-payment-calculator";
-const TITLE = "Car Payment Calculator | Auto Loan Amortization & Monthly Cost";
+const TITLE = "Car Payment Calculator";
 const DESCRIPTION =
   "Calculate monthly auto loan payments, financing interest charges, sales tax liabilities, and amortization schedules across 36 to 84-month terms.";
 

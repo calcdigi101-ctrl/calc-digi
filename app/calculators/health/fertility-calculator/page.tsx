@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { OvarianReserveAgeCurveChart } from "@/components/flagship/health/editorial-charts/OvarianReserveAgeCurveChart";
 
 const PATH = "/calculators/health/fertility-calculator";
-const TITLE = "Fertility Calculator – Age-Related Conception Odds & AMH | CalcDigi";
+const TITLE = "Fertility Calculator";
 const DESCRIPTION =
-  "Calculate your monthly and cumulative conception odds based on maternal age and cycle consistency. Explore ovarian reserve (AMH) benchmarks, aneuploidy rates, and ASRM guidelines.";
+  "Calculate your monthly and cumulative conception odds based on maternal age and cycle consistency. Explore ovarian reserve (AMH) benchmarks, aneuploidy.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

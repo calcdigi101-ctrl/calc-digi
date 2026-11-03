@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InfantFeedingVolumeTimelineChart } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/baby-feeding-calculator";
-const TITLE = "Baby Feeding Calculator – Daily Formula & Breast Milk Ounces | CalcDigi";
+const TITLE = "Baby Feeding Calculator";
 const DESCRIPTION =
-  "Calculate daily formula and breast milk volume by baby weight and age using the American Academy of Pediatrics (AAP) 2.5 oz/lb clinical rule. Features single-bottle sizing, feed frequency schedules, and solid food guidance.";
+  "Calculate daily formula and breast milk volume by baby weight and age using the American Academy of Pediatrics (AAP) 2. 5 oz/lb clinical rule.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -62,7 +62,7 @@ export default function BabyFeedingPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
       title="Baby Feeding Calculator"
       intro="Determine optimal daily milk volume and per-feed bottle sizes tailored to your infant's weight and developmental age. Built upon AAP pediatric nutritional guidelines and anatomical stomach capacity progression."
       description={DESCRIPTION}

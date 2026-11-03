@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BirthdayParadoxProbabilityCurveChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/birthday-calculator";
-const TITLE = "Birthday Calculator | Day of Week, Milestones & Birthday Paradox";
+const TITLE = "Birthday Calculator";
 const DESCRIPTION =
-  "Determine the exact day of the week you were born, countdown to your next birthday milestone, and explore birthday paradox combinatorics and solar return astronomical cycles.";
+  "Determine the exact day of the week you were born, countdown to your next birthday milestone, and explore birthday paradox combinatorics and solar return.";
 
 export const metadata: Metadata = {
   title: TITLE,

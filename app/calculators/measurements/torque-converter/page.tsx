@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TorqueRotationalMechanicalMomentChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/torque-converter";
-const TITLE = "Torque Converter | Newton-Meters, Foot-Pounds & Inch-Pounds";
+const TITLE = "Torque Converter";
 const DESCRIPTION =
   "Convert Newton-meters (N·m), foot-pounds (ft-lb), inch-pounds, kilogram-force meters, and dyne-centimeters with fastener bolt preload tension modeling.";
 

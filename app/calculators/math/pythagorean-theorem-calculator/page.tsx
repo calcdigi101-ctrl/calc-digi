@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/pythagorean-theorem-calculator";
-const TITLE = "Pythagorean Theorem Calculator | Find Hypotenuse & Legs (a² + b² = c²) | CalcDigi";
+const TITLE = "Pythagorean Theorem Calculator";
 const DESCRIPTION =
-  "Free online Pythagorean theorem calculator. Calculate hypotenuse (c) or missing legs (a, b) of any right triangle step-by-step with proofs, triples, and angle derivations.";
+  "Free online Pythagorean theorem calculator. Calculate hypotenuse (c) or missing legs (a, b) of any right triangle step-by-step with proofs, triples.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

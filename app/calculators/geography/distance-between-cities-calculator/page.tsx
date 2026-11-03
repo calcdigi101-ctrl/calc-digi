@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GreatCircleDistanceRouteChart } from "@/components/flagship/geography/editorial-charts";
 
 const PATH = "/calculators/geography/distance-between-cities-calculator";
-const TITLE = "Distance Between Cities Calculator – Great-Circle Flight Distance & Geodesic Bearing | CalcDigi";
+const TITLE = "Distance Between Cities Calculator";
 const DESCRIPTION =
-  "Calculate orthodromic great-circle distance between any two global cities or geographic coordinates in kilometers, statute miles, and nautical miles. Features Haversine geodesic navigation, flight time estimates, and initial true bearings.";
+  "Calculate orthodromic great-circle distance between any two global cities or geographic coordinates in kilometers, statute miles, and nautical miles.";
 
 export const metadata: Metadata = {
   title: TITLE,

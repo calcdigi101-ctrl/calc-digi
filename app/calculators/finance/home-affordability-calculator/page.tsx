@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HomeAffordabilityDtiSpectrumChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/home-affordability-calculator";
-const TITLE = "Home Affordability Calculator – How Much House Can You Afford? | CalcDigi";
+const TITLE = "Home Affordability Calculator";
 const DESCRIPTION =
-  "Free home affordability calculator: calculate maximum home purchase price based on household gross income, monthly recurring debts, down payment, and lender 28/36 debt-to-income (DTI) underwriting ratios under Fannie Mae and CFPB rules.";
+  "Free home affordability calculator: calculate maximum home purchase price based on household gross income, monthly recurring debts, down payment, and lender.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

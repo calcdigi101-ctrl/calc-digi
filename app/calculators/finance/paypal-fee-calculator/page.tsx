@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PaymentProcessingFeeTierChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/paypal-fee-calculator";
-const TITLE = "PayPal Fee Calculator — Merchant Rates, Invoice Gross-Up & Net Payout | CalcDigi";
+const TITLE = "PayPal Fee Calculator";
 const DESCRIPTION =
-  "Free PayPal fee calculator: calculate domestic and international merchant transaction fees, invoice gross-up amounts, cross-border surcharges, and net payout revenue.";
+  "Free PayPal fee calculator: calculate domestic and international merchant transaction fees, invoice gross-up amounts, cross-border surcharges, and net payout.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

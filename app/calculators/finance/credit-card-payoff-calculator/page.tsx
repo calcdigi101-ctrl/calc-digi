@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CreditCardPayoffTimelineChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/credit-card-payoff-calculator";
-const TITLE = "Credit Card Payoff Calculator – Debt-Free Date & Interest Savings | CalcDigi";
+const TITLE = "Credit Card Payoff Calculator";
 const DESCRIPTION =
-  "Free credit card payoff calculator: calculate exact debt-free dates, required monthly payments, and lifetime compounding interest costs under federal Credit CARD Act guidelines. Compare minimum payments against fixed payoff strategies.";
+  "Free credit card payoff calculator: calculate exact debt-free dates, required monthly payments, and lifetime compounding interest costs under federal Credit.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

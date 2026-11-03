@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StockTotalReturnVsCpiChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/stock-return-calculator";
-const TITLE = "Stock Return Calculator — Total Return, Reinvested Dividends & Real CAGR | CalcDigi";
+const TITLE = "Stock Return Calculator";
 const DESCRIPTION =
-  "Free stock return calculator: model total annualized equity returns, dividend reinvestment (DRIP) compounding, capital gains tax drag, and inflation-adjusted CAGR.";
+  "Free stock return calculator: model total annualized equity returns, dividend reinvestment (DRIP) compounding, capital gains tax drag, and inflation-adjusted.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

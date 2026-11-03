@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RestaurantFoodCostMarginWaterfallChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/food-cost-calculator";
-const TITLE = "Food Cost Calculator | Recipe Portion Cost, Menu Pricing & Margins";
+const TITLE = "Food Cost Calculator";
 const DESCRIPTION =
   "Calculate commercial recipe portion cost, target food cost percentages, gross contribution margins, prime costs, and retail menu pricing.";
 

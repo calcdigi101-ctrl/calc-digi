@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FractionRatioVisualizerChart } from "@/components/flagship/math/editorial-charts/FractionRatioVisualizerChart";
 
 const PATH = "/calculators/math/ratio-calculator";
-const TITLE = "Ratio Calculator | Simplify, Scale & Solve Proportions | CalcDigi";
+const TITLE = "Ratio Calculator";
 const DESCRIPTION =
-  "Free online ratio calculator. Simplify ratios, scale proportions (A:B = C:D), calculate missing values, and convert part-to-part and part-to-whole relationships step-by-step.";
+  "Free online ratio calculator. Simplify ratios, scale proportions (A:B = C:D), calculate missing values, and convert part-to-part and part-to-whole.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SolarSolsticeEquinoxDeclinationChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/days-until-calculator";
-const TITLE = "Days Until Calculator | Event Countdown & Seasonal Solar Milestones";
+const TITLE = "Days Until Calculator";
 const DESCRIPTION =
   "Count down the exact days, weeks, hours, and minutes remaining until any future event, holiday, wedding, or astronomical solar solstice and equinox.";
 

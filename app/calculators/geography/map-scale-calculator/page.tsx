@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CartographicScaleDetailSpectrumChart } from "@/components/flagship/geography/editorial-charts";
 
 const PATH = "/calculators/geography/map-scale-calculator";
-const TITLE = "Map Scale Calculator – Ground Distance, Representative Fraction & Area | CalcDigi";
+const TITLE = "Map Scale Calculator";
 const DESCRIPTION =
-  "Convert map measurements to real ground distances and surface areas across any representative fraction (1:24k, 1:50k, 1:100k). Calculate scale bar ratios, quad dimensions, and GIS spatial resolutions.";
+  "Convert map measurements to real ground distances and surface areas across any representative fraction (1:24k, 1:50k, 1:100k). Calculate scale bar ratios.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -1,7 +1,7 @@
 /* ── CalcDigi – Main Stylesheet ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --c-ink:#1a1a18;--c-ink2:#4a4a45;--c-ink3:#8a8a82;
+  --c-ink:#1a1a18;--c-ink2:#4a4a45;--c-ink3:#595954;
   --c-rule:#e8e8e2;--c-rule2:#f2f2ec;--c-bg:#fafaf7;--c-surface:#ffffff;
   --c-accent:#1a5c3a;--c-accent-lt:#edf5f0;--c-accent2:#c8832a;--c-accent2-lt:#fdf5ea;
   --c-blue:#1a3d8a;--c-blue-lt:#e8f0fd;

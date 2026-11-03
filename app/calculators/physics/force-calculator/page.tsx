@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ForceVsFrictionLoadChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/force-calculator";
-const TITLE = "Force Calculator | Newton's Second Law (F = ma) & Friction Dynamics";
+const TITLE = "Force Calculator";
 const DESCRIPTION =
-  "Calculate net motive force, inertial resistance (F = ma), normal force, kinetic friction drag, and gravitational weight across metric and imperial engineering frames.";
+  "Calculate net motive force, inertial resistance (F = ma), normal force, kinetic friction drag, and gravitational weight across metric and imperial.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/pressure-calculator", icon: "🌡️", name: "Pressure P = F/A" },
   { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Torque & Rotational Force" },
   { href: "/calculators/physics/momentum-calculator", icon: "🎯", name: "Momentum & Impulse" },
-  { href: "/calculators/engineering/torque-calculator", icon: "🏎️", name: "Engineering Engine Torque" },
+  { href: "/calculators/physics/torque-calculator", icon: "🏎️", name: "Engineering Engine Torque" },
 ];
 
 const FAQ_ITEMS = [

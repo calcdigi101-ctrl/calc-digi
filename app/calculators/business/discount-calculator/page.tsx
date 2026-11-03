@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DiscountMarginErosionCurveChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/discount-calculator";
-const TITLE = "Discount Calculator | Price Reduction, Stacked Coupons & Tax Solver";
+const TITLE = "Discount Calculator";
 const DESCRIPTION =
   "Calculate promotional retail discounts, stacked coupon reductions, effective percentage savings, and final post-tax prices across commercial commerce.";
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RecyclingImpactResourceSavingsChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/recycling-savings-calculator";
-const TITLE = "Recycling Savings Calculator | Environmental Resource & Energy Conservation";
+const TITLE = "Recycling Savings Calculator";
 const DESCRIPTION =
-  "Calculate environmental resource savings from recycling paper, plastics, glass, aluminum, and steel. Measure avoided greenhouse gas emissions, conserved energy (kWh), trees saved, and landfill space diverted.";
+  "Calculate environmental resource savings from recycling paper, plastics, glass, aluminum, and steel. Measure avoided greenhouse gas emissions, conserved.";
 
 export const metadata: Metadata = {
   title: TITLE,

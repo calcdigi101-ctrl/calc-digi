@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TimeChronologicalEpochScaleChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/time-converter";
-const TITLE = "Time Converter | Seconds, Minutes, Hours, Days, Weeks & Epochs";
+const TITLE = "Time Converter";
 const DESCRIPTION =
   "Convert seconds, minutes, hours, days, weeks, months, years, and Unix timestamps with exact atomic cesium definitions and chronological epoch modeling.";
 

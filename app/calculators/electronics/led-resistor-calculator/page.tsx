@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LedResistorEfficiencyTradeoffChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/led-resistor-calculator";
-const TITLE = "LED Resistor Calculator | Series Resistance & Wattage Rating";
+const TITLE = "LED Resistor Calculator";
 const DESCRIPTION =
   "Calculate current-limiting series resistor values, power dissipation wattage, and standard E24 resistor sizing for single LEDs and series LED arrays.";
 

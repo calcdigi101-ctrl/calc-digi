@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TakeHomePayWaterfallDeductionChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/take-home-pay-calculator";
-const TITLE = "Take-Home Pay Calculator – Net Paycheck & Payroll Deductions | CalcDigi";
+const TITLE = "Take-Home Pay Calculator";
 const DESCRIPTION =
-  "Free take-home pay calculator: calculate exact net paycheck amounts after federal income tax, FICA payroll withholdings, state taxes, and pre-tax benefit deductions across all 50 US states.";
+  "Free take-home pay calculator: calculate exact net paycheck amounts after federal income tax, FICA payroll withholdings, state taxes, and pre-tax benefit.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

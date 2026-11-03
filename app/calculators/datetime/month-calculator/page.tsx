@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SynodicVsSiderealLunarMonthPhasesChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/month-calculator";
-const TITLE = "Month Calculator | Months Between Dates & Lunar Synodic Cycles";
+const TITLE = "Month Calculator";
 const DESCRIPTION =
-  "Add or subtract months, calculate month spans, and explore the astronomical origins of Roman calendar months, synodic lunar cycles, and corporate fiscal quarters.";
+  "Add or subtract months, calculate month spans, and explore the astronomical origins of Roman calendar months, synodic lunar cycles, and corporate fiscal.";
 
 export const metadata: Metadata = {
   title: TITLE,

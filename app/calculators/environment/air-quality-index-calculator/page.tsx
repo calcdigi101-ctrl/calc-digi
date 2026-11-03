@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AirQualityAqiPollutantBreakdownChart } from "@/components/flagship/environment/editorial-charts";
 
 const PATH = "/calculators/environment/air-quality-index-calculator";
-const TITLE = "Air Quality Index (AQI) Calculator | Real-Time EPA Pollutant Risk Analysis";
+const TITLE = "Air Quality Index (AQI) Calculator";
 const DESCRIPTION =
-  "Calculate the official EPA Air Quality Index (AQI) from PM2.5, PM10, ground-level ozone, nitrogen dioxide, and carbon monoxide concentrations. Get health alerts, activity guidance, and sensitive group recommendations.";
+  "Calculate the official EPA Air Quality Index (AQI) from PM2. 5, PM10, ground-level ozone, nitrogen dioxide, and carbon monoxide concentrations.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
   { href: "/calculators/environment/tree-planting-calculator", icon: "🌲", name: "Tree Planting Carbon Offset" },
   { href: "/calculators/environment/electric-vehicle-savings-calculator", icon: "⚡", name: "EV Emissions & Cost Savings" },
-  { href: "/calculators/engineering/cfm-calculator", icon: "💨", name: "HVAC CFM Airflow Calculator" },
+  { href: "/calculators/engineering/hvac-load-calculator", icon: "💨", name: "HVAC CFM Airflow Calculator" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Pollutant Reduction Percentage" },
   { href: "/calculators/math/ratio-calculator", icon: "📐", name: "Aerosol Concentration Ratio" },
 ];
@@ -189,7 +189,7 @@ export default function AirQualityIndexPage() {
           </ul>
 
           <p>
-            If you manage residential or commercial HVAC equipment and need to compute the mechanical ventilation air changes required to purge airborne dust, our <Link href="/calculators/engineering/cfm-calculator">HVAC CFM Airflow Calculator</Link> provides sizing formulas.
+            If you manage residential or commercial HVAC equipment and need to compute the mechanical ventilation air changes required to purge airborne dust, our <Link href="/calculators/engineering/hvac-load-calculator">HVAC CFM Airflow Calculator</Link> provides sizing formulas.
           </p>
 
           <h2>Atmospheric Monitoring Methodologies & Sensor Calibration Protocols</h2>

@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CompoundInterestGrowthTrajectoryChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/compound-interest-calculator";
-const TITLE = "Compound Interest Calculator – Exponential Savings & Investment Growth | CalcDigi";
+const TITLE = "Compound Interest Calculator";
 const DESCRIPTION =
-  "Free compound interest calculator: calculate exponential wealth growth with daily, monthly, quarterly, or annual compounding. Model recurring deposits, APY yields, inflation decay, and the Rule of 72 under SEC and FINRA standards.";
+  "Free compound interest calculator: calculate exponential wealth growth with daily, monthly, quarterly, or annual compounding. Model recurring deposits, APY.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

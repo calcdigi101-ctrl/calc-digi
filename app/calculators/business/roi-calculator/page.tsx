@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RoiAnnualizedCagrHorizonChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/roi-calculator";
-const TITLE = "ROI Calculator | Return on Investment & Annualized CAGR Yield";
+const TITLE = "ROI Calculator";
 const DESCRIPTION =
   "Calculate Return on Investment (ROI), annualized CAGR returns, capital appreciation, dividend yields, and holding period investment multiples across assets.";
 

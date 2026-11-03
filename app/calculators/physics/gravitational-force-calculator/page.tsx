@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GravitationalInverseSquareChart } from "@/components/flagship/physics/editorial-charts";
 
 const PATH = "/calculators/physics/gravitational-force-calculator";
-const TITLE = "Gravitational Force Calculator | Universal Gravity (F = G·m₁·m₂/r²)";
+const TITLE = "Gravitational Force Calculator";
 const DESCRIPTION =
-  "Calculate universal gravitational attraction force (F = G·M₁·M₂/r²), mutual orbital acceleration, circular orbital velocity, and inverse-square decay across celestial bodies.";
+  "Calculate universal gravitational attraction force (F = G·M₁·M₂/r²), mutual orbital acceleration, circular orbital velocity, and inverse-square decay.";
 
 export const metadata: Metadata = {
   title: TITLE,

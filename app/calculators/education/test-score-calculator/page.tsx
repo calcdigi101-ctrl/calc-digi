@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TestScoreRawGradingCurveChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/test-score-calculator";
-const TITLE = "Test Score Calculator | Raw Percentage, Grading Curves & Scaled Scores";
+const TITLE = "Test Score Calculator";
 const DESCRIPTION =
   "Calculate test percentage scores, negative marking penalty deductions, square root curves, standard deviation curves, and letter grade distributions.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PressureAtmosphericDepthGradientChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/pressure-converter";
-const TITLE = "Pressure Converter | Pascals, PSI, Bar, Atmospheres & Torr";
+const TITLE = "Pressure Converter";
 const DESCRIPTION =
   "Convert Pascals, pounds per square inch (PSI), bar, standard atmospheres, kilopascals, and millimeters of mercury with hydrostatic depth modeling.";
 
@@ -27,7 +27,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/measurements/temperature-converter", icon: "🌡️", name: "Temperature Converter" },
   { href: "/calculators/measurements/volume-converter", icon: "🧪", name: "Volume Converter" },
   { href: "/calculators/measurements/energy-converter", icon: "⚡", name: "Energy Converter" },
-  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/calculators/science/density-calculator", icon: "🧱", name: "Density Calculator" },
   { href: "/pages/measurements", icon: "⏱️", name: "Measurements Hub" },
 ];
 

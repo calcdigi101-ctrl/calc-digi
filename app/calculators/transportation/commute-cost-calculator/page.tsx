@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CommuteCostDistanceComparisonChart } from "@/components/flagship/transportation/editorial-charts"; // wait, transportation charts
 
 const PATH = "/calculators/transportation/commute-cost-calculator";
-const TITLE = "Commute Cost Calculator | Fuel, Tolls, Wear & Monthly Expense";
+const TITLE = "Commute Cost Calculator";
 const DESCRIPTION =
   "Calculate daily, monthly, and annual commuting costs, fuel consumption, highway tolls, parking fees, and IRS wear-and-tear vehicle depreciation.";
 

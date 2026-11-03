@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/factorial-calculator";
-const TITLE = "Factorial Calculator | Compute n!, Permutations & Gamma Function | CalcDigi";
+const TITLE = "Factorial Calculator";
 const DESCRIPTION =
-  "Free online factorial calculator. Compute n! for integers, scientific notation for huge factorials, Stirling's asymptotic approximation, and Gamma function step-by-step.";
+  "Free online factorial calculator. Compute n! for integers, scientific notation for huge factorials, Stirling's asymptotic approximation, and Gamma function.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

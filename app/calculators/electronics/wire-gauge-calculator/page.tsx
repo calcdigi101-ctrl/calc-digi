@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WireGaugeDistanceVoltageDropChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/wire-gauge-calculator";
-const TITLE = "Wire Gauge Calculator | AWG Size, Voltage Drop & Ampacity Limits";
+const TITLE = "Wire Gauge Calculator";
 const DESCRIPTION =
   "Calculate American Wire Gauge (AWG) conductor resistance, two-way loop voltage drop, conductor thermal loss, and NEC ampacity compliance.";
 

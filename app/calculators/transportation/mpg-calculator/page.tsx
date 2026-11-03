@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InternalCombustionThermodynamicLossChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/mpg-calculator";
-const TITLE = "MPG Calculator | Real-World Fuel Economy & L/100km Converter";
+const TITLE = "MPG Calculator";
 const DESCRIPTION =
   "Calculate vehicle fuel economy in US Miles Per Gallon, Imperial UK MPG, metric Liters per 100 km, driving cost per mile, and tank travel range.";
 

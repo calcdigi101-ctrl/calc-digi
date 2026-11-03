@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NetworkLatencyComponentBreakdownChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/ping-latency-calculator";
-const TITLE = "Ping & Latency Calculator | Network RTT & Fiber Propagation";
+const TITLE = "Ping & Latency Calculator";
 const DESCRIPTION =
   "Calculate network round-trip time (RTT), speed of light in fiber optic glass, router hop switching delays, and bufferbloat queuing latency.";
 
@@ -72,7 +72,7 @@ export default function PingLatencyCalculatorPage() {
           <NetworkLatencyComponentBreakdownChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In competitive multiplayer gaming, financial high-frequency trading (HFT), and real-time teleconferencing, latency—not raw bandwidth—is the ultimate currency. Having a 1 Gigabit connection provides zero competitive advantage if packets require 95 milliseconds to reach the host server. Understanding the physical mechanics of network latency allows engineers and gamers to diagnose routing anomalies. Calculating network propagation speeds mirrors fundamental physics principles explored in our <Link href="/calculators/physics/speed-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">speed calculator</Link>.
+            In competitive multiplayer gaming, financial high-frequency trading (HFT), and real-time teleconferencing, latency—not raw bandwidth—is the ultimate currency. Having a 1 Gigabit connection provides zero competitive advantage if packets require 95 milliseconds to reach the host server. Understanding the physical mechanics of network latency allows engineers and gamers to diagnose routing anomalies. Calculating network propagation speeds mirrors fundamental physics principles explored in our <Link href="/calculators/physics/velocity-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">speed calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

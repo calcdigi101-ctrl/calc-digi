@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AprVsInterestRateCostChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/apr-calculator";
-const TITLE = "APR Calculator – Annual Percentage Rate vs. Interest Rate | CalcDigi";
+const TITLE = "APR Calculator";
 const DESCRIPTION =
-  "Free APR calculator: calculate true Annual Percentage Rate (APR) including upfront lender origination fees, discount points, closing costs, and finance charges under federal Truth in Lending Act (TILA) guidelines.";
+  "Free APR calculator: calculate true Annual Percentage Rate (APR) including upfront lender origination fees, discount points, closing costs, and finance.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

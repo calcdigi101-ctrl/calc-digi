@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CryptoProfitLossFeeErosionChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/crypto-profit-calculator";
-const TITLE = "Crypto Profit Calculator — PnL, Exchange Trading Fees, Gas & Capital Gains | CalcDigi";
+const TITLE = "Crypto Profit Calculator";
 const DESCRIPTION =
-  "Free crypto profit calculator: calculate net crypto profit and loss (PnL), exchange maker/taker fee deductions, network gas fee drag, and IRS capital gains tax liability.";
+  "Free crypto profit calculator: calculate net crypto profit and loss (PnL), exchange maker/taker fee deductions, network gas fee drag, and IRS capital gains.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

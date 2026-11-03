@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ThreePhaseBalancedLoadPowerChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/three-phase-power-calculator";
-const TITLE = "Three-Phase Power Calculator | Real (kW), Apparent (kVA) & Reactive (kVAR)";
+const TITLE = "Three-Phase Power Calculator";
 const DESCRIPTION =
   "Calculate balanced three-phase AC active power (kW), apparent power (kVA), reactive power (kVAR), and phase currents across Wye (Star) and Delta circuits.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PsychrometricSaturationVaporPressureChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/humidity-calculator";
-const TITLE = "Humidity Calculator | Relative, Absolute & Specific Humidity Analysis";
+const TITLE = "Humidity Calculator";
 const DESCRIPTION =
   "Convert between relative humidity, absolute humidity (g/m³), specific humidity (g/kg), mixing ratio, and vapor pressure using psychrometric equations.";
 

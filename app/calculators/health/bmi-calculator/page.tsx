@@ -8,7 +8,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WHO_CLASSES } from "@/lib/bmi";
 
 const PATH = "/calculators/health/bmi-calculator";
-const TITLE = "BMI Calculator | Adult Body Mass Index, WHO Categories & Healthy Weight";
+const TITLE = "BMI Calculator";
 const DESCRIPTION =
   "Calculate your Body Mass Index (BMI) in US or metric units. Features WHO weight categories, Oxford University scaling, BMI Prime, and healthy weight targets.";
 

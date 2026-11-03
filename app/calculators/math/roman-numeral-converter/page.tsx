@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BaseConversionVisualizerChart } from "@/components/flagship/math/editorial-charts/BaseConversionVisualizerChart";
 
 const PATH = "/calculators/math/roman-numeral-converter";
-const TITLE = "Roman Numeral Converter | Convert Numbers to Roman Numerals | CalcDigi";
+const TITLE = "Roman Numeral Converter";
 const DESCRIPTION =
-  "Free online Roman numeral converter. Convert standard numbers to Roman numerals and Roman numerals to numbers (1 to 3,999,999), with vinculum bar notation and rules.";
+  "Free online Roman numeral converter. Convert standard numbers to Roman numerals and Roman numerals to numbers (1 to 3,999,999), with vinculum bar notation.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

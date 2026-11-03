@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PercentYieldReactionSelectivityChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/percent-yield-calculator";
-const TITLE = "Percent Yield Calculator | Reaction Efficiency & E-Factor Solver";
+const TITLE = "Percent Yield Calculator";
 const DESCRIPTION =
-  "Calculate chemical reaction percent yield, actual vs theoretical product yield, atom economy, and environmental E-factor across organic synthesis and industrial chemistry.";
+  "Calculate chemical reaction percent yield, actual vs theoretical product yield, atom economy, and environmental E-factor across organic synthesis.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ActScorePercentileDistributionChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/act-score-calculator";
-const TITLE = "ACT Score Calculator | Composite Score, STEM Benchmark & Percentile Rank";
+const TITLE = "ACT Score Calculator";
 const DESCRIPTION =
-  "Calculate official ACT composite scores, STEM and ELA benchmarks, section point averages, and national percentile ranks across English, Math, Reading, and Science.";
+  "Calculate official ACT composite scores, STEM and ELA benchmarks, section point averages, and national percentile ranks across English, Math, Reading.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -72,7 +72,7 @@ export default function ActScoreCalculatorPage() {
           <ActScorePercentileDistributionChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Across secondary education in the United States and international international schools, the ACT examination serves as a premier standardized college entrance assessment. Administered by ACT, Inc., the test evaluates core academic proficiencies across four foundational subject batteries: English (75 questions, 45 minutes), Mathematics (60 questions, 60 minutes), Reading (40 questions, 35 minutes), and Science Reasoning (40 questions, 35 minutes). Because section scores are averaged into an integer composite, small individual section improvements can produce significant shifts in national percentile standing, utilizing principles found in a <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
+            Across secondary education in the United States and international international schools, the ACT examination serves as a premier standardized college entrance assessment. Administered by ACT, Inc., the test evaluates core academic proficiencies across four foundational subject batteries: English (75 questions, 45 minutes), Mathematics (60 questions, 60 minutes), Reading (40 questions, 35 minutes), and Science Reasoning (40 questions, 35 minutes). Because section scores are averaged into an integer composite, small individual section improvements can produce significant shifts in national percentile standing, utilizing principles found in a <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

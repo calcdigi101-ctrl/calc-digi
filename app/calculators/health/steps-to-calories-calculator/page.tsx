@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StepVolumeCalorieCurveChart } from "@/components/flagship/health/editorial-charts/StepVolumeCalorieCurveChart";
 
 const PATH = "/calculators/health/steps-to-calories-calculator";
-const TITLE = "Steps to Calories Calculator – Stride Length & Cadence Precision | CalcDigi";
+const TITLE = "Steps to Calories Calculator";
 const DESCRIPTION =
-  "Free steps to calories calculator: accurately convert daily step count into calories burned and distance walked (miles & km) using anatomical stride length and Tudor-Locke standards.";
+  "Free steps to calories calculator: accurately convert daily step count into calories burned and distance walked (miles & km) using anatomical stride length.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

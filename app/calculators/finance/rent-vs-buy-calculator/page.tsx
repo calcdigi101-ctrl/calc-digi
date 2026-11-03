@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RentVsBuyNetWorthHorizonChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/rent-vs-buy-calculator";
-const TITLE = "Rent vs. Buy Calculator — Total Wealth Horizon, Opportunity Cost & Break-Even | CalcDigi";
+const TITLE = "Rent vs. Buy Calculator";
 const DESCRIPTION =
-  "Free rent vs. buy calculator: compare long-term cumulative net wealth between purchasing residential real estate vs. renting and investing cash in index funds. Model 30-year home appreciation, mortgage interest, property taxes, maintenance, and opportunity cost.";
+  "Free rent vs. buy calculator: compare long-term cumulative net wealth between purchasing residential real estate vs. renting and investing cash in index.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

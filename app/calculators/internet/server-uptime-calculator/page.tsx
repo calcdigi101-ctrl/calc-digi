@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ServerUptimeNinesDowntimeChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/server-uptime-calculator";
-const TITLE = "Server Uptime Calculator | High Availability SLA Downtime Budget";
+const TITLE = "Server Uptime Calculator";
 const DESCRIPTION =
   "Calculate permitted server downtime across 99%, 99.9%, 99.99%, and 99.999% SLA availability tiers. Model daily, monthly, and annual outage budgets.";
 

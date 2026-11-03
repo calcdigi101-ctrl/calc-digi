@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RecipeBatchScalingFactorChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/recipe-scaler";
-const TITLE = "Recipe Scaler | Baker's Percentages, Batch Multipliers & Pan Scaling";
+const TITLE = "Recipe Scaler";
 const DESCRIPTION =
   "Scale recipes up or down using baker's percentages, surface area pan conversion, non-linear seasoning dampening, and gram weight accuracy.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CaffeinePlasmaClearanceCurveChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/coffee-caffeine-calculator";
-const TITLE = "Coffee Caffeine Calculator | Pharmacokinetics, Half-Life & Daily Limits";
+const TITLE = "Coffee Caffeine Calculator";
 const DESCRIPTION =
   "Calculate caffeine intake across espresso, cold brew, drip, and energy drinks, modeling CYP1A2 plasma half-life clearance curves against FDA thresholds.";
 

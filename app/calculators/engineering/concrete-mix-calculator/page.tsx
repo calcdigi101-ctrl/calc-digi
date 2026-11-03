@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcreteMixProportionChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/concrete-mix-calculator";
-const TITLE = "Concrete Mix Calculator — Cement Bags, Sand, Gravel & Water Ratios | CalcDigi";
+const TITLE = "Concrete Mix Calculator";
 const DESCRIPTION =
-  "Calculate total concrete volume, dry volume factor (1.54×), cement bag count (50 kg / 94 lb), sand tons, coarse aggregate stone tons, and water demand for M10, M15, M20, M25, and M30 grade concrete slabs, footings, and columns.";
+  "Calculate total concrete volume, dry volume factor (1.54×), cement bag count (50 kg / 94 lb), sand tons, coarse aggregate stone tons, and water demand.";
 
 export const metadata: Metadata = {
   title: TITLE,

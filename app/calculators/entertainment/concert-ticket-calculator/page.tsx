@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcertTicketTrueCostBreakdownChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/concert-ticket-calculator";
-const TITLE = "Concert Ticket True Cost Calculator — Platform Fees, Parking & Night Out | CalcDigi";
+const TITLE = "Concert Ticket True Cost Calculator";
 const DESCRIPTION =
-  "Calculate the true all-in cost of concert and festival tickets. Factor in face value, platform convenience service fees (15%–35%), venue parking passes, food & drink concessions, and official tour merchandise.";
+  "Calculate the true all-in cost of concert and festival tickets. Factor in face value, platform convenience service fees (15%–35%), venue parking passes, food.";
 
 export const metadata: Metadata = {
   title: TITLE,

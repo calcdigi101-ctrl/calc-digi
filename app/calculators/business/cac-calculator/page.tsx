@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CacPaybackCohortEfficiencyChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/cac-calculator";
-const TITLE = "CAC Calculator | Customer Acquisition Cost & Payback Period Solver";
+const TITLE = "CAC Calculator";
 const DESCRIPTION =
   "Calculate fully loaded blended CAC, paid-only CAC, customer payback period in months, and sales efficiency ratios across commercial business models.";
 

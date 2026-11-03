@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HvacCoolingCapacityZoneChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/hvac-load-calculator";
-const TITLE = "HVAC Load Calculator — Manual J Sizing, Cooling Tons & Heating BTU/h | CalcDigi";
+const TITLE = "HVAC Load Calculator";
 const DESCRIPTION =
-  "Calculate residential and commercial HVAC heating and cooling thermal loads, air conditioning tonnage (Tons), heating capacity (BTU/h & kW), supply CFM airflow, and sensible heat gain across ASHRAE climate zones 1 through 6.";
+  "Calculate residential and commercial HVAC heating and cooling thermal loads, air conditioning tonnage (Tons), heating capacity (BTU/h & kW), supply CFM.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/engineering/heat-transfer-calculator", icon: "🔥", name: "Heat Transfer & Thermal Resistance" },
   { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Demand & Panel Sizing" },
   { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Chilled Water Sizing" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Duct Airflow Velocity Calculator" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Duct Airflow Velocity Calculator" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "HVAC Energy Efficiency Percentage" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Heating & Cooling Energy ROI" },
 ];
@@ -113,7 +113,7 @@ export default function HvacLoadPage() {
             Heating, ventilation, and air conditioning (HVAC) systems represent the single largest energy consumer in residential and commercial buildings, accounting for over 40% of total electrical and natural gas consumption. Precision load estimation is essential: undersizing leads to failure to maintain comfort during peak design heat waves, while oversizing leads to short cycling, high humidity, indoor mold spores, and inflated initial capital costs.
           </p>
           <p>
-            Modern building science requires rigorous calculation of envelope conduction, solar radiant ingress, fenestration shading coefficients, internal plug loads, and occupant metabolic generation. To evaluate ductwork airflow velocity and noise criteria, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate SEER/COP energy savings with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and forecast long-term utility bill savings with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            Modern building science requires rigorous calculation of envelope conduction, solar radiant ingress, fenestration shading coefficients, internal plug loads, and occupant metabolic generation. To evaluate ductwork airflow velocity and noise criteria, use our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate SEER/COP energy savings with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and forecast long-term utility bill savings with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
           </p>
 
           <Formula>

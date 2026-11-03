@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FrequencyWavelengthAntennaSpectrumChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/frequency-calculator";
-const TITLE = "Frequency, Wavelength & Wave Period Calculator | RF Antenna Sizing";
+const TITLE = "Frequency, Wavelength & Wave Period Calculator";
 const DESCRIPTION =
   "Calculate electromagnetic wavelength, wave period, angular frequency, and resonant quarter-wave antenna element dimensions across the RF spectrum.";
 

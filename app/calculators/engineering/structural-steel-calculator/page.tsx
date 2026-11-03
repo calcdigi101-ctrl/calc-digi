@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SteelSectionStrengthWeightSpectrumChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/structural-steel-calculator";
-const TITLE = "Structural Steel Calculator — Column Buckling & AISC Section Capacity | CalcDigi";
+const TITLE = "Structural Steel Calculator";
 const DESCRIPTION =
-  "Calculate structural steel column axial compression capacity, Euler critical elastic buckling load, effective slenderness ratio (KL/r), AISC 360-16 ASD/LRFD allowable stress, and plastic flexural moment for W-beams, HSS tubes, and angles.";
+  "Calculate structural steel column axial compression capacity, Euler critical elastic buckling load, effective slenderness ratio (KL/r), AISC 360-16 ASD/LRFD.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CourseGradeWeightDistributionChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/grade-calculator";
-const TITLE = "Grade Calculator | Weighted Course Average & Semester Assessment Grading";
+const TITLE = "Grade Calculator";
 const DESCRIPTION =
   "Calculate weighted course grades, assignment category percentages, midterm exam scores, and required final exam benchmarks with syllabus category weighting.";
 
@@ -72,7 +72,7 @@ export default function GradeCalculatorPage() {
           <CourseGradeWeightDistributionChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In modern secondary and higher education, academic syllabi rarely evaluate student mastery through unweighted raw scores. Rather, university faculty structure courses around weighted category hierarchies where high-stakes summative assessments (midterm and final examinations) carry substantially greater weight than formative exercises (homework problem sets and weekly reading quizzes). Calculating your standing in a weighted course requires mathematical principles identical to those in a <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>, where each score is weighted by its proportional value.
+            In modern secondary and higher education, academic syllabi rarely evaluate student mastery through unweighted raw scores. Rather, university faculty structure courses around weighted category hierarchies where high-stakes summative assessments (midterm and final examinations) carry substantially greater weight than formative exercises (homework problem sets and weekly reading quizzes). Calculating your standing in a weighted course requires mathematical principles identical to those in a <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>, where each score is weighted by its proportional value.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

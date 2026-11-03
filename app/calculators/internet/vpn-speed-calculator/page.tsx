@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VpnProtocolThroughputComparisonChart } from "@/components/flagship/internet/editorial-charts";
 
 const PATH = "/calculators/internet/vpn-speed-calculator";
-const TITLE = "VPN Speed Calculator | Protocol Overhead & Encryption Throughput";
+const TITLE = "VPN Speed Calculator";
 const DESCRIPTION =
   "Calculate VPN speed loss across WireGuard, OpenVPN UDP/TCP, and IKEv2. Model cryptographic encapsulation overhead, server load, and latency penalties.";
 

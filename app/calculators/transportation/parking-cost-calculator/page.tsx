@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MetropolitanParkingRateTiersChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/parking-cost-calculator";
-const TITLE = "Parking Cost Calculator | Daily, Monthly & Airport Tariff Estimator";
+const TITLE = "Parking Cost Calculator";
 const DESCRIPTION =
-  "Calculate total parking expenses across hourly meters, municipal garages, monthly commuter subscriptions, and long-term airport terminals with validation discounts.";
+  "Calculate total parking expenses across hourly meters, municipal garages, monthly commuter subscriptions, and long-term airport terminals with validation.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LtvCacRatioBenchmarkChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/ltv-calculator";
-const TITLE = "LTV Calculator | Customer Lifetime Value & LTV:CAC Unit Economics";
+const TITLE = "LTV Calculator";
 const DESCRIPTION =
-  "Calculate Customer Lifetime Value (LTV / CLV), gross margin adjusted churn cohorts, LTV:CAC ratios, and net present value payback across subscription businesses.";
+  "Calculate Customer Lifetime Value (LTV / CLV), gross margin adjusted churn cohorts, LTV:CAC ratios, and net present value payback across subscription.";
 
 export const metadata: Metadata = {
   title: TITLE,

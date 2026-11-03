@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ShoeSizeInternationalFitMatrixChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/shoe-size-converter";
-const TITLE = "Shoe Size Converter | US, UK, EU & Centimeter Sizing Charts";
+const TITLE = "Shoe Size Converter";
 const DESCRIPTION =
   "Convert US Men, US Women, UK, European (EU), Japanese (CM), and Mondo point shoe sizes with exact anatomical foot length derivations and fit matrices.";
 

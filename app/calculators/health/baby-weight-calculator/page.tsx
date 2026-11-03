@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WhoInfantGrowthPercentilesChart } from "@/components/flagship/health/editorial-charts/WhoInfantGrowthPercentilesChart";
 
 const PATH = "/calculators/health/baby-weight-calculator";
-const TITLE = "Baby Weight Percentile Calculator – WHO Growth Standards | CalcDigi";
+const TITLE = "Baby Weight Percentile Calculator";
 const DESCRIPTION =
-  "Calculate your infant's exact weight-for-age percentile and Z-score using World Health Organization (WHO) Multicentre Growth Reference Study standards from 0 to 24 months.";
+  "Calculate your infant's exact weight-for-age percentile and Z-score using World Health Organization (WHO) Multicentre Growth Reference Study standards from 0.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

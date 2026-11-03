@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SnrChannelCapacityCurveChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/signal-to-noise-calculator";
-const TITLE = "Signal to Noise Ratio Calculator — SNR (dB), Shannon Channel Capacity & BER | CalcDigi";
+const TITLE = "Signal to Noise Ratio Calculator";
 const DESCRIPTION =
-  "Calculate Signal-to-Noise Ratio (SNR in dB and linear power), Shannon-Hartley theoretical maximum channel capacity (Mbps / Gbps), spectral efficiency (bits/s/Hz), and maximum achievable digital modulation scheme across Wi-Fi, 5G, and RF satellite links.";
+  "Calculate Signal-to-Noise Ratio (SNR in dB and linear power), Shannon-Hartley theoretical maximum channel capacity (Mbps / Gbps), spectral efficiency.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Power & Circuit Sizing" },
   { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Power Decibel Ratio Calculator" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Bit Error Rate (BER) Percentage" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Electromagnetic Wave Propagation Speed" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Electromagnetic Wave Propagation Speed" },
   { href: "/calculators/physics/force-calculator", icon: "📡", name: "RF Power & Energy Calculator" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Bandwidth Infrastructure ROI" },
 ];
@@ -113,7 +113,7 @@ export default function SignalToNoisePage() {
             In modern telecommunications, information theory, digital audio, and medical imaging, Signal-to-Noise Ratio (SNR) is the primary metric quantifying signal fidelity against unwanted background electrical noise. Whether transmitting data over copper Ethernet pairs, fiber-optic wavelengths, sub-6 GHz 5G wireless channels, or deep-space satellite transponders, noise sets the fundamental thermodynamic barrier to communication speed and accuracy.
           </p>
           <p>
-            Claude Shannon's landmark 1948 paper established that any communication channel has a finite maximum information-carrying capacity (<em>C</em>) dictated solely by its frequency bandwidth (<em>B</em>) and the signal-to-noise ratio. To calculate electromagnetic transmission wave propagation speeds, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate RF electrical energy with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and calculate digital network infrastructure capital investment returns with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            Claude Shannon's landmark 1948 paper established that any communication channel has a finite maximum information-carrying capacity (<em>C</em>) dictated solely by its frequency bandwidth (<em>B</em>) and the signal-to-noise ratio. To calculate electromagnetic transmission wave propagation speeds, use our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate RF electrical energy with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>, and calculate digital network infrastructure capital investment returns with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
           </p>
 
           <Formula>

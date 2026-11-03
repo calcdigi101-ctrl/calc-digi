@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MolarMassPeriodicFamilyChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/molecular-weight-calculator";
-const TITLE = "Molecular Weight Calculator | Molar Mass & Elemental Composition Solver";
+const TITLE = "Molecular Weight Calculator";
 const DESCRIPTION =
-  "Calculate molecular weight, molar mass, and mass percentage composition from chemical formulas across organic molecules, inorganic salts, and pharmaceutical compounds.";
+  "Calculate molecular weight, molar mass, and mass percentage composition from chemical formulas across organic molecules, inorganic salts, and pharmaceutical.";
 
 export const metadata: Metadata = {
   title: TITLE,

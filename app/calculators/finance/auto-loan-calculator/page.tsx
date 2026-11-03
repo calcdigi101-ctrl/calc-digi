@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AutoLoanDepreciationEquityChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/auto-loan-calculator";
-const TITLE = "Auto Loan Calculator – Car Payment, Sales Tax & Amortization | CalcDigi";
+const TITLE = "Auto Loan Calculator";
 const DESCRIPTION =
-  "Free auto loan calculator: calculate exact monthly car payments with state sales tax, dealer doc fees, trade-in equity, and down payments. Analyze negative equity risk and vehicle depreciation curves under CFPB lending guidelines.";
+  "Free auto loan calculator: calculate exact monthly car payments with state sales tax, dealer doc fees, trade-in equity, and down payments.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

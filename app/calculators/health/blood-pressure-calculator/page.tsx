@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BloodPressureStageChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/blood-pressure-calculator";
-const TITLE = "Blood Pressure Calculator – 2017 ACC/AHA Clinical Guidelines | CalcDigi";
+const TITLE = "Blood Pressure Calculator";
 const DESCRIPTION =
-  "Free blood pressure calculator: interpret systolic and diastolic readings against 2017 ACC/AHA guidelines. Calculate Mean Arterial Pressure (MAP) and pulse pressure arterial compliance.";
+  "Free blood pressure calculator: interpret systolic and diastolic readings against 2017 ACC/AHA guidelines. Calculate Mean Arterial Pressure (MAP) and pulse.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

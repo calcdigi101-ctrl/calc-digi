@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BraCupVolumeMatrixChart } from "@/components/flagship/health/editorial-charts/BraCupVolumeMatrixChart";
 
 const PATH = "/calculators/health/bra-size-calculator";
-const TITLE = "Bra Size Calculator – Modern Snug Band & Sister Sizing | CalcDigi";
+const TITLE = "Bra Size Calculator";
 const DESCRIPTION =
   "Find your true bra size using modern snug-band anthropometrics and sister sizing volume matrices. Compare US, UK, EU, and international standards.";
 

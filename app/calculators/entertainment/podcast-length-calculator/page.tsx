@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PodcastPlaybackSpeedTimeSavedChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/podcast-length-calculator";
-const TITLE = "Podcast Listening Time Calculator — Playback Speedup & Time Saved | CalcDigi";
+const TITLE = "Podcast Listening Time Calculator";
 const DESCRIPTION =
-  "Calculate podcast listening time and annual hours saved by speeding up audio playback (1.1× to 2.0×). Features episode backlog queue estimation, daily commute matching, and speech comprehension benchmarks.";
+  "Calculate podcast listening time and annual hours saved by speeding up audio playback (1.1× to 2.0×). Features episode backlog queue estimation, daily.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/entertainment/book-reading-time-calculator", icon: "📚", name: "Book Reading Time Calculator" },
   { href: "/calculators/entertainment/spotify-listening-stats-calculator", icon: "🎵", name: "Music Streaming Stats & Data" },
   { href: "/calculators/entertainment/video-game-hours-calculator", icon: "🎮", name: "Video Game Backlog Hours" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Audio Playback Speed Multiplier" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Audio Playback Speed Multiplier" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Listening Time Saved Percentage" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Time Value & Habit Stacking" },
 ];
@@ -113,7 +113,7 @@ export default function PodcastLengthPage() {
             Podcasting has evolved into one of the most intimate, influential information mediums in the world, spanning investigative journalism, educational masterclasses, industry analysis, and longform comedy. However, with hundreds of hours of fresh audio content published every minute, listeners face a severe time constraint: there are simply more brilliant shows than hours in the day.
           </p>
           <p>
-            Adjusting playback speed in modern podcast players (Apple Podcasts, Spotify, Pocket Casts, Overcast) is one of the highest-leverage productivity habits a knowledge worker can adopt. By speeding up spoken word content, listeners absorb identical information in a fraction of the time. To convert playback speeds to audio frequency velocity, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate gaming leisure trade-offs with our <a href="/calculators/entertainment/video-game-hours-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">video game hours calculator</a>, and calculate compound personal time value with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            Adjusting playback speed in modern podcast players (Apple Podcasts, Spotify, Pocket Casts, Overcast) is one of the highest-leverage productivity habits a knowledge worker can adopt. By speeding up spoken word content, listeners absorb identical information in a fraction of the time. To convert playback speeds to audio frequency velocity, use our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate gaming leisure trade-offs with our <a href="/calculators/entertainment/video-game-hours-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">video game hours calculator</a>, and calculate compound personal time value with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
           </p>
 
           <Formula>

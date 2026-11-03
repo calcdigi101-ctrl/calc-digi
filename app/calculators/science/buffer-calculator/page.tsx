@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BufferTitrationCurveChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/buffer-calculator";
-const TITLE = "Buffer Calculator | Henderson-Hasselbalch pH & Buffer Capacity Solver";
+const TITLE = "Buffer Calculator";
 const DESCRIPTION =
-  "Calculate buffer solution pH, acid-conjugate base molar ratios, and Van Slyke buffer capacity using the Henderson-Hasselbalch equation and weak acid-base dissociation constants.";
+  "Calculate buffer solution pH, acid-conjugate base molar ratios, and Van Slyke buffer capacity using the Henderson-Hasselbalch equation and weak acid-base.";
 
 export const metadata: Metadata = {
   title: TITLE,

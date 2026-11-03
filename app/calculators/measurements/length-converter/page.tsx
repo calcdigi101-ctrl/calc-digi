@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LengthScaleDynamicRangeChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/length-converter";
-const TITLE = "Length Converter | Metric, Imperial & Astronomical Distance";
+const TITLE = "Length Converter";
 const DESCRIPTION =
   "Convert meters, feet, inches, centimeters, kilometers, miles, and nautical leagues with exact SI dimensional constants and interactive scale modeling.";
 

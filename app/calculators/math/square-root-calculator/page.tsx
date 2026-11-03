@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
 
 const PATH = "/calculators/math/square-root-calculator";
-const TITLE = "Square Root Calculator | Principal, Simplified & Imaginary Roots | CalcDigi";
+const TITLE = "Square Root Calculator";
 const DESCRIPTION =
-  "Free online square root calculator. Calculate principal square roots, radical simplification, irrational approximations, and complex imaginary roots step-by-step.";
+  "Free online square root calculator. Calculate principal square roots, radical simplification, irrational approximations, and complex imaginary roots.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

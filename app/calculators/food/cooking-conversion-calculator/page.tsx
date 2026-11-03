@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CulinaryDensityWeightVolumeChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/cooking-conversion-calculator";
-const TITLE = "Cooking Conversion Calculator | Weight, Volume & Bulk Density";
+const TITLE = "Cooking Conversion Calculator";
 const DESCRIPTION =
   "Convert recipe cups, grams, ounces, milliliters, and tablespoons using ingredient-specific bulk densities for flour, sugar, butter, and liquids.";
 

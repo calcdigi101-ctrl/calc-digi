@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AnnualWorkingDaysVsHolidaysBreakdownChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/workdays-calculator";
-const TITLE = "Workdays Calculator | Business Days Between Dates & Project Float";
+const TITLE = "Workdays Calculator";
 const DESCRIPTION =
-  "Calculate exact business working days between two dates, exclude weekends and statutory public holidays, and model critical path project scheduling and labor billable hours.";
+  "Calculate exact business working days between two dates, exclude weekends and statutory public holidays, and model critical path project scheduling and labor.";
 
 export const metadata: Metadata = {
   title: TITLE,

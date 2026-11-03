@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FractionRatioVisualizerChart } from "@/components/flagship/math/editorial-charts/FractionRatioVisualizerChart";
 
 const PATH = "/calculators/math/percent-error-calculator";
-const TITLE = "Percent Error Calculator | Experimental Accuracy & Precision | CalcDigi";
+const TITLE = "Percent Error Calculator";
 const DESCRIPTION =
-  "Free online percent error calculator. Calculate absolute error, relative error, and percentage error between experimental observations and accepted theoretical values step-by-step.";
+  "Free online percent error calculator. Calculate absolute error, relative error, and percentage error between experimental observations and accepted.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

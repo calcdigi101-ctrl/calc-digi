@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SelfEmploymentTaxBreakdownChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/freelancer-tax-calculator";
-const TITLE = "Freelancer Tax Calculator – Self-Employment Tax (1099) & Write-Offs | CalcDigi";
+const TITLE = "Freelancer Tax Calculator";
 const DESCRIPTION =
-  "Free freelancer tax calculator: calculate 15.3% Self-Employment (SE) tax, Schedule C business deductions, Section 199A QBI deductions, and quarterly estimated tax payments under IRS 1040-ES rules.";
+  "Free freelancer tax calculator: calculate 15.3% Self-Employment (SE) tax, Schedule C business deductions, Section 199A QBI deductions, and quarterly.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -136,7 +136,7 @@ export default function Page() {
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
             <h3>Related Business &amp; Tax Solvers</h3>
             <p>
-              Calculate net commercial margins with our <a href="/calculators/business/business-profit-calculator">Business Profit Calculator</a>, evaluate transaction processing with the <a href="/calculators/finance/paypal-fee-calculator">PayPal Fee Calculator</a>, analyze federal income tax brackets using the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>, and model corporate break-even points via the <a href="/calculators/business/break-even-calculator">Break-Even Calculator</a>.
+              Calculate net commercial margins with our <a href="/calculators/business/profit-margin-calculator">Business Profit Calculator</a>, evaluate transaction processing with the <a href="/calculators/finance/paypal-fee-calculator">PayPal Fee Calculator</a>, analyze federal income tax brackets using the <a href="/calculators/finance/tax-calculator">Tax Calculator</a>, and model corporate break-even points via the <a href="/calculators/business/break-even-calculator">Break-Even Calculator</a>.
             </p>
           </div>
         </>
@@ -179,7 +179,7 @@ export default function Page() {
         { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
         { href: "/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay" },
         { href: "/calculators/finance/paypal-fee-calculator", icon: "💳", name: "PayPal Fee" },
-        { href: "/calculators/business/business-profit-calculator", icon: "💼", name: "Business Profit" },
+        { href: "/calculators/business/profit-margin-calculator", icon: "💼", name: "Business Profit" },
         { href: "/calculators/finance/salary-calculator", icon: "📊", name: "Salary Calculator" },
         { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even" },
       ]}

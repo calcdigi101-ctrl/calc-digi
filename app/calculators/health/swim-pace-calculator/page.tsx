@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SwimPaceDistanceCurveChart } from "@/components/flagship/health/editorial-charts/SwimPaceDistanceCurveChart";
 
 const PATH = "/calculators/health/swim-pace-calculator";
-const TITLE = "Swim Pace Calculator – Critical Swim Speed (CSS) & Splits | CalcDigi";
+const TITLE = "Swim Pace Calculator";
 const DESCRIPTION =
-  "Free swim pace calculator: compute pace per 100 meters and 100 yards, predict 1,500m and Ironman triathlon finish times, and calculate your Critical Swim Speed (CSS).";
+  "Free swim pace calculator: compute pace per 100 meters and 100 yards, predict 1,500m and Ironman triathlon finish times, and calculate your Critical Swim.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

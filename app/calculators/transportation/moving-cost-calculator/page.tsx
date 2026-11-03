@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RelocationCostDistanceHomeSizeChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/moving-cost-calculator";
-const TITLE = "Moving Cost Calculator | Relocation Expense, Distance & Truck Quotes";
+const TITLE = "Moving Cost Calculator";
 const DESCRIPTION =
   "Calculate residential relocation costs, professional moving labor vs DIY truck rental rates, container pod shipping, and long-distance freight tariffs.";
 

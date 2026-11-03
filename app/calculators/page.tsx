@@ -3,10 +3,9 @@ import CalculatorsExplorer from "@/components/CalculatorsExplorer";
 import { CATEGORIES, TOTAL_CALCULATOR_COUNT } from "@/lib/calculators";
 import { SITE_URL } from "@/lib/site";
 
-const TITLE = `All Calculators – ${TOTAL_CALCULATOR_COUNT}+ Free Calculators | CalcDigi`;
-const DESCRIPTION = `Browse all ${TOTAL_CALCULATOR_COUNT} free calculators on CalcDigi across health, finance, math, and ${
-  CATEGORIES.length - 3
-} more categories. Filter by category, no sign-up required.`;
+const TITLE = `All Calculators`;
+const DESCRIPTION =
+  `Browse all ${TOTAL_CALCULATOR_COUNT} free calculators on CalcDigi across health, finance, math, and ${ CATEGORIES. length - 3 } more categories.`;
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InfantSleepScheduleVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/baby-sleep-calculator";
-const TITLE = "Baby Sleep Calculator – Wake Windows, Bedtime & Nap Schedules | CalcDigi";
+const TITLE = "Baby Sleep Calculator";
 const DESCRIPTION =
-  "Calculate optimal baby bedtime, wake windows, and daytime nap schedules from birth to 36 months using American Academy of Pediatrics (AAP) sleep benchmarks. Features circadian rhythm timelines and sleep architecture guides.";
+  "Calculate optimal baby bedtime, wake windows, and daytime nap schedules from birth to 36 months using American Academy of Pediatrics (AAP) sleep benchmarks.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -62,7 +62,7 @@ export default function BabySleepPage() {
   return (
     <CalcPage
       path={PATH}
-      category={{ href: "/calculators/baby", label: "Baby & Parenting" }}
+      category={{ href: "/pages/baby", label: "Baby & Parenting" }}
       title="Baby Sleep & Wake Windows Calculator"
       intro="Determine optimal bedtime, age-appropriate wake windows, and daytime nap schedules from birth to 36 months based on American Academy of Pediatrics (AAP) and AASM clinical standards."
       description={DESCRIPTION}

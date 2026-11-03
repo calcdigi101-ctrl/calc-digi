@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CgpaCreditWeightingTrajectoryChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/cgpa-calculator";
-const TITLE = "CGPA Calculator | Cumulative GPA & Percentage Converter (10.0 & 4.0 Scales)";
+const TITLE = "CGPA Calculator";
 const DESCRIPTION =
-  "Calculate cumulative grade point average (CGPA), semester SGPA weighting, credit bank conversions, and CBSE / AICTE percentage equivalents across 10.0 and 4.0 scales.";
+  "Calculate cumulative grade point average (CGPA), semester SGPA weighting, credit bank conversions, and CBSE / AICTE percentage equivalents across 10.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -72,7 +72,7 @@ export default function CgpaCalculatorPage() {
           <CgpaCreditWeightingTrajectoryChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In universities across Europe, Asia, and North America, Cumulative Grade Point Average serves as the universal currency for degree classification, scholarship renewals, and graduate admissions. While semester evaluations—termed Semester Grade Point Average (SGPA) or Term GPA—capture transient academic performance, the cumulative CGPA metric captures sustained scholastic trajectory across an entire collegiate tenure. Because credit weights vary across semesters, calculating CGPA requires credit-weighted integration, mirroring the mathematical logic found in a <Link href="/calculators/math/weighted-average-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
+            In universities across Europe, Asia, and North America, Cumulative Grade Point Average serves as the universal currency for degree classification, scholarship renewals, and graduate admissions. While semester evaluations—termed Semester Grade Point Average (SGPA) or Term GPA—capture transient academic performance, the cumulative CGPA metric captures sustained scholastic trajectory across an entire collegiate tenure. Because credit weights vary across semesters, calculating CGPA requires credit-weighted integration, mirroring the mathematical logic found in a <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">weighted average calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

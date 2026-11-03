@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/lcm-calculator";
-const TITLE = "LCM Calculator | Least Common Multiple & Prime Factorization | CalcDigi";
+const TITLE = "LCM Calculator";
 const DESCRIPTION =
   "Free online LCM calculator. Find the least common multiple of two or more numbers using prime factors, GCF duality, and the listing method step-by-step.";
 

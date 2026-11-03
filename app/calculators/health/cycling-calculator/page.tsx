@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CyclingPowerSpeedCurveChart } from "@/components/flagship/health/editorial-charts/CyclingPowerSpeedCurveChart";
 
 const PATH = "/calculators/health/cycling-calculator";
-const TITLE = "Cycling Power & Speed Calculator – Aerodynamics & Watts/kg Precision | CalcDigi";
+const TITLE = "Cycling Power & Speed Calculator";
 const DESCRIPTION =
-  "Free cycling calculator: compute mechanical power in Watts, power-to-weight ratio (W/kg), and calories burned based on speed, rider weight, road gradient, and aerodynamic drag.";
+  "Free cycling calculator: compute mechanical power in Watts, power-to-weight ratio (W/kg), and calories burned based on speed, rider weight, road gradient.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

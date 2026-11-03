@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ApyCompoundingFrequencyImpactChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/apy-calculator";
-const TITLE = "APY Calculator – Annual Percentage Yield vs. Interest Rate | CalcDigi";
+const TITLE = "APY Calculator";
 const DESCRIPTION =
-  "Free APY calculator: convert nominal interest rate (APR) to effective Annual Percentage Yield (APY) across daily, monthly, and quarterly compounding frequencies. Audit true deposit yields under federal Truth in Savings guidelines.";
+  "Free APY calculator: convert nominal interest rate (APR) to effective Annual Percentage Yield (APY) across daily, monthly, and quarterly compounding.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

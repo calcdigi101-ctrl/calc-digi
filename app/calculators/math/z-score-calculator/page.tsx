@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/z-score-calculator";
-const TITLE = "Z-Score Calculator (Standard Score & P-Value) | CalcDigi";
+const TITLE = "Z-Score Calculator (Standard Score & P-Value)";
 const DESCRIPTION =
   "Free online z-score calculator. Calculate standard score (z), p-value, percentile rank, and probability for single values or sample means step-by-step.";
 

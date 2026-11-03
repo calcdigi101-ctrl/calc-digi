@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { IdealGasIsothermPVChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/ideal-gas-law-calculator";
-const TITLE = "Ideal Gas Law Calculator | PV=nRT Pressure, Volume & Molar Solver";
+const TITLE = "Ideal Gas Law Calculator";
 const DESCRIPTION =
-  "Solve for pressure, volume, moles, or temperature using the Ideal Gas Law equation PV=nRT with gas density, molar volume, and van der Waals real gas corrections.";
+  "Solve for pressure, volume, moles, or temperature using the Ideal Gas Law equation PV=nRT with gas density, molar volume, and van der Waals real gas.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PushupFitnessStandardsChart } from "@/components/flagship/health/editorial-charts/PushupFitnessStandardsChart";
 
 const PATH = "/calculators/health/pushup-test-calculator";
-const TITLE = "Pushup Test Calculator – ACSM Fitness Standards & Harvard Longevity | CalcDigi";
+const TITLE = "Pushup Test Calculator";
 const DESCRIPTION =
-  "Free pushup test calculator: evaluate your upper body muscular endurance against ACSM age/sex norms and the Harvard Medical School cardiovascular longevity threshold.";
+  "Free pushup test calculator: evaluate your upper body muscular endurance against ACSM age/sex norms and the Harvard Medical School cardiovascular longevity.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

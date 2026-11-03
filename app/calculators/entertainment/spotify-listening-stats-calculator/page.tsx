@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { StreamingCellularDataBitrateChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/spotify-listening-stats-calculator";
-const TITLE = "Spotify Listening Stats & Data Calculator — Hours, Songs & Cellular GB | CalcDigi";
+const TITLE = "Spotify Listening Stats & Data Calculator";
 const DESCRIPTION =
-  "Calculate your annual music streaming statistics, total tracks streamed, audio bitrate data usage (MB/hr & GB/mo), and estimated artist royalty contributions across Spotify, Apple Music, and Amazon Music.";
+  "Calculate your annual music streaming statistics, total tracks streamed, audio bitrate data usage (MB/hr & GB/mo), and estimated artist royalty contributions.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/entertainment/podcast-length-calculator", icon: "🎙️", name: "Podcast Listening Time Calculator" },
   { href: "/calculators/entertainment/streaming-cost-calculator", icon: "📺", name: "Streaming Subscription Cost Calculator" },
   { href: "/calculators/entertainment/video-game-hours-calculator", icon: "🎮", name: "Video Game Backlog & Value" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Audio Bitrate & Bandwidth Speed" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Audio Bitrate & Bandwidth Speed" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Cellular Data Quota Percentage" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Music Subscription Multi-Year Cost" },
 ];
@@ -113,7 +113,7 @@ export default function SpotifyListeningStatsPage() {
             Music streaming services (Spotify, Apple Music, YouTube Music, Amazon Music, Tidal) have fundamentally transformed global music consumption. With catalogs exceeding 100 million tracks available instantly at the tap of a screen, listeners stream music seamlessly during commutes, gym workouts, study sessions, and social gatherings.
           </p>
           <p>
-            However, continuous high-bitrate audio streaming over mobile cellular networks can rapidly consume monthly cellular data allowances. Understanding the relationship between audio encoding bitrates (kbps), bandwidth consumption (MB/hour), and stream counts empowers listeners to optimize sound quality without incurring carrier overage fees. To calculate data transfer speeds, use our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate annual reading vs listening hours using our <a href="/calculators/entertainment/book-reading-time-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">book reading time calculator</a>, and forecast multi-year streaming subscription compounding with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            However, continuous high-bitrate audio streaming over mobile cellular networks can rapidly consume monthly cellular data allowances. Understanding the relationship between audio encoding bitrates (kbps), bandwidth consumption (MB/hour), and stream counts empowers listeners to optimize sound quality without incurring carrier overage fees. To calculate data transfer speeds, use our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate annual reading vs listening hours using our <a href="/calculators/entertainment/book-reading-time-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">book reading time calculator</a>, and forecast multi-year streaming subscription compounding with our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
           </p>
 
           <Formula>

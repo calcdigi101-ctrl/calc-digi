@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MassWeightPlanetaryGravitationalChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/weight-converter";
-const TITLE = "Weight & Mass Converter | Kilograms, Pounds, Ounces & Metric Tons";
+const TITLE = "Weight & Mass Converter";
 const DESCRIPTION =
   "Convert kilograms, pounds, ounces, grams, stones, and metric tons with precise SI Planck-constant definitions and gravitational weight force modeling.";
 
@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
   { href: "/calculators/measurements/volume-converter", icon: "🧪", name: "Volume Converter" },
   { href: "/calculators/physics/force-calculator", icon: "💥", name: "Force Calculator" },
-  { href: "/calculators/physics/density-calculator", icon: "🧱", name: "Density Calculator" },
+  { href: "/calculators/science/density-calculator", icon: "🧱", name: "Density Calculator" },
   { href: "/calculators/measurements/pressure-converter", icon: "⏱️", name: "Pressure Converter" },
   { href: "/pages/measurements", icon: "⚖️", name: "Measurements Hub" },
 ];
@@ -63,7 +63,7 @@ export default function WeightConverterPage() {
       article={
         <>
           <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
-            <strong>Quick Metrology Guidance:</strong> Mass represents the invariant quantity of matter, with the kilogram (kg) serving as the SI anchor. For structural load analysis or material packaging, cross-reference our <Link href="/calculators/measurements/volume-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">volume converter</Link> and calculate mass-volume relationships using our <Link href="/calculators/physics/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
+            <strong>Quick Metrology Guidance:</strong> Mass represents the invariant quantity of matter, with the kilogram (kg) serving as the SI anchor. For structural load analysis or material packaging, cross-reference our <Link href="/calculators/measurements/volume-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">volume converter</Link> and calculate mass-volume relationships using our <Link href="/calculators/science/density-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">density calculator</Link>.
           </div>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

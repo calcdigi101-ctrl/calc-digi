@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HydrationElectrolyteCurveChart } from "@/components/flagship/health/editorial-charts";
 
 const PATH = "/calculators/health/water-intake-calculator";
-const TITLE = "Water Intake Calculator – Daily Hydration by Weight & Workout | CalcDigi";
+const TITLE = "Water Intake Calculator";
 const DESCRIPTION =
-  "Free water intake calculator: determine your optimal daily hydration in liters and ounces based on body weight, workout sweat loss, ambient climate, and maternal state.";
+  "Free water intake calculator: determine your optimal daily hydration in liters and ounces based on body weight, workout sweat loss, ambient climate.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

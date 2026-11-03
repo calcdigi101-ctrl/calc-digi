@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WindChillEquivalentTemperatureFrostbiteChart } from "@/components/flagship/weather/editorial-charts";
 
 const PATH = "/calculators/weather/wind-chill-calculator";
-const TITLE = "Wind Chill Calculator | NOAA JAG/TI Cold Stress & Frostbite Risk";
+const TITLE = "Wind Chill Calculator";
 const DESCRIPTION =
   "Calculate the official NOAA Wind Chill Index, equivalent feels-like temperature, convective skin cooling rate in W/m², and exposed skin frostbite times.";
 

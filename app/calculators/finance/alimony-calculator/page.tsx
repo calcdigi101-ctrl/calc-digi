@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlimonyDurationBenchmarkChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/alimony-calculator";
-const TITLE = "Alimony Calculator — Spousal Support Formula, Duration & TCJA Tax Rules | CalcDigi";
+const TITLE = "Alimony Calculator";
 const DESCRIPTION =
-  "Free alimony calculator: calculate spousal support maintenance awards, statutory duration benchmarks, income differential caps, and post-2019 TCJA federal tax rules.";
+  "Free alimony calculator: calculate spousal support maintenance awards, statutory duration benchmarks, income differential caps, and post-2019 TCJA federal.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EmpiricalCompositionHydrocarbonChart } from "@/components/flagship/science/editorial-charts";
 
 const PATH = "/calculators/science/empirical-formula-calculator";
-const TITLE = "Empirical Formula Calculator | Molecular Formula & Percent Composition Solver";
+const TITLE = "Empirical Formula Calculator";
 const DESCRIPTION =
-  "Determine empirical and molecular formulas from elemental percent mass compositions, combustion analysis data, and experimental molar mass with stoichiometric ratio reduction.";
+  "Determine empirical and molecular formulas from elemental percent mass compositions, combustion analysis data, and experimental molar mass.";
 
 export const metadata: Metadata = {
   title: TITLE,

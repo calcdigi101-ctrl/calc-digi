@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FuelEconomyConsumptionCurvatureChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/fuel-economy-converter";
-const TITLE = "Fuel Economy Converter | MPG, L/100km & km/L Consumption";
+const TITLE = "Fuel Economy Converter";
 const DESCRIPTION =
-  "Convert US miles per gallon (MPG), UK Imperial MPG, Liters per 100 kilometers (L/100km), and kilometers per liter with non-linear fuel consumption curvature modeling.";
+  "Convert US miles per gallon (MPG), UK Imperial MPG, Liters per 100 kilometers (L/100km), and kilometers per liter with non-linear fuel consumption curvature.";
 
 export const metadata: Metadata = {
   title: TITLE,

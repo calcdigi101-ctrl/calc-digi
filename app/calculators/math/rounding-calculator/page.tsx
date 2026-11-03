@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FractionRatioVisualizerChart } from "@/components/flagship/math/editorial-charts/FractionRatioVisualizerChart";
 
 const PATH = "/calculators/math/rounding-calculator";
-const TITLE = "Rounding Calculator | Round to Nearest Decimal, Fraction & Sig Fig | CalcDigi";
+const TITLE = "Rounding Calculator";
 const DESCRIPTION =
-  "Free online rounding calculator. Round numbers to nearest whole, decimal place, tenths, hundredths, or significant figures using standard arithmetic, bankers' rounding, floor, and ceiling.";
+  "Free online rounding calculator. Round numbers to nearest whole, decimal place, tenths, hundredths, or significant figures using standard arithmetic.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

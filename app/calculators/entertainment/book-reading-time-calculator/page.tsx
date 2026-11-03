@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BookReadingPacingTimelineChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/book-reading-time-calculator";
-const TITLE = "Book Reading Time Calculator — Reading Speed (WPM) & Finish Date | CalcDigi";
+const TITLE = "Book Reading Time Calculator";
 const DESCRIPTION =
-  "Calculate how long it takes to read any book based on page count, words per page, reading speed (words per minute WPM), and daily reading minutes. Features audiobook speed comparison, pacing milestones, and study schedule planning.";
+  "Calculate how long it takes to read any book based on page count, words per page, reading speed (words per minute WPM), and daily reading minutes.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/entertainment/video-game-hours-calculator", icon: "🎮", name: "Video Game Backlog Hours" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Reading Goal Completion Percentage" },
   { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Pacing & Page Ratio Calculator" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Reading Velocity & Speed Calculator" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Reading Velocity & Speed Calculator" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Habit Stacking & Compound Learning" },
 ];
 
@@ -113,7 +113,7 @@ export default function BookReadingTimePage() {
             Whether tackling a landmark literary classic, preparing for university exams, or working through your Goodreads annual reading challenge, knowing how long a book takes to read transforms an intimidating tome into manageable daily sessions. Many people abandon books not because of lack of interest, but because of poor time estimation. When readers visualize exactly how a modest daily reading commitment of 20 to 30 minutes steadily consumes hundreds of pages, finishing books becomes a predictable, rewarding habit.
           </p>
           <p>
-            Reading speed is measured in <strong>words per minute (WPM)</strong>. While elementary students typically read aloud at 100 to 140 WPM, silent adult readers naturally internalize text between 200 and 300 WPM. To evaluate your reading speed progression as a proportional ratio, consult our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, compare reading velocity with our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, or calculate leisure hours alongside video games using our <a href="/calculators/entertainment/video-game-hours-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">video game hours calculator</a>.
+            Reading speed is measured in <strong>words per minute (WPM)</strong>. While elementary students typically read aloud at 100 to 140 WPM, silent adult readers naturally internalize text between 200 and 300 WPM. To evaluate your reading speed progression as a proportional ratio, consult our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, compare reading velocity with our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, or calculate leisure hours alongside video games using our <a href="/calculators/entertainment/video-game-hours-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">video game hours calculator</a>.
           </p>
 
           <Formula>

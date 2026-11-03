@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GeometryShapeVisualizerChart } from "@/components/flagship/math/editorial-charts/GeometryShapeVisualizerChart";
 
 const PATH = "/calculators/math/triangle-calculator";
-const TITLE = "Triangle Calculator | Solve SSS, SAS, ASA & Right Triangles | CalcDigi";
+const TITLE = "Triangle Calculator";
 const DESCRIPTION =
-  "Free online triangle calculator. Solve for unknown sides, angles, area, perimeter, inradius, and circumradius across SSS, SAS, ASA, and AAS configurations step-by-step.";
+  "Free online triangle calculator. Solve for unknown sides, angles, area, perimeter, inradius, and circumradius across SSS, SAS, ASA, and AAS configurations.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

@@ -428,8 +428,10 @@ export function MortgageCalculator() {
           Loan Parameters
         </span>
         <div className="flex items-center gap-1.5">
-          <span className="text-xs text-slate-500">Currency:</span>
+          <label htmlFor="mortgage-currency-select" className="text-xs text-slate-500">Currency:</label>
           <select
+            id="mortgage-currency-select"
+            aria-label="Currency"
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
             className="rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100"

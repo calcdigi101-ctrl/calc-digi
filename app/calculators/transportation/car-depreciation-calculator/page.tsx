@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VehicleDepreciationTenYearDecayChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/car-depreciation-calculator";
-const TITLE = "Car Depreciation Calculator | 10-Year Residual Value & Equity Decay";
+const TITLE = "Car Depreciation Calculator";
 const DESCRIPTION =
   "Calculate automotive depreciation rates, 10-year residual market values, equity loss schedules, and ownership holding costs across vehicle classes.";
 

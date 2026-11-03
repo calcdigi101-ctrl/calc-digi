@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AlgebraFunctionVisualizerChart } from "@/components/flagship/math/editorial-charts/AlgebraFunctionVisualizerChart";
 
 const PATH = "/calculators/math/number-sequence-calculator";
-const TITLE = "Number Sequence Calculator | Arithmetic, Geometric & Fibonacci Series | CalcDigi";
+const TITLE = "Number Sequence Calculator";
 const DESCRIPTION =
-  "Free online number sequence calculator. Find the nth term, common difference, common ratio, and partial sum for arithmetic, geometric, and Fibonacci sequences step-by-step.";
+  "Free online number sequence calculator. Find the nth term, common difference, common ratio, and partial sum for arithmetic, geometric, and Fibonacci.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

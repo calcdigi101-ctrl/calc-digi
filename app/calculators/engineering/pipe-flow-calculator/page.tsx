@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PipeFlowHeadLossCurveChart } from "@/components/flagship/engineering/editorial-charts";
 
 const PATH = "/calculators/engineering/pipe-flow-calculator";
-const TITLE = "Pipe Flow Calculator — Velocity, Discharge & Darcy-Weisbach Head Loss | CalcDigi";
+const TITLE = "Pipe Flow Calculator";
 const DESCRIPTION =
-  "Calculate pipe internal fluid velocity, volumetric flow rate (L/s, m³/h, GPM), Darcy-Weisbach friction factor, pressure drop (kPa/psi), and hydraulic head loss across carbon steel, copper, PVC, and ductile iron pipelines.";
+  "Calculate pipe internal fluid velocity, volumetric flow rate (L/s, m³/h, GPM), Darcy-Weisbach friction factor, pressure drop (kPa/psi), and hydraulic head.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,7 +25,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/engineering/reynolds-number-calculator", icon: "🌀", name: "Reynolds Number Flow Regime" },
   { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & TDH Head Calculator" },
   { href: "/calculators/engineering/hvac-load-calculator", icon: "❄️", name: "HVAC Load & Chilled Water Sizing" },
-  { href: "/calculators/physics/speed-calculator", icon: "🚀", name: "Fluid Speed & Velocity Calculator" },
+  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Fluid Speed & Velocity Calculator" },
   { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Force & Pressure Calculator" },
   { href: "/calculators/geography/elevation-grade-calculator", icon: "⛰️", name: "Elevation Grade & Slope Calculator" },
 ];
@@ -113,7 +113,7 @@ export default function PipeFlowPage() {
             Fluid transport through closed conduits is foundational across municipal water distribution, petrochemical plants, district cooling networks, and building plumbing systems. As viscous fluid travels through a pipe, shear stresses between fluid layers and friction against inner pipe walls dissipate kinetic energy into heat. This energy dissipation manifests as a continuous drop in piezometric head along the pipeline.
           </p>
           <p>
-            Accurate pipeline sizing balances initial capital expenditure against lifecycle operating energy. Installing undersized pipe saves on material costs, but because head loss escalates with the square of velocity (and inversely with diameter to the fifth power), operational pumping electricity rises dramatically. You can verify fluid velocity conversions with our <a href="/calculators/physics/speed-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate pipeline elevation head using our <a href="/calculators/geography/elevation-grade-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">elevation grade calculator</a>, and calculate line thrust forces with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>.
+            Accurate pipeline sizing balances initial capital expenditure against lifecycle operating energy. Installing undersized pipe saves on material costs, but because head loss escalates with the square of velocity (and inversely with diameter to the fifth power), operational pumping electricity rises dramatically. You can verify fluid velocity conversions with our <a href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">speed calculator</a>, calculate pipeline elevation head using our <a href="/calculators/geography/elevation-grade-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">elevation grade calculator</a>, and calculate line thrust forces with our <a href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</a>.
           </p>
 
           <Formula>

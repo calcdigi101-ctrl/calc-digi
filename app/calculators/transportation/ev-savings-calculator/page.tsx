@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { EvVsGasAnnualFuelCostComparisonChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/ev-savings-calculator";
-const TITLE = "EV Savings Calculator | Electric vs Gas Fuel & Payback Analysis";
+const TITLE = "EV Savings Calculator";
 const DESCRIPTION =
   "Calculate electric vehicle fuel savings, home charging electricity costs vs gasoline MPG, avoided ICE maintenance, and 5-year break-even payback.";
 

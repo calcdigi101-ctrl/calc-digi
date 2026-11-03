@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SavingsGoalMilestoneTimelineChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/savings-calculator";
-const TITLE = "Savings Calculator – Goal Accumulation & Interest Growth | CalcDigi";
+const TITLE = "Savings Calculator";
 const DESCRIPTION =
-  "Free savings calculator: calculate target savings goals, required monthly contributions, and compound interest growth. Project milestone timelines across high-yield savings accounts (HYSA) and money market funds.";
+  "Free savings calculator: calculate target savings goals, required monthly contributions, and compound interest growth. Project milestone timelines.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

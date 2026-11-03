@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CyclingPowerVelocityResistanceChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/bike-pace-calculator";
-const TITLE = "Bike Pace Calculator | Cycling Speed, Mechanical Watts & Drag";
+const TITLE = "Bike Pace Calculator";
 const DESCRIPTION =
   "Calculate cycling pace, average velocity, mechanical power output in watts, aerodynamic drag resistance, and metabolic calories burned across road grades.";
 

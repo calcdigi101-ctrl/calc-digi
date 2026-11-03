@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { RcChargingExponentialDischargeCurveChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/rc-time-constant-calculator";
-const TITLE = "RC Time Constant Calculator | Tau (τ), Rise Time & Cutoff Frequency";
+const TITLE = "RC Time Constant Calculator";
 const DESCRIPTION =
   "Calculate resistor-capacitor (RC) circuit time constant (τ), exponential charging voltages, 5τ settling time, and low-pass filter cutoff frequency.";
 

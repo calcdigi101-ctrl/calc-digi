@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NumberTheoryFactorVisualizerChart } from "@/components/flagship/math/editorial-charts/NumberTheoryFactorVisualizerChart";
 
 const PATH = "/calculators/math/factor-calculator";
-const TITLE = "Factor Calculator | Find All Factors, Pairs & Prime Factorization | CalcDigi";
+const TITLE = "Factor Calculator";
 const DESCRIPTION =
-  "Free online factor calculator. Find all factors, factor pairs, canonical prime factorization, and divisor sum functions (tau and sigma) for any integer step-by-step.";
+  "Free online factor calculator. Find all factors, factor pairs, canonical prime factorization, and divisor sum functions (tau and sigma) for any integer.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

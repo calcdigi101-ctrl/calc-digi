@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ProfitMarginWaterfallTiersChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/profit-margin-calculator";
-const TITLE = "Profit Margin Calculator | Gross, Operating & Net Margin Analyzer";
+const TITLE = "Profit Margin Calculator";
 const DESCRIPTION =
   "Calculate Gross Margin, Operating Margin (EBIT), and Net Profit Margin percentages with comprehensive cost waterfall analysis and industry benchmark spreads.";
 

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { BurnRateRunwayProjectionChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/burn-rate-calculator";
-const TITLE = "Burn Rate Calculator | Startup Cash Runway & Capital Planning Solver";
+const TITLE = "Burn Rate Calculator";
 const DESCRIPTION =
   "Calculate startup gross burn rate, net monthly cash burn, estimated runway months, and zero-cash dates to guide venture capital fundraising cycles.";
 
