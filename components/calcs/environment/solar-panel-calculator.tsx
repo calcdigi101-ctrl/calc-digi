@@ -105,7 +105,7 @@ export const config: CalcConfig = {
       currentRate *= 1.025;
     }
     const net25YearProfit = cumulativeSavings25 - netSystemCost;
-    const roi25Percent = (net25YearProfit / netSystemCost) * 100;
+    const roi25Percent = netSystemCost > 0 ? (net25YearProfit / netSystemCost) * 100 : 0;
 
     const annualCo2OffsetMT = (annualGenerationKWh * 0.386) / 1000;
     const lifetimeCo2OffsetMT = annualCo2OffsetMT * 25 * 0.94;

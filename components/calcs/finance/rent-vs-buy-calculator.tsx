@@ -24,7 +24,7 @@ export const config: CalcConfig = {
   ],
   compute: (v) => {
     const price = v.price as number;
-    const years = v.years as number;
+    const years = Math.max(1, Math.round(Number(v.years) || 1));
     const down = price * ((v.downPct as number) / 100);
     const loan = price - down;
     const r = (v.rate as number) / 1200;
