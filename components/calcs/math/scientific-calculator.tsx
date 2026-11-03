@@ -1,27 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import {
   Copy,
   Check,
   RotateCcw,
-  Clock,
-  Cpu,
   Trash2,
-  Download
+  Download,
+  Volume2,
+  VolumeX,
+  History,
+  Calculator,
+  ChevronDown,
+  ChevronUp,
+  Sparkles,
+  Layers,
+  ArrowRightLeft
 } from "lucide-react";
-import { evaluate, formatResult, AngleMode, CalcError } from "@/lib/expr";
+import { evaluate, formatResult, AngleMode, CalcError, canAppendDecimal, CONSTANTS } from "@/lib/expr";
+import { CalculationInvoice } from "@/components/flagship/engine/CalculationInvoice";
 import { ResultActions } from "@/components/flagship/ResultActions";
-import { Disclosure } from "@/components/ui/disclosure";
-import { card } from "@/components/flagship/shell";
 import { cn } from "@/lib/cn";
 
-// Continuous fraction converter for Casio S<=>D
+// Continuous fraction converter for exact fraction display (S <=> D)
 function toFraction(val: number, maxDenominator = 10000): string | null {
   if (!Number.isFinite(val)) return null;
   if (Number.isInteger(val)) return `${val}`;
-  
-  const sign = val < 0 ? -1 : 1;
+
+  const sign = val < 0 ? "-" : "";
   const absVal = Math.abs(val);
 
   let h1 = 1, h0 = 0;
@@ -46,63 +52,104 @@ function toFraction(val: number, maxDenominator = 10000): string | null {
     b = 1 / frac;
   }
 
-  if (k1 === 1) return `${sign * h1}`;
-  if (k1 > 1000) return null;
-  return `${sign * h1}/${k1}`;
+  if (k1 === 1) return `${sign}${h1}`;
+  if (k1 > 10000) return null;
+  return `${sign}${h1}/${k1}`;
 }
 
-// 8 Fundamental Scientific Constants
-const CONSTANTS = [
-  { symbol: "π", name: "Pi", val: "π", numeric: Math.PI, desc: "Circumference to diameter ratio" },
+// Engineering notation formatter (exponent multiple of 3)
+function toEngineering(val: number): string {
+  if (!Number.isFinite(val) || val === 0) return "0";
+  const abs = Math.abs(val);
+  const exp = Math.floor(Math.log10(abs));
+  const engExp = Math.floor(exp / 3) * 3;
+  const mantissa = val / Math.pow(10, engExp);
+  const mStr = Number(mantissa.toFixed(6)).toString();
+  return engExp === 0 ? mStr : `${mStr} × 10^${engExp}`;
+}
+
+// 10 Universal Physical & Mathematical Constants
+const CONSTANTS_LIST = [
+  { symbol: "π", name: "Archimedes' Pi", val: "π", numeric: Math.PI, desc: "Ratio of circle circumference to diameter" },
   { symbol: "e", name: "Euler's Number", val: "e", numeric: Math.E, desc: "Base of natural logarithm" },
-  { symbol: "c", name: "Speed of Light", val: "299792458", numeric: 299792458, unit: "m/s", desc: "Speed in vacuum" },
-  { symbol: "h", name: "Planck Constant", val: "6.62607e-34", numeric: 6.62607015e-34, unit: "J·s", desc: "Quantum of action" },
-  { symbol: "g", name: "Standard Gravity", val: "9.80665", numeric: 9.80665, unit: "m/s²", desc: "Earth gravitational acceleration" },
-  { symbol: "NA", name: "Avogadro Number", val: "6.02214e23", numeric: 6.02214076e23, unit: "mol⁻¹", desc: "Particles per mole" },
-  { symbol: "k", name: "Boltzmann Constant", val: "1.38065e-23", numeric: 1.380649e-23, unit: "J/K", desc: "Thermal energy constant" },
-  { symbol: "R", name: "Molar Gas Constant", val: "8.31446", numeric: 8.314462618, unit: "J/(mol·K)", desc: "Universal gas constant" },
+  { symbol: "φ", name: "Golden Ratio", val: "φ", numeric: (1 + Math.sqrt(5)) / 2, desc: "Divine proportion (1.6180339...)" },
+  { symbol: "c", name: "Speed of Light", val: "c", numeric: 299792458, unit: "m/s", desc: "Speed of light in vacuum" },
+  { symbol: "h", name: "Planck Constant", val: "h", numeric: 6.62607015e-34, unit: "J·s", desc: "Quantum of action" },
+  { symbol: "g", name: "Standard Gravity", val: "g", numeric: 9.80665, unit: "m/s²", desc: "Standard gravitational acceleration on Earth" },
+  { symbol: "NA", name: "Avogadro Number", val: "NA", numeric: 6.02214076e23, unit: "mol⁻¹", desc: "Particles per mole of substance" },
+  { symbol: "R", name: "Molar Gas Constant", val: "R", numeric: 8.314462618, unit: "J/(mol·K)", desc: "Universal thermodynamic gas constant" },
+  { symbol: "G", name: "Gravitational Constant", val: "G", numeric: 6.6743e-11, unit: "N·m²/kg²", desc: "Newtonian constant of gravitation" },
+  { symbol: "kB", name: "Boltzmann Constant", val: "kB", numeric: 1.380649e-23, unit: "J/K", desc: "Kinetic energy to temperature scale" },
 ];
 
+type CategoryTab = "main" | "trig" | "advanced" | "constants";
+
 export default function ScientificCalculator() {
-  // Calculator States
+  // Calculator Expression & Display States
   const [expr, setExpr] = useState("");
   const [display, setDisplay] = useState("0");
   const [evaluatedVal, setEvaluatedVal] = useState<number | null>(0);
   const [angleMode, setAngleMode] = useState<AngleMode>("deg");
-  const [isShift, setIsShift] = useState(false);
-  const [isAlpha, setIsAlpha] = useState(false);
+  const [is2nd, setIs2nd] = useState(false);
   const [memory, setMemory] = useState<number>(0);
   const [lastAns, setLastAns] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<CategoryTab>("main");
 
-  // Format: 'dec' | 'frac' | 'sci' | 'eng'
+  // Output formatting: dec (Decimal), frac (Fraction), sci (Scientific), eng (Engineering)
   const [displayFormat, setDisplayFormat] = useState<"dec" | "frac" | "sci" | "eng">("dec");
 
   // History Tape
-  const [history, setHistory] = useState<Array<{ expr: string; result: string; val: number; time: string }>>([]);
-  const [historyIdx, setHistoryIdx] = useState<number>(-1);
+  const [history, setHistory] = useState<Array<{ expr: string; result: string; val: number; time: string }>>([
+    { expr: "sin(30°)", result: "0.5", val: 0.5, time: "Example" },
+    { expr: "2^10", result: "1,024", val: 1024, time: "Example" }
+  ]);
 
-  // Key sound toggle
+  // Audio click feedback & Copied feedback
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
+  const finalVal = evaluatedVal ?? (Number(display) || 0);
 
-  // Play subtle keypress click sound
+  // Sound generator
   const playClick = () => {
     if (!soundEnabled || typeof window === "undefined") return;
     try {
-      const ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const ctx = new AudioCtx();
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = "sine";
-      osc.frequency.setValueAtTime(550, ctx.currentTime);
-      gain.gain.setValueAtTime(0.03, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.035);
+      osc.frequency.setValueAtTime(600, ctx.currentTime);
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start();
-      osc.stop(ctx.currentTime + 0.035);
+      osc.stop(ctx.currentTime + 0.04);
     } catch {
       // AudioContext unavailable
     }
   };
+
+  // Real-time live evaluation preview
+  const livePreview = useMemo(() => {
+    if (!expr.trim()) return null;
+    try {
+      let sanitized = expr;
+      const openCount = (sanitized.match(/\(/g) || []).length;
+      const closeCount = (sanitized.match(/\)/g) || []).length;
+      if (openCount > closeCount) {
+        sanitized += ")".repeat(openCount - closeCount);
+      }
+      const val = evaluate(sanitized, { angle: angleMode, ans: lastAns, mem: memory });
+      if (Number.isFinite(val)) {
+        return formatResult(val);
+      }
+      return null;
+    } catch {
+      return null;
+    }
+  }, [expr, angleMode, lastAns, memory]);
 
   // Insert token into expression
   const insertToken = (token: string) => {
@@ -112,13 +159,12 @@ export default function ScientificCalculator() {
       setDisplay(token);
       return;
     }
+    if (token === "." && !canAppendDecimal(expr)) return;
     setExpr((prev) => prev + token);
     setDisplay((prev) => (prev === "0" && !isNaN(Number(token)) ? token : prev + token));
-    setIsShift(false);
-    setIsAlpha(false);
   };
 
-  // Insert function call
+  // Insert function call with open parenthesis
   const insertFunc = (fnName: string) => {
     playClick();
     if (display === "Math ERROR" || display === "Syntax ERROR") {
@@ -128,8 +174,6 @@ export default function ScientificCalculator() {
     }
     setExpr((prev) => `${prev}${fnName}(`);
     setDisplay((prev) => (prev === "0" ? `${fnName}(` : `${prev}${fnName}(`));
-    setIsShift(false);
-    setIsAlpha(false);
   };
 
   // Execute calculation (=)
@@ -154,6 +198,7 @@ export default function ScientificCalculator() {
       const formatted = formatResult(res);
       setEvaluatedVal(res);
       setDisplay(formatted);
+      setDisplayFormat("dec");
       setLastAns(res);
 
       const now = new Date();
@@ -161,19 +206,16 @@ export default function ScientificCalculator() {
 
       setHistory((prev) => [
         { expr: sanitized, result: formatted, val: res, time: timeStr },
-        ...prev.slice(0, 19)
+        ...prev.slice(0, 24)
       ]);
-      setHistoryIdx(-1);
     } catch (err) {
       if (err instanceof CalcError) {
-        setDisplay(err.message === "Cannot divide by 0" || err.message === "Domain error" ? "Math ERROR" : "Syntax ERROR");
+        setDisplay(err.message.includes("Cannot divide") || err.message.includes("Domain") ? "Math ERROR" : "Syntax ERROR");
       } else {
         setDisplay("Syntax ERROR");
       }
       setEvaluatedVal(null);
     }
-    setIsShift(false);
-    setIsAlpha(false);
   };
 
   // All Clear (AC)
@@ -182,27 +224,36 @@ export default function ScientificCalculator() {
     setExpr("");
     setDisplay("0");
     setEvaluatedVal(0);
-    setIsShift(false);
-    setIsAlpha(false);
+    setDisplayFormat("dec");
   };
 
-  // Delete single character / token (DEL / Backspace)
+  // Backspace (DEL)
   const handleDelete = () => {
     playClick();
     if (display === "Math ERROR" || display === "Syntax ERROR") {
       handleAllClear();
       return;
     }
-    const funcs = ["asin(", "acos(", "atan(", "sin(", "cos(", "tan(", "log(", "ln(", "cbrt(", "Ans", "10^(", "e^(", "abs("];
+    const funcs = [
+      "asin(", "acos(", "atan(", "acot(", "asec(", "acsc(",
+      "sinh(", "cosh(", "tanh(", "coth(", "sech(", "csch(",
+      "asinh(", "acosh(", "atanh(",
+      "sin(", "cos(", "tan(", "cot(", "sec(", "csc(",
+      "log10(", "log2(", "logb(", "log(", "ln(", "exp(",
+      "sqrt(", "cbrt(", "root(", "sqr(", "cube(", "inv(",
+      "abs(", "floor(", "ceil(", "round(", "sign(", "fact(",
+      "mod(", "gcd(", "lcm(", "nPr(", "nCr(", "randInt(", "rand()",
+      "Ans", "MR"
+    ];
+
     setExpr((prev) => {
       if (!prev) return "";
       for (const fn of funcs) {
-        if (prev.endsWith(fn)) {
-          return prev.slice(0, -fn.length);
-        }
+        if (prev.endsWith(fn)) return prev.slice(0, -fn.length);
       }
       return prev.length > 1 ? prev.slice(0, -1) : "";
     });
+
     setDisplay((prev) => {
       if (!prev || prev === "0") return "0";
       for (const fn of funcs) {
@@ -215,27 +266,13 @@ export default function ScientificCalculator() {
     });
   };
 
-  // Shift toggle
-  const toggleShift = () => {
-    playClick();
-    setIsShift((prev) => !prev);
-    setIsAlpha(false);
-  };
-
-  // Alpha toggle
-  const toggleAlpha = () => {
-    playClick();
-    setIsAlpha((prev) => !prev);
-    setIsShift(false);
-  };
-
-  // Angle mode toggle (DEG / RAD)
+  // Toggle angle mode: DEG -> RAD -> GRAD -> DEG
   const cycleAngleMode = () => {
     playClick();
-    setAngleMode((prev) => (prev === "deg" ? "rad" : "deg"));
+    setAngleMode((prev) => (prev === "deg" ? "rad" : prev === "rad" ? "grad" : "deg"));
   };
 
-  // S<=>D key (Standard fraction ⇔ Decimal toggle)
+  // S<=>D Toggle (Fraction <=> Decimal)
   const toggleStandardDecimal = () => {
     playClick();
     if (evaluatedVal === null || !Number.isFinite(evaluatedVal)) return;
@@ -252,62 +289,61 @@ export default function ScientificCalculator() {
     } else if (displayFormat === "frac") {
       setDisplayFormat("sci");
       setDisplay(evaluatedVal.toExponential(6));
+    } else if (displayFormat === "sci") {
+      setDisplayFormat("eng");
+      setDisplay(toEngineering(evaluatedVal));
     } else {
       setDisplayFormat("dec");
       setDisplay(formatResult(evaluatedVal));
     }
   };
 
-  // Memory operations
-  const handleMemoryAdd = () => {
+  // Memory functions
+  const handleMemory = (action: "add" | "sub" | "recall" | "clear" | "store") => {
     playClick();
-    const cur = evaluatedVal ?? (parseFloat(display) || 0);
-    setMemory((prev) => prev + cur);
+    const val = evaluatedVal ?? (Number(display) || 0);
+    if (!Number.isFinite(val) && action !== "clear") return;
+
+    if (action === "clear") {
+      setMemory(0);
+    } else if (action === "recall") {
+      insertToken(String(memory));
+    } else if (action === "add") {
+      setMemory((prev) => prev + val);
+    } else if (action === "sub") {
+      setMemory((prev) => prev - val);
+    } else if (action === "store") {
+      setMemory(val);
+    }
   };
 
-  const handleMemorySub = () => {
-    playClick();
-    const cur = evaluatedVal ?? (parseFloat(display) || 0);
-    setMemory((prev) => prev - cur);
+  // Copy current result to clipboard
+  const handleCopy = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(display);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
-  const handleMemoryRecall = () => {
-    playClick();
-    insertToken(String(memory));
-  };
-
-  // D-Pad History navigation
-  const navigateHistory = (direction: "up" | "down") => {
-    playClick();
+  // Export calculation history as TXT file
+  const handleExportHistory = () => {
     if (history.length === 0) return;
-
-    let nextIdx = historyIdx;
-    if (direction === "up") {
-      nextIdx = historyIdx < history.length - 1 ? historyIdx + 1 : 0;
-    } else {
-      nextIdx = historyIdx > 0 ? historyIdx - 1 : history.length - 1;
-    }
-
-    setHistoryIdx(nextIdx);
-    const item = history[nextIdx];
-    if (item) {
-      setExpr(item.expr);
-      setDisplay(item.result);
-      setEvaluatedVal(item.val);
-    }
+    const content = history
+      .map((h, i) => `[${i + 1}] ${h.time} | Expression: ${h.expr} = ${h.result}`)
+      .join("\n");
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `calcdigi_scientific_history_${new Date().toISOString().slice(0, 10)}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
-  // Recall item to calculator
-  const handleRecallHistory = (item: { expr: string; result: string; val: number }) => {
-    playClick();
-    setExpr(item.expr);
-    setDisplay(item.result);
-    setEvaluatedVal(item.val);
-  };
-
-  // Physical keyboard support
+  // Keyboard support listener
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: globalThis.KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
       if (e.key >= "0" && e.key <= "9") {
@@ -334,6 +370,10 @@ export default function ScientificCalculator() {
         insertToken(e.key);
       } else if (e.key === "^") {
         insertToken("^");
+      } else if (e.key === "%") {
+        insertToken("%");
+      } else if (e.key === "!") {
+        insertToken("!");
       }
     };
 
@@ -342,744 +382,952 @@ export default function ScientificCalculator() {
   }, [display, expr, lastAns, memory, angleMode]);
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start">
-      {/* ======================================================== */}
-      {/* LEFT COLUMN: Authentic CalcDigi. fx-82EX Hardware Chassis */}
-      {/* ======================================================== */}
-      <div className="lg:col-span-7">
-        <div className="rounded-[32px] border-2 border-slate-700/80 dark:border-slate-800 bg-gradient-to-b from-[#222831] via-[#181d24] to-[#111419] p-4 sm:p-6 shadow-2xl relative select-none">
-          
-          {/* Top Brand & Model Header (CalcDigi. fx-82EX) */}
-          <div className="flex items-center justify-between mb-3 px-1">
-            {/* Top Left: CalcDigi. */}
-            <div className="flex items-baseline gap-1">
-              <span className="font-serif font-black tracking-tight text-white text-lg sm:text-xl">
-                Calc<span className="text-emerald-400">Digi</span>
-              </span>
-              <span className="inline-block size-2 rounded-full bg-emerald-500 mb-0.5 animate-pulse"></span>
-            </div>
-
-            {/* Top Right: fx-82EX */}
-            <div className="text-right">
-              <span className="font-mono font-bold text-slate-300 text-sm sm:text-base tracking-wider">
-                fx-82EX
-              </span>
-            </div>
-          </div>
-
-          {/* ==================================================== */}
-          {/* Authentic High-Resolution Dot-Matrix Screen (192x63) */}
-          {/* ==================================================== */}
-          <div className="mb-2 rounded-2xl bg-[#a0b29f] dark:bg-[#1a2c22] border-4 border-[#6c7d6b] dark:border-[#102018] p-3 sm:p-4 text-slate-900 dark:text-emerald-300 shadow-inner font-mono relative">
-            {/* Screen Header Indicators */}
-            <div className="flex items-center justify-between text-[10px] font-bold tracking-tight pb-1 mb-1 border-b border-black/10 dark:border-emerald-500/20 text-slate-800 dark:text-emerald-400/80">
+    <>
+      <div className="fx-web-tool mt-6 grid gap-6 lg:grid-cols-12 lg:items-start select-none">
+        
+        {/* ======================================================== */}
+        {/* LEFT COLUMN: Modern Sleek Scientific Calculator Unit     */}
+        {/* ======================================================== */}
+        <div className="lg:col-span-7">
+          <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 sm:p-6 shadow-xl relative">
+            
+            {/* Top Branding & Quick Audio Bar */}
+            <div className="flex items-center justify-between mb-3 px-1">
               <div className="flex items-center gap-2">
-                <span className={`px-1 rounded ${isShift ? "bg-amber-500 text-black font-extrabold" : "opacity-25"}`}>
-                  S
+                <span className="font-serif font-black tracking-tight text-slate-900 dark:text-white text-lg">
+                  Calc<span className="text-emerald-600 dark:text-emerald-400">Digi</span>
                 </span>
-                <span className={`px-1 rounded ${isAlpha ? "bg-pink-500 text-white font-extrabold" : "opacity-25"}`}>
-                  A
+                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                  Scientific Pro
                 </span>
-                <span className={`px-1 rounded ${memory !== 0 ? "bg-emerald-800 text-white font-extrabold dark:bg-emerald-400 dark:text-black" : "opacity-25"}`}>
-                  M
-                </span>
-                <span className="opacity-35">STO</span>
               </div>
 
-              {/* Angle Mode Badge (Clickable) */}
-              <button
-                type="button"
-                onClick={cycleAngleMode}
-                className="px-1.5 py-0.5 rounded bg-black/15 dark:bg-emerald-950/80 font-bold hover:bg-black/25 transition-colors cursor-pointer"
-                title="Toggle Degree / Radian"
-              >
-                {angleMode.toUpperCase()}
-              </button>
-
-              <div className="flex items-center gap-1.5">
-                <span className="opacity-80 font-bold">Math▲▼</span>
-                <span className="opacity-35">Norm1</span>
-              </div>
-            </div>
-
-            {/* Line 1: Expression with Cursor */}
-            <div className="min-h-[28px] text-sm sm:text-base font-semibold text-slate-900 dark:text-emerald-200 tracking-wider truncate flex items-center justify-start overflow-x-auto no-scrollbar">
-              <span>{expr || "\u00A0"}</span>
-              <span className="inline-block w-1.5 h-4 ml-0.5 bg-slate-800 dark:bg-emerald-300 animate-pulse"></span>
-            </div>
-
-            {/* Line 2: Large Right-Aligned Result */}
-            <div className="text-right text-3xl sm:text-4xl font-black text-slate-950 dark:text-emerald-300 tracking-tight overflow-x-auto no-scrollbar py-0.5">
-              {display}
-            </div>
-          </div>
-
-          {/* Under-screen CLASSWIZ subtitle in pink matching photo */}
-          <div className="text-center mb-3">
-            <span className="font-sans font-extrabold tracking-widest text-[11px] text-pink-500 uppercase">
-              CLASSWIZ
-            </span>
-          </div>
-
-          {/* ==================================================== */}
-          {/* Top Control Bar: Round Metallic Buttons & D-PAD      */}
-          {/* ==================================================== */}
-          <div className="grid grid-cols-12 gap-1.5 sm:gap-2 items-center mb-3">
-            {/* SHIFT (Round Button with Golden Text) */}
-            <div className="col-span-2 flex flex-col items-center">
-              <span className="text-[8px] font-black text-amber-400 mb-0.5">SHIFT</span>
-              <button
-                type="button"
-                onClick={toggleShift}
-                className={`size-9 sm:size-10 rounded-full text-xs font-bold transition-all shadow-md active:scale-90 cursor-pointer flex items-center justify-center border ${
-                  isShift
-                    ? "bg-amber-400 text-slate-950 border-amber-300 ring-2 ring-amber-300"
-                    : "bg-[#2d3540] hover:bg-[#394352] text-amber-300 border-slate-600/50"
-                }`}
-              >
-                S
-              </button>
-            </div>
-
-            {/* ALPHA (Round Button with Pink Text) */}
-            <div className="col-span-2 flex flex-col items-center">
-              <span className="text-[8px] font-black text-pink-400 mb-0.5">ALPHA</span>
-              <button
-                type="button"
-                onClick={toggleAlpha}
-                className={`size-9 sm:size-10 rounded-full text-xs font-bold transition-all shadow-md active:scale-90 cursor-pointer flex items-center justify-center border ${
-                  isAlpha
-                    ? "bg-pink-500 text-white border-pink-400 ring-2 ring-pink-400"
-                    : "bg-[#2d3540] hover:bg-[#394352] text-pink-300 border-slate-600/50"
-                }`}
-              >
-                A
-              </button>
-            </div>
-
-            {/* Sculpted 4-Way D-Pad Wheel (fx-82EX cross-style wheel) */}
-            <div className="col-span-4 flex justify-center">
-              <div className="size-16 sm:size-18 rounded-full bg-gradient-to-tr from-[#161a20] to-[#2b333e] border-2 border-slate-600/80 p-0.5 flex flex-col items-center justify-between shadow-xl relative">
+              <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => navigateHistory("up")}
-                  className="w-8 h-4 flex items-center justify-center text-slate-300 hover:text-white text-[10px] active:scale-90"
-                  title="Previous calculation"
+                  onClick={() => setSoundEnabled((v) => !v)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  title={soundEnabled ? "Mute Keypad Sound" : "Enable Keypad Sound"}
                 >
-                  ▲
+                  {soundEnabled ? <Volume2 className="w-4 h-4 text-emerald-600" /> : <VolumeX className="w-4 h-4" />}
                 </button>
-                <div className="w-full flex items-center justify-between px-1">
+              </div>
+            </div>
+
+            {/* ==================================================== */}
+            {/* High-Resolution Modern OLED Display Unit            */}
+            {/* ==================================================== */}
+            <div className="mb-4 rounded-2xl bg-slate-950 p-4 text-white border border-slate-800/90 shadow-inner font-mono relative">
+              {/* Display Status Row */}
+              <div className="flex items-center justify-between text-[11px] font-bold tracking-tight pb-2 mb-2 border-b border-slate-800 text-slate-400">
+                <div className="flex items-center gap-1.5">
+                  {/* Angle Mode Badge (Clickable) */}
+                  <button
+                    type="button"
+                    onClick={cycleAngleMode}
+                    className="px-2 py-0.5 rounded-md font-bold bg-slate-800 text-emerald-400 hover:bg-slate-700 transition-colors cursor-pointer border border-slate-700"
+                    title="Click to toggle DEG / RAD / GRAD"
+                  >
+                    {angleMode.toUpperCase()}
+                  </button>
+
+                  {/* 2nd Active Badge */}
+                  <span
+                    className={cn(
+                      "px-1.5 py-0.5 rounded text-[10px] font-bold transition-all",
+                      is2nd ? "bg-amber-400 text-slate-950 shadow-xs" : "opacity-20 bg-slate-800 text-slate-400"
+                    )}
+                  >
+                    2nd
+                  </span>
+
+                  {/* Memory Active Badge */}
+                  <span
+                    className={cn(
+                      "px-1.5 py-0.5 rounded text-[10px] font-bold transition-all",
+                      memory !== 0 ? "bg-emerald-500 text-slate-950 shadow-xs" : "opacity-20 bg-slate-800 text-slate-400"
+                    )}
+                    title={`Stored Memory: ${memory}`}
+                  >
+                    M
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-wider text-slate-500">
+                    {displayFormat.toUpperCase()}
+                  </span>
+                  {livePreview && livePreview !== display && (
+                    <span className="text-emerald-400/80 text-[11px] font-sans">
+                      ≈ {livePreview}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Line 1: Expression Line with Smooth Scroll & Cursor */}
+              <div className="min-h-[26px] text-sm text-slate-300 font-mono tracking-wide truncate flex items-center justify-start overflow-x-auto no-scrollbar">
+                <span>{expr || "\u00A0"}</span>
+                <span className="inline-block w-1.5 h-4 ml-0.5 bg-emerald-400 animate-pulse"></span>
+              </div>
+
+              {/* Line 2: Large Right-Aligned Result Line */}
+              <div className="text-right text-3xl sm:text-5xl font-black text-white tracking-tight overflow-x-auto no-scrollbar py-1">
+                {display}
+              </div>
+            </div>
+
+            {/* ==================================================== */}
+            {/* Organized Category Switcher Tabs                    */}
+            {/* ==================================================== */}
+            <div className="grid grid-cols-4 gap-1 p-1 mb-4 rounded-xl bg-slate-100 dark:bg-slate-800/60 text-xs font-semibold">
+              <button
+                type="button"
+                onClick={() => setActiveTab("main")}
+                className={cn(
+                  "py-1.5 rounded-lg transition-all text-center flex items-center justify-center gap-1",
+                  activeTab === "main"
+                    ? "bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-400 shadow-xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                )}
+              >
+                <span>⚡ Main</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("trig")}
+                className={cn(
+                  "py-1.5 rounded-lg transition-all text-center flex items-center justify-center gap-1",
+                  activeTab === "trig"
+                    ? "bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-400 shadow-xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                )}
+              >
+                <span>📐 Trig</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("advanced")}
+                className={cn(
+                  "py-1.5 rounded-lg transition-all text-center flex items-center justify-center gap-1",
+                  activeTab === "advanced"
+                    ? "bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-400 shadow-xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                )}
+              >
+                <span>🔬 Algebra</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("constants")}
+                className={cn(
+                  "py-1.5 rounded-lg transition-all text-center flex items-center justify-center gap-1",
+                  activeTab === "constants"
+                    ? "bg-white dark:bg-slate-900 text-emerald-700 dark:text-emerald-400 shadow-xs font-bold"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                )}
+              >
+                <span>⚛️ Const</span>
+              </button>
+            </div>
+
+            {/* ==================================================== */}
+            {/* TAB CONTENT 1: MAIN SCIENTIFIC KEYPAD                */}
+            {/* ==================================================== */}
+            {activeTab === "main" && (
+              <div className="space-y-2">
+                {/* Scientific Function Row 1 */}
+                <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setIs2nd((v) => !v)}
+                    className={cn(
+                      "h-11 rounded-xl text-xs font-extrabold transition-all border",
+                      is2nd
+                        ? "bg-amber-400 text-slate-950 border-amber-300 ring-2 ring-amber-300 shadow-xs"
+                        : "bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-900/60 hover:bg-amber-100"
+                    )}
+                  >
+                    2nd
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc(is2nd ? "asin" : "sin")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "sin⁻¹" : "sin"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc(is2nd ? "acos" : "cos")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "cos⁻¹" : "cos"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc(is2nd ? "atan" : "tan")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "tan⁻¹" : "tan"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc(is2nd ? "exp" : "ln")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "eˣ" : "ln"}
+                  </button>
+                </div>
+
+                {/* Scientific Function Row 2 */}
+                <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
+                  <button
+                    type="button"
+                    onClick={() => insertFunc(is2nd ? "log2" : "log")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "log₂" : "log"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => (is2nd ? insertFunc("cbrt") : insertToken("√"))}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "³√x" : "√x"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken(is2nd ? "³" : "²")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "x³" : "x²"}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("^")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    xʸ
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc(is2nd ? "abs" : "inv")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  >
+                    {is2nd ? "|x|" : "1/x"}
+                  </button>
+                </div>
+
+                {/* Primary Numberpad & Operators Grid (5 Columns) */}
+                <div className="grid grid-cols-5 gap-1.5 sm:gap-2 pt-1">
+                  {/* Row 1 */}
                   <button
                     type="button"
                     onClick={() => insertToken("(")}
-                    className="w-4 h-5 flex items-center justify-center text-slate-300 hover:text-white text-[10px] active:scale-90"
-                    title="Cursor left"
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700"
                   >
-                    ◀
+                    (
                   </button>
-                  <div className="size-4 rounded-full bg-[#1b2027] border border-slate-600/50 shadow-inner"></div>
                   <button
                     type="button"
                     onClick={() => insertToken(")")}
-                    className="w-4 h-5 flex items-center justify-center text-slate-300 hover:text-white text-[10px] active:scale-90"
-                    title="Cursor right"
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700"
                   >
-                    ▶
+                    )
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("%")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700"
+                  >
+                    %
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDelete}
+                    className="h-12 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 font-bold text-sm hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/60 dark:border-rose-900/40"
+                    title="Backspace"
+                  >
+                    DEL
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleAllClear}
+                    className="h-12 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-sm shadow-xs"
+                    title="All Clear"
+                  >
+                    AC
+                  </button>
+
+                  {/* Row 2 */}
+                  <button
+                    type="button"
+                    onClick={() => insertToken("7")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    7
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("8")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    8
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("9")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    9
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("÷")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
+                  >
+                    ÷
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("π")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200"
+                  >
+                    π
+                  </button>
+
+                  {/* Row 3 */}
+                  <button
+                    type="button"
+                    onClick={() => insertToken("4")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    4
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("5")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    5
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("6")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    6
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("×")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
+                  >
+                    ×
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("e")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200"
+                  >
+                    e
+                  </button>
+
+                  {/* Row 4 */}
+                  <button
+                    type="button"
+                    onClick={() => insertToken("1")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    1
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("2")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    2
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("3")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    3
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("−")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
+                  >
+                    −
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("!")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200"
+                  >
+                    n!
+                  </button>
+
+                  {/* Row 5 */}
+                  <button
+                    type="button"
+                    onClick={() => insertToken("0")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    0
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken(".")}
+                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
+                  >
+                    .
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("Ans")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                  >
+                    Ans
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertToken("+")}
+                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleEquals}
+                    className="h-12 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-2xl shadow-md transition-all flex items-center justify-center cursor-pointer"
+                  >
+                    =
                   </button>
                 </div>
+              </div>
+            )}
+
+            {/* ==================================================== */}
+            {/* TAB CONTENT 2: COMPLETE TRIGONOMETRY & HYPERBOLIC   */}
+            {/* ==================================================== */}
+            {activeTab === "trig" && (
+              <div className="space-y-3">
+                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
+                  <span>Trigonometric & Hyperbolic Library</span>
+                  <span className="text-emerald-600 font-bold">Mode: {angleMode.toUpperCase()}</span>
+                </div>
+
+                {/* Direct Trig & Reciprocals */}
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {["sin", "cos", "tan", "cot", "sec", "csc"].map((fn) => (
+                    <button
+                      key={fn}
+                      type="button"
+                      onClick={() => insertFunc(fn)}
+                      className="h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200/60 dark:border-emerald-900/50 transition-colors"
+                    >
+                      {fn}(x)
+                    </button>
+                  ))}
+                </div>
+
+                {/* Inverse Trigonometric Functions */}
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {["asin", "acos", "atan", "acot", "asec", "acsc"].map((fn) => (
+                    <button
+                      key={fn}
+                      type="button"
+                      onClick={() => insertFunc(fn)}
+                      className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      {fn.replace("a", "")}⁻¹(x)
+                    </button>
+                  ))}
+                </div>
+
+                {/* Hyperbolic Functions */}
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {["sinh", "cosh", "tanh", "coth", "sech", "csch"].map((fn) => (
+                    <button
+                      key={fn}
+                      type="button"
+                      onClick={() => insertFunc(fn)}
+                      className="h-11 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-800 dark:text-purple-300 font-bold text-xs hover:bg-purple-100 dark:hover:bg-purple-900/60 border border-purple-200/60 dark:border-purple-900/50 transition-colors"
+                    >
+                      {fn}(x)
+                    </button>
+                  ))}
+                </div>
+
+                {/* Inverse Hyperbolic Functions */}
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                  {["asinh", "acosh", "atanh", "acoth", "asech", "acsch"].map((fn) => (
+                    <button
+                      key={fn}
+                      type="button"
+                      onClick={() => insertFunc(fn)}
+                      className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      {fn.replace("a", "")}⁻¹(x)
+                    </button>
+                  ))}
+                </div>
+
+                {/* Quick Angle Switcher Bar */}
+                <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+                  <span>Current Angle System:</span>
+                  <div className="flex items-center gap-1">
+                    {(["deg", "rad", "grad"] as const).map((mode) => (
+                      <button
+                        key={mode}
+                        type="button"
+                        onClick={() => setAngleMode(mode)}
+                        className={cn(
+                          "px-2.5 py-1 rounded-md font-bold uppercase transition-all",
+                          angleMode === mode
+                            ? "bg-emerald-600 text-white shadow-2xs"
+                            : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
+                        )}
+                      >
+                        {mode}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ==================================================== */}
+            {/* TAB CONTENT 3: ALGEBRA, COMBINATORICS & ADVANCED    */}
+            {/* ==================================================== */}
+            {activeTab === "advanced" && (
+              <div className="space-y-3">
+                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                  Combinatorics, Number Theory & Advanced Radicals
+                </div>
+
+                {/* Combinatorics & Probability */}
+                <div className="grid grid-cols-4 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("nPr")}
+                    className="h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 border border-emerald-200/60 dark:border-emerald-900/50"
+                    title="Permutations nPr(n, r)"
+                  >
+                    nPr(n, r)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("nCr")}
+                    className="h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 border border-emerald-200/60 dark:border-emerald-900/50"
+                    title="Combinations nCr(n, r)"
+                  >
+                    nCr(n, r)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("gcd")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                    title="Greatest Common Divisor gcd(a, b)"
+                  >
+                    gcd(a, b)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("lcm")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                    title="Least Common Multiple lcm(a, b)"
+                  >
+                    lcm(a, b)
+                  </button>
+                </div>
+
+                {/* Number Theory & Modulo */}
+                <div className="grid grid-cols-4 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("mod")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                    title="Modulo mod(a, b)"
+                  >
+                    mod(a, b)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("root")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                    title="Arbitrary Root root(x, degree)"
+                  >
+                    ʸ√x (root)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("logb")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                    title="Logarithm with arbitrary base logb(x, base)"
+                  >
+                    logᵦ(x)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("cbrt")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                    title="Cube Root cbrt(x)"
+                  >
+                    ³√x
+                  </button>
+                </div>
+
+                {/* Rounding & Integer Functions */}
+                <div className="grid grid-cols-5 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("abs")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                  >
+                    |x| (abs)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("floor")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                  >
+                    ⌊x⌋ floor
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("ceil")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                  >
+                    ⌈x⌉ ceil
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("round")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                  >
+                    round
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("sign")}
+                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
+                  >
+                    sgn(x)
+                  </button>
+                </div>
+
+                {/* Random Generators */}
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("rand")}
+                    className="h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 font-bold text-xs hover:bg-indigo-100 border border-indigo-200/60 dark:border-indigo-900/50"
+                  >
+                    rand() (0 to 1)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => insertFunc("randInt")}
+                    className="h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 font-bold text-xs hover:bg-indigo-100 border border-indigo-200/60 dark:border-indigo-900/50"
+                  >
+                    randInt(min, max)
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* ==================================================== */}
+            {/* TAB CONTENT 4: UNIVERSAL PHYSICAL & MATH CONSTANTS  */}
+            {/* ==================================================== */}
+            {activeTab === "constants" && (
+              <div className="space-y-2">
+                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                  10 Universal Physical & Mathematical Constants (Click to Insert)
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                  {CONSTANTS_LIST.map((c) => (
+                    <button
+                      key={c.symbol}
+                      type="button"
+                      onClick={() => insertToken(c.symbol)}
+                      className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 transition-all text-left group"
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-serif font-black text-emerald-700 dark:text-emerald-400 text-sm">
+                          {c.symbol}
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-mono">
+                          {c.unit || ""}
+                        </span>
+                      </div>
+                      <div className="font-bold text-[11px] text-slate-800 dark:text-slate-200 truncate">
+                        {c.name}
+                      </div>
+                      <div className="text-[9px] text-slate-500 dark:text-slate-400 font-mono truncate">
+                        {c.numeric.toPrecision(6)}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Quick Memory Bar below Keypad */}
+            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+              <div className="flex items-center gap-1 font-bold">
+                <span className="text-slate-400 text-[10px] uppercase tracking-wider mr-1">Memory:</span>
                 <button
                   type="button"
-                  onClick={() => navigateHistory("down")}
-                  className="w-8 h-4 flex items-center justify-center text-slate-300 hover:text-white text-[10px] active:scale-90"
-                  title="Next calculation"
+                  onClick={() => handleMemory("clear")}
+                  className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-[11px]"
                 >
-                  ▼
+                  MC
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleMemory("recall")}
+                  className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-[11px]"
+                >
+                  MR
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleMemory("add")}
+                  className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-[11px]"
+                >
+                  M+
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleMemory("sub")}
+                  className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-[11px]"
+                >
+                  M−
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleMemory("store")}
+                  className="px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 font-bold text-[11px]"
+                >
+                  MS
+                </button>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowKeyboardHelp((v) => !v)}
+                className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 hover:underline inline-flex items-center gap-1"
+              >
+                <span>Keyboard Guide</span>
+                {showKeyboardHelp ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+              </button>
+            </div>
+
+            {/* Keyboard Guide Drawer */}
+            {showKeyboardHelp && (
+              <div className="mt-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 space-y-1">
+                <div className="font-bold text-slate-800 dark:text-white mb-1">Supported Physical Keyboard Shortcuts:</div>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-[11px]">
+                  <div><kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border text-slate-800 dark:text-slate-200">0 - 9</kbd> : Enter Digits</div>
+                  <div><kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border text-slate-800 dark:text-slate-200">+ - * /</kbd> : Arithmetic</div>
+                  <div><kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border text-slate-800 dark:text-slate-200">Enter / =</kbd> : Calculate Result</div>
+                  <div><kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border text-slate-800 dark:text-slate-200">Backspace</kbd> : Delete Token</div>
+                  <div><kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border text-slate-800 dark:text-slate-200">Escape</kbd> : All Clear (AC)</div>
+                  <div><kbd className="px-1.5 py-0.5 rounded bg-white dark:bg-slate-900 border text-slate-800 dark:text-slate-200">^ , % , !</kbd> : Powers & Factorial</div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ======================================================== */}
+        {/* RIGHT COLUMN: Results Workspace, Notation & History Tape */}
+        {/* ======================================================== */}
+        <div className="lg:col-span-5 space-y-5">
+          
+          {/* Card 1: Primary Evaluated Output & Format Controls */}
+          <div className="rounded-3xl border border-emerald-200/80 dark:border-emerald-900/60 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 p-5 sm:p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+              <span>Primary Output</span>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={handleCopy}
+                  className="p-1.5 rounded-lg text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-800 transition-colors"
+                  title="Copy result"
+                >
+                  {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
             </div>
 
-            {/* MENU / SETUP (Round Button) */}
-            <div className="col-span-2 flex flex-col items-center">
-              <span className="text-[8px] font-black text-amber-400 mb-0.5">SETUP</span>
-              <button
-                type="button"
-                onClick={cycleAngleMode}
-                className="size-9 sm:size-10 rounded-full bg-[#2d3540] hover:bg-[#394352] text-slate-200 border border-slate-600/50 text-[10px] font-bold transition-all shadow-md active:scale-90 cursor-pointer flex items-center justify-center"
-                title="Toggle DEG / RAD mode"
-              >
-                MENU
-              </button>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">
+              Active Calculation
+            </div>
+            <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight break-all font-mono py-1">
+              {display}
             </div>
 
-            {/* ON (Round Button) */}
-            <div className="col-span-2 flex flex-col items-center">
-              <span className="text-[8px] font-black text-slate-400 mb-0.5">&nbsp;</span>
-              <button
-                type="button"
-                onClick={handleAllClear}
-                className="size-9 sm:size-10 rounded-full bg-[#2d3540] hover:bg-[#394352] text-emerald-400 border border-slate-600/50 text-[11px] font-black transition-all shadow-md active:scale-90 cursor-pointer flex items-center justify-center"
-              >
-                ON
-              </button>
-            </div>
-          </div>
-
-          {/* ==================================================== */}
-          {/* Function Keys Grid (6 Columns)                       */}
-          {/* ==================================================== */}
-          <div className="space-y-1.5 mb-3">
-            {/* Row 2: OPTN, x², [gap], Abs, log_■(□) */}
-            <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
-              <button
-                type="button"
-                onClick={() => insertFunc("abs")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">QR</span>
-                <span>OPTN</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => (isShift ? insertToken("^3") : insertToken("²"))}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">x³</span>
-                <span>x²</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => (isShift ? insertFunc("cbrt") : insertFunc("√"))}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">∛</span>
-                <span>{isShift ? "∛" : "√■"}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertToken("^")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">x√</span>
-                <span>x^■</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertFunc("abs")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">∠</span>
-                <span>Abs</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => (isShift ? insertToken("10^(") : insertFunc("log"))}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">10ˣ</span>
-                <span>log</span>
-              </button>
-            </div>
-
-            {/* Row 3: ■/□, √, x², x^■, log, ln */}
-            <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
-              <button
-                type="button"
-                onClick={() => insertToken("÷")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">d/c</span>
-                <span>■/□</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertToken("^(−1)")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">x!</span>
-                <span>x⁻¹</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertFunc(isShift ? "asin" : "sin")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">sin⁻¹</span>
-                <span>{isShift ? "sin⁻¹" : "sin"}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertFunc(isShift ? "acos" : "cos")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">cos⁻¹</span>
-                <span>{isShift ? "cos⁻¹" : "cos"}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertFunc(isShift ? "atan" : "tan")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">tan⁻¹</span>
-                <span>{isShift ? "tan⁻¹" : "tan"}</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => (isShift ? insertToken("e^(") : insertFunc("ln"))}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">eˣ</span>
-                <span>{isShift ? "eˣ" : "ln"}</span>
-              </button>
-            </div>
-
-            {/* Row 4: (-), °'", x⁻¹, STO, ENG, (, ), S<=>D, M+ */}
-            <div className="grid grid-cols-6 gap-1.5 sm:gap-2">
-              <button
-                type="button"
-                onClick={() => insertToken("−")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-pink-400 font-bold leading-none">A</span>
-                <span>(−)</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertToken("°")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-pink-400 font-bold leading-none">B</span>
-                <span>° ′ ″</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertToken("(")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">%</span>
-                <span>(</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => insertToken(")")}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-pink-400 font-bold leading-none">X</span>
-                <span>)</span>
-              </button>
-
-              {/* S <=> D Key */}
+            {/* Quick S <=> D and Notation Switcher Pills */}
+            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={toggleStandardDecimal}
-                className="h-8 sm:h-9 rounded-lg bg-[#1e4a38] hover:bg-[#255c46] text-emerald-300 border border-emerald-600/50 text-xs font-black flex flex-col items-center justify-center active:scale-95 transition-all cursor-pointer shadow-xs"
-                title="Convert Standard fraction to Decimal (S<=>D)"
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-200 transition-colors"
+                title="Convert Fraction <=> Decimal <=> Scientific <=> Engineering"
               >
-                <span className="text-[7px] text-emerald-200 font-bold leading-none">a b/c</span>
-                <span>S ⇔ D</span>
+                <ArrowRightLeft className="w-3.5 h-3.5" />
+                <span>S ⇔ D Mode</span>
               </button>
 
-              {/* M+ Key */}
-              <button
-                type="button"
-                onClick={isShift ? handleMemorySub : handleMemoryAdd}
-                className="h-8 sm:h-9 rounded-lg bg-[#272f3a] hover:bg-[#323c4a] text-slate-200 border border-slate-600/30 text-xs font-semibold flex flex-col items-center justify-center active:scale-95 transition-all"
-              >
-                <span className="text-[7px] text-amber-400 font-bold leading-none">{isShift ? "M−" : "M−"}</span>
-                <span>{isShift ? "M−" : "M+"}</span>
-              </button>
+              <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                Format: <span className="font-bold text-slate-800 dark:text-slate-200 uppercase">{displayFormat}</span>
+              </div>
             </div>
+
+            {/* Angle Representation Breakdown */}
+            {evaluatedVal !== null && Number.isFinite(evaluatedVal) && (
+              <div className="mt-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 text-xs space-y-1">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                  Trigonometric Angle Equivalence
+                </div>
+                <div className="grid grid-cols-3 gap-2 font-mono text-[11px]">
+                  <div>
+                    <span className="text-slate-400 block text-[9px]">DEGREES</span>
+                    <span className="font-bold text-slate-900 dark:text-white">
+                      {angleMode === "deg" ? `${formatResult(evaluatedVal)}°` : `${formatResult(angleMode === "rad" ? (evaluatedVal * 180) / Math.PI : (evaluatedVal * 180) / 200)}°`}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[9px]">RADIANS</span>
+                    <span className="font-bold text-slate-900 dark:text-white">
+                      {angleMode === "rad" ? `${formatResult(evaluatedVal)} rad` : `${formatResult(angleMode === "deg" ? (evaluatedVal * Math.PI) / 180 : (evaluatedVal * Math.PI) / 200)} rad`}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[9px]">GRADIANS</span>
+                    <span className="font-bold text-slate-900 dark:text-white">
+                      {angleMode === "grad" ? `${formatResult(evaluatedVal)} grad` : `${formatResult(angleMode === "deg" ? (evaluatedVal * 200) / 180 : (evaluatedVal * 200) / Math.PI)} grad`}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* ==================================================== */}
-          {/* Main Numeric Block: DEL & AC in Authentic fx-82EX   */}
-          {/* Yellow/Amber as shown in photo                       */}
-          {/* ==================================================== */}
-          <div className="grid grid-cols-5 gap-2 sm:gap-2.5">
-            {/* Row 6: 7, 8, 9, DEL (Yellow), AC (Yellow) */}
-            <button
-              type="button"
-              onClick={() => insertToken("7")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              7
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("8")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              8
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("9")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              9
-            </button>
-
-            {/* DEL / Backspace Key in fx-82EX Yellow/Amber */}
-            <button
-              type="button"
-              onClick={handleDelete}
-              aria-label="Delete / Backspace character"
-              title="DEL (Backspace) - Delete last character"
-              className="h-11 sm:h-12 rounded-xl bg-[#eab308] hover:bg-[#facc15] text-slate-950 font-black text-sm uppercase tracking-wider shadow-md active:scale-95 transition-all cursor-pointer flex flex-col items-center justify-center border border-amber-500"
-            >
-              <span className="text-[7px] text-amber-900 font-bold leading-none">INS</span>
-              <span className="flex items-center gap-0.5">
-                <span>DEL</span>
-                <span className="text-[11px] font-bold">⌫</span>
+          {/* Card 2: Interactive Calculation History Tape */}
+          <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-6 shadow-sm">
+            <div className="flex items-center justify-between mb-3 text-xs font-semibold text-slate-600 dark:text-slate-300">
+              <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider">
+                <History className="w-4 h-4 text-emerald-600" />
+                <span>Calculation Tape</span>
               </span>
-            </button>
-
-            {/* AC Key in fx-82EX Yellow/Amber */}
-            <button
-              type="button"
-              onClick={handleAllClear}
-              className="h-11 sm:h-12 rounded-xl bg-[#eab308] hover:bg-[#facc15] text-slate-950 font-black text-base uppercase tracking-wider shadow-md active:scale-95 transition-all cursor-pointer flex flex-col items-center justify-center border border-amber-500"
-            >
-              <span className="text-[7px] text-amber-900 font-bold leading-none">OFF</span>
-              <span>AC</span>
-            </button>
-
-            {/* Row 7: 4, 5, 6, ×, ÷ */}
-            <button
-              type="button"
-              onClick={() => insertToken("4")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              4
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("5")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              5
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("6")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              6
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("×")}
-              className="h-11 sm:h-12 rounded-xl bg-[#374151] hover:bg-[#4b5563] text-slate-100 font-extrabold text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              ×
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("÷")}
-              className="h-11 sm:h-12 rounded-xl bg-[#374151] hover:bg-[#4b5563] text-slate-100 font-extrabold text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              ÷
-            </button>
-
-            {/* Row 8: 1, 2, 3, +, − */}
-            <button
-              type="button"
-              onClick={() => insertToken("1")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              1
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("2")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              2
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("3")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              3
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("+")}
-              className="h-11 sm:h-12 rounded-xl bg-[#374151] hover:bg-[#4b5563] text-slate-100 font-extrabold text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              +
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("−")}
-              className="h-11 sm:h-12 rounded-xl bg-[#374151] hover:bg-[#4b5563] text-slate-100 font-extrabold text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              −
-            </button>
-
-            {/* Row 9: 0, ., ×10ˣ, Ans, = */}
-            <button
-              type="button"
-              onClick={() => insertToken("0")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-lg sm:text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              0
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken(".")}
-              className="h-11 sm:h-12 rounded-xl bg-[#2a323d] hover:bg-[#36404d] text-white font-extrabold text-xl shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              .
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("×10^")}
-              className="h-11 sm:h-12 rounded-xl bg-[#374151] hover:bg-[#4b5563] text-slate-100 font-bold text-xs sm:text-sm shadow-sm active:scale-95 transition-all cursor-pointer flex flex-col items-center justify-center border border-slate-600/40"
-            >
-              <span className="text-[7px] text-amber-400 leading-none">π</span>
-              <span>×10ˣ</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => insertToken("Ans")}
-              className="h-11 sm:h-12 rounded-xl bg-[#374151] hover:bg-[#4b5563] text-amber-300 font-extrabold text-sm sm:text-base shadow-sm active:scale-95 transition-all cursor-pointer border border-slate-600/40"
-            >
-              Ans
-            </button>
-            <button
-              type="button"
-              onClick={handleEquals}
-              className="h-11 sm:h-12 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-2xl shadow-lg active:scale-95 transition-all cursor-pointer flex items-center justify-center ring-2 ring-emerald-400/40"
-            >
-              =
-            </button>
-          </div>
-
-          {/* Calculator Bottom Footer */}
-          <div className="mt-3 pt-2.5 border-t border-slate-700/60 flex items-center justify-between text-[11px] text-slate-400">
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={handleAllClear}
-                className="inline-flex items-center gap-1 hover:text-slate-200 transition-colors cursor-pointer"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>Reset</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setSoundEnabled((p) => !p)}
-                className={`inline-flex items-center gap-1 transition-colors cursor-pointer ${
-                  soundEnabled ? "text-emerald-400" : "text-slate-500 hover:text-slate-300"
-                }`}
-                title="Toggle key click sounds"
-              >
-                <span>{soundEnabled ? "🔊 Sound ON" : "🔇 Sound OFF"}</span>
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  onClick={handleExportHistory}
+                  disabled={history.length === 0}
+                  className="p-1 rounded text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors disabled:opacity-30"
+                  title="Export History (TXT)"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setHistory([])}
+                  disabled={history.length === 0}
+                  className="p-1 rounded text-slate-400 hover:text-rose-600 transition-colors disabled:opacity-30"
+                  title="Clear History"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
-            <span className="font-mono text-slate-500 text-[10px]">
-              MODE: {angleMode.toUpperCase()} | SHIFT: {isShift ? "ON" : "OFF"}
-            </span>
+
+            {history.length === 0 ? (
+              <p className="text-xs text-slate-400 italic py-2">No previous calculations recorded</p>
+            ) : (
+              <div className="space-y-1.5 max-h-[260px] overflow-y-auto no-scrollbar">
+                {history.map((h, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => {
+                      setExpr(h.expr);
+                      setDisplay(h.result);
+                      setEvaluatedVal(h.val);
+                    }}
+                    className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-emerald-50 dark:hover:bg-slate-800 border border-transparent hover:border-emerald-300 transition-all cursor-pointer group flex items-center justify-between font-mono text-xs"
+                  >
+                    <div className="truncate mr-2">
+                      <span className="text-slate-500 dark:text-slate-400 block text-[10px]">
+                        {h.time}
+                      </span>
+                      <span className="text-slate-700 dark:text-slate-300 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
+                        {h.expr}
+                      </span>
+                    </div>
+                    <div className="font-bold text-slate-900 dark:text-white text-right shrink-0">
+                      = {h.result}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
+
+          {/* Action Toolbar Row: Reset, Print, Share, AI Explainer */}
+          <ResultActions onReset={handleAllClear} title="Scientific Calculator" />
         </div>
       </div>
 
       {/* ======================================================== */}
-      {/* RIGHT COLUMN: Standard Result Card (Baki Calculators Jesa)*/}
+      {/* PRINT-ONLY OFFICIAL CALCULATION INVOICE & STATEMENT      */}
       {/* ======================================================== */}
-      <div className="lg:col-span-5 space-y-6">
-        <section
-          id="scientific-calculator-result"
-          aria-labelledby="scientific-calculator-result-h"
-          className={cn(
-            card,
-            "scroll-mt-20 p-3.5 sm:p-6 w-full max-w-full overflow-hidden border-emerald-200/80 bg-gradient-to-b from-emerald-50/40 via-white to-white dark:border-emerald-900/60 dark:from-emerald-950/20 dark:via-slate-900 dark:to-slate-900 shadow-sm"
-          )}
-        >
-          {/* Header matching all other CalcDigi calculators */}
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <h2
-              id="scientific-calculator-result-h"
-              className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 break-words flex-1 min-w-0"
-            >
-              Calculated Answer
-            </h2>
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider shrink-0">
-              Live Result
-            </span>
-          </div>
-
-          <div aria-live="polite" aria-atomic="true">
-            {/* Hero Big Value with Mode Badge */}
-            <div className="mt-1 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-              <p className="break-words max-w-full text-3xl sm:text-4xl md:text-5xl font-extrabold tabular-nums tracking-tight text-slate-900 dark:text-white break-all [overflow-wrap:anywhere]">
-                {display}
-              </p>
-              <span className="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold max-w-full break-words leading-tight bg-emerald-600 text-white">
-                {angleMode.toUpperCase()} Mode
-              </span>
-            </div>
-
-            {/* Formula Expression Subtitle */}
-            <p className="mt-1 text-sm text-slate-600 dark:text-slate-400 break-words font-mono">
-              {expr ? `${expr} = ${display}` : "Ready for calculation"}
-            </p>
-
-            {/* Rows Table: Identical to Flagship Result Card */}
-            <div className="mt-4 border-t border-slate-100 pt-3 dark:border-slate-800">
-              <dl className="grid gap-x-4 gap-y-2 text-sm sm:grid-cols-2">
-                <div>
-                  <dt className="text-xs text-slate-500 dark:text-slate-400">Decimal Value</dt>
-                  <dd className="font-semibold text-slate-800 dark:text-slate-200 font-mono">
-                    {evaluatedVal !== null ? formatResult(evaluatedVal) : display}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt className="text-xs text-slate-500 dark:text-slate-400">Fraction (S ⇔ D)</dt>
-                  <dd className="font-semibold text-emerald-600 dark:text-emerald-400 font-mono">
-                    {evaluatedVal !== null ? toFraction(evaluatedVal) || "Irrational" : "—"}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt className="text-xs text-slate-500 dark:text-slate-400">Scientific Notation</dt>
-                  <dd className="font-semibold text-slate-800 dark:text-slate-200 font-mono">
-                    {evaluatedVal !== null && Number.isFinite(evaluatedVal)
-                      ? evaluatedVal.toExponential(4)
-                      : "—"}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt className="text-xs text-slate-500 dark:text-slate-400">Angle Equivalent</dt>
-                  <dd className="font-semibold text-slate-800 dark:text-slate-200 font-mono text-xs">
-                    {evaluatedVal !== null && Number.isFinite(evaluatedVal)
-                      ? angleMode === "deg"
-                        ? `${formatResult(evaluatedVal)}° (${formatResult((evaluatedVal * Math.PI) / 180)} rad)`
-                        : `${formatResult(evaluatedVal)} rad (${formatResult((evaluatedVal * 180) / Math.PI)}°)`
-                      : "—"}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt className="text-xs text-slate-500 dark:text-slate-400">Stored Memory [M]</dt>
-                  <dd className="font-semibold text-slate-800 dark:text-slate-200 font-mono">
-                    {memory}
-                  </dd>
-                </div>
-
-                <div>
-                  <dt className="text-xs text-slate-500 dark:text-slate-400">Last Answer [Ans]</dt>
-                  <dd className="font-semibold text-slate-800 dark:text-slate-200 font-mono">
-                    {lastAns}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-
-            {/* Quick Actions Bar */}
-            <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-2 text-xs">
-              <button
-                type="button"
-                onClick={() => insertToken("Ans")}
-                className="px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-semibold hover:bg-emerald-100 transition-colors"
-              >
-                + Insert Ans
-              </button>
-              <button
-                type="button"
-                onClick={handleMemoryAdd}
-                className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-200 transition-colors"
-              >
-                Store M+
-              </button>
-            </div>
-          </div>
-
-          {/* Standard CalcDigi Result Actions (Reset, Share, Print, Ask AI) */}
-          <ResultActions onReset={handleAllClear} title="Scientific Calculator" />
-        </section>
-
-        {/* Progressive Disclosure: Recent Calculations History */}
-        <Disclosure
-          title={`Recent Calculations History (${history.length})`}
-          summary={history.length > 0 ? "Saved session tape" : "Empty"}
-        >
-          {history.length === 0 ? (
-            <p className="text-xs text-slate-400 italic">No previous operations in this session.</p>
-          ) : (
-            <div className="space-y-2 max-h-60 overflow-y-auto no-scrollbar">
-              <div className="flex justify-end gap-2 pb-1">
-                <button
-                  type="button"
-                  onClick={() => setHistory([])}
-                  className="text-xs text-rose-500 hover:text-rose-600 flex items-center gap-1 font-semibold"
-                >
-                  <Trash2 className="size-3" /> Clear History
-                </button>
-              </div>
-              {history.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-800 flex items-center justify-between text-xs font-mono"
-                >
-                  <div className="truncate pr-2">
-                    <span className="text-[10px] text-slate-400 block font-sans">{item.time}</span>
-                    <span className="text-slate-600 dark:text-slate-300">{item.expr}</span>
-                    <span className="font-bold text-slate-900 dark:text-emerald-400 ml-1.5">= {item.result}</span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => handleRecallHistory(item)}
-                    className="px-2 py-1 rounded bg-white dark:bg-slate-700 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold border border-slate-200 dark:border-slate-600 hover:border-emerald-500 transition-colors shrink-0 cursor-pointer"
-                  >
-                    Recall
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </Disclosure>
-
-        {/* Progressive Disclosure: Scientific Constants */}
-        <Disclosure title="Scientific Constants Library (π, e, c, h, g, NA, k, R)">
-          <div className="grid grid-cols-2 gap-2">
-            {CONSTANTS.map((c) => (
-              <button
-                key={c.symbol}
-                type="button"
-                onClick={() => insertToken(c.val)}
-                className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 hover:bg-emerald-50 dark:hover:bg-emerald-950/40 border border-slate-200/60 dark:border-slate-800 text-left transition-all cursor-pointer"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-serif font-black text-emerald-700 dark:text-emerald-400 text-xs">
-                    {c.symbol}
-                  </span>
-                  {c.unit && <span className="text-[9px] text-slate-400 font-mono">{c.unit}</span>}
-                </div>
-                <div className="text-[11px] font-bold text-slate-800 dark:text-slate-200 truncate">
-                  {c.name}
-                </div>
-              </button>
-            ))}
-          </div>
-        </Disclosure>
-      </div>
-    </div>
+      <CalculationInvoice
+        title="Scientific & Transcendental Mathematical Statement"
+        category="Mathematics & Advanced Analytical Computing"
+        fields={[
+          { key: "expr", label: "Evaluated Expression / Formula" },
+          { key: "angle", label: "Angular Coordinate System" },
+          { key: "format", label: "Active Notation Mode" },
+          { key: "memory", label: "Persistent Memory Register (M)" },
+          { key: "lastAns", label: "Previous Answer Register (Ans)" },
+        ]}
+        values={{
+          expr: expr || "0",
+          angle: angleMode.toUpperCase() + (angleMode === "deg" ? " (360° Circle)" : angleMode === "rad" ? " (2π Radians)" : " (400 Gradians)"),
+          format: displayFormat.toUpperCase(),
+          memory: formatResult(memory),
+          lastAns: formatResult(lastAns),
+        }}
+        output={{
+          hero: {
+            value: display,
+            label: "Evaluated Numerical Solution",
+            unit: "",
+            sub: `Expression: ${expr || "0"} = ${display}`,
+          },
+          badge: {
+            text: "Evaluated with IEEE 754 Floating-Point Precision",
+            tone: "good",
+          },
+          rows: [
+            { label: "Standard Decimal Value", value: formatResult(finalVal), strong: true },
+            { label: "Exact Rational Fraction (S ⇔ D)", value: toFraction(finalVal) || "Irreducible" },
+            { label: "Scientific Notation (SCI)", value: (finalVal).toExponential(8) },
+            { label: "Engineering Notation (ENG)", value: toEngineering(finalVal) },
+            { label: "Active Angle System", value: angleMode.toUpperCase() },
+          ],
+          note: {
+            text: "Evaluated strictly according to mathematical operator precedence (PEMDAS/BODMAS) using recursive descent parsing. Transcendental functions calculated via IEEE 754 double precision with domain guardrails.",
+          },
+        }}
+      />
+    </>
   );
 }
