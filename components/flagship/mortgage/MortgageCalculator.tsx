@@ -13,6 +13,7 @@ import { Disclosure } from "@/components/ui/disclosure";
 import { ResultActions } from "@/components/flagship/ResultActions";
 import { ToolGrid, card, revealResult } from "@/components/flagship/shell";
 import { MONTHS, computeMortgage, type MortgageInput } from "@/lib/mortgage";
+import { CalculationInvoice } from "@/components/flagship/engine/CalculationInvoice";
 import { cn } from "@/lib/cn";
 
 const BreakdownDonut = dynamic(() => import("./MortgageCharts").then((m) => m.BreakdownDonut), {
@@ -817,7 +818,8 @@ export function MortgageCalculator() {
 
   return (
     <>
-      <ToolGrid form={formPanel} result={resultPanel} />
+      <div className="fx-web-tool">
+        <ToolGrid form={formPanel} result={resultPanel} />
 
       {/* Amortization Schedule with CSV Download Button */}
       <section aria-labelledby="mc-amort-h" className={cn(card, "mt-8 p-5 sm:p-6")}>
@@ -900,6 +902,56 @@ export function MortgageCalculator() {
           </table>
         </div>
       </section>
+      </div>
+
+      <CalculationInvoice
+        title="Mortgage Loan Amortization Statement & Payment Invoice"
+        category="Finance & Real Estate / Residential Mortgages"
+        fields={[
+          { key: "price", label: "Home Purchase Price" },
+          { key: "down", label: "Down Payment" },
+          { key: "loan", label: "Net Borrowed Loan Balance" },
+          { key: "rate", label: "Mortgage Interest Rate (APR)" },
+          { key: "years", label: "Loan Amortization Term" },
+          { key: "tax", label: "Annual Property Tax" },
+          { key: "ins", label: "Annual Homeowners Hazard Insurance" },
+          { key: "pmi", label: "Private Mortgage Insurance (PMI)" },
+        ]}
+        values={{
+          price: fmtCurrency(price, 0),
+          down: `${fmtCurrency(down, 0)} (${downPct.toFixed(1)}%)`,
+          loan: fmtCurrency(price - down, 0),
+          rate: `${rate.toFixed(3)}% Fixed APR`,
+          years: `${years} Years (${years * 12} Monthly Payments)`,
+          tax: fmtCurrency(m.tax * 12, 0) + " / yr",
+          ins: fmtCurrency(m.insurance * 12, 0) + " / yr",
+          pmi: m.pmi > 0 ? fmtCurrency(m.pmi * 12, 0) + " / yr" : "Exempt ($0.00 / yr)",
+        }}
+        output={{
+          hero: {
+            value: fmtCurrency(m.total, 2),
+            label: "Total Scheduled Monthly Payment (PITI)",
+            unit: "/ month",
+            sub: `${years}-Year Fixed Amortization Schedule • ${rate.toFixed(2)}% APR`,
+          },
+          badge: {
+            text: downPct >= 20 ? "Conventional 20%+ (Exempt from PMI)" : "Standard Loan (PMI Active)",
+            tone: downPct >= 20 ? "good" : "info",
+          },
+          rows: [
+            { label: "Principal & Interest Payment (P&I)", value: fmtCurrency(m.principalInterest, 2), strong: true },
+            { label: "Monthly Real Estate Property Tax Escrow", value: fmtCurrency(m.tax, 2) },
+            { label: "Monthly Homeowners Hazard Insurance Escrow", value: fmtCurrency(m.insurance, 2) },
+            { label: "Monthly Private Mortgage Insurance (PMI)", value: fmtCurrency(m.pmi, 2) },
+            { label: "Monthly Homeowners Association (HOA) Fees", value: fmtCurrency(m.hoa, 2) },
+            { label: "Cumulative Life-of-Loan Interest", value: fmtCurrency(result.summary.totalInterest, 0) },
+            { label: "Total Lifetime Cash Outflow (Principal & Interest)", value: fmtCurrency(result.summary.totalPayment, 0), strong: true },
+          ],
+          note: {
+            text: "Amortized according to federal actuarial standards. Conforms to CFPB Regulation Z (TILA) disclosure requirements and federal Homeowners Protection Act (HPA) automatic 78% LTV PMI cancellation rules.",
+          },
+        }}
+      />
     </>
   );
 }

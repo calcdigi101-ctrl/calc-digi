@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Copy, Check, RotateCcw, Share2, Printer, Sparkles, Flame, Activity, Target, Utensils } from "lucide-react";
 import { ResultActions } from "@/components/flagship/ResultActions";
+import { CalculationInvoice } from "@/components/flagship/engine/CalculationInvoice";
 
 type Unit = "us" | "metric";
 type Sex = "male" | "female";
@@ -135,7 +136,9 @@ export function CalorieCalculator() {
   const formatNum = (n: number) => Math.round(n).toLocaleString("en-US");
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
+    <>
+      <div className="fx-web-tool">
+        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
       {/* LEFT COLUMN: Inputs & Controls (7 Cols) */}
       <div className="lg:col-span-7 space-y-5 w-full max-w-full min-w-0">
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-5 w-full max-w-full overflow-hidden">
@@ -748,5 +751,55 @@ export function CalorieCalculator() {
         </div>
       </div>
     </div>
+  </div>
+
+  <CalculationInvoice
+    title="Daily Caloric Target & Metabolic Expenditure Statement"
+    category="Health & Metabolic Nutrition"
+    fields={[
+      { key: "unit", label: "Measurement System" },
+      { key: "sex", label: "Biological Sex" },
+      { key: "age", label: "Age" },
+      { key: "weight", label: "Measured Weight" },
+      { key: "height", label: "Measured Height" },
+      { key: "activity", label: "Activity Level" },
+      { key: "goal", label: "Metabolic Fitness Goal" },
+    ]}
+    values={{
+      unit: unit === "us" ? "US Standard (inches, lbs)" : "Metric System (cm, kg)",
+      sex: sex === "male" ? "Male" : "Female",
+      age: `${age} years old`,
+      weight: unit === "us" ? `${lb} lbs` : `${kg} kg`,
+      height: unit === "us" ? `${ft} ft ${inch} in` : `${cm} cm`,
+      activity: "Standard PAL Multiplier",
+      goal: goal === "maintain" ? "Weight Maintenance" : goal.includes("loss") ? "Caloric Deficit (Fat Loss)" : "Caloric Surplus (Lean Bulk)",
+    }}
+    output={{
+      hero: {
+        value: `${formatNum(targetCalories)}`,
+        label: "Recommended Daily Caloric Intake",
+        unit: "kcal / day",
+        sub: `Target to achieve selected body composition goal`,
+      },
+      badge: {
+        text: `${formatNum(targetCalories)} kcal/day`,
+        tone: "good",
+      },
+      rows: [
+        { label: "Basal Metabolic Rate (BMR)", value: `${formatNum(bmr)} kcal / day`, strong: true },
+        { label: "Total Daily Energy Expenditure (TDEE)", value: `${formatNum(tdee)} kcal / day`, strong: true },
+        { label: "Target Protein Intake (30%)", value: `${proteinGrams}g (${formatNum(proteinGrams * 4)} kcal)` },
+        { label: "Target Carbohydrate Intake (40%)", value: `${carbGrams}g (${formatNum(carbGrams * 4)} kcal)` },
+        { label: "Target Dietary Fats Intake (30%)", value: `${fatGrams}g (${formatNum(fatGrams * 9)} kcal)` },
+        { label: "Mild Deficit Target (-0.5 lb/wk)", value: `${formatNum(tdee - 250)} kcal / day` },
+        { label: "Standard Deficit Target (-1.0 lb/wk)", value: `${formatNum(tdee - 500)} kcal / day` },
+        { label: "Aggressive Deficit Target (-2.0 lb/wk)", value: `${formatNum(tdee - 1000)} kcal / day` },
+      ],
+      note: {
+        text: "Calculated using the Mifflin-St Jeor metabolic expenditure equation, endorsed by the Academy of Nutrition and Dietetics as the most clinically accurate predictive BMR standard.",
+      },
+    }}
+  />
+  </>
   );
 }

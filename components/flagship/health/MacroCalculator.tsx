@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Copy, Check, RotateCcw, Share2, Flame, Utensils, Apple, Dumbbell } from "lucide-react";
 import { ResultActions } from "@/components/flagship/ResultActions";
+import { CalculationInvoice } from "@/components/flagship/engine/CalculationInvoice";
 
 type Unit = "us" | "metric";
 type Sex = "male" | "female";
@@ -151,7 +152,9 @@ export function MacroCalculator() {
   const formatNum = (n: number) => Math.round(n).toLocaleString("en-US");
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
+    <>
+      <div className="fx-web-tool">
+        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
       {/* LEFT COLUMN: Inputs & Controls (7 Cols) */}
       <div className="lg:col-span-7 space-y-5 w-full max-w-full min-w-0">
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-5 w-full max-w-full overflow-hidden">
@@ -647,5 +650,53 @@ export function MacroCalculator() {
         </div>
       </div>
     </div>
+  </div>
+
+  <CalculationInvoice
+    title="Macronutrient Distribution & Energy Allocation Statement"
+    category="Health & Dietetics"
+    fields={[
+      { key: "unit", label: "Measurement System" },
+      { key: "sex", label: "Biological Sex" },
+      { key: "age", label: "Age" },
+      { key: "weight", label: "Measured Weight" },
+      { key: "height", label: "Measured Height" },
+      { key: "diet", label: "Dietary Protocol" },
+      { key: "meals", label: "Meals Per Day" },
+    ]}
+    values={{
+      unit: unit === "us" ? "US Standard (inches, lbs)" : "Metric System (cm, kg)",
+      sex: sex === "male" ? "Male" : "Female",
+      age: `${age} years old`,
+      weight: unit === "us" ? `${lb} lbs` : `${kg} kg`,
+      height: unit === "us" ? `${ft} ft ${inch} in` : `${cm} cm`,
+      diet: dietPlan === "balanced" ? "Balanced (30P / 40C / 30F)" : dietPlan === "high_protein" ? "High Protein (40P / 35C / 25F)" : dietPlan === "low_carb" ? "Low Carb (40P / 20C / 40F)" : "Ketogenic (25P / 5C / 70F)",
+      meals: `${mealsPerDay} meals daily`,
+    }}
+    output={{
+      hero: {
+        value: `${formatNum(targetCalories)}`,
+        label: "Total Daily Caloric Target",
+        unit: "kcal / day",
+        sub: `Optimized macronutrient split based on ${dietPlan.replace("_", " ")} protocol`,
+      },
+      badge: {
+        text: `${Math.round(pRatio * 100)}% P / ${Math.round(cRatio * 100)}% C / ${Math.round(fRatio * 100)}% F`,
+        tone: "good",
+      },
+      rows: [
+        { label: "Daily Protein Intake", value: `${proteinGrams}g (${formatNum(proteinCalories)} kcal • ${Math.round(pRatio * 100)}%)`, strong: true },
+        { label: "Daily Carbohydrates Intake", value: `${carbGrams}g (${formatNum(carbCalories)} kcal • ${Math.round(cRatio * 100)}%)`, strong: true },
+        { label: "Daily Dietary Fats Intake", value: `${fatGrams}g (${formatNum(fatCalories)} kcal • ${Math.round(fRatio * 100)}%)`, strong: true },
+        { label: "Protein Allocation Per Meal", value: `${Math.round(proteinGrams / mealsPerDay)}g / meal` },
+        { label: "Carbs Allocation Per Meal", value: `${Math.round(carbGrams / mealsPerDay)}g / meal` },
+        { label: "Fats Allocation Per Meal", value: `${Math.round(fatGrams / mealsPerDay)}g / meal` },
+      ],
+      note: {
+        text: "Macronutrient ratios formulated according to clinical sports nutrition recommendations (ISSN) and the Mifflin-St Jeor metabolic model.",
+      },
+    }}
+  />
+  </>
   );
 }

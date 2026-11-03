@@ -9,6 +9,7 @@ import { NumberField, Label } from "@/components/ui/field";
 import { Segmented } from "@/components/ui/segmented";
 import { ResultActions } from "@/components/flagship/ResultActions";
 import { ToolGrid, card, revealResult } from "@/components/flagship/shell";
+import { CalculationInvoice } from "@/components/flagship/engine/CalculationInvoice";
 import { BmiGauge } from "./BmiGauge";
 import {
   BMI_LIMITS,
@@ -392,5 +393,70 @@ export function BmiCalculator() {
     </section>
   );
 
-  return <ToolGrid form={formPanel} result={resultPanel} />;
+  return (
+    <>
+      <div className="fx-web-tool">
+        <ToolGrid form={formPanel} result={resultPanel} />
+      </div>
+      <CalculationInvoice
+        title="Body Mass Index (BMI) & Clinical Body Composition Statement"
+        category="Health & Clinical Biometrics"
+        fields={[
+          { key: "unit", label: "Measurement System" },
+          { key: "sex", label: "Biological Sex" },
+          { key: "age", label: "Age" },
+          { key: "height", label: "Measured Height" },
+          { key: "weight", label: "Measured Weight" },
+        ]}
+        values={{
+          unit: unit === "us" ? "US Standard (ft/in, lbs)" : "Metric System (cm, kg)",
+          sex: sex === "male" ? "Male" : "Female",
+          age: `${age} years old`,
+          height: unit === "us" ? `${watch("ft") || 5} ft ${watch("inch") || 10} in` : `${watch("cm") || 180} cm`,
+          weight: unit === "us" ? `${watch("lb") || 160} lbs` : `${watch("kg") || 65} kg`,
+        }}
+        output={{
+          hero: {
+            value: result.bmi.toFixed(1),
+            label: "Body Mass Index (BMI) Score",
+            unit: "kg/m²",
+            sub: `WHO International Clinical Category: ${result.category}`,
+          },
+          badge: {
+            text: result.category,
+            tone: result.category === "Normal weight" ? "good" : "warn",
+          },
+          rows: [
+            { label: "WHO Diagnostic Weight Classification", value: result.category, strong: true },
+            {
+              label: "Optimal Healthy Weight Range (BMI 18.5 - 24.9)",
+              value:
+                unit === "us"
+                  ? `${fmt(result.healthyMinKg * 2.20462)} – ${fmt(result.healthyMaxKg * 2.20462)} lbs`
+                  : `${fmt(result.healthyMinKg)} – ${fmt(result.healthyMaxKg)} kg`,
+              strong: true,
+            },
+            {
+              label: "Ponderal Corpulence Index",
+              value: `${fmt(result.ponderal)} kg/m³`,
+            },
+            {
+              label: "Weight Variance to Normal Threshold",
+              value:
+                result.deltaToHealthyKg === 0
+                  ? "Optimal Healthy Range (0 kg)"
+                  : `${result.deltaToHealthyKg > 0 ? "+" : ""}${
+                      unit === "us"
+                        ? fmt(result.deltaToHealthyKg * 2.20462) + " lbs"
+                        : fmt(result.deltaToHealthyKg) + " kg"
+                    }`,
+            },
+          ],
+          note: {
+            text: "Calculated strictly using the Quetelet body mass index formula (kg / m²). Reference classifications derived from the World Health Organization (WHO) and Centers for Disease Control and Prevention (CDC).",
+          },
+        }}
+      />
+    </>
+  );
 }

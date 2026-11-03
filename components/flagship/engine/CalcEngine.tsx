@@ -14,6 +14,7 @@ import { ResultActions } from "@/components/flagship/ResultActions";
 import { ToolGrid, card, revealResult } from "@/components/flagship/shell";
 import { SpectrumGauge } from "./SpectrumGauge";
 import { AmortizationSchedule } from "./AmortizationSchedule";
+import { CalculationInvoice } from "./CalculationInvoice";
 import { PALETTE, type CalcConfig, type Chart, type Field, type Output, type Tone, type Values } from "./types";
 import { formatBy } from "./format";
 import { cn } from "@/lib/cn";
@@ -510,47 +511,57 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
 
   return (
     <>
-      <ToolGrid form={formPanel} result={resultPanel} />
-      {"error" in output
-        ? null
-        : output.details?.map((d) => (
-            <section key={d.title} className={cn(card, "mt-6 p-3.5 sm:p-6 w-full max-w-full overflow-hidden")}>
-              {d.amortization ? (
-                <AmortizationSchedule title={d.title} principal={d.amortization.principal} rows={d.amortization.rows} />
-              ) : (
-                <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{d.title}</h2>
-              )}
-              {d.chart ? (
-                <div className="mt-4">{d.chart.type === "donut" ? <DonutChart chart={d.chart} /> : <SeriesChart chart={d.chart} />}</div>
-              ) : null}
-              {d.table ? (
-                <div className="mt-6 max-h-[480px] overflow-auto rounded-lg border border-slate-200 dark:border-slate-800">
-                  <table className="w-full min-w-[480px] text-right text-sm tabular-nums">
-                    <thead className="sticky top-0 bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
-                      <tr>
-                        {d.table.head.map((h, i) => (
-                          <th key={h} scope="col" className={cn("px-4 py-2.5 font-semibold", i === 0 && "text-left")}>
-                            {h}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {d.table.rows.map((r, i) => (
-                        <tr key={i} className="border-t border-slate-200 dark:border-slate-800">
-                          {r.map((c, j) => (
-                            <td key={j} className={cn("px-4 py-2", j === 0 && "text-left font-medium")}>
-                              {c}
-                            </td>
+      <div className="fx-web-tool">
+        <ToolGrid form={formPanel} result={resultPanel} />
+        {"error" in output
+          ? null
+          : output.details?.map((d) => (
+              <section key={d.title} className={cn(card, "mt-6 p-3.5 sm:p-6 w-full max-w-full overflow-hidden")}>
+                {d.amortization ? (
+                  <AmortizationSchedule title={d.title} principal={d.amortization.principal} rows={d.amortization.rows} />
+                ) : (
+                  <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">{d.title}</h2>
+                )}
+                {d.chart ? (
+                  <div className="mt-4">{d.chart.type === "donut" ? <DonutChart chart={d.chart} /> : <SeriesChart chart={d.chart} />}</div>
+                ) : null}
+                {d.table ? (
+                  <div className="mt-6 max-h-[480px] overflow-auto rounded-lg border border-slate-200 dark:border-slate-800">
+                    <table className="w-full min-w-[480px] text-right text-sm tabular-nums">
+                      <thead className="sticky top-0 bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                        <tr>
+                          {d.table.head.map((h, i) => (
+                            <th key={h} scope="col" className={cn("px-4 py-2.5 font-semibold", i === 0 && "text-left")}>
+                              {h}
+                            </th>
                           ))}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ) : null}
-            </section>
-          ))}
+                      </thead>
+                      <tbody>
+                        {d.table.rows.map((r, i) => (
+                          <tr key={i} className="border-t border-slate-200 dark:border-slate-800">
+                            {r.map((c, j) => (
+                              <td key={j} className={cn("px-4 py-2", j === 0 && "text-left font-medium")}>
+                                {c}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ) : null}
+              </section>
+            ))}
+      </div>
+      {"error" in output ? null : (
+        <CalculationInvoice
+          title={config.title}
+          fields={config.fields}
+          values={committed}
+          output={output}
+        />
+      )}
     </>
   );
 }

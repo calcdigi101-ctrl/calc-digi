@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Copy, Check, RotateCcw, Share2, Printer, Sparkles, Activity, ShieldCheck, Heart, Info } from "lucide-react";
 import { ResultActions } from "@/components/flagship/ResultActions";
+import { CalculationInvoice } from "@/components/flagship/engine/CalculationInvoice";
 
 type Unit = "us" | "metric";
 type Sex = "male" | "female";
@@ -191,7 +192,9 @@ export function BodyFatCalculator() {
   const formatNum = (n: number, d = 1) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
 
   return (
-    <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
+    <>
+      <div className="fx-web-tool">
+        <div className="mt-6 grid gap-6 lg:grid-cols-12 lg:items-start w-full max-w-full min-w-0 overflow-hidden">
       {/* LEFT COLUMN: Inputs & Controls (7 Cols) */}
       <div className="lg:col-span-7 space-y-5 w-full max-w-full min-w-0">
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-5 w-full max-w-full overflow-hidden">
@@ -639,5 +642,53 @@ export function BodyFatCalculator() {
         </div>
       </div>
     </div>
+  </div>
+
+  <CalculationInvoice
+    title="Body Fat Percentage & Body Composition Clinical Statement"
+    category="Health & Body Composition"
+    fields={[
+      { key: "unit", label: "Measurement System" },
+      { key: "sex", label: "Biological Sex" },
+      { key: "age", label: "Age" },
+      { key: "weight", label: "Measured Weight" },
+      { key: "height", label: "Measured Height" },
+      { key: "neck", label: "Neck Circumference" },
+      { key: "waist", label: "Waist Circumference" },
+      ...(sex === "female" ? [{ key: "hip", label: "Hip Circumference" }] : []),
+    ]}
+    values={{
+      unit: unit === "us" ? "US Standard (inches, lbs)" : "Metric System (cm, kg)",
+      sex: sex === "male" ? "Male" : "Female",
+      age: `${age} years old`,
+      weight: unit === "us" ? `${weightLb} lbs` : `${weightKg} kg`,
+      height: unit === "us" ? `${heightFt} ft ${heightIn} in` : `${heightCm} cm`,
+      neck: unit === "us" ? `${neckIn} in` : `${neckCm} cm`,
+      waist: unit === "us" ? `${waistIn} in` : `${waistCm} cm`,
+      ...(sex === "female" ? { hip: unit === "us" ? `${hipIn} in` : `${hipCm} cm` } : {}),
+    }}
+    output={{
+      hero: {
+        value: `${formatNum(bodyFat)}%`,
+        label: "Estimated Body Fat Percentage",
+        sub: `ACE Body Composition Classification: ${category.label}`,
+      },
+      badge: {
+        text: category.label,
+        tone: category.tone === "fitness" || category.tone === "athlete" || category.tone === "average" ? "good" : "warn",
+      },
+      rows: [
+        { label: "ACE Clinical Classification", value: category.label, strong: true },
+        { label: "Total Fat Adipose Mass", value: unit === "us" ? `${formatNum(fatMassLb)} lbs` : `${formatNum(fatMassKg)} kg`, strong: true },
+        { label: "Lean Metabolically Active Mass", value: unit === "us" ? `${formatNum(leanMassLb)} lbs` : `${formatNum(leanMassKg)} kg`, strong: true },
+        { label: "Active Lean Mass Ratio", value: `${formatNum(100 - bodyFat)}%` },
+        { label: "ACE Recommended Fitness Benchmark", value: sex === "male" ? "14% – 17% (Fitness Target)" : "21% – 24% (Fitness Target)" },
+      ],
+      note: {
+        text: "Calculated using the official U.S. Navy circumference method (Hodgdon & Beckett). Categorized according to American Council on Exercise (ACE) diagnostic standards.",
+      },
+    }}
+  />
+  </>
   );
 }
