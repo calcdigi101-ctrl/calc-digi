@@ -130,6 +130,10 @@
   }
 
   /* Hide distracting website elements in print */
+  header,
+  footer,
+  nav,
+  .skip-link,
   #site-nav,
   #site-footer,
   #back-to-top,
