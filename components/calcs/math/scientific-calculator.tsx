@@ -533,367 +533,385 @@ export default function ScientificCalculator() {
 
             {/* ==================================================== */}
             {/* TAB CONTENT 1: MAIN SCIENTIFIC KEYPAD                */}
+            {/* Unified 5-Column Grid with Guaranteed Row & Col Gap  */}
             {/* ==================================================== */}
             {activeTab === "main" && (
-              <div className="space-y-2">
-                {/* Scientific Function Row 1 */}
-                <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIs2nd((v) => !v)}
-                    className={cn(
-                      "h-11 rounded-xl text-xs font-extrabold transition-all border",
-                      is2nd
-                        ? "bg-amber-400 text-slate-950 border-amber-300 ring-2 ring-amber-300 shadow-xs"
-                        : "bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-900/60 hover:bg-amber-100"
-                    )}
-                  >
-                    2nd
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc(is2nd ? "asin" : "sin")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "sin⁻¹" : "sin"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc(is2nd ? "acos" : "cos")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "cos⁻¹" : "cos"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc(is2nd ? "atan" : "tan")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "tan⁻¹" : "tan"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc(is2nd ? "exp" : "ln")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "eˣ" : "ln"}
-                  </button>
-                </div>
+              <div className="grid grid-cols-5 gap-2 sm:gap-2.5">
+                {/* Row 1: Primary Scientific & Dynamic Shift Keys */}
+                <button
+                  type="button"
+                  onClick={() => setIs2nd((v) => !v)}
+                  className={cn(
+                    "h-11 sm:h-12 rounded-md text-xs sm:text-sm font-extrabold transition-all border active:scale-95 cursor-pointer shadow-xs",
+                    is2nd
+                      ? "bg-amber-400 text-slate-950 border-amber-300 ring-2 ring-amber-300"
+                      : "bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-900/60 hover:bg-amber-100 dark:hover:bg-amber-900/40"
+                  )}
+                  title="Toggle 2nd (Inverse/Secondary) Functions"
+                >
+                  2nd
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertFunc(is2nd ? "asin" : "sin")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "sin⁻¹" : "sin"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertFunc(is2nd ? "acos" : "cos")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "cos⁻¹" : "cos"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertFunc(is2nd ? "atan" : "tan")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "tan⁻¹" : "tan"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertFunc(is2nd ? "exp" : "ln")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "eˣ" : "ln"}
+                </button>
 
-                {/* Scientific Function Row 2 */}
-                <div className="grid grid-cols-5 gap-1.5 sm:gap-2">
-                  <button
-                    type="button"
-                    onClick={() => insertFunc(is2nd ? "log2" : "log")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "log₂" : "log"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => (is2nd ? insertFunc("cbrt") : insertToken("√"))}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "³√x" : "√x"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken(is2nd ? "³" : "²")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "x³" : "x²"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("^")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    xʸ
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc(is2nd ? "abs" : "inv")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                  >
-                    {is2nd ? "|x|" : "1/x"}
-                  </button>
-                </div>
+                {/* Row 2: Powers, Roots & Reciprocals */}
+                <button
+                  type="button"
+                  onClick={() => insertFunc(is2nd ? "log2" : "log")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "log₂" : "log"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => (is2nd ? insertFunc("cbrt") : insertToken("√"))}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "³√x" : "√x"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken(is2nd ? "³" : "²")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "x³" : "x²"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => (is2nd ? insertFunc("root") : insertToken("^"))}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "ʸ√x" : "xʸ"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertFunc(is2nd ? "abs" : "inv")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  {is2nd ? "|x|" : "1/x"}
+                </button>
 
-                {/* Primary Numberpad & Operators Grid (5 Columns) */}
-                <div className="grid grid-cols-5 gap-1.5 sm:gap-2 pt-1">
-                  {/* Row 1 */}
-                  <button
-                    type="button"
-                    onClick={() => insertToken("(")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700"
-                  >
-                    (
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken(")")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700"
-                  >
-                    )
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("%")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700"
-                  >
-                    %
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleDelete}
-                    className="h-12 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 font-bold text-sm hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/60 dark:border-rose-900/40"
-                    title="Backspace"
-                  >
-                    DEL
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleAllClear}
-                    className="h-12 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-sm shadow-xs"
-                    title="All Clear"
-                  >
-                    AC
-                  </button>
+                {/* Row 3: Constants & Parentheses */}
+                <button
+                  type="button"
+                  onClick={() => insertToken("π")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-serif font-bold text-base hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                  title="Pi (3.14159...)"
+                >
+                  π
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("e")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-serif font-bold text-base hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                  title="Euler's Constant (2.71828...)"
+                >
+                  e
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("(")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-mono font-bold text-base hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  (
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken(")")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-mono font-bold text-base hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  )
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("%")}
+                  className="h-11 sm:h-12 rounded-md bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                >
+                  %
+                </button>
 
-                  {/* Row 2 */}
-                  <button
-                    type="button"
-                    onClick={() => insertToken("7")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    7
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("8")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    8
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("9")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    9
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("÷")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
-                  >
-                    ÷
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("π")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200"
-                  >
-                    π
-                  </button>
+                {/* Row 4: Digits (7, 8, 9) + DEL & AC */}
+                <button
+                  type="button"
+                  onClick={() => insertToken("7")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  7
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("8")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  8
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("9")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  9
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDelete}
+                  className="h-12 sm:h-13 rounded-md bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 font-bold text-sm hover:bg-rose-100 dark:hover:bg-rose-900/60 border border-rose-200/70 dark:border-rose-900/40 transition-all active:scale-95 cursor-pointer"
+                  title="Backspace / Delete"
+                >
+                  DEL
+                </button>
+                <button
+                  type="button"
+                  onClick={handleAllClear}
+                  className="h-12 sm:h-13 rounded-md bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-sm shadow-xs transition-all active:scale-95 cursor-pointer"
+                  title="All Clear (AC)"
+                >
+                  AC
+                </button>
 
-                  {/* Row 3 */}
-                  <button
-                    type="button"
-                    onClick={() => insertToken("4")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    4
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("5")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    5
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("6")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    6
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("×")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
-                  >
-                    ×
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("e")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200"
-                  >
-                    e
-                  </button>
+                {/* Row 5: Digits (4, 5, 6) + Multiplication & Division */}
+                <button
+                  type="button"
+                  onClick={() => insertToken("4")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  4
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("5")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  5
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("6")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  6
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("×")}
+                  className="h-12 sm:h-13 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
+                >
+                  ×
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("÷")}
+                  className="h-12 sm:h-13 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
+                >
+                  ÷
+                </button>
 
-                  {/* Row 4 */}
-                  <button
-                    type="button"
-                    onClick={() => insertToken("1")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    1
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("2")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    2
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("3")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    3
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("−")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
-                  >
-                    −
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("!")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200"
-                  >
-                    n!
-                  </button>
+                {/* Row 6: Digits (1, 2, 3) + Addition & Subtraction */}
+                <button
+                  type="button"
+                  onClick={() => insertToken("1")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  1
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("2")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  2
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("3")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  3
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("+")}
+                  className="h-12 sm:h-13 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("−")}
+                  className="h-12 sm:h-13 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
+                >
+                  −
+                </button>
 
-                  {/* Row 5 */}
-                  <button
-                    type="button"
-                    onClick={() => insertToken("0")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    0
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken(".")}
-                    className="h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs"
-                  >
-                    .
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("Ans")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                  >
-                    Ans
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertToken("+")}
-                    className="h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-amber-700 dark:text-amber-400 font-extrabold text-xl hover:bg-slate-200 dark:hover:bg-slate-700"
-                  >
-                    +
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleEquals}
-                    className="h-12 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-2xl shadow-md transition-all flex items-center justify-center cursor-pointer"
-                  >
-                    =
-                  </button>
-                </div>
+                {/* Row 7: Digits (0, .), Ans, Factorial & Equals */}
+                <button
+                  type="button"
+                  onClick={() => insertToken("0")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  0
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken(".")}
+                  className="h-12 sm:h-13 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs transition-all active:scale-95 cursor-pointer"
+                >
+                  .
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("Ans")}
+                  className="h-12 sm:h-13 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-slate-700 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
+                  title="Last Calculated Answer"
+                >
+                  Ans
+                </button>
+                <button
+                  type="button"
+                  onClick={() => insertToken("!")}
+                  className="h-12 sm:h-13 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all active:scale-95 cursor-pointer"
+                  title="Factorial (n!)"
+                >
+                  n!
+                </button>
+                <button
+                  type="button"
+                  onClick={handleEquals}
+                  className="h-12 sm:h-13 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-black text-2xl shadow-md transition-all active:scale-95 flex items-center justify-center cursor-pointer"
+                  title="Calculate Result (=)"
+                >
+                  =
+                </button>
               </div>
             )}
 
             {/* ==================================================== */}
             {/* TAB CONTENT 2: COMPLETE TRIGONOMETRY & HYPERBOLIC   */}
+            {/* Structured with Flex Gap & Explicit Sub-Categories   */}
             {/* ==================================================== */}
             {activeTab === "trig" && (
-              <div className="space-y-3">
-                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
-                  <span>Trigonometric & Hyperbolic Library</span>
-                  <span className="text-emerald-600 font-bold">Mode: {angleMode.toUpperCase()}</span>
-                </div>
-
-                {/* Direct Trig & Reciprocals */}
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  {["sin", "cos", "tan", "cot", "sec", "csc"].map((fn) => (
-                    <button
-                      key={fn}
-                      type="button"
-                      onClick={() => insertFunc(fn)}
-                      className="h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200/60 dark:border-emerald-900/50 transition-colors"
-                    >
-                      {fn}(x)
-                    </button>
-                  ))}
-                </div>
-
-                {/* Inverse Trigonometric Functions */}
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  {["asin", "acos", "atan", "acot", "asec", "acsc"].map((fn) => (
-                    <button
-                      key={fn}
-                      type="button"
-                      onClick={() => insertFunc(fn)}
-                      className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                    >
-                      {fn.replace("a", "")}⁻¹(x)
-                    </button>
-                  ))}
-                </div>
-
-                {/* Hyperbolic Functions */}
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  {["sinh", "cosh", "tanh", "coth", "sech", "csch"].map((fn) => (
-                    <button
-                      key={fn}
-                      type="button"
-                      onClick={() => insertFunc(fn)}
-                      className="h-11 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-800 dark:text-purple-300 font-bold text-xs hover:bg-purple-100 dark:hover:bg-purple-900/60 border border-purple-200/60 dark:border-purple-900/50 transition-colors"
-                    >
-                      {fn}(x)
-                    </button>
-                  ))}
-                </div>
-
-                {/* Inverse Hyperbolic Functions */}
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  {["asinh", "acosh", "atanh", "acoth", "asech", "acsch"].map((fn) => (
-                    <button
-                      key={fn}
-                      type="button"
-                      onClick={() => insertFunc(fn)}
-                      className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
-                    >
-                      {fn.replace("a", "")}⁻¹(x)
-                    </button>
-                  ))}
-                </div>
-
-                {/* Quick Angle Switcher Bar */}
-                <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
-                  <span>Current Angle System:</span>
-                  <div className="flex items-center gap-1">
+              <div className="flex flex-col gap-4 sm:gap-5">
+                {/* Mode Selector & Status Header */}
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                    Trigonometric & Hyperbolic Library
+                  </span>
+                  <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg text-xs">
                     {(["deg", "rad", "grad"] as const).map((mode) => (
                       <button
                         key={mode}
                         type="button"
                         onClick={() => setAngleMode(mode)}
                         className={cn(
-                          "px-2.5 py-1 rounded-md font-bold uppercase transition-all",
+                          "px-2.5 py-1 rounded-md font-bold uppercase transition-all cursor-pointer",
                           angleMode === mode
                             ? "bg-emerald-600 text-white shadow-2xs"
-                            : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
+                            : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
                         )}
                       >
                         {mode}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 1: Direct Trig & Reciprocals */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Standard Trigonometry (Circular)
+                  </span>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-2.5">
+                    {["sin", "cos", "tan", "cot", "sec", "csc"].map((fn) => (
+                      <button
+                        key={fn}
+                        type="button"
+                        onClick={() => insertFunc(fn)}
+                        className="h-11 sm:h-12 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-200/70 dark:border-emerald-900/50 transition-all active:scale-95 shadow-xs cursor-pointer"
+                      >
+                        {fn}(x)
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 2: Inverse Trigonometric Functions */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Inverse Trigonometry (Arc Functions)
+                  </span>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-2.5">
+                    {["asin", "acos", "atan", "acot", "asec", "acsc"].map((fn) => (
+                      <button
+                        key={fn}
+                        type="button"
+                        onClick={() => insertFunc(fn)}
+                        className="h-11 sm:h-12 rounded-md bg-sky-50 dark:bg-sky-950/40 text-sky-800 dark:text-sky-300 font-bold text-xs hover:bg-sky-100 dark:hover:bg-sky-900/60 border border-sky-200/70 dark:border-sky-900/50 transition-all active:scale-95 shadow-xs cursor-pointer"
+                      >
+                        {fn.replace("a", "")}⁻¹(x)
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 3: Hyperbolic Functions */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Hyperbolic Functions
+                  </span>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-2.5">
+                    {["sinh", "cosh", "tanh", "coth", "sech", "csch"].map((fn) => (
+                      <button
+                        key={fn}
+                        type="button"
+                        onClick={() => insertFunc(fn)}
+                        className="h-11 sm:h-12 rounded-md bg-purple-50 dark:bg-purple-950/40 text-purple-800 dark:text-purple-300 font-bold text-xs hover:bg-purple-100 dark:hover:bg-purple-900/60 border border-purple-200/70 dark:border-purple-900/50 transition-all active:scale-95 shadow-xs cursor-pointer"
+                      >
+                        {fn}(x)
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Section 4: Inverse Hyperbolic Functions */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Inverse Hyperbolic (Area Functions)
+                  </span>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-2.5">
+                    {["asinh", "acosh", "atanh", "acoth", "asech", "acsch"].map((fn) => (
+                      <button
+                        key={fn}
+                        type="button"
+                        onClick={() => insertFunc(fn)}
+                        className="h-11 sm:h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                      >
+                        {fn.replace("a", "")}⁻¹(x)
                       </button>
                     ))}
                   </div>
@@ -903,140 +921,167 @@ export default function ScientificCalculator() {
 
             {/* ==================================================== */}
             {/* TAB CONTENT 3: ALGEBRA, COMBINATORICS & ADVANCED    */}
+            {/* Structured with Flex Gap & Explicit Sub-Categories   */}
             {/* ==================================================== */}
             {activeTab === "advanced" && (
-              <div className="space-y-3">
-                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                  Combinatorics, Number Theory & Advanced Radicals
+              <div className="flex flex-col gap-4 sm:gap-5">
+                {/* Section 1: Combinatorics & Probability */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Combinatorics & Number Theory
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("nPr")}
+                      className="h-12 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 border border-emerald-200/70 dark:border-emerald-900/50 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Permutations nPr(n, r)"
+                    >
+                      <span className="text-xs font-black">nPr(n, r)</span>
+                      <span className="text-[10px] opacity-75 font-normal">Permutations</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("nCr")}
+                      className="h-12 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 border border-emerald-200/70 dark:border-emerald-900/50 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Combinations nCr(n, r)"
+                    >
+                      <span className="text-xs font-black">nCr(n, r)</span>
+                      <span className="text-[10px] opacity-75 font-normal">Combinations</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("gcd")}
+                      className="h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Greatest Common Divisor gcd(a, b)"
+                    >
+                      <span className="text-xs font-black">gcd(a, b)</span>
+                      <span className="text-[10px] opacity-75 font-normal">Greatest Divisor</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("lcm")}
+                      className="h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Least Common Multiple lcm(a, b)"
+                    >
+                      <span className="text-xs font-black">lcm(a, b)</span>
+                      <span className="text-[10px] opacity-75 font-normal">Least Multiple</span>
+                    </button>
+                  </div>
                 </div>
 
-                {/* Combinatorics & Probability */}
-                <div className="grid grid-cols-4 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("nPr")}
-                    className="h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 border border-emerald-200/60 dark:border-emerald-900/50"
-                    title="Permutations nPr(n, r)"
-                  >
-                    nPr(n, r)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("nCr")}
-                    className="h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-bold text-xs hover:bg-emerald-100 border border-emerald-200/60 dark:border-emerald-900/50"
-                    title="Combinations nCr(n, r)"
-                  >
-                    nCr(n, r)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("gcd")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                    title="Greatest Common Divisor gcd(a, b)"
-                  >
-                    gcd(a, b)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("lcm")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                    title="Least Common Multiple lcm(a, b)"
-                  >
-                    lcm(a, b)
-                  </button>
+                {/* Section 2: Number Theory & Radicals */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Advanced Radicals, Logs & Modulo
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("mod")}
+                      className="h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Modulo mod(a, b)"
+                    >
+                      <span className="text-xs font-black">mod(a, b)</span>
+                      <span className="text-[10px] opacity-75 font-normal">Remainder</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("root")}
+                      className="h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Arbitrary Root root(x, degree)"
+                    >
+                      <span className="text-xs font-black">ʸ√x (root)</span>
+                      <span className="text-[10px] opacity-75 font-normal">nth Root</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("logb")}
+                      className="h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Logarithm with arbitrary base logb(x, base)"
+                    >
+                      <span className="text-xs font-black">logᵦ(x)</span>
+                      <span className="text-[10px] opacity-75 font-normal">Base-b Log</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("cbrt")}
+                      className="h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                      title="Cube Root cbrt(x)"
+                    >
+                      <span className="text-xs font-black">³√x</span>
+                      <span className="text-[10px] opacity-75 font-normal">Cube Root</span>
+                    </button>
+                  </div>
                 </div>
 
-                {/* Number Theory & Modulo */}
-                <div className="grid grid-cols-4 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("mod")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                    title="Modulo mod(a, b)"
-                  >
-                    mod(a, b)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("root")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                    title="Arbitrary Root root(x, degree)"
-                  >
-                    ʸ√x (root)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("logb")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                    title="Logarithm with arbitrary base logb(x, base)"
-                  >
-                    logᵦ(x)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("cbrt")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                    title="Cube Root cbrt(x)"
-                  >
-                    ³√x
-                  </button>
+                {/* Section 3: Rounding & Integer Functions */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Rounding & Truncation
+                  </span>
+                  <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("abs")}
+                      className="h-11 sm:h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                    >
+                      |x| (abs)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("floor")}
+                      className="h-11 sm:h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                    >
+                      ⌊x⌋ floor
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("ceil")}
+                      className="h-11 sm:h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                    >
+                      ⌈x⌉ ceil
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("round")}
+                      className="h-11 sm:h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                    >
+                      round(x)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("sign")}
+                      className="h-11 sm:h-12 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 transition-all active:scale-95 shadow-xs cursor-pointer"
+                    >
+                      sgn(x)
+                    </button>
+                  </div>
                 </div>
 
-                {/* Rounding & Integer Functions */}
-                <div className="grid grid-cols-5 gap-2">
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("abs")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                  >
-                    |x| (abs)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("floor")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                  >
-                    ⌊x⌋ floor
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("ceil")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                  >
-                    ⌈x⌉ ceil
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("round")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                  >
-                    round
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("sign")}
-                    className="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-200"
-                  >
-                    sgn(x)
-                  </button>
-                </div>
-
-                {/* Random Generators */}
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("rand")}
-                    className="h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 font-bold text-xs hover:bg-indigo-100 border border-indigo-200/60 dark:border-indigo-900/50"
-                  >
-                    rand() (0 to 1)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => insertFunc("randInt")}
-                    className="h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 font-bold text-xs hover:bg-indigo-100 border border-indigo-200/60 dark:border-indigo-900/50"
-                  >
-                    randInt(min, max)
-                  </button>
+                {/* Section 4: Random Generators */}
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Random Number Generation
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("rand")}
+                      className="h-12 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 font-bold text-xs hover:bg-indigo-100 border border-indigo-200/70 dark:border-indigo-900/50 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                    >
+                      <span className="text-xs font-black">rand()</span>
+                      <span className="text-[10px] opacity-75 font-normal">Uniform Float [0, 1)</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => insertFunc("randInt")}
+                      className="h-12 rounded-md bg-indigo-50 dark:bg-indigo-950/40 text-indigo-800 dark:text-indigo-300 font-bold text-xs hover:bg-indigo-100 border border-indigo-200/70 dark:border-indigo-900/50 transition-all active:scale-95 shadow-xs cursor-pointer flex flex-col items-center justify-center"
+                    >
+                      <span className="text-xs font-black">randInt(min, max)</span>
+                      <span className="text-[10px] opacity-75 font-normal">Random Integer in Range</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -1045,20 +1090,20 @@ export default function ScientificCalculator() {
             {/* TAB CONTENT 4: UNIVERSAL PHYSICAL & MATH CONSTANTS  */}
             {/* ==================================================== */}
             {activeTab === "constants" && (
-              <div className="space-y-2">
-                <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              <div className="flex flex-col gap-3">
+                <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   10 Universal Physical & Mathematical Constants (Click to Insert)
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-3">
                   {CONSTANTS_LIST.map((c) => (
                     <button
                       key={c.symbol}
                       type="button"
                       onClick={() => insertToken(c.symbol)}
-                      className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 transition-all text-left group"
+                      className="p-3 rounded-md bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 hover:shadow-xs transition-all text-left cursor-pointer active:scale-95 group"
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="font-serif font-black text-emerald-700 dark:text-emerald-400 text-sm">
+                        <span className="font-serif font-black text-emerald-700 dark:text-emerald-400 text-base">
                           {c.symbol}
                         </span>
                         <span className="text-[10px] text-slate-400 font-mono">
