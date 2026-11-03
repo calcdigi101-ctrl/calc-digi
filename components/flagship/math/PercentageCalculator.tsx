@@ -1131,7 +1131,7 @@ export function PercentageCalculator() {
         ? { p2: `${p2}`, w2: `${w2}` }
         : mode === "change"
         ? { f3: `${f3}`, t3: `${t3}` }
-        : { v4: `${currencySymbol}${v4}`, op4: op4 === "add" ? "Add (+)" : "Deduct (-)", p4: `${p4}%` }),
+        : { v4: `${currencySymbol}${v4}`, op4: m4Op === "add" ? "Add (+)" : "Deduct (-)", p4: `${p4}%` }),
     }}
     output={{
       hero: {
@@ -1150,7 +1150,7 @@ export function PercentageCalculator() {
             ? `${p2} as a Percentage of ${w2}`
             : mode === "change"
             ? `Percentage ${isIncrease ? "Growth / Increase" : "Decline / Decrease"}`
-            : `Net Adjusted Total (${op4 === "add" ? "+" : "-"}${p4}%)`,
+            : `Net Adjusted Total (${m4Op === "add" ? "+" : "-"}${p4}%)`,
       },
       badge: {
         text: mode === "change" ? (isIncrease ? "+ Growth" : "- Decrease") : "Verified Output",
@@ -1160,25 +1160,25 @@ export function PercentageCalculator() {
         ...(mode === "part_of_whole"
           ? [
               { label: "Calculated Portion", value: formatNum(r1), strong: true },
-              { label: "Decimal Scale Factor", value: (num(p1) / 100).toFixed(4) },
-              { label: "Complement Portion (Remaining)", value: formatNum(num(v1) - r1) },
+              { label: "Decimal Scale Factor", value: ((Number(p1) || 0) / 100).toFixed(4) },
+              { label: "Complement Portion (Remaining)", value: formatNum((Number(v1) || 0) - r1) },
             ]
           : mode === "what_percent"
           ? [
               { label: "Calculated Proportion", value: `${formatNum(r2)}%`, strong: true },
-              { label: "Unit Fraction Equivalent", value: `~ ${(num(p2) / (num(w2) || 1)).toFixed(4)}` },
+              { label: "Unit Fraction Equivalent", value: `~ ${((Number(p2) || 0) / (Number(w2) || 1)).toFixed(4)}` },
               { label: "Difference from 100%", value: `${formatNum(100 - r2)}%` },
             ]
           : mode === "change"
           ? [
               { label: "Percentage Shift", value: `${isIncrease ? "+" : ""}${formatNum(r3)}%`, strong: true },
               { label: "Absolute Numerical Difference", value: `${isIncrease ? "+" : ""}${formatNum(diff3)}` },
-              { label: "Multiplicative Growth Factor", value: `${(num(t3) / (num(f3) || 1)).toFixed(4)}×` },
+              { label: "Multiplicative Growth Factor", value: `${((Number(t3) || 0) / (Number(f3) || 1)).toFixed(4)}×` },
             ]
           : [
               { label: "Final Adjusted Amount", value: `${currencySymbol}${formatNum(r4)}`, strong: true },
               { label: "Net Variance (Adjustment)", value: `${currencySymbol}${formatNum(delta4)}` },
-              { label: "Original Base Amount", value: `${currencySymbol}${formatNum(num(v4))}` },
+              { label: "Original Base Amount", value: `${currencySymbol}${formatNum(Number(v4) || 0)}` },
             ]),
       ],
       note: {

@@ -6,6 +6,7 @@ import { cn } from "@/lib/cn";
 export interface InvoiceField {
   key: string;
   label: string;
+  kind?: string;
   prefix?: string;
   suffix?: string;
   options?: { label: string; value: string }[];
@@ -15,7 +16,7 @@ export interface InvoiceOutput {
   hero: {
     value: string | number;
     label?: string;
-    sub?: string;
+    sub?: React.ReactNode;
     unit?: string;
   };
   badge?: {
@@ -34,24 +35,28 @@ export interface InvoiceOutput {
   }>;
   steps?: string[];
   note?: {
-    text: string;
+    text: React.ReactNode;
     tone?: string;
   };
 }
 
 export interface CalculationInvoiceProps {
   title: string;
+  subtitle?: string;
   category?: string;
-  fields: InvoiceField[];
+  documentId?: string;
+  fields?: InvoiceField[];
   values: Record<string, any>;
-  output: InvoiceOutput;
+  output: InvoiceOutput | any;
   extraRows?: Array<{ label: string; value: string | number; strong?: boolean }>;
 }
 
 export function CalculationInvoice({
   title,
+  subtitle,
   category,
-  fields,
+  documentId,
+  fields = [],
   values,
   output,
   extraRows,
@@ -255,7 +260,7 @@ export function CalculationInvoice({
               </tr>
             </thead>
             <tbody>
-              {allRows.map((r, idx) => (
+              {allRows.map((r: { label: string; value: string | number; strong?: boolean }, idx: number) => (
                 <tr
                   key={r.label}
                   className={cn(
@@ -296,7 +301,7 @@ export function CalculationInvoice({
             Algorithmic Execution & Audit Trail
           </span>
           <ol className="list-decimal pl-5 text-xs text-slate-700 space-y-1">
-            {output.steps.slice(0, 4).map((s, idx) => (
+            {output.steps.slice(0, 4).map((s: string, idx: number) => (
               <li key={idx} className="leading-snug">
                 {s}
               </li>
