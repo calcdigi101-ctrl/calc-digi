@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: ["/og-image.png"],
   },
+  verification: {
+    google: "08c95fcebfef8c2c",
+  },
 };
 
 // Cache-busting query param: /css/main.css and /js/*.js are served with a
