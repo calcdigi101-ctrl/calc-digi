@@ -493,7 +493,7 @@ export const HEALTH_TOOLS: HealthTool[] = [
     slug: "baby-weight-calculator",
     name: "Baby Weight Calculator",
     icon: "👶",
-    href: "/calculators/health/baby-weight-calculator",
+    href: "/calculators/baby/baby-weight-percentile-calculator",
     category: "womens",
     categoryLabel: "Women's & Pediatric Health",
     clinicalStandard: "WHO Child Growth Standards",

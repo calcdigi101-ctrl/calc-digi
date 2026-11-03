@@ -156,7 +156,7 @@ export default function TipCalculatorPage() {
                 nutrition calculator
               </Link>{" "}
               and monitor next-day exercise burn in the{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 calorie burn calculator
               </Link>.
             </li>

@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  "title": "Terms of Service | CalcDigi",
+  "title": "Terms of Service",
   "description": "CalcDigi Terms of Service — the rules and conditions for using our free online calculator platform.",
   "openGraph": {
     "title": "Terms of Service | CalcDigi",

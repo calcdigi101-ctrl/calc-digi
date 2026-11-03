@@ -154,7 +154,7 @@ export default function MortgageCalculatorPage() {
           <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
             <li><strong>Principal (P):</strong> Direct equity repayment that diminishes the remaining outstanding loan note balance.</li>
             <li><strong>Interest (I):</strong> The financial cost of borrowing capital charged by the lender, calculated strictly on the unpaid balance.</li>
-            <li><strong>Taxes (T):</strong> Municipal real estate property taxes assessed by county authorities, collected monthly into an escrow reserve account. Property taxes typically range between 0.60% and 2.40% of assessed property value annually depending on jurisdiction, verifiable with our <Link href="/calculators/finance/sales-tax-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">tax tools</Link>.</li>
+            <li><strong>Taxes (T):</strong> Municipal real estate property taxes assessed by county authorities, collected monthly into an escrow reserve account. Property taxes typically range between 0.60% and 2.40% of assessed property value annually depending on jurisdiction, verifiable with our <Link href="/calculators/business/sales-tax-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">tax tools</Link>.</li>
             <li><strong>Insurance (I):</strong> Homeowners hazard insurance protecting the structural integrity of the property against fire, windstorm, and casualty perils.</li>
           </ol>
 
@@ -186,7 +186,7 @@ export default function MortgageCalculatorPage() {
           </p>
           <Formula>{"\text{Annual Payments} = \frac{52 \text{ weeks}}{2} \times \left( \frac{M}{2} \right) = 26 \times \frac{M}{2} = 13 \times M"}</Formula>
           <p>
-            That single extra payment each calendar year goes 100% toward principal debt elimination without increasing monthly lifestyle strain. On a $320,000 loan at 6.50% APR, this simple strategy shaves 5.2 years off the 30-year term and saves over $58,000 in compounding interest, yielding returns comparable to an aggressive diversified investment modeled in our <Link href="/calculators/finance/roi-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">ROI calculator</Link>.
+            That single extra payment each calendar year goes 100% toward principal debt elimination without increasing monthly lifestyle strain. On a $320,000 loan at 6.50% APR, this simple strategy shaves 5.2 years off the 30-year term and saves over $58,000 in compounding interest, yielding returns comparable to an aggressive diversified investment modeled in our <Link href="/calculators/business/roi-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">ROI calculator</Link>.
           </p>
 
           <h2>Fixed-Rate vs. Adjustable-Rate Mortgages (ARM): Interest Rate Caps &amp; Index Volatility</h2>

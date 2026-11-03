@@ -175,7 +175,7 @@ export default function Page() {
         { href: "/calculators/finance/investment-calculator", icon: "📈", name: "Investment Calculator" },
         { href: "/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest" },
         { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Calculator" },
-        { href: "/calculators/finance/roi-calculator", icon: "🎯", name: "ROI Calculator" },
+        { href: "/calculators/business/roi-calculator", icon: "🎯", name: "ROI Calculator" },
         { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
       ]}
     >

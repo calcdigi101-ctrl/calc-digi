@@ -3,10 +3,10 @@ import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  "title": "Privacy Policy | CalcDigi",
+  "title": "Privacy Policy",
   "description": "CalcDigi Privacy Policy — learn how we collect, use, and protect your information.",
   "openGraph": {
-    "title": "Privacy Policy | CalcDigi",
+    "title": "Privacy Policy",
     "description": "CalcDigi Privacy Policy — learn how we collect, use, and protect your information.",
     "type": "website"
   },

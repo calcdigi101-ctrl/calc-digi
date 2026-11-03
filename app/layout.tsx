@@ -10,10 +10,10 @@ import "./flagship.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "CalcDigi – Free Online Calculators",
+    default: "Free Online Calculators (330+ Tools) | CalcDigi",
     template: "%s | CalcDigi",
   },
-  description: "CalcDigi (Calc Digi) offers 341+ free, instant, and accurate online calculators for health, finance, fitness, math, and everyday precision tools. No sign-up required.",
+  description: "CalcDigi offers 330+ free, instant, and accurate online calculators for health, finance, fitness, math, and everyday precision tools. No sign-up required.",
   openGraph: {
     siteName: "CalcDigi",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "CalcDigi – Free Online Calculators" }],

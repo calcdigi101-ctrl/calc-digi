@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/weather/humidity-calculator", icon: "💧", name: "Humidity Calculator" },
   { href: "/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
   { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
-  { href: "/calculators/environment/solar-panel-calculator", icon: "🔋", name: "Solar Panel Calculator" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "🔋", name: "Solar Panel Calculator" },
 ];
 
 const FAQ_ITEMS = [
@@ -70,7 +70,7 @@ export default function UvIndexCalculatorPage() {
             Diurnal Solar UV Radiation Intensity Curves Across Seasonal Cycles
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Ground-level UV radiation is dictated primarily by the solar zenith angle—the angle between the sun and the vertical overhead sky. When the sun is high in the sky at solar noon, solar rays traverse the thinnest slice of Earth's protective stratospheric ozone layer. In contrast, during early morning and late afternoon hours, the oblique solar path through the atmosphere increases optical air mass, scattering and absorbing virtually all sunburn-inducing UVB rays. Homeowners and facility operators can compare solar radiation trends with residential energy generation using our <Link href="/calculators/environment/solar-panel-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">solar panel calculator</Link>.
+            Ground-level UV radiation is dictated primarily by the solar zenith angle—the angle between the sun and the vertical overhead sky. When the sun is high in the sky at solar noon, solar rays traverse the thinnest slice of Earth's protective stratospheric ozone layer. In contrast, during early morning and late afternoon hours, the oblique solar path through the atmosphere increases optical air mass, scattering and absorbing virtually all sunburn-inducing UVB rays. Homeowners and facility operators can compare solar radiation trends with residential energy generation using our <Link href="/calculators/electronics/solar-panel-calculator" className="font-semibold text-emerald-600 dark:text-emerald-400 underline">solar panel calculator</Link>.
           </p>
 
           <DiurnalUvIndexSunAngleExposureChart />

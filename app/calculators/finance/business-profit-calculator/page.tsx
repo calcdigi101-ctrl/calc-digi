@@ -146,7 +146,7 @@ export default function Page() {
 
           <h3>Related Business Strategy &amp; Tax Solvers</h3>
           <p>
-            Drive enterprise growth: model volume thresholds with the <a href="/calculators/finance/break-even-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Break-Even Calculator</a>, calculate merchant processing friction using our <a href="/calculators/finance/paypal-fee-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">PayPal Fee Calculator</a>, analyze corporate capital investments via the <a href="/calculators/finance/roi-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">ROI Calculator</a>, and audit self-employment business tax obligations with the <a href="/calculators/finance/freelancer-tax-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Freelancer Tax Calculator</a>.
+            Drive enterprise growth: model volume thresholds with the <a href="/calculators/business/break-even-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Break-Even Calculator</a>, calculate merchant processing friction using our <a href="/calculators/finance/paypal-fee-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">PayPal Fee Calculator</a>, analyze corporate capital investments via the <a href="/calculators/business/roi-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">ROI Calculator</a>, and audit self-employment business tax obligations with the <a href="/calculators/finance/freelancer-tax-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Freelancer Tax Calculator</a>.
           </p>
         </>
       }

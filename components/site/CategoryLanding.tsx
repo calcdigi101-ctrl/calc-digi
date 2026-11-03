@@ -33,8 +33,10 @@ function copy(id: CategoryId) {
   const count = cat.calculators.length;
   const noun = cat.label.split(" & ")[0].toLowerCase();
   const description = `${count} free ${noun} calculators: ${TOPICS[id]}. Instant results, no sign-up.`;
-  const long = `${cat.label} Calculators (${count} Free) | CalcDigi`;
-  const title = long.length <= 60 ? long : `${cat.label} Calculators | CalcDigi`;
+  const long = `${cat.label} Calculators (${count} Free)`;
+  // Title template in app/layout.tsx adds " | CalcDigi" (11 chars).
+  // Keep base title <= 49 chars so full title is <= 60 chars with main keyword first.
+  const title = (long.length + 11) <= 60 ? long : `${cat.label} Calculators`;
   return { cat, count, description, title };
 }
 
@@ -44,7 +46,7 @@ export function categoryMetadata(id: CategoryId): Metadata {
   return {
     title,
     description,
-    openGraph: { title, description, type: "website", url: path },
+    openGraph: { title: `${title} | CalcDigi`, description, type: "website", url: path },
     alternates: { canonical: path },
   };
 }

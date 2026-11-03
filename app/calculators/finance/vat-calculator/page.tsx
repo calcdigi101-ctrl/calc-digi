@@ -130,7 +130,7 @@ export default function Page() {
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
             <h3>Related International &amp; Tax Solvers</h3>
             <p>
-              Compare domestic US point-of-sale retail taxes with our <a href="/calculators/finance/sales-tax-calculator">Sales Tax Calculator</a>, model cross-border foreign exchange with the <a href="/calculators/finance/currency-converter">Currency Converter</a>, evaluate payment merchant processing via the <a href="/calculators/finance/paypal-fee-calculator">PayPal Fee Calculator</a>, and calculate net margins via the <a href="/calculators/business/profit-margin-calculator">Business Profit Calculator</a>.
+              Compare domestic US point-of-sale retail taxes with our <a href="/calculators/business/sales-tax-calculator">Sales Tax Calculator</a>, model cross-border foreign exchange with the <a href="/calculators/finance/currency-converter">Currency Converter</a>, evaluate payment merchant processing via the <a href="/calculators/finance/paypal-fee-calculator">PayPal Fee Calculator</a>, and calculate net margins via the <a href="/calculators/business/profit-margin-calculator">Business Profit Calculator</a>.
             </p>
           </div>
         </>
@@ -170,7 +170,7 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/sales-tax-calculator", icon: "🏷️", name: "Sales Tax" },
+        { href: "/calculators/business/sales-tax-calculator", icon: "🏷️", name: "Sales Tax" },
         { href: "/calculators/finance/currency-converter", icon: "💱", name: "Currency Converter" },
         { href: "/calculators/finance/paypal-fee-calculator", icon: "💳", name: "PayPal Fee" },
         { href: "/calculators/business/profit-margin-calculator", icon: "💼", name: "Business Profit" },

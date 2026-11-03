@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+  { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
   { href: "/calculators/food/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
   { href: "/calculators/food/coffee-caffeine-calculator", icon: "☕", name: "Coffee Caffeine Calculator" },
   { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
@@ -48,7 +48,7 @@ export default function NutritionCalculatorPage() {
             </p>
             <p className="text-amber-800 dark:text-amber-200/90">
               The human metabolic engine combusts macronutrients according to thermodynamic Atwater energy coefficients: 4.0 kcal/g for proteins and available carbohydrates, and 9.0 kcal/g for dietary lipids. The National Academy of Medicine recommends Acceptable Macronutrient Distribution Ranges (AMDR): 10%–35% protein, 45%–65% carbohydrate, and 20%–35% fat. Balance dietary energy with physical burn in our{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
                 calorie burn calculator
               </Link>{" "}
               and beverage intake in the{" "}
@@ -113,7 +113,7 @@ export default function NutritionCalculatorPage() {
           <h2>Worked Nutritional Case Study: Active Strength Athlete Meal Plan</h2>
           <p>
             Consider a 75 kg recreational athlete aiming for a 2,400 kcal daily intake to support strength training while utilizing our{" "}
-            <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+            <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
               calorie burn calculator
             </Link>{" "}
             and managing recipe portions with the{" "}

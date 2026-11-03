@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/food/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
-  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+  { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
   { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
   { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
@@ -48,7 +48,7 @@ export default function CoffeeCaffeineCalculatorPage() {
             </p>
             <p className="text-amber-800 dark:text-amber-200/90">
               Caffeine (1,3,7-trimethylxanthine) is a potent central nervous system stimulant. The United States Food and Drug Administration (FDA) and European Food Safety Authority (EFSA) recommend a safe upper consumption threshold of 400 mg per day for healthy adults. Caffeine clearance follows first-order exponential decay with an average half-life of 5.0 hours. You can balance stimulant intake with exercise tracking in our{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
                 calorie burn calculator
               </Link>{" "}
               and metabolic nutrition in the{" "}
@@ -227,7 +227,7 @@ export default function CoffeeCaffeineCalculatorPage() {
               </h3>
               <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
                 Ingesting 3 to 6 mg of caffeine per kg of body mass 60 minutes before training increases time-to-exhaustion and enhances motor unit recruitment. You can evaluate this boosted athletic workload using our{" "}
-                <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                   calorie burn calculator
                 </Link>.
               </p>

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Annual Carbon Footprint" },
-  { href: "/calculators/environment/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar EV Charging" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar EV Charging" },
   { href: "/calculators/environment/energy-consumption-calculator", icon: "💡", name: "Electricity Usage Calculator" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Fuel Savings Investment ROI" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Fuel Economy Percentage Gain" },
@@ -123,7 +123,7 @@ export default function ElectricVehicleSavingsPage() {
           </p>
 
           <p>
-            To investigate how home rooftop solar panels can further drop EV charging expenses to nearly zero, cross-reference our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link>. To calculate the exact impact of vehicle electrification on your household greenhouse emissions, explore our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>.
+            To investigate how home rooftop solar panels can further drop EV charging expenses to nearly zero, cross-reference our <Link href="/calculators/electronics/solar-panel-calculator">Solar Panel Calculator</Link>. To calculate the exact impact of vehicle electrification on your household greenhouse emissions, explore our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>.
           </p>
 
           <h2>Mathematical Formulations for EV Fuel and TCO Economics</h2>

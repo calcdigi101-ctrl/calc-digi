@@ -27,7 +27,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
   { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
-  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+  { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
   { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
 ];
 
@@ -150,7 +150,7 @@ export default function CookingTimeCalculatorPage() {
                 nutrition calculator
               </Link>{" "}
               and calculates athletic fuel recovery in the{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 calorie burn calculator
               </Link>.
             </li>

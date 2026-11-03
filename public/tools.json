@@ -939,7 +939,7 @@
     {
       "category": "environment",
       "slug": "solar-panel-calculator",
-      "url": "https://calcdigi.com/calculators/environment/solar-panel-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/solar-panel-calculator",
       "title": "Solar Panel Calculator",
       "description": "",
       "formulas": [],
@@ -1021,7 +1021,7 @@
     {
       "category": "finance",
       "slug": "break-even-calculator",
-      "url": "https://calcdigi.com/calculators/finance/break-even-calculator",
+      "url": "https://calcdigi.com/calculators/business/break-even-calculator",
       "title": "Break-Even Calculator",
       "description": "Work out how many units you need to sell \u2014 and how much revenue you need \u2014 before your business starts making a profit.",
       "formulas": [
@@ -1283,7 +1283,7 @@
     {
       "category": "finance",
       "slug": "roi-calculator",
-      "url": "https://calcdigi.com/calculators/finance/roi-calculator",
+      "url": "https://calcdigi.com/calculators/business/roi-calculator",
       "title": "ROI Calculator",
       "description": "Measure the return on any investment \u2014 a stock, a property, a marketing campaign or a business project \u2014 as a total and as a yearly rate.",
       "formulas": [
@@ -1313,7 +1313,7 @@
     {
       "category": "finance",
       "slug": "sales-tax-calculator",
-      "url": "https://calcdigi.com/calculators/finance/sales-tax-calculator",
+      "url": "https://calcdigi.com/calculators/business/sales-tax-calculator",
       "title": "Sales Tax Calculator",
       "description": "Add sales tax to a price, or back it out of a receipt total, using any US state's rate plus your local tax.",
       "formulas": [
@@ -1406,7 +1406,7 @@
     {
       "category": "food",
       "slug": "calorie-burn-calculator",
-      "url": "https://calcdigi.com/calculators/food/calorie-burn-calculator",
+      "url": "https://calcdigi.com/calculators/health/calorie-burn-calculator",
       "title": "Calorie Burn Calculator",
       "description": "",
       "formulas": [],
@@ -1568,7 +1568,7 @@
     {
       "category": "health",
       "slug": "baby-weight-calculator",
-      "url": "https://calcdigi.com/calculators/health/baby-weight-calculator",
+      "url": "https://calcdigi.com/calculators/baby/baby-weight-percentile-calculator",
       "title": "Baby Weight Percentile Calculator",
       "description": "Assess your infant's physical development against the World Health Organization (WHO) Child Growth Standards (0 to 24 months). Calculate exact centiles, Z-scores, and longitudinal growth velocity.",
       "formulas": [
@@ -5177,7 +5177,7 @@
     {
       "category": "science",
       "slug": "ohms-law-calculator",
-      "url": "https://calcdigi.com/calculators/science/ohms-law-calculator",
+      "url": "https://calcdigi.com/calculators/electronics/ohms-law-calculator",
       "title": "Ohm's Law Calculator",
       "description": "",
       "formulas": [],

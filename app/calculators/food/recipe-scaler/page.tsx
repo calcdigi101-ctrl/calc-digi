@@ -192,7 +192,7 @@ export default function RecipeScalerPage() {
             </li>
             <li>
               <strong>Physical Prep & Labor Fatigue:</strong> Hand-whipping or kneading scaled batches burns substantial energy, which can be monitored with our{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 calorie burn calculator
               </Link>{" "}
               alongside barista caffeine pacing in the{" "}

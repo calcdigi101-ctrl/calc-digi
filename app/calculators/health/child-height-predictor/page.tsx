@@ -71,7 +71,7 @@ export default function ChildHeightPredictorPage() {
       appCategory="HealthApplication"
       mathExpression="\text{Boy MPH} = \frac{\text{Father} + \text{Mother} + 13\text{ cm}}{2}, \quad \text{Girl MPH} = \frac{\text{Father} + \text{Mother} - 13\text{ cm}}{2}"
       related={[
-        { href: "/calculators/health/baby-weight-calculator", icon: "👶", name: "Baby Weight & Height Calculator" },
+        { href: "/calculators/baby/baby-weight-percentile-calculator", icon: "👶", name: "Baby Weight & Height Calculator" },
         { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight Calculator" },
         { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
         { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
@@ -298,7 +298,7 @@ export default function ChildHeightPredictorPage() {
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Pediatric height trajectory correlates closely with infant weight gain velocity and overall nutritional adequacy. Track developmental growth percentiles using our <a href="/calculators/health/baby-weight-calculator">Baby Weight Calculator</a>, assess adult healthy weight ranges with the <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>, and monitor nutritional baselines with the <a href="/calculators/health/bmi-calculator">BMI Calculator</a>.
+            Pediatric height trajectory correlates closely with infant weight gain velocity and overall nutritional adequacy. Track developmental growth percentiles using our <a href="/calculators/baby/baby-weight-percentile-calculator">Baby Weight Calculator</a>, assess adult healthy weight ranges with the <a href="/calculators/health/ideal-weight-calculator">Ideal Weight Calculator</a>, and monitor nutritional baselines with the <a href="/calculators/health/bmi-calculator">BMI Calculator</a>.
           </p>
         </section>
               </>

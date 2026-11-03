@@ -123,7 +123,7 @@ export default function RecyclingSavingsPage() {
           </p>
 
           <p>
-            To investigate how recycling integrates with your overall household environmental footprint, cross-reference our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>, evaluate clean energy offsets with the <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link>, and model forestry carbon capture with the <Link href="/calculators/environment/tree-planting-calculator">Tree Planting Calculator</Link>.
+            To investigate how recycling integrates with your overall household environmental footprint, cross-reference our <Link href="/calculators/environment/carbon-footprint-calculator">Carbon Footprint Calculator</Link>, evaluate clean energy offsets with the <Link href="/calculators/electronics/solar-panel-calculator">Solar Panel Calculator</Link>, and model forestry carbon capture with the <Link href="/calculators/environment/tree-planting-calculator">Tree Planting Calculator</Link>.
           </p>
 
           <h2>Mathematical Principles of Waste Reduction Model (WARM) Lifecycle Accounting</h2>

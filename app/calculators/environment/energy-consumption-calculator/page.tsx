@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/environment/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar Offset" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar Offset" },
   { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
   { href: "/calculators/environment/electric-vehicle-savings-calculator", icon: "⚡", name: "EV Charging Cost Calculator" },
   { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Load Calculator" },
@@ -123,7 +123,7 @@ export default function EnergyConsumptionPage() {
           </p>
 
           <p>
-            To evaluate how generating your own clean power offsets these appliance loads, cross-reference our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link>. For sizing home heating capacity or evaluating whole-home electrical breaker panel demand, explore our <Link href="/calculators/engineering/electrical-load-calculator">Electrical Load Calculator</Link> and <Link href="/calculators/engineering/heat-transfer-calculator">Home Heat Loss Sizing Calculator</Link>.
+            To evaluate how generating your own clean power offsets these appliance loads, cross-reference our <Link href="/calculators/electronics/solar-panel-calculator">Solar Panel Calculator</Link>. For sizing home heating capacity or evaluating whole-home electrical breaker panel demand, explore our <Link href="/calculators/engineering/electrical-load-calculator">Electrical Load Calculator</Link> and <Link href="/calculators/engineering/heat-transfer-calculator">Home Heat Loss Sizing Calculator</Link>.
           </p>
 
           <h2>Mathematical Principles of Electrical Energy & Cost Calculations</h2>
@@ -211,7 +211,7 @@ export default function EnergyConsumptionPage() {
           </p>
 
           <p>
-            To examine how pairing energy efficiency with rooftop photovoltaic generation can create a net-zero home, consult our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link> and evaluate home conservation benefits with the <Link href="/calculators/environment/water-usage-calculator">Water Usage Calculator</Link>.
+            To examine how pairing energy efficiency with rooftop photovoltaic generation can create a net-zero home, consult our <Link href="/calculators/electronics/solar-panel-calculator">Solar Panel Calculator</Link> and evaluate home conservation benefits with the <Link href="/calculators/environment/water-usage-calculator">Water Usage Calculator</Link>.
           </p>
         </>
       }

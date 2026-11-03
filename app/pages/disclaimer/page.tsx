@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  "title": "Disclaimer | CalcDigi",
+  "title": "Disclaimer",
   "description": "CalcDigi Disclaimer — important information about the accuracy and limitations of our online calculators.",
   "openGraph": {
     "title": "Disclaimer | CalcDigi",

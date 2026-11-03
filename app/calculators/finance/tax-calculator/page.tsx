@@ -133,7 +133,7 @@ export default function Page() {
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
             <h3>Related Payroll &amp; Income Solvers</h3>
             <p>
-              Calculate your net paycheck via the <a href="/calculators/finance/take-home-pay-calculator">Take-Home Pay Calculator</a>, evaluate gross earnings using the <a href="/calculators/finance/salary-calculator">Salary Calculator</a>, model self-employment taxes with the <a href="/calculators/finance/freelancer-tax-calculator">Freelancer Tax Calculator</a>, and audit sales tax liabilities using our <a href="/calculators/finance/sales-tax-calculator">Sales Tax Calculator</a>.
+              Calculate your net paycheck via the <a href="/calculators/finance/take-home-pay-calculator">Take-Home Pay Calculator</a>, evaluate gross earnings using the <a href="/calculators/finance/salary-calculator">Salary Calculator</a>, model self-employment taxes with the <a href="/calculators/finance/freelancer-tax-calculator">Freelancer Tax Calculator</a>, and audit sales tax liabilities using our <a href="/calculators/business/sales-tax-calculator">Sales Tax Calculator</a>.
             </p>
           </div>
         </>
@@ -176,7 +176,7 @@ export default function Page() {
         { href: "/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay" },
         { href: "/calculators/finance/salary-calculator", icon: "💼", name: "Salary Calculator" },
         { href: "/calculators/finance/freelancer-tax-calculator", icon: "💻", name: "Freelancer Tax" },
-        { href: "/calculators/finance/sales-tax-calculator", icon: "🏷️", name: "Sales Tax" },
+        { href: "/calculators/business/sales-tax-calculator", icon: "🏷️", name: "Sales Tax" },
         { href: "/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
         { href: "/calculators/finance/roth-ira-calculator", icon: "💎", name: "Roth IRA" },
       ]}

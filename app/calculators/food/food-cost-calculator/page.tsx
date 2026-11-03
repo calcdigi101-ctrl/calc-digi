@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
   { href: "/calculators/food/cooking-time-calculator", icon: "⏱️", name: "Cooking Time" },
-  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
+  { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
 ];
 
 export default function FoodCostCalculatorPage() {
@@ -153,7 +153,7 @@ export default function FoodCostCalculatorPage() {
                 nutrition calculator
               </Link>{" "}
               and physical staff stamina in the{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 calorie burn calculator
               </Link>.
             </li>

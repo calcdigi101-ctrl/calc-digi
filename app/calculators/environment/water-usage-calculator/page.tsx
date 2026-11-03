@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/environment/energy-consumption-calculator", icon: "💡", name: "Water Heater Energy Cost" },
   { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Household Carbon Footprint" },
   { href: "/calculators/environment/recycling-savings-calculator", icon: "♻️", name: "Recycling Water Conservation" },
-  { href: "/calculators/environment/solar-panel-calculator", icon: "☀️", name: "Solar Energy Payback" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Solar Energy Payback" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Water Consumption Reduction %" },
   { href: "/calculators/math/ratio-calculator", icon: "📐", name: "Indoor vs Outdoor Usage Ratio" },
 ];

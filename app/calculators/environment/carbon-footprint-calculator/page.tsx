@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const RELATED_CALCULATORS = [
   { href: "/calculators/environment/electric-vehicle-savings-calculator", icon: "⚡", name: "EV Carbon & Cost Savings" },
   { href: "/calculators/environment/tree-planting-calculator", icon: "🌲", name: "Tree Planting Carbon Offset" },
-  { href: "/calculators/environment/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar Offset" },
+  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar Offset" },
   { href: "/calculators/environment/energy-consumption-calculator", icon: "💡", name: "Home Energy Consumption" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Emissions Reduction Share" },
   { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Green Energy Investment ROI" },
@@ -123,7 +123,7 @@ export default function CarbonFootprintPage() {
           </p>
 
           <p>
-            To evaluate specific technical interventions that eliminate your largest footprint contributors, explore our <Link href="/calculators/environment/electric-vehicle-savings-calculator">Electric Vehicle Savings Calculator</Link> for transportation abatement, our <Link href="/calculators/environment/solar-panel-calculator">Solar Panel Calculator</Link> for clean rooftop power, and our <Link href="/calculators/environment/tree-planting-calculator">Tree Planting Calculator</Link> for biological carbon sequestration offsets.
+            To evaluate specific technical interventions that eliminate your largest footprint contributors, explore our <Link href="/calculators/environment/electric-vehicle-savings-calculator">Electric Vehicle Savings Calculator</Link> for transportation abatement, our <Link href="/calculators/electronics/solar-panel-calculator">Solar Panel Calculator</Link> for clean rooftop power, and our <Link href="/calculators/environment/tree-planting-calculator">Tree Planting Calculator</Link> for biological carbon sequestration offsets.
           </p>
 
           <h2>Mathematical Principles of Greenhouse Gas Life Cycle Assessment (LCA)</h2>

@@ -28,8 +28,8 @@ export type Article = {
 const LOCAL_ARTICLES: Article[] = [
   {
     "slug": "how-much-house-can-you-afford",
-    "title": "How Much House Can I Afford in 2026? The 28/36 Rule & Complete Buyer Formula",
-    "excerpt": "Use the 28/36 debt-to-income rule, down payment benchmarks, and current mortgage interest rates to calculate a safe home-buying budget without becoming house-poor.",
+    "title": "How Much House Can I Afford? (28/36 Rule)",
+    "excerpt": "Use the 28/36 debt-to-income rule, down payment benchmarks, and mortgage rates to calculate a safe home-buying budget without becoming house-poor.",
     "category": "Real Estate & Mortgage",
     "read_minutes": 7,
     "cover_emoji": "🏡",
@@ -41,7 +41,7 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "power-of-compound-interest",
-    "title": "The Power of Compound Interest: Mathematical Formulas & Wealth Building Strategies",
+    "title": "Power of Compound Interest: Math & Wealth Formula",
     "excerpt": "How compound interest works mathematically, why early contributions outperform late lump sums, and practical worked formulas for long-term investing.",
     "category": "Finance & Wealth",
     "read_minutes": 6,
@@ -54,8 +54,8 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "healthy-bmi-for-adults",
-    "title": "What Is a Healthy BMI for Adults? WHO & CDC Ranges, Blind Spots & Waist Ratios",
-    "excerpt": "Understand standard body mass index categories, ethnically adjusted metabolic risk thresholds, and why combining BMI with waist circumference provides superior health insights.",
+    "title": "Healthy BMI for Adults: WHO Ranges & Waist Ratio",
+    "excerpt": "Understand body mass index categories, metabolic risk thresholds, and why combining BMI with waist circumference provides superior health insights.",
     "category": "Health & Fitness",
     "read_minutes": 5,
     "cover_emoji": "📊",
@@ -67,8 +67,8 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "calorie-deficit-tdee-fat-loss",
-    "title": "The Science of Calorie Deficit & TDEE: How to Calculate Exact Daily Calories for Fat Loss",
-    "excerpt": "Master the thermodynamics of human energy expenditure, calculate your precise BMR with the Mifflin-St Jeor equation, and set safe deficit targets for sustained fat loss.",
+    "title": "Calorie Deficit & TDEE Guide for Fat Loss",
+    "excerpt": "Master the science of energy expenditure, calculate your exact BMR with Mifflin-St Jeor, and set safe calorie deficit targets for sustained fat loss.",
     "category": "Health & Fitness",
     "read_minutes": 6,
     "cover_emoji": "🥗",
@@ -80,8 +80,8 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "15-vs-30-year-fixed-mortgage",
-    "title": "15-Year vs. 30-Year Fixed Mortgage: True Interest Cost & Monthly Payment Comparison",
-    "excerpt": "Compare the mathematical tradeoffs between a 15-year and 30-year mortgage, including interest savings, payment flexibility, and opportunity cost of invested capital.",
+    "title": "15 vs 30-Year Fixed Mortgage: Cost Comparison",
+    "excerpt": "Compare mathematical tradeoffs between 15-year and 30-year mortgages, including total interest savings, payment flexibility, and opportunity costs.",
     "category": "Real Estate & Mortgage",
     "read_minutes": 7,
     "cover_emoji": "🏦",
@@ -93,7 +93,7 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "federal-income-tax-brackets-2026",
-    "title": "2026 Federal Income Tax Brackets: Marginal Rates, Standard Deduction & Take-Home Pay",
+    "title": "2026 Federal Income Tax Brackets & Rates",
     "excerpt": "Comprehensive breakdown of 2026 IRS federal income tax brackets, marginal vs. effective tax rates, standard deductions, and tax calculation formulas.",
     "category": "Taxes & Deductions",
     "read_minutes": 6,
@@ -106,7 +106,7 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "20-4-10-car-buying-rule",
-    "title": "The 20/4/10 Rule for Car Financing: Calculate How Much Vehicle You Can Truly Afford",
+    "title": "The 20/4/10 Rule for Car Financing & Budget",
     "excerpt": "A battle-tested financial rule of thumb to buy a dependable vehicle without draining your emergency fund or suffering underwater negative equity.",
     "category": "Finance & Wealth",
     "read_minutes": 5,
@@ -119,8 +119,8 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "401k-match-retirement-compounding",
-    "title": "401(k) Employer Match & Compounding Growth: Maximizing Free Retirement Returns",
-    "excerpt": "Why taking full advantage of your company 401(k) employer match represents an instant 50% to 100% risk-free return, plus the exponential math of tax-deferred compounding.",
+    "title": "401(k) Employer Match & Retirement Compounding",
+    "excerpt": "Why taking your 401(k) employer match gives an instant 50% to 100% risk-free return, plus the exponential mathematics of tax-deferred compounding.",
     "category": "Finance & Wealth",
     "read_minutes": 6,
     "cover_emoji": "💰",
@@ -132,8 +132,8 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "small-business-valuation-multiples",
-    "title": "How to Value a Small Business: SDE, EBITDA Multiples & DCF Methods Explained",
-    "excerpt": "A practical guide to valuing a small business or digital enterprise using Seller's Discretionary Earnings, industry transaction multiples, and discounted cash flow.",
+    "title": "How to Value a Small Business: SDE & EBITDA",
+    "excerpt": "A practical guide to valuing a small business or company using Seller's Discretionary Earnings (SDE), industry multiples, and discounted cash flow.",
     "category": "Business & Valuation",
     "read_minutes": 7,
     "cover_emoji": "💼",
@@ -145,7 +145,7 @@ const LOCAL_ARTICLES: Article[] = [
   },
   {
     "slug": "markup-vs-margin-pricing-formula",
-    "title": "Markup vs. Margin: The Essential Mathematical Difference and Conversion Formulas",
+    "title": "Markup vs Margin: Differences & Formulas",
     "excerpt": "Why confusing markup with gross margin destroys profitability, with exact conversion formulas, practical pricing tables, and retail worked examples.",
     "category": "Business & Valuation",
     "read_minutes": 5,

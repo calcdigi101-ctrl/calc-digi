@@ -30,7 +30,10 @@ export interface Calculator {
   slug: string;
   category: CategoryId;
   href: string;
+  lastUpdated?: string;
 }
+
+export const DEFAULT_LAST_UPDATED = "2026-11-03";
 
 export interface Category {
   id: CategoryId;
@@ -68,7 +71,7 @@ export const CATEGORIES: Category[] = [
       { name: "Bra Size Calculator", icon: "👙", slug: "bra-size-calculator", category: "health", href: "/calculators/health/bra-size-calculator" },
       { name: "Period Calculator", icon: "🌸", slug: "period-calculator", category: "health", href: "/calculators/health/period-calculator" },
       { name: "Fertility Calculator", icon: "🌺", slug: "fertility-calculator", category: "health", href: "/calculators/health/fertility-calculator" },
-      { name: "Baby Weight Calculator", icon: "👶", slug: "baby-weight-calculator", category: "health", href: "/calculators/health/baby-weight-calculator" },
+      { name: "Baby Weight Calculator", icon: "👶", slug: "baby-weight-calculator", category: "health", href: "/calculators/baby/baby-weight-percentile-calculator" },
       { name: "Child Height Predictor", icon: "📐", slug: "child-height-predictor", category: "health", href: "/calculators/health/child-height-predictor" },
       { name: "Pushup Fitness Test", icon: "💪", slug: "pushup-test-calculator", category: "health", href: "/calculators/health/pushup-test-calculator" },
       { name: "Swim Pace Calculator", icon: "🏊", slug: "swim-pace-calculator", category: "health", href: "/calculators/health/swim-pace-calculator" },
@@ -100,12 +103,12 @@ export const CATEGORIES: Category[] = [
       { name: "Investment Calculator", icon: "📈", slug: "investment-calculator", category: "finance", href: "/calculators/finance/investment-calculator" },
       { name: "Budget Calculator", icon: "📊", slug: "budget-calculator", category: "finance", href: "/calculators/finance/budget-calculator" },
       { name: "Net Worth Calculator", icon: "💰", slug: "net-worth-calculator", category: "finance", href: "/calculators/finance/net-worth-calculator" },
-      { name: "ROI Calculator", icon: "📈", slug: "roi-calculator", category: "finance", href: "/calculators/finance/roi-calculator" },
+      { name: "ROI Calculator", icon: "📈", slug: "roi-calculator", category: "finance", href: "/calculators/business/roi-calculator" },
       { name: "Down Payment Calculator", icon: "🏡", slug: "down-payment-calculator", category: "finance", href: "/calculators/finance/down-payment-calculator" },
       { name: "Debt Payoff Calculator", icon: "💳", slug: "debt-payoff-calculator", category: "finance", href: "/calculators/finance/debt-payoff-calculator" },
       { name: "Emergency Fund Calculator", icon: "🆘", slug: "emergency-fund-calculator", category: "finance", href: "/calculators/finance/emergency-fund-calculator" },
       { name: "401k Calculator", icon: "💼", slug: "401k-calculator", category: "finance", href: "/calculators/finance/401k-calculator" },
-      { name: "Sales Tax Calculator", icon: "🧾", slug: "sales-tax-calculator", category: "finance", href: "/calculators/finance/sales-tax-calculator" },
+      { name: "Sales Tax Calculator", icon: "🧾", slug: "sales-tax-calculator", category: "finance", href: "/calculators/business/sales-tax-calculator" },
       { name: "APR Calculator", icon: "📑", slug: "apr-calculator", category: "finance", href: "/calculators/finance/apr-calculator" },
       { name: "Dividend Calculator", icon: "💵", slug: "dividend-calculator", category: "finance", href: "/calculators/finance/dividend-calculator" },
       { name: "Currency Converter", icon: "💱", slug: "currency-converter", category: "finance", href: "/calculators/finance/currency-converter" },
@@ -126,7 +129,7 @@ export const CATEGORIES: Category[] = [
       { name: "Child Support Calculator", icon: "👶", slug: "child-support-calculator", category: "finance", href: "/calculators/finance/child-support-calculator" },
       { name: "Alimony Calculator", icon: "💑", slug: "alimony-calculator", category: "finance", href: "/calculators/finance/alimony-calculator" },
       { name: "College Savings Calculator", icon: "🎓", slug: "college-savings-calculator", category: "finance", href: "/calculators/finance/college-savings-calculator" },
-      { name: "Break Even Calculator", icon: "⚖️", slug: "break-even-calculator", category: "finance", href: "/calculators/finance/break-even-calculator" },
+      { name: "Break Even Calculator", icon: "⚖️", slug: "break-even-calculator", category: "finance", href: "/calculators/business/break-even-calculator" },
     ],
   },
   {
@@ -368,7 +371,7 @@ export const CATEGORIES: Category[] = [
       { name: "Alcohol Unit Calculator", icon: "🍺", slug: "alcohol-unit-calculator", category: "food", href: "/calculators/food/alcohol-unit-calculator" },
       { name: "Caffeine Calculator", icon: "☕", slug: "coffee-caffeine-calculator", category: "food", href: "/calculators/food/coffee-caffeine-calculator" },
       { name: "Baking Substitution Calculator", icon: "🧁", slug: "baking-substitution-calculator", category: "food", href: "/calculators/food/baking-substitution-calculator" },
-      { name: "Calorie Burn Calculator", icon: "🔥", slug: "calorie-burn-calculator", category: "food", href: "/calculators/food/calorie-burn-calculator" },
+      { name: "Calorie Burn Calculator", icon: "🔥", slug: "calorie-burn-calculator", category: "food", href: "/calculators/health/calorie-burn-calculator" },
     ],
   },
   {
@@ -417,7 +420,7 @@ export const CATEGORIES: Category[] = [
       { name: "Osmolarity Calculator", icon: "🩺", slug: "osmolarity-calculator", category: "science", href: "/calculators/science/osmolarity-calculator" },
       { name: "Boiling Point Calculator", icon: "🫧", slug: "boiling-point-calculator", category: "science", href: "/calculators/science/boiling-point-calculator" },
       { name: "Empirical Formula Calculator", icon: "🔭", slug: "empirical-formula-calculator", category: "science", href: "/calculators/science/empirical-formula-calculator" },
-      { name: "Ohm's Law Calculator", icon: "⚡", slug: "ohms-law-calculator", category: "science", href: "/calculators/science/ohms-law-calculator" },
+      { name: "Ohm's Law Calculator", icon: "⚡", slug: "ohms-law-calculator", category: "science", href: "/calculators/electronics/ohms-law-calculator" },
     ],
   },
   {
@@ -448,7 +451,7 @@ export const CATEGORIES: Category[] = [
     emoji: "🌱",
     calculators: [
       { name: "Carbon Footprint Calculator", icon: "🌿", slug: "carbon-footprint-calculator", category: "environment", href: "/calculators/environment/carbon-footprint-calculator" },
-      { name: "Solar Panel Calculator", icon: "☀️", slug: "solar-panel-calculator", category: "environment", href: "/calculators/environment/solar-panel-calculator" },
+      { name: "Solar Panel Calculator", icon: "☀️", slug: "solar-panel-calculator", category: "environment", href: "/calculators/electronics/solar-panel-calculator" },
       { name: "Water Usage Calculator", icon: "💧", slug: "water-usage-calculator", category: "environment", href: "/calculators/environment/water-usage-calculator" },
       { name: "Energy Consumption Calculator", icon: "⚡", slug: "energy-consumption-calculator", category: "environment", href: "/calculators/environment/energy-consumption-calculator" },
       { name: "Tree Planting Calculator", icon: "🌳", slug: "tree-planting-calculator", category: "environment", href: "/calculators/environment/tree-planting-calculator" },
@@ -525,7 +528,7 @@ export const CATEGORIES: Category[] = [
 
 export const ALL_CALCULATORS: Calculator[] = CATEGORIES.flatMap((c) => c.calculators);
 
-export const TOTAL_CALCULATOR_COUNT = ALL_CALCULATORS.length;
+export const TOTAL_CALCULATOR_COUNT = new Set(ALL_CALCULATORS.map((c) => c.href)).size;
 
 /** Category landing page (the "conversion" category lives at /pages/measurements). */
 export function categoryPath(id: CategoryId): string {

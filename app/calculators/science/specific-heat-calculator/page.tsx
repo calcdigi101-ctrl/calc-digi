@@ -26,7 +26,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/science/boiling-point-calculator", icon: "🌡️", name: "Boiling Elevation" },
   { href: "/calculators/science/ideal-gas-law-calculator", icon: "🎈", name: "Ideal Gas Law" },
   { href: "/calculators/science/density-calculator", icon: "⚖️", name: "Density Solver" },
-  { href: "/calculators/science/ohms-law-calculator", icon: "⚡", name: "Ohm's Law Joule Heat" },
+  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law Joule Heat" },
 ];
 
 export default function SpecificHeatCalculatorPage() {
@@ -74,7 +74,7 @@ export default function SpecificHeatCalculatorPage() {
             {"T_{\text{final}} = \frac{m_1 \cdot c_1 \cdot T_1 + m_2 \cdot c_2 \cdot T_2}{m_1 \cdot c_1 + m_2 \cdot c_2}"}
           </Formula>
           <p>
-            For gases, specific heat depends heavily on the thermodynamic process: constant pressure specific heat (Cp) exceeds constant volume specific heat (Cv) by the universal gas constant (Cp - Cv = R) due to the boundary work performed during isobaric thermal expansion. Engineers model gas expansion work through the <Link href="/calculators/science/ideal-gas-law-calculator">ideal gas law calculator</Link> and evaluate electrical heating elements using the <Link href="/calculators/science/ohms-law-calculator">Ohmic Joule heating tool</Link>.
+            For gases, specific heat depends heavily on the thermodynamic process: constant pressure specific heat (Cp) exceeds constant volume specific heat (Cv) by the universal gas constant (Cp - Cv = R) due to the boundary work performed during isobaric thermal expansion. Engineers model gas expansion work through the <Link href="/calculators/science/ideal-gas-law-calculator">ideal gas law calculator</Link> and evaluate electrical heating elements using the <Link href="/calculators/electronics/ohms-law-calculator">Ohmic Joule heating tool</Link>.
           </p>
 
           <h2>Material Specific Heat Benchmarks & Thermal Conductivity Reference</h2>

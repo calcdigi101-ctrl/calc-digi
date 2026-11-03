@@ -144,7 +144,7 @@ export default function Page() {
 
           <h3>Related Trading, Tax &amp; Wealth Solvers</h3>
           <p>
-            Protect your trading capital: model stock equity performance using the <a href="/calculators/finance/stock-return-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Stock Return Calculator</a>, estimate self-employment and freelance taxes with our <a href="/calculators/finance/freelancer-tax-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Freelancer Tax Calculator</a>, verify annualized returns via the <a href="/calculators/finance/roi-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">ROI Calculator</a>, and audit your balance sheet with the <a href="/calculators/finance/net-worth-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Net Worth Calculator</a>.
+            Protect your trading capital: model stock equity performance using the <a href="/calculators/finance/stock-return-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Stock Return Calculator</a>, estimate self-employment and freelance taxes with our <a href="/calculators/finance/freelancer-tax-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Freelancer Tax Calculator</a>, verify annualized returns via the <a href="/calculators/business/roi-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">ROI Calculator</a>, and audit your balance sheet with the <a href="/calculators/finance/net-worth-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Net Worth Calculator</a>.
           </p>
         </>
       }

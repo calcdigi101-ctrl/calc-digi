@@ -5,10 +5,10 @@ import { CATEGORIES, TOTAL_CALCULATOR_COUNT } from "@/lib/calculators";
 import { TAX_YEAR } from "@/lib/tax";
 
 export const metadata: Metadata = {
-  title: "About CalcDigi – Free Online Calculators",
+  title: "About Us – Free Online Calculators",
   description: `About CalcDigi: ${TOTAL_CALCULATOR_COUNT} free, accurate calculators for health, finance, math and everyday life. Learn about our mission and principles.`,
   openGraph: {
-    title: "About Us",
+    title: "About Us – Free Online Calculators | CalcDigi",
     description: `About CalcDigi: ${TOTAL_CALCULATOR_COUNT} free, accurate calculators for health, finance, math and everyday life.`,
     type: "website",
   },

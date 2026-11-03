@@ -162,7 +162,7 @@ export default function PhCalculatorPage() {
               True pH = -log₁₀(1.0512 × 10⁻⁷) = 6.98.
             </li>
             <li>
-              <strong>Scientific Conclusion:</strong> The solution is indeed slightly acidic (pH 6.98 &lt; 7.00), demonstrating that water autoprotolysis dominates whenever acid concentrations fall below 10⁻⁶ M. Evaluate ionic conductances through the <Link href="/calculators/science/ohms-law-calculator">Ohmic electrochemical cell calculator</Link>.
+              <strong>Scientific Conclusion:</strong> The solution is indeed slightly acidic (pH 6.98 &lt; 7.00), demonstrating that water autoprotolysis dominates whenever acid concentrations fall below 10⁻⁶ M. Evaluate ionic conductances through the <Link href="/calculators/electronics/ohms-law-calculator">Ohmic electrochemical cell calculator</Link>.
             </li>
           </ol>
 

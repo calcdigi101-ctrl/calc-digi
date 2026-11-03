@@ -147,7 +147,7 @@ export default function Page() {
           </p>
           <Formula>{"\\text{Value} = \\left( \\frac{P}{100} \\right) \\times X"}</Formula>
           <p>
-            <em>Example:</em> An investor evaluates an 8.5% annual dividend payout on a portfolio valued at $45,000 using our <Link href="/calculators/finance/roi-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">ROI calculator</Link>. Applying the formula yields:
+            <em>Example:</em> An investor evaluates an 8.5% annual dividend payout on a portfolio valued at $45,000 using our <Link href="/calculators/business/roi-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">ROI calculator</Link>. Applying the formula yields:
           </p>
           <Formula>{"\\text{Dividend} = \\left( \\frac{8.5}{100} \\right) \\times 45{,}000 = 0.085 \\times 45{,}000 = \\$3{,}825.00"}</Formula>
 
@@ -177,7 +177,7 @@ export default function Page() {
           </p>
           <Formula>{"\\text{Original Price} = \\frac{\\text{Final Price}}{1 \\pm \\left( \\frac{\\text{Rate \\%}}{100} \\right)}"}</Formula>
           <p>
-            <em>Example:</em> A consumer purchases electronics costing $336.00 after an 8% sales tax calculated using our <Link href="/calculators/finance/sales-tax-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">sales tax calculator</Link>. To extract the true pre-tax merchant base price:
+            <em>Example:</em> A consumer purchases electronics costing $336.00 after an 8% sales tax calculated using our <Link href="/calculators/business/sales-tax-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">sales tax calculator</Link>. To extract the true pre-tax merchant base price:
           </p>
           <Formula>{"\\text{Base Price} = \\frac{\\$336.00}{1 + 0.08} = \\frac{\\$336.00}{1.08} = \\$311.11"}</Formula>
 

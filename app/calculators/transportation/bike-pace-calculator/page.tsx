@@ -27,7 +27,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
   { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
   { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
-  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+  { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
 ];
 
@@ -48,7 +48,7 @@ export default function BikePaceCalculatorPage() {
             </p>
             <p className="text-amber-800 dark:text-amber-200/90">
               Unlike running where energy scales linearly with velocity, cycling power demand increases with the cube of airspeed (v3). At speeds exceeding 15 mph (24 km/h), overcoming aerodynamic wind drag consumes between 70% and 90% of a cyclist&apos;s mechanical wattage. You can cross-verify physical energy burn with our{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
                 calorie burn calculator
               </Link>{" "}
               and evaluate multi-modal urban transit expenses in the{" "}

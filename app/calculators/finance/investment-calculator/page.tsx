@@ -202,7 +202,7 @@ export default function Page() {
         { href: "/calculators/finance/stock-return-calculator", icon: "📊", name: "Stock Return" },
         { href: "/calculators/finance/dividend-calculator", icon: "💵", name: "Dividend Calculator" },
         { href: "/calculators/finance/inflation-calculator", icon: "🎈", name: "Inflation Calculator" },
-        { href: "/calculators/finance/roi-calculator", icon: "🎯", name: "ROI Calculator" },
+        { href: "/calculators/business/roi-calculator", icon: "🎯", name: "ROI Calculator" },
       ]}
     >
       <Calculator />

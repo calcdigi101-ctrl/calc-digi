@@ -148,7 +148,7 @@ export default function Page() {
 
           <h3>Related Wealth &amp; Investment Solvers</h3>
           <p>
-            Model your long-term wealth strategy: evaluate portfolio yields using our <a href="/calculators/finance/dividend-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Dividend Calculator</a>, calculate general investment trajectory via the <a href="/calculators/finance/investment-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Investment Calculator</a>, optimize retirement runway with the <a href="/calculators/finance/roth-ira-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Roth IRA Calculator</a>, and model time-weighted returns using our <a href="/calculators/finance/roi-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">ROI Calculator</a>.
+            Model your long-term wealth strategy: evaluate portfolio yields using our <a href="/calculators/finance/dividend-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Dividend Calculator</a>, calculate general investment trajectory via the <a href="/calculators/finance/investment-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Investment Calculator</a>, optimize retirement runway with the <a href="/calculators/finance/roth-ira-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Roth IRA Calculator</a>, and model time-weighted returns using our <a href="/calculators/business/roi-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">ROI Calculator</a>.
           </p>
         </>
       }

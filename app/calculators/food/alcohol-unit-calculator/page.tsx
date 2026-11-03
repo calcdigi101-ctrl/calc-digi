@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/food/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+  { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
   { href: "/calculators/food/coffee-caffeine-calculator", icon: "☕", name: "Coffee Caffeine Calculator" },
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
   { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
@@ -52,7 +52,7 @@ export default function AlcoholUnitCalculatorPage() {
                 nutrition calculator
               </Link>{" "}
               and physical exercise expenditure in the{" "}
-              <Link href="/calculators/food/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
+              <Link href="/calculators/health/calorie-burn-calculator" className="font-medium underline hover:text-amber-900">
                 calorie burn calculator
               </Link>.
             </p>
@@ -251,7 +251,7 @@ export default function AlcoholUnitCalculatorPage() {
               </h3>
               <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
                 Ethanol impairs muscle glycogen resynthesis and disrupts nocturnal growth hormone secretion by up to 70%. When tracking athletic training or energy burn with our{" "}
-                <Link href="/calculators/food/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                   calorie burn calculator
                 </Link>, acute alcohol consumption inhibits peripheral lipid oxidation, depressing net athletic training adaptation.
               </p>
