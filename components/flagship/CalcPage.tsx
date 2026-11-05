@@ -91,38 +91,7 @@ export function CalcPage({
       medicalAudience: "Patients and Health Consumers",
     });
   }
-  if (
-    category.label === "Finance" ||
-    category.label === "Math" ||
-    category.label === "Housing" ||
-    category.label === "Housing & Building" ||
-    appCategory === "FinanceApplication"
-  ) {
-    graph.push({
-      "@type": "MathSolver",
-      name: title,
-      url: `${SITE_URL}${path}`,
-      description,
-      inLanguage: "en-US",
-      dateModified: "2026-10-23",
-      publisher,
-      potentialAction: [
-        {
-          "@type": "SolveAction",
-          target: `${SITE_URL}${path}`,
-          ...(mathExpression ? { mathExpression } : {}),
-          eduQuestionType:
-            category.label === "Finance" || category.label === "Finance & Money"
-              ? "Financial Mathematics"
-              : category.label === "Housing" || category.label === "Housing & Building"
-              ? "Applied Engineering & Construction Mathematics"
-              : category.label === "Health" || category.label === "Health & Fitness"
-              ? "Biomedical & Nutritional Mathematics"
-              : "Mathematics",
-        },
-      ],
-    });
-  }
+
   if (faq.length) {
     graph.push({
       "@type": "FAQPage",
