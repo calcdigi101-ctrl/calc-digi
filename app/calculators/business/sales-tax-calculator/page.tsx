@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { SalesTaxJurisdictionDecompositionChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/sales-tax-calculator";
-const TITLE = "Sales Tax Calculator";
+const TITLE = "Sales Tax Calculator: Add, Remove & Reverse Tax";
 const DESCRIPTION =
-  "Calculate state and local sales tax liabilities, inclusive versus exclusive gross totals, economic nexus compliance thresholds, and municipal surcharges.";
+  "Free sales tax calculator. Calculate total tax, final price, or reverse-calculate pre-tax cost from receipt totals. Fast, accurate, and easy for state & local rates.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,6 +19,22 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Sales Tax Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 
@@ -63,8 +79,8 @@ export default function SalesTaxCalculatorPage() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/business", label: "Business & Entrepreneurship" }}
-      title="Commercial Sales & Use Tax Calculator"
-      intro="Compute combined state, county, and municipal sales taxes, reconcile tax-inclusive versus tax-exclusive amounts, and verify destination nexus compliance."
+      title="Sales Tax Calculator"
+      intro={DESCRIPTION}
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"
       faq={FAQ_ITEMS}

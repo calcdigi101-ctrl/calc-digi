@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LoanAmortizationScheduleChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/loan-calculator";
-const TITLE = "Loan Calculator";
+const TITLE = "Loan Calculator: Monthly Payments & Amortization";
 const DESCRIPTION =
-  "Free fixed-rate loan calculator: calculate exact monthly payments, cumulative interest expenses, and full amortization schedules across personal, auto.";
+  "Free loan calculator: calculate exact monthly payments, total interest costs, and full amortization schedules. Model extra payments and early payoff savings.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

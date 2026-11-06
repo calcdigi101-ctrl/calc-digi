@@ -8,9 +8,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WHO_CLASSES } from "@/lib/bmi";
 
 const PATH = "/calculators/health/bmi-calculator";
-const TITLE = "BMI Calculator";
+const TITLE = "BMI Calculator: Accurate Body Mass Index & Chart";
 const DESCRIPTION =
-  "Calculate your Body Mass Index (BMI) in US or metric units. Features WHO weight categories, Oxford University scaling, BMI Prime, and healthy weight targets.";
+  "Free Body Mass Index (BMI) calculator for men, women, and teens. Check your WHO weight category, healthy target weight range, and Oxford formula in US or metric.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -21,6 +21,22 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "BMI Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 
@@ -92,7 +108,7 @@ export default function BmiCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/health", label: "Health" }}
-      title={TITLE}
+      title="BMI Calculator"
       description={DESCRIPTION}
       appCategory="HealthApplication"
       mathExpression="\text{BMI} = \frac{\text{mass (kg)}}{[\text{height (m)}]^2}"

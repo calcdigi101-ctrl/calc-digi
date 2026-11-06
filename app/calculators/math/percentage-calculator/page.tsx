@@ -6,9 +6,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/math/percentage-calculator";
-const TITLE = "Percentage Calculator";
+const TITLE = "Percentage Calculator: Instant %, Change & Reverse";
 const DESCRIPTION =
-  "Free online percentage calculator. Calculate percent of a number, percentage change (increase/decrease), what percent X is of Y, reverse percentages, sales.";
+  "Free online percentage calculator. Instantly calculate % of a number, percentage change (increase/decrease), reverse percentage, and discounts with step-by-step math.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,6 +19,22 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Percentage Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 
@@ -104,7 +120,7 @@ export default function Page() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/math", label: "Math" }}
-      title={TITLE}
+      title="Percentage Calculator"
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"
       mathExpression="P = (X / Y) \times 100"

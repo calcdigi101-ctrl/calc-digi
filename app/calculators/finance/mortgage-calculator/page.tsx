@@ -7,9 +7,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/finance/mortgage-calculator";
-const TITLE = "Mortgage Calculator";
+const TITLE = "Mortgage Calculator: Monthly Payment, Taxes & PMI";
 const DESCRIPTION =
-  "Calculate your exact monthly mortgage payment with principal, interest, property taxes, home insurance, and PMI. Compare 15 vs 30-year amortization schedules.";
+  "Free mortgage calculator. Calculate exact monthly payments with principal, interest, property taxes, home insurance, and PMI. Compare 15 vs 30-year loans.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -20,6 +20,22 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Mortgage Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 
@@ -89,7 +105,7 @@ export default function MortgageCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/finance", label: "Finance" }}
-      title={TITLE}
+      title="Mortgage Calculator"
       description={DESCRIPTION}
       appCategory="FinanceApplication"
       mathExpression="M = P \frac{r(1+r)^n}{(1+r)^n - 1}"
