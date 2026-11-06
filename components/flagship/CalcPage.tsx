@@ -47,6 +47,13 @@ export function CalcPage({
       width: 512,
       height: 512,
     },
+    sameAs: [
+      "https://x.com/CalcDigi",
+      "https://www.instagram.com/calc.digi",
+      "https://www.linkedin.com/in/calc-digi-b684a6449/",
+      "https://www.producthunt.com/@calcdigi",
+      "https://alternativeto.net/software/calcdigi/"
+    ],
   };
 
   const graph: object[] = [
