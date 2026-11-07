@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcertTicketTrueCostBreakdownChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/concert-ticket-calculator";
-const TITLE = "Concert Ticket True Cost Calculator";
+const TITLE = "Concert Ticket Calculator: True Cost & Hidden Fees";
 const DESCRIPTION =
-  "Calculate the true all-in cost of concert and festival tickets. Factor in face value, platform convenience service fees (15%–35%), venue parking passes, food.";
+  "Free concert ticket cost calculator. Instantly calculate total ticket price with venue fees, dynamic surge pricing, parking, and hidden service charges.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -18,7 +18,10 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [{ url: "https://www.calcdigi.com/icon.svg", width: 512, height: 512, alt: "Concert Ticket Calculator - CalcDigi" }],
   },
+  twitter: { card: "summary", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
 };
 
 const RELATED_CALCULATORS = [
@@ -62,7 +65,7 @@ export default function ConcertTicketPage() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/entertainment", label: "Entertainment" }}
-      title="Concert Ticket True Cost Calculator"
+      title="Concert Ticket Calculator"
       intro="Calculate the true all-in cost of live music and festival tickets. Factor in face value, platform convenience service fees (15%–35%), venue parking passes, food & drink concessions, and official tour merchandise."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"

@@ -6,7 +6,7 @@ import { LoanAmortizationScheduleChart } from "@/components/flagship/finance/edi
 const PATH = "/calculators/finance/loan-calculator";
 const TITLE = "Loan Calculator: Monthly Payments & Amortization";
 const DESCRIPTION =
-  "Free loan calculator: calculate exact monthly payments, total interest costs, and full amortization schedules. Model extra payments and early payoff savings.";
+  "Free loan calculator. Calculate exact monthly payments, total interest costs, and full amortization schedules. Model extra payments with zero signup.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

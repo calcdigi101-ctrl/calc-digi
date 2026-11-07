@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TransitModeSpeedDistanceMatrixChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/distance-calculator";
-const TITLE = "Distance Calculator";
+const TITLE = "Distance Calculator: Travel Distance, Time & Speed";
 const DESCRIPTION =
-  "Calculate travel distance, elapsed door-to-door transit time, average speed, terminal buffers, and greenhouse gas carbon emissions across transit modes.";
+  "Free travel distance calculator. Instantly calculate door-to-door transit distance, driving travel time, average speed, and fuel carbon emissions.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,7 +19,10 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [{ url: "https://www.calcdigi.com/icon.svg", width: 512, height: 512, alt: "Distance Calculator - CalcDigi" }],
   },
+  twitter: { card: "summary", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
 };
 
 const RELATED_CALCULATORS = [
@@ -37,7 +40,7 @@ export default function DistanceCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
-      title={TITLE}
+      title="Distance Calculator"
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
       article={

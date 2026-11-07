@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WorkshiftBreakdownDurationCurveChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/time-duration-calculator";
-const TITLE = "Time Duration Calculator";
+const TITLE = "Time Duration Calculator: Hours Between Two Times";
 const DESCRIPTION =
-  "Calculate elapsed time between start and end timestamps, deduct unpaid lunch breaks, convert hours to commercial decimal timesheet billing, and model.";
+  "Free time duration calculator. Calculate exact hours, minutes, and days between two times or dates with lunch break deduction and decimal timesheet hours.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,7 +19,10 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [{ url: "https://www.calcdigi.com/icon.svg", width: 512, height: 512, alt: "Time Duration Calculator - CalcDigi" }],
   },
+  twitter: { card: "summary", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
 };
 
 const RELATED_CALCULATORS = [
@@ -56,7 +59,7 @@ export default function TimeDurationCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/datetime", label: "Date & Time" }}
-      title={TITLE}
+      title="Time Duration Calculator"
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
       faq={FAQ_ITEMS}

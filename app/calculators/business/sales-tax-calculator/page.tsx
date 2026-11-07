@@ -8,7 +8,7 @@ import { SalesTaxJurisdictionDecompositionChart } from "@/components/flagship/bu
 const PATH = "/calculators/business/sales-tax-calculator";
 const TITLE = "Sales Tax Calculator: Add, Remove & Reverse Tax";
 const DESCRIPTION =
-  "Free sales tax calculator. Calculate total tax, final price, or reverse-calculate pre-tax cost from receipt totals. Fast, accurate, and easy for state & local rates.";
+  "Free sales tax calculator. Calculate total tax, final price, or reverse pre-tax cost from receipt totals with state, city, and local rates instantly.";
 
 export const metadata: Metadata = {
   title: TITLE,

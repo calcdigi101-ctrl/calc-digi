@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AttendanceRateImpactThresholdChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/attendance-calculator";
-const TITLE = "Attendance Calculator";
+const TITLE = "Attendance Calculator: Fast Percentage & Bunk Planner";
 const DESCRIPTION =
-  "Calculate student attendance percentage, allowable future class cuts, mandatory attendance compliance (75%, 80%, 85%), and debarment risk thresholds.";
+  "Free attendance percentage calculator. Instantly calculate your current class attendance %, required classes to reach 75%, and safe skips with zero signup.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,7 +19,10 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [{ url: "https://www.calcdigi.com/icon.svg", width: 512, height: 512, alt: "Attendance Calculator - CalcDigi" }],
   },
+  twitter: { card: "summary", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
 };
 
 const RELATED_CALCULATORS = [
@@ -56,7 +59,7 @@ export default function AttendanceCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/education", label: "Education & School" }}
-      title={TITLE}
+      title="Attendance Calculator"
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
       faq={FAQ_ITEMS}

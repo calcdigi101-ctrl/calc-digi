@@ -8,7 +8,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 const PATH = "/calculators/math/percentage-calculator";
 const TITLE = "Percentage Calculator: Instant %, Change & Reverse";
 const DESCRIPTION =
-  "Free online percentage calculator. Instantly calculate % of a number, percentage change (increase/decrease), reverse percentage, and discounts with step-by-step math.";
+  "Free online percentage calculator. Instantly calculate % of a number, percentage change (increase/decrease), and discounts with step-by-step math examples.";
 
 export const metadata: Metadata = {
   title: TITLE,

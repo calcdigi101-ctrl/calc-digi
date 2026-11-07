@@ -10,7 +10,7 @@ import { WHO_CLASSES } from "@/lib/bmi";
 const PATH = "/calculators/health/bmi-calculator";
 const TITLE = "BMI Calculator: Accurate Body Mass Index & Chart";
 const DESCRIPTION =
-  "Free Body Mass Index (BMI) calculator for men, women, and teens. Check your WHO weight category, healthy target weight range, and Oxford formula in US or metric.";
+  "Free BMI calculator. Instantly check your Body Mass Index, WHO weight category, healthy target weight range, and prime BMI with zero signup.";
 
 export const metadata: Metadata = {
   title: TITLE,
