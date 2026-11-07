@@ -7,9 +7,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/health/calorie-calculator";
-const TITLE = "Calorie Calculator";
+const TITLE = "Calorie Calculator: Daily Intake for Fat Loss & Muscle";
 const DESCRIPTION =
-  "Calculate your exact daily calorie needs for sustainable fat loss, weight maintenance, or lean muscle gain. Powered by the clinically validated Mifflin-St.";
+  "Free daily calorie calculator. Calculate your exact maintenance, fat loss, and muscle gain calories using clinically validated Mifflin-St Jeor and TDEE formulas.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -20,6 +20,22 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Calorie Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 
@@ -88,7 +104,7 @@ export default function CalorieCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/health", label: "Health" }}
-      title={TITLE}
+      title="Calorie Calculator"
       description={DESCRIPTION}
       appCategory="HealthApplication"
       mathExpression="\\text{BMR} = 10m + 6.25h - 5a + s"

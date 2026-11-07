@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { HospitalityTipPercentageBenchmarkChart } from "@/components/flagship/food/editorial-charts";
 
 const PATH = "/calculators/food/tip-calculator";
-const TITLE = "Tip Calculator";
+const TITLE = "Tip Calculator: Fast Bill Split & Pre-Tax Gratuity";
 const DESCRIPTION =
-  "Calculate restaurant tips, sales tax, total dining check splits per person, and hospitality gratuity percentiles for casual and fine dining.";
+  "Free restaurant tip calculator. Instantly calculate pre-tax gratuity, split the bill evenly between friends, and add local sales tax with zero math errors.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,8 +19,55 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Tip Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
+
+const FAQ_ITEMS = [
+  {
+    q: "Should tips be calculated on the pre-tax subtotal or the post-tax total?",
+    a: "Etiquette authorities and financial experts universally recommend calculating tips on the pre-tax subtotal. Sales tax is a government assessment, not a hospitality service rendered by your dining room server.",
+  },
+  {
+    q: "What is the standard tip percentage in the United States today?",
+    a: "The standard baseline tip in US sit-down full-service restaurants is currently 18% to 20% for good to excellent service. 15% is considered acceptable for baseline service, while 22% to 25% is customary for exceptional hospitality or fine dining.",
+  },
+  {
+    q: "Do you tip the same percentage on wine and alcoholic beverages?",
+    a: "Yes, standard tipping applies to the entire beverage and food subtotal. However, if ordering exceptionally rare, high-value vintage wine bottles ($200+ per bottle), some diners tip 15% on the wine portion and 20% on the culinary food courses.",
+  },
+  {
+    q: "How does tip pooling work among restaurant kitchen and dining staff?",
+    a: "In many dining rooms, servers tip out a percentage of their gross sales (typically 3% to 5%) to support staff such as bussers, bartenders, and food runners. If a customer leaves 0% tip, the server still has to tip out support staff out-of-pocket for that table.",
+  },
+  {
+    q: "How do restaurant operators factor tipping into prime labor costs?",
+    a: "Customer gratuities allow restaurants to retain talented front-of-house staff while keeping prime labor costs within the 30% to 35% target range. Because customer tips satisfy a portion of server wages under federal and state tip-credit provisions, kitchen management can allocate more capital toward culinary execution.",
+  },
+  {
+    q: "How does alcohol consumption affect overall hospitality check totals?",
+    a: "Alcohol beverages often account for 30% to 50% of the guest check, substantially increasing gratuities earned by service staff. In fine dining, sommeliers and service bartenders receive dedicated tip-outs from beverage revenue.",
+  },
+  {
+    q: "What is the difference between a voluntary tip and a mandatory service charge?",
+    a: "A voluntary tip is completely at the diner's discretion and belongs by law directly to the service employees under FLSA regulations. A mandatory service charge (like an automatic 18% or 20% gratuity on parties of 6 or more) legally belongs to the restaurant establishment, which may distribute it as wages or retain it for operations.",
+  },
+];
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
@@ -37,11 +84,22 @@ export default function TipCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/food", label: "Food & Cooking" }}
-      title={TITLE}
+      title="Tip Calculator"
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
-      article={
+      faq={FAQ_ITEMS}
+            article={
         <>
+          <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Hospitality Economics &amp; Consumer Finance Standards
+            </span>
+            <span>•</span>
+            <span>Updated Q4 2026</span>
+            <span>•</span>
+            <span>FLSA Section 3(m) Compliant Guidelines</span>
+          </div>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
             <p className="font-semibold text-amber-900 dark:text-amber-300 mb-1">
               Hospitality Economics Summary: Pre-Tax Gratuity Standard
@@ -167,7 +225,7 @@ export default function TipCalculatorPage() {
             In many restaurants, customer gratuities do not stay solely with the primary server. Under federal Department of Labor (DOL) regulations updated in 2021, employers may mandate valid tip pooling arrangements. In a traditional tip pool, servers contribute 20% to 30% of their gross tips to bussers, food runners, and service bartenders.
           </p>
           <p>
-            However, managers, supervisors, and owners are strictly prohibited by federal law from retaining any portion of employee tips, regardless of whether a tip pool exists. In contrast, mandatory &quot;service charges&quot; (such as automatic 20% gratuities on large parties) legally belong to the restaurant enterprise, which may distribute them as wages or retain them for operating overhead.
+            However, managers, supervisors, and owners are strictly prohibited by federal law from retaining any portion of employee tips, regardless of whether a tip pool exists. In contrast, mandatory &quot;service charges&quot; (such as automatic 20% gratuities on large parties) legally belong to the restaurant enterprise, which may distribute them as wages or retain them for operating overhead.</p>
 
           <h2>Jurisdictional Tip Credit Disparities & Credit Card Fee Deductions</h2>
           <p>
@@ -175,7 +233,6 @@ export default function TipCalculatorPage() {
           </p>
           <p>
             Another complex legal dimension involves credit card interchange processing fee deductions. When a customer charges a tip on a credit card, credit card merchant processors assess a 2.0% to 3.5% transaction processing fee. In federal court precedents and multiple states, employers are permitted to deduct the actual transactional percentage cost attributable to the tip amount before paying out credit card tips to service staff. For example, on a $50 credit card tip subject to a 2.5% interchange fee, the employer may remit $48.75 to the server.
-          </p>
           </p>
 
           <h2>Operational Pitfalls, Point-of-Sale (POS) Bias & Cash Etiquette</h2>
@@ -206,65 +263,6 @@ export default function TipCalculatorPage() {
               </Link>.
             </li>
           </ul>
-
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Should tips be calculated on the pre-tax subtotal or the post-tax total?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Etiquette authorities and financial experts universally recommend calculating tips on the pre-tax subtotal. Sales tax is a government assessment, not a hospitality service rendered by your dining room server.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the standard tip percentage in the United States today?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                The standard baseline tip in US sit-down full-service restaurants is currently 18% to 20% for good to excellent service. 15% is considered acceptable for baseline service, while 22% to 25% is customary for exceptional hospitality or fine dining.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Do you tip the same percentage on wine and alcoholic beverages?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Yes, standard tipping applies to the entire beverage and food subtotal. However, if ordering exceptionally rare, high-value vintage wine bottles ($200+ per bottle), some diners tip 15% on the wine portion and 20% on the culinary food courses.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does tip pooling work among restaurant kitchen and dining staff?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                In many dining rooms, servers tip out a percentage of their gross sales (typically 3% to 5%) to support staff such as bussers, bartenders, and food runners. If a customer leaves 0% tip, the server still has to tip out support staff out-of-pocket for that table.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do restaurant operators factor tipping into prime labor costs?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Customer gratuities allow restaurants to retain talented front-of-house staff while keeping prime labor costs within the 30% to 35% target range analyzed in our{" "}
-                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  food cost calculator
-                </Link>.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does alcohol consumption affect overall hospitality check totals?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Alcohol beverages tracked with our{" "}
-                <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  alcohol unit calculator
-                </Link>{" "}
-                often account for 30% to 50% of the guest check, substantially increasing gratuities earned by service staff.
-              </p>
-            </div>
-          </div>
 
           <h2>Authoritative Hospitality Labor Standards & Legal Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

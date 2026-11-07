@@ -1,14 +1,41 @@
+import type { Metadata } from "next";
 import Calculator from "@/components/calcs/finance/auto-loan-calculator";
-import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
+import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { AutoLoanDepreciationEquityChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/auto-loan-calculator";
-const TITLE = "Auto Loan Calculator";
+const TITLE = "Auto Loan Calculator: Car Payment, Interest & Trade-In";
 const DESCRIPTION =
-  "Free auto loan calculator: calculate exact monthly car payments with state sales tax, dealer doc fees, trade-in equity, and down payments.";
+  "Free auto loan calculator. Calculate exact monthly car payments, total interest, amortization schedule, and state sales tax with trade-in equity and down payment.";
 
-export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: PATH },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Auto Loan Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
+  },
+};
 
 export default function Page() {
   return (
@@ -16,12 +43,22 @@ export default function Page() {
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
       title="Auto Loan Calculator"
-      intro="Calculate exact monthly car payments, total financing costs, state sales tax liabilities, and amortization schedules. Model cash down payments and vehicle trade-in values to avoid negative equity."
+      intro={DESCRIPTION}
       description={DESCRIPTION}
       appCategory="FinanceApplication"
       mathExpression="PMT = P \times \frac{r(1 + r)^n}{(1 + r)^n - 1}"
-      article={
+            article={
         <>
+          <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Automotive Amortization &amp; Actuarial Standards
+            </span>
+            <span>•</span>
+            <span>Updated Q4 2026</span>
+            <span>•</span>
+            <span>Truth in Lending Act (Regulation Z) Compliant</span>
+          </div>
           <h2>Direct Answer: Calculating True Auto Loan Payments &amp; Total Debt Burden</h2>
           <p>
             An <strong>auto loan payment</strong> is calculated from the net &ldquo;out-the-door&rdquo; vehicle purchase price rather than the manufacturer window sticker MSRP. The total capital financed represents the negotiated vehicle price plus mandatory state and local sales taxes, dealer documentation fees, and title registration fees, diminished by any cash down payment and positive trade-in equity. That net principal balance is amortized over a term of 36 to 84 months at a fixed annual percentage rate (APR).

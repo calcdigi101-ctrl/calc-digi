@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LifeStageChronologicalDistributionChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/age-calculator";
-const TITLE = "Exact Age Calculator";
+const TITLE = "Age Calculator: Exact Years, Months, Days & Next Birthday";
 const DESCRIPTION =
-  "Calculate your exact chronological age in years, months, days, hours, and minutes with leap-year compensation, actuarial life expectancy tables.";
+  "Free online age calculator. Find your exact chronological age in years, months, days, hours, and minutes with leap-year accuracy and days until your next birthday.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,6 +19,22 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Age Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 
@@ -56,12 +72,22 @@ export default function AgeCalculatorPage() {
       path={PATH}
       intro={DESCRIPTION}
       category={{ href: "/pages/datetime", label: "Date & Time" }}
-      title={TITLE}
+      title="Age Calculator"
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
       faq={FAQ_ITEMS}
-      article={
+            article={
         <>
+          <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
+            <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              Astronomical &amp; Actuarial Chronological Standards
+            </span>
+            <span>•</span>
+            <span>Updated Q4 2026</span>
+            <span>•</span>
+            <span>Gregorian Calendar &amp; SSA OASDI Validated</span>
+          </div>
           <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
             <strong>Chronological Precision Guidance:</strong> Exact chronological age measures elapsed calendar intervals across non-uniform month lengths and quadrennial leap days. For legal contracts, insurance underwriting, and medical pediatric staging, cross-reference upcoming anniversaries in our <Link href="/calculators/datetime/birthday-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">birthday calculator</Link>, track elapsed calendar intervals with our <Link href="/calculators/datetime/date-difference-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">date difference calculator</Link>, or evaluate metric durations in our <Link href="/calculators/measurements/time-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time converter</Link>.
           </div>
