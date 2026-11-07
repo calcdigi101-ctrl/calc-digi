@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  trailingSlash: false,
   async redirects() {
     return [
       // Deduplicated calculators (301 permanent redirects to main URLs)

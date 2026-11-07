@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json(
       {
-        site: "https://calcdigi.com",
+        site: "https://www.calcdigi.com",
         updated: data.updated,
         total: tools.length,
         tools,

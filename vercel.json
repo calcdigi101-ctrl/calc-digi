@@ -56,5 +56,29 @@
     }
   ],
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "calc-digi.vercel.app"
+        }
+      ],
+      "destination": "https://www.calcdigi.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "calcdigi.com"
+        }
+      ],
+      "destination": "https://www.calcdigi.com/$1",
+      "permanent": true
+    }
+  ]
 }
