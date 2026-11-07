@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense, type ReactNode } from "react";
 import { CalculatorPage, Editorial, Faq, JsonLd, RelatedLinks } from "./shell";
 import { SITE_URL } from "@/lib/site";
+import { MATH_SOLVERS, type MathSolverConfig } from "@/lib/mathSolvers";
 
 /**
  * Shared server-rendered frame for every redesigned calculator: JSON-LD,
@@ -19,6 +20,7 @@ export function CalcPage({
   faq = [],
   related = [],
   mathExpression,
+  mathSolver,
   children,
 }: {
   path: string;
@@ -34,6 +36,7 @@ export function CalcPage({
   faq?: { q: string; a: string }[];
   related?: { href: string; icon: string; name: string }[];
   mathExpression?: string;
+  mathSolver?: MathSolverConfig;
   children: ReactNode;
 }) {
   const publisher = {
@@ -109,9 +112,32 @@ export function CalcPage({
     });
   }
 
+  const solverConfig = mathSolver || MATH_SOLVERS[path];
+  const mathSolverJsonLd = solverConfig
+    ? {
+        "@context": "https://schema.org",
+        "@type": ["MathSolver", "LearningResource"],
+        name: solverConfig.name || title,
+        url: `${SITE_URL}${path}`,
+        usageInfo: "https://www.calcdigi.com/pages/privacy-policy",
+        inLanguage: "en",
+        learningResourceType: "Math solver",
+        assesses: solverConfig.assesses,
+        potentialAction: [
+          {
+            "@type": "SolveMathAction",
+            target: `${SITE_URL}${path}?q={math_expression_string}`,
+            "mathExpression-input": "required name=math_expression_string",
+            eduQuestionType: solverConfig.eduQuestionType,
+          },
+        ],
+      }
+    : null;
+
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", "@graph": graph }} />
+      {mathSolverJsonLd ? <JsonLd data={mathSolverJsonLd} /> : null}
       <CalculatorPage crumbs={[{ href: "/", label: "Home" }, category, { label: title }]} title={title} intro={intro}>
         <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
           {children}

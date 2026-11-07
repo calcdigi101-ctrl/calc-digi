@@ -60,6 +60,23 @@ export function PercentageCalculator() {
     if (params.get("y")) setM1Val(params.get("y")!);
     if (params.get("from")) setM3From(params.get("from")!);
     if (params.get("to")) setM3To(params.get("to")!);
+
+    // Handle Google Math Solver ?q= parameter
+    const q = params.get("q");
+    if (q) {
+      const decoded = decodeURIComponent(q);
+      const match = decoded.match(/(\d+(?:\.\d+)?)\s*%\s*(?:of)?\s*(\d+(?:\.\d+)?)/i);
+      if (match) {
+        setMode("part_of_whole");
+        setM1Pct(match[1]);
+        setM1Val(match[2]);
+      } else {
+        const justNum = decoded.match(/(\d+(?:\.\d+)?)/);
+        if (justNum) {
+          setM1Pct(justNum[1]);
+        }
+      }
+    }
   }, []);
 
   // Sync URL state

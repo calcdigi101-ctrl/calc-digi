@@ -91,23 +91,6 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             },
             {
-              "@type": "MathSolver",
-              name: "Mortgage Calculator",
-              url: `${SITE_URL}${path}`,
-              description: DESCRIPTION,
-              inLanguage: "en-US",
-              dateModified: "2026-10-23",
-              publisher,
-              potentialAction: [
-                {
-                  "@type": "SolveAction",
-                  target: `${SITE_URL}${path}`,
-                  mathExpression: "M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1]",
-                  eduQuestionType: "Financial Mathematics",
-                },
-              ],
-            },
-            {
               "@type": "FAQPage",
               inLanguage: "en-US",
               dateModified: "2026-10-23",
