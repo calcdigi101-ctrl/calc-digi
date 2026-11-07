@@ -52,7 +52,7 @@ export default function OvulationPage() {
       appCategory="HealthApplication"
       mathExpression="\text{Ovulation Day} = \text{LMP} + (\text{Cycle Length} - \text{Luteal Phase (14 days)})"
       related={[
-        { href: "/calculators/health/pregnancy-due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
+        { href: "/calculators/baby/due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
         { href: "/calculators/health/period-calculator", icon: "🩸", name: "Period Calculator" },
         { href: "/calculators/health/fertility-calculator", icon: "🌱", name: "Fertility Calculator" },
         { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
@@ -258,7 +258,7 @@ export default function OvulationPage() {
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Ovulation timing forms the foundation of family planning and reproductive wellness. Model cycle lengths and luteal phase variations with our <a href="/calculators/health/period-calculator">Period Calculator</a>, evaluate cumulative conception probability with the <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, and compute estimated milestones using the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>.
+            Ovulation timing forms the foundation of family planning and reproductive wellness. Model cycle lengths and luteal phase variations with our <a href="/calculators/health/period-calculator">Period Calculator</a>, evaluate cumulative conception probability with the <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, and compute estimated milestones using the <a href="/calculators/baby/due-date-calculator">Pregnancy Due Date Calculator</a>.
           </p>
         </section>
               </>

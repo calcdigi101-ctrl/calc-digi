@@ -58,7 +58,7 @@ export default function PeriodPage() {
       mathExpression="\text{Next Period Date} = \text{LMP} + \text{Cycle Length (days)} \quad (\text{Normal: } 24 \le \text{Cycle} \le 38)"
       related={[
         { href: "/calculators/health/ovulation-calculator", icon: "📅", name: "Ovulation Calculator" },
-        { href: "/calculators/health/pregnancy-due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
+        { href: "/calculators/baby/due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
         { href: "/calculators/health/fertility-calculator", icon: "🌱", name: "Fertility Calculator" },
         { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
         { href: "/calculators/health/sleep-calculator", icon: "💤", name: "Sleep Calculator" },
@@ -269,7 +269,7 @@ export default function PeriodPage() {
         <section className="space-y-4 pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">Related Clinical &amp; Metabolic Companion Tools</h3>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-            Menstrual cycle predictability is a primary vital sign of female endocrine health. Pinpoint your fertile window and ovulation peak using our <a href="/calculators/health/ovulation-calculator">Ovulation Calculator</a>, assess conception readiness with the <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, and estimate gestation timing with the <a href="/calculators/health/pregnancy-due-date-calculator">Pregnancy Due Date Calculator</a>.
+            Menstrual cycle predictability is a primary vital sign of female endocrine health. Pinpoint your fertile window and ovulation peak using our <a href="/calculators/health/ovulation-calculator">Ovulation Calculator</a>, assess conception readiness with the <a href="/calculators/health/fertility-calculator">Fertility Calculator</a>, and estimate gestation timing with the <a href="/calculators/baby/due-date-calculator">Pregnancy Due Date Calculator</a>.
           </p>
         </section>
               </>

@@ -60,7 +60,6 @@ export const CATEGORIES: Category[] = [
       { name: "Heart Rate Zone Calculator", icon: "❤️", slug: "heart-rate-zone-calculator", category: "health", href: "/calculators/health/heart-rate-zone-calculator" },
       { name: "Weight Loss Calculator", icon: "📉", slug: "weight-loss-calculator", category: "health", href: "/calculators/health/weight-loss-calculator" },
       { name: "Lean Body Mass Calculator", icon: "💪", slug: "lean-body-mass-calculator", category: "health", href: "/calculators/health/lean-body-mass-calculator" },
-      { name: "Pregnancy Due Date Calculator", icon: "🤰", slug: "pregnancy-due-date-calculator", category: "health", href: "/calculators/health/pregnancy-due-date-calculator" },
       { name: "Ovulation Calculator", icon: "📅", slug: "ovulation-calculator", category: "health", href: "/calculators/health/ovulation-calculator" },
       { name: "Sleep Calculator", icon: "😴", slug: "sleep-calculator", category: "health", href: "/calculators/health/sleep-calculator" },
       { name: "Pace Calculator", icon: "🏃", slug: "pace-calculator", category: "health", href: "/calculators/health/pace-calculator" },
@@ -514,7 +513,7 @@ export const CATEGORIES: Category[] = [
     label: "Baby & Parenting",
     emoji: "👶",
     calculators: [
-      { name: "Due Date Calculator", icon: "👶", slug: "due-date-calculator", category: "baby", href: "/calculators/baby/due-date-calculator" },
+      { name: "Pregnancy Due Date Calculator", icon: "👶", slug: "due-date-calculator", category: "baby", href: "/calculators/baby/due-date-calculator" },
       { name: "Baby Weight Percentile", icon: "⚖️", slug: "baby-weight-percentile-calculator", category: "baby", href: "/calculators/baby/baby-weight-percentile-calculator" },
       { name: "Baby Feeding Calculator", icon: "🍼", slug: "baby-feeding-calculator", category: "baby", href: "/calculators/baby/baby-feeding-calculator" },
       { name: "Diaper Cost Calculator", icon: "🧹", slug: "diaper-cost-calculator", category: "baby", href: "/calculators/baby/diaper-cost-calculator" },

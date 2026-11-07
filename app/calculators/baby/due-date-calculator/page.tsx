@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PregnancyMilestoneVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/due-date-calculator";
-const TITLE = "Due Date Calculator";
+const TITLE = "Pregnancy Due Date Calculator: Accurate EDD & Milestones";
 const DESCRIPTION =
-  "Calculate your estimated date of delivery (EDD) using clinical Naegele's rule, cycle length adjustments, or exact conception date. Features gestational week.";
+  "Free pregnancy due date calculator. Calculate your exact estimated date of delivery (EDD), gestational age, and fetal milestones using clinical Naegele's rule.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -19,6 +19,22 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/icon.svg",
+        width: 512,
+        height: 512,
+        alt: "Pregnancy Due Date Calculator - CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 
@@ -63,7 +79,7 @@ export default function DueDatePage() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/baby", label: "Baby & Parenting" }}
-      title="Due Date Calculator"
+      title="Pregnancy Due Date Calculator"
       intro="Determine your estimated date of delivery (EDD), current gestational age, and fetal development milestones. Powered by clinical Naegele's rule with personalized cycle length adjustments."
       description={DESCRIPTION}
       appCategory="HealthApplication"

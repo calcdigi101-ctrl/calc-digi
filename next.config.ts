@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
       { source: "/calculators/geography", destination: "/pages/geography", permanent: true },
       { source: "/calculators/baby", destination: "/pages/baby", permanent: true },
       // Duplicate calculator consolidation (301 permanent redirects)
+      { source: "/calculators/health/pregnancy-due-date-calculator", destination: "/calculators/baby/due-date-calculator", permanent: true },
       { source: "/calculators/measurements/currency-converter", destination: "/calculators/finance/currency-converter", permanent: true },
       { source: "/calculators/measurements/roman-numeral-converter", destination: "/calculators/math/roman-numeral-converter", permanent: true },
       { source: "/calculators/baby/child-height-predictor-calculator", destination: "/calculators/health/child-height-predictor", permanent: true },

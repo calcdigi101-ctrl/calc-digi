@@ -418,7 +418,7 @@ export const HEALTH_TOOLS: HealthTool[] = [
     slug: "pregnancy-due-date-calculator",
     name: "Pregnancy Due Date",
     icon: "🤰",
-    href: "/calculators/health/pregnancy-due-date-calculator",
+    href: "/calculators/baby/due-date-calculator",
     category: "womens",
     categoryLabel: "Women's & Pediatric Health",
     clinicalStandard: "Naegele's Rule & ACOG Biometry",

@@ -411,7 +411,7 @@ export function HealthCategoryHub() {
                 </Link>
               </li>
               <li>
-                <Link href="/calculators/health/pregnancy-due-date-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline min-h-[32px] inline-flex items-center">
+                <Link href="/calculators/baby/due-date-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline min-h-[32px] inline-flex items-center">
                   Pregnancy Due Date (Naegele EDD)
                 </Link>
               </li>
