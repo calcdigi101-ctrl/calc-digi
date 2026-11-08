@@ -4,7 +4,7 @@ import path from "path";
 
 /**
  * Public JSON API providing machine-readable metadata, formulas, and endpoints
- * for all 340+ CalcDigi tools for AI Agents, MCP Servers, and Answer Engines.
+ * for all 330+ CalcDigi tools for AI Agents, MCP Servers, and Answer Engines.
  */
 export async function GET(req: NextRequest) {
   try {

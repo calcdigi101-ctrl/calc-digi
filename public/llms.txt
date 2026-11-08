@@ -3,7 +3,7 @@
 > Free online calculation tools, interactive visual graphs, step-by-step mathematical formulas, and instant calculation engines across Finance, Health, Math, Housing, Business, Science, and more.
 
 ## Knowledge Graph & Machine Feeds
-- [Full Knowledge Base (LLMs-Full)](https://www.calcdigi.com/llms-full.txt): Complete directory of all 340+ calculators with exact mathematical formulas, input requirements, and verified FAQs.
+- [Full Knowledge Base (LLMs-Full)](https://www.calcdigi.com/llms-full.txt): Complete directory of all 330+ calculators with exact mathematical formulas, input requirements, and verified FAQs.
 - [Machine-Readable Tools Index (JSON)](https://www.calcdigi.com/tools.json): Direct structured API feed of all tools.
 - [XML Sitemap](https://www.calcdigi.com/sitemap.xml): Complete machine-readable XML index of all pages.
 - [All Calculators Directory](https://www.calcdigi.com/pages/calculators): Searchable directory of all calculators.
