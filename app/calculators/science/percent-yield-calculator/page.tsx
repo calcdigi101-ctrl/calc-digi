@@ -29,9 +29,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/science/density-calculator", icon: "💧", name: "Density Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why is actual yield almost always lower than theoretical yield?",
+    "a": "Multiple physical and chemical mechanisms diminish actual yields: competitive side reactions generate unwanted byproducts, reactions may reach equilibrium before reaching 100% conversion, and mechanical losses occur during filtration, extraction, transfer between glassware, and chromatography. Additionally, impurities in raw materials reduce the true mass of reactive limiting reagent."
+  },
+  {
+    "q": "What is the difference between percent yield and atom economy?",
+    "a": "Percent yield measures the experimental efficiency of a specific laboratory run (how much of the theoretical product was successfully isolated). Atom economy is a theoretical property of the balanced reaction equation, measuring what percentage of all reactant atoms end up in the desired final product versus disposable stoichiometric waste molecules."
+  },
+  {
+    "q": "How do continuous flow reactors improve reaction yields?",
+    "a": "Continuous flow micro-reactors have extremely high surface-area-to-volume ratios, allowing near-instantaneous mixing and precise isothermal temperature control. This suppresses thermal runaway hotspots and eliminates side-reactions that commonly plague large-scale batch reactors, frequently raising chemical yields by 10% to 25% while slashing solvent waste. Verify reaction residence times alongside the first-order kinetics calculator."
+  },
+  {
+    "q": "What is the difference between percent yield and atom economy?",
+    "a": "Percent yield measures reaction efficiency by comparing actual recovered product to theoretical maximum yield. Atom economy measures chemical green efficiency: the molecular weight of desired products divided by total molecular weight of all reactants."
+  },
+  {
+    "q": "How do limiting reagents determine theoretical yield?",
+    "a": "The limiting reagent is the reactant completely consumed first in a chemical reaction. Theoretical yield is calculated from the stoichiometry of this limiting reagent, determining the maximum moles of product that can physically form."
+  }
+];
+
 export default function PercentYieldCalculatorPage() {
   return (
     <CalcPage
+      faq={FAQ_ITEMS}
       title="Percent Yield Calculator"
       intro="Comprehensive analytical solver for laboratory, clinical, and industrial chemical calculations."
       description="Compute synthetic percent yield, theoretical maximum product mass, atom economy, and environmental waste factor (E-factor). Balance limiting reagent stoichiometry, isolate purification losses, and evaluate sustainable chemical manufacturing efficiencies."
@@ -180,27 +204,7 @@ export default function PercentYieldCalculatorPage() {
             Furthermore, automated continuous crystallization cascades monitor supersaturation profiles with turbidity detectors. By preventing secondary nucleation and agglomeration, crystallizers ensure target crystalline polymorph purity without trapping solvent impurities, directly preventing anomalous over-yield readings during automated batch releases.
           </p>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">Why is actual yield almost always lower than theoretical yield?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Multiple physical and chemical mechanisms diminish actual yields: competitive side reactions generate unwanted byproducts, reactions may reach equilibrium before reaching 100% conversion, and mechanical losses occur during filtration, extraction, transfer between glassware, and chromatography. Additionally, impurities in raw materials reduce the true mass of reactive limiting reagent.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">What is the difference between percent yield and atom economy?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Percent yield measures the experimental efficiency of a specific laboratory run (how much of the theoretical product was successfully isolated). Atom economy is a theoretical property of the balanced reaction equation, measuring what percentage of all reactant atoms end up in the desired final product versus disposable stoichiometric waste molecules.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">How do continuous flow reactors improve reaction yields?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Continuous flow micro-reactors have extremely high surface-area-to-volume ratios, allowing near-instantaneous mixing and precise isothermal temperature control. This suppresses thermal runaway hotspots and eliminates side-reactions that commonly plague large-scale batch reactors, frequently raising chemical yields by 10% to 25% while slashing solvent waste. Verify reaction residence times alongside the <Link href="/calculators/science/half-life-calculator">first-order kinetics calculator</Link>.
-              </p>
-            </div>
-          </div>
+          
 
 
           <p>

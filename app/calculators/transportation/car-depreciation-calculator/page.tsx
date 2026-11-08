@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why do brand-new cars lose up to 20% of their value in the first year?",
+    "a": "The initial drop reflects the loss of new-vehicle retail markup, sales taxes, dealer documentation fees, and the immediate transition to wholesale auction trade-in value. In addition, secondary buyers expect a substantial discount over brand-new showroom models with full factory warranty tenure."
+  },
+  {
+    "q": "Which vehicular categories maintain the highest resale value over time?",
+    "a": "Body-on-frame full-size pickup trucks (Toyota Tacoma, Ford F-150) and rugged four-wheel-drive utility vehicles (Jeep Wrangler, Toyota 4Runner) consistently exhibit the lowest depreciation rates in the automotive industry, retaining 55% to 65% of their original MSRP after five full years."
+  },
+  {
+    "q": "What does it mean to have \"negative equity\" or be \"underwater\" on an auto loan?",
+    "a": "Negative equity occurs when your outstanding loan principal balance exceeds the fair market wholesale cash value of your vehicle. Because depreciation occurs faster than loan amortization in extended terms (72+ months), financed owners often owe $25,000 on a vehicle worth only $20,000."
+  },
+  {
+    "q": "How does annual mileage directly influence vehicle depreciation velocity?",
+    "a": "Standard valuation models assume 12,000 to 15,000 miles per year. Exceeding 20,000 annual miles accelerates mechanical wear, reducing wholesale resale appraisal by approximately $0.08 to $0.15 per excess mile above benchmark tiers."
+  },
+  {
+    "q": "How do commercial businesses write off vehicular asset depreciation?",
+    "a": "Under IRS Section 179 and Modified Accelerated Cost Recovery System (MACRS) rules, businesses can take accelerated first-year bonus depreciation on commercial vehicles exceeding 6,000 lbs gross vehicle weight rating (GVWR), reducing net taxable corporate income."
+  },
+  {
+    "q": "How does vehicle depreciation compare against overall commute expense?",
+    "a": "For a new $40,000 vehicle, depreciation costs approximately $350 per month, which often exceeds monthly gasoline expenses modeled in our{\" \"} commute cost calculator {\" \"} and toll fees in the{\" \"} fuel cost calculator ."
+  }
+];
+
 export default function CarDepreciationCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function CarDepreciationCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -203,64 +231,7 @@ export default function CarDepreciationCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why do brand-new cars lose up to 20% of their value in the first year?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                The initial drop reflects the loss of new-vehicle retail markup, sales taxes, dealer documentation fees, and the immediate transition to wholesale auction trade-in value. In addition, secondary buyers expect a substantial discount over brand-new showroom models with full factory warranty tenure.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Which vehicular categories maintain the highest resale value over time?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Body-on-frame full-size pickup trucks (Toyota Tacoma, Ford F-150) and rugged four-wheel-drive utility vehicles (Jeep Wrangler, Toyota 4Runner) consistently exhibit the lowest depreciation rates in the automotive industry, retaining 55% to 65% of their original MSRP after five full years.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What does it mean to have "negative equity" or be "underwater" on an auto loan?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Negative equity occurs when your outstanding loan principal balance exceeds the fair market wholesale cash value of your vehicle. Because depreciation occurs faster than loan amortization in extended terms (72+ months), financed owners often owe $25,000 on a vehicle worth only $20,000.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does annual mileage directly influence vehicle depreciation velocity?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Standard valuation models assume 12,000 to 15,000 miles per year. Exceeding 20,000 annual miles accelerates mechanical wear, reducing wholesale resale appraisal by approximately $0.08 to $0.15 per excess mile above benchmark tiers.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do commercial businesses write off vehicular asset depreciation?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Under IRS Section 179 and Modified Accelerated Cost Recovery System (MACRS) rules, businesses can take accelerated first-year bonus depreciation on commercial vehicles exceeding 6,000 lbs gross vehicle weight rating (GVWR), reducing net taxable corporate income.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does vehicle depreciation compare against overall commute expense?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                For a new $40,000 vehicle, depreciation costs approximately $350 per month, which often exceeds monthly gasoline expenses modeled in our{" "}
-                <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  commute cost calculator
-                </Link>{" "}
-                and toll fees in the{" "}
-                <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  fuel cost calculator
-                </Link>.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Automotive Valuation Standards & Financial Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

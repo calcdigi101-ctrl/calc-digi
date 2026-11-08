@@ -29,9 +29,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law Joule Heat" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why does water have such an extraordinarily high specific heat capacity?",
+    "a": "Water 's high specific heat (4,184 J/kg·°C) results from its extensive intermolecular hydrogen bonding network. When thermal energy is added to liquid water, a substantial fraction of the energy is consumed breaking and reorienting intermolecular hydrogen bonds rather than directly increasing molecular translational kinetic energy, moderating global planetary climates and biological internal body temperatures."
+  },
+  {
+    "q": "What is the difference between specific heat capacity and heat capacity?",
+    "a": "Heat capacity (C, in J/°C) is an extensive property that depends on the total mass of the object (C = m · c). Specific heat capacity (c, in J/(kg·°C)) is an intensive physical property of the substance itself, normalized per unit mass so that 1 gram of copper has the exact same specific heat capacity as a 50-ton copper ingot."
+  },
+  {
+    "q": "How does specific heat relate to thermal effusivity and thermal diffusivity?",
+    "a": "Thermal diffusivity (α = k / (ρ · c)) measures the speed at which heat propagates through a material, representing the ratio of heat conduction to heat storage. Thermal effusivity (e = √(k · ρ · c)) measures a material 's ability to exchange thermal energy with its surroundings upon contact, determining why metal surfaces feel colder to human skin than wood at the same ambient temperature. Verify density inputs using the density calculator."
+  },
+  {
+    "q": "What formula calculates total heat energy transferred during temperature change?",
+    "a": "Heat energy transfer is calculated using Q = m × c × ΔT, where Q is thermal energy in joules (J) or calories, m is mass in grams or kilograms, c is specific heat capacity (J/g·°C), and ΔT is the temperature change (T_final - T_initial)."
+  },
+  {
+    "q": "How is specific heat used in calorimetry experiments?",
+    "a": "In bomb and coffee-cup calorimetry, conservation of energy dictates that heat lost by a hot sample equals heat gained by the water bath and calorimeter vessel: Q_sample + Q_water + Q_calorimeter = 0, allowing precise measurement of unknown specific heats or reaction enthalpies."
+  }
+];
+
 export default function SpecificHeatCalculatorPage() {
   return (
     <CalcPage
+      faq={FAQ_ITEMS}
       title="Specific Heat Calculator"
       intro="Comprehensive analytical solver for laboratory, clinical, and industrial chemical calculations."
       description="Compute sensible thermal energy transfer (Q = mcΔT), final equilibrium temperature, and material specific heat capacity. Evaluate heat exchange across metals, liquids, and gases in industrial heat exchangers, calorimetry, and energy storage systems."
@@ -182,27 +206,7 @@ export default function SpecificHeatCalculatorPage() {
             In cryogenic rocketry and LNG transport vessel engineering, cryogenic fluids (liquid nitrogen at 77 K and liquid methane at 111 K) undergo flash boil-off when wall heat leak exceeds sensible heat absorption capacities. Finite element thermal models incorporate temperature-dependent specific heat curves to size vacuum perlite insulation blankets and prevent catastrophic over-pressurization.
           </p>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">Why does water have such an extraordinarily high specific heat capacity?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Water &apos;s high specific heat (4,184 J/kg·°C) results from its extensive intermolecular hydrogen bonding network. When thermal energy is added to liquid water, a substantial fraction of the energy is consumed breaking and reorienting intermolecular hydrogen bonds rather than directly increasing molecular translational kinetic energy, moderating global planetary climates and biological internal body temperatures.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">What is the difference between specific heat capacity and heat capacity?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Heat capacity (C, in J/°C) is an extensive property that depends on the total mass of the object (C = m · c). Specific heat capacity (c, in J/(kg·°C)) is an intensive physical property of the substance itself, normalized per unit mass so that 1 gram of copper has the exact same specific heat capacity as a 50-ton copper ingot.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">How does specific heat relate to thermal effusivity and thermal diffusivity?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Thermal diffusivity (α = k / (ρ · c)) measures the speed at which heat propagates through a material, representing the ratio of heat conduction to heat storage. Thermal effusivity (e = √(k · ρ · c)) measures a material &apos;s ability to exchange thermal energy with its surroundings upon contact, determining why metal surfaces feel colder to human skin than wood at the same ambient temperature. Verify density inputs using the <Link href="/calculators/science/density-calculator">density calculator</Link>.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative International Standards & Calorimetric Metrology</h2>
           <p>

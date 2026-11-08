@@ -31,6 +31,29 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/road-trip-cost-calculator", icon: "🗺️", name: "Road Trip Cost Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "What do the numbers and letters mean on a tire size code (e.g., 225/45R17)?",
+    "a": "In '225/45R17', 225 is sectional tread width in millimeters; 45 is the aspect ratio (sidewall height is 45% of width, or 101.25 mm); 'R' denotes radial construction; and 17 is the wheel rim diameter in inches."
+  },
+  {
+    "q": "What is the acceptable variance when changing tire or wheel sizes?",
+    "a": "Automotive engineers recommend keeping total overall tire diameter within ±3% of OEM factory specifications. Exceeding 3% variance alters speedometer calibration, odometer tracking, transmission shift points, and ABS/traction control thresholds."
+  },
+  {
+    "q": "How does changing tire diameter alter your speedometer reading?",
+    "a": "Installing larger tires results in the vehicle traveling faster than indicated on the speedometer (under-reporting speed), because each wheel revolution covers more linear ground distance. Smaller tires cause the speedometer to read higher than true vehicle speed."
+  },
+  {
+    "q": "What is tire plus-sizing and how does it affect vehicle handling?",
+    "a": "Plus-sizing (e.g., Plus 1 or Plus 2) pairs a larger wheel diameter with a shorter sidewall tire while preserving overall outside diameter. This increases steering responsiveness and cornering grip, but produces a firmer ride and increases wheel vulnerability to potholes."
+  },
+  {
+    "q": "Why does wheel offset (ET) matter when fitting aftermarket tires and rims?",
+    "a": "Offset measures the distance from the wheel's mounting hub to the centerline of the rim. Incorrect offset causes the tire to rub against internal suspension struts, brake calipers, or outer fender lips, potentially compromising steering lock."
+  }
+];
+
 export default function TireSizeCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +62,7 @@ export default function TireSizeCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>

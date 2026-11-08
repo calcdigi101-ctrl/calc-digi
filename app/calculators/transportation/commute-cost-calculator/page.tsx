@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/bike-pace-calculator", icon: "🚲", name: "Bike Pace Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "How does the IRS standard mileage rate compare to real-world commuting costs?",
+    "a": "The IRS standard mileage rate (67 cents per mile for 2024) reflects the comprehensive cost of operating an average vehicle, including fuel, insurance, registration, maintenance, and capital depreciation. Standard commuting costs typically fall between 45 and 65 cents per mile depending on vehicle age and fuel economy."
+  },
+  {
+    "q": "Can I deduct my daily home-to-work commuting expenses on my income taxes?",
+    "a": "Under IRS tax regulations, standard commuting expenses between your personal residence and your regular permanent workplace are non-deductible personal expenses. However, travel between two separate job sites, travel to temporary assignments, or travel from a qualified home office to client locations is tax-deductible."
+  },
+  {
+    "q": "How much money does switching to an electric vehicle save on a 40-mile daily commute?",
+    "a": "On a 40-mile daily round-trip commute (10,000 miles/year), driving a 25 MPG gasoline car at $3.75/gal costs $1,500 in gas. An electric vehicle achieving 3.5 miles/kWh charged at home ($0.14/kWh) costs only $400 in electricity, saving $1,100 per year in direct energy."
+  },
+  {
+    "q": "What is the financial impact of stop-and-go highway traffic on commute costs?",
+    "a": "Severe stop-and-go congestion reduces internal combustion fuel economy by 25% to 40% due to engine idling and repeated acceleration inertia. In addition, frequent braking accelerates brake pad wear, increasing overall maintenance costs per mile."
+  },
+  {
+    "q": "How does commuting distance impact vehicle resale depreciation?",
+    "a": "A 35-mile one-way commute adds 17,500 miles annually just in work travel. This elevated mileage accelerates vehicle depreciation modeled in our{\" \"} car depreciation calculator , reducing resale market value by $1,200 to $2,000 per year faster than low-mileage vehicles."
+  },
+  {
+    "q": "How do pre-tax commuter transit benefit accounts (FSA) work?",
+    "a": "Under IRS Section 132(f), employers can provide qualified transportation fringe benefits allowing employees to set aside pre-tax payroll funds (up to $315 per month in 2024) for public transit passes, vanpools, and qualified commuter parking, saving 25% to 40% in income taxes."
+  }
+];
+
 export default function CommuteCostCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function CommuteCostCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -201,60 +229,7 @@ export default function CommuteCostCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does the IRS standard mileage rate compare to real-world commuting costs?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                The IRS standard mileage rate (67 cents per mile for 2024) reflects the comprehensive cost of operating an average vehicle, including fuel, insurance, registration, maintenance, and capital depreciation. Standard commuting costs typically fall between 45 and 65 cents per mile depending on vehicle age and fuel economy.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Can I deduct my daily home-to-work commuting expenses on my income taxes?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Under IRS tax regulations, standard commuting expenses between your personal residence and your regular permanent workplace are non-deductible personal expenses. However, travel between two separate job sites, travel to temporary assignments, or travel from a qualified home office to client locations is tax-deductible.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How much money does switching to an electric vehicle save on a 40-mile daily commute?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                On a 40-mile daily round-trip commute (10,000 miles/year), driving a 25 MPG gasoline car at $3.75/gal costs $1,500 in gas. An electric vehicle achieving 3.5 miles/kWh charged at home ($0.14/kWh) costs only $400 in electricity, saving $1,100 per year in direct energy.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the financial impact of stop-and-go highway traffic on commute costs?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Severe stop-and-go congestion reduces internal combustion fuel economy by 25% to 40% due to engine idling and repeated acceleration inertia. In addition, frequent braking accelerates brake pad wear, increasing overall maintenance costs per mile.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does commuting distance impact vehicle resale depreciation?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                A 35-mile one-way commute adds 17,500 miles annually just in work travel. This elevated mileage accelerates vehicle depreciation modeled in our{" "}
-                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  car depreciation calculator
-                </Link>, reducing resale market value by $1,200 to $2,000 per year faster than low-mileage vehicles.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do pre-tax commuter transit benefit accounts (FSA) work?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Under IRS Section 132(f), employers can provide qualified transportation fringe benefits allowing employees to set aside pre-tax payroll funds (up to $315 per month in 2024) for public transit passes, vanpools, and qualified commuter parking, saving 25% to 40% in income taxes.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Commuting Research & Urban Transit Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

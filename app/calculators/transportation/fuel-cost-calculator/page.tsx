@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "How do I calculate fuel cost per mile for my personal vehicle?",
+    "a": "Divide the current local price of gasoline per gallon by your vehicle's real-world MPG. For example, if gas costs $3.60 per gallon and your car averages 30 MPG, your fuel cost per mile is $3.60 / 30 = $0.12 per mile ($12.00 per 100 miles driven)."
+  },
+  {
+    "q": "Why is highway fuel economy typically higher than city fuel economy?",
+    "a": "City driving involves frequent stopping, idling at red lights, and accelerating vehicle mass from rest, which requires massive low-gear engine torque. Highway driving allows the transmission to cruise in tall overdrive gears at steady engine RPM without kinetic braking losses."
+  },
+  {
+    "q": "Does running the air conditioner noticeably increase vehicle fuel consumption?",
+    "a": "Yes. Operating the mechanical air conditioning compressor draws 3 to 5 horsepower from the engine, reducing fuel economy by 5% to 15% in low-speed city driving. At speeds above 55 mph, running the AC is more fuel-efficient than driving with open windows, which ruins vehicle aerodynamics."
+  },
+  {
+    "q": "How does road trip fuel expense compare against vehicle depreciation?",
+    "a": "On a 1,000-mile road trip, gasoline costs approximately $140, while vehicle depreciation modeled in our{\" \"} car depreciation calculator {\" \"} adds roughly $100 to $150 in wear and tear, making total driving costs roughly double the fuel bill."
+  },
+  {
+    "q": "How do passengers split road trip gas and toll costs fairly?",
+    "a": "The standard protocol is to begin the trip with a full tank of gas, retain all fuel and highway toll receipts during the journey, refill the tank upon return, and divide the cumulative receipt total equally among all traveling passengers."
+  },
+  {
+    "q": "How does switching to an electric vehicle compare to gas fuel costs?",
+    "a": "As modeled in our{\" \"} ev savings calculator , home electric charging costs approximately $0.04 to $0.05 per mile, cutting road trip energy costs by roughly 60% compared to typical 25 MPG gasoline vehicles."
+  }
+];
+
 export default function FuelCostCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function FuelCostCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -194,64 +222,7 @@ export default function FuelCostCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do I calculate fuel cost per mile for my personal vehicle?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Divide the current local price of gasoline per gallon by your vehicle's real-world MPG. For example, if gas costs $3.60 per gallon and your car averages 30 MPG, your fuel cost per mile is $3.60 / 30 = $0.12 per mile ($12.00 per 100 miles driven).
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why is highway fuel economy typically higher than city fuel economy?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                City driving involves frequent stopping, idling at red lights, and accelerating vehicle mass from rest, which requires massive low-gear engine torque. Highway driving allows the transmission to cruise in tall overdrive gears at steady engine RPM without kinetic braking losses.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Does running the air conditioner noticeably increase vehicle fuel consumption?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Yes. Operating the mechanical air conditioning compressor draws 3 to 5 horsepower from the engine, reducing fuel economy by 5% to 15% in low-speed city driving. At speeds above 55 mph, running the AC is more fuel-efficient than driving with open windows, which ruins vehicle aerodynamics.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does road trip fuel expense compare against vehicle depreciation?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                On a 1,000-mile road trip, gasoline costs approximately $140, while vehicle depreciation modeled in our{" "}
-                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  car depreciation calculator
-                </Link>{" "}
-                adds roughly $100 to $150 in wear and tear, making total driving costs roughly double the fuel bill.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do passengers split road trip gas and toll costs fairly?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                The standard protocol is to begin the trip with a full tank of gas, retain all fuel and highway toll receipts during the journey, refill the tank upon return, and divide the cumulative receipt total equally among all traveling passengers.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does switching to an electric vehicle compare to gas fuel costs?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                As modeled in our{" "}
-                <Link href="/calculators/transportation/ev-savings-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  ev savings calculator
-                </Link>, home electric charging costs approximately $0.04 to $0.05 per mile, cutting road trip energy costs by roughly 60% compared to typical 25 MPG gasoline vehicles.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Fuel Economy Standards & Regulatory Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

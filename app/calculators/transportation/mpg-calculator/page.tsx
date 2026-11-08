@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why does 1 UK Imperial gallon differ from 1 US customary gallon?",
+    "a": "A United States gallon is defined as exactly 231 cubic inches or 3.78541 liters. A British Imperial gallon is defined as the volume of 10 pounds of distilled water at 62°F, equaling approximately 4.54609 liters. Because an Imperial gallon is 20.1% larger than a US gallon, an identical vehicle achieves a 20.1% higher numerical MPG rating in the UK."
+  },
+  {
+    "q": "Why is lower Liters per 100km (L/100km) better, unlike MPG?",
+    "a": "Liters per 100 km is a consumption metric measuring fuel consumed per fixed distance; lower numbers indicate superior fuel efficiency. Miles per gallon is an economy metric measuring distance traveled per unit of fuel; higher numbers indicate superior efficiency."
+  },
+  {
+    "q": "How does aggressive driving and rapid acceleration degrade MPG?",
+    "a": "Rapid acceleration commands wide-open throttle (WOT) enrichment from the engine control unit, injecting rich fuel mixtures (air-fuel ratio drops from 14.7:1 to 11.5:1) to prevent cylinder detonation. Studies by Oak Ridge National Laboratory prove aggressive driving lowers real-world MPG by 15% to 33%."
+  },
+  {
+    "q": "Does premium high-octane gasoline increase MPG in regular vehicles?",
+    "a": "No. Octane rating measures fuel resistance to pre-ignition knock, not energy content. Unless your vehicle's owner manual specifically mandates premium fuel for high-compression turbocharging, burning 93-octane premium in an engine designed for 87-octane regular yields zero improvement in fuel economy or horsepower."
+  },
+  {
+    "q": "How does winter-blend gasoline affect vehicle fuel economy?",
+    "a": "Winter-blend gasoline contains higher concentrations of butane and light hydrocarbons to increase Reid Vapor Pressure (RVP) for easy cold engine starting. Because butane possesses lower volumetric energy density than heavier aromatics, winter-blend gas reduces vehicle fuel economy by 1.5% to 3.0%."
+  },
+  {
+    "q": "How does vehicle fuel economy directly impact annual commute budgets?",
+    "a": "Improving your commute vehicle from 20 MPG to 35 MPG over a 15,000-mile annual commute saves 321 gallons of fuel per year—putting over $1,150 in annual cash savings back into your household budget, as modeled in our{\" \"} commute cost calculator ."
+  }
+];
+
 export default function MpgCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function MpgCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -198,60 +226,7 @@ export default function MpgCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why does 1 UK Imperial gallon differ from 1 US customary gallon?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                A United States gallon is defined as exactly 231 cubic inches or 3.78541 liters. A British Imperial gallon is defined as the volume of 10 pounds of distilled water at 62°F, equaling approximately 4.54609 liters. Because an Imperial gallon is 20.1% larger than a US gallon, an identical vehicle achieves a 20.1% higher numerical MPG rating in the UK.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why is lower Liters per 100km (L/100km) better, unlike MPG?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Liters per 100 km is a consumption metric measuring fuel consumed per fixed distance; lower numbers indicate superior fuel efficiency. Miles per gallon is an economy metric measuring distance traveled per unit of fuel; higher numbers indicate superior efficiency.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does aggressive driving and rapid acceleration degrade MPG?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Rapid acceleration commands wide-open throttle (WOT) enrichment from the engine control unit, injecting rich fuel mixtures (air-fuel ratio drops from 14.7:1 to 11.5:1) to prevent cylinder detonation. Studies by Oak Ridge National Laboratory prove aggressive driving lowers real-world MPG by 15% to 33%.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Does premium high-octane gasoline increase MPG in regular vehicles?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                No. Octane rating measures fuel resistance to pre-ignition knock, not energy content. Unless your vehicle&apos;s owner manual specifically mandates premium fuel for high-compression turbocharging, burning 93-octane premium in an engine designed for 87-octane regular yields zero improvement in fuel economy or horsepower.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does winter-blend gasoline affect vehicle fuel economy?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Winter-blend gasoline contains higher concentrations of butane and light hydrocarbons to increase Reid Vapor Pressure (RVP) for easy cold engine starting. Because butane possesses lower volumetric energy density than heavier aromatics, winter-blend gas reduces vehicle fuel economy by 1.5% to 3.0%.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does vehicle fuel economy directly impact annual commute budgets?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Improving your commute vehicle from 20 MPG to 35 MPG over a 15,000-mile annual commute saves 321 gallons of fuel per year—putting over $1,150 in annual cash savings back into your household budget, as modeled in our{" "}
-                <Link href="/calculators/transportation/commute-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  commute cost calculator
-                </Link>.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Fuel Economy Testing Standards & Engineering Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

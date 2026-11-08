@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why do proteins and carbohydrates provide 4 kcal/g while fat provides 9 kcal/g?",
+    "a": "Fatty acid triglyceride hydrocarbon chains are highly reduced and hydrophobic, containing very little oxygen. When oxidized, they yield significantly more ATP and metabolic energy per carbon atom than carbohydrates or proteins, which are already partially oxygenated."
+  },
+  {
+    "q": "How much protein can the human body utilize in a single meal?",
+    "a": "While the gastrointestinal tract can absorb virtually unlimited protein over time, the muscle protein synthesis response plateaus around 0.40 to 0.55 g/kg per meal (roughly 30 to 45 grams for a standard adult). Excess amino acids are oxidized for energy or converted to urea."
+  },
+  {
+    "q": "What is the difference between total carbohydrates and net carbohydrates?",
+    "a": "Net carbohydrates equal total carbohydrates minus dietary fiber and non-digestible sugar alcohols. Because dietary fiber passes through the small intestine without breaking down into monosaccharides, it exerts minimal impact on blood glucose and circulating insulin."
+  },
+  {
+    "q": "How does alcohol intake distort daily macronutrient targets?",
+    "a": "Alcohol provides 7.0 kcal per gram of pure ethanol, as modeled in our{\" \"} alcohol unit calculator . Because ethanol cannot be stored, hepatic tissue prioritizes clearing ethanol, suppressing peripheral fat oxidation by up to 73%."
+  },
+  {
+    "q": "How do commercial food manufacturers verify nutrition labels?",
+    "a": "Commercial food companies calculate batch recipe nutrition using scaled ingredient densities with our{\" \"} cooking conversion calculator {\" \"} and verify compliance with FDA Nutrition Facts panel regulations."
+  },
+  {
+    "q": "How do restaurant kitchen portion costs align with healthy macro planning?",
+    "a": "High-protein lean meats and fresh vegetables carry higher wholesale costs than refined starches. Chefs model these ingredient trade-offs with our{\" \"} food cost analysis protocols{\" \"} to offer nutritious meals while maintaining viable restaurant gross margins."
+  }
+];
+
 export default function NutritionCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function NutritionCalculatorPage() {
       category={{ href: "/pages/food", label: "Food & Cooking" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -207,66 +235,7 @@ export default function NutritionCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why do proteins and carbohydrates provide 4 kcal/g while fat provides 9 kcal/g?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Fatty acid triglyceride hydrocarbon chains are highly reduced and hydrophobic, containing very little oxygen. When oxidized, they yield significantly more ATP and metabolic energy per carbon atom than carbohydrates or proteins, which are already partially oxygenated.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How much protein can the human body utilize in a single meal?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                While the gastrointestinal tract can absorb virtually unlimited protein over time, the muscle protein synthesis response plateaus around 0.40 to 0.55 g/kg per meal (roughly 30 to 45 grams for a standard adult). Excess amino acids are oxidized for energy or converted to urea.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the difference between total carbohydrates and net carbohydrates?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Net carbohydrates equal total carbohydrates minus dietary fiber and non-digestible sugar alcohols. Because dietary fiber passes through the small intestine without breaking down into monosaccharides, it exerts minimal impact on blood glucose and circulating insulin.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does alcohol intake distort daily macronutrient targets?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Alcohol provides 7.0 kcal per gram of pure ethanol, as modeled in our{" "}
-                <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  alcohol unit calculator
-                </Link>. Because ethanol cannot be stored, hepatic tissue prioritizes clearing ethanol, suppressing peripheral fat oxidation by up to 73%.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do commercial food manufacturers verify nutrition labels?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Commercial food companies calculate batch recipe nutrition using scaled ingredient densities with our{" "}
-                <Link href="/calculators/food/cooking-conversion-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  cooking conversion calculator
-                </Link>{" "}
-                and verify compliance with FDA Nutrition Facts panel regulations.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do restaurant kitchen portion costs align with healthy macro planning?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                High-protein lean meats and fresh vegetables carry higher wholesale costs than refined starches. Chefs model these ingredient trade-offs with our{" "}
-                food cost analysis protocols{" "}
-                to offer nutritious meals while maintaining viable restaurant gross margins.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Dietary Standards & Clinical Nutrition Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

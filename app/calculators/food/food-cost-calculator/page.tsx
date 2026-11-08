@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "What is an ideal food cost percentage for a full-service restaurant?",
+    "a": "For a standard full-service restaurant, the target food cost percentage typically sits between 28% and 35%. Lower-cost concepts like pizzerias often operate at 20% to 25%, while high-end steakhouses and seafood restaurants can operate profitably at 35% to 38% due to high dollar contribution margins."
+  },
+  {
+    "q": "What is the difference between food cost percentage and gross contribution margin?",
+    "a": "Food cost percentage measures ingredient cost relative to selling price (Cost / Price). Contribution margin measures the actual cash dollars remaining after deducting food cost (Price - Cost). High contribution dollars pay the rent, not percentages alone."
+  },
+  {
+    "q": "What does prime cost represent in hospitality operations?",
+    "a": "Prime cost is the sum of total Cost of Goods Sold (food and beverage inventory) plus total labor (culinary, service, management, taxes, and benefits). Prime cost should remain at or below 60% of total revenue in full-service operations."
+  },
+  {
+    "q": "How does scaling recipe batches impact unit portion cost?",
+    "a": "When scaling production using our{\" \"} recipe scaler , bulk commercial purchasing reduces unit ingredient costs, improving net dish margins by 3% to 8%."
+  },
+  {
+    "q": "Why must kitchen staff account for As-Purchased vs Edible Portion weight?",
+    "a": "Produce, meats, and seafood lose mass during peeling, trimming, and butchery. If an ingredient costs $10/lb and yields 80% usable product, the true Edible Portion cost is $10 / 0.80 = $12.50 per pound."
+  },
+  {
+    "q": "How do guest check tips relate to overall restaurant operational health?",
+    "a": "Gratuities calculated in our{\" \"} tip calculator {\" \"} provide the primary compensation for dining room staff. High guest tips reflect service excellence, correlating directly with repeat customer volume."
+  }
+];
+
 export default function FoodCostCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function FoodCostCalculatorPage() {
       category={{ href: "/pages/food", label: "Food & Cooking" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -219,64 +247,7 @@ export default function FoodCostCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is an ideal food cost percentage for a full-service restaurant?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                For a standard full-service restaurant, the target food cost percentage typically sits between 28% and 35%. Lower-cost concepts like pizzerias often operate at 20% to 25%, while high-end steakhouses and seafood restaurants can operate profitably at 35% to 38% due to high dollar contribution margins.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the difference between food cost percentage and gross contribution margin?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Food cost percentage measures ingredient cost relative to selling price (Cost / Price). Contribution margin measures the actual cash dollars remaining after deducting food cost (Price - Cost). High contribution dollars pay the rent, not percentages alone.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What does prime cost represent in hospitality operations?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Prime cost is the sum of total Cost of Goods Sold (food and beverage inventory) plus total labor (culinary, service, management, taxes, and benefits). Prime cost should remain at or below 60% of total revenue in full-service operations.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does scaling recipe batches impact unit portion cost?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                When scaling production using our{" "}
-                <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  recipe scaler
-                </Link>, bulk commercial purchasing reduces unit ingredient costs, improving net dish margins by 3% to 8%.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why must kitchen staff account for As-Purchased vs Edible Portion weight?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Produce, meats, and seafood lose mass during peeling, trimming, and butchery. If an ingredient costs $10/lb and yields 80% usable product, the true Edible Portion cost is $10 / 0.80 = $12.50 per pound.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do guest check tips relate to overall restaurant operational health?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Gratuities calculated in our{" "}
-                <Link href="/calculators/food/tip-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  tip calculator
-                </Link>{" "}
-                provide the primary compensation for dining room staff. High guest tips reflect service excellence, correlating directly with repeat customer volume.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Hospitality Accounting Standards & Industry Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

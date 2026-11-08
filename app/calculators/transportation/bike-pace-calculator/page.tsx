@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why does doubling cycling speed require eight times more aerodynamic power?",
+    "a": "Aerodynamic drag force is proportional to the square of velocity (v2). Because mechanical power is force multiplied by velocity (P = F * v), aerodynamic power scales with the cube of velocity (v3). Doubling speed from 10 mph to 20 mph multiplies aerodynamic power demand by 2^3 = 8 times."
+  },
+  {
+    "q": "What is the difference between speed in miles per hour and cycling pace in minutes per mile?",
+    "a": "Speed expresses distance traveled per unit of time (miles per hour), whereas pace expresses the time required to travel one fixed unit of distance (minutes per mile). For example, cycling at 15.0 mph equals a pace of 4:00 min/mi, while 20.0 mph equals a pace of 3:00 min/mi."
+  },
+  {
+    "q": "How much energy does drafting in a cycling paceline actually conserve?",
+    "a": "Wind tunnel and velodrome research demonstrates that drafting directly behind another rider at 25 mph (40 km/h) reduces aerodynamic drag by 25% to 40%. Riding in the middle of a dense peloton can reduce wind resistance by up to 60%, allowing riders to maintain high speeds at low cardiovascular exertion."
+  },
+  {
+    "q": "How does rider body weight influence climbing versus flat terrain speed?",
+    "a": "On flat terrain, absolute power output and frontal aerodynamic profile (CdA) dictate velocity, favoring larger, powerful riders. On steep mountain ascents exceeding 6% grade, gravitational resistance (m * g * s * v) dominates, making power-to-weight ratio (Watts per kilogram) the sole determinant of climbing speed."
+  },
+  {
+    "q": "How do bicycle commuters calculate their net annual transportation savings?",
+    "a": "Urban commuters compare maintenance and tire replacement costs directly against motor vehicle depreciation analyzed in our{\" \"} car depreciation calculator {\" \"} and recurring loan payments in the{\" \"} car payment calculator ."
+  },
+  {
+    "q": "What is the typical human gross mechanical efficiency during cycling?",
+    "a": "In exercise physiology, human skeletal muscle efficiency ranges between 20% and 25%. This means that for every 100 kilocalories of dietary food energy consumed, only 20 to 25 kcal are converted into mechanical propulsion at the pedals; the remaining 75% to 80% is dissipated as metabolic heat."
+  }
+];
+
 export default function BikePaceCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function BikePaceCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -193,64 +221,7 @@ export default function BikePaceCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why does doubling cycling speed require eight times more aerodynamic power?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Aerodynamic drag force is proportional to the square of velocity (v2). Because mechanical power is force multiplied by velocity (P = F * v), aerodynamic power scales with the cube of velocity (v3). Doubling speed from 10 mph to 20 mph multiplies aerodynamic power demand by 2^3 = 8 times.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the difference between speed in miles per hour and cycling pace in minutes per mile?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Speed expresses distance traveled per unit of time (miles per hour), whereas pace expresses the time required to travel one fixed unit of distance (minutes per mile). For example, cycling at 15.0 mph equals a pace of 4:00 min/mi, while 20.0 mph equals a pace of 3:00 min/mi.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How much energy does drafting in a cycling paceline actually conserve?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Wind tunnel and velodrome research demonstrates that drafting directly behind another rider at 25 mph (40 km/h) reduces aerodynamic drag by 25% to 40%. Riding in the middle of a dense peloton can reduce wind resistance by up to 60%, allowing riders to maintain high speeds at low cardiovascular exertion.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does rider body weight influence climbing versus flat terrain speed?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                On flat terrain, absolute power output and frontal aerodynamic profile (CdA) dictate velocity, favoring larger, powerful riders. On steep mountain ascents exceeding 6% grade, gravitational resistance (m * g * s * v) dominates, making power-to-weight ratio (Watts per kilogram) the sole determinant of climbing speed.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do bicycle commuters calculate their net annual transportation savings?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Urban commuters compare maintenance and tire replacement costs directly against motor vehicle depreciation analyzed in our{" "}
-                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  car depreciation calculator
-                </Link>{" "}
-                and recurring loan payments in the{" "}
-                <Link href="/calculators/transportation/car-payment-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  car payment calculator
-                </Link>.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the typical human gross mechanical efficiency during cycling?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                In exercise physiology, human skeletal muscle efficiency ranges between 20% and 25%. This means that for every 100 kilocalories of dietary food energy consumed, only 20 to 25 kcal are converted into mechanical propulsion at the pedals; the remaining 75% to 80% is dissipated as metabolic heat.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Cycling Biomechanics & Ergonomics Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

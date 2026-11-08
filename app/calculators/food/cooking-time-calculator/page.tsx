@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why does meat internal temperature continue to rise after removal from the oven?",
+    "a": "This physical phenomenon is called carryover cooking. The exterior layers of the roast are significantly hotter (often 250°F to 325°F) than the interior core. When removed from the heat source, thermal conduction continues moving heat from the scorching outer mantle into the cooler center until thermal equilibrium is established."
+  },
+  {
+    "q": "What is the minimum safe internal temperature for whole chicken and turkey?",
+    "a": "The USDA Food Safety and Inspection Service (FSIS) mandates a minimum core internal temperature of 165°F (74°C) measured in the thickest part of the breast and the deepest part of the thigh, away from bone or gristle."
+  },
+  {
+    "q": "Can pork be safely consumed at medium doneness (145°F)?",
+    "a": "Yes. In 2011, the USDA officially lowered the recommended safe internal temperature for whole cuts of pork from 160°F to 145°F (63°C) with a mandatory 3-minute resting period, eliminating dry pork while ensuring complete eradication of Trichinella spiralis parasites."
+  },
+  {
+    "q": "Why does ground beef require a higher internal temperature than whole steak?",
+    "a": "Pathogenic bacteria (such as E. coli) reside primarily on the exterior surface of muscle cuts. Searing a whole steak sterilizes the surface even if the center is rare (125°F). In ground meat, the grinding process disperses surface bacteria throughout the entire product, requiring an internal temperature of 160°F (71°C) throughout."
+  },
+  {
+    "q": "How do commercial banquet operations scale multi-roast production schedules?",
+    "a": "Commercial catering kitchens calculate staggered oven loading times and total roast yields using our{\" \"} recipe scaler {\" \"} to ensure proteins finish roasting precisely when service begins."
+  },
+  {
+    "q": "How does meat yield loss during cooking affect restaurant plate margins?",
+    "a": "Roasts experience 15% to 30% moisture and fat evaporative shrinkage during cooking. Professional chefs use our{\" \"} food cost calculator {\" \"} to factor cooking shrinkage into true edible portion (EP) plate pricing."
+  }
+];
+
 export default function CookingTimeCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function CookingTimeCalculatorPage() {
       category={{ href: "/pages/food", label: "Food & Cooking" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -194,65 +222,7 @@ export default function CookingTimeCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why does meat internal temperature continue to rise after removal from the oven?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                This physical phenomenon is called carryover cooking. The exterior layers of the roast are significantly hotter (often 250°F to 325°F) than the interior core. When removed from the heat source, thermal conduction continues moving heat from the scorching outer mantle into the cooler center until thermal equilibrium is established.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the minimum safe internal temperature for whole chicken and turkey?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                The USDA Food Safety and Inspection Service (FSIS) mandates a minimum core internal temperature of 165°F (74°C) measured in the thickest part of the breast and the deepest part of the thigh, away from bone or gristle.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Can pork be safely consumed at medium doneness (145°F)?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Yes. In 2011, the USDA officially lowered the recommended safe internal temperature for whole cuts of pork from 160°F to 145°F (63°C) with a mandatory 3-minute resting period, eliminating dry pork while ensuring complete eradication of Trichinella spiralis parasites.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why does ground beef require a higher internal temperature than whole steak?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Pathogenic bacteria (such as E. coli) reside primarily on the exterior surface of muscle cuts. Searing a whole steak sterilizes the surface even if the center is rare (125°F). In ground meat, the grinding process disperses surface bacteria throughout the entire product, requiring an internal temperature of 160°F (71°C) throughout.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do commercial banquet operations scale multi-roast production schedules?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Commercial catering kitchens calculate staggered oven loading times and total roast yields using our{" "}
-                <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  recipe scaler
-                </Link>{" "}
-                to ensure proteins finish roasting precisely when service begins.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does meat yield loss during cooking affect restaurant plate margins?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Roasts experience 15% to 30% moisture and fat evaporative shrinkage during cooking. Professional chefs use our{" "}
-                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  food cost calculator
-                </Link>{" "}
-                to factor cooking shrinkage into true edible portion (EP) plate pricing.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Food Safety Standards & Culinary Science Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

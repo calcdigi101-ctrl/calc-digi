@@ -31,6 +31,29 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/car-payment-calculator", icon: "💳", name: "Car Payment Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "How do electronic toll systems (E-ZPass, SunPass, FasTrak) save money over Toll-by-Plate?",
+    "a": "Electronic transponder systems offer statutory commuter discounts of 25% to 50% compared to video Toll-by-Plate billing. Video billing also incurs administrative invoicing surcharges, mailing fees, and higher unregistered processing costs."
+  },
+  {
+    "q": "What happens if you accidentally drive through an all-electronic toll plaza without a transponder?",
+    "a": "High-speed cameras capture your vehicle's license plate and the toll authority mails an invoice to the registered owner's address. Paying within the statutory grace period (typically 15 to 30 days) avoids delinquent late fees, collections, or vehicle registration holds."
+  },
+  {
+    "q": "How do dynamic express lanes determine real-time toll prices?",
+    "a": "Dynamic managed lanes use automated traffic sensors that monitor traffic density and vehicle speeds every few minutes. As congestion increases in general-purpose lanes, express lane tolls dynamically rise to meter traffic flow and guarantee transit bus and express travel speeds (usually 45–50 mph)."
+  },
+  {
+    "q": "Are commercial truck and RV tolls calculated differently than passenger cars?",
+    "a": "Yes. Commercial vehicle and trailer tolls are calculated primarily by axle count, gross vehicle weight rating (GVWR), and vehicle height, with multi-axle freight combinations paying significantly higher rates to account for exponential highway pavement wear."
+  },
+  {
+    "q": "Can drivers deduct highway tolls on federal and state tax returns?",
+    "a": "Tolls incurred during business travel, commercial freight delivery, or deductible medical transportation are tax-deductible under IRS rules. However, everyday commuting tolls between your personal residence and regular place of employment are non-deductible personal expenses."
+  }
+];
+
 export default function TollCostCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +62,7 @@ export default function TollCostCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>

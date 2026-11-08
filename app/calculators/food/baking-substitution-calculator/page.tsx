@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Can I replace butter with olive oil in cookie dough formulas?",
+    "a": "You can replace butter with olive oil, but the cookie texture will alter significantly. Butter is solid at room temperature (saturated fat), contributing to air entrapment during creaming and yielding a crisp edge. Olive oil (monounsaturated liquid lipid) creates a denser, softer, cake-like crumb. Use 3/4 the volume of butter."
+  },
+  {
+    "q": "How does acidic buttermilk tenderize baked goods compared to regular sweet milk?",
+    "a": "Buttermilk contains lactic acid (pH ~4.5), which hydrolyzes wheat proteins, weakening strong gluten strands and yielding an exceptionally delicate crumb. In addition, lactic acid reacts instantly with baking soda to release carbon dioxide micro-bubbles before oven entry."
+  },
+  {
+    "q": "What is the best egg substitute for structural binding in rich brownies?",
+    "a": "For dense, fudgy brownies, pureed silken tofu (50g per egg) or commercial powdered egg replacer provides the optimal emulsifying protein structure without introducing unwanted fruit flavors like banana or applesauce."
+  },
+  {
+    "q": "Why must liquid sweetener recipes reduce overall water volume?",
+    "a": "Honey contains approximately 17% water, and maple syrup contains roughly 33% water. If you replace granulated dry sugar without reducing milk, water, or egg volume by roughly 3 to 4 tablespoons per cup of syrup, your batter will become oversaturated and collapse during baking."
+  },
+  {
+    "q": "How do commercial bakeries scale alternative ingredient formulas?",
+    "a": "Commercial facilities express every ingredient as a baker's percentage relative to flour weight (100%). When scaling large production runs, bakers utilize our{\" \"} recipe scaler {\" \"} to ensure hydration ratios remain chemically identical across multi-kilogram batches."
+  },
+  {
+    "q": "How does ingredient substitution impact commercial restaurant food margins?",
+    "a": "Specialty ingredients such as almond flour, pure maple syrup, and egg alternatives can cost 3 to 5 times more than standard wheat flour and eggs. Chefs model these shifts using our{\" \"} food cost calculator {\" \"} to ensure menu pricing maintains hospitality profitability standards."
+  }
+];
+
 export default function BakingSubstitutionCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function BakingSubstitutionCalculatorPage() {
       category={{ href: "/pages/food", label: "Food & Cooking" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -189,65 +217,7 @@ export default function BakingSubstitutionCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Can I replace butter with olive oil in cookie dough formulas?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                You can replace butter with olive oil, but the cookie texture will alter significantly. Butter is solid at room temperature (saturated fat), contributing to air entrapment during creaming and yielding a crisp edge. Olive oil (monounsaturated liquid lipid) creates a denser, softer, cake-like crumb. Use 3/4 the volume of butter.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does acidic buttermilk tenderize baked goods compared to regular sweet milk?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Buttermilk contains lactic acid (pH ~4.5), which hydrolyzes wheat proteins, weakening strong gluten strands and yielding an exceptionally delicate crumb. In addition, lactic acid reacts instantly with baking soda to release carbon dioxide micro-bubbles before oven entry.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the best egg substitute for structural binding in rich brownies?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                For dense, fudgy brownies, pureed silken tofu (50g per egg) or commercial powdered egg replacer provides the optimal emulsifying protein structure without introducing unwanted fruit flavors like banana or applesauce.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why must liquid sweetener recipes reduce overall water volume?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Honey contains approximately 17% water, and maple syrup contains roughly 33% water. If you replace granulated dry sugar without reducing milk, water, or egg volume by roughly 3 to 4 tablespoons per cup of syrup, your batter will become oversaturated and collapse during baking.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do commercial bakeries scale alternative ingredient formulas?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Commercial facilities express every ingredient as a baker&apos;s percentage relative to flour weight (100%). When scaling large production runs, bakers utilize our{" "}
-                <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  recipe scaler
-                </Link>{" "}
-                to ensure hydration ratios remain chemically identical across multi-kilogram batches.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does ingredient substitution impact commercial restaurant food margins?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Specialty ingredients such as almond flour, pure maple syrup, and egg alternatives can cost 3 to 5 times more than standard wheat flour and eggs. Chefs model these shifts using our{" "}
-                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  food cost calculator
-                </Link>{" "}
-                to ensure menu pricing maintains hospitality profitability standards.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Culinary Science Standards & Regulatory Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

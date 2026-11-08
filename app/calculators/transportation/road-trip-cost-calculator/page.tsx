@@ -31,6 +31,29 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "What is the single largest expense category on a long-distance road trip?",
+    "a": "Fuel and lodging typically represent 65% to 75% of total road trip outlays, followed by highway tolls, vehicle maintenance wear-and-tear, food/dining, and national park or attraction admissions."
+  },
+  {
+    "q": "How do you calculate estimated gas costs for a multi-state road trip?",
+    "a": "Calculate total road trip fuel outlay by: Total Fuel Cost = (Total Trip Distance in Miles / Highway MPG) × Average Regional Gas Price. Adding a 10% buffer accounts for city driving, traffic delays, and elevation gains."
+  },
+  {
+    "q": "How much should I budget for vehicle wear-and-tear during a long road trip?",
+    "a": "The IRS standard mileage rate factors roughly $0.20 to $0.28 per mile for vehicle depreciation, tire wear, oil degradation, and scheduled maintenance outlays, beyond direct fuel consumption."
+  },
+  {
+    "q": "Is renting a car or driving your personal vehicle cheaper on a road trip?",
+    "a": "Driving your own car is cheaper if it is reliable and fuel-efficient. Renting a car makes financial sense if your personal vehicle has poor MPG, has high depreciation risk, or if you want to avoid adding 2,000+ miles to an active vehicle lease."
+  },
+  {
+    "q": "How can road trippers minimize highway toll expenses?",
+    "a": "Use interoperable electronic transponders (like E-ZPass, SunPass, or TxTag) to secure 20% to 50% cash toll discounts, enable 'Avoid Tolls' in navigation apps for non-urgent legs, and pre-plan toll routes to avoid peak congestion pricing."
+  }
+];
+
 export default function RoadTripCostCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +62,7 @@ export default function RoadTripCostCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>

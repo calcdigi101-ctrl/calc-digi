@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why does flying west take significantly longer than flying east?",
+    "a": "The Earth rotates from west to east, which, combined with atmospheric thermal gradients, creates powerful prevailing high-altitude jet stream winds that flow from west to east. Aircraft flying westbound encounter massive resistance (headwinds), whereas eastbound flights ride these winds (tailwinds) to achieve higher ground speeds."
+  },
+  {
+    "q": "What does \"block time\" mean in commercial airline operations?",
+    "a": "Block time is the official measure of total flight duration used by airlines, pilots, and aviation regulators. It begins the exact moment the aircraft pushback tug removes the wheel blocks at the departure gate and ends when the wheel blocks are inserted at the arrival gate."
+  },
+  {
+    "q": "Why do commercial airliners cruise at 35,000 to 40,000 feet?",
+    "a": "Atmospheric air density at 36,000 feet is less than one-third of sea-level density. Flying in thin air dramatically reduces aerodynamic profile drag, allowing jet transports to cruise at high speeds (450 to 500 knots) while burning significantly less jet fuel per passenger-mile."
+  },
+  {
+    "q": "How does flight time compare with driving for a 400-mile business trip?",
+    "a": "On a 400-mile trip, flying requires about 1 hour airborne, but adding 2 hours of airport security, baggage claim, and ground transit yields 3.5 to 4 hours door-to-door. Driving at 65 mph takes approximately 6 hours, making flying slightly faster but significantly more expensive when factoring rental cars and flight tickets."
+  },
+  {
+    "q": "How do airlines pad their flight schedules to prevent delays?",
+    "a": "Airlines routinely add 15 to 30 minutes of \"schedule buffer\" onto published block times for busy hub airports (such as Chicago O'Hare or Atlanta Hartsfield). This padding absorbs routine taxiway queues and air traffic control holding patterns, protecting published on-time arrival metrics."
+  },
+  {
+    "q": "How do moving and long-distance relocations handle flight logistics?",
+    "a": "When moving long distances, families often fly to their destination while professional freight carriers transport household belongings modeled in our{\" \"} moving cost calculator ."
+  }
+];
+
 export default function FlightTimeCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function FlightTimeCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -209,60 +237,7 @@ export default function FlightTimeCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why does flying west take significantly longer than flying east?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                The Earth rotates from west to east, which, combined with atmospheric thermal gradients, creates powerful prevailing high-altitude jet stream winds that flow from west to east. Aircraft flying westbound encounter massive resistance (headwinds), whereas eastbound flights ride these winds (tailwinds) to achieve higher ground speeds.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What does "block time" mean in commercial airline operations?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Block time is the official measure of total flight duration used by airlines, pilots, and aviation regulators. It begins the exact moment the aircraft pushback tug removes the wheel blocks at the departure gate and ends when the wheel blocks are inserted at the arrival gate.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why do commercial airliners cruise at 35,000 to 40,000 feet?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Atmospheric air density at 36,000 feet is less than one-third of sea-level density. Flying in thin air dramatically reduces aerodynamic profile drag, allowing jet transports to cruise at high speeds (450 to 500 knots) while burning significantly less jet fuel per passenger-mile.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does flight time compare with driving for a 400-mile business trip?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                On a 400-mile trip, flying requires about 1 hour airborne, but adding 2 hours of airport security, baggage claim, and ground transit yields 3.5 to 4 hours door-to-door. Driving at 65 mph takes approximately 6 hours, making flying slightly faster but significantly more expensive when factoring rental cars and flight tickets.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do airlines pad their flight schedules to prevent delays?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Airlines routinely add 15 to 30 minutes of "schedule buffer" onto published block times for busy hub airports (such as Chicago O'Hare or Atlanta Hartsfield). This padding absorbs routine taxiway queues and air traffic control holding patterns, protecting published on-time arrival metrics.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do moving and long-distance relocations handle flight logistics?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                When moving long distances, families often fly to their destination while professional freight carriers transport household belongings modeled in our{" "}
-                <Link href="/calculators/transportation/moving-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  moving cost calculator
-                </Link>.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Aviation Flight Standards & Navigational Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

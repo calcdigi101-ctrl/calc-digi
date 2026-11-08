@@ -34,6 +34,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "What is the difference between a statute mile, nautical mile, and kilometer?",
+    "a": "A statute mile (standard US road mile) equals exactly 5,280 feet or 1,609.344 meters. A nautical mile (used in aviation and maritime navigation) equals exactly 1,852 meters (approx 1.1508 statute miles), representing one minute of latitude arc along a meridian. A kilometer equals 1,000 meters (0.621371 statute miles)."
+  },
+  {
+    "q": "How do airlines calculate flight block time versus actual flight time?",
+    "a": "\"Flight time\" represents the duration the aircraft is airborne from wheels-up takeoff to touchdown. \"Block time\" (gate-to-gate) begins when the aircraft pushes back from the departure gate and concludes when it parks at the arrival gate, encompassing pushback, engine start, taxiway queues, and runway taxiing."
+  },
+  {
+    "q": "Why does high-speed rail generate significantly lower CO2 emissions than flying?",
+    "a": "Electric high-speed trains draw power from national electric grids increasingly powered by renewables, nuclear, and hydro. Furthermore, steel wheels on steel rails exhibit minimal rolling friction, and trains carry hundreds of passengers per vehicle without expending fuel to lift mass to 35,000 feet."
+  },
+  {
+    "q": "How does vehicle speed affect highway travel fuel consumption?",
+    "a": "Because aerodynamic air drag increases with the square of speed, cruising at 80 mph consumes roughly 25% more fuel per mile than cruising at 65 mph, substantially accelerating fuel costs calculated in our{\" \"} fuel cost calculator ."
+  },
+  {
+    "q": "How does travel distance impact household moving budgets?",
+    "a": "In long-distance interstate moves, freight mileage dictates diesel fuel, driver line-haul rates, and lodging expenses modeled in our{\" \"} moving cost calculator ."
+  },
+  {
+    "q": "How does commute distance impact vehicle loan financing decisions?",
+    "a": "High-distance commuting rapidly exhausts warranty thresholds while accelerating depreciation, making short-term financing modeled in our{\" \"} car payment calculator {\" \"} vital to avoid negative equity."
+  }
+];
+
 export default function DistanceCalculatorPage() {
   return (
     <CalcPage
@@ -42,6 +69,7 @@ export default function DistanceCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title="Distance Calculator"
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -206,67 +234,7 @@ export default function DistanceCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the difference between a statute mile, nautical mile, and kilometer?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                A statute mile (standard US road mile) equals exactly 5,280 feet or 1,609.344 meters. A nautical mile (used in aviation and maritime navigation) equals exactly 1,852 meters (approx 1.1508 statute miles), representing one minute of latitude arc along a meridian. A kilometer equals 1,000 meters (0.621371 statute miles).
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do airlines calculate flight block time versus actual flight time?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                "Flight time" represents the duration the aircraft is airborne from wheels-up takeoff to touchdown. "Block time" (gate-to-gate) begins when the aircraft pushes back from the departure gate and concludes when it parks at the arrival gate, encompassing pushback, engine start, taxiway queues, and runway taxiing.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why does high-speed rail generate significantly lower CO2 emissions than flying?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Electric high-speed trains draw power from national electric grids increasingly powered by renewables, nuclear, and hydro. Furthermore, steel wheels on steel rails exhibit minimal rolling friction, and trains carry hundreds of passengers per vehicle without expending fuel to lift mass to 35,000 feet.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does vehicle speed affect highway travel fuel consumption?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Because aerodynamic air drag increases with the square of speed, cruising at 80 mph consumes roughly 25% more fuel per mile than cruising at 65 mph, substantially accelerating fuel costs calculated in our{" "}
-                <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  fuel cost calculator
-                </Link>.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does travel distance impact household moving budgets?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                In long-distance interstate moves, freight mileage dictates diesel fuel, driver line-haul rates, and lodging expenses modeled in our{" "}
-                <Link href="/calculators/transportation/moving-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  moving cost calculator
-                </Link>.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does commute distance impact vehicle loan financing decisions?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                High-distance commuting rapidly exhausts warranty thresholds while accelerating depreciation, making short-term financing modeled in our{" "}
-                <Link href="/calculators/transportation/car-payment-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  car payment calculator
-                </Link>{" "}
-                vital to avoid negative equity.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Transportation Geodesy & Emissions Standards</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

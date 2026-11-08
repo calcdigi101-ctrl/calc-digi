@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "What is a baker's percentage and why is it superior to standard percentages?",
+    "a": "In baker's percentages, total flour weight is always designated as 100%. Every other ingredient is calculated as a direct percentage of that flour weight. This enables commercial bakers to scale batch sizes instantly by multiplying target flour weight by each ingredient's fixed percentage."
+  },
+  {
+    "q": "Why should spices and salt not be scaled linearly when multiplying a recipe by 4x or more?",
+    "a": "Human sensory perception of piquancy and salinity is logarithmic rather than linear. In addition, large-batch cooking pots have lower surface-area-to-volume ratios, trapping volatile aromatic compounds that would otherwise escape during small-skillet cooking. Scale seasonings at 75% to 85% of linear multiplication."
+  },
+  {
+    "q": "How do I scale a recipe that calls for 3 large eggs when halving the recipe?",
+    "a": "Halving 3 large eggs requires 1.5 eggs. Because 1 large shelled egg weighs approximately 50 grams, crack and whisk 2 eggs together (100g total), then weigh out exactly 75 grams of beaten egg mixture, discarding or refrigerating the remainder."
+  },
+  {
+    "q": "Does cooking time double when doubling a recipe?",
+    "a": "No. Cooking time depends on food thickness and geometry, not total batch mass. Two identical 8-inch cakes bake in roughly the same time as one cake, provided the oven has adequate airflow. Roasting larger cuts of meat requires verifying doneness via our{\" \"} cooking time calculator ."
+  },
+  {
+    "q": "How do I convert a 9x13 inch rectangular baking pan to round cake pans?",
+    "a": "A 9x13 inch pan has an area of 117 square inches. Two 8-inch round pans have a combined area of approximately 100 square inches (50 sq in each), and two 9-inch round pans provide 127 square inches. A 9x13 batch divides cleanly across two 8-inch or 9-inch round pans with minimal baking time variation."
+  },
+  {
+    "q": "How does scaling recipes affect commercial food cost percentage?",
+    "a": "Scaling up recipes allows food establishments to purchase wholesale bulk packaging at lower unit prices, reducing food cost percentages modeled in our{\" \"} food cost calculator {\" \"} by several percentage points."
+  }
+];
+
 export default function RecipeScalerPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function RecipeScalerPage() {
       category={{ href: "/pages/food", label: "Food & Cooking" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -205,64 +233,7 @@ export default function RecipeScalerPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is a baker&apos;s percentage and why is it superior to standard percentages?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                In baker&apos;s percentages, total flour weight is always designated as 100%. Every other ingredient is calculated as a direct percentage of that flour weight. This enables commercial bakers to scale batch sizes instantly by multiplying target flour weight by each ingredient&apos;s fixed percentage.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why should spices and salt not be scaled linearly when multiplying a recipe by 4x or more?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Human sensory perception of piquancy and salinity is logarithmic rather than linear. In addition, large-batch cooking pots have lower surface-area-to-volume ratios, trapping volatile aromatic compounds that would otherwise escape during small-skillet cooking. Scale seasonings at 75% to 85% of linear multiplication.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do I scale a recipe that calls for 3 large eggs when halving the recipe?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Halving 3 large eggs requires 1.5 eggs. Because 1 large shelled egg weighs approximately 50 grams, crack and whisk 2 eggs together (100g total), then weigh out exactly 75 grams of beaten egg mixture, discarding or refrigerating the remainder.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Does cooking time double when doubling a recipe?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                No. Cooking time depends on food thickness and geometry, not total batch mass. Two identical 8-inch cakes bake in roughly the same time as one cake, provided the oven has adequate airflow. Roasting larger cuts of meat requires verifying doneness via our{" "}
-                <Link href="/calculators/food/cooking-time-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  cooking time calculator
-                </Link>.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do I convert a 9x13 inch rectangular baking pan to round cake pans?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                A 9x13 inch pan has an area of 117 square inches. Two 8-inch round pans have a combined area of approximately 100 square inches (50 sq in each), and two 9-inch round pans provide 127 square inches. A 9x13 batch divides cleanly across two 8-inch or 9-inch round pans with minimal baking time variation.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does scaling recipes affect commercial food cost percentage?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Scaling up recipes allows food establishments to purchase wholesale bulk packaging at lower unit prices, reducing food cost percentages modeled in our{" "}
-                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  food cost calculator
-                </Link>{" "}
-                by several percentage points.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Culinary Arts Standards & Professional Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

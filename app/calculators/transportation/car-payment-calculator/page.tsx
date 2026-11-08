@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/moving-cost-calculator", icon: "📦", name: "Moving Cost Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "How does my credit score directly affect the interest rate (APR) I receive?",
+    "a": "Auto financing rates are tiered based on credit scores (FICO Auto Score). Super-prime borrowers (780+) typically receive APRs between 4.5% and 6.0%, whereas subprime borrowers (below 600) frequently face APRs exceeding 14% to 20%, adding $8,000 to $14,000 in unnecessary interest charges over a 5-year loan."
+  },
+  {
+    "q": "Is it better to take dealer 0% financing or a cash-back rebate?",
+    "a": "Calculate both options. Often, taking a $3,500 cash rebate and financing through an external credit union at 5.0% APR yields a lower total financed cost than paying full MSRP at 0% APR, especially on loans under 48 months."
+  },
+  {
+    "q": "Can I pay off my auto loan early to save on financing interest?",
+    "a": "Yes. The vast majority of standard auto installment loans utilize simple interest calculation without prepayment penalties. Making additional principal-only payments directly reduces the remaining loan balance, cutting total interest paid and shortening loan duration."
+  },
+  {
+    "q": "How does trade-in equity reduce my overall sales tax burden?",
+    "a": "In 42 of 50 US states, trade-in tax credits are legally recognized. If you buy a $40,000 car and trade in a vehicle worth $10,000, you pay state sales tax only on the $30,000 difference. At an 8% tax rate, this trade-in credit saves you $800 in cash sales taxes."
+  },
+  {
+    "q": "How does vehicle depreciation correlate with auto loan financing health?",
+    "a": "If your vehicle depreciates faster than you pay down principal (common in 72+ month loans with low down payments modeled in our{\" \"} car depreciation calculator ), you become trapped in negative equity, preventing you from trading or selling the vehicle without paying cash out-of-pocket."
+  },
+  {
+    "q": "What upfront fees should I expect when finalizing an auto loan purchase?",
+    "a": "Standard out-of-pocket acquisition costs include state sales taxes, state department of motor vehicles (DMV) title and registration fees, and dealer documentation fees (typically capped by state law between $150 and $899)."
+  }
+];
+
 export default function CarPaymentCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function CarPaymentCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -209,60 +237,7 @@ export default function CarPaymentCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does my credit score directly affect the interest rate (APR) I receive?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Auto financing rates are tiered based on credit scores (FICO Auto Score). Super-prime borrowers (780+) typically receive APRs between 4.5% and 6.0%, whereas subprime borrowers (below 600) frequently face APRs exceeding 14% to 20%, adding $8,000 to $14,000 in unnecessary interest charges over a 5-year loan.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Is it better to take dealer 0% financing or a cash-back rebate?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Calculate both options. Often, taking a $3,500 cash rebate and financing through an external credit union at 5.0% APR yields a lower total financed cost than paying full MSRP at 0% APR, especially on loans under 48 months.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Can I pay off my auto loan early to save on financing interest?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Yes. The vast majority of standard auto installment loans utilize simple interest calculation without prepayment penalties. Making additional principal-only payments directly reduces the remaining loan balance, cutting total interest paid and shortening loan duration.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does trade-in equity reduce my overall sales tax burden?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                In 42 of 50 US states, trade-in tax credits are legally recognized. If you buy a $40,000 car and trade in a vehicle worth $10,000, you pay state sales tax only on the $30,000 difference. At an 8% tax rate, this trade-in credit saves you $800 in cash sales taxes.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does vehicle depreciation correlate with auto loan financing health?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                If your vehicle depreciates faster than you pay down principal (common in 72+ month loans with low down payments modeled in our{" "}
-                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  car depreciation calculator
-                </Link>), you become trapped in negative equity, preventing you from trading or selling the vehicle without paying cash out-of-pocket.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What upfront fees should I expect when finalizing an auto loan purchase?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Standard out-of-pocket acquisition costs include state sales taxes, state department of motor vehicles (DMV) title and registration fees, and dealer documentation fees (typically capped by state law between $150 and $899).
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Consumer Credit Standards & Financing Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

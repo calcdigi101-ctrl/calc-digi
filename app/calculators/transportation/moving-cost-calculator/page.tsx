@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "How much should I tip professional residential movers?",
+    "a": "Standard tipping etiquette for professional movers is approximately $20 to $30 per mover for a half-day local job, and $40 to $60 per mover for a full-day (8+ hours) heavy relocation. Alternatively, 10% to 15% of the total labor cost split among the crew is standard for exceptional handling."
+  },
+  {
+    "q": "What is the cheapest day of the week and month to schedule a move?",
+    "a": "Mid-week (Tuesday through Thursday) and mid-month (between the 8th and 22nd) moves offer the lowest rates and highest truck availability. Peak moving demand occurs on weekends and at the beginning/end of the month when apartment leases expire, carrying 15% to 25% price premiums."
+  },
+  {
+    "q": "Can I deduct household moving expenses on my federal income taxes?",
+    "a": "Under the Tax Cuts and Jobs Act (TCJA), the federal tax deduction for residential moving expenses was suspended for most taxpayers through 2025. Only active-duty military service members moving pursuant to a military order and permanent change of station (PCS) remain eligible for federal moving deductions."
+  },
+  {
+    "q": "How do moving container pods compare in price to full-service movers?",
+    "a": "Moving container pods typically cost 30% to 45% less than full-service van lines while eliminating the stress of driving a massive commercial box truck. Pods provide flexible multi-week ground storage, making them ideal for staggered lease dates or home renovations."
+  },
+  {
+    "q": "How does relocation moving distance influence total fuel expenditures?",
+    "a": "Large commercial moving trucks achieve poor fuel efficiency (8 to 10 MPG for diesel). On a 1,000-mile move, truck fuel costs alone exceed $400 to $500, requiring precise fuel budgeting modeled in our{\" \"} fuel cost calculator ."
+  },
+  {
+    "q": "How many cardboard moving boxes do I need for a 3-bedroom home?",
+    "a": "A typical 3-bedroom house requires approximately 60 to 90 total boxes: 25 to 35 small boxes (books, heavy canned goods), 25 to 35 medium boxes (kitchenware, small appliances), 15 to 25 large boxes (linens, bedding), and 4 to 8 wardrobe boxes with metal hanging bars."
+  }
+];
+
 export default function MovingCostCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function MovingCostCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -204,60 +232,7 @@ export default function MovingCostCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How much should I tip professional residential movers?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Standard tipping etiquette for professional movers is approximately $20 to $30 per mover for a half-day local job, and $40 to $60 per mover for a full-day (8+ hours) heavy relocation. Alternatively, 10% to 15% of the total labor cost split among the crew is standard for exceptional handling.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the cheapest day of the week and month to schedule a move?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Mid-week (Tuesday through Thursday) and mid-month (between the 8th and 22nd) moves offer the lowest rates and highest truck availability. Peak moving demand occurs on weekends and at the beginning/end of the month when apartment leases expire, carrying 15% to 25% price premiums.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Can I deduct household moving expenses on my federal income taxes?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Under the Tax Cuts and Jobs Act (TCJA), the federal tax deduction for residential moving expenses was suspended for most taxpayers through 2025. Only active-duty military service members moving pursuant to a military order and permanent change of station (PCS) remain eligible for federal moving deductions.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do moving container pods compare in price to full-service movers?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Moving container pods typically cost 30% to 45% less than full-service van lines while eliminating the stress of driving a massive commercial box truck. Pods provide flexible multi-week ground storage, making them ideal for staggered lease dates or home renovations.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does relocation moving distance influence total fuel expenditures?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Large commercial moving trucks achieve poor fuel efficiency (8 to 10 MPG for diesel). On a 1,000-mile move, truck fuel costs alone exceed $400 to $500, requiring precise fuel budgeting modeled in our{" "}
-                <Link href="/calculators/transportation/fuel-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  fuel cost calculator
-                </Link>.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How many cardboard moving boxes do I need for a 3-bedroom home?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                A typical 3-bedroom house requires approximately 60 to 90 total boxes: 25 to 35 small boxes (books, heavy canned goods), 25 to 35 medium boxes (kitchenware, small appliances), 15 to 25 large boxes (linens, bedding), and 4 to 8 wardrobe boxes with metal hanging bars.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Relocation Standards & Transportation Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

@@ -31,6 +31,29 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/road-trip-cost-calculator", icon: "🗺️", name: "Road Trip Cost Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "How do parking garages calculate daily maximum versus hourly rates?",
+    "a": "Commercial parking facilities charge incremental hourly rates up to a statutory daily maximum rate. Once accrued hourly charges equal the facility's daily cap, no further hourly charges accrue for that 24-hour cycle."
+  },
+  {
+    "q": "Is monthly parking always cheaper than daily parking for commuters?",
+    "a": "Monthly parking typically provides a 30% to 50% discount compared to daily parking rates if you commute at least 15 to 18 days per month. For hybrid workers commuting 2 days per week or less, paying daily rates is generally more cost-effective."
+  },
+  {
+    "q": "How does airport terminal parking differ from off-site park-and-fly lots?",
+    "a": "On-site airport terminal garages offer convenience within walking distance of departure gates but charge premium rates ($35–$60/day). Private off-site park-and-fly lots charge $10–$25/day and include free continuous shuttle transfers, saving substantial money on week-long trips."
+  },
+  {
+    "q": "Can commuter parking expenses be paid with pre-tax dollars?",
+    "a": "Yes. Under IRS Section 132(f) Qualified Transportation Fringe benefits, employees can use pre-tax payroll deductions (up to the annual IRS monthly limit) for qualified parking at or near their employment location or transit park-and-ride stations."
+  },
+  {
+    "q": "What hidden fees should drivers check for in commercial parking agreements?",
+    "a": "Common parking surcharges include municipal parking occupancy taxes (up to 20%), valet mandatory service charges, oversized vehicle surcharges for large SUVs/trucks, and automated overnight rollover fees."
+  }
+];
+
 export default function ParkingCostCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +62,7 @@ export default function ParkingCostCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>

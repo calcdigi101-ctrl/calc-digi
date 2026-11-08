@@ -29,9 +29,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/science/osmolarity-calculator", icon: "🩸", name: "Osmolarity Solver" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Can a chemical solution have a negative pH or a pH greater than 14?",
+    "a": "Yes. The conventional 0 to 14 pH scale is merely a convenient guideline for dilute aqueous solutions. A 12 M concentrated hydrochloric acid solution has an effective hydronium activity exceeding 12, resulting in a negative pH of approximately -1.1. Conversely, a 10 M saturated sodium hydroxide solution yields a calculated pH of approximately 15.0. However, in such concentrated regimes, ion-pairing and reduced water activity make standard glass electrodes unreliable."
+  },
+  {
+    "q": "Why does pure water at 60 °C have a pH of approximately 6.5? Is it acidic?",
+    "a": "No, water at 60 °C remains perfectly neutral. The endothermic autoionization of water shifts forward at higher temperatures, increasing Kw from 1.0 × 10⁻¹⁴ at 25 °C to 9.6 × 10⁻¹⁴ at 60 °C. At 60 °C, [H⁺] = [OH⁻] = 3.1 × 10⁻⁷ M, yielding pH = 6.51. Because hydronium and hydroxide concentrations remain exactly equal, the water is strictly neutral despite having a numerical pH beneath 7.00."
+  },
+  {
+    "q": "What is the Henderson-Hasselbalch equation and when does it apply?",
+    "a": "The Henderson-Hasselbalch equation (pH = pKa + log([A⁻]/[HA])) is an approximation used for buffer solutions containing comparable concentrations of a weak acid and its conjugate base. It is valid when both conjugate species concentrations significantly exceed 10⁻³ M and the solution pH lies within ± 1 pH unit of the acid 's pKa. For dedicated buffer formulation, use our buffer capacity calculator."
+  },
+  {
+    "q": "What is the Henderson-Hasselbalch equation and when is it used?",
+    "a": "The Henderson-Hasselbalch equation (pH = pKa + log([A-]/[HA])) calculates the pH of chemical buffer solutions consisting of a weak acid and its conjugate base. It is widely used in biochemistry, pharmaceutical formulation, and physiological acid-base balance."
+  },
+  {
+    "q": "How do strong acids differ from weak acids in pH calculation?",
+    "a": "Strong acids (like HCl and HNO3) dissociate 100% in aqueous solution, so [H+] equals the molar acid concentration (pH = -log[Acid]). Weak acids (like acetic acid) only partially dissociate, requiring acid dissociation constant (Ka) equilibrium expressions."
+  }
+];
+
 export default function PhCalculatorPage() {
   return (
     <CalcPage
+      faq={FAQ_ITEMS}
       title="pH Calculator"
       intro="Comprehensive analytical solver for laboratory, clinical, and industrial chemical calculations."
       description="Compute solution pH, pOH, hydronium ion concentration [H⁺/H₃O⁺], and hydroxide ion concentration [OH⁻]. Solve strong acid/base complete dissociations and weak electrolyte quadratic chemical equilibria with dissociation constants (Ka and pKa)."
@@ -193,27 +217,7 @@ export default function PhCalculatorPage() {
             In semiconductor manufacturing, process stations deploy flowing-junction sleeve reference electrodes to prevent sample water ingress and maintain sub-0.02 pH accuracy across low-conductivity loops.
           </p>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">Can a chemical solution have a negative pH or a pH greater than 14?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Yes. The conventional 0 to 14 pH scale is merely a convenient guideline for dilute aqueous solutions. A 12 M concentrated hydrochloric acid solution has an effective hydronium activity exceeding 12, resulting in a negative pH of approximately -1.1. Conversely, a 10 M saturated sodium hydroxide solution yields a calculated pH of approximately 15.0. However, in such concentrated regimes, ion-pairing and reduced water activity make standard glass electrodes unreliable.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">Why does pure water at 60 °C have a pH of approximately 6.5? Is it acidic?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                No, water at 60 °C remains perfectly neutral. The endothermic autoionization of water shifts forward at higher temperatures, increasing Kw from 1.0 × 10⁻¹⁴ at 25 °C to 9.6 × 10⁻¹⁴ at 60 °C. At 60 °C, [H⁺] = [OH⁻] = 3.1 × 10⁻⁷ M, yielding pH = 6.51. Because hydronium and hydroxide concentrations remain exactly equal, the water is strictly neutral despite having a numerical pH beneath 7.00.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">What is the Henderson-Hasselbalch equation and when does it apply?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                The Henderson-Hasselbalch equation (pH = pKa + log([A⁻]/[HA])) is an approximation used for buffer solutions containing comparable concentrations of a weak acid and its conjugate base. It is valid when both conjugate species concentrations significantly exceed 10⁻³ M and the solution pH lies within ± 1 pH unit of the acid &apos;s pKa. For dedicated buffer formulation, use our <Link href="/calculators/science/buffer-calculator">buffer capacity calculator</Link>.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative International Standards & pH Metrology</h2>
           <p>

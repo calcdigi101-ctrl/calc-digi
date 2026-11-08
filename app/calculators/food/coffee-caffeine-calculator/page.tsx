@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "What is the clinical definition of caffeine half-life?",
+    "a": "Caffeine half-life is the biological duration required for your liver to metabolize and clear exactly 50% of the peak circulating caffeine dose from your bloodstream. For healthy non-smoking adults, this duration averages approximately 5 hours (ranging from 3 to 7 hours)."
+  },
+  {
+    "q": "Does dark roast coffee contain more caffeine than light roast coffee?",
+    "a": "No. Roasting temperatures (around 200°C to 230°C) do not break down caffeine molecules significantly. Because beans lose water and expand during extended roasting, dark roast beans are less dense. Measured by weight (grams), light and dark roasts contain virtually identical caffeine; measured by volume (scoops), light roast yields slightly more caffeine."
+  },
+  {
+    "q": "How does caffeine interact with athletic training and calorie burn?",
+    "a": "Ingesting 3 to 6 mg of caffeine per kg of body mass 60 minutes before training increases time-to-exhaustion and enhances motor unit recruitment. You can evaluate this boosted athletic workload using our{\" \"} calorie burn calculator ."
+  },
+  {
+    "q": "What are the clinical symptoms of acute caffeine intoxication?",
+    "a": "Ingesting in excess of 400 mg acutely or exceeding 1,000 mg in a single day can trigger tachycardia, muscle tremors, severe psychomotor agitation, cardiac arrhythmias, and gastrointestinal distress."
+  },
+  {
+    "q": "Can caffeine intake be offset by drinking large quantities of water?",
+    "a": "Hydration alleviates mild diuretic electrolyte shifts but does not accelerate hepatic enzymatic breakdown by CYP1A2. You must allow biological time for metabolic clearance to occur."
+  },
+  {
+    "q": "How do commercial coffee shops price their espresso beverages?",
+    "a": "Specialty roasters calculate dry coffee dose costs per shot alongside dairy and cup packaging margins with our{\" \"} food cost calculator {\" \"} to achieve commercial target profit benchmarks."
+  }
+];
+
 export default function CoffeeCaffeineCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function CoffeeCaffeineCalculatorPage() {
       category={{ href: "/pages/food", label: "Food & Cooking" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -203,64 +231,7 @@ export default function CoffeeCaffeineCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the clinical definition of caffeine half-life?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Caffeine half-life is the biological duration required for your liver to metabolize and clear exactly 50% of the peak circulating caffeine dose from your bloodstream. For healthy non-smoking adults, this duration averages approximately 5 hours (ranging from 3 to 7 hours).
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Does dark roast coffee contain more caffeine than light roast coffee?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                No. Roasting temperatures (around 200°C to 230°C) do not break down caffeine molecules significantly. Because beans lose water and expand during extended roasting, dark roast beans are less dense. Measured by weight (grams), light and dark roasts contain virtually identical caffeine; measured by volume (scoops), light roast yields slightly more caffeine.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does caffeine interact with athletic training and calorie burn?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Ingesting 3 to 6 mg of caffeine per kg of body mass 60 minutes before training increases time-to-exhaustion and enhances motor unit recruitment. You can evaluate this boosted athletic workload using our{" "}
-                <Link href="/calculators/health/calorie-burn-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  calorie burn calculator
-                </Link>.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What are the clinical symptoms of acute caffeine intoxication?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Ingesting in excess of 400 mg acutely or exceeding 1,000 mg in a single day can trigger tachycardia, muscle tremors, severe psychomotor agitation, cardiac arrhythmias, and gastrointestinal distress.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Can caffeine intake be offset by drinking large quantities of water?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Hydration alleviates mild diuretic electrolyte shifts but does not accelerate hepatic enzymatic breakdown by CYP1A2. You must allow biological time for metabolic clearance to occur.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do commercial coffee shops price their espresso beverages?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Specialty roasters calculate dry coffee dose costs per shot alongside dairy and cup packaging margins with our{" "}
-                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  food cost calculator
-                </Link>{" "}
-                to achieve commercial target profit benchmarks.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Clinical Toxicology Standards & Scientific Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why do professional pastry chefs refuse to use volumetric cup measures?",
+    "a": "Measuring cups exhibit a 20% to 30% margin of error due to flour compaction, humidity, and scooping force. Electronic digital scales provide gravimetric accuracy to within 1 gram, ensuring identical cake crumb texture, oven rise, and consistency across every production batch."
+  },
+  {
+    "q": "How many tablespoons are in one-quarter cup of liquid or dry ingredients?",
+    "a": "There are exactly 4 tablespoons in 1/4 US cup (60 ml or 2 fluid ounces). For smaller fractional amounts, 1 tablespoon equals 3 teaspoons."
+  },
+  {
+    "q": "What is the difference between a US legal cup and a Metric cup?",
+    "a": "A United States customary cup equals 236.59 ml, an FDA legal nutrition cup equals exactly 240 ml, and a Commonwealth Metric cup (used in Australia, New Zealand, and Canada) equals 250 ml. Using a Metric cup in an American recipe introduces a 5% excess liquid bias."
+  },
+  {
+    "q": "How do I convert stick butter into tablespoons, ounces, and grams?",
+    "a": "In the United States, 1 stick of butter equals 8 tablespoons, 1/2 cup, 4 avoirdupois ounces, or 113.4 grams. Two full sticks equal 1 cup (227 grams)."
+  },
+  {
+    "q": "How does ingredient density affect large-scale recipe batch multipliers?",
+    "a": "When scaling catering batches up to 50 portions with our{\" \"} recipe scaler , volumetric errors compound rapidly. Converting to gram weight avoids ruined emulsions and dough hydration imbalances."
+  },
+  {
+    "q": "How do restaurant kitchen conversions protect prime food margins?",
+    "a": "In hospitality cost accounting, standardizing portion yields through bulk density conversion allows chefs using our{\" \"} food cost calculator {\" \"} to calculate true portion costs and prevent ingredient over-portioning."
+  }
+];
+
 export default function CookingConversionCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function CookingConversionCalculatorPage() {
       category={{ href: "/pages/food", label: "Food & Cooking" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -202,64 +230,7 @@ export default function CookingConversionCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Why do professional pastry chefs refuse to use volumetric cup measures?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Measuring cups exhibit a 20% to 30% margin of error due to flour compaction, humidity, and scooping force. Electronic digital scales provide gravimetric accuracy to within 1 gram, ensuring identical cake crumb texture, oven rise, and consistency across every production batch.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How many tablespoons are in one-quarter cup of liquid or dry ingredients?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                There are exactly 4 tablespoons in 1/4 US cup (60 ml or 2 fluid ounces). For smaller fractional amounts, 1 tablespoon equals 3 teaspoons.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the difference between a US legal cup and a Metric cup?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                A United States customary cup equals 236.59 ml, an FDA legal nutrition cup equals exactly 240 ml, and a Commonwealth Metric cup (used in Australia, New Zealand, and Canada) equals 250 ml. Using a Metric cup in an American recipe introduces a 5% excess liquid bias.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do I convert stick butter into tablespoons, ounces, and grams?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                In the United States, 1 stick of butter equals 8 tablespoons, 1/2 cup, 4 avoirdupois ounces, or 113.4 grams. Two full sticks equal 1 cup (227 grams).
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does ingredient density affect large-scale recipe batch multipliers?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                When scaling catering batches up to 50 portions with our{" "}
-                <Link href="/calculators/food/recipe-scaler" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  recipe scaler
-                </Link>, volumetric errors compound rapidly. Converting to gram weight avoids ruined emulsions and dough hydration imbalances.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do restaurant kitchen conversions protect prime food margins?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                In hospitality cost accounting, standardizing portion yields through bulk density conversion allows chefs using our{" "}
-                <Link href="/calculators/food/food-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  food cost calculator
-                </Link>{" "}
-                to calculate true portion costs and prevent ingredient over-portioning.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Culinary Metrology Standards & National Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

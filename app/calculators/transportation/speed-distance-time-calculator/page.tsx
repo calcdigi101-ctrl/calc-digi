@@ -31,6 +31,29 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/road-trip-cost-calculator", icon: "🗺️", name: "Road Trip Cost Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "What is the basic mathematical formula relating speed, distance, and time?",
+    "a": "The fundamental kinematics formula is Speed = Distance / Time. Rearranging terms yields Distance = Speed × Time, and Time = Distance / Speed. All variables must be expressed in consistent physical units (e.g., miles and hours for mph, or kilometers and hours for km/h)."
+  },
+  {
+    "q": "Why is average speed not simply the arithmetic mean of two speeds?",
+    "a": "Average speed is harmonic mean weighted by time, not distance. If you drive 60 mph for 60 miles (1 hour) and return at 30 mph (2 hours), total distance is 120 miles in 3 hours, yielding an average speed of 40 mph—not 45 mph."
+  },
+  {
+    "q": "How do you convert miles per hour (mph) to kilometers per hour (km/h)?",
+    "a": "Multiply speed in mph by 1.60934 to obtain km/h. Conversely, multiply km/h by 0.621371 to convert into mph. For quick mental estimation, multiply mph by 8/5, or km/h by 5/8."
+  },
+  {
+    "q": "How does vehicle speed affect highway fuel efficiency?",
+    "a": "Aerodynamic drag increases with the square of vehicle velocity. Aerodynamic drag above 50 mph causes each 5 mph increase in highway cruising speed to reduce fuel economy by approximately 7% to 10% across internal combustion vehicles."
+  },
+  {
+    "q": "How is travel time calculated when accounting for mandatory rest stops?",
+    "a": "Effective travel time combines driving time and non-driving dwell time: Total Time = (Distance / Cruising Speed) + (Number of Fuel/Meal Stops × Average Stop Duration). Long-haul logistics planners typically add 15 minutes of rest buffer for every 2 to 3 hours of driving."
+  }
+];
+
 export default function SpeedDistanceTimeCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +62,7 @@ export default function SpeedDistanceTimeCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>

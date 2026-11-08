@@ -31,6 +31,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "How much does it cost to fully charge an electric car at home?",
+    "a": "A standard 75 kWh EV battery (providing roughly 250 to 300 miles of range) costs approximately $12.00 to charge from empty to 100% at the national average residential rate of $0.16 per kWh. Off-peak time-of-use electric plans can lower this to $6.00 to $8.00 per full charge."
+  },
+  {
+    "q": "What is the difference between Level 1, Level 2, and DC Fast Charging?",
+    "a": "Level 1 charging uses a standard 120V household wall outlet (1.4 kW), adding 3 to 5 miles of range per hour. Level 2 uses a 240V dedicated circuit (7.2 to 11.5 kW), replenishing a battery overnight in 6 to 9 hours. DC Fast Charging (50 to 350 kW direct current) charges 10% to 80% in 18 to 35 minutes at highway travel plazas."
+  },
+  {
+    "q": "Do electric vehicle batteries really need replacement after 8 to 10 years?",
+    "a": "Federal regulations mandate that all EVs sold in the US carry a minimum 8-year or 100,000-mile battery warranty. Real-world fleet data demonstrates modern liquid-cooled lithium batteries retain 85% to 90% of original capacity after 150,000 to 200,000 miles, far outlasting consumer fears."
+  },
+  {
+    "q": "How does vehicle depreciation impact overall electric car ownership costs?",
+    "a": "Because rapid advances in battery technology, range, and charging speed lower used EV demand, early EVs experience higher first-year depreciation modeled in our{\" \"} car depreciation calculator , making long-term ownership essential to maximize operational savings."
+  },
+  {
+    "q": "Are electric vehicles actually cleaner than gas cars when factoring electric grid emissions?",
+    "a": "Yes. Studies by the Union of Concerned Scientists demonstrate that even on coal-heavy regional grids, an EV produces lifecycle emissions equivalent to a gasoline vehicle achieving over 85 MPG. On cleaner solar/wind grids, EVs operate with virtually zero operational emissions."
+  },
+  {
+    "q": "How do moving and long-distance relocations handle EV transportation?",
+    "a": "When moving long distances, families plan cross-country charging corridors or utilize freight transport services analyzed in our{\" \"} moving cost calculator ."
+  }
+];
+
 export default function EvSavingsCalculatorPage() {
   return (
     <CalcPage
@@ -39,6 +66,7 @@ export default function EvSavingsCalculatorPage() {
       category={{ href: "/pages/transportation", label: "Transportation & Travel" }}
       title={TITLE}
       description={DESCRIPTION}
+      faq={FAQ_ITEMS}
       related={RELATED_CALCULATORS}
       article={
         <>
@@ -193,63 +221,7 @@ export default function EvSavingsCalculatorPage() {
             </li>
           </ul>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How much does it cost to fully charge an electric car at home?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                A standard 75 kWh EV battery (providing roughly 250 to 300 miles of range) costs approximately $12.00 to charge from empty to 100% at the national average residential rate of $0.16 per kWh. Off-peak time-of-use electric plans can lower this to $6.00 to $8.00 per full charge.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                What is the difference between Level 1, Level 2, and DC Fast Charging?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Level 1 charging uses a standard 120V household wall outlet (1.4 kW), adding 3 to 5 miles of range per hour. Level 2 uses a 240V dedicated circuit (7.2 to 11.5 kW), replenishing a battery overnight in 6 to 9 hours. DC Fast Charging (50 to 350 kW direct current) charges 10% to 80% in 18 to 35 minutes at highway travel plazas.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Do electric vehicle batteries really need replacement after 8 to 10 years?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Federal regulations mandate that all EVs sold in the US carry a minimum 8-year or 100,000-mile battery warranty. Real-world fleet data demonstrates modern liquid-cooled lithium batteries retain 85% to 90% of original capacity after 150,000 to 200,000 miles, far outlasting consumer fears.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How does vehicle depreciation impact overall electric car ownership costs?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Because rapid advances in battery technology, range, and charging speed lower used EV demand, early EVs experience higher first-year depreciation modeled in our{" "}
-                <Link href="/calculators/transportation/car-depreciation-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  car depreciation calculator
-                </Link>, making long-term ownership essential to maximize operational savings.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                Are electric vehicles actually cleaner than gas cars when factoring electric grid emissions?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                Yes. Studies by the Union of Concerned Scientists demonstrate that even on coal-heavy regional grids, an EV produces lifecycle emissions equivalent to a gasoline vehicle achieving over 85 MPG. On cleaner solar/wind grids, EVs operate with virtually zero operational emissions.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                How do moving and long-distance relocations handle EV transportation?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-                When moving long distances, families plan cross-country charging corridors or utilize freight transport services analyzed in our{" "}
-                <Link href="/calculators/transportation/moving-cost-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
-                  moving cost calculator
-                </Link>.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative Electric Vehicle Standards & Research Citations</h2>
           <ul className="list-disc pl-6 space-y-2 text-sm text-slate-600 dark:text-slate-300">

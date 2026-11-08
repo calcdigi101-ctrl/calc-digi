@@ -29,9 +29,33 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/science/ideal-gas-law-calculator", icon: "🎈", name: "Ideal Gas Law" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    "q": "Why cannot you determine the limiting reactant simply by looking at initial masses?",
+    "a": "Reactants react on a molecule-by-molecule (mole-by-mole) basis, not on a gram-by-gram basis. A reactant with a lower initial mass might actually contain vastly more moles if it possesses a very low molecular weight (such as hydrogen gas at 2 g/mol versus bromine liquid at 160 g/mol). Limiting reactants can only be identified by dividing molar quantities by balanced stoichiometric coefficients."
+  },
+  {
+    "q": "What is a stoichiometric feed versus an excess reagent feed?",
+    "a": "A stoichiometric feed introduces reactants in exact integer molar proportions matching the balanced equation, theoretically leaving zero leftover reactants. In practice, industrial processes deliberately introduce one cheap, abundant reagent (such as atmospheric oxygen or steam) in large excess to drive an expensive limiting reagent toward 100% conversion via Le Chatelier 's principle."
+  },
+  {
+    "q": "How does stoichiometry apply to gas reactions?",
+    "a": "According to Avogadro 's law, equal volumes of gases at the same temperature and pressure contain equal numbers of moles. Therefore, for purely gaseous reactions under identical conditions, the integer mole ratios directly equal volumetric ratios (Gay-Lussac 's law of combining volumes). For example, 2 liters of H₂ react with exactly 1 liter of O₂ to produce 2 liters of steam. Verify gas parameters using the ideal gas law calculator."
+  },
+  {
+    "q": "What is the mole ratio in a balanced chemical equation?",
+    "a": "The mole ratio is the stoichiometric proportion of reactants and products given by their integer stoichiometric coefficients in a balanced chemical reaction. It serves as the conversion factor when converting moles of one substance into moles of another."
+  },
+  {
+    "q": "How do you convert grams of reactant to grams of product in stoichiometry?",
+    "a": "Follow the 3-step stoichiometric pathway: 1) Divide grams of reactant by its molar mass to get moles; 2) Multiply by the stoichiometric mole ratio from the balanced equation; 3) Multiply by the product's molar mass to obtain theoretical yield in grams."
+  }
+];
+
 export default function StoichiometryCalculatorPage() {
   return (
     <CalcPage
+      faq={FAQ_ITEMS}
       title="Stoichiometry Calculator"
       intro="Comprehensive analytical solver for laboratory, clinical, and industrial chemical calculations."
       description="Compute stoichiometric mole ratios, theoretical product yields, limiting reactants, and excess reagent leftovers. Balance chemical equations across synthesis, combustion, precipitation, and decomposition reactions with full gravimetric mass conservation."
@@ -204,27 +228,7 @@ export default function StoichiometryCalculatorPage() {
             In automated battery electrode slurry manufacturing, stoichiometric lithium-to-transition-metal precursor ratios (Li : Ni : Mn : Co) dictate electrochemical capacity and cycle lifetime. Inline X-ray fluorescence (XRF) analyzers measure atomic mole ratios in real time, auto-adjusting peristaltic dispensing pumps to eliminate excess lithium carbonate residues that cause severe gas evolution and battery swelling.
           </p>
 
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">Why cannot you determine the limiting reactant simply by looking at initial masses?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Reactants react on a molecule-by-molecule (mole-by-mole) basis, not on a gram-by-gram basis. A reactant with a lower initial mass might actually contain vastly more moles if it possesses a very low molecular weight (such as hydrogen gas at 2 g/mol versus bromine liquid at 160 g/mol). Limiting reactants can only be identified by dividing molar quantities by balanced stoichiometric coefficients.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">What is a stoichiometric feed versus an excess reagent feed?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                A stoichiometric feed introduces reactants in exact integer molar proportions matching the balanced equation, theoretically leaving zero leftover reactants. In practice, industrial processes deliberately introduce one cheap, abundant reagent (such as atmospheric oxygen or steam) in large excess to drive an expensive limiting reagent toward 100% conversion via Le Chatelier &apos;s principle.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">How does stoichiometry apply to gas reactions?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                According to Avogadro &apos;s law, equal volumes of gases at the same temperature and pressure contain equal numbers of moles. Therefore, for purely gaseous reactions under identical conditions, the integer mole ratios directly equal volumetric ratios (Gay-Lussac &apos;s law of combining volumes). For example, 2 liters of H₂ react with exactly 1 liter of O₂ to produce 2 liters of steam. Verify gas parameters using the <Link href="/calculators/science/ideal-gas-law-calculator">ideal gas law calculator</Link>.
-              </p>
-            </div>
-          </div>
+          
 
           <h2>Authoritative International Standards & Stoichiometric Metrology</h2>
           <p>
