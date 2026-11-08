@@ -37,6 +37,14 @@ export const metadata: Metadata = {
   },
 };
 
+const LUMP_SUM_BENCHMARK_ROWS = [
+  ["$10,000 Initial", "$14,176 / $16,453", "$20,097 / $27,070", "$28,489 / $44,539", "$40,387 / $73,281", "$57,254 / $120,569", "$81,165 / $198,374"],
+  ["$25,000 Initial", "$35,441 / $41,133", "$50,242 / $67,676", "$71,224 / $111,348", "$100,968 / $183,202", "$143,135 / $301,424", "$202,912 / $495,935"],
+  ["$50,000 Initial", "$70,881 / $82,265", "$100,483 / $135,352", "$142,447 / $222,696", "$201,937 / $366,404", "$286,271 / $602,847", "$405,825 / $991,870"],
+  ["$100,000 Initial", "$141,763 / $164,531", "$200,966 / $270,704", "$284,895 / $445,392", "$403,874 / $732,807", "$572,542 / $1,205,695", "$811,650 / $1,983,740"],
+  ["$250,000 Initial", "$354,406 / $411,327", "$502,415 / $676,760", "$712,237 / $1,113,480", "$1,009,685 / $1,832,018", "$1,431,355 / $3,014,236", "$2,029,124 / $4,959,350"],
+];
+
 export default function Page() {
   return (
     <CalcPage
@@ -120,6 +128,19 @@ export default function Page() {
               <strong>Step 5: Isolate net compound interest earnings.</strong> Total cash deposited out-of-pocket equals <Formula>{"\$10{,}000 + (\$250 \times 240) = \$70{,}000.00"}</Formula>. Total pure interest earned equals <Formula>{"\$196{,}523 - \$70{,}000 = \$126{,}523.00"}</Formula>. Compound interest accounts for <strong>64.4%</strong> of the final balance.
             </li>
           </ol>
+
+                    <h2>Lump-Sum Compounding Matrix: Multi-Decade Wealth Trajectories ($10k to $250k)</h2>
+          <p>
+            The benchmark matrix below projects the future accumulated value of a one-time lump-sum initial deposit without additional contributions across 5 to 30 years, comparing a <strong>7.00% balanced return</strong> against a <strong>10.00% historical equity return</strong> (compounded monthly):
+          </p>
+          <DataTable
+            head={["Initial Principal", "5 Years (7% / 10%)", "10 Years (7% / 10%)", "15 Years (7% / 10%)", "20 Years (7% / 10%)", "25 Years (7% / 10%)", "30 Years (7% / 10%)"]}
+            rows={LUMP_SUM_BENCHMARK_ROWS}
+            highlight={3}
+          />
+          <p className="text-xs text-slate-500 dark:text-slate-400 -mt-2 mb-6">
+            *Values formatted as: 7.00% APR Future Value / 10.00% APR Future Value (compounded monthly). Over 30 years, an initial $50,000 lump sum grows to over $405,000 at 7% and nearly $1,000,000 at 10%—demonstrating how a 3% difference in annualized return more than doubles total wealth over three decades.
+          </p>
 
           <h2>Exponential Compounding Matrix: $10,000 + $250/Month Across Horizons</h2>
           <p>

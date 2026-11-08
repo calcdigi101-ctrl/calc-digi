@@ -25,6 +25,17 @@ export const metadata: Metadata = {
   twitter: { card: "summary", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
 };
 
+const ATTENDANCE_BENCHMARK_ROWS = [
+  ["30 Classes Course", "Max 7 Missed / 23 Attended", "Max 6 Missed / 24 Attended", "Max 4 Missed / 26 Attended", "Max 3 Missed / 27 Attended"],
+  ["40 Classes Course", "Max 10 Missed / 30 Attended", "Max 8 Missed / 32 Attended", "Max 6 Missed / 34 Attended", "Max 4 Missed / 36 Attended"],
+  ["45 Classes Course", "Max 11 Missed / 34 Attended", "Max 9 Missed / 36 Attended", "Max 6 Missed / 39 Attended", "Max 4 Missed / 41 Attended"],
+  ["50 Classes Course", "Max 12 Missed / 38 Attended", "Max 10 Missed / 40 Attended", "Max 7 Missed / 43 Attended", "Max 5 Missed / 45 Attended"],
+  ["60 Classes Course", "Max 15 Missed / 45 Attended", "Max 12 Missed / 48 Attended", "Max 9 Missed / 51 Attended", "Max 6 Missed / 54 Attended"],
+  ["75 Classes Course", "Max 18 Missed / 57 Attended", "Max 15 Missed / 60 Attended", "Max 11 Missed / 64 Attended", "Max 7 Missed / 68 Attended"],
+  ["90 Classes Course", "Max 22 Missed / 68 Attended", "Max 18 Missed / 72 Attended", "Max 13 Missed / 77 Attended", "Max 9 Missed / 81 Attended"],
+  ["120 Classes Course", "Max 30 Missed / 90 Attended", "Max 24 Missed / 96 Attended", "Max 18 Missed / 102 Attended", "Max 12 Missed / 108 Attended"],
+];
+
 const RELATED_CALCULATORS = [
   { href: "/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
   { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
@@ -135,6 +146,21 @@ export default function AttendanceCalculatorPage() {
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             If <Formula>{"X_{\text{need}} > F"}</Formula>, it is mathematically impossible to restore compliance within the term, exposing the student to debarment from the final exam modeled in our <Link href="/calculators/education/final-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">final grade calculator</Link>.
+          </p>
+
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Absence Buffer Matrix: Maximum Allowed Missed Classes (Bunks) Across Semester Sizes
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            The reference table below illustrates the maximum number of lectures a student can miss (&ldquo;safe bunks&rdquo;) and the minimum classes required to attend to maintain 75%, 80%, 85%, or 90% attendance across typical semester course schedules (30 to 120 total classes):
+          </p>
+          <DataTable
+            head={["Total Course Classes", "75% Rule (Standard)", "80% Rule (Strict)", "85% Rule (Clinical)", "90% Rule (Truancy)"]}
+            rows={ATTENDANCE_BENCHMARK_ROWS}
+            highlight={2}
+          />
+          <p className="text-xs text-slate-500 dark:text-slate-400 -mt-2 mb-6">
+            *Values indicate: Maximum Missed Classes Permitted (Left) / Minimum Attended Sessions Required (Right). Calculated via floor and ceiling integer functions: Max Missed = &lfloor;Total &times; (1 - Req/100)&rfloor;.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">

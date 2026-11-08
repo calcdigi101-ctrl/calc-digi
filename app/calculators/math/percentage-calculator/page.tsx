@@ -77,6 +77,20 @@ const FAQ_ITEMS = [
   },
 ];
 
+const PERCENTAGE_BENCHMARK_ROWS = [
+  ["$25 Amount", "$1.25", "$2.50", "$3.75", "$5.00", "$6.25", "$7.50", "$12.50"],
+  ["$50 Amount", "$2.50", "$5.00", "$7.50", "$10.00", "$12.50", "$15.00", "$25.00"],
+  ["$75 Amount", "$3.75", "$7.50", "$11.25", "$15.00", "$18.75", "$22.50", "$37.50"],
+  ["$100 Amount", "$5.00", "$10.00", "$15.00", "$20.00", "$25.00", "$30.00", "$50.00"],
+  ["$150 Amount", "$7.50", "$15.00", "$22.50", "$30.00", "$37.50", "$45.00", "$75.00"],
+  ["$200 Amount", "$10.00", "$20.00", "$30.00", "$40.00", "$50.00", "$60.00", "$100.00"],
+  ["$250 Amount", "$12.50", "$25.00", "$37.50", "$50.00", "$62.50", "$75.00", "$125.00"],
+  ["$500 Amount", "$25.00", "$50.00", "$75.00", "$100.00", "$125.00", "$150.00", "$250.00"],
+  ["$1,000 Amount", "$50.00", "$100.00", "$150.00", "$200.00", "$250.00", "$300.00", "$500.00"],
+  ["$2,500 Amount", "$125.00", "$250.00", "$375.00", "$500.00", "$625.00", "$750.00", "$1,250.00"],
+  ["$5,000 Amount", "$250.00", "$500.00", "$750.00", "$1,000.00", "$1,250.00", "$1,500.00", "$2,500.00"],
+];
+
 const FRACTION_ROWS = [
   ["1/1", "1.000", "100.0%", "Full integer baseline"],
   ["1/2", "0.500", "50.0%", "Half division"],
@@ -170,6 +184,21 @@ export default function Page() {
           <div className="not-prose my-8">
             <PercentageBreakdownVisualizerChart />
           </div>
+
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Common Percentage Reference Matrix: Instant Values Across Baseline Numbers
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Use the benchmark reference grid below to look up common commercial, tax, tip, and discount percentages (5% to 50%) applied to baseline numbers ranging from $25 to $5,000:
+          </p>
+          <DataTable
+            head={["Baseline Amount", "5% (Tip/Tax)", "10% (Discount)", "15% (Dining Tip)", "20% (Standard Tip)", "25% (Quarter)", "30% (High Margin)", "50% (Half Price)"]}
+            rows={PERCENTAGE_BENCHMARK_ROWS}
+            highlight={3}
+          />
+          <p className="text-xs text-slate-500 dark:text-slate-400 -mt-2 mb-6">
+            *Tip: To quickly calculate 15% in your head, calculate 10% (shift decimal one place left) and add half of that amount. E.g., 15% of $80 = $8.00 + $4.00 = $12.00.
+          </p>
 
           <h2>The Five Foundational Percentage Formulas &amp; Derivations</h2>
           <p>
