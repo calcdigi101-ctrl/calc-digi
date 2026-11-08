@@ -23,7 +23,7 @@ export default function Page() {
       article={
         <>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
-            <strong>In-Depth Tax Guide:</strong> Understand how marginal brackets calculate your take-home pay in our <Link href="/pages/blog/federal-income-tax-brackets-2026" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">2026 federal income tax brackets breakdown</Link>.
+            <strong>In-Depth Tax Guide:</strong> Understand how marginal brackets calculate your take-home pay in our <a href="/pages/blog/federal-income-tax-brackets-2026" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">2026 federal income tax brackets breakdown</a>.
           </div>
           <h2>Direct Answer: Converting Annual Compensation Across Payroll Frequencies</h2>
           <p>

@@ -23,7 +23,7 @@ export default function Page() {
       article={
         <>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
-            <strong>In-Depth Retirement Guide:</strong> Discover how employer matching supercharges long-term balances in our <Link href="/pages/blog/401k-match-retirement-compounding" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">401(k) company match &amp; retirement compounding guide</Link>.
+            <strong>In-Depth Retirement Guide:</strong> Discover how employer matching supercharges long-term balances in our <a href="/pages/blog/401k-match-retirement-compounding" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">401(k) company match &amp; retirement compounding guide</a>.
           </div>
           <h2>Direct Answer: Maximizing Employer 401(k) Matches &amp; Pre-Tax Growth</h2>
           <p>

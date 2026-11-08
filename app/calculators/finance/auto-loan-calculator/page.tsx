@@ -50,7 +50,7 @@ export default function Page() {
             article={
         <>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
-            <strong>In-Depth Auto Finance Guide:</strong> Keep vehicle ownership costs safe and manageable with the <Link href="/pages/blog/20-4-10-car-buying-rule" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">20/4/10 car buying rule</Link>.
+            <strong>In-Depth Auto Finance Guide:</strong> Keep vehicle ownership costs safe and manageable with the <a href="/pages/blog/20-4-10-car-buying-rule" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">20/4/10 car buying rule</a>.
           </div>
           <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">

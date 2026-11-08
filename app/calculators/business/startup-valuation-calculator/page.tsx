@@ -72,7 +72,7 @@ export default function StartupValuationCalculatorPage() {
       article={
         <>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
-            <strong>In-Depth Valuation Guide:</strong> Master SDE normalization and industry earnings multiples in our <Link href="/pages/blog/small-business-valuation-multiples" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">small business valuation guide</Link>.
+            <strong>In-Depth Valuation Guide:</strong> Master SDE normalization and industry earnings multiples in our <a href="/pages/blog/small-business-valuation-multiples" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">small business valuation guide</a>.
           </div>
           <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
             <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Startup Valuation is Calculated</h2>

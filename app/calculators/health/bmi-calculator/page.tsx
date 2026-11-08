@@ -117,7 +117,7 @@ export default function BmiCalculatorPage() {
       article={
         <>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
-            <strong>In-Depth Clinical Guide:</strong> Review clinical cardiometabolic risk thresholds in our deep-dive on <Link href="/pages/blog/healthy-bmi-for-adults" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">healthy adult BMI categories and waist-to-height ratios</Link>.
+            <strong>In-Depth Clinical Guide:</strong> Review clinical cardiometabolic risk thresholds in our deep-dive on <a href="/pages/blog/healthy-bmi-for-adults" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">healthy adult BMI categories and waist-to-height ratios</a>.
           </div>
           <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
