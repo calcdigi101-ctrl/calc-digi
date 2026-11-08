@@ -23,15 +23,14 @@ export const metadata: Metadata = {
     siteName: "CalcDigi",
     images: [
       {
-        url: "https://www.calcdigi.com/icon.svg",
-        width: 512,
-        height: 512,
+        url: "https://www.calcdigi.com/og-image.png",
+        width: 1200, height: 630,
         alt: "Mortgage Calculator - CalcDigi",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
     creator: "@CalcDigi",

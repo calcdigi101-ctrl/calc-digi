@@ -18,6 +18,23 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     type: "website",
     url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["https://www.calcdigi.com/og-image.png"],
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
 };
 

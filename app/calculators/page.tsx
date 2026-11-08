@@ -3,6 +3,7 @@ import CalculatorsExplorer from "@/components/CalculatorsExplorer";
 import { CATEGORIES, TOTAL_CALCULATOR_COUNT } from "@/lib/calculators";
 import { SITE_URL } from "@/lib/site";
 
+const PATH = "/calculators";
 const TITLE = `All Calculators`;
 const DESCRIPTION =
   `Browse all ${TOTAL_CALCULATOR_COUNT} free calculators on CalcDigi across health, finance, math, and ${ CATEGORIES. length - 3 } more categories.`;
@@ -14,6 +15,24 @@ export const metadata: Metadata = {
     title: TITLE,
     description: DESCRIPTION,
     type: "website",
+    url: PATH,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["https://www.calcdigi.com/og-image.png"],
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
   },
   alternates: {
     canonical: "/calculators",

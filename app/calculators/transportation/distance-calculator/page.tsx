@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     type: "website",
     url: PATH,
     siteName: "CalcDigi",
-    images: [{ url: "https://www.calcdigi.com/icon.svg", width: 512, height: 512, alt: "Distance Calculator - CalcDigi" }],
+    images: [{ url: "https://www.calcdigi.com/og-image.png", width: 1200, height: 630, alt: "Distance Calculator - CalcDigi" }],
   },
-  twitter: { card: "summary", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
 };
 
 const RELATED_CALCULATORS = [

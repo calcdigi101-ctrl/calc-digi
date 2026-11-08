@@ -46,7 +46,29 @@ export function categoryMetadata(id: CategoryId): Metadata {
   return {
     title,
     description,
-    openGraph: { title: `${title} | CalcDigi`, description, type: "website", url: path },
+    openGraph: {
+      title: `${title} | CalcDigi`,
+      description,
+      type: "website",
+      url: path,
+      siteName: "CalcDigi",
+      images: [
+        {
+          url: "https://www.calcdigi.com/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${title} - CalcDigi`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | CalcDigi`,
+      description,
+      images: ["https://www.calcdigi.com/og-image.png"],
+      creator: "@CalcDigi",
+      site: "@CalcDigi",
+    },
     alternates: { canonical: path },
   };
 }

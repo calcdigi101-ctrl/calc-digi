@@ -46,9 +46,9 @@ export function CalcPage({
     url: `${SITE_URL}/`,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/icon.svg`,
-      width: 512,
-      height: 512,
+      url: `${SITE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
     },
     sameAs: [
       "https://x.com/CalcDigi",
@@ -185,18 +185,20 @@ export function calcMetadata(path: string, title: string, description: string): 
       siteName: "CalcDigi",
       images: [
         {
-          url: `${SITE_URL}/icon.svg`,
-          width: 512,
-          height: 512,
+          url: `${SITE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
           alt: `${title} – CalcDigi`,
         },
       ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
-      images: [`${SITE_URL}/icon.svg`],
+      images: [`${SITE_URL}/og-image.png`],
+      creator: "@CalcDigi",
+      site: "@CalcDigi",
     },
   };
 }
