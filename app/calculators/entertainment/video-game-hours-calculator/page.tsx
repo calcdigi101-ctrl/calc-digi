@@ -102,6 +102,16 @@ export default function VideoGameHoursPage() {
             </p>
           </div>
 
+                    <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+            How to Calculate Video Game Backlog &amp; Cost Per Hour in 4 Steps
+          </h2>
+          <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
+            <li><strong>Input Backlog Library Size:</strong> Enter the number of unplayed or unfinished games currently in your Steam, PlayStation, Xbox, or Nintendo queue.</li>
+            <li><strong>Select Play Style:</strong> Choose campaign target: <em>Main Story</em> (fast pacing), <em>Main + Extra Quests</em> (balanced), or <em>100% Completionist</em>.</li>
+            <li><strong>Set Weekly Gaming Bandwidth:</strong> Enter your realistic available weekly playtime (e.g. 5, 10, or 20 hours/week).</li>
+            <li><strong>View Backlog Completion Date:</strong> Get an instant calendar completion target date and calculate your true entertainment cost per hour against movie tickets and dining.</li>
+          </ol>
+
           <h2>Entertainment Value: Cost-Per-Hour Across Entertainment Mediums</h2>
 
           {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}

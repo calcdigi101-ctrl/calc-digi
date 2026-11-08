@@ -139,6 +139,25 @@ export default function Page() {
             <span>ISO / NIST Compliant Precision</span>
           </div>
 
+                    {/* Featured Snippet Quick Answer Box */}
+          <div className="not-prose mb-8 rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/70 to-teal-50/40 p-5 dark:border-emerald-900/40 dark:from-emerald-950/20 dark:to-teal-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-emerald-600 dark:text-emerald-400">💡</span> Quick Answer: How to Calculate Percentages &amp; Percentage Change
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              To find <strong>P% of X</strong>, multiply by the decimal rate: <strong>(P ÷ 100) × X</strong> (e.g., 15% of $80 = 0.15 × 80 = $12). To find the <strong>percentage change</strong> from V₁ to V₂, use the formula <strong>((V₂ − V₁) ÷ V₁) × 100</strong> (e.g., from $50 to $65 is ((65 − 50) ÷ 50) × 100 = <strong>+30% increase</strong>).
+            </p>
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+            How to Use the Percentage Calculator in 3 Simple Steps
+          </h2>
+          <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
+            <li><strong>Choose Calculation Mode:</strong> Select what you want to solve (Percentage of a Number, Percentage Change, Value Given Percentage, or Discount/Tax).</li>
+            <li><strong>Enter Known Values:</strong> Input your baseline number and second value or percentage rate.</li>
+            <li><strong>Get Instant Solution:</strong> View the calculated answer immediately with full arithmetic steps, simplified fraction, and decimal breakdown.</li>
+          </ol>
+
           <h2>What is a Percentage? Definition &amp; Mathematical Foundations</h2>
           <p>
             A <strong>percentage</strong> is a dimensionless mathematical ratio expressed as a fraction of 100. Derived from the Latin{" "}

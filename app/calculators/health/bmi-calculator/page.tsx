@@ -130,6 +130,26 @@ export default function BmiCalculatorPage() {
             <span>Medical Anthropometry Precision</span>
           </div>
 
+                    {/* Featured Snippet Quick Answer Box */}
+          <div className="not-prose mb-8 rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/70 to-teal-50/40 p-5 dark:border-emerald-900/40 dark:from-emerald-950/20 dark:to-teal-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-emerald-600 dark:text-emerald-400">💡</span> Quick Answer: What is a Healthy BMI &amp; How is it Calculated?
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              <strong>Body Mass Index (BMI)</strong> evaluates body weight relative to height using the formula <strong>BMI = weight (kg) ÷ [height (m)]²</strong> (or <em>[weight (lbs) ÷ height (in)²] × 703</em>). For adults aged 20+, a healthy BMI is between <strong>18.5 and 24.9 kg/m²</strong>. An adult weighing 70 kg (154 lbs) at 1.75 m (5 ft 9 in) has a normal BMI of <strong>22.86</strong>.
+            </p>
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+            How to Calculate Your BMI in 4 Simple Steps
+          </h2>
+          <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
+            <li><strong>Select Unit System:</strong> Toggle between <em>US Customary</em> (feet, inches, pounds) and <em>Metric</em> (centimeters, kilograms).</li>
+            <li><strong>Input Stature &amp; Weight:</strong> Enter your exact standing height and current morning body weight.</li>
+            <li><strong>Select Optional Demographics:</strong> Provide age and biological sex for personalized body fat estimation and Oxford New BMI formula comparison.</li>
+            <li><strong>Review Instant Results:</strong> Instantly view your calculated BMI score, official WHO category, healthy weight target range, and BMI Prime ratio.</li>
+          </ol>
+
           <h2>What is Body Mass Index (BMI)? Definition &amp; Epidemiological Purpose</h2>
           <p>
             <strong>Body Mass Index (BMI)</strong>, historically designated as the Quetelet Index, is an internationally recognized anthropometric screening metric that quantifies an individual&apos;s tissue mass (muscle, fat, and bone) relative to their stature. Formulated in 1832 by Belgian astronomer and statistician Adolphe Quetelet during his foundational studies on &apos;social physics&apos;, BMI establishes a standardized clinical baseline to classify individuals into distinct weight categories correlated with morbidity and mortality risk.
