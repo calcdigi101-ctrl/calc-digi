@@ -3,7 +3,6 @@
 import React from "react";
 import { CalcEngine } from "@/components/flagship/engine/CalcEngine";
 import type { CalcConfig } from "@/components/flagship/engine/types";
-import { QuickSalesTaxAnswers } from "./QuickSalesTaxAnswers";
 
 export const salesTaxConfig: CalcConfig = {
   id: "sales-tax-calculator",
@@ -123,10 +122,5 @@ export const salesTaxConfig: CalcConfig = {
 };
 
 export default function SalesTaxCalculatorComponent() {
-  return (
-    <>
-      <CalcEngine config={salesTaxConfig} />
-      <QuickSalesTaxAnswers />
-    </>
-  );
+  return <CalcEngine config={salesTaxConfig} />;
 }

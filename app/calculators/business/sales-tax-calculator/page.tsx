@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SalesTaxCalculatorComponent from "@/components/calcs/business/sales-tax-calculator";
 import { CalcPage } from "@/components/flagship/CalcPage";
-import { DataTable, Formula } from "@/components/flagship/shell";
+import { DataTable, Formula, RelatedLinks } from "@/components/flagship/shell";
+import { QuickSalesTaxAnswers } from "@/components/calcs/business/QuickSalesTaxAnswers";
 import { SalesTaxJurisdictionDecompositionChart } from "@/components/flagship/business/editorial-charts";
 
 const PATH = "/calculators/business/sales-tax-calculator";
@@ -84,9 +85,12 @@ export default function SalesTaxCalculatorPage() {
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"
       faq={FAQ_ITEMS}
-      related={RELATED_CALCULATORS}
+      related={[]}
       article={
         <>
+          <div className="not-prose mb-8">
+            <QuickSalesTaxAnswers />
+          </div>
           <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
             <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Sales Tax is Calculated</h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
@@ -281,6 +285,16 @@ export default function SalesTaxCalculatorPage() {
               <strong>Internal Revenue Service (IRS Publication 583):</strong> Guidelines on state tax reconciliation and deductibility of non-reimbursed state excise taxes.
             </li>
           </ul>
+
+          <section className="fx-no-print mt-12 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <span>⚡</span> Related Calculators
+              </h2>
+              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
+            </div>
+            <RelatedLinks links={RELATED_CALCULATORS} />
+          </section>
         </>
       }
     >
