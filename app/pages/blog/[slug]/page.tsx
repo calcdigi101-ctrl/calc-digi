@@ -137,7 +137,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
               href="/calculators"
               className="text-xs sm:text-sm font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
             >
-              Browse 341+ Calculators →
+              Browse 330+ Calculators →
             </Link>
           </div>
         </div>

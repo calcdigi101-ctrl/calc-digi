@@ -71,6 +71,9 @@ export default function MarkupCalculatorPage() {
       related={RELATED_CALCULATORS}
       article={
         <>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
+            <strong>In-Depth Pricing Guide:</strong> Learn why confusing markup with profit margin destroys profitability in our <Link href="/pages/blog/markup-vs-margin-pricing-formula" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">markup vs gross margin guide</Link>.
+          </div>
           <div className="mb-6 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/50">
             <h2 className="text-base font-semibold text-slate-900 dark:text-white">Quick Answer: How Markup & Margin are Calculated</h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">

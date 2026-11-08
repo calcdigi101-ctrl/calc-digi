@@ -56,6 +56,9 @@ export default function Page() {
       ]}
       article={
         <>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
+            <strong>In-Depth Editorial Guide:</strong> Learn how to calculate front-end and back-end debt ratios in our guide on the <Link href="/pages/blog/how-much-house-can-you-afford" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">28/36 debt-to-income home buying rule</Link>.
+          </div>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <div className="flex flex-wrap items-center gap-2">

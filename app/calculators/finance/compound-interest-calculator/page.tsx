@@ -49,6 +49,9 @@ export default function Page() {
       mathExpression="A = P\left(1 + \frac{r}{n}\right)^{nt} + PMT \times \left[ \frac{\left(1 + \frac{r}{n}\right)^{nt} - 1}{\frac{r}{n}} \right]"
       article={
         <>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
+            <strong>In-Depth Editorial Guide:</strong> Explore multi-decade exponential compounding timelines in our guide on the <Link href="/pages/blog/power-of-compound-interest" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">power of compound interest &amp; wealth formulas</Link>.
+          </div>
           <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />

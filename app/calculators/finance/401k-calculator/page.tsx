@@ -22,6 +22,9 @@ export default function Page() {
       mathExpression="\text{Total 401k Contribution} = C_{\text{employee}} + \min(S \times m_{\text{cap}}, \; S \times C_{\text{rate}} \times m_{\text{match}})"
       article={
         <>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
+            <strong>In-Depth Retirement Guide:</strong> Discover how employer matching supercharges long-term balances in our <Link href="/pages/blog/401k-match-retirement-compounding" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">401(k) company match &amp; retirement compounding guide</Link>.
+          </div>
           <h2>Direct Answer: Maximizing Employer 401(k) Matches &amp; Pre-Tax Growth</h2>
           <p>
             A <strong>401(k) retirement plan</strong> is an employer-sponsored qualified defined-contribution account governed by the federal <strong>Employee Retirement Income Security Act (ERISA)</strong> and Internal Revenue Code Section 401(k). Eligible employees contribute pre-tax payroll dollars, lowering their current taxable income dollar-for-dollar while allowing investment earnings to compound completely tax-deferred until retirement distributions begin.

@@ -22,6 +22,9 @@ export default function Page() {
       mathExpression="\text{Hourly} = \frac{\text{Annual Salary}}{2{,}080}, \quad \text{Bi-Weekly} = \frac{\text{Annual Salary}}{26}"
       article={
         <>
+          <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
+            <strong>In-Depth Tax Guide:</strong> Understand how marginal brackets calculate your take-home pay in our <Link href="/pages/blog/federal-income-tax-brackets-2026" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">2026 federal income tax brackets breakdown</Link>.
+          </div>
           <h2>Direct Answer: Converting Annual Compensation Across Payroll Frequencies</h2>
           <p>
             A <strong>salary conversion calculation</strong> translates an annual compensation figure into equivalent payroll billing cycles: hourly wage, daily earnings, weekly pay, bi-weekly (26 paychecks), semi-monthly (24 paychecks), and monthly gross income. Under institutional human resources standards established by the U.S. Office of Personnel Management (OPM) and Department of Labor (DOL), a standard full-time work year is defined as <strong>2,080 working hours</strong> (40 hours per week × 52 weeks).
