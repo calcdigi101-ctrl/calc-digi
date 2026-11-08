@@ -203,7 +203,7 @@ export default function FoodCostCalculatorPage() {
             </li>
             <li>
               <strong>Beverage Program Integration:</strong> Beverage and alcohol margins (typically running 15% to 20% beverage cost) offset higher kitchen food costs, with beverage volumes tracked in our{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 alcohol unit calculator
               </Link>{" "}
               and specialty coffee margins modeled in the{" "}

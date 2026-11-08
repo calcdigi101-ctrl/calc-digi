@@ -267,12 +267,12 @@ export function FinanceCategoryHub() {
             </p>
             <ol className="text-xs space-y-2 list-decimal list-inside text-slate-700 dark:text-slate-300 font-medium">
               <li>
-                <Link href="/calculators/finance/home-affordability-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">
+                <Link href="/calculators/housing/home-affordability-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">
                   Home Affordability
                 </Link> (28/36 DTI limit)
               </li>
               <li>
-                <Link href="/calculators/finance/down-payment-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">
+                <Link href="/calculators/housing/down-payment-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">
                   Down Payment
                 </Link> (Target 20% vs PMI)
               </li>
@@ -282,7 +282,7 @@ export function FinanceCategoryHub() {
                 </Link> (PITI &amp; Amortization)
               </li>
               <li>
-                <Link href="/calculators/finance/rent-vs-buy-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">
+                <Link href="/calculators/housing/rent-vs-buy-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">
                   Rent vs Buy
                 </Link> (Break-even horizon)
               </li>

@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
-  { href: "/calculators/food/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
+  { href: "/calculators/health/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
   { href: "/calculators/food/coffee-caffeine-calculator", icon: "☕", name: "Coffee Caffeine Calculator" },
   { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
   { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
@@ -52,7 +52,7 @@ export default function NutritionCalculatorPage() {
                 calorie burn calculator
               </Link>{" "}
               and beverage intake in the{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium underline hover:text-amber-900">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium underline hover:text-amber-900">
                 alcohol unit calculator
               </Link>.
             </p>
@@ -239,7 +239,7 @@ export default function NutritionCalculatorPage() {
               </h3>
               <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
                 Alcohol provides 7.0 kcal per gram of pure ethanol, as modeled in our{" "}
-                <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+                <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                   alcohol unit calculator
                 </Link>. Because ethanol cannot be stored, hepatic tissue prioritizes clearing ethanol, suppressing peripheral fat oxidation by up to 73%.
               </p>

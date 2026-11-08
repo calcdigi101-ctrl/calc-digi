@@ -24,11 +24,11 @@ export const metadata: Metadata = {
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
-  { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
+  { href: "/calculators/electronics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
   { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newton's Force F=ma" },
   { href: "/calculators/physics/circular-motion-calculator", icon: "🔄", name: "Circular Motion" },
   { href: "/calculators/physics/torque-calculator", icon: "🏎️", name: "Engineering Engine Torque" },
-  { href: "/calculators/physics/power-calculator", icon: "🐎", name: "Engine Horsepower" },
+  { href: "/calculators/electronics/power-calculator", icon: "🐎", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [
@@ -103,7 +103,7 @@ export default function TorqueCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Torque is calculated by multiplying applied force by lever arm length and the sine of the angle: τ = F · r · sin(θ). Applying 250 Newtons perpendicular (90°) to a 0.60-meter wrench generates exactly 150.0 N·m (110.6 lb-ft or 1,328 in-lb) of torque. At a shaft speed of 1,800 RPM, this torque produces 28.27 Kilowatts (kW), equivalent to 37.9 mechanical brake horsepower (HP).
-                 Analyze circular centripetal acceleration with our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link>, compute linear force demands using the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, or calculate rotational shaft horsepower via our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>.</p>
+                 Analyze circular centripetal acceleration with our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link>, compute linear force demands using the <Link href="/calculators/physics/force-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">force calculator</Link>, or calculate rotational shaft horsepower via our <Link href="/calculators/electronics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>.</p>
               </div>
             </div>
           </div>

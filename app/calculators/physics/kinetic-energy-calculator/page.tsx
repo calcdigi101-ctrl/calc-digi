@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
   { href: "/calculators/physics/acceleration-calculator", icon: "🚀", name: "Acceleration & Kinematics" },
   { href: "/calculators/physics/velocity-calculator", icon: "⚡", name: "Velocity Dynamics" },
-  { href: "/calculators/physics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/electronics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [
@@ -187,7 +187,7 @@ export default function KineticEnergyCalculatorPage() {
           <h2>Kinematic Conversion & Powertrain Optimization Tools</h2>
 
           <p>
-            Kinetic energy governs braking distances, impact mechanics, and mechanical propulsion efficiency. Determine vehicle braking velocities using our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, convert metric energy units with the <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>, and evaluate continuous power delivery rates through our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>. For rotating flywheels and mechanical assemblies, compute centripetal loads with our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link> and shaft moments with the <Link href="/calculators/physics/torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque calculator</Link>.
+            Kinetic energy governs braking distances, impact mechanics, and mechanical propulsion efficiency. Determine vehicle braking velocities using our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, convert metric energy units with the <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>, and evaluate continuous power delivery rates through our <Link href="/calculators/electronics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>. For rotating flywheels and mechanical assemblies, compute centripetal loads with our <Link href="/calculators/physics/circular-motion-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">circular motion calculator</Link> and shaft moments with the <Link href="/calculators/physics/torque-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">torque calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

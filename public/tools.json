@@ -938,15 +938,6 @@
     },
     {
       "category": "environment",
-      "slug": "solar-panel-calculator",
-      "url": "https://www.calcdigi.com/calculators/electronics/solar-panel-calculator",
-      "title": "Solar Panel Calculator",
-      "description": "",
-      "formulas": [],
-      "faqs": []
-    },
-    {
-      "category": "environment",
       "slug": "tree-planting-calculator",
       "url": "https://www.calcdigi.com/calculators/environment/tree-planting-calculator",
       "title": "Tree Planting Calculator",
@@ -1015,19 +1006,6 @@
       "formulas": [
         "Amount financed = Price + Sales tax + Fees + Trade-in payoff − Down payment − Trade-in value",
         "Payment = A × r ÷ [1 − (1 + r)^−n]"
-      ],
-      "faqs": []
-    },
-    {
-      "category": "finance",
-      "slug": "break-even-calculator",
-      "url": "https://www.calcdigi.com/calculators/business/break-even-calculator",
-      "title": "Break-Even Calculator",
-      "description": "Work out how many units you need to sell — and how much revenue you need — before your business starts making a profit.",
-      "formulas": [
-        "Break-even units = Fixed costs ÷ (Price − Variable cost per unit)",
-        "Break-even revenue = Fixed costs ÷ Contribution margin ratio",
-        "Break-even units = Fixed costs / (Price - Variable cost per unit)"
       ],
       "faqs": []
     },
@@ -1146,7 +1124,7 @@
     {
       "category": "finance",
       "slug": "down-payment-calculator",
-      "url": "https://www.calcdigi.com/calculators/finance/down-payment-calculator",
+      "url": "https://www.calcdigi.com/calculators/housing/down-payment-calculator",
       "title": "Down Payment Calculator",
       "description": "See how much cash you need to buy a home — down payment plus closing costs — and how long it will take to save it.",
       "formulas": [],
@@ -1175,7 +1153,7 @@
     {
       "category": "finance",
       "slug": "home-affordability-calculator",
-      "url": "https://www.calcdigi.com/calculators/finance/home-affordability-calculator",
+      "url": "https://www.calcdigi.com/calculators/housing/home-affordability-calculator",
       "title": "Home Affordability Calculator",
       "description": "Find the most expensive home you can likely qualify for, based on your income, existing debts, down payment and today's mortgage rates.",
       "formulas": [
@@ -1263,7 +1241,7 @@
     {
       "category": "finance",
       "slug": "rent-vs-buy-calculator",
-      "url": "https://www.calcdigi.com/calculators/finance/rent-vs-buy-calculator",
+      "url": "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator",
       "title": "Rent vs. Buy Calculator",
       "description": "Compare where you'd end up financially if you bought a home versus renting and investing the money you'd otherwise put into it.",
       "formulas": [],
@@ -1277,18 +1255,6 @@
       "description": "See what your savings could grow to by retirement, how big a nest egg your target income needs, and how long your money will last.",
       "formulas": [
         "Needed = W × [1 − ((1 + g) ÷ (1 + r))^n] ÷ (r − g)"
-      ],
-      "faqs": []
-    },
-    {
-      "category": "finance",
-      "slug": "roi-calculator",
-      "url": "https://www.calcdigi.com/calculators/business/roi-calculator",
-      "title": "ROI Calculator",
-      "description": "Measure the return on any investment — a stock, a property, a marketing campaign or a business project — as a total and as a yearly rate.",
-      "formulas": [
-        "ROI = (Amount returned − Amount invested) ÷ Amount invested × 100%",
-        "Annualized ROI = (Returned ÷ Invested)^(1 ÷ years) − 1"
       ],
       "faqs": []
     },
@@ -1308,18 +1274,6 @@
       "title": "Salary Calculator",
       "description": "Convert any pay amount into hourly, daily, weekly, biweekly, semi-monthly, monthly, quarterly and annual figures.",
       "formulas": [],
-      "faqs": []
-    },
-    {
-      "category": "finance",
-      "slug": "sales-tax-calculator",
-      "url": "https://www.calcdigi.com/calculators/business/sales-tax-calculator",
-      "title": "Sales Tax Calculator",
-      "description": "Add sales tax to a price, or back it out of a receipt total, using any US state's rate plus your local tax.",
-      "formulas": [
-        "Total = Price × (1 + rate)",
-        "Price before tax = Total ÷ (1 + rate)"
-      ],
       "faqs": []
     },
     {
@@ -1388,7 +1342,7 @@
     {
       "category": "food",
       "slug": "alcohol-unit-calculator",
-      "url": "https://www.calcdigi.com/calculators/food/alcohol-unit-calculator",
+      "url": "https://www.calcdigi.com/calculators/health/alcohol-unit-calculator",
       "title": "Alcohol Unit Calculator",
       "description": "",
       "formulas": [],
@@ -1531,54 +1485,6 @@
     },
     {
       "category": "health",
-      "slug": "alcohol-unit-calculator",
-      "url": "https://www.calcdigi.com/calculators/health/alcohol-unit-calculator",
-      "title": "Alcohol Unit Calculator",
-      "description": "Determine your Blood Alcohol Concentration (BAC) and trace metabolic elimination time using the clinical Widmark equation. Understand standard drink equivalents and legal impairment thresholds.",
-      "formulas": [
-        "BAC = [ (Alcohol in Grams × 5.14) ÷ (Body Weight in lbs × r) ] − (β × Elapsed Hours)"
-      ],
-      "faqs": [
-        {
-          "q": "What defines a 'Standard Drink' in the United States?",
-          "a": "In the United States, one standard drink contains exactly 14 grams (0.6 fl oz) of pure ethanol, equal to 12 oz of 5% beer, 5 oz of 12% wine, or 1.5 oz of 40% spirits."
-        },
-        {
-          "q": "How fast does the human liver eliminate alcohol?",
-          "a": "The liver metabolizes ethanol via zero-order kinetics at an absolute rate of ~0.015% BAC per hour. Coffee, cold showers, or exercise cannot accelerate this enzymatic rate."
-        },
-        {
-          "q": "Why do women typically achieve a higher BAC than men from the same drinks?",
-          "a": "Women have lower total body water percentages and lower gastric alcohol dehydrogenase activity, concentrating ethanol into a smaller fluid compartment."
-        },
-        {
-          "q": "Is it safe or legal to drive if my calculated BAC is 0.07%?",
-          "a": "No. Crash risk is 3x to 7x higher at 0.07% BAC, and drivers can still be convicted of driving under the influence (DUI) based on clinical impairment."
-        },
-        {
-          "q": "How many calories does alcohol contribute to daily intake?",
-          "a": "Ethanol yields 7.0 kilocalories per gram without nutritional satiety. A standard drink contains roughly 100 to 150 total calories when factoring in unfermented carbohydrates."
-        },
-        {
-          "q": "What is the Widmark formula used by forensic toxicologists?",
-          "a": "Formulated in 1932 by Erik Widmark, it calculates BAC from alcohol mass, body weight, gender distribution volume, and a zero-order hourly decay rate of 0.015%/hr."
-        }
-      ]
-    },
-    {
-      "category": "health",
-      "slug": "baby-weight-calculator",
-      "url": "https://www.calcdigi.com/calculators/baby/baby-weight-percentile-calculator",
-      "title": "Baby Weight Percentile Calculator",
-      "description": "Assess your infant's physical development against the World Health Organization (WHO) Child Growth Standards (0 to 24 months). Calculate exact centiles, Z-scores, and longitudinal growth velocity.",
-      "formulas": [
-        "{\"Z = \\\\frac{(W / M)^L - 1}{L \\\\cdot S} \\\\quad (L \\\\neq 0)\"}",
-        "Z = \\frac{(W / M)^L - 1}{L \\cdot S} \\quad (L \\neq 0)"
-      ],
-      "faqs": []
-    },
-    {
-      "category": "health",
       "slug": "blood-pressure-calculator",
       "url": "https://www.calcdigi.com/calculators/health/blood-pressure-calculator",
       "title": "Blood Pressure Calculator",
@@ -1703,20 +1609,6 @@
     },
     {
       "category": "health",
-      "slug": "calorie-burn-calculator",
-      "url": "https://www.calcdigi.com/calculators/health/calorie-burn-calculator",
-      "title": "Calorie Burn Calculator",
-      "description": "Quantify workout energy expenditure using the validated 2024 Ainsworth Compendium of Physical Activities. Distinguish between gross total expenditure and true net exercise burn across cardiovascular, resistance, and sports modalities.",
-      "formulas": [
-        "1.0 MET = 3.5 mL of Oxygen (O2) per Kilogram of Body Mass per Minute",
-        "Gross kcal = Duration × (MET × 3.5 × Weight_kg) / 200",
-        "Net kcal = Duration × ((MET - 1.0) × 3.5 × Weight_kg) / 200",
-        "Calories = Duration * (MET * 3.5 * Weight_kg) / 200"
-      ],
-      "faqs": []
-    },
-    {
-      "category": "health",
       "slug": "calorie-calculator",
       "url": "https://www.calcdigi.com/calculators/health/calorie-calculator",
       "title": "Calorie Calculator",
@@ -1751,18 +1643,6 @@
           "a": "A balanced macro distribution comprises 25–35% protein, 40–50% carbohydrates, and 25–30% dietary fats. Protein provides 4 calories per gram, carbohydrates provide 4 calories per gram, and fats provide 9 calories per gram."
         }
       ]
-    },
-    {
-      "category": "health",
-      "slug": "child-height-predictor",
-      "url": "https://www.calcdigi.com/calculators/health/child-height-predictor",
-      "title": "Child Height Predictor",
-      "description": "Forecast your child's final adult stature using the clinical Tanner-Goldstein Mid-Parental Height (MPH) formula. Review pubertal peak height velocity schedules, epiphyseal fusion milestones, and endocrinological growth standards.",
-      "formulas": [
-        "{\"\\\\text{Boy MPH} = \\\\frac{F + M + 13\\\\text{ cm}}{2}, \\\\quad \\\\text{Girl MPH} = \\\\frac{F + M - 13\\\\text{ cm}}{2}\"}",
-        "\\text{Boy MPH} = \\frac{\\text{Father} + \\text{Mother} + 13\\text{ cm}}{2}, \\quad \\text{Girl MPH} = \\frac{\\text{Father} + \\text{Mother} - 13\\text{ cm}}{2}"
-      ],
-      "faqs": []
     },
     {
       "category": "health",
@@ -2114,21 +1994,6 @@
     },
     {
       "category": "housing",
-      "slug": "down-payment-calculator",
-      "url": "https://www.calcdigi.com/calculators/housing/down-payment-calculator",
-      "title": "Down Payment Calculator",
-      "description": "Determine your required cash to close, compare down payment percentage tiers (3% to 20%), evaluate PMI costs, and project your savings timeline.",
-      "formulas": [
-        "Total Cash to Close = Down Payment + Lender Closing Costs + Prepaid Taxes & Insurance Escrow",
-        "Down Payment Amount = Home Purchase Price × Down Payment Percentage",
-        "Loan-to-Value (LTV) = (Home Purchase Price - Down Payment) ÷ Home Purchase Price",
-        "Monthly PMI Estimate = (Loan Amount × 0.0075) ÷ 12",
-        "Total Cash To Close = (Purchase Price * Down Payment %) + Closing Costs"
-      ],
-      "faqs": []
-    },
-    {
-      "category": "housing",
       "slug": "electricity-cost-calculator",
       "url": "https://www.calcdigi.com/calculators/housing/electricity-cost-calculator",
       "title": "Electricity Cost Calculator",
@@ -2167,20 +2032,6 @@
         "Total Sq Ft with Waste = Net Area × (1 + Waste Factor)",
         "Boxes to Purchase = Ceil(Total Sq Ft with Waste ÷ Square Feet per Box)",
         "Total Boxes = Ceil([Length (ft) * Width (ft) * (1 + Waste %)] / Box Coverage)"
-      ],
-      "faqs": []
-    },
-    {
-      "category": "housing",
-      "slug": "home-affordability-calculator",
-      "url": "https://www.calcdigi.com/calculators/housing/home-affordability-calculator",
-      "title": "Home Affordability Calculator",
-      "description": "Determine how much home you can afford based on gross household income, monthly debts, down payment, and Fannie Mae 28/36 debt-to-income benchmarks.",
-      "formulas": [
-        "Front-End Max Housing = Gross Monthly Income × 0.28",
-        "Back-End Max Total Debt = Gross Monthly Income × 0.36",
-        "Max Mortgage Payment = Min(Front-End Limit, Back-End Limit - Monthly Debts)",
-        "Max Housing Payment = Min(Gross Income * 0.28, (Gross Income * 0.36) - Debts)"
       ],
       "faqs": []
     },
@@ -2279,20 +2130,6 @@
         "Max Rent (40x Metro Rule) = Annual Gross Income / 40",
         "Required Annual Income to Qualify = Monthly Rent * 40",
         "Max Rent = Min((Gross Monthly Income * 0.30), Annual Income / 40)"
-      ],
-      "faqs": []
-    },
-    {
-      "category": "housing",
-      "slug": "rent-vs-buy-calculator",
-      "url": "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator",
-      "title": "Rent vs Buy Calculator",
-      "description": "Determine whether renting or buying builds more wealth over your planned timeline using real-world appreciation, equity amortization, and opportunity costs.",
-      "formulas": [
-        "Price-to-Rent Ratio = Home Purchase Price ÷ (Monthly Rent × 12)",
-        "Homeowner Sunk Costs = Mortgage Interest + Property Taxes + Insurance + Maintenance",
-        "Net Buyer Equity = Future Appreciated Value - Remaining Mortgage - 6% Resale Costs",
-        "Breakeven = Point where [Home Equity - Selling Costs] exceeds [Invested Down Payment & Rent Savings Portfolio]"
       ],
       "faqs": []
     },
@@ -4804,15 +4641,6 @@
     },
     {
       "category": "measurements",
-      "slug": "currency-converter",
-      "url": "https://www.calcdigi.com/calculators/finance/currency-converter",
-      "title": "Currency Converter",
-      "description": "",
-      "formulas": [],
-      "faqs": []
-    },
-    {
-      "category": "measurements",
       "slug": "data-storage-converter",
       "url": "https://www.calcdigi.com/calculators/measurements/data-storage-converter",
       "title": "Data Storage Converter",
@@ -4870,15 +4698,6 @@
       "slug": "pressure-converter",
       "url": "https://www.calcdigi.com/calculators/measurements/pressure-converter",
       "title": "Pressure Converter",
-      "description": "",
-      "formulas": [],
-      "faqs": []
-    },
-    {
-      "category": "measurements",
-      "slug": "roman-numeral-converter",
-      "url": "https://www.calcdigi.com/calculators/math/roman-numeral-converter",
-      "title": "Roman Numeral Converter",
       "description": "",
       "formulas": [],
       "faqs": []
@@ -5020,15 +4839,6 @@
     },
     {
       "category": "physics",
-      "slug": "power-calculator",
-      "url": "https://www.calcdigi.com/calculators/physics/power-calculator",
-      "title": "Power Calculator",
-      "description": "",
-      "formulas": [],
-      "faqs": []
-    },
-    {
-      "category": "physics",
       "slug": "pressure-calculator",
       "url": "https://www.calcdigi.com/calculators/physics/pressure-calculator",
       "title": "Pressure Calculator",
@@ -5158,15 +4968,6 @@
       "slug": "molecular-weight-calculator",
       "url": "https://www.calcdigi.com/calculators/science/molecular-weight-calculator",
       "title": "Molecular Weight Calculator",
-      "description": "",
-      "formulas": [],
-      "faqs": []
-    },
-    {
-      "category": "science",
-      "slug": "ohms-law-calculator",
-      "url": "https://www.calcdigi.com/calculators/electronics/ohms-law-calculator",
-      "title": "Ohm's Law Calculator",
       "description": "",
       "formulas": [],
       "faqs": []

@@ -192,7 +192,7 @@ export default function CookingConversionCalculatorPage() {
             </li>
             <li>
               <strong>Beverage & Alcohol Volume Standardization:</strong> In beverage programs, accurate milliliter conversions ensure compliance with alcohol unit tracking via our{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 alcohol unit calculator
               </Link>{" "}
               and caffeine concentration in the{" "}

@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const RELATED_CALCULATORS = [
   { href: "/calculators/physics/velocity-calculator", icon: "⚡", name: "Velocity Kinematics" },
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy" },
-  { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical & Electrical Power" },
+  { href: "/calculators/electronics/power-calculator", icon: "💡", name: "Mechanical & Electrical Power" },
   { href: "/calculators/physics/circular-motion-calculator", icon: "🔄", name: "Rotational Frequency & Period" },
   { href: "/calculators/physics/torque-calculator", icon: "🏎️", name: "Engineering Torque" },
   { href: "/calculators/environment/air-quality-index-calculator", icon: "🌱", name: "Environmental Air Quality" },
@@ -202,7 +202,7 @@ export default function WaveFrequencyCalculatorPage() {
           <h2>Acoustic, RF & Quantum Propagation Tools</h2>
 
           <p>
-            Periodic wave mechanics governs telecommunications, medical ultrasonography, and photonics. Calculate medium wave propagation velocities with our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, convert oscillation periods with the <Link href="/calculators/measurements/time-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">time converter</Link>, and evaluate RF channel clarity using our <Link href="/calculators/engineering/signal-to-noise-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">signal-to-noise calculator</Link>. Furthermore, quantify wave power transmission rates using our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link> and determine radiant energy quantities with our <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>.
+            Periodic wave mechanics governs telecommunications, medical ultrasonography, and photonics. Calculate medium wave propagation velocities with our <Link href="/calculators/physics/velocity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">velocity calculator</Link>, convert oscillation periods with the <Link href="/calculators/measurements/time-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">time converter</Link>, and evaluate RF channel clarity using our <Link href="/calculators/engineering/signal-to-noise-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">signal-to-noise calculator</Link>. Furthermore, quantify wave power transmission rates using our <Link href="/calculators/electronics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link> and determine radiant energy quantities with our <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>

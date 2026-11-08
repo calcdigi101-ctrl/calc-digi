@@ -183,7 +183,7 @@ export default function BakingSubstitutionCalculatorPage() {
                 calorie burn calculator
               </Link>{" "}
               and beverage energy accounting in the{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 alcohol unit calculator
               </Link>.
             </li>

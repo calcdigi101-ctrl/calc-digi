@@ -92,9 +92,9 @@ const DOWN_PAYMENT_ROWS = [
 
 const RELATED = [
   { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-  { href: "/calculators/finance/home-affordability-calculator", icon: "🏡", name: "Affordability Tool" },
-  { href: "/calculators/finance/down-payment-calculator", icon: "💵", name: "Down Payment" },
-  { href: "/calculators/finance/rent-vs-buy-calculator", icon: "⚖️", name: "Rent vs Buy" },
+  { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Affordability Tool" },
+  { href: "/calculators/housing/down-payment-calculator", icon: "💵", name: "Down Payment" },
+  { href: "/calculators/housing/rent-vs-buy-calculator", icon: "⚖️", name: "Rent vs Buy" },
   { href: "/calculators/finance/loan-calculator", icon: "💳", name: "Personal Loan" },
   { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage Calculator" },
 ];
@@ -165,7 +165,7 @@ export default function MortgageCalculatorPage() {
 
           <h2>Unpacking PITI: The Four Critical Pillars of Monthly Housing Costs</h2>
           <p>
-            A common mistake made by first-time home buyers when evaluating affordability with our <Link href="/calculators/finance/home-affordability-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">home affordability calculator</Link> is budgeting solely for principal and interest. Mortgage lenders legally escrow four distinct expense components known as PITI:
+            A common mistake made by first-time home buyers when evaluating affordability with our <Link href="/calculators/housing/home-affordability-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">home affordability calculator</Link> is budgeting solely for principal and interest. Mortgage lenders legally escrow four distinct expense components known as PITI:
           </p>
           <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
             <li><strong>Principal (P):</strong> Direct equity repayment that diminishes the remaining outstanding loan note balance.</li>
@@ -187,7 +187,7 @@ export default function MortgageCalculatorPage() {
 
           <h2>Down Payment Tiers, Loan-to-Value (LTV) &amp; PMI Removal Mechanics</h2>
           <p>
-            The size of your upfront cash investment calculated through our <Link href="/calculators/finance/down-payment-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">down payment calculator</Link> determines your Loan-to-Value ratio (LTV). Under conventional financing guidelines, putting down less than 20% triggers mandatory Private Mortgage Insurance (PMI):
+            The size of your upfront cash investment calculated through our <Link href="/calculators/housing/down-payment-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">down payment calculator</Link> determines your Loan-to-Value ratio (LTV). Under conventional financing guidelines, putting down less than 20% triggers mandatory Private Mortgage Insurance (PMI):
           </p>
 
           <DataTable
@@ -250,7 +250,7 @@ export default function MortgageCalculatorPage() {
 
           <h2>Rent vs. Buy Analysis: Real Estate Equity vs. Sunk Capital Costs</h2>
           <p>
-            When evaluating homeownership against long-term tenancy with our <Link href="/calculators/finance/rent-vs-buy-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">rent vs buy calculator</Link> and general <Link href="/calculators/finance/loan-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">loan calculator</Link>, prospective buyers must distinguish recoverable equity from irrecoverable transaction friction (title fees, lender origination points, mortgage interest, property taxes, maintenance reserves, and transfer stamps). Over a standard 7-year holding period, historical residential appreciation combined with predictable fixed-rate principal reduction systematically surpasses rental market cost escalation.
+            When evaluating homeownership against long-term tenancy with our <Link href="/calculators/housing/rent-vs-buy-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">rent vs buy calculator</Link> and general <Link href="/calculators/finance/loan-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">loan calculator</Link>, prospective buyers must distinguish recoverable equity from irrecoverable transaction friction (title fees, lender origination points, mortgage interest, property taxes, maintenance reserves, and transfer stamps). Over a standard 7-year holding period, historical residential appreciation combined with predictable fixed-rate principal reduction systematically surpasses rental market cost escalation.
           </p>
         </>
       }

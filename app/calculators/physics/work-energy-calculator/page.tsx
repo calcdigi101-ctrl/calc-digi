@@ -25,10 +25,10 @@ export const metadata: Metadata = {
 const RELATED_CALCULATORS = [
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚡", name: "Kinetic Energy" },
   { href: "/calculators/physics/potential-energy-calculator", icon: "🏔️", name: "Potential Energy" },
-  { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
+  { href: "/calculators/electronics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
   { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Force F = ma" },
   { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Torque & Rotational Work" },
-  { href: "/calculators/physics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/electronics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [
@@ -103,7 +103,7 @@ export default function WorkEnergyCalculatorPage() {
                 </strong>
                 <p className="mt-1">
                   Mechanical work is calculated using the vector dot product formula: W = F · d · cos(θ). Applying a force F of 650 Newtons over a displacement d of 40 meters at an angle θ of 0° (parallel to motion) performs exactly 26,000 Joules (26.0 kJ or 19,177 ft-lbf) of mechanical work. If completed over 15 seconds, the average mechanical power delivery rate is 1,733 Watts (1.73 kW or 2.32 Horsepower). If the force is applied at 90°, work drops to zero.
-                 Analyze dynamic energy in motion with our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>, determine elevated potential energy using the <Link href="/calculators/physics/potential-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">potential energy calculator</Link>, or calculate mechanical power delivery rate via our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>.</p>
+                 Analyze dynamic energy in motion with our <Link href="/calculators/physics/kinetic-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">kinetic energy calculator</Link>, determine elevated potential energy using the <Link href="/calculators/physics/potential-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">potential energy calculator</Link>, or calculate mechanical power delivery rate via our <Link href="/calculators/electronics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>.</p>
               </div>
             </div>
           </div>

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/food/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
+  { href: "/calculators/health/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
   { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
   { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
@@ -151,7 +151,7 @@ export default function CoffeeCaffeineCalculatorPage() {
                 cooking conversion calculator
               </Link>{" "}
               and beverage energy in the{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 alcohol unit calculator
               </Link>.
             </li>

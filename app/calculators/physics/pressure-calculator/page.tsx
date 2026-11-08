@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const RELATED_CALCULATORS = [
   { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newton's Force F=ma" },
   { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
-  { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
+  { href: "/calculators/electronics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
   { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Torque & Rotational Moment" },
   { href: "/calculators/engineering/hvac-load-calculator", icon: "💨", name: "HVAC CFM Airflow" },
   { href: "/calculators/environment/water-usage-calculator", icon: "💧", name: "Household Water Usage" },

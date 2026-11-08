@@ -5,6 +5,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Deduplicated calculators (301 permanent redirects to main URLs)
+      { source: "/calculators/physics/power-calculator", destination: "/calculators/electronics/power-calculator", permanent: true },
+      { source: "/calculators/finance/home-affordability-calculator", destination: "/calculators/housing/home-affordability-calculator", permanent: true },
+      { source: "/calculators/finance/rent-vs-buy-calculator", destination: "/calculators/housing/rent-vs-buy-calculator", permanent: true },
+      { source: "/calculators/finance/down-payment-calculator", destination: "/calculators/housing/down-payment-calculator", permanent: true },
+      { source: "/calculators/food/alcohol-unit-calculator", destination: "/calculators/health/alcohol-unit-calculator", permanent: true },
       { source: "/calculators/finance/break-even-calculator", destination: "/calculators/business/break-even-calculator", permanent: true },
       { source: "/calculators/finance/roi-calculator", destination: "/calculators/business/roi-calculator", permanent: true },
       { source: "/calculators/finance/sales-tax-calculator", destination: "/calculators/business/sales-tax-calculator", permanent: true },

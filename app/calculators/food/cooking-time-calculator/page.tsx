@@ -184,7 +184,7 @@ export default function CookingTimeCalculatorPage() {
             </li>
             <li>
               <strong>Beverage & Pairing Integration:</strong> Wine and beverage pairing service is coordinated alongside resting times, with guest intake tracked in our{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 alcohol unit calculator
               </Link>{" "}
               and post-meal espresso service in the{" "}

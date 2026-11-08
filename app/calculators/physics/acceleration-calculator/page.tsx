@@ -28,7 +28,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Gravitational Free Fall" },
   { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy Dynamics" },
   { href: "/calculators/physics/projectile-motion-calculator", icon: "📐", name: "Projectile Ballistics" },
-  { href: "/calculators/physics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "/calculators/electronics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
 ];
 
 const FAQ_ITEMS = [

@@ -71,7 +71,7 @@ const FAQ_ITEMS = [
 
 const RELATED_CALCULATORS = [
   { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
-  { href: "/calculators/food/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
+  { href: "/calculators/health/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
   { href: "/calculators/food/coffee-caffeine-calculator", icon: "☕", name: "Coffee Caffeine Calculator" },
   { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
   { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
@@ -110,7 +110,7 @@ export default function TipCalculatorPage() {
                 food cost calculator
               </Link>{" "}
               and beverage pacing in the{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium underline hover:text-amber-900">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium underline hover:text-amber-900">
                 alcohol unit calculator
               </Link>.
             </p>

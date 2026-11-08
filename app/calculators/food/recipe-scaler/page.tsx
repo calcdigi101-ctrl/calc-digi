@@ -186,7 +186,7 @@ export default function RecipeScalerPage() {
             </li>
             <li>
               <strong>Alcohol Evaporation Invariance:</strong> Wine in braises simmered in deep stockpots loses significantly less alcohol to evaporation than wine in wide shallow skillets. Monitor alcohol loads with our{" "}
-              <Link href="/calculators/food/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
+              <Link href="/calculators/health/alcohol-unit-calculator" className="font-medium text-emerald-600 underline dark:text-emerald-400">
                 alcohol unit calculator
               </Link>.
             </li>

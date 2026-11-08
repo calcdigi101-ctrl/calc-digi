@@ -4,8 +4,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { DownPaymentTierChart } from "@/components/flagship/housing/editorial-charts";
 
 const PATH = "/calculators/housing/down-payment-calculator";
-const TITLE = "Down Payment Calculator – Cash, Savings and PMI";
-const DESCRIPTION = "Free down payment calculator: calculate minimum cash down payment tiers (3%, 5%, 10%, 20%), closing costs, PMI impact, and monthly savings timeline.";
+const TITLE = "Down Payment Calculator: Minimum Cash, PMI & Savings";
+const DESCRIPTION = "Free down payment calculator. Calculate exact cash needed for 3%, 5%, 10%, or 20% down, monthly PMI savings, and loan-to-value (LTV) with zero signup.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 

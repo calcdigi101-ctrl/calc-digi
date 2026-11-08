@@ -6,9 +6,8 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PowerFactorActiveReactiveTriangleChart } from "@/components/flagship/electronics/editorial-charts";
 
 const PATH = "/calculators/electronics/power-calculator";
-const TITLE = "Electric Power Calculator";
-const DESCRIPTION =
-  "Calculate active electrical power (Watts), apparent power (VA), reactive power (VAR), and power factor across single-phase AC and DC circuits.";
+const TITLE = "Power Calculator: Watts, Amps, Volts & Horsepower";
+const DESCRIPTION = "Free power calculator. Calculate electrical power (Watts, VA, VAR) and mechanical horsepower from voltage, current, resistance, or torque with instant steps.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -47,6 +46,30 @@ const FAQ_ITEMS = [
   {
     q: "How do you calculate daily and monthly electrical kilowatt-hour (kWh) consumption?",
     a: "Electrical energy consumption is computed by multiplying active power in kilowatts by operating hours: kWh = (Watts × Hours) / 1,000. For example, a 1,500 Watt space heater operating for 8 hours daily consumes (1,500 × 8) / 1,000 = 12.0 kWh per day, or 360 kWh per 30-day billing cycle.",
+  },
+  {
+    q: "What is the physical definition and mathematical formula for power?",
+    a: "Power (P) is the scalar physical quantity measuring the temporal rate at which work is performed or energy is converted: P = dW / dt = E / t. In the International System of Units (SI), power is measured in Watts (W), where one Watt equals one Joule of energy converted per second (1 W = 1 J/s). In mechanical systems moving at velocity v under force F, instantaneous power is given by P = F · v.",
+  },
+  {
+    q: "What is the exact mathematical conversion between Watts and mechanical Horsepower?",
+    a: "One mechanical horsepower (imperial brake horsepower, HP) is formally defined as 33,000 foot-pounds of work per minute, which converts exactly to 745.69987 Watts (standard engineering rounded value: 1 HP = 745.7 W). In the metric horsepower system (PS, cv, or ch used in European automotive benchmarks), 1 metric horsepower converts to 735.49875 Watts. Consequently, 1 mechanical HP equals approximately 1.0139 metric PS.",
+  },
+  {
+    q: "How does mechanical efficiency affect total electrical power consumption?",
+    a: "No physical electric motor or thermal engine operates at 100% efficiency due to winding electrical resistance, magnetic core hysteresis, and mechanical bearing friction. The overall efficiency factor η connects useful output power to total required input power: P_input = P_output / (η / 100). A 15 kW industrial motor operating at 90% efficiency draws 16.67 kW of electrical power from the grid.",
+  },
+  {
+    q: "How do you calculate electrical current draw from known power and voltage?",
+    a: "Under direct current (DC) or single-phase alternating current (AC) with unity power factor (PF = 1.0), electrical power relates to voltage and current via Joule's Law: P = V · I. Solving for electric current yields: I = P / V. For example, a 7,200-watt (7.2 kW) EV charger operating at 240 Volts draws exactly I = 7,200 W / 240 V = 30.0 Amperes.",
+  },
+  {
+    q: "What is the critical distinction between power and energy?",
+    a: "Energy is a capacity or quantity of physical work (measured in Joules or kilowatt-hours), while power is the instantaneous rate at which that energy flows (measured in Watts or horsepower). Energy equals power multiplied by time: E = P · t.",
+  },
+  {
+    q: "How does torque relate to power in rotating mechanical shafts and vehicle engines?",
+    a: "In rotational mechanical systems, power is the product of torsional moment (torque τ in N·m) and rotational angular velocity (ω in radians per second): P = τ · ω. In traditional imperial automotive engineering, this yields the classic dyno formula: Horsepower = (Torque in lb-ft × RPM) / 5252.",
   },
 ];
 

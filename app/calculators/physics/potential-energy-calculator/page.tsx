@@ -27,7 +27,7 @@ const RELATED_CALCULATORS = [
   { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
   { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Free Fall Gravity" },
   { href: "/calculators/physics/gravitational-force-calculator", icon: "🌌", name: "Newtonian Gravitation" },
-  { href: "/calculators/physics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
+  { href: "/calculators/electronics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
   { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Engineering Torque" },
 ];
 
@@ -187,7 +187,7 @@ export default function PotentialEnergyCalculatorPage() {
           <h2>Hydrostatic & Gravitational Analytical Tools</h2>
 
           <p>
-            Potential energy storage forms the foundation of civil hydro storage and mechanical lifting equipment. Determine external lifting work done against gravity with our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>, convert metric energy units with the <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>, and compute sustained lifting power through our <Link href="/calculators/physics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>. For hydroelectric penstocks, evaluate hydrostatic fluid pressure using our <Link href="/calculators/physics/pressure-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pressure calculator</Link> and assess fluid flow rates via the <Link href="/calculators/engineering/pipe-flow-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pipe flow calculator</Link>.
+            Potential energy storage forms the foundation of civil hydro storage and mechanical lifting equipment. Determine external lifting work done against gravity with our <Link href="/calculators/physics/work-energy-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">work energy calculator</Link>, convert metric energy units with the <Link href="/calculators/measurements/energy-converter" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">energy converter</Link>, and compute sustained lifting power through our <Link href="/calculators/electronics/power-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">power calculator</Link>. For hydroelectric penstocks, evaluate hydrostatic fluid pressure using our <Link href="/calculators/physics/pressure-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pressure calculator</Link> and assess fluid flow rates via the <Link href="/calculators/engineering/pipe-flow-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">pipe flow calculator</Link>.
           </p>
 
           <h2>Comparative Operational Worked Case Studies</h2>
