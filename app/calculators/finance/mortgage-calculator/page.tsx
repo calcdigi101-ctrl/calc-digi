@@ -90,6 +90,17 @@ const DOWN_PAYMENT_ROWS = [
   ["Conventional 20% Down", "$80,000 (20.0%)", "$320,000", "$0.00 (No PMI)", "N/A (Exempt from start)", "Maximum savings & lowest monthly cost"],
 ];
 
+const MORTGAGE_BENCHMARK_ROWS = [
+  ["$200,000 Loan", "$1,136", "$1,199", "$1,264", "$1,297", "$1,331", "$1,398"],
+  ["$250,000 Loan", "$1,419", "$1,499", "$1,580", "$1,621", "$1,663", "$1,748"],
+  ["$300,000 Loan", "$1,703", "$1,799", "$1,896", "$1,946", "$1,996", "$2,098"],
+  ["$350,000 Loan", "$1,987", "$2,098", "$2,212", "$2,270", "$2,329", "$2,447"],
+  ["$400,000 Loan", "$2,271", "$2,398", "$2,528", "$2,594", "$2,661", "$2,797"],
+  ["$500,000 Loan", "$2,839", "$2,998", "$3,160", "$3,243", "$3,327", "$3,496"],
+  ["$600,000 Loan", "$3,407", "$3,597", "$3,792", "$3,892", "$3,992", "$4,195"],
+  ["$750,000 Loan", "$4,258", "$4,497", "$4,741", "$4,864", "$4,990", "$5,244"],
+];
+
 const RELATED = [
   { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
   { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Affordability Tool" },
@@ -188,7 +199,20 @@ export default function MortgageCalculatorPage() {
             highlight={2}
           />
 
-          <h2>Down Payment Tiers, Loan-to-Value (LTV) &amp; PMI Removal Mechanics</h2>
+                    <h2>30-Year Mortgage Payment Matrix: Monthly Principal &amp; Interest Benchmarks</h2>
+          <p>
+            The benchmark matrix below details the exact monthly principal and interest (P&amp;I) payment across common loan amounts ($200,000 to $750,000) and prevailing 30-year fixed interest rates from 5.50% to 7.50% APR. Figures reflect scheduled debt amortization without local property taxes, homeowners insurance, or Private Mortgage Insurance (PMI):
+          </p>
+          <DataTable
+            head={["Loan Amount", "5.50% APR", "6.00% APR", "6.50% APR", "6.75% APR", "7.00% APR", "7.50% APR"]}
+            rows={MORTGAGE_BENCHMARK_ROWS}
+            highlight={4}
+          />
+          <p className="text-xs text-slate-500 dark:text-slate-400 -mt-2 mb-6">
+            *Note: Payments calculated via standard actuarial ordinary annuity present value formula: M = P[r(1+r)^n / ((1+r)^n - 1)]. Total monthly housing obligation (PITI) will include local property taxes and homeowners insurance.
+          </p>
+
+<h2>Down Payment Tiers, Loan-to-Value (LTV) &amp; PMI Removal Mechanics</h2>
           <p>
             The size of your upfront cash investment calculated through our <Link href="/calculators/housing/down-payment-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">down payment calculator</Link> determines your Loan-to-Value ratio (LTV). Under conventional financing guidelines, putting down less than 20% triggers mandatory Private Mortgage Insurance (PMI):
           </p>

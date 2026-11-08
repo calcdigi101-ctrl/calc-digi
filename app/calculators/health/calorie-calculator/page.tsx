@@ -89,6 +89,13 @@ const MACRO_ROWS = [
   ["Dietary Fiber", "1.5 – 2.0 kcal / g", "28 – 38 g daily total", "Slows glycemic transit, feeds gut microbiome, and modulates circulating LDL cholesterol."],
 ];
 
+const DEFICIT_TIMELINE_ROWS = [
+  ["Mild Deficit (-250 kcal/day)", "0.5 lb (0.23 kg)", "~2.1 lbs (1.0 kg)", "~6.4 lbs (2.9 kg)", "Optimal muscle retention; zero metabolic adaptation", "Lean athletes, body recomposition"],
+  ["Moderate Deficit (-500 kcal/day)", "1.0 lb (0.45 kg)", "~4.3 lbs (2.0 kg)", "~12.9 lbs (5.8 kg)", "Gold-standard rate; manageable appetite; high adherence", "General fat loss; sustainable lifestyle change"],
+  ["Aggressive Deficit (-750 kcal/day)", "1.5 lbs (0.68 kg)", "~6.5 lbs (3.0 kg)", "~19.3 lbs (8.8 kg)", "Moderate NEAT drop; structured 48h refeeds advised", "Higher starting BMI (28–34); time-sensitive goals"],
+  ["Maximum Deficit (-1,000 kcal/day)", "2.0 lbs (0.91 kg)", "~8.7 lbs (4.0 kg)", "~25.7 lbs (11.7 kg)", "Significant leptin suppression; medical supervision required", "Obesity class I/II (BMI 35+); physician-guided cycles"],
+];
+
 const RELATED = [
   { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
   { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
@@ -189,7 +196,20 @@ export default function CalorieCalculatorPage() {
             highlight={2}
           />
 
-          <h2>Macronutrient Partitioning & Energetic Densities</h2>
+                    <h2>Calorie Deficit &amp; Fat Loss Timeline: Weekly, Monthly &amp; 90-Day Projections</h2>
+          <p>
+            Establishing a consistent calorie deficit forces adipose tissue triglycerides to oxidize for cellular ATP production. Because one pound of human adipose tissue stores approximately 3,500 kcal of biological chemical energy (7,700 kcal per kilogram), your rate of body fat loss correlates mathematically to your cumulative net caloric deficit over time:
+          </p>
+          <DataTable
+            head={["Daily Deficit Tier", "Weekly Fat Loss", "Monthly Loss (~30 Days)", "90-Day Cumulative Loss", "Metabolic Impact & Lean Mass Retention", "Recommended Profile"]}
+            rows={DEFICIT_TIMELINE_ROWS}
+            highlight={1}
+          />
+          <p className="text-xs text-slate-500 dark:text-slate-400 -mt-2 mb-6">
+            *Projections assume baseline energy expenditure remains supported through resistance training and high dietary protein (1.6–2.2 g/kg). Actual scale weight loss in week 1 may be higher due to glycogen and water depletion.
+          </p>
+
+<h2>Macronutrient Partitioning & Energetic Densities</h2>
           <p>
             While total caloric intake determines the trajectory of body weight changes (thermodynamic energy balance), <strong>macronutrient composition</strong> determines whether weight lost represents adipose tissue or functional skeletal muscle. Protein delivers maximal satiety and thermic expenditure, as detailed in our <Link href="/calculators/health/protein-intake-calculator">Protein Calculator</Link>.
           </p>
