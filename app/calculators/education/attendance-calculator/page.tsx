@@ -69,6 +69,26 @@ export default function AttendanceCalculatorPage() {
             <strong>Quick Academic Guidance:</strong> Classroom attendance compliance is a strict legal and administrative prerequisite across secondary and tertiary educational institutions. Whether satisfying university 75% or 80% examination eligibility rules, professional school accreditation mandates, or high school truancy laws, this calculator determines your exact attendance rate, allowable future absences, and required future attendance. Model overall syllabus weight impact in our <Link href="/calculators/education/grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">grade calculator</Link> and track cumulative transcript metrics via our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
           </div>
 
+                    {/* Featured Snippet Quick Answer Box */}
+          <div className="not-prose mb-8 rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-50/70 to-orange-50/40 p-5 dark:border-amber-900/40 dark:from-amber-950/20 dark:to-orange-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-amber-600 dark:text-amber-400">💡</span> Quick Answer: How to Calculate Attendance &amp; Safe Bunks
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Class attendance percentage is calculated using the formula <strong>Attendance % = (Classes Attended ÷ Total Classes Held) × 100</strong>. To maintain a mandatory <strong>75% attendance threshold</strong>, you must attend at least 3 out of every 4 classes conducted. If you have attended 36 out of 40 classes (90%), you can safely miss 2 additional classes without dropping below 75%.
+            </p>
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+            How to Calculate Your Class Attendance &amp; Bunk Limit in 4 Steps
+          </h2>
+          <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
+            <li><strong>Enter Current Attendance:</strong> Input total class sessions conducted to date and the exact number you attended.</li>
+            <li><strong>Set Minimum Threshold:</strong> Enter your university or school attendance requirement (standard is 75% or 80%).</li>
+            <li><strong>Enter Remaining Classes (Optional):</strong> Add scheduled future classes remaining in the semester to forecast term-end eligibility.</li>
+            <li><strong>Check Compliance Status:</strong> Instantly see your current percentage, maximum safe classes you can miss, or consecutive classes required to recover eligibility.</li>
+          </ol>
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Visual Analysis: Attendance Compliance Thresholds & Disciplinary Cutoff Zones
           </h2>

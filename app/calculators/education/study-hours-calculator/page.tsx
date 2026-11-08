@@ -66,6 +66,26 @@ export default function StudyHoursCalculatorPage() {
             <strong>Quick Academic Guidance:</strong> Time management in higher education is governed by the federal Carnegie Unit standard, which establishes expected independent study workloads based on enrolled semester credit hours. By multiplying your credit load by discipline-specific rigor multipliers (1.5x for general education, 2.0x for standard courses, and 3.0x for intensive STEM), this tool constructs a weekly study budget across the 168 hours of your week. Optimize your exam performance using our <Link href="/calculators/education/final-grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">final grade calculator</Link> and track cumulative scholastic records via our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
           </div>
 
+                    {/* Featured Snippet Quick Answer Box */}
+          <div className="not-prose mb-8 rounded-2xl border border-indigo-200/80 bg-gradient-to-br from-indigo-50/70 to-blue-50/40 p-5 dark:border-indigo-900/40 dark:from-indigo-950/20 dark:to-blue-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-indigo-600 dark:text-indigo-400">💡</span> Quick Answer: The College 2:1 Study Hours Rule Explained
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              Under the standard US Carnegie Credit policy, college students should study <strong>2 to 3 hours outside of class for every 1 credit hour</strong> enrolled. For a standard <strong>15-credit full-time semester</strong>, you should budget <strong>30 hours of weekly independent study</strong> (plus 15 classroom hours, totaling 45 weekly academic hours, equivalent to a full-time job).
+            </p>
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+            How to Plan Your College Study Hours in 4 Steps
+          </h2>
+          <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
+            <li><strong>Enter Registered Credits:</strong> Input total semester credit hours (e.g. 12, 15, or 18 credits).</li>
+            <li><strong>Select Course Rigor:</strong> Choose between Introductory (1.5×), Standard College (2.0×), or Heavy STEM / Pre-Med (3.0×).</li>
+            <li><strong>Set Grade Ambition:</strong> Adjust for Target A (1.2× effort), Target B (1.0× baseline), or Passing grade.</li>
+            <li><strong>Generate Time Budget:</strong> Review your daily and weekly study targets distributed across 5-day or 7-day study calendars to avoid burnout.</li>
+          </ol>
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Visual Analysis: Carnegie Unit Study Hours vs Credit Load by Academic Rigor
           </h2>

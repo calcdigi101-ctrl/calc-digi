@@ -69,6 +69,26 @@ export default function TimeDurationCalculatorPage() {
             <strong>Timesheet &amp; Payroll Duration Guidance:</strong> Accurately measuring elapsed duration requires deducting unpaid meal breaks and converting sexagesimal minutes to decimal payroll hours. In workforce management and freelance billing, evaluate total business working days in our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link>, add compounding shift hours with our <Link href="/calculators/datetime/time-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time calculator</Link>, or track calendar day intervals in our <Link href="/calculators/datetime/date-difference-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">date difference calculator</Link>.
           </div>
 
+                    {/* Featured Snippet Quick Answer Box */}
+          <div className="not-prose mb-8 rounded-2xl border border-sky-200/80 bg-gradient-to-br from-sky-50/70 to-indigo-50/40 p-5 dark:border-sky-900/40 dark:from-sky-950/20 dark:to-indigo-950/10">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-sky-600 dark:text-sky-400">💡</span> Quick Answer: How to Calculate Time Duration Between Two Times
+            </div>
+            <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+              To calculate hours and minutes between two timestamps, convert both times to total diurnal minutes: <strong>Total Minutes = (Hours × 60) + Minutes</strong>. Subtract start minutes from end minutes (adding 1,440 if spanning midnight). Deduct unpaid break minutes and divide by 60 for <strong>decimal payroll hours</strong> (e.g., 9:00 AM to 5:30 PM with a 30-min lunch = <strong>8.00 decimal hours</strong>).
+            </p>
+          </div>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
+            How to Calculate Time Duration &amp; Work Hours in 4 Steps
+          </h2>
+          <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
+            <li><strong>Set Start &amp; End Times:</strong> Enter clock-in and clock-out times in either 12-hour AM/PM or 24-hour military format.</li>
+            <li><strong>Specify Break Deduction:</strong> Enter unpaid meal or rest break duration in minutes (e.g., 30 or 45 mins).</li>
+            <li><strong>Optional Overnight Toggle:</strong> The calculator automatically detects and handles overnight shifts that cross 12:00 midnight.</li>
+            <li><strong>Review Exact Output:</strong> Instantly view duration in hours &amp; minutes, total decimal billable hours, and gross wage earnings.</li>
+          </ol>
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Workforce Shift Dynamics: Productive Time vs. Mandatory Statutory Breaks
           </h2>
