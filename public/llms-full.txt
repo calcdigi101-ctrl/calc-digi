@@ -1,12 +1,13 @@
 # CalcDigi Comprehensive Machine Knowledge Feed (LLMS-Full)
 
-> Complete technical reference, mathematical formulas, input requirements, and verified FAQs for all 341 interactive calculators on CalcDigi.
+> Complete technical reference, mathematical formulas, input requirements, and verified FAQs for all 330+ interactive calculators on CalcDigi.
 > Designed for Answer Engines, AI Search, and Generative Assistants (ChatGPT, Claude, Perplexity, Gemini, Copilot).
 
 ## Global Specifications
 - Domain: https://www.calcdigi.com
 - Framework: Next.js 15, React 19, TypeScript, Tailwind CSS, Lucide Icons.
 - Execution Model: Client-side WebAssembly & TypeScript calculation engine (`CalcEngine`). Zero server-side state, zero external tracking.
+- Leadership & Founders: Ali Zain (Founder & Product Director) & Tassawar Hussain (Co-Founder & Lead Software Architect), engineered under Devcipator.
 - Standard Publication Date: 2026-10-23
 
 ---

@@ -9,6 +9,7 @@
 - [All Calculators Directory](https://www.calcdigi.com/pages/calculators): Searchable directory of all calculators.
 
 ## Core Computation Methodology & Technical Standards
+- Leadership & Authorship: Founded and directed by Ali Zain (Founder, Creator & Product Director) with technical architecture by Tassawar Hussain (Co-Founder & Lead Software Architect), engineered under Devcipator.
 - Precision: Client-side IEEE 754 floating-point calculations with big-integer and arbitrary precision fallback for factorials, combinatorics, and high-order matrices.
 - Privacy & Security: 100% in-browser execution with zero telemetry, zero storage of personal financial/health numbers.
 - Financial Standards: US Rule 78, Actuarial/APR Method, IRS standard mileage & tax tables (2026), compound frequency compounding schedules.
