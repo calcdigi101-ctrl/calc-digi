@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WorkshiftBreakdownDurationCurveChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/time-duration-calculator";
-const TITLE = "Time Duration Calculator: Hours Between Two Times";
+const TITLE = "Time Duration Calculator: Hours Between Times";
 const DESCRIPTION =
-  "Free time duration calculator. Calculate exact hours, minutes, and days between two times or dates with lunch break deduction and decimal timesheet hours.";
+  "Free time duration calculator. Calculate exact hours, minutes, and days between two times or dates with break deduction and decimal timesheet hours.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AttendanceRateImpactThresholdChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/attendance-calculator";
-const TITLE = "Attendance Calculator: Fast Percentage & Bunk Planner";
+const TITLE = "Attendance Calculator: Class % & Bunk Planner";
 const DESCRIPTION =
-  "Free attendance percentage calculator. Instantly calculate your current class attendance %, required classes to reach 75%, and safe skips with zero signup.";
+  "Free attendance calculator. Instantly calculate your class attendance percentage, classes needed for 75%, and safe bunks allowed with zero signup.";
 
 export const metadata: Metadata = {
   title: TITLE,

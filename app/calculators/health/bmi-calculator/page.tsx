@@ -8,9 +8,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WHO_CLASSES } from "@/lib/bmi";
 
 const PATH = "/calculators/health/bmi-calculator";
-const TITLE = "BMI Calculator: Accurate Body Mass Index & Chart";
+const TITLE = "BMI Calculator: Healthy Weight Range & Chart";
 const DESCRIPTION =
-  "Free BMI calculator. Instantly check your Body Mass Index, WHO weight category, healthy target weight range, and prime BMI with zero signup.";
+  "Free BMI calculator. Check your Body Mass Index, WHO weight category, healthy target weight range, and prime BMI instantly with zero signup.";
 
 export const metadata: Metadata = {
   title: TITLE,

@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PregnancyMilestoneVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/due-date-calculator";
-const TITLE = "Pregnancy Due Date Calculator: Accurate EDD & Milestones";
+const TITLE = "Pregnancy Due Date Calculator: EDD & Milestones";
 const DESCRIPTION =
-  "Free pregnancy due date calculator. Calculate your exact estimated date of delivery (EDD), gestational age, and fetal milestones using clinical Naegele's rule.";
+  "Free pregnancy due date calculator. Calculate your estimated date of delivery, gestational age, and fetal milestones using clinical Naegele's rule.";
 
 export const metadata: Metadata = {
   title: TITLE,

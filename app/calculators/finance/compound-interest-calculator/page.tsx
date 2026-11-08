@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CompoundInterestGrowthTrajectoryChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/compound-interest-calculator";
-const TITLE = "Compound Interest Calculator: Daily, Monthly & APY Growth";
+const TITLE = "Compound Interest Calculator: APY & Growth";
 const DESCRIPTION =
-  "Free compound interest calculator. Calculate future investment growth with monthly contributions, daily to annual compounding, and real inflation-adjusted APY.";
+  "Free compound interest calculator. Calculate investment growth with regular deposits, compounding frequency, and inflation-adjusted total returns.";
 
 export const metadata: Metadata = {
   title: TITLE,

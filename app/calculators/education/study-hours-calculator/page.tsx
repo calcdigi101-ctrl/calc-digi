@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CarnegieStudyHoursAllocationChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/study-hours-calculator";
-const TITLE = "Study Hours Calculator";
+const TITLE = "Study Hours Calculator: College Credits & Plan";
 const DESCRIPTION =
-  "Calculate recommended weekly college study hours, Carnegie unit ratios (2:1 and 3:1), daily homework scheduling, and time management feasibility across 168.";
+  "Free college study hours calculator. Calculate weekly study time using the Carnegie 2:1 rule, balance course workload, and plan your 168-hour week.";
 
 export const metadata: Metadata = {
   title: TITLE,

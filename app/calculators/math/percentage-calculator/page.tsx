@@ -6,9 +6,9 @@ import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 
 const PATH = "/calculators/math/percentage-calculator";
-const TITLE = "Percentage Calculator: Instant %, Change & Reverse";
+const TITLE = "Percentage Calculator: Instant %, Change & Steps";
 const DESCRIPTION =
-  "Free online percentage calculator. Instantly calculate % of a number, percentage change (increase/decrease), and discounts with step-by-step math examples.";
+  "Free online percentage calculator. Instantly calculate percent of a number, percentage change, and discounts with step-by-step math solutions.";
 
 export const metadata: Metadata = {
   title: TITLE,
