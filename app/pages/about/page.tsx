@@ -40,15 +40,26 @@ const SCHEMA_DATA = {
         name: "CalcDigi",
         url: `${SITE_URL}/`,
         logo: `${SITE_URL}/og-image.png`,
-        founder: {
-          "@type": "Person",
-          name: "Tassawar Hussain",
-          jobTitle: "Founder & Lead Software Architect",
-          sameAs: [
-            "https://www.linkedin.com/in/calc-digi-b684a6449/",
-            "https://x.com/CalcDigi"
-          ]
-        },
+        founder: [
+          {
+            "@type": "Person",
+            "name": "Ali Zain",
+            "jobTitle": "Founder, Creator & Product Director",
+            "sameAs": [
+              "https://x.com/CalcDigi",
+              "https://www.linkedin.com/in/calc-digi-b684a6449/"
+            ]
+          },
+          {
+            "@type": "Person",
+            "name": "Tassawar Hussain",
+            "jobTitle": "Co-Founder & Lead Software Architect",
+            "sameAs": [
+              "https://x.com/CalcDigi",
+              "https://www.linkedin.com/in/calc-digi-b684a6449/"
+            ]
+          }
+        ],
         parentOrganization: {
           "@type": "Organization",
           name: "Devcipator",
@@ -192,11 +203,20 @@ export default function Page() {
 <p>CalcDigi is engineered, operated, and maintained by <strong>Devcipator Software Engineering Studio</strong>, an independent digital lab focused on algorithmic software, privacy-first web utilities, and high-performance computing.</p>
 
 <div class="team-box">
-<div class="team-avatar">TH</div>
+<div class="team-avatar" style="background:linear-gradient(135deg, #059669, #0d9488);">AZ</div>
+<div class="team-bio">
+<h3>Ali Zain</h3>
+<div class="team-role">Founder, Creator &amp; Product Director</div>
+<p class="team-text">Ali Zain is the founder, creator, and visionary behind CalcDigi. Driven by a mission to democratize institutional-grade calculation tools for consumers, students, homeowners, and entrepreneurs, Ali conceived and directs CalcDigi's product roadmap, user experience standards, and editorial integrity—ensuring every digital tool remains 100% free, private, and ad-free forever.</p>
+</div>
+</div>
+
+<div class="team-box">
+<div class="team-avatar" style="background:linear-gradient(135deg, #2563eb, #1d4ed8);">TH</div>
 <div class="team-bio">
 <h3>Tassawar Hussain</h3>
-<div class="team-role">Founder, Lead Software Architect &amp; Technical Director</div>
-<p class="team-text">Tassawar is a software architect and computational systems engineer who designed CalcDigi's core calculation engine, schema infrastructure, and high-throughput web architecture. With extensive experience in full-stack software development, automated testing, and technical SEO/AEO systems, he ensures every calculator delivers validated accuracy and sub-millisecond execution without tracking cookies or user telemetry.</p>
+<div class="team-role">Co-Founder, Lead Software Architect &amp; Technical Director</div>
+<p class="team-text">Tassawar is a computational systems engineer and software architect who co-founded CalcDigi and engineered its core calculation algorithms, structured data schemas, and high-throughput web infrastructure. With deep expertise in algorithmic precision, automated unit testing, and technical SEO/AEO performance, he oversees formula validation and continuous regulatory compliance.</p>
 </div>
 </div>
 </div>
