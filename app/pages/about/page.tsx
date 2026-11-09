@@ -13,9 +13,6 @@ import {
   ExternalLink,
   AlertTriangle,
   ArrowRight,
-  Calculator,
-  Layers,
-  Sparkles,
 } from "lucide-react";
 import { JsonLd } from "@/components/flagship/shell";
 import { SITE_URL } from "@/lib/site";
@@ -130,9 +127,9 @@ export default function Page() {
     <>
       <JsonLd data={SCHEMA_DATA} />
 
-      <main className="min-h-screen bg-[#fafbfc] dark:bg-slate-950 pb-28 text-slate-800 dark:text-slate-100">
-        {/* Breadcrumb Navigation Bar (Standardized with Blog & Category Pages) */}
-        <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900/60">
+      <main className="min-h-screen bg-[#fafbfc] dark:bg-slate-950 text-slate-800 dark:text-slate-100">
+        {/* Breadcrumb Navigation Bar */}
+        <div className="border-b border-slate-200/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur-md">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
             <nav className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <Link
@@ -149,75 +146,90 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Hero Section */}
-        <section className="relative pt-12 pb-10 sm:pt-16 sm:pb-14 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200/80 dark:border-emerald-800/80 text-emerald-800 dark:text-emerald-300 mb-5 shadow-xs">
-            <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-            <span className="tracking-wide">PEER-REVIEWED &amp; ZERO-KNOWLEDGE ARCHITECTURE</span>
-          </div>
+        {/* Hero Section with Vibrant Green Ambient Light & Grid */}
+        <section className="hero-bg-glow relative overflow-hidden border-b border-slate-200/80 dark:border-slate-800 pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pt-24 lg:pb-24">
+          {/* Glowing Green Light Spotlights (Behind Title) */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[950px] lg:w-[1100px] h-[380px] sm:h-[500px] bg-gradient-to-tr from-emerald-400/30 via-emerald-300/35 to-teal-400/25 dark:from-emerald-600/30 dark:via-emerald-500/25 dark:to-teal-500/20 blur-[120px] rounded-full -z-10"
+          />
 
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight max-w-3xl mx-auto">
-            Built for Real People. <br className="hidden sm:inline" />
-            <span className="text-[#18533b] dark:text-emerald-400">
-              Trusted for Real Decisions.
-            </span>
-          </h1>
+          {/* Subtle Grid Texture */}
+          <div className="hero-grid-bg pointer-events-none opacity-60 dark:opacity-40" />
 
-          <p className="mt-4 text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
-            CalcDigi is a privacy-first calculation platform engineered to deliver instant,
-            high-precision mathematical, financial, and clinical results — without ads, paywalls, or
-            personal data collection.
-          </p>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            {/* Top Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold bg-emerald-100/90 dark:bg-emerald-950/80 border border-emerald-300/80 dark:border-emerald-700/80 text-emerald-900 dark:text-emerald-200 mb-6 shadow-xs">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+              <span className="tracking-wide uppercase">PEER-REVIEWED &amp; ZERO-KNOWLEDGE ARCHITECTURE</span>
+            </div>
 
-          {/* 4 Clean Responsive Metric Badges */}
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-4xl mx-auto">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/80">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                {TOTAL_CALCULATOR_COUNT}+
+            {/* Main H1 Heading */}
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white tracking-tight leading-[1.12] max-w-4xl mx-auto">
+              Built for Real People. <br className="hidden sm:inline" />
+              <span className="text-[#18533b] dark:text-emerald-400">
+                Trusted for Real Decisions.
+              </span>
+            </h1>
+
+            {/* Subheading */}
+            <p className="mt-5 text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto">
+              CalcDigi is a privacy-first calculation platform engineered to deliver instant,
+              high-precision mathematical, financial, and clinical results — without ads, paywalls, or
+              personal data collection.
+            </p>
+
+            {/* 4 Clean Responsive Metric Badges */}
+            <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
+              <div className="rounded-2xl border border-slate-200/90 bg-white/90 backdrop-blur-xs p-5 sm:p-6 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/40 hover:shadow-sm">
+                <div className="font-serif text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400">
+                  {TOTAL_CALCULATOR_COUNT}+
+                </div>
+                <div className="mt-1.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Verified Tools
+                </div>
               </div>
-              <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Verified Tools
+              <div className="rounded-2xl border border-slate-200/90 bg-white/90 backdrop-blur-xs p-5 sm:p-6 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/40 hover:shadow-sm">
+                <div className="font-serif text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400">
+                  {CATEGORIES.length}
+                </div>
+                <div className="mt-1.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Categories
+                </div>
               </div>
-            </div>
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/80">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                {CATEGORIES.length}
+              <div className="rounded-2xl border border-slate-200/90 bg-white/90 backdrop-blur-xs p-5 sm:p-6 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/40 hover:shadow-sm">
+                <div className="font-serif text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400">
+                  100%
+                </div>
+                <div className="mt-1.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Free &amp; Open
+                </div>
               </div>
-              <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Categories
-              </div>
-            </div>
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/80">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                100%
-              </div>
-              <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Free &amp; Open
-              </div>
-            </div>
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-4 sm:p-5 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/80">
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-                0
-              </div>
-              <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Data Stored
+              <div className="rounded-2xl border border-slate-200/90 bg-white/90 backdrop-blur-xs p-5 sm:p-6 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/40 hover:shadow-sm">
+                <div className="font-serif text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400">
+                  0
+                </div>
+                <div className="mt-1.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Data Stored
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Content Container */}
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        {/* Spacious Main Content Container (Standardized with max-w-7xl) */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
+          
           {/* Section: Our Mission */}
-          <section className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs dark:border-slate-800 dark:bg-slate-900/90">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">
+          <section className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90">
+            <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">
               <Target className="w-4 h-4" />
-              <span>Our Mission</span>
+              <span>Core Mission</span>
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6">
               Pure Computation as a Public Utility
             </h2>
-            <div className="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg">
               <p>
                 At CalcDigi, we believe accurate mathematical computation is a fundamental public
                 utility. In an internet overwhelmed by slow, ad-choked calculator websites, confusing
@@ -233,212 +245,219 @@ export default function Page() {
             </div>
           </section>
 
-          {/* 4 Core Pillars Grid */}
-          <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-4 border border-emerald-200/60 dark:border-emerald-800/60">
-                <Lock className="w-5 h-5" />
+          {/* 4 Core Pillars Grid (Spanned 4-column layout) */}
+          <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-md flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-5 border border-emerald-200/60 dark:border-emerald-800/60">
+                  <Lock className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white mb-2">
+                  Zero-Knowledge Privacy
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  All calculations process locally in your browser session. No entered numbers, financial
+                  figures, or health metrics are ever transmitted, logged, or stored on external servers.
+                </p>
               </div>
-              <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white mb-2">
-                Zero-Knowledge Privacy
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                All calculations process locally in your browser session. No entered numbers, financial
-                figures, or health metrics are ever transmitted, logged, or stored on external servers.
-              </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-4 border border-emerald-200/60 dark:border-emerald-800/60">
-                <Target className="w-5 h-5" />
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-md flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-5 border border-emerald-200/60 dark:border-emerald-800/60">
+                  <Target className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white mb-2">
+                  Peer-Reviewed Precision
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Algorithms are calibrated directly against official statutory codes and standards from the
+                  IRS, WHO, CDC, CFPB, NIST, and academic research institutions.
+                </p>
               </div>
-              <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white mb-2">
-                Peer-Reviewed Precision
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Algorithms are calibrated directly against official statutory codes and standards from the
-                IRS, WHO, CDC, CFPB, NIST, and academic research institutions.
-              </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-4 border border-emerald-200/60 dark:border-emerald-800/60">
-                <Zap className="w-5 h-5" />
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-md flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-5 border border-emerald-200/60 dark:border-emerald-800/60">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white mb-2">
+                  Instant Speed
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Engineered with modern Next.js server pre-rendering and pure client-side mathematical
+                  evaluation for sub-millisecond response times with zero network latency.
+                </p>
               </div>
-              <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white mb-2">
-                Instant Client-Side Speed
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Engineered with modern Next.js server pre-rendering and pure client-side mathematical
-                evaluation for sub-millisecond response times with zero network latency.
-              </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-sm">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-4 border border-emerald-200/60 dark:border-emerald-800/60">
-                <Smartphone className="w-5 h-5" />
+            <div className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-md flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center mb-5 border border-emerald-200/60 dark:border-emerald-800/60">
+                  <Smartphone className="w-5 h-5" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white mb-2">
+                  Universal Access
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  Designed with responsive, accessible layout engineering conforming to WCAG AA guidelines
+                  that works seamlessly across smartphones, tablets, and desktop workstations.
+                </p>
               </div>
-              <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white mb-2">
-                Universal Accessibility
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Designed with responsive, accessible layout engineering conforming to WCAG AA guidelines
-                that works seamlessly across smartphones, tablets, and desktop workstations.
-              </p>
             </div>
           </section>
 
-          {/* Section: Calculation Methodology & Mathematical Standards */}
-          <section id="methodology" className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-6">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              <Award className="w-4 h-4" />
-              <span>Rigorous Protocols</span>
-            </div>
+          {/* Section: Calculation Methodology & Mathematical Standards (3-Column Layout) */}
+          <section id="methodology" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
             <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
+                <Award className="w-4 h-4" />
+                <span>Rigorous Protocols</span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3">
                 Calculation Methodology &amp; Mathematical Standards
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+              <p className="text-base text-slate-600 dark:text-slate-300 max-w-4xl">
                 To guarantee uncompromising precision across all {TOTAL_CALCULATOR_COUNT}+ digital tools,
                 CalcDigi enforces strict algorithmic verification protocols based on statutory codes and
                 authoritative scientific standards:
               </p>
             </div>
 
-            <div className="space-y-6 pt-2">
-              <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-5 sm:p-6 space-y-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
                     IRS TAX YEAR {TAX_YEAR}
                   </span>
-                  <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white">
-                    1. Financial &amp; Tax Calculators
-                  </h3>
                 </div>
-                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc">
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
+                  1. Financial &amp; Tax Calculators
+                </h3>
+                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">IRS Regulatory Alignment:</strong> Income
-                    tax brackets, standard deduction schedules, and capital gains rates are updated annually
-                    per official IRS Revenue Procedures (e.g., Rev. Proc. 2025-45 for tax year {TAX_YEAR}).
+                    <strong className="text-slate-800 dark:text-slate-100">IRS Alignment:</strong> Income
+                    tax brackets, standard deduction schedules, and capital gains rates updated per official
+                    IRS Rev. Proc. 2025-45 for tax year {TAX_YEAR}.
                   </li>
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Lending &amp; Amortization Compliance:</strong> Mortgage,
-                    auto loan, and personal loan amortizations strictly comply with Federal Reserve Regulation
-                    Z (Truth in Lending Act) and CFPB actuarial formula models.
+                    <strong className="text-slate-800 dark:text-slate-100">Regulation Z Compliance:</strong> Mortgage
+                    and auto loan amortizations strictly comply with Federal Reserve Truth in Lending Act and
+                    CFPB models.
                   </li>
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">Actuarial Compound Growth:</strong> Continuous
-                    and periodic compound interest models enforce exact day-count conventions (Actual/365 and
-                    30/360 bond-basis).
+                    and periodic interest models enforce exact Actual/365 and 30/360 bond-basis day counts.
                   </li>
                 </ul>
               </div>
 
-              <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-5 sm:p-6 space-y-3">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">
                     WHO &amp; CDC
                   </span>
-                  <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white">
-                    2. Clinical, Health &amp; Anthropometric Calculators
-                  </h3>
                 </div>
-                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc">
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
+                  2. Clinical &amp; Anthropometric
+                </h3>
+                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Anthropometric Body Mass Formulas:</strong> Body
-                    Mass Index (BMI) computations implement World Health Organization (WHO) international
-                    weight classifications.
+                    <strong className="text-slate-800 dark:text-slate-100">Body Mass Formulas:</strong> Body
+                    Mass Index (BMI) computations implement World Health Organization (WHO) international weight
+                    classifications.
                   </li>
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">Metabolic Basal Rate (BMR):</strong> Calorie
-                    and TDEE estimators apply the clinically validated Mifflin-St Jeor equation alongside the
-                    Katch-McArdle formula for lean-mass body composition.
+                    and TDEE estimators apply the clinically validated Mifflin-St Jeor and Katch-McArdle equations.
                   </li>
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Pediatric &amp; Growth Models:</strong> Percentile
-                    calculations for child weight and height track CDC 2000 Growth Charts and WHO Child Growth
-                    Standards.
+                    <strong className="text-slate-800 dark:text-slate-100">Pediatric Growth Models:</strong> Percentile
+                    calculations track CDC 2000 Growth Charts and WHO Child Growth Standards.
                   </li>
                 </ul>
               </div>
 
-              <div className="rounded-2xl border border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-5 sm:p-6 space-y-3">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">
                     NIST &amp; ISO
                   </span>
-                  <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white">
-                    3. Scientific, Engineering &amp; Math Calculators
-                  </h3>
                 </div>
-                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc">
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
+                  3. Scientific &amp; Math Calculators
+                </h3>
+                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">NIST Physical Constants:</strong> Universal
-                    physical, chemical, and thermodynamic constants match the 2022 CODATA recommended values
-                    published by the National Institute of Standards and Technology (NIST SP 330).
+                    <strong className="text-slate-800 dark:text-slate-100">NIST Constants:</strong> Physical and
+                    chemical constants match 2022 CODATA values published by NIST (NIST SP 330).
                   </li>
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Standard Unit Normalization:</strong> Measurement
-                    and unit converters enforce ISO 80000-1 international dimensional standards and IEEE
-                    754-2019 floating-point arithmetic precision.
+                    <strong className="text-slate-800 dark:text-slate-100">Standard Normalization:</strong> Measurement
+                    converters enforce ISO 80000-1 dimensional standards.
+                  </li>
+                  <li>
+                    <strong className="text-slate-800 dark:text-slate-100">IEEE 754 Precision:</strong> Mathematical
+                    functions implement 64-bit double precision floating-point arithmetic.
                   </li>
                 </ul>
               </div>
             </div>
           </section>
 
-          {/* Section: Editorial Policy & Verification Workflow */}
-          <section id="editorial" className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-6">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              <FileText className="w-4 h-4" />
-              <span>Editorial Integrity</span>
-            </div>
+          {/* Section: Editorial Policy & 3-Tier Quality Control */}
+          <section id="editorial" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
             <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
-                Editorial Policy &amp; Verification Workflow
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
+                <FileText className="w-4 h-4" />
+                <span>Editorial Integrity</span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3">
+                Editorial Policy &amp; 3-Tier Verification Workflow
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+              <p className="text-base text-slate-600 dark:text-slate-300 max-w-4xl">
                 Every calculator, educational guide, and benchmark matrix table on CalcDigi follows a mandatory
                 3-tier quality control lifecycle before deployment:
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-2">
-                <div className="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 space-y-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 1
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                <h4 className="font-bold text-slate-900 dark:text-white text-lg">
                   Canonical Derivation
                 </h4>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Equations are derived directly from primary statutory documents, peer-reviewed medical
                   publications (The Lancet, NEJM), or accredited engineering handbooks rather than secondary
                   summaries.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-2">
-                <div className="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 space-y-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 2
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                <h4 className="font-bold text-slate-900 dark:text-white text-lg">
                   Automated Regression
                 </h4>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Each mathematical algorithm is backed by automated unit test suites verifying boundary
                   conditions, edge values, leap years, zero-division safeguards, and multi-currency formats.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 space-y-2">
-                <div className="text-xs font-bold uppercase text-emerald-600 dark:text-emerald-400">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 space-y-3">
+                <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 3
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                <h4 className="font-bold text-slate-900 dark:text-white text-lg">
                   Continuous Audit
                 </h4>
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Fiscal rules (tax brackets, FICA ceilings, 401(k) contribution caps) and academic
                   accreditation policies are re-audited annually to preserve real-world relevance.
                 </p>
@@ -446,17 +465,17 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Section: Engineering Studio & Leadership */}
-          <section id="team" className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-6">
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Leadership Team</span>
-            </div>
+          {/* Section: Leadership Team (Side-by-Side 2-Column Grid on Desktop) */}
+          <section id="team" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
             <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Executive Leadership</span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3">
                 Engineering Studio &amp; Leadership
               </h2>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+              <p className="text-base text-slate-600 dark:text-slate-300 max-w-4xl">
                 CalcDigi is engineered, operated, and maintained by{" "}
                 <strong className="text-slate-900 dark:text-white font-semibold">
                   Devcipator Software Engineering Studio
@@ -466,114 +485,127 @@ export default function Page() {
               </p>
             </div>
 
-            <div className="space-y-5 pt-2">
+            {/* Side-by-Side 2-Column Grid for Founders */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 pt-2">
               {/* Ali Zain Profile */}
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 p-6 sm:p-7 flex flex-col sm:flex-row gap-5 items-start">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white font-bold text-xl flex items-center justify-center shrink-0 shadow-sm">
-                  AZ
-                </div>
-                <div className="space-y-2 flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
-                      Ali Zain
-                    </h3>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                      <CheckCircle2 className="w-3 h-3" /> Founder &amp; Creator
-                    </span>
+              <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 p-7 sm:p-8 flex flex-col justify-between shadow-xs hover:border-emerald-500/40 transition-all">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
+                      AZ
+                    </div>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="font-serif text-2xl font-bold text-slate-900 dark:text-white">
+                          Ali Zain
+                        </h3>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                          <CheckCircle2 className="w-3 h-3" /> Founder &amp; Creator
+                        </span>
+                      </div>
+                      <div className="text-xs sm:text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">
+                        Product Director &amp; Editorial Lead
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                    Product Director &amp; Editorial Lead
-                  </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+
+                  <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed pt-2">
                     Ali Zain is the founder, creator, and visionary behind CalcDigi. Driven by a mission to
                     democratize institutional-grade calculation tools for consumers, students, homeowners, and
                     entrepreneurs, Ali conceived and directs CalcDigi&apos;s product roadmap, user experience
                     standards, and editorial integrity — ensuring every digital tool remains 100% free, private,
                     and ad-free forever.
                   </p>
-                  <div className="flex items-center gap-3 pt-2">
-                    <a
-                      href="https://x.com/CalcDigi"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      <span>X (Twitter)</span>
-                    </a>
-                    <span className="text-slate-300 dark:text-slate-700">•</span>
-                    <a
-                      href="https://www.linkedin.com/in/calc-digi-b684a6449/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      <span>LinkedIn</span>
-                    </a>
-                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 pt-6 border-t border-slate-200/60 dark:border-slate-800/80 mt-6">
+                  <a
+                    href="https://x.com/CalcDigi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/50 transition-all shadow-2xs"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>X (Twitter)</span>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/calc-digi-b684a6449/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:border-emerald-500/50 transition-all shadow-2xs"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>LinkedIn</span>
+                  </a>
                 </div>
               </div>
 
               {/* Tassawar Hussain Profile */}
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 p-6 sm:p-7 flex flex-col sm:flex-row gap-5 items-start">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-xl flex items-center justify-center shrink-0 shadow-sm">
-                  TH
-                </div>
-                <div className="space-y-2 flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
-                      Tassawar Hussain
-                    </h3>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">
-                      <CheckCircle2 className="w-3 h-3" /> Co-Founder
-                    </span>
+              <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 p-7 sm:p-8 flex flex-col justify-between shadow-xs hover:border-blue-500/40 transition-all">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
+                      TH
+                    </div>
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="font-serif text-2xl font-bold text-slate-900 dark:text-white">
+                          Tassawar Hussain
+                        </h3>
+                        <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">
+                          <CheckCircle2 className="w-3 h-3" /> Co-Founder
+                        </span>
+                      </div>
+                      <div className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 mt-0.5">
+                        Lead Software Architect &amp; Technical Director
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-xs font-semibold text-blue-600 dark:text-blue-400">
-                    Lead Software Architect &amp; Technical Director
-                  </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+
+                  <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed pt-2">
                     Tassawar is a computational systems engineer and software architect who co-founded
                     CalcDigi and engineered its core calculation algorithms, structured data schemas, and
                     high-throughput web infrastructure. With deep expertise in algorithmic precision, automated
                     unit testing, and technical SEO/AEO performance, he oversees formula validation and
                     continuous regulatory compliance.
                   </p>
-                  <div className="flex items-center gap-3 pt-2">
-                    <a
-                      href="https://x.com/CalcDigi"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      <span>X (Twitter)</span>
-                    </a>
-                    <span className="text-slate-300 dark:text-slate-700">•</span>
-                    <a
-                      href="https://www.linkedin.com/in/calc-digi-b684a6449/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-600 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400 transition-colors"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                      <span>LinkedIn</span>
-                    </a>
-                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 pt-6 border-t border-slate-200/60 dark:border-slate-800/80 mt-6">
+                  <a
+                    href="https://x.com/CalcDigi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/50 transition-all shadow-2xs"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>X (Twitter)</span>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/calc-digi-b684a6449/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:border-blue-500/50 transition-all shadow-2xs"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>LinkedIn</span>
+                  </a>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Section: Medical & Financial Disclaimer */}
-          <section className="rounded-2xl border border-amber-200/80 bg-amber-50/60 p-6 sm:p-7 dark:border-amber-900/50 dark:bg-amber-950/20">
-            <div className="flex items-start gap-3.5">
-              <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-              <div className="space-y-1.5">
-                <h3 className="font-bold text-slate-900 dark:text-white text-base">
+          <section className="rounded-3xl border border-amber-200/80 bg-amber-50/70 p-7 sm:p-9 dark:border-amber-900/50 dark:bg-amber-950/25">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 mt-0.5">
+                <AlertTriangle className="w-5 h-5" />
+              </div>
+              <div className="space-y-2 flex-1">
+                <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
                   Medical &amp; Financial Disclaimer
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                   CalcDigi provides computational tools and educational content for informational and general
                   modeling purposes only. Calculations do not constitute formal clinical diagnoses,
                   personalized medical prescriptions, certified legal opinions, formal mortgage lending
@@ -600,25 +632,25 @@ export default function Page() {
           </section>
 
           {/* Section: Contact & Technical Inquiries */}
-          <section className="rounded-3xl border border-slate-200/80 bg-white p-6 sm:p-8 md:p-10 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="space-y-1 text-center sm:text-left">
-              <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
+          <section className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="space-y-2 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
                 <Mail className="w-4 h-4" />
-                <span>Get in Touch</span>
+                <span>Direct Access</span>
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
                 Have a Question or Formula Feedback?
               </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-400 max-w-lg">
+              <p className="text-base text-slate-600 dark:text-slate-400 max-w-xl">
                 We welcome bug reports, formula audit requests, academic collaborations, and feature suggestions
-                from our global community.
+                from our global user community.
               </p>
             </div>
             <Link
               href="/pages/contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition-colors shadow-xs shrink-0"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-base transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 shrink-0"
             >
-              <span>Contact Team</span>
+              <span>Contact Engineering Team</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </section>

@@ -15,6 +15,14 @@
 /* The site's dark-mode toggle (public/js/main.js) puts `.dark` on <body>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Ambient Hero Green Glow for flagship pages */
+.hero-bg-glow {
+  background: radial-gradient(circle at 50% 35%, rgba(209, 250, 229, 0.65) 0%, rgba(236, 253, 245, 0.5) 45%, rgba(250, 251, 252, 0.9) 80%, #fafbfc 100%);
+}
+:where(.dark) .hero-bg-glow {
+  background: radial-gradient(circle at 50% 35%, rgba(6, 95, 70, 0.4) 0%, rgba(4, 47, 46, 0.3) 45%, rgba(15, 23, 42, 0.85) 80%, #020617 100%);
+}
+
 /* Accessibility contrast enhancement for WCAG AA compliance (4.5:1 ratio) */
 :root:not(.dark) .text-slate-400 {
   color: #64748b;
