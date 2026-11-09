@@ -6,8 +6,11 @@
 @source "../components/site";
 @source "../components/ui";
 @source "../components/calcs";
+@source "../components";
 @source "./page.tsx";
 @source "./not-found.tsx";
+@source "./pages";
+@source "./calculators";
 
 /* The site's dark-mode toggle (public/js/main.js) puts `.dark` on <body>. */
 @custom-variant dark (&:where(.dark, .dark *));
