@@ -16,15 +16,17 @@ import {
 } from "lucide-react";
 import { JsonLd } from "@/components/flagship/shell";
 import { SITE_URL } from "@/lib/site";
-import { CATEGORIES, TOTAL_CALCULATOR_COUNT } from "@/lib/calculators";
+import { CATEGORIES } from "@/lib/calculators";
 import { TAX_YEAR } from "@/lib/tax";
 
 export const metadata: Metadata = {
   title: "About CalcDigi: Methodology & Editorial Standards",
-  description: `About CalcDigi: ${TOTAL_CALCULATOR_COUNT} verified calculators. Review our peer-reviewed calculation methodology, IRS/WHO compliance, and editorial standards.`,
+  description:
+    "About CalcDigi: 341+ verified calculators. Review our peer-reviewed calculation methodology, IRS/WHO compliance, and editorial standards.",
   openGraph: {
     title: "About CalcDigi: Methodology & Editorial Standards",
-    description: `About CalcDigi: ${TOTAL_CALCULATOR_COUNT} verified calculators. Review our peer-reviewed calculation methodology, IRS/WHO compliance, and editorial standards.`,
+    description:
+      "About CalcDigi: 341+ verified calculators. Review our peer-reviewed calculation methodology, IRS/WHO compliance, and editorial standards.",
     type: "website",
     url: `${SITE_URL}/pages/about`,
     siteName: "CalcDigi",
@@ -33,7 +35,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "About CalcDigi: Methodology & Editorial Standards",
-    description: `About CalcDigi: ${TOTAL_CALCULATOR_COUNT} verified calculators. Review our peer-reviewed calculation methodology, IRS/WHO compliance, and editorial standards.`,
+    description:
+      "About CalcDigi: 341+ verified calculators. Review our peer-reviewed calculation methodology, IRS/WHO compliance, and editorial standards.",
     images: [`${SITE_URL}/og-image.png`],
     creator: "@CalcDigi",
     site: "@CalcDigi",
@@ -61,63 +64,69 @@ const SCHEMA_DATA = {
       inLanguage: "en-US",
       datePublished: "2026-01-01",
       dateModified: "2026-11-08",
-      author: {
-        "@type": "Organization",
-        name: "CalcDigi Editorial Team",
-        url: `${SITE_URL}/pages/about`,
-        sameAs: [
-          "https://x.com/CalcDigi",
-          "https://www.linkedin.com/in/calc-digi-b684a6449/",
-          "https://www.instagram.com/calc.digi",
-          "https://www.producthunt.com/@calcdigi",
-          "https://alternativeto.net/software/calcdigi/",
-        ],
-      },
-      mainEntity: {
-        "@type": "Organization",
+      lastReviewed: "2026-11-01",
+      about: {
         "@id": `${SITE_URL}/#organization`,
+      },
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "CalcDigi",
+      url: `${SITE_URL}/`,
+      logo: `${SITE_URL}/og-image.png`,
+      parentOrganization: {
+        "@type": "Organization",
+        name: "Devcipator Software Agency",
+        url: "https://devcipator.com",
+      },
+      sameAs: [
+        "https://x.com/CalcDigi",
+        "https://www.linkedin.com/in/calc-digi-b684a6449/",
+        "https://www.instagram.com/calc.digi",
+        "https://www.producthunt.com/@calcdigi",
+        "https://alternativeto.net/software/calcdigi/",
+      ],
+      founder: [
+        { "@id": `${SITE_URL}/pages/about#ali-zain` },
+        { "@id": `${SITE_URL}/pages/about#tassawar-hussain` },
+      ],
+      knowsAbout: [
+        "Financial Underwriting & Tax Modeling",
+        "Medical Anthropometry & Clinical Health Metrics",
+        "Applied Mathematics & Statistical Algorithms",
+        "Scientific Unit Conversions & Physical Constants",
+      ],
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/pages/about#ali-zain`,
+      name: "Ali Zain",
+      jobTitle: "Founder, Product Director & Editorial Lead",
+      worksFor: {
+        "@type": "Organization",
         name: "CalcDigi",
         url: `${SITE_URL}/`,
-        logo: `${SITE_URL}/og-image.png`,
-        founder: [
-          {
-            "@type": "Person",
-            name: "Ali Zain",
-            jobTitle: "Founder, Creator & Product Director",
-            sameAs: [
-              "https://x.com/CalcDigi",
-              "https://www.linkedin.com/in/calc-digi-b684a6449/",
-            ],
-          },
-          {
-            "@type": "Person",
-            name: "Tassawar Hussain",
-            jobTitle: "Co-Founder & Lead Software Architect",
-            sameAs: [
-              "https://x.com/CalcDigi",
-              "https://www.linkedin.com/in/calc-digi-b684a6449/",
-            ],
-          },
-        ],
-        parentOrganization: {
-          "@type": "Organization",
-          name: "Devcipator",
-          url: "https://devcipator.com",
-        },
-        sameAs: [
-          "https://x.com/CalcDigi",
-          "https://www.linkedin.com/in/calc-digi-b684a6449/",
-          "https://www.instagram.com/calc.digi",
-          "https://www.producthunt.com/@calcdigi",
-          "https://alternativeto.net/software/calcdigi/",
-        ],
-        knowsAbout: [
-          "Financial Underwriting & Tax Modeling",
-          "Medical Anthropometry & Clinical Health Metrics",
-          "Applied Mathematics & Statistical Algorithms",
-          "Scientific Unit Conversions & Physical Constants",
-        ],
       },
+      sameAs: [
+        "https://x.com/CalcDigi",
+        "https://www.linkedin.com/in/calc-digi-b684a6449/",
+      ],
+    },
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/pages/about#tassawar-hussain`,
+      name: "Tassawar Hussain",
+      jobTitle: "Co-Founder, Lead Software Architect & Technical Director",
+      worksFor: {
+        "@type": "Organization",
+        name: "CalcDigi",
+        url: `${SITE_URL}/`,
+      },
+      sameAs: [
+        "https://x.com/CalcDigi",
+        "https://www.linkedin.com/in/calc-digi-b684a6449/",
+      ],
     },
   ],
 };
@@ -164,7 +173,7 @@ export default function Page() {
               <span className="tracking-wide uppercase">PEER-REVIEWED &amp; ZERO-KNOWLEDGE ARCHITECTURE</span>
             </div>
 
-            {/* Main H1 Heading */}
+            {/* Single H1 Heading */}
             <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white tracking-tight leading-[1.12] max-w-4xl mx-auto">
               Built for Real People. <br className="hidden sm:inline" />
               <span className="text-[#18533b] dark:text-emerald-400">
@@ -183,7 +192,7 @@ export default function Page() {
             <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-5xl mx-auto">
               <div className="rounded-2xl border border-slate-200/90 bg-white/90 backdrop-blur-xs p-5 sm:p-6 text-center shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/40 hover:shadow-sm">
                 <div className="font-serif text-3xl sm:text-4xl font-bold text-emerald-600 dark:text-emerald-400">
-                  {TOTAL_CALCULATOR_COUNT}+
+                  341+
                 </div>
                 <div className="mt-1.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Verified Tools
@@ -217,10 +226,9 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Spacious Main Content Container (Standardized with max-w-7xl) */}
+        {/* Spacious Main Content Container */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
-          
-          {/* Section: Our Mission */}
+          {/* Section: Our Mission (H2) */}
           <section className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90">
             <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">
               <Target className="w-4 h-4" />
@@ -245,7 +253,7 @@ export default function Page() {
             </div>
           </section>
 
-          {/* 4 Core Pillars Grid (Spanned 4-column layout) */}
+          {/* 4 Core Pillars Grid (H3 Subheadings) */}
           <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="rounded-2xl border border-slate-200/80 bg-white p-7 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 transition-all hover:border-emerald-500/50 hover:shadow-md flex flex-col justify-between">
               <div>
@@ -308,7 +316,7 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Section: Calculation Methodology & Mathematical Standards (3-Column Layout) */}
+          {/* Section: Calculation Methodology & Mathematical Standards (H2) */}
           <section id="methodology" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
@@ -319,13 +327,14 @@ export default function Page() {
                 Calculation Methodology &amp; Mathematical Standards
               </h2>
               <p className="text-base text-slate-600 dark:text-slate-300 max-w-4xl">
-                To guarantee uncompromising precision across all {TOTAL_CALCULATOR_COUNT}+ digital tools,
-                CalcDigi enforces strict algorithmic verification protocols based on statutory codes and
-                authoritative scientific standards:
+                To guarantee uncompromising precision across all 341+ digital tools, CalcDigi enforces
+                strict algorithmic verification protocols based on statutory codes and authoritative
+                scientific standards:
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
+              {/* Card 1: Financial & Tax */}
               <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
@@ -338,13 +347,42 @@ export default function Page() {
                 <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">IRS Alignment:</strong> Income
-                    tax brackets, standard deduction schedules, and capital gains rates updated per official
-                    IRS Rev. Proc. 2025-45 for tax year {TAX_YEAR}.
+                    tax brackets, standard deduction schedules, and capital gains rates updated per official{" "}
+                    <a
+                      href="https://www.irs.gov"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-emerald-600 dark:hover:text-emerald-400 hover:decoration-emerald-500 transition-colors font-medium"
+                    >
+                      IRS Rev. Proc. 2025-45
+                    </a>{" "}
+                    for tax year {TAX_YEAR}.
                   </li>
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Regulation Z Compliance:</strong> Mortgage
-                    and auto loan amortizations strictly comply with Federal Reserve Truth in Lending Act and
-                    CFPB models.
+                    <strong className="text-slate-800 dark:text-slate-100">Regulation Z Compliance:</strong>{" "}
+                    <Link
+                      href="/calculators/finance/mortgage-calculator"
+                      className="text-emerald-700 dark:text-emerald-400 hover:underline font-semibold"
+                    >
+                      Mortgage
+                    </Link>{" "}
+                    and{" "}
+                    <Link
+                      href="/calculators/finance/auto-loan-calculator"
+                      className="text-emerald-700 dark:text-emerald-400 hover:underline font-semibold"
+                    >
+                      auto loan amortizations
+                    </Link>{" "}
+                    strictly comply with Federal Reserve Truth in Lending Act and{" "}
+                    <a
+                      href="https://www.consumerfinance.gov"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-emerald-600 dark:hover:text-emerald-400 hover:decoration-emerald-500 transition-colors font-medium"
+                    >
+                      CFPB
+                    </a>{" "}
+                    actuarial models.
                   </li>
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">Actuarial Compound Growth:</strong> Continuous
@@ -353,6 +391,7 @@ export default function Page() {
                 </ul>
               </div>
 
+              {/* Card 2: Clinical & Anthropometric */}
               <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">
@@ -364,21 +403,53 @@ export default function Page() {
                 </h3>
                 <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Body Mass Formulas:</strong> Body
-                    Mass Index (BMI) computations implement World Health Organization (WHO) international weight
-                    classifications.
+                    <strong className="text-slate-800 dark:text-slate-100">Body Mass Formulas:</strong>{" "}
+                    <Link
+                      href="/calculators/health/bmi-calculator"
+                      className="text-emerald-700 dark:text-emerald-400 hover:underline font-semibold"
+                    >
+                      Body Mass Index (BMI)
+                    </Link>{" "}
+                    computations implement{" "}
+                    <a
+                      href="https://www.who.int"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-emerald-600 dark:hover:text-emerald-400 hover:decoration-emerald-500 transition-colors font-medium"
+                    >
+                      World Health Organization (WHO)
+                    </a>{" "}
+                    international weight classifications.
                   </li>
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Metabolic Basal Rate (BMR):</strong> Calorie
-                    and TDEE estimators apply the clinically validated Mifflin-St Jeor and Katch-McArdle equations.
+                    <strong className="text-slate-800 dark:text-slate-100">Metabolic Basal Rate:</strong> Calorie
+                    and TDEE estimators apply the clinically validated Mifflin-St Jeor and Katch-McArdle equations
+                    to compute{" "}
+                    <Link
+                      href="/calculators/health/bmr-calculator"
+                      className="text-emerald-700 dark:text-emerald-400 hover:underline font-semibold"
+                    >
+                      Metabolic Basal Rate (BMR)
+                    </Link>
+                    .
                   </li>
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">Pediatric Growth Models:</strong> Percentile
-                    calculations track CDC 2000 Growth Charts and WHO Child Growth Standards.
+                    calculations track{" "}
+                    <a
+                      href="https://www.cdc.gov/growthcharts/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-emerald-600 dark:hover:text-emerald-400 hover:decoration-emerald-500 transition-colors font-medium"
+                    >
+                      CDC 2000 Growth Charts
+                    </a>{" "}
+                    and WHO Child Growth Standards.
                   </li>
                 </ul>
               </div>
 
+              {/* Card 3: Scientific & Math */}
               <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">
@@ -391,11 +462,35 @@ export default function Page() {
                 <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">NIST Constants:</strong> Physical and
-                    chemical constants match 2022 CODATA values published by NIST (NIST SP 330).
+                    chemical constants match 2022 CODATA values published by{" "}
+                    <a
+                      href="https://www.nist.gov"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-emerald-600 dark:hover:text-emerald-400 hover:decoration-emerald-500 transition-colors font-medium"
+                    >
+                      NIST (NIST SP 330)
+                    </a>
+                    .
                   </li>
                   <li>
-                    <strong className="text-slate-800 dark:text-slate-100">Standard Normalization:</strong> Measurement
-                    converters enforce ISO 80000-1 dimensional standards.
+                    <strong className="text-slate-800 dark:text-slate-100">Standard Normalization:</strong>{" "}
+                    <Link
+                      href="/calculators/measurements/length-converter"
+                      className="text-emerald-700 dark:text-emerald-400 hover:underline font-semibold"
+                    >
+                      Measurement converters
+                    </Link>{" "}
+                    enforce{" "}
+                    <a
+                      href="https://www.iso.org"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-slate-300 dark:decoration-slate-600 hover:text-emerald-600 dark:hover:text-emerald-400 hover:decoration-emerald-500 transition-colors font-medium"
+                    >
+                      ISO 80000-1
+                    </a>{" "}
+                    dimensional standards.
                   </li>
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">IEEE 754 Precision:</strong> Mathematical
@@ -406,7 +501,7 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Section: Editorial Policy & 3-Tier Quality Control */}
+          {/* Section: Editorial Policy & 3-Tier Quality Control (H2) */}
           <section id="editorial" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
@@ -427,9 +522,9 @@ export default function Page() {
                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 1
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-lg">
+                <h3 className="font-bold text-slate-900 dark:text-white text-lg">
                   Canonical Derivation
-                </h4>
+                </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Equations are derived directly from primary statutory documents, peer-reviewed medical
                   publications (The Lancet, NEJM), or accredited engineering handbooks rather than secondary
@@ -441,9 +536,9 @@ export default function Page() {
                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 2
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-lg">
+                <h3 className="font-bold text-slate-900 dark:text-white text-lg">
                   Automated Regression
-                </h4>
+                </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Each mathematical algorithm is backed by automated unit test suites verifying boundary
                   conditions, edge values, leap years, zero-division safeguards, and multi-currency formats.
@@ -454,18 +549,29 @@ export default function Page() {
                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 3
                 </div>
-                <h4 className="font-bold text-slate-900 dark:text-white text-lg">
+                <h3 className="font-bold text-slate-900 dark:text-white text-lg">
                   Continuous Audit
-                </h4>
+                </h3>
                 <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                   Fiscal rules (tax brackets, FICA ceilings, 401(k) contribution caps) and academic
                   accreditation policies are re-audited annually to preserve real-world relevance.
                 </p>
               </div>
             </div>
+
+            {/* Content Freshness Signal (Audit Timestamp) */}
+            <div className="pt-6 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between flex-wrap gap-3 text-xs text-slate-500 dark:text-slate-400">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100/90 dark:bg-slate-800/80 border border-slate-200/60 dark:border-slate-700/60 text-slate-700 dark:text-slate-300 font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                <span>Last Algorithmic &amp; Statutory Audit: November 2026</span>
+              </div>
+              <span className="text-[11px] text-slate-400 dark:text-slate-500">
+                Quarterly Editorial &amp; Algorithmic Compliance Cycle
+              </span>
+            </div>
           </section>
 
-          {/* Section: Leadership Team (Side-by-Side 2-Column Grid on Desktop) */}
+          {/* Section: Leadership Team (H2) */}
           <section id="team" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
@@ -478,7 +584,7 @@ export default function Page() {
               <p className="text-base text-slate-600 dark:text-slate-300 max-w-4xl">
                 CalcDigi is engineered, operated, and maintained by{" "}
                 <strong className="text-slate-900 dark:text-white font-semibold">
-                  Devcipator Software Engineering Studio
+                  Devcipator Software Agency
                 </strong>
                 , an independent digital lab focused on algorithmic software, privacy-first web utilities,
                 and high-performance computing.
@@ -504,7 +610,7 @@ export default function Page() {
                         </span>
                       </div>
                       <div className="text-xs sm:text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">
-                        Product Director &amp; Editorial Lead
+                        Founder, Product Director &amp; Editorial Lead
                       </div>
                     </div>
                   </div>
@@ -557,7 +663,7 @@ export default function Page() {
                         </span>
                       </div>
                       <div className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 mt-0.5">
-                        Lead Software Architect &amp; Technical Director
+                        Co-Founder, Lead Software Architect &amp; Technical Director
                       </div>
                     </div>
                   </div>
@@ -595,7 +701,7 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Section: Medical & Financial Disclaimer */}
+          {/* Section: Medical & Financial Disclaimer (H3) */}
           <section className="rounded-3xl border border-amber-200/80 bg-amber-50/70 p-7 sm:p-9 dark:border-amber-900/50 dark:bg-amber-950/25">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 mt-0.5">
@@ -631,7 +737,7 @@ export default function Page() {
             </div>
           </section>
 
-          {/* Section: Contact & Technical Inquiries */}
+          {/* Section: Contact & Technical Inquiries (H3) */}
           <section className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-2 text-center md:text-left">
               <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
