@@ -227,7 +227,7 @@ export default function Page() {
         </section>
 
         {/* Spacious Main Content Container */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 space-y-14 sm:space-y-16 lg:space-y-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 flex flex-col gap-12 sm:gap-16 lg:gap-20">
           {/* Section: Our Mission (H2) */}
           <section className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90">
             <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-3">
@@ -317,7 +317,7 @@ export default function Page() {
           </section>
 
           {/* Section: Calculation Methodology & Mathematical Standards (H2) */}
-          <section id="methodology" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
+          <section id="methodology" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 flex flex-col gap-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
                 <Award className="w-4 h-4" />
@@ -335,7 +335,7 @@ export default function Page() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
               {/* Card 1: Financial & Tax */}
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
                     IRS TAX YEAR {TAX_YEAR}
@@ -344,7 +344,7 @@ export default function Page() {
                 <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
                   1. Financial &amp; Tax Calculators
                 </h3>
-                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
+                <ul className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">IRS Alignment:</strong> Income
                     tax brackets, standard deduction schedules, and capital gains rates updated per official{" "}
@@ -392,7 +392,7 @@ export default function Page() {
               </div>
 
               {/* Card 2: Clinical & Anthropometric */}
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300">
                     WHO &amp; CDC
@@ -401,7 +401,7 @@ export default function Page() {
                 <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
                   2. Clinical &amp; Anthropometric
                 </h3>
-                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
+                <ul className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">Body Mass Formulas:</strong>{" "}
                     <Link
@@ -450,7 +450,7 @@ export default function Page() {
               </div>
 
               {/* Card 3: Scientific & Math */}
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 space-y-4">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-950/60 p-6 sm:p-7 flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-950 dark:text-purple-300">
                     NIST &amp; ISO
@@ -459,7 +459,7 @@ export default function Page() {
                 <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
                   3. Scientific &amp; Math Calculators
                 </h3>
-                <ul className="space-y-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
+                <ul className="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-300 pl-4 list-disc leading-relaxed">
                   <li>
                     <strong className="text-slate-800 dark:text-slate-100">NIST Constants:</strong> Physical and
                     chemical constants match 2022 CODATA values published by{" "}
@@ -502,7 +502,7 @@ export default function Page() {
           </section>
 
           {/* Section: Editorial Policy & 3-Tier Quality Control (H2) */}
-          <section id="editorial" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
+          <section id="editorial" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 flex flex-col gap-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
                 <FileText className="w-4 h-4" />
@@ -518,7 +518,7 @@ export default function Page() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 space-y-3">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 flex flex-col gap-3">
                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 1
                 </div>
@@ -532,7 +532,7 @@ export default function Page() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 space-y-3">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 flex flex-col gap-3">
                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 2
                 </div>
@@ -545,7 +545,7 @@ export default function Page() {
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 space-y-3">
+              <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 flex flex-col gap-3">
                 <div className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                   Tier 3
                 </div>
@@ -572,7 +572,7 @@ export default function Page() {
           </section>
 
           {/* Section: Leadership Team (H2) */}
-          <section id="team" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 space-y-8">
+          <section id="team" className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 flex flex-col gap-8">
             <div>
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
                 <CheckCircle2 className="w-4 h-4" />
@@ -595,7 +595,7 @@ export default function Page() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 pt-2">
               {/* Ali Zain Profile */}
               <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 p-7 sm:p-8 flex flex-col justify-between shadow-xs hover:border-emerald-500/40 transition-all">
-                <div className="space-y-4">
+                <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-600 to-teal-700 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
                       AZ
@@ -648,7 +648,7 @@ export default function Page() {
 
               {/* Tassawar Hussain Profile */}
               <div className="rounded-3xl border border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 p-7 sm:p-8 flex flex-col justify-between shadow-xs hover:border-blue-500/40 transition-all">
-                <div className="space-y-4">
+                <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-4">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-bold text-2xl flex items-center justify-center shrink-0 shadow-sm">
                       TH
@@ -707,7 +707,7 @@ export default function Page() {
               <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 mt-0.5">
                 <AlertTriangle className="w-5 h-5" />
               </div>
-              <div className="space-y-2 flex-1">
+              <div className="flex flex-col gap-2 flex-1">
                 <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
                   Medical &amp; Financial Disclaimer
                 </h3>
@@ -739,7 +739,7 @@ export default function Page() {
 
           {/* Section: Contact & Technical Inquiries (H3) */}
           <section className="rounded-3xl border border-slate-200/80 bg-white p-8 sm:p-10 lg:p-12 shadow-xs dark:border-slate-800 dark:bg-slate-900/90 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="space-y-2 text-center md:text-left">
+            <div className="flex flex-col gap-2 text-center md:text-left">
               <div className="flex items-center justify-center md:justify-start gap-2 text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-1">
                 <Mail className="w-4 h-4" />
                 <span>Direct Access</span>

@@ -15,6 +15,11 @@
 /* The site's dark-mode toggle (public/js/main.js) puts `.dark` on <body>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  --tw-space-y-reverse: 0;
+  --tw-space-x-reverse: 0;
+}
+
 /* Ambient Hero Green Glow for flagship pages */
 .hero-bg-glow {
   background: radial-gradient(circle at 50% 35%, rgba(209, 250, 229, 0.65) 0%, rgba(236, 253, 245, 0.5) 45%, rgba(250, 251, 252, 0.9) 80%, #fafbfc 100%);
