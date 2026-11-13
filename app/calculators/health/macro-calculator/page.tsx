@@ -110,7 +110,7 @@ export default function Page() {
               url: `${SITE_URL}${PATH}`,
               description: DESCRIPTION,
               applicationCategory: "HealthApplication",
-              operatingSystem: "Any",
+              operatingSystem: "All",
               browserRequirements: "Requires JavaScript",
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
             },

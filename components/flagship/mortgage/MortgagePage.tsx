@@ -81,7 +81,7 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
               url: `${SITE_URL}${path}`,
               description: DESCRIPTION,
               applicationCategory: "FinanceApplication",
-              operatingSystem: "Any",
+              operatingSystem: "All",
               browserRequirements: "Requires JavaScript",
               inLanguage: "en-US",
               isAccessibleForFree: true,

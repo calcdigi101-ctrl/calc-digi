@@ -3,6 +3,7 @@ import { Suspense, type ReactNode } from "react";
 import { CalculatorPage, Editorial, Faq, JsonLd, RelatedLinks } from "./shell";
 import { SITE_URL } from "@/lib/site";
 import { MATH_SOLVERS, type MathSolverConfig } from "@/lib/mathSolvers";
+import { getCompleteCalculatorFaqs } from "@/lib/calcFaqs";
 
 /**
  * Shared server-rendered frame for every redesigned calculator: JSON-LD,
@@ -14,7 +15,7 @@ export function CalcPage({
   title,
   intro,
   description,
-  appCategory = "UtilitiesApplication",
+  appCategory = "UtilityApplication",
   article,
   html,
   faq = [],
@@ -47,8 +48,8 @@ export function CalcPage({
     logo: {
       "@type": "ImageObject",
       url: `${SITE_URL}/og-image.png`,
-          width: 1200,
-          height: 630,
+      width: 1200,
+      height: 630,
     },
     sameAs: [
       "https://x.com/CalcDigi",
@@ -58,6 +59,46 @@ export function CalcPage({
       "https://alternativeto.net/software/calcdigi/"
     ],
   };
+
+  const author = {
+    "@type": "Organization",
+    name: "CalcDigi Editorial Team",
+    url: `${SITE_URL}/pages/about`,
+    sameAs: [
+      "https://x.com/CalcDigi",
+      "https://www.linkedin.com/in/calc-digi-b684a6449/"
+    ],
+  };
+
+  const allFaqs = getCompleteCalculatorFaqs(title, category.label, faq);
+
+  const resolvedAppCategory = (() => {
+    let cat = appCategory;
+    if (cat === "UtilitiesApplication") cat = "UtilityApplication";
+    if (cat && cat !== "UtilityApplication") return cat;
+
+    const catHref = (category.href || "").toLowerCase();
+    const catLabel = (category.label || "").toLowerCase();
+    if (catHref.includes("finance") || catHref.includes("business") || catLabel.includes("finance") || catLabel.includes("business")) {
+      return "FinanceApplication";
+    }
+    if (
+      catHref.includes("education") ||
+      catHref.includes("math") ||
+      catHref.includes("science") ||
+      catHref.includes("physics") ||
+      catLabel.includes("education") ||
+      catLabel.includes("math") ||
+      catLabel.includes("science") ||
+      catLabel.includes("physics")
+    ) {
+      return "EducationalApplication";
+    }
+    if (catHref.includes("health") || catHref.includes("baby") || catLabel.includes("health") || catLabel.includes("baby")) {
+      return "HealthApplication";
+    }
+    return "UtilityApplication";
+  })();
 
   const graph: object[] = [
     {
@@ -73,17 +114,63 @@ export function CalcPage({
       name: title,
       url: `${SITE_URL}${path}`,
       description,
-      applicationCategory: appCategory,
-      operatingSystem: "Any",
+      applicationCategory: resolvedAppCategory,
+      operatingSystem: "All",
       browserRequirements: "Requires JavaScript",
       inLanguage: "en-US",
       isAccessibleForFree: true,
       softwareVersion: "2026.1",
-      dateModified: "2026-10-23",
+      datePublished: "2026-01-01",
+      dateModified: "2026-11-03",
+      author,
       publisher,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
+    {
+      "@type": "HowTo",
+      name: `How to Calculate Using the ${title}`,
+      description: `Step-by-step instructions to calculate and verify results with CalcDigi's ${title}.`,
+      inLanguage: "en-US",
+      datePublished: "2026-01-01",
+      dateModified: "2026-11-03",
+      author,
+      publisher,
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Enter Calculation Inputs",
+          text: `Enter your values into the ${title} input fields, choosing appropriate metric or imperial units.`,
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Review Instant Precision Results",
+          text: `Review the instant calculated output, breakdown summaries, and verified benchmarks.`,
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Export or Share Calculation",
+          text: "Print an official calculation summary, save as PDF, or share the pre-filled calculation link.",
+        },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      inLanguage: "en-US",
+      datePublished: "2026-01-01",
+      dateModified: "2026-11-03",
+      author,
+      publisher,
+      mainEntity: allFaqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
   ];
+
   if (
     category.label === "Health" ||
     category.label === "Health & Fitness" ||
@@ -95,20 +182,12 @@ export function CalcPage({
       url: `${SITE_URL}${path}`,
       description,
       inLanguage: "en-US",
-      dateModified: "2026-10-23",
+      datePublished: "2026-01-01",
+      dateModified: "2026-11-03",
+      author,
       publisher,
       aspect: ["Overview", "Calculation", "Clinical Guidelines", "Reference Ranges"],
       medicalAudience: "Patients and Health Consumers",
-    });
-  }
-
-  if (faq.length) {
-    graph.push({
-      "@type": "FAQPage",
-      inLanguage: "en-US",
-      dateModified: "2026-10-23",
-      publisher,
-      mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
     });
   }
 
@@ -153,20 +232,14 @@ export function CalcPage({
             <RelatedLinks links={related} />
           </section>
         ) : null}
-        {article || html || faq.length ? (
-          <div className="fx-no-print">
-            <Editorial>
-              {article}
-              {html ? <div className="fx-prose" dangerouslySetInnerHTML={{ __html: html }} /> : null}
-              {faq.length ? (
-                <>
-                  <h2>Frequently asked questions</h2>
-                  <Faq items={faq} />
-                </>
-              ) : null}
-            </Editorial>
-          </div>
-        ) : null}
+        <div className="fx-no-print">
+          <Editorial>
+            {article}
+            {html ? <div className="fx-prose" dangerouslySetInnerHTML={{ __html: html }} /> : null}
+            <h2>Frequently asked questions</h2>
+            <Faq items={allFaqs} />
+          </Editorial>
+        </div>
       </CalculatorPage>
     </>
   );
