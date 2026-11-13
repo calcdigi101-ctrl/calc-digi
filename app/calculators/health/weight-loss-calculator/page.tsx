@@ -28,28 +28,11 @@ export default function WeightLossPage() {
       appCategory="HealthApplication"
       mathExpression="Daily Calories = Maintenance TDEE - Target Deficit"
       related={[
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Weight" },
-        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
-      ]}
-      faq={[
-        {
-          q: "What is the maximum safe rate of weight loss per week?",
-          a: "The American Academy of Family Physicians and The Obesity Society advise losing no more than 0.5% to 1.0% of total body weight per week (typically 1 to 2 lbs for most adults). Losing faster than this dramatically increases the risk of gallstone formation, electrolyte disturbances, hair shedding (telogen effluvium), and substantial lean muscle wasting.",
-        },
-        {
-          q: "Why does weight loss always slow down or plateau after 6 to 8 weeks?",
-          a: "Initial weight loss includes glycogen and water (each gram of glycogen binds 3 to 4 grams of water). As pure fat is mobilized, loss rates normalize. Furthermore, as you lose weight, your lower body mass burns fewer calories, gradually shrinking your initial deficit until energy intake matches expenditure—creating a plateau. Recalculating your maintenance calories or introducing a 1-week diet break at maintenance restores metabolic momentum.",
-        },
-        {
-          q: "What is the absolute minimum calorie intake recommended?",
-          a: "Clinical nutrition guidelines recommend a strict floor of 1,200 kcal/day for adult women and 1,500 kcal/day for adult men without direct medical supervision. Diets below these thresholds cannot provide the essential fatty acids, vitamins, and minerals necessary to sustain immune function and organ health.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

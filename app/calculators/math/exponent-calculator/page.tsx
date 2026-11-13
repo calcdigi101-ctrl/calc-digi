@@ -65,12 +65,10 @@ const GROWTH_DOMAINS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/logarithm-calculator", icon: "🪵", name: "Logarithm Calculator" },
-  { href: "/calculators/math/square-root-calculator", icon: "√", name: "Square Root" },
-  { href: "/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest" },
-  { href: "/calculators/math/scientific-notation-calculator", icon: "🔬", name: "Scientific Notation" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/logarithm-calculator", icon: "🪵", name: "Logarithm Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/square-root-calculator", icon: "√", name: "Square Root Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/scientific-notation-calculator", icon: "🔬", name: "Scientific Notation Calculator" },
 ];
 
 export default function Page() {

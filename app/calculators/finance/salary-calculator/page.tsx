@@ -182,12 +182,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay" },
-        { href: "/calculators/finance/hourly-to-salary-calculator", icon: "⏱️", name: "Hourly to Salary" },
-        { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Income Tax" },
-        { href: "/calculators/finance/budget-calculator", icon: "📋", name: "Budget Calculator" },
-        { href: "/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
-        { href: "/calculators/finance/freelancer-tax-calculator", icon: "💻", name: "Freelancer Tax" },
+        { href: "https://www.calcdigi.com/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/hourly-to-salary-calculator", icon: "⏱️", name: "Hourly to Salary Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/tax-calculator", icon: "📑", name: "Income Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/budget-calculator", icon: "📋", name: "Household Budget Calculator" },
       ]}
     >
       <Calculator />

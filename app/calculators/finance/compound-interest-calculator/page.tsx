@@ -261,12 +261,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/investment-calculator", icon: "📈", name: "Investment Calculator" },
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
-        { href: "/calculators/finance/apy-calculator", icon: "💹", name: "APY Calculator" },
-        { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Calculator" },
-        { href: "/calculators/finance/inflation-calculator", icon: "🎈", name: "Inflation Calculator" },
-        { href: "/calculators/finance/cd-calculator", icon: "🔒", name: "CD Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/investment-calculator", icon: "📈", name: "Investment Return Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/apy-calculator", icon: "💹", name: "APY Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Savings Calculator" },
       ]}
     >
       <Calculator />

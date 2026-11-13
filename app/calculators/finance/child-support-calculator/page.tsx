@@ -15,7 +15,12 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
-      title="Child Support Calculator"
+      related={[
+        { href: "https://www.calcdigi.com/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator (PITI & Amortization)" },
+        { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💰", name: "Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff Calculator" },
+      ]} title="Child Support Calculator"
       intro="Estimate statutory child support obligations using the Income Shares Model. Calculate proportional parental net income splits, overnight parenting time adjustments, and childcare add-ons."
       description={DESCRIPTION}
       appCategory="FinanceApplication"

@@ -34,32 +34,11 @@ export default function OneRepMaxPage() {
       appCategory="HealthApplication"
       mathExpression="1RM = Weight * (1 + Reps / 30)"
       related={[
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
-        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max Calculator" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-      ]}
-      faq={[
-        {
-          q: "Which 1RM formula is the most accurate?",
-          a: "Peer-reviewed meta-analyses show that the Epley and Brzycki formulas have the lowest standard error of estimation (SEE) across collegiate and recreational athletes. For lower body lifts (squat and deadlift), Epley is typically superior, whereas Brzycki prevents overestimating bench press capacity. Our engine computes a multi-formula composite average for balanced programming.",
-        },
-        {
-          q: "Can beginners use a 1RM calculator?",
-          a: "Beginners (under 6 months of structured resistance training) should not train at or near their 1RM. Rapid neurological motor unit adaptations cause beginner strength to shift weekly, making percentage-based programming less effective than linear progression with 2–3 repetitions in reserve (RIR 2–3).",
-        },
-        {
-          q: "How often should I re-calculate my 1RM?",
-          a: "In periodized programs, recalculate your estimated 1RM at the end of each 4-to-8-week training mesocycle during a scheduled testing or deload week. Continuously recalculating mid-cycle can cause program drift and premature overreaching.",
-        },
-        {
-          q: "How does 1RM relate to RPE (Rating of Perceived Exertion)?",
-          a: "An RPE of 10 corresponds to a true 1RM (zero reps in reserve). An RPE of 9 means 1 rep remained before failure, RPE 8 means 2 reps remained. Using RPE alongside your calculated 1RM allows you to auto-regulate training loads based on daily sleep, stress, and neuromuscular readiness.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

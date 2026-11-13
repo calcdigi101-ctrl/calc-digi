@@ -29,28 +29,11 @@ export default function CyclingPage() {
       appCategory="HealthApplication"
       mathExpression="P_total = P_aero + P_gravity + P_rolling"
       related={[
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
-        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Weight" },
-      ]}
-      faq={[
-        {
-          q: "What is the relationship between cycling speed and required power?",
-          a: "Because aerodynamic drag scales with the cube of velocity (v³), doubling your speed on a flat road does not require double the power—it requires approximately eight times more mechanical power (2³ = 8). For example, increasing speed from 15 mph (110 Watts) to 25 mph (490 Watts) requires over a fourfold surge in metabolic power.",
-        },
-        {
-          q: "What does Watts per kilogram (W/kg) mean and why is it important?",
-          a: "Watts per kilogram (W/kg) is the universal performance currency in cycling. While raw Watts determine speed on flat terrain where aerodynamic drag dominates, the power-to-weight ratio dictates climbing velocity against gravity. A 60-kg climber pushing 300 Watts (5.0 W/kg) will rapidly drop an 85-kg rider pushing 350 Watts (4.1 W/kg) on any mountain pass exceeding a 6% gradient.",
-        },
-        {
-          q: "How many calories does cycling burn per hour?",
-          a: "Human muscular gross metabolic efficiency while pedaling is approximately 24% (only 24% of chemical energy from food is converted into mechanical crank work; 76% is dissipated as heat). Consequently, total caloric expenditure per hour can be calculated with remarkable accuracy from average wattage: Calories/hr ≈ Average Watts × 3.6. Maintaining 200 Watts for one hour burns approximately 720 kcal.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

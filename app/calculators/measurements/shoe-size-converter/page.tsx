@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/measurements/clothing-size-converter", icon: "👗", name: "Clothing Size" },
-  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
-  { href: "/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
-  { href: "/calculators/math/ratio-calculator", icon: "🔢", name: "Ratio Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage" },
-  { href: "/pages/measurements", icon: "👟", name: "Measurements Hub" },
+  { href: "https://www.calcdigi.com/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/temperature-converter", icon: "🌡️", name: "Temperature Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/volume-converter", icon: "🥄", name: "Volume Converter" },
 ];
 
 const FAQ_ITEMS = [

@@ -64,12 +64,10 @@ const APPLICATION_DOMAINS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/square-root-calculator", icon: "√", name: "Square Root" },
-  { href: "/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation" },
-  { href: "/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula" },
-  { href: "/calculators/math/percent-error-calculator", icon: "📐", name: "Percent Error" },
-  { href: "/calculators/math/matrix-calculator", icon: "🔲", name: "Matrix Calculator" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/square-root-calculator", icon: "√", name: "Square Root Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percent-error-calculator", icon: "📐", name: "Percent Error Calculator" },
 ];
 
 export default function Page() {

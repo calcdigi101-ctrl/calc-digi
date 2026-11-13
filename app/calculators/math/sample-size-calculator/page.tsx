@@ -72,12 +72,10 @@ const POWER_ANALYSIS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval" },
-  { href: "/calculators/math/probability-calculator", icon: "🎲", name: "Probability Calculator" },
-  { href: "/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
-  { href: "/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/probability-calculator", icon: "🎲", name: "Probability Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation Calculator" },
 ];
 
 export default function Page() {

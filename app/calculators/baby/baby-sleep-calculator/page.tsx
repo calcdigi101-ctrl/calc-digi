@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/baby/baby-feeding-calculator", icon: "🍼", name: "Baby Feeding Calculator" },
-  { href: "/calculators/baby/due-date-calculator", icon: "📅", name: "Pregnancy Due Date Calculator" },
-  { href: "/calculators/baby/baby-weight-percentile-calculator", icon: "⚖️", name: "Baby Weight Percentile Calculator" },
-  { href: "/calculators/baby/diaper-cost-calculator", icon: "🧷", name: "Diaper Lifetime Cost Calculator" },
-  { href: "/calculators/baby/childcare-cost-calculator", icon: "🧸", name: "Childcare & Daycare Cost Calculator" },
-  { href: "/calculators/health/sleep-calculator", icon: "😴", name: "Adult Sleep Cycle Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/due-date-calculator", icon: "👶", name: "Pregnancy Due Date Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/baby-weight-percentile-calculator", icon: "⚖️", name: "Baby Weight Percentile Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/baby-feeding-calculator", icon: "🍼", name: "Baby Feeding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/diaper-cost-calculator", icon: "🧹", name: "Diaper Cost Calculator" },
 ];
 
 const FAQ_ITEMS = [

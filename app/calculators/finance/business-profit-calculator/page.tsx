@@ -15,7 +15,12 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
-      title="Business Profit Calculator"
+      related={[
+        { href: "https://www.calcdigi.com/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator (PITI & Amortization)" },
+        { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💰", name: "Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff Calculator" },
+      ]} title="Business Profit Calculator"
       intro="Model the complete corporate financial income statement waterfall. Deconstruct gross revenue into Gross Profit, Operating Income (EBIT), EBITDA, pre-tax earnings, and final net profit."
       description={DESCRIPTION}
       appCategory="FinanceApplication"

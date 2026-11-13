@@ -21,40 +21,11 @@ export default function Page() {
       appCategory="HealthApplication"
       mathExpression="TDEE = BMR * PAL (Physical Activity Level)"
       related={[
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-        { href: "/calculators/health/weight-loss-calculator", icon: "📉", name: "Weight Loss" },
-        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
-      ]}
-      faq={[
-        {
-          q: "What is Total Daily Energy Expenditure (TDEE)?",
-          a: "Total Daily Energy Expenditure (TDEE) is the total quantity of calories your body burns over a 24-hour period. It is composed of four distinct metabolic components: Basal Metabolic Rate (BMR, ~60–75%), Non-Exercise Activity Thermogenesis (NEAT, ~15%), the Thermic Effect of Food (TEF, ~10%), and Exercise Activity Thermogenesis (EAT, ~5–15%).",
-        },
-        {
-          q: "How many calories should I eat below my TDEE to lose one pound of fat per week?",
-          a: "One pound of human adipose tissue stores approximately 3,500 kcal of chemical energy. Creating a daily caloric deficit of 500 kcal below your maintenance TDEE (500 kcal × 7 days = 3,500 kcal deficit) produces an average rate of fat loss of approximately 1.0 lb per week without severe metabolic adaptation.",
-        },
-        {
-          q: "Why do most people overestimate their activity level on TDEE calculators?",
-          a: "Most people classify themselves as 'Moderately Active' simply because they exercise for 45 minutes four times per week. However, if the remaining 23 hours of the day are spent sitting at an office desk, driving, and sleeping, their overall Physical Activity Level (PAL) is actually closer to 'Lightly Active'. When in doubt, start with a lower activity multiplier to avoid overestimating your maintenance burn.",
-        },
-        {
-          q: "What is NEAT and why is it crucial for fat loss?",
-          a: "Non-Exercise Activity Thermogenesis (NEAT) encompasses all the energy expended for everything we do that is not sleeping, eating, or sports-like exercise: walking to the store, taking the stairs, typing, cleaning, and fidgeting. NEAT can vary by up to 800 to 1,000 calories per day between two people of similar size, making daily step counts one of the most effective fat-loss levers.",
-        },
-        {
-          q: "How often should I recalculate my TDEE as I lose weight?",
-          a: "You should recalculate your TDEE every 10 to 15 pounds of weight loss. As your total mass decreases, your body requires fewer calories to move itself, and your BMR naturally drops. Failing to adjust your caloric intake to your new lower body weight is the primary cause of weight loss plateaus.",
-        },
-        {
-          q: "What is adaptive thermogenesis (metabolic adaptation)?",
-          a: "Adaptive thermogenesis is an evolutionary survival mechanism where the body downregulates resting metabolism and spontaneous physical movement (subconsciously lowering NEAT) beyond what can be predicted by weight loss alone. Incorporating diet breaks and maintaining high protein intake helps minimize this adaptation.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+        { href: "https://www.calcdigi.com/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator (IIFYM & Keto)" },
+      ]} article={
         <>
           {/* Clinical Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

@@ -66,12 +66,10 @@ const VOLUME_CONVERSIONS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/surface-area-calculator", icon: "🧊", name: "Surface Area" },
-  { href: "/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
-  { href: "/calculators/math/circle-calculator", icon: "⭕", name: "Circle Calculator" },
-  { href: "/calculators/math/triangle-calculator", icon: "📐", name: "Triangle Calculator" },
-  { href: "/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/surface-area-calculator", icon: "🧊", name: "Surface Area Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/circle-calculator", icon: "⭕", name: "Circle Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/triangle-calculator", icon: "📐", name: "Triangle Calculator" },
 ];
 
 export default function Page() {

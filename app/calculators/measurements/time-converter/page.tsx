@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/measurements/speed-converter", icon: "🚀", name: "Speed Converter" },
-  { href: "/calculators/internet/download-time-calculator", icon: "⏳", name: "Download Time" },
-  { href: "/calculators/physics/velocity-calculator", icon: "🏎️", name: "Velocity Calculator" },
-  { href: "/calculators/measurements/data-storage-converter", icon: "💾", name: "Data Storage" },
-  { href: "/calculators/measurements/energy-converter", icon: "⚡", name: "Energy Converter" },
-  { href: "/pages/measurements", icon: "⏱️", name: "Measurements Hub" },
+  { href: "https://www.calcdigi.com/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/temperature-converter", icon: "🌡️", name: "Temperature Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/volume-converter", icon: "🥄", name: "Volume Converter" },
 ];
 
 const FAQ_ITEMS = [

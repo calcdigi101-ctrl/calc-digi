@@ -64,12 +64,10 @@ const PHYSICAL_BENCHMARKS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/percentage-change-calculator", icon: "📈", name: "Percentage Change" },
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
-  { href: "/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-change-calculator", icon: "📈", name: "Percentage Change Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
 ];
 
 export default function Page() {

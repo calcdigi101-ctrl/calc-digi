@@ -161,12 +161,10 @@ export default function SmokingCostPage() {
           </div>
           <RelatedLinks
             links={[
-              { href: "/calculators/health/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Units" },
-              { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
-              { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
-              { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-              { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-              { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/sleep-calculator", icon: "💤", name: "Sleep Cycle & Bedtime Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
             ]}
           />
         </section>

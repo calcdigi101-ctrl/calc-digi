@@ -30,28 +30,11 @@ export default function Vo2MaxPage() {
       appCategory="HealthApplication"
       mathExpression="VO2max = Cardiac Output (Q) * Arterial-Venous Oxygen Difference"
       related={[
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/one-rep-max-calculator", icon: "🏋️", name: "One Rep Max" },
-        { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What is an average VO2 max for a man vs. a woman?",
-          a: "For a healthy 30-year-old, average VO2 max is approximately 40 to 44 mL/kg/min for men and 34 to 38 mL/kg/min for women. Women naturally possess slightly lower values due to differences in average hemoglobin mass, left ventricular heart size, and higher essential adipose tissue.",
-        },
-        {
-          q: "How fast can you improve your VO2 max?",
-          a: "Untrained individuals can typically improve their VO2 max by 15% to 25% within 8 to 12 weeks of structured interval and aerobic base training. Elite athletes operate close to their genetic ceiling, where 1% to 3% improvements require months of specialized micro-periodization.",
-        },
-        {
-          q: "What is the 'frailty threshold' for VO2 max?",
-          a: "Geriatric cardiologists identify 18 mL/kg/min in men and 15 mL/kg/min in women as the critical threshold for functional physical independence. Falling below this level means activities of daily living (such as carrying groceries or climbing stairs) operate at 100% of maximum cardiovascular capacity, leading to rapid physical frailty.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

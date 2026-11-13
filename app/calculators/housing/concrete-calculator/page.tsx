@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Volume (cu yd) = [Length (ft) * Width (ft) * (Thickness (in) / 12)] / 27"
       related={[
-        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
-        { href: "/calculators/housing/fence-cost-calculator", icon: "🪵", name: "Fence Cost" },
-        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/land-area-calculator", icon: "🗺️", name: "Land Area Calculator" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How many 80-lb or 60-lb bags of concrete make one cubic yard?",
-          a: "One cubic yard equals 27 cubic feet. A standard 80-lb bag yields approximately 0.60 cubic feet, meaning you need 45 bags (plus 4-5 extra for waste, totaling ~50 bags) for one cubic yard. A 60-lb bag yields 0.45 cubic feet, requiring 60 bags per cubic yard.",
-        },
-        {
-          q: "How thick should a residential concrete slab be?",
-          a: "For pedestrian walkways, patios, and shed foundations, 4 inches (10 cm) of 3,000 PSI concrete is standard. For residential driveways accommodating passenger vehicles, light trucks, or RV parking, 5 to 6 inches (12.7–15.2 cm) with #4 rebar reinforcement or welded wire mesh is recommended.",
-        },
-        {
-          q: "When should I order ready-mix concrete instead of bags?",
-          a: "As a rule of thumb, if your project requires 1.5 to 2.0 cubic yards or more (equivalent to 75–100 eighty-pound bags), ready-mix delivery via truck is significantly faster, ensures consistent compressive strength across the pour, and saves hours of backbreaking manual labor.",
-        },
-        {
-          q: "Why is a 10% waste factor necessary for concrete pours?",
-          a: "Subgrades are rarely laser-flat; slight depressions, formwork deflection, wheelbarrow residue, and spillage consume extra volume. A 10% safety margin prevents running short during a pour, which can ruin cold joints.",
-        },
-        {
-          q: "How long does concrete take to cure to full strength?",
-          a: "Concrete achieves approximately 50% strength in 3 days, 70% strength in 7 days, and reaches its full rated compressive design strength (e.g., 3,000–4,000 PSI) at 28 days under proper moist curing conditions.",
-        },
-        {
-          q: "Do I need gravel under a concrete slab?",
-          a: "Yes. The International Residential Code (IRC) recommends a 4-inch compacted crushed stone or gravel base (such as #57 limestone or crushed gravel) to provide uniform support, prevent settling cracks, and promote drainage.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Clinical/Engineering Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

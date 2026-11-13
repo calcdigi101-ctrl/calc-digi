@@ -184,12 +184,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff" },
-        { href: "/calculators/finance/loan-calculator", icon: "💰", name: "Personal Loan" },
-        { href: "/calculators/finance/apr-calculator", icon: "📊", name: "APR Calculator" },
-        { href: "/calculators/finance/budget-calculator", icon: "📋", name: "Budget Calculator" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💰", name: "Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/apr-calculator", icon: "📊", name: "APR Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/budget-calculator", icon: "📋", name: "Household Budget Calculator" },
       ]}
     >
       <Calculator />

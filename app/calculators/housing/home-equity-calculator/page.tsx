@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="FinanceApplication"
       mathExpression="Borrowable Equity = (Home Market Value * Max CLTV %) - Total Mortgage Debt"
       related={[
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
-        { href: "/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment" },
-        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
-      ]}
-      faq={[
-        {
-          q: "What is the difference between home equity and borrowable equity?",
-          a: "Total home equity is the entire difference between your home's current market value and what you owe on all mortgages. Borrowable equity is the restricted portion a bank allows you to tap—typically capped so that your total combined debt (first mortgage + HELOC) does not exceed 80% to 85% of your home's appraised value.",
-        },
-        {
-          q: "What is Combined Loan-to-Value (CLTV)?",
-          a: "CLTV represents the total of all loans secured by your home (primary mortgage balance plus second mortgage or HELOC limit) divided by your home's appraised market value. Most national lenders set a hard CLTV ceiling of 80% to 85% to protect against local market downturns.",
-        },
-        {
-          q: "What is the difference between a HELOC and a Home Equity Loan?",
-          a: "A Home Equity Loan provides a fixed lump sum with a fixed interest rate and predictable monthly payments over 5 to 30 years. A Home Equity Line of Credit (HELOC) works like a credit card: a revolving credit line with a variable interest rate, where you only pay interest on the funds you actively draw during the initial 10-year draw period.",
-        },
-        {
-          q: "Is HELOC or home equity loan interest tax-deductible?",
-          a: "Under the Tax Cuts and Jobs Act (TCJA), interest paid on home equity debt is only tax-deductible if the funds are used specifically to 'buy, build, or substantially improve' the home securing the loan (such as an addition, kitchen remodel, or new roof). Using equity for debt consolidation or college tuition is non-deductible.",
-        },
-        {
-          q: "What happens to my HELOC after the draw period ends?",
-          a: "Most HELOCs feature a 10-year draw period (during which interest-only payments are permitted) followed by a 10 to 20-year repayment period. Once the repayment period begins, you can no longer withdraw funds, and payments increase significantly as principal amortization kicks in.",
-        },
-        {
-          q: "Can a lender freeze or reduce my HELOC limit?",
-          a: "Yes. Federal banking regulations permit lenders to freeze or reduce available credit lines if the appraised market value of your home drops significantly or if your financial situation (income or credit score) deteriorates materially.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

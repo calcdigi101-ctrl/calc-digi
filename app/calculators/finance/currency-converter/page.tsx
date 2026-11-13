@@ -17,7 +17,12 @@ export default async function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
-      title="Currency Converter"
+      related={[
+        { href: "https://www.calcdigi.com/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator (PITI & Amortization)" },
+        { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💰", name: "Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff Calculator" },
+      ]} title="Currency Converter"
       intro="Convert world currencies using real-time mid-market interbank exchange rates. Calculate hidden bank markup spreads, international wire transfer fees, and cross-rate triangulation."
       description={DESCRIPTION}
       appCategory="FinanceApplication"

@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/internet/internet-speed-calculator", icon: "🌐", name: "Internet Speed" },
-  { href: "/calculators/internet/bandwidth-calculator", icon: "📊", name: "Bandwidth Calc" },
-  { href: "/calculators/internet/data-usage-calculator", icon: "📡", name: "Data Usage" },
-  { href: "/calculators/internet/cloud-storage-calculator", icon: "☁️", name: "Cloud Storage" },
-  { href: "/calculators/internet/vpn-speed-calculator", icon: "🛡️", name: "VPN Speed" },
-  { href: "/calculators/internet/ping-latency-calculator", icon: "⚡", name: "Ping & Latency" },
+  { href: "https://www.calcdigi.com/calculators/internet/internet-speed-calculator", icon: "🌐", name: "Internet Speed Calculator" },
+  { href: "https://www.calcdigi.com/calculators/internet/bandwidth-calculator", icon: "📊", name: "Bandwidth Calculator" },
+  { href: "https://www.calcdigi.com/calculators/internet/ip-subnet-calculator", icon: "🔗", name: "IP Subnet Calculator" },
+  { href: "https://www.calcdigi.com/calculators/internet/data-usage-calculator", icon: "📡", name: "Data Usage Calculator" },
 ];
 
 const FAQ_ITEMS = [

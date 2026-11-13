@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Annual Carbon Footprint" },
-  { href: "/calculators/environment/air-quality-index-calculator", icon: "💨", name: "Air Quality Index (AQI)" },
-  { href: "/calculators/environment/recycling-savings-calculator", icon: "♻️", name: "Recycling Resource Savings" },
-  { href: "/calculators/environment/water-usage-calculator", icon: "💧", name: "Water Usage Calculator" },
-  { href: "/calculators/math/ratio-calculator", icon: "📐", name: "Forestry Tree Density Ratio" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Seedling Survival Rate Percentage" },
+  { href: "https://www.calcdigi.com/calculators/environment/carbon-footprint-calculator", icon: "🌿", name: "Carbon Footprint Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Solar Panel Calculator" },
+  { href: "https://www.calcdigi.com/calculators/environment/water-usage-calculator", icon: "💧", name: "Water Usage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/environment/energy-consumption-calculator", icon: "⚡", name: "Energy Consumption Calculator" },
 ];
 
 const FAQ_ITEMS = [

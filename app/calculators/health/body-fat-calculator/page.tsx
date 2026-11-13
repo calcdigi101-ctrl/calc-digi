@@ -92,12 +92,10 @@ const METHOD_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-  { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-  { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-  { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-  { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-  { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+  { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Needs Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+  { href: "https://www.calcdigi.com/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Body Weight Calculator" },
 ];
 
 export default function BodyFatCalculatorPage() {

@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Total Budget = (Square Footage * Cost Per Sq Ft) * (1 + Contingency %)"
       related={[
-        { href: "/calculators/housing/home-equity-calculator", icon: "💰", name: "Home Equity" },
-        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
-        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
-        { href: "/calculators/housing/square-footage-calculator", icon: "📏", name: "Square Footage" },
-        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How much does a full home renovation cost per square foot?",
-          a: "In 2026, whole-home interior renovations average $60 to $125 per square foot for basic updates, $125 to $225 per square foot for mid-range quality with reconfigured floor plans, and $250 to $450+ per square foot for luxury custom finishes with high-end mechanicals.",
-        },
-        {
-          q: "What is the average cost to remodel a kitchen?",
-          a: "A minor cosmetic kitchen refresh averages $12,000 to $25,000. A standard mid-range remodel (semi-custom cabinets, quartz countertops, new appliances, and tile backsplash) costs $30,000 to $65,000. A luxury gut renovation with structural wall removal and professional chef ranges ranges from $80,000 to $150,000+.",
-        },
-        {
-          q: "Why should I include a 15% to 20% contingency fund in my remodel budget?",
-          a: "Once demolition begins, concealed problems frequently emerge: outdated knob-and-tube electrical wiring, galvanized plumbing leaks, termite damage, uneven framing, or asbestos. A 15% contingency reserve ensures you can resolve unforeseen code violations without halting the build.",
-        },
-        {
-          q: "Which home renovations offer the highest return on investment (ROI)?",
-          a: "According to the annual Cost vs. Value Report, exterior replacements and minor kitchen refreshes yield the highest ROI. Garage door replacement (102% ROI), manufactured stone veneer (100% ROI), and minor kitchen remodels (85% ROI) recoup the highest percentage at resale.",
-        },
-        {
-          q: "How should I finance a major $50,000+ renovation?",
-          a: "Homeowners typically use a Home Equity Line of Credit (HELOC), Home Equity Loan, Cash-Out Refinance, or Fannie Mae HomeStyle Renovation loan. HELOCs offer revolving lines with interest-only draw periods, making them ideal for staged construction disbursements.",
-        },
-        {
-          q: "Do I need permits for interior renovations?",
-          a: "Cosmetic work like painting, replacing flooring, or swapping plumbing fixtures in existing locations usually does not require permits. However, opening walls, moving structural load-bearing studs, running new electrical circuits, or altering plumbing drains requires municipal building permits and inspections.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

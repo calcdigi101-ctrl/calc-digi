@@ -70,12 +70,10 @@ const INDUSTRY_APPLICATIONS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
-  { href: "/calculators/math/decimal-to-fraction-calculator", icon: "🔢", name: "Decimal to Fraction" },
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
-  { href: "/calculators/math/percentage-change-calculator", icon: "📈", name: "Percentage Change" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/decimal-to-fraction-calculator", icon: "🔢", name: "Decimal to Fraction Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-change-calculator", icon: "📈", name: "Percentage Change Calculator" },
 ];
 
 export default function Page() {

@@ -29,28 +29,11 @@ export default function BloodPressurePage() {
       appCategory="HealthApplication"
       mathExpression="MAP = Diastolic + 1/3 (Systolic - Diastolic)"
       related={[
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max Calculator" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-      ]}
-      faq={[
-        {
-          q: "What is the difference between white-coat hypertension and masked hypertension?",
-          a: "White-coat hypertension occurs when blood pressure is elevated in clinical settings (≥ 130/80) but normal at home (< 130/80) due to acute medical anxiety. Conversely, masked hypertension is normal in the doctor's office but consistently elevated at home or during sleep; it carries cardiovascular risk identical to sustained hypertension and requires 24-hour ambulatory monitoring to detect.",
-        },
-        {
-          q: "Why is high blood pressure called the 'silent killer'?",
-          a: "Hypertension typically produces zero palpable physical symptoms—no headaches, dizziness, or chest discomfort—until substantial end-organ damage has occurred to cerebral blood vessels, coronary arteries, retina microvasculature, or renal nephrons. Regular screening is the only dependable method of detection.",
-        },
-        {
-          q: "What should I do if my blood pressure exceeds 180/120 mmHg?",
-          a: "Wait quietly for 5 minutes and take a second reading. If readings remain above 180 systolic and/or 120 diastolic without symptoms, contact your doctor immediately. If this reading is accompanied by red-flag symptoms (chest pressure, shortness of breath, back pain, numbness, weakness, difficulty speaking, or blurred vision), this represents a hypertensive emergency—call 911 immediately.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

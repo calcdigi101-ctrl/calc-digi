@@ -200,12 +200,10 @@ export default function AlcoholUnitPage() {
           </div>
           <RelatedLinks
             links={[
-              { href: "/calculators/health/smoking-cost-calculator", icon: "🚬", name: "Smoking Cost" },
-              { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
-              { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
-              { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-              { href: "/calculators/health/sleep-calculator", icon: "💤", name: "Sleep Calculator" },
-              { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
+              { href: "https://www.calcdigi.com/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/water-intake-calculator", icon: "💧", name: "Daily Water Intake Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/sleep-calculator", icon: "💤", name: "Sleep Cycle & Bedtime Calculator" },
             ]}
           />
         </section>

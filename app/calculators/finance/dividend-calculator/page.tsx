@@ -171,12 +171,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/stock-return-calculator", icon: "📊", name: "Stock Return" },
-        { href: "/calculators/finance/investment-calculator", icon: "📈", name: "Investment Calculator" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest" },
-        { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Calculator" },
-        { href: "/calculators/business/roi-calculator", icon: "🎯", name: "ROI Calculator" },
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/stock-return-calculator", icon: "📊", name: "Stock Return Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/investment-calculator", icon: "📈", name: "Investment Return Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Savings Calculator" },
       ]}
     >
       <Calculator />

@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="FinanceApplication"
       mathExpression="Max Rent = Min((Gross Monthly Income * 0.30), Annual Income / 40)"
       related={[
-        { href: "/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy" },
-        { href: "/calculators/housing/electricity-cost-calculator", icon: "⚡", name: "Electricity Cost" },
-        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
-        { href: "/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment" },
-        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What is the 30% rule for rent?",
-          a: "The 30% rule is a standard guideline established by the US Department of Housing and Urban Development (HUD), which states that you should spend no more than 30% of your gross monthly income on housing rent. Spending more than 30% classifies a household as 'rent-burdened', while spending over 50% is 'severely rent-burdened'.",
-        },
-        {
-          q: "What is the 40x rent rule used by landlords in New York and major cities?",
-          a: "In competitive rental markets like New York City, Boston, and San Francisco, property management companies require prospective tenants to earn an annual gross income of at least 40 times the monthly rent. For example, to qualify for a $2,500/month apartment, your household must earn at least $100,000 annually ($2,500 × 40).",
-        },
-        {
-          q: "Should rent be based on gross income or take-home net pay?",
-          a: "Landlords and tenant screening algorithms always calculate eligibility using pre-tax gross income. However, for personal budgeting, financial planners recommend capping rent at 25% to 30% of your take-home net pay so that taxes, healthcare, and 401(k) contributions don't squeeze your living budget.",
-        },
-        {
-          q: "How much cash do I need saved upfront before renting an apartment?",
-          a: "You typically need 3 to 4 months of rent saved in liquid cash before signing a lease: first month's rent, one full month security deposit, last month's rent (in some jurisdictions), and a 10% to 15% broker fee if renting through a licensed agent in high-demand metros.",
-        },
-        {
-          q: "What if I don't meet the 40x income requirement?",
-          a: "If your income falls below landlord requirements, you can apply with a qualified guarantor or co-signer (who typically must earn 80x the monthly rent), purchase an institutional lease guarantee through services like Insurent or Rhino, or offer an increased security deposit where state law allows.",
-        },
-        {
-          q: "How does the 50/30/20 budget framework apply to renting?",
-          a: "Under the popular 50/30/20 budget, 50% of your take-home pay is allocated to all 'Needs' combined—which includes rent, utilities, groceries, transportation, and minimum debt payments. If rent consumes 40% of your income, you are left with only 10% for food and bills.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

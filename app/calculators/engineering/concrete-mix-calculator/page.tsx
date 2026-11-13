@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/engineering/beam-load-calculator", icon: "📐", name: "Beam Deflection & Load Calculator" },
-  { href: "/calculators/engineering/structural-steel-calculator", icon: "🏗️", name: "Structural Steel Column & Beam" },
-  { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Head Loss Calculator" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Proportional Ratio Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage Calculator" },
-  { href: "/calculators/geography/elevation-grade-calculator", icon: "⛰️", name: "Elevation Grade & Slope Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/beam-load-calculator", icon: "🏗️", name: "Beam Load Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/pipe-flow-calculator", icon: "🔆", name: "Pipe Flow Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Load Calculator" },
 ];
 
 const FAQ_ITEMS = [

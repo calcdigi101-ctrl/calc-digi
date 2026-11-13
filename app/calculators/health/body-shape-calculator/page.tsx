@@ -60,40 +60,11 @@ export default function BodyShapePage() {
       appCategory="HealthApplication"
       mathExpression="\text{WHR} = \frac{\text{Waist Circumference}}{\text{Hip Circumference}} ; \quad \text{BHR} = \frac{\text{Bust}}{\text{Hip}}"
       related={[
-        { href: "/calculators/health/waist-to-hip-ratio-calculator", icon: "📏", name: "Waist-to-Hip" },
-        { href: "/calculators/health/waist-to-height-ratio-calculator", icon: "📐", name: "Waist-to-Height" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-        { href: "/calculators/health/lean-body-mass-calculator", icon: "💪", name: "Lean Body Mass" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What are the 5 primary morphological body shapes?",
-          a: "The five universally recognized anthropometric phenotypes are: 1) Hourglass (balanced bust and hips with a significantly defined natural waist); 2) Pear / Spoon (hips and thighs wider than shoulders and bust); 3) Rectangle / Banana (uniform measurements across bust, waist, and hips with minimal curve); 4) Inverted Triangle (shoulders and bust wider than hips); and 5) Apple / Android (waist measurement equal to or larger than bust and hips, carrying adipose tissue centrally in the abdomen).",
-        },
-        {
-          q: "Why is an Apple body shape associated with higher medical risks than a Pear shape?",
-          a: "Apple phenotypes accumulate adipose tissue centrally in the intra-abdominal cavity as Visceral Adipose Tissue (VAT), surrounding the liver, pancreas, and intestines. VAT is metabolically hyperactive, continuously releasing free fatty acids directly into the portal circulation and secreting inflammatory cytokines (TNF-alpha, Interleukin-6) that cause systemic insulin resistance, non-alcoholic fatty liver disease, and atherosclerosis. In contrast, pear phenotypes store subcutaneous fat in the hips and thighs (gluteofemoral depot), which secretes protective adiponectin and acts as a safe lipid sink.",
-        },
-        {
-          q: "Can I alter my skeletal body shape through diet and strength training?",
-          a: "Your skeletal framework—the width of your pelvic iliac crests, rib cage dimensions, and clavicle breadth—is genetically fixed. However, muscular hypertrophy and adipose tissue redistribution dramatically modify your external silhouette. You cannot 'spot-reduce' fat from a specific region, but overall caloric deficit reduces midsection visceral fat, while targeted progressive resistance training (e.g., building latissimus dorsi and gluteal muscles) creates the visual taper of an hourglass or athletic V-taper.",
-        },
-        {
-          q: "How should I measure my bust, waist, and hips for maximum accuracy?",
-          a: "Use a flexible non-stretch fiberglass tape measure parallel to the floor in front of a mirror: 1) Bust/Chest: Across the fullest projection of the chest; 2) Waist: At the narrowest point of the torso, typically 1 to 2 inches above the umbilicus (belly button) at the end of a normal, relaxed exhalation; 3) Hips: Around the widest prominence of the buttocks and greater trochanters of the femur.",
-        },
-        {
-          q: "What does the World Health Organization (WHO) state about Waist-to-Hip Ratio (WHR)?",
-          a: "The World Health Organization establishes that a Waist-to-Hip Ratio (WHR) above 0.85 for women and above 0.90 for men signifies central android adiposity and substantially elevates the long-term risk of cardiovascular disease, myocardial infarction, stroke, and type 2 diabetes mellitus.",
-        },
-        {
-          q: "What is the difference between Android and Gynoid fat distribution?",
-          a: "Android fat distribution ('male-pattern' or apple) is concentrated around the trunk and upper abdomen, driven by cortisol and lower androgen-to-estrogen balance, and poses significant cardiovascular risk. Gynoid fat distribution ('female-pattern' or pear) is localized to the lower body (hips, buttocks, and thighs) under the influence of estrogens, providing evolutionary metabolic reserves for pregnancy and lactation with cardioprotective properties.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

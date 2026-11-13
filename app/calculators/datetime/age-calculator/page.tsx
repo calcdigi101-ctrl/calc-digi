@@ -38,12 +38,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/datetime/birthday-calculator", icon: "🎂", name: "Birthday Calculator" },
-  { href: "/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference" },
-  { href: "/calculators/datetime/days-until-calculator", icon: "⏳", name: "Days Until Event" },
-  { href: "/calculators/datetime/leap-year-calculator", icon: "🗓️", name: "Leap Year Calculator" },
-  { href: "/calculators/measurements/time-converter", icon: "⏱️", name: "Time Converter" },
-  { href: "/pages/datetime", icon: "⏰", name: "Date & Time Hub" },
+  { href: "https://www.calcdigi.com/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/time-calculator", icon: "⏱️", name: "Time Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/days-until-calculator", icon: "⏳", name: "Days Until Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/workdays-calculator", icon: "💼", name: "Workdays & Business Days Calculator" },
 ];
 
 const FAQ_ITEMS = [

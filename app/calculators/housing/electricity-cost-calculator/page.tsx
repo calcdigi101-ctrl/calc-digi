@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Cost = (Watts * Hours / 1000) * Utility Rate ($/kWh)"
       related={[
-        { href: "/calculators/housing/property-tax-calculator", icon: "🏛️", name: "Property Tax" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/square-footage-calculator", icon: "📏", name: "Square Footage" },
-        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
-        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How do I calculate the electricity cost of any home appliance?",
-          a: "Multiply the appliance's wattage rating by the number of hours it runs per day, divide by 1,000 to convert to kilowatt-hours (kWh), and multiply by your utility rate per kWh. For example, a 1,500W space heater running 6 hours daily at $0.168/kWh consumes 9 kWh per day, costing $1.51/day or $45.36 per month.",
-        },
-        {
-          q: "What single appliance uses the most electricity in a home?",
-          a: "Central air conditioning and heating (HVAC) systems are by far the largest energy consumers, accounting for approximately 46% to 50% of total residential power consumption. Electric water heaters rank second (18%), followed by major appliances like clothes dryers (6%) and refrigerators (5%).",
-        },
-        {
-          q: "What is a kilowatt-hour (kWh), and how is it billed on an electric bill?",
-          a: "A kilowatt-hour (kWh) is a unit of energy equivalent to consuming 1,000 watts of electrical power continuously for one full hour. Electric utility companies meter your total cumulative kWh consumed over a monthly billing cycle and bill you based on fixed, tiered, or time-of-use kilowatt-hour rates.",
-        },
-        {
-          q: "What is vampire power or phantom load, and how much does it cost?",
-          a: "Vampire power (also known as standby power) is the electricity consumed by electronics and appliances while turned off or in standby mode. Common culprits include game consoles, smart TVs, microwave clocks, and laptop chargers. According to the Lawrence Berkeley National Laboratory, phantom loads account for 5% to 10% of residential electric bills, costing the average household $100 to $200 annually.",
-        },
-        {
-          q: "What are Time-of-Use (TOU) electricity rates, and how can they save money?",
-          a: "Under Time-of-Use (TOU) rate plans, electricity costs vary based on the time of day and overall grid demand. Peak hours (typically 4:00 PM to 9:00 PM on weekdays) carry rates 2x to 3x higher than off-peak hours. Shifting high-consumption appliances like dishwashers, clothes dryers, and EV chargers to overnight hours can reduce appliance operating costs by 40% to 60%.",
-        },
-        {
-          q: "How much money do ENERGY STAR appliances actually save over time?",
-          a: "ENERGY STAR certified appliances use 10% to 50% less energy than standard non-certified models. An ENERGY STAR refrigerator saves approximately $200 to $300 over its 12-year lifespan, while an ENERGY STAR heat pump water heater can save over $3,500 in electrical utility bills over 10 years compared to standard electric resistance units.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

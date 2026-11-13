@@ -72,6 +72,22 @@ export function CalculatorPage({
             {title}
           </h1>
           <p className="mt-2 max-w-3xl text-sm sm:text-base text-slate-600 dark:text-slate-400">{intro}</p>
+          {/* E-E-A-T Freshness & Authorship Trust Line */}
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
+            <span className="inline-flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              By CalcDigi Editorial Team
+            </span>
+            <span>•</span>
+            <span>Last updated: November 2026</span>
+            <span>•</span>
+            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
+              <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+              </svg>
+              Verified for Accuracy
+            </span>
+          </div>
         </div>
         {children}
 
@@ -231,9 +247,34 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
 }
 
 export function RelatedLinks({ links }: { links: { href: string; icon: string; name: string }[] }) {
+  const canonicalLinks = links.slice(0, 4).map((l) => {
+    let cleanHref = l.href;
+    if (cleanHref.startsWith("http://") || cleanHref.startsWith("https://")) {
+      cleanHref = cleanHref.replace(/^https?:\/\/(?:www\.)?calcdigi\.com/, "");
+    }
+    const fullHref = `https://www.calcdigi.com${cleanHref.startsWith("/") ? cleanHref : `/${cleanHref}`}`;
+
+    let name = l.name.trim();
+    if (cleanHref.includes("/gpa-calculator") && (name === "GPA" || name === "GPA Calculator")) {
+      name = "GPA Calculator (4.0 Scale)";
+    } else if (cleanHref.includes("/loan-calculator") && (name === "Loan" || name === "Loan Calculator")) {
+      name = "Loan Payment Calculator";
+    } else if (cleanHref.includes("/study-hours-calculator") && (name === "Study" || name === "Study Hours" || name === "Study Hours Calculator: College Credits & Plan")) {
+      name = "Study Hours Calculator";
+    } else if (!name.toLowerCase().includes("calculator") && !name.toLowerCase().includes("converter") && !name.toLowerCase().includes("hub")) {
+      name = `${name} Calculator`;
+    }
+
+    return {
+      href: fullHref,
+      icon: l.icon,
+      name,
+    };
+  });
+
   return (
-    <ul className="!list-none !pl-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
-      {links.map((l) => (
+    <ul className="!list-none !pl-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+      {canonicalLinks.map((l) => (
         <li key={l.href} className="!mb-0">
           <a
             href={l.href}

@@ -193,12 +193,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
-        { href: "/calculators/finance/budget-calculator", icon: "📋", name: "Budget Calculator" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-        { href: "/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff" },
-        { href: "/calculators/finance/cd-calculator", icon: "🔒", name: "CD Calculator" },
-        { href: "/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay" },
+        { href: "https://www.calcdigi.com/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/budget-calculator", icon: "📋", name: "Household Budget Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff Calculator" },
       ]}
     >
       <Calculator />

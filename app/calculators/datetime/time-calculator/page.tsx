@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/datetime/time-duration-calculator", icon: "⏱️", name: "Time Duration" },
-  { href: "/calculators/datetime/time-zone-converter", icon: "🌐", name: "Time Zone Converter" },
-  { href: "/calculators/measurements/time-converter", icon: "🕒", name: "Time Converter" },
-  { href: "/calculators/datetime/workdays-calculator", icon: "💼", name: "Workdays Calculator" },
-  { href: "/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference" },
-  { href: "/pages/datetime", icon: "⏰", name: "Date & Time Hub" },
+  { href: "https://www.calcdigi.com/calculators/datetime/age-calculator", icon: "🎂", name: "Age Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/days-until-calculator", icon: "⏳", name: "Days Until Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/workdays-calculator", icon: "💼", name: "Workdays & Business Days Calculator" },
 ];
 
 const FAQ_ITEMS = [

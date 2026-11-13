@@ -52,34 +52,11 @@ export default function BraSizePage() {
       appCategory="HealthApplication"
       mathExpression="\text{Band Size} = \text{RoundEven}(\text{Underbust}), \quad \text{Cup Index} = \text{Bust} - \text{Band Size}"
       related={[
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight Calculator" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-        { href: "/calculators/health/waist-to-hip-ratio-calculator", icon: "📏", name: "Waist-to-Hip Ratio" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How should I measure my underbust and bust accurately?",
-          a: "Use a flexible fiberglass measuring tape. For the underbust, wrap the tape snugly directly under the breasts on your ribcage, exhaling gently to get your resting chest dimension. For the bust, measure around the fullest point (apex) while wearing an unpadded or thinly lined bra, keeping the tape horizontal and parallel to the floor without compressing breast tissue.",
-        },
-        {
-          q: "Why is my calculated cup size larger than what I usually wear?",
-          a: "Most women have historically been fitted using the outdated '+4 method' (e.g. measuring 32 inches and wearing a 36B). When properly fitted with a modern snug band (32) that provides real support, the bust-to-band difference increases, meaning you are actually a 32DD. A 32DD holds the exact same cup volume as a 36B, but the snug band transfers 85% of the weight to your ribcage rather than your shoulders.",
-        },
-        {
-          q: "What is a sister size and when should I use one?",
-          a: "Sister sizes share the exact same cup volume but have different band sizes. For example, 32D, 34C, and 36B all have the same cup capacity. If a 34C band feels slightly too tight around your ribcage, trying a 36B provides a looser band while keeping the cup fit identical.",
-        },
-        {
-          q: "How often should I measure my bra size?",
-          a: "You should remeasure your bra size every 6 to 12 months, or after significant hormonal or metabolic life events such as weight changes of 5–10 lbs, pregnancy, breastfeeding, starting or stopping hormonal contraception, or starting weight training.",
-        },
-        {
-          q: "Why does the European (EU) band number differ so much from US band sizes?",
-          a: "US band sizes are measured in inches (e.g., 34). European sizing uses centimeters but historically incorporates an engineered 10 cm reduction to ensure elastic tightness. A 34-inch ribcage is roughly 86 cm, which corresponds to an EU 75 band. In French sizing, 15 is added to the EU band, making it a 90 band.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">

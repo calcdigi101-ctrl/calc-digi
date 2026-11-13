@@ -51,40 +51,11 @@ export default function WaistToHipRatioPage() {
       appCategory="HealthApplication"
       mathExpression="\text{WHR} = \frac{\text{Waist Circumference}}{\text{Hip Circumference}} \quad (\text{WHO Android Threshold: } \ge 0.85 \text{ female},\, \ge 0.95 \text{ male})"
       related={[
-        { href: "/calculators/health/waist-to-height-ratio-calculator", icon: "📐", name: "Waist-to-Height" },
-        { href: "/calculators/health/body-shape-calculator", icon: "⌛", name: "Body Shape" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-        { href: "/calculators/health/blood-pressure-calculator", icon: "❤️", name: "Blood Pressure" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-      ]}
-      faq={[
-        {
-          q: "What is a healthy Waist-to-Hip Ratio (WHR) according to the WHO?",
-          a: "The World Health Organization (WHO) defines a healthy, low-risk WHR as 0.80 or lower for women, and 0.90 or lower for men. WHR values exceeding 0.85 in females and 0.95 to 1.00 in males indicate central (android) adiposity and signify a substantially elevated risk of myocardial infarction, stroke, and Type 2 diabetes.",
-        },
-        {
-          q: "Why was WHR proven to be superior to BMI in the INTERHEART study?",
-          a: "The landmark INTERHEART trial (Lancet 2005) investigated 27,098 subjects across 52 nations to establish global heart attack risk factors. The researchers found that Waist-to-Hip Ratio was the single strongest anthropometric predictor of myocardial infarction across every continent and ethnic background (with an odds ratio of 2.67 in the highest quintile). In contrast, Body Mass Index (BMI) lost its predictive statistical power after adjusting for WHR, proving that fat distribution is far more dangerous than total weight.",
-        },
-        {
-          q: "What is the difference between Android ('Apple') and Gynoid ('Pear') fat distribution?",
-          a: "Android fat distribution concentrates adipose tissue centrally within the abdominal cavity and trunk ('apple shape'). Gynoid fat distribution concentrates fat around the hips, buttocks, and upper thighs ('pear shape'). Android fat is driven by cortisol and low estrogen/testosterone balance and poses severe cardiometabolic danger. Gynoid fat is mediated by estrogen and is cardioprotective.",
-        },
-        {
-          q: "How exactly do I measure waist and hip circumference for WHR?",
-          a: "For the waist: Measure at the narrowest circumference between your lowest rib and iliac crest (usually 1 inch above the belly button) at the end of a gentle exhalation. For the hips: Stand with feet together and measure around the widest prominence of the buttocks and greater trochanters of the femur. Ensure the tape is level with the floor.",
-        },
-        {
-          q: "Can two people have the same BMI but completely different WHR risk?",
-          a: "Yes, this is common. An individual with a BMI of 23.5 (classified as 'normal weight') can have a high WHR of 0.89 with significant visceral fat and fatty liver disease (metabolically obese normal weight, or MONW). Conversely, an athletic individual with a BMI of 27.0 ('overweight') can have a WHR of 0.74 with broad hips, lean waist, and zero cardiometabolic risk.",
-        },
-        {
-          q: "How can I lower my Waist-to-Hip Ratio most effectively?",
-          a: "Targeting visceral fat requires a comprehensive metabolic strategy: 1) Eliminate refined sugars, fructose-sweetened beverages, and ultra-processed carbohydrates; 2) Accumulate 150 to 300 minutes weekly of Zone 2 cardiovascular training to optimize fat oxidation; 3) Engage in heavy compound resistance training (squats, deadlifts, presses) 3 days weekly; and 4) Prioritize 7 to 9 hours of quality sleep to suppress nocturnal cortisol spikes.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

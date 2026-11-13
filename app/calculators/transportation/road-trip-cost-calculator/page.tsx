@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
-  { href: "/calculators/transportation/toll-cost-calculator", icon: "🛣️", name: "Toll Cost Calculator" },
-  { href: "/calculators/transportation/distance-calculator", icon: "📍", name: "Distance Calculator" },
-  { href: "/calculators/transportation/mpg-calculator", icon: "📊", name: "MPG Calculator" },
-  { href: "/calculators/transportation/parking-cost-calculator", icon: "🅿️", name: "Parking Cost Calculator" },
-  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
+  { href: "https://www.calcdigi.com/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "https://www.calcdigi.com/calculators/transportation/mpg-calculator", icon: "📊", name: "MPG Calculator" },
+  { href: "https://www.calcdigi.com/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/transportation/ev-savings-calculator", icon: "🔋", name: "EV Savings Calculator" },
 ];
 
 const FAQ_ITEMS = [

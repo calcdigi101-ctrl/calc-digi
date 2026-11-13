@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/engineering/heat-transfer-calculator", icon: "🔥", name: "Heat Transfer & Thermal Resistance" },
-  { href: "/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Demand & Panel Sizing" },
-  { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Chilled Water Sizing" },
-  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Duct Airflow Velocity Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "HVAC Energy Efficiency Percentage" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Heating & Cooling Energy ROI" },
+  { href: "https://www.calcdigi.com/calculators/engineering/beam-load-calculator", icon: "🏗️", name: "Beam Load Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/concrete-mix-calculator", icon: "🔨", name: "Concrete Mix Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/pipe-flow-calculator", icon: "🔆", name: "Pipe Flow Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio Calculator" },
 ];
 
 const FAQ_ITEMS = [

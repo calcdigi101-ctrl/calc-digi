@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Area (sq ft) = Length (ft) * Width (ft) * (1 + Waste %)"
       related={[
-        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
-        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
-        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
-        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/land-area-calculator", icon: "🗺️", name: "Land Area Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How do I calculate square footage of an irregular or L-shaped room?",
-          a: "Divide the room into separate simple geometric rectangles or triangles. Calculate the area of each section (Length × Width) individually, then sum all areas together. If you are ordering flooring or tile, add 10% to 15% to account for perimeter cutting waste.",
-        },
-        {
-          q: "What is the ANSI Z765 standard for square footage in residential homes?",
-          a: "The ANSI Z765-2021 standard is the official measurement method mandated by Fannie Mae and Freddie Mac for single-family residential appraisals. It requires measuring exterior dimensions of above-grade heated and finished living space with minimum ceiling heights of 7 feet (or 5 feet under sloped ceilings).",
-        },
-        {
-          q: "Does a finished basement count towards official square footage?",
-          a: "In real estate appraisal standards (ANSI Z765), any space where even one wall is partially below ground level is classified as Below-Grade Finished Area. While it adds substantial appraised value, it cannot be combined with Above-Grade Gross Living Area (GLA) in official MLS listings.",
-        },
-        {
-          q: "How do I convert square feet to square meters?",
-          a: "To convert square feet to square meters, multiply by 0.092903 (or divide by 10.764). For example, a 500 sq ft room equals approximately 46.45 square meters.",
-        },
-        {
-          q: "How much extra square footage should I buy for flooring waste?",
-          a: "For standard rectangular rooms with luxury vinyl plank (LVP) or laminate, buy 7% to 10% extra. For diagonal hardwood, ceramic tile with intricate grout patterns, or rooms with multiple closets and alcoves, budget 12% to 15% extra for cut waste.",
-        },
-        {
-          q: "How many drywall sheets do I need for a ceiling or wall?",
-          a: "A standard 4ft × 8ft drywall sheet covers 32 square feet. Divide total square footage by 32 and add 10% for cuts and screw margins. For 4ft × 12ft sheets (48 sq ft each), divide by 48.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Clinical/Appraisal Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

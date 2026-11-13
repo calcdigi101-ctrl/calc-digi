@@ -15,7 +15,12 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
-      title="PayPal Fee Calculator"
+      related={[
+        { href: "https://www.calcdigi.com/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator (PITI & Amortization)" },
+        { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💰", name: "Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff Calculator" },
+      ]} title="PayPal Fee Calculator"
       intro="Calculate exact commercial payment processing fees for PayPal transactions. Compute invoice gross-up pricing to receive your desired net payout, and model international surcharges."
       description={DESCRIPTION}
       appCategory="FinanceApplication"

@@ -183,12 +183,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/loan-calculator", icon: "💰", name: "Loan Calculator" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-        { href: "/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan" },
-        { href: "/calculators/finance/apy-calculator", icon: "📈", name: "APY Calculator" },
-        { href: "/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff" },
-        { href: "/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff" },
+        { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💰", name: "Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator (PITI & Amortization)" },
+        { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/apy-calculator", icon: "📈", name: "APY Calculator" },
       ]}
     >
       <Calculator />

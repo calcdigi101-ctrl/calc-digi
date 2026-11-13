@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/science/boiling-point-calculator", icon: "🌡️", name: "Boiling Point & Vapor" },
-  { href: "/calculators/science/density-calculator", icon: "⚖️", name: "Gas & Fluid Density" },
-  { href: "/calculators/science/stoichiometry-calculator", icon: "🔬", name: "Stoichiometry & Gases" },
-  { href: "/calculators/physics/pressure-calculator", icon: "📊", name: "Hydrostatic Pressure" },
-  { href: "/calculators/science/molecular-weight-calculator", icon: "⚛️", name: "Molar Mass Solver" },
-  { href: "/calculators/weather/dew-point-calculator", icon: "🌦️", name: "Barometric Dew Point" },
+  { href: "https://www.calcdigi.com/calculators/science/molecular-weight-calculator", icon: "🧬", name: "Molecular Weight Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/molarity-calculator", icon: "⚗️", name: "Molarity Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/ph-calculator", icon: "🧪", name: "pH Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/density-calculator", icon: "⚖️", name: "Density Calculator" },
 ];
 
 const FAQ_ITEMS = [

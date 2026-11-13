@@ -59,40 +59,11 @@ export default function WaistToHeightRatioPage() {
       appCategory="HealthApplication"
       mathExpression="\text{WHtR} = \frac{\text{Waist Circumference}}{\text{Standing Height}} \quad (\text{Threshold: } \text{WHtR} < 0.50)"
       related={[
-        { href: "/calculators/health/waist-to-hip-ratio-calculator", icon: "📏", name: "Waist-to-Hip" },
-        { href: "/calculators/health/body-shape-calculator", icon: "⌛", name: "Body Shape" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-        { href: "/calculators/health/blood-pressure-calculator", icon: "❤️", name: "Blood Pressure" },
-      ]}
-      faq={[
-        {
-          q: "Why is Waist-to-Height Ratio (WHtR) considered clinically superior to BMI?",
-          a: "Body Mass Index (BMI) calculates weight relative to height squared, but it is completely blind to body composition and anatomical fat distribution. A bodybuilder with high muscle mass can be classified as 'obese' by BMI, while a sedentary person with normal weight but dangerous visceral abdominal fat ('skinny-fat' or normal-weight obesity) passes as healthy. WHtR directly measures abdominal circumference where toxic visceral fat concentrates, serving as a vastly superior predictor of cardiovascular disease, Type 2 diabetes, and premature mortality.",
-        },
-        {
-          q: "What is the 'Keep your waist to less than half your height' rule?",
-          a: "Formulated by Dr. Margaret Ashwell, former science director of the British Nutrition Foundation, this simple public health rule states that a person's waist circumference should remain under 50% of their standing height (WHtR < 0.50). For a person who is 6 feet (72 inches / 183 cm) tall, the healthy waist ceiling is 36 inches (91.5 cm). For someone who is 5'4\" (64 inches / 162.5 cm) tall, the ceiling is 32 inches (81.3 cm).",
-        },
-        {
-          q: "Does the 0.50 cutoff really work for men, women, and all ethnic groups?",
-          a: "Yes. In an extensive 2012 systematic review and meta-analysis of over 300,000 adult participants across multiple countries published in Obesity Reviews, Dr. Ashwell demonstrated that the 0.50 WHtR threshold exhibits consistent diagnostic power across Caucasian, East Asian, South Asian, African-Caribbean, and Hispanic cohorts, without requiring sex-specific or race-adjusted correction factors.",
-        },
-        {
-          q: "Where exactly should I measure my waist for an accurate WHtR calculation?",
-          a: "According to World Health Organization (WHO) and National Institutes of Health (NIH) protocols, measure your waist at the midpoint between the lower margin of the last palpable rib and the top of the iliac crest (hip bone). In practice, this corresponds to approximately 1 inch above the belly button. Measure against bare skin at the end of a normal, relaxed exhalation without sucking in your abdomen.",
-        },
-        {
-          q: "What happens to life expectancy when WHtR rises above 0.60?",
-          a: "Epidemiological modeling shows that exceeding a WHtR of 0.60 carries a dramatic increase in mortality hazard. A 30-year-old non-smoking man with a WHtR of 0.60 to 0.70 loses an estimated 5.5 to 8.2 years of life expectancy compared to a peer with a WHtR of 0.45, primarily driven by accelerated coronary atherosclerosis, stroke, and diabetic microvascular damage.",
-        },
-        {
-          q: "How quickly can I reduce my waist-to-height ratio through lifestyle changes?",
-          a: "Visceral intra-abdominal fat is metabolically more active and responsive to lipolysis than subcutaneous fat. Adopting a moderate caloric deficit (300–500 kcal/day), eliminating liquid sugars and refined grains, and accumulating 150 minutes of weekly Zone 2 cardiovascular exercise can reduce waist circumference by 1 to 2 inches (2.5–5 cm) within 8 to 12 weeks, rapidly lowering your WHtR into the healthy longevity zone.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

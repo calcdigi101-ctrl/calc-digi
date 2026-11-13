@@ -64,12 +64,10 @@ const APPLICATIONS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/matrix-calculator", icon: "🔲", name: "Matrix Calculator" },
-  { href: "/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
-  { href: "/calculators/math/logarithm-calculator", icon: "🪵", name: "Logarithm Calculator" },
-  { href: "/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/matrix-calculator", icon: "🔲", name: "Matrix Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/logarithm-calculator", icon: "🪵", name: "Logarithm Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation Calculator" },
 ];
 
 export default function Page() {

@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/engineering/reynolds-number-calculator", icon: "🌀", name: "Reynolds Number Flow Regime" },
-  { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & TDH Head Calculator" },
-  { href: "/calculators/engineering/hvac-load-calculator", icon: "❄️", name: "HVAC Load & Chilled Water Sizing" },
-  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Fluid Speed & Velocity Calculator" },
-  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Force & Pressure Calculator" },
-  { href: "/calculators/geography/elevation-grade-calculator", icon: "⛰️", name: "Elevation Grade & Slope Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/beam-load-calculator", icon: "🏗️", name: "Beam Load Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/concrete-mix-calculator", icon: "🔨", name: "Concrete Mix Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/electrical-load-calculator", icon: "⚡", name: "Electrical Load Calculator" },
 ];
 
 const FAQ_ITEMS = [

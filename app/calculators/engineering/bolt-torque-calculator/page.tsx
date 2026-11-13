@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/engineering/structural-steel-calculator", icon: "🏗️", name: "Structural Steel AISC Connections" },
-  { href: "/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio & Shaft Torque" },
-  { href: "/calculators/engineering/beam-load-calculator", icon: "📐", name: "Beam Deflection & Bending Stress" },
-  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Tensile Clamping Force Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Bolt Yield Stress Percentage" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Thread Pitch & Friction Ratio" },
+  { href: "https://www.calcdigi.com/calculators/engineering/beam-load-calculator", icon: "🏗️", name: "Beam Load Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/concrete-mix-calculator", icon: "🔨", name: "Concrete Mix Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/pipe-flow-calculator", icon: "🔆", name: "Pipe Flow Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio Calculator" },
 ];
 
 const FAQ_ITEMS = [

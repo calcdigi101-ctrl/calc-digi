@@ -119,12 +119,10 @@ const ERROR_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
-  { href: "/calculators/business/discount-calculator", icon: "🏷️", name: "Discount Calculator" },
-  { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-  { href: "/calculators/math/average-calculator", icon: "📐", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/average-calculator", icon: "📐", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/scientific-calculator", icon: "🔬", name: "Scientific Calculator" },
 ];
 
 export default function Page() {

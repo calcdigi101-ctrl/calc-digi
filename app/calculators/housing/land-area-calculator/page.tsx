@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Acres = (Length (ft) * Width (ft)) / 43560"
       related={[
-        { href: "/calculators/housing/fence-cost-calculator", icon: "🪵", name: "Fence Cost" },
-        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
-        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
-        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How many square feet are in one acre of land?",
-          a: "One acre equals exactly 43,560 square feet. If an acre were a perfect square, each side would measure approximately 208.71 feet. In metric terms, one acre equals approximately 4,046.86 square meters or 0.4047 hectares.",
-        },
-        {
-          q: "What is an easy way to visualize one acre?",
-          a: "A standard American football field (including the end zones) measures 360 feet long by 160 feet wide, totaling 57,600 square feet. One acre (43,560 sq ft) is equal to about 75% of a full football field (from one goal line to the opposite 20-yard line).",
-        },
-        {
-          q: "What is a typical suburban residential lot size?",
-          a: "In the United States, the median single-family suburban lot size is approximately 0.18 to 0.25 acres (roughly 7,800 to 11,000 square feet). In newer master-planned developments, lots often measure 0.12 to 0.15 acres (5,000 to 6,500 sq ft).",
-        },
-        {
-          q: "How do I calculate acreage for an irregularly shaped lot?",
-          a: "For four-sided lots with non-parallel sides, measure all four perimeter boundary lengths: Front, Rear, Left, and Right. Calculate the average width: (Front + Rear) ÷ 2, and the average length: (Left + Right) ÷ 2. Multiply the average width by average length, then divide by 43,560.",
-        },
-        {
-          q: "What is maximum lot coverage in zoning codes?",
-          a: "Municipal zoning codes restrict the percentage of your land that can be covered by impermeable roofs and pavement (typically 30% to 45% maximum lot coverage). This protects stormwater drainage absorption and prevents neighborhood overbuilding.",
-        },
-        {
-          q: "What is a property setback and how does it limit building?",
-          a: "A setback is the minimum required distance between a building and the front, rear, or side property lines (e.g., 25 ft front setback, 10 ft side setback). The area inside these setbacks is your legal 'building envelope'.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

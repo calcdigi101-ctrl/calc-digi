@@ -64,12 +64,10 @@ const LINE_EQUATIONS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula" },
-  { href: "/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem" },
-  { href: "/calculators/math/triangle-calculator", icon: "📐", name: "Triangle Calculator" },
-  { href: "/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
-  { href: "/calculators/math/percentage-change-calculator", icon: "📈", name: "Percentage Change" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/triangle-calculator", icon: "📐", name: "Triangle Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
 ];
 
 export default function Page() {

@@ -218,12 +218,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/apr-calculator", icon: "📊", name: "APR Calculator" },
-        { href: "/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-        { href: "/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff" },
-        { href: "/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff" },
-        { href: "/calculators/finance/budget-calculator", icon: "📋", name: "Budget Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/apr-calculator", icon: "📊", name: "APR Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator (PITI & Amortization)" },
+        { href: "https://www.calcdigi.com/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff Calculator" },
       ]}
     >
       <Calculator />

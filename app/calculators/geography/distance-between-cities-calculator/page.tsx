@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/geography/latitude-longitude-calculator", icon: "📍", name: "Latitude & Longitude Coordinates" },
-  { href: "/calculators/geography/time-zone-difference-calculator", icon: "🕐", name: "Time Zone Difference" },
-  { href: "/calculators/geography/map-scale-calculator", icon: "🗺️", name: "Map Scale & Ground Distance" },
-  { href: "/calculators/geography/elevation-grade-calculator", icon: "📐", name: "Elevation Grade Calculator" },
-  { href: "/calculators/datetime/time-duration-calculator", icon: "⏱️", name: "Time Duration Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "🔢", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/geography/latitude-longitude-calculator", icon: "📍", name: "Latitude Longitude Calc Calculator" },
+  { href: "https://www.calcdigi.com/calculators/geography/time-zone-difference-calculator", icon: "🕐", name: "Time Zone Difference Calculator" },
+  { href: "https://www.calcdigi.com/calculators/geography/map-scale-calculator", icon: "🗺", name: "Map Scale Calculator" },
+  { href: "https://www.calcdigi.com/calculators/geography/elevation-grade-calculator", icon: "⛰️", name: "Elevation Grade Calc Calculator" },
 ];
 
 const FAQ_ITEMS = [

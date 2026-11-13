@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Gallons = Ceil([Net Wall Sq Ft * Coats] / 350)"
       related={[
-        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
-        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
-        { href: "/calculators/housing/square-footage-calculator", icon: "📏", name: "Square Footage" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/electricity-cost-calculator", icon: "⚡", name: "Electricity Cost" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How many square feet does one gallon of paint cover?",
-          a: "One standard gallon of interior architectural paint covers approximately 350 to 400 square feet on smooth, pre-primed drywall. On textured walls (such as knockdown, orange peel, or rough plaster) or porous raw drywall, coverage drops to 250 to 300 square feet per gallon.",
-        },
-        {
-          q: "Do I always need 2 coats of paint?",
-          a: "For virtually all professional interior jobs, two coats are required to achieve true color depth, hide roller stipple, and deliver maximum sheen uniformity and washable durability. A single coat is only acceptable when refreshing the exact same color and brand over an undamaged surface.",
-        },
-        {
-          q: "When is a separate primer coat necessary?",
-          a: "You need a dedicated primer when painting over raw unprimed drywall or fresh joint compound, covering water or smoke stains, painting over high-gloss enamel, or making a radical color shift (such as dark navy to pure white).",
-        },
-        {
-          q: "How do I calculate paint for doors, baseboards, and window trim?",
-          a: "As a rule of thumb, trim and baseboards require 1 quart to 1/2 gallon of semi-gloss enamel per standard 12×14 room. Standard interior doors require approximately 1 quart per door for two coats.",
-        },
-        {
-          q: "What is the 350 square foot rule?",
-          a: "The 350 rule is the industry standard benchmark used by the Painting and Decorating Contractors of America (PDCA): Total Net Square Feet × Number of Coats ÷ 350 = Gallons of Paint to Purchase (rounded up to the nearest whole gallon).",
-        },
-        {
-          q: "How much paint should I save for future touch-ups?",
-          a: "Keep at least 1 quart to 1/2 gallon of leftover paint stored in an airtight container in a climate-controlled room (never let latex paint freeze in an unheated garage). Stir or shake thoroughly before using for touch-ups.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

@@ -58,40 +58,11 @@ export default function SleepPage() {
       appCategory="HealthApplication"
       mathExpression="\text{Target Wake Time} = \text{Bedtime} + \text{Latency (15 min)} + N \cdot 90 \text{ min}"
       related={[
-        { href: "/calculators/health/intermittent-fasting-calculator", icon: "⏳", name: "Intermittent Fasting" },
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-      ]}
-      faq={[
-        {
-          q: "Why do I feel exhausted and groggy even after sleeping 8 or 9 hours?",
-          a: "Feeling groggy upon waking—a clinical state termed 'sleep inertia'—is rarely caused by too little sleep, but rather by waking up at the wrong point in your sleep architecture. If your alarm sounds while you are in the middle of Stage N3 Slow-Wave Deep Sleep, your brain is flooded with slow delta waves and high adenosine. Awakening from N3 causes severe disorientation, cognitive fogginess, and slow reaction times for 30 to 60 minutes. Waking at the completion of a 90-minute cycle ensures you awaken from light Stage 1 or REM sleep with immediate mental clarity.",
-        },
-        {
-          q: "How many sleep cycles does an adult need per night?",
-          a: "Healthy adults require 5 complete sleep cycles (7.5 hours of sleep) for optimal cognitive, immune, and metabolic function. Highly active individuals, athletes undergoing intense physical training, and teenagers benefit from 6 complete cycles (9.0 hours). While 4 cycles (6.0 hours) can be tolerated temporarily, sustained restriction below 5 cycles creates cumulative sleep debt, impairs insulin sensitivity, and increases all-cause mortality risk.",
-        },
-        {
-          q: "What is the 15-minute sleep latency buffer?",
-          a: "Sleep latency is the duration required to transition from full wakefulness to Stage 1 NREM sleep. In healthy, well-regulated adults, normal sleep latency ranges between 10 and 20 minutes (with 15 minutes being the clinical median). Our calculator automatically factors this 15-minute buffer into its recommendations, ensuring your calculated sleep duration reflects true slumber rather than time lying awake.",
-        },
-        {
-          q: "What is the Glymphatic System and why does deep sleep matter for brain health?",
-          a: "Discovered by Dr. Maiken Nedergaard at the University of Rochester, the glymphatic system is a macroscopic waste clearance pathway that operates almost exclusively during Stage N3 Slow-Wave Deep Sleep. Glial cells shrink by up to 60%, allowing cerebrospinal fluid (CSF) to wash through brain tissue and flush out toxic metabolic byproducts, including beta-amyloid plaques and hyperphosphorylated tau proteins associated with Alzheimer's disease.",
-        },
-        {
-          q: "Is a 90-minute nap better than a 20-minute power nap?",
-          a: "Both serve distinct physiological purposes. A 20-minute power nap keeps you strictly within Stage 1 and light Stage 2 sleep, providing a quick alertness boost without entering deep slow-wave sleep or causing sleep inertia. Conversely, a 90-minute nap completes an entire ultradian cycle, incorporating both slow-wave physical recovery and REM emotional/creative memory consolidation.",
-        },
-        {
-          q: "How does alcohol or late caffeine ruin sleep architecture?",
-          a: "Although alcohol acts as a central nervous system depressant that may shorten sleep latency, it severely fragments sleep architecture in the second half of the night, suppressing REM sleep by up to 80% and preventing deep restorative slow-wave cycles. Caffeine has an average half-life of 5 to 7 hours, blocking adenosine receptors in the prefrontal cortex and reducing deep N3 delta sleep even if you fall asleep on time.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

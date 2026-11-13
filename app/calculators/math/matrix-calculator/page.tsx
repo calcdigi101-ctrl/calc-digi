@@ -64,12 +64,10 @@ const APPLICATIONS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation" },
-  { href: "/calculators/math/number-sequence-calculator", icon: "🔢", name: "Number Sequence" },
-  { href: "/calculators/math/slope-calculator", icon: "📈", name: "Slope Calculator" },
-  { href: "/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula" },
-  { href: "/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/number-sequence-calculator", icon: "🔢", name: "Number Sequence Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/slope-calculator", icon: "📈", name: "Slope Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula Calculator" },
 ];
 
 export default function Page() {

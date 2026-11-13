@@ -21,40 +21,11 @@ export default function Page() {
       appCategory="HealthApplication"
       mathExpression="BMR = (10 * weight_kg) + (6.25 * height_cm) - (5 * age) + s"
       related={[
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Weight" },
-        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
-      ]}
-      faq={[
-        {
-          q: "What is Basal Metabolic Rate (BMR)?",
-          a: "Basal Metabolic Rate (BMR) represents the absolute minimum amount of energy (measured in kilocalories per day) your body expends to maintain basic life-sustaining physiological processes at rest, including cellular respiration, heartbeat, blood circulation, lung ventilation, kidney filtration, and brain function.",
-        },
-        {
-          q: "Should I eat fewer calories than my BMR to lose weight quickly?",
-          a: "No. Clinicians and sports dietitians strongly advise against eating below your resting BMR. Doing so triggers adaptive thermogenesis (metabolic slowdown), spikes hunger hormones like ghrelin, depresses thyroid hormones (T3/T4), and forces the body to catabolize lean muscle tissue. Use your TDEE as the baseline and maintain a moderate 300 to 500 kcal deficit above your BMR.",
-        },
-        {
-          q: "Which BMR formula is the most accurate?",
-          a: "The Mifflin-St Jeor equation (published in 1990) is recognized by the Academy of Nutrition and Dietetics as the clinical gold standard, with an accuracy rate within 10% of indirect calorimetry for non-obese and obese adults. The older Harris-Benedict formula (revised in 1984) tends to slightly overestimate energy expenditure in modern sedentary populations.",
-        },
-        {
-          q: "How does aging affect my BMR?",
-          a: "BMR naturally declines by approximately 2% to 3% per decade after age 20. This reduction is primarily driven by age-related loss of metabolically active lean skeletal muscle (sarcopenia) and decreased organ mass. Progressive resistance training and adequate dietary protein can significantly attenuate this decline.",
-        },
-        {
-          q: "How does body composition influence metabolic rate?",
-          a: "Skeletal muscle tissue is metabolically dense, burning roughly 6 calories per pound per day at complete rest, compared to adipose fat tissue which burns only about 2 calories per pound per day. Therefore, two individuals with identical body weights and heights will have vastly different BMRs if one has lower body fat and more muscle mass.",
-        },
-        {
-          q: "What is the difference between BMR and RMR?",
-          a: "BMR is measured under strict laboratory conditions: immediately after waking in a darkened room, following 8 hours of sleep and a 12-hour fast in a thermoneutral environment. Resting Metabolic Rate (RMR) is measured under less restrictive conditions (such as after traveling to a clinic) and typically yields values about 5% to 10% higher than BMR.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator (IIFYM & Keto)" },
+      ]} article={
         <>
           {/* Clinical Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

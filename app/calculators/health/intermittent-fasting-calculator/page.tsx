@@ -68,40 +68,11 @@ export default function IntermittentFastingPage() {
       appCategory="HealthApplication"
       mathExpression="\text{Feeding Window} = [T_{\text{start}},\, T_{\text{start}} + \text{Hours}_{\text{eat}}] \pmod{24}"
       related={[
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/weight-loss-calculator", icon: "📉", name: "Weight Loss" },
-        { href: "/calculators/health/macro-calculator", icon: "🥩", name: "Macro Calculator" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What is the single best intermittent fasting protocol for long-term fat loss?",
-          a: "For the vast majority of individuals, the 16:8 protocol (16 hours fasting, 8 hours eating) offers the optimal balance of biological efficacy and real-world adherence. Typically implemented by concluding dinner by 8:00 PM and consuming the first meal at 12:00 PM noon the following day, it allows individuals to sleep through 8 hours of the fast while reaping the benefits of morning ketosis, elevated growth hormone, and reduced daily caloric intake without intense hunger.",
-        },
-        {
-          q: "What is autophagy, and at what hour of fasting does it truly peak?",
-          a: "Autophagy (literally 'self-eating') is an evolutionary cellular recycling process discovered by Nobel laureate Dr. Yoshinori Ohsumi. When nutrient sensors (mTOR) are suppressed and energy sensors (AMPK) are activated during fasting, cells package damaged organelles, misfolded proteins, and intracellular pathogens into autophagosomes for lysosomal degradation. Research indicates basal autophagy begins increasing around 12 to 14 hours of fasting, accelerates substantially between 16 and 24 hours, and reaches maximal physiological intensity between 24 and 48 hours.",
-        },
-        {
-          q: "Does black coffee or green tea break an intermittent fast?",
-          a: "No. Black coffee, unsweetened green or herbal tea, sparkling water, and calorie-free electrolyte salts do not break a metabolic fast. In fact, polyphenols found in coffee and green tea (such as chlorogenic acid and epigallocatechin gallate) have been demonstrated in peer-reviewed trials to stimulate cellular autophagy in hepatic, muscular, and cardiac tissues independently of caloric restriction.",
-        },
-        {
-          q: "Will intermittent fasting cause muscle loss or slow down my metabolism?",
-          a: "When protein intake is adequate (1.6 to 2.2 g/kg body weight) and resistance training is maintained, intermittent fasting does not accelerate muscle catabolism compared to conventional continuous caloric restriction. During short-term fasts of 16 to 24 hours, human growth hormone (HGH) surges by up to 300% to 500% specifically to preserve lean muscle tissue while the body oxidizes adipose fatty acids for fuel. Resting metabolic rate actually increases slightly during the first 36 hours due to norepinephrine release.",
-        },
-        {
-          q: "Who should avoid or exercise clinical caution with intermittent fasting?",
-          a: "Intermittent fasting is contraindicated for pregnant or breastfeeding women, individuals with a clinical history of eating disorders (anorexia, bulimia), underweight individuals (BMI < 18.5), children and adolescents under 18, and individuals with Type 1 diabetes or those taking insulin or sulfonylureas without strict medical supervision due to hypoglycemia risk.",
-        },
-        {
-          q: "Why is early time-restricted feeding (eTRF) more effective than late-night eating?",
-          a: "Circadian biology research pioneered by Dr. Satchin Panda at the Salk Institute demonstrates that human insulin sensitivity, gastric motility, and glucose tolerance are highest in the morning and early afternoon, declining sharply after sunset. Consuming an 8-hour feeding window from 9:00 AM to 5:00 PM or 11:00 AM to 7:00 PM produces superior glycemic control, lower HbA1c, and reduced systemic inflammation compared to an identical feeding window that extends late into the night (e.g., 2:00 PM to 10:00 PM).",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

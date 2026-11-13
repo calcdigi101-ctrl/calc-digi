@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/engineering/hvac-load-calculator", icon: "❄️", name: "HVAC Load & Cooling Tonnage" },
-  { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & Motor kW Calculator" },
-  { href: "/calculators/engineering/signal-to-noise-calculator", icon: "📡", name: "Signal to Noise Ratio (SNR)" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Electrical Demand Percentage" },
-  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Ohm's Law & Power Wattage" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Utility Electricity Cost Projections" },
+  { href: "https://www.calcdigi.com/calculators/engineering/beam-load-calculator", icon: "🏗️", name: "Beam Load Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/concrete-mix-calculator", icon: "🔨", name: "Concrete Mix Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/pipe-flow-calculator", icon: "🔆", name: "Pipe Flow Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio Calculator" },
 ];
 
 const FAQ_ITEMS = [

@@ -40,10 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/science/buffer-calculator", icon: "🛡️", name: "Buffer Capacity" },
-  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity Titration" },
-  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
-  { href: "/calculators/science/osmolarity-calculator", icon: "🩸", name: "Osmolarity Solver" },
+  { href: "https://www.calcdigi.com/calculators/science/molecular-weight-calculator", icon: "🧬", name: "Molecular Weight Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/molarity-calculator", icon: "⚗️", name: "Molarity Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/ideal-gas-law-calculator", icon: "💨", name: "Ideal Gas Law Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/density-calculator", icon: "⚖️", name: "Density Calculator" },
 ];
 
 const FAQ_ITEMS = [

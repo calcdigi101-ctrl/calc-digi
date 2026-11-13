@@ -26,12 +26,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/transportation/speed-distance-time-calculator", icon: "⏱️", name: "Speed Distance Time" },
-  { href: "/calculators/transportation/commute-cost-calculator", icon: "🚗", name: "Commute Cost Calculator" },
-  { href: "/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
-  { href: "/calculators/transportation/moving-cost-calculator", icon: "📦", name: "Moving Cost Calculator" },
-  { href: "/calculators/transportation/bike-pace-calculator", icon: "🚲", name: "Bike Pace Calculator" },
-  { href: "/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation" },
+  { href: "https://www.calcdigi.com/calculators/transportation/fuel-cost-calculator", icon: "⛽", name: "Fuel Cost Calculator" },
+  { href: "https://www.calcdigi.com/calculators/transportation/mpg-calculator", icon: "📊", name: "MPG Calculator" },
+  { href: "https://www.calcdigi.com/calculators/transportation/road-trip-cost-calculator", icon: "🛣️", name: "Road Trip Cost Calculator" },
+  { href: "https://www.calcdigi.com/calculators/transportation/car-depreciation-calculator", icon: "📉", name: "Car Depreciation Calculator" },
 ];
 
 const FAQ_ITEMS = [

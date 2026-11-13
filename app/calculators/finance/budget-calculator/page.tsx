@@ -182,12 +182,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay" },
-        { href: "/calculators/finance/emergency-fund-calculator", icon: "🛡️", name: "Emergency Fund" },
-        { href: "/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff" },
-        { href: "/calculators/finance/net-worth-calculator", icon: "💎", name: "Net Worth" },
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
-        { href: "/calculators/finance/salary-calculator", icon: "💼", name: "Salary Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/emergency-fund-calculator", icon: "🛡️", name: "Emergency Fund Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/debt-payoff-calculator", icon: "🧾", name: "Debt Payoff Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/net-worth-calculator", icon: "💎", name: "Net Worth Calculator" },
       ]}
     >
       <Calculator />
