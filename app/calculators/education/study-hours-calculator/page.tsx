@@ -6,19 +6,21 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { CarnegieStudyHoursAllocationChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/study-hours-calculator";
-const TITLE = "Study Hours Calculator: College Credits & Plan";
+const CANONICAL_URL = "https://www.calcdigi.com/calculators/education/study-hours-calculator";
+const TITLE = "College Study Hours Calculator: Plan Your Week (Carnegie Rule)";
+const FULL_TITLE = "College Study Hours Calculator: Plan Your Week (Carnegie Rule) | CalcDigi";
 const DESCRIPTION =
-  "Free college study hours calculator. Calculate weekly study time using the Carnegie 2:1 rule, balance course workload, and plan your 168-hour week.";
+  "Free college study time calculator. Calculate weekly study hours using the Carnegie 2:1 rule, balance your course workload, and plan your 168-hour week.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: { absolute: FULL_TITLE },
   description: DESCRIPTION,
-  alternates: { canonical: PATH },
+  alternates: { canonical: CANONICAL_URL },
   openGraph: {
-    title: TITLE,
+    title: FULL_TITLE,
     description: DESCRIPTION,
     type: "website",
-    url: PATH,
+    url: CANONICAL_URL,
     siteName: "CalcDigi",
     images: [
       {
@@ -31,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: FULL_TITLE,
     description: DESCRIPTION,
     images: ["https://www.calcdigi.com/og-image.png"],
     creator: "@CalcDigi",

@@ -10,11 +10,15 @@ import "./flagship.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Online Calculator – 330+ Free Calculators | CalcDigi",
+    default: "Free Online Calculator (Instant & Ad-Free) | 330+ Tools – CalcDigi",
     template: "%s | CalcDigi",
   },
-  description: "Free online calculator site with 330+ tools for finance, math, health, science and daily life. Fast, ad-free, private and no signup.",
+  description: "Fast, private, and 100% free online calculators for Finance, Math, Health, and Science. No signup, instant calculation, and step-by-step formulas.",
   openGraph: {
+    title: "Free Online Calculator (Instant & Ad-Free) | 330+ Tools – CalcDigi",
+    description: "Fast, private, and 100% free online calculators for Finance, Math, Health, and Science. No signup, instant calculation, and step-by-step formulas.",
+    type: "website",
+    url: SITE_URL,
     siteName: "CalcDigi",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "CalcDigi – Free Online Calculators" }],
   },
