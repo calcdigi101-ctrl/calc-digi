@@ -5,19 +5,21 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VideoGameCostPerHourValueChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/video-game-hours-calculator";
-const TITLE = "Video Game Hours Calculator: Backlog & Cost/Hour";
+const CANONICAL_URL = "https://www.calcdigi.com/calculators/entertainment/video-game-hours-calculator";
+const TITLE = "Video Game Hours Calculator: Total Gaming Time & Stats";
+const FULL_TITLE = "Video Game Hours Calculator: Total Gaming Time & Stats | CalcDigi";
 const DESCRIPTION =
-  "Free video game hours calculator. Calculate how long to clear your backlog, track playtime across story and side quests, and find your cost per hour.";
+  "Track and calculate your total lifetime video game hours, cost per gaming hour, and annual screen time. Free, instant, and private.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: { absolute: FULL_TITLE },
   description: DESCRIPTION,
-  alternates: { canonical: PATH },
+  alternates: { canonical: CANONICAL_URL },
   openGraph: {
-    title: TITLE,
+    title: FULL_TITLE,
     description: DESCRIPTION,
     type: "website",
-    url: PATH,
+    url: CANONICAL_URL,
     siteName: "CalcDigi",
     images: [
       {
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: FULL_TITLE,
     description: DESCRIPTION,
     images: ["https://www.calcdigi.com/og-image.png"],
     creator: "@CalcDigi",

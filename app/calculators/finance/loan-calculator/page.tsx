@@ -1,14 +1,44 @@
+import type { Metadata } from "next";
 import Calculator from "@/components/calcs/finance/loan-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { LoanAmortizationScheduleChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/loan-calculator";
-const TITLE = "Loan Calculator: Monthly Payments & Amortization";
+const CANONICAL_URL = "https://www.calcdigi.com/calculators/finance/loan-calculator";
+const TITLE = "Loan Payment Calculator: Monthly Pay & Amortization Schedule";
+const FULL_TITLE = "Loan Payment Calculator: Monthly Pay & Amortization Schedule | CalcDigi";
 const DESCRIPTION =
-  "Free loan calculator. Calculate exact monthly payments, total interest costs, and full amortization schedules. Model extra payments with zero signup.";
+  "Calculate your exact monthly loan payments, total interest, and full amortization payoff schedule. Fast, accurate, and free.";
 
-export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
+export const metadata: Metadata = {
+  title: { absolute: FULL_TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: CANONICAL_URL },
+  openGraph: {
+    title: FULL_TITLE,
+    description: DESCRIPTION,
+    type: "website",
+    url: CANONICAL_URL,
+    siteName: "CalcDigi",
+    images: [
+      {
+        url: "https://www.calcdigi.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "CalcDigi",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: FULL_TITLE,
+    description: DESCRIPTION,
+    images: ["https://www.calcdigi.com/og-image.png"],
+    creator: "@CalcDigi",
+    site: "@CalcDigi",
+  },
+};
 
 export default function Page() {
   return (

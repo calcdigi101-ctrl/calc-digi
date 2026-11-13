@@ -6,19 +6,21 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { GpaScaleWeightingComparisonChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/gpa-calculator";
-const TITLE = "GPA Calculator";
+const CANONICAL_URL = "https://www.calcdigi.com/calculators/education/gpa-calculator";
+const TITLE = "College & High School GPA Calculator (Fast 4.0 Scale)";
+const FULL_TITLE = "College & High School GPA Calculator (Fast 4.0 Scale) | CalcDigi";
 const DESCRIPTION =
-  "Calculate semester and cumulative high school and college GPA across 4.0, 4.5, and 5.0 weighted scales with honors, AP, IB, and quality points conversion.";
+  "Calculate cumulative and semester GPA easily on a standard 4.0 scale with letter grades and weighted honors/AP credits.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: { absolute: FULL_TITLE },
   description: DESCRIPTION,
-  alternates: { canonical: PATH },
+  alternates: { canonical: CANONICAL_URL },
   openGraph: {
-    title: TITLE,
+    title: FULL_TITLE,
     description: DESCRIPTION,
     type: "website",
-    url: PATH,
+    url: CANONICAL_URL,
     siteName: "CalcDigi",
     images: [
       {
@@ -31,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
+    title: FULL_TITLE,
     description: DESCRIPTION,
     images: ["https://www.calcdigi.com/og-image.png"],
     creator: "@CalcDigi",
