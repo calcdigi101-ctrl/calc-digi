@@ -6,6 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { FiscalRetailCalendarVariationsChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/week-number-calculator";
+const CANONICAL_URL = "https://www.calcdigi.com/calculators/datetime/week-number-calculator";
 const TITLE = "Week Number Calculator";
 const DESCRIPTION =
   "Determine the current ISO 8601 week number, calculate weeks between dates, and explore National Retail Federation (NRF) 4-4-5 merchandise accounting calendars.";
@@ -13,12 +14,12 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: PATH },
+  alternates: { canonical: CANONICAL_URL },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     type: "website",
-    url: PATH,
+    url: CANONICAL_URL,
     siteName: "CalcDigi",
     images: [
       {
@@ -65,6 +66,14 @@ const FAQ_ITEMS = [
     q: "How do retail corporations utilize 4-4-5 accounting calendars for fiscal planning?",
     a: "In retail merchandise planning, the National Retail Federation (NRF) 4-4-5 calendar divides each 52-week year into four equal 13-week quarters. Each quarter consists of two 4-week months (28 days) followed by one 5-week month (35 days). This standard ensures that every retail month ends on a Saturday, eliminating distortions caused by varying numbers of weekend shopping days in Gregorian months.",
   },
+  {
+    q: "How are week numbers used in payroll processing and project management?",
+    a: "Corporate payroll departments use ISO week numbering to maintain consistent bi-weekly pay cycles (e.g. paying employees on even-numbered weeks: W02, W04, W06). In project management, Agile engineering teams align two-week sprint milestones with even and odd week numbers, eliminating the scheduling drift that occurs when planning by Gregorian calendar months.",
+  },
+  {
+    q: "Can a date in early January belong to the previous year's ISO week?",
+    a: "Yes. If January 1 falls on a Friday, Saturday, or Sunday, it contains fewer than four days of the new calendar year. Under ISO 8601 rules, those days are assigned to Week 52 or Week 53 of the preceding calendar year. Conversely, dates in late December can belong to Week 1 of the following year if Thursday falls in January.",
+  },
 ];
 
 export default function WeekNumberCalculatorPage() {
@@ -79,6 +88,32 @@ export default function WeekNumberCalculatorPage() {
       faq={FAQ_ITEMS}
       article={
         <>
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            How Are Week Numbers Calculated? (ISO 8601 Standard)
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Under the international standard <strong>ISO 8601</strong>, every calendar week starts on <strong>Monday</strong> (Day 1) and concludes on <strong>Sunday</strong> (Day 7). Week 1 of any given year is officially defined as the week containing the <strong>first Thursday of the Gregorian calendar year</strong> (which is always equivalent to the week containing <strong>January 4th</strong>). This fundamental rule guarantees that Week 1 always encompasses at least four days of the new calendar year, meaning the majority of its days belong to the year being numbered.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A standard Gregorian common year contains 365 days (52 weeks plus 1 day), while a leap year contains 366 days (52 weeks plus 2 days). Over a 5 to 6-year period, these residual fractional days accumulate into an entire surplus week. When this occurs, the calendar experiences a <strong>53-week year (leap week year)</strong>. Specifically, any common year that starts on a Thursday, or any leap year that begins on a Wednesday or Thursday, contains exactly 53 ISO weeks. All other calendar years contain 52 weeks.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Standardized week numbering solves practical scheduling challenges across corporate project planning, enterprise resource planning (ERP), and workforce management. Software engineering organizations structure two-week Agile Scrum sprints around ISO week numbers to coordinate multi-team releases. Concurrently, human resources and finance departments utilize ISO week codes to process bi-weekly payroll disbursements, track contractor billing cycles, and align quarterly tax filings without distortion from varying Gregorian month durations.
+          </p>
+
+          <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-5 mb-6 dark:border-slate-800 dark:bg-slate-900/60">
+            <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-3">
+              Quick Reference: ISO 8601 Week Rules at a Glance
+            </h3>
+            <ul className="space-y-2 text-sm text-slate-700 dark:text-slate-300 list-disc pl-5">
+              <li><strong>Starting Day:</strong> Every week begins on Monday (Day 1) and ends on Sunday (Day 7).</li>
+              <li><strong>Week 1 Definition:</strong> The week containing the first Thursday of the new year (or January 4).</li>
+              <li><strong>Year Length:</strong> Standard years contain 52 weeks (364 days); leap week years contain 53 weeks (371 days).</li>
+              <li><strong>Standard Notation:</strong> Formatted internationally as <code className="rounded bg-slate-200 px-1.5 py-0.5 text-xs font-mono text-slate-800 dark:bg-slate-800 dark:text-slate-200">YYYY-Www-D</code> (e.g., 2026-W44-1 for Monday of Week 44).</li>
+              <li><strong>Core Applications:</strong> Bi-weekly payroll processing, corporate accounting, 2-week Agile sprint pacing, and global shipping freight schedules.</li>
+            </ul>
+          </div>
+
           <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
             <strong>Fiscal Week Scheduling Guidance:</strong> ISO 8601 week numbering synchronizes corporate enterprise manufacturing, logistics freight, and financial accounting. In supply chain operations, evaluate working business days in our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link>, add compounding calendar months in our <Link href="/calculators/datetime/month-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">month calculator</Link>, or track multi-year intervals in our <Link href="/calculators/datetime/year-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">year calculator</Link>.
           </div>
