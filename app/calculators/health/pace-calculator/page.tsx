@@ -31,28 +31,11 @@ export default function PaceCalculatorPage() {
       appCategory="HealthApplication"
       mathExpression="Pace = Time / Distance"
       related={[
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max Calculator" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How do I convert min/mile to min/km?",
-          a: "Divide your total seconds per mile by 1.609344. For example, an 8:00/mile pace equals 480 seconds. Dividing 480 by 1.609344 gives 298.26 seconds, which is 4 minutes and 58 seconds per kilometer (4:58/km).",
-        },
-        {
-          q: "Why does my GPS watch show a different distance than the official race course?",
-          a: "Certified road courses are measured along the shortest possible legal line—the tangent around curves. Real-world runners weave around other participants, cross to aid stations, and swing wide around corners, routinely covering 26.4 to 26.6 miles during a marathon. Always pace based on official course mile markers rather than watch distance alone.",
-        },
-        {
-          q: "What pace should my easy recovery runs be?",
-          a: "According to Jack Daniels' Running Formula, easy aerobic recovery runs should be executed approximately 1:30 to 2:30 minutes per mile slower than your current 5K race pace. Running easy runs too fast inhibits mitochondrial capillary remodeling and compromises high-intensity workout recovery.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

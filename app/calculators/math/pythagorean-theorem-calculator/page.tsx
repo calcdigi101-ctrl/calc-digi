@@ -69,12 +69,10 @@ const PRACTICAL_DOMAINS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/triangle-calculator", icon: "📐", name: "Triangle Calculator" },
-  { href: "/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula" },
-  { href: "/calculators/math/slope-calculator", icon: "📈", name: "Slope Calculator" },
-  { href: "/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
-  { href: "/calculators/math/square-root-calculator", icon: "√", name: "Square Root" },
-  { href: "/calculators/math/circle-calculator", icon: "⭕", name: "Circle Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/triangle-calculator", icon: "📐", name: "Triangle Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/slope-calculator", icon: "📈", name: "Slope Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
 ];
 
 export default function Page() {

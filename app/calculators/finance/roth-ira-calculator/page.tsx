@@ -167,12 +167,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
-        { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Calculator" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-        { href: "/calculators/finance/investment-calculator", icon: "💹", name: "Investment Calculator" },
-        { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/investment-calculator", icon: "💹", name: "Investment Return Calculator" },
       ]}
     >
       <Calculator />

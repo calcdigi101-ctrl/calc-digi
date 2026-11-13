@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/physics/kinetic-energy-calculator", icon: "⚡", name: "Kinetic Energy" },
-  { href: "/calculators/physics/potential-energy-calculator", icon: "🏔️", name: "Potential Energy" },
-  { href: "/calculators/electronics/power-calculator", icon: "💡", name: "Mechanical Power Rate" },
-  { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Force F = ma" },
-  { href: "/calculators/physics/torque-calculator", icon: "🔄", name: "Torque & Rotational Work" },
-  { href: "/calculators/electronics/power-calculator", icon: "🏎️", name: "Engine Horsepower" },
+  { href: "https://www.calcdigi.com/calculators/physics/velocity-calculator", icon: "🏃", name: "Velocity Calculator" },
+  { href: "https://www.calcdigi.com/calculators/physics/acceleration-calculator", icon: "🚀", name: "Acceleration Calculator" },
+  { href: "https://www.calcdigi.com/calculators/physics/force-calculator", icon: "💪", name: "Force Calculator" },
+  { href: "https://www.calcdigi.com/calculators/physics/momentum-calculator", icon: "🎱", name: "Momentum Calculator" },
 ];
 
 const FAQ_ITEMS = [

@@ -21,40 +21,11 @@ export default function Page() {
       appCategory="HealthApplication"
       mathExpression="Devine IBW = 50.0 kg + 2.3 kg * (Height_in - 60)"
       related={[
-        { href: "/calculators/health/bmi-calculator", icon: "📊", name: "BMI Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📏", name: "Body Fat Calculator" },
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
-      ]}
-      faq={[
-        {
-          q: "What is Ideal Body Weight (IBW)?",
-          a: "Ideal Body Weight (IBW) is a standardized medical and statistical estimate of the weight that correlates with the lowest mortality, optimal longevity, and lowest risk of chronic cardiovascular and metabolic diseases for a given height, sex, and skeletal frame.",
-        },
-        {
-          q: "Which ideal weight formula is the most authoritative?",
-          a: "The Devine Formula (published in 1974 by Dr. Ben J. Devine) is the most widely cited equation in modern clinical medicine. It is universally programmed into hospital EHR software to calculate renal drug clearance, mechanical ventilator tidal volumes, and therapeutic antibiotic dosing.",
-        },
-        {
-          q: "Why do the four formulas give slightly different results?",
-          a: "Each formula was calibrated from different patient populations and eras. The Hamwi formula (1964) was created as a rule of thumb for clinical dietitians; Devine (1974) adjusted for hospital pharmacology; Robinson (1983) and Miller (1983) modified the height coefficients to produce gentler curves for very tall and short individuals.",
-        },
-        {
-          q: "How does skeletal frame size affect my ideal weight?",
-          a: "Skeletal bone density and wrist circumference determine bone frame size. Clinical practice recommends adjusting baseline ideal weight by -10% for individuals with small bone frames and +10% for large-framed individuals.",
-        },
-        {
-          q: "Can an athlete weigh more than their ideal body weight and still be healthy?",
-          a: "Yes, absolutely. Ideal body weight formulas do not distinguish between adipose fat tissue and dense skeletal muscle mass. A competitive bodybuilder or powerlifter may weigh 30 to 50 pounds above their theoretical 'ideal weight' while maintaining single-digit body fat and excellent cardiometabolic health.",
-        },
-        {
-          q: "How does the WHO Healthy BMI Range compare to Ideal Body Weight?",
-          a: "The World Health Organization (WHO) defines a healthy weight as any weight producing a Body Mass Index (BMI) between 18.5 and 24.9 kg/m². This creates a broad, realistic healthy weight window of roughly 35 to 45 pounds for most adults, inside which the mathematical formulas generally sit right in the middle (~21 to 22.5 BMI).",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
           {/* Clinical Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

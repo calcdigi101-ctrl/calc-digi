@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margin Solver" },
-  { href: "/calculators/business/ltv-calculator", icon: "💎", name: "Customer Lifetime Value" },
-  { href: "/calculators/business/cac-calculator", icon: "🎯", name: "Customer Acquisition Cost" },
-  { href: "/calculators/business/burn-rate-calculator", icon: "🔥", name: "Startup Burn Rate" },
-  { href: "/calculators/business/ecommerce-profit-calculator", icon: "🛒", name: "E-Commerce Profit" },
-  { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Point" },
+  { href: "https://www.calcdigi.com/calculators/business/roi-calculator", icon: "📈", name: "ROI Calculator (Return on Investment)" },
+  { href: "https://www.calcdigi.com/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even Calculator" },
+  { href: "https://www.calcdigi.com/calculators/business/profit-margin-calculator", icon: "💹", name: "Profit Margin Calculator" },
+  { href: "https://www.calcdigi.com/calculators/business/markup-calculator", icon: "🏷️", name: "Markup Calculator" },
 ];
 
 const FAQ_ITEMS = [

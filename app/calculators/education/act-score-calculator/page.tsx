@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/education/sat-score-calculator", icon: "📐", name: "SAT Score" },
-  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
-  { href: "/calculators/education/test-score-calculator", icon: "📝", name: "Test Score" },
-  { href: "/calculators/education/class-rank-calculator", icon: "🏆", name: "Class Rank" },
-  { href: "/calculators/education/scholarship-calculator", icon: "💵", name: "Scholarship" },
-  { href: "/calculators/education/college-cost-calculator", icon: "🏛️", name: "College Cost" },
+  { href: "https://www.calcdigi.com/calculators/education/gpa-calculator", icon: "🎓", name: "GPA Calculator (4.0 Scale)" },
+  { href: "https://www.calcdigi.com/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
+  { href: "https://www.calcdigi.com/calculators/education/final-grade-calculator", icon: "🏁", name: "Final Grade Calculator" },
+  { href: "https://www.calcdigi.com/calculators/education/percentage-grade-calculator", icon: "📝", name: "Percentage Grade Calculator" },
 ];
 
 const FAQ_ITEMS = [

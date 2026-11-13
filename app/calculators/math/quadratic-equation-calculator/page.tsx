@@ -63,12 +63,10 @@ const PARABOLA_PROPERTIES_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/square-root-calculator", icon: "√", name: "Square Root" },
-  { href: "/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
-  { href: "/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem" },
-  { href: "/calculators/math/slope-calculator", icon: "📈", name: "Slope Calculator" },
-  { href: "/calculators/math/matrix-calculator", icon: "🔲", name: "Matrix Calculator" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/square-root-calculator", icon: "√", name: "Square Root Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/slope-calculator", icon: "📈", name: "Slope Calculator" },
 ];
 
 export default function Page() {

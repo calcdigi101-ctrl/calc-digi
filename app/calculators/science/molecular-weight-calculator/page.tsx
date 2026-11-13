@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/science/empirical-formula-calculator", icon: "🔬", name: "Empirical Formula Solver" },
-  { href: "/calculators/science/molarity-calculator", icon: "🧪", name: "Molarity & Dilution" },
-  { href: "/calculators/science/stoichiometry-calculator", icon: "⚖️", name: "Stoichiometry & Reagents" },
-  { href: "/calculators/science/concentration-calculator", icon: "⚗️", name: "Solution Concentration" },
-  { href: "/calculators/science/percent-yield-calculator", icon: "📊", name: "Percent Reaction Yield" },
-  { href: "/calculators/science/density-calculator", icon: "📐", name: "Material Density & SG" },
+  { href: "https://www.calcdigi.com/calculators/science/molarity-calculator", icon: "⚗️", name: "Molarity Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/ph-calculator", icon: "🧪", name: "pH Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/ideal-gas-law-calculator", icon: "💨", name: "Ideal Gas Law Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/density-calculator", icon: "⚖️", name: "Density Calculator" },
 ];
 
 const FAQ_ITEMS = [

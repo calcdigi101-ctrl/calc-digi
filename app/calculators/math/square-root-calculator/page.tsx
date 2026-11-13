@@ -69,12 +69,10 @@ const PERFECT_SQUARES_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation" },
-  { href: "/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
-  { href: "/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem" },
-  { href: "/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula" },
-  { href: "/calculators/math/logarithm-calculator", icon: "🪵", name: "Logarithm Calculator" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula Calculator" },
 ];
 
 export default function Page() {

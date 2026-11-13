@@ -63,12 +63,10 @@ const ADDITIVITY_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
-  { href: "/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
-  { href: "/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval" },
-  { href: "/calculators/math/sample-size-calculator", icon: "🧪", name: "Sample Size Calculator" },
-  { href: "/calculators/math/median-calculator", icon: "⚖️", name: "Median Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval Calculator" },
 ];
 
 export default function Page() {

@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/electronics/capacitor-calculator", icon: "⚙️", name: "Capacitor Reactance" },
-  { href: "/calculators/electronics/transformer-calculator", icon: "🔄", name: "Transformer" },
-  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
-  { href: "/calculators/electronics/frequency-calculator", icon: "📡", name: "Frequency Calculator" },
-  { href: "/calculators/electronics/three-phase-power-calculator", icon: "⚡", name: "Three-Phase Power" },
-  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
+  { href: "https://www.calcdigi.com/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/resistor-color-code-calculator", icon: "🎨", name: "Resistor Color Code Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
 ];
 
 const FAQ_ITEMS = [

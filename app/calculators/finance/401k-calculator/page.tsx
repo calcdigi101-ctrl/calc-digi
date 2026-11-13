@@ -177,12 +177,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Calculator" },
-        { href: "/calculators/finance/roth-ira-calculator", icon: "💎", name: "Roth IRA" },
-        { href: "/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay" },
-        { href: "/calculators/finance/investment-calculator", icon: "📈", name: "Investment Calculator" },
-        { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest" },
+        { href: "https://www.calcdigi.com/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/roth-ira-calculator", icon: "💎", name: "Roth IRA Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/investment-calculator", icon: "📈", name: "Investment Return Calculator" },
       ]}
     >
       <Calculator />

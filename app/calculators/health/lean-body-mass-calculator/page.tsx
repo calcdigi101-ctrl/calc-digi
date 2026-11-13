@@ -57,40 +57,11 @@ export default function LeanBodyMassPage() {
       appCategory="HealthApplication"
       mathExpression="LBM_{Boer} = 0.407 \cdot W + 0.267 \cdot H - 19.2 \;(\text{male})"
       related={[
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What is the clinical difference between Lean Body Mass (LBM) and Muscle Mass?",
-          a: "Lean Body Mass (LBM) encompasses the entire weight of your body minus all extractable storage and essential adipose tissue. It includes your skeletal muscle, bones, vital visceral organs (liver, heart, kidneys, brain), skin, blood volume, and intracellular/extracellular water. Skeletal muscle mass represents approximately 40% to 50% of total LBM in healthy adults. While all skeletal muscle is lean mass, not all lean mass is muscle.",
-        },
-        {
-          q: "Why is Lean Body Mass more clinically relevant than total scale weight or BMI?",
-          a: "Total body weight and conventional Body Mass Index (BMI) fail to distinguish between metabolic active lean tissue and inert or inflammatory adipose fat. Two individuals can share identical heights (e.g., 5'10\") and weights (e.g., 200 lbs) with a BMI of 28.7 (classified as overweight), yet one may have an athletic 12% body fat with 176 lbs of LBM, while the other possesses 32% body fat with 136 lbs of LBM. LBM dictates true basal caloric expenditure, glycemic control capacity, and athletic performance potential.",
-        },
-        {
-          q: "Which equation is most accurate: Boer, James, or Hume?",
-          a: "In contemporary clinical pharmacology, the Boer (1984) equation is considered the most reliable anthropometric formula. Peer-reviewed pharmacokinetic validations demonstrate that the James formula underestimates lean tissue in individuals with severe obesity (BMI > 35 kg/m²) due to an exponential height ratio factor, whereas the Boer formula maintains proportional linearity across both lean and obese cohorts.",
-        },
-        {
-          q: "What is Fat-Free Mass Index (FFMI) and what is the natural ceiling?",
-          a: "Fat-Free Mass Index (FFMI) scales lean body mass to height squared, mirroring BMI but excluding fat mass: FFMI = LBM (kg) / Height (m)². In a seminal landmark 1995 study by Kouri et al. at Harvard Medical School analyzing 157 competitive male athletes (including pre-steroid era Mr. America champions from 1939 to 1959), natural drug-free athletes peaked at a normalized FFMI of approximately 25.0 to 25.4 kg/m². Values exceeding 25.5 are rare without anabolic hormonal assistance.",
-        },
-        {
-          q: "How does Lean Body Mass affect my daily calorie and protein requirements?",
-          a: "Adipose tissue burns only ~4.5 kcal per kilogram per day at rest, whereas lean organs and skeletal muscle consume roughly 20 to 30 kcal/kg/day, with the liver and brain accounting for the lion's share. The Katch-McArdle formula leverages LBM to calculate true resting metabolic rate: BMR = 370 + (21.6 × LBM in kg). Furthermore, sports science guidelines recommend anchoring daily protein to lean mass (1.6 to 2.2 grams per kilogram of LBM) rather than gross weight.",
-        },
-        {
-          q: "How can I increase my Lean Body Mass safely and efficiently?",
-          a: "Building LBM requires progressive resistance training (hypertrophy-oriented protocols between 6–15 repetitions within 1–3 reps of muscular failure), adequate protein intake (minimum 1.6 g/kg of LBM per day distributed across 3–5 meals with high leucine content), a modest caloric surplus of 200–300 kcal/day, and 7 to 9 hours of restorative sleep to support human growth hormone (HGH) and testosterone secretion.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

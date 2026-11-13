@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/weather/dew-point-calculator", icon: "🌡️", name: "Dew Point Calculator" },
-  { href: "/calculators/weather/humidity-calculator", icon: "💧", name: "Humidity Calculator" },
-  { href: "/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
-  { href: "/calculators/weather/uv-index-calculator", icon: "☀️", name: "UV Index Calculator" },
-  { href: "/calculators/weather/severe-weather-calculator", icon: "⚡", name: "Severe Weather" },
-  { href: "/calculators/weather/rainfall-calculator", icon: "🌧️", name: "Rainfall Calculator" },
+  { href: "https://www.calcdigi.com/calculators/weather/wind-chill-calculator", icon: "🌬️", name: "Wind Chill Calculator" },
+  { href: "https://www.calcdigi.com/calculators/weather/dew-point-calculator", icon: "💧", name: "Dew Point Calculator" },
+  { href: "https://www.calcdigi.com/calculators/weather/uv-index-calculator", icon: "☀️", name: "UV Index Calculator" },
+  { href: "https://www.calcdigi.com/calculators/weather/rainfall-calculator", icon: "🌧️", name: "Rainfall Calculator" },
 ];
 
 const FAQ_ITEMS = [

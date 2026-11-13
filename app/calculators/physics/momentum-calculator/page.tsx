@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/physics/kinetic-energy-calculator", icon: "💥", name: "Kinetic Energy" },
-  { href: "/calculators/physics/force-calculator", icon: "🚀", name: "Newton's Force F=ma" },
-  { href: "/calculators/physics/acceleration-calculator", icon: "🏎️", name: "Acceleration & Deceleration" },
-  { href: "/calculators/physics/velocity-calculator", icon: "⚡", name: "Velocity Kinematics" },
-  { href: "/calculators/physics/work-energy-calculator", icon: "⚙️", name: "Work & Mechanical Energy" },
-  { href: "/calculators/physics/free-fall-calculator", icon: "🪂", name: "Free Fall Kinematics" },
+  { href: "https://www.calcdigi.com/calculators/physics/velocity-calculator", icon: "🏃", name: "Velocity Calculator" },
+  { href: "https://www.calcdigi.com/calculators/physics/acceleration-calculator", icon: "🚀", name: "Acceleration Calculator" },
+  { href: "https://www.calcdigi.com/calculators/physics/force-calculator", icon: "💪", name: "Force Calculator" },
+  { href: "https://www.calcdigi.com/calculators/physics/kinetic-energy-calculator", icon: "⚡", name: "Kinetic Energy Calculator" },
 ];
 
 const FAQ_ITEMS = [

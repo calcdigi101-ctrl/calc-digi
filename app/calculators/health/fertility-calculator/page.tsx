@@ -63,40 +63,11 @@ export default function FertilityPage() {
       appCategory="HealthApplication"
       mathExpression="P_{\text{cumulative}} = 1 - (1 - f)^N \quad (f = \text{Monthly Fecundability Rate})"
       related={[
-        { href: "/calculators/health/ovulation-calculator", icon: "📅", name: "Ovulation Calculator" },
-        { href: "/calculators/baby/due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
-        { href: "/calculators/health/period-calculator", icon: "🩸", name: "Period Calculator" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-      ]}
-      faq={[
-        {
-          q: "What is monthly fecundability and how does it change with age?",
-          a: "Monthly fecundability is the statistical probability of achieving pregnancy within a single menstrual cycle for a couple engaging in regular, unprotected intercourse. In women in their early 20s, natural fecundability is approximately 25% per month. By age 30, it averages 18–20%; by age 35, it drops to 10–12%; and by age 40, it is roughly 5% per cycle. However, cumulative 12-month pregnancy rates remain substantial even in older brackets through consistent exposure over time.",
-        },
-        {
-          q: "What is Anti-Müllerian Hormone (AMH) and what does it tell you?",
-          a: "Anti-Müllerian Hormone (AMH) is a glycoprotein secreted by the granulosa cells of pre-antral and small antral ovarian follicles. Because it reflects the size of the remaining growing follicle pool, serum AMH is widely used as a biomarker of ovarian reserve. AMH indicates how many eggs remain and predicts how well the ovaries will respond to fertility medications during IVF; however, AMH does not measure egg quality or guarantee natural unassisted conception in a given cycle.",
-        },
-        {
-          q: "When does the American Society for Reproductive Medicine (ASRM) recommend seeking a fertility evaluation?",
-          a: "The clinical guidelines established by ASRM dictate: 1) Women under age 35 should attempt unassisted conception for 12 months before initiating an infertility evaluation; 2) Women aged 35 to 39 should seek a clinical evaluation after 6 months of unsuccessful timed intercourse; and 3) Women aged 40 and older, or those with known risk factors (such as endometriosis, history of pelvic inflammatory disease, or irregular/absent periods), should seek immediate evaluation upon deciding to conceive.",
-        },
-        {
-          q: "Why does chromosomal aneuploidy increase as women age?",
-          a: "Female humans are born with their lifetime supply of approximately 1 to 2 million oocytes, which remain arrested in prophase of meiosis I for decades. As oocytes age, the proteinaceous cohesin rings and spindle apparatus fibers that tether chromosome pairs together gradually degrade. Upon completing meiotic division during ovulation, aged oocytes are prone to nondisjunction errors—leading to missing or extra chromosomes (aneuploidy, such as Trisomy 21). Aneuploid embryos frequently fail to implant or result in early first-trimester miscarriage.",
-        },
-        {
-          q: "What does a basic clinical fertility evaluation include?",
-          a: "A comprehensive initial workup evaluates three foundational pillars: 1) Ovulatory Function: Serum AMH, cycle day 3 FSH/estradiol, transvaginal ultrasound for Antral Follicle Count (AFC), and mid-luteal progesterone; 2) Tubal & Uterine Anatomy: Hysterosalpingography (HSG) or saline infusion sonohysterography to verify patent fallopian tubes and a clear uterine cavity; and 3) Male Factor: Semen analysis assessing volume, sperm concentration, progressive motility, and strict Kruger morphology.",
-        },
-        {
-          q: "Can lifestyle factors improve egg quality or male fertility?",
-          a: "Yes. While chronological oocyte quantity cannot be increased, mitochondrial energy production and cellular health can be supported during the 90-day follicular development window preceding ovulation: 1) Maintain optimal body composition (BMI 19–24.9), as both obesity and severe underweight disrupt ovulation; 2) Eliminate tobacco smoking and limit alcohol, both of which accelerate follicular depletion and fragment sperm DNA; 3) Supplement with evidence-based micronutrients (coenzyme Q10/ubiquinol to support mitochondrial ATP, folate/methylfolate, and vitamin D); and 4) Ensure male partners avoid hot tubs, tight compression, and excessive heat exposure.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

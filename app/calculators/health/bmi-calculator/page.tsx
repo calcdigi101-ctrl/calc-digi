@@ -93,12 +93,10 @@ const ETHNIC_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/health/calorie-calculator", icon: "🔥", name: "Calorie Needs" },
-  { href: "/calculators/health/body-fat-calculator", icon: "📐", name: "Body Fat %" },
-  { href: "/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Weight" },
-  { href: "/calculators/health/bmr-calculator", icon: "⚡", name: "BMR Basal Rate" },
-  { href: "/calculators/health/tdee-calculator", icon: "🏃", name: "TDEE Expenditure" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🔥", name: "Calorie Needs Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/body-fat-calculator", icon: "📐", name: "Body Fat Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Body Weight Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "⚡", name: "BMR Calculator (Basal Metabolic Rate)" },
 ];
 
 export default function BmiCalculatorPage() {

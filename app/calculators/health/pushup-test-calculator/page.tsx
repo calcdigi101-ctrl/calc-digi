@@ -34,28 +34,11 @@ export default function PushupTestPage() {
       appCategory="HealthApplication"
       mathExpression="Endurance Percentile = f(Reps, Age, Biological Sex)"
       related={[
-        { href: "/calculators/health/one-rep-max-calculator", icon: "🏋️", name: "One Rep Max" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What was the landmark finding of the 2019 Harvard Pushup Study?",
-          a: "In 2019, Harvard T.H. Chan School of Public Health researchers published a 10-year prospective study in JAMA Network Open tracking 1,104 active adult firefighters. They found that participants capable of completing more than 40 pushups had a 96% reduction in incident cardiovascular disease events (heart attack, heart failure, and coronary artery disease) compared to those who could complete fewer than 10 pushups.",
-        },
-        {
-          q: "What constitutes strict pushup form for clinical testing?",
-          a: "The standard ACSM protocol requires starting in a full plank position with hands shoulder-width apart, spine neutral, and feet together. The subject lowers until the chest grazes a 3-inch foam block (or the elbows bend to at least 90 degrees), then presses up to full elbow extension. The test terminates upon any pausing, hip sagging, or mechanical failure.",
-        },
-        {
-          q: "Are knee pushups acceptable for women in the ACSM test?",
-          a: "The classical ACSM Guidelines for Exercise Testing included a modified knee pushup protocol for women. However, modern exercise science curricula increasingly evaluate women using the standard full-body toe pushup, adjusting normative percentile cutoffs accordingly to measure true core anti-extension and full kinetic chain integrity.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

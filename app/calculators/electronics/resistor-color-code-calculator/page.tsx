@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law" },
-  { href: "/calculators/electronics/led-resistor-calculator", icon: "💡", name: "LED Resistor" },
-  { href: "/calculators/electronics/voltage-divider-calculator", icon: "🔽", name: "Voltage Divider" },
-  { href: "/calculators/electronics/rc-time-constant-calculator", icon: "⏱️", name: "RC Time Constant" },
-  { href: "/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
-  { href: "/calculators/electronics/wire-gauge-calculator", icon: "🔧", name: "Wire Gauge" },
+  { href: "https://www.calcdigi.com/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/battery-life-calculator", icon: "🔋", name: "Battery Life Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/power-calculator", icon: "🔌", name: "Power Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/led-resistor-calculator", icon: "💡", name: "LED Resistor Calculator" },
 ];
 
 const FAQ_ITEMS = [

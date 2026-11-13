@@ -61,12 +61,10 @@ const DECIMAL_PLACE_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/significant-figures-calculator", icon: "🔬", name: "Sig Fig Calculator" },
-  { href: "/calculators/math/decimal-to-fraction-calculator", icon: "🔢", name: "Decimal to Fraction" },
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
-  { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
-  { href: "/calculators/math/percent-error-calculator", icon: "📐", name: "Percent Error" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/significant-figures-calculator", icon: "🔬", name: "Sig Fig Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/decimal-to-fraction-calculator", icon: "🔢", name: "Decimal to Fraction Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
 ];
 
 export default function Page() {

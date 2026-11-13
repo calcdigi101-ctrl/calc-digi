@@ -62,12 +62,10 @@ const SKEWNESS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/median-calculator", icon: "📊", name: "Median Calculator" },
-  { href: "/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation" },
-  { href: "/calculators/math/variance-calculator", icon: "📈", name: "Variance Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
-  { href: "/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest" },
+  { href: "https://www.calcdigi.com/calculators/math/median-calculator", icon: "📊", name: "Median Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/variance-calculator", icon: "📈", name: "Variance Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
 ];
 
 export default function Page() {

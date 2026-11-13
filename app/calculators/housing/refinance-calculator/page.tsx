@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="FinanceApplication"
       mathExpression="Breakeven (Months) = Refinance Closing Costs / (Old Monthly Payment - New Monthly Payment)"
       related={[
-        { href: "/calculators/housing/home-equity-calculator", icon: "💰", name: "Home Equity" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
-        { href: "/calculators/housing/down-payment-calculator", icon: "💵", name: "Down Payment" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
-      ]}
-      faq={[
-        {
-          q: "How does mortgage refinancing work?",
-          a: "Refinancing replaces your existing mortgage with a brand new home loan, ideally with a lower interest rate, a shorter repayment term, or to convert equity into cash. The new lender pays off your old mortgage balance in full, and you begin making monthly payments under the new loan terms.",
-        },
-        {
-          q: "How do I calculate the refinance breakeven point?",
-          a: "Divide your total upfront refinance closing costs by your monthly payment savings (Closing Costs ÷ Monthly Savings = Breakeven in Months). For example, if refinancing costs $5,000 in closing fees and saves $200 per month, your breakeven point is 25 months (~2 years).",
-        },
-        {
-          q: "How much lower should the interest rate be to justify refinancing?",
-          a: "The traditional rule of thumb is a 1.0% to 2.0% reduction in interest rate. However, on larger mortgage balances ($300,000+), even a 0.75% or 0.50% interest rate reduction can generate significant savings and achieve breakeven within 24 to 36 months.",
-        },
-        {
-          q: "What is the difference between rate-and-term vs cash-out refinancing?",
-          a: "A rate-and-term refinance changes only your interest rate, loan duration (e.g., 30 years to 15 years), or loan type (ARM to Fixed) without taking extra money out. A cash-out refinance borrows more than you currently owe against your home equity and provides the difference in lump-sum cash for home renovations or debt consolidation.",
-        },
-        {
-          q: "Can I refinance with zero closing costs?",
-          a: "Yes. In a 'no-closing-cost' refinance, the lender either rolls the closing fees into your total loan balance (increasing the principal you owe) or absorbs the fees in exchange for a slightly higher interest rate (lender credits).",
-        },
-        {
-          q: "How soon after buying a house can I refinance?",
-          a: "For conventional rate-and-term refinances, there is typically no waiting period if refinancing with a different lender, though many lenders require a 6-month 'seasoning period'. For cash-out refinancing, Fannie Mae and Freddie Mac require you to have owned the property for at least 12 months.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

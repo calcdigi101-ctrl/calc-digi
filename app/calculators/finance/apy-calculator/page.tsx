@@ -193,12 +193,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
-        { href: "/calculators/finance/cd-calculator", icon: "🔒", name: "CD Calculator" },
-        { href: "/calculators/finance/apr-calculator", icon: "📊", name: "APR Calculator" },
-        { href: "/calculators/finance/investment-calculator", icon: "💹", name: "Investment Calculator" },
-        { href: "/calculators/finance/inflation-calculator", icon: "🎈", name: "Inflation Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/cd-calculator", icon: "🔒", name: "CD Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/apr-calculator", icon: "📊", name: "APR Calculator" },
       ]}
     >
       <Calculator />

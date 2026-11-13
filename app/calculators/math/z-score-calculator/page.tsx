@@ -73,12 +73,10 @@ const HYPOTHESIS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation" },
-  { href: "/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
-  { href: "/calculators/math/variance-calculator", icon: "📉", name: "Variance Calculator" },
-  { href: "/calculators/math/sample-size-calculator", icon: "🧪", name: "Sample Size Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/variance-calculator", icon: "📉", name: "Variance Calculator" },
 ];
 
 export default function Page() {

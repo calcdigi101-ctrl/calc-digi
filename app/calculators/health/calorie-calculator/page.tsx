@@ -96,12 +96,10 @@ const DEFICIT_TIMELINE_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-  { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-  { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
-  { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-  { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-  { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+  { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+  { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+  { href: "https://www.calcdigi.com/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator (IIFYM & Keto)" },
+  { href: "https://www.calcdigi.com/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Percentage Calculator" },
 ];
 
 export default function CalorieCalculatorPage() {

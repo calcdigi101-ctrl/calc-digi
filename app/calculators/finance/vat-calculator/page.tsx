@@ -170,12 +170,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/business/sales-tax-calculator", icon: "🏷️", name: "Sales Tax" },
-        { href: "/calculators/finance/currency-converter", icon: "💱", name: "Currency Converter" },
-        { href: "/calculators/finance/paypal-fee-calculator", icon: "💳", name: "PayPal Fee" },
-        { href: "/calculators/business/profit-margin-calculator", icon: "💼", name: "Business Profit" },
-        { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Income Tax" },
-        { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even" },
+        { href: "https://www.calcdigi.com/calculators/finance/currency-converter", icon: "💱", name: "Currency Converter" },
+        { href: "https://www.calcdigi.com/calculators/finance/paypal-fee-calculator", icon: "💳", name: "PayPal Fee Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/tax-calculator", icon: "📑", name: "Income Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator (PITI & Amortization)" },
       ]}
     >
       <Calculator />

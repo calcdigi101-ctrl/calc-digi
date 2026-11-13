@@ -21,40 +21,11 @@ export default function Page() {
       appCategory="HealthApplication"
       mathExpression="Daily Protein (g) = Weight (kg) * Goal Multiplier (0.8 to 2.4 g/kg)"
       related={[
-        { href: "/calculators/health/macro-calculator", icon: "🧬", name: "Macro Calculator" },
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-        { href: "/calculators/health/one-rep-max-calculator", icon: "🏋️", name: "One Rep Max" },
-      ]}
-      faq={[
-        {
-          q: "How much protein do I need to build muscle?",
-          a: "The International Society of Sports Nutrition (ISSN) and extensive meta-analyses by Dr. Brad Schoenfeld and Dr. Stuart Phillips recommend consuming 1.6 to 2.2 grams of protein per kilogram of body weight (0.73 to 1.0 grams per pound) daily when engaged in progressive resistance training to maximize muscle hypertrophy.",
-        },
-        {
-          q: "Why is the RDA for protein (0.8 g/kg) considered too low for active adults?",
-          a: "The Recommended Dietary Allowance (RDA) of 0.8 g/kg (0.36 g/lb) was established by the Institute of Medicine as the statistical minimum required to prevent clinical nitrogen deficiency and muscle wasting in sedentary individuals. It was never intended as an optimal target for athletes, active exercisers, or older adults striving to preserve muscle mass.",
-        },
-        {
-          q: "Why do I need more protein during a fat loss diet?",
-          a: "When you are in a caloric deficit, your body is in a catabolic energetic state and is more prone to breaking down lean skeletal muscle tissue for fuel through gluconeogenesis. Increasing protein to 2.0 to 2.4 g/kg (up to 1.1 g/lb) spares muscle mass, elevates metabolic burn via the thermic effect of food (TEF), and maximizes fullness hormones (PYY and GLP-1).",
-        },
-        {
-          q: "How much protein can the body absorb in a single meal?",
-          a: "While your digestive tract can eventually absorb almost all the protein you consume, the muscle protein synthesis (MPS) response reaches a biological saturation point (the 'muscle full' effect) at roughly 25 to 40 grams of high-quality protein (or ~0.40 g/kg per meal). Distributing protein evenly across 3 to 5 meals stimulates MPS more effectively than consuming all your protein in one giant dinner.",
-        },
-        {
-          q: "What is the leucine threshold in protein nutrition?",
-          a: "Leucine is an essential branched-chain amino acid (BCAA) that acts as the primary molecular trigger for the mTOR (mechanistic target of rapamycin) signaling pathway, which initiates muscle protein synthesis. Research shows a meal must provide roughly 2.5 to 3.0 grams of leucine (found in ~30g of whey, beef, chicken, or eggs) to fully stimulate the anabolic machinery.",
-        },
-        {
-          q: "Can consuming a high-protein diet damage healthy kidneys?",
-          a: "No. Systematic clinical reviews have repeatedly concluded that high-protein diets (up to 2.8 to 3.3 g/kg) have no adverse effects on glomerular filtration rate (GFR), renal function, or bone density in healthy individuals with normal kidney function. Individuals with pre-existing chronic kidney disease (CKD), however, must consult their nephrologist regarding clinical protein restriction.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
           {/* Clinical Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

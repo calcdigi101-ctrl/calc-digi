@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Roof Area = (Ground Length + 2*Overhang) * (Ground Width + 2*Overhang) * Sqrt(1 + (Rise/12)^2) * (1 + Waste %)"
       related={[
-        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/land-area-calculator", icon: "🗺️", name: "Land Area Calculator" },
-        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
-        { href: "/calculators/housing/electricity-cost-calculator", icon: "⚡", name: "Electricity Cost" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What is a roofing square?",
-          a: "In construction and architectural roofing, one 'Square' is equal to exactly 100 square feet of roof surface. For example, a 2,400 sq ft roof equals 24 roofing squares. Materials such as shingles, synthetic felt, and ice barriers are sold and priced by the square.",
-        },
-        {
-          q: "How many bundles of shingles do I need per square?",
-          a: "For standard fiberglass asphalt and laminated architectural dimensional shingles, there are 3 bundles per roofing square. If your roof requires 24 squares, you need to order 72 bundles (plus 10% to 15% extra for ridge caps, starters, and valley waste, totaling ~80 bundles).",
-        },
-        {
-          q: "How do I calculate roof pitch from ground dimensions?",
-          a: "Roof pitch is expressed as the number of vertical inches the roof rises for every 12 inches of horizontal run (e.g., 6/12 pitch means a 6-inch vertical rise per 12 horizontal inches). The pitch multiplier is calculated using the Pythagorean theorem: SquareRoot(1 + [Rise / 12]²).",
-        },
-        {
-          q: "How much extra material should I add for hip roofs and valleys?",
-          a: "Simple dual-pitch gable roofs generate low cutting waste, requiring only a 10% buffer. Complex hip roofs, intersecting valleys, and multi-dormer layouts generate substantial angled diagonal waste along hips and valleys, requiring a 15% to 20% waste allowance.",
-        },
-        {
-          q: "What is the minimum roof slope for asphalt shingles?",
-          a: "Under the International Residential Code (IRC §R905.2.2), asphalt shingles can only be installed on roofs with a slope of 2/12 (9.5°) or greater. For low slopes between 2/12 and 4/12, a double-layer of underlayment or full self-adhering modified bitumen membrane is code-mandated.",
-        },
-        {
-          q: "Do I need an ice and water shield barrier?",
-          a: "In geographic regions with freezing winter climates (where the average January temperature is 30°F or lower), the building code mandates a self-adhering polymer-modified bitumen membrane extending from the eave edge to at least 24 inches inside the home's exterior heated wall line to prevent ice dam leaks.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

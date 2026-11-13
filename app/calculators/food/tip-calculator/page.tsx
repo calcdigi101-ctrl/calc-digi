@@ -69,12 +69,10 @@ const FAQ_ITEMS = [
 ];
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
-  { href: "/calculators/health/alcohol-unit-calculator", icon: "🍷", name: "Alcohol Unit Calculator" },
-  { href: "/calculators/food/coffee-caffeine-calculator", icon: "☕", name: "Coffee Caffeine Calculator" },
-  { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
-  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
-  { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
+  { href: "https://www.calcdigi.com/calculators/food/recipe-scaler", icon: "🍽️", name: "Recipe Scaler Calculator" },
+  { href: "https://www.calcdigi.com/calculators/food/cooking-conversion-calculator", icon: "🔄", name: "Cooking Conversion Calculator" },
+  { href: "https://www.calcdigi.com/calculators/food/food-cost-calculator", icon: "💰", name: "Food Cost Calculator" },
+  { href: "https://www.calcdigi.com/calculators/food/cooking-time-calculator", icon: "⏱️", name: "Cooking Time Calculator" },
 ];
 
 export default function TipCalculatorPage() {

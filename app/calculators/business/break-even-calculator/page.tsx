@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/business/cogs-calculator", icon: "📦", name: "Cost of Goods Sold (COGS)" },
-  { href: "/calculators/business/profit-margin-calculator", icon: "📊", name: "Profit Margin Solver" },
-  { href: "/calculators/business/markup-calculator", icon: "🏷️", name: "Markup Calculator" },
-  { href: "/calculators/business/burn-rate-calculator", icon: "🔥", name: "Startup Burn Rate" },
-  { href: "/calculators/business/cac-calculator", icon: "🎯", name: "Customer Acquisition Cost" },
-  { href: "/calculators/business/wholesale-price-calculator", icon: "🏭", name: "Wholesale Pricing" },
+  { href: "https://www.calcdigi.com/calculators/business/roi-calculator", icon: "📈", name: "ROI Calculator (Return on Investment)" },
+  { href: "https://www.calcdigi.com/calculators/business/profit-margin-calculator", icon: "💹", name: "Profit Margin Calculator" },
+  { href: "https://www.calcdigi.com/calculators/business/markup-calculator", icon: "🏷️", name: "Markup Calculator" },
+  { href: "https://www.calcdigi.com/calculators/business/discount-calculator", icon: "🎯", name: "Discount Calculator" },
 ];
 
 const FAQ_ITEMS = [

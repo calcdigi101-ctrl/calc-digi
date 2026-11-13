@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/entertainment/movie-ticket-price-calculator", icon: "🎬", name: "Movie Theater Outing Cost" },
-  { href: "/calculators/entertainment/spotify-listening-stats-calculator", icon: "🎵", name: "Music Streaming Data Usage" },
-  { href: "/calculators/entertainment/video-game-hours-calculator", icon: "🎮", name: "Video Game Backlog & Value" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Streaming Budget Share Percentage" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Cable vs Streaming Price Ratio" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "💰", name: "Cord Cutting 5-Year Savings ROI" },
+  { href: "https://www.calcdigi.com/calculators/entertainment/movie-ticket-price-calculator", icon: "🎬", name: "Movie Ticket Calculator" },
+  { href: "https://www.calcdigi.com/calculators/entertainment/gaming-pc-build-calculator", icon: "🎮", name: "Gaming PC Build Calculator" },
+  { href: "https://www.calcdigi.com/calculators/entertainment/concert-ticket-calculator", icon: "🎷", name: "Concert Ticket Calculator" },
+  { href: "https://www.calcdigi.com/calculators/entertainment/book-reading-time-calculator", icon: "📖", name: "Book Reading Time Calculator" },
 ];
 
 const FAQ_ITEMS = [

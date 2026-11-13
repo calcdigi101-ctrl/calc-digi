@@ -30,28 +30,11 @@ export default function SwimPacePage() {
       appCategory="HealthApplication"
       mathExpression="Pace_100m = (Total Time / Distance_m) * 100"
       related={[
-        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
-        { href: "/calculators/health/cycling-calculator", icon: "🚴", name: "Cycling Calculator" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-      ]}
-      faq={[
-        {
-          q: "What is Critical Swim Speed (CSS) and how is it tested?",
-          a: "Critical Swim Speed (CSS) is the theoretical swimming speed that a swimmer can maintain continuously without exhausting aerobic capacity—the aquatic equivalent of your running lactate threshold or cycling FTP. It is empirically determined by swimming two all-out time trials (usually 400m and 200m) with full recovery in between: CSS (m/s) = (400 - 200) / (T400 - T200). Your CSS pace per 100m is 100 / CSS.",
-        },
-        {
-          q: "How do I convert between pace per 100 meters and pace per 100 yards?",
-          a: "Because 1 yard equals 0.9144 meters, a 100-yard interval is ~9.14 meters shorter than a 100-meter interval. To convert your 100m pace to a 100yd pace, multiply your total seconds by 0.9144. For instance, a 1:40/100m pace (100 seconds) equals 91.44 seconds, or 1:31 per 100 yards.",
-        },
-        {
-          q: "Why is open water swimming slower than pool swimming?",
-          a: "Pool swimmers benefit from wall push-offs (which impart high initial velocity without metabolic cost) and lane lines that dissipate surface waves. In open water, swimmers encounter wind chop, navigation sighting lifts (which drop the hips and increase frontal drag), and the absence of turn push-offs, typically resulting in a 3-to-6 second slowdown per 100 meters.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

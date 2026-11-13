@@ -21,40 +21,11 @@ export default function Page() {
       appCategory="HealthApplication"
       mathExpression="Target HR = (HRmax - Resting HR) * Intensity % + Resting HR"
       related={[
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max Calculator" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
-        { href: "/calculators/health/cycling-calculator", icon: "🚴", name: "Cycling Calculator" },
-        { href: "/calculators/health/blood-pressure-calculator", icon: "🩺", name: "Blood Pressure" },
-      ]}
-      faq={[
-        {
-          q: "What is Zone 2 training and why is it so popular?",
-          a: "Zone 2 training (60% to 70% of Heart Rate Reserve or ~65–75% of HRmax) is the aerobic intensity where your type-I slow-twitch muscle fibers utilize fatty acids as their primary fuel substrate through mitochondrial beta-oxidation. Leading longevity physicians like Dr. Peter Attia emphasize Zone 2 because it builds mitochondrial density, improves metabolic flexibility, and clears blood lactate without exhausting the central nervous system.",
-        },
-        {
-          q: "How do I measure my true Resting Heart Rate (RHR)?",
-          a: "Measure your pulse immediately upon waking in the morning while still lying in bed, before getting up, eating, or drinking caffeine. Count your beats for 60 full seconds (or use an optical smartwatch or ECG chest strap). Average your morning readings over 5 consecutive days for your baseline RHR.",
-        },
-        {
-          q: "Why is the Karvonen formula superior to the traditional '220 - Age' formula?",
-          a: "The classic '220 - Age' formula (Fox formula) only accounts for age and assumes two people of the same age have identical cardiovascular profiles. The Karvonen formula incorporates your actual Resting Heart Rate (RHR) to determine your Heart Rate Reserve (HRR = HRmax - RHR). A trained athlete with an RHR of 45 bpm will have drastically different training zones than an untrained peer with an RHR of 80 bpm.",
-        },
-        {
-          q: "What is the Tanaka formula for Maximum Heart Rate?",
-          a: "Published in 2001 by Dr. Hirofumi Tanaka in the Journal of the American College of Cardiology (analyzing 351 studies and 18,712 subjects), the formula HRmax = 208 - (0.7 × Age) eliminated the systematic underestimation of maximum heart rate in older adults that plagued the traditional Fox equation.",
-        },
-        {
-          q: "What is the 'talk test' for Zone 2 aerobic training?",
-          a: "The talk test is a validated clinical indicator of aerobic threshold. In Zone 2, you should be able to speak full, coherent sentences continuously without gasping for breath, but you should not have enough spare ventilatory capacity to sing comfortably. If you cannot speak in complete sentences, you have drifted up into Zone 3.",
-        },
-        {
-          q: "What percentage of training time should be spent in each zone?",
-          a: "Exercise physiologist Dr. Stephen Seiler formulated the celebrated '80/20 Polarized Training Rule' based on elite endurance athletes: spend roughly 80% of your weekly training volume in low-intensity Zone 2 to build a massive aerobic base, and dedicate 20% to high-intensity Zone 4 (threshold) and Zone 5 (VO2 max) intervals.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
           {/* Clinical Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

@@ -66,12 +66,10 @@ const ECONOMIC_BENCHMARKS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
-  { href: "/calculators/math/percent-error-calculator", icon: "📐", name: "Percent Error" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
-  { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "💹", name: "Compound Interest" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percent-error-calculator", icon: "📐", name: "Percent Error Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
 ];
 
 export default function Page() {

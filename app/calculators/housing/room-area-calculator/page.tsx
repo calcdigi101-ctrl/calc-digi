@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Floor Area = Length * Width | Wall Area = 2 * (Length + Width) * Height - Openings"
       related={[
-        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
-        { href: "/calculators/housing/flooring-calculator", icon: "🧱", name: "Flooring Calculator" },
-        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/electricity-cost-calculator", icon: "⚡", name: "Electricity Cost" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What is the difference between floor area and wall area?",
-          a: "Floor area is the two-dimensional footprint of the room (Length × Width), used for carpet, hardwood, and tile. Wall area is the vertical perimeter surface multiplied by ceiling height (2 × [Length + Width] × Height) minus doors and windows, used for paint, wallpaper, and drywall.",
-        },
-        {
-          q: "What is the legal minimum size for a bedroom?",
-          a: "Under the International Residential Code (IRC §R304), habitable rooms must have a floor area of not less than 70 square feet (6.5 m²). In addition, every bedroom must be at least 7 feet in any horizontal dimension with a minimum ceiling height of 7 feet.",
-        },
-        {
-          q: "How much square footage do doors and windows deduct from walls?",
-          a: "Standard interior doors (30″ × 80″) account for approximately 21 square feet including casing trim. Standard double-hung windows (36″ × 60″) account for approximately 15 square feet each. Deducting these prevents over-purchasing paint or wallpaper.",
-        },
-        {
-          q: "How do I calculate baseboard molding needed for a room?",
-          a: "Take the total room perimeter: 2 × (Length + Width). Then subtract 3 feet for each standard doorway opening, and add a 10% cutting waste factor for corner miters.",
-        },
-        {
-          q: "Why does room volume (cubic feet) matter?",
-          a: "Room volume (Floor Area × Ceiling Height) determines heating and air conditioning load requirements (BTUs / CFM airflow), air purifier sizing, and dehumidifier capacity.",
-        },
-        {
-          q: "How do ceiling heights affect paint requirements?",
-          a: "Increasing ceiling height from standard 8 feet to 10 feet adds 25% more vertical wall surface area to paint, while 12-foot cathedral ceilings add 50% more wall area, even though the floor square footage remains identical.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Clinical/Code Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/health/child-height-predictor", icon: "📏", name: "Child Height Predictor Calculator" },
-  { href: "/calculators/baby/baby-feeding-calculator", icon: "🍼", name: "Baby Feeding Calculator" },
-  { href: "/calculators/baby/due-date-calculator", icon: "📅", name: "Pregnancy Due Date Calculator" },
-  { href: "/calculators/baby/baby-sleep-calculator", icon: "🌙", name: "Baby Sleep & Wake Windows" },
-  { href: "/calculators/health/bmi-calculator", icon: "🩺", name: "BMI Calculator for Adults" },
-  { href: "/calculators/health/ideal-weight-calculator", icon: "⚖️", name: "Ideal Body Weight Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/due-date-calculator", icon: "👶", name: "Pregnancy Due Date Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/baby-feeding-calculator", icon: "🍼", name: "Baby Feeding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/diaper-cost-calculator", icon: "🧹", name: "Diaper Cost Calculator" },
+  { href: "https://www.calcdigi.com/calculators/baby/baby-sleep-calculator", icon: "😴", name: "Baby Sleep Calculator" },
 ];
 
 const FAQ_ITEMS = [

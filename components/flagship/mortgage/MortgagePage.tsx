@@ -118,12 +118,10 @@ export function MortgagePage({ path, category }: { path: string; category: { hre
           </div>
           <RelatedLinks
             links={[
-              { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
-              { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
-              { href: "/calculators/finance/loan-calculator", icon: "💰", name: "Loan Calculator" },
-              { href: "/calculators/housing/property-tax-calculator", icon: "🏛️", name: "Property Tax" },
-              { href: "/calculators/housing/rent-vs-buy-calculator", icon: "⚖️", name: "Rent vs Buy" },
-              { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
+              { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💵", name: "Loan Payment Calculator" },
+              { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+              { href: "https://www.calcdigi.com/calculators/finance/refinance-calculator", icon: "🔄", name: "Mortgage Refinance Calculator" },
+              { href: "https://www.calcdigi.com/calculators/finance/amortization-calculator", icon: "📊", name: "Loan Amortization Schedule Calculator" },
             ]}
           />
         </section>

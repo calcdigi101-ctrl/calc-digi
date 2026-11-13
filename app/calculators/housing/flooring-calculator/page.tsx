@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Total Boxes = Ceil([Length (ft) * Width (ft) * (1 + Waste %)] / Box Coverage)"
       related={[
-        { href: "/calculators/housing/room-area-calculator", icon: "📐", name: "Room Area" },
-        { href: "/calculators/housing/square-footage-calculator", icon: "📏", name: "Square Footage" },
-        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How many boxes of flooring do I need to buy?",
-          a: "Calculate the net room area (Length × Width in feet), add 10% to 15% for cutting waste and pattern matching, and divide by the square footage contained in one box. Always round up to the next whole box, because stores do not sell partial boxes.",
-        },
-        {
-          q: "Why do I need extra flooring for waste?",
-          a: "Every room has perimeter walls, door jams, closet corners, and transition thresholds that require trimming planks or tiles. When you cut the end of a board to finish a row, the off-cut piece is often too short to reuse elsewhere without compromising the staggered joint pattern.",
-        },
-        {
-          q: "How much extra flooring should I order for herringbone or diagonal patterns?",
-          a: "Standard straight horizontal or vertical plank layout requires 10% waste. Diagonal (45-degree) installations require 15% waste. Intricate herringbone, chevron, or basketweave layouts generate substantial angled triangle off-cuts, requiring a minimum 20% waste buffer.",
-        },
-        {
-          q: "Do I need an underlayment for luxury vinyl plank (LVP)?",
-          a: "Check whether your chosen LVP comes with an attached acoustic backing pad (such as IXPE or cork). If it already has an attached pad, manufacturer warranties strictly prohibit adding extra soft underlayment, as it can cause locking mechanism failure.",
-        },
-        {
-          q: "What is acclimation and how long does it take?",
-          a: "Acclimation allows flooring to reach moisture and temperature equilibrium with your home's indoor climate. Luxury vinyl plank requires 24 to 48 hours; engineered wood requires 48 to 72 hours; and solid hardwood requires 5 to 7 days before unboxing and nailing.",
-        },
-        {
-          q: "What size expansion gap should I leave around the perimeter?",
-          a: "For floating floors (LVP, laminate, engineered click-lock), leave a 1/4-inch to 3/8-inch (6–10 mm) gap along all perimeter walls, cabinets, and pipes. Baseboards and quarter-round shoe molding cover this expansion gap.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Clinical/Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

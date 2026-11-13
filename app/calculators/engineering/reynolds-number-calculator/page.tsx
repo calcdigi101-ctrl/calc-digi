@@ -39,12 +39,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/engineering/pipe-flow-calculator", icon: "🌊", name: "Pipe Flow & Head Loss Calculator" },
-  { href: "/calculators/engineering/pump-calculator", icon: "⚙️", name: "Pump Power & Head Calculator" },
-  { href: "/calculators/engineering/heat-transfer-calculator", icon: "🔥", name: "Convection Heat Transfer Sizing" },
-  { href: "/calculators/physics/velocity-calculator", icon: "🚀", name: "Fluid Velocity & Flow Speed" },
-  { href: "/calculators/physics/force-calculator", icon: "⚡", name: "Viscous Drag & Fluid Shear Force" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Inertial to Viscous Ratio Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/beam-load-calculator", icon: "🏗️", name: "Beam Load Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/concrete-mix-calculator", icon: "🔨", name: "Concrete Mix Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/pipe-flow-calculator", icon: "🔆", name: "Pipe Flow Calculator" },
+  { href: "https://www.calcdigi.com/calculators/engineering/gear-ratio-calculator", icon: "⚙️", name: "Gear Ratio Calculator" },
 ];
 
 const FAQ_ITEMS = [

@@ -57,12 +57,10 @@ const PRIMALITY_TESTS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/factor-calculator", icon: "🔢", name: "Factor Calculator" },
-  { href: "/calculators/math/gcf-calculator", icon: "⚖️", name: "GCF Calculator" },
-  { href: "/calculators/math/lcm-calculator", icon: "🔄", name: "LCM Calculator" },
-  { href: "/calculators/math/factorial-calculator", icon: "❗", name: "Factorial Calculator" },
-  { href: "/calculators/math/square-root-calculator", icon: "√", name: "Square Root" },
-  { href: "/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/factor-calculator", icon: "🔢", name: "Factor Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/gcf-calculator", icon: "⚖️", name: "GCF Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/lcm-calculator", icon: "🔄", name: "LCM Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/factorial-calculator", icon: "❗", name: "Factorial Calculator" },
 ];
 
 export default function Page() {

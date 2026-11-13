@@ -187,12 +187,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
-        { href: "/calculators/finance/apy-calculator", icon: "💹", name: "APY Calculator" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-        { href: "/calculators/finance/emergency-fund-calculator", icon: "🛡️", name: "Emergency Fund" },
-        { href: "/calculators/finance/investment-calculator", icon: "📊", name: "Investment Calculator" },
-        { href: "/calculators/finance/inflation-calculator", icon: "🎈", name: "Inflation Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/savings-calculator", icon: "🏦", name: "Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/apy-calculator", icon: "💹", name: "APY Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/emergency-fund-calculator", icon: "🛡️", name: "Emergency Fund Calculator" },
       ]}
     >
       <Calculator />

@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/food/cooking-conversion-calculator", icon: "⚖️", name: "Cooking Conversion" },
-  { href: "/calculators/food/recipe-scaler", icon: "📐", name: "Recipe Scaler" },
-  { href: "/calculators/food/food-cost-calculator", icon: "💵", name: "Food Cost Calculator" },
-  { href: "/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
-  { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-  { href: "/calculators/food/tip-calculator", icon: "🧾", name: "Tip Calculator" },
+  { href: "https://www.calcdigi.com/calculators/food/recipe-scaler", icon: "🍽️", name: "Recipe Scaler Calculator" },
+  { href: "https://www.calcdigi.com/calculators/food/cooking-conversion-calculator", icon: "🔄", name: "Cooking Conversion Calculator" },
+  { href: "https://www.calcdigi.com/calculators/food/food-cost-calculator", icon: "💰", name: "Food Cost Calculator" },
+  { href: "https://www.calcdigi.com/calculators/food/nutrition-calculator", icon: "🥗", name: "Nutrition Calculator" },
 ];
 
 const FAQ_ITEMS = [

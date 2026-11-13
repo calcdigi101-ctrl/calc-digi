@@ -4,6 +4,7 @@ import { CalculatorPage, Editorial, Faq, JsonLd, RelatedLinks } from "./shell";
 import { SITE_URL } from "@/lib/site";
 import { MATH_SOLVERS, type MathSolverConfig } from "@/lib/mathSolvers";
 import { getCompleteCalculatorFaqs } from "@/lib/calcFaqs";
+import { ALL_CALCULATORS } from "@/lib/calculators";
 
 /**
  * Shared server-rendered frame for every redesigned calculator: JSON-LD,
@@ -213,6 +214,18 @@ export function CalcPage({
       }
     : null;
 
+  const siblingCalculators = (() => {
+    if (related && related.length >= 3) return related.slice(0, 4);
+    const catId = category.href.replace("/pages/", "");
+    const siblings = ALL_CALCULATORS.filter((c) => c.category === catId && c.href !== path);
+    const fallbackList = siblings.slice(0, 4).map((s) => ({
+      href: `https://www.calcdigi.com${s.href}`,
+      icon: s.icon,
+      name: s.name,
+    }));
+    return [...(related || []), ...fallbackList].slice(0, 4);
+  })();
+
   return (
     <>
       <JsonLd data={{ "@context": "https://schema.org", "@graph": graph }} />
@@ -221,7 +234,7 @@ export function CalcPage({
         <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
           {children}
         </Suspense>
-        {related.length ? (
+        {siblingCalculators.length ? (
           <section className="fx-no-print mt-8 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -229,7 +242,7 @@ export function CalcPage({
               </h2>
               <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
             </div>
-            <RelatedLinks links={related} />
+            <RelatedLinks links={siblingCalculators} />
           </section>
         ) : null}
         <div className="fx-no-print">

@@ -202,12 +202,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-        { href: "/calculators/finance/cd-calculator", icon: "🔒", name: "CD Calculator" },
-        { href: "/calculators/finance/emergency-fund-calculator", icon: "🛡️", name: "Emergency Fund" },
-        { href: "/calculators/finance/budget-calculator", icon: "📋", name: "Budget Calculator" },
-        { href: "/calculators/finance/apy-calculator", icon: "💹", name: "APY Calculator" },
-        { href: "/calculators/finance/investment-calculator", icon: "📊", name: "Investment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/cd-calculator", icon: "🔒", name: "CD Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/emergency-fund-calculator", icon: "🛡️", name: "Emergency Fund Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/budget-calculator", icon: "📋", name: "Household Budget Calculator" },
       ]}
     >
       <Calculator />

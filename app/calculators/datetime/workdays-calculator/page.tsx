@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/datetime/time-duration-calculator", icon: "⏱️", name: "Time Duration" },
-  { href: "/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference" },
-  { href: "/calculators/datetime/week-number-calculator", icon: "🗓️", name: "Week Number" },
-  { href: "/calculators/datetime/days-until-calculator", icon: "⏳", name: "Days Until Event" },
-  { href: "/calculators/measurements/time-converter", icon: "🕒", name: "Time Converter" },
-  { href: "/pages/datetime", icon: "⏰", name: "Date & Time Hub" },
+  { href: "https://www.calcdigi.com/calculators/datetime/age-calculator", icon: "🎂", name: "Age Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/date-difference-calculator", icon: "📅", name: "Date Difference Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/time-calculator", icon: "⏱️", name: "Time Calculator" },
+  { href: "https://www.calcdigi.com/calculators/datetime/days-until-calculator", icon: "⏳", name: "Days Until Calculator" },
 ];
 
 const FAQ_ITEMS = [

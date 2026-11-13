@@ -64,12 +64,10 @@ const PERIODIC_BENCHMARKS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
-  { href: "/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
-  { href: "/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
-  { href: "/calculators/math/scientific-notation-calculator", icon: "🔬", name: "Scientific Notation" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/fraction-calculator", icon: "½", name: "Fraction Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/ratio-calculator", icon: "⚖️", name: "Ratio Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/percentage-calculator", icon: "%", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
 ];
 
 export default function Page() {

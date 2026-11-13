@@ -81,12 +81,10 @@ const DIET_SPLITS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-  { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Calculator" },
-  { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-  { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-  { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-  { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
+  { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Needs Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+  { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
 ];
 
 export default function Page() {
@@ -146,7 +144,14 @@ export default function Page() {
             </h2>
             <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Recommended for you</span>
           </div>
-          <RelatedLinks links={RELATED} />
+          <RelatedLinks
+            links={[
+              { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Daily Calorie Calculator" },
+              { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+              { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+              { href: "https://www.calcdigi.com/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake Calculator" },
+            ]}
+          />
         </section>
 
         <Editorial>

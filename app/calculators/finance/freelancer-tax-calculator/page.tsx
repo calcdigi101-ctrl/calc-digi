@@ -176,12 +176,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
-        { href: "/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay" },
-        { href: "/calculators/finance/paypal-fee-calculator", icon: "💳", name: "PayPal Fee" },
-        { href: "/calculators/business/profit-margin-calculator", icon: "💼", name: "Business Profit" },
-        { href: "/calculators/finance/salary-calculator", icon: "📊", name: "Salary Calculator" },
-        { href: "/calculators/business/break-even-calculator", icon: "⚖️", name: "Break-Even" },
+        { href: "https://www.calcdigi.com/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/take-home-pay-calculator", icon: "💵", name: "Take-Home Pay Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/paypal-fee-calculator", icon: "💳", name: "PayPal Fee Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/salary-calculator", icon: "📊", name: "Salary & Take-Home Pay Calculator" },
       ]}
     >
       <Calculator />

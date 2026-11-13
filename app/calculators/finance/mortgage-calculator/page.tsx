@@ -101,12 +101,10 @@ const MORTGAGE_BENCHMARK_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
-  { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Affordability Tool" },
-  { href: "/calculators/housing/down-payment-calculator", icon: "💵", name: "Down Payment" },
-  { href: "/calculators/housing/rent-vs-buy-calculator", icon: "⚖️", name: "Rent vs Buy" },
-  { href: "/calculators/finance/loan-calculator", icon: "💳", name: "Personal Loan" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Percentage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest Calculator" },
+  { href: "https://www.calcdigi.com/calculators/finance/loan-calculator", icon: "💳", name: "Loan Payment Calculator" },
+  { href: "https://www.calcdigi.com/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+  { href: "https://www.calcdigi.com/calculators/finance/credit-card-payoff-calculator", icon: "💳", name: "Credit Card Payoff Calculator" },
 ];
 
 export default function MortgageCalculatorPage() {

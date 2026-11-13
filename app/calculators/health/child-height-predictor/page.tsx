@@ -71,34 +71,11 @@ export default function ChildHeightPredictorPage() {
       appCategory="HealthApplication"
       mathExpression="\text{Boy MPH} = \frac{\text{Father} + \text{Mother} + 13\text{ cm}}{2}, \quad \text{Girl MPH} = \frac{\text{Father} + \text{Mother} - 13\text{ cm}}{2}"
       related={[
-        { href: "/calculators/baby/baby-weight-percentile-calculator", icon: "👶", name: "Baby Weight & Height Calculator" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight Calculator" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How accurate is the Mid-Parental Height prediction formula?",
-          a: "The Tanner-Goldstein MPH formula predicts final adult height within ±2 inches (±5 cm) for approximately 68% of children, and within ±3.3 inches (±8.5 cm) for 95% of children. It is the international standard used by pediatric endocrinologists because parental genetics explain 60% to 80% of stature variance.",
-        },
-        {
-          q: "Why do boys have 5 inches (13 cm) added to the parental average while girls have 5 inches subtracted?",
-          a: "Across global populations, adult males are on average 13 cm (5.1 inches) taller than adult females. This sexual dimorphism occurs because boys experience two extra years of prepubertal growth before puberty commences and generate higher peak testosterone levels during their adolescent growth spurt.",
-        },
-        {
-          q: "At what age do girls and boys stop growing in height?",
-          a: "Girls typically complete their growth 2 to 2.5 years after menarche (their first menstrual cycle), reaching terminal adult height around 14 to 16 years of age. Boys experience their growth spurt later and typically continue growing until 16 to 18 years old. Once the epiphyseal growth plates calcify under estrogen exposure, longitudinal bone growth ceases permanently.",
-        },
-        {
-          q: "Can nutritional supplements or vitamins make a child grow taller?",
-          a: "If a child is deficient in zinc, vitamin D, calcium, or overall dietary protein, correcting the deficiency will allow them to resume their genetically programmed growth velocity (catch-up growth). However, in a well-nourished child, surplus vitamins or growth supplements cannot stimulate extra height beyond their genetic target and may cause hypervitaminosis.",
-        },
-        {
-          q: "What is Constitutional Delay of Growth and Puberty (late bloomers)?",
-          a: "Constitutional Delay of Growth and Puberty (CDGP) is a normal genetic variation where a child enters puberty later than peers, appearing shorter during middle school and early high school. However, because their bone age is delayed and their growth plates remain open longer, they continue growing later into their late teens, ultimately reaching their normal predicted mid-parental adult stature.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         <div className="not-prose p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">

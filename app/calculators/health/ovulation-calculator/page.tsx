@@ -52,40 +52,11 @@ export default function OvulationPage() {
       appCategory="HealthApplication"
       mathExpression="\text{Ovulation Day} = \text{LMP} + (\text{Cycle Length} - \text{Luteal Phase (14 days)})"
       related={[
-        { href: "/calculators/baby/due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
-        { href: "/calculators/health/period-calculator", icon: "🩸", name: "Period Calculator" },
-        { href: "/calculators/health/fertility-calculator", icon: "🌱", name: "Fertility Calculator" },
-        { href: "/calculators/health/body-fat-calculator", icon: "📊", name: "Body Fat" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-        { href: "/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator" },
-      ]}
-      faq={[
-        {
-          q: "What is the biological fertile window, and how long does it last?",
-          a: "The biological fertile window encompasses exactly 6 days: the 5 days leading up to ovulation plus the day of ovulation itself. This timeframe is dictated by two physiological lifespans: healthy human sperm can survive in estrogen-stimulated fertile cervical mucus for up to 5 days, while the released human ovum (egg) survives for only 12 to 24 hours following follicular rupture. Intercourse outside this 6-day window has a biological conception probability of virtually zero.",
-        },
-        {
-          q: "Which specific days have the highest probability of conception?",
-          a: "In a seminal epidemiological study of 221 healthy women published in The New England Journal of Medicine by Dr. Allen Wilcox and colleagues, the single highest conception rates occurred from intercourse on the two days prior to ovulation (Day -2 and Day -1) and the day of ovulation itself (Day 0), yielding clinical pregnancy rates between 28% and 33%. Having intercourse on Day -2 or Day -1 ensures that capacitated, motile sperm are already present in the fallopian ampulla when the ovum is released.",
-        },
-        {
-          q: "Why is the luteal phase fixed while the follicular phase varies?",
-          a: "The menstrual cycle consists of two halves: the follicular phase (from menses to ovulation) and the luteal phase (from ovulation to the next period). The follicular phase is highly variable, taking anywhere from 10 to 22 days depending on stress, travel, illness, or hormonal fluctuations. However, once ovulation occurs, the life cycle of the corpus luteum is biologically predetermined to last almost exactly 14 days (normal range: 12 to 16 days) before undergoing luteolysis in the absence of beta-hCG.",
-        },
-        {
-          q: "How do ovulation predictor kits (OPKs) work?",
-          a: "Ovulation predictor kits detect the surge of Luteinizing Hormone (LH) in urine. A rapid surge of estrogen from the mature Graafian follicle triggers the pituitary gland to release a massive spike of LH. This LH surge acts as the hormonal trigger that weakens the follicular wall, causing ovulation to occur 24 to 36 hours later. Testing daily with afternoon urine starting 4 to 5 days before your estimated ovulation date helps pinpoint this critical window.",
-        },
-        {
-          q: "What does Basal Body Temperature (BBT) tell me about ovulation?",
-          a: "Basal Body Temperature cannot predict when you are about to ovulate—it can only confirm that ovulation has already taken place. After the follicle ruptures, it transforms into the corpus luteum, which secretes large amounts of progesterone. Progesterone acts on the hypothalamus to elevate resting body temperature by 0.5°F to 1.0°F (0.3°C to 0.6°C). A sustained thermal shift of at least 3 consecutive days confirms successful ovulation.",
-        },
-        {
-          q: "Can I get pregnant if my periods are irregular?",
-          a: "Yes, but pinpointing the fertile window via calendar math alone becomes difficult because irregular cycles indicate variable follicular development or anovulation. Women with irregular cycles should combine algorithmic tracking with real-time physical biomarkers: monitoring cervical mucus changes, utilizing urinary LH test strips, or consulting a reproductive endocrinologist to screen for conditions such as Polycystic Ovary Syndrome (PCOS) or thyroid dysfunction.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

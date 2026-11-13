@@ -40,10 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/science/boiling-point-calculator", icon: "🌡️", name: "Boiling Elevation" },
-  { href: "/calculators/science/ideal-gas-law-calculator", icon: "🎈", name: "Ideal Gas Law" },
-  { href: "/calculators/science/density-calculator", icon: "⚖️", name: "Density Solver" },
-  { href: "/calculators/electronics/ohms-law-calculator", icon: "⚡", name: "Ohm's Law Joule Heat" },
+  { href: "https://www.calcdigi.com/calculators/science/molecular-weight-calculator", icon: "🧬", name: "Molecular Weight Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/molarity-calculator", icon: "⚗️", name: "Molarity Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/ph-calculator", icon: "🧪", name: "pH Calculator" },
+  { href: "https://www.calcdigi.com/calculators/science/ideal-gas-law-calculator", icon: "💨", name: "Ideal Gas Law Calculator" },
 ];
 
 const FAQ_ITEMS = [

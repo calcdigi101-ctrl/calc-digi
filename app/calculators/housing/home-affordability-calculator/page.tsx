@@ -21,40 +21,11 @@ export default function Page() {
       appCategory="FinanceApplication"
       mathExpression="Max Housing Payment = Min(Gross Income * 0.28, (Gross Income * 0.36) - Debts)"
       related={[
-        { href: "/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-        { href: "/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy" },
-        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
-        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
-        { href: "/calculators/housing/home-equity-calculator", icon: "📈", name: "Home Equity" },
-      ]}
-      faq={[
-        {
-          q: "What is the 28/36 debt-to-income (DTI) rule?",
-          a: "The 28/36 rule is the classic underwriting standard used by mortgage lenders to assess affordability. It mandates that your total monthly housing costs (principal, interest, taxes, and insurance - PITI) should not exceed 28% of your gross monthly income (front-end ratio), and your total monthly debt payments (housing costs plus car loans, student debt, and credit cards) should not exceed 36% (back-end ratio).",
-        },
-        {
-          q: "How much house can I afford on a $100,000 salary?",
-          a: "With a $100,000 annual salary ($8,333/month), standard guidelines allow up to $2,333/month for housing. Assuming $500/month in other debts, a 6.75% 30-year fixed mortgage, and a $50,000 down payment, you can comfortably afford a home priced between $360,000 and $410,000 depending on local property tax rates.",
-        },
-        {
-          q: "How do monthly car and student loan payments affect how much house I can buy?",
-          a: "Every $100 in existing monthly debt obligations reduces your maximum mortgage borrowing capacity by approximately $15,000 to $18,000 at current interest rates. Paying off a $400/month car loan increases your home purchasing power by roughly $60,000.",
-        },
-        {
-          q: "What costs beyond the mortgage should I budget for?",
-          a: "In addition to principal and interest, homeowners must budget for property taxes (0.8% to 2.5% of home value annually), homeowners hazard insurance ($1,200 to $2,500/year), routine maintenance reserves (1% of purchase price per year), and potential HOA dues.",
-        },
-        {
-          q: "Can I buy a house with a DTI higher than 36%?",
-          a: "Yes. Federal Housing Administration (FHA) loans allow back-end DTIs up to 43% (and up to 50% with strong compensating factors like high credit scores or substantial cash reserves). Conventional Fannie Mae loans can approve DTIs up to 45% through Automated Underwriting Systems (Desktop Underwriter).",
-        },
-        {
-          q: "What credit score do I need for the lowest mortgage rate?",
-          a: "A FICO credit score of 780 or higher qualifies you for top-tier prime mortgage pricing. Scores between 720 and 779 receive competitive rates, while scores below 680 trigger loan-level price adjustments (LLPAs) that increase monthly payments.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
+      ]} article={
         <>
           <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900/40 dark:bg-emerald-950/20 text-sm leading-relaxed mb-6">
             <strong>In-Depth Editorial Guide:</strong> Learn how to calculate front-end and back-end debt ratios in our guide on the <a href="/pages/blog/how-much-house-can-you-afford" className="font-semibold text-emerald-800 dark:text-emerald-300 underline">28/36 debt-to-income home buying rule</a>.

@@ -163,12 +163,10 @@ export default function Page() {
         },
       ]}
       related={[
-        { href: "/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Calculator" },
-        { href: "/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
-        { href: "/calculators/finance/roth-ira-calculator", icon: "💎", name: "Roth IRA" },
-        { href: "/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
-        { href: "/calculators/datetime/age-calculator", icon: "🎂", name: "Exact Age" },
-        { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Compound Interest" },
+        { href: "https://www.calcdigi.com/calculators/finance/retirement-calculator", icon: "🌅", name: "Retirement Savings Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/401k-calculator", icon: "🏛️", name: "401(k) Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/roth-ira-calculator", icon: "💎", name: "Roth IRA Calculator" },
+        { href: "https://www.calcdigi.com/calculators/finance/tax-calculator", icon: "📑", name: "Tax Calculator" },
       ]}
     >
       <Calculator />

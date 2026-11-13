@@ -68,12 +68,10 @@ const DICE_COIN_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/sample-size-calculator", icon: "🧪", name: "Sample Size Calculator" },
-  { href: "/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
-  { href: "/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval" },
-  { href: "/calculators/math/combination-calculator", icon: "🔢", name: "Combination Calculator" },
-  { href: "/calculators/math/permutation-calculator", icon: "🔀", name: "Permutation Calculator" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/sample-size-calculator", icon: "🧪", name: "Sample Size Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/confidence-interval-calculator", icon: "📈", name: "Confidence Interval Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/combination-calculator", icon: "🔢", name: "Combination Calculator" },
 ];
 
 export default function Page() {

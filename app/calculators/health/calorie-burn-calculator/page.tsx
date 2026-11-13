@@ -34,28 +34,11 @@ export default function CalorieBurnPage() {
       appCategory="HealthApplication"
       mathExpression="Calories = Duration * (MET * 3.5 * Weight_kg) / 200"
       related={[
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-        { href: "/calculators/health/vo2-max-calculator", icon: "🫁", name: "VO2 Max" },
-      ]}
-      faq={[
-        {
-          q: "Why does a heavier person burn more calories for the same exercise?",
-          a: "Gravitational work equals force times displacement (W = F * d). Moving a 200-lb body against gravity during walking, running, or stair climbing requires significantly greater mechanical force and muscle motor unit recruitment than moving a 130-lb body, directly scaling oxygen demand and caloric burn.",
-        },
-        {
-          q: "How accurate are smartwatches and treadmill calorie counters?",
-          a: "A landmark Stanford University study evaluating 7 major consumer fitness trackers found that no device had an error rate below 27% for calorie estimation, with some models overestimating burn by up to 93%. Treadmills and ellipticals are notoriously inaccurate because they do not account for arm-holding or running economy. Using standardized MET equations based on exact body mass provides far greater accuracy.",
-        },
-        {
-          q: "What is the 'Afterburn Effect' (EPOC)?",
-          a: "Excess Post-Exercise Oxygen Consumption (EPOC) refers to the elevated metabolic rate following strenuous activity as the body restores ATP-CP stores, metabolizes lactate, lowers core temperature, and repairs muscle tissue. While marketing often claims EPOC burns hundreds of calories, exercise physiology studies confirm EPOC accounts for an additional 6% to 15% of total workout expenditure.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

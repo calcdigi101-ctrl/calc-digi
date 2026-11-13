@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="FinanceApplication"
       mathExpression="Annual Tax = Max(0, (Market Value * Assessment Ratio) - Exemption) * (Tax Rate / 100)"
       related={[
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
-        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
-        { href: "/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy" },
-        { href: "/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment" },
-        { href: "/calculators/housing/home-equity-calculator", icon: "📈", name: "Home Equity" },
-      ]}
-      faq={[
-        {
-          q: "What is the difference between market value and assessed value?",
-          a: "Market value is the open-market price a buyer is willing to pay for your home under normal conditions. Assessed value is the valuation placed on your property by the municipal or county tax assessor strictly for taxation purposes. In many jurisdictions, assessed value is only a statutory percentage (assessment ratio) of market value, such as 70% or 80%.",
-        },
-        {
-          q: "What is a mill rate, and how do I convert millage to a tax percentage?",
-          a: "A mill represents one-tenth of one cent, or $1 in tax for every $1,000 of assessed property value. To convert a mill rate to a percentage, divide it by 10 (e.g., 25 mills = 2.50%). Conversely, multiply a percentage tax rate by 10 to obtain the mill rate (e.g., 1.5% = 15 mills).",
-        },
-        {
-          q: "How does a primary residence homestead exemption reduce my property tax bill?",
-          a: "A homestead exemption legally reduces the taxable portion of your assessed property value before taxes are calculated. For instance, if your assessed value is $400,000 and your county offers a $50,000 homestead exemption, your annual tax is calculated strictly on $350,000, saving hundreds to thousands of dollars every year.",
-        },
-        {
-          q: "Why did my monthly mortgage payment increase if my interest rate is fixed?",
-          a: "Most homeowners pay property taxes through an escrow account bundled into their monthly mortgage payment. When local tax assessors increase your home's assessed value or local voters approve tax levies, your annual tax rises. The loan servicer performs an annual escrow analysis and increases your monthly payment to cover both the higher taxes and the escrow shortage.",
-        },
-        {
-          q: "How can I appeal a property tax assessment to lower my taxes?",
-          a: "You can file an assessment appeal (often called a tax grievance) with your county board of equalization. Success requires providing evidence that the assessor's estimated market value exceeds recent comparable sales (comps) in your immediate neighborhood, or demonstrating uncorrected structural flaws, easement restrictions, or clerical square footage errors on the property card.",
-        },
-        {
-          q: "Are property taxes tax-deductible on federal income tax returns?",
-          a: "Yes. In the United States, homeowners who itemize deductions can deduct paid state and local real estate taxes under the State and Local Tax (SALT) deduction. However, federal law caps total SALT deductions at $10,000 per calendar year ($5,000 for married individuals filing separately).",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

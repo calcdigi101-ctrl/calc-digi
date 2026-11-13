@@ -57,40 +57,11 @@ export default function PeriodPage() {
       appCategory="HealthApplication"
       mathExpression="\text{Next Period Date} = \text{LMP} + \text{Cycle Length (days)} \quad (\text{Normal: } 24 \le \text{Cycle} \le 38)"
       related={[
-        { href: "/calculators/health/ovulation-calculator", icon: "📅", name: "Ovulation Calculator" },
-        { href: "/calculators/baby/due-date-calculator", icon: "👶", name: "Pregnancy Due Date" },
-        { href: "/calculators/health/fertility-calculator", icon: "🌱", name: "Fertility Calculator" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-        { href: "/calculators/health/sleep-calculator", icon: "💤", name: "Sleep Calculator" },
-        { href: "/calculators/health/ideal-weight-calculator", icon: "🎯", name: "Ideal Weight" },
-      ]}
-      faq={[
-        {
-          q: "What is considered a clinically normal menstrual cycle length?",
-          a: "According to the International Federation of Gynecology and Obstetrics (FIGO), a normal menstrual cycle length is between 24 and 38 days. While 28 days is the traditional population average, fewer than 30% of women have a precise 28-day cycle. Variations between 24 and 38 days are completely normal, provided the cycle remains reasonably consistent from month to month.",
-        },
-        {
-          q: "Why does the American College of Obstetricians and Gynecologists call the period 'The Fifth Vital Sign'?",
-          a: "ACOG recognizes the menstrual cycle as the fifth vital sign (alongside blood pressure, body temperature, pulse, and respiration) because menstrual regularity directly reflects the integrity of the hypothalamic-pituitary-ovarian (HPO) axis, metabolic health, thyroid function, and bone density. Sudden changes in cycle length or bleeding patterns frequently provide the earliest clinical warning of metabolic disorders, excessive energy deficit, or endocrine dysfunction.",
-        },
-        {
-          q: "What causes Premenstrual Syndrome (PMS) during the week before my period?",
-          a: "PMS symptoms (such as bloating, breast tenderness, mood swings, fatigue, and irritability) are triggered by the rapid physiological collapse of progesterone and estrogen levels during late luteal regression (luteolysis) if pregnancy does not occur. This abrupt steroid hormone withdrawal alters central nervous system neurotransmitters, particularly lowering serotonin availability and modulating GABA receptor sensitivity.",
-        },
-        {
-          q: "How many days of variation between cycles is considered normal?",
-          a: "Normal cycle variability is defined as a difference of 7 to 9 days or less between your shortest and longest cycle over the course of a 12-month period. For example, if your shortest cycle is 26 days and your longest is 33 days (a 7-day variation), your cycles are clinically classified as regular. A variation of 10 days or more indicates cycle irregularity that warrants investigation.",
-        },
-        {
-          q: "What is Heavy Menstrual Bleeding (HMB) and when should I see a doctor?",
-          a: "Clinically termed menorrhagia, Heavy Menstrual Bleeding (HMB) is defined as menstrual blood loss exceeding 80 mL per cycle, or bleeding that lasts longer than 8 consecutive days. Practical signs include soaking through one or more sanitary pads or tampons every hour for two consecutive hours, needing double protection, passing blood clots larger than a quarter (1 inch in diameter), or experiencing symptoms of anemia (fatigue, shortness of breath, dizziness).",
-        },
-        {
-          q: "How does stress delay or disrupt a menstrual period?",
-          a: "Physical or emotional stress activates the hypothalamic-pituitary-adrenal (HPA) axis, stimulating excessive secretion of Corticotropin-Releasing Hormone (CRH) and cortisol. Elevated cortisol directly suppresses the pulsatile release of Gonadotropin-Releasing Hormone (GnRH) from the hypothalamus, preventing the pituitary from releasing sufficient FSH and LH to mature a follicle, thereby delaying or completely inhibiting ovulation (functional hypothalamic anovulation).",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

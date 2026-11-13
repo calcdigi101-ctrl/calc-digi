@@ -29,28 +29,11 @@ export default function StepsToCaloriesPage() {
       appCategory="HealthApplication"
       mathExpression="Distance = Steps * (Height * 0.415) ; Calories = f(MET, Weight, Duration)"
       related={[
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🔥", name: "Calorie Burn" },
-        { href: "/calculators/health/pace-calculator", icon: "⏱️", name: "Pace Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/weight-loss-calculator", icon: "⚖️", name: "Weight Loss" },
-        { href: "/calculators/health/water-intake-calculator", icon: "💧", name: "Water Intake" },
-        { href: "/calculators/health/bmi-calculator", icon: "📊", name: "BMI Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How many calories do 10,000 steps burn?",
-          a: "For an average adult weighing 160 to 180 lbs (72–82 kg), 10,000 steps burns approximately 400 to 500 calories (kcal). Heavier individuals burn more calories for the same step count because moving greater gravitational mass across space requires higher mechanical work, whereas a lighter 120-lb individual burns roughly 300 to 350 kcal.",
-        },
-        {
-          q: "How many miles is 10,000 steps?",
-          a: "For an adult of average height (5'6\" to 5'10\"), an average walking stride length is between 2.2 and 2.5 feet (0.67 to 0.76 meters). Consequently, 10,000 steps equates to approximately 4.2 to 5.0 miles (6.8 to 8.0 kilometers).",
-        },
-        {
-          q: "Is 10,000 steps a real scientific requirement?",
-          a: "The '10,000 steps' figure originated not from medical laboratories, but as a marketing campaign in Japan in 1965 to promote the 'Manpo-kei' (10,000-steps meter) pedometer following the 1964 Tokyo Olympics. However, extensive modern epidemiological research (including a 2022 Lancet Public Health meta-analysis of 47,471 adults) confirms that mortality risk progressively declines up to 8,000–10,000 steps per day for adults under 60, and plateaus around 6,000–8,000 steps per day for adults aged 60 and older.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
 
         {/* Clinical Byline */}

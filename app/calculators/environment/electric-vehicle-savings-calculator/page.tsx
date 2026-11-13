@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/environment/carbon-footprint-calculator", icon: "🌱", name: "Annual Carbon Footprint" },
-  { href: "/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Rooftop Solar EV Charging" },
-  { href: "/calculators/environment/energy-consumption-calculator", icon: "💡", name: "Electricity Usage Calculator" },
-  { href: "/calculators/finance/compound-interest-calculator", icon: "📈", name: "Fuel Savings Investment ROI" },
-  { href: "/calculators/math/percentage-calculator", icon: "📊", name: "Fuel Economy Percentage Gain" },
-  { href: "/calculators/finance/auto-loan-calculator", icon: "🚗", name: "Auto Loan Payment Calculator" },
+  { href: "https://www.calcdigi.com/calculators/environment/carbon-footprint-calculator", icon: "🌿", name: "Carbon Footprint Calculator" },
+  { href: "https://www.calcdigi.com/calculators/electronics/solar-panel-calculator", icon: "☀️", name: "Solar Panel Calculator" },
+  { href: "https://www.calcdigi.com/calculators/environment/water-usage-calculator", icon: "💧", name: "Water Usage Calculator" },
+  { href: "https://www.calcdigi.com/calculators/environment/energy-consumption-calculator", icon: "⚡", name: "Energy Consumption Calculator" },
 ];
 
 const FAQ_ITEMS = [

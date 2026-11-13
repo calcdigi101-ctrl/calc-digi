@@ -65,12 +65,10 @@ const LOG_SCALES_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
-  { href: "/calculators/math/square-root-calculator", icon: "√", name: "Square Root" },
-  { href: "/calculators/math/scientific-notation-calculator", icon: "🔬", name: "Scientific Notation" },
-  { href: "/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation" },
-  { href: "/calculators/math/number-sequence-calculator", icon: "🔢", name: "Number Sequence" },
-  { href: "/calculators/math/rounding-calculator", icon: "🎯", name: "Rounding Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/exponent-calculator", icon: "xʸ", name: "Exponent Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/square-root-calculator", icon: "√", name: "Square Root Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/scientific-notation-calculator", icon: "🔬", name: "Scientific Notation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/quadratic-equation-calculator", icon: "📈", name: "Quadratic Equation Calculator" },
 ];
 
 export default function Page() {

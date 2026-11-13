@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="UtilitiesApplication"
       mathExpression="Total Cost = Linear Feet * Cost Per Foot + (Posts * Concrete Cost) + Gates"
       related={[
-        { href: "/calculators/housing/land-area-calculator", icon: "🗺️", name: "Land Area Calculator" },
-        { href: "/calculators/housing/concrete-calculator", icon: "🏗️", name: "Concrete Calculator" },
-        { href: "/calculators/housing/square-footage-calculator", icon: "📐", name: "Square Footage" },
-        { href: "/calculators/housing/renovation-cost-calculator", icon: "🔨", name: "Renovation Cost" },
-        { href: "/calculators/housing/paint-calculator", icon: "🎨", name: "Paint Calculator" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-      ]}
-      faq={[
-        {
-          q: "How much does it cost to install 150 or 200 feet of fence?",
-          a: "For an average 150-linear-foot residential backyard fence, total installed costs range from $2,700 to $3,900 for pressure-treated pine, $4,200 to $5,700 for red cedar, $4,500 to $6,900 for white vinyl privacy, and $2,250 to $3,600 for galvanized chain link.",
-        },
-        {
-          q: "How far apart should fence posts be spaced?",
-          a: "Standard residential fence posts are spaced 8 feet on center (96 inches). In high-wind hurricane or severe storm regions, or for heavy commercial 8-foot-tall privacy fences, 6-foot post spacing is required to prevent wind blowouts.",
-        },
-        {
-          q: "How deep should fence post holes be dug?",
-          a: "A standard rule of thumb is to bury at least one-third (1/3) of the post's total length in the ground. For a 6-foot fence using an 8-foot post, dig holes 24 to 30 inches deep. In northern climates with deep winter frost, holes must extend at least 6 inches below the local municipal frost line (often 36 to 48 inches deep).",
-        },
-        {
-          q: "How many bags of concrete do I need per fence post?",
-          a: "Use 1.5 to 2 fifty-pound (or eighty-pound) bags of fast-setting concrete per standard 4×4 post hole (10 to 12 inches in diameter). For terminal gate posts or heavy corner posts (6×6 timber), use 3 to 4 bags per hole.",
-        },
-        {
-          q: "Do I need a boundary survey before installing a fence?",
-          a: "Yes. Installing a fence even 6 inches over your neighbor's property line can result in mandatory removal orders. Always check property stakes, review your boundary survey, and verify local zoning setback requirements (typically 2 to 6 inches inside your boundary).",
-        },
-        {
-          q: "What is Call 811 and why is it mandatory?",
-          a: "Calling 811 (Dig Safe) is a federally mandated free utility location service. You must contact 811 at least 48 to 72 business hours before excavating to have buried electrical lines, natural gas mains, water pipes, and internet fiber spray-painted on your lawn.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/down-payment-calculator", icon: "💰", name: "Down Payment Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

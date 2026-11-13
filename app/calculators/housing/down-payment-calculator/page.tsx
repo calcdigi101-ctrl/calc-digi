@@ -20,40 +20,11 @@ export default function Page() {
       appCategory="FinanceApplication"
       mathExpression="Total Cash To Close = (Purchase Price * Down Payment %) + Closing Costs"
       related={[
-        { href: "/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability" },
-        { href: "/calculators/finance/mortgage-calculator", icon: "🏠", name: "Mortgage Calculator" },
-        { href: "/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy" },
-        { href: "/calculators/housing/home-equity-calculator", icon: "📈", name: "Home Equity" },
-        { href: "/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
-        { href: "/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax" },
-      ]}
-      faq={[
-        {
-          q: "Do I really need a 20% down payment to buy a home?",
-          a: "No. The 20% down payment is a popular myth. First-time buyers can purchase a home with as little as 3% down using Fannie Mae HomeReady or Freddie Mac Home Possible loans. FHA loans require 3.5% down, and VA/USDA loans offer 0% down financing for eligible borrowers.",
-        },
-        {
-          q: "What is Private Mortgage Insurance (PMI)?",
-          a: "PMI is an insurance policy that protects the mortgage lender if you default on your loan. Lenders mandate PMI on conventional mortgages whenever your down payment is less than 20% (Loan-to-Value greater than 80%). It typically costs $30 to $70 per month for every $100,000 borrowed.",
-        },
-        {
-          q: "How and when does PMI get removed?",
-          a: "Under the federal Homeowners Protection Act of 1998, you can request PMI cancellation once your loan principal balance reaches 80% of the home's original appraised value. Lenders are legally required to automatically terminate PMI when your balance drops to 78% of original value.",
-        },
-        {
-          q: "What are closing costs and how much cash do they require?",
-          a: "Closing costs are lender and third-party fees required to finalize your mortgage, including appraisal, loan origination, title insurance, attorney fees, transfer taxes, and initial escrow deposits. They typically range from 2% to 5% of the total purchase price.",
-        },
-        {
-          q: "Can I use gift funds for my down payment?",
-          a: "Yes. Most conventional and FHA loan programs permit 100% of your down payment and closing costs to come from a verified gift from an immediate family member, provided the donor signs a formal gift letter certifying that no repayment is expected.",
-        },
-        {
-          q: "Where should I keep my down payment savings?",
-          a: "Keep your down payment in a liquid, FDIC-insured High-Yield Savings Account (HYSA), Certificate of Deposit (CD), or Treasury bills. Avoid keeping short-term down payment funds in volatile stock market equities if you plan to purchase within 1 to 3 years.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/housing/home-affordability-calculator", icon: "🏡", name: "Home Affordability Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/rent-vs-buy-calculator", icon: "🔑", name: "Rent vs Buy Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/property-tax-calculator", icon: "🧾", name: "Property Tax Calculator" },
+        { href: "https://www.calcdigi.com/calculators/housing/refinance-calculator", icon: "🔄", name: "Refinance Calculator" },
+      ]} article={
         <>
           {/* Sleek Industry Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

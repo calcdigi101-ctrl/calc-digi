@@ -70,12 +70,10 @@ const MISCONCEPTIONS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/sample-size-calculator", icon: "🧪", name: "Sample Size Calculator" },
-  { href: "/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
-  { href: "/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation" },
-  { href: "/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
-  { href: "/calculators/math/probability-calculator", icon: "🎲", name: "Probability Calculator" },
-  { href: "/calculators/math/variance-calculator", icon: "📈", name: "Variance Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/sample-size-calculator", icon: "🧪", name: "Sample Size Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/z-score-calculator", icon: "🎯", name: "Z-Score Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/standard-deviation-calculator", icon: "📐", name: "Standard Deviation Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/average-calculator", icon: "📊", name: "Average Calculator" },
 ];
 
 export default function Page() {

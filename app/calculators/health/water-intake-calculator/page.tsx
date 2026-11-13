@@ -21,40 +21,11 @@ export default function Page() {
       appCategory="HealthApplication"
       mathExpression="Daily Water (oz) = (Weight_lbs * 0.55) + (Workout_min / 30 * 12) * Climate_factor"
       related={[
-        { href: "/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
-        { href: "/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator" },
-        { href: "/calculators/health/protein-intake-calculator", icon: "🥩", name: "Protein Intake" },
-        { href: "/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator" },
-        { href: "/calculators/health/calorie-burn-calculator", icon: "🏃", name: "Calorie Burn" },
-        { href: "/calculators/health/heart-rate-zone-calculator", icon: "❤️", name: "Heart Rate Zones" },
-      ]}
-      faq={[
-        {
-          q: "How much water should I drink per day on average?",
-          a: "The National Academies of Sciences, Engineering, and Medicine (NASEM) recommends a total daily fluid intake of approximately 3.7 liters (125 fl oz or ~15.5 cups) for healthy adult men, and 2.7 liters (91 fl oz or ~11.5 cups) for healthy adult women. This includes all drinking water, beverages, and moisture derived from dietary food.",
-        },
-        {
-          q: "Does coffee, tea, and food count toward my daily water intake?",
-          a: "Yes. Approximately 20% of your daily fluid intake naturally comes from whole foods—particularly water-rich fruits and vegetables like cucumbers (96% water), watermelon (92%), and apples (85%). Moderate consumption of coffee and tea also contributes positively to hydration; their mild diuretic caffeine effect does not offset the total fluid volume consumed.",
-        },
-        {
-          q: "How much extra water do I need when working out?",
-          a: "The American College of Sports Medicine (ACSM) recommends drinking 16 to 20 fl oz (500–600 ml) of water 2 to 3 hours before exercise, and consuming 7 to 10 fl oz (200–300 ml) every 10 to 20 minutes during vigorous exercise. For general planning, adding 12 fl oz per 30 minutes of moderate-to-high intensity sweating is an effective baseline.",
-        },
-        {
-          q: "What is hyponatremia (water intoxication)?",
-          a: "Hyponatremia is a potentially life-threatening medical emergency caused by drinking excessive amounts of plain water without adequate sodium electrolytes. This dilutes the blood's sodium concentration below 135 mmol/L, causing cellular swelling, brain edema, nausea, seizures, and confusion. Never force fluid consumption beyond thirst and renal excretion capacity (roughly 0.8 to 1.0 liter per hour).",
-        },
-        {
-          q: "How can I tell if I am adequately hydrated?",
-          a: "The most reliable daily clinical indicator is your urine color. Pale straw or light lemonade-colored urine indicates optimal cellular hydration. Dark yellow or amber indicates acute dehydration. Completely clear, water-like urine signifies that you may be overhydrating and flushing electrolytes.",
-        },
-        {
-          q: "Do I need electrolyte drinks or sports powders?",
-          a: "For workouts lasting under 60 minutes in temperate weather, plain water is completely sufficient. For endurance exercise exceeding 60 to 90 minutes, intense outdoor training in extreme heat, or heavy sweater profiles, supplementing with 300 to 600 mg of sodium and potassium prevents cramping and maintains plasma volume.",
-        },
-      ]}
-      article={
+        { href: "https://www.calcdigi.com/calculators/health/bmi-calculator", icon: "⚖️", name: "BMI Calculator (Body Mass Index)" },
+        { href: "https://www.calcdigi.com/calculators/health/calorie-calculator", icon: "🥗", name: "Calorie Calculator" },
+        { href: "https://www.calcdigi.com/calculators/health/tdee-calculator", icon: "⚡", name: "TDEE Calculator (Daily Calorie Needs)" },
+        { href: "https://www.calcdigi.com/calculators/health/bmr-calculator", icon: "🔥", name: "BMR Calculator (Basal Metabolic Rate)" },
+      ]} article={
         <>
           {/* Clinical Verification Byline */}
           <div className="mb-8 flex flex-wrap items-center justify-between gap-y-2 gap-x-4 border-b border-slate-200/70 pb-4 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">

@@ -40,12 +40,10 @@ export const metadata: Metadata = {
 };
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/physics/force-calculator", icon: "💥", name: "Force Calculator" },
-  { href: "/calculators/measurements/power-converter", icon: "🔌", name: "Power Converter" },
-  { href: "/calculators/measurements/energy-converter", icon: "⚡", name: "Energy Converter" },
-  { href: "/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
-  { href: "/calculators/measurements/angle-converter", icon: "📐", name: "Angle Converter" },
-  { href: "/pages/measurements", icon: "🔧", name: "Measurements Hub" },
+  { href: "https://www.calcdigi.com/calculators/measurements/length-converter", icon: "📏", name: "Length Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/weight-converter", icon: "⚖️", name: "Weight Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/temperature-converter", icon: "🌡️", name: "Temperature Converter" },
+  { href: "https://www.calcdigi.com/calculators/measurements/volume-converter", icon: "🥄", name: "Volume Converter" },
 ];
 
 const FAQ_ITEMS = [

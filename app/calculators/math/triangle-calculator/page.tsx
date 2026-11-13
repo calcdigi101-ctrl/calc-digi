@@ -63,12 +63,10 @@ const TRIANGLE_CENTERS_ROWS = [
 ];
 
 const RELATED = [
-  { href: "/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem" },
-  { href: "/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
-  { href: "/calculators/math/circle-calculator", icon: "⭕", name: "Circle Calculator" },
-  { href: "/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula" },
-  { href: "/calculators/math/slope-calculator", icon: "📈", name: "Slope Calculator" },
-  { href: "/calculators/math/square-root-calculator", icon: "√", name: "Square Root" },
+  { href: "https://www.calcdigi.com/calculators/math/pythagorean-theorem-calculator", icon: "📐", name: "Pythagorean Theorem Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/area-calculator", icon: "🟩", name: "Area Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/circle-calculator", icon: "⭕", name: "Circle Calculator" },
+  { href: "https://www.calcdigi.com/calculators/math/distance-formula-calculator", icon: "📍", name: "Distance Formula Calculator" },
 ];
 
 export default function Page() {

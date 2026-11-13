@@ -37,12 +37,10 @@ const ATTENDANCE_BENCHMARK_ROWS = [
 ];
 
 const RELATED_CALCULATORS = [
-  { href: "/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
-  { href: "/calculators/education/gpa-calculator", icon: "📚", name: "GPA Calculator" },
-  { href: "/calculators/education/final-grade-calculator", icon: "🎯", name: "Final Grade" },
-  { href: "/calculators/education/study-hours-calculator", icon: "⏱️", name: "Study Hours" },
-  { href: "/calculators/education/class-rank-calculator", icon: "🏆", name: "Class Rank" },
-  { href: "/calculators/education/cgpa-calculator", icon: "🎓", name: "CGPA Calculator" },
+  { href: "https://www.calcdigi.com/calculators/education/gpa-calculator", icon: "🎓", name: "GPA Calculator (4.0 Scale)" },
+  { href: "https://www.calcdigi.com/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
+  { href: "https://www.calcdigi.com/calculators/education/final-grade-calculator", icon: "🏁", name: "Final Grade Calculator" },
+  { href: "https://www.calcdigi.com/calculators/education/percentage-grade-calculator", icon: "📝", name: "Percentage Grade Calculator" },
 ];
 
 const FAQ_ITEMS = [
