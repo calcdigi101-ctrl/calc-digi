@@ -4,6 +4,7 @@ import GpaCalculatorComponent from "@/components/calcs/education/gpa-calculator"
 import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { GpaScaleWeightingComparisonChart } from "@/components/flagship/education/editorial-charts";
+import { StandardGpaScaleTable } from "@/components/calcs/education/StandardGpaScaleTable";
 
 const PATH = "/calculators/education/gpa-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/education/gpa-calculator";
@@ -50,6 +51,18 @@ const RELATED_CALCULATORS = [
 
 const FAQ_ITEMS = [
   {
+    q: "How do you calculate your cumulative GPA?",
+    a: "Multiply each course's grade point value (e.g., 4.0 for an A, 3.0 for a B) by its credit hours to find the quality points. Sum all quality points together and divide by your total attempted credit hours.",
+  },
+  {
+    q: "What is the difference between Weighted and Unweighted GPA?",
+    a: "An unweighted GPA is measured on a standard 4.0 scale regardless of class difficulty. A weighted GPA accounts for advanced course rigor, awarding up to 4.5 for Honors courses and up to 5.0 for Advanced Placement (AP), International Baccalaureate (IB), or Dual Enrollment courses.",
+  },
+  {
+    q: "What letter grade is a 3.7 GPA?",
+    a: "On a standard 4.0 scale, a 3.7 GPA corresponds to an **A- minus** average, which represents a grade percentage between 90% and 92%.",
+  },
+  {
     q: "What is the mathematical difference between unweighted and weighted GPA?",
     a: "An unweighted GPA measures academic achievement on a strict 4.0 scale regardless of course rigor, treating an A in standard physical education identically to an A in Advanced Placement (AP) Chemistry. Conversely, a weighted GPA awards an extra 0.5 quality points for Honors classes (4.5 max) and an extra 1.0 quality point for AP, International Baccalaureate (IB), or dual-enrollment college coursework (5.0 max), compensating students for undertaking rigorous collegiate-level curriculums.",
   },
@@ -75,10 +88,58 @@ export default function GpaCalculatorPage() {
       category={{ href: "/pages/education", label: "Education & School" }}
       title={TITLE}
       description={DESCRIPTION}
+      appCategory="EducationalApplication"
+      mathExpression="\\text{Cumulative GPA} = \\frac{\\sum (\\text{Grade Points} \\times \\text{Credit Hours})}{\\sum \\text{Total Credit Hours}}"
       related={RELATED_CALCULATORS}
       faq={FAQ_ITEMS}
-      article={
+            article={
         <>
+          {/* SECTION A: Standard 4.0 & Weighted 5.0 GPA Scale Conversion Chart */}
+          <div className="not-prose">
+            <StandardGpaScaleTable />
+          </div>
+
+          {/* SECTION B: Cumulative GPA Calculation Formula & Step-by-Step Example */}
+          <div className="not-prose my-8 rounded-2xl border border-indigo-200/80 bg-gradient-to-br from-indigo-50/70 to-blue-50/40 p-5 sm:p-6 dark:border-indigo-900/40 dark:from-indigo-950/20 dark:to-blue-950/10 shadow-xs">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-indigo-600 dark:text-indigo-400 text-lg">📐</span> Cumulative GPA Calculation Formula &amp; Step-by-Step Example
+            </div>
+            <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
+              To calculate your cumulative or semester Grade Point Average (GPA), determine the credit-weighted quality points earned in each course and divide by your total attempted credit hours:
+            </p>
+            <div className="my-4 rounded-xl bg-white p-4 text-center shadow-xs border border-indigo-100 dark:bg-slate-900 dark:border-indigo-950/50">
+              <Formula>{"\\text{Cumulative GPA} = \\frac{\\sum (\\text{Grade Points} \\times \\text{Credit Hours})}{\\sum \\text{Total Credit Hours}}"}</Formula>
+            </div>
+
+            <div className="mt-5 rounded-xl border border-slate-200/80 bg-white/90 p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900/90 shadow-2xs">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                <span>💡</span> 3-Course Step-by-Step Worked Example:
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-3">
+                Consider an undergraduate student completing 3 collegiate courses in a semester:
+              </p>
+              <ul className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-2 mb-4">
+                <li className="flex items-start gap-2">
+                  <span className="font-semibold text-slate-900 dark:text-white">&bull; Course 1 (Biology):</span>
+                  <span>4 Credit Hours &times; Grade A (4.0 Grade Points) = <strong>16.0 Quality Points</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="font-semibold text-slate-900 dark:text-white">&bull; Course 2 (English Literature):</span>
+                  <span>3 Credit Hours &times; Grade B+ (3.3 Grade Points) = <strong>9.9 Quality Points</strong></span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="font-semibold text-slate-900 dark:text-white">&bull; Course 3 (History):</span>
+                  <span>3 Credit Hours &times; Grade A- (3.7 Grade Points) = <strong>11.1 Quality Points</strong></span>
+                </li>
+              </ul>
+              <div className="text-xs sm:text-sm text-slate-800 dark:text-slate-200 pt-3 border-t border-slate-200 dark:border-slate-800 space-y-1.5 bg-slate-50/50 dark:bg-slate-800/30 -mx-4 -mb-4 sm:-mx-5 sm:-mb-5 p-4 sm:p-5 rounded-b-xl">
+                <p>1. <strong>Total Quality Points:</strong> 16.0 + 9.9 + 11.1 = <strong>37.0 Quality Points</strong></p>
+                <p>2. <strong>Total Attempted Credit Hours:</strong> 4 + 3 + 3 = <strong>10 Credit Hours</strong></p>
+                <p>3. <strong>Cumulative GPA Result:</strong> 37.0 &divide; 10 = <strong className="text-indigo-600 dark:text-indigo-400 text-sm sm:text-base">3.70 Cumulative GPA</strong> (Exact A- Minus Equivalent)</p>
+              </div>
+            </div>
+          </div>
+
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
             <strong>Quick Academic Guidance:</strong> Grade Point Average (GPA) represents the standardized credit-weighted index of scholastic achievement across secondary and tertiary education. To calculate your semester term average, multiply the numeric quality point value of each assigned letter grade by the course&apos;s assigned credit hours, sum these products, and divide by the total term credits attempted. When planning academic targets, track your <Link href="/calculators/education/final-grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">final grade requirements</Link> and monitor cumulative shifts via our <Link href="/calculators/education/cgpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">CGPA calculator</Link>.
           </div>
