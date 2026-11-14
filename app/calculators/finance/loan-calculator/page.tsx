@@ -3,6 +3,7 @@ import Calculator from "@/components/calcs/finance/loan-calculator";
 import { CalcPage, calcMetadata } from "@/components/flagship/CalcPage";
 import { DataTable, Formula } from "@/components/flagship/shell";
 import { LoanAmortizationScheduleChart } from "@/components/flagship/finance/editorial-charts";
+import { CommonLoanPaymentMatrix } from "@/components/calcs/finance/CommonLoanPaymentMatrix";
 
 const PATH = "/calculators/finance/loan-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/finance/loan-calculator";
@@ -50,8 +51,34 @@ export default function Page() {
       description={DESCRIPTION}
       appCategory="FinanceApplication"
       mathExpression="M = P \times \left[ \frac{r(1 + r)^n}{(1 + r)^n - 1} \right]"
-      article={
+            article={
         <>
+          {/* SECTION A: Common Loan Amounts & Monthly Payment Matrix */}
+          <div className="not-prose">
+            <CommonLoanPaymentMatrix />
+          </div>
+
+          {/* SECTION B: The Standard Loan Payment Mathematical Formula Callout */}
+          <div className="not-prose my-8 rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/70 to-teal-50/40 p-5 sm:p-6 dark:border-emerald-900/40 dark:from-emerald-950/20 dark:to-teal-950/10 shadow-xs">
+            <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span className="text-emerald-600 dark:text-emerald-400 text-lg">📐</span> The Standard Loan Payment Mathematical Formula
+            </div>
+            <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
+              Fixed installment loan payments are derived using the standard ordinary annuity amortization formula:
+            </p>
+            <div className="my-4 rounded-xl bg-white p-4 text-center shadow-xs border border-emerald-100 dark:bg-slate-900 dark:border-emerald-950/50">
+              <Formula>{"\\text{Monthly Payment } (M) = P \\times \\frac{r(1+r)^n}{(1+r)^n - 1}"}</Formula>
+            </div>
+            <div className="mt-4 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+              <p className="font-semibold text-slate-900 dark:text-white mb-2">Where:</p>
+              <ul className="list-disc pl-5 space-y-1">
+                <li><strong>P</strong> = Principal loan amount</li>
+                <li><strong>r</strong> = Monthly interest rate (Annual rate &divide; 12)</li>
+                <li><strong>n</strong> = Total number of monthly payments (Years &times; 12)</li>
+              </ul>
+            </div>
+          </div>
+
           <h2>Direct Answer: How Fixed-Rate Installment Loan Amortization Works</h2>
           <p>
             An <strong>amortized fixed-rate installment loan</strong> requires equal monthly payments over a predetermined contractual term. In financial mathematics, each periodic payment covers that month&rsquo;s accrued interest first (calculated on the remaining outstanding principal balance), with the remaining portion directly reducing the loan principal. Because the principal balance steadily declines, subsequent interest charges shrink, causing a progressively greater share of each payment to build equity and retire the debt.
@@ -183,10 +210,18 @@ export default function Page() {
           </div>
         </>
       }
-      faq={[
+            faq={[
         {
-          q: "What is the difference between nominal interest rate and APR?",
-          a: "The nominal interest rate reflects only the direct cost of borrowing the principal balance. The Annual Percentage Rate (APR) incorporates mandatory upfront lender fees, such as origination charges and administrative costs, annualized across the loan term. When evaluating multiple lenders, APR provides the true standard of comparison.",
+          q: "How much is a monthly payment on a $50,000 loan for 5 years?",
+          a: "At a standard 7% interest rate, a $50,000 loan paid over 5 years (60 months) costs **$990.06 per month**. The total interest paid over the life of the loan is **$9,403.60**, making the total repayment amount **$59,403.60**.",
+        },
+        {
+          q: "How do you calculate monthly loan payments manually?",
+          a: "Divide your annual interest rate by 12 to get the monthly rate (r). Multiply your loan term in years by 12 for total payments (n). Then use the amortization formula: M = P * [r(1+r)^n] / [(1+r)^n - 1].",
+        },
+        {
+          q: "What is the difference between APR and Interest Rate on a loan?",
+          a: "The interest rate is the base cost of borrowing the principal balance annually, whereas the Annual Percentage Rate (APR) includes both the interest rate plus lender origination fees, closing costs, and administrative charges.",
         },
         {
           q: "How does making extra payments accelerate loan payoff?",
