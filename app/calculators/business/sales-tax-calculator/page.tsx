@@ -47,6 +47,30 @@ const RELATED_CALCULATORS = [
 
 const FAQ_ITEMS = [
   {
+    q: "How much is 7.25% sales tax on $250?",
+    a: "7.25% sales tax on $250 is exactly **$18.13**, bringing your final total to **$268.13** ($250 + $18.13).",
+  },
+  {
+    q: "How much is 6% sales tax on a $20,000 car or purchase?",
+    a: "6% sales tax on $20,000 is **$1,200.00**. The total amount paid after tax is **$21,200.00**.",
+  },
+  {
+    q: "How do I calculate 6% sales tax on $26.99?",
+    a: "Multiply $26.99 by 0.06 ($26.99 × 0.06 = $1.6194). Rounded to the nearest cent, the tax is **$1.62**, making the final receipt total **$28.61**.",
+  },
+  {
+    q: "How much is 7% sales tax on $35?",
+    a: "7% sales tax on $35 is **$2.45**, making the total purchase price **$37.45**.",
+  },
+  {
+    q: "What is the difference between sales tax and consumer use tax?",
+    a: "Sales tax is collected directly by vendors on in-state sales. Use tax is an identical excise levy paid directly by consumers or businesses when purchasing taxable merchandise from out-of-state vendors that did not collect sales tax, preventing tax evasion through cross-border purchasing.",
+  },
+  {
+    q: "Are services subject to commercial sales tax?",
+    a: "In most states, pure professional services (legal, medical, accounting) remain tax-exempt. However, services involving tangible personal property (such as equipment repair, custom fabrication, commercial printing, or physical landscaping) are widely subject to state and local sales taxes.",
+  },
+  {
     q: "What is the mathematical difference between tax-exclusive and tax-inclusive pricing?",
     a: "In tax-exclusive transactions (standard in the United States), sales tax is added onto the stated retail price: Gross Total = Pre-Tax Price * (1 + Tax Rate). In tax-inclusive transactions (common in European VAT), the advertised price already includes tax: Pre-Tax Base = Stated Price / (1 + Tax Rate).",
   },
@@ -61,10 +85,6 @@ const FAQ_ITEMS = [
   {
     q: "What is a resale certificate and how does it prevent tax cascading?",
     a: "A resale exemption certificate permits wholesale distributors and retailers to purchase inventory and manufacturing inputs tax-free. Under sales tax jurisprudence, sales tax is designed to apply only once at the final retail consumer sale, avoiding compounding multiple tax layers.",
-  },
-  {
-    q: "What is consumer use tax versus retail sales tax?",
-    a: "Sales tax is collected by the vendor at point of purchase. Consumer use tax is a legally equivalent tax owed directly by the buyer to their state department of revenue when taxable items are purchased out-of-state without paying sales tax and subsequently stored or used within the buyer's home state.",
   },
   {
     q: "How does destination-based sourcing differ from origin-based sourcing?",
@@ -249,23 +269,6 @@ export default function SalesTaxCalculatorPage() {
           <p>
             Corporate finance teams integrate automated tax engines with ERP billing software, ensuring that address geocoding validates exact 9-digit ZIP code street boundaries, eliminating tax misallocations across overlapping municipal fire and transit districts.
           </p>
-
-          <h2>Frequently Asked Questions</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">What is the difference between sales tax and consumer use tax?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                Sales tax is collected directly by vendors on in-state sales. Use tax is an identical excise levy paid directly by consumers or businesses when purchasing taxable merchandise from out-of-state vendors that did not collect sales tax, preventing tax evasion through cross-border purchasing.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 dark:text-white">Are services subject to commercial sales tax?</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300">
-                In most states, pure professional services (legal, medical, accounting) remain tax-exempt. However, services involving tangible personal property (such as equipment repair, custom fabrication, commercial printing, or physical landscaping) are widely subject to state and local sales taxes.
-              </p>
-            </div>
-          </div>
-
 
           <p>
             In specialized retail leasing, brick-and-mortar merchants must also review local Tax Increment Financing (TIF) district surcharges. Certain shopping centers assess incremental local district improvement taxes that require separate line-item accounting on sales receipts.
