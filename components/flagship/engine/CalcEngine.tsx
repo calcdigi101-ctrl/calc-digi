@@ -340,7 +340,12 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
     }
     const control =
       f.kind === "choice" ? (
-        <select id={fid} {...register(f.key)} className="w-full min-w-0 appearance-none border-0 bg-transparent pl-3 pr-8 text-base text-slate-900 outline-none dark:text-slate-100 dark:bg-slate-950">
+        <select
+          id={fid}
+          {...register(f.key)}
+          style={{ WebkitAppearance: "none", MozAppearance: "none", appearance: "none" }}
+          className="w-full min-w-0 appearance-none [-webkit-appearance:none] [-moz-appearance:none] [&::-ms-expand]:hidden border-0 bg-transparent pl-3 pr-9 text-base text-slate-900 outline-none dark:text-slate-100 dark:bg-slate-950 cursor-pointer"
+        >
           {f.options.map((o) => (
             <option key={o.value} value={o.value} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100">
               {o.label}
@@ -365,8 +370,10 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         <div className={cn(fieldBox(!!err), f.kind === "choice" && "relative")}>
           {control}
           {f.kind === "choice" ? (
-            <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
-              ▾
+            <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 flex items-center justify-center">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
             </span>
           ) : null}
         </div>

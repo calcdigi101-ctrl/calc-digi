@@ -81,8 +81,8 @@ export function NumberField({ id, label, hint, prefix, suffix, unitDropdown, err
               aria-label={unitDropdown.ariaLabel || "Select measurement unit"}
               value={unitDropdown.value}
               onChange={(e) => unitDropdown.onChange(e.target.value)}
-              style={{ border: "none", outline: "none", background: "transparent", boxShadow: "none" }}
-              className="h-full cursor-pointer appearance-none bg-transparent py-0 pl-2 sm:pl-2.5 pr-5 sm:pr-5.5 text-base sm:text-sm font-medium text-slate-600 dark:text-slate-300 outline-none border-0 ring-0 shadow-none hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+              style={{ border: "none", outline: "none", background: "transparent", boxShadow: "none", WebkitAppearance: "none", MozAppearance: "none", appearance: "none" }}
+              className="h-full cursor-pointer appearance-none [-webkit-appearance:none] [-moz-appearance:none] [&::-ms-expand]:hidden bg-transparent py-0 pl-2 sm:pl-2.5 pr-5 sm:pr-5.5 text-base sm:text-sm font-medium text-slate-600 dark:text-slate-300 outline-none border-0 ring-0 shadow-none hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
             >
               {unitDropdown.options.map((opt) => (
                 <option key={opt.value} value={opt.value} className="bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-medium">
@@ -90,8 +90,10 @@ export function NumberField({ id, label, hint, prefix, suffix, unitDropdown, err
                 </option>
               ))}
             </select>
-            <span aria-hidden className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[8px] text-slate-400">
-              ▼
+            <span aria-hidden className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-slate-400 flex items-center justify-center">
+              <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
             </span>
           </div>
         ) : suffix ? (

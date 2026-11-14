@@ -39,6 +39,16 @@
   color: inherit;
   letter-spacing: inherit;
 }
+:where(.fx) :where(select),
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+:where(.fx) :where(select)::-ms-expand,
+select::-ms-expand {
+  display: none;
+}
 :where(.fx) :where(button) {
   background: none;
   border: 0;
