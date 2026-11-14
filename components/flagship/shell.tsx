@@ -10,13 +10,35 @@ export function CalculatorPage({
   crumbs,
   title,
   intro,
+  canonicalUrl,
   children,
 }: {
   crumbs: { href?: string; label: string }[];
   title: string;
   intro: ReactNode;
+  canonicalUrl?: string;
   children: ReactNode;
 }) {
+  const lastCrumbHref = crumbs?.[crumbs.length - 1]?.href;
+  const targetUrl =
+    canonicalUrl ||
+    (lastCrumbHref?.startsWith("http")
+      ? lastCrumbHref
+      : lastCrumbHref
+      ? `https://www.calcdigi.com${lastCrumbHref}`
+      : "https://www.calcdigi.com");
+
+  const cleanTitle = title
+    .replace(/\s*\(Instant & Ad-Free\).*$/i, "")
+    .replace(/\s*\|\s*CalcDigi.*$/i, "")
+    .replace(/\s*–\s*CalcDigi.*$/i, "")
+    .replace(/\s*:.*$/i, "")
+    .trim();
+  const calculatorName = cleanTitle.toLowerCase().endsWith("calculator")
+    ? cleanTitle
+    : `${cleanTitle} Calculator`;
+  const anchorText = `${calculatorName} by CalcDigi`;
+
   return (
     <main className="fx bg-slate-50 pb-16 text-slate-900 dark:bg-slate-950 dark:text-slate-100 overflow-x-clip">
       <div className="mx-auto max-w-[1180px] px-3.5 pt-6 sm:px-6">
@@ -96,9 +118,24 @@ export function CalculatorPage({
           <div className="flex items-center justify-between w-full">
             <span className="flex items-center gap-1.5 font-medium">
               <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
-              <span>Free calculator widget by <a href={crumbs?.[crumbs.length - 1]?.href ?? "https://www.calcdigi.com"} target="_blank" rel="noopener" className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline">CalcDigi.com</a></span>
+              <span>
+                Free calculator widget by{" "}
+                <a
+                  href={targetUrl}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline"
+                >
+                  {anchorText}
+                </a>
+              </span>
             </span>
-            <a href={crumbs?.[crumbs.length - 1]?.href ?? "https://www.calcdigi.com"} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400">
+            <a
+              href={targetUrl}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400"
+            >
               <span>Open Full Screen</span>
               <span>↗</span>
             </a>

@@ -5,18 +5,34 @@ import { Check, Code2, Copy, Link2, Printer, RotateCcw, Sparkles, X } from "luci
 import { Button } from "@/components/ui/button";
 
 /** Secondary actions under a result: deliberately ghost-styled so they never compete with "Calculate". */
-export function ResultActions({ onReset, title }: { onReset: () => void; title: string }) {
+export function ResultActions({
+  onReset,
+  title,
+  canonicalUrl: propCanonicalUrl,
+}: {
+  onReset: () => void;
+  title: string;
+  canonicalUrl?: string;
+}) {
   const [copied, setCopied] = useState(false);
   const [showEmbed, setShowEmbed] = useState(false);
   const [embedCopied, setEmbedCopied] = useState(false);
-  const [embedHeight, setEmbedHeight] = useState(540);
-  const [canonicalUrl, setCanonicalUrl] = useState("https://www.calcdigi.com");
+  const [embedHeight, setEmbedHeight] = useState(560);
+  const [canonicalUrl, setCanonicalUrl] = useState(propCanonicalUrl || "https://www.calcdigi.com");
+  const [calcTitle, setCalcTitle] = useState(title);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setCanonicalUrl(window.location.origin + window.location.pathname);
+      const canonicalTag = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.href;
+      const url = propCanonicalUrl || canonicalTag || (window.location.origin + window.location.pathname);
+      setCanonicalUrl(url);
+
+      const h1Text = document.querySelector("h1")?.innerText?.trim();
+      if ((!title || title === "Calculator" || title === "Online Calculator") && h1Text) {
+        setCalcTitle(h1Text);
+      }
     }
-  }, []);
+  }, [propCanonicalUrl, title]);
 
   // Close modal on Escape
   useEffect(() => {
@@ -64,13 +80,24 @@ export function ResultActions({ onReset, title }: { onReset: () => void; title: 
     }
   }
 
-  const targetUrl = canonicalUrl || "https://www.calcdigi.com";
-  const embedUrl = `${targetUrl}?embed=true`;
+  const rawTitle = calcTitle || title || "Calculator";
+  const cleanTitle = rawTitle
+    .replace(/\s*\(Instant & Ad-Free\).*$/i, "")
+    .replace(/\s*\|\s*CalcDigi.*$/i, "")
+    .replace(/\s*–\s*CalcDigi.*$/i, "")
+    .replace(/\s*:.*$/i, "")
+    .trim();
+  const calculatorName = cleanTitle.toLowerCase().endsWith("calculator")
+    ? cleanTitle
+    : `${cleanTitle} Calculator`;
+  const anchorText = `${calculatorName} by CalcDigi`;
 
-  const embedSnippet = `<iframe src="${embedUrl}" width="100%" height="${embedHeight}" frameborder="0" style="border:1px solid #cbd5e1; border-radius:12px; width:100%; max-width:100%; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);" title="${title} | CalcDigi"></iframe>
-<div style="font-family:system-ui,-apple-system,sans-serif; font-size:12px; color:#64748b; text-align:center; margin-top:6px;">
-  Powered by <a href="${targetUrl}" target="_blank" rel="noopener" style="color:#059669; font-weight:600; text-decoration:underline;">CalcDigi.com</a>
-</div>`;
+  const targetUrl = canonicalUrl || "https://www.calcdigi.com";
+
+  const embedSnippet = `<iframe src="${targetUrl}?embed=true" width="100%" height="${embedHeight}" frameborder="0" style="border:0; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.06); max-width:100%; overflow:hidden;"></iframe>
+<p style="font-size:12px; color:#64748b; margin-top:8px; text-align:center;">
+  Free calculator widget by <a href="${targetUrl}" target="_blank" rel="noopener" style="color:#059669; text-decoration:underline; font-weight:500;">${anchorText}</a>
+</p>`;
 
   async function copyEmbedSnippet() {
     try {
@@ -154,7 +181,7 @@ export function ResultActions({ onReset, title }: { onReset: () => void; title: 
             <div className="mb-3 flex items-center justify-between text-xs">
               <span className="font-semibold text-slate-700 dark:text-slate-300">Widget Height:</span>
               <div className="inline-flex rounded-lg border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800">
-                {[480, 540, 620].map((h) => (
+                {[480, 560, 640].map((h) => (
                   <button
                     key={h}
                     type="button"
