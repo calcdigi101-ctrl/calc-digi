@@ -87,7 +87,7 @@ export function ResultActions({
     .replace(/\s*–\s*CalcDigi.*$/i, "")
     .replace(/\s*:.*$/i, "")
     .trim();
-  const calculatorName = cleanTitle.toLowerCase().endsWith("calculator")
+  const calculatorName = /\bcalculat(or|ion)\b/i.test(cleanTitle)
     ? cleanTitle
     : `${cleanTitle} Calculator`;
   const anchorText = `${calculatorName} by CalcDigi`;
