@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import GpaCalculatorComponent from "@/components/calcs/education/gpa-calculator";
 import { CalcPage } from "@/components/flagship/CalcPage";
-import { DataTable, Formula } from "@/components/flagship/shell";
+import { Formula } from "@/components/flagship/shell";
 import { GpaScaleWeightingComparisonChart } from "@/components/flagship/education/editorial-charts";
 import { StandardGpaScaleTable } from "@/components/calcs/education/StandardGpaScaleTable";
 
@@ -176,29 +176,7 @@ export default function GpaCalculatorPage() {
             In secondary schools utilizing weighted systems, courses classified as Honors award an additional <Formula>{"+0.50"}</Formula> quality points, whereas Advanced Placement (AP), International Baccalaureate (IB), and dual-enrollment college coursework award <Formula>{"+1.00"}</Formula> quality points. An A earned in an AP calculus course yields 5.0 quality points, allowing high-achieving scholars to graduate with weighted GPAs surpassing the theoretical 4.0 ceiling. For students converting between percentage grades and quality points, our <Link href="/calculators/education/percentage-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage grade calculator</Link> maps granular exam scores into standardized brackets.
           </p>
 
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Standard Collegiate 4.0 Letter Grade & Quality Point Conversion Schedule
-          </h2>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            The following authoritative schedule reflects the standard plus/minus grading framework adopted by the vast majority of accredited North American colleges and secondary institutions:
-          </p>
-
-          <DataTable
-            head={["Letter Grade", "Percentage Range", "Standard 4.0 Scale", "Honors Scale (+0.5)", "AP / IB Scale (+1.0)"]}
-            rows={[
-              ["A+", "97.0% – 100%", "4.00", "4.50", "5.00"],
-              ["A", "93.0% – 96.9%", "4.00", "4.50", "5.00"],
-              ["A-", "90.0% – 92.9%", "3.70", "4.20", "4.70"],
-              ["B+", "87.0% – 89.9%", "3.30", "3.80", "4.30"],
-              ["B", "83.0% – 86.9%", "3.00", "3.50", "4.00"],
-              ["B-", "80.0% – 82.9%", "2.70", "3.20", "3.70"],
-              ["C+", "77.0% – 79.9%", "2.30", "2.80", "3.30"],
-              ["C", "73.0% – 76.9%", "2.00", "2.50", "3.00"],
-              ["C-", "70.0% – 72.9%", "1.70", "2.20", "2.70"],
-              ["D", "60.0% – 69.9%", "1.00", "1.50", "2.00"],
-              ["F", "< 60.0%", "0.00", "0.00", "0.00"],
-            ]}
-          />
+          
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
             Comparative Worked Academic Case Studies
