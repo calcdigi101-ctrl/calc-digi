@@ -7,7 +7,7 @@ import { amortize, pmt } from "@/lib/finance";
 
 export const config: CalcConfig = {
   id: "loan",
-  title: "Loan Calculator",
+  title: "Loan Payment Calculator",
   fields: [
     { kind: "number", key: "amount", label: "Loan amount", prefix: "$", default: 15000, min: 1, max: 1e9 },
     { kind: "number", key: "rate", label: "Interest rate", hint: "APR", suffix: "%", default: 10.5, min: 0, max: 100 },

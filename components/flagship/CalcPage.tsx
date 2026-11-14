@@ -230,7 +230,12 @@ export function CalcPage({
     <>
       <JsonLd data={{ "@context": "https://schema.org", "@graph": graph }} />
       {mathSolverJsonLd ? <JsonLd data={mathSolverJsonLd} /> : null}
-      <CalculatorPage crumbs={[{ href: "/", label: "Home" }, category, { label: title }]} title={title} intro={intro}>
+      <CalculatorPage
+        crumbs={[{ href: "/", label: "Home" }, category, { href: `${SITE_URL}${path}`, label: title }]}
+        title={title}
+        intro={intro}
+        canonicalUrl={`${SITE_URL}${path}`}
+      >
         <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
           {children}
         </Suspense>

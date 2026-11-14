@@ -46,7 +46,7 @@ export default function Page() {
     <CalcPage
       path={PATH}
       category={{ href: "/pages/finance", label: "Finance" }}
-      title="Loan Calculator"
+      title="Loan Payment Calculator"
       intro="Calculate exact monthly payments, total lifetime interest, and year-by-year amortization schedules for fixed-rate installment loans. Model accelerated payoffs with custom extra monthly principal contributions."
       description={DESCRIPTION}
       appCategory="FinanceApplication"
