@@ -228,6 +228,21 @@ export function DataTable({ head, rows, highlight }: { head: string[]; rows: Rea
   );
 }
 
+function renderFaqAnswer(text: string) {
+  if (!text.includes("**")) return text;
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, idx) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={idx} className="font-semibold text-slate-900 dark:text-white">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return part;
+  });
+}
+
 export function Faq({ items }: { items: { q: string; a: string }[] }) {
   return (
     <div className="divide-y divide-slate-200 rounded-xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
@@ -239,7 +254,7 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
               +
             </span>
           </summary>
-          <p className="px-4 pb-4 !mb-0">{it.a}</p>
+          <p className="px-4 pb-4 !mb-0">{renderFaqAnswer(it.a)}</p>
         </details>
       ))}
     </div>
