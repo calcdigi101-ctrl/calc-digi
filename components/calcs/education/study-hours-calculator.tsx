@@ -32,6 +32,11 @@ export const studyHoursConfig: CalcConfig = {
       ],
     },
   ],
+  afterInputs: (
+    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+      The 2 hours per credit baseline comes from the traditional Carnegie unit rule. Rigor levels and grade multipliers are CalcDigi estimates.
+    </p>
+  ),
   presets: [
     { label: "Full-Time Engineering (16 cr, STEM, Grade A)", values: { enrolledCreditHours: 16, academicRigor: "stem", targetGradeTier: "a_grade" } },
     { label: "Standard College Load (15 cr, Standard, Grade A)", values: { enrolledCreditHours: 15, academicRigor: "standard", targetGradeTier: "a_grade" } },

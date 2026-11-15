@@ -7,6 +7,7 @@ type FieldBase = {
   key: string;
   label: string;
   hint?: string;
+  subtext?: ReactNode;
   /** Span both columns of the form grid. */
   full?: boolean;
   /** Put the field inside a collapsible group with this title (progressive disclosure). */
@@ -112,6 +113,7 @@ export type CalcConfig = {
   /** Label for the result card heading. */
   resultLabel?: string;
   disclaimer?: string;
+  afterInputs?: ReactNode;
 };
 
 export const PALETTE = ["#2563eb", "#f59e0b", "#10b981", "#8b5cf6", "#ef4444", "#06b6d4", "#64748b", "#ec4899"];

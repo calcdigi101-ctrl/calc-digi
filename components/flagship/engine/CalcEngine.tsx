@@ -378,6 +378,11 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
           ) : null}
         </div>
         <FieldError id={`${fid}-error`} message={err} />
+        {f.subtext ? (
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+            {f.subtext}
+          </p>
+        ) : null}
       </div>
     );
   }
@@ -388,6 +393,11 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
   const formPanel = (
     <form onSubmit={handleSubmit((v) => (commit(v), revealResult(`${id}-result`)))} noValidate className={cn(card, "grid gap-4 sm:gap-5 p-3.5 sm:p-6 w-full max-w-full overflow-hidden")}>
       <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 w-full min-w-0">{ungrouped.map(renderField)}</div>
+      {config.afterInputs ? (
+        <div className="-mt-1 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+          {config.afterInputs}
+        </div>
+      ) : null}
       {groups.map((g) => {
         const gf = fields.filter((f) => f.group === g);
         const touched = gf.some((f) => String(committed[f.key]) !== String(defaultOf(f, todayStr)));
