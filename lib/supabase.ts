@@ -1,7 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  "https://zchwmeemvqqaxcekauoo.supabase.co";
+const supabaseAnonKey =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+  "sb_publishable_F_Hn4R59bJAwvNM9F_1Q1w_BskKVhty";
 
 // The env vars are only configured for Production on Vercel. Without them
 // (Preview deploys, local builds) skip Supabase so the build still succeeds
