@@ -6,10 +6,9 @@ import { CalculatorPage, Editorial, JsonLd } from "@/components/flagship/shell";
 import { getArticles, getArticleBySlug } from "@/lib/articles";
 import { SITE_URL } from "@/lib/site";
 
-export const revalidate = 3600;
-// Only slugs from generateStaticParams exist; anything else is a real 404
-// (not a soft 404 rendered behind the root loading.tsx with a 200 status).
-export const dynamicParams = false;
+export const revalidate = 60;
+// Allow new articles published in Supabase to be rendered dynamically on first request
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   const articles = await getArticles();
@@ -29,8 +28,25 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: article.excerpt,
       type: "article",
       url: `${SITE_URL}${path}`,
+      siteName: "CalcDigi",
       publishedTime: article.published_at,
       modifiedTime: article.updated_at,
+      images: [
+        {
+          url: `${SITE_URL}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [`${SITE_URL}/og-image.png`],
+      creator: "@CalcDigi",
+      site: "@CalcDigi",
     },
     alternates: { canonical: path },
   };
