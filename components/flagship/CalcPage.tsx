@@ -23,6 +23,11 @@ export function CalcPage({
   related = [],
   mathExpression,
   mathSolver,
+  authorOverride,
+  datePublishedOverride,
+  dateModifiedOverride,
+  howToNameOverride,
+  exactFaq = false,
   children,
 }: {
   path: string;
@@ -39,6 +44,11 @@ export function CalcPage({
   related?: { href: string; icon: string; name: string }[];
   mathExpression?: string;
   mathSolver?: MathSolverConfig;
+  authorOverride?: { "@type": string; name: string; url?: string; sameAs?: string[] };
+  datePublishedOverride?: string;
+  dateModifiedOverride?: string;
+  howToNameOverride?: string;
+  exactFaq?: boolean;
   children: ReactNode;
 }) {
   const publisher = {
@@ -61,7 +71,7 @@ export function CalcPage({
     ],
   };
 
-  const author = {
+  const author = authorOverride || {
     "@type": "Organization",
     name: "CalcDigi Editorial Team",
     url: `${SITE_URL}/pages/about`,
@@ -71,7 +81,10 @@ export function CalcPage({
     ],
   };
 
-  const allFaqs = getCompleteCalculatorFaqs(title, category.label, faq);
+  const datePublished = datePublishedOverride || "2026-01-01";
+  const dateModified = dateModifiedOverride || "2026-11-15";
+
+  const allFaqs = exactFaq ? faq : getCompleteCalculatorFaqs(title, category.label, faq);
 
   const resolvedAppCategory = (() => {
     let cat = appCategory;
@@ -121,19 +134,19 @@ export function CalcPage({
       inLanguage: "en-US",
       isAccessibleForFree: true,
       softwareVersion: "2026.1",
-      datePublished: "2026-01-01",
-      dateModified: "2026-11-03",
+      datePublished,
+      dateModified,
       author,
       publisher,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
     {
       "@type": "HowTo",
-      name: `How to Calculate Using the ${title}`,
+      name: howToNameOverride || `How to Calculate Using the ${title}`,
       description: `Step-by-step instructions to calculate and verify results with CalcDigi's ${title}.`,
       inLanguage: "en-US",
-      datePublished: "2026-01-01",
-      dateModified: "2026-11-03",
+      datePublished,
+      dateModified,
       author,
       publisher,
       step: [
@@ -160,8 +173,8 @@ export function CalcPage({
     {
       "@type": "FAQPage",
       inLanguage: "en-US",
-      datePublished: "2026-01-01",
-      dateModified: "2026-11-03",
+      datePublished,
+      dateModified,
       author,
       publisher,
       mainEntity: allFaqs.map((f) => ({
@@ -183,8 +196,8 @@ export function CalcPage({
       url: `${SITE_URL}${path}`,
       description,
       inLanguage: "en-US",
-      datePublished: "2026-01-01",
-      dateModified: "2026-11-03",
+      datePublished,
+      dateModified,
       author,
       publisher,
       aspect: ["Overview", "Calculation", "Clinical Guidelines", "Reference Ranges"],
@@ -231,10 +244,12 @@ export function CalcPage({
       <JsonLd data={{ "@context": "https://schema.org", "@graph": graph }} />
       {mathSolverJsonLd ? <JsonLd data={mathSolverJsonLd} /> : null}
       <CalculatorPage
-        crumbs={[{ href: "/", label: "Home" }, category, { href: `${SITE_URL}${path}`, label: title }]}
+        crumbs={[{ href: "/", label: "Home" }, category, { label: title }]}
         title={title}
         intro={intro}
         canonicalUrl={`${SITE_URL}${path}`}
+        author={authorOverride ? { name: authorOverride.name, url: authorOverride.url?.replace(SITE_URL, "") } : undefined}
+        lastUpdated={dateModifiedOverride ? "November 2026" : undefined}
       >
         <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
           {children}

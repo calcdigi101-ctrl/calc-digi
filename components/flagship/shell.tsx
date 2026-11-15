@@ -11,12 +11,16 @@ export function CalculatorPage({
   title,
   intro,
   canonicalUrl,
+  author,
+  lastUpdated,
   children,
 }: {
   crumbs: { href?: string; label: string }[];
   title: string;
   intro: ReactNode;
   canonicalUrl?: string;
+  author?: { name: string; url?: string };
+  lastUpdated?: string;
   children: ReactNode;
 }) {
   const lastCrumbHref = crumbs?.[crumbs.length - 1]?.href;
@@ -84,7 +88,7 @@ export function CalculatorPage({
             </div>
           </div>
           <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-slate-900">{title}</h2>
+            <div className="text-xl font-bold text-slate-900">{title}</div>
             <span className="text-xs text-slate-600 font-medium">Verified Result Sheet</span>
           </div>
         </div>
@@ -98,10 +102,16 @@ export function CalculatorPage({
           <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-500 dark:text-slate-400">
             <span className="inline-flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-300">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-              By CalcDigi Editorial Team
+              By {author?.url ? (
+                <a href={author.url} className="hover:underline text-slate-700 dark:text-slate-300 font-medium">
+                  {author.name}
+                </a>
+              ) : (
+                author?.name || "CalcDigi Editorial Team"
+              )}
             </span>
             <span>•</span>
-            <span>Last updated: November 2026</span>
+            <span>Last updated: {lastUpdated || "November 2026"}</span>
             <span>•</span>
             <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
               <svg className="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
