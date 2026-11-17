@@ -190,8 +190,8 @@ export function BmiCalculator() {
 
       <div className="mt-5 grid gap-4 sm:gap-5 sm:grid-cols-2">
         <NumberField id="bmi-age" label="Age" hint="2 – 120" suffix="years" error={errors.age?.message} {...register("age")} />
-        <div>
-          <Label>Gender</Label>
+        <div className="flex flex-col justify-between h-full">
+          <Label className="flex-1">Gender</Label>
           <Segmented<Sex>
             label="Gender"
             value={sex}
@@ -206,8 +206,8 @@ export function BmiCalculator() {
 
       {unit === "us" ? (
         <div className="mt-5 grid gap-4 sm:gap-5 sm:grid-cols-2">
-          <fieldset className="min-w-0">
-            <legend className="mb-1.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">Height</legend>
+          <fieldset className="min-w-0 flex flex-col justify-between h-full">
+            <legend className="mb-1.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300 flex-1">Height</legend>
             <div className="grid grid-cols-2 gap-2 sm:gap-3">
               <NumberField
                 id="bmi-ft"

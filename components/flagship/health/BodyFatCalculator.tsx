@@ -200,8 +200,8 @@ export function BodyFatCalculator() {
         <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3.5 sm:p-6 shadow-sm space-y-4 sm:space-y-5 w-full max-w-full overflow-hidden">
           {/* Unit Toggle & Sex Toggle */}
           <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <div className="flex flex-col justify-between h-full">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                 Unit System
               </label>
               <div className="grid grid-cols-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
@@ -230,8 +230,8 @@ export function BodyFatCalculator() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <div className="flex flex-col justify-between h-full">
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                 Biological Sex
               </label>
               <div className="grid grid-cols-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
@@ -263,8 +263,8 @@ export function BodyFatCalculator() {
 
           {/* Age & Height */}
           <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="bf-age" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <div className="flex flex-col justify-between h-full">
+              <label htmlFor="bf-age" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                 Age
               </label>
               <div className="relative flex items-center">
@@ -282,8 +282,8 @@ export function BodyFatCalculator() {
             </div>
 
             {unit === "us" ? (
-              <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <div className="flex flex-col justify-between h-full">
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                   Height
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -314,8 +314,8 @@ export function BodyFatCalculator() {
                 </div>
               </div>
             ) : (
-              <div>
-                <label htmlFor="bf-cm" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <div className="flex flex-col justify-between h-full">
+                <label htmlFor="bf-cm" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                   Height
                 </label>
                 <div className="relative flex items-center">
@@ -336,8 +336,8 @@ export function BodyFatCalculator() {
 
           {/* Weight & Neck */}
           <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="bf-wt" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <div className="flex flex-col justify-between h-full">
+              <label htmlFor="bf-wt" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                 Current Weight (for fat mass calculation)
               </label>
               <div className="relative flex items-center">
@@ -374,8 +374,8 @@ export function BodyFatCalculator() {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="bf-neck" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <div className="flex flex-col justify-between h-full">
+              <label htmlFor="bf-neck" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                 Neck Circumference (below larynx)
               </label>
               <div className="relative flex items-center">
@@ -394,8 +394,8 @@ export function BodyFatCalculator() {
 
           {/* Waist & Hips */}
           <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="bf-waist" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+            <div className="flex flex-col justify-between h-full">
+              <label htmlFor="bf-waist" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                 Waist Circumference ({sex === "male" ? "at navel level" : "at narrowest point"})
               </label>
               <div className="relative flex items-center">
@@ -412,8 +412,8 @@ export function BodyFatCalculator() {
             </div>
 
             {sex === "female" && (
-              <div>
-                <label htmlFor="bf-hip" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <div className="flex flex-col justify-between h-full">
+                <label htmlFor="bf-hip" className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5 flex-1">
                   Hip Circumference (at widest point)
                 </label>
                 <div className="relative flex items-center">

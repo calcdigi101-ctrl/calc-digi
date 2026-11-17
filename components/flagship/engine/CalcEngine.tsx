@@ -405,7 +405,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         const touched = gf.some((f) => String(committed[f.key]) !== String(defaultOf(f, todayStr)));
         return (
           <Disclosure key={g} title={g} defaultOpen={touched}>
-            <div className="grid gap-4 sm:grid-cols-2">{gf.map(renderField)}</div>
+            <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 w-full min-w-0">{gf.map(renderField)}</div>
           </Disclosure>
         );
       })}
