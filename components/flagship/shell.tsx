@@ -13,6 +13,7 @@ export function CalculatorPage({
   canonicalUrl,
   author,
   lastUpdated,
+  hideEmbedAttribution,
   children,
 }: {
   crumbs: { href?: string; label: string }[];
@@ -21,6 +22,7 @@ export function CalculatorPage({
   canonicalUrl?: string;
   author?: { name: string; url?: string };
   lastUpdated?: string;
+  hideEmbedAttribution?: boolean;
   children: ReactNode;
 }) {
   const lastCrumbHref = crumbs?.[crumbs.length - 1]?.href;
@@ -124,33 +126,35 @@ export function CalculatorPage({
         {children}
 
         {/* Embedded Widget Bottom Attribution Bar (Visible only inside embedded iframes) */}
-        <div className="fx-embed-attribution hidden mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500">
-          <div className="flex items-center justify-between w-full">
-            <span className="flex items-center gap-1.5 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
-              <span>
-                Free calculator widget by{" "}
-                <a
-                  href={targetUrl}
-                  target="_blank"
-                  rel="noopener"
-                  className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline"
-                >
-                  {anchorText}
-                </a>
+        {!hideEmbedAttribution ? (
+          <div className="fx-embed-attribution hidden mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500">
+            <div className="flex items-center justify-between w-full">
+              <span className="flex items-center gap-1.5 font-medium">
+                <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block"></span>
+                <span>
+                  Free calculator widget by{" "}
+                  <a
+                    href={targetUrl}
+                    target="_blank"
+                    rel="noopener"
+                    className="text-emerald-600 dark:text-emerald-400 font-bold hover:underline"
+                  >
+                    {anchorText}
+                  </a>
+                </span>
               </span>
-            </span>
-            <a
-              href={targetUrl}
-              target="_blank"
-              rel="noopener"
-              className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400"
-            >
-              <span>Open Full Screen</span>
-              <span>↗</span>
-            </a>
+              <a
+                href={targetUrl}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-emerald-600 dark:text-slate-400 dark:hover:text-emerald-400"
+              >
+                <span>Open Full Screen</span>
+                <span>↗</span>
+              </a>
+            </div>
           </div>
-        </div>
+        ) : null}
 
         {/* Printable Official Invoice Footer */}
         <div className="fx-print-invoice-footer hidden print:block mt-8 pt-4 border-t border-slate-300 text-center text-xs text-slate-500">

@@ -28,6 +28,7 @@ export function CalcPage({
   dateModifiedOverride,
   howToNameOverride,
   exactFaq = false,
+  hideEmbedAttribution,
   children,
 }: {
   path: string;
@@ -49,6 +50,7 @@ export function CalcPage({
   dateModifiedOverride?: string;
   howToNameOverride?: string;
   exactFaq?: boolean;
+  hideEmbedAttribution?: boolean;
   children: ReactNode;
 }) {
   const publisher = {
@@ -250,6 +252,7 @@ export function CalcPage({
         canonicalUrl={`${SITE_URL}${path}`}
         author={authorOverride ? { name: authorOverride.name, url: authorOverride.url?.replace(SITE_URL, "") } : undefined}
         lastUpdated={dateModifiedOverride ? "November 2026" : undefined}
+        hideEmbedAttribution={hideEmbedAttribution}
       >
         <Suspense fallback={<div className="mt-6 h-[520px] rounded-2xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900" />}>
           {children}
