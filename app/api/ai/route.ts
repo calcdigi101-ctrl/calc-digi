@@ -4,11 +4,12 @@ import { NextResponse, type NextRequest } from "next/server";
  * Universal Multi-Provider AI Assistant for CalcDigi.
  *
  * Supports:
- * 1. Groq (Meta Llama 3.3 70B / Llama 3.1 8B) - 100% Free Open Models via GROQ_API_KEY
- * 2. OpenRouter (Free Open Source Models pool) via OPENROUTER_API_KEY
- * 3. Google Gemini (Gemini 1.5/2.0 Flash) via GEMINI_API_KEY
- * 4. Anthropic Claude via ANTHROPIC_API_KEY
- * 5. Built-in Calculation Reasoning Engine (Zero API Key required - 100% Uptime Guaranteed)
+ * 1. RapidAPI Open-AI21 (ChatGPT / ConversationGPT35) via RAPIDAPI_KEY
+ * 2. Groq (Meta Llama 3.3 70B / Llama 3.1 8B) - Free Open Models via GROQ_API_KEY
+ * 3. OpenRouter (Free Open Source Models pool) via OPENROUTER_API_KEY
+ * 4. Google Gemini (Gemini 1.5/2.0 Flash) via GEMINI_API_KEY
+ * 5. Anthropic Claude via ANTHROPIC_API_KEY
+ * 6. Built-in Calculation Reasoning Engine (Zero API Key required - 100% Uptime Guaranteed)
  */
 
 const SYSTEM =
@@ -152,7 +153,53 @@ export async function POST(req: NextRequest) {
 
   const latestUserMessage = messages[messages.length - 1].content;
 
-  // 1. Try Groq (Llama 3.3 70B / Llama 3.1 8B) - Open Model
+  // 1. Try RapidAPI Open-AI21 (ChatGPT / ConversationGPT35)
+  const rapidApiKey = process.env.RAPIDAPI_KEY || "ee1c9f2fdemsh16a04d1b8c1ec60p10f7ebjsned5e183a128b";
+  if (rapidApiKey) {
+    try {
+      const rapidRes = await fetch("https://open-ai21.p.rapidapi.com/chatgpt", {
+        method: "POST",
+        headers: {
+          "x-rapidapi-key": rapidApiKey,
+          "x-rapidapi-host": "open-ai21.p.rapidapi.com",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: [{ role: "system", content: SYSTEM }, ...messages],
+          web_access: false,
+        }),
+      });
+
+      if (rapidRes.ok) {
+        const data = await rapidRes.json();
+        const reply = data.result?.trim();
+        if (reply) return NextResponse.json({ reply });
+      } else {
+        // Fallback to conversationgpt35 endpoint if /chatgpt returned non-200
+        const convRes = await fetch("https://open-ai21.p.rapidapi.com/conversationgpt35", {
+          method: "POST",
+          headers: {
+            "x-rapidapi-key": rapidApiKey,
+            "x-rapidapi-host": "open-ai21.p.rapidapi.com",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            messages: [{ role: "system", content: SYSTEM }, ...messages],
+          }),
+        });
+
+        if (convRes.ok) {
+          const convData = await convRes.json();
+          const convReply = convData.result?.trim();
+          if (convReply) return NextResponse.json({ reply: convReply });
+        }
+      }
+    } catch (err) {
+      console.warn("RapidAPI open-ai21 fetch error:", err);
+    }
+  }
+
+  // 2. Try Groq (Llama 3.3 70B / Llama 3.1 8B) - Open Model
   const groqKey = process.env.GROQ_API_KEY;
   if (groqKey) {
     try {
