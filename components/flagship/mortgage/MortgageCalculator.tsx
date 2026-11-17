@@ -205,8 +205,8 @@ function MonthYear({
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 41 }, (_, i) => String(currentYear - 10 + i));
   return (
-    <div className="min-w-0 flex flex-col justify-between h-full">
-      <Label hint={hint} className="flex-1">{label}</Label>
+    <div className="min-w-0">
+      <Label hint={hint}>{label}</Label>
       <div className="grid grid-cols-[1fr_5.5rem] gap-2">
         <div className="flex min-h-[44px] sm:min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
           <select
@@ -570,7 +570,7 @@ export function MortgageCalculator() {
       {/* Interest Rate & First Payment */}
       <div>
         <div className="grid gap-5 sm:grid-cols-2">
-          <div className="flex flex-col justify-between h-full">
+          <div>
             <NumberField 
               id="mc-rate" 
               label={
