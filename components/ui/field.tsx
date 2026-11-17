@@ -14,9 +14,9 @@ export const fieldBox = (invalid?: boolean) =>
 const affix =
   "flex shrink-0 items-center bg-slate-50 px-2.5 sm:px-3 text-xs sm:text-sm font-medium text-slate-500 dark:bg-slate-900 dark:text-slate-400 select-none";
 
-export function Label({ htmlFor, children, hint }: { htmlFor?: string; children: ReactNode; hint?: ReactNode }) {
+export function Label({ htmlFor, children, hint, className }: { htmlFor?: string; children: ReactNode; hint?: ReactNode; className?: string }) {
   return (
-    <label htmlFor={htmlFor} className="mb-1.5 flex flex-col gap-0.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">
+    <label htmlFor={htmlFor} className={cn("mb-1.5 flex flex-col gap-0.5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300", className)}>
       <span className="break-words min-w-0">{children}</span>
       {hint ? <span className="text-xs font-normal text-slate-500 dark:text-slate-400 break-words leading-snug">{hint}</span> : null}
     </label>
