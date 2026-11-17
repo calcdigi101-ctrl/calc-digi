@@ -203,8 +203,8 @@ function MonthYear({
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 41 }, (_, i) => String(currentYear - 10 + i));
   return (
-    <fieldset className="min-w-0">
-      <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300">{label}</legend>
+    <fieldset className="min-w-0 flex flex-col justify-between h-full">
+      <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 flex-1">{label}</legend>
       <div className="grid grid-cols-[1fr_5.5rem] gap-2">
         <div className="flex min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
           <select
@@ -568,7 +568,7 @@ export function MortgageCalculator() {
       {/* Interest Rate & First Payment */}
       <div>
         <div className="grid gap-5 sm:grid-cols-2">
-          <div>
+          <div className="flex flex-col justify-between h-full">
             <NumberField 
               id="mc-rate" 
               label={
@@ -582,24 +582,26 @@ export function MortgageCalculator() {
               error={errors.rate?.message} 
               {...register("rate")} 
             />
-            <input
-              id="mc-interest-rate-slider"
-              type="range"
-              min={1}
-              max={15}
-              step={0.125}
-              value={Math.min(Math.max(watchedRate, 1), 15)}
-              onChange={(e) => {
-                setValue("rate", e.target.value);
-                commit(getValues());
-              }}
-              className="mt-2.5 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-600 dark:bg-slate-800"
-              aria-label="Interest rate range slider"
-            />
-            <div className="flex justify-between text-[11px] text-slate-400 mt-1">
-              <span>1%</span>
-              <span>6.5%</span>
-              <span>15%</span>
+            <div>
+              <input
+                id="mc-interest-rate-slider"
+                type="range"
+                min={1}
+                max={15}
+                step={0.125}
+                value={Math.min(Math.max(watchedRate, 1), 15)}
+                onChange={(e) => {
+                  setValue("rate", e.target.value);
+                  commit(getValues());
+                }}
+                className="mt-2.5 h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-slate-200 accent-emerald-600 dark:bg-slate-800"
+                aria-label="Interest rate range slider"
+              />
+              <div className="flex justify-between text-[11px] text-slate-400 mt-1">
+                <span>1%</span>
+                <span>6.5%</span>
+                <span>15%</span>
+              </div>
             </div>
           </div>
           <MonthYear
