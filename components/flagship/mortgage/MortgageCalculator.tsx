@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -188,13 +188,15 @@ function inputFromUrl(q: ReturnType<typeof useQueryStates<typeof urlParsers>>[0]
 function MonthYear({
   idPrefix,
   label,
+  hint,
   month,
   year,
   onMonth,
   onYear,
 }: {
   idPrefix: string;
-  label: string;
+  label: ReactNode;
+  hint?: ReactNode;
   month: string;
   year: string;
   onMonth: (v: string) => void;
@@ -203,10 +205,10 @@ function MonthYear({
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 41 }, (_, i) => String(currentYear - 10 + i));
   return (
-    <fieldset className="min-w-0 flex flex-col justify-between h-full">
-      <legend className="mb-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 flex-1">{label}</legend>
+    <div className="min-w-0 flex flex-col justify-between h-full">
+      <Label hint={hint} className="flex-1">{label}</Label>
       <div className="grid grid-cols-[1fr_5.5rem] gap-2">
-        <div className="flex min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
+        <div className="flex min-h-[44px] sm:min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
           <select
             id={`${idPrefix}-m`}
             aria-label={`${label} month`}
@@ -221,7 +223,7 @@ function MonthYear({
             ))}
           </select>
         </div>
-        <div className="flex min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
+        <div className="flex min-h-[44px] sm:min-h-[48px] items-center rounded-lg border border-slate-300 bg-white px-3 dark:border-slate-700 dark:bg-slate-950">
           <select
             id={`${idPrefix}-y`}
             aria-label={`${label} year`}
@@ -237,7 +239,7 @@ function MonthYear({
           </select>
         </div>
       </div>
-    </fieldset>
+    </div>
   );
 }
 
@@ -607,6 +609,7 @@ export function MortgageCalculator() {
           <MonthYear
             idPrefix="mc-start"
             label="First payment"
+            hint="Loan start date"
             month={watch("startMonth")}
             year={watch("startYear")}
             onMonth={(v) => {
