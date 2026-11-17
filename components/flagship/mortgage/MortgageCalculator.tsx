@@ -665,6 +665,7 @@ export function MortgageCalculator() {
         <div className="grid gap-4 sm:grid-cols-2">
           <NumberField 
             id="mc-ins" 
+            className="flex flex-col justify-between h-full"
             label={
               <span className="flex flex-wrap items-center gap-1">
                 Homeowners insurance
@@ -678,6 +679,7 @@ export function MortgageCalculator() {
           />
           <NumberField
             id="mc-pmi"
+            className="flex flex-col justify-between h-full"
             label={
               <span className="flex items-center">
                 PMI
@@ -709,8 +711,8 @@ export function MortgageCalculator() {
       {/* Extra Payments Drawer */}
       <Disclosure title="Extra payments" summary={hasExtras ? `Saves ${fmtCurrency(interestSaved)}` : undefined}>
         <div className="grid gap-4 sm:grid-cols-2">
-          <NumberField id="mc-xm" label="Extra monthly" prefix={currency} suffix="/mo" error={errors.xm?.message} {...register("xm")} />
-          <NumberField id="mc-xy" label="Extra yearly" hint="every 12th payment" prefix={currency} suffix="/yr" error={errors.xy?.message} {...register("xy")} />
+          <NumberField id="mc-xm" className="flex flex-col justify-between h-full" label="Extra monthly" prefix={currency} suffix="/mo" error={errors.xm?.message} {...register("xm")} />
+          <NumberField id="mc-xy" className="flex flex-col justify-between h-full" label="Extra yearly" hint="every 12th payment" prefix={currency} suffix="/yr" error={errors.xy?.message} {...register("xy")} />
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <NumberField id="mc-xo" label="One-time payment" prefix={currency} error={errors.xo?.message} {...register("xo")} />

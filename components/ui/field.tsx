@@ -60,9 +60,10 @@ type NumberFieldProps = Omit<ComponentProps<"input">, "type" | "prefix"> & {
  */
 export function NumberField({ id, label, hint, prefix, suffix, unitDropdown, error, className, ...props }: NumberFieldProps) {
   const errorId = `${id}-error`;
+  const isFlex = className?.includes("flex-col") || className?.includes("justify-between");
   return (
-    <div className={cn("min-w-0 max-w-full flex flex-col justify-between h-full", className)}>
-      {label ? <Label htmlFor={id} hint={hint} className="flex-1">{label}</Label> : null}
+    <div className={cn("min-w-0 max-w-full", className)}>
+      {label ? <Label htmlFor={id} hint={hint} className={isFlex ? "flex-1" : undefined}>{label}</Label> : null}
       <div>
         <div className={fieldBox(!!error)}>
           {prefix ? <span className={cn(affix, "border-r border-slate-200 dark:border-slate-800")}>{prefix}</span> : null}

@@ -324,7 +324,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
           suffix={unitDropdown ? undefined : f.suffix}
           unitDropdown={unitDropdown}
           error={err}
-          className={span}
+          className={cn(span, "flex flex-col justify-between h-full")}
           step={f.integer ? 1 : "any"}
           {...register(f.key)}
         />
