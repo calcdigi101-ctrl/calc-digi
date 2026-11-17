@@ -210,13 +210,26 @@ function setAIPanel(open){
   panel.classList.toggle('open',open);
   if(open)setTimeout(()=>document.getElementById('ai-panel-input')?.focus(),50);
 }
-function aiBubble(cls,text){
-  const box=document.getElementById('ai-panel-messages');
-  const d=document.createElement('div');
-  d.className='ai-msg '+cls;
-  d.textContent=text;
+function formatAiReply(text) {
+  const escapeHtml = (s) => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  let safe = escapeHtml(text);
+  safe = safe.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-emerald-600 font-semibold underline hover:text-emerald-500" style="color:#059669;text-decoration:underline;font-weight:600;">$1 &rarr;</a>');
+  safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  safe = safe.replace(/\n/g, '<br />');
+  return safe;
+}
+
+function aiBubble(cls, text) {
+  const box = document.getElementById('ai-panel-messages');
+  const d = document.createElement('div');
+  d.className = 'ai-msg ' + cls;
+  if (cls === 'bot') {
+    d.innerHTML = formatAiReply(text);
+  } else {
+    d.textContent = text;
+  }
   box.appendChild(d);
-  box.scrollTop=box.scrollHeight;
+  box.scrollTop = box.scrollHeight;
   return d;
 }
 async function sendAIMessage(){
