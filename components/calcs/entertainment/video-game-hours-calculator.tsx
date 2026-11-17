@@ -28,6 +28,7 @@ export const config: CalcConfig = {
       key: "playStyle",
       label: "Play Style Preference",
       default: "main_extra",
+      hint: "Campaign pace multiplier (Main Story vs 100% completion)",
       options: [
         { value: "main_story", label: "Main Story Only (Rushed / Critical Path — 1.0x)" },
         { value: "main_extra", label: "Main + Side Quests / Extras (Standard Playthrough — 1.4x)" },
@@ -55,6 +56,7 @@ export const config: CalcConfig = {
     {
       kind: "number",
       key: "gamePrice",
+      full: true,
       label: "Total Purchase Price of These Games ($ USD)",
       default: 150,
       min: 0,

@@ -363,26 +363,28 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
         />
       );
     return (
-      <div key={f.key} className={span}>
-        <Label htmlFor={fid} hint={f.hint}>
+      <div key={f.key} className={cn(span, "flex flex-col justify-between h-full")}>
+        <Label htmlFor={fid} hint={f.hint} className="flex-1">
           {f.label}
         </Label>
-        <div className={cn(fieldBox(!!err), f.kind === "choice" && "relative")}>
-          {control}
-          {f.kind === "choice" ? (
-            <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 flex items-center justify-center">
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </span>
+        <div>
+          <div className={cn(fieldBox(!!err), f.kind === "choice" && "relative")}>
+            {control}
+            {f.kind === "choice" ? (
+              <span aria-hidden className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 flex items-center justify-center">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </span>
+            ) : null}
+          </div>
+          <FieldError id={`${fid}-error`} message={err} />
+          {f.subtext ? (
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
+              {f.subtext}
+            </p>
           ) : null}
         </div>
-        <FieldError id={`${fid}-error`} message={err} />
-        {f.subtext ? (
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5 leading-relaxed">
-            {f.subtext}
-          </p>
-        ) : null}
       </div>
     );
   }
