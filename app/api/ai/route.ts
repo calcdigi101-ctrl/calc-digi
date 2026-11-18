@@ -4,20 +4,20 @@ import { NextResponse, type NextRequest } from "next/server";
  * CalcDigi Conversational Multilingual AI Assistant.
  *
  * Capabilities:
- * 1. Strict Language Mirroring: Roman Urdu, Urdu script, Hindi, Spanish, English, etc.
- * 2. Conversational Intent & Follow-up Logic: No rigid fallback menus; asks direct follow-up questions when inputs are missing.
- * 3. Exact Domain Math: Computes ages from DOB, percentages, discounts, BMI, loan amortization, compound interest.
+ * 1. Per-Message Strict Language Detection: Evaluates each incoming message independently without leaking previous turn languages.
+ * 2. Conversational Intent & Typo Handling: Understands typos like "tex" -> tax, asks direct follow-up questions when details are missing.
+ * 3. Exact Domain Math: Computes ages from DOB, percentages, discounts, BMI, loan amortization.
  * 4. Dynamic Single-Tool Routing: Links ONLY to the one specific relevant calculator on CalcDigi.
- * 5. Multi-Provider Fallback: RapidAPI, Groq, OpenRouter, Gemini, Anthropic with strict timeouts.
+ * 5. Multi-Provider Fallback: RapidAPI, Groq with language-mirroring prompt and timeouts.
  */
 
 const SYSTEM =
   "You are CalcDigi AI, the expert multilingual assistant for CalcDigi (calcdigi.com) — a free suite of 340+ precision calculators. " +
-  "CRITICAL LANGUAGE RULE: Detect and reply in the EXACT SAME LANGUAGE and SCRIPT as the user. " +
-  "If the user speaks Roman Urdu (Urdu written in English letters, e.g. 'meri age kya ha', 'loan calculate krna h'), you MUST reply in natural, friendly Roman Urdu. " +
-  "If the user speaks English, reply in English. If Urdu script, reply in Urdu. If Hindi script, reply in Hindi. Never reply in English to non-English messages. " +
-  "CRITICAL CONVERSATIONAL RULE: If the user's inquiry is incomplete (missing numbers, birth date, loan amount), NEVER dump a generic bulleted menu. " +
-  "Instead, ask a short, direct, polite follow-up question in their language to get the required numbers, and provide a single link to the matching calculator. " +
+  "CRITICAL LANGUAGE RULE: Detect and reply in the EXACT SAME LANGUAGE and SCRIPT as the user's latest message. " +
+  "If the user speaks English (e.g., 'whats my age', 'whats my loan tex'), you MUST reply 100% in English. " +
+  "If the user speaks Roman Urdu (e.g., 'meri age kya ha', 'loan calculate krna h'), you MUST reply in natural Roman Urdu. " +
+  "If Urdu script, reply in Urdu. If Hindi script, reply in Hindi. If Spanish, reply in Spanish. Never reply in Roman Urdu to an English query! " +
+  "CRITICAL CONVERSATIONAL RULE: If the user's inquiry is incomplete (missing numbers, birth date), ask a short, direct follow-up question. " +
   "CRITICAL TOOL ROUTING: Link ONLY to the ONE most relevant CalcDigi calculator using markdown format [Calculator Name](/calculators/<category>/<slug>). " +
   "Keep answers short, direct, and action-oriented (under 80 words) unless explaining a step-by-step formula.";
 
@@ -67,40 +67,65 @@ function parseMessages(body: unknown): ChatMessage[] | string {
 
 export type SupportedLanguage = 'roman_urdu' | 'urdu_script' | 'hindi_script' | 'spanish' | 'arabic' | 'english';
 
+/**
+ * Evaluates each message independently with zero leakage.
+ */
 export function detectLanguage(text: string): SupportedLanguage {
   if (!text) return 'english';
+  const clean = text.trim();
 
   // 1. Urdu / Arabic script (\u0600-\u06FF)
-  if (/[\u0600-\u06FF]/.test(text)) {
-    if (/[ٹڈڑںےہکگ]/.test(text) || /\b(کیا|ہے|ہیں|اور|میں|آپ|کی|کا|کتنی|عمر|قرض|حساب)\b/.test(text)) {
+  if (/[\u0600-\u06FF]/.test(clean)) {
+    if (/[ٹڈڑںےہکگ]/.test(clean) || /\b(کیا|ہے|ہیں|اور|میں|آپ|کی|کا|کتنی|عمر|قرض|حساب)\b/.test(clean)) {
       return 'urdu_script';
     }
     return 'arabic';
   }
 
   // 2. Hindi Devanagari script (\u0900-\u097F)
-  if (/[\u0900-\u097F]/.test(text)) {
+  if (/[\u0900-\u097F]/.test(clean)) {
     return 'hindi_script';
   }
 
-  const lower = text.toLowerCase();
+  const lower = clean.toLowerCase();
 
-  // 3. Roman Urdu / Hindi keywords
-  const romanUrduKeywords = [
-    'kya', 'hai', 'ha', 'meri', 'mera', 'mere', 'kaise', 'kese', 'kitna', 'kitni', 'kitne',
-    'karo', 'batao', 'btao', 'batayein', 'chahiye', 'chahye', 'hoga', 'hogi', 'karna', 'karein',
-    'aap', 'tum', 'mujhe', 'hum', 'krna', 'wali', 'wala', 'zyada', 'kam', 'wazan', 'umar',
-    'saal', 'mahina', 'shukriya', 'theek', 'kuch', 'bhi', 'bhai', 'yr', 'yaar', 'apni'
-  ];
-  const words = lower.split(/\s+/);
-  const matchedWords = words.filter((w) => romanUrduKeywords.includes(w.replace(/[^a-z]/g, '')));
-  if (matchedWords.length >= 1 || /\b(meri|mera|kya|kaise|kitna|batao|chahiye|umar)\b/i.test(lower)) {
-    return 'roman_urdu';
+  // 3. Spanish keywords
+  if (/\b(hola|como|cuanto|edad|calcular|gracias|por favor|peso|altura|dias|anos|prestamo)\b/i.test(lower)) {
+    return 'spanish';
   }
 
-  // 4. Spanish keywords
-  if (/\b(hola|como|cuanto|edad|calcular|mi|gracias|por|favor|peso|altura)\b/i.test(lower)) {
-    return 'spanish';
+  // 4. Tokenize and analyze English vs Roman Urdu words
+  const words = lower.split(/[^a-z0-9_]+/).filter(Boolean);
+
+  const englishMarkers = new Set([
+    'what', 'whats', 'is', 'are', 'am', 'my', 'your', 'how', 'much', 'many', 'can', 'could',
+    'would', 'will', 'should', 'i', 'you', 'we', 'they', 'the', 'a', 'an', 'of', 'to', 'in',
+    'on', 'for', 'with', 'tell', 'me', 'please', 'calculate', 'calculator', 'tax', 'taxes',
+    'tex', 'loan', 'mortgage', 'age', 'old', 'healthy', 'weight', 'height', 'percent',
+    'percentage', 'discount', 'price', 'payment', 'interest', 'rate', 'deficit',
+    'maintenance', 'years', 'months', 'days', 'hours', 'hello', 'hi', 'hey', 'thanks', 'thank'
+  ]);
+
+  const romanUrduMarkers = new Set([
+    'kya', 'hai', 'ha', 'hain', 'meri', 'mera', 'mere', 'apni', 'apna', 'apne', 'kaise',
+    'kese', 'kitna', 'kitni', 'kitne', 'batao', 'btao', 'batayein', 'chahiye', 'chahye',
+    'hoga', 'hogi', 'honge', 'karna', 'karein', 'krna', 'mujhe', 'mjhe', 'hum', 'aap', 'tum',
+    'wazan', 'umar', 'saal', 'mahina', 'shukriya', 'theek', 'thik', 'bhai', 'yaar', 'yr',
+    'salam', 'assalam', 'walaikum', 'lagta', 'hoti', 'hota', 'karoon', 'sakoon', 'qarz',
+    'karza', 'qist', 'kisht', 'h'
+  ]);
+
+  let engScore = 0;
+  let urduScore = 0;
+
+  for (const w of words) {
+    if (romanUrduMarkers.has(w)) urduScore++;
+    if (englishMarkers.has(w)) engScore++;
+  }
+
+  // Definite Roman Urdu signal
+  if (urduScore > 0 && urduScore >= engScore) {
+    return 'roman_urdu';
   }
 
   return 'english';
@@ -155,13 +180,16 @@ function calculateAgeFromDate(dateStr: string) {
 }
 
 // ── Smart Multilingual Conversational Engine ──
-function solveConversationalResponse(query: string, messages?: ChatMessage[]): string | null {
+export function solveConversationalResponse(query: string, messages?: ChatMessage[]): string | null {
   const q = (query || '').trim();
   const lower = q.toLowerCase();
+
+  // Strict independent language detection for current message
   let lang = detectLanguage(q);
 
-  // Inherit language from previous user turns if current turn is numbers/symbols only
-  if (lang === 'english' && messages && messages.length > 1) {
+  // ONLY inherit language if the current user message has NO alphabetic words (e.g. pure digits "15/08/2000" or "$450k")
+  const hasAlphaWords = /[a-zA-Z]{2,}/.test(q);
+  if (!hasAlphaWords && messages && messages.length > 1) {
     for (let i = messages.length - 2; i >= 0; i--) {
       if (messages[i].role === 'user') {
         const prevLang = detectLanguage(messages[i].content);
@@ -187,7 +215,7 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 2. Age inquiries without date (e.g. "meri age kya ha", "how old am I", "umar kitni hai")
+  // 2. Age inquiries without date (e.g. "whats my age", "meri age kya ha", "how old am I", "umar kitni hai")
   if (/(age|old|birthday|dob|birth|born|umar|paida|saal|عمر|پیدائش|سال|आयु|उम्र|जन्म|edad|años)/i.test(lower)) {
     if (lang === 'roman_urdu') {
       return "Apni date of birth (DD/MM/YYYY) batayein taake main aapki exact age saal, mahine aur din me calculate kar sakoon! Ya direct hamara [Age Calculator](/calculators/datetime/age-calculator) use karein.";
@@ -202,25 +230,14 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 3. BMI inquiries
-  if (/(bmi|weight|height|wazan|qadd|motapa|وزن|قد|वजन|लंबाई)/i.test(lower)) {
-    const bmiValMatch = lower.match(/bmi\s*(?:of\s*)?(\d+(?:\.\d+)?)/i);
-    if (bmiValMatch || lower.includes('23.5')) {
-      const val = bmiValMatch ? parseFloat(bmiValMatch[1]) : 23.5;
-      if (lang === 'roman_urdu') {
-        return `Haan — **${val} BMI** normal aur healthy range (18.5 – 24.9) me aata hai. Mazeed tafseelat aur healthy weight range check karne ke liye hamara [BMI Calculator](/calculators/health/bmi-calculator) use karein.`;
-      } else if (lang === 'urdu_script') {
-        return `جی ہاں — **${val} BMI** ایک صحت مند رینج (18.5 – 24.9) میں آتا ہے۔ مزید تفصیلات کے لیے ہمارا [BMI Calculator](/calculators/health/bmi-calculator) استعمال کریں۔`;
-      } else {
-        return `Yes — a BMI of **${val}** falls in the healthy weight range (18.5 – 24.9) for adults. Check your personalized height and weight categories on our [BMI Calculator](/calculators/health/bmi-calculator).`;
-      }
-    }
+  // 3. Typo-Aware Loan Tax inquiries (e.g. "whats my loan tex", "loan tax", "is loan taxable")
+  if (/(loan|qarz|borrow).*(tax|tex|taxes|taxable)|(tax|tex|taxes|taxable).*(loan|qarz|borrow)/i.test(lower)) {
     if (lang === 'roman_urdu') {
-      return "Apna wazan (kg) aur qadd (height in feet/inches ya cm) batayein taake main aapka BMI calculate kar sakoon! Ya direct hamara [BMI Calculator](/calculators/health/bmi-calculator) use karein.";
+      return "Aam taur par loan ki raqam par koi income tax nahi lagta kyunke yeh udhar hota hai jo wapas ada karna hota hai. Lekin kuch loans (jaise property mortgage ya student loans) par ada kiye gaye interest par tax deduction mil sakti hai.\n\n• Agar aap loan ki monthly installment aur interest calculate karna chahte hain to hamara [Loan Calculator](/calculators/finance/loan-calculator) use karein.\n• Purchase ya financing tax ke hisab ke liye hamara [Sales Tax Calculator](/calculators/business/sales-tax-calculator) dekhein.";
     } else if (lang === 'urdu_script') {
-      return "اپنا وزن (کلوگرام) اور قد بتائیں تاکہ میں آپ کا BMI نکال سکوں! آپ ہمارا [BMI Calculator](/calculators/health/bmi-calculator) بھی استعمال کر سکتے ہیں۔";
+      return "عام طور پر قرض (loan) کی رقم پر انکم ٹیکس نہیں لگتا کیونکہ یہ ادھار ہوتا ہے جسے واپس کرنا ہوتا ہے۔ تاہم کچھ قرضوں کے سود پر ٹیکس چھوٹ (deduction) مل سکتی ہے۔ ماہانہ قسط کے حساب کے لیے ہمارا [Loan Calculator](/calculators/finance/loan-calculator) یا سیلز ٹیکس کے لیے [Sales Tax Calculator](/calculators/business/sales-tax-calculator) استعمال کریں۔";
     } else {
-      return "Please share your height and weight so I can calculate your BMI and healthy weight range, or try our [BMI Calculator](/calculators/health/bmi-calculator).";
+      return "Loan proceeds are generally not considered taxable income because borrowed funds are an obligation that must be repaid. However, taxes intersect with loans in two main ways:\n\n• **Interest Deductions:** Interest on certain loans (such as mortgages or qualifying student loans) may be tax-deductible.\n• **Financing & Purchase Taxes:** For financed vehicles or assets, sales tax is calculated on the sale price and often rolled into the balance.\n\nTo calculate monthly payments, APR interest, and payoff schedules, use our [Loan Calculator](/calculators/finance/loan-calculator). For purchase taxes, check our [Sales Tax Calculator](/calculators/business/sales-tax-calculator).";
     }
   }
 
@@ -250,7 +267,7 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 6. General Loan inquiries
+  // 6. General Loan payment inquiries
   if (/(loan|qarz|installment|karza|borrow|قرض|قسط)/i.test(lower)) {
     if (lang === 'roman_urdu') {
       return "Loan ki kul raqam (amount), interest rate (%), aur kitne saal/mahine ke liye chahiye batayein taake main monthly installment calculate kar doon! Ya hamara [Loan Calculator](/calculators/finance/loan-calculator) use karein.";
@@ -259,7 +276,29 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 7. Calorie & Diet inquiries
+  // 7. BMI inquiries
+  if (/(bmi|weight|height|wazan|qadd|motapa|وزن|قد|वजन|लंबाई)/i.test(lower)) {
+    const bmiValMatch = lower.match(/bmi\s*(?:of\s*)?(\d+(?:\.\d+)?)/i);
+    if (bmiValMatch || lower.includes('23.5')) {
+      const val = bmiValMatch ? parseFloat(bmiValMatch[1]) : 23.5;
+      if (lang === 'roman_urdu') {
+        return `Haan — **${val} BMI** normal aur healthy range (18.5 – 24.9) me aata hai. Mazeed tafseelat aur healthy weight range check karne ke liye hamara [BMI Calculator](/calculators/health/bmi-calculator) use karein.`;
+      } else if (lang === 'urdu_script') {
+        return `جی ہاں — **${val} BMI** ایک صحت مند رینج (18.5 – 24.9) میں آتا ہے۔ مزید تفصیلات کے لیے ہمارا [BMI Calculator](/calculators/health/bmi-calculator) استعمال کریں۔`;
+      } else {
+        return `Yes — a BMI of **${val}** falls in the healthy weight range (18.5 – 24.9) for adults. Check your personalized height and weight categories on our [BMI Calculator](/calculators/health/bmi-calculator).`;
+      }
+    }
+    if (lang === 'roman_urdu') {
+      return "Apna wazan (kg) aur qadd (height in feet/inches ya cm) batayein taake main aapka BMI calculate kar sakoon! Ya direct hamara [BMI Calculator](/calculators/health/bmi-calculator) use karein.";
+    } else if (lang === 'urdu_script') {
+      return "اپنا وزن (کلوگرام) اور قد بتائیں تاکہ میں آپ کا BMI نکال سکوں! آپ ہمارا [BMI Calculator](/calculators/health/bmi-calculator) بھی استعمال کر سکتے ہیں۔";
+    } else {
+      return "Please share your height and weight so I can calculate your BMI and healthy weight range, or try our [BMI Calculator](/calculators/health/bmi-calculator).";
+    }
+  }
+
+  // 8. Calorie & Diet inquiries
   if (/(calorie|calories|deficit|tdee|weight loss|fat loss|patla|chabi|کیلوری)/i.test(lower)) {
     if (lower.includes('1 lb') || lower.includes('lose 1 lb')) {
       return (
@@ -274,7 +313,7 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 8. Percentage inquiries (e.g. "15% of 200")
+  // 9. Percentage inquiries (e.g. "15% of 200")
   const pctMatch = q.match(/(?:what\s+is\s+)?(\d+(?:\.\d+)?)\s*(?:%|\s*percent|\s*feesad|\s*فیصد)\s+(?:of\s+|ka\s+)?(\$?\d+(?:\.\d+)?)/i);
   if (pctMatch) {
     const p = parseFloat(pctMatch[1]);
@@ -287,7 +326,7 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 9. Discount inquiries
+  // 10. Discount inquiries
   const discMatch = q.match(/(\d+(?:\.\d+)?)\s*(?:%|\s*percent)\s*(?:discount|off)\s*(?:on\s*)?\$?(\d+(?:\.\d+)?)/i);
   if (discMatch) {
     const p = parseFloat(discMatch[1]);
@@ -301,7 +340,7 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 10. Greetings
+  // 11. Greetings
   if (/^(hi|hello|hey|salam|assalam|hola|kya haal|kaise ho|kese ho|سلام)\b/i.test(lower)) {
     if (lang === 'roman_urdu') {
       return "Walaikum Assalam! Main CalcDigi ka AI Assistant hoon. Main calculations, finance, health metrics, aur formulas me aapki kya madad kar sakta hoon?";
@@ -312,7 +351,7 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 11. Affirmations & Thanks
+  // 12. Affirmations & Thanks
   if (/^(thanks|thank you|shukriya|thx|ty|شکریہ)\b/i.test(lower)) {
     if (lang === 'roman_urdu') {
       return "Shukriya! Agar koi aur calculation ya sawal ho to zaroor poochein. 😊";
@@ -323,7 +362,7 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
     }
   }
 
-  // 12. Contextual single-tool fallback in user's language (NO 5-bullet menus!)
+  // 13. Contextual single-tool fallback in user's language (NO 5-bullet menus!)
   if (lang === 'roman_urdu') {
     return "Main calculation aur formulas me aapki madad ke liye hazir hoon! Apne numbers ya sawal batayein taake main uska sahi hisab laga sakoon, ya hamara [Calculators Directory](/calculators) browse karein.";
   } else if (lang === 'urdu_script') {
@@ -337,9 +376,9 @@ function solveConversationalResponse(query: string, messages?: ChatMessage[]): s
   }
 }
 
-// ── Dynamic Single-Tool Routing (Ensures only 1 primary relevant tool is linked) ──
+// ── Dynamic Single-Tool Routing ──
 const PRIMARY_CALCULATORS = [
-  { intent: 'age', phrases: ['age', 'old', 'birthday', 'dob', 'birth', 'born', 'umar', 'paida', 'saal', 'عمر', 'پیدائش', 'سال', 'आयु', 'उम्र', 'जन्म', 'edad'], name: 'Age Calculator', href: '/calculators/datetime/age-calculator' },
+  { intent: 'age', phrases: ['age', 'birthday', 'birth date', 'dob', 'how old', 'umar', 'paida', 'عمر', 'پیدائش', 'आयु'], name: 'Age Calculator', href: '/calculators/datetime/age-calculator' },
   { intent: 'bmi', phrases: ['bmi', 'weight', 'height', 'wazan', 'qadd', 'motapa', 'وزن', 'قد', 'वजन', 'लंबाई'], name: 'BMI Calculator', href: '/calculators/health/bmi-calculator' },
   { intent: 'car_loan', phrases: ['car loan', 'auto loan', 'car payment', 'gaadi', 'gari', 'vehicle', 'گاڑی'], name: 'Auto Loan Calculator', href: '/calculators/finance/auto-loan-calculator' },
   { intent: 'mortgage', phrases: ['mortgage', 'home loan', 'ghar ka loan', 'property loan', '450k', 'مارگیج'], name: 'Mortgage Calculator', href: '/calculators/finance/mortgage-calculator' },
@@ -347,6 +386,7 @@ const PRIMARY_CALCULATORS = [
   { intent: 'calorie', phrases: ['calorie', 'calories', 'deficit', 'tdee', 'weight loss', 'fat loss', 'patla', 'chabi', 'کیلوری'], name: 'Calorie Calculator', href: '/calculators/health/calorie-calculator' },
   { intent: 'percentage', phrases: ['percent', 'percentage', '%', 'feesad', 'فیصد', 'प्रतिशत'], name: 'Percentage Calculator', href: '/calculators/math/percentage-calculator' },
   { intent: 'discount', phrases: ['discount', 'sale', 'off', 'chhoot', 'چھوٹ'], name: 'Discount Calculator', href: '/calculators/finance/discount-calculator' },
+  { intent: 'sales_tax', phrases: ['tax', 'taxes', 'tex', 'sales tax'], name: 'Sales Tax Calculator', href: '/calculators/business/sales-tax-calculator' },
   { intent: 'compound_interest', phrases: ['compound interest', 'growth', 'invest', 'saving', 'bachat', 'munafa'], name: 'Compound Interest Calculator', href: '/calculators/finance/compound-interest-calculator' },
   { intent: 'gpa', phrases: ['gpa', 'cgpa', 'grades', 'grade point'], name: 'College GPA Calculator', href: '/calculators/education/college-gpa-calculator' },
   { intent: 'study_hours', phrases: ['study hour', 'carnegie', 'study time'], name: 'Study Hours Calculator', href: '/calculators/education/study-hours-calculator' }
@@ -395,7 +435,8 @@ export async function POST(req: NextRequest) {
   }
 
   const latestUserMessage = messages[messages.length - 1].content;
-  const normalizedKey = latestUserMessage.toLowerCase().trim();
+  const detectedLang = detectLanguage(latestUserMessage);
+  const normalizedKey = `v3:${detectedLang}:${latestUserMessage.toLowerCase().trim()}`;
 
   // Tier 1: Fast Cache Check (< 0.1ms)
   const cached = replyCache.get(normalizedKey);
@@ -417,6 +458,10 @@ export async function POST(req: NextRequest) {
 
   if (canUseRapidApi) {
     try {
+      const dynamicSystemPrompt =
+        SYSTEM +
+        ` User language detected: ${detectedLang}. Answer strictly in ${detectedLang === 'roman_urdu' ? 'Roman Urdu (Urdu in English alphabet)' : detectedLang}.`;
+
       const rapidRes = await fetch("https://open-ai21.p.rapidapi.com/chatgpt", {
         method: "POST",
         headers: {
@@ -425,7 +470,7 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          messages: [{ role: "system", content: SYSTEM }, ...messages],
+          messages: [{ role: "system", content: dynamicSystemPrompt }, ...messages],
           web_access: false,
         }),
         signal: AbortSignal.timeout(2500),
@@ -481,25 +526,15 @@ export async function POST(req: NextRequest) {
   }
 
   // Tier 4: Language-aware final fallback
-  let lang = detectLanguage(latestUserMessage);
-  if (lang === 'english' && messages.length > 1) {
-    for (let i = messages.length - 2; i >= 0; i--) {
-      if (messages[i].role === 'user') {
-        const prevLang = detectLanguage(messages[i].content);
-        if (prevLang !== 'english') {
-          lang = prevLang;
-          break;
-        }
-      }
-    }
-  }
   let finalFallback = "I'm here to help you calculate and understand any math, financial, or health concept! Please share your numbers or specific question, or browse our [Calculators Directory](/calculators).";
-  if (lang === 'roman_urdu') {
+  if (detectedLang === 'roman_urdu') {
     finalFallback = "Main calculation aur formulas me aapki madad ke liye hazir hoon! Apne numbers ya sawal batayein taake main uska sahi hisab laga sakoon, ya hamara [Calculators Directory](/calculators) browse karein.";
-  } else if (lang === 'urdu_script') {
+  } else if (detectedLang === 'urdu_script') {
     finalFallback = "میں حساب کتاب اور فارمولوں میں آپ کی مدد کے لیے حاضر ہوں! اپنے نمبرز یا سوال بتائیں تاکہ میں حساب لگا سکوں، یا ہماری [Calculators Directory](/calculators) دیکھیں۔";
-  } else if (lang === 'hindi_script') {
+  } else if (detectedLang === 'hindi_script') {
     finalFallback = "मैं गणना और सूत्रों में आपकी सहायता के लिए यहाँ हूँ! अपनी संख्याएँ या प्रश्न बताएं ताकि मैं सही हिसाब कर सकूँ, या हमारी [Calculators Directory](/calculators) देखें।";
+  } else if (detectedLang === 'spanish') {
+    finalFallback = "¡Estoy aquí para ayudarte con cualquier cálculo o fórmula! Comparte tus números o pregunta, o visita nuestro [Directorio de Calculadoras](/calculators).";
   }
 
   return NextResponse.json({ reply: enrichWithSingleRelevantLink(finalFallback, latestUserMessage) });
