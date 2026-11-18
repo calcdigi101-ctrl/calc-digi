@@ -211,12 +211,48 @@ function setAIPanel(open){
   if(open)setTimeout(()=>document.getElementById('ai-panel-input')?.focus(),50);
 }
 function formatAiReply(text) {
+  if (!text) return '';
   const escapeHtml = (s) => (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   let safe = escapeHtml(text);
-  safe = safe.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-emerald-600 font-semibold underline hover:text-emerald-500" style="color:#059669;text-decoration:underline;font-weight:600;">$1 &rarr;</a>');
+  safe = safe.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-emerald-600 dark:text-emerald-400 font-semibold underline hover:text-emerald-500 inline-flex items-center gap-1" style="color:#059669;text-decoration:underline;font-weight:600;" target="_self">$1 &rarr;</a>');
   safe = safe.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  safe = safe.replace(/\n/g, '<br />');
-  return safe;
+  safe = safe.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+  safe = safe.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  safe = safe.replace(/\b_([^_]+)_\b/g, '<em>$1</em>');
+  safe = safe.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[11px]" style="padding:2px 4px;border-radius:4px;background:#e2e8f0;font-size:11px;">$1</code>');
+  const lines = safe.split('\n');
+  const out = [];
+  let inList = false;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) {
+      if (inList) { out.push('</ul>'); inList = false; }
+      out.push('');
+      continue;
+    }
+    const listMatch = line.match(/^([•\*\-]\s+|\d+\.\s+)(.*)$/);
+    if (listMatch) {
+      if (!inList) {
+        out.push('<ul class="my-1.5 space-y-1 pl-4 list-disc" style="margin:6px 0;padding-left:18px;list-style-type:disc;">');
+        inList = true;
+      }
+      out.push('<li>' + listMatch[2] + '</li>');
+    } else {
+      if (inList) { out.push('</ul>'); inList = false; }
+      out.push(line);
+    }
+  }
+  if (inList) out.push('</ul>');
+  let html = '';
+  for (let j = 0; j < out.length; j++) {
+    const item = out[j];
+    if (item.startsWith('<ul') || item.startsWith('<li>') || item === '</ul>') {
+      html += item;
+    } else {
+      html += (html && !html.endsWith('</ul>') ? '<br />' : '') + item;
+    }
+  }
+  return html;
 }
 
 function aiBubble(cls, text) {

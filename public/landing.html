@@ -3798,14 +3798,47 @@
     }
 
     function formatAiReply(text) {
+      if (!text) return '';
       var safe = escapeHtml(text);
-      // Format markdown links [Text](url)
-      safe = safe.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" class="text-emerald-600 dark:text-emerald-400 font-semibold underline hover:text-emerald-500">$1 &rarr;</a>');
-      // Format bold **text**
+      safe = safe.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" class="text-emerald-600 dark:text-emerald-400 font-semibold underline hover:text-emerald-500 inline-flex items-center gap-1" target="_self">$1 &rarr;</a>');
       safe = safe.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
-      // Convert newlines
-      safe = safe.replace(/\n/g, '<br />');
-      return safe;
+      safe = safe.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+      safe = safe.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+      safe = safe.replace(/\b_([^_]+)_\b/g, '<em>$1</em>');
+      safe = safe.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 font-mono text-[11px]">$1</code>');
+      var lines = safe.split('\n');
+      var out = [];
+      var inList = false;
+      for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        if (!line) {
+          if (inList) { out.push('</ul>'); inList = false; }
+          out.push('');
+          continue;
+        }
+        var listMatch = line.match(/^([•\*\-]\s+|\d+\.\s+)(.*)$/);
+        if (listMatch) {
+          if (!inList) {
+            out.push('<ul class="my-1.5 space-y-1 pl-4 list-disc">');
+            inList = true;
+          }
+          out.push('<li>' + listMatch[2] + '</li>');
+        } else {
+          if (inList) { out.push('</ul>'); inList = false; }
+          out.push(line);
+        }
+      }
+      if (inList) out.push('</ul>');
+      var html = '';
+      for (var j = 0; j < out.length; j++) {
+        var item = out[j];
+        if (item.startsWith('<ul') || item.startsWith('<li>') || item === '</ul>') {
+          html += item;
+        } else {
+          html += (html && !html.endsWith('</ul>') ? '<br />' : '') + item;
+        }
+      }
+      return html;
     }
 
     function getLocalSmartAnswer(query) {
