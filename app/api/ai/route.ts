@@ -155,10 +155,23 @@ function calculateAgeFromDate(dateStr: string) {
 }
 
 // ── Smart Multilingual Conversational Engine ──
-function solveConversationalResponse(query: string): string | null {
+function solveConversationalResponse(query: string, messages?: ChatMessage[]): string | null {
   const q = (query || '').trim();
   const lower = q.toLowerCase();
-  const lang = detectLanguage(q);
+  let lang = detectLanguage(q);
+
+  // Inherit language from previous user turns if current turn is numbers/symbols only
+  if (lang === 'english' && messages && messages.length > 1) {
+    for (let i = messages.length - 2; i >= 0; i--) {
+      if (messages[i].role === 'user') {
+        const prevLang = detectLanguage(messages[i].content);
+        if (prevLang !== 'english') {
+          lang = prevLang;
+          break;
+        }
+      }
+    }
+  }
 
   // 1. Direct birth date provided (e.g. "15/08/2000" or "mera birth 1998 hai")
   const ageCalc = calculateAgeFromDate(q);
@@ -391,7 +404,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Tier 2: Instant Multilingual Smart Conversational Engine (< 1ms)
-  const instantAnswer = solveConversationalResponse(latestUserMessage);
+  const instantAnswer = solveConversationalResponse(latestUserMessage, messages);
   if (instantAnswer) {
     const finalInstant = enrichWithSingleRelevantLink(instantAnswer, latestUserMessage);
     replyCache.set(normalizedKey, { reply: finalInstant, timestamp: Date.now() });
@@ -468,7 +481,18 @@ export async function POST(req: NextRequest) {
   }
 
   // Tier 4: Language-aware final fallback
-  const lang = detectLanguage(latestUserMessage);
+  let lang = detectLanguage(latestUserMessage);
+  if (lang === 'english' && messages.length > 1) {
+    for (let i = messages.length - 2; i >= 0; i--) {
+      if (messages[i].role === 'user') {
+        const prevLang = detectLanguage(messages[i].content);
+        if (prevLang !== 'english') {
+          lang = prevLang;
+          break;
+        }
+      }
+    }
+  }
   let finalFallback = "I'm here to help you calculate and understand any math, financial, or health concept! Please share your numbers or specific question, or browse our [Calculators Directory](/calculators).";
   if (lang === 'roman_urdu') {
     finalFallback = "Main calculation aur formulas me aapki madad ke liye hazir hoon! Apne numbers ya sawal batayein taake main uska sahi hisab laga sakoon, ya hamara [Calculators Directory](/calculators) browse karein.";
