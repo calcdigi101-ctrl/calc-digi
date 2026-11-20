@@ -49,6 +49,7 @@ export interface CalculationInvoiceProps {
   values: Record<string, any>;
   output: InvoiceOutput | any;
   extraRows?: Array<{ label: string; value: string | number; strong?: boolean }>;
+  asDiv?: boolean;
 }
 
 export function CalculationInvoice({
@@ -60,6 +61,7 @@ export function CalculationInvoice({
   values,
   output,
   extraRows,
+  asDiv = false,
 }: CalculationInvoiceProps) {
   const [invoiceDate, setInvoiceDate] = useState("");
   const [invoiceTime, setInvoiceTime] = useState("");
@@ -145,9 +147,15 @@ export function CalculationInvoice({
         {/* Title & Subject */}
         <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
-              {title}
-            </h2>
+            {asDiv ? (
+              <div className="text-xl font-extrabold text-slate-900 tracking-tight">
+                {title}
+              </div>
+            ) : (
+              <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">
+                {title}
+              </h2>
+            )}
             {category ? (
               <p className="text-xs font-semibold text-emerald-700 uppercase tracking-wider mt-0.5">
                 Category: {category}
@@ -202,9 +210,15 @@ export function CalculationInvoice({
         {/* Left Column: Input Parameters (Specifications Table) */}
         <div className="break-inside-avoid">
           <div className="flex items-center justify-between border-b-2 border-slate-800 pb-1.5 mb-2">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-              1. Input Specifications
-            </h2>
+            {asDiv ? (
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                1. Input Specifications
+              </div>
+            ) : (
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                1. Input Specifications
+              </h2>
+            )}
             <span className="text-[10px] font-semibold text-slate-500 uppercase">Customer Values</span>
           </div>
 
@@ -246,9 +260,15 @@ export function CalculationInvoice({
         {/* Right Column: Output Metrics (Invoice Line Items) */}
         <div className="break-inside-avoid">
           <div className="flex items-center justify-between border-b-2 border-slate-800 pb-1.5 mb-2">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900">
-              2. Calculated Breakdown
-            </h2>
+            {asDiv ? (
+              <div className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                2. Calculated Breakdown
+              </div>
+            ) : (
+              <h2 className="text-xs font-bold uppercase tracking-wider text-slate-900">
+                2. Calculated Breakdown
+              </h2>
+            )}
             <span className="text-[10px] font-semibold text-slate-500 uppercase">Computed Allocation</span>
           </div>
 

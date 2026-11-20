@@ -14,6 +14,7 @@ export function CalcPage({
   path,
   category,
   title,
+  breadcrumbLabel,
   intro,
   description,
   appCategory = "UtilityApplication",
@@ -34,6 +35,7 @@ export function CalcPage({
   path: string;
   category: { href: string; label: string };
   title: string;
+  breadcrumbLabel?: string;
   intro: string;
   description: string;
   appCategory?: string;
@@ -122,7 +124,7 @@ export function CalcPage({
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
         { "@type": "ListItem", position: 2, name: `${category.label} Calculators`, item: `${SITE_URL}${category.href}` },
-        { "@type": "ListItem", position: 3, name: title, item: `${SITE_URL}${path}` },
+        { "@type": "ListItem", position: 3, name: breadcrumbLabel || title, item: `${SITE_URL}${path}` },
       ],
     },
     {
@@ -246,7 +248,7 @@ export function CalcPage({
       <JsonLd data={{ "@context": "https://schema.org", "@graph": graph }} />
       {mathSolverJsonLd ? <JsonLd data={mathSolverJsonLd} /> : null}
       <CalculatorPage
-        crumbs={[{ href: "/", label: "Home" }, category, { label: title }]}
+        crumbs={[{ href: "/", label: "Home" }, category, { label: breadcrumbLabel || title }]}
         title={title}
         intro={intro}
         canonicalUrl={`${SITE_URL}${path}`}
@@ -297,7 +299,7 @@ export function calcMetadata(path: string, title: string, description: string): 
           url: `${SITE_URL}/og-image.png`,
           width: 1200,
           height: 630,
-          alt: `${title} – CalcDigi`,
+          alt: `${title} - CalcDigi`,
         },
       ],
     },
