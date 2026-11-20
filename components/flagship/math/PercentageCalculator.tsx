@@ -181,29 +181,6 @@ export function PercentageCalculator() {
   const m4Ratio = v4 > 0 ? Math.min(Math.max(delta4 / v4, 0), 1) : 0;
   const m4ShareOffset = CIRCLE_C * (1 - m4Ratio);
 
-  // Reusable Mode Switcher Dropdown Pill
-  const ModeDropdownPill = () => (
-    <div className="relative inline-flex items-center">
-      <select
-        id="percentage-calc-mode"
-        aria-label="Percentage Calculation Mode"
-        value={mode}
-        onChange={(e) => {
-          const newMode = e.target.value as CalcMode;
-          setMode(newMode);
-          syncUrl(newMode);
-        }}
-        className="appearance-none cursor-pointer pl-3 pr-7 py-1.5 rounded-full text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:hover:bg-emerald-900/80 dark:text-emerald-300 border border-emerald-500/30 transition-all outline-none focus:ring-2 focus:ring-emerald-500/30 shadow-2xs"
-      >
-        <option value="part_of_whole">Standard Percent</option>
-        <option value="what_percent">Proportion Share</option>
-        <option value="change">Percentage Change</option>
-        <option value="add_sub">Tax &amp; Discount</option>
-      </select>
-      <ChevronDown className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400 absolute right-2.5 pointer-events-none" />
-    </div>
-  );
-
   return (
     <>
       <div className="fx-web-tool">
@@ -227,7 +204,7 @@ export function PercentageCalculator() {
             }`}
           >
             <Percent className="w-4 h-4 shrink-0" />
-            <span>% of Number</span>
+            <span>Percent of Number</span>
           </button>
 
           <button
@@ -284,22 +261,19 @@ export function PercentageCalculator() {
           {/* MODE 1: % OF NUMBER */}
           {mode === "part_of_whole" && (
             <div className="space-y-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                    What is X% of Y?
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Calculate portion or share of any number</p>
-                </div>
-                <ModeDropdownPill />
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  What is X% of Y?
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">Calculate portion or share of any number</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col justify-between h-full">
-                  <label htmlFor="pct-m1-rate" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m1-rate" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Percentage (X)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
@@ -314,11 +288,11 @@ export function PercentageCalculator() {
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-between h-full">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m1-val" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Total Value (Y)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
@@ -329,26 +303,29 @@ export function PercentageCalculator() {
                       placeholder="e.g. 200"
                       className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">total</span>
+                    <span className="text-xs font-bold text-slate-400 pl-2 select-none uppercase">total</span>
                   </div>
                 </div>
               </div>
 
               {/* Quick Presets */}
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                  Quick Percentage Presets
-                </label>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Quick Percentage Presets
+                  </label>
+                  <span className="text-[11px] text-slate-400">Click to apply percentage</span>
+                </div>
+                <div className="grid grid-cols-4 sm:grid-cols-8 gap-1.5 sm:gap-2">
                   {["5", "10", "15", "20", "25", "33.33", "50", "75"].map((preset) => (
                     <button
                       key={preset}
                       type="button"
                       onClick={() => setM1Pct(preset)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                      className={`py-2 px-1 text-center rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                         m1Pct === preset
                           ? "bg-emerald-600 text-white shadow-xs"
-                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-transparent"
                       }`}
                     >
                       {preset}%
@@ -362,22 +339,19 @@ export function PercentageCalculator() {
           {/* MODE 2: PROPORTION */}
           {mode === "what_percent" && (
             <div className="space-y-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                    X is What Percent of Y?
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Determine the percentage share of a whole amount</p>
-                </div>
-                <ModeDropdownPill />
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  X is What Percent of Y?
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">Determine the percentage share of a whole amount</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col justify-between h-full">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m2-part" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Part Amount (X)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
@@ -388,15 +362,15 @@ export function PercentageCalculator() {
                       placeholder="e.g. 30"
                       className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">part</span>
+                    <span className="text-xs font-bold text-slate-400 pl-2 select-none uppercase">part</span>
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-between h-full">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m2-whole" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Whole Amount (Y)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
@@ -407,17 +381,20 @@ export function PercentageCalculator() {
                       placeholder="e.g. 150"
                       className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">whole</span>
+                    <span className="text-xs font-bold text-slate-400 pl-2 select-none uppercase">whole</span>
                   </div>
                 </div>
               </div>
 
               {/* Presets */}
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                  Sample Ratios
-                </label>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Quick Sample Ratios
+                  </label>
+                  <span className="text-[11px] text-slate-400">Click to test ratios</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
                     { label: "1 in 4 (25%)", x: "25", y: "100" },
                     { label: "1 in 3 (33%)", x: "1", y: "3" },
@@ -431,7 +408,7 @@ export function PercentageCalculator() {
                         setM2Part(p.x);
                         setM2Whole(p.y);
                       }}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+                      className="py-2 px-2 text-center rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all cursor-pointer border border-transparent"
                     >
                       {p.label}
                     </button>
@@ -444,22 +421,19 @@ export function PercentageCalculator() {
           {/* MODE 3: % CHANGE */}
           {mode === "change" && (
             <div className="space-y-5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                    Percentage Increase / Decrease
-                  </h3>
-                  <p className="text-xs text-slate-500 mt-0.5">Calculate relative growth or contraction between values</p>
-                </div>
-                <ModeDropdownPill />
+              <div>
+                <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                  Percentage Increase / Decrease
+                </h3>
+                <p className="text-xs text-slate-500 mt-0.5">Calculate relative growth or contraction between values</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col justify-between h-full">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m3-from" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Original Baseline (From)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
@@ -470,15 +444,15 @@ export function PercentageCalculator() {
                       placeholder="e.g. 100"
                       className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">start</span>
+                    <span className="text-xs font-bold text-slate-400 pl-2 select-none uppercase">start</span>
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-between h-full">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m3-to" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     New Ending Value (To)
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
@@ -489,17 +463,20 @@ export function PercentageCalculator() {
                       placeholder="e.g. 125"
                       className="w-full bg-transparent border-none border-0 outline-none focus:outline-none focus:ring-0 p-0 text-base font-semibold text-slate-900 dark:text-white [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
-                    <span className="text-xs font-semibold text-slate-400 pl-2 select-none">end</span>
+                    <span className="text-xs font-bold text-slate-400 pl-2 select-none uppercase">end</span>
                   </div>
                 </div>
               </div>
 
               {/* Presets */}
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                  Typical Growth Scenarios
-                </label>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Typical Growth Scenarios
+                  </label>
+                  <span className="text-[11px] text-slate-400">Click to test change</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[
                     { label: "100 → 125 (+25%)", f: "100", t: "125" },
                     { label: "200 → 150 (-25%)", f: "200", t: "150" },
@@ -513,7 +490,7 @@ export function PercentageCalculator() {
                         setM3From(p.f);
                         setM3To(p.t);
                       }}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+                      className="py-2 px-2 text-center rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all cursor-pointer border border-transparent"
                     >
                       {p.label}
                     </button>
@@ -533,41 +510,38 @@ export function PercentageCalculator() {
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">Add tax or subtract clearance discounts</p>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                    <button
-                      type="button"
-                      onClick={() => setM4Op("add")}
-                      className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all ${
-                        m4Op === "add"
-                          ? "bg-emerald-600 text-white shadow-2xs"
-                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
-                      }`}
-                    >
-                      + Tax
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setM4Op("sub")}
-                      className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all ${
-                        m4Op === "sub"
-                          ? "bg-amber-600 text-white shadow-2xs"
-                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
-                      }`}
-                    >
-                      − Disc
-                    </button>
-                  </div>
-                  <ModeDropdownPill />
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                  <button
+                    type="button"
+                    onClick={() => setM4Op("add")}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      m4Op === "add"
+                        ? "bg-emerald-600 text-white shadow-2xs"
+                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    }`}
+                  >
+                    + Add Tax
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setM4Op("sub")}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                      m4Op === "sub"
+                        ? "bg-amber-600 text-white shadow-2xs"
+                        : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                    }`}
+                  >
+                    - Discount
+                  </button>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex flex-col justify-between h-full">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m4-val" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     Base Amount
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <span className="text-sm font-bold text-slate-400 pr-2 select-none">{currencySymbol}</span>
                     <input
                       type="number"
@@ -582,11 +556,11 @@ export function PercentageCalculator() {
                   </div>
                 </div>
 
-                <div className="flex flex-col justify-between h-full">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2 flex-1">
+                <div>
+                  <label htmlFor="pct-m4-pct" className="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
                     {m4Op === "add" ? "Tax / Tip Rate" : "Discount Rate"}
                   </label>
-                  <div className="flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
+                  <div className="min-h-[46px] flex items-center rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3.5 py-2.5 shadow-2xs transition-colors focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10">
                     <input
                       type="number"
                       step="any"
@@ -603,26 +577,30 @@ export function PercentageCalculator() {
               </div>
 
               {/* Presets */}
-              <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
-                  Common Rates
-                </label>
-                <div className="flex flex-wrap gap-2">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    Common Rates
+                  </label>
+                  <span className="text-[11px] text-slate-400">Click to apply rate</span>
+                </div>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                   {[
-                    { label: "5% Standard", p: "5" },
-                    { label: "8.25% Sales Tax", p: "8.25" },
-                    { label: "15% Gratuity", p: "15" },
-                    { label: "20% Tip/Clearance", p: "20" },
-                    { label: "30% Markdown", p: "30" },
+                    { label: "5% Min", p: "5" },
+                    { label: "8.25% Tax", p: "8.25" },
+                    { label: "10% Off", p: "10" },
+                    { label: "15% Tip", p: "15" },
+                    { label: "20% Tip", p: "20" },
+                    { label: "30% Sale", p: "30" },
                   ].map((preset, idx) => (
                     <button
                       key={idx}
                       type="button"
                       onClick={() => setM4Pct(preset.p)}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                      className={`py-2 px-1 text-center rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                         m4Pct === preset.p
                           ? "bg-emerald-600 text-white shadow-xs"
-                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+                          : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 border border-transparent"
                       }`}
                     >
                       {preset.label}
