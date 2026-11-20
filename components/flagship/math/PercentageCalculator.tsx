@@ -1114,6 +1114,7 @@ export function PercentageCalculator() {
   </div>
 
   <CalculationInvoice
+    asDiv={true}
     title="Percentage & Mathematical Proportion Calculation Statement"
     category="Mathematics & Financial Arithmetic"
     fields={[
