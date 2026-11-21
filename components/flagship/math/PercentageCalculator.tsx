@@ -309,8 +309,8 @@ export function PercentageCalculator() {
               </div>
 
               {/* Quick Presets */}
-              <div className="pt-3 space-y-3">
-                <div className="flex items-center justify-between">
+              <div className="mt-8 pt-2">
+                <div className="flex items-center justify-between mb-3.5 sm:mb-4">
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Quick Percentage Presets
                   </label>
@@ -387,8 +387,8 @@ export function PercentageCalculator() {
               </div>
 
               {/* Presets */}
-              <div className="pt-3 space-y-3">
-                <div className="flex items-center justify-between">
+              <div className="mt-8 pt-2">
+                <div className="flex items-center justify-between mb-3.5 sm:mb-4">
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Quick Sample Ratios
                   </label>
@@ -469,8 +469,8 @@ export function PercentageCalculator() {
               </div>
 
               {/* Presets */}
-              <div className="pt-3 space-y-3">
-                <div className="flex items-center justify-between">
+              <div className="mt-8 pt-2">
+                <div className="flex items-center justify-between mb-3.5 sm:mb-4">
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Typical Growth Scenarios
                   </label>
@@ -577,8 +577,8 @@ export function PercentageCalculator() {
               </div>
 
               {/* Presets */}
-              <div className="pt-3 space-y-3">
-                <div className="flex items-center justify-between">
+              <div className="mt-8 pt-2">
+                <div className="flex items-center justify-between mb-3.5 sm:mb-4">
                   <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Common Rates
                   </label>
@@ -612,7 +612,7 @@ export function PercentageCalculator() {
           )}
 
           {/* Collapsible "+ More options" container */}
-          <div className="pt-3">
+          <div className="pt-6 mt-4 border-t border-slate-100 dark:border-slate-800/80">
             <button
               type="button"
               onClick={() => setShowMoreOptions(!showMoreOptions)}
@@ -681,7 +681,7 @@ export function PercentageCalculator() {
           </div>
 
           {/* Primary Calculate Action */}
-          <div className="pt-3">
+          <div className="pt-4 mt-1">
             <button
               type="button"
               onClick={() => syncUrl(mode)}
