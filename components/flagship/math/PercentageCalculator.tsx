@@ -162,24 +162,223 @@ export function PercentageCalculator() {
     });
   };
 
-  // Donut SVG circumference calculation (r = 52 -> C = 326.726)
-  const CIRCLE_C = 326.726;
+  // Donut SVG circumference calculation (r = 50 -> C = 314.159265)
+  const DONUT_RADIUS = 50;
+  const DONUT_C = 2 * Math.PI * DONUT_RADIUS;
 
-  // Mode 1 Donut calculations
-  const m1ShareRatio = v1 > 0 ? Math.min(Math.max(r1 / v1, 0), 1) : 0;
-  const m1ShareOffset = CIRCLE_C * (1 - m1ShareRatio);
+  interface DonutSlice {
+    id: string;
+    label: string;
+    value: number;
+    formattedValue: string;
+    color: string;
+    dotClass: string;
+  }
 
-  // Mode 2 Donut calculations
-  const m2ShareRatio = w2 > 0 ? Math.min(Math.max(p2 / w2, 0), 1) : 0;
-  const m2ShareOffset = CIRCLE_C * (1 - m2ShareRatio);
+  let slices: DonutSlice[] = [];
 
-  // Mode 3 Donut calculations
-  const m3Ratio = f3 > 0 ? Math.min(Math.max(Math.abs(diff3) / f3, 0), 1) : 0;
-  const m3ShareOffset = CIRCLE_C * (1 - m3Ratio);
+  if (mode === "part_of_whole") {
+    if (v1 > 0) {
+      if (p1 <= 100) {
+        slices = [
+          {
+            id: "remaining",
+            label: "Remaining Balance",
+            value: r1Remainder,
+            formattedValue: formatNum(r1Remainder),
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "portion",
+            label: `Calculated Portion (${p1}%)`,
+            value: r1,
+            formattedValue: formatNum(r1),
+            color: "#10b981",
+            dotClass: "bg-emerald-500",
+          },
+        ];
+      } else {
+        slices = [
+          {
+            id: "base",
+            label: "Base Whole",
+            value: v1,
+            formattedValue: formatNum(v1),
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "portion",
+            label: `Expanded Portion (+${formatNum(p1 - 100)}%)`,
+            value: Math.max(0, r1 - v1),
+            formattedValue: formatNum(r1 - v1),
+            color: "#f59e0b",
+            dotClass: "bg-amber-500",
+          },
+        ];
+      }
+    }
+  } else if (mode === "what_percent") {
+    if (w2 > 0) {
+      if (p2 <= w2) {
+        slices = [
+          {
+            id: "remaining",
+            label: "Remaining Balance",
+            value: r2Remainder,
+            formattedValue: `${formatNum(r2Remainder)} (${formatNum(100 - r2)}%)`,
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "part",
+            label: `Part Value (${formatNum(r2)}%)`,
+            value: p2,
+            formattedValue: `${formatNum(p2)} (${formatNum(r2)}%)`,
+            color: "#10b981",
+            dotClass: "bg-emerald-500",
+          },
+        ];
+      } else {
+        slices = [
+          {
+            id: "whole",
+            label: "Base Whole (Y)",
+            value: w2,
+            formattedValue: formatNum(w2),
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "excess",
+            label: "Excess Amount",
+            value: Math.max(0, p2 - w2),
+            formattedValue: formatNum(p2 - w2),
+            color: "#f59e0b",
+            dotClass: "bg-amber-500",
+          },
+        ];
+      }
+    }
+  } else if (mode === "change") {
+    if (f3 > 0 || t3 > 0) {
+      if (isIncrease) {
+        slices = [
+          {
+            id: "starting",
+            label: "Original Baseline (From)",
+            value: f3,
+            formattedValue: formatNum(f3),
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "gain",
+            label: `Growth Delta (+${formatNum(r3)}%)`,
+            value: Math.max(0, diff3),
+            formattedValue: `+${formatNum(diff3)}`,
+            color: "#10b981",
+            dotClass: "bg-emerald-500",
+          },
+        ];
+      } else {
+        slices = [
+          {
+            id: "ending",
+            label: "Retained Value (To)",
+            value: Math.max(0, t3),
+            formattedValue: formatNum(t3),
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "loss",
+            label: `Contraction Loss (${formatNum(r3)}%)`,
+            value: Math.abs(diff3),
+            formattedValue: `-${formatNum(Math.abs(diff3))}`,
+            color: "#f59e0b",
+            dotClass: "bg-amber-500",
+          },
+        ];
+      }
+    }
+  } else if (mode === "add_sub") {
+    if (v4 > 0) {
+      if (m4Op === "add") {
+        const stateRatio = 0.75;
+        const localRatio = 0.25;
+        const stateTax = delta4 * stateRatio;
+        const localTax = delta4 * localRatio;
 
-  // Mode 4 Donut calculations
-  const m4Ratio = v4 > 0 ? Math.min(Math.max(delta4 / v4, 0), 1) : 0;
-  const m4ShareOffset = CIRCLE_C * (1 - m4Ratio);
+        slices = [
+          {
+            id: "base_net",
+            label: "Net Merchandise / Services",
+            value: v4,
+            formattedValue: `${currencySymbol}${formatNum(v4)}`,
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "state_tax",
+            label: `State Sales Tax Levy (${formatNum(p4 * stateRatio, 2)}%)`,
+            value: stateTax,
+            formattedValue: `${currencySymbol}${formatNum(stateTax)}`,
+            color: "#10b981",
+            dotClass: "bg-emerald-500",
+          },
+          {
+            id: "local_tax",
+            label: `Local / Municipal Surcharge (${formatNum(p4 * localRatio, 2)}%)`,
+            value: localTax,
+            formattedValue: `${currencySymbol}${formatNum(localTax)}`,
+            color: "#f59e0b",
+            dotClass: "bg-amber-500",
+          },
+        ];
+      } else {
+        slices = [
+          {
+            id: "final_price",
+            label: "Final Discounted Price",
+            value: Math.max(0, r4),
+            formattedValue: `${currencySymbol}${formatNum(r4)}`,
+            color: "#0284c7",
+            dotClass: "bg-sky-600",
+          },
+          {
+            id: "savings",
+            label: `Clearance Savings (${p4}%)`,
+            value: delta4,
+            formattedValue: `${currencySymbol}${formatNum(delta4)}`,
+            color: "#f59e0b",
+            dotClass: "bg-amber-500",
+          },
+        ];
+      }
+    }
+  }
+
+  const validSlices = slices.filter((s) => s.value > 0);
+  const totalSliceValue = validSlices.reduce((sum, s) => sum + s.value, 0);
+
+  let cumulativeArc = 0;
+  const renderedSlices = validSlices.map((slice) => {
+    const ratio = totalSliceValue > 0 ? slice.value / totalSliceValue : 0;
+    const arcLength = ratio * DONUT_C;
+    const gap = validSlices.length > 1 ? Math.min(3.5, arcLength * 0.25) : 0;
+    const visibleLength = Math.max(0, arcLength - gap);
+    const dashArray = `${visibleLength.toFixed(2)} ${(DONUT_C - visibleLength).toFixed(2)}`;
+    const dashOffset = (-cumulativeArc).toFixed(2);
+    cumulativeArc += arcLength;
+    return {
+      ...slice,
+      dashArray,
+      dashOffset,
+      ratio,
+    };
+  });
 
   return (
     <>
@@ -694,316 +893,200 @@ export function PercentageCalculator() {
       </div>
 
       {/* ======================================================== */}
-      {/* RIGHT COLUMN: Ultra-Clean Result Card (Exact match SS 1)  */}
+      {/* RIGHT COLUMN: Ultra-Clean Result Card (Exact Reference)   */}
       {/* ======================================================== */}
       <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
-        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-50/30 dark:bg-emerald-950/20 p-6 sm:p-7 shadow-sm space-y-5">
-          {/* Header Row: Label & LIVE RESULT Badge */}
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-              {mode === "part_of_whole" && "CALCULATED PORTION"}
-              {mode === "what_percent" && "PERCENTAGE PROPORTION"}
-              {mode === "change" && (isIncrease ? "GROWTH EXPANSION" : "VALUE CONTRACTION")}
-              {mode === "add_sub" && (m4Op === "add" ? "TOTAL WITH TAX" : "DISCOUNTED TOTAL")}
-            </span>
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>LIVE RESULT</span>
-            </div>
-          </div>
-
-          {/* Hero Main Metric Number & Subtitle */}
+        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-7 shadow-xs space-y-6">
+          {/* Top Hero Metric and Pill Badge (Exact Reference Style) */}
           <div>
-            <div className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
-              {mode === "part_of_whole" && formatNum(r1)}
-              {mode === "what_percent" && `${formatNum(r2)}%`}
-              {mode === "change" && `${isIncrease ? "+" : ""}${formatNum(r3)}%`}
-              {mode === "add_sub" && `${currencySymbol}${formatNum(r4)}`}
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-none">
+                {mode === "part_of_whole" && formatNum(r1)}
+                {mode === "what_percent" && `${formatNum(r2)}%`}
+                {mode === "change" && `${isIncrease ? "+" : ""}${formatNum(r3)}%`}
+                {mode === "add_sub" && `${currencySymbol}${formatNum(r4)}`}
+              </span>
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#f59e0b] text-white shadow-xs">
+                {mode === "part_of_whole" && `${p1}% of ${formatNum(v1)}`}
+                {mode === "what_percent" && `${formatNum(p2)} of ${formatNum(w2)} Share`}
+                {mode === "change" && (isIncrease ? "Percentage Growth" : "Percentage Contraction")}
+                {mode === "add_sub" && (m4Op === "add" ? `${formatNum(p4)}% Combined Sales Tax` : `${formatNum(p4)}% Clearance Discount`)}
+              </span>
             </div>
             <div className="text-sm font-medium text-slate-500 dark:text-slate-400 mt-2">
               {mode === "part_of_whole" && (
-                <span>{p1}% of {v1} calculated portion</span>
+                <span>{p1}% of {formatNum(v1)} calculated portion</span>
               )}
               {mode === "what_percent" && (
-                <span>{p2} is {formatNum(r2)}% of total {w2}</span>
+                <span>{formatNum(p2)} is {formatNum(r2)}% of total {formatNum(w2)}</span>
               )}
               {mode === "change" && (
                 <span>
-                  from {f3} to {t3} ({isIncrease ? "+" : ""}{formatNum(diff3)} absolute delta)
+                  From {formatNum(f3)} to {formatNum(t3)} ({isIncrease ? "+" : ""}{formatNum(diff3)} absolute delta)
                 </span>
               )}
               {mode === "add_sub" && (
                 <span>
-                  {currencySymbol}{v4} {m4Op === "add" ? `+ ${p4}% sales tax` : `− ${p4}% clearance discount`}
+                  {currencySymbol}{formatNum(v4)} {m4Op === "add" ? `+ ${p4}% sales tax` : `- ${p4}% clearance discount`}
                 </span>
               )}
             </div>
           </div>
 
-          {/* Visual Donut Chart & Legend Side-by-Side (Screenshot 1 Style) */}
-          <div className="flex items-center gap-5 pt-1">
+          {/* Visual Donut Chart & Legend Side-by-Side (Exact Reference Style) */}
+          <div className="flex items-center gap-5 sm:gap-6 pt-1">
             {/* Multi-Color Thick SVG Donut Chart */}
-            <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
-              <svg className="w-full h-full -rotate-90" viewBox="0 0 140 140">
-                {/* Background base track (Amber) */}
-                <circle
-                  cx="70"
-                  cy="70"
-                  r="52"
-                  className="stroke-amber-400/90 dark:stroke-amber-500/80"
-                  strokeWidth="24"
-                  fill="none"
-                />
-
-                {/* Primary Emerald Active Slice */}
-                <circle
-                  cx="70"
-                  cy="70"
-                  r="52"
-                  className="stroke-emerald-500 transition-all duration-500 ease-out"
-                  strokeWidth="24"
-                  strokeDasharray={CIRCLE_C}
-                  strokeDashoffset={
-                    mode === "part_of_whole"
-                      ? m1ShareOffset
-                      : mode === "what_percent"
-                      ? m2ShareOffset
-                      : mode === "change"
-                      ? m3ShareOffset
-                      : m4ShareOffset
-                  }
-                  strokeLinecap="round"
-                  fill="none"
-                />
-
-                {/* Accent Secondary Slice (Blue) */}
-                <circle
-                  cx="70"
-                  cy="70"
-                  r="52"
-                  className="stroke-blue-600 transition-all duration-500 ease-out"
-                  strokeWidth="24"
-                  strokeDasharray={`${CIRCLE_C * 0.15} ${CIRCLE_C * 0.85}`}
-                  strokeDashoffset={0}
-                  strokeLinecap="butt"
-                  fill="none"
-                />
+            <div className="relative w-36 h-36 sm:w-40 sm:h-40 shrink-0 flex items-center justify-center">
+              <svg className="w-full h-full -rotate-90 transform-gpu" viewBox="0 0 140 140">
+                {renderedSlices.length === 0 ? (
+                  <circle
+                    cx="70"
+                    cy="70"
+                    r="50"
+                    className="stroke-slate-200 dark:stroke-slate-800"
+                    strokeWidth="26"
+                    fill="none"
+                  />
+                ) : (
+                  renderedSlices.map((slice) => (
+                    <circle
+                      key={slice.id}
+                      cx="70"
+                      cy="70"
+                      r="50"
+                      stroke={slice.color}
+                      strokeWidth="26"
+                      strokeDasharray={slice.dashArray}
+                      strokeDashoffset={slice.dashOffset}
+                      strokeLinecap="butt"
+                      fill="none"
+                      className="transition-all duration-500 ease-out"
+                    />
+                  ))
+                )}
               </svg>
             </div>
 
             {/* Clean Legend with Colored Dots + Label + Value */}
-            <div className="flex-1 space-y-2 text-xs">
-              {mode === "part_of_whole" && (
-                <>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Whole baseline</span>
+            <div className="flex-1 space-y-3 text-xs sm:text-sm">
+              {renderedSlices.length === 0 ? (
+                <div className="text-slate-400 italic">Enter values to view breakdown</div>
+              ) : (
+                renderedSlices.map((slice) => (
+                  <div key={slice.id} className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${slice.dotClass}`} />
+                      <span className="text-slate-600 dark:text-slate-300 font-medium truncate">
+                        {slice.label}
+                      </span>
                     </div>
-                    <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(v1)}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Portion ({p1}%)</span>
-                    </div>
-                    <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{formatNum(r1)}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Remaining</span>
-                    </div>
-                    <span className="font-bold text-slate-700 dark:text-slate-300 tabular-nums">{formatNum(r1Remainder)}</span>
-                  </div>
-                </>
-              )}
-
-              {mode === "what_percent" && (
-                <>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Whole amount</span>
-                    </div>
-                    <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(w2)}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Part portion</span>
-                    </div>
-                    <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{formatNum(p2)}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Remainder</span>
-                    </div>
-                    <span className="font-bold text-slate-700 dark:text-slate-300 tabular-nums">{formatNum(r2Remainder)}</span>
-                  </div>
-                </>
-              )}
-
-              {mode === "change" && (
-                <>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Original (From)</span>
-                    </div>
-                    <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(f3)}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${isIncrease ? "bg-emerald-500" : "bg-rose-500"}`}></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Final (To)</span>
-                    </div>
-                    <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(t3)}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Absolute diff</span>
-                    </div>
-                    <span className="font-bold text-slate-700 dark:text-slate-300 tabular-nums">
-                      {isIncrease ? "+" : ""}{formatNum(diff3)}
+                    <span className="font-bold text-slate-900 dark:text-white tabular-nums shrink-0">
+                      {slice.formattedValue}
                     </span>
                   </div>
-                </>
-              )}
-
-              {mode === "add_sub" && (
-                <>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Base sticker</span>
-                    </div>
-                    <span className="font-bold text-slate-900 dark:text-white tabular-nums">{currencySymbol}{formatNum(v4)}</span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${m4Op === "add" ? "bg-emerald-500" : "bg-amber-400"}`}></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">{m4Op === "add" ? "Tax added" : "Discount"}</span>
-                    </div>
-                    <span className="font-bold text-slate-900 dark:text-white tabular-nums">
-                      {m4Op === "add" ? "+" : "−"}{currencySymbol}{formatNum(delta4)}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 shrink-0"></span>
-                      <span className="text-slate-600 dark:text-slate-300 font-medium">Final total</span>
-                    </div>
-                    <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{currencySymbol}{formatNum(r4)}</span>
-                  </div>
-                </>
+                ))
               )}
             </div>
           </div>
 
-          {/* Detailed Metric Rows with Horizontal Divider (Like screenshot 1) */}
-          <div className="space-y-0 text-sm">
+          {/* Detailed Metric Rows with Horizontal Dividers (Exact Reference Style) */}
+          <div className="space-y-0 text-xs sm:text-sm pt-2">
             {mode === "part_of_whole" && (
               <>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Total baseline value</span>
                   <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(v1)}</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Calculated portion</span>
                   <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{formatNum(r1)}</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-600 dark:text-slate-400">Remaining share</span>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Remaining balance</span>
                   <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(r1Remainder)}</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Decimal multiplier</span>
-                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{(p1 / 100).toFixed(4)}×</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{(p1 / 100).toFixed(4)}x</span>
                 </div>
               </>
             )}
 
             {mode === "what_percent" && (
               <>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Proportional share</span>
                   <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">{formatNum(r2)}%</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Unaccounted balance</span>
                   <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(r2Remainder)} ({formatNum(100 - r2)}%)</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Decimal ratio</span>
                   <span className="font-bold text-slate-900 dark:text-white tabular-nums">{(w2 !== 0 ? p2 / w2 : 0).toFixed(4)}</span>
+                </div>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Whole base (Y)</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(w2)}</span>
                 </div>
               </>
             )}
 
             {mode === "change" && (
               <>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Relative percentage change</span>
                   <span className={`font-bold tabular-nums ${isIncrease ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
                     {isIncrease ? "+" : ""}{formatNum(r3)}%
                   </span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <span className="text-slate-600 dark:text-slate-400">Absolute difference</span>
                   <span className="font-bold text-slate-900 dark:text-white tabular-nums">
                     {isIncrease ? "+" : ""}{formatNum(diff3)}
                   </span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-600 dark:text-slate-400">Growth factor</span>
-                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">
-                    {(f3 !== 0 ? t3 / f3 : 0).toFixed(2)}×
-                  </span>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Original starting value</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(f3)}</span>
+                </div>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Final ending value</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(t3)}</span>
                 </div>
               </>
             )}
 
             {mode === "add_sub" && (
               <>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-600 dark:text-slate-400">Base pre-adjustment price</span>
-                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{currencySymbol}{formatNum(v4)}</span>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">{m4Op === "add" ? "Total Sales Tax Due" : "Total Discount Savings"}</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{currencySymbol}{formatNum(delta4)}</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-600 dark:text-slate-400">{m4Op === "add" ? "Total tax added" : "Total discount savings"}</span>
-                  <span className="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">
-                    {m4Op === "add" ? "+" : "−"}{currencySymbol}{formatNum(delta4)}
-                  </span>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">{m4Op === "add" ? "State Tax Portion (est.)" : "Final Price After Discount"}</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{currencySymbol}{formatNum(m4Op === "add" ? delta4 * 0.75 : r4)}</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-600 dark:text-slate-400">Final payable amount</span>
-                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{currencySymbol}{formatNum(r4)}</span>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">{m4Op === "add" ? "Local / City Tax Portion (est.)" : "Base List Price"}</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{currencySymbol}{formatNum(m4Op === "add" ? delta4 * 0.25 : v4)}</span>
                 </div>
-                <div className="py-2.5 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between">
-                  <span className="text-slate-600 dark:text-slate-400">Price multiplier</span>
-                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">
-                    {(m4Op === "add" ? 1 + p4 / 100 : 1 - p4 / 100).toFixed(4)}×
-                  </span>
+                <div className="py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">{m4Op === "add" ? "Combined Tax Rate" : "Discount Rate Applied"}</span>
+                  <span className="font-bold text-slate-900 dark:text-white tabular-nums">{formatNum(p4)}%</span>
                 </div>
               </>
             )}
           </div>
 
-          {/* Step-by-Step Procedure Accordion (AEO Snippet Friendly - BEFORE Action Toolbar) */}
-          <div className="rounded-xl bg-white/80 dark:bg-slate-900/80 p-3.5 border border-slate-200/80 dark:border-slate-800 text-xs text-slate-700 dark:text-slate-300 space-y-1 font-mono">
-            <div className="font-sans font-bold text-slate-900 dark:text-white mb-1.5 flex items-center justify-between">
-              <span>Step-by-step Solution:</span>
+          {/* Step-by-Step Calculation Callout Box (Exact Reference Style) */}
+          <div className="rounded-xl bg-emerald-50/60 dark:bg-emerald-950/25 border border-emerald-500/20 p-4 sm:p-5 text-xs text-slate-700 dark:text-slate-300 space-y-2 font-mono">
+            <div className="font-sans font-bold text-slate-900 dark:text-white mb-2 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-base select-none">📝</span>
+                <span className="text-sm">Step-by-Step Calculation:</span>
+              </div>
               <button
                 type="button"
                 onClick={() =>
@@ -1017,40 +1100,53 @@ export function PercentageCalculator() {
                       : `${currencySymbol}${formatNum(r4)}`
                   )
                 }
-                className="text-[11px] font-sans font-semibold text-emerald-600 hover:underline inline-flex items-center gap-1 cursor-pointer"
+                className="text-xs font-semibold text-emerald-700 dark:text-emerald-400 hover:underline inline-flex items-center gap-1 cursor-pointer font-sans"
               >
-                {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? "Copied" : "Copy"}</span>
               </button>
             </div>
 
             {mode === "part_of_whole" && (
               <>
-                <div>1. Convert percent to decimal: {p1} ÷ 100 = {(p1 / 100).toFixed(4)}</div>
-                <div>2. Multiply by whole: {(p1 / 100).toFixed(4)} × {v1} = <strong>{formatNum(r1)}</strong></div>
-                <div className="text-slate-400 font-sans text-[11px] pt-1">Remaining balance: {formatNum(r1Remainder)}</div>
+                <div>1. Convert percent to decimal: {p1} / 100 = {(p1 / 100).toFixed(4)}</div>
+                <div>2. Multiply by total value: {(p1 / 100).toFixed(4)} * {v1} = <strong>{formatNum(r1)}</strong></div>
+                <div>3. Remaining unallocated balance: {v1} - {formatNum(r1)} = <strong>{formatNum(r1Remainder)}</strong></div>
               </>
             )}
 
             {mode === "what_percent" && (
               <>
-                <div>1. Divide part by whole: {p2} ÷ {w2} = {(w2 !== 0 ? p2 / w2 : 0).toFixed(4)}</div>
-                <div>2. Convert to %: {(w2 !== 0 ? p2 / w2 : 0).toFixed(4)} × 100 = <strong>{formatNum(r2)}%</strong></div>
+                <div>1. Divide part by whole: {p2} / {w2} = {(w2 !== 0 ? p2 / w2 : 0).toFixed(4)}</div>
+                <div>2. Convert to percentage: {(w2 !== 0 ? p2 / w2 : 0).toFixed(4)} * 100 = <strong>{formatNum(r2)}%</strong></div>
+                <div>3. Remaining proportion: 100% - {formatNum(r2)}% = <strong>{formatNum(100 - r2)}%</strong></div>
               </>
             )}
 
             {mode === "change" && (
               <>
-                <div>1. Calculate difference: {t3} − {f3} = {diff3}</div>
-                <div>2. Divide by original: {diff3} ÷ {f3} = {(f3 !== 0 ? diff3 / f3 : 0).toFixed(4)}</div>
-                <div>3. Multiply by 100: = <strong>{isIncrease ? "+" : ""}{formatNum(r3)}%</strong></div>
+                <div>1. Calculate difference: {t3} - {f3} = {diff3}</div>
+                <div>2. Divide by original: {diff3} / {f3} = {(f3 !== 0 ? diff3 / f3 : 0).toFixed(4)}</div>
+                <div>3. Multiply by 100: {(f3 !== 0 ? diff3 / f3 : 0).toFixed(4)} * 100 = <strong>{isIncrease ? "+" : ""}{formatNum(r3)}%</strong></div>
               </>
             )}
 
             {mode === "add_sub" && (
               <>
-                <div>1. Delta: {p4}% of {currencySymbol}{v4} = {currencySymbol}{formatNum(delta4)}</div>
-                <div>2. Final: {currencySymbol}{v4} {m4Op === "add" ? "+" : "−"} {currencySymbol}{formatNum(delta4)} = <strong>{currencySymbol}{formatNum(r4)}</strong></div>
+                {m4Op === "add" ? (
+                  <>
+                    <div>1. Combined Tax Rate = {formatNum(p4 * 0.75, 2)}% (State) + {formatNum(p4 * 0.25, 2)}% (Local) = {formatNum(p4)}%</div>
+                    <div>2. Total Sales Tax = {currencySymbol}{formatNum(v4)} * {(p4 / 100).toFixed(4)} = {currencySymbol}{formatNum(delta4)}</div>
+                    <div>3. State Share = {currencySymbol}{formatNum(delta4 * 0.75)} | Municipal/County Share = {currencySymbol}{formatNum(delta4 * 0.25)}</div>
+                    <div>4. Final Reconciled Gross Total = {currencySymbol}{formatNum(r4)}</div>
+                  </>
+                ) : (
+                  <>
+                    <div>1. Calculate discount: {currencySymbol}{formatNum(v4)} * {(p4 / 100).toFixed(4)} = {currencySymbol}{formatNum(delta4)}</div>
+                    <div>2. Subtract savings: {currencySymbol}{formatNum(v4)} - {currencySymbol}{formatNum(delta4)} = <strong>{currencySymbol}{formatNum(r4)}</strong></div>
+                    <div>3. Final reconciled price: <strong>{currencySymbol}{formatNum(r4)}</strong></div>
+                  </>
+                )}
               </>
             )}
           </div>
@@ -1093,7 +1189,7 @@ export function PercentageCalculator() {
 
   <CalculationInvoice
     asDiv={true}
-    title="Percentage & Mathematical Proportion Calculation Statement"
+    title="Percentage Calculation Summary"
     category="Mathematics & Financial Arithmetic"
     fields={[
       { key: "mode", label: "Calculation Function" },
