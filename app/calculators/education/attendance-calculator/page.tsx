@@ -6,12 +6,14 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { AttendanceRateImpactThresholdChart } from "@/components/flagship/education/editorial-charts";
 
 const PATH = "/calculators/education/attendance-calculator";
-const TITLE = "Attendance Calculator: Class % & Bunk Planner";
+const TITLE = "Attendance Calculator: Class Percentage and Bunk Planner | CalcDigi";
 const DESCRIPTION =
-  "Free attendance calculator. Instantly calculate your class attendance percentage, classes needed for 75%, and safe bunks allowed with zero signup.";
+  "Free attendance calculator. Calculate your current class attendance percentage, check how many classes you need for 75%, and see how many classes you can safely miss.";
 
 export const metadata: Metadata = {
-  title: TITLE,
+  title: {
+    absolute: TITLE,
+  },
   description: DESCRIPTION,
   alternates: { canonical: PATH },
   openGraph: {
@@ -25,40 +27,46 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, creator: "@CalcDigi", site: "@CalcDigi" },
 };
 
-const ATTENDANCE_BENCHMARK_ROWS = [
-  ["30 Classes Course", "Max 7 Missed / 23 Attended", "Max 6 Missed / 24 Attended", "Max 4 Missed / 26 Attended", "Max 3 Missed / 27 Attended"],
-  ["40 Classes Course", "Max 10 Missed / 30 Attended", "Max 8 Missed / 32 Attended", "Max 6 Missed / 34 Attended", "Max 4 Missed / 36 Attended"],
-  ["45 Classes Course", "Max 11 Missed / 34 Attended", "Max 9 Missed / 36 Attended", "Max 6 Missed / 39 Attended", "Max 4 Missed / 41 Attended"],
-  ["50 Classes Course", "Max 12 Missed / 38 Attended", "Max 10 Missed / 40 Attended", "Max 7 Missed / 43 Attended", "Max 5 Missed / 45 Attended"],
-  ["60 Classes Course", "Max 15 Missed / 45 Attended", "Max 12 Missed / 48 Attended", "Max 9 Missed / 51 Attended", "Max 6 Missed / 54 Attended"],
-  ["75 Classes Course", "Max 18 Missed / 57 Attended", "Max 15 Missed / 60 Attended", "Max 11 Missed / 64 Attended", "Max 7 Missed / 68 Attended"],
-  ["90 Classes Course", "Max 22 Missed / 68 Attended", "Max 18 Missed / 72 Attended", "Max 13 Missed / 77 Attended", "Max 9 Missed / 81 Attended"],
-  ["120 Classes Course", "Max 30 Missed / 90 Attended", "Max 24 Missed / 96 Attended", "Max 18 Missed / 102 Attended", "Max 12 Missed / 108 Attended"],
+const BUNK_REFERENCE_ROWS = [
+  ["30 Classes", "23 Classes", "7 Bunks", "24 Classes", "6 Bunks"],
+  ["40 Classes", "30 Classes", "10 Bunks", "32 Classes", "8 Bunks"],
+  ["50 Classes", "38 Classes", "12 Bunks", "40 Classes", "10 Bunks"],
+  ["60 Classes", "45 Classes", "15 Bunks", "48 Classes", "12 Bunks"],
+  ["75 Classes", "57 Classes", "18 Bunks", "60 Classes", "15 Bunks"],
+  ["90 Classes", "68 Classes", "22 Bunks", "72 Classes", "18 Bunks"],
 ];
 
 const RELATED_CALCULATORS = [
-  { href: "https://www.calcdigi.com/calculators/education/gpa-calculator", icon: "🎓", name: "GPA Calculator (4.0 Scale)" },
-  { href: "https://www.calcdigi.com/calculators/education/grade-calculator", icon: "📊", name: "Grade Calculator" },
-  { href: "https://www.calcdigi.com/calculators/education/final-grade-calculator", icon: "🏁", name: "Final Grade Calculator" },
-  { href: "https://www.calcdigi.com/calculators/education/percentage-grade-calculator", icon: "📝", name: "Percentage Grade Calculator" },
+  { href: "/calculators/education/study-hours-calculator", icon: "⏱️", name: "Study Hours Calculator" },
+  { href: "/calculators/education/gpa-calculator", icon: "🎓", name: "GPA Calculator" },
+  { href: "/calculators/education/final-grade-calculator", icon: "🏁", name: "Final Grade Calculator" },
+  { href: "/calculators/education/percentage-grade-calculator", icon: "📝", name: "Percentage Grade Calculator" },
 ];
 
 const FAQ_ITEMS = [
   {
-    q: "What is the mandatory 75% attendance rule in higher education?",
-    a: "Under university regulatory statutes (such as UGC, AICTE, and state university charters), students must maintain a minimum attendance rate of 75% across all scheduled lectures, tutorials, and laboratory sessions to remain eligible to sit for semester-end final examinations. Falling below this threshold results in formal debarment (an administrative 'F' or 'Ineligible' notation).",
+    q: "How do I calculate my current attendance percentage?",
+    a: "Divide the number of classes you attended by the total number of classes held so far, then multiply by 100. For example, if your professor held 40 lectures and you showed up to 32, divide 32 by 40 to get 0.80, which is an 80% attendance rate.",
   },
   {
-    q: "How are excused absences (medical leave) factored into attendance calculations?",
-    a: "Most collegiate institutions provide an attendance relaxation of 5% to 10% (lowering the threshold from 75% to 65%) for documented medical emergencies, varsity athletic representation, or approved institutional bereavement. However, formal documentation must be submitted to the academic dean within statutory deadlines (typically 7 days of returning to campus).",
+    q: "How many classes can I safely miss (bunk) to stay above 75%?",
+    a: "Multiply your total scheduled classes for the semester by 0.25 and round down. That gives your maximum allowed absences for the whole semester. Subtract the classes you have already missed to find your remaining safe bunks. In a 40-class course, you can miss up to 10 classes in total.",
   },
   {
-    q: "Can attendance directly impact letter grades or course GPA?",
-    a: "Yes. Many university syllabi allocate between 5% and 10% of total course marks directly to classroom attendance and active participation. Furthermore, unexcused absence penalties frequently trigger automatic grade reductions (e.g., deducting one letter grade after three unexcused absences).",
+    q: "What happens if my attendance drops below 75 percent?",
+    a: "Most colleges and universities issue an attendance warning or bar you from taking final semester examinations. Debarment typically leads to an incomplete mark or failing grade, requiring you to repeat the subject in a future term. Some schools allow appeals if you have valid medical certificates.",
   },
   {
-    q: "How do you calculate how many future classes you can safely miss?",
-    a: "To find allowable future absences: multiply the total term scheduled classes by your allowable absence fraction (1 - RequiredRate/100) and take the floor. Then subtract the absences you have already accumulated. If the result is zero, any further absence will violate institutional compliance.",
+    q: "How many consecutive classes must I attend to get back to 75%?",
+    a: "Use this simple formula: 3 times Total Classes Held minus 4 times Classes Attended. For instance, if you attended 18 out of 30 classes (60%), 3 times 30 is 90, and 4 times 18 is 72. 90 minus 72 equals 18. You must attend the next 18 classes in a row without missing one to reach 75%.",
+  },
+  {
+    q: "Do laboratory sessions and tutorials follow the same attendance rules?",
+    a: "Yes. Practical lab sessions and weekly tutorials usually carry strict attendance thresholds, often requiring 80% or higher. Because labs meet less frequently, missing just two 3-hour practicals can push your attendance below the required passing mark.",
+  },
+  {
+    q: "Can approved medical leave save me from being debarred?",
+    a: "Many universities grant an attendance relaxation of 5% to 10% for documented illnesses or official university activities, lowering the threshold from 75% to 65% or 70%. You must submit official medical certificates to your department office within the designated deadline, usually within 7 days of returning to campus.",
   },
 ];
 
@@ -67,216 +75,158 @@ export default function AttendanceCalculatorPage() {
     <CalcPage
       path={PATH}
       intro={DESCRIPTION}
-      category={{ href: "/pages/education", label: "Education & School" }}
-      title="Attendance Calculator"
+      category={{ href: "/pages/education", label: "Education and School" }}
+      title="Online Attendance and Bunk Calculator (75% Rule Planner)"
+      breadcrumbLabel="Attendance Calculator"
       description={DESCRIPTION}
       related={RELATED_CALCULATORS}
       faq={FAQ_ITEMS}
+      dateModifiedOverride="2026-11-23"
+      exactFaq={true}
       article={
         <>
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
-            <strong>Quick Academic Guidance:</strong> Classroom attendance compliance is a strict legal and administrative prerequisite across secondary and tertiary educational institutions. Whether satisfying university 75% or 80% examination eligibility rules, professional school accreditation mandates, or high school truancy laws, this calculator determines your exact attendance rate, allowable future absences, and required future attendance. Model overall syllabus weight impact in our <Link href="/calculators/education/grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">grade calculator</Link> and track cumulative transcript metrics via our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
+            <strong>Student Advice:</strong> Keeping track of class attendance is essential to avoid exam debarment. Whether your college enforces a strict 75% or 80% attendance rule, this calculator helps you find your exact attendance rate, how many classes you can safely skip, and how many classes you need to attend to recover. Plan your study schedule with our <Link href="/calculators/education/study-hours-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">study hours calculator</Link> and calculate course targets with our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
           </div>
 
-                    {/* Featured Snippet Quick Answer Box */}
+          {/* Quick Answer Featured Box */}
           <div className="not-prose mb-8 rounded-2xl border border-amber-200/80 bg-gradient-to-br from-amber-50/70 to-orange-50/40 p-5 dark:border-amber-900/40 dark:from-amber-950/20 dark:to-orange-950/10">
             <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-amber-600 dark:text-amber-400">💡</span> Quick Answer: How to Calculate Attendance &amp; Safe Bunks
+              <span className="text-amber-600 dark:text-amber-400">💡</span> Quick Answer: How to Calculate Attendance and Safe Bunks
             </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              Class attendance percentage is calculated using the formula <strong>Attendance % = (Classes Attended ÷ Total Classes Held) × 100</strong>. To maintain a mandatory <strong>75% attendance threshold</strong>, you must attend at least 3 out of every 4 classes conducted. If you have attended 36 out of 40 classes (90%), you can safely miss 2 additional classes without dropping below 75%.
+              Your attendance percentage equals <strong>(Classes Attended ÷ Total Classes Held) × 100</strong>. Under the standard <strong>75% attendance rule</strong>, you must attend at least 3 out of every 4 classes. For example, if your professor has conducted 40 classes and you attended 34 of them (85%), you can safely miss 4 additional classes across a 60-class semester without falling below 75%.
             </p>
           </div>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-            How to Calculate Your Class Attendance &amp; Bunk Limit in 4 Steps
+            How to Use the Attendance Calculator in 4 Steps
           </h2>
           <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
-            <li><strong>Enter Current Attendance:</strong> Input total class sessions conducted to date and the exact number you attended.</li>
-            <li><strong>Set Minimum Threshold:</strong> Enter your university or school attendance requirement (standard is 75% or 80%).</li>
-            <li><strong>Enter Remaining Classes (Optional):</strong> Add scheduled future classes remaining in the semester to forecast term-end eligibility.</li>
-            <li><strong>Check Compliance Status:</strong> Instantly see your current percentage, maximum safe classes you can miss, or consecutive classes required to recover eligibility.</li>
+            <li><strong>Enter Classes Held:</strong> Type the total number of class sessions or lectures conducted so far.</li>
+            <li><strong>Enter Classes Attended:</strong> Enter the exact number of class sessions you showed up to.</li>
+            <li><strong>Set Your Target Percentage:</strong> Enter your college or university requirement (standard is 75% or 80%).</li>
+            <li><strong>Add Remaining Classes (Optional):</strong> Enter upcoming classes left in the semester to forecast your final attendance status and safe bunks.</li>
           </ol>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Visual Analysis: Attendance Compliance Thresholds & Disciplinary Cutoff Zones
+            How Attendance Percentages Work: Safe Zone vs Warning Zone
           </h2>
           <AttendanceRateImpactThresholdChart />
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In universities and school districts worldwide, regular physical or virtual presence in lectures, recitations, and laboratories is considered an indispensable component of the learning process. Educational accreditation bodies link student retention and course contact hours directly to degree integrity. When a student&apos;s attendance percentage drops below statutory benchmarks, academic penalties escalate from administrative warnings to course failure, utilizing mathematical principles identical to those in a <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.
+            Colleges and universities monitor student attendance throughout the term to ensure students receive adequate instructional time. Most academic departments categorize attendance into three main tiers:
+          </p>
+          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Safe Zone (80% and Above):</strong> You have a comfortable buffer. Missing an occasional class for personal reasons or club activities will not jeopardize your exam hall ticket.</li>
+            <li><strong>Borderline Zone (75% to 79%):</strong> You meet the minimum cutoff, but you have zero margin for error. Skipping even one lecture can push you into the danger zone.</li>
+            <li><strong>Warning Zone (Below 75%):</strong> You face administrative warnings and risk being barred from semester-end examinations unless you attend upcoming classes consecutively. You can track your math proportion calculations with our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link>.</li>
+          </ul>
+
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+            Attendance Formula: How to Calculate Your Percentage
+          </h2>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Let <Formula>{"H"}</Formula> represent the total number of class sessions held to date, and let <Formula>{"A"}</Formula> denote the number of sessions you attended. Your current attendance percentage <Formula>{"R_{\\text{current}}"}</Formula> is calculated as:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"R_{\\text{current}} = \\left( \\frac{A}{H} \\right) \\times 100\\%"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            To project your attendance over the entire semester, let <Formula>{"F"}</Formula> represent the scheduled future classes remaining, so that total semester classes equal <Formula>{"T = H + F"}</Formula>. If your college requires a minimum percentage <Formula>{"R_{\\text{req}}"}</Formula> (such as 75% or 80%), the maximum total absences <Formula>{"M_{\\text{abs}}"}</Formula> permitted across the full semester is:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"M_{\\text{abs}} = \\left\\lfloor T \\times \\left( 1 - \\frac{R_{\\text{req}}}{100} \\right) \\right\\rfloor"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            Since you have already missed <Formula>{"H - A"}</Formula> classes, your remaining allowable safe bunks <Formula>{"B_{\\text{allow}}"}</Formula> is:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"B_{\\text{allow}} = \\max(0, M_{\\text{abs}} - (H - A))"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            If your current percentage is below the target <Formula>{"R_{\\text{req}}"}</Formula>, the number of consecutive future classes <Formula>{"X_{\\text{need}}"}</Formula> you must attend without missing a single session to restore your eligibility is:
+          </p>
+
+          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
+            <Formula>{"X_{\\text{need}} = \\left\\lceil \\frac{(R_{\\text{req}} \\times H) - (100 \\times A)}{100 - R_{\\text{req}}} \\right\\rceil"}</Formula>
+          </div>
+
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            If <Formula>{"X_{\\text{need}}"}</Formula> exceeds your remaining classes <Formula>{"F"}</Formula>, it is mathematically impossible to reach the required percentage through attendance alone. In that situation, you should immediately consult your academic advisor to explore makeup options or medical leave credit before final exams, which you can prepare for using our <Link href="/calculators/education/final-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">final grade calculator</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            First-Principles Mathematical Formulations: Attendance Rates & Absence Buffers
+            Quick Bunk Guide: How Many Classes Can You Safely Miss?
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Let <Formula>{"H"}</Formula> represent the total number of class sessions held to date, and let <Formula>{"A"}</Formula> denote the number of sessions the student has attended (<Formula>{"0 \le A \le H"}</Formula>). The current attendance percentage <Formula>{"R_{\text{current}}"}</Formula> is given by:
-          </p>
-
-          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
-            <Formula>{"R_{\text{current}} = \left( \frac{A}{H} \right) \times 100\%"}</Formula>
-          </div>
-
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            To project future compliance across an entire semester, let <Formula>{"F"}</Formula> represent the scheduled future class sessions remaining in the academic calendar, such that the total semester sessions equal <Formula>{"T = H + F"}</Formula>. Let <Formula>{"R_{\text{req}}"}</Formula> denote the mandatory institutional minimum attendance rate (expressed as a percentage, such as 75.0% or 80.0%). The total maximum permissible absences <Formula>{"M_{\text{abs}}"}</Formula> over the entire term is:
-          </p>
-
-          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
-            <Formula>{"M_{\text{abs}} = \left\lfloor T \times \left( 1 - \frac{R_{\text{req}}}{100} \right) \right\rfloor"}</Formula>
-          </div>
-
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Because the student has already accumulated <Formula>{"H - A"}</Formula> absences, the remaining allowable absence buffer <Formula>{"B_{\text{allow}}"}</Formula> is calculated as:
-          </p>
-
-          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
-            <Formula>{"B_{\text{allow}} = \max(0, M_{\text{abs}} - (H - A))"}</Formula>
-          </div>
-
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Conversely, if a student&apos;s current attendance is below <Formula>{"R_{\text{req}}"}</Formula>, the minimum number of consecutive future class sessions <Formula>{"X_{\text{need}}"}</Formula> that must be attended without absence to restore compliance satisfies:
-          </p>
-
-          <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
-            <Formula>{"X_{\text{need}} = \left\lceil \frac{(R_{\text{req}} \times H) - (100 \times A)}{100 - R_{\text{req}}} \right\rceil"}</Formula>
-          </div>
-
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            If <Formula>{"X_{\text{need}} > F"}</Formula>, it is mathematically impossible to restore compliance within the term, exposing the student to debarment from the final exam modeled in our <Link href="/calculators/education/final-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">final grade calculator</Link>.
-          </p>
-
-                    <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Absence Buffer Matrix: Maximum Allowed Missed Classes (Bunks) Across Semester Sizes
-          </h2>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            The reference table below illustrates the maximum number of lectures a student can miss (&ldquo;safe bunks&rdquo;) and the minimum classes required to attend to maintain 75%, 80%, 85%, or 90% attendance across typical semester course schedules (30 to 120 total classes):
+            Use this reference table to check how many classes you must attend and how many lectures you can safely skip across standard course lengths:
           </p>
           <DataTable
-            head={["Total Course Classes", "75% Rule (Standard)", "80% Rule (Strict)", "85% Rule (Clinical)", "90% Rule (Truancy)"]}
-            rows={ATTENDANCE_BENCHMARK_ROWS}
+            head={["Total Semester Classes", "Minimum Classes for 75%", "Max Safe Bunks (75%)", "Minimum Classes for 80%", "Max Safe Bunks (80%)"]}
+            rows={BUNK_REFERENCE_ROWS}
             highlight={2}
           />
           <p className="text-xs text-slate-500 dark:text-slate-400 -mt-2 mb-6">
-            *Values indicate: Maximum Missed Classes Permitted (Left) / Minimum Attended Sessions Required (Right). Calculated via floor and ceiling integer functions: Max Missed = &lfloor;Total &times; (1 - Req/100)&rfloor;.
+            Note: Maximum safe bunks are calculated by rounding down to the nearest whole class session, ensuring your percentage never dips below the legal cutoff.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Statutory Attendance Benchmarks Across Academic Disciplines
+            The 75 Percent Attendance Rule: Why Most Colleges Enforce It
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Educational regulatory bodies establish varying attendance standards depending on the technical and legal requirements of the degree program:
-          </p>
-
-          <DataTable
-            head={["Academic Domain", "Minimum Attendance Required", "Excused Absence Concession", "Statutory Regulatory Oversight", "Institutional Consequence of Non-Compliance"]}
-            rows={[
-              ["Medical & Clinical Rotations", "85% – 90%", "Up to 5% with Medical Board", "Liaison Committee on Medical Education (LCME)", "Immediate Clinical Rotation Repetition"],
-              ["Aviation & Flight Training", "90% – 100%", "Zero Unexcused Absences", "Federal Aviation Administration (FAA Part 141)", "Pilot Certification Grounding & Re-training"],
-              ["Undergraduate Engineering", "75% – 80%", "10% Medical / Athletic Exemption", "AICTE / ABET Accreditation Criteria", "Examination Debarment & Prerequisite Delay"],
-              ["Law School (Juris Doctor)", "80%", "Documented Court / Health Leave", "American Bar Association (ABA Standard 311)", "Credit Denial & Bar Exam Qualification Bar"],
-              ["Public Secondary Education", "90%", "State Truancy Board Petitions", "State Department of Education Truancy Codes", "Truancy Court Citation & Loss of Driving License"],
-            ]}
-          />
-
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Comparative Worked Academic Case Studies
-          </h2>
-
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
-            Case Study A: University Engineering 75% Rule Compliance
-          </h3>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            An engineering undergraduate is enrolled in a 45-session course in Digital Signal Processing. By the 30th session, the student has attended 21 lectures, having missed 9 sessions due to illness and travel. The university enforces a strict 75.0% attendance requirement to sit for the final exam.
-          </p>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            The student&apos;s current attendance is <Formula>{"(21 / 30) \times 100 = 70.0\%"}</Formula> (currently in the debarment danger zone). With 15 sessions remaining (<Formula>{"45 - 30"}</Formula>), the total term absences permitted are <Formula>{"\lfloor 45 \times (1 - 0.75) \rfloor = \lfloor 11.25 \rfloor = 11 \text{ absences}"}</Formula>. Because the student has already used 9 absences, only <Formula>{"11 - 9 = 2"}</Formula> additional absences are allowable over the remaining 15 sessions. To achieve 75%, the student must finish with at least <Formula>{"\lceil 45 \times 0.75 \rceil = 34"}</Formula> attended sessions. Since 21 are already attended, the student must attend at least <Formula>{"34 - 21 = 13"}</Formula> of the remaining 15 lectures. Scheduling weekly study blocks to balance attendance is modeled in our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link>.
-          </p>
-
-          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
-            Case Study B: High School 90% Truancy Mitigation
-          </h3>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            A high school senior enrolled in a 90-day semester misses 11 days during the first 60 days of instruction due to acute mononucleosis. The state truancy board enforces a mandatory 90.0% attendance rate for graduation diploma clearance.
-          </p>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            The student has attended <Formula>{"60 - 11 = 49"}</Formula> days, yielding an attendance rate of <Formula>{"(49 / 60) \times 100 = 81.67\%"}</Formula>. Across the full 90-day semester, the maximum absences allowed under the 90% rule equal <Formula>{"\lfloor 90 \times (1 - 0.90) \rfloor = 9 \text{ days}"}</Formula>. Because the student has already accumulated 11 absences, the student has mathematically exceeded the semester absence cap by 2 days, even with perfect attendance over the remaining 30 days (<Formula>{"(49 + 30) / 90 = 79 / 90 = 87.78\%"}</Formula>). The student must immediately petition the academic principal for statutory medical makeup hours to preserve class standing modeled in our <Link href="/calculators/education/class-rank-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">class rank calculator</Link>.
-          </p>
-
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Automated Biometric Tracking, RFID Attendance & Legal Precedents
-          </h2>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Modern educational institutions increasingly replace paper call sheets with digital RFID smartcard scanners, geofenced mobile applications, and biometric fingerprint readers. These automated tracking networks eliminate proxy attendance and establish real-time audit trails. In several landmark appellate rulings, courts have upheld university debarment policies, affirming that academic senates possess lawful discretion to mandate physical presence as a bona fide educational requirement.
-          </p>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Furthermore, federal Title IV financial aid regulations mandate that institutions verify student attendance during the initial two weeks of the term. Students flagged as 'No-Show' or chronically absent face automatic administrative withdrawal and immediate clawback of federal Pell Grants and subsidized loans, dynamics explored across our <Link href="/calculators/education/scholarship-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">scholarship calculator</Link> and <Link href="/calculators/education/student-loan-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">student loan calculator</Link>.
-          </p>
-
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Authoritative Attendance Policies & Educational Accreditation Guidelines
-          </h2>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Institutional attendance mandates, medical leave policies, and credit hour contact frameworks are established by regional and national educational oversight authorities:
+            Higher education regulatory bodies and university accreditation councils require students to attend a minimum percentage of class hours to earn academic credits. Here is why the 75% rule is standard practice:
           </p>
           <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
-            <li>
-              <strong>US Department of Education (34 CFR &sect; 668.22):</strong> Federal regulations governing return of Title IV financial aid funds for unofficial student withdrawals due to chronic non-attendance.
-            </li>
-            <li>
-              <strong>University Grants Commission (UGC Mandatory Guidelines):</strong> Statutory guidelines requiring a minimum of 75% attendance for collegiate degree examination eligibility.
-            </li>
-            <li>
-              <strong>National Attendance and Truancy Prevention Association (NATPA):</strong> Best practices for evidence-based student retention and chronic absenteeism reduction frameworks.
-            </li>
+            <li><strong>Practical Contact Hours:</strong> Degree courses specify mandatory lecture and laboratory hours to ensure students master essential coursework.</li>
+            <li><strong>Active Discussion and Collaboration:</strong> Technical and professional degrees depend on live problem solving, group presentations, and laboratory experiments that cannot be replicated at home.</li>
+            <li><strong>Continuous Assessment Marks:</strong> Many college grading systems allocate 5% to 10% of total course marks directly to classroom attendance and participation, directly influencing your final grade calculated in our <Link href="/calculators/education/percentage-grade-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage grade calculator</Link>.</li>
+            <li><strong>Financial Aid and Scholarship Requirements:</strong> Maintaining full-time student status and retaining institutional grants often requires verified attendance throughout the term.</li>
           </ul>
-        
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Institutional Debarment Boards, Attendance Appeals & Medical Leave Policies
-          </h2>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            When a university student&apos;s attendance drops below the statutory 75% threshold, academic registrars automatically flag the student&apos;s record for administrative debarment review. Debarred students are prohibited from writing semester-end comprehensive examinations, resulting in an automatic failing mark of F or an administrative debarment notation of &lsquo;NE&rsquo; (Not Eligible). This punitive notation forces the student to repeat the entire course during a subsequent academic term, delaying graduation timelines and disrupting sequence prerequisites.
-          </p>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            To appeal an impending debarment, institutional statutes require submitting a formal petition to the Faculty Academic Appeals Committee accompanied by certified documentation from licensed medical practitioners or collegiate athletic directors. The committee evaluates the veracity of documented absences and may grant a discretionary attendance concession (typically lowering the requirement to 65%), contingent upon the student completing compensatory academic assignments or supervised laboratory makeup sessions.
-          </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Correlation Between Attendance Consistency & Long-Term Academic Performance
+            Everyday Attendance Scenarios and Worked Examples
           </h2>
+
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Scenario 1: Engineering Student Aiming for 75% Attendance
+          </h3>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Empirical educational analytics consistently demonstrate a strong positive correlation between classroom attendance and final course GPA. In statistical studies spanning thousands of undergraduate lecture cohorts, students maintaining attendance above 90% achieved an average course grade of 3.42 GPA, whereas students with attendance below 75% averaged a 2.05 GPA. The educational mechanism is intuitive: regular attendance ensures continuous exposure to instructor emphasis, nuances of complex theoretical concepts, and interactive peer problem-solving discussions that cannot be replicated through passive textbook review.
+            A student takes a 45-class course in Computer Networks. So far, the professor has conducted 30 lectures, and the student attended 21 classes, having missed 9 lectures.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Moreover, active participation builds rapport with faculty mentors, paving the way for undergraduate research opportunities and strong letters of recommendation for graduate admissions. Tracking attendance diligently eliminates surprise administrative penalties, safeguarding overall collegiate success.
+            The student current attendance is (21 / 30) * 100 = 70.0%, which is currently below the 75% threshold. With 15 classes remaining (45 - 30), the total allowed absences for the whole semester is floor(45 * 0.25) = 11 classes. Since the student already missed 9 classes, they can only afford to miss 2 more classes (11 - 9 = 2). To finish at or above 75%, the student must attend at least 34 total classes (ceil(45 * 0.75) = 34). With 21 classes already completed, the student must attend at least 13 of the final 15 lectures (34 - 21 = 13).
           </p>
 
-        
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
+            Scenario 2: Planning Bunks Before a College Festival
+          </h3>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            A sophomore has attended 35 out of 40 lectures in a 60-lecture semester (current attendance = 87.5%). The student wants to know how many classes they can skip during festival week without dropping below the 80% attendance mark.
+          </p>
+          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
+            For an 80% target across 60 total classes, the student must attend at least 48 classes (60 * 0.80 = 48). Total permitted absences for the semester is 12 (60 - 48 = 12). Having missed 5 classes so far (40 - 35 = 5), the student has 7 safe bunks remaining (12 - 5 = 7). The student can safely miss up to 7 more lectures across the remaining 20 classes.
+          </p>
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Course Syllabi Attendance Clauses & Academic Warning Communication Channels
+            What to Do If Your Attendance Drops Below the Required Threshold
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            University professors explicitly delineate attendance expectations within course syllabi distributed during the initial lecture of the semester. Institutional guidelines require that faculty document warning thresholds, such as automated email alerts generated after a student accumulates two unexcused absences in a laboratory science or three unexcused absences in a lecture survey. These warning notices provide students transparent opportunities to correct attendance trajectories before formal debarment procedures are initiated.
+            If your attendance has slipped below 75%, take these actionable steps immediately to avoid debarment:
           </p>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Maintaining direct communication with faculty members when personal emergencies or unexpected travel delays occur is critical. Faculty members frequently exercise compassionate discretion, approving remote lecture viewing or supplemental reading assignments to substitute for physical absences when students demonstrate proactive responsibility.
-          </p>
-
-        
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Ultimately, maintaining consistent classroom presence fosters an engaged scholarly community. By honoring attendance commitments, students build disciplined professional habits that support lifelong career achievement and academic excellence.
-          </p>
-
-        
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Proactive consultation with departmental advisors and course instructors ensures that students resolve attendance challenges early, protecting examination eligibility and academic momentum.
-          </p>
-
-        
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Diligent attendance tracking safeguards collegiate standing, ensuring students satisfy degree residency prerequisites and avoid unexpected exam debarment penalties.
-          </p>
-
+          <ol className="list-decimal pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <li><strong>Calculate Your Exact Recovery Number:</strong> Use our calculator to see how many consecutive classes you must attend to cross 75%.</li>
+            <li><strong>Meet with Your Professor Early:</strong> Explain your situation respectfully before the official cutoff date. Faculty appreciate proactive communication and can advise on extra credit or tutorial options.</li>
+            <li><strong>Submit Official Medical Documentation:</strong> If your absences were due to illness, submit certified doctor notes or hospital discharge summaries to your academic office within institutional deadlines.</li>
+            <li><strong>Do Not Miss Any Remaining Classes:</strong> Maintain 100% attendance in all future lectures, lab sessions, and tutorials. Consistent presence demonstrates commitment to academic recovery.</li>
+            <li><strong>Balance Your Study Hours:</strong> Create a disciplined daily study plan using our <Link href="/calculators/education/study-hours-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">study hours calculator</Link> and monitor overall academic targets with our <Link href="/calculators/education/gpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">GPA calculator</Link>.</li>
+          </ol>
         </>
       }
     >
