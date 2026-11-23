@@ -69,12 +69,27 @@ export function HomeHero() {
   // Tabs: 'calc' | 'mortgage' | 'bmi'
   const [activeTab, setActiveTab] = useState<"calc" | "mortgage" | "bmi">("calc");
 
-  // Calculator State
-  const [currentVal, setCurrentVal] = useState("2026.42");
+  // Calculator State with dynamic daily date (e.g. 2026.23 on Nov 23)
+  const [currentVal, setCurrentVal] = useState(() => {
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${d.getFullYear()}.${day}`;
+  });
+  const [isInitialVal, setIsInitialVal] = useState(true);
   const [previousVal, setPreviousVal] = useState("");
   const [currentOp, setCurrentOp] = useState<string | null>(null);
   const [historyText, setHistoryText] = useState("BASIC MODE");
   const [isSciMode, setIsSciMode] = useState(false);
+
+  // Sync date on mount for hydration accuracy
+  useEffect(() => {
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, "0");
+    const val = `${d.getFullYear()}.${day}`;
+    if (isInitialVal) {
+      setCurrentVal(val);
+    }
+  }, []);
 
   // Mortgage Tab State
   const [homePrice, setHomePrice] = useState(450000);
@@ -86,16 +101,18 @@ export function HomeHero() {
 
   // Calculator Methods
   function appendNum(num: string) {
-    if (currentVal === "2026.42" || currentVal === "0") {
+    if (isInitialVal || currentVal === "0") {
       setCurrentVal(num);
+      setIsInitialVal(false);
     } else {
       setCurrentVal((prev) => prev + num);
     }
   }
 
   function appendDot() {
-    if (currentVal === "2026.42") {
+    if (isInitialVal) {
       setCurrentVal("0.");
+      setIsInitialVal(false);
       return;
     }
     if (!currentVal.includes(".")) {
@@ -107,10 +124,16 @@ export function HomeHero() {
     setCurrentOp(op);
     setPreviousVal(currentVal);
     setCurrentVal("0");
+    setIsInitialVal(false);
     setHistoryText(`${currentVal} ${op}`);
   }
 
   function backspaceCalc() {
+    if (isInitialVal) {
+      setCurrentVal("0");
+      setIsInitialVal(false);
+      return;
+    }
     setCurrentVal((prev) => {
       if (prev === "Error" || prev === "NaN") return "0";
       if (prev.length > 1) {
@@ -123,22 +146,26 @@ export function HomeHero() {
 
   function clearCalc() {
     setCurrentVal("0");
+    setIsInitialVal(false);
     setPreviousVal("");
     setCurrentOp(null);
     setHistoryText(isSciMode ? "SCIENTIFIC MODE" : "BASIC MODE");
   }
 
   function toggleSign() {
+    setIsInitialVal(false);
     if (currentVal !== "0") {
       setCurrentVal((prev) => (parseFloat(prev) * -1).toString());
     }
   }
 
   function calcPercent() {
+    setIsInitialVal(false);
     setCurrentVal((prev) => (parseFloat(prev) / 100).toString());
   }
 
   function compute() {
+    setIsInitialVal(false);
     if (!currentOp || previousVal === "") return;
     const p = parseFloat(previousVal);
     const c = parseFloat(currentVal);
@@ -156,6 +183,7 @@ export function HomeHero() {
   }
 
   function calcSci(fn: "sin" | "cos" | "tan" | "sqrt") {
+    setIsInitialVal(false);
     const v = parseFloat(currentVal);
     let r = 0;
     if (fn === "sin") r = Math.sin((v * Math.PI) / 180);
@@ -408,7 +436,9 @@ export function HomeHero() {
                       {historyText}
                     </div>
                     <div className="text-4xl sm:text-5xl font-mono font-bold tracking-tight text-[#10b981] tabular-nums truncate mt-1">
-                      {currentVal}
+                      {isInitialVal
+                        ? `${new Date().getFullYear().toLocaleString("en-US")}.${String(new Date().getDate()).padStart(2, "0")}`
+                        : currentVal}
                     </div>
                   </div>
 
