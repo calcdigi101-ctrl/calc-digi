@@ -5,9 +5,9 @@ import type { CalcConfig } from "@/components/flagship/engine/types";
 
 export const config: CalcConfig = {
   id: "spotify-stats-calc",
-  title: "Music Streaming Stats & Cellular Data Consumption Calculator",
+  title: "Music Streaming Stats and Cellular Data Consumption Calculator",
   presets: [
-    { label: "Daily Commuter & Office Worker (2.5 hrs/day, 320 kbps)", values: { dailyHours: 2.5, quality: "very_high", cellularPct: 40 } },
+    { label: "Daily Commuter and Office Worker (2.5 hrs/day, 320 kbps)", values: { dailyHours: 2.5, quality: "very_high", cellularPct: 40 } },
     { label: "Casual Weekend Listener (45 mins/day, 160 kbps)", values: { dailyHours: 0.75, quality: "high", cellularPct: 20 } },
     { label: "Hardcore Audiophile / Student (6 hrs/day, 320 kbps)", values: { dailyHours: 6.0, quality: "very_high", cellularPct: 50 } },
     { label: "Data Saver Traveler (1.5 hrs/day, 96 kbps)", values: { dailyHours: 1.5, quality: "normal", cellularPct: 80 } },
@@ -29,10 +29,10 @@ export const config: CalcConfig = {
       label: "Audio Streaming Quality Bitrate",
       default: "very_high",
       options: [
-        { value: "low", label: "Low Quality (24 kbps — ~11 MB/hr, extreme data saver)" },
-        { value: "normal", label: "Normal Quality (96 kbps — ~43 MB/hr, default free tier)" },
-        { value: "high", label: "High Quality (160 kbps — ~72 MB/hr, balanced)" },
-        { value: "very_high", label: "Very High Quality (320 kbps — ~144 MB/hr, Spotify Premium)" },
+        { value: "low", label: "Low Quality (24 kbps: ~11 MB/hr, extreme data saver)" },
+        { value: "normal", label: "Normal Quality (96 kbps: ~43 MB/hr, default free tier)" },
+        { value: "high", label: "High Quality (160 kbps: ~72 MB/hr, balanced)" },
+        { value: "very_high", label: "Very High Quality (320 kbps: ~144 MB/hr, Spotify Premium)" },
       ],
     },
     {
