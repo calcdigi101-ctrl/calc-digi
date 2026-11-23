@@ -30,6 +30,7 @@ export function CalcPage({
   howToNameOverride,
   exactFaq = false,
   hideEmbedAttribution,
+  faqTitle,
   children,
 }: {
   path: string;
@@ -53,6 +54,7 @@ export function CalcPage({
   howToNameOverride?: string;
   exactFaq?: boolean;
   hideEmbedAttribution?: boolean;
+  faqTitle?: string;
   children: ReactNode;
 }) {
   const publisher = {
@@ -274,7 +276,7 @@ export function CalcPage({
           <Editorial>
             {article}
             {html ? <div className="fx-prose" dangerouslySetInnerHTML={{ __html: html }} /> : null}
-            <h2>Frequently asked questions</h2>
+            <h2>{faqTitle || "Frequently asked questions"}</h2>
             <Faq items={allFaqs} />
           </Editorial>
         </div>
