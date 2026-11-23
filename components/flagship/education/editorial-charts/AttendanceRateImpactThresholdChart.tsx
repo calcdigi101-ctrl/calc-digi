@@ -16,10 +16,10 @@ export function AttendanceRateImpactThresholdChart() {
   return (
     <div className="w-full my-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
       <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-1">
-        Attendance Compliance Thresholds & Disciplinary Cutoff Zones
+        Attendance Percentages: Safe Zone vs Warning Zone
       </h3>
       <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-        Visual benchmark showing safe compliance zones (&gt;80%) vs statutory truancy and examination debarment thresholds (&lt;75%).
+        Visual benchmark showing the safe attendance zone (80% and above) compared with the mandatory 75% exam cutoff.
       </p>
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
