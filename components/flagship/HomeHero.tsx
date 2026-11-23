@@ -236,10 +236,10 @@ export function HomeHero() {
   return (
     <section className="relative pt-10 pb-16 lg:pt-14 lg:pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#f4fbf7]/60 via-[#FCFDFD] to-white dark:from-[#08101e] dark:via-[#090e1a] dark:to-[#070b12] border-b border-slate-100 dark:border-slate-800">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+        <div className="hero-layout-grid grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           
           {/* Left Column: Copy, Badge, Search & Trending Tags */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="lg:col-span-7 space-y-6 flex flex-col items-center lg:items-start text-center lg:text-left">
             
             {/* Top Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#e6f7ed] dark:bg-emerald-950/60 border border-[#a7f3d0] dark:border-emerald-800/80 text-[#059669] dark:text-emerald-300">
@@ -255,12 +255,12 @@ export function HomeHero() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[#6b7280] dark:text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed font-normal">
+            <p className="text-[#6b7280] dark:text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed font-normal text-center lg:text-left mx-auto lg:mx-0">
               Professional-grade tools for finance, health, math, and everyday life. No ads, no tracking, just precision.
             </p>
 
             {/* Search Bar with Green (?) icon and Live Dropdown */}
-            <div className="max-w-xl relative" ref={searchContainerRef}>
+            <div className="w-full max-w-xl relative mx-auto lg:mx-0" ref={searchContainerRef}>
               <div className="relative flex items-center bg-white dark:bg-slate-900 rounded-full border border-slate-200/90 dark:border-slate-800 p-2 sm:p-2.5 shadow-sm hover:border-emerald-400 focus-within:border-emerald-500 focus-within:ring-4 focus-within:ring-emerald-500/10 transition-all">
                 <div className="pl-3.5 pr-2.5 shrink-0">
                   <div className="w-6 h-6 rounded-full bg-emerald-50 dark:bg-emerald-950/80 text-[#10b981] flex items-center justify-center font-bold text-xs border border-emerald-200/60 dark:border-emerald-800">
@@ -346,7 +346,7 @@ export function HomeHero() {
             </div>
 
             {/* Trending Tags */}
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs text-center lg:text-left">
               <span className="text-[#9ca3af] dark:text-slate-500 font-bold uppercase tracking-wider text-[11px] mr-1">
                 TRENDING:
               </span>
