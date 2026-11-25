@@ -8,7 +8,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WHO_CLASSES } from "@/lib/bmi";
 
 const PATH = "/calculators/health/bmi-calculator";
-const TITLE = "BMI Calculator: Healthy Weight Range & Chart";
+const TITLE = "BMI Calculator: Check Your Ideal Weight and Health Zone";
 const DESCRIPTION =
   "Free BMI calculator. Check your Body Mass Index, WHO weight category, healthy target weight range, and prime BMI instantly with zero signup.";
 
@@ -119,7 +119,7 @@ export default function BmiCalculatorPage() {
           <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              World Health Organization (WHO) &amp; CDC Clinical Guidelines
+              World Health Organization (WHO) and CDC Clinical Guidelines
             </span>
             <span>•</span>
             <span>Updated Q4 2026</span>
@@ -130,7 +130,7 @@ export default function BmiCalculatorPage() {
                     {/* Featured Snippet Quick Answer Box */}
           <div className="not-prose mb-8 rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50/70 to-teal-50/40 p-5 dark:border-emerald-900/40 dark:from-emerald-950/20 dark:to-teal-950/10">
             <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-emerald-600 dark:text-emerald-400">💡</span> Quick Answer: What is a Healthy BMI &amp; How is it Calculated?
+              <span className="text-emerald-600 dark:text-emerald-400">💡</span> Quick Answer: What is a Healthy BMI and How is it Calculated?
             </div>
             <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               <strong>Body Mass Index (BMI)</strong> evaluates body weight relative to height using the formula <strong>BMI = weight (kg) ÷ [height (m)]²</strong> (or <em>[weight (lbs) ÷ height (in)²] × 703</em>). For adults aged 20+, a healthy BMI is between <strong>18.5 and 24.9 kg/m²</strong>. An adult weighing 70 kg (154 lbs) at 1.75 m (5 ft 9 in) has a normal BMI of <strong>22.86</strong>.
@@ -142,12 +142,12 @@ export default function BmiCalculatorPage() {
           </h2>
           <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
             <li><strong>Select Unit System:</strong> Toggle between <em>US Customary</em> (feet, inches, pounds) and <em>Metric</em> (centimeters, kilograms).</li>
-            <li><strong>Input Stature &amp; Weight:</strong> Enter your exact standing height and current morning body weight.</li>
+            <li><strong>Input Stature and Weight:</strong> Enter your exact standing height and current morning body weight.</li>
             <li><strong>Select Optional Demographics:</strong> Provide age and biological sex for personalized body fat estimation and Oxford New BMI formula comparison.</li>
             <li><strong>Review Instant Results:</strong> Instantly view your calculated BMI score, official WHO category, healthy weight target range, and BMI Prime ratio.</li>
           </ol>
 
-          <h2>What is Body Mass Index (BMI)? Definition &amp; Epidemiological Purpose</h2>
+          <h2>What is Body Mass Index (BMI)? Definition and Epidemiological Purpose</h2>
           <p>
             <strong>Body Mass Index (BMI)</strong>, historically designated as the Quetelet Index, is an internationally recognized anthropometric screening metric that quantifies an individual&apos;s tissue mass (muscle, fat, and bone) relative to their stature. Formulated in 1832 by Belgian astronomer and statistician Adolphe Quetelet during his foundational studies on &apos;social physics&apos;, BMI establishes a standardized clinical baseline to classify individuals into distinct weight categories correlated with morbidity and mortality risk.
           </p>
@@ -159,7 +159,7 @@ export default function BmiCalculatorPage() {
             <BmiQueteletPrimeChart />
           </div>
 
-          <h2>The Mathematical Derivation of Body Mass Index: Metric &amp; Imperial Formulas</h2>
+          <h2>The Mathematical Derivation of Body Mass Index: Metric and Imperial Formulas</h2>
           <p>
             The mathematical formulation of Body Mass Index evaluates total body weight normalized to the square of stature, reflecting the biophysical scaling principle that mass scales proportionally with planar volume. Depending on the measurement unit system deployed, the canonical equations evaluate as:
           </p>
@@ -204,7 +204,7 @@ export default function BmiCalculatorPage() {
             highlight={3}
           />
 
-          <h2>Ethnic-Specific BMI Thresholds: Asian &amp; South Asian Risk Profiles</h2>
+          <h2>Ethnic-Specific BMI Thresholds: Asian and South Asian Risk Profiles</h2>
           <p>
             Extensive biomedical research indicates that biological populations of Asian, South Asian, and East Asian heritage possess higher percentages of visceral and ectopic abdominal fat at identical BMI levels compared to European cohorts. To avert under-diagnosing metabolic syndrome, the WHO recommends localized diagnostic cutoffs:
           </p>
@@ -235,7 +235,7 @@ export default function BmiCalculatorPage() {
             Because height is factored directly into the denominator, WHtR functions effectively across both biological sexes, all pediatric age brackets above five years old, and diverse global ethnic ancestries without requiring ethnic-specific cutoff calibrations. A WHtR exceeding 0.50 signifies elevated intra-abdominal visceral adipose volume, while values surpassing 0.60 represent severe cardiometabolic risk for premature myocardial infarction, Type 2 diabetes mellitus, and hepatic steatosis.
           </p>
 
-          <h2>The Ponderal Index: Cubic Allometric Stature Scaling in Neonatal &amp; Extreme Heights</h2>
+          <h2>The Ponderal Index: Cubic Allometric Stature Scaling in Neonatal and Extreme Heights</h2>
           <p>
             For pediatric neonatology and adults possessing extreme stature (under 5 feet or over 6 feet 6 inches), physical anthropologists frequently deploy the <strong>Ponderal Index (Corpulence Index)</strong>. Because biological volume scales as height cubed rather than squared, dividing mass by height to the third power eliminates dimensional distortion:
           </p>
@@ -244,7 +244,7 @@ export default function BmiCalculatorPage() {
             Normal adult Ponderal Index values typically span between 11.0 and 15.0 kg/m³. In pediatric obstetrics, pediatricians calculate the neonatal ponderal index to differentiate symmetrical fetal growth restriction from asymmetrical intrauterine growth restriction (IUGR), where brain development is preserved relative to fetal liver and abdominal soft tissue.
           </p>
 
-          <h2>Pediatric BMI-for-Age Percentiles: CDC Growth Curves in Children &amp; Adolescents</h2>
+          <h2>Pediatric BMI-for-Age Percentiles: CDC Growth Curves in Children and Adolescents</h2>
           <p>
             In pediatric care for youths aged 2 to 19, static adult BMI cutoff boundaries cannot be utilized because body composition fluctuates dramatically across developmental pubertal stages. Instead, pediatricians utilize CDC Growth Charts derived via the LMS (Box-Cox power lambda, median mu, and coefficient of variation sigma) statistical transformation:
           </p>
@@ -255,7 +255,7 @@ export default function BmiCalculatorPage() {
             <li><strong>Childhood Obesity:</strong> BMI-for-age at or above the 95th percentile, demanding clinical lifestyle and metabolic screening.</li>
           </ul>
 
-          <h2>Clinical Sarcopenia &amp; The Obesity Paradox in Geriatric Epidemiology</h2>
+          <h2>Clinical Sarcopenia and The Obesity Paradox in Geriatric Epidemiology</h2>
           <p>
             In geriatric medicine and longevity research, interpreting BMI among adults aged 65 and older introduces a widely studied clinical phenomenon known as the <strong>Obesity Paradox</strong>. Multiple epidemiological meta-analyses observe that slightly higher BMIs (ranging between 25.0 and 27.5 kg/m²) in elderly populations correlate with reduced all-cause mortality compared to strictly &apos;normal&apos; BMIs below 22.0 kg/m². Modest subcutaneous fat reserves provide vital nutritional and metabolic buffering during acute critical illnesses, severe systemic infections, and post-surgical recuperation periods.
           </p>
@@ -263,7 +263,7 @@ export default function BmiCalculatorPage() {
             Furthermore, elderly individuals frequently experience age-related muscle wasting (sarcopenia) and vertebral compression fractures that decrease height over time. Consequently, a declining BMI in older adults often signals progressive loss of functional skeletal muscle mass rather than beneficial fat reduction. Geriatricians prioritize functional biomarkers—such as isometric handgrip dynamometer strength, gait speed, and bone mineral density scans—over rigid adherence to youthful BMI cutoffs.
           </p>
 
-          <h2>Healthy Weight Management Strategies &amp; Macronutrient Architecture</h2>
+          <h2>Healthy Weight Management Strategies and Macronutrient Architecture</h2>
           <p>
             Achieving and maintaining an optimal Body Mass Index requires balancing daily caloric intake against metabolic expenditure while optimizing lean tissue preservation. Calculating protein requirements through our <Link href="/calculators/health/protein-intake-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">protein calculator</Link> and structuring macronutrients with our <Link href="/calculators/health/macro-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">macro calculator</Link> guarantees that weight loss represents fat tissue reduction rather than muscle atrophy.
           </p>

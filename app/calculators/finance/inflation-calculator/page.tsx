@@ -4,7 +4,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InflationPurchasingPowerDecayChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/inflation-calculator";
-const TITLE = "Inflation Calculator: Purchasing Power & Future Value";
+const TITLE = "US Inflation Calculator: Real Value and Purchasing Power";
 const DESCRIPTION =
   "Free inflation calculator: measure purchasing power decay over time, historical CPI compounding, and future equivalent costs with real purchasing power projections.";
 
@@ -27,7 +27,7 @@ export default function Page() {
       mathExpression="FV = PV \times (1 + i)^n \quad \mid \quad \text{Purchasing Power} = \frac{PV}{(1 + i)^n}"
       article={
         <>
-          <h2>Direct Answer: What Is Inflation &amp; How Does It Erode Purchasing Power?</h2>
+          <h2>Direct Answer: What Is Inflation and How Does It Erode Purchasing Power?</h2>
           <p>
             <strong>Monetary inflation</strong> is the general, progressive increase in consumer prices and the corresponding decline in the purchasing power of money over time. When inflation averages 3.0% annually, an identical market basket of consumer goods that costs $100 today will cost $103 next year, $134 in ten years, and $243 in thirty years.
           </p>
@@ -37,7 +37,7 @@ export default function Page() {
 
           <InflationPurchasingPowerDecayChart />
 
-          <h2>Actuarial Mathematics of Inflation Compounding &amp; Future Cost Projections</h2>
+          <h2>Actuarial Mathematics of Inflation Compounding and Future Cost Projections</h2>
           <p>
             Inflation acts as negative compound interest against cash purchasing power. The future dollar cost of an item subject to constant annual inflation is governed by the compound growth equation:
           </p>
@@ -88,7 +88,7 @@ export default function Page() {
             </li>
           </ol>
 
-          <h2>Purchasing Power Decay Matrix: $10,000 Cash Across Time &amp; Inflation Rates</h2>
+          <h2>Purchasing Power Decay Matrix: $10,000 Cash Across Time and Inflation Rates</h2>
           <p>
             The following actuarial matrix models how $10,000 in physical cash degrades across various macroeconomic inflationary regimes:
           </p>
@@ -107,7 +107,7 @@ export default function Page() {
 
           <h2>Consumer Price Index (CPI-U) vs. Personal Inflation Rates</h2>
           <p>
-            The Bureau of Labor Statistics (BLS) measures inflation using the <strong>Consumer Price Index for All Urban Consumers (CPI-U)</strong>, tracking eight major expenditure categories: Housing (44.4%), Transportation (16.7%), Food &amp; Beverages (14.3%), Medical Care (8.5%), Recreation (5.4%), Apparel (2.8%), Education &amp; Communication (5.8%), and Other Goods (2.1%).
+            The Bureau of Labor Statistics (BLS) measures inflation using the <strong>Consumer Price Index for All Urban Consumers (CPI-U)</strong>, tracking eight major expenditure categories: Housing (44.4%), Transportation (16.7%), Food and Beverages (14.3%), Medical Care (8.5%), Recreation (5.4%), Apparel (2.8%), Education and Communication (5.8%), and Other Goods (2.1%).
           </p>
           <p>
             However, your <strong>personal inflation rate</strong> deviates from headline CPI depending on your household spending profile. Families with high college tuition, daycare, and healthcare costs experience far higher realized inflation than debt-free retirees with paid-off homes.
@@ -124,7 +124,7 @@ export default function Page() {
               ["Broad Equities (S&P 500)", "10.2%", "7.1%", "Moderate / High Long-Term", "Firms pass rising input costs directly to consumers, expanding revenue."],
               ["Real Estate (Direct/REIT)", "8.8%", "5.7%", "High", "Property replacement costs escalate; contractual leases adjust rents upward."],
               ["Treasury Inflation-Protected (TIPS)", "4.5%", "1.5% – 2.0%", "Direct / 1.0 (Exact)", "Principal balance adjusts semi-annually based on non-seasonally adjusted CPI-U."],
-              ["Gold &amp; Commodities", "6.2%", "3.1%", "High during spikes / Volatile", "Finite physical supply offsets fiat currency supply debasement."],
+              ["Gold and Commodities", "6.2%", "3.1%", "High during spikes / Volatile", "Finite physical supply offsets fiat currency supply debasement."],
               ["Cash HYSA / T-Bills", "3.2%", "0.2% (Often Negative)", "Low / Lagging", "Central bank rate hikes eventually lift yields, but trail inflation surges."]
             ]}
           />
@@ -141,7 +141,7 @@ export default function Page() {
             <li><strong>Stagflation:</strong> Destructive economic condition characterized by stagnant economic growth, high unemployment, and persistently elevated inflation.</li>
           </ul>
 
-          <h3>Related Wealth &amp; Purchasing Power Solvers</h3>
+          <h3>Related Wealth and Purchasing Power Solvers</h3>
           <p>
             Safeguard your multi-decade savings against monetary dilution: calculate forward compound growth with the <a href="/calculators/finance/compound-interest-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Compound Interest Calculator</a>, model real retirement runway via the <a href="/calculators/finance/retirement-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Retirement Calculator</a>, plan salary adjustments with our <a href="/calculators/finance/salary-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Salary Calculator</a>, and audit your personal balance sheet solvency using the <a href="/calculators/finance/net-worth-calculator" className="text-emerald-600 dark:text-emerald-400 hover:underline">Net Worth Calculator</a>.
           </p>

@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PregnancyMilestoneVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/due-date-calculator";
-const TITLE = "Pregnancy Due Date Calculator: EDD & Milestones";
+const TITLE = "Pregnancy Due Date Calculator: Exact EDD and Milestones";
 const DESCRIPTION =
   "Free pregnancy due date calculator. Calculate your estimated date of delivery, gestational age, and fetal milestones using clinical Naegele's rule.";
 
@@ -96,7 +96,7 @@ export default function DueDatePage() {
               </span>
               <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
               <span className="text-slate-600 dark:text-slate-400">
-                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">ACOG Practice Bulletin No. 700 &amp; AAP Guidelines</strong>
+                Reviewed against <strong className="font-semibold text-slate-800 dark:text-slate-200">ACOG Practice Bulletin No. 700 and AAP Guidelines</strong>
               </span>
             </div>
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
@@ -116,7 +116,7 @@ export default function DueDatePage() {
             </p>
           </div>
 
-          <h2>The Clinical Science of Due Date Estimation &amp; Fetal Milestones</h2>
+          <h2>The Clinical Science of Due Date Estimation and Fetal Milestones</h2>
 
           {/* Interactive Visual Editorial Chart (100% Mobile Responsive) */}
           <div className="not-prose my-6">
@@ -197,7 +197,7 @@ export default function DueDatePage() {
           <ul>
             <li><strong>Folic Acid Supplementation:</strong> Ingest 400 to 800 mcg of folic acid daily during pre-conception and the first trimester to reduce neural tube defect risks by up to 70%.</li>
             <li><strong>Hydration and Hemoglobin Support:</strong> Maternal plasma volume expands by 45% during pregnancy. Maintain at least 2.5 to 3 liters of water daily and consume dietary iron to prevent physiological gestational anemia.</li>
-            <li><strong>Nursery &amp; Household Budgeting:</strong> Early preparation prevents financial strain. Structure your family finances with our <a href="/calculators/finance/budget-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">household budget calculator</a> and establish a liquidity buffer with our <a href="/calculators/finance/emergency-fund-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">emergency fund calculator</a> to accommodate upcoming delivery deductibles and future <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare costs</a>.</li>
+            <li><strong>Nursery and Household Budgeting:</strong> Early preparation prevents financial strain. Structure your family finances with our <a href="/calculators/finance/budget-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">household budget calculator</a> and establish a liquidity buffer with our <a href="/calculators/finance/emergency-fund-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">emergency fund calculator</a> to accommodate upcoming delivery deductibles and future <a href="/calculators/baby/childcare-cost-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">childcare costs</a>.</li>
             <li><strong>Fetal Kick Counting:</strong> From week 28 onward, monitor fetal movements daily during a quiet rest period. Feeling at least 10 distinct movements within a 2-hour window indicates reassuring fetal well-being.</li>
           </ul>
         </>

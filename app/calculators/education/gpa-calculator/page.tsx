@@ -8,8 +8,8 @@ import { StandardGpaScaleTable } from "@/components/calcs/education/StandardGpaS
 
 const PATH = "/calculators/education/gpa-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/education/gpa-calculator";
-const TITLE = "College & High School GPA Calculator (Fast 4.0 Scale)";
-const FULL_TITLE = "College & High School GPA Calculator (Fast 4.0 Scale) | CalcDigi";
+const TITLE = "College GPA Calculator: Fast 4.0 Scale and Cumulative";
+const FULL_TITLE = "College GPA Calculator: Fast 4.0 Scale and Cumulative | CalcDigi";
 const DESCRIPTION =
   "Calculate cumulative and semester GPA easily on a standard 4.0 scale with letter grades and weighted honors/AP credits.";
 
@@ -102,7 +102,7 @@ export default function GpaCalculatorPage() {
           {/* SECTION B: Cumulative GPA Calculation Formula & Step-by-Step Example */}
           <div className="not-prose my-8 rounded-2xl border border-indigo-200/80 bg-gradient-to-br from-indigo-50/70 to-blue-50/40 p-5 sm:p-6 dark:border-indigo-900/40 dark:from-indigo-950/20 dark:to-blue-950/10 shadow-xs">
             <div className="mb-2 text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <span className="text-indigo-600 dark:text-indigo-400 text-lg">📐</span> Cumulative GPA Calculation Formula &amp; Step-by-Step Example
+              <span className="text-indigo-600 dark:text-indigo-400 text-lg">📐</span> Cumulative GPA Calculation Formula and Step-by-Step Example
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
               To calculate your cumulative or semester Grade Point Average (GPA), determine the credit-weighted quality points earned in each course and divide by your total attempted credit hours:

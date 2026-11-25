@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/standard-deviation-calculator";
-const TITLE = "Standard Deviation Calculator (Sample & Populatio";
+const TITLE = "Standard Deviation Calculator: Step-by-Step Solver";
 const DESCRIPTION =
   "Free online standard deviation calculator. Calculate sample and population standard deviation, variance, mean, and sum of squares with step-by-step formulas.";
 
@@ -86,7 +86,7 @@ export default function Page() {
           <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Peer-Reviewed Mathematical &amp; Statistical Standards
+              Peer-Reviewed Mathematical and Statistical Standards
             </span>
             <span>•</span>
             <span>Updated Q4 2026</span>
@@ -94,7 +94,7 @@ export default function Page() {
             <span>ISO / NIST Compliant Precision</span>
           </div>
 
-          <h2>What is Standard Deviation? Definition &amp; Mathematical Significance</h2>
+          <h2>What is Standard Deviation? Definition and Mathematical Significance</h2>
           <p>
             In probability and mathematical statistics, the <strong>standard deviation</strong> is the premier quantitative metric of dispersion. It measures the typical physical distance that individual data points fall from the arithmetic mean. While the mean identifies the central focal point of a distribution, the standard deviation quantifies its width, uncertainty, and volatility.
           </p>
@@ -172,10 +172,10 @@ export default function Page() {
           </p>
           <ul>
             <li>
-              <strong>Financial Risk &amp; Investment Portfolios:</strong> Assess asset volatility and Sharpe ratios, often paired with our <Link href="/calculators/math/variance-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Variance Calculator</Link>.
+              <strong>Financial Risk and Investment Portfolios:</strong> Assess asset volatility and Sharpe ratios, often paired with our <Link href="/calculators/math/variance-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Variance Calculator</Link>.
             </li>
             <li>
-              <strong>Scientific Research &amp; Hypothesis Testing:</strong> Compute standard error and confidence intervals using our <Link href="/calculators/math/confidence-interval-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Confidence Interval Calculator</Link>.
+              <strong>Scientific Research and Hypothesis Testing:</strong> Compute standard error and confidence intervals using our <Link href="/calculators/math/confidence-interval-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Confidence Interval Calculator</Link>.
             </li>
             <li>
               <strong>Six Sigma Quality Engineering:</strong> Measure industrial defect rates and process capability indices (Cp, Cpk) using our companion <Link href="/calculators/math/z-score-calculator" className="font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 underline underline-offset-2">Z-Score Calculator</Link>.

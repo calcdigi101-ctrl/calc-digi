@@ -6,8 +6,8 @@ import { VideoGameCostPerHourValueChart } from "@/components/flagship/entertainm
 
 const PATH = "/calculators/entertainment/video-game-hours-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/entertainment/video-game-hours-calculator";
-const TITLE = "Video Game Backlog & Hours Calculator (Time to Beat)";
-const FULL_TITLE = "Video Game Hours & Backlog Calculator – Time to Beat | CalcDigi";
+const TITLE = "Video Game Backlog Calculator (Exact Time to Beat)";
+const FULL_TITLE = "Video Game Backlog Calculator (Exact Time to Beat) | CalcDigi";
 const DESCRIPTION =
   "Calculate total gaming hours, time to beat your backlog, and cost-per-hour of entertainment across Main Story and 100% Completionist playthroughs.";
 const INTRO =
@@ -111,7 +111,7 @@ export default function VideoGameHoursPage() {
               </span>
               <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
               <span className="text-slate-600 dark:text-slate-400">
-                Aligned with <a href="https://www.theesa.com/" target="_blank" rel="noopener" className="font-semibold text-slate-800 dark:text-slate-200 underline">Entertainment Software Association (ESA)</a> &amp; <a href="https://howlongtobeat.com/" target="_blank" rel="noopener" className="font-semibold text-slate-800 dark:text-slate-200 underline">HowLongToBeat Telemetry</a>
+                Aligned with <a href="https://www.theesa.com/" target="_blank" rel="noopener" className="font-semibold text-slate-800 dark:text-slate-200 underline">Entertainment Software Association (ESA)</a> and <a href="https://howlongtobeat.com/" target="_blank" rel="noopener" className="font-semibold text-slate-800 dark:text-slate-200 underline">HowLongToBeat Telemetry</a>
               </span>
             </div>
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
@@ -132,7 +132,7 @@ export default function VideoGameHoursPage() {
           </div>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
-            How to Calculate Video Game Hours &amp; Cost Per Hour
+            How to Calculate Video Game Hours and Cost Per Hour
           </h2>
           <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
             <li><strong>Input Backlog Library Size:</strong> Enter the number of unplayed or unfinished games currently in your Steam, PlayStation, Xbox, or Nintendo queue.</li>
@@ -142,7 +142,7 @@ export default function VideoGameHoursPage() {
           </ol>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Gaming vs Movies &amp; Concerts: Cost-Per-Hour Comparison
+            Gaming vs Movies and Concerts: Cost-Per-Hour Comparison
           </h2>
 
           {/* Benchmark Table Directly in Section */}
@@ -173,7 +173,7 @@ export default function VideoGameHoursPage() {
           </p>
 
           <Formula>
-            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Gaming Backlog &amp; Entertainment Value Formulation</div>
+            <div className="font-sans text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Standard Gaming Backlog and Entertainment Value Formulation</div>
             Effective_Game_Hours = Base_Hours * Play_Style_Multiplier
             <br />
             Total_Backlog_Hours = Backlog_Game_Count * Effective_Game_Hours
@@ -203,7 +203,7 @@ export default function VideoGameHoursPage() {
             </li>
           </ul>
 
-          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Video Game Genres, Playstyle Hours &amp; Effective Cost Per Hour (at $70 Price)</p>
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Video Game Genres, Playstyle Hours and Effective Cost Per Hour (at $70 Price)</p>
           <DataTable
             head={["Gaming Genre & Archetype", "Main Story Hours", "Main + Extras Hours", "100% Completionist", "Cost / Hour (at $70 MSRP)"]}
             rows={[
@@ -235,7 +235,7 @@ export default function VideoGameHoursPage() {
           </ul>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Smart Buying: Price Tracking &amp; Steam Sale Guide
+            Smart Buying: Price Tracking and Steam Sale Guide
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Smart gamers rarely pay full $70 launch MSRP for backlog titles. Digital storefront price tracking services (such as <em>IsThereAnyDeal</em> for PC gamers, <em>Deku Deals</em> for Nintendo Switch, and <em>PSPrices</em> for PlayStation) track historical price drop trends. Major seasonal events (Steam Summer Sale, Autumn Black Friday, Holiday Winter Sales) reliably discount major AAA releases by 30% to 50% within six months of release. Setting custom price drop alerts ensures you acquire titles only when you are genuinely ready to install and play them immediately.
@@ -298,10 +298,10 @@ export default function VideoGameHoursPage() {
               <strong>Open-World Action Role-Playing Games (60 to 120 Hours):</strong> Sprawling titles like <em>The Witcher 3: Wild Hunt</em>, <em>Elden Ring</em>, or <em>Skyrim</em> feature non-linear mission trees, companion questlines, craftable gear tiers, and extensive map exploration. While offering exceptional cost-per-hour value, open-world fatigue frequently sets in around the 35-hour mark, causing completion drop-offs where over 60% of players fail to finish the final story act.
             </li>
             <li>
-              <strong>Procedural Roguelikes &amp; Deckbuilders (30 to 100+ Hours):</strong> Titles like <em>Hades</em>, <em>Balatro</em>, or <em>Slay the Spire</em> invert traditional narrative pacing. While an individual successful 'escape run' might take only 35 to 45 minutes, true completion requires dozens of incremental runs to unlock metaprogression upgrades and narrative epilogues, making them ideal high-replayability companion games.
+              <strong>Procedural Roguelikes and Deckbuilders (30 to 100+ Hours):</strong> Titles like <em>Hades</em>, <em>Balatro</em>, or <em>Slay the Spire</em> invert traditional narrative pacing. While an individual successful 'escape run' might take only 35 to 45 minutes, true completion requires dozens of incremental runs to unlock metaprogression upgrades and narrative epilogues, making them ideal high-replayability companion games.
             </li>
             <li>
-              <strong>Grand Strategy, 4X &amp; Management Simulations (100 to 500+ Hours):</strong> Franchises like <em>Civilization</em>, <em>Crusader Kings</em>, or <em>Factorio</em> operate without conventional story endpoints. Their value is measured through emergent gameplay systems and limitless replayability, where a single extended campaign can easily consume three full weeks of recreational bandwidth.
+              <strong>Grand Strategy, 4X and Management Simulations (100 to 500+ Hours):</strong> Franchises like <em>Civilization</em>, <em>Crusader Kings</em>, or <em>Factorio</em> operate without conventional story endpoints. Their value is measured through emergent gameplay systems and limitless replayability, where a single extended campaign can easily consume three full weeks of recreational bandwidth.
             </li>
           </ul>
 
@@ -362,10 +362,10 @@ export default function VideoGameHoursPage() {
               <strong>Standard Cinema Outing:</strong> A $16 ticket combined with $12 concessions for a 2-hour feature film results in an entertainment cost of approximately <strong>$14.00 per hour</strong> per person.
             </li>
             <li>
-              <strong>Live Sports &amp; Concert Events:</strong> Mid-tier venue tickets averaging $100 to $180 for a 3-hour performance translate to <strong>$35.00 to $60.00+ per hour</strong> of active entertainment.
+              <strong>Live Sports and Concert Events:</strong> Mid-tier venue tickets averaging $100 to $180 for a 3-hour performance translate to <strong>$35.00 to $60.00+ per hour</strong> of active entertainment.
             </li>
             <li>
-              <strong>Dining &amp; Social Nightlife:</strong> An evening dinner and drinks outing typically costs $40 to $80 for two hours of social interaction, averaging <strong>$20.00 to $40.00 per hour</strong>.
+              <strong>Dining and Social Nightlife:</strong> An evening dinner and drinks outing typically costs $40 to $80 for two hours of social interaction, averaging <strong>$20.00 to $40.00 per hour</strong>.
             </li>
             <li>
               <strong>Full-Priced AAA Video Game ($70 MSRP):</strong> A standard 30-hour campaign yields an entertainment cost of <strong>$2.33 per hour</strong>. Expanding to a 90-hour open-world playthrough drops the cost to an astonishing <strong>$0.77 per hour</strong>—over 18 times more cost-efficient than a movie theater ticket.
@@ -402,7 +402,7 @@ export default function VideoGameHoursPage() {
           </p>
           <ol className="list-decimal pl-5 space-y-3 text-sm text-slate-700 dark:text-slate-300 mb-6">
             <li>
-              <strong>Audit &amp; Ruthless Elimination (Cut the Bottom 30%):</strong> Review every title in your queue. If a game was purchased on a whim five years ago and you have no genuine enthusiasm to boot it up today, move it directly to your 'Retired / Uninterested' archive. Accept the sunk cost and release the psychological burden immediately.
+              <strong>Audit and Ruthless Elimination (Cut the Bottom 30%):</strong> Review every title in your queue. If a game was purchased on a whim five years ago and you have no genuine enthusiasm to boot it up today, move it directly to your 'Retired / Uninterested' archive. Accept the sunk cost and release the psychological burden immediately.
             </li>
             <li>
               <strong>The 30-Minute Trial Run:</strong> For borderline titles, install and play them for exactly 30 minutes. If the gameplay loop, narrative tone, or control mechanics fail to ignite genuine curiosity, uninstall immediately. Do not force yourself through an unenjoyable chore out of misplaced financial obligation.

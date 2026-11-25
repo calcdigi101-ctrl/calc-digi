@@ -5,7 +5,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcertTicketTrueCostBreakdownChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/concert-ticket-calculator";
-const TITLE = "Concert Ticket Calculator: True Cost & Hidden Fees";
+const TITLE = "Concert Ticket True Cost Calculator (Hidden Fees Added)";
 const DESCRIPTION =
   "Free concert ticket cost calculator. Instantly calculate total ticket price with venue fees, dynamic surge pricing, parking, and hidden service charges.";
 
@@ -79,11 +79,11 @@ export default function ConcertTicketPage() {
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   <path d="m9 12 2 2 4-4" />
                 </svg>
-                Live Event &amp; Ticketing Industry Standards
+                Live Event and Ticketing Industry Standards
               </span>
               <span className="hidden text-slate-300 sm:inline dark:text-slate-700">•</span>
               <span className="text-slate-600 dark:text-slate-400">
-                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">FTC All-In Ticketing Rules &amp; Pollstar Industry Economic Reports</strong>
+                Compliant with <strong className="font-semibold text-slate-800 dark:text-slate-200">FTC All-In Ticketing Rules and Pollstar Industry Economic Reports</strong>
               </span>
             </div>
             <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400">
@@ -148,7 +148,7 @@ export default function ConcertTicketPage() {
             </li>
           </ul>
 
-          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Concert Venue Tiers, Platform Surcharges &amp; Ancillary Night Expenses</p>
+          <p className="font-semibold text-sm mb-2 text-slate-700 dark:text-slate-300">Concert Venue Tiers, Platform Surcharges and Ancillary Night Expenses</p>
           <DataTable
             head={["Venue Classification", "Typical Face Value", "Avg Platform Surcharge", "Parking & Transit", "Concessions & Merch", "True Cost / Person"]}
             rows={[

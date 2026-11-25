@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MassWeightPlanetaryGravitationalChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/weight-converter";
-const TITLE = "Weight & Mass Converter";
+const TITLE = "Weight Converter: Quick Pounds, Ounces, KG and Grams";
 const DESCRIPTION =
   "Convert kilograms, pounds, ounces, grams, stones, and metric tons with precise SI Planck-constant definitions and gravitational weight force modeling.";
 
@@ -187,7 +187,7 @@ export default function WeightConverterPage() {
             In everyday healthcare, tracking body mass in kilograms versus stones and pounds is common across international health databases. In the UK and Ireland, personal weight is traditionally quoted in stones (1 stone = 14 pounds = 6.3503 kg). In nutritional science, calculating macronutrient intake requires converting grams of protein, carbohydrates, and fats into dietary calories.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In global maritime logistics, container vessels load standard twenty-foot equivalent units (TEU) governed by the International Maritime Organization (IMO) Safety of Life at Sea (SOLAS) Verified Gross Mass (VGM) rules, mandating certified weight certificates for all shipping containers prior to vessel stowage. For comprehensive unit conversions across all engineering and physical fields, explore our centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+            In global maritime logistics, container vessels load standard twenty-foot equivalent units (TEU) governed by the International Maritime Organization (IMO) Safety of Life at Sea (SOLAS) Verified Gross Mass (VGM) rules, mandating certified weight certificates for all shipping containers prior to vessel stowage. For comprehensive unit conversions across all engineering and physical fields, explore our centralized <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements and Conversions hub</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
