@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SalesTaxCalculatorComponent from "@/components/calcs/business/sales-tax-calculator";
+import { LiveTaxComparisonGraph } from "@/components/calcs/business/LiveTaxComparisonGraph";
 import { CalcPage } from "@/components/flagship/CalcPage";
 import { DataTable } from "@/components/flagship/shell";
 
@@ -64,111 +65,6 @@ const FAQ_ITEMS = [
   },
 ];
 
-function VisualAnalysisGraph() {
-  return (
-    <div className="w-full my-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
-        <div>
-          <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">
-            Visual Analysis: State Base Rate vs Local Municipal Surcharge Stacking
-          </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Comparing statewide statutory base rates versus average local city, county, and transit surcharges across primary US commercial markets.
-          </p>
-        </div>
-        <div className="flex items-center gap-4 mt-3 sm:mt-0 text-xs text-slate-600 dark:text-slate-400">
-          <span className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-sm bg-blue-600"></span> State Base Rate
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-sm bg-emerald-500"></span> Local Surcharge
-          </span>
-        </div>
-      </div>
-
-      <div className="space-y-3.5 pt-1">
-        <div>
-          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
-            <span>California (Max Combined: 10.75%)</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">7.25% Base + 3.50% Local</span>
-          </div>
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-            <div style={{ width: "67.4%" }} className="h-full bg-blue-600" title="State Base: 7.25%"></div>
-            <div style={{ width: "32.6%" }} className="h-full bg-emerald-500" title="Local Surcharge: 3.50%"></div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
-            <span>Illinois (Max Combined: 10.25%)</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">6.25% Base + 4.00% Local</span>
-          </div>
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-            <div style={{ width: "61.0%" }} className="h-full bg-blue-600" title="State Base: 6.25%"></div>
-            <div style={{ width: "39.0%" }} className="h-full bg-emerald-500" title="Local Surcharge: 4.00%"></div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
-            <span>Missouri (Max Combined: 10.10%)</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">4.225% Base + 5.875% Local</span>
-          </div>
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-            <div style={{ width: "41.8%" }} className="h-full bg-blue-600" title="State Base: 4.225%"></div>
-            <div style={{ width: "58.2%" }} className="h-full bg-emerald-500" title="Local Surcharge: 5.875%"></div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
-            <span>Tennessee (Max Combined: 9.75%)</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">7.00% Base + 2.75% Local</span>
-          </div>
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-            <div style={{ width: "71.8%" }} className="h-full bg-blue-600" title="State Base: 7.00%"></div>
-            <div style={{ width: "28.2%" }} className="h-full bg-emerald-500" title="Local Surcharge: 2.75%"></div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
-            <span>New York (Max Combined: 8.875%)</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">4.00% Base + 4.875% Local</span>
-          </div>
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-            <div style={{ width: "45.1%" }} className="h-full bg-blue-600" title="State Base: 4.00%"></div>
-            <div style={{ width: "54.9%" }} className="h-full bg-emerald-500" title="Local Surcharge: 4.875%"></div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
-            <span>Texas (Max Combined: 8.25%)</span>
-            <span className="font-semibold text-slate-900 dark:text-slate-100">6.25% Base + 2.00% Local</span>
-          </div>
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-            <div style={{ width: "75.8%" }} className="h-full bg-blue-600" title="State Base: 6.25%"></div>
-            <div style={{ width: "24.2%" }} className="h-full bg-emerald-500" title="Local Surcharge: 2.00%"></div>
-          </div>
-        </div>
-
-        <div>
-          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
-            <span>Delaware, Montana, New Hampshire, Oregon</span>
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400">0.00% (Completely Tax-Free)</span>
-          </div>
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-            <div className="w-full h-full bg-slate-200 dark:bg-slate-700 text-[10px] text-center text-slate-600 dark:text-slate-400 flex items-center justify-center font-semibold">
-              Zero Sales Tax Surcharge
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function SalesTaxCalculatorPage() {
   return (
     <>
@@ -228,6 +124,8 @@ export default function SalesTaxCalculatorPage() {
             <p>
               Mastering the mechanics of both forward sales tax calculations and reverse pre-tax extraction is essential for retail shoppers, freelance contractors, small business bookkeepers, and corporate accounting departments. Applying an outdated rate or mistyping a local district percentage can trigger compliance audits, statutory penalties, or inaccurate invoice totals.
             </p>
+
+            <LiveTaxComparisonGraph />
 
             <h2>How to Calculate Sales Tax on Retail Purchases in 3 Steps</h2>
             <p>
@@ -427,7 +325,6 @@ export default function SalesTaxCalculatorPage() {
           </>
         }
       >
-        <VisualAnalysisGraph />
         <SalesTaxCalculatorComponent />
       </CalcPage>
     </>
