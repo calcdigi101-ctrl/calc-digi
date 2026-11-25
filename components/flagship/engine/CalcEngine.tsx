@@ -29,10 +29,10 @@ const SeriesChart = dynamic(() => import("./Charts").then((m) => m.SeriesChart),
 });
 
 const TONES: Record<Tone, string> = {
-  good: "bg-emerald-600 text-white",
-  warn: "bg-amber-500 text-white",
-  bad: "bg-red-600 text-white",
-  info: "bg-blue-600 text-white",
+  good: "bg-emerald-700 text-white",
+  warn: "bg-amber-700 text-white",
+  bad: "bg-red-700 text-white",
+  info: "bg-blue-700 text-white",
   neutral: "bg-slate-200 text-slate-800 dark:bg-slate-700 dark:text-slate-100",
 };
 const NOTE_TONES: Record<Tone, string> = {
@@ -530,7 +530,7 @@ export function CalcEngine({ config }: { config: CalcConfig }) {
 
   return (
     <>
-      <div className="fx-web-tool">
+      <div className="fx-web-tool min-h-[520px]">
         <ToolGrid form={formPanel} result={resultPanel} />
         {"error" in output
           ? null

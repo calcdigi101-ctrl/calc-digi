@@ -171,7 +171,13 @@ export async function POST(req: NextRequest) {
   const lang = detectLanguageStrict(latestUserMessage);
 
   // RapidAPI Configuration
-  const rapidApiKey = process.env.RAPIDAPI_KEY || "ee1c9f2fdemsh16a04d1b8c1ec60p10f7ebjsned5e183a128b";
+  const rapidApiKey = process.env.RAPIDAPI_KEY;
+  if (!rapidApiKey) {
+    return NextResponse.json(
+      { error: "AI service is currently unconfigured. Please set RAPIDAPI_KEY." },
+      { status: 503 }
+    );
+  }
   const rapidApiHost = process.env.RAPIDAPI_HOST || "open-ai21.p.rapidapi.com";
   const endpoint = "https://open-ai21.p.rapidapi.com/chatgpt";
 
