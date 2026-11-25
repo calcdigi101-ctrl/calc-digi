@@ -11,6 +11,15 @@ const POPULAR_TOOLS: [string, string][] = [
   ["Unit Converter", "/calculators/measurements/length-converter"],
 ];
 
+const GUIDES_LINKS: [string, string][] = [
+  ["College Study Hours: Carnegie Rule", "/pages/blog/college-study-hours-carnegie-rule"],
+  ["How Much House Can You Afford?", "/pages/blog/how-much-house-can-you-afford"],
+  ["15 vs 30-Year Fixed Mortgage Comparison", "/pages/blog/15-vs-30-year-fixed-mortgage"],
+  ["Sales Tax Calculation and Formulas", "/pages/blog/sales-tax-calculation-formula"],
+  ["Federal Income Tax Brackets 2026", "/pages/blog/federal-income-tax-brackets-2026"],
+  ["View All Educational Guides →", "/pages/blog"],
+];
+
 const PLATFORM_LINKS: [string, string][] = [
   ["All 20 Categories (341+ Tools)", "/calculators"],
   ["Ask CalcDigi AI Assistant", "/#ai-assistant"],
@@ -44,8 +53,8 @@ export function Footer() {
       <footer className="bg-slate-50 dark:bg-[#05080f] border-t border-slate-200/90 dark:border-slate-800/80 text-slate-600 dark:text-slate-400 transition-colors pt-8 sm:pt-16 pb-8 sm:pb-12 px-3.5 sm:px-6 lg:px-8 w-full max-w-full overflow-hidden">
         <div className="max-w-7xl mx-auto">
           
-          {/* Main Footer Grid: 2-col on mobile, 5-col on desktop */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-10 lg:gap-8 pb-8 sm:pb-12 border-b border-slate-200/80 dark:border-slate-800">
+          {/* Main Footer Grid: 2-col on mobile, 3-col on tablet, 6-col on desktop */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 lg:gap-6 pb-8 sm:pb-12 border-b border-slate-200/80 dark:border-slate-800">
             
             {/* Col 1 & 2: Brand, Purpose & Compliance Trust Signals (Spans 2 cols on mobile & lg) */}
             <div className="col-span-2 lg:col-span-2 space-y-3 sm:space-y-4">
@@ -146,7 +155,30 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Col 4: Platform & Resources */}
+            {/* Col 4: Popular Guides & Educational Articles */}
+            <div className="col-span-1">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2.5 sm:mb-4">
+                Guides and Articles
+              </h4>
+              <ul className="space-y-1 sm:space-y-2.5 text-xs list-none p-0 m-0">
+                {GUIDES_LINKS.map(([title, href]) => (
+                  <li key={title}>
+                    <a
+                      href={href}
+                      className={`min-h-[32px] inline-flex items-center transition-colors py-0.5 sm:py-0 ${
+                        title.includes("View All")
+                          ? "font-semibold text-emerald-600 dark:text-emerald-400 hover:underline"
+                          : "hover:text-emerald-600 dark:hover:text-emerald-400"
+                      }`}
+                    >
+                      {title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 5: Platform & Resources */}
             <div className="col-span-1">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2.5 sm:mb-4">
                 Platform &amp; Guides
@@ -162,7 +194,7 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Col 5: Trust, Legal & Google Requirements */}
+            {/* Col 6: Trust, Legal & Google Requirements */}
             <div className="col-span-2 sm:col-span-1">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white mb-2.5 sm:mb-4">
                 Trust &amp; Legal

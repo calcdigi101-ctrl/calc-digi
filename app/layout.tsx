@@ -9,7 +9,7 @@ import { Footer } from "@/components/site/Footer";
 import "./flagship.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL("https://www.calcdigi.com"),
   title: {
     default: "Free Online Calculator (Instant & Ad-Free) | 330+ Tools – CalcDigi",
     template: "%s | CalcDigi",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Free Online Calculator (Instant & Ad-Free) | 330+ Tools – CalcDigi",
     description: "Fast, private, and 100% free online calculators for Finance, Math, Health, and Science. No signup, instant calculation, and step-by-step formulas.",
     type: "website",
-    url: SITE_URL,
+    url: "https://www.calcdigi.com",
     siteName: "CalcDigi",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "CalcDigi – Free Online Calculators" }],
   },
