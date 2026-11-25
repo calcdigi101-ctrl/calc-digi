@@ -32,25 +32,142 @@ const RELATED_CALCULATORS = [
 const FAQ_ITEMS = [
   {
     q: "What is the difference between sales tax and use tax?",
-    a: "Sales tax is collected directly by sellers at the point of purchase within their home jurisdiction. Use tax applies when taxable items are purchased from out-of-state vendors without paying local sales tax (such as online purchases where no tax was charged). Buyers are legally required to report and pay use tax directly to their state tax agency.",
+    a: "Sales tax is collected directly by licensed retail sellers at the point of sale within their home jurisdiction. Consumer use tax applies when taxable items are purchased from out-of-state or untaxed vendors without local sales tax being charged. In that situation, the purchaser owes use tax directly to their state revenue agency.",
   },
   {
-    q: "Why does my receipt show a higher tax rate than the state rate?",
-    a: "Most US states permit cities, counties, and special transit or fire districts to levy additional municipal surcharges on top of the base state tax rate. The rate printed on your receipt represents the combined total of all applicable state and local taxing authorities.",
+    q: "How do I reverse calculate the pre-tax price from a total receipt?",
+    a: "To extract the original price from a receipt total, divide the gross total charge by 1 plus the tax rate as a decimal. For instance, if you paid $107.00 in an area with a 7% sales tax rate, divide $107.00 by 1.07 to reveal the pre-tax item cost of $100.00, with $7.00 representing the exact sales tax paid.",
   },
   {
-    q: "How do I reverse calculate pre-tax cost from a credit card receipt?",
-    a: "Divide the final charge by 1 plus the tax rate expressed as a decimal. For example, if you paid $108.00 at an 8% tax rate, divide $108.00 by 1.08 to find the original pre-tax cost of $100.00.",
+    q: "Why does my receipt display a higher percentage than the published state tax rate?",
+    a: "Most US states permit counties, cities, school districts, and municipal transportation authorities to levy local surcharges on top of the statewide baseline tax rate. The percentage printed on your customer receipt represents the combined aggregate of all applicable state and local taxing authorities.",
   },
   {
-    q: "Are groceries and clothing subject to sales tax?",
-    a: "State rules vary widely. Many US states exempt essential groceries, prescription drugs, and basic clothing items from statewide sales tax. Prepared restaurant meals, candy, soda, and luxury apparel are typically taxed at standard rates.",
+    q: "What US states have zero statewide sales tax?",
+    a: "Five US states enforce zero statewide general sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon. Alaska allows municipal boroughs to assess local taxes, while Delaware, Montana, New Hampshire, and Oregon maintain zero general sales tax across both state and local levels.",
   },
   {
-    q: "What states have no sales tax in the US?",
-    a: "There are five states with no statewide general sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon. Alaska allows local municipalities to impose municipal sales taxes, while Delaware, Montana, New Hampshire, and Oregon are completely tax-free at all levels.",
+    q: "Are food and grocery purchases subject to sales tax?",
+    a: "Most US states exempt essential, unprepared groceries from sales tax to reduce costs on household living staples. However, prepared hot meals, restaurant dining, candy, and carbonated beverages are classified as taxable luxury consumption across almost all jurisdictions.",
+  },
+  {
+    q: "How do store coupons affect sales tax calculations?",
+    a: "Retailer store coupons and promotional markdowns lower the taxable base price, meaning tax is assessed only on the net amount paid by the customer. In contrast, manufacturer coupons do not lower the tax base in most states because the manufacturer reimburses the retailer for the face value of the coupon.",
+  },
+  {
+    q: "Is sales tax charged on shipping and handling fees?",
+    a: "Shipping taxability depends on individual state statutes and whether delivery fees are separated on the customer invoice. In states like California, delivery by common carrier is generally non-taxable if stated separately, whereas states like New York consider shipping and handling taxable whenever the underlying product being shipped is taxable.",
+  },
+  {
+    q: "What is economic nexus and how does it affect small online businesses?",
+    a: "Following the 2018 Wayfair Supreme Court decision, out-of-state merchants must collect and remit sales tax once their sales into a state exceed statutory economic thresholds, typically $100,000 in gross sales or 200 individual shipments annually.",
   },
 ];
+
+function VisualAnalysisGraph() {
+  return (
+    <div className="w-full my-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/60">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">
+            Visual Analysis: State Base Rate vs Local Municipal Surcharge Stacking
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            Comparing statewide statutory base rates versus average local city, county, and transit surcharges across primary US commercial markets.
+          </p>
+        </div>
+        <div className="flex items-center gap-4 mt-3 sm:mt-0 text-xs text-slate-600 dark:text-slate-400">
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-sm bg-blue-600"></span> State Base Rate
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded-sm bg-emerald-500"></span> Local Surcharge
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-3.5 pt-1">
+        <div>
+          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
+            <span>California (Max Combined: 10.75%)</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">7.25% Base + 3.50% Local</span>
+          </div>
+          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+            <div style={{ width: "67.4%" }} className="h-full bg-blue-600" title="State Base: 7.25%"></div>
+            <div style={{ width: "32.6%" }} className="h-full bg-emerald-500" title="Local Surcharge: 3.50%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
+            <span>Illinois (Max Combined: 10.25%)</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">6.25% Base + 4.00% Local</span>
+          </div>
+          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+            <div style={{ width: "61.0%" }} className="h-full bg-blue-600" title="State Base: 6.25%"></div>
+            <div style={{ width: "39.0%" }} className="h-full bg-emerald-500" title="Local Surcharge: 4.00%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
+            <span>Missouri (Max Combined: 10.10%)</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">4.225% Base + 5.875% Local</span>
+          </div>
+          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+            <div style={{ width: "41.8%" }} className="h-full bg-blue-600" title="State Base: 4.225%"></div>
+            <div style={{ width: "58.2%" }} className="h-full bg-emerald-500" title="Local Surcharge: 5.875%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
+            <span>Tennessee (Max Combined: 9.75%)</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">7.00% Base + 2.75% Local</span>
+          </div>
+          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+            <div style={{ width: "71.8%" }} className="h-full bg-blue-600" title="State Base: 7.00%"></div>
+            <div style={{ width: "28.2%" }} className="h-full bg-emerald-500" title="Local Surcharge: 2.75%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
+            <span>New York (Max Combined: 8.875%)</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">4.00% Base + 4.875% Local</span>
+          </div>
+          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+            <div style={{ width: "45.1%" }} className="h-full bg-blue-600" title="State Base: 4.00%"></div>
+            <div style={{ width: "54.9%" }} className="h-full bg-emerald-500" title="Local Surcharge: 4.875%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
+            <span>Texas (Max Combined: 8.25%)</span>
+            <span className="font-semibold text-slate-900 dark:text-slate-100">6.25% Base + 2.00% Local</span>
+          </div>
+          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+            <div style={{ width: "75.8%" }} className="h-full bg-blue-600" title="State Base: 6.25%"></div>
+            <div style={{ width: "24.2%" }} className="h-full bg-emerald-500" title="Local Surcharge: 2.00%"></div>
+          </div>
+        </div>
+
+        <div>
+          <div className="flex justify-between text-xs font-medium mb-1 text-slate-700 dark:text-slate-300">
+            <span>Delaware, Montana, New Hampshire, Oregon</span>
+            <span className="font-semibold text-emerald-600 dark:text-emerald-400">0.00% (Completely Tax-Free)</span>
+          </div>
+          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+            <div className="w-full h-full bg-slate-200 dark:bg-slate-700 text-[10px] text-center text-slate-600 dark:text-slate-400 flex items-center justify-center font-semibold">
+              Zero Sales Tax Surcharge
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function SalesTaxCalculatorPage() {
   return (
@@ -62,16 +179,16 @@ export default function SalesTaxCalculatorPage() {
             {
               "@context": "https://schema.org",
               "@type": "SoftwareApplication",
-              "name": "Sales Tax Calculator (Add or Reverse Tax)",
+              "name": "Sales Tax Calculator",
               "applicationCategory": "BusinessApplication",
               "operatingSystem": "All",
               "url": "https://www.calcdigi.com/calculators/business/sales-tax-calculator",
-              "description": DESCRIPTION,
               "offers": {
                 "@type": "Offer",
                 "price": "0",
                 "priceCurrency": "USD",
               },
+              "description": "Calculate forward sales tax totals, state surcharge rates, and reverse pre-tax costs instantly.",
               "dateModified": "2026-11-25",
             },
             {
@@ -99,66 +216,86 @@ export default function SalesTaxCalculatorPage() {
         appCategory="BusinessApplication"
         dateModifiedOverride="2026-11-25"
         exactFaq={true}
-        faqTitle="Frequently Asked Questions About Sales Tax"
+        faqTitle="Frequently Asked Questions About Sales Tax Calculations"
         faq={FAQ_ITEMS}
         related={RELATED_CALCULATORS}
         article={
           <>
-            <h2>How to Calculate Sales Tax on Purchases in 3 Steps</h2>
+            <h2>Understanding How Sales Tax Works: Retail, Online, and Business Transactions</h2>
             <p>
-              Calculating sales tax on retail purchases, online orders, or business invoices requires three simple numbers: the pre-tax price, the tax rate percentage, and basic multiplication.
+              Sales tax is a consumption tax imposed by state and municipal governments on the sale of retail goods and select commercial services. When a consumer completes a purchase, the merchant acts as an authorized collection agent for the state department of revenue, assessing the statutory percentage at checkout and remitting those funds periodically. Because the United States does not enforce a unified national value added tax (VAT), sales tax regulations remain decentralized across fifty distinct state codes, thousands of county governments, and tens of thousands of individual municipal taxing districts.
+            </p>
+            <p>
+              Mastering the mechanics of both forward sales tax calculations and reverse pre-tax extraction is essential for retail shoppers, freelance contractors, small business bookkeepers, and corporate accounting departments. Applying an outdated rate or mistyping a local district percentage can trigger compliance audits, statutory penalties, or inaccurate invoice totals.
+            </p>
+
+            <h2>How to Calculate Sales Tax on Retail Purchases in 3 Steps</h2>
+            <p>
+              Calculating sales tax on forward purchases requires three core values: the pre-tax sticker price of the merchandise, the combined statutory tax rate, and basic decimal multiplication.
             </p>
             <ol className="list-decimal pl-5 space-y-2 my-4 text-slate-700 dark:text-slate-300">
-              <li>Convert your sales tax percentage into a decimal by dividing by 100 (for example, 7.25% becomes 0.0725).</li>
-              <li>Multiply the item price by the decimal tax rate to find the exact tax amount.</li>
-              <li>Add the tax amount to the original price to get the final total checkout cost.</li>
+              <li>
+                <strong>Step 1:</strong> Convert the sales tax percentage into a standard decimal by dividing the percentage by 100. For example, a combined tax rate of 8.25% converts to 0.0825 (8.25 / 100 = 0.0825).
+              </li>
+              <li>
+                <strong>Step 2:</strong> Multiply the pre-tax price of the product by the decimal tax rate to calculate the exact dollar amount of sales tax owed on that specific item.
+              </li>
+              <li>
+                <strong>Step 3:</strong> Add the calculated sales tax amount to the original pre-tax price to determine the final total checkout cost.
+              </li>
             </ol>
-            <p className="font-medium text-slate-900 dark:text-slate-100">
-              Example: If an item costs $120.00 in a city with an 8.25% sales tax rate:
+
+            <h3>Detailed Forward Calculation Example:</h3>
+            <p>
+              Consider purchasing an office desk priced at $350.00 in a retail district with an 8.5% combined sales tax rate:
             </p>
-            <ul className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
-              <li>Decimal rate: 8.25 / 100 = 0.0825</li>
-              <li>Sales tax: $120.00 x 0.0825 = $9.90</li>
-              <li>Total price: $120.00 + $9.90 = $129.90</li>
+            <ul className="list-disc pl-5 space-y-1 my-3 text-slate-700 dark:text-slate-300">
+              <li>Decimal conversion: 8.5 / 100 = 0.085</li>
+              <li>Sales tax dollar amount: $350.00 x 0.085 = $29.75</li>
+              <li>Total checkout price: $350.00 + $29.75 = $379.75</li>
             </ul>
 
-            <h2>Sales Tax Formulas: Adding Tax vs Reverse Tax (Pre-Tax Cost)</h2>
+            <h2>The Core Mathematical Formulas: Forward Calculation vs Reverse Tax Extraction</h2>
             <p>
-              Depending on whether you are shopping or balancing business books, you will use one of two core formulas:
+              Depending on whether you are budgeting for an upcoming retail expense or reviewing a past credit card receipt for corporate expense reporting, you will employ one of two fundamental formulas:
             </p>
 
-            <h3>Formula 1: Adding Sales Tax (Forward Calculation)</h3>
-            <p>Use this when you know the item price and want to find the final total:</p>
+            <h3>Formula 1: Forward Calculation (Adding Sales Tax to an Item)</h3>
+            <p>When you know the base item cost and need to find the final receipt total:</p>
             <ul className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
               <li>Sales Tax Amount = Item Price x (Tax Rate / 100)</li>
-              <li>Total Price = Item Price + Sales Tax Amount</li>
+              <li>Total Checkout Price = Item Price + Sales Tax Amount</li>
+              <li>Combined Shortcut: Total Checkout Price = Item Price x (1 + (Tax Rate / 100))</li>
             </ul>
 
-            <h3>Formula 2: Reverse Sales Tax (Backing Out Tax from a Receipt)</h3>
-            <p>Use this when you have a gross receipt total and need to know the original price before tax was added:</p>
+            <h3>Formula 2: Reverse Sales Tax Calculation (Backing Out Pre-Tax Cost from Receipts)</h3>
+            <p>When you have an all-inclusive receipt or a gross credit card charge and need to separate the original merchandise cost from the sales tax paid:</p>
             <ul className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
-              <li>Pre-Tax Price = Total Price / (1 + (Tax Rate / 100))</li>
-              <li>Sales Tax Paid = Total Price - Pre-Tax Price</li>
-            </ul>
-            <p className="font-medium text-slate-900 dark:text-slate-100">
-              Reverse Example: If your total restaurant receipt is $162.38 with a 7% sales tax rate:
-            </p>
-            <ul className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
-              <li>Pre-tax cost: $162.38 / 1.07 = $151.76</li>
-              <li>Tax amount: $162.38 - $151.76 = $10.62</li>
+              <li>Pre-Tax Price = Total Receipt Price / (1 + (Tax Rate / 100))</li>
+              <li>Sales Tax Paid = Total Receipt Price - Pre-Tax Price</li>
             </ul>
 
-            <h2>US State Sales Tax Rates: Quick Reference Table</h2>
+            <h3>Detailed Reverse Calculation Example:</h3>
             <p>
-              Sales tax in the United States is determined at state, county, and municipal levels. Five states (often called NOMAD states) charge zero statewide sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon.
+              Suppose a catering company issues a total invoice of $1,250.00 in a jurisdiction where the local tax rate is 7.50%. The accountant must separate food costs from state tax:
+            </p>
+            <ul className="list-disc pl-5 space-y-1 my-3 text-slate-700 dark:text-slate-300">
+              <li>Pre-tax food cost: $1,250.00 / (1 + 0.075) = $1,250.00 / 1.075 = $1,162.79</li>
+              <li>Sales tax collected: $1,250.00 - $1,162.79 = $87.21</li>
+              <li>Verification: $1,162.79 x 0.075 = $87.21, and $1,162.79 + $87.21 = $1,250.00.</li>
+            </ul>
+
+            <h2>US State Sales Tax Rates: Statutory Reference for Major Commercial States</h2>
+            <p>
+              State tax codes across America reflect differing legislative priorities. Five states levy zero statewide general sales tax: Alaska, Delaware, Montana, New Hampshire, and Oregon (frequently recognized as the NOMAD states). Among states that do collect sales tax, California features the highest statewide base rate at 7.25%, while states like Colorado feature base rates as low as 2.90%, but allow local municipalities significant leeway in stacking municipal surcharges.
             </p>
             <p>
-              Below are current statewide base rates and typical combined local averages for major US shopping states:
+              Statewide Base Tax Rates and Combined Local Surcharge Averages:
             </p>
 
             <div className="my-6">
               <DataTable
-                head={["State", "Statewide Base Tax Rate", "Average Local Tax Surcharge", "Typical Combined Rate Range"]}
+                head={["US State", "Base Statewide Rate", "Average Local Surcharge", "Typical Combined Tax Range"]}
                 rows={[
                   ["California", "7.25%", "1.63%", "7.25% to 10.75%"],
                   ["Texas", "6.25%", "1.95%", "6.25% to 8.25%"],
@@ -171,39 +308,126 @@ export default function SalesTaxCalculatorPage() {
                   ["North Carolina", "4.75%", "2.25%", "4.75% to 7.50%"],
                   ["Missouri", "4.225%", "4.14%", "4.225% to 10.10%"],
                   ["Washington", "6.50%", "2.88%", "6.50% to 10.60%"],
-                  ["Alaska", "0.00% (No state tax)", "1.82% (Local only)", "0.00% to 7.50%"],
-                  ["Delaware", "0.00%", "0.00%", "0.00% (Tax-Free)"],
-                  ["Montana", "0.00%", "0.00%", "0.00% (Tax-Free)"],
-                  ["New Hampshire", "0.00%", "0.00%", "0.00% (Tax-Free)"],
-                  ["Oregon", "0.00%", "0.00%", "0.00% (Tax-Free)"],
+                  ["Arizona", "5.60%", "2.80%", "5.60% to 11.20%"],
+                  ["Colorado", "2.90%", "4.91%", "2.90% to 11.20%"],
+                  ["Tennessee", "7.00%", "2.55%", "7.00% to 9.75%"],
+                  ["Indiana", "7.00%", "0.00%", "7.00% (Uniform Statewide)"],
+                  ["Michigan", "6.00%", "0.00%", "6.00% (Uniform Statewide)"],
+                  ["Virginia", "5.30%", "0.47%", "5.30% to 7.00%"],
+                  ["Massachusetts", "6.25%", "0.00%", "6.25% (Uniform Statewide)"],
+                  ["Alaska", "0.00%", "1.82%", "0.00% to 7.50% (Municipal Only)"],
+                  ["Delaware", "0.00%", "0.00%", "0.00% (Completely Tax-Free)"],
+                  ["Montana", "0.00%", "0.00%", "0.00% (Completely Tax-Free)"],
+                  ["New Hampshire", "0.00%", "0.00%", "0.00% (Completely Tax-Free)"],
+                  ["Oregon", "0.00%", "0.00%", "0.00% (Completely Tax-Free)"],
                 ]}
               />
             </div>
 
-            <h2>Everyday Sales Tax Scenarios and Worked Examples</h2>
-
-            <h3>Scenario 1: Retail Purchase with Mixed Discounts</h3>
+            <h2>The Five Tax-Free States: Understanding the NOMAD Exception</h2>
             <p>
-              A buyer purchases a jacket priced at $80.00 with a 20% store discount coupon in an area with 6.5% sales tax:
+              Consumers frequently travel or establish operations in states with zero general sales tax to optimize procurement costs. However, each of the five NOMAD states enforces specific statutory rules:
             </p>
-            <ul className="list-disc pl-5 space-y-1 my-3 text-slate-700 dark:text-slate-300">
-              <li>Discounted price: $80.00 - ($80.00 x 0.20) = $64.00</li>
-              <li>Sales tax on discounted price: $64.00 x 0.065 = $4.16</li>
-              <li>Final total payable: $64.00 + $4.16 = $68.16</li>
+            <ol className="list-decimal pl-5 space-y-2 my-4 text-slate-700 dark:text-slate-300">
+              <li>
+                <strong>Alaska:</strong> Alaska imposes no statewide sales tax, but local municipalities, boroughs, and cities possess statutory authority to levy municipal sales taxes up to 7.50%. Major population centers like Juneau charge local sales tax, whereas Anchorage enforces zero sales tax.
+              </li>
+              <li>
+                <strong>Delaware:</strong> Delaware charges zero state or local sales tax on retail goods, making it a prominent hub for corporate logistics and consumer retail shopping.
+              </li>
+              <li>
+                <strong>Montana:</strong> Montana maintains zero general sales tax, though designated resort communities like Whitefish or Big Sky may assess a local resort tax of 3% to 4% on luxury goods, dining, and lodging.
+              </li>
+              <li>
+                <strong>New Hampshire:</strong> New Hampshire assesses no sales tax on consumer retail merchandise, though it levies targeted consumption taxes on prepared restaurant meals and short-term hotel accommodations.
+              </li>
+              <li>
+                <strong>Oregon:</strong> Oregon assesses zero sales tax on consumer purchases, but levies an excise corporate activity tax on commercial receipts and a flat fee on new bicycle purchases.
+              </li>
+            </ol>
+
+            <h2>Origin-Based vs Destination-Based Sales Tax for Businesses</h2>
+            <p>
+              For e-commerce merchants, retail shippers, and remote service providers, determining which tax rate applies to a transaction depends on whether a state follows origin-based or destination-based sourcing guidelines:
+            </p>
+
+            <h3>Destination-Based Sourcing (Majority of States):</h3>
+            <p>
+              In destination-based states, the applicable sales tax rate is determined by the delivery address where the customer receives the product. If a warehouse in rural Pennsylvania ships an item to Philadelphia, the higher Philadelphia municipal rate applies to the transaction.
+            </p>
+
+            <h3>Origin-Based Sourcing (Minority of States):</h3>
+            <p>
+              In origin-based states (including Texas, Ohio, Arizona, Illinois, Pennsylvania, and Virginia for intra-state sales), tax is collected based on where the seller or warehouse is located rather than where the buyer lives.
+            </p>
+
+            <h2>Economic Nexus Guidelines for Online Sellers</h2>
+            <p>
+              Following the landmark 2018 United States Supreme Court ruling in South Dakota v. Wayfair, states possess constitutional authority to require remote, out-of-state merchants to collect and remit sales tax once their sales surpass designated economic thresholds.
+            </p>
+            <p>
+              The standard economic nexus threshold adopted by most states is $100,000 in gross annual sales or 200 separate commercial transactions shipped into that specific state during a calendar year. High-volume e-commerce platforms like Amazon, eBay, and Shopify automatically function as marketplace facilitators, collecting and remitting sales tax on behalf of independent third-party sellers across participating jurisdictions.
+            </p>
+
+            <h2>Taxable Merchandise vs Product Tax Exemptions</h2>
+            <p>
+              Not all retail goods carry equal tax liability. State legislatures routinely establish statutory exemptions to relieve tax burdens on essential living necessities:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 my-4 text-slate-700 dark:text-slate-300">
+              <li>
+                <strong>Essential Groceries:</strong> Over thirty states exempt unprepared grocery food items from general sales tax, while states like Alabama and Mississippi tax groceries at full or slightly reduced rates.
+              </li>
+              <li>
+                <strong>Prescription and Over-the-Counter Medications:</strong> Prescription drugs are fully exempt from sales tax in almost every US state. Over-the-counter medications like pain relievers and allergy tablets are taxable in most states, but exempt in Florida, Maryland, Minnesota, New Jersey, New York, Pennsylvania, Texas, and Vermont.
+              </li>
+              <li>
+                <strong>Apparel and Footwear:</strong> Clothing is subject to standard sales tax in most states, but completely exempt in Pennsylvania, Minnesota, New Jersey, and Vermont, while New York exempts clothing and footwear items priced under $110.00.
+              </li>
+              <li>
+                <strong>Digital Products and SaaS:</strong> Digital downloads, audio streaming subscriptions, and software-as-a-service platforms face varying tax rules. States like Washington and Pennsylvania tax digital downloads and cloud subscriptions, while California generally considers pure digital information and hosted software non-taxable if no tangible storage medium is transferred.
+              </li>
             </ul>
 
-            <h3>Scenario 2: Contractor Invoice Breakdown</h3>
-            <p>
-              A freelance web designer bills $2,500 for hardware installation where taxable equipment represents $1,000 and labor is non-taxable at a 6% local rate:
-            </p>
-            <ul className="list-disc pl-5 space-y-1 my-3 text-slate-700 dark:text-slate-300">
-              <li>Equipment tax: $1,000 x 0.06 = $60.00</li>
-              <li>Non-taxable service labor: $1,500.00</li>
-              <li>Total invoice amount: $2,560.00</li>
+            <h2>Real-World Calculation Scenarios: Discounts, Trade-Ins, and Service Labor</h2>
+
+            <h3>Scenario 1: Retail Store Discounts and Manufacturer Coupons</h3>
+            <p>When purchasing discounted items, the calculation method depends on the coupon type:</p>
+            <ul className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
+              <li>Store Discounts (Instant Markdowns): Sales tax is calculated on the net discounted price paid by the customer. If a $100.00 jacket is discounted 30% to $70.00, sales tax at 8% is applied to $70.00 ($5.60 tax, total $75.60).</li>
+              <li>Manufacturer Coupons: Because the manufacturer reimburses the retailer for the coupon value, sales tax is assessed on the full retail price before the manufacturer discount in most states.</li>
+            </ul>
+
+            <h3>Scenario 2: Automobile Trade-Ins and Tax Credits</h3>
+            <p>When purchasing a vehicle with an eligible trade-in vehicle, most states allow a sales tax trade-in credit:</p>
+            <ul className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
+              <li>Total new car price: $32,000.00</li>
+              <li>Accepted trade-in allowance: $10,000.00</li>
+              <li>Net taxable purchase price: $22,000.00</li>
+              <li>Sales tax at 6%: $22,000.00 x 0.06 = $1,320.00 (saving $600.00 in tax).</li>
+            </ul>
+
+            <h3>Scenario 3: Mixed Contractor Invoices (Labor vs Tangible Materials)</h3>
+            <p>Contractors and repair professionals regularly issue invoices containing both physical materials and hourly service labor:</p>
+            <ul className="list-disc pl-5 space-y-1 my-2 text-slate-700 dark:text-slate-300">
+              <li>Tangible plumbing parts: $450.00 (Taxable at 7% = $31.50)</li>
+              <li>Master labor installation: $600.00 (Non-taxable in most jurisdictions)</li>
+              <li>Total invoice amount: $1,081.50</li>
+            </ul>
+
+            <h2>Sales Tax vs Consumer Use Tax: Compliance and Differences</h2>
+            <p>Sales tax and use tax are mutually exclusive, complementary taxes designed to ensure equitable revenue collection:</p>
+            <ul className="list-disc pl-5 space-y-2 my-4 text-slate-700 dark:text-slate-300">
+              <li>
+                <strong>Sales Tax:</strong> Paid by the purchaser to an authorized vendor during a local transaction within the state border.
+              </li>
+              <li>
+                <strong>Use Tax:</strong> Owed by the purchaser when taxable goods are acquired from an out-of-state vendor without paying local sales tax (such as ordering merchandise from an untaxed overseas website or across state lines). The consumer is legally obligated to report and remit use tax on their annual state personal income tax filing.
+              </li>
             </ul>
           </>
         }
       >
+        <VisualAnalysisGraph />
         <SalesTaxCalculatorComponent />
       </CalcPage>
     </>
