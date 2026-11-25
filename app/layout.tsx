@@ -52,8 +52,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <GoogleTagManager gtmId="GTM-KHVKZFRV" />
-        <GoogleAnalytics gaId="G-CKV8968HQK" />
+        {/* Google Tag Manager & Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-KHVKZFRV" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKV8968HQK" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'GTM-KHVKZFRV');gtag('config', 'G-CKV8968HQK');`,
+          }}
+        />
         <script dangerouslySetInnerHTML={{ __html: HEAD_SCRIPT }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -64,6 +70,14 @@ export default function RootLayout({
         <link rel="stylesheet" href={`/css/main.css?v=${ASSET_VERSION}`} />
       </head>
       <body suppressHydrationWarning>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KHVKZFRV"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <Header />
         <div id="main" tabIndex={-1}>
