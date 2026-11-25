@@ -1,0 +1,22 @@
+title = "Gitleaks config for CalcDigi"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlists for build artifacts and sample chart labels"
+paths = [
+  '''(?i).*[\\/]\.next[\\/].*''',
+  '''(?i).*[\\/]node_modules[\\/].*''',
+  '''(?i).*[\\/]\.env\.local$''',
+  '''(?i)components[\\/]flagship[\\/]engineering[\\/]editorial-charts[\\/]BoltTorqueClampingForceChart\.tsx''',
+  '''(?i)components[\\/]flagship[\\/]finance[\\/]editorial-charts[\\/]SelfEmploymentTaxBreakdownChart\.tsx''',
+  '''(?i)components[\\/]flagship[\\/]finance[\\/]editorial-charts[\\/]HomeAffordabilityDtiSpectrumChart\.tsx''',
+]
+
+regexes = [
+  '''torqueOiled''',
+  '''torqueAnti''',
+  '''w2Employee''',
+  '''conservati''',
+]
