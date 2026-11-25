@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { SITE_URL } from "@/lib/site";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import RouteEffects from "@/components/RouteEffects";
@@ -51,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <GoogleTagManager gtmId="GTM-KHVKZFRV" />
         <script dangerouslySetInnerHTML={{ __html: HEAD_SCRIPT }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
