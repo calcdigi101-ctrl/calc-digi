@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LifeStageChronologicalDistributionChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/age-calculator";
-const TITLE = "Age Calculator: Exact Years, Months & Days";
+const TITLE = "Exact Age Calculator: Years, Months, Days and Minutes";
 const DESCRIPTION =
   "Free online age calculator. Calculate your exact age in years, months, days, and minutes with leap-year accuracy and next birthday countdown.";
 
@@ -78,12 +78,12 @@ export default function AgeCalculatorPage() {
           <div className="not-prose mb-8 flex flex-wrap items-center gap-3 border-b border-slate-200 pb-4 text-xs font-medium text-slate-500 dark:border-slate-800 dark:text-slate-400">
             <span className="flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-400 font-semibold">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Astronomical &amp; Actuarial Chronological Standards
+              Astronomical and Actuarial Chronological Standards
             </span>
             <span>•</span>
             <span>Updated Q4 2026</span>
             <span>•</span>
-            <span>Gregorian Calendar &amp; SSA OASDI Validated</span>
+            <span>Gregorian Calendar and SSA OASDI Validated</span>
           </div>
           <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-4 mb-6 text-sm text-slate-700 dark:border-emerald-950/40 dark:bg-emerald-950/10 dark:text-slate-300">
             <strong>Chronological Precision Guidance:</strong> Exact chronological age measures elapsed calendar intervals across non-uniform month lengths and quadrennial leap days. For legal contracts, insurance underwriting, and medical pediatric staging, cross-reference upcoming anniversaries in our <Link href="/calculators/datetime/birthday-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">birthday calculator</Link>, track elapsed calendar intervals with our <Link href="/calculators/datetime/date-difference-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">date difference calculator</Link>, or evaluate metric durations in our <Link href="/calculators/measurements/time-converter" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time converter</Link>.
@@ -203,7 +203,7 @@ export default function AgeCalculatorPage() {
             Precise age calculation is indispensable across commercial insurance underwriting. Life insurance policies calculate actuarial premiums based on &apos;age nearest birthday&apos; (ANB), where an individual who is 44 years, 6 months, and 1 day old is underwritten at age 45 rates, creating substantial rate inflection points. In judicial courts, chronological age establishes age of consent, juvenile court versus adult court jurisdiction, and the exact eligibility date for social security retirement drawdowns.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In international athletics and youth sports development, the Relative Age Effect (RAE) demonstrates that children born immediately after eligibility cutoff dates (e.g., January 1 for FIFA youth soccer) possess systematic physical advantages over children born eleven months later in the same cohort. For scheduling project tasks and business sprints, explore our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link> and convert shift hours in our <Link href="/calculators/datetime/time-duration-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time duration calculator</Link>, or visit the comprehensive <Link href="/pages/datetime" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Date &amp; Time directory</Link>.
+            In international athletics and youth sports development, the Relative Age Effect (RAE) demonstrates that children born immediately after eligibility cutoff dates (e.g., January 1 for FIFA youth soccer) possess systematic physical advantages over children born eleven months later in the same cohort. For scheduling project tasks and business sprints, explore our <Link href="/calculators/datetime/workdays-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">workdays calculator</Link> and convert shift hours in our <Link href="/calculators/datetime/time-duration-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">time duration calculator</Link>, or visit the comprehensive <Link href="/pages/datetime" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Date and Time directory</Link>.
           </p>
         </>
       }

@@ -7,8 +7,8 @@ import { CommonLoanPaymentMatrix } from "@/components/calcs/finance/CommonLoanPa
 
 const PATH = "/calculators/finance/loan-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/finance/loan-calculator";
-const TITLE = "Loan Payment Calculator: Monthly Pay & Amortization Schedule";
-const FULL_TITLE = "Loan Payment Calculator: Monthly Pay & Amortization Schedule | CalcDigi";
+const TITLE = "Loan Payment Calculator: Exact Monthly Pay and Interest";
+const FULL_TITLE = "Loan Payment Calculator: Exact Monthly Pay and Interest | CalcDigi";
 const DESCRIPTION =
   "Calculate your exact monthly loan payments, total interest, and full amortization payoff schedule. Fast, accurate, and free.";
 
@@ -134,7 +134,7 @@ export default function Page() {
             </li>
           </ol>
 
-          <h2>Installment Loan Payment Benchmarks by Credit Tier &amp; Term</h2>
+          <h2>Installment Loan Payment Benchmarks by Credit Tier and Term</h2>
           <p>
             Lenders price installment credit based on credit risk profiles and term duration. A shorter loan term demands higher monthly debt service but drastically reduces cumulative interest expenditure. The benchmark matrix below evaluates a standard <strong>$20,000 personal loan</strong> across standard credit tiers and repayment horizons:
           </p>
@@ -203,7 +203,7 @@ export default function Page() {
           </ul>
 
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
-            <h3>Related Debt &amp; Financing Solvers</h3>
+            <h3>Related Debt and Financing Solvers</h3>
             <p>
               Compare financing options across our specialized debt architecture. Uncover vehicle depreciation with the <a href="/calculators/finance/auto-loan-calculator">Auto Loan Calculator</a>, evaluate real borrowing costs via the <a href="/calculators/finance/apr-calculator">APR Calculator</a>, model residential debt with the <a href="/calculators/finance/mortgage-calculator">Mortgage Calculator</a>, and eliminate multiple revolving balances with the <a href="/calculators/finance/debt-payoff-calculator">Debt Payoff Calculator</a>.
             </p>

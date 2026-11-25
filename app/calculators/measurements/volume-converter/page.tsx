@@ -6,7 +6,7 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VolumeMetricImperialVolumetricRatioChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/volume-converter";
-const TITLE = "Volume & Capacity Converter";
+const TITLE = "Volume Converter: Gallons, Liters, Cups and Fluid Ounces";
 const DESCRIPTION =
   "Convert liters, gallons, cubic meters, fluid ounces, pints, and barrels with exact cubic dimensional derivations and interactive volumetric ratio charts.";
 
@@ -186,7 +186,7 @@ export default function VolumeConverterPage() {
             In global fuel logistics, maritime bunker tankers pump heavy fuel oil measured by volume at ambient temperatures, which must subsequently be converted to metric tonnes using temperature-compensated density correction tables (ASTM D1250). In agricultural irrigation, water rights across North America are leased in acre-feet—the volume of water required to cover one acre of land to a depth of one foot, equaling exactly 43,560 cubic feet or 325,851 US gallons (1,233.48 m³).
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In consumer electronics, automotive engine displacement is universally quoted in cubic centimeters (cc) or liters (e.g., a 2.0-liter turbocharged engine equals 2,000 cm³ or approximately 122 cubic inches). For academic and general calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and the central <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements &amp; Conversions hub</Link>.
+            In consumer electronics, automotive engine displacement is universally quoted in cubic centimeters (cc) or liters (e.g., a 2.0-liter turbocharged engine equals 2,000 cm³ or approximately 122 cubic inches). For academic and general calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and the central <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements and Conversions hub</Link>.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
