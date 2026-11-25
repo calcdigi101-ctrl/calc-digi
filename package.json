@@ -13,6 +13,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.133.0",
     "@hookform/resolvers": "^5.9.1",
+    "@next/third-parties": "^16.4.6",
     "@supabase/supabase-js": "^2.112.4",
     "clsx": "^2.1.1",
     "lucide-react": "^1.55.0",
