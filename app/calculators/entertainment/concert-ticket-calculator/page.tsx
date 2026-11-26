@@ -5,9 +5,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { ConcertTicketTrueCostBreakdownChart } from "@/components/flagship/entertainment/editorial-charts";
 
 const PATH = "/calculators/entertainment/concert-ticket-calculator";
-const TITLE = "Concert Ticket True Cost Calculator (Hidden Fees Added)";
+const TITLE = "Concert Ticket Affordability Calculator: Budget and Work Hours";
 const DESCRIPTION =
-  "Free concert ticket cost calculator. Instantly calculate total ticket price with venue fees, dynamic surge pricing, parking, and hidden service charges.";
+  "Calculate the true total cost of concert tickets including fees, travel, and food. See exactly how many hours of work it takes to pay for it.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -42,7 +42,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How much extra does an evening out at a major stadium concert actually cost beyond the ticket?",
-    a: "Concert industry financial audits demonstrate that the ticket face value accounts for only 45% to 55% of the total night-out expenditure. When attending an arena or stadium show, attendees spend an average of $35–$65 on parking or rideshares, $40–$70 on stadium food and alcoholic beverages ($16–$22 per beer), and $45–$100 on official tour merchandise, easily doubling the initial ticket cost.",
+    a: "Concert industry financial audits demonstrate that the ticket face value accounts for only 45% to 55% of the total night-out expenditure. When attending an arena or stadium show, attendees spend an average of $35-$65 on parking or rideshares, $40-$70 on stadium food and alcoholic beverages ($16-$22 per beer), and $45-$100 on official tour merchandise, easily doubling the initial ticket cost.",
   },
   {
     q: "What are the advantages of buying tickets in-person at the venue box office?",
@@ -54,7 +54,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What consumer protection laws are being enacted regarding all-in ticket pricing?",
-    a: "Both US federal regulatory bodies (FTC junk fee rules) and state legislatures (such as New York, California, and Connecticut) have enacted mandatory 'All-In Pricing' laws. These statutes require ticketing platforms to display the total final purchase price—inclusive of all mandatory platform convenience and facility fees—on the initial search screen, prohibiting hidden fee surprises at the final checkout payment screen.",
+    a: "Both US federal regulatory bodies (FTC junk fee rules) and state legislatures (such as New York, California, and Connecticut) have enacted mandatory 'All-In Pricing' laws. These statutes require ticketing platforms to display the total final purchase price - inclusive of all mandatory platform convenience and facility fees - on the initial search screen, prohibiting hidden fee surprises at the final checkout payment screen.",
   },
 ];
 
@@ -64,7 +64,7 @@ export default function ConcertTicketPage() {
       path={PATH}
       category={{ href: "/pages/entertainment", label: "Entertainment" }}
       title="Concert Ticket Calculator"
-      intro="Calculate the true all-in cost of live music and festival tickets. Factor in face value, platform convenience service fees (15%–35%), venue parking passes, food & drink concessions, and official tour merchandise."
+      intro="Calculate the true all-in cost of live music and festival tickets. Factor in face value, platform convenience service fees (15%-35%), venue parking passes, food & drink concessions, and official tour merchandise."
       description={DESCRIPTION}
       appCategory="UtilitiesApplication"
       faq={FAQ_ITEMS}
