@@ -7,17 +7,17 @@ import { CarnegieStudyHoursAllocationChart } from "@/components/flagship/educati
 
 const PATH = "/calculators/education/study-hours-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/education/study-hours-calculator";
-const TITLE = "College Study Hours Calculator (Carnegie 2:1 Rule)";
-const FULL_TITLE = "Study Hours Calculator – Weekly Study Time per Credit | CalcDigi";
+const TITLE = "Study Hours Calculator: Carnegie 2:1 Rule and Weekly Schedule";
+const FULL_TITLE = "Study Hours Calculator: Carnegie 2:1 Rule and Weekly Schedule | CalcDigi";
 const DESCRIPTION =
-  "Free college study time calculator. Calculate weekly study hours using the Carnegie 2:1 rule, balance your course workload, and plan your 168-hour week.";
+  "Calculate required college study time with the Carnegie 2:1 rule. Includes 12, 15, and 18 credit hour workload tables, STEM multipliers, and a weekly schedule planner.";
 
 export const metadata: Metadata = {
   title: { absolute: FULL_TITLE },
   description: DESCRIPTION,
   alternates: { canonical: CANONICAL_URL },
   openGraph: {
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     type: "website",
     url: CANONICAL_URL,
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     images: ["https://www.calcdigi.com/og/study-hours-calculator.png"],
     creator: "@CalcDigi",
@@ -50,6 +50,18 @@ const RELATED_CALCULATORS = [
 
 const FAQ_ITEMS = [
   {
+    q: "How many hours should I study for a 3-credit college class?",
+    a: "According to the Carnegie 2:1 rule, plan for 6 hours of independent study each week outside of class, bringing total weekly time to 9 hours.",
+  },
+  {
+    q: "How many study hours are required for 15 credits?",
+    a: "For a standard 15-credit full-time schedule, expect 15 hours in lecture plus 30 hours of independent study, totaling 45 hours per week.",
+  },
+  {
+    q: "Does the 2:1 study rule apply to STEM and lab courses?",
+    a: "STEM courses with extensive labs, problem sets, and programming assignments typically demand a 3:1 ratio, or 9 hours of study per 3-credit course.",
+  },
+  {
     q: "How accurate is this study hours calculator?",
     a: "The baseline calculation is based on the federally recognized Carnegie 2:1 rule (2 outside study hours per 1 classroom credit hour). Rigor and grade multipliers provide tailored estimates based on course difficulty.",
   },
@@ -63,14 +75,28 @@ const FAQ_ITEMS = [
   },
 ];
 
+const SOFTWARE_APPLICATION_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Study Hours Calculator",
+  applicationCategory: "EducationalApplication",
+  operatingSystem: "All",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "USD",
+  },
+};
+
 export default function StudyHoursCalculatorPage() {
   return (
     <CalcPage
       path={PATH}
       intro={DESCRIPTION}
-      category={{ href: "/pages/education", label: "Education & School" }}
+      category={{ href: "/pages/education", label: "Education and School" }}
       title={TITLE}
       description={DESCRIPTION}
+      appCategory="EducationalApplication"
       related={RELATED_CALCULATORS}
       faq={FAQ_ITEMS}
       exactFaq={true}
@@ -84,6 +110,11 @@ export default function StudyHoursCalculatorPage() {
       dateModifiedOverride="2026-11-15"
       article={
         <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(SOFTWARE_APPLICATION_JSON_LD) }}
+          />
+
           <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 dark:border-amber-900/40 dark:bg-amber-950/20 text-sm leading-relaxed mb-6">
             <strong>Quick Academic Guidance:</strong> Time management in higher education is governed by the federal Carnegie Unit standard, which establishes expected independent study workloads based on enrolled semester credit hours. By multiplying your credit load by discipline-specific rigor multipliers (1.5x for general education, 2.0x for standard courses, and 3.0x for intensive STEM), this tool constructs a weekly study budget across the 168 hours of your week. Optimize your exam performance using our <Link href="/calculators/education/final-grade-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">final grade calculator</Link> and track cumulative scholastic records via our <Link href="/calculators/education/gpa-calculator" className="font-semibold text-amber-900 dark:text-amber-200 underline">GPA calculator</Link>.
           </div>
@@ -98,13 +129,74 @@ export default function StudyHoursCalculatorPage() {
             </p>
           </div>
 
+          {/* Featured Snippet Target: College Credit Workload Matrix Table */}
+          <div className="my-8 overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+              College Credit Hour to Weekly Study Time Matrix (Carnegie 2:1 Rule)
+            </h3>
+            <table className="w-full text-left text-sm text-slate-600 dark:text-slate-300">
+              <thead className="bg-slate-50 dark:bg-slate-800/60 text-xs font-semibold uppercase text-slate-700 dark:text-slate-200">
+                <tr>
+                  <th className="p-3">Semester Credits</th>
+                  <th className="p-3">Course Load Status</th>
+                  <th className="p-3">In-Class Time</th>
+                  <th className="p-3">Study Time (Standard 2:1)</th>
+                  <th className="p-3">STEM / Lab Heavy (3:1)</th>
+                  <th className="p-3">Total Academic Commitment</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                <tr>
+                  <td className="p-3 font-semibold text-slate-900 dark:text-white">6 Credits</td>
+                  <td className="p-3">Half-Time</td>
+                  <td className="p-3">6 hrs/week</td>
+                  <td className="p-3 font-medium text-emerald-600 dark:text-emerald-400">12 hrs/week</td>
+                  <td className="p-3">18 hrs/week</td>
+                  <td className="p-3">18 - 24 hrs/week</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-semibold text-slate-900 dark:text-white">9 Credits</td>
+                  <td className="p-3">Three-Quarter Time</td>
+                  <td className="p-3">9 hrs/week</td>
+                  <td className="p-3 font-medium text-emerald-600 dark:text-emerald-400">18 hrs/week</td>
+                  <td className="p-3">27 hrs/week</td>
+                  <td className="p-3">27 - 36 hrs/week</td>
+                </tr>
+                <tr className="bg-emerald-50/50 dark:bg-emerald-950/20">
+                  <td className="p-3 font-bold text-slate-900 dark:text-white">12 Credits</td>
+                  <td className="p-3 font-medium">Full-Time (Minimum)</td>
+                  <td className="p-3">12 hrs/week</td>
+                  <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">24 hrs/week</td>
+                  <td className="p-3">36 hrs/week</td>
+                  <td className="p-3 font-semibold">36 - 48 hrs/week</td>
+                </tr>
+                <tr className="bg-emerald-50/70 dark:bg-emerald-950/30">
+                  <td className="p-3 font-bold text-slate-900 dark:text-white">15 Credits</td>
+                  <td className="p-3 font-medium">Full-Time (Standard)</td>
+                  <td className="p-3">15 hrs/week</td>
+                  <td className="p-3 font-bold text-emerald-600 dark:text-emerald-400">30 hrs/week</td>
+                  <td className="p-3">45 hrs/week</td>
+                  <td className="p-3 font-semibold">45 - 60 hrs/week</td>
+                </tr>
+                <tr>
+                  <td className="p-3 font-semibold text-slate-900 dark:text-white">18 Credits</td>
+                  <td className="p-3 text-amber-600 dark:text-amber-400 font-medium">Academic Overload</td>
+                  <td className="p-3">18 hrs/week</td>
+                  <td className="p-3 font-medium text-emerald-600 dark:text-emerald-400">36 hrs/week</td>
+                  <td className="p-3">54 hrs/week</td>
+                  <td className="p-3">54 - 72 hrs/week</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-3">
             How to Plan Your College Study Hours in 4 Steps
           </h2>
           <ol className="mb-8 list-decimal space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
             <li><strong>Enter Registered Credits:</strong> Input total semester credit hours (e.g. 12, 15, or 18 credits).</li>
-            <li><strong>Select Course Rigor:</strong> Choose between Introductory (1.5×), Standard College (2.0×), or Heavy STEM / Pre-Med (3.0×).</li>
-            <li><strong>Set Grade Ambition:</strong> Adjust for Target A (1.2× effort), Target B (1.0× baseline), or Passing grade.</li>
+            <li><strong>Select Course Rigor:</strong> Choose between Introductory (1.5x), Standard College (2.0x), or Heavy STEM / Pre-Med (3.0x).</li>
+            <li><strong>Set Grade Ambition:</strong> Adjust for Target A (1.2x effort), Target B (1.0x baseline), or Passing grade.</li>
             <li><strong>Generate Time Budget:</strong> Review your daily and weekly study targets distributed across 5-day or 7-day study calendars to avoid burnout.</li>
           </ol>
 
@@ -121,7 +213,7 @@ export default function StudyHoursCalculatorPage() {
             Study Hours Formula: The Carnegie 2:1 Rule Explained
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Under the statutory definition codified by the US Department of Education (34 CFR &sect; 600.2), one semester credit hour represents one hour of direct faculty classroom instruction accompanied by a minimum of two hours of out-of-class student work each week across a standard 15-week semester. Let <Formula>{"C"}</Formula> represent the total enrolled semester credit hours, and let <Formula>{"R"}</Formula> denote the course rigor multiplier:
+            Under the statutory definition codified by the US Department of Education (34 CFR Section 600.2), one semester credit hour represents one hour of direct faculty classroom instruction accompanied by a minimum of two hours of out-of-class student work each week across a standard 15-week semester. Let <Formula>{"C"}</Formula> represent the total enrolled semester credit hours, and let <Formula>{"R"}</Formula> denote the course rigor multiplier:
           </p>
 
           <div className="my-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-center font-mono text-sm dark:border-slate-800 dark:bg-slate-900/40">
@@ -169,16 +261,16 @@ export default function StudyHoursCalculatorPage() {
           <DataTable
             head={["Credit Load", "Academic Status", "Standard Study (2:1 Rule)", "STEM Study (3:1 Rule)", "Total Weekly Academic Commitment", "Daily Study Target (5-Day Plan)"]}
             rows={[
-              ["18 Credits", "Heavy Overload / Double Major", "36.0 hrs/week", "54.0 hrs/week", "54.0 – 72.0 hrs/week", "7.2 – 10.8 hrs/day"],
-              ["15 Credits", "Standard Full-Time Load", "30.0 hrs/week", "45.0 hrs/week", "45.0 – 60.0 hrs/week", "6.0 – 9.0 hrs/day"],
-              ["12 Credits", "Minimum Full-Time Standing", "24.0 hrs/week", "36.0 hrs/week", "36.0 – 48.0 hrs/week", "4.8 – 7.2 hrs/day"],
-              ["9 Credits", "Part-Time Academic Status", "18.0 hrs/week", "27.0 hrs/week", "27.0 – 36.0 hrs/week", "3.6 – 5.4 hrs/day"],
-              ["6 Credits", "Continuing Education / Working Adult", "12.0 hrs/week", "18.0 hrs/week", "18.0 – 24.0 hrs/week", "2.4 – 3.6 hrs/day"],
+              ["18 Credits", "Heavy Overload / Double Major", "36.0 hrs/week", "54.0 hrs/week", "54.0 - 72.0 hrs/week", "7.2 - 10.8 hrs/day"],
+              ["15 Credits", "Standard Full-Time Load", "30.0 hrs/week", "45.0 hrs/week", "45.0 - 60.0 hrs/week", "6.0 - 9.0 hrs/day"],
+              ["12 Credits", "Minimum Full-Time Standing", "24.0 hrs/week", "36.0 hrs/week", "36.0 - 48.0 hrs/week", "4.8 - 7.2 hrs/day"],
+              ["9 Credits", "Part-Time Academic Status", "18.0 hrs/week", "27.0 hrs/week", "27.0 - 36.0 hrs/week", "3.6 - 5.4 hrs/day"],
+              ["6 Credits", "Continuing Education / Working Adult", "12.0 hrs/week", "18.0 hrs/week", "18.0 - 24.0 hrs/week", "2.4 - 3.6 hrs/day"],
             ]}
           />
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Study Hours Examples & Word Problems
+            Study Hours Examples and Word Problems
           </h2>
 
           <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">
@@ -202,30 +294,20 @@ export default function StudyHoursCalculatorPage() {
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            The 168-Hour Week: How to Avoid Study Burnout
+            Academic Standards and Regulatory Benchmarks
           </h2>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Every human being operates within an unbending fixed temporal boundary: exactly 168 hours per week. When undergraduate students attempt full-time study (15 credits), 30 hours of outside study, and 30 hours of external employment while maintaining an active social life, the temporal sum often exceeds available waking hours. Inevitably, the deficit is extracted from sleep, dropping sleep duration below 6 hours nightly.
-          </p>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Cognitive neuroscientists demonstrate that chronic sleep deprivation impairs prefrontal cortex executive functioning, degrading memory consolidation and problem-solving speed by over 30%. Consequently, a sleep-deprived student studying 50 hours per week frequently achieves lower examination scores than a well-rested peer studying 30 hours with high focus. Structuring realistic time budgets protects student health and stabilizes cumulative performance evaluated across our <Link href="/calculators/education/cgpa-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">CGPA calculator</Link>.
-          </p>
-
-          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Official Credit Hour Definition (US Department of Education)
-          </h2>
-          <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Credit hour calculations, outside study expectations, and institutional contact hour benchmarks are governed by federal statutory law and collegiate accreditation authorities:
-          </p>
-          <ul className="list-disc pl-5 space-y-2 text-sm text-slate-700 dark:text-slate-300 mb-4">
+          <ul className="mb-6 list-disc space-y-2 pl-6 text-sm text-slate-700 dark:text-slate-300">
             <li>
-              <strong>US Department of Education:</strong> Federal statutory mandate defining the minimum educational activities that constitute a collegiate credit hour for Title IV funding (<a href="https://www.ecfr.gov/current/title-34/subtitle-B/chapter-VI/part-600/subpart-A/section-600.2" target="_blank" rel="noopener" className="text-emerald-600 dark:text-emerald-400 font-medium underline">34 CFR 600.2 credit hour definition</a>).
+              <strong>US Department of Education (34 CFR Section 600.2):</strong> Establishes the federal credit hour definition requiring two outside preparation hours per classroom contact hour.
             </li>
             <li>
-              <strong>Carnegie Foundation for the Advancement of Teaching:</strong> Historical architects of the standardized Carnegie Unit system for secondary and post-secondary educational accounting.
+              <strong>Carnegie Foundation for the Advancement of Teaching:</strong> Historic originators of the Carnegie Unit system standardizing higher education academic accounting.
             </li>
             <li>
-              <strong>Association of American Colleges and Universities (AAC&amp;U):</strong> Research reports on collegiate student engagement, high-impact learning practices, and temporal workload balancing.
+              <strong>National Survey of Student Engagement (NSSE):</strong> Provides empirical benchmark data on average undergraduate study hours across academic majors and institution classifications.
+            </li>
+            <li>
+              <strong>Association of American Colleges and Universities (AACU):</strong> Published peer-reviewed research reports on collegiate student engagement, high-impact learning practices, and temporal workload balancing.
             </li>
           </ul>
 
@@ -233,14 +315,14 @@ export default function StudyHoursCalculatorPage() {
             How to Study Smarter: Active Recall vs Re-reading
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Educational cognitive psychologists emphasize that the quality and cognitive intensity of outside study hours matters far more than raw temporal quantity. Spending four hours passively highlighting textbook passages or reviewing lecture slides produces an &lsquo;illusion of competence,&rsquo; where familiar prose is mistaken for true mastery. In contrast, rigorous active learning techniques—such as self-testing with flashcards, teaching complex mechanisms to study peers (the Feynman technique), and working through unseen practice problem sets—demand greater focused energy but dramatically accelerate long-term memory encoding.
+            Educational cognitive psychologists emphasize that the quality and cognitive intensity of outside study hours matters far more than raw temporal quantity. Spending four hours passively highlighting textbook passages or reviewing lecture slides produces an illusion of competence, where familiar prose is mistaken for true mastery. In contrast, rigorous active learning techniques, such as self-testing with flashcards, teaching complex mechanisms to study peers (the Feynman technique), and working through unseen practice problem sets, demand greater focused energy but dramatically accelerate long-term memory encoding.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Consequently, an undergraduate applying high-efficiency active recall strategies for 25 hours per week routinely outperforms peers studying 45 hours through unstructured, passive methods. Combining focused study blocks with deliberate cognitive pauses maximizes intellectual endurance and protects mental wellbeing.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Balancing Employment, Extracurriculars & The Carnegie Time Budget
+            Balancing Work, Extracurriculars, and the Carnegie Time Budget
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Modern college students frequently balance full-time academic credit registrations alongside external employment, family caregiving responsibilities, and student organization leadership. When external employment commitments exceed 15 to 20 hours weekly, collegiate retention research demonstrates a sharp increase in course withdrawal rates and academic probation warnings. Academic success counselors recommend treating each enrolled credit hour as approximately three total hours of weekly professional commitment (one hour in class plus two hours outside study).
@@ -250,13 +332,13 @@ export default function StudyHoursCalculatorPage() {
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-            Syllabus Pacing Calendars & Distributed Study Block Design
+            Syllabus Pacing Calendars and Distributed Study Block Design
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Academic success counselors recommend transforming the Carnegie study hour calculation into actionable weekly pacing calendars at the beginning of each semester. By mapping syllabus assignment deadlines, midterm exam dates, and term project milestones onto a comprehensive 15-week timeline, students can anticipate peak academic surges and allocate extra study blocks proactively, preventing stressful last-minute cramming sessions.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Furthermore, scheduling study blocks during peak circadian cognitive alertness windows—typically mid-morning and early afternoon—enhances conceptual comprehension and analytical problem-solving speed. Treating independent study as a fixed, non-negotiable professional appointment establishes healthy academic discipline that supports sustained scholarly success throughout undergraduate and graduate study.
+            Furthermore, scheduling study blocks during peak circadian cognitive alertness windows (typically mid-morning and early afternoon) enhances conceptual comprehension and analytical problem-solving speed. Treating independent study as a fixed, non-negotiable professional appointment establishes healthy academic discipline that supports sustained scholarly success throughout undergraduate and graduate study.
           </p>
 
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
