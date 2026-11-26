@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { PregnancyMilestoneVisualizer } from "@/components/flagship/baby/editorial-charts";
 
 const PATH = "/calculators/baby/due-date-calculator";
-const TITLE = "Pregnancy Due Date Calculator: Exact EDD and Milestones";
+const TITLE = "Pregnancy Due Date Calculator: Estimate by LMP and Conception";
 const DESCRIPTION =
-  "Free pregnancy due date calculator. Calculate your estimated date of delivery, gestational age, and fetal milestones using clinical Naegele's rule.";
+  "Calculate your estimated due date (EDD) and pregnancy milestones accurately based on your last menstrual period (LMP) or conception date.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -165,7 +165,7 @@ export default function DueDatePage() {
 
           <h3>Second Trimester (Week 14 + 0 Days to Week 27 + 6 Days)</h3>
           <p>
-            Frequently referred to as the &ldquo;golden period&rdquo; of pregnancy due to the subsiding of morning nausea, the second trimester focuses on rapid skeletal ossification and somatic growth. The pivotal milestone occurs between weeks 18 and 22 with the comprehensive <strong>Anatomy Scan (Level II Ultrasound)</strong>, examining cardiac outflow tracts, cerebral ventricles, renal architecture, and placental cord insertion. Fetal viability—the threshold at which modern neonatal intensive care can support survival outside the womb—is reached between 23 and 24 weeks gestation. Parents often begin researching names at this stage using our <a href="/calculators/baby/baby-name-popularity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby name popularity calculator</a>.
+            Frequently referred to as the &ldquo;golden period&rdquo; of pregnancy due to the subsiding of morning nausea, the second trimester focuses on rapid skeletal ossification and somatic growth. The pivotal milestone occurs between weeks 18 and 22 with the comprehensive <strong>Anatomy Scan (Level II Ultrasound)</strong>, examining cardiac outflow tracts, cerebral ventricles, renal architecture, and placental cord insertion. Fetal viability - the threshold at which modern neonatal intensive care can support survival outside the womb - is reached between 23 and 24 weeks gestation. Parents often begin researching names at this stage using our <a href="/calculators/baby/baby-name-popularity-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">baby name popularity calculator</a>.
           </p>
 
           <h3>Third Trimester (Week 28 + 0 Days to Delivery)</h3>
