@@ -8,17 +8,16 @@ import { StandardGpaScaleTable } from "@/components/calcs/education/StandardGpaS
 
 const PATH = "/calculators/education/gpa-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/education/gpa-calculator";
-const TITLE = "College GPA Calculator: Fast 4.0 Scale and Cumulative";
-const FULL_TITLE = "College GPA Calculator: Fast 4.0 Scale and Cumulative | CalcDigi";
+const TITLE = "College GPA Calculator: 4.0 Scale and Semester Grade Planner";
 const DESCRIPTION =
-  "Calculate cumulative and semester GPA easily on a standard 4.0 scale with letter grades and weighted honors/AP credits.";
+  "Calculate semester and cumulative college GPA on a weighted 4.0 scale with credit hour weightings and letter grade conversions.";
 
 export const metadata: Metadata = {
-  title: { absolute: FULL_TITLE },
+  title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: CANONICAL_URL },
   openGraph: {
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     type: "website",
     url: CANONICAL_URL,
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     images: ["https://www.calcdigi.com/og-image.png"],
     creator: "@CalcDigi",
