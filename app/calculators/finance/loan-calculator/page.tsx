@@ -7,17 +7,16 @@ import { CommonLoanPaymentMatrix } from "@/components/calcs/finance/CommonLoanPa
 
 const PATH = "/calculators/finance/loan-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/finance/loan-calculator";
-const TITLE = "Loan Payment Calculator: Exact Monthly Pay and Interest";
-const FULL_TITLE = "Loan Payment Calculator: Exact Monthly Pay and Interest | CalcDigi";
+const TITLE = "Loan Payment Calculator: Monthly Pay and Amortization Schedule";
 const DESCRIPTION =
-  "Calculate your exact monthly loan payments, total interest, and full amortization payoff schedule. Fast, accurate, and free.";
+  "Calculate monthly loan payments, total interest costs, and view full amortization payoff schedules for personal, auto, and student loans.";
 
 export const metadata: Metadata = {
-  title: { absolute: FULL_TITLE },
+  title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: CANONICAL_URL },
   openGraph: {
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     type: "website",
     url: CANONICAL_URL,
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     images: ["https://www.calcdigi.com/og-image.png"],
     creator: "@CalcDigi",
@@ -143,8 +142,8 @@ export default function Page() {
             head={["Credit Score Tier", "Typical APR (%)", "3-Year Monthly / Interest", "5-Year Monthly / Interest", "7-Year Monthly / Interest"]}
             rows={[
               ["Excellent (750+)", "7.99%", "$626 / $2,536", "$405 / $4,300", "$311 / $6,124"],
-              ["Good (700–749)", "11.49%", "$659 / $3,724", "$439 / $6,340", "$346 / $9,064"],
-              ["Fair (640–699)", "16.99%", "$713 / $5,668", "$497 / $9,820", "$407 / $14,188"],
+              ["Good (700-749)", "11.49%", "$659 / $3,724", "$439 / $6,340", "$346 / $9,064"],
+              ["Fair (640-699)", "16.99%", "$713 / $5,668", "$497 / $9,820", "$407 / $14,188"],
               ["Subprime (<640)", "24.99%", "$796 / $8,656", "$587 / $15,220", "$502 / $22,168"],
             ]}
           />
@@ -187,7 +186,7 @@ export default function Page() {
               <strong>Make Targeted Principal Prepayments:</strong> Adding just $50 to $100 per month directly to the principal balance bypasses future interest accumulation, shaving months off the loan term.
             </li>
             <li>
-              <strong>Execute Bi-Weekly Payment Transfers:</strong> Remitting half-payments every two weeks yields 26 half-payments per year—effectively 13 full payments instead of 12—accelerating payoff without budget disruption.
+              <strong>Execute Bi-Weekly Payment Transfers:</strong> Remitting half-payments every two weeks yields 26 half-payments per year - effectively 13 full payments instead of 12 - accelerating payoff without budget disruption.
             </li>
             <li>
               <strong>Confirm Zero Prepayment Penalties:</strong> Ensure your loan agreement explicitly confirms no prepayment fees so extra payments yield 100% net interest savings.
