@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { NormalDistributionVisualizerChart } from "@/components/flagship/math/editorial-charts/NormalDistributionVisualizerChart";
 
 const PATH = "/calculators/math/standard-deviation-calculator";
-const TITLE = "Standard Deviation Calculator: Step-by-Step Solver";
+const TITLE = "Standard Deviation Calculator: Sample and Population Steps";
 const DESCRIPTION =
-  "Free online standard deviation calculator. Calculate sample and population standard deviation, variance, mean, and sum of squares with step-by-step formulas.";
+  "Calculate sample and population standard deviation, variance, and mean with step-by-step mathematical working and normal distribution guides.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -19,7 +19,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What is the difference between sample and population standard deviation?",
-    a: "Population standard deviation (σ) is used when analyzing every individual member of an entire group, dividing the sum of squared deviations by N. Sample standard deviation (s) is used when estimating parameters from a representative subset, dividing by (n − 1)—known as Bessel's correction—to eliminate negative bias.",
+    a: "Population standard deviation (σ) is used when analyzing every individual member of an entire group, dividing the sum of squared deviations by N. Sample standard deviation (s) is used when estimating parameters from a representative subset, dividing by (n − 1) - known as Bessel's correction - to eliminate negative bias.",
   },
   {
     q: "Why do we divide by (n − 1) instead of n for sample standard deviation?",
