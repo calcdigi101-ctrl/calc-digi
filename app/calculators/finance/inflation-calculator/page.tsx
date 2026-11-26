@@ -4,9 +4,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { InflationPurchasingPowerDecayChart } from "@/components/flagship/finance/editorial-charts";
 
 const PATH = "/calculators/finance/inflation-calculator";
-const TITLE = "US Inflation Calculator: Real Value and Purchasing Power";
+const TITLE = "Inflation Calculator: Historical US Dollar Purchasing Power";
 const DESCRIPTION =
-  "Free inflation calculator: measure purchasing power decay over time, historical CPI compounding, and future equivalent costs with real purchasing power projections.";
+  "Calculate the buying power of the US dollar over time using official Consumer Price Index (CPI) datasets from 1913 to the present year.";
 
 export const metadata = calcMetadata(PATH, TITLE, DESCRIPTION);
 
@@ -123,7 +123,7 @@ export default function Page() {
             rows={[
               ["Broad Equities (S&P 500)", "10.2%", "7.1%", "Moderate / High Long-Term", "Firms pass rising input costs directly to consumers, expanding revenue."],
               ["Real Estate (Direct/REIT)", "8.8%", "5.7%", "High", "Property replacement costs escalate; contractual leases adjust rents upward."],
-              ["Treasury Inflation-Protected (TIPS)", "4.5%", "1.5% – 2.0%", "Direct / 1.0 (Exact)", "Principal balance adjusts semi-annually based on non-seasonally adjusted CPI-U."],
+              ["Treasury Inflation-Protected (TIPS)", "4.5%", "1.5% - 2.0%", "Direct / 1.0 (Exact)", "Principal balance adjusts semi-annually based on non-seasonally adjusted CPI-U."],
               ["Gold and Commodities", "6.2%", "3.1%", "High during spikes / Volatile", "Finite physical supply offsets fiat currency supply debasement."],
               ["Cash HYSA / T-Bills", "3.2%", "0.2% (Often Negative)", "Low / Lagging", "Central bank rate hikes eventually lift yields, but trail inflation surges."]
             ]}
