@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { TransitModeSpeedDistanceMatrixChart } from "@/components/flagship/transportation/editorial-charts";
 
 const PATH = "/calculators/transportation/distance-calculator";
-const TITLE = "Distance Calculator: Travel Time, Mileage and Fuel Cost";
+const TITLE = "Distance Calculator: Travel Distance, Time, and Speed Formulas";
 const DESCRIPTION =
-  "Free travel distance calculator. Instantly calculate door-to-door transit distance, driving travel time, average speed, and fuel carbon emissions.";
+  "Calculate travel distance, driving duration, and average speed using exact distance formula calculations and route speed metrics.";
 
 export const metadata: Metadata = {
   title: TITLE,
