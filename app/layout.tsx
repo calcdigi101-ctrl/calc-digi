@@ -11,20 +11,22 @@ import "./flagship.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.calcdigi.com"),
   title: {
-    default: "Free Online Calculator (Instant & Ad-Free) | 330+ Tools – CalcDigi",
+    default: "Calc Digi: 330+ Free Online Calculators (Fast & Ad-Free)",
     template: "%s | CalcDigi",
   },
-  description: "Fast, private, and 100% free online calculators for Finance, Math, Health, and Science. No signup, instant calculation, and step-by-step formulas.",
+  description: "Free online calculation suite with 330+ tools for finance, math, health, science, and daily precision. Instant, private, and ad-free.",
   openGraph: {
-    title: "Free Online Calculator (Instant & Ad-Free) | 330+ Tools – CalcDigi",
-    description: "Fast, private, and 100% free online calculators for Finance, Math, Health, and Science. No signup, instant calculation, and step-by-step formulas.",
+    title: "Calc Digi: 330+ Free Online Calculators (Fast & Ad-Free)",
+    description: "Free online calculation suite with 330+ tools for finance, math, health, science, and daily precision. Instant, private, and ad-free.",
     type: "website",
     url: "https://www.calcdigi.com",
     siteName: "CalcDigi",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "CalcDigi – Free Online Calculators" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "CalcDigi: Free Online Calculators" }],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Calc Digi: 330+ Free Online Calculators (Fast & Ad-Free)",
+    description: "Free online calculation suite with 330+ tools for finance, math, health, science, and daily precision. Instant, private, and ad-free.",
     images: ["/og-image.png"],
   },
   verification: {
