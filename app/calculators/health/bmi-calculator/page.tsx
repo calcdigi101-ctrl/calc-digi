@@ -8,9 +8,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { WHO_CLASSES } from "@/lib/bmi";
 
 const PATH = "/calculators/health/bmi-calculator";
-const TITLE = "BMI Calculator: Check Your Ideal Weight and Health Zone";
+const TITLE = "BMI Calculator: Free Adult Body Mass Index and Weight Chart";
 const DESCRIPTION =
-  "Free BMI calculator. Check your Body Mass Index, WHO weight category, healthy target weight range, and prime BMI instantly with zero signup.";
+  "Calculate your Body Mass Index (BMI) instantly using standard or metric units. Includes official WHO weight categories and healthy ranges.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -76,19 +76,19 @@ const FAQ_ITEMS = [
 
 const WHO_ROWS = [
   ["Severe Underweight (Thinness Class III)", "< 16.0", "< 0.64", "Extremely High (Malnutrition & Immune Deficiency)"],
-  ["Moderate Underweight (Thinness Class II)", "16.0 – 16.9", "0.64 – 0.68", "Elevated (Hormonal & Electrolyte Imbalance)"],
-  ["Mild Underweight (Thinness Class I)", "17.0 – 18.4", "0.68 – 0.74", "Mild (Nutritional Monitoring Recommended)"],
-  ["Normal Healthy Weight Range", "18.5 – 24.9", "0.74 – 1.00", "Lowest All-Cause Mortality Benchmark"],
-  ["Pre-Obesity (Overweight)", "25.0 – 29.9", "1.00 – 1.20", "Moderate (Hypertension & Insulin Resistance Risk)"],
-  ["Obesity Class I (Moderate)", "30.0 – 34.9", "1.20 – 1.40", "High (Elevated Atherosclerosis & Diabetes)"],
-  ["Obesity Class II (Severe)", "35.0 – 39.9", "1.40 – 1.60", "Very High (Sleep Apnea & Fatty Liver)"],
+  ["Moderate Underweight (Thinness Class II)", "16.0 - 16.9", "0.64 - 0.68", "Elevated (Hormonal & Electrolyte Imbalance)"],
+  ["Mild Underweight (Thinness Class I)", "17.0 - 18.4", "0.68 - 0.74", "Mild (Nutritional Monitoring Recommended)"],
+  ["Normal Healthy Weight Range", "18.5 - 24.9", "0.74 - 1.00", "Lowest All-Cause Mortality Benchmark"],
+  ["Pre-Obesity (Overweight)", "25.0 - 29.9", "1.00 - 1.20", "Moderate (Hypertension & Insulin Resistance Risk)"],
+  ["Obesity Class I (Moderate)", "30.0 - 34.9", "1.20 - 1.40", "High (Elevated Atherosclerosis & Diabetes)"],
+  ["Obesity Class II (Severe)", "35.0 - 39.9", "1.40 - 1.60", "Very High (Sleep Apnea & Fatty Liver)"],
   ["Obesity Class III (Extreme / Morbid)", "≥ 40.0", "≥ 1.60", "Extremely High (Urgent Medical Intervention)"],
 ];
 
 const ETHNIC_ROWS = [
   ["Underweight Category", "< 18.5 kg/m²", "< 18.5 kg/m²", "Higher risk of respiratory infection"],
-  ["Normal Optimal Range", "18.5 – 24.9 kg/m²", "18.5 – 22.9 kg/m²", "Asian optimal baseline is 2 units lower"],
-  ["Increased Risk (Overweight)", "25.0 – 29.9 kg/m²", "23.0 – 27.4 kg/m²", "Visceral adiposity accumulates at lower weights"],
+  ["Normal Optimal Range", "18.5 - 24.9 kg/m²", "18.5 - 22.9 kg/m²", "Asian optimal baseline is 2 units lower"],
+  ["Increased Risk (Overweight)", "25.0 - 29.9 kg/m²", "23.0 - 27.4 kg/m²", "Visceral adiposity accumulates at lower weights"],
   ["High Risk (Clinical Obesity)", "≥ 30.0 kg/m²", "≥ 27.5 kg/m²", "Higher incidence of metabolic syndrome & CVD"],
 ];
 
@@ -260,7 +260,7 @@ export default function BmiCalculatorPage() {
             In geriatric medicine and longevity research, interpreting BMI among adults aged 65 and older introduces a widely studied clinical phenomenon known as the <strong>Obesity Paradox</strong>. Multiple epidemiological meta-analyses observe that slightly higher BMIs (ranging between 25.0 and 27.5 kg/m²) in elderly populations correlate with reduced all-cause mortality compared to strictly &apos;normal&apos; BMIs below 22.0 kg/m². Modest subcutaneous fat reserves provide vital nutritional and metabolic buffering during acute critical illnesses, severe systemic infections, and post-surgical recuperation periods.
           </p>
           <p>
-            Furthermore, elderly individuals frequently experience age-related muscle wasting (sarcopenia) and vertebral compression fractures that decrease height over time. Consequently, a declining BMI in older adults often signals progressive loss of functional skeletal muscle mass rather than beneficial fat reduction. Geriatricians prioritize functional biomarkers—such as isometric handgrip dynamometer strength, gait speed, and bone mineral density scans—over rigid adherence to youthful BMI cutoffs.
+            Furthermore, elderly individuals frequently experience age-related muscle wasting (sarcopenia) and vertebral compression fractures that decrease height over time. Consequently, a declining BMI in older adults often signals progressive loss of functional skeletal muscle mass rather than beneficial fat reduction. Geriatricians prioritize functional biomarkers - such as isometric handgrip dynamometer strength, gait speed, and bone mineral density scans - over rigid adherence to youthful BMI cutoffs.
           </p>
 
           <h2>Healthy Weight Management Strategies and Macronutrient Architecture</h2>
