@@ -6,19 +6,18 @@ import { VideoGameCostPerHourValueChart } from "@/components/flagship/entertainm
 
 const PATH = "/calculators/entertainment/video-game-hours-calculator";
 const CANONICAL_URL = "https://www.calcdigi.com/calculators/entertainment/video-game-hours-calculator";
-const TITLE = "Video Game Backlog Calculator (Exact Time to Beat)";
-const FULL_TITLE = "Video Game Backlog Calculator (Exact Time to Beat) | CalcDigi";
+const TITLE = "Video Game Hours Calculator: Estimate Time to Beat Backlog";
 const DESCRIPTION =
-  "Calculate total gaming hours, time to beat your backlog, and cost-per-hour of entertainment across Main Story and 100% Completionist playthroughs.";
+  "Calculate how long it takes to clear your video game backlog based on daily playtime, game length categories, and completionist goals.";
 const INTRO =
   "Calculate how long it takes to clear your video game backlog queue and determine the cost per hour of entertainment value across Main Story, Side Quests, and 100% Completionist playthroughs.";
 
 export const metadata: Metadata = {
-  title: { absolute: FULL_TITLE },
+  title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: CANONICAL_URL },
   openGraph: {
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     type: "website",
     url: CANONICAL_URL,
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: FULL_TITLE,
+    title: TITLE,
     description: DESCRIPTION,
     images: ["https://www.calcdigi.com/og/video-game-hours-calculator.png"],
     creator: "@CalcDigi",
@@ -64,11 +63,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "How can I realistically clear a backlog of 20+ unplayed games?",
-    a: "Follow the 'One-In, Two-Out' rule: don't buy a new game until completing two backlog titles. Avoid forcing 100% completion on every game, and abandon titles that fail to engage you after 2–3 hours without guilt.",
+    a: "Follow the 'One-In, Two-Out' rule: don't buy a new game until completing two backlog titles. Avoid forcing 100% completion on every game, and abandon titles that fail to engage you after 2-3 hours without guilt.",
   },
   {
     q: "Are subscription services like Xbox Game Pass or PlayStation Plus worth it?",
-    a: "Yes, if you play at least 3 new $70 releases per year. At $15–$20 per month, playing 3–4 full games annually fully covers the subscription while giving access to hundreds of catalog titles.",
+    a: "Yes, if you play at least 3 new $70 releases per year. At $15-$20 per month, playing 3 - 4 full games annually fully covers the subscription while giving access to hundreds of catalog titles.",
   },
   {
     q: "How long does it take to beat the average video game?",
@@ -150,9 +149,9 @@ export default function VideoGameHoursPage() {
             <DataTable
               head={["Entertainment Medium", "Typical Cost", "Hours of Enjoyment", "Cost Per Hour", "Value Rating"]}
               rows={[
-                ["Movie Theater Outing", "$25 – $35", "2.5 hrs", "~$11.00 – $14.00/hr", "Moderate"],
-                ["Live Concert / Sports", "$80 – $150", "3 hrs", "~$27.00 – $50.00/hr", "Premium Event"],
-                ["Paperback Book", "$15 – $20", "8 – 10 hrs", "~$1.80 – $2.00/hr", "Very High"],
+                ["Movie Theater Outing", "$25 - $35", "2.5 hrs", "~$11.00 - $14.00/hr", "Moderate"],
+                ["Live Concert / Sports", "$80 - $150", "3 hrs", "~$27.00 - $50.00/hr", "Premium Event"],
+                ["Paperback Book", "$15 - $20", "8 - 10 hrs", "~$1.80 - $2.00/hr", "Very High"],
                 ["AAA Game (Main Story)", "$70", "25 hrs", "~$2.80/hr", "High"],
                 ["Open-World RPG (Elden Ring, Witcher)", "$70", "100+ hrs", "~$0.70/hr", "Exceptional"],
                 ["Indie Replay Game (Hades, Roguelikes)", "$25", "60+ hrs", "~$0.42/hr", "Industry Leading"],
@@ -169,7 +168,7 @@ export default function VideoGameHoursPage() {
             The video game industry has eclipsed film box office and recorded music combined to become the largest commercial entertainment sector on the planet. According to <a href="https://www.theesa.com/" target="_blank" rel="noopener" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Entertainment Software Association (ESA) industry reports</a>, interactive digital media consistently ranks among the most cost-effective leisure activities per dollar spent. From sweeping historical open-world role-playing epics to atmospheric indie puzzle adventures and competitive multiplayer leagues, modern video games offer interactive agency, rich narrative storytelling, and cognitive challenge.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            However, the sheer volume of games released each year—amplified by digital storefront bundle sales and library subscription passes—has created the ubiquitous modern gamer dilemma: the expanding <em>backlog pile of shame</em>. Calculating your realistic completion velocity and entertainment value per dollar transforms unplayed libraries into clear milestones. To evaluate completion ratios, use our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, calculate completion percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and forecast multi-year gaming subscription compounding using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
+            However, the sheer volume of games released each year - amplified by digital storefront bundle sales and library subscription passes - has created the ubiquitous modern gamer dilemma: the expanding <em>backlog pile of shame</em>. Calculating your realistic completion velocity and entertainment value per dollar transforms unplayed libraries into clear milestones. To evaluate completion ratios, use our <a href="/calculators/math/ratio-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">ratio calculator</a>, calculate completion percentages with our <a href="/calculators/math/percentage-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">percentage calculator</a>, and forecast multi-year gaming subscription compounding using our <a href="/calculators/finance/compound-interest-calculator" className="font-semibold text-blue-600 underline hover:text-blue-800 dark:text-blue-400">compound interest calculator</a>.
           </p>
 
           <Formula>
@@ -312,7 +311,7 @@ export default function VideoGameHoursPage() {
             The transition from physical disc-based distribution to digital storefronts fundamentally altered consumer psychology. In the era of physical cartridges and discs, the physical presence of game cases on a shelf acted as a natural visual boundary. In contrast, modern digital platforms like Steam, GOG, Epic Games Store, and PlayStation Network turn library acquisition into frictionless micro-transactions.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            When confronted with massive digital discounts—such as 85% off publisher bundles or $12 monthly multi-game subscription drops—gamers frequently purchase titles for the <em>idea</em> of playing them rather than an immediate intention to install them. Behavioral economists refer to this as the 'Collector&rsquo;s Trap,' where the temporary dopamine surge of acquiring a bargain replaces the actual interactive enjoyment of finishing the game.
+            When confronted with massive digital discounts - such as 85% off publisher bundles or $12 monthly multi-game subscription drops - gamers frequently purchase titles for the <em>idea</em> of playing them rather than an immediate intention to install them. Behavioral economists refer to this as the 'Collector&rsquo;s Trap,' where the temporary dopamine surge of acquiring a bargain replaces the actual interactive enjoyment of finishing the game.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             This digital abundance invariably triggers Hick&rsquo;s Law: the psychological principle stating that the time required to make a decision increases logarithmically with the number and complexity of choices. When a player sits down with an hour of free leisure time and scrolls past 300 installed unplayed titles, the cognitive burden of choosing the 'perfect' game leads to decision paralysis. Gamers spend 40 minutes browsing menus and reading reviews before closing the computer without playing anything at all.
@@ -344,7 +343,7 @@ export default function VideoGameHoursPage() {
               <strong>Weekend 2-to-3 Hour Immersion Blocks:</strong> Scheduled during early mornings or designated weekend leisure windows. Reserved for complex story climaxes, intricate boss encounters, or mechanical systems that require sustained focus.
             </li>
             <li>
-              <strong>Frictionless Handheld Integration:</strong> Modern handheld gaming devices—such as the Steam Deck, Nintendo Switch, and mobile streaming controllers—have revolutionized adult backlog completion. The instant suspend-and-resume capability allows players to turn fragmented 15-minute intervals (during daily commutes, lunch breaks, or quiet evening wind-downs) into productive gameplay progression.
+              <strong>Frictionless Handheld Integration:</strong> Modern handheld gaming devices - such as the Steam Deck, Nintendo Switch, and mobile streaming controllers - have revolutionized adult backlog completion. The instant suspend-and-resume capability allows players to turn fragmented 15-minute intervals (during daily commutes, lunch breaks, or quiet evening wind-downs) into productive gameplay progression.
             </li>
           </ul>
 
@@ -368,7 +367,7 @@ export default function VideoGameHoursPage() {
               <strong>Dining and Social Nightlife:</strong> An evening dinner and drinks outing typically costs $40 to $80 for two hours of social interaction, averaging <strong>$20.00 to $40.00 per hour</strong>.
             </li>
             <li>
-              <strong>Full-Priced AAA Video Game ($70 MSRP):</strong> A standard 30-hour campaign yields an entertainment cost of <strong>$2.33 per hour</strong>. Expanding to a 90-hour open-world playthrough drops the cost to an astonishing <strong>$0.77 per hour</strong>—over 18 times more cost-efficient than a movie theater ticket.
+              <strong>Full-Priced AAA Video Game ($70 MSRP):</strong> A standard 30-hour campaign yields an entertainment cost of <strong>$2.33 per hour</strong>. Expanding to a 90-hour open-world playthrough drops the cost to an astonishing <strong>$0.77 per hour</strong> - over 18 times more cost-efficient than a movie theater ticket.
             </li>
             <li>
               <strong>Discounted Indie Titles ($15 to $25):</strong> A roguelike or puzzle game delivering 50+ hours yields a negligible cost of <strong>$0.30 to $0.50 per hour</strong>, rivaling public library paperback reading for sheer economic efficiency.
@@ -382,7 +381,7 @@ export default function VideoGameHoursPage() {
             The 100% Completionist Dilemma: Is Hunting the Platinum Trophy Worth the Extra 60 Hours?
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            One of the most consequential decisions affecting your time to beat any video game is whether to pursue 100% completionist status—known on PlayStation as the 'Platinum Trophy' and on Xbox and Steam as '1,000 Gamerscore' or 'Perfect Game' badges. Data collected across thousands of tracked titles on HowLongToBeat reveals that a completionist run typically multiplies baseline main story playtime by <strong>2.0× to 3.0×</strong>.
+            One of the most consequential decisions affecting your time to beat any video game is whether to pursue 100% completionist status - known on PlayStation as the 'Platinum Trophy' and on Xbox and Steam as '1,000 Gamerscore' or 'Perfect Game' badges. Data collected across thousands of tracked titles on HowLongToBeat reveals that a completionist run typically multiplies baseline main story playtime by <strong>2.0× to 3.0×</strong>.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             For an ambitious open-world role-playing game requiring 50 hours for the core narrative, committing to 100% completion expands your total time commitment to 125 or 150 hours. From a pure cost-per-hour perspective, this dramatically drives down the economic cost of the game to less than $0.50 per hour. However, time-budgeting researchers caution that this economic efficiency often masks diminishing psychological returns.
@@ -391,7 +390,7 @@ export default function VideoGameHoursPage() {
             When the remaining 70 hours of a completionist run consist primarily of consulting online interactive maps to locate 200 hidden collectibles, grinding character levels against repetitive mob spawns, or enduring unskippable cutscenes on a mandatory New Game Plus run, the interactive activity transitions from engaging entertainment to tedious chore work. If you have a backlog of 15 other critically acclaimed titles waiting in your queue, sacrificing three months of leisure time for a digital trophy badge prevents you from experiencing two or three completely new interactive masterpieces.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Academic game psychologists suggest reserving 100% completion runs exclusively for your top 5% 'desert island' games—titles whose mechanical movement and combat systems remain fundamentally delightful even after narrative exhaustion. For all other backlog titles, rolling the credits on the main story and notable companion side quests provides the optimal balance of narrative closure, emotional impact, and healthy backlog clearance velocity.
+            Academic game psychologists suggest reserving 100% completion runs exclusively for your top 5% 'desert island' games - titles whose mechanical movement and combat systems remain fundamentally delightful even after narrative exhaustion. For all other backlog titles, rolling the credits on the main story and notable companion side quests provides the optimal balance of narrative closure, emotional impact, and healthy backlog clearance velocity.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
