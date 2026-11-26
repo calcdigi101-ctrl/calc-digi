@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { LifeStageChronologicalDistributionChart } from "@/components/flagship/datetime/editorial-charts";
 
 const PATH = "/calculators/datetime/age-calculator";
-const TITLE = "Exact Age Calculator: Years, Months, Days and Minutes";
+const TITLE = "Age Calculator: Exact Years, Months, Days, and Hours";
 const DESCRIPTION =
-  "Free online age calculator. Calculate your exact age in years, months, days, and minutes with leap-year accuracy and next birthday countdown.";
+  "Calculate your exact age in years, months, weeks, days, and minutes from your date of birth. Includes upcoming birthday countdown.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -169,7 +169,7 @@ export default function AgeCalculatorPage() {
             Biological Cellular Senescence vs. Chronological Solar Time
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            While chronological age advances monotonically at exactly 1.0 solar years per terrestrial orbit, modern biogerontology distinguishes chronological age from biological vitality. Cellular senescence is governed by the Hayflick limit—the finite capacity of differentiated human somatic cells to divide approximately 40 to 60 times before telomeric exhaustion induces permanent cell-cycle arrest.
+            While chronological age advances monotonically at exactly 1.0 solar years per terrestrial orbit, modern biogerontology distinguishes chronological age from biological vitality. Cellular senescence is governed by the Hayflick limit - the finite capacity of differentiated human somatic cells to divide approximately 40 to 60 times before telomeric exhaustion induces permanent cell-cycle arrest.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             Epigenetic clocks developed by Steve Horvath quantify biological age by measuring DNA methylation cytosine-phosphate-guanine (CpG) dinucleotide profiles across human tissues. Chronic metabolic inflammation, oxidative stress, and sedentary lifestyle accelerate epigenetic age acceleration (EAA), causing 45-year-old individuals to exhibit biological tissue profiles equivalent to 55-year-old cohorts. Maintaining caloric balance via our <Link href="/calculators/health/calorie-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">calorie calculator</Link> and tracking metabolic heart rate thresholds optimizes biological longevity.
@@ -193,7 +193,7 @@ export default function AgeCalculatorPage() {
             Calculating historical ages across ancient, medieval, and early modern epochs mandates adjustment for calendar transitions. Under the classical Julian calendar introduced by Julius Caesar in 46 BCE, a leap day was inserted unconditionally every four years, assuming an average tropical year length of exactly 365.25 mean solar days.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Because the true astronomical tropical year is approximately 365.24219 days, the Julian calendar accumulated an error of roughly 11 minutes and 14 seconds annually, drifting out of phase with the vernal equinox by approximately 3 days every four centuries. By October 1582, when Pope Gregory XIII issued the papal bull Inter gravissimas, the astronomical calendar had drifted by 10 full days. Ten days were dropped from the civil calendar—October 4, 1582 was immediately followed by October 15, 1582. Historians calculating exact historical lifespans for individuals living across this transition (such as William Shakespeare or Isaac Newton) apply Old Style (OS) and New Style (NS) coordinate shifts.
+            Because the true astronomical tropical year is approximately 365.24219 days, the Julian calendar accumulated an error of roughly 11 minutes and 14 seconds annually, drifting out of phase with the vernal equinox by approximately 3 days every four centuries. By October 1582, when Pope Gregory XIII issued the papal bull Inter gravissimas, the astronomical calendar had drifted by 10 full days. Ten days were dropped from the civil calendar - October 4, 1582 was immediately followed by October 15, 1582. Historians calculating exact historical lifespans for individuals living across this transition (such as William Shakespeare or Isaac Newton) apply Old Style (OS) and New Style (NS) coordinate shifts.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
