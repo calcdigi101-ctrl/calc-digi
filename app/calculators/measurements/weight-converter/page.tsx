@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { MassWeightPlanetaryGravitationalChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/weight-converter";
-const TITLE = "Weight Converter: Quick Pounds, Ounces, KG and Grams";
+const TITLE = "Weight Converter: Pounds, Kilograms, Ounces, and Stone";
 const DESCRIPTION =
-  "Convert kilograms, pounds, ounces, grams, stones, and metric tons with precise SI Planck-constant definitions and gravitational weight force modeling.";
+  "Convert weights instantly between pounds (lbs), kilograms (kg), ounces (oz), grams, and stone with real-time bidirectional accuracy.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -153,7 +153,7 @@ export default function WeightConverterPage() {
             For 130 years (1889 to 2019), the definition of the kilogram rested entirely on a physical cylinder made of 90% platinum and 10% iridium alloy, known affectionately as &apos;Le Grand K&apos;, secured within a triple-bell-jar vault at the Bureau International des Poids et Mesures in Sèvres, France. However, periodic micro-balance comparisons against official national prototype copies revealed an alarming discrepancy: Le Grand K was losing mass relative to its copies at a rate of approximately 50 micrograms per century, likely due to surface desorption or micro-abrasions during cleaning.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In a historic unanimous vote at the 26th CGPM in Versailles in November 2018, metrologists abandoned physical artifacts forever. Today, the kilogram is realized through the Kibble balance—an electromechanical instrument that balances the gravitational force of a test mass against an electromagnetic force produced by an electric current flowing through a coil immersed in a magnetic field, linking mechanical mass to Planck&apos;s constant h.
+            In a historic unanimous vote at the 26th CGPM in Versailles in November 2018, metrologists abandoned physical artifacts forever. Today, the kilogram is realized through the Kibble balance - an electromechanical instrument that balances the gravitational force of a test mass against an electromagnetic force produced by an electric current flowing through a coil immersed in a magnetic field, linking mechanical mass to Planck&apos;s constant h.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
@@ -167,7 +167,7 @@ export default function WeightConverterPage() {
             Dynamic Acceleration & Apparent Weight in Aerospace Engineering
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            When an astronaut or fighter pilot experiences elevated G-forces, their biological mass remains strictly invariant, but their apparent weight multiplies dramatically. Under 5G vertical acceleration (g_eff = 5 × 9.80665 m/s² = 49.03 m/s²), an 80 kg pilot exerts a downward seat force of 3,922 Newtons—equivalent to an apparent weight of 882 pounds-force. Aerospace structural engineers design ejection seats and airframes around these peak dynamic inertial loads rather than static tare weights.
+            When an astronaut or fighter pilot experiences elevated G-forces, their biological mass remains strictly invariant, but their apparent weight multiplies dramatically. Under 5G vertical acceleration (g_eff = 5 × 9.80665 m/s² = 49.03 m/s²), an 80 kg pilot exerts a downward seat force of 3,922 Newtons - equivalent to an apparent weight of 882 pounds-force. Aerospace structural engineers design ejection seats and airframes around these peak dynamic inertial loads rather than static tare weights.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
