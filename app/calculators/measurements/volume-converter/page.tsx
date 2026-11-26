@@ -6,9 +6,9 @@ import { DataTable, Formula } from "@/components/flagship/shell";
 import { VolumeMetricImperialVolumetricRatioChart } from "@/components/flagship/measurements/editorial-charts";
 
 const PATH = "/calculators/measurements/volume-converter";
-const TITLE = "Volume Converter: Gallons, Liters, Cups and Fluid Ounces";
+const TITLE = "Volume Converter: Gallons, Liters, Cups, and Fluid Ounces";
 const DESCRIPTION =
-  "Convert liters, gallons, cubic meters, fluid ounces, pints, and barrels with exact cubic dimensional derivations and interactive volumetric ratio charts.";
+  "Convert liquid and dry volume measurements between gallons, liters, milliliters, cups, tablespoons, and fluid ounces instantly.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -183,7 +183,7 @@ export default function VolumeConverterPage() {
             Everyday Applications in Fuel Logistics, Agriculture & Global Shipping
           </h2>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In global fuel logistics, maritime bunker tankers pump heavy fuel oil measured by volume at ambient temperatures, which must subsequently be converted to metric tonnes using temperature-compensated density correction tables (ASTM D1250). In agricultural irrigation, water rights across North America are leased in acre-feet—the volume of water required to cover one acre of land to a depth of one foot, equaling exactly 43,560 cubic feet or 325,851 US gallons (1,233.48 m³).
+            In global fuel logistics, maritime bunker tankers pump heavy fuel oil measured by volume at ambient temperatures, which must subsequently be converted to metric tonnes using temperature-compensated density correction tables (ASTM D1250). In agricultural irrigation, water rights across North America are leased in acre-feet - the volume of water required to cover one acre of land to a depth of one foot, equaling exactly 43,560 cubic feet or 325,851 US gallons (1,233.48 m³).
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
             In consumer electronics, automotive engine displacement is universally quoted in cubic centimeters (cc) or liters (e.g., a 2.0-liter turbocharged engine equals 2,000 cm³ or approximately 122 cubic inches). For academic and general calculations, explore our <Link href="/calculators/math/percentage-calculator" className="text-emerald-600 dark:text-emerald-400 font-medium underline">percentage calculator</Link> and the central <Link href="/pages/measurements" className="text-emerald-600 dark:text-emerald-400 font-medium underline">Measurements and Conversions hub</Link>.
@@ -196,7 +196,7 @@ export default function VolumeConverterPage() {
             In naval architecture and marine engineering, Archimedes&apos; principle dictates that a floating vessel displaces a volume of fluid exactly equal in mass to the entire ship: Δ = ∇ × ρ_water, where ∇ represents the underwater molded displacement volume in cubic meters and ρ_water is the ambient water density (typically 1,025 kg/m³ for saltwater). Converting volumetric displacement into displacement tonnage is fundamental to vessel seaworthiness.
           </p>
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            Furthermore, naval architects calculate the vessel&apos;s center of buoyancy B—the geometric centroid of the submerged displaced volume—and analyze its relationship to the center of gravity G and the transverse metacenter M. The metacentric height GM determines initial roll stability; if cargo flooding reduces effective volumetric displacement or shifts liquid free surfaces, the vessel risks sudden capsizing.
+            Furthermore, naval architects calculate the vessel&apos;s center of buoyancy B - the geometric centroid of the submerged displaced volume - and analyze its relationship to the center of gravity G and the transverse metacenter M. The metacentric height GM determines initial roll stability; if cargo flooding reduces effective volumetric displacement or shifts liquid free surfaces, the vessel risks sudden capsizing.
           </p>
 
           <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">
@@ -211,7 +211,7 @@ export default function VolumeConverterPage() {
 
     
           <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
-            In global petrochemical shipping, ullage measurement—the distance from the tank top to the liquid surface—is measured using radar tank gauges. Temperature-induced volume expansion governed by volumetric thermal expansion coefficients (typically β ≈ 0.001 K⁻¹ for fuel oils) alters cargo density. Cargo inspectors utilize ASTM Table 54B to convert ambient cubic meter volumes to metric standard volumes at 15°C, ensuring commercial billing reflects true energy content rather than thermal swell.
+            In global petrochemical shipping, ullage measurement - the distance from the tank top to the liquid surface - is measured using radar tank gauges. Temperature-induced volume expansion governed by volumetric thermal expansion coefficients (typically β ≈ 0.001 K⁻¹ for fuel oils) alters cargo density. Cargo inspectors utilize ASTM Table 54B to convert ambient cubic meter volumes to metric standard volumes at 15°C, ensuring commercial billing reflects true energy content rather than thermal swell.
           </p>
 
     
