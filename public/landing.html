@@ -232,7 +232,19 @@
     .dark .hero-badge-text {
       color: #6ee7b7 !important;
     }
-</style>
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
 </head>
 <body class="bg-[#FCFDFD] dark:bg-[#090e1a] text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white font-sans">
   <noscript>
@@ -342,24 +354,20 @@
             <svg class="w-3.5 h-3.5 text-[#059669]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
             </svg>
-            <span class="hero-badge-text tracking-wider uppercase font-bold text-[11px]">100% AD-FREE • 330+ TOOLS</span>
+            <span class="hero-badge-text tracking-wider uppercase font-bold text-[11px]">CALC DIGI • 100% AD-FREE • 330+ TOOLS</span>
           </div>
 
-          <!-- Semantic H1 Heading for Brand Authority & Search Engine Ranking -->
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white text-center sm:text-left mb-3">
-            Calc Digi: Free Online Calculators
-          </h1>
-
-          <!-- Serif Headline (3 lines) -->
-          <p class="font-serif text-5xl sm:text-6xl lg:text-[68px] leading-[1.08] text-[#111827] dark:text-white tracking-tight">
+          <!-- Serif Headline (3 lines) as Semantic H1 -->
+          <h1 class="font-serif text-5xl sm:text-6xl lg:text-[68px] leading-[1.08] text-[#111827] dark:text-white tracking-tight">
+            <span class="sr-only">Calc Digi: Free Online Calculators - </span>
             The smarter,<br />
             cleaner way to<br />
             calculate anything
-          </p>
+          </h1>
 
           <!-- Subtitle -->
           <p class="text-[#6b7280] dark:text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed font-normal">
-            Professional-grade tools for finance, health, math, and everyday life. No ads, no tracking, just precision.
+            Calc Digi provides professional-grade tools for finance, health, math, and everyday life. No ads, no tracking, just precision.
           </p>
 
           <!-- Search Bar with Green (?) icon and Live Dropdown -->
