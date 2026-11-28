@@ -126,45 +126,7 @@ export function CategoryDirectory() {
           );
         })}
 
-        {/* 5th Integrated AI Card: Ask CalcDigi AI */}
-        <div className="group bg-white dark:bg-slate-900 rounded-[24px] border border-slate-200/80 dark:border-slate-800 p-5 shadow-dir-card hover:border-emerald-500 dark:hover:border-emerald-400 hover:shadow-md transition-all flex flex-col justify-between">
-          <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl pointer-events-none"></div>
-          
-          <div>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-2xl bg-[#046a38] text-white flex items-center justify-center text-sm shadow-xs shrink-0">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <div>
-                <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider block">
-                  AI ASSISTANT
-                </span>
-                <h3 className="font-bold text-slate-900 dark:text-white text-base leading-tight">
-                  Ask CalcDigi AI
-                </h3>
-              </div>
-            </div>
-
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
-              Not sure which calculator to pick or how to interpret a formula? Ask our assistant in plain English.
-            </p>
-
-            <div className="p-3 rounded-xl bg-white/80 dark:bg-slate-800/80 border border-emerald-200/60 dark:border-emerald-800/40 text-[11px] text-slate-600 dark:text-slate-300 italic mb-4">
-              &quot;Which calculator should I use for a side-hustle tax estimate?&quot;
-            </div>
-          </div>
-
-          <div className="pt-2">
-            <button
-              type="button"
-              data-open-ai
-              className="w-full py-2.5 px-4 rounded-xl bg-[#046a38] hover:bg-[#03542c] active:scale-95 text-white text-xs font-semibold shadow-xs transition-all flex items-center justify-center gap-1.5"
-            >
-              <span>Try AI Chat</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
+        
 
       </div>
     </div>
