@@ -269,7 +269,7 @@
       -webkit-mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 16px), transparent);
     }
   
-    @keyframes trustMarqueeRight {
+            @keyframes trustMarqueeRight {
       0% {
         transform: translate3d(-50%, 0, 0);
       }
@@ -281,15 +281,34 @@
       display: flex;
       align-items: center;
       width: max-content;
-      animation: trustMarqueeRight 32s linear infinite;
+      animation: trustMarqueeRight 120s linear infinite;
       will-change: transform;
     }
     .trust-marquee-track:hover {
       animation-play-state: paused;
     }
+    .trust-group {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      padding-right: 3rem;
+      flex-shrink: 0;
+    }
+    @media (min-width: 640px) {
+      .trust-group {
+        gap: 4rem;
+        padding-right: 4rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .trust-group {
+        gap: 5rem;
+        padding-right: 5rem;
+      }
+    }
     .trust-mask {
-      mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 24px, black calc(100% - 24px), transparent);
+      mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 32px, black calc(100% - 32px), transparent);
     }
   </style>
 </head>
@@ -852,12 +871,14 @@
   </section>
 
   <!-- ================= 3. CREDIBILITY STRIP ================= -->
+    <!-- Features Trust Marquee (Pre-populated, generous equal spacing, 100% responsive rightward glide) -->
+    <!-- Features Trust Marquee (Pre-populated, generous equal spacing, 100% responsive rightward glide) -->
   <section class="py-5 sm:py-6 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800/80 shadow-xs overflow-hidden relative">
     <div class="trust-mask w-full overflow-hidden relative">
       <div class="trust-marquee-track">
         <!-- Group 1 -->
-        <div class="flex items-center gap-4 sm:gap-6 lg:gap-8 shrink-0 pr-4 sm:pr-6 lg:pr-8">
-          
+        <div class="trust-group">
+
       <!-- 1. PRIVACY -->
       <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
         <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
@@ -910,10 +931,165 @@
         </div>
       </div>
 
+      <!-- 1. PRIVACY -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">PRIVACY</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">100% In-Browser Execution</span>
+        </div>
+      </div>
+
+      <!-- 2. VERIFIED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">VERIFIED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">2026 IRS/WHO Formulas</span>
+        </div>
+      </div>
+
+      <!-- 3. SPEED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SPEED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">Instant Offline Access</span>
+        </div>
+      </div>
+
+      <!-- 4. SUPPORT -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SUPPORT</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">AI Assistance Enabled</span>
+        </div>
+      </div>
+
+      <!-- 1. PRIVACY -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">PRIVACY</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">100% In-Browser Execution</span>
+        </div>
+      </div>
+
+      <!-- 2. VERIFIED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">VERIFIED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">2026 IRS/WHO Formulas</span>
+        </div>
+      </div>
+
+      <!-- 3. SPEED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SPEED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">Instant Offline Access</span>
+        </div>
+      </div>
+
+      <!-- 4. SUPPORT -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SUPPORT</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">AI Assistance Enabled</span>
+        </div>
+      </div>
+
+      <!-- 1. PRIVACY -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">PRIVACY</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">100% In-Browser Execution</span>
+        </div>
+      </div>
+
+      <!-- 2. VERIFIED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">VERIFIED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">2026 IRS/WHO Formulas</span>
+        </div>
+      </div>
+
+      <!-- 3. SPEED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SPEED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">Instant Offline Access</span>
+        </div>
+      </div>
+
+      <!-- 4. SUPPORT -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SUPPORT</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">AI Assistance Enabled</span>
+        </div>
+      </div>
         </div>
         <!-- Group 2 (Seamless loop clone) -->
-        <div class="flex items-center gap-4 sm:gap-6 lg:gap-8 shrink-0 pr-4 sm:pr-6 lg:pr-8" aria-hidden="true">
-          
+        <div class="trust-group" aria-hidden="true">
+
       <!-- 1. PRIVACY -->
       <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
         <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
@@ -966,6 +1142,161 @@
         </div>
       </div>
 
+      <!-- 1. PRIVACY -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">PRIVACY</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">100% In-Browser Execution</span>
+        </div>
+      </div>
+
+      <!-- 2. VERIFIED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">VERIFIED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">2026 IRS/WHO Formulas</span>
+        </div>
+      </div>
+
+      <!-- 3. SPEED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SPEED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">Instant Offline Access</span>
+        </div>
+      </div>
+
+      <!-- 4. SUPPORT -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SUPPORT</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">AI Assistance Enabled</span>
+        </div>
+      </div>
+
+      <!-- 1. PRIVACY -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">PRIVACY</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">100% In-Browser Execution</span>
+        </div>
+      </div>
+
+      <!-- 2. VERIFIED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">VERIFIED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">2026 IRS/WHO Formulas</span>
+        </div>
+      </div>
+
+      <!-- 3. SPEED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SPEED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">Instant Offline Access</span>
+        </div>
+      </div>
+
+      <!-- 4. SUPPORT -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SUPPORT</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">AI Assistance Enabled</span>
+        </div>
+      </div>
+
+      <!-- 1. PRIVACY -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">PRIVACY</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">100% In-Browser Execution</span>
+        </div>
+      </div>
+
+      <!-- 2. VERIFIED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">VERIFIED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">2026 IRS/WHO Formulas</span>
+        </div>
+      </div>
+
+      <!-- 3. SPEED -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SPEED</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">Instant Offline Access</span>
+        </div>
+      </div>
+
+      <!-- 4. SUPPORT -->
+      <div class="flex items-center gap-3 shrink-0 whitespace-nowrap px-4 py-2 rounded-2xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/60 shadow-2xs">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#e6f7ed] dark:bg-emerald-950/60 text-[#059669] dark:text-emerald-400 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="block text-[10px] font-bold text-[#9ca3af] dark:text-slate-500 uppercase tracking-wider">SUPPORT</span>
+          <span class="text-xs sm:text-sm font-semibold text-[#1f2937] dark:text-slate-200">AI Assistance Enabled</span>
+        </div>
+      </div>
         </div>
       </div>
     </div>
