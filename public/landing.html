@@ -244,6 +244,30 @@
       white-space: nowrap;
       border-width: 0;
     }
+  
+    @keyframes trendingMarqueeRight {
+      0% {
+        transform: translate3d(-50%, 0, 0);
+      }
+      100% {
+        transform: translate3d(0%, 0, 0);
+      }
+    }
+    .trending-marquee-track {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      animation: trendingMarqueeRight 28s linear infinite;
+      will-change: transform;
+    }
+    .trending-marquee-track:hover,
+    .trending-marquee-track:focus-within {
+      animation-play-state: paused;
+    }
+    .trending-mask {
+      mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 16px), transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 16px), transparent);
+    }
   </style>
 </head>
 <body class="bg-[#FCFDFD] dark:bg-[#090e1a] text-slate-800 dark:text-slate-100 min-h-screen antialiased selection:bg-emerald-500 selection:text-white font-sans">
@@ -412,22 +436,70 @@
             </div>
           </div>
 
-          <!-- Trending Tags -->
-          <div class="w-full max-w-xl flex items-center gap-2 pt-1 text-xs">
-            <span class="text-[#9ca3af] dark:text-slate-500 font-bold uppercase tracking-wider text-[11px] shrink-0 select-none mr-0.5 sm:mr-1">TRENDING:</span>
-            <div id="hero-trending-track" class="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 flex-nowrap min-w-0 flex-1">
-              <button type="button" onclick="setHeroTab('mortgage')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
-                Mortgage
-              </button>
-              <button type="button" onclick="setHeroTab('calc'); setPercentagePreset();" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
-                Percentage
-              </button>
-              <button type="button" onclick="setHeroTab('bmi')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
-                BMI
-              </button>
-              <button type="button" onclick="setHeroCalcMode('sci')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
-                Scientific
-              </button>
+          <!-- Trending Tags: Smooth Rightward Moving Track -->
+          <div class="w-full max-w-xl relative flex items-center pt-1 text-xs overflow-hidden">
+            <div class="shrink-0 z-10 flex items-center pr-2 bg-gradient-to-r from-[#FCFDFD] via-[#FCFDFD] to-transparent dark:from-[#090e1a] dark:via-[#090e1a]">
+              <span class="text-[#9ca3af] dark:text-slate-500 font-bold uppercase tracking-wider text-[11px] shrink-0 select-none mr-0.5 sm:mr-1">
+                TRENDING:
+              </span>
+            </div>
+            <div class="trending-mask flex-1 min-w-0 overflow-hidden relative">
+              <div class="trending-marquee-track">
+                <!-- Group 1 -->
+                <div class="flex items-center gap-2 shrink-0 pr-2">
+                  <button type="button" onclick="setHeroTab('mortgage')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Mortgage
+                  </button>
+                  <button type="button" onclick="setHeroTab('calc'); setPercentagePreset();" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Percentage
+                  </button>
+                  <button type="button" onclick="setHeroTab('bmi')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    BMI
+                  </button>
+                  <button type="button" onclick="setHeroCalcMode('sci')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Scientific
+                  </button>
+                  <a href="/calculators/finance/loan-calculator" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Loan
+                  </a>
+                  <a href="/calculators/education/gpa-calculator" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    GPA
+                  </a>
+                  <a href="/calculators/datetime/age-calculator" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Age
+                  </a>
+                  <a href="/calculators/finance/inflation-calculator" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Inflation
+                  </a>
+                </div>
+                <!-- Group 2 (Seamless loop clone) -->
+                <div class="flex items-center gap-2 shrink-0 pr-2" aria-hidden="true">
+                  <button type="button" tabindex="-1" onclick="setHeroTab('mortgage')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Mortgage
+                  </button>
+                  <button type="button" tabindex="-1" onclick="setHeroTab('calc'); setPercentagePreset();" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Percentage
+                  </button>
+                  <button type="button" tabindex="-1" onclick="setHeroTab('bmi')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    BMI
+                  </button>
+                  <button type="button" tabindex="-1" onclick="setHeroCalcMode('sci')" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Scientific
+                  </button>
+                  <a href="/calculators/finance/loan-calculator" tabindex="-1" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Loan
+                  </a>
+                  <a href="/calculators/education/gpa-calculator" tabindex="-1" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    GPA
+                  </a>
+                  <a href="/calculators/datetime/age-calculator" tabindex="-1" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Age
+                  </a>
+                  <a href="/calculators/finance/inflation-calculator" tabindex="-1" class="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer">
+                    Inflation
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
