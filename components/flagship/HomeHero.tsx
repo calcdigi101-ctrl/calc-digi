@@ -345,55 +345,171 @@ export function HomeHero() {
               ) : null}
             </div>
 
-            {/* Trending Tags */}
-            <div className="w-full max-w-xl flex items-center gap-2 pt-1 text-xs mx-auto lg:mx-0">
-              <span className="text-[#9ca3af] dark:text-slate-500 font-bold uppercase tracking-wider text-[11px] shrink-0 select-none mr-0.5 sm:mr-1">
-                TRENDING:
-              </span>
-              <div 
-                className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 flex-nowrap min-w-0 flex-1"
-                onWheel={(e) => {
-                  if (e.deltaY !== 0 && e.currentTarget.scrollWidth > e.currentTarget.clientWidth) {
-                    e.currentTarget.scrollLeft += e.deltaY;
-                  }
-                }}
-              >
-                <button 
-                  type="button"
-                  onClick={() => setActiveTab("mortgage")} 
-                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
-                >
-                  Mortgage
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => {
-                    setActiveTab("calc");
-                    setCurrentVal("37.50");
-                    setHistoryText("15% of 250 =");
-                  }} 
-                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
-                >
-                  Percentage
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => setActiveTab("bmi")} 
-                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
-                >
-                  BMI
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => {
-                    setActiveTab("calc");
-                    setIsSciMode(true);
-                    setHistoryText("SCIENTIFIC MODE");
-                  }} 
-                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
-                >
-                  Scientific
-                </button>
+            {/* Trending Tags: Smooth Rightward Moving Track */}
+            <div className="w-full max-w-xl relative flex items-center pt-1 text-xs overflow-hidden mx-auto lg:mx-0">
+              <style>{'\
+                @keyframes trendingMarqueeRight {\
+                  0% { transform: translate3d(-50%, 0, 0); }\
+                  100% { transform: translate3d(0%, 0, 0); }\
+                }\
+                .trending-marquee-track {\
+                  display: flex;\
+                  align-items: center;\
+                  width: max-content;\
+                  animation: trendingMarqueeRight 28s linear infinite;\
+                  will-change: transform;\
+                }\
+                .trending-marquee-track:hover,\
+                .trending-marquee-track:focus-within {\
+                  animation-play-state: paused;\
+                }\
+                .trending-mask {\
+                  mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 16px), transparent);\
+                  -webkit-mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 16px), transparent);\
+                }\
+              '}</style>
+              <div className="shrink-0 z-10 flex items-center pr-2 bg-gradient-to-r from-[#FCFDFD] via-[#FCFDFD] to-transparent dark:from-[#090e1a] dark:via-[#090e1a]">
+                <span className="text-[#9ca3af] dark:text-slate-500 font-bold uppercase tracking-wider text-[11px] shrink-0 select-none mr-0.5 sm:mr-1">
+                  TRENDING:
+                </span>
+              </div>
+              <div className="trending-mask flex-1 min-w-0 overflow-hidden relative">
+                <div className="trending-marquee-track">
+                  {/* Group 1 */}
+                  <div className="flex items-center gap-2 shrink-0 pr-2">
+                    <button 
+                      type="button"
+                      onClick={() => setActiveTab("mortgage")} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Mortgage
+                    </button>
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        setActiveTab("calc");
+                        setCurrentVal("37.50");
+                        setHistoryText("15% of 250 =");
+                      }} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Percentage
+                    </button>
+                    <button 
+                      type="button"
+                      onClick={() => setActiveTab("bmi")} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      BMI
+                    </button>
+                    <button 
+                      type="button"
+                      onClick={() => {
+                        setActiveTab("calc");
+                        setIsSciMode(true);
+                        setHistoryText("SCIENTIFIC MODE");
+                      }} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Scientific
+                    </button>
+                    <a 
+                      href="/calculators/finance/loan-calculator" 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Loan
+                    </a>
+                    <a 
+                      href="/calculators/education/gpa-calculator" 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      GPA
+                    </a>
+                    <a 
+                      href="/calculators/datetime/age-calculator" 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Age
+                    </a>
+                    <a 
+                      href="/calculators/finance/inflation-calculator" 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Inflation
+                    </a>
+                  </div>
+                  {/* Group 2 (Seamless loop clone) */}
+                  <div className="flex items-center gap-2 shrink-0 pr-2" aria-hidden="true">
+                    <button 
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => setActiveTab("mortgage")} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Mortgage
+                    </button>
+                    <button 
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => {
+                        setActiveTab("calc");
+                        setCurrentVal("37.50");
+                        setHistoryText("15% of 250 =");
+                      }} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Percentage
+                    </button>
+                    <button 
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => setActiveTab("bmi")} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      BMI
+                    </button>
+                    <button 
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => {
+                        setActiveTab("calc");
+                        setIsSciMode(true);
+                        setHistoryText("SCIENTIFIC MODE");
+                      }} 
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Scientific
+                    </button>
+                    <a 
+                      href="/calculators/finance/loan-calculator" 
+                      tabIndex={-1}
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Loan
+                    </a>
+                    <a 
+                      href="/calculators/education/gpa-calculator" 
+                      tabIndex={-1}
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      GPA
+                    </a>
+                    <a 
+                      href="/calculators/datetime/age-calculator" 
+                      tabIndex={-1}
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Age
+                    </a>
+                    <a 
+                      href="/calculators/finance/inflation-calculator" 
+                      tabIndex={-1}
+                      className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                    >
+                      Inflation
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
