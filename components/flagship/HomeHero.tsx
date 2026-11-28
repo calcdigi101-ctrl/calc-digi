@@ -346,42 +346,55 @@ export function HomeHero() {
             </div>
 
             {/* Trending Tags */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1 text-xs text-center lg:text-left">
-              <span className="text-[#9ca3af] dark:text-slate-500 font-bold uppercase tracking-wider text-[11px] mr-1">
+            <div className="w-full max-w-xl flex items-center gap-2 pt-1 text-xs mx-auto lg:mx-0">
+              <span className="text-[#9ca3af] dark:text-slate-500 font-bold uppercase tracking-wider text-[11px] shrink-0 select-none mr-0.5 sm:mr-1">
                 TRENDING:
               </span>
-              <button 
-                onClick={() => setActiveTab("mortgage")} 
-                className="px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs"
+              <div 
+                className="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 flex-nowrap min-w-0 flex-1"
+                onWheel={(e) => {
+                  if (e.deltaY !== 0 && e.currentTarget.scrollWidth > e.currentTarget.clientWidth) {
+                    e.currentTarget.scrollLeft += e.deltaY;
+                  }
+                }}
               >
-                Mortgage
-              </button>
-              <button 
-                onClick={() => {
-                  setActiveTab("calc");
-                  setCurrentVal("37.50");
-                  setHistoryText("15% of 250 =");
-                }} 
-                className="px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs"
-              >
-                Percentage
-              </button>
-              <button 
-                onClick={() => setActiveTab("bmi")} 
-                className="px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs"
-              >
-                BMI
-              </button>
-              <button 
-                onClick={() => {
-                  setActiveTab("calc");
-                  setIsSciMode(true);
-                  setHistoryText("SCIENTIFIC MODE");
-                }} 
-                className="px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs"
-              >
-                Scientific
-              </button>
+                <button 
+                  type="button"
+                  onClick={() => setActiveTab("mortgage")} 
+                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                >
+                  Mortgage
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setActiveTab("calc");
+                    setCurrentVal("37.50");
+                    setHistoryText("15% of 250 =");
+                  }} 
+                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                >
+                  Percentage
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => setActiveTab("bmi")} 
+                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                >
+                  BMI
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setActiveTab("calc");
+                    setIsSciMode(true);
+                    setHistoryText("SCIENTIFIC MODE");
+                  }} 
+                  className="shrink-0 whitespace-nowrap px-3.5 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-emerald-500 hover:text-emerald-600 transition-all shadow-xs cursor-pointer"
+                >
+                  Scientific
+                </button>
+              </div>
             </div>
 
           </div>
